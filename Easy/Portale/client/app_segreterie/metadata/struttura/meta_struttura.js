@@ -73,34 +73,6 @@
 					case 'perfelenchiparent':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
 						this.describeAColumn(table, 'active', 'Attivo', null, 160, null);
-						this.describeAColumn(table, '!idreg_appr_getregistrydocentiamministrativi_surname', 'Cognome Idreg_appr', null, 101, null);
-						this.describeAColumn(table, '!idreg_appr_getregistrydocentiamministrativi_forename', 'Nome Idreg_appr', null, 102, null);
-						this.describeAColumn(table, '!idreg_appr_getregistrydocentiamministrativi_extmatricula', 'Matricola Idreg_appr', null, 103, null);
-						this.describeAColumn(table, '!idreg_appr_getregistrydocentiamministrativi_contratto', 'Contratto Idreg_appr', null, 104, null);
-						objCalcFieldConfig['!idreg_appr_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'surname', columnNamekey:'idreg_appr' };
-						objCalcFieldConfig['!idreg_appr_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'forename', columnNamekey:'idreg_appr' };
-						objCalcFieldConfig['!idreg_appr_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'extmatricula', columnNamekey:'idreg_appr' };
-						objCalcFieldConfig['!idreg_appr_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi', columnNameLookup:'contratto', columnNamekey:'idreg_appr' };
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_surname', 'Cognome Idreg_resp', null, 111, null);
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_forename', 'Nome Idreg_resp', null, 112, null);
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_extmatricula', 'Matricola Idreg_resp', null, 113, null);
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_contratto', 'Contratto Idreg_resp', null, 114, null);
-						objCalcFieldConfig['!idreg_resp_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'surname', columnNamekey:'idreg_resp' };
-						objCalcFieldConfig['!idreg_resp_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'forename', columnNamekey:'idreg_resp' };
-						objCalcFieldConfig['!idreg_resp_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'extmatricula', columnNamekey:'idreg_resp' };
-						objCalcFieldConfig['!idreg_resp_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi_alias1', columnNameLookup:'contratto', columnNamekey:'idreg_resp' };
-						this.describeAColumn(table, '!idreg_valut_getregistrydocentiamministrativi_surname', 'Cognome Idreg_valut', null, 121, null);
-						this.describeAColumn(table, '!idreg_valut_getregistrydocentiamministrativi_forename', 'Nome Idreg_valut', null, 122, null);
-						this.describeAColumn(table, '!idreg_valut_getregistrydocentiamministrativi_extmatricula', 'Matricola Idreg_valut', null, 123, null);
-						this.describeAColumn(table, '!idreg_valut_getregistrydocentiamministrativi_contratto', 'Contratto Idreg_valut', null, 124, null);
-						objCalcFieldConfig['!idreg_valut_getregistrydocentiamministrativi_surname'] = { tableNameLookup:'getregistrydocentiamministrativi_alias2', columnNameLookup:'surname', columnNamekey:'idreg_valut' };
-						objCalcFieldConfig['!idreg_valut_getregistrydocentiamministrativi_forename'] = { tableNameLookup:'getregistrydocentiamministrativi_alias2', columnNameLookup:'forename', columnNamekey:'idreg_valut' };
-						objCalcFieldConfig['!idreg_valut_getregistrydocentiamministrativi_extmatricula'] = { tableNameLookup:'getregistrydocentiamministrativi_alias2', columnNameLookup:'extmatricula', columnNamekey:'idreg_valut' };
-						objCalcFieldConfig['!idreg_valut_getregistrydocentiamministrativi_contratto'] = { tableNameLookup:'getregistrydocentiamministrativi_alias2', columnNameLookup:'contratto', columnNamekey:'idreg_valut' };
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_surname', 'Cognome Responsabile', null, 111, null);
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_forename', 'Nome Responsabile', null, 112, null);
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_extmatricula', 'Matricola Responsabile', null, 113, null);
-						this.describeAColumn(table, '!idreg_resp_getregistrydocentiamministrativi_contratto', 'Contratto Responsabile', null, 114, null);
 //$objCalcFieldConfig_perfelenchiparent$
 						break;
 //$objCalcFieldConfig$
@@ -114,35 +86,25 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["idupb"].caption = "Unità previsionale di base (bilancio)";
+						table.columns["active"].caption = "Attivo";
 						table.columns["codiceipa"].caption = "Codice IPA";
 						table.columns["email"].caption = "E-Mail";
 						table.columns["idaoo"].caption = "AOO";
 						table.columns["idreg"].caption = "Istituto o ente o azienda";
 						table.columns["idsede"].caption = "Sede";
 						table.columns["idstrutturakind"].caption = "Tipo";
+						table.columns["idupb"].caption = "Unità previsionale di base (bilancio)";
 						table.columns["paridstruttura"].caption = "Struttura madre";
 						table.columns["title"].caption = "Denominazione";
 						table.columns["title_en"].caption = "Denominazione (ENG)";
-						table.columns["active"].caption = "Attivo";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'perf':
-						table.columns["codiceipa"].caption = "Codice IPA";
-						table.columns["email"].caption = "E-Mail";
-						table.columns["idaoo"].caption = "AOO";
-						table.columns["idreg"].caption = "Istituto o ente o azienda";
-						table.columns["idsede"].caption = "Sede";
-						table.columns["idstrutturakind"].caption = "Tipo";
 						table.columns["idupb"].caption = "UPB";
-						table.columns["paridstruttura"].caption = "Struttura madre";
 						table.columns["pesoindicatori"].caption = "Peso della valutazione della performance degli indicatori ";
 						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi una tantum";
 						table.columns["pesoprogaltreuo"].caption = "Peso della valutazione della performance Progetti Strategici di altre UO";
 						table.columns["pesoproguo"].caption = "Peso della valutazione della performance dei Progetti Strategici della UO";
-						table.columns["title"].caption = "Denominazione";
-						table.columns["title_en"].caption = "Denominazione (ENG)";
-						table.columns["idreg"].caption = "Istituto o ente o azienda";
 //$innerSetCaptionConfig_perf$
 						break;
 					case 'princ':
@@ -151,7 +113,6 @@
 //$innerSetCaptionConfig_princ$
 						break;
 					case 'seg_child':
-						table.columns["codiceipa"].caption = "Codice IPA";
 //$innerSetCaptionConfig_seg_child$
 						break;
 					case 'perfelenchi':
@@ -234,7 +195,7 @@
 
 			describeTree: function (table, listType) {
 				var def = appMeta.Deferred("meta_describeTree");
-				var nodedispatcher = new appMeta.SimpleUnLeveled_TreeNode_Dispatcher("title");
+				var nodedispatcher = new appMeta.SimpleUnLeveled_TreeNode_Dispatcher("title", "idstrutturakind");
 				var rootCondition = window.jsDataQuery.isNull("paridstruttura");
 				return def.resolve({
 					rootCondition: rootCondition,

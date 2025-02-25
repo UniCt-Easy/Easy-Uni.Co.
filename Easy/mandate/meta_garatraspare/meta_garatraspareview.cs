@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,15 @@ namespace meta_garatraspareview {
             return mykey;
         }
 
+        public override string GetSorting(string ListingType) {
+            string sorting;
+            if (ListingType == "default") {
+                sorting = "idGaraTraspare desc"; //, tempo_tender_pending_creation_id desc
+                return sorting;
+            }
+            return base.GetSorting(ListingType);
+        }
+
         public override void DescribeColumns(DataTable T, string listtype) {
             base.DescribeColumns(T, listtype);
             if (listtype == "default") {
@@ -41,7 +50,9 @@ namespace meta_garatraspareview {
 
                 int nPos = 1;
                 DescribeAColumn(T, "idGaraTraspare", "Id Gara Traspare", nPos++);
+                DescribeAColumn(T, "tempo_tender_pending_creation_id", "Id Temporaneo Gara Traspare", nPos++);
                 DescribeAColumn(T, "cig", "CIG", nPos++);
+                DescribeAColumn(T, "tempo_tender_pending_creation_id", "Id Temporaneo", nPos++);
                 DescribeAColumn(T, "Fornitore", "Anagr. Fornitore", nPos++);
                 DescribeAColumn(T, "FornitoreCFPIva", "Fornitore CF/P.Iva", nPos++);
                 DescribeAColumn(T, "FornitoreIdEstero", "Fornitore Id Estero", nPos++);

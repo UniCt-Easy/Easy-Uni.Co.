@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -48,6 +48,8 @@ using meta_flussoincassidetail;
 using gestioneclassificazioni;
 using meta_registryreference;
 using System.Text;
+using ReportGenClient;
+using HubConnector;
 
 namespace no_table_flussostudenti {
 
@@ -71,8 +73,9 @@ namespace no_table_flussostudenti {
 
 		public Frmflussostudenti() {
 			InitializeComponent();
-			openInputFileDlg = createOpenFileDialog(_openInputFileDlg);			
+			openInputFileDlg = createOpenFileDialog(_openInputFileDlg);
 			folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+			saveOutputFileDlg = createSaveFileDialog(_saveOutputFileDlg);
 
 			var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
 				"flussostudenti/prog/temp");
@@ -2808,7 +2811,7 @@ namespace no_table_flussostudenti {
 			DS.incomeinvoice.Clear();
 			DS.incomelastestimatedetail.Clear();
 			righeContrattoAttivo.Clear();
-			initPBar("Inizializzazione creazione contratti da flusso screditi",5);
+			initPBar("Inizializzazione creazione contratti da flusso crediti",5);
 
 			var metaEstimate = MetaData.GetMetaData(this, "estimate");
 			metaEstimate.SetDefaults(DS.estimate);
@@ -3047,7 +3050,7 @@ namespace no_table_flussostudenti {
 				rNewDetail.detaildescription = description;
 				rNewDetail.iduniqueformcode = iduniqueformcode;
 				rNewDetail.taxable = taxable;
-				rNewDetail.tax = rCreditiDetail.tax;
+				rNewDetail.tax = rCreditiDetail.tax ?? 0;
 				rNewDetail.idivakind = idivakind;
 				rNewDetail.taxrateValue = taxrate;
 
@@ -3458,47 +3461,90 @@ namespace no_table_flussostudenti {
 				if (int.TryParse(txtDaNumFlussoIncassi.Text, out nFlussoDato)) {
 					filterNonElaborati &= q.eq("idflusso", nFlussoDato);
 				}
-			}			
+			}
+ 
+			incPBar();
+
+			// filtriamo la sicurezza solo in base al flussocrediti, campo idsor01
+			var whereFlussoCrediti = _security.SelectCondition("flussocrediti", true).toMetaExpression();
+			var joinFlussoCreditiSql = "";
+			var whereFlussoCreditiSql = "";
+			if (whereFlussoCrediti != null) {
+				whereFlussoCrediti.cascadeSetTable("flussocrediti");
+				joinFlussoCreditiSql = " join flussocrediti on flussocreditidetail.idflusso = flussocrediti.idflusso ";
+				whereFlussoCreditiSql = " AND " + whereFlussoCrediti.toSql(_qhs, _conn);
+			}
+			filterNonElaborati.cascadeSetTable("flussoincassi");
+			string filterNonElaboratiSql = " AND " + filterNonElaborati.toSql(_qhs, _conn);
+											   
+
+			string sqlGetFlussiIncassiDaElaborare = $" SELECT FL1.idflusso" +
+			" from flussocreditidetail " +
+			joinFlussoCreditiSql +
+			" JOIN flussoincassidetail  FL1 " +
+			" ON   FL1.iuv = flussocreditidetail.iuv " +
+			" JOIN flussoincassi ON flussoincassi.idflusso= FL1.idflusso " +
+			" WHERE flussocreditidetail.idestimkind is null AND flussocreditidetail.idinvkind is not null " +
+			" AND flussocreditidetail.ninv is null and flussocreditidetail.yinv is null " +
+			" AND(flussocreditidetail.stop is null) AND(flussocreditidetail.annulment is null) " 
+		    + filterNonElaboratiSql +
+			 whereFlussoCreditiSql +
+			" UNION " +
+			" SELECT FL1.idflusso" +
+			" from flussocreditidetail " +
+			joinFlussoCreditiSql +
+			" JOIN flussoincassidetail  FL1 " +
+			" ON   FL1.iduniqueformcode = flussocreditidetail.iduniqueformcode " +
+			" JOIN flussoincassi ON flussoincassi.idflusso= FL1.idflusso " +
+			" WHERE flussocreditidetail.idestimkind is null AND flussocreditidetail.idinvkind is not null " +
+			" AND flussocreditidetail.ninv is null and flussocreditidetail.yinv is null " +
+			" AND(flussocreditidetail.stop is null) AND(flussocreditidetail.annulment is null) "
+			+ filterNonElaboratiSql +
+			 whereFlussoCreditiSql
+			;
+
+			var idFlussiDaElaborare = _conn.SQLRunner(sqlGetFlussiIncassiDaElaborare, false, 0);
+
+			if (idFlussiDaElaborare.Rows.Count == 0) {
+				show($" Non ci sono Bollettini da considerare", "Avviso");
+			}
+			string lista_idListing = qhc.DistinctVal(idFlussiDaElaborare.Select(), "idflusso");
+			string FF = qhs.FieldInList("idlist", lista_idListing);
+
+			var filterIdFlussi = q.fieldIn("idflusso", idFlussiDaElaborare.Select()._Pick("idflusso").ToArray());
+			string filterIdFlussiSql = filterIdFlussi.toSql(_qhs, _conn);
+			DS.flussoincassi._getFromDb(_conn, filterIdFlussiSql);
+			DS.flussoincassidetail.readTableJoined(_conn, "flussoincassi", null, filterIdFlussi, "idflusso");
 
 			//Legge tutti i flussi aventi elaborato=N ed eventualmente solo con n.sospeso valorizzato
-			var righeFlussoIncassi = DS.flussoincassi.mergeFromDb(_conn, filterNonElaborati);
+			var righeFlussoIncassi = DS.flussoincassi.mergeFromDb(_conn, filterIdFlussi);
 
 			//legge tutti i dettaglio flusso incassi in un colpo solo
-			DS.flussoincassidetail.safeReadTableJoined(_conn, "flussoincassi", null, filterNonElaborati, "idflusso");
-			incPBar();
-			//cond. di sicurezza per l'upb
-			string secUpb = _conn.Security.SelectCondition("upb", true);
-			string joinUPB = ""; //join che sarà fatto tra flussocreditidetail e upb
-			string whereUPB = ""; //filtro sulla sicurezza
-			if (secUpb != null & secUpb!="") {
-				var qSec = MetaExpressionParser.From(secUpb);
-				qSec.cascadeSetTable("upb");
-				joinUPB = " JOIN UPB ON flussocreditidetail.idupb=UPB.idupb ";
-				whereUPB = " AND " + qSec.toSql(_qhs, _conn);
-			}
+			DS.flussoincassidetail.safeReadTableJoined(_conn, "flussoincassi", null, filterIdFlussi, "idflusso");
 
 			//legge i dettagli flusso crediti in un colpo solo
-			filterNonElaborati.cascadeSetTable("flussoincassidetailview",
-				"flussoincassi"); //imposta la tabella per il filtro su flussoincassidetailview
+
 
 			string colonneFlussoCreditiDetail = string.Join(",",
 				(from c in DS.flussocreditidetail.Columns._names()
-					where QueryCreator.IsReal(DS.flussocreditidetail.Columns[c])
-					select "flussocreditidetail." + c).ToArray());
+				 where QueryCreator.IsReal(DS.flussocreditidetail.Columns[c])
+				 select "flussocreditidetail." + c).ToArray());
 
-			string sqlCredDet = $"SELECT {colonneFlussoCreditiDetail} " +	//QueryCreator.ColumnNameList(DS.flussocreditidetail)
-			                    $"FROM flussocreditidetail {joinUPB} WHERE " +
-								"    idinvkind is not null and idestimkind is null  and ninv is null and yinv is null and "+
-			                    $"	 ((iuv in (select iuv from flussoincassidetailview where {filterNonElaborati.toSql(_qhs)}) ) " +
-			                    $"     OR (iduniqueformcode in (select iduniqueformcode from flussoincassidetailview where {filterNonElaborati.toSql(_qhs)})) " +
-			                    $"	  ) " +
-			                    $"		AND (flussocreditidetail.stop is null) AND (flussocreditidetail.annulment is null)  " +
-			                    $" {whereUPB}";
+			string sqlCredDet = $"SELECT {colonneFlussoCreditiDetail} " +   //QueryCreator.ColumnNameList(DS.flussocreditidetail)
+								$"FROM flussocreditidetail {joinFlussoCreditiSql} WHERE " +
+								$" flussocreditidetail.idinvkind is not null and flussocreditidetail.idestimkind is null  " +
+								$" AND flussocreditidetail.ninv is null AND flussocreditidetail.yinv is null AND " +
+								$"	 ((flussocreditidetail.iuv in (select iuv from flussoincassidetail where {filterIdFlussiSql}) ) " +
+								$"     OR (flussocreditidetail.iduniqueformcode in (select iduniqueformcode from flussoincassidetail WHERE {filterIdFlussiSql})) " +
+								$"	  ) " +
+								$"		AND (flussocreditidetail.stop is null) AND (flussocreditidetail.annulment is null)  " +
+								$" {whereFlussoCreditiSql}";
 
-			
+
 			//unisce a  flussocreditidetail i crediti associati agli incassi non elaborati
 			DS.flussocreditidetail._sqlSafeMergeFromDb(_conn, sqlCredDet);
 			incPBar();
+ 
 
 			var dettCreditiByIuv = new Dictionary<string, List<flussocreditidetailRow>>();
 			foreach (var r in DS.flussocreditidetail) {
@@ -3512,38 +3558,10 @@ namespace no_table_flussostudenti {
 				l.Add(r);
 			}
 
-			//Questa parte non credo serva, perchè qui stiamo cercando i bollettini per le fatture da creare
-			//string sqlEstimDet = $"SELECT {QueryCreator.ColumnNameList(DS.estimatedetail)} "+
-			//					 $" FROM estimatedetail WHERE iduniqueformcode in ("+
-			//					 $" SELECT iduniqueformcode from flussocreditidetail "+
-			//					 $" {joinUPB} "+
-			//					 $" WHERE "+
-			//					 $"	 ((iuv in (select iuv from flussoincassidetailview where {filterNonElaborati.toSql(_qhs)}) ) " +
-			//					 $"     OR (iduniqueformcode in (select iduniqueformcode from flussoincassidetailview where {filterNonElaborati.toSql(_qhs)})) " +
-			//					 $"	  ) " +
-			//					 $"		AND (flussocreditidetail.stop is null) AND (flussocreditidetail.annulment is null)  " +
-			//					 $"     )"+
-			//					 $" {whereUPB}"+
-			//					 $" AND estimatedetail.stop is null";
-
-			
-
-			//legge tutti i dett. contratti collegati a tali crediti
-			//DS.estimatedetail._sqlSafeMergeFromDb(_conn, sqlEstimDet);
 			incPBar();
 
 			initPBar("Estrazione dati bollettini ",righeFlussoIncassi.Length);
-			//var estimDetByIuv = new Dictionary<string, List<estimatedetailRow>>();
-			//foreach (var r in DS.estimatedetail) {
-			//	if (r.stop != null) continue;
-			//	if (string.IsNullOrEmpty(r.iduniqueformcode)) continue;
-			//	if (!estimDetByIuv.TryGetValue(r.iduniqueformcode, out var l)) {
-			//		l= new List<estimatedetailRow>();
-			//	}
-			//	l.Add(r);
-			//}
-			
-
+		 
 			var dettCreditiByCodiceBollettino = new Dictionary<string, List<flussocreditidetailRow>>();
 			foreach (var r in DS.flussocreditidetail) {
 				if (r.stop != null) continue;
@@ -3585,9 +3603,6 @@ namespace no_table_flussostudenti {
 					//Se c'è un codice bollettino, prende tutti i dettagli crediti associati a quel bollettino
 					if ((dettCrediti == null || dettCrediti.Length == 0) &&
 					    !string.IsNullOrEmpty(rFileDet.iduniqueformcode) && dettCreditiByCodiceBollettino.ContainsKey(rFileDet.iduniqueformcode)) {
-						//q filterCrediti = (q.eq("iduniqueformcode", rFileDet.iduniqueformcode) & q.isNull("stop")) &
-						//                  q.isNull("annulment");
-						//dettCrediti = DS.flussocreditidetail.Filter(filterCrediti);
 						dettCrediti = dettCreditiByCodiceBollettino[rFileDet.iduniqueformcode].ToArray(); 
 						//QueryCreator.MarkEvent($"Trovati {dettCrediti.Length} in base a iduniqueformcode {rFileDet.iduniqueformcode}");
 					}
@@ -3599,35 +3614,10 @@ namespace no_table_flussostudenti {
 						if (bollettiniDaConsiderare.Contains(codiceBollettino)) {
 							continue;
 						}
-						//QueryCreator.MarkEvent($"Considero credito {codiceBollettino}");
-
-						//Non considera i bollettini associati a contratti attivi collegabili a fattura
-						//bool contrattoCollegabileAFattura = false;
-
-						//prende i dettagli contratto associati mediante codice bollettino, eventualmente anche leggendoli da db
-						//if (!estimDetByIuv.TryGetValue(codiceBollettino, out var rows)) {
-						//	rows = new List<estimatedetailRow>();
-						//}
-
+						 
 						//Abbiamo filtrato a priori solo i crediti da collegare a fattura e con idestimkind null, quindi la gestione che c'era qui di seguito non serve
 						bollettiniDaConsiderare.Add(codiceBollettino);
-
-						//foreach (var rEstimDet in rows) {
-						//	// Se il contratto attivo è di tipo collegabile a fattura lo salto
-						//	var collegabileafattura = getCollegabileAFattura(rEstimDet.idestimkind);
-						//	// Non consideriamo dettagli contratti attivi di tipo collegabile a fattura perchè di quelli la fattura sarà generata diversamente
-						//	if (collegabileafattura) {
-						//		contrattoCollegabileAFattura = true;
-						//		//QueryCreator.MarkEvent($"salto credito {codiceBollettino} per tipo contratto {rEstimDet.idestimkind}");
-						//		break;
-						//	}
-						//}
-
-						////aggiunge a fattureDaCreare solo per i bollettini di dettagli contratti attivi non associatibili a fatture
-						//if (!contrattoCollegabileAFattura) {
-						//	bollettiniDaConsiderare.Add(codiceBollettino);
-						//	//QueryCreator.MarkEvent($"aggiungo bollettino {codiceBollettino}");
-						//}
+ 
 					}
 				}
 			}
@@ -4128,10 +4118,54 @@ namespace no_table_flussostudenti {
 				errmess = "Report: '" + nomeReport + "' non trovato.";
 				return false;
 			}
-
-			;
+						
 			var rep = modulereport._First();
 			var par = myPrymaryTable.Rows[0];
+			
+			bool retExp = false;
+
+			if (isBlazor())
+			{
+				bool done = false;
+				pdfFileName = "";
+				errmess = "";
+
+				// Leggo la configurazione del servizio da chiamare da DB reportgenclient
+
+				// se web client
+				DataTable dt = _conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+
+				if (dt != null)
+				{
+					if (dt.Rows.Count > 0)
+					{
+						string ServiceUrl = dt.Rows[0][0].ToString();
+						string ServiceParam = dt.Rows[0][1].ToString();
+
+						retExp = CallReportGenClient(par, rep, ServiceUrl, ServiceParam, out pdfFileName, out errmess);
+
+						done = true;
+					}
+				}
+
+				if (!done)
+				{
+					// altrimenti cerco SignalR
+					dt = conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'signalr'");
+					if (dt != null)
+					{
+						if (dt.Rows.Count > 0)
+						{
+							string ServiceUrl = dt.Rows[0][0].ToString();
+							string ServiceParam = dt.Rows[0][1].ToString();
+
+							retExp = CallReportGenSignal(par, rep, ServiceUrl, ServiceParam, out pdfFileName, out errmess);
+						}
+					}
+				}
+
+				return retExp;
+			}
 
 			var myRptDoc = Easy_DataAccess.GetReport(_conn as Easy_DataAccess, rep, par, out errmess);
 			if (myRptDoc == null) {
@@ -4140,9 +4174,136 @@ namespace no_table_flussostudenti {
 
 			string tempdir = Path.GetTempPath();
 			if (!tempdir.EndsWith("\\")) tempdir += "\\";
-			var tempfilename = Guid.NewGuid() + ".pdf";
+			string tempfilename = Guid.NewGuid() + ".pdf";
 			pdfFileName = tempdir + tempfilename;
 			return exportToPdf(myRptDoc, tempfilename, tempdir);
+		}
+
+		// =====================================================================================
+		//									 WEB CLIENT
+		// =====================================================================================
+		private bool CallReportGenClient(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, out string pdfFileName, out string errmess)
+		{
+			errmess = "";
+			pdfFileName = "";
+
+			byte[] reportContents;
+
+			// Timeout di default 120
+			int timeout = 120;
+
+			// Provo a leggerlo dalla configurazione
+			int.TryParse(ServiceParam, out timeout);
+
+			try
+			{
+				WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
+				reportContents = client.Generate(moduleReport, Params);
+			}
+			catch (Exception ex)
+			{
+				errmess = string.Join(": ", "errore durante la chiamata al server dei report", ex.Message);
+				return false;
+			}
+
+			try
+			{
+				string tmpFileName = Path.GetTempFileName();
+				File.WriteAllBytes(tmpFileName, reportContents);
+
+				pdfFileName = Path.ChangeExtension(tmpFileName, "pdf");
+				File.Move(tmpFileName, pdfFileName);
+
+				MetaFactory.factory.getSingleton<IProcessRunner>().start(pdfFileName, false);
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				errmess = string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message);
+				return false;
+			}
+		}
+
+		// =====================================================================================
+		//										SIGNALR
+		// =====================================================================================
+		private bool CallReportGenSignal(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, out string pdfFileName, out string errmess)
+		{
+			errmess = "";
+			pdfFileName = "";
+
+			byte[] reportContentsSignalR = { };
+
+			string[] HubParams = ServiceParam.Split(',');
+
+			string HubServiceUrl = ServiceUrl;          // https://localhost:44396/
+			string HubName = HubParams[0];              // HubReport
+			string HubMethod = HubParams[1];            // Send
+			string FunctionCaller = HubParams[2];       // ReceivePdf
+			string FunctionError = HubParams[3];        // ReceiveError
+
+			// Controllo Url del servizio
+			if (string.IsNullOrEmpty(HubServiceUrl) || string.IsNullOrEmpty(HubName) || string.IsNullOrEmpty(HubMethod) || string.IsNullOrEmpty(FunctionCaller) || string.IsNullOrEmpty(FunctionError))
+			{
+				errmess = "Servizio non configurato";
+				return false;
+			}
+
+			try
+			{
+				string filename = "";
+				// =====================================================================================
+				// Delegate, Metodo chiamato da HubConnection ricevuto il pdf
+				// =====================================================================================
+				ActionCaller actionCaller = (byte[] pdfByte) => {
+					string tmpFileName = Path.GetTempFileName();
+					File.WriteAllBytes(tmpFileName, pdfByte);
+
+					string outFileName = Path.ChangeExtension(tmpFileName, "pdf");
+					File.Move(tmpFileName, outFileName);
+					filename = outFileName;
+
+					MetaFactory.factory.getSingleton<IProcessRunner>().start(outFileName, false);
+				};
+				pdfFileName = filename;
+				// =====================================================================================
+				// Delegate, Metodo chiamato da HubConnection in caso di errore
+				// =====================================================================================
+				ActionError actionError = (string msg) => {
+					ShowMsg(string.Join(": ", "impossibile ottenere il contenuto del file del report", msg));
+				};
+
+				// Istanza di HubConnection
+				HubConn hubConn = HubConn.GetInstance(actionCaller, actionError, HubServiceUrl, HubName, FunctionCaller, FunctionError);
+
+				// Se connesso Genero
+				if (hubConn.isConnected())
+				{
+					hubConn.Generate(HubMethod, moduleReport, Params);
+					return true;
+				}
+				else
+				{
+					errmess = "Non è possibile stabilire la connessione con " + HubServiceUrl;
+					return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				errmess = string.Join(": ", "impossibile ottenere il contenuto del file del report", ex.Message);
+				return false;
+			}
+		}
+
+		private void ShowMsg(string shortmsg)
+		{
+			ShowMsg(shortmsg, null);
+		}
+
+		private void ShowMsg(string shortmsg, string longmsg)
+		{
+			QueryCreator.ShowError(null, shortmsg, longmsg);
 		}
 
 		/// <summary>
@@ -4399,7 +4560,7 @@ namespace no_table_flussostudenti {
 			//Dictionary<int, decimal> flussoIncassiAmounts = new Dictionary<int, decimal>();
 
 			initPBar("Inizializzazione calcolo incassi",5);
-			var filterNonElaborati = q.eq("ayear", esercizio) & q.eq("elaborato", "N") & q.isNotNull("dataincasso");
+			var filterNonElaborati = q.eq("ayear", esercizio) & q.eq("elaborato", "N") & q.eq("active", "S") & q.isNotNull("dataincasso");
 			if (soloConSospesi) filterNonElaborati &= q.isNotNull("nbill");
 			if ((txtDaNumFlussoIncassi.Text != "") && (txtANumFlussoIncassi.Text != "")) {
 				int daNFlussoDato;
@@ -4417,225 +4578,226 @@ namespace no_table_flussostudenti {
 				}
 			}
 
-			DS.flussoincassi._getFromDb(_conn, filterNonElaborati.toSql(_qhs,_conn) + 
-			                                   $" AND (nbill is null or nbill in (select nbill from bill where billkind='C' AND ybill={esercizio}) )");
-			DS.flussoincassidetail.readTableJoined(_conn, "flussoincassi", null, filterNonElaborati, "idflusso");
-			//In flussoincassidetail tutti i dett. incassi non elaborati
+			filterNonElaborati.cascadeSetTable("flussoincassi");
+
+			string filterNonElaboratiSql = filterNonElaborati.toSql(_qhs, _conn) +
+											   $" AND (flussoincassi.nbill is null or flussoincassi.nbill in (select nbill from bill where billkind='C' AND ybill={esercizio}) )";
+
 			incPBar();
-
-			//var filterCrediti = q.or(
-			//	                    q.eq(q.field("iuv", "flussoincassidetail"), q.field("iuv", "flussocreditidetail")),
-			//	                    q.eq(q.field("iduniqueformcode", "flussoincassidetail"),
-			//		                    q.field("iduniqueformcode", "flussocreditidetail"))
-			//                    )
-
-			//                    & q.isNull("stop") & q.isNull("annulment");
 
 			string colonneDettCrediti = string.Join(",",
 				(from c in DS.flussocreditidetail.Columns._names()
 					where QueryCreator.IsReal(DS.flussocreditidetail
 						.Columns[c]) //& c!="barcodeimage" & c!="qrcodeimage"
 					select "flussocreditidetail." + c).ToArray());
-			var condUpb = _security.SelectCondition("upb", true).toMetaExpression();
 
-			var joinUpbSql = "";
-			var condUpbSql = "";
-			if (condUpb != null) {
-				condUpb.cascadeSetTable("upb");
-				joinUpbSql = " join upb on flussocreditidetail.idupb = upb.idupb ";
-				condUpbSql = " AND " + condUpb.toSql(_qhs);
+			// Filtriamo la sicurezza in base al flussocrediti, campo idsor01
+			// non riuscendo a filtrarla in modo efficace per UPB
+			var condFlussoCrediti = _security.SelectCondition("flussocrediti", true).toMetaExpression();
+			var joinFlussoCreditiSql = "";
+			var condFlussoCreditiSql = "";
+			if (condFlussoCrediti != null) {
+				condFlussoCrediti.cascadeSetTable("flussocrediti");
+				joinFlussoCreditiSql = " join flussocrediti on flussocreditidetail.idflusso = flussocrediti.idflusso ";
+				condFlussoCreditiSql = " AND " + condFlussoCrediti.toSql(_qhs);
+			}
+			// Eseguo due query separate in base al match incasso/credito per IUV o IDUNIQUEFORMCODE ma mi aspetto che
+			// siano pressochè equivalenti.  
+			string sqlGetFlussiIncassiDaElaborare1  = $" SELECT DISTINCT FL1.idflusso " +
+			" from flussocreditidetail " +
+			joinFlussoCreditiSql +
+			" JOIN flussoincassidetail  FL1 " +
+			" ON   ( FL1.iuv = flussocreditidetail.iuv) " +
+			" JOIN flussoincassi ON flussoincassi.idflusso= FL1.idflusso " +
+			" WHERE flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null " +
+			" AND flussocreditidetail.nestim is not null " +
+			" AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null " +
+			" AND " + filterNonElaboratiSql +
+			  condFlussoCreditiSql;
+
+			// Eseguo due query separate in base al match incasso/credito per IUV o IDUNIQUEFORMCODE ma mi aspetto che
+			// siano pressochè equivalenti.  
+			string sqlGetFlussiIncassiDaElaborare2 = $" SELECT DISTINCT FL1.idflusso " +
+			" from flussocreditidetail " +
+			joinFlussoCreditiSql +
+			" JOIN flussoincassidetail  FL1 " +
+			" ON   (FL1.iduniqueformcode = flussocreditidetail.iduniqueformcode) " +
+			" JOIN flussoincassi ON flussoincassi.idflusso= FL1.idflusso " +
+			" WHERE flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null " +
+			" AND flussocreditidetail.nestim is not null " +
+			" AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null " +
+			" AND " + filterNonElaboratiSql +
+			  condFlussoCreditiSql;
+			// DataTable
+			var idFlussiDaElaborare1 = _conn.SQLRunner(sqlGetFlussiIncassiDaElaborare1, false, 0); // per iuv 
+			var idFlussiDaElaborare2 = _conn.SQLRunner(sqlGetFlussiIncassiDaElaborare2, false, 0); // per IDUNIQUEFORMCODE 
+
+
+			if (idFlussiDaElaborare1.Rows.Count + idFlussiDaElaborare2.Rows.Count== 0) {
+				show($" Non ci sono Contratti attivi da incassare", "Avviso");
+				return false;
 			}
 
-			//Estrai i dettagli crediti  corrispondenti ai dett.incassi, o per iuv o per iduniqueformcode - escludendo i crediti annullati e gli annullamenti
-			string sqlGetCrediti = $@"SELECT {colonneDettCrediti}
-										FROM flussocreditidetail
-										{joinUpbSql}
-										WHERE (
-											EXISTS (
-												SELECT *
-												FROM flussoincassidetail
-												JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-												WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
-												AND {filterNonElaborati.toSql(_qhs)}
-											)
-											OR
-											EXISTS (
-												SELECT *
-												FROM flussoincassidetail
-												JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-												WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
-												AND {filterNonElaborati.toSql(_qhs)}
-											)
-										)
-										AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
-										{condUpbSql}";
-
-
-
-			DS.flussocreditidetail._sqlGetFromDb(_conn, sqlGetCrediti, 0);
-			incPBar();
-
-			string colonneDettContratti = string.Join(",",
-				(from c in DS.estimatedetail.Columns._names()
-					where QueryCreator.IsReal(DS.estimatedetail.Columns[c])
-					select "estimatedetail." + c).ToArray());
-
-			//Estrae i dettagli contratti associati ai crediti in considerazione, prendendo tutti quelli aventi gli stessi iduniqueformcode esclusi i dett. annullati
-			string sqlGetDetContratti = $@"SELECT {colonneDettContratti}
-											FROM estimatedetail
-											WHERE iduniqueformcode in (
-												SELECT flussocreditidetail.iduniqueformcode
-												FROM flussocreditidetail
-												{joinUpbSql}
-												WHERE (
-													EXISTS (
-														SELECT *
-														FROM  flussoincassidetail
-														JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-														WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
-														AND {filterNonElaborati.toSql(_qhs)}
-													)
-													OR
-													EXISTS (
-														SELECT *
-														FROM  flussoincassidetail
-														JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-														WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
-														AND {filterNonElaborati.toSql(_qhs)}
-													)
-												)
-												AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
-												AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
-												{condUpbSql}
-											)
-											and stop is null";
-
-			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
-			DS.estimatedetail._sqlGetFromDb(_conn, sqlGetDetContratti, 0);
-			incPBar();
-
-
-			string colonneContratti = string.Join(",",
-				(from c in DS.estimate.Columns._names()
-					where QueryCreator.IsReal(DS.estimate.Columns[c]) & c!="txt"
-					select "estimate." + c).ToArray());
-
-			//Estrae i dettagli contratti associati ai crediti in considerazione, prendendo tutti quelli aventi gli stessi iduniqueformcode esclusi i dett. annullati
-			string sqlGetContratti = $@"SELECT {colonneContratti}
-									FROM estimate
-									WHERE
-										EXISTS (
-											SELECT * FROM estimatedetail
-											WHERE estimate.idestimkind=estimatedetail.idestimkind
-											AND estimate.yestim = estimatedetail.yestim
-											AND estimate.nestim = estimatedetail.nestim
-											AND iduniqueformcode IN (
-												SELECT flussocreditidetail.iduniqueformcode
-												FROM flussocreditidetail
-												{joinUpbSql}
-												WHERE (
-													EXISTS (
-														SELECT *
-														FROM flussoincassidetail
-														JOIN flussoincassi ON flussoincassi.idflusso = flussoincassidetail.idflusso
-														WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
-														AND {filterNonElaborati.toSql(_qhs)}
-													)
-													OR
-													EXISTS (
-														SELECT *
-														FROM flussoincassidetail
-														JOIN flussoincassi ON flussoincassi.idflusso = flussoincassidetail.idflusso
-														WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
-														AND {filterNonElaborati.toSql(_qhs)}
-													)
-												)
-												AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
-												AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
-												{condUpbSql}
-											)
-											AND estimatedetail.stop is null
-										)";
-			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
-			DS.estimate._sqlSafeMergeFromDb(_conn, sqlGetContratti, 0);
-			incPBar();
-
-
-			string sqlIncassi = $@"SELECT idinc, available
-							FROM incometotal 
-							JOIN estimatedetail ON incometotal.idinc= estimatedetail.idinc_taxable OR incometotal.idinc= estimatedetail.idinc_iva
-							WHERE incometotal.ayear = {esercizio} 
-							AND iduniqueformcode IN (
-								SELECT flussocreditidetail.iduniqueformcode
-								FROM flussocreditidetail {joinUpbSql}
-								WHERE (
-									EXISTS (
-										SELECT *
-										FROM flussoincassidetail
-										JOIN flussoincassi ON flussoincassi.idflusso = flussoincassidetail.idflusso
-										WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
-										AND {filterNonElaborati.toSql(_qhs)} 
-									)
-									OR
-									EXISTS (
-										SELECT *
-										FROM flussoincassidetail
-										JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-										WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
-										AND {filterNonElaborati.toSql(_qhs)} 
-									)
-								)
-								AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
-								AND flussocreditidetail.stop is null AND flussocreditidetail.annulment is null
-								{condUpbSql}
-							)
-							AND stop is null";
-
-			var Incassi = _conn.SQLRunner(sqlIncassi, false,0);
-			incPBar();
+			string colonneFlussi = string.Join(",",
+			(from c in DS.flussoincassi.Columns._names()
+			 where QueryCreator.IsReal(DS.flussoincassi.Columns[c]) & c != "txt"
+			 select "flussoincassi." + c).ToArray());
 
 			
 
-			string sqlGetDateContratti = $@"SELECT estimate.adate, estimate.idestimkind, estimate.yestim,estimate.nestim
-										FROM estimate
-										JOIN estimatedetail ON estimate.idestimkind = estimatedetail.idestimkind AND estimate.yestim = estimatedetail.yestim AND estimate.nestim = estimatedetail.nestim
-										WHERE estimatedetail.iduniqueformcode in (
-											SELECT flussocreditidetail.iduniqueformcode
-											FROM flussocreditidetail
-											{joinUpbSql}
-											WHERE (
-												EXISTS (
-													SELECT *
-													FROM  flussoincassidetail
-													JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-													WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv)
-													AND {filterNonElaborati.toSql(_qhs)}
-												)
-												OR
-												EXISTS (
-													SELECT *
-													FROM  flussoincassidetail
-													JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso
-													WHERE (flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode)
-													AND {filterNonElaborati.toSql(_qhs)}
-												)
-											)
-											AND flussocreditidetail.idestimkind is not null AND flussocreditidetail.idinvkind is null
-											AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null
-											{condUpbSql}
-										)
-										AND estimatedetail.stop is null";
+			var filterIdFlussi1 = q.fieldIn("idflusso", idFlussiDaElaborare1.Select()._Pick("idflusso").ToArray());
+			
+			string sqlGetFlussi1 = $@"  SELECT {colonneFlussi}
+										FROM flussoincassi
+										WHERE {filterIdFlussi1.toSql(_qhs, _conn)} ";
 
-			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
-			DataTable dateContratti = _conn.SQLRunner(sqlGetDateContratti,false,0);
-			incPBar();
-			foreach(DataRow r in dateContratti.Rows)addEstimateDateToDict(r);
+			// Leggo in memoria  tutti i dett. incassi e i flussi non elaborati filtrati indirettamente in accordo con la sicurezza 
+			// dei relativi flussi crediti
+			// Match per IUV
+			DS.flussoincassi._sqlSafeMergeFromDb(_conn, sqlGetFlussi1,0);
+			DS.flussoincassidetail.readTableJoined(_conn, "flussoincassi", null, filterIdFlussi1, "idflusso");
+
+			var filterIdFlussi2 = q.fieldIn("idflusso", idFlussiDaElaborare2.Select()._Pick("idflusso").ToArray());
+
+			string sqlGetFlussi2 = $@"  SELECT {colonneFlussi}
+										FROM flussoincassi
+										WHERE {filterIdFlussi2.toSql(_qhs, _conn)} ";
+
+			// Leggo in memoria  tutti i dett. incassi e i flussi non elaborati filtrati indirettamente in accordo con la sicurezza 
+			// dei relativi flussi crediti
+			// Match per IDUNIQUEFORMCODE
+			DS.flussoincassi._sqlSafeMergeFromDb(_conn, sqlGetFlussi2, 0);
+			DS.flussoincassidetail.readTableJoined(_conn, "flussoincassi", null, filterIdFlussi2, "idflusso");
 
 
-			var info = new infoCreaIncassi();
-			foreach (DataRow  r in Incassi.Rows) {
-				info.availableByIdInc[CfgFn.GetNoNullInt32(r["idinc"])] = CfgFn.GetNoNullDecimal(r["available"]);
+			// Lettura dei dettagli flusso crediti 
+			q filterCreditidetail = q.isNotNull("idestimkind")&q.isNotNull("nestim") 
+								    &q.isNull("idinvkind")&q.isNull("stop")&q.isNull("annulment");
+			filterIdFlussi1.cascadeSetTable("flussoincassidetail", "flussoincassi");
+			filterIdFlussi2.cascadeSetTable("flussoincassidetail", "flussoincassi");
+
+			// Estraggo una lista degli IUV/codici bollettino dei dettagli flussoincassi che sono stati letti in memoria
+			// l'array se molto grande lo divido in liste più piccole
+			var listaiuvDaIncassare = DS.flussoincassidetail.Select()._Pick("iuv").Distinct().ToArray();
+			var listaCodiciDaIncassare= DS.flussoincassidetail.Select()._Pick("iduniqueformcode").Distinct().ToArray();
+
+			// Estrai i dettagli crediti  corrispondenti ai dett.incassi, o per iuv o per iduniqueformcode - escludendo i crediti annullati e gli annullamenti
+
+			// La lista degli IUV o dei bollettini da incassare potrebbe essere troppo lunga e generare delle Big Query con la clausola SQL IN(....).
+			// la suddivido in tranches di 300 
+			int size = 300;
+			var listaIuvSplittatiArrays = listaiuvDaIncassare.Split(size); 
+			var listaCodiciSplittatiArrays = listaCodiciDaIncassare.Split(size);
+
+			// Inizio la lettura in memoria dei dettagli flusso crediti per IUV
+			// _sqlSafeMergeFromDb è il metodo che deve essere usato 
+			int nPacchetti = listaIuvSplittatiArrays.Count();
+			int nContatore = 0;
+
+			foreach (var listaIuvSplittati in listaIuvSplittatiArrays) {
+				var iuvList = qhs.FieldIn("iuv", listaIuvSplittati.ToArray());
+				nContatore++;
+
+				string sqlGetCrediti = $@"  SELECT {colonneDettCrediti}
+										FROM flussocreditidetail
+										{joinFlussoCreditiSql}
+										WHERE flussocreditidetail.idestimkind is not null 
+										AND {iuvList}
+										AND flussocreditidetail.nestim is not null 
+										AND flussocreditidetail.idinvkind is null 
+										AND flussocreditidetail.stop is null 
+										AND flussocreditidetail.annulment is null
+										{condFlussoCreditiSql} ";
+
+				DS.flussocreditidetail._sqlSafeMergeFromDb(_conn, sqlGetCrediti, 0);
 			}
+
+			// Inizio la lettura in memoria dei dettagli flusso crediti per IDUNIQUEFORMCODE
+			// _sqlSafeMergeFromDb è il metodo che deve essere usato 
+			nContatore = 0;
+			nPacchetti = listaCodiciSplittatiArrays.Count();
+			foreach (var listaCodiciSplittati in listaCodiciSplittatiArrays) {
+				var CodiciList = qhs.FieldIn("iduniqueformcode", listaCodiciSplittati.ToArray());
+				nContatore++;
+
+				string sqlGetCrediti = $@"  SELECT {colonneDettCrediti}
+										FROM flussocreditidetail
+										{joinFlussoCreditiSql}
+										WHERE flussocreditidetail.idestimkind is not null 
+										AND {CodiciList}
+										AND flussocreditidetail.nestim is not null 
+										AND flussocreditidetail.idinvkind is null 
+										AND flussocreditidetail.stop is null 
+										AND flussocreditidetail.annulment is null
+										{condFlussoCreditiSql} ";
+
+				DS.flussocreditidetail._sqlSafeMergeFromDb(_conn, sqlGetCrediti, 0);
+			}
+
+ 
+			string colonneDettContratti = string.Join(",",
+			(from c in DS.estimatedetail.Columns._names()
+			 where QueryCreator.IsReal(DS.estimatedetail.Columns[c])
+			 select "estimatedetail." + c).ToArray());
+
+			string colonneContratti = string.Join(",",
+				(from c in DS.estimate.Columns._names()
+				 where QueryCreator.IsReal(DS.estimate.Columns[c]) & c != "txt"
+				 select "estimate." + c).ToArray());
+
+			// La lista dei bollettini da incassare potrebbe essere troppo lunga e generare delle Big Query con la clausola SQL IN(....).
+			// La suddiviamo in blocchi di 300 per eseguire più query di lettura nel dataset relative a
+			// Dettagli flusso crediti (flussocreditidetail)
+			// Dettagli contratti attivi (estimatedetail)
+			// Contratti attivi (estimate)
+			// Accertamenti da incassare
+			var listaCodiciCreditiDaSplittare = DS.flussocreditidetail.Select()._Pick("iduniqueformcode").Distinct().ToArray();
+			var listaCodiciCreditiSplittatiArrays = listaCodiciCreditiDaSplittare.Split(size);
+			var info = new infoCreaIncassi();
+			nContatore = 0;
+			nPacchetti = listaCodiciCreditiSplittatiArrays.Count();
+
+			foreach (var listaCodiciSplittati in listaCodiciCreditiSplittatiArrays) {
+				nContatore++;
+				var iduniqueFormCodeList = qhs.FieldIn("iduniqueformcode", listaCodiciSplittati.ToArray());
+				var iduniqueFormCodeListq = q.fieldIn("iduniqueformcode",  listaCodiciSplittati.ToArray());
+
+				//Estrae i dettagli contratti associati ai crediti in considerazione, prendendo tutti quelli aventi gli stessi iduniqueformcode esclusi i dett. annullati
+				string sqlGetDetContratti = $@"SELECT {colonneDettContratti}
+												FROM estimatedetail
+												WHERE {iduniqueFormCodeList}
+												and stop is null";
+				DS.estimatedetail._sqlSafeMergeFromDb(_conn, sqlGetDetContratti, 0);
+
+				//Estrae i dettagli contratti associati ai crediti in considerazione, prendendo tutti quelli aventi gli stessi iduniqueformcode esclusi i dett. annullati
+				string sqlGetContratti = $@"SELECT {colonneContratti}
+										FROM estimate
+										WHERE
+											EXISTS (
+												SELECT * FROM estimatedetail
+												WHERE estimate.idestimkind=estimatedetail.idestimkind
+												AND estimate.yestim = estimatedetail.yestim
+												AND estimate.nestim = estimatedetail.nestim
+												AND {iduniqueFormCodeList}
+												AND estimatedetail.stop is null
+											)";
+				DS.estimate._sqlSafeMergeFromDb(_conn, sqlGetContratti, 0);
+
+
+				string sqlAccertamenti = $@"SELECT idinc, available
+							FROM incometotal 
+							JOIN estimatedetail ON incometotal.idinc= estimatedetail.idinc_taxable OR incometotal.idinc= estimatedetail.idinc_iva
+							WHERE incometotal.ayear = {esercizio} 
+							AND  {iduniqueFormCodeList}
+							AND stop is null";
+				var Incassi = _conn.SQLRunner(sqlAccertamenti, false, 0);
+				foreach (DataRow r in Incassi.Rows) {
+					info.availableByIdInc[CfgFn.GetNoNullInt32(r["idinc"])] = CfgFn.GetNoNullDecimal(r["available"]);
+				}
+				foreach (DataRow r in DS.estimate.Rows) addEstimateDateToDict(r);
+			}
+			incPBar();
+
 			foreach (var r in DS.flussocreditidetail) {
 				info.addDettFlussoCrediti(r);
 			}
@@ -4783,6 +4945,8 @@ namespace no_table_flussostudenti {
 		/// <returns></returns>
 		private bool creaIncassiContrattiAttivi(bool soloConSospesi, TipoElaborazioneIncassi tipoElaborazione,
 			infoCreaIncassi info, List<messaggio> messages) {
+			int faseentratamax = CfgFn.GetNoNullInt32(Meta.GetSys("maxincomephase")); // numero delle fasi di entrata
+ 
 			var incInvoice = _dispatcher.Get("incomeinvoice"); //Contabilizzazione fattura
 			incInvoice.SetDefaults(DS.incomeinvoice);
 
@@ -4870,15 +5034,16 @@ namespace no_table_flussostudenti {
 					}
 
 					if (dettCrediti == null) {
-						//Questo messaggio ora va bene perchè non scatta se il credito c'è ma è collegato a fattura, e scatta se il credito non c'è proprio
-						//aggiungere controllo per assicurare unicità messagggio
-						messages.Add(new messaggio() {
+						//	//Questo messaggio ora va bene perchè non scatta se il credito c'è ma è collegato a fattura, e scatta se il credito non c'è proprio
+						//	//aggiungere controllo per assicurare unicità messagggio
+						messages.Add(new messaggio()
+						{
 							error = false,
 							msg =
-								$"Non è stato trovato un credito per il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv}"
+								$"E' stato trovato il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv} il cui credito manca o non è incassabile."
 						});
-						if (!string.IsNullOrEmpty(iuv))info.messaggioBollettinoMancante[iuv]=true;
-						if (!string.IsNullOrEmpty(rFileDet.iduniqueformcode))info.messaggioBollettinoMancante[rFileDet.iduniqueformcode]=true;
+						if (!string.IsNullOrEmpty(iuv)) info.messaggioBollettinoMancante[iuv] = true;
+						if (!string.IsNullOrEmpty(rFileDet.iduniqueformcode)) info.messaggioBollettinoMancante[rFileDet.iduniqueformcode] = true;
 
 						continue;
 					}
@@ -5165,8 +5330,13 @@ namespace no_table_flussostudenti {
 								newEntrataRow.doc =
 									$"C.A.{rEstimDet.idestimkind}/{rEstimDet.yestim.ToString().Substring(2, 2)}/{rEstimDet.nestim.ToString().PadLeft(6, '0')}";
 
-								newEntrataRow.docdate = rFlussoIncassi.dataincasso;
-
+								if (gestionedifferita == "S") { // 19530 in tal caso accertamenti e incassi sono contestuali
+									newEntrataRow.docdate = rFlussoIncassi.dataincasso;
+								}
+								else { //negli altri casi lo valorizziamo con la data contabile del contratto attivo
+									var aDate = getDateContrattoAttivo(rEstimDet, out errore); //_conn.readValue("estimate", q.mCmp(rDet, "idestimkind", "yestim", "nestim"), "adate");
+									newEntrataRow["docdate"] = aDate ?? DBNull.Value;
+								}
 								newEntrataRow.nphase = Convert.ToByte(faseCorrente);
 
 								var newImpMov = impMov.NewRow() as incomeyearRow;
@@ -5215,8 +5385,12 @@ namespace no_table_flussostudenti {
 							}
 
 							newLastMov.idinc = parentR.idinc;
-
-							if (tipoElaborazione != TipoElaborazioneIncassi.iva) {
+							// sui db monofase non è necessaria la gestione della tabella incomelastestimatedetail
+							// perchè non è utile alla generazione delle scritture di chiusura credito
+							// in sede di trasmissione
+							if ((tipoElaborazione != TipoElaborazioneIncassi.iva) && 
+								(faseentratamax!=1)) /*non monofase*/
+								{
 								//Aggiunge la riga di incasso per i contratti attivi
 								foreach (DataColumn c in DS.estimatedetail.PrimaryKey)
 									DS.incomelastestimatedetail.Columns[c.ColumnName].DefaultValue =
@@ -5267,7 +5441,7 @@ namespace no_table_flussostudenti {
 			initPBar("Inizializzazione creazione incassi per fatture",2);
 			azzeraTutto();
 
-			var filterNonElaborati = q.eq("ayear", esercizio) & q.eq("elaborato", "N");
+			var filterNonElaborati = q.eq("ayear", esercizio) & q.eq("elaborato", "N") & q.eq("active", "S") ;
 			if (soloConSospesi) filterNonElaborati &= q.isNotNull("nbill");
 			if ((txtDaNumFlussoIncassi.Text != "") && (txtANumFlussoIncassi.Text != "")) {
 				int daNFlussoDato;
@@ -5285,20 +5459,62 @@ namespace no_table_flussostudenti {
 				}
 			}
 
-			DS.flussoincassi.mergeFromDb(_conn, filterNonElaborati);
-			DS.flussoincassidetail.readTableJoined(_conn, "flussoincassi", null, filterNonElaborati, "idflusso");
+			filterNonElaborati.cascadeSetTable("flussoincassi");
+
+			// filtriamo la sicurezza anche in base al flussocrediti, campo idsor01
+			var condFlussoCrediti = _security.SelectCondition("flussocrediti", true).toMetaExpression();
+			var joinFlussoCreditiSql = "";
+			var condFlussoCreditiSql = "";
+			if (condFlussoCrediti != null) {
+				condFlussoCrediti.cascadeSetTable("flussocrediti");
+				joinFlussoCreditiSql = " join flussocrediti on flussocreditidetail.idflusso = flussocrediti.idflusso ";
+				condFlussoCreditiSql = " AND " + condFlussoCrediti.toSql(_qhs);
+			}
+
+
+			string sqlGetFlussiIncassiDaElaborare = $" SELECT FL1.idflusso" +
+				" from flussocreditidetail " +
+				joinFlussoCreditiSql +
+				" JOIN flussoincassidetail  FL1 " +
+				" ON   FL1.iuv = flussocreditidetail.iuv " +
+				" JOIN flussoincassi ON flussoincassi.idflusso= FL1.idflusso " +
+				" WHERE flussocreditidetail.idestimkind is null AND flussocreditidetail.idinvkind is not null " +
+				" AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
+				" AND flussoincassi.idflusso is not null " + 
+				" AND " + filterNonElaborati.toSql(_qhs) +
+				 condFlussoCreditiSql + 
+				" UNION " +
+				" SELECT FL1.idflusso" +
+				" from flussocreditidetail " +
+				joinFlussoCreditiSql +
+				" JOIN flussoincassidetail  FL1 " +
+				" ON   FL1.iduniqueformcode = flussocreditidetail.iduniqueformcode " +
+				" JOIN flussoincassi ON flussoincassi.idflusso= FL1.idflusso " +
+				" WHERE flussocreditidetail.idestimkind is null AND flussocreditidetail.idinvkind is not null " +
+				" AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
+				" AND flussoincassi.idflusso is not null " +
+				" AND " + filterNonElaborati.toSql(_qhs) +
+				 condFlussoCreditiSql  
+				;
+
+			
+			var idFlussiDaElaborare = _conn.SQLRunner(sqlGetFlussiIncassiDaElaborare, false, 0);
+
+			if (idFlussiDaElaborare.Rows.Count == 0) {
+				show($" Non ci sono Flussi da incassare", "Avviso");
+				closePBar();
+				return true;
+			}
+			string lista_idListing = qhc.DistinctVal(idFlussiDaElaborare.Select(), "idflusso");
+			string FF = qhs.FieldInList("idlist", lista_idListing);
+ 
+			var filterIdFlussi = q.fieldIn("idflusso", idFlussiDaElaborare.Select()._Pick("idflusso").ToArray());
+			DS.flussoincassi.mergeFromDb(_conn, filterIdFlussi) ;
+			DS.flussoincassidetail.readTableJoined(_conn, "flussoincassi", null, filterIdFlussi, "idflusso");
 
 			var info = new infoCreaIncassi();
 			foreach (var r in DS.flussoincassidetail) {
 				info.addDettFlussoIncassi(r);
-			}
-
-			var condUpb = _security.SelectCondition("upb", true).toMetaExpression();
-			var joinUpbSql = "";
-			var condUpbSql = "";
-			if (condUpb != null) {
-				joinUpbSql = " join upb on flussocreditidetail.idupb = upb.idupb ";
-				condUpbSql = " AND " + condUpb.toSql(_qhs);
 			}
 
 			string colonneDettFature = string.Join(",",
@@ -5306,11 +5522,11 @@ namespace no_table_flussostudenti {
 					where QueryCreator.IsReal(DS.invoicedetail.Columns[c])
 					select "invoicedetail." + c).ToArray());
 
-			// 15259 Impossibile associare l'identificatore in più parti "flussocrediti.idupb".
 			string sqlGetFatture =
 				$" SELECT  {colonneDettFature} from invoicedetail where iduniqueformcode in (" +
-				$"SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail " +
-				joinUpbSql +
+				$" SELECT flussocreditidetail.iduniqueformcode from flussocreditidetail " +
+				//joinUpbSql +
+				joinFlussoCreditiSql +
 				" WHERE EXISTS(SELECT * from flussoincassidetail  " +
 				" JOIN flussoincassi ON flussoincassi.idflusso=flussoincassidetail.idflusso " +
 				" WHERE (flussoincassidetail.iuv = flussocreditidetail.iuv OR flussoincassidetail.iduniqueformcode = flussocreditidetail.iduniqueformcode) " +
@@ -5318,20 +5534,19 @@ namespace no_table_flussostudenti {
 				")" +
 				" AND flussocreditidetail.idestimkind is null AND flussocreditidetail.idinvkind is not null " +
 				" AND flussocreditidetail.stop is null and flussocreditidetail.annulment is null " +
-
-				condUpbSql +
+				//condUpbSql 
+				condFlussoCreditiSql +
 				$") AND (yinv <= {esercizio}) ";
 			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
 			DS.invoicedetail._sqlGetFromDb(_conn, sqlGetFatture);
 			incPBar();
 			foreach (var r in DS.invoicedetail) {
 				info.addDettFattura(r);
-
 				var filterInvoice = q.mCmp(r, "idinvkind", "yinv", "ninv");
 				DS.invoice.get(_conn, filterInvoice);
 			}
 			closePBar();
-
+			
 			if (DS.invoicedetail.Rows.Count == 0) {
 				show(
 					"Non sono stati trovati dettagli fattura da incassare di questo anno o anni precedenti.", "Avviso");
@@ -5886,6 +6101,7 @@ namespace no_table_flussostudenti {
 			return true;
 		}
 
+		
 
 		private static DataRow getGridCurrentRow(DataGrid g) {
 			var dsv = (DataSet) g.DataSource;
@@ -6241,33 +6457,82 @@ namespace no_table_flussostudenti {
 		private void btnAssociaEventualiBollette_Click(object sender, EventArgs e) {
 			DS.flussoincassi.Clear();
 			
-			var sqlBill = $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
-			              $" join flussoincassi on " +
-						  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
-						  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR "+
-						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
-						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR " +
-						  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
-			              $" WHERE flussoincassi.ayear= {esercizio} and flussoincassi.nbill is null " +
-			              $" AND bill.billkind='C' and bill.ybill={esercizio} " +
-			              $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
-						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
-						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')"+
-						  $" UNION " +	
-						  $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
-						  $" join flussoincassi on " +
-						  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
-						  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR " +
-						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
-						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR" +
-						  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
-						  $" WHERE flussoincassi.ayear= {esercizio} " +
-						  $" AND bill.billkind='C' and bill.ybill={esercizio} + 1 " +
-						  $" and MONTH(bill.adate) = 1 and DAY(bill.adate) <= 5 " +
-	  					  $" and MONTH(flussoincassi.dataincasso)= 12 and DAY(flussoincassi.dataincasso) >= 25 " +
-						  $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
-						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
-						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')";
+			//var sqlBill = $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
+			//            $" join flussoincassi on " +
+			//			  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
+			//			  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR "+
+			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
+			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR " +
+			//			  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
+			//            $" WHERE flussoincassi.ayear= {esercizio} and flussoincassi.nbill is null " +
+			//            $" AND bill.billkind='C' and bill.ybill={esercizio} " +
+			//            $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
+			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
+			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')"+
+			//			  $" UNION " +	
+			//			  $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
+			//			  $" join flussoincassi on " +
+			//			  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
+			//			  $" AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR " +
+			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
+			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR" +
+			//			  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
+			//			  $" WHERE flussoincassi.ayear= {esercizio} " +
+			//			  $" AND bill.billkind='C' and bill.ybill={esercizio} + 1 " +
+			//			  $" and MONTH(bill.adate) = 1 and DAY(bill.adate) <= 5 " +
+			//			  $" and MONTH(flussoincassi.dataincasso)= 12 and DAY(flussoincassi.dataincasso) >= 25 " +
+			//			  $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
+			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
+			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')";
+
+
+			var sqlBill = $"  WITH FilteredBills AS( " +
+						  $"  SELECT " +
+						  $"	bill.nbill, " +
+						  $"	bill.ybill, " +
+						  $"	bill.adate, " +
+						  $"	bill.motive, " +
+						  $"	flussoincassi.causale, " +
+						  $"	flussoincassi.dataincasso " +
+						  $" FROM bill" +
+						  $" JOIN " +
+						  $"	flussoincassi ON ( " +
+						  $"		(bill.motive LIKE '%' + flussoincassi.causale + '%' AND flussoincassi.causale LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/%') OR " +
+						  $"		(bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale + '%') OR " +
+						  $"		(bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale + '%') OR " +
+						  $"		(bill.motive LIKE '%' + flussoincassi.codiceflusso + '%') " +
+						  $"	) " +
+						  $" WHERE " +
+						  $"	flussoincassi.ayear = {esercizio}  " +
+						  $"	AND flussoincassi.nbill IS NULL " +
+						  $"	AND bill.billkind = 'C' " +
+						  $"	AND" +
+						  $"		(" +
+						  $"		bill.ybill = {esercizio} " +
+						  $"		OR (bill.ybill = {esercizio} +1  AND MONTH(bill.adate) = 1 AND DAY(bill.adate) <= 5)" +
+/*>>>>*/				  $"		OR  (bill.ybill = {esercizio} - 1  AND MONTH(bill.adate) = 12 ) " +
+						  $"		) " +
+						  $"		AND( " +
+						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/%' OR " +
+						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' OR " +
+						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%'  "  + 
+						  $")  " +
+						  $" ) " +
+						  $" SELECT " +
+						  $"	nbill, " +
+						  $"	ybill, " +
+						  $"	adate, " +
+						  $"	causale " +
+						  $" FROM " +
+						  $"	FilteredBills " +
+						  $" WHERE " +
+						  $" ( " +
+						  $"	(FilteredBills.ybill = {esercizio}) " +
+						  $"	OR " +
+						  $"	(FilteredBills.ybill = {esercizio} +1  AND MONTH(FilteredBills.dataincasso) = 12 AND DAY(FilteredBills.dataincasso) >= 25) " +
+/*>>>>*/                  $"	OR " +
+						  $"	(FilteredBills.ybill = {esercizio} - 1  AND MONTH(FilteredBills.adate) = 12 AND year(FilteredBills.dataincasso) = {esercizio} ) " +
+						  $" ) ";
 
 			DataTable billFromCausali = _conn.SQLRunner(sqlBill,false,0);
 			if (billFromCausali.Rows.Count == 0)
@@ -6646,22 +6911,25 @@ namespace no_table_flussostudenti {
 
 
 			bool res = creaIncassiContrattiAttivi(!chkAncheSenzaSospesi.Checked);
-			if (!DS.HasChanges()) {
+			if (res && !DS.HasChanges()) {
 				ricalcolaFlagElaborato();
 				azzeraTutto();
 				show("Nessun incasso da creare", "Avviso");
 				btnIncassiContrattiAttivi.Visible = true;
 				return;
 			}
-
+			 
 			//Ci sono movimenti da salvare
 			if (res) {
 				//Genera le scritture sui contratti attivi di cui nel dataset in memoria è stata impostata la data inizio di qualche dettaglio
-				generaScrittureContrattiAttiviEsterno();
+			    generaScrittureContrattiAttiviEsterno();
 
+				//PostData.RemoveFalseUpdates(DS);
 				//Il salvataggio azzera anche i movimenti finanziari
-				if (doSave(out dSupdated)) {
-					show("Gli incassi per i contratti attivi sono stati salvati.", "Avviso");
+				if (DS.HasChanges()) {
+					if (doSave(out dSupdated)) {//da qui esce fuori il messaggio  Dati Salvati
+						show("Gli incassi per i contratti attivi sono stati salvati.", "Avviso");
+					}
 				}
 				else {
 					show("Errore nel salvataggio degli incassi per i contratti attivi", "Errore");
@@ -6891,10 +7159,10 @@ namespace no_table_flussostudenti {
 
 				var InvoicedetailsToUnlink = DS.invoicedetail.get(_conn,
 				q.eq("iduniqueformcode", oCodiceBollettinoUnivoco) & 
-				q.eq("idinvkind", rToAnnull.idinvkind) &
-				q.eq("yinv", rToAnnull.yinv) &
-				q.eq("ninv", rToAnnull.ninv) &
-				q.eq("rownum", rToAnnull.invrownum));
+				q.eq("idinvkind", rToAnnull["idinvkind"]) &
+				q.eq("yinv", rToAnnull["yinv"]) &
+				q.eq("ninv", rToAnnull["ninv"]) &
+				q.eq("rownum", rToAnnull["invrownum"]));
 
 
 				// task 17307 azzero sulla riga da annullare e sulla copia i riferimenti alla fattura
@@ -6987,11 +7255,7 @@ namespace no_table_flussostudenti {
 			//HelpForm.SetGridStyle(dgrCrediti, dt);
 
 		}
-
-		private void dgrCrediti_DoubleClick(object sender, EventArgs e)
-		{
-
-		}
+ 
 	}
 
 }

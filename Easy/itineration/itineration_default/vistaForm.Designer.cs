@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -183,6 +183,12 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable itinerationattachmentkind 		=> (MetaTable)Tables["itinerationattachmentkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable itinerationrefundattachmentkind 		=> (MetaTable)Tables["itinerationrefundattachmentkind"];
+
 	#endregion
 
 
@@ -229,10 +235,11 @@ private void initClass() {
 	//////////////////// ITINERATIONREFUND_ADVANCE /////////////////////////////////
 	var titinerationrefund_advance= new itinerationrefundTable();
 	titinerationrefund_advance.TableName = "itinerationrefund_advance";
-	titinerationrefund_advance.addBaseColumns("nrefund","description","amount","extraallowance","idcurrency","iditinerationrefundkind","exchangerate","advancepercentage","cu","ct","lu","lt","flag_geo","starttime","stoptime","iditineration","flagadvancebalance","doc","docdate","requiredamount","docamount","webwarn","idforeigncountry","noaccount","amount_c","docamount_c","requiredamount_c");
+	titinerationrefund_advance.addBaseColumns("nrefund","description","amount","extraallowance","idcurrency","iditinerationrefundkind","exchangerate","advancepercentage","cu","ct","lu","lt","flag_geo","starttime","stoptime","iditineration","flagadvancebalance","doc","docdate","requiredamount","docamount","webwarn","idforeigncountry","noaccount","amount_c","docamount_c","requiredamount_c","flagtaxableexpense");
 	titinerationrefund_advance.defineColumn("!importoeffettivo", typeof(decimal));
 	titinerationrefund_advance.defineColumn("!indennsuppl", typeof(decimal));
 	titinerationrefund_advance.defineColumn("!classificazione", typeof(string));
+	titinerationrefund_advance.defineColumn("!nrefund", typeof(string));
 	titinerationrefund_advance.ExtendedProperties["TableForPosting"]="itinerationrefund";
 	titinerationrefund_advance.ExtendedProperties["TableForReading"]="itinerationrefund";
 	Tables.Add(titinerationrefund_advance);
@@ -309,6 +316,7 @@ private void initClass() {
 	titinerationrefundkind_advance.defineColumn("lt", typeof(DateTime),false);
 	titinerationrefundkind_advance.defineColumn("idaccmotive", typeof(string));
 	titinerationrefundkind_advance.defineColumn("iditinerationrefundkindgroup", typeof(int));
+	titinerationrefundkind_advance.defineColumn("flagtraceability", typeof(int));
 	titinerationrefundkind_advance.ExtendedProperties["TableForPosting"]="itinerationrefundkind";
 	titinerationrefundkind_advance.ExtendedProperties["TableForReading"]="itinerationrefundkind";
 	Tables.Add(titinerationrefundkind_advance);
@@ -443,10 +451,11 @@ private void initClass() {
 	//////////////////// ITINERATIONREFUND_BALANCE /////////////////////////////////
 	var titinerationrefund_balance= new itinerationrefundTable();
 	titinerationrefund_balance.TableName = "itinerationrefund_balance";
-	titinerationrefund_balance.addBaseColumns("nrefund","description","amount","extraallowance","idcurrency","iditinerationrefundkind","exchangerate","advancepercentage","cu","ct","lu","lt","flag_geo","starttime","stoptime","iditineration","flagadvancebalance","doc","docdate","requiredamount","docamount","webwarn","idforeigncountry","noaccount","amount_c","docamount_c","requiredamount_c");
+	titinerationrefund_balance.addBaseColumns("nrefund","description","amount","extraallowance","idcurrency","iditinerationrefundkind","exchangerate","advancepercentage","cu","ct","lu","lt","flag_geo","starttime","stoptime","iditineration","flagadvancebalance","doc","docdate","requiredamount","docamount","webwarn","idforeigncountry","noaccount","amount_c","docamount_c","requiredamount_c","flagtaxableexpense");
 	titinerationrefund_balance.defineColumn("!importoeffettivo", typeof(decimal));
 	titinerationrefund_balance.defineColumn("!indennsuppl", typeof(decimal));
 	titinerationrefund_balance.defineColumn("!classificazione", typeof(string));
+	titinerationrefund_balance.defineColumn("!nrefund", typeof(string));
 	titinerationrefund_balance.ExtendedProperties["TableForReading"]="itinerationrefund";
 	Tables.Add(titinerationrefund_balance);
 	titinerationrefund_balance.defineKey("iditineration", "nrefund");
@@ -462,6 +471,7 @@ private void initClass() {
 	titinerationrefundkind_balance.defineColumn("lt", typeof(DateTime),false);
 	titinerationrefundkind_balance.defineColumn("idaccmotive", typeof(string));
 	titinerationrefundkind_balance.defineColumn("iditinerationrefundkindgroup", typeof(int));
+	titinerationrefundkind_balance.defineColumn("flagtraceability", typeof(int));
 	titinerationrefundkind_balance.ExtendedProperties["TableForReading"]="itinerationrefundkind";
 	Tables.Add(titinerationrefundkind_balance);
 	titinerationrefundkind_balance.defineKey("iditinerationrefundkind");
@@ -543,6 +553,8 @@ private void initClass() {
 	titinerationattachment.defineColumn("cu", typeof(string),false);
 	titinerationattachment.defineColumn("description", typeof(string));
 	titinerationattachment.defineColumn("active", typeof(string));
+	titinerationattachment.defineColumn("idattachmentkind", typeof(int));
+	titinerationattachment.defineColumn("!attachmentkind", typeof(string));
 	Tables.Add(titinerationattachment);
 	titinerationattachment.defineKey("iditineration", "idattachment");
 
@@ -755,6 +767,7 @@ private void initClass() {
 	titinerationrefundattachment.defineColumn("lu", typeof(string),false);
 	titinerationrefundattachment.defineColumn("lt", typeof(string),false);
 	titinerationrefundattachment.defineColumn("active", typeof(string));
+	titinerationrefundattachment.defineColumn("iditinerationrefundattachmentkind", typeof(int));
 	Tables.Add(titinerationrefundattachment);
 	titinerationrefundattachment.defineKey("idattachment", "iditineration", "nrefund");
 
@@ -772,6 +785,31 @@ private void initClass() {
 	tcostpartition.defineColumn("description", typeof(string));
 	Tables.Add(tcostpartition);
 	tcostpartition.defineKey("idcostpartition");
+
+	//////////////////// ITINERATIONATTACHMENTKIND /////////////////////////////////
+	var titinerationattachmentkind= new MetaTable("itinerationattachmentkind");
+	titinerationattachmentkind.defineColumn("idattachmentkind", typeof(int),false);
+	titinerationattachmentkind.defineColumn("active", typeof(string),false);
+	titinerationattachmentkind.defineColumn("ct", typeof(DateTime));
+	titinerationattachmentkind.defineColumn("cu", typeof(string));
+	titinerationattachmentkind.defineColumn("lt", typeof(DateTime));
+	titinerationattachmentkind.defineColumn("lu", typeof(string));
+	titinerationattachmentkind.defineColumn("title", typeof(string),false);
+	Tables.Add(titinerationattachmentkind);
+	titinerationattachmentkind.defineKey("idattachmentkind");
+
+	//////////////////// ITINERATIONREFUNDATTACHMENTKIND /////////////////////////////////
+	var titinerationrefundattachmentkind= new MetaTable("itinerationrefundattachmentkind");
+	titinerationrefundattachmentkind.defineColumn("iditinerationrefundattachmentkind", typeof(int),false);
+	titinerationrefundattachmentkind.defineColumn("active", typeof(string));
+	titinerationrefundattachmentkind.defineColumn("ct", typeof(DateTime));
+	titinerationrefundattachmentkind.defineColumn("cu", typeof(string));
+	titinerationrefundattachmentkind.defineColumn("lt", typeof(DateTime));
+	titinerationrefundattachmentkind.defineColumn("lu", typeof(string));
+	titinerationrefundattachmentkind.defineColumn("title", typeof(string));
+	titinerationrefundattachmentkind.defineColumn("flag", typeof(int));
+	Tables.Add(titinerationrefundattachmentkind);
+	titinerationrefundattachmentkind.defineKey("iditinerationrefundattachmentkind");
 
 	#endregion
 
@@ -854,6 +892,8 @@ private void initClass() {
 	this.defineRelation("itinerationrefund_advance_itinerationrefundattachment","itinerationrefund_advance","itinerationrefundattachment","iditineration","nrefund");
 	this.defineRelation("itinerationrefund_balance_itinerationrefundattachment","itinerationrefund_balance","itinerationrefundattachment","iditineration","nrefund");
 	this.defineRelation("costpartition_itineration","costpartition","itineration","idcostpartition");
+	this.defineRelation("itinerationattachmentkind_itinerationattachment","itinerationattachmentkind","itinerationattachment","idattachmentkind");
+	this.defineRelation("itinerationrefundattachmentkind_itinerationrefundattachment","itinerationrefundattachmentkind","itinerationrefundattachment","iditinerationrefundattachmentkind");
 	#endregion
 
 }

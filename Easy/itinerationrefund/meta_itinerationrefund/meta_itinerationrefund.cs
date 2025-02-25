@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -83,8 +83,29 @@ namespace meta_itinerationrefund//meta_missionespesa//
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
 			RowChange.SetSelector(T, "iditineration");
 			RowChange.MarkAsAutoincrement(T.Columns["nrefund"], null, null, 6);
+			T.setMinimumTempValue("nrefund",9000+ CalcNRefund(T));
+			//RowChange.MarkAsCustomAutoincrement(T.Columns["nrefund"], new RowChange.CustomCalcAutoID(CalcNRefund));
 			DataRow R = base.Get_New_Row(ParentRow, T);
 			return R;
+		}
+
+
+		private int CalcNRefund(DataTable T) {
+			int n = 0;
+			DataSet D = T.DataSet;
+			string tableName = T.TableName;
+			// itinerationrefund_advance;
+			// itinerationrefund_balance;
+	 
+
+			object oAdvanceRefund = D.Tables["itinerationrefund_advance"].Compute("count(nrefund)",string.Empty);
+
+			int nAdvanceRefund = CfgFn.GetNoNullInt32(oAdvanceRefund);
+ 
+			object oBalanceRefund = D.Tables["itinerationrefund_balance"].Compute("count(nrefund)", string.Empty);
+			int nBalanceRefund = CfgFn.GetNoNullInt32(oBalanceRefund);
+			n = nAdvanceRefund + nBalanceRefund;
+			return n;
 		}
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
@@ -151,6 +172,20 @@ namespace meta_itinerationrefund//meta_missionespesa//
 			return true;
 		}
 
+		public override void CalculateFields(DataRow R, string list_type) {
+			base.CalculateFields(R, list_type);
+			// cerco di nascondere i valori temporanei nei grid, utilizzando colonna fittizia
+			if (R.Table.Columns.Contains("!nrefund")) {
+				if (R.RowState == DataRowState.Added && R["nrefund"].ToString().ToUpper().Contains("90")) {
+					R["!nrefund"] = DBNull.Value;
+				}
+				else {
+					R["!nrefund"] = R["nrefund"];
+				}
+			}
+
+
+		}
 		public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
 
@@ -164,21 +199,23 @@ namespace meta_itinerationrefund//meta_missionespesa//
 			switch (ListingType) {
 
 				case "advance": {
-						DescribeAColumn(T, "nrefund", "Num.Spesa", nPos++);
+						DescribeAColumn(T, "!nrefund", "Num.Spesa", nPos++);
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_advance.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
 						DescribeAColumn(T, "docdate", "Data", nPos++);
-						//if (T.Columns.Contains("docdate")) T.Columns["docdate"].ExtendedProperties["format"] = "g";
+						DescribeAColumn(T, "nrefund", ".Num.Spesa", -1);
+						ComputeRowsAs(T, "advance");
 						break;
 					}
 				case "balance": {
-						DescribeAColumn(T, "nrefund", "Num.Spesa", nPos++);
+						DescribeAColumn(T, "!nrefund", "Num.Spesa", nPos++);
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_balance.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
 						DescribeAColumn(T, "docdate", "Data", nPos++);
-						//if (T.Columns.Contains("docdate")) T.Columns["docdate"].ExtendedProperties["format"] = "g";
+						DescribeAColumn(T, "nrefund", ".Num.Spesa", -1);
+						ComputeRowsAs(T, "balance");
 						break;
 					}
 				case "instmuseradvance": {
@@ -198,18 +235,15 @@ namespace meta_itinerationrefund//meta_missionespesa//
 						break;
 					}
 				case "refundbalance_ref": {
-						DescribeAColumn(T, "nrefund", "Num.Spesa", nPos++);
+						DescribeAColumn(T, "!nrefund", "Num.Spesa", nPos++);
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_ref.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
 						DescribeAColumn(T, "docdate", "Data", nPos++);
+						DescribeAColumn(T, "nrefund", ".Num.Spesa", nPos++);
 						break;
 					}
-					//$DescribeAColumn$
 			}
-
-			//----------------------------------instm-------------------------------end
-
 
 		}
 

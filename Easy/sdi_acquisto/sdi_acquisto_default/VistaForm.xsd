@@ -103,6 +103,19 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="tipodocumento_sdi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cod_tipodoc" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -117,10 +130,15 @@
       <xs:selector xpath=".//mstns:uniconfig" />
       <xs:field xpath="mstns:dummykey" />
     </xs:unique>
+    <xs:unique name="tipodocumento_sdi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tipodocumento_sdi" />
+      <xs:field xpath="mstns:cod_tipodoc" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_sdi_status_sdi_acquisto" msdata:parent="sdi_status" msdata:child="sdi_acquisto" msdata:parentkey="idsdi_status" msdata:childkey="idsdi_status" />
+      <msdata:Relationship name="tipodocumento_sdi_sdi_acquisto" msdata:parent="tipodocumento_sdi" msdata:child="sdi_acquisto" msdata:parentkey="cod_tipodoc" msdata:childkey="tipodocumento" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

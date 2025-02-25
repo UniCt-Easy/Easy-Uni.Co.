@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -248,6 +248,17 @@ public class emisti_rec_04Row: MetaRow  {
 	public Int32? progressivodebitoOriginal { 
 		get {if (this["progressivodebito",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["progressivodebito",DataRowVersion.Original];}
 	}
+	public String datascadritextra{ 
+		get {if (this["datascadritextra"]==DBNull.Value)return null; return  (String)this["datascadritextra"];}
+		set {if (value==null) this["datascadritextra"]= DBNull.Value; else this["datascadritextra"]= value;}
+	}
+	public object datascadritextraValue { 
+		get{ return this["datascadritextra"];}
+		set {if (value==null|| value==DBNull.Value) this["datascadritextra"]= DBNull.Value; else this["datascadritextra"]= value;}
+	}
+	public String datascadritextraOriginal { 
+		get {if (this["datascadritextra",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["datascadritextra",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -274,6 +285,7 @@ public class emisti_rec_04Table : MetaTableBase<emisti_rec_04Row> {
 			{"progressivo_rec_01",createColumn("progressivo_rec_01",typeof(int),true,false)},
 			{"flagriduzimpon",createColumn("flagriduzimpon",typeof(string),true,false)},
 			{"progressivodebito",createColumn("progressivodebito",typeof(int),true,false)},
+			{"datascadritextra",createColumn("datascadritextra",typeof(string),true,false)},
 		};
 	}
 }

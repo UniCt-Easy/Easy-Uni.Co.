@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -45,44 +45,44 @@ public class sortingkindRow: MetaRow  {
 	///<summary>
 	///data creazione
 	///</summary>
-	public DateTime? ct{ 
-		get {if (this["ct"]==DBNull.Value)return null; return  (DateTime?)this["ct"];}
-		set {if (value==null) this["ct"]= DBNull.Value; else this["ct"]= value;}
+	public DateTime ct{ 
+		get {return  (DateTime)this["ct"];}
+		set {this["ct"]= value;}
 	}
 	public object ctValue { 
 		get{ return this["ct"];}
-		set {if (value==null|| value==DBNull.Value) this["ct"]= DBNull.Value; else this["ct"]= value;}
+		set {this["ct"]= value;}
 	}
-	public DateTime? ctOriginal { 
-		get {if (this["ct",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["ct",DataRowVersion.Original];}
+	public DateTime ctOriginal { 
+		get {return  (DateTime)this["ct",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome utente creazione
 	///</summary>
 	public String cu{ 
-		get {if (this["cu"]==DBNull.Value)return null; return  (String)this["cu"];}
-		set {if (value==null) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		get {return  (String)this["cu"];}
+		set {this["cu"]= value;}
 	}
 	public object cuValue { 
 		get{ return this["cu"];}
-		set {if (value==null|| value==DBNull.Value) this["cu"]= DBNull.Value; else this["cu"]= value;}
+		set {this["cu"]= value;}
 	}
 	public String cuOriginal { 
-		get {if (this["cu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["cu",DataRowVersion.Original];}
+		get {return  (String)this["cu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Descrizione
 	///</summary>
 	public String description{ 
-		get {if (this["description"]==DBNull.Value)return null; return  (String)this["description"];}
-		set {if (value==null) this["description"]= DBNull.Value; else this["description"]= value;}
+		get {return  (String)this["description"];}
+		set {this["description"]= value;}
 	}
 	public object descriptionValue { 
 		get{ return this["description"];}
-		set {if (value==null|| value==DBNull.Value) this["description"]= DBNull.Value; else this["description"]= value;}
+		set {this["description"]= value;}
 	}
 	public String descriptionOriginal { 
-		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
+		get {return  (String)this["description",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Usa campi data inizio e fine (finanziario)
@@ -747,30 +747,30 @@ public class sortingkindRow: MetaRow  {
 	///<summary>
 	///data ultima modifica
 	///</summary>
-	public DateTime? lt{ 
-		get {if (this["lt"]==DBNull.Value)return null; return  (DateTime?)this["lt"];}
-		set {if (value==null) this["lt"]= DBNull.Value; else this["lt"]= value;}
+	public DateTime lt{ 
+		get {return  (DateTime)this["lt"];}
+		set {this["lt"]= value;}
 	}
 	public object ltValue { 
 		get{ return this["lt"];}
-		set {if (value==null|| value==DBNull.Value) this["lt"]= DBNull.Value; else this["lt"]= value;}
+		set {this["lt"]= value;}
 	}
-	public DateTime? ltOriginal { 
-		get {if (this["lt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["lt",DataRowVersion.Original];}
+	public DateTime ltOriginal { 
+		get {return  (DateTime)this["lt",DataRowVersion.Original];}
 	}
 	///<summary>
 	///nome ultimo utente modifica
 	///</summary>
 	public String lu{ 
-		get {if (this["lu"]==DBNull.Value)return null; return  (String)this["lu"];}
-		set {if (value==null) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		get {return  (String)this["lu"];}
+		set {this["lu"]= value;}
 	}
 	public object luValue { 
 		get{ return this["lu"];}
-		set {if (value==null|| value==DBNull.Value) this["lu"]= DBNull.Value; else this["lu"]= value;}
+		set {this["lu"]= value;}
 	}
 	public String luOriginal { 
-		get {if (this["lu",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["lu",DataRowVersion.Original];}
+		get {return  (String)this["lu",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Etichetta che indica l'assenza di date
@@ -832,43 +832,43 @@ public class sortingkindRow: MetaRow  {
 	///Codice tipo classificazione (tabella sortingkind)
 	///</summary>
 	public String codesorkind{ 
-		get {if (this["codesorkind"]==DBNull.Value)return null; return  (String)this["codesorkind"];}
-		set {if (value==null) this["codesorkind"]= DBNull.Value; else this["codesorkind"]= value;}
+		get {return  (String)this["codesorkind"];}
+		set {this["codesorkind"]= value;}
 	}
 	public object codesorkindValue { 
 		get{ return this["codesorkind"];}
-		set {if (value==null|| value==DBNull.Value) this["codesorkind"]= DBNull.Value; else this["codesorkind"]= value;}
+		set {this["codesorkind"]= value;}
 	}
 	public String codesorkindOriginal { 
-		get {if (this["codesorkind",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["codesorkind",DataRowVersion.Original];}
+		get {return  (String)this["codesorkind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///Id tipo classificazione (tabella sortingkind)
 	///</summary>
-	public Int32? idsorkind{ 
-		get {if (this["idsorkind"]==DBNull.Value)return null; return  (Int32?)this["idsorkind"];}
-		set {if (value==null) this["idsorkind"]= DBNull.Value; else this["idsorkind"]= value;}
+	public Int32 idsorkind{ 
+		get {return  (Int32)this["idsorkind"];}
+		set {this["idsorkind"]= value;}
 	}
 	public object idsorkindValue { 
 		get{ return this["idsorkind"];}
-		set {if (value==null|| value==DBNull.Value) this["idsorkind"]= DBNull.Value; else this["idsorkind"]= value;}
+		set {this["idsorkind"]= value;}
 	}
-	public Int32? idsorkindOriginal { 
-		get {if (this["idsorkind",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idsorkind",DataRowVersion.Original];}
+	public Int32 idsorkindOriginal { 
+		get {return  (Int32)this["idsorkind",DataRowVersion.Original];}
 	}
 	///<summary>
 	///flag per finanziario
 	///</summary>
-	public Byte? flag{ 
-		get {if (this["flag"]==DBNull.Value)return null; return  (Byte?)this["flag"];}
-		set {if (value==null) this["flag"]= DBNull.Value; else this["flag"]= value;}
+	public Byte flag{ 
+		get {return  (Byte)this["flag"];}
+		set {this["flag"]= value;}
 	}
 	public object flagValue { 
 		get{ return this["flag"];}
-		set {if (value==null|| value==DBNull.Value) this["flag"]= DBNull.Value; else this["flag"]= value;}
+		set {this["flag"]= value;}
 	}
-	public Byte? flagOriginal { 
-		get {if (this["flag",DataRowVersion.Original]==DBNull.Value)return null; return  (Byte?)this["flag",DataRowVersion.Original];}
+	public Byte flagOriginal { 
+		get {return  (Byte)this["flag",DataRowVersion.Original];}
 	}
 	///<summary>
 	///data inizio
@@ -922,6 +922,171 @@ public class sortingkindRow: MetaRow  {
 	}
 	public String allowedS1Original { 
 		get {if (this["allowedS1",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["allowedS1",DataRowVersion.Original];}
+	}
+	public String labelD1{ 
+		get {if (this["labelD1"]==DBNull.Value)return null; return  (String)this["labelD1"];}
+		set {if (value==null) this["labelD1"]= DBNull.Value; else this["labelD1"]= value;}
+	}
+	public object labelD1Value { 
+		get{ return this["labelD1"];}
+		set {if (value==null|| value==DBNull.Value) this["labelD1"]= DBNull.Value; else this["labelD1"]= value;}
+	}
+	public String labelD1Original { 
+		get {if (this["labelD1",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["labelD1",DataRowVersion.Original];}
+	}
+	public String labelD2{ 
+		get {if (this["labelD2"]==DBNull.Value)return null; return  (String)this["labelD2"];}
+		set {if (value==null) this["labelD2"]= DBNull.Value; else this["labelD2"]= value;}
+	}
+	public object labelD2Value { 
+		get{ return this["labelD2"];}
+		set {if (value==null|| value==DBNull.Value) this["labelD2"]= DBNull.Value; else this["labelD2"]= value;}
+	}
+	public String labelD2Original { 
+		get {if (this["labelD2",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["labelD2",DataRowVersion.Original];}
+	}
+	public String labelD3{ 
+		get {if (this["labelD3"]==DBNull.Value)return null; return  (String)this["labelD3"];}
+		set {if (value==null) this["labelD3"]= DBNull.Value; else this["labelD3"]= value;}
+	}
+	public object labelD3Value { 
+		get{ return this["labelD3"];}
+		set {if (value==null|| value==DBNull.Value) this["labelD3"]= DBNull.Value; else this["labelD3"]= value;}
+	}
+	public String labelD3Original { 
+		get {if (this["labelD3",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["labelD3",DataRowVersion.Original];}
+	}
+	public String labelD4{ 
+		get {if (this["labelD4"]==DBNull.Value)return null; return  (String)this["labelD4"];}
+		set {if (value==null) this["labelD4"]= DBNull.Value; else this["labelD4"]= value;}
+	}
+	public object labelD4Value { 
+		get{ return this["labelD4"];}
+		set {if (value==null|| value==DBNull.Value) this["labelD4"]= DBNull.Value; else this["labelD4"]= value;}
+	}
+	public String labelD4Original { 
+		get {if (this["labelD4",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["labelD4",DataRowVersion.Original];}
+	}
+	public String labelD5{ 
+		get {if (this["labelD5"]==DBNull.Value)return null; return  (String)this["labelD5"];}
+		set {if (value==null) this["labelD5"]= DBNull.Value; else this["labelD5"]= value;}
+	}
+	public object labelD5Value { 
+		get{ return this["labelD5"];}
+		set {if (value==null|| value==DBNull.Value) this["labelD5"]= DBNull.Value; else this["labelD5"]= value;}
+	}
+	public String labelD5Original { 
+		get {if (this["labelD5",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["labelD5",DataRowVersion.Original];}
+	}
+	public Char? forcedD1{ 
+		get {if (this["forcedD1"]==DBNull.Value)return null; return  (Char?)this["forcedD1"];}
+		set {if (value==null) this["forcedD1"]= DBNull.Value; else this["forcedD1"]= value;}
+	}
+	public object forcedD1Value { 
+		get{ return this["forcedD1"];}
+		set {if (value==null|| value==DBNull.Value) this["forcedD1"]= DBNull.Value; else this["forcedD1"]= value;}
+	}
+	public Char? forcedD1Original { 
+		get {if (this["forcedD1",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["forcedD1",DataRowVersion.Original];}
+	}
+	public Char? forcedD2{ 
+		get {if (this["forcedD2"]==DBNull.Value)return null; return  (Char?)this["forcedD2"];}
+		set {if (value==null) this["forcedD2"]= DBNull.Value; else this["forcedD2"]= value;}
+	}
+	public object forcedD2Value { 
+		get{ return this["forcedD2"];}
+		set {if (value==null|| value==DBNull.Value) this["forcedD2"]= DBNull.Value; else this["forcedD2"]= value;}
+	}
+	public Char? forcedD2Original { 
+		get {if (this["forcedD2",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["forcedD2",DataRowVersion.Original];}
+	}
+	public Char? forcedD3{ 
+		get {if (this["forcedD3"]==DBNull.Value)return null; return  (Char?)this["forcedD3"];}
+		set {if (value==null) this["forcedD3"]= DBNull.Value; else this["forcedD3"]= value;}
+	}
+	public object forcedD3Value { 
+		get{ return this["forcedD3"];}
+		set {if (value==null|| value==DBNull.Value) this["forcedD3"]= DBNull.Value; else this["forcedD3"]= value;}
+	}
+	public Char? forcedD3Original { 
+		get {if (this["forcedD3",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["forcedD3",DataRowVersion.Original];}
+	}
+	public Char? forcedD4{ 
+		get {if (this["forcedD4"]==DBNull.Value)return null; return  (Char?)this["forcedD4"];}
+		set {if (value==null) this["forcedD4"]= DBNull.Value; else this["forcedD4"]= value;}
+	}
+	public object forcedD4Value { 
+		get{ return this["forcedD4"];}
+		set {if (value==null|| value==DBNull.Value) this["forcedD4"]= DBNull.Value; else this["forcedD4"]= value;}
+	}
+	public Char? forcedD4Original { 
+		get {if (this["forcedD4",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["forcedD4",DataRowVersion.Original];}
+	}
+	public Char? forcedD5{ 
+		get {if (this["forcedD5"]==DBNull.Value)return null; return  (Char?)this["forcedD5"];}
+		set {if (value==null) this["forcedD5"]= DBNull.Value; else this["forcedD5"]= value;}
+	}
+	public object forcedD5Value { 
+		get{ return this["forcedD5"];}
+		set {if (value==null|| value==DBNull.Value) this["forcedD5"]= DBNull.Value; else this["forcedD5"]= value;}
+	}
+	public Char? forcedD5Original { 
+		get {if (this["forcedD5",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["forcedD5",DataRowVersion.Original];}
+	}
+	public Char? lockedD1{ 
+		get {if (this["lockedD1"]==DBNull.Value)return null; return  (Char?)this["lockedD1"];}
+		set {if (value==null) this["lockedD1"]= DBNull.Value; else this["lockedD1"]= value;}
+	}
+	public object lockedD1Value { 
+		get{ return this["lockedD1"];}
+		set {if (value==null|| value==DBNull.Value) this["lockedD1"]= DBNull.Value; else this["lockedD1"]= value;}
+	}
+	public Char? lockedD1Original { 
+		get {if (this["lockedD1",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["lockedD1",DataRowVersion.Original];}
+	}
+	public Char? lockedD2{ 
+		get {if (this["lockedD2"]==DBNull.Value)return null; return  (Char?)this["lockedD2"];}
+		set {if (value==null) this["lockedD2"]= DBNull.Value; else this["lockedD2"]= value;}
+	}
+	public object lockedD2Value { 
+		get{ return this["lockedD2"];}
+		set {if (value==null|| value==DBNull.Value) this["lockedD2"]= DBNull.Value; else this["lockedD2"]= value;}
+	}
+	public Char? lockedD2Original { 
+		get {if (this["lockedD2",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["lockedD2",DataRowVersion.Original];}
+	}
+	public Char? lockedD3{ 
+		get {if (this["lockedD3"]==DBNull.Value)return null; return  (Char?)this["lockedD3"];}
+		set {if (value==null) this["lockedD3"]= DBNull.Value; else this["lockedD3"]= value;}
+	}
+	public object lockedD3Value { 
+		get{ return this["lockedD3"];}
+		set {if (value==null|| value==DBNull.Value) this["lockedD3"]= DBNull.Value; else this["lockedD3"]= value;}
+	}
+	public Char? lockedD3Original { 
+		get {if (this["lockedD3",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["lockedD3",DataRowVersion.Original];}
+	}
+	public Char? lockedD4{ 
+		get {if (this["lockedD4"]==DBNull.Value)return null; return  (Char?)this["lockedD4"];}
+		set {if (value==null) this["lockedD4"]= DBNull.Value; else this["lockedD4"]= value;}
+	}
+	public object lockedD4Value { 
+		get{ return this["lockedD4"];}
+		set {if (value==null|| value==DBNull.Value) this["lockedD4"]= DBNull.Value; else this["lockedD4"]= value;}
+	}
+	public Char? lockedD4Original { 
+		get {if (this["lockedD4",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["lockedD4",DataRowVersion.Original];}
+	}
+	public Char? lockedD5{ 
+		get {if (this["lockedD5"]==DBNull.Value)return null; return  (Char?)this["lockedD5"];}
+		set {if (value==null) this["lockedD5"]= DBNull.Value; else this["lockedD5"]= value;}
+	}
+	public object lockedD5Value { 
+		get{ return this["lockedD5"];}
+		set {if (value==null|| value==DBNull.Value) this["lockedD5"]= DBNull.Value; else this["lockedD5"]= value;}
+	}
+	public Char? lockedD5Original { 
+		get {if (this["lockedD5",DataRowVersion.Original]==DBNull.Value)return null; return  (Char?)this["lockedD5",DataRowVersion.Original];}
 	}
 	public String allowedS2{ 
 		get {if (this["allowedS2"]==DBNull.Value)return null; return  (String)this["allowedS2"];}
@@ -1040,6 +1205,21 @@ public class sortingkindTable : MetaTableBase<sortingkindRow> {
 			{"stop",createColumn("stop",typeof(short),true,false)},
 			{"idparentkind",createColumn("idparentkind",typeof(int),true,false)},
 			{"allowedS1",createColumn("allowedS1",typeof(string),true,false)},
+			{"labelD1",createColumn("labelD1",typeof(string),true,false)},
+			{"labelD2",createColumn("labelD2",typeof(string),true,false)},
+			{"labelD3",createColumn("labelD3",typeof(string),true,false)},
+			{"labelD4",createColumn("labelD4",typeof(string),true,false)},
+			{"labelD5",createColumn("labelD5",typeof(string),true,false)},
+			{"forcedD1",createColumn("forcedD1",typeof(Char),true,false)},
+			{"forcedD2",createColumn("forcedD2",typeof(Char),true,false)},
+			{"forcedD3",createColumn("forcedD3",typeof(Char),true,false)},
+			{"forcedD4",createColumn("forcedD4",typeof(Char),true,false)},
+			{"forcedD5",createColumn("forcedD5",typeof(Char),true,false)},
+			{"lockedD1",createColumn("lockedD1",typeof(Char),true,false)},
+			{"lockedD2",createColumn("lockedD2",typeof(Char),true,false)},
+			{"lockedD3",createColumn("lockedD3",typeof(Char),true,false)},
+			{"lockedD4",createColumn("lockedD4",typeof(Char),true,false)},
+			{"lockedD5",createColumn("lockedD5",typeof(Char),true,false)},
 			{"allowedS2",createColumn("allowedS2",typeof(string),true,false)},
 			{"allowedS3",createColumn("allowedS3",typeof(string),true,false)},
 			{"allowedS4",createColumn("allowedS4",typeof(string),true,false)},

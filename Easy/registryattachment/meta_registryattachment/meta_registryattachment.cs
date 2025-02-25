@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -56,6 +56,27 @@ namespace meta_registryattachment
                 DescribeAColumn(T, "filename", "Nome file", nPos++);
                 DescribeAColumn(T, "!attachmentkind", "Tipo Allegato", "registryattachmentkind.title", nPos++);
             }
+        }
+
+        public override bool IsValid(DataRow R, out string errmess, out string errfield)
+        {
+            if (!base.IsValid(R, out errmess, out errfield)) return false;
+
+            if (R["filename"].ToString() == "")
+            {
+                errmess = "E' necessario selezionare un file";
+                errfield = "filename";
+                return false;
+            }
+
+            if (R["attachment"] == DBNull.Value)
+            {
+                errmess = "E' necessario selezionare un file (non vuoto)";
+                errfield = "attachment";
+                return false;
+            }
+
+            return true;
         }
     }
 }

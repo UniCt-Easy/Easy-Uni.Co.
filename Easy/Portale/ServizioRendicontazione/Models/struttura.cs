@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -63,7 +63,6 @@ namespace ServizioRendicontazione.Models
         [StringLength(1024)]
         [Unicode(false)]
         public string title_en { get; set; }
-        public int? idreg_resp { get; set; }
         public int? paridstruttura { get; set; }
         [Column(TypeName = "decimal(19, 2)")]
         public decimal? pesoindicatori { get; set; }
@@ -73,8 +72,6 @@ namespace ServizioRendicontazione.Models
         public decimal? pesoprogaltreuo { get; set; }
         [Column(TypeName = "decimal(19, 2)")]
         public decimal? pesoproguo { get; set; }
-        public int? idreg_appr { get; set; }
-        public int? idreg_valut { get; set; }
         [StringLength(1)]
         [Unicode(false)]
         public string active { get; set; }

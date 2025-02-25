@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,7 +38,17 @@ namespace flussocrediti_default {
         
         public Frm_flussocrediti_default() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            folderBrowserDialog2 = createFolderBrowserDialog(_folderBrowserDialog2);
             saveFileDialog1.DefaultExt = "xml";
+
+            if (isBlazor())
+			{
+                txtCartellaEsportazione.Visible = false;
+                label5.Visible = false;
+			}
         }
 
         string partner;
@@ -552,7 +562,7 @@ namespace flussocrediti_default {
                 else
                     filterestimate = QHS.AppOr(filterestimate, QHS.DoPar(QHC.CmpMulti(R, "idestimkind", "yestim", "nestim", "rownum")));
             }
-            if (rowsCount >0) MyFilter = QHS.AppAnd(MyFilter, QHS.Not(filterestimate));
+            if (filterestimate != "") MyFilter = QHS.AppAnd(MyFilter, QHS.Not(filterestimate));
             string command = "choose.estimatedetail.flussocrediti." + MyFilter;
 
             MetaData.Choose(this, command);
@@ -917,7 +927,7 @@ namespace flussocrediti_default {
                 else
                     filterinvoice = QHS.AppOr(filterinvoice, QHS.DoPar(QHS.AppAnd(QHS.CmpMulti(R, "idinvkind", "yinv", "ninv"), QHS.CmpEq("rownum", R["invrownum"]))));
             }
-            if (rowsCount > 0) MyFilter = QHS.AppAnd(MyFilter, QHS.Not(filterinvoice));
+            if (filterinvoice!="") MyFilter = QHS.AppAnd(MyFilter, QHS.Not(filterinvoice));
 
 
             string command = "choose.invoicedetail.flussocrediti." + MyFilter;

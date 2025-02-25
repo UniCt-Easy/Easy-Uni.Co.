@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -202,7 +202,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new registryTable();
-	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa","idnace","idnaturagiur","idnumerodip","idclassconsorsuale","idfonteindicebibliometrico","indicebibliometrico","ricevimento","soggiorno","idstruttura","idreg_istituti","idateco","extension");
+	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa","idnace","idnaturagiur","idnumerodip","idfonteindicebibliometrico","indicebibliometrico","ricevimento","soggiorno","idstruttura","idreg_istituti","idateco","extension","idanpr");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
 
@@ -313,6 +313,8 @@ private void initClass() {
 	tregistrylegalstatus.defineColumn("idinquadramento", typeof(int));
 	tregistrylegalstatus.defineColumn("livello", typeof(int));
 	tregistrylegalstatus.defineColumn("flagdefault", typeof(string));
+	tregistrylegalstatus.defineColumn("idclassconsorsuale", typeof(int));
+	tregistrylegalstatus.defineColumn("idtipologiaruolo", typeof(int));
 	Tables.Add(tregistrylegalstatus);
 	tregistrylegalstatus.defineKey("idreg", "idregistrylegalstatus");
 
@@ -555,7 +557,6 @@ private void initClass() {
 	tregistrymainview.defineColumn("idnace", typeof(string));
 	tregistrymainview.defineColumn("idnaturagiur", typeof(int));
 	tregistrymainview.defineColumn("idnumerodip", typeof(int));
-	tregistrymainview.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrymainview.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistrymainview.defineColumn("indicebibliometrico", typeof(int));
 	tregistrymainview.defineColumn("ricevimento", typeof(string));
@@ -564,6 +565,7 @@ private void initClass() {
 	tregistrymainview.defineColumn("idreg_istituti", typeof(int));
 	tregistrymainview.defineColumn("idateco", typeof(int));
 	tregistrymainview.defineColumn("extension", typeof(string));
+	tregistrymainview.defineColumn("idanpr", typeof(string));
 	Tables.Add(tregistrymainview);
 	tregistrymainview.defineKey("idreg");
 

@@ -170,6 +170,8 @@
               <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
               <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
               <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_nrefund" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtaxableexpense" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -265,6 +267,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
               <xs:element name="iditinerationrefundkindgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -702,6 +705,8 @@
               <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
               <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
               <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_nrefund" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtaxableexpense" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -717,6 +722,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
               <xs:element name="iditinerationrefundkindgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -822,6 +828,8 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_attachmentkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1326,6 +1334,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:string" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1342,6 +1351,33 @@
               <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationattachmentkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundattachmentkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1549,6 +1585,14 @@
       <xs:selector xpath=".//mstns:costpartition" />
       <xs:field xpath="mstns:idcostpartition" />
     </xs:unique>
+    <xs:unique name="itinerationattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationattachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundattachmentkind" />
+      <xs:field xpath="mstns:iditinerationrefundattachmentkind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1593,6 +1637,8 @@
       <msdata:Relationship name="itinerationrefund_advance_itinerationrefundattachment" msdata:parent="itinerationrefund_advance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
       <msdata:Relationship name="itinerationrefund_balance_itinerationrefundattachment" msdata:parent="itinerationrefund_balance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
       <msdata:Relationship name="costpartition_itineration" msdata:parent="costpartition" msdata:child="itineration" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
+      <msdata:Relationship name="itinerationattachmentkind_itinerationattachment" msdata:parent="itinerationattachmentkind" msdata:child="itinerationattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
+      <msdata:Relationship name="itinerationrefundattachmentkind_itinerationrefundattachment" msdata:parent="itinerationrefundattachmentkind" msdata:child="itinerationrefundattachment" msdata:parentkey="iditinerationrefundattachmentkind" msdata:childkey="iditinerationrefundattachmentkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -36,11 +36,6 @@
 					this.helpForm.filter($('#registry_docenti_idstruttura'), this.q.eq('struttura_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_docenti_idclassconsorsuale'), null);
-				} else {
-					this.helpForm.filter($('#registry_docenti_idclassconsorsuale'), this.q.eq('classconsorsuale_active', 'Si'));
-				}
-				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_docenti_idreg_istituti'), null);
 				} else {
 					this.helpForm.filter($('#registry_docenti_idreg_istituti'), this.q.eq('registry_active', 'Si'));
@@ -76,12 +71,12 @@
 			afterClear: function () {
 				//parte sincrona
 				this.helpForm.filter($('#registry_docenti_idstruttura'), null);
-				this.helpForm.filter($('#registry_docenti_idclassconsorsuale'), null);
 				this.helpForm.filter($('#registry_docenti_idreg_istituti'), null);
 				this.helpForm.filter($('#registry_docenti_idaccmotivedebit'), null);
 				this.helpForm.filter($('#registry_docenti_idaccmotivecredit'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('assetdiary'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterClearin
 				
@@ -109,7 +104,7 @@
 				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
 				appMeta.metaModel.insertFilter(this.getDataTable("registryclasspersoneview"), this.q.eq('registryclass_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
-				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
+				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
 				$('#grid_titolostudio_docenti').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
 				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
 				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
@@ -180,6 +175,7 @@
 			afterFill: function () {
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('assetdiary'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterFillin
 

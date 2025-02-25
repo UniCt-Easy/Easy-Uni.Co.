@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,11 +37,17 @@ namespace unifiedf24ep_default {
 
         public Frmunifiedf24ep_default() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "T24";
             string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ep/prog/temp");
             if (Directory.Exists(dir)) {
                 saveFileDialog1.InitialDirectory = dir;
             }
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink() {
@@ -107,7 +113,7 @@ namespace unifiedf24ep_default {
             }
         }
 
-       private void btnGeneraF24_Click(object sender, EventArgs e) {
+        private void btnGeneraF24_Click(object sender, EventArgs e) {
       
             if (DS.unifiedf24ep.Rows.Count == 0) {
                 return;
@@ -165,7 +171,9 @@ namespace unifiedf24ep_default {
                 }
                 generaRecordZ(sw, numeroDiRecordV);
                 sw.Close();
-               
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
                 txtDataGenerazione.Text = HelpForm.StringValue(Meta.GetSys("datacontabile"),
                     txtDataGenerazione.Tag.ToString(), DS.unifiedf24ep.Columns["adate"]);
                 Curr["adate"] = Meta.GetSys("datacontabile");

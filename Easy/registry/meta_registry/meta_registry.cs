@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,6 +23,7 @@ using metadatalibrary;
 using funzioni_configurazione;//funzioni_configurazione
 using System.Collections;
 using q= metadatalibrary.MetaExpression;
+using System.Text.RegularExpressions;
 
 namespace meta_registry
 {
@@ -132,359 +133,346 @@ namespace meta_registry
 
 			if (!base.IsValid(R, out errmess, out errfield)) return false;
 
-			//----------------------segreterie-------------------------------------------- begin
-			var extension = (R.Table.Columns.Contains("extension") && R["extension"] != null) ?  R["extension"].ToString().Trim():"";
-			switch (extension) {
-				case "": {
-						//----------------------segreterie-------------------------------------------- end
-
-						if (edit_type == "anagrafica") {
-							DataColumn C = R.Table.Columns["title"];
-							HelpForm.SetDenyNull(C, false);
-						}
+			if (edit_type == "anagrafica") {
+				DataColumn C = R.Table.Columns["title"];
+				HelpForm.SetDenyNull(C, false);
+			}
 
 
-						if (R["idregistryclass"].ToString() == "") {
-							errmess = "Attenzione! Selezionare la Tipologia.";
-							errfield = "idregistryclass";
+			if (R["idregistryclass"].ToString() == "") {
+				errmess = "Attenzione! Selezionare la Tipologia.";
+				errfield = "idregistryclass";
+				return false;
+			}
+
+			string s = R["idanpr"].ToString();
+			if (s != "") {
+				Regex idANPR = new Regex("^[A-Z0-9]{9}$");
+
+				Match m = idANPR.Match(s);
+
+				if (!m.Success) {
+					errfield = "idanpr";
+					errmess = "E' stato inserito un Identificativo unico nazionale (ID ANPR) non corretto.\r\nIl codice deve essere composto da 9 caratteri: ogni carattere deve essere una lettera maiuscola(A-Z) o un numero(0-9).";
+					return false;
+				}
+			}
+
+			if (edit_type == "anagrafica" || R["flag_pa"].ToString().ToUpper() == "") {
+					if (R["idregistryclass"].ToString().ToUpper() == "OO") {
+					errmess = "Attenzione! La tipologia non dovrebbe MAI essere 'altro'.";
+					errfield = "idregistryclass";
+					return false;
+
+				}
+
+				DataRow rowTipo = null;
+				if (R.Table.DataSet.Relations.Contains("registryclassregistry")) {
+					rowTipo = R.GetParentRow("registryclassregistry");
+				}
+				else {
+					rowTipo = Conn.readFromTable("registryclass", q.eq("idregistryclass", R["idregistryclass"]), "*")?.Rows[0];
+				}
+							
+				if (rowTipo["active"].ToString().ToUpper() == "N" && R["active"].ToString().ToUpper() == "S") {
+					errfield = "idregistryclass";
+					errmess = "E' stata selezionata una tipologia non attiva";
+					return false;
+				}
+
+				if (rowTipo["flaghuman"].ToString().ToUpper() == "S" && R["active"].ToString().ToUpper() == "S") {
+					if (R["surname"].ToString().Trim() == "") {
+						errmess = "Attenzione! Per le persone fisiche il campo 'Cognome' è obbligatorio";
+						errfield = "surname";
+						return false;
+					}
+
+					if (R["forename"].ToString().Trim() == "") {
+						errmess = "Attenzione! Per le persone fisiche il campo 'Nome' è obbligatorio";
+						errfield = "forename";
+						return false;
+					}
+
+					if (R["birthdate"] != DBNull.Value) {
+						if (((DateTime)R["birthdate"]).CompareTo(DateTime.Today) > 0) {
+							errmess = "Attenzione! Non può essere immessa una data di nascita futura";
+							errfield = "birthdate";
 							return false;
 						}
+					}
 
-						if (edit_type == "anagrafica" || R["flag_pa"].ToString().ToUpper() == "") {
-								if (R["idregistryclass"].ToString().ToUpper() == "OO") {
-								errmess = "Attenzione! La tipologia non dovrebbe MAI essere 'altro'.";
-								errfield = "idregistryclass";
-								return false;
-
-							}
-
-						    DataRow rowTipo = null;
-						    if (R.Table.DataSet.Relations.Contains("registryclassregistry")) {
-						        rowTipo = R.GetParentRow("registryclassregistry");
-						    }
-						    else {
-						        rowTipo = Conn.readFromTable("registryclass", q.eq("idregistryclass", R["idregistryclass"]), "*")?.Rows[0];
-						    }
-							
-							if (rowTipo["active"].ToString().ToUpper() == "N" && R["active"].ToString().ToUpper() == "S") {
-								errfield = "idregistryclass";
-								errmess = "E' stata selezionata una tipologia non attiva";
-								return false;
-							}
-
-							if (rowTipo["flaghuman"].ToString().ToUpper() == "S" && R["active"].ToString().ToUpper() == "S") {
-								if (R["surname"].ToString().Trim() == "") {
-									errmess = "Attenzione! Per le persone fisiche il campo 'Cognome' è obbligatorio";
-									errfield = "surname";
-									return false;
-								}
-
-								if (R["forename"].ToString().Trim() == "") {
-									errmess = "Attenzione! Per le persone fisiche il campo 'Nome' è obbligatorio";
-									errfield = "forename";
-									return false;
-								}
-
-								if (R["birthdate"] != DBNull.Value) {
-									if (((DateTime)R["birthdate"]).CompareTo(DateTime.Today) > 0) {
-										errmess = "Attenzione! Non può essere immessa una data di nascita futura";
-										errfield = "birthdate";
-										return false;
-									}
-								}
-
-								if (R["gender"].ToString() == "") {
-									errmess = "Attenzione! Per le persone fisiche è necessario inserire il sesso";
-									errfield = "gender";
-									return false;
-								}
-							}
+					if (R["gender"].ToString() == "") {
+						errmess = "Attenzione! Per le persone fisiche è necessario inserire il sesso";
+						errfield = "gender";
+						return false;
+					}
+				}
 
 							
-							string messaggio = "";
-							string caption = (R.RowState == DataRowState.Added) ? "Errore" : "Warning";
+				string messaggio = "";
+				string caption = (R.RowState == DataRowState.Added) ? "Errore" : "Warning";
 
-							if (R["title"].ToString().Trim() == "") {
-								errmess = "Attenzione! Il campo 'Denominazione' è obbligatorio";
-								errfield = "title";
+				if (R["title"].ToString().Trim() == "") {
+					errmess = "Attenzione! Il campo 'Denominazione' è obbligatorio";
+					errfield = "title";
 
-								messaggio = "Attenzione! Il campo 'Denominazione' è obbligatorio";
-								return false;
+					messaggio = "Attenzione! Il campo 'Denominazione' è obbligatorio";
+					return false;
 
-							}
+				}
 
-							if (((!CheckNOTNULL(R, "cf", rowTipo, "flagcf_forced")) &&
-								 (!CheckNOTNULL(R, "foreigncf", rowTipo, "flagcf_forced")))
-								&& R["active"].ToString().ToUpper() == "S") {
-								errmess = "Attenzione! E' obbligatorio compilare il Codice fiscale o il C.F.estero";
+				if (((!CheckNOTNULL(R, "cf", rowTipo, "flagcf_forced")) &&
+						(!CheckNOTNULL(R, "foreigncf", rowTipo, "flagcf_forced")))
+					&& R["active"].ToString().ToUpper() == "S") {
+					errmess = "Attenzione! E' obbligatorio compilare il Codice fiscale o il C.F.estero";
+					errfield = "cf";
+					return false;
+				}
+
+				if ((!CheckNOTNULL(R, "p_iva", rowTipo, "flagp_iva_forced"))
+					&& R["active"].ToString().ToUpper() == "S") {
+					errmess = "Attenzione! Il campo 'Partita IVA' è obbligatorio";
+					errfield = "p_iva";
+					return false;
+				}
+
+				string partitaIva = R["p_iva"].ToString();
+				if (partitaIva != "" && R["active"].ToString().ToUpper() == "S") {
+					string errorePIVA = CalcolaPartitaIva.controllaPartitaIva(partitaIva);
+					if (errorePIVA != null) {
+						errmess = "Attenzione! La Partita IVA inserita non è valida\n" + errorePIVA;
+						errfield = "p_iva";
+						return false;
+					}
+				}
+
+				if ((!CheckNOTNULL(R, "idtitle", rowTipo, "flagqualification_forced"))
+					&& R["active"].ToString().ToUpper() == "S") {
+					errmess = "Attenzione! Il campo 'Titolo' è obbligatorio";
+					errfield = "idtitle";
+
+					messaggio = "Attenzione! Il campo 'Titolo' è obbligatorio";
+
+					return false;
+
+				}
+
+				if ((!CheckNOTNULL(R, "extmatricula", rowTipo, "flagextmatricula_forced"))
+					&& R["active"].ToString().ToUpper() == "S") {
+					errmess = "Attenzione! Il campo 'Matricola ext.' è obbligatorio. Procedo ugualmente?";
+					errfield = "extmatricula";
+
+
+					messaggio = "Attenzione! Il campo 'Matricola ext.' è obbligatorio. Procedo ugualmente?";
+
+					return false;
+
+				}
+
+				if ((!CheckNOTNULL(R, "badgecode", rowTipo, "flagbadgecode_forced"))
+					&& R["active"].ToString().ToUpper() == "S") {
+					errmess = "Attenzione! Il campo 'Badge' è obbligatorio. Procedo ugualmente?";
+					errfield = "badgecode";
+
+
+					messaggio = "Attenzione! Il campo 'Badge' è obbligatorio. Procedo ugualmente?";
+
+
+					return false;
+
+				}
+
+				if ((!CheckNOTNULL(R, "idmaritalstatus", rowTipo, "flagmaritalstatus_forced"))
+					&& R["active"].ToString().ToUpper() == "S"
+				) {
+					errmess = "Attenzione! Il campo 'Stato civile' è obbligatorio";
+					errfield = "idmaritalstatus";
+
+					messaggio = "Attenzione! Il campo 'Stato civile' è obbligatorio";
+
+
+					return false;
+
+				}
+
+				if ((!CheckNOTNULL(R, "foreigncf", rowTipo, "flagforeigncf_forced"))
+					&& R["active"].ToString().ToUpper() == "S"
+				) {
+					errmess = "Attenzione! Il campo 'Codice Fiscale Estero' è obbligatorio. Procedo ugualmente?";
+					errfield = "foreigncf";
+
+
+					messaggio = "Attenzione! Il campo 'Codice Fiscale Estero' è obbligatorio. Procedo ugualmente?";
+
+
+					return false;
+
+				}
+
+				if ((!CheckNOTNULL(R, "maritalsurname", rowTipo, "flagmaritalsurname_forced"))
+					&& R["active"].ToString().ToUpper() == "S"
+				) {
+					errmess = "Attenzione! Il campo 'Cognome acquisito' è obbligatorio";
+					errfield = "maritalsurname";
+
+					messaggio = "Attenzione! Il campo 'Cognome acquisito' è obbligatorio";
+
+					return false;
+
+				}
+
+				object stand = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DEF"), "idaddress");
+				object domfi = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DOM"), "idaddress");
+				if (R["active"].ToString().ToUpper() == "S" &&
+					rowTipo["flagresidence"].ToString() == "S" &&
+					rowTipo["flagresidence_forced"].ToString() == "S") {
+					DataTable TBIndirizzo = R.Table.DataSet.Tables["registryaddress"];
+					DataRow[] rResidenze = TBIndirizzo.Select(QHC.CmpEq("idaddresskind", stand));
+					DataRow residenza = getIndirizzoAttuale(rResidenze);
+					if (residenza == null) {
+						object predefinito = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DEF"),
+				"description");
+
+
+						errmess = $"Attenzione! Non è stato inserito l\'indirizzo di residenza ({predefinito}) valido per la data odierna.";
+						errfield = "idaddresskind";
+						return false;
+						/*
+						messaggio =
+							$"Attenzione! Non è stato inserito l\'indirizzo di residenza ({predefinito}) valido per la data odierna.";
+
+						drConferma = MetaFactory.factory.getSingleton<IMessageShower>(). Show(LinkedForm, messaggio, caption, mb);
+						if ((InsertMode) || (drConferma == DialogResult.No)) {
+							return false;
+						}*/
+					}
+				}
+
+				if (R["active"].ToString().ToUpper() == "S" &&
+					rowTipo["flagfiscalresidence"].ToString() == "S" &&
+					rowTipo["flagfiscalresidence_forced"].ToString() == "S") {
+					DataTable TBIndirizzo = R.Table.DataSet.Tables["registryaddress"];
+					string filtro = QHC.FieldIn("idaddresskind", new object[] {domfi, stand});
+					if (TBIndirizzo.Select(filtro).Length == 0) {
+						errmess = "Attenzione! Non è stato inserito il domicilio fiscale per l'anagrafica.";
+						errfield = "idaddresskind";
+						messaggio = "Attenzione! Non è stato inserito il domicilio fiscale per l'anagrafica.";
+						return false;
+
+					}
+				}
+
+
+				DateTime dataContabile = (DateTime) GetSys("datacontabile");
+				if (R.Table.DataSet.Relations.Contains("registryregistryrole")) {
+					DataRow[] rowsPosRuolo = R.GetChildRows("registryregistryrole");
+					string tipologia = R["idregistryclass"].ToString();
+					foreach (DataRow rowPosRuolo in rowsPosRuolo) {
+						bool controlloDataInizio = true;
+						bool controlloDataFine = true;
+						if (!(rowPosRuolo["start"] is DBNull)) {
+						    DateTime dataInizio = (DateTime) rowPosRuolo["start"];
+						    controlloDataInizio = dataContabile.CompareTo(dataInizio) >= 0;
+						}
+
+						if (!(rowPosRuolo["stop"] is DBNull)) {
+						    DateTime dataFine = (DateTime) rowPosRuolo["stop"];
+						    controlloDataFine = dataContabile.CompareTo(dataFine) <= 0;
+						}
+
+						if (controlloDataInizio && controlloDataFine) {
+
+						    DataRow rowRuolo = rowPosRuolo.GetParentRow("roleregistryrole");
+						    //figli orfani? (succede se non ci sono regole)
+						    if (rowRuolo == null) continue;
+						    if (tipologia != rowRuolo["idregistryclass"].ToString()) {
+						        errmess = "E' stato inserito un ruolo non compatibile" +
+						                    " con la tipologia classificazione";
+						        errfield = "idregistryclass";
+						        return false;
+						    }
+						}
+					}
+				}
+
+
+				bool CFobbligatorio = ValoreCampoTrue(rowTipo, "flagcf_forced");
+				//se sono arrivato qui vuol dire che o il CF è <> "" oppure non è obbligatorio
+				if (R["cf"].ToString() != "" && R["active"].ToString().ToUpper() == "S") {
+					//se CF <> ""
+					if (ValoreCampoTrue(rowTipo, "flaghuman")) {
+						//e personafisica = S effettuo controllo su validità
+						string errori;
+						if (!CalcolaCodiceFiscale.CodiceFiscaleValido(Conn, R, out errori)) {
+
+							errmess = "Il Codice Fiscale non è valido!\n" + errori;
+							errfield = "cf";
+							return false;
+
+						}
+					} else {
+						//effettuo controllo solo su codice controllo
+						string codiceinserito = R["cf"].ToString().ToUpper();
+						if (codiceinserito.Length == 16) {
+							bool valido = false;
+							char codicecontrollo =
+                    CalcolaCodiceFiscale.GetLastChar(
+						codiceinserito.Substring(0, 15), out valido);
+							if (!valido || codiceinserito[15] != codicecontrollo) {
+
+								errmess = "Il Codice Fiscale non è valido";
 								errfield = "cf";
 								return false;
-							}
-
-							if ((!CheckNOTNULL(R, "p_iva", rowTipo, "flagp_iva_forced"))
-								&& R["active"].ToString().ToUpper() == "S") {
-								errmess = "Attenzione! Il campo 'Partita IVA' è obbligatorio";
-								errfield = "p_iva";
-								return false;
-							}
-
-							string partitaIva = R["p_iva"].ToString();
-							if (partitaIva != "" && R["active"].ToString().ToUpper() == "S") {
-								string errorePIVA = CalcolaPartitaIva.controllaPartitaIva(partitaIva);
-								if (errorePIVA != null) {
-									errmess = "Attenzione! La Partita IVA inserita non è valida\n" + errorePIVA;
-									errfield = "p_iva";
-									return false;
-								}
-							}
-
-							if ((!CheckNOTNULL(R, "idtitle", rowTipo, "flagqualification_forced"))
-								&& R["active"].ToString().ToUpper() == "S") {
-								errmess = "Attenzione! Il campo 'Titolo' è obbligatorio";
-								errfield = "idtitle";
-
-								messaggio = "Attenzione! Il campo 'Titolo' è obbligatorio";
-
-								return false;
 
 							}
-
-							if ((!CheckNOTNULL(R, "extmatricula", rowTipo, "flagextmatricula_forced"))
-								&& R["active"].ToString().ToUpper() == "S") {
-								errmess = "Attenzione! Il campo 'Matricola ext.' è obbligatorio. Procedo ugualmente?";
-								errfield = "extmatricula";
-
-
-								messaggio = "Attenzione! Il campo 'Matricola ext.' è obbligatorio. Procedo ugualmente?";
-
-								return false;
-
-							}
-
-							if ((!CheckNOTNULL(R, "badgecode", rowTipo, "flagbadgecode_forced"))
-								&& R["active"].ToString().ToUpper() == "S") {
-								errmess = "Attenzione! Il campo 'Badge' è obbligatorio. Procedo ugualmente?";
-								errfield = "badgecode";
-
-
-								messaggio = "Attenzione! Il campo 'Badge' è obbligatorio. Procedo ugualmente?";
-
-
-								return false;
-
-							}
-
-							if ((!CheckNOTNULL(R, "idmaritalstatus", rowTipo, "flagmaritalstatus_forced"))
-								&& R["active"].ToString().ToUpper() == "S"
-							) {
-								errmess = "Attenzione! Il campo 'Stato civile' è obbligatorio";
-								errfield = "idmaritalstatus";
-
-								messaggio = "Attenzione! Il campo 'Stato civile' è obbligatorio";
-
-
-								return false;
-
-							}
-
-							if ((!CheckNOTNULL(R, "foreigncf", rowTipo, "flagforeigncf_forced"))
-								&& R["active"].ToString().ToUpper() == "S"
-							) {
-								errmess = "Attenzione! Il campo 'Codice Fiscale Estero' è obbligatorio. Procedo ugualmente?";
-								errfield = "foreigncf";
-
-
-								messaggio = "Attenzione! Il campo 'Codice Fiscale Estero' è obbligatorio. Procedo ugualmente?";
-
-
-								return false;
-
-							}
-
-							if ((!CheckNOTNULL(R, "maritalsurname", rowTipo, "flagmaritalsurname_forced"))
-								&& R["active"].ToString().ToUpper() == "S"
-							) {
-								errmess = "Attenzione! Il campo 'Cognome acquisito' è obbligatorio";
-								errfield = "maritalsurname";
-
-								messaggio = "Attenzione! Il campo 'Cognome acquisito' è obbligatorio";
-
-								return false;
-
-							}
-
-							object stand = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DEF"), "idaddress");
-							object domfi = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DOM"), "idaddress");
-							if (R["active"].ToString().ToUpper() == "S" &&
-								rowTipo["flagresidence"].ToString() == "S" &&
-								rowTipo["flagresidence_forced"].ToString() == "S") {
-								DataTable TBIndirizzo = R.Table.DataSet.Tables["registryaddress"];
-								DataRow[] rResidenze = TBIndirizzo.Select(QHC.CmpEq("idaddresskind", stand));
-								DataRow residenza = getIndirizzoAttuale(rResidenze);
-								if (residenza == null) {
-									object predefinito = Conn.DO_READ_VALUE("address", QHS.CmpEq("codeaddress", "07_SW_DEF"),
-							"description");
-
-
-									errmess = $"Attenzione! Non è stato inserito l\'indirizzo di residenza ({predefinito}) valido per la data odierna.";
-									errfield = "idaddresskind";
-									return false;
-									/*
-									messaggio =
-										$"Attenzione! Non è stato inserito l\'indirizzo di residenza ({predefinito}) valido per la data odierna.";
-
-									drConferma = MetaFactory.factory.getSingleton<IMessageShower>(). Show(LinkedForm, messaggio, caption, mb);
-									if ((InsertMode) || (drConferma == DialogResult.No)) {
-										return false;
-									}*/
-								}
-							}
-
-							if (R["active"].ToString().ToUpper() == "S" &&
-								rowTipo["flagfiscalresidence"].ToString() == "S" &&
-								rowTipo["flagfiscalresidence_forced"].ToString() == "S") {
-								DataTable TBIndirizzo = R.Table.DataSet.Tables["registryaddress"];
-								string filtro = QHC.FieldIn("idaddresskind", new object[] {domfi, stand});
-								if (TBIndirizzo.Select(filtro).Length == 0) {
-									errmess = "Attenzione! Non è stato inserito il domicilio fiscale per l'anagrafica.";
-									errfield = "idaddresskind";
-									messaggio = "Attenzione! Non è stato inserito il domicilio fiscale per l'anagrafica.";
-									return false;
-
-								}
-							}
-
-
-							DateTime dataContabile = (DateTime) GetSys("datacontabile");
-						    if (R.Table.DataSet.Relations.Contains("registryregistryrole")) {
-						        DataRow[] rowsPosRuolo = R.GetChildRows("registryregistryrole");
-						        string tipologia = R["idregistryclass"].ToString();
-						        foreach (DataRow rowPosRuolo in rowsPosRuolo) {
-						            bool controlloDataInizio = true;
-						            bool controlloDataFine = true;
-						            if (!(rowPosRuolo["start"] is DBNull)) {
-						                DateTime dataInizio = (DateTime) rowPosRuolo["start"];
-						                controlloDataInizio = dataContabile.CompareTo(dataInizio) >= 0;
-						            }
-
-						            if (!(rowPosRuolo["stop"] is DBNull)) {
-						                DateTime dataFine = (DateTime) rowPosRuolo["stop"];
-						                controlloDataFine = dataContabile.CompareTo(dataFine) <= 0;
-						            }
-
-						            if (controlloDataInizio && controlloDataFine) {
-
-						                DataRow rowRuolo = rowPosRuolo.GetParentRow("roleregistryrole");
-						                //figli orfani? (succede se non ci sono regole)
-						                if (rowRuolo == null) continue;
-						                if (tipologia != rowRuolo["idregistryclass"].ToString()) {
-						                    errmess = "E' stato inserito un ruolo non compatibile" +
-						                              " con la tipologia classificazione";
-						                    errfield = "idregistryclass";
-						                    return false;
-						                }
-						            }
-						        }
-						    }
-
-
-						    bool CFobbligatorio = ValoreCampoTrue(rowTipo, "flagcf_forced");
-							//se sono arrivato qui vuol dire che o il CF è <> "" oppure non è obbligatorio
-							if (R["cf"].ToString() != "" && R["active"].ToString().ToUpper() == "S") {
-								//se CF <> ""
-								if (ValoreCampoTrue(rowTipo, "flaghuman")) {
-									//e personafisica = S effettuo controllo su validità
-									string errori;
-									if (!CalcolaCodiceFiscale.CodiceFiscaleValido(Conn, R, out errori)) {
-
-										errmess = "Il Codice Fiscale non è valido!\n" + errori;
-										errfield = "cf";
-										return false;
-
-									}
-								} else {
-									//effettuo controllo solo su codice controllo
-									string codiceinserito = R["cf"].ToString().ToUpper();
-									if (codiceinserito.Length == 16) {
-										bool valido = false;
-										char codicecontrollo =
-                                CalcolaCodiceFiscale.GetLastChar(
-									codiceinserito.Substring(0, 15), out valido);
-										if (!valido || codiceinserito[15] != codicecontrollo) {
-
-											errmess = "Il Codice Fiscale non è valido";
-											errfield = "cf";
-											return false;
-
-										}
-									}
-								}
-
-								//DataRow[] rModPagamento = R.GetChildRows("registryregistrypaymethod");
-								//bool modPagStandInserita = false;
-								//foreach (DataRow r in rModPagamento) {
-								//	if (r["flagstandard"].ToString() == "S") {
-								//		modPagStandInserita = true;
-								//	}
-								//}
-
-								//if (!modPagStandInserita) {
-
-								//	errmess = "La modalità di pagamento predefinita non è stata inserita.";
-								//	errfield = "flagstandard";
-								//	return false;
-								//}
-							}
-
-
-							//controllo validità comune di nascita rispetto alla data di nascita
-							//				if (R["birthdate"].ToString()!="" && R["idcity"].ToString()!="") {
-							//					if (!IdGeoValido(R,"geo_comune_alias","idcomune")) {
-							//						errmess="Attenzione! Il comune selezionato non è valido in relazione alla data nascita.";
-							//						errfield="idcity";
-							//						return false;
-							//					}
-							//				}
-							//controllo validità stato di nascita rispetto alla data di nascita
-							//				if (R["birthdate"].ToString()!="" && R["idnation"].ToString()!="") {
-							//					if (!IdGeoValido(R,"geo_nazione_alias","idstatoestero")) {
-							//						errmess="Attenzione! Lo stato selezionato non è valido in relazione alla data nascita.";
-							//						errfield="idnation";
-							//						return false;
-							//					}
-							//				}
-							if (R["cf"].ToString().Trim() != "") {
-								R["cf"] = R["cf"].ToString().ToUpper();
-							} else {
-								R["cf"] = DBNull.Value;
-							}
-
-
-
-							return true;
-						} //Fine listing type anagrafica
-
-						//----------------------segreterie-------------------------------------------- begin
-
-						break;
+						}
 					}
-				case "aziende": {
-						break;
-					}
-				case "docenti": {
-						break;
-					}
-				case "istituti": {
-						break;
-					}
-				case "istitutiesteri": {
-						break;
-					}
-				case "studenti": {
-						break;
-					}
-			}
-			//----------------------segreterie-------------------------------------------- end
+
+					//DataRow[] rModPagamento = R.GetChildRows("registryregistrypaymethod");
+					//bool modPagStandInserita = false;
+					//foreach (DataRow r in rModPagamento) {
+					//	if (r["flagstandard"].ToString() == "S") {
+					//		modPagStandInserita = true;
+					//	}
+					//}
+
+					//if (!modPagStandInserita) {
+
+					//	errmess = "La modalità di pagamento predefinita non è stata inserita.";
+					//	errfield = "flagstandard";
+					//	return false;
+					//}
+				}
+
+
+				//controllo validità comune di nascita rispetto alla data di nascita
+				//				if (R["birthdate"].ToString()!="" && R["idcity"].ToString()!="") {
+				//					if (!IdGeoValido(R,"geo_comune_alias","idcomune")) {
+				//						errmess="Attenzione! Il comune selezionato non è valido in relazione alla data nascita.";
+				//						errfield="idcity";
+				//						return false;
+				//					}
+				//				}
+				//controllo validità stato di nascita rispetto alla data di nascita
+				//				if (R["birthdate"].ToString()!="" && R["idnation"].ToString()!="") {
+				//					if (!IdGeoValido(R,"geo_nazione_alias","idstatoestero")) {
+				//						errmess="Attenzione! Lo stato selezionato non è valido in relazione alla data nascita.";
+				//						errfield="idnation";
+				//						return false;
+				//					}
+				//				}
+				if (R["cf"].ToString().Trim() != "") {
+					R["cf"] = R["cf"].ToString().ToUpper();
+				} else {
+					R["cf"] = DBNull.Value;
+				}
+
+
+
+				return true;
+			} //Fine listing type anagrafica
+
+
 
 			return true;
 		}

@@ -45,6 +45,7 @@
 			this.titleColumnName = (typeof $(this.el).data("mdltitlecolumnname") === "undefined") ? "" : $(this.el).data("mdltitlecolumnname"); // default start
 			this.stopColumnName = (typeof $(this.el).data("mdlstopcolumnname") === "undefined") ? "" : $(this.el).data("mdlstopcolumnname"); // opzionale
 			this.mainColor = (typeof $(this.el).data("mdlmaincolor") === "undefined") ? '#0275d8' : $(this.el).data("mdlmaincolor"); // opzionale
+			this.mergeableKey = (typeof $(this.el).data("mdlmergeablekey") === "undefined") ? "" : $(this.el).data("mdlmergeablekey"); // opzionale
 			this.defaultDate = moment(); // centrato su oggi
 
 			// gestione bottoni editing direttamente su griglia
@@ -116,7 +117,7 @@
 				logger.log(logType.ERROR, localResource.calendarWrongConfig + ": start");
 				return null;
 			}
-			if (dtRow.table.columns[startColName].ctype !== 'DateTime') {
+			if (dtRow.table.columns[startColName] && dtRow.table.columns[startColName].ctype !== 'DateTime') {
 				logger.log(logType.ERROR, localResource.calendarWrongConfig + ": start is not a DateTime");
 				return null;
 			}
@@ -172,8 +173,15 @@
 			evObj.color = (objConfig && objConfig.color) ?
 				(objConfig.color === 'color' ? row.color : objConfig.color) //se ho passato come colore 'color' vuol dire che il colore è sulla riga
 				: this.mainColor;
-			evObj.allDay = !evObj.end || (evObj.start.getHours() === 0 && evObj.start.getMinutes() === 0);
+			evObj.allDay = !evObj.end || (evObj.start.getHours() === 0 && evObj.start.getMinutes() === 0 && evObj.end.getHours() === 0 && evObj.end.getMinutes() === 0);
 			evObj.mine = !objConfig;
+
+			//se è un evento allday ma è di più giorni (se è un giorno solo va bene così) viene rappresentato senza l'ultimo gionro perchè lui valuta le 00:00 e quindi tronca l'ultimo giorno
+			if (evObj.allDay && evObj.end && (evObj.end.getDay() -1 != evObj.start.getDay()) ) {
+				//aggiungo un giorno alla fine che poi toglierò in visualizzazzione sul fumetto di dettaglio
+				evObj.end.setDate(evObj.end.getDate() + 1);
+			}
+
 			return evObj;
 		},
 
@@ -547,47 +555,25 @@
 						// ====================================================================
 						// accorpamento
 						// ====================================================================
-						if (event.allDay) {
+						if (event.allDay && self.mergeableKey) {
 
-							var managedTableName = self.dataTable.name															// nome della tabella gestita dal controllo
-
-							var currentKey = self.DS.tables[self.dataTable.name].myKey;											// chiave della tabella gestita dal controllo
-							var progenitorKey = self.DS.tables[self.helpForm.primaryTableName].myKey							// chiave della tabella principale
-
-							var mergeableKey = currentKey.filter(field => !progenitorKey.includes(field));						// chiave della tabella gestita dal controllo a meno della chiave della tabella principale
-
-							var allFields = Object.getOwnPropertyNames(self.DS.tables[managedTableName].columns)
+							var allFields = Object.getOwnPropertyNames(self.DS.tables[self.dataSourceName].columns)
 								.filter(colName => !colName.startsWith("!"));													// campi
-							var excludedFields = ["ore", "ct", "cu", "lt", "lu"].concat(mergeableKey);							// campi da non confrontare
+							var excludedFields = ["ore", "ct", "cu", "lt", "lu"].concat(self.mergeableKey);						// campi da non confrontare
 
 							var comparisonFields = allFields.filter(field => !excludedFields.includes(field));					// campi da confrontare
 
-							for (var i = 0; i < self.DS.tables[managedTableName].rows.count(); i++) {
+							var mergeableRows = self.DS.tables[self.dataSourceName].rows.filter(r => comparisonFields
+								.every(fieldName => fieldName == self.startColumnName ? r[fieldName].toDateString() == event.row[fieldName].toDateString() : r[fieldName] == event.row[fieldName])
+								&& r.getRow().state != "deleted"
+							)																									// righe uguali sui campi di comparazione e che non siano nello stato "deleted"
 
-								var managedRow = self.DS.tables[managedTableName].rows[i];										// i-esima riga sul DS del controllo
+							if (mergeableRows) {														// se ci sono righe che è possibile unire ed il merging è abilitato
+								var totalHours = mergeableRows.reduce((accumulator, row) => accumulator + row["ore"], 0);		// ne calcoliamo la somma delle ore
+								mergeableRows[0]["ore"] = totalHours;															// impostiamo il valore di ore alla prima delle righe come la somma
 
-								var sameValues = comparisonFields
-									.every(fieldName => fieldName == self.startColumnName ?
-										managedRow[fieldName].toDateString() == event.row[fieldName].toDateString() :			// controlliamo che il valore data inizio dell'evento e della riga del DS del controllo
-										managedRow[fieldName] == event.row[fieldName]);											// e i valori delle altre colonne di comparazione sulla riga del DS del controllo
-								// e della colonna dell'evento siano uguali
-
-								var isEventRow = currentKey.every(fieldName => managedRow[fieldName] == event.row[fieldName]);
-
-								if (!isEventRow && sameValues) {
-
-									event.row["ore"] += managedRow["ore"];														// sommiamo le ore della riga a quelle dell'evento che stiamo spostando sul DS del controllo
-
-									var currentRow = appMeta.currApp.currentMetaPage.state.DS.tables[managedTableName].rows
-										.filter(row => currentKey.every(fieldName => row[fieldName] == event.row[fieldName]));
-									if (currentRow.length) {
-										currentRow[0] += managedRow["ore"];														// sommiamo le ore della riga a quelle dell'evento che stiamo spostando sul DS della pagina
-									};
-
-									self.DS.tables[managedTableName].rows[i].getRow().del();									// cancelliamo l'i-esima riga dal DS del controllo
-									appMeta.currApp.currentMetaPage.state.DS.tables[managedTableName].rows[i].getRow().del();	// cancelliamo l'i-esima riga dal DS della pagina
-								}
-							};
+								mergeableRows.slice(1).forEach(row => row.getRow().del());										// ed eliminiamo tutte le righe tranne la prima
+							}
 						}
 						// ====================================================================
 
@@ -801,7 +787,7 @@
 
 			// mostra data inizio
 			//verifico se si trata di un evento "tutto il giorno" allora tolgo l'ora
-			if (!event.end) {
+			if (event.allDay) {
 				var startdate = moment(event.start).format("DD/MM/YYYY");
 				htmlInfo += '<br><span><strong>' + localResource.date + ':  </strong>' + startdate + '</span>';
 			} else {
@@ -811,8 +797,28 @@
 
 			// mostra data fine
 			if (/*this.stopColumnName &&*/ event.end) {
-				var stopdate = moment(event.end).format("DD/MM/YYYY HH:mm");
-				htmlInfo += '<br><span><strong>' + localResource.end + ':  </strong>' + stopdate + '</span>';
+
+				let end = new Date(event.end);
+				//siccome nell'evento la data è memorizzata come ora al fuso di greenwich covertendolo in data javascript la rappresenta nel nostro fuso e quindi aggiunge un'ora
+				//quindi calcolo il fuso e lo riapplico alla variabile per ottenere l'ora che avevo al greenweech (cioè l'ora che era stata salvata in origine) ma nel fuso nostro.
+				//end.setMinutes(end.getMinutes() + new Date().getTimezoneOffset()); 
+
+				//se è un evento allday ma è di più giorni (uno solo va bene) viene rappresentato senza l'ultimo giorno perchè lui valuta le 00:00 e quindi tronca l'ultimo giorno
+				if (event.allDay && event.end && (new Date(event.end).getDay() - 1 != new Date(event.start).getDay())) {
+					//siccome ho aggiunto un giorno alla fine per rappresentarlo bene, ora lo tolgo in visualizzazzione sul fumetto di dettaglio per non mostrarlo nei dettagli
+					end.setDate(end.getDate() -1);
+				}
+
+				let stopdate = "";
+				if (event.allDay) {
+					//solo se è di più giorni mostro lo stop
+					if (new Date(event.end).getDay() - 1 != new Date(event.start).getDay())
+						stopdate = moment(end).format("DD/MM/YYYY");
+				} else {
+					stopdate = moment(end).format("DD/MM/YYYY HH:mm");
+				}
+				if (stopdate)
+					htmlInfo += '<br><span><strong>' + localResource.end + ':  </strong>' + stopdate + '</span>';
 			}
 
 			// aggiungo bottoni di editing se esistono

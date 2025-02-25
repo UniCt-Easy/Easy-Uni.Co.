@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_rendicontattivitaprogettowpview_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_rendicontattivitaprogettowpview_default: DataSet {
+public partial class dsmeta_rendicontattivitaprogettowpview_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -41,9 +41,6 @@ public class dsmeta_rendicontattivitaprogettowpview_default: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrydefaultview 		=> (MetaTable)Tables["registrydefaultview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable progetto 		=> (MetaTable)Tables["progetto"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable rendicontattivitaprogettowpview 		=> (MetaTable)Tables["rendicontattivitaprogettowpview"];
@@ -99,23 +96,28 @@ private void initClass() {
 	var trendicontattivitaprogettoanagview= new MetaTable("rendicontattivitaprogettoanagview");
 	trendicontattivitaprogettoanagview.defineColumn("dropdown_title", typeof(string),false);
 	trendicontattivitaprogettoanagview.defineColumn("idprogetto", typeof(int),false);
+	trendicontattivitaprogettoanagview.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogettoanagview.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettoanagview.defineColumn("idworkpackage", typeof(int),false);
+	trendicontattivitaprogettoanagview.defineColumn("progetto_start", typeof(DateTime));
+	trendicontattivitaprogettoanagview.defineColumn("progetto_stop", typeof(DateTime));
 	trendicontattivitaprogettoanagview.defineColumn("progetto_titolobreve", typeof(string));
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_ct", typeof(DateTime),false);
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_cu", typeof(string),false);
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_datainizioprevista", typeof(DateTime));
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_description", typeof(string));
-	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_iditineration", typeof(int));
-	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_idreg", typeof(int),false);
+	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_idrendicontattivitaprogettokind", typeof(int));
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_lt", typeof(DateTime),false);
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_lu", typeof(string),false);
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_orepreventivate", typeof(int));
 	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogetto_stop", typeof(DateTime));
+	trendicontattivitaprogettoanagview.defineColumn("rendicontattivitaprogettokind_title", typeof(string));
 	trendicontattivitaprogettoanagview.defineColumn("workpackage_raggruppamento", typeof(string));
+	trendicontattivitaprogettoanagview.defineColumn("workpackage_start", typeof(DateTime));
+	trendicontattivitaprogettoanagview.defineColumn("workpackage_stop", typeof(DateTime));
 	trendicontattivitaprogettoanagview.defineColumn("workpackage_title", typeof(string));
 	Tables.Add(trendicontattivitaprogettoanagview);
-	trendicontattivitaprogettoanagview.defineKey("idprogetto", "idrendicontattivitaprogetto", "idworkpackage");
+	trendicontattivitaprogettoanagview.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage");
 
 	//////////////////// YEAR /////////////////////////////////
 	var tyear= new MetaTable("year");
@@ -188,64 +190,6 @@ private void initClass() {
 	Tables.Add(tregistrydefaultview);
 	tregistrydefaultview.defineKey("idreg");
 
-	//////////////////// PROGETTO /////////////////////////////////
-	var tprogetto= new MetaTable("progetto");
-	tprogetto.defineColumn("!altreupb", typeof(string));
-	tprogetto.defineColumn("!filtraAsset", typeof(string));
-	tprogetto.defineColumn("bandoriferimentotxt", typeof(string));
-	tprogetto.defineColumn("budget", typeof(decimal));
-	tprogetto.defineColumn("budgetcalcolato", typeof(decimal));
-	tprogetto.defineColumn("budgetcalcolatodate", typeof(DateTime));
-	tprogetto.defineColumn("capofilatxt", typeof(string));
-	tprogetto.defineColumn("codiceidentificativo", typeof(string));
-	tprogetto.defineColumn("contributo", typeof(decimal));
-	tprogetto.defineColumn("contributoente", typeof(decimal));
-	tprogetto.defineColumn("contributoenterichiesto", typeof(decimal));
-	tprogetto.defineColumn("contributorichiesto", typeof(decimal));
-	tprogetto.defineColumn("costoapprovatoateneo", typeof(decimal));
-	tprogetto.defineColumn("costoapprovatoateneocalcolato", typeof(decimal));
-	tprogetto.defineColumn("ct", typeof(DateTime),false);
-	tprogetto.defineColumn("cu", typeof(string),false);
-	tprogetto.defineColumn("cup", typeof(string));
-	tprogetto.defineColumn("data", typeof(DateTime));
-	tprogetto.defineColumn("datacontabile", typeof(DateTime));
-	tprogetto.defineColumn("dataesito", typeof(DateTime));
-	tprogetto.defineColumn("description", typeof(string));
-	tprogetto.defineColumn("durata", typeof(int));
-	tprogetto.defineColumn("finanziamento", typeof(string));
-	tprogetto.defineColumn("finanziatoretxt", typeof(string));
-	tprogetto.defineColumn("idcorsostudio", typeof(int));
-	tprogetto.defineColumn("idcurrency", typeof(int));
-	tprogetto.defineColumn("idduratakind", typeof(int));
-	tprogetto.defineColumn("idpartnerkind", typeof(int));
-	tprogetto.defineColumn("idprogetto", typeof(int),false);
-	tprogetto.defineColumn("idprogettokind", typeof(int));
-	tprogetto.defineColumn("idprogettostatuskind", typeof(int));
-	tprogetto.defineColumn("idreg", typeof(int));
-	tprogetto.defineColumn("idreg_amm", typeof(int));
-	tprogetto.defineColumn("idreg_aziende", typeof(int));
-	tprogetto.defineColumn("idreg_aziende_fin", typeof(int));
-	tprogetto.defineColumn("idregistryprogfin", typeof(int));
-	tprogetto.defineColumn("idregistryprogfinbando", typeof(int));
-	tprogetto.defineColumn("idstrumentofin", typeof(int));
-	tprogetto.defineColumn("lt", typeof(DateTime),false);
-	tprogetto.defineColumn("lu", typeof(string),false);
-	tprogetto.defineColumn("progfinanziamentotxt", typeof(string));
-	tprogetto.defineColumn("responsabiliamministrativi", typeof(string));
-	tprogetto.defineColumn("responsabiliscientifici", typeof(string));
-	tprogetto.defineColumn("start", typeof(DateTime));
-	tprogetto.defineColumn("stop", typeof(DateTime));
-	tprogetto.defineColumn("title", typeof(string));
-	tprogetto.defineColumn("title_en", typeof(string));
-	tprogetto.defineColumn("titolobreve", typeof(string));
-	tprogetto.defineColumn("totalbudget", typeof(decimal));
-	tprogetto.defineColumn("totalcontributo", typeof(decimal));
-	tprogetto.defineColumn("ulteriorecup", typeof(string));
-	tprogetto.defineColumn("unitaorganizzativa", typeof(string));
-	tprogetto.defineColumn("url", typeof(string));
-	Tables.Add(tprogetto);
-	tprogetto.defineKey("idprogetto");
-
 	//////////////////// RENDICONTATTIVITAPROGETTOWPVIEW /////////////////////////////////
 	var trendicontattivitaprogettowpview= new MetaTable("rendicontattivitaprogettowpview");
 	trendicontattivitaprogettowpview.defineColumn("idprogetto", typeof(int),false);
@@ -255,8 +199,10 @@ private void initClass() {
 	trendicontattivitaprogettowpview.defineColumn("oreanno", typeof(int));
 	trendicontattivitaprogettowpview.defineColumn("oreattivita", typeof(int));
 	trendicontattivitaprogettowpview.defineColumn("oremaxanno", typeof(int),false);
+	trendicontattivitaprogettowpview.defineColumn("residuoanno", typeof(int));
 	trendicontattivitaprogettowpview.defineColumn("stipendioannuo", typeof(decimal));
 	trendicontattivitaprogettowpview.defineColumn("stipendiorendicontato", typeof(decimal));
+	trendicontattivitaprogettowpview.defineColumn("stipendioresiduo", typeof(decimal));
 	trendicontattivitaprogettowpview.defineColumn("year", typeof(int),false);
 	Tables.Add(trendicontattivitaprogettowpview);
 	trendicontattivitaprogettowpview.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage", "oremaxanno", "year");
@@ -280,10 +226,6 @@ private void initClass() {
 	cPar = new []{registrydefaultview.Columns["idreg"]};
 	cChild = new []{rendicontattivitaprogettowpview.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogettowpview_registrydefaultview_idreg",cPar,cChild,false));
-
-	cPar = new []{progetto.Columns["idprogetto"]};
-	cChild = new []{rendicontattivitaprogettowpview.Columns["idprogetto"]};
-	Relations.Add(new DataRelation("FK_rendicontattivitaprogettowpview_progetto_idprogetto",cPar,cChild,false));
 
 	#endregion
 

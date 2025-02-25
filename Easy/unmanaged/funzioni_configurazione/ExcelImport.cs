@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -155,13 +155,13 @@ namespace funzioni_configurazione {
                     if (colName == null || colName == DBNull.Value || colName.ToString() == "") {
                         break;
                     }
-                    field_pos[colName.ToString()] = ncols;
+                    field_pos[colName.ToString().Trim()] = ncols;
                     ncols++;
                 }
             }
             else {
                 for (int i = 0; i < T.Columns.Count; i++) {
-                    field_pos[T.Columns[i].ColumnName] = i + 1;
+                    field_pos[T.Columns[i].ColumnName.Trim()] = i + 1;
                 }
                 ncols = T.Columns.Count;
             }

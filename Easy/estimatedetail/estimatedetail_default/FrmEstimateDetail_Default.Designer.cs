@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -146,6 +146,11 @@ namespace estimatedetail_default {
 			this.txtResiduo = new System.Windows.Forms.TextBox();
 			this.label9 = new System.Windows.Forms.Label();
 			this.tabEP = new System.Windows.Forms.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label31 = new System.Windows.Forms.Label();
+			this.label32 = new System.Windows.Forms.Label();
+			this.txtNumPreAccertamento = new System.Windows.Forms.TextBox();
+			this.txtEsercPreAccertamento = new System.Windows.Forms.TextBox();
 			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
 			this.btnSiope = new System.Windows.Forms.Button();
 			this.txtDescSiope = new System.Windows.Forms.TextBox();
@@ -219,6 +224,7 @@ namespace estimatedetail_default {
 			this.tabFatturazione.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
 			this.tabEP.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.grpBoxSiopeEP.SuspendLayout();
 			this.grpBoxImpegniBudget.SuspendLayout();
 			this.grpCausaleAnnullamento.SuspendLayout();
@@ -238,7 +244,7 @@ namespace estimatedetail_default {
 			this.grpRegistry.Controls.Add(this.txtCredDeb);
 			this.grpRegistry.Location = new System.Drawing.Point(8, 187);
 			this.grpRegistry.Name = "grpRegistry";
-			this.grpRegistry.Size = new System.Drawing.Size(492, 40);
+			this.grpRegistry.Size = new System.Drawing.Size(489, 40);
 			this.grpRegistry.TabIndex = 4;
 			this.grpRegistry.TabStop = false;
 			this.grpRegistry.Tag = "AutoChoose.txtCredDeb.default.(active=\'S\')";
@@ -250,7 +256,7 @@ namespace estimatedetail_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
 			this.txtCredDeb.Name = "txtCredDeb";
-			this.txtCredDeb.Size = new System.Drawing.Size(472, 20);
+			this.txtCredDeb.Size = new System.Drawing.Size(469, 20);
 			this.txtCredDeb.TabIndex = 0;
 			this.txtCredDeb.Tag = "registrymainview.title?estimatedetailview.registry";
 			// 
@@ -264,7 +270,7 @@ namespace estimatedetail_default {
 			this.gBoxIvaKind.Controls.Add(this.label21);
 			this.gBoxIvaKind.Location = new System.Drawing.Point(10, 228);
 			this.gBoxIvaKind.Name = "gBoxIvaKind";
-			this.gBoxIvaKind.Size = new System.Drawing.Size(825, 56);
+			this.gBoxIvaKind.Size = new System.Drawing.Size(822, 56);
 			this.gBoxIvaKind.TabIndex = 5;
 			this.gBoxIvaKind.TabStop = false;
 			// 
@@ -286,7 +292,7 @@ namespace estimatedetail_default {
 			this.cmbTipoIVA.DisplayMember = "description";
 			this.cmbTipoIVA.Location = new System.Drawing.Point(80, 24);
 			this.cmbTipoIVA.Name = "cmbTipoIVA";
-			this.cmbTipoIVA.Size = new System.Drawing.Size(582, 21);
+			this.cmbTipoIVA.Size = new System.Drawing.Size(579, 21);
 			this.cmbTipoIVA.TabIndex = 2;
 			this.cmbTipoIVA.Tag = "estimatedetail.idivakind";
 			this.cmbTipoIVA.ValueMember = "idivakind";
@@ -299,7 +305,7 @@ namespace estimatedetail_default {
 			// txtTaxRate
 			// 
 			this.txtTaxRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTaxRate.Location = new System.Drawing.Point(746, 24);
+			this.txtTaxRate.Location = new System.Drawing.Point(743, 24);
 			this.txtTaxRate.Name = "txtTaxRate";
 			this.txtTaxRate.ReadOnly = true;
 			this.txtTaxRate.Size = new System.Drawing.Size(72, 20);
@@ -311,7 +317,7 @@ namespace estimatedetail_default {
 			// label21
 			// 
 			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label21.Location = new System.Drawing.Point(668, 28);
+			this.label21.Location = new System.Drawing.Point(665, 28);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(72, 16);
 			this.label21.TabIndex = 35;
@@ -380,7 +386,7 @@ namespace estimatedetail_default {
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(850, 517);
+			this.tabControl1.Size = new System.Drawing.Size(847, 517);
 			this.tabControl1.TabIndex = 25;
 			// 
 			// tabMain
@@ -405,7 +411,7 @@ namespace estimatedetail_default {
 			this.tabMain.Controls.Add(this.label6);
 			this.tabMain.Location = new System.Drawing.Point(4, 22);
 			this.tabMain.Name = "tabMain";
-			this.tabMain.Size = new System.Drawing.Size(842, 491);
+			this.tabMain.Size = new System.Drawing.Size(839, 491);
 			this.tabMain.TabIndex = 6;
 			this.tabMain.Text = "Principale";
 			this.tabMain.UseVisualStyleBackColor = true;
@@ -432,7 +438,7 @@ namespace estimatedetail_default {
 			// txtIDGroup
 			// 
 			this.txtIDGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtIDGroup.Location = new System.Drawing.Point(665, 28);
+			this.txtIDGroup.Location = new System.Drawing.Point(662, 28);
 			this.txtIDGroup.Name = "txtIDGroup";
 			this.txtIDGroup.Size = new System.Drawing.Size(73, 20);
 			this.txtIDGroup.TabIndex = 58;
@@ -442,7 +448,7 @@ namespace estimatedetail_default {
 			// 
 			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label22.AutoSize = true;
-			this.label22.Location = new System.Drawing.Point(613, 31);
+			this.label22.Location = new System.Drawing.Point(610, 31);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(42, 13);
 			this.label22.TabIndex = 57;
@@ -451,7 +457,7 @@ namespace estimatedetail_default {
 			// txtRowNum
 			// 
 			this.txtRowNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtRowNum.Location = new System.Drawing.Point(525, 29);
+			this.txtRowNum.Location = new System.Drawing.Point(522, 29);
 			this.txtRowNum.Name = "txtRowNum";
 			this.txtRowNum.Size = new System.Drawing.Size(73, 20);
 			this.txtRowNum.TabIndex = 56;
@@ -461,7 +467,7 @@ namespace estimatedetail_default {
 			// 
 			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(501, 32);
+			this.label23.Location = new System.Drawing.Point(498, 32);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(18, 13);
 			this.label23.TabIndex = 55;
@@ -474,7 +480,7 @@ namespace estimatedetail_default {
 			this.gboxListino.Controls.Add(this.btnListino);
 			this.gboxListino.Controls.Add(this.txtListino);
 			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
-			this.gboxListino.Location = new System.Drawing.Point(506, 85);
+			this.gboxListino.Location = new System.Drawing.Point(503, 85);
 			this.gboxListino.Name = "gboxListino";
 			this.gboxListino.Size = new System.Drawing.Size(330, 142);
 			this.gboxListino.TabIndex = 3;
@@ -546,7 +552,7 @@ namespace estimatedetail_default {
 			this.txtDescrPadre.Location = new System.Drawing.Point(18, 106);
 			this.txtDescrPadre.Multiline = true;
 			this.txtDescrPadre.Name = "txtDescrPadre";
-			this.txtDescrPadre.Size = new System.Drawing.Size(472, 60);
+			this.txtDescrPadre.Size = new System.Drawing.Size(469, 60);
 			this.txtDescrPadre.TabIndex = 2;
 			this.txtDescrPadre.Tag = "estimate.description?estimatedetailview.description";
 			// 
@@ -613,7 +619,7 @@ namespace estimatedetail_default {
 			this.txtDescrizione.Location = new System.Drawing.Point(95, 290);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
-			this.txtDescrizione.Size = new System.Drawing.Size(740, 48);
+			this.txtDescrizione.Size = new System.Drawing.Size(737, 48);
 			this.txtDescrizione.TabIndex = 6;
 			this.txtDescrizione.Tag = "estimatedetail.detaildescription";
 			// 
@@ -680,7 +686,7 @@ namespace estimatedetail_default {
 			this.groupBox4.Controls.Add(this.btnContrattoAttivo);
 			this.groupBox4.Location = new System.Drawing.Point(11, 3);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(479, 73);
+			this.groupBox4.Size = new System.Drawing.Size(476, 73);
 			this.groupBox4.TabIndex = 1;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Tag = "AutoChoose.txtNumero.default";
@@ -729,7 +735,7 @@ namespace estimatedetail_default {
 			this.cmbTipoContratto.FormattingEnabled = true;
 			this.cmbTipoContratto.Location = new System.Drawing.Point(99, 19);
 			this.cmbTipoContratto.Name = "cmbTipoContratto";
-			this.cmbTipoContratto.Size = new System.Drawing.Size(372, 21);
+			this.cmbTipoContratto.Size = new System.Drawing.Size(369, 21);
 			this.cmbTipoContratto.TabIndex = 1;
 			this.cmbTipoContratto.Tag = "estimate.idestimkind?estimatedetail.idestimkind";
 			this.cmbTipoContratto.ValueMember = "idestimkind";
@@ -780,7 +786,7 @@ namespace estimatedetail_default {
 			this.tabFinanziario.Controls.Add(this.label2);
 			this.tabFinanziario.Location = new System.Drawing.Point(4, 22);
 			this.tabFinanziario.Name = "tabFinanziario";
-			this.tabFinanziario.Size = new System.Drawing.Size(842, 491);
+			this.tabFinanziario.Size = new System.Drawing.Size(839, 491);
 			this.tabFinanziario.TabIndex = 0;
 			this.tabFinanziario.Text = "Finanziario";
 			this.tabFinanziario.UseVisualStyleBackColor = true;
@@ -804,7 +810,7 @@ namespace estimatedetail_default {
 			// 
 			// textBox3
 			// 
-			this.textBox3.Location = new System.Drawing.Point(239, 266);
+			this.textBox3.Location = new System.Drawing.Point(523, 266);
 			this.textBox3.Name = "textBox3";
 			this.textBox3.Size = new System.Drawing.Size(73, 20);
 			this.textBox3.TabIndex = 73;
@@ -813,16 +819,16 @@ namespace estimatedetail_default {
 			// label26
 			// 
 			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(126, 269);
+			this.label26.Location = new System.Drawing.Point(520, 250);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(109, 13);
+			this.label26.Size = new System.Drawing.Size(215, 13);
 			this.label26.TabIndex = 72;
-			this.label26.Text = "N. dettaglio principale";
+			this.label26.Text = "N. dettaglio principale in caso di sostituzione";
 			// 
 			// lblcig
 			// 
 			this.lblcig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblcig.Location = new System.Drawing.Point(236, 299);
+			this.lblcig.Location = new System.Drawing.Point(233, 299);
 			this.lblcig.Name = "lblcig";
 			this.lblcig.Size = new System.Drawing.Size(207, 19);
 			this.lblcig.TabIndex = 63;
@@ -833,7 +839,7 @@ namespace estimatedetail_default {
 			// txtcig
 			// 
 			this.txtcig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtcig.Location = new System.Drawing.Point(239, 318);
+			this.txtcig.Location = new System.Drawing.Point(236, 318);
 			this.txtcig.Name = "txtcig";
 			this.txtcig.Size = new System.Drawing.Size(94, 20);
 			this.txtcig.TabIndex = 62;
@@ -1087,7 +1093,7 @@ namespace estimatedetail_default {
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(842, 491);
+			this.tabAnalitico.Size = new System.Drawing.Size(839, 491);
 			this.tabAnalitico.TabIndex = 3;
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.UseVisualStyleBackColor = true;
@@ -1290,7 +1296,7 @@ namespace estimatedetail_default {
 			this.tabFatturazione.Controls.Add(this.label9);
 			this.tabFatturazione.Location = new System.Drawing.Point(4, 22);
 			this.tabFatturazione.Name = "tabFatturazione";
-			this.tabFatturazione.Size = new System.Drawing.Size(842, 491);
+			this.tabFatturazione.Size = new System.Drawing.Size(839, 491);
 			this.tabFatturazione.TabIndex = 1;
 			this.tabFatturazione.Text = "Fatturazione";
 			this.tabFatturazione.UseVisualStyleBackColor = true;
@@ -1321,7 +1327,7 @@ namespace estimatedetail_default {
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 72);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(817, 212);
+			this.dataGrid1.Size = new System.Drawing.Size(823, 212);
 			this.dataGrid1.TabIndex = 26;
 			this.dataGrid1.Tag = "invoicedetail.dettordine";
 			// 
@@ -1364,6 +1370,7 @@ namespace estimatedetail_default {
 			// 
 			// tabEP
 			// 
+			this.tabEP.Controls.Add(this.groupBox1);
 			this.tabEP.Controls.Add(this.grpBoxSiopeEP);
 			this.tabEP.Controls.Add(this.grpBoxImpegniBudget);
 			this.tabEP.Controls.Add(this.grpCausaleAnnullamento);
@@ -1371,10 +1378,62 @@ namespace estimatedetail_default {
 			this.tabEP.Controls.Add(this.grpCausale);
 			this.tabEP.Location = new System.Drawing.Point(4, 22);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(842, 491);
+			this.tabEP.Size = new System.Drawing.Size(839, 491);
 			this.tabEP.TabIndex = 4;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.label31);
+			this.groupBox1.Controls.Add(this.label32);
+			this.groupBox1.Controls.Add(this.txtNumPreAccertamento);
+			this.groupBox1.Controls.Add(this.txtEsercPreAccertamento);
+			this.groupBox1.Location = new System.Drawing.Point(325, 259);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(346, 64);
+			this.groupBox1.TabIndex = 52;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Preaccertamento di Budget selezionato manualmente";
+			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Location = new System.Drawing.Point(86, 16);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(44, 13);
+			this.label31.TabIndex = 7;
+			this.label31.Text = "Numero";
+			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(6, 16);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(49, 13);
+			this.label32.TabIndex = 6;
+			this.label32.Text = "Esercizio";
+			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNumPreAccertamento
+			// 
+			this.txtNumPreAccertamento.Location = new System.Drawing.Point(89, 32);
+			this.txtNumPreAccertamento.Name = "txtNumPreAccertamento";
+			this.txtNumPreAccertamento.ReadOnly = true;
+			this.txtNumPreAccertamento.Size = new System.Drawing.Size(64, 20);
+			this.txtNumPreAccertamento.TabIndex = 3;
+			this.txtNumPreAccertamento.TabStop = false;
+			this.txtNumPreAccertamento.Tag = "epacc_pre.nepacc?estimatedetailview.nepacc_pre";
+			// 
+			// txtEsercPreAccertamento
+			// 
+			this.txtEsercPreAccertamento.Location = new System.Drawing.Point(6, 32);
+			this.txtEsercPreAccertamento.Name = "txtEsercPreAccertamento";
+			this.txtEsercPreAccertamento.ReadOnly = true;
+			this.txtEsercPreAccertamento.Size = new System.Drawing.Size(64, 20);
+			this.txtEsercPreAccertamento.TabIndex = 2;
+			this.txtEsercPreAccertamento.TabStop = false;
+			this.txtEsercPreAccertamento.Tag = "epacc_pre.yepacc?estimatedetailview.yepacc_pre";
 			// 
 			// grpBoxSiopeEP
 			// 
@@ -1425,9 +1484,9 @@ namespace estimatedetail_default {
 			this.grpBoxImpegniBudget.Controls.Add(this.label33);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtNumIxBudget);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtEsercIxBudget);
-			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(325, 261);
+			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(325, 329);
 			this.grpBoxImpegniBudget.Name = "grpBoxImpegniBudget";
-			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(155, 83);
+			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(346, 62);
 			this.grpBoxImpegniBudget.TabIndex = 49;
 			this.grpBoxImpegniBudget.TabStop = false;
 			this.grpBoxImpegniBudget.Text = "Accertamento di Budget";
@@ -1435,7 +1494,7 @@ namespace estimatedetail_default {
 			// label34
 			// 
 			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(20, 52);
+			this.label34.Location = new System.Drawing.Point(86, 16);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(44, 13);
 			this.label34.TabIndex = 7;
@@ -1444,7 +1503,7 @@ namespace estimatedetail_default {
 			// label33
 			// 
 			this.label33.AutoSize = true;
-			this.label33.Location = new System.Drawing.Point(15, 22);
+			this.label33.Location = new System.Drawing.Point(9, 16);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(49, 13);
 			this.label33.TabIndex = 6;
@@ -1453,7 +1512,7 @@ namespace estimatedetail_default {
 			// 
 			// txtNumIxBudget
 			// 
-			this.txtNumIxBudget.Location = new System.Drawing.Point(80, 45);
+			this.txtNumIxBudget.Location = new System.Drawing.Point(89, 32);
 			this.txtNumIxBudget.Name = "txtNumIxBudget";
 			this.txtNumIxBudget.ReadOnly = true;
 			this.txtNumIxBudget.Size = new System.Drawing.Size(64, 20);
@@ -1463,7 +1522,7 @@ namespace estimatedetail_default {
 			// 
 			// txtEsercIxBudget
 			// 
-			this.txtEsercIxBudget.Location = new System.Drawing.Point(80, 19);
+			this.txtEsercIxBudget.Location = new System.Drawing.Point(8, 32);
 			this.txtEsercIxBudget.Name = "txtEsercIxBudget";
 			this.txtEsercIxBudget.ReadOnly = true;
 			this.txtEsercIxBudget.Size = new System.Drawing.Size(64, 20);
@@ -1648,7 +1707,7 @@ namespace estimatedetail_default {
 			this.tabAppunti.Location = new System.Drawing.Point(4, 22);
 			this.tabAppunti.Name = "tabAppunti";
 			this.tabAppunti.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAppunti.Size = new System.Drawing.Size(842, 491);
+			this.tabAppunti.Size = new System.Drawing.Size(839, 491);
 			this.tabAppunti.TabIndex = 5;
 			this.tabAppunti.Text = "Appunti";
 			this.tabAppunti.UseVisualStyleBackColor = true;
@@ -1659,7 +1718,7 @@ namespace estimatedetail_default {
 			this.txtAppunti.Location = new System.Drawing.Point(3, 3);
 			this.txtAppunti.Multiline = true;
 			this.txtAppunti.Name = "txtAppunti";
-			this.txtAppunti.Size = new System.Drawing.Size(836, 485);
+			this.txtAppunti.Size = new System.Drawing.Size(833, 485);
 			this.txtAppunti.TabIndex = 19;
 			this.txtAppunti.Tag = "estimatedetail.annotations";
 			// 
@@ -1681,7 +1740,7 @@ namespace estimatedetail_default {
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(842, 491);
+			this.tabPage1.Size = new System.Drawing.Size(839, 491);
 			this.tabPage1.TabIndex = 7;
 			this.tabPage1.Text = "PagoPA";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -1819,7 +1878,7 @@ namespace estimatedetail_default {
 			this.textBox9.Multiline = true;
 			this.textBox9.Name = "textBox9";
 			this.textBox9.ReadOnly = true;
-			this.textBox9.Size = new System.Drawing.Size(555, 34);
+			this.textBox9.Size = new System.Drawing.Size(552, 34);
 			this.textBox9.TabIndex = 2;
 			this.textBox9.TabStop = false;
 			this.textBox9.Text = "Data oltre la quale potrebbe essere applicata una mora in caso di ritardato pagam" +
@@ -1833,7 +1892,7 @@ namespace estimatedetail_default {
 			this.textBox8.Multiline = true;
 			this.textBox8.Name = "textBox8";
 			this.textBox8.ReadOnly = true;
-			this.textBox8.Size = new System.Drawing.Size(555, 34);
+			this.textBox8.Size = new System.Drawing.Size(552, 34);
 			this.textBox8.TabIndex = 94;
 			this.textBox8.TabStop = false;
 			this.textBox8.Text = "E\' il codice usato in ALTRI PROGRAMMI (es. segreterie studenti)  per identificare" +
@@ -1847,7 +1906,7 @@ namespace estimatedetail_default {
 			this.textBox7.Multiline = true;
 			this.textBox7.Name = "textBox7";
 			this.textBox7.ReadOnly = true;
-			this.textBox7.Size = new System.Drawing.Size(555, 97);
+			this.textBox7.Size = new System.Drawing.Size(552, 97);
 			this.textBox7.TabIndex = 93;
 			this.textBox7.TabStop = false;
 			this.textBox7.Text = resources.GetString("textBox7.Text");
@@ -1922,7 +1981,7 @@ namespace estimatedetail_default {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(850, 517);
+			this.ClientSize = new System.Drawing.Size(847, 517);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "FrmEstimateDetail_Default";
 			this.Text = "FrmEstimateDetail_Default";
@@ -1969,6 +2028,8 @@ namespace estimatedetail_default {
 			this.tabFatturazione.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
 			this.tabEP.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.grpBoxSiopeEP.ResumeLayout(false);
 			this.grpBoxSiopeEP.PerformLayout();
 			this.grpBoxImpegniBudget.ResumeLayout(false);
@@ -2148,5 +2209,10 @@ namespace estimatedetail_default {
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Label labelCupCode;
 		private System.Windows.Forms.TextBox txtCupCode;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Label label31;
+		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.TextBox txtNumPreAccertamento;
+		private System.Windows.Forms.TextBox txtEsercPreAccertamento;
 	}
 }

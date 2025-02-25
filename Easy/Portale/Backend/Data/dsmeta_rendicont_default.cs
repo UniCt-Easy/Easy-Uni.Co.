@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -159,6 +159,7 @@ private void initClass() {
 	tlezione.defineColumn("stage", typeof(string));
 	tlezione.defineColumn("start", typeof(DateTime),false);
 	tlezione.defineColumn("stop", typeof(DateTime),false);
+	tlezione.defineColumn("titolo", typeof(string));
 	tlezione.defineColumn("visita", typeof(string));
 	Tables.Add(tlezione);
 	tlezione.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");

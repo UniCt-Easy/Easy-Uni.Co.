@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_firenet_exam_booking_applications_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_firenet_exam_booking_applications_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="firenet_exam_booking_applications" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="created" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="edit_operator_user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="exam_booking_session_id" type="xs:int" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="note" type="xs:decimal" minOccurs="0" />
+              <xs:element name="operator_user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="student_id" type="xs:int" minOccurs="0" />
+              <xs:element name="teaching_id" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:firenet_exam_booking_applications" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

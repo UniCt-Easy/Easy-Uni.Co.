@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -44,81 +44,45 @@ namespace mandate_default {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Contratto Passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandateTable mandate 		=> (mandateTable)Tables["mandate"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public managerTable manager 		=> (managerTable)Tables["manager"];
 
-	///<summary>
-	/// Tipo Scadenza
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expirationkind 		=> (MetaTable)Tables["expirationkind"];
 
-	///<summary>
-	///Valuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable currency 		=> (MetaTable)Tables["currency"];
 
-	///<summary>
-	///Dettaglio contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatedetailTable mandatedetail 		=> (mandatedetailTable)Tables["mandatedetail"];
 
-	///<summary>
-	///Tipo contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatekindTable mandatekind 		=> (mandatekindTable)Tables["mandatekind"];
 
-	///<summary>
-	///Classificazione Contratto Passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatesorting 		=> (MetaTable)Tables["mandatesorting"];
 
-	///<summary>
-	///Dettaglio documento IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicedetailTable invoicedetail 		=> (invoicedetailTable)Tables["invoicedetail"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrymainview 		=> (MetaTable)Tables["registrymainview"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public configTable config 		=> (configTable)Tables["config"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensevarTable expensevar 		=> (expensevarTable)Tables["expensevar"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable upb_detail 		=> (MetaTable)Tables["upb_detail"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expensesortedTable expensesorted 		=> (expensesortedTable)Tables["expensesorted"];
 
@@ -128,24 +92,15 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotiveapplied_crg 		=> (MetaTable)Tables["accmotiveapplied_crg"];
 
-	///<summary>
-	///stato contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatestatus 		=> (MetaTable)Tables["mandatestatus"];
 
-	///<summary>
-	///Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable store 		=> (MetaTable)Tables["store"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable stockview 		=> (MetaTable)Tables["stockview"];
 
-	///<summary>
-	///Allegato a  c.passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandateattachment 		=> (MetaTable)Tables["mandateattachment"];
 
@@ -167,9 +122,6 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sorting05 		=> (MetaTable)Tables["sorting05"];
 
-	///<summary>
-	///Elenco aliquote
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivakindTable ivakind 		=> (ivakindTable)Tables["ivakind"];
 
@@ -179,93 +131,51 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatesortingview 		=> (MetaTable)Tables["mandatesortingview"];
 
-	///<summary>
-	///Variazione movimento Impegno di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epexpvar 		=> (MetaTable)Tables["epexpvar"];
 
-	///<summary>
-	///Classificazione Impegno di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epexpsorting 		=> (MetaTable)Tables["epexpsorting"];
 
-	///<summary>
-	///Partecipanti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandateavcp 		=> (MetaTable)Tables["mandateavcp"];
 
-	///<summary>
-	///lotto(CIG)  associato ad un partecipante
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandateavcpdetail 		=> (MetaTable)Tables["mandateavcpdetail"];
 
-	///<summary>
-	///lotto associato a contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatecig 		=> (MetaTable)Tables["mandatecig"];
 
-	///<summary>
-	///Registro unico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable uniqueregister 		=> (MetaTable)Tables["uniqueregister"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pccview 		=> (MetaTable)Tables["pccview"];
 
-	///<summary>
-	///Dichiarazione ai fini CONSIP
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable consipkind 		=> (MetaTable)Tables["consipkind"];
 
-	///<summary>
-	///Dichiarazione ai fini CONSIP
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable consipkind_ext 		=> (MetaTable)Tables["consipkind_ext"];
 
-	///<summary>
-	///Categorie Merceologiche CONSIP
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable consipcategory 		=> (MetaTable)Tables["consipcategory"];
 
-	///<summary>
-	///Listino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public listTable list 		=> (listTable)Tables["list"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveTable accmotive 		=> (accmotiveTable)Tables["accmotive"];
 
-	///<summary>
-	///Classificazione inventariale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public inventorytreeTable inventorytree 		=> (inventorytreeTable)Tables["inventorytree"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrymainview_rup 		=> (MetaTable)Tables["registrymainview_rup"];
 
-	///<summary>
-	///Tipo allegato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attachmentkind 		=> (MetaTable)Tables["attachmentkind"];
 
@@ -314,7 +224,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// MANDATE /////////////////////////////////
 	var tmandate= new mandateTable();
-	tmandate.addBaseColumns("yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idmankind","flagintracom","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","idstore","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","idconsipkind","flagdanger","idmankind_origin","yman_origin","nman_origin","subappropriation","finsubappropriation","adatesubappropriation","arrivalprotocolnum","arrivaldate","annotations","resendingpcc","external_reference","idconsipkind_ext","consipmotive","flagtenderresult","motiveassignment","idreg_rupanac","tenderkind","anacreduced","publishdate","publishdatekind","requested_doc","flagbit");
+	tmandate.addBaseColumns("yman","nman","idreg","registryreference","description","idman","deliveryexpiration","deliveryaddress","paymentexpiring","idexpirationkind","idcurrency","exchangerate","doc","docdate","adate","officiallyprinted","txt","rtf","cu","ct","lu","lt","active","idmankind","flagintracom","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","applierannotations","idmandatestatus","idstore","cigcode","idsor01","idsor02","idsor03","idsor04","idsor05","idconsipkind","flagdanger","idmankind_origin","yman_origin","nman_origin","subappropriation","finsubappropriation","adatesubappropriation","arrivalprotocolnum","arrivaldate","annotations","resendingpcc","external_reference","idconsipkind_ext","consipmotive","flagtenderresult","motiveassignment","idreg_rupanac","tenderkind","anacreduced","publishdate","publishdatekind","requested_doc","flagbit","idtemporaneogara");
 	Tables.Add(tmandate);
 	tmandate.defineKey("yman", "nman", "idmankind");
 
@@ -442,7 +352,7 @@ private void initClass() {
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new registryTable();
-	tregistry.addBaseColumns("idreg","title");
+	tregistry.addBaseColumns("idreg","title","cf","p_iva");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
 
@@ -1242,6 +1152,7 @@ private void initClass() {
 	tmandateview.defineColumn("publishdatekind", typeof(string));
 	tmandateview.defineColumn("publishdatekinddescr", typeof(string),true,true);
 	tmandateview.defineColumn("requested_doc", typeof(int));
+	tmandateview.defineColumn("idtemporaneogara", typeof(int));
 	Tables.Add(tmandateview);
 
 	//////////////////// WSAGGIUDICATARIO /////////////////////////////////
@@ -1299,6 +1210,7 @@ private void initClass() {
 	twsgara.defineColumn("ct", typeof(DateTime),false);
 	twsgara.defineColumn("lu", typeof(string),false);
 	twsgara.defineColumn("lt", typeof(DateTime),false);
+	twsgara.defineColumn("tempo_tender_pending_creation_id", typeof(int),false);
 	Tables.Add(twsgara);
 	twsgara.defineKey("idGara");
 
@@ -1332,6 +1244,7 @@ private void initClass() {
 	tgaratraspareview.defineColumn("ImportoAggiudicazione", typeof(double));
 	tgaratraspareview.defineColumn("Rup", typeof(string));
 	tgaratraspareview.defineColumn("RupCF", typeof(string),false);
+	tgaratraspareview.defineColumn("tempo_tender_pending_creation_id", typeof(int),false);
 	Tables.Add(tgaratraspareview);
 	tgaratraspareview.defineKey("idGaraTraspare", "cig", "FornitoreCFPIva", "FornitoreIdEstero", "RupCF");
 

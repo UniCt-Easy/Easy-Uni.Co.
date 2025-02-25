@@ -547,6 +547,7 @@
             //metodi custom per modulo progetti
             appMeta.routing.builderConnObj("calculateAmmortamento", 'POST', 'progetti', false, true);
             appMeta.routing.builderConnObj("calculateCostiProgetto", 'POST', 'progetti', false, true);
+            appMeta.routing.builderConnObj("downloadLogoProgetto", 'POST', 'progetti', false, true);
 
             // metodi custom per modulo performance
             appMeta.routing.builderConnObj("calcolaComportamenti", 'POST', 'performance', false, true);
@@ -555,13 +556,23 @@
             appMeta.routing.builderConnObj("getCaricoDidattico", 'POST', 'admin', false, true);
             appMeta.routing.builderConnObj("getAllocations", 'POST', 'admin', false, true);
 
-            appMeta.routing.builderConnObj("signFile", 'POST', 'signature', false, true);
+            //web service per la signature aruba
+            appMeta.routing.builderConnObj("signFileAruba", 'POST', 'signature', false, true);
+
+            //web services per la signature usign
+            appMeta.routing.builderConnObj("createProcessUSign", 'POST', 'signature', false, true);
+            appMeta.routing.builderConnObj("uploadFileUSign", 'POST', 'signature', false, true);
+            appMeta.routing.builderConnObj("sendOtpUSign", 'POST', 'signature', false, true);
+            appMeta.routing.builderConnObj("downloadSignedFileUSign", 'POST', 'signature', false, true);
 
             //web services delle presenze Zucchetti
             appMeta.routing.builderConnObj("getTimbrature", 'POST', 'admin', false, true); 
 
             //web services del costo orario del personale Wis-Per
             appMeta.routing.builderConnObj("getCostoOrario", 'POST', 'admin', false, true); 
+
+            //logger errori
+            appMeta.routing.builderConnObj("logError", 'POST', 'data', false, true); 
 
             //----------------variabili di applicazione
 

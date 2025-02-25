@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,53 +39,11 @@ namespace IntesaSanPaolo {
             return Create(user, password, url, false);
         }
 
-        public IServizio Create(string user, string password, string url, bool test) {
+        public IServizio Create(string user, string password, string url, bool test,
+            X509Certificate2 clientcert = null, X509Certificate2 servicecert = null, X509Certificate2 clientcerttest = null, X509Certificate2 servicecerttest= null) {
             //con TLS12 da Could not establish secure channel for SSL/TLS with authority 'solutionpa-coll.intesasanpaolo.com'.
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            //ServicePointManager.ServerCertificateValidationCallback +=
-            //    (sender, certificate, chain, sslPolicyErrors) => {
-            //        String rootCAThumbprint =
-            //            "786A74AC76AB147F9C6A3050BA9EA87EFE9ACE3C"; // write your code to get your CA's thumbprint
-            //        //la seconda volta è 2B8F1B57330DBBA2D07A6C51F70EE90DDAB9AD8E
-            //        // CN=[DESARROLLO] Global Chambersign Root - 2008, O=AC Camerfirma S.A.,...
-            //        // remove this line if commercial CAs are not allowed to issue certificate for your service.
-            //        if ((sslPolicyErrors & (SslPolicyErrors.None)) > 0) {
-            //            return true;
-            //        }
-
-            //        if (
-            //            (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNameMismatch)) > 0 ||
-            //            (sslPolicyErrors & (SslPolicyErrors.RemoteCertificateNotAvailable)) > 0
-            //        ) {
-            //            return false;
-            //        }
-
-            //        // get last chain element that should contain root CA certificate
-            //        // but this may not be the case in partial chains
-            //        X509Certificate2 projectedRootCert = chain.ChainElements[chain.ChainElements.Count - 1].Certificate;
-            //        if (projectedRootCert.Thumbprint != rootCAThumbprint) {
-            //            return false;
-            //        }
-
-            //        //X509Certificate2 firstRootCert = chain.ChainElements[0].Certificate;
-            //        //if (firstRootCert.Thumbprint != "3ED8765D55F336BC43F08E0DECD9573C64866049") {//"CN=solutionpa-coll.intesasanpaolo.com, O=Intesa Sanpaolo S.p.A. - Test SSL, S=Italia, C=IT"
-            //        //    return false;
-            //        //}
-
-            //        // execute certificate chaining engine and ignore only "UntrustedRoot" error
-            //        //X509Chain customChain = new X509Chain {
-            //        //    ChainPolicy = {
-            //        //        VerificationFlags = X509VerificationFlags.AllFlags
-            //        //    }
-            //        //};
-            //        //Boolean retValue = customChain.Build(chain.ChainElements[0].Certificate);
-            //        //// RELEASE unmanaged resources behind X509Chain class.
-            //        //customChain.Reset();
-            //        return true;
-
-            //        //return sslPolicyErrors == SslPolicyErrors.None;
-            //    };
             var binding = new CustomBinding(
                 new TextMessageEncodingBindingElement(MessageVersion.Soap12, Encoding.UTF8),
                 new HttpsTransportBindingElement() {
@@ -120,21 +78,22 @@ namespace IntesaSanPaolo {
 
             if (test) {
                 //CN = solutionpa-coll.intesasanpaolo.com
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "6b9233c509e2d2a4d0dafa6207bc5c07720716a7");
+                factory.Credentials.ServiceCertificate.DefaultCertificate = servicecerttest ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "6b9233c509e2d2a4d0dafa6207bc5c07720716a7");/*intesa3.cer */
                 // se test 6b9233c509e2d2a4d0dafa6207bc5c07720716a7 altrimenti a32787f1f3d287c96030cd2ad17492344af5c575 
-                factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,"3ed8765d55f336bc43f08e0decd9573c64866049");
+                factory.Credentials.ClientCertificate.Certificate = clientcerttest?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,"3ed8765d55f336bc43f08e0decd9573c64866049");/*intesa1.cer */
             }
             else {                
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "a32787f1f3d287c96030cd2ad17492344af5c575");
+                factory.Credentials.ServiceCertificate.DefaultCertificate = servicecert ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "a32787f1f3d287c96030cd2ad17492344af5c575");/*intesa2.cer */
 
-                factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser,"3ed8765d55f336bc43f08e0decd9573c64866049");
+                factory.Credentials.ClientCertificate.Certificate = clientcert ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3ed8765d55f336bc43f08e0decd9573c64866049");/*intesa1.cer */
+
             }
 
 
-            //factory.Credentials.ClientCertificate.SetCertificate(cert, StoreLocation.CurrentUser, StoreName.My);
-            //factory.Credentials.ServiceCertificate.SetDefaultCertificate(defaultCert, StoreLocation.CurrentUser,StoreName.My);
+			//factory.Credentials.ClientCertificate.SetCertificate(cert, StoreLocation.CurrentUser, StoreName.My);
+			//factory.Credentials.ServiceCertificate.SetDefaultCertificate(defaultCert, StoreLocation.CurrentUser,StoreName.My);
 
-            var defaultCredentials = factory.Endpoint.EndpointBehaviors[typeof(ClientCredentials)];
+			var defaultCredentials = factory.Endpoint.EndpointBehaviors[typeof(ClientCredentials)];
             factory.Endpoint.Behaviors.Remove(defaultCredentials); //remove default ones
 
             factory.Endpoint.Behaviors.Clear();

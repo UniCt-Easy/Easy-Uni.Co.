@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,32 +29,23 @@ namespace itinerationrefund_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Valuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable currency 		=> Tables["currency"];
 
-	///<summary>
-	///Spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationrefund 		=> Tables["itinerationrefund"];
 
-	///<summary>
-	///Rimborso Spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationrefundkind 		=> Tables["itinerationrefundkind"];
 
-	///<summary>
-	///Localit√† Estere
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable foreigncountry 		=> Tables["foreigncountry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable itinerationrefundattachment 		=> Tables["itinerationrefundattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable itinerationrefundattachmentkind 		=> Tables["itinerationrefundattachmentkind"];
 
 	#endregion
 
@@ -152,6 +143,7 @@ private void initClass() {
 	titinerationrefund.Columns.Add( new DataColumn("amount_c", typeof(decimal)));
 	titinerationrefund.Columns.Add( new DataColumn("docamount_c", typeof(decimal)));
 	titinerationrefund.Columns.Add( new DataColumn("requiredamount_c", typeof(decimal)));
+	titinerationrefund.Columns.Add( new DataColumn("flagtaxableexpense", typeof(int)));
 	Tables.Add(titinerationrefund);
 	titinerationrefund.PrimaryKey =  new DataColumn[]{titinerationrefund.Columns["nrefund"], titinerationrefund.Columns["iditineration"]};
 
@@ -184,6 +176,7 @@ private void initClass() {
 	titinerationrefundkind.Columns.Add( new DataColumn("active", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("flagadvance", typeof(string)));
 	titinerationrefundkind.Columns.Add( new DataColumn("flagbalance", typeof(string)));
+	titinerationrefundkind.Columns.Add( new DataColumn("flagtraceability", typeof(int)));
 	Tables.Add(titinerationrefundkind);
 	titinerationrefundkind.PrimaryKey =  new DataColumn[]{titinerationrefundkind.Columns["iditinerationrefundkind"]};
 
@@ -244,8 +237,26 @@ private void initClass() {
 	C.AllowDBNull=false;
 	titinerationrefundattachment.Columns.Add(C);
 	titinerationrefundattachment.Columns.Add( new DataColumn("active", typeof(string)));
+	titinerationrefundattachment.Columns.Add( new DataColumn("iditinerationrefundattachmentkind", typeof(int)));
+	titinerationrefundattachment.Columns.Add( new DataColumn("!refundattachmentkind", typeof(string)));
 	Tables.Add(titinerationrefundattachment);
 	titinerationrefundattachment.PrimaryKey =  new DataColumn[]{titinerationrefundattachment.Columns["idattachment"], titinerationrefundattachment.Columns["iditineration"], titinerationrefundattachment.Columns["nrefund"]};
+
+
+	//////////////////// ITINERATIONREFUNDATTACHMENTKIND /////////////////////////////////
+	var titinerationrefundattachmentkind= new DataTable("itinerationrefundattachmentkind");
+	C= new DataColumn("iditinerationrefundattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	titinerationrefundattachmentkind.Columns.Add(C);
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("active", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("cu", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("lu", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("title", typeof(string)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(titinerationrefundattachmentkind);
+	titinerationrefundattachmentkind.PrimaryKey =  new DataColumn[]{titinerationrefundattachmentkind.Columns["iditinerationrefundattachmentkind"]};
 
 
 	#endregion
@@ -267,6 +278,10 @@ private void initClass() {
 	cPar = new []{itinerationrefund.Columns["iditineration"], itinerationrefund.Columns["nrefund"]};
 	cChild = new []{itinerationrefundattachment.Columns["iditineration"], itinerationrefundattachment.Columns["nrefund"]};
 	Relations.Add(new DataRelation("itinerationrefundattachment_itinerationrefund",cPar,cChild,false));
+
+	cPar = new []{itinerationrefundattachmentkind.Columns["iditinerationrefundattachmentkind"]};
+	cChild = new []{itinerationrefundattachment.Columns["iditinerationrefundattachmentkind"]};
+	Relations.Add(new DataRelation("itinerationrefundattachmentkind_itinerationrefundattachment",cPar,cChild,false));
 
 	#endregion
 

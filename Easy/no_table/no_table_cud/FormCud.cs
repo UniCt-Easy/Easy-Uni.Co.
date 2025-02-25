@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,6 +40,12 @@ namespace no_table_cud {
         public FormCud() {
             InitializeComponent();
             folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+
+            if (isBlazor())
+			{
+                txtCartella.Visible = false;
+                btnCartella.Visible = false;
+			}
         }
 
         private Type getTipo(DataRow r) {
@@ -173,6 +179,8 @@ namespace no_table_cud {
             xdp.AppendChild(pdf);
             string nomeFile = Path.Combine(txtCartella.Text, ht["DA001"] + ".xdp");
             doc.Save(nomeFile);
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(nomeFile, false);
         }
 
         private void btnGeneraCud_Click(object sender, EventArgs e) {
@@ -372,7 +380,11 @@ namespace no_table_cud {
                 stampaXml(ht, commento);
             }
             Cursor = null;
-            show(this, "Sono stati generati " + collaboratori.Count + " modelli CUD (.xdp) nella cartella:\n" 
+
+            if (isBlazor())
+                show("Sono stati scaricati " + collaboratori.Count + " modelli CUD (.xdp)", "Download effettuato");
+            else
+                show(this, "Sono stati generati " + collaboratori.Count + " modelli CUD (.xdp) nella cartella:\n" 
                 + txtCartella.Text
                 + "\nIl file CUDmod_2010.pdf va ignorato perchè contiene solo il modello CUD vuoto.", "Salvataggio effettuato");
         }

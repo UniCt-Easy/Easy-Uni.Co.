@@ -519,6 +519,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="epexpattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepexp" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -588,6 +603,11 @@
       <xs:selector xpath=".//mstns:accmotive" />
       <xs:field xpath="mstns:idaccmotive" />
     </xs:unique>
+    <xs:unique name="epexpattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epexpattachment" />
+      <xs:field xpath="mstns:idepexp" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -604,6 +624,7 @@
       <msdata:Relationship name="epexp_epexp" msdata:parent="epexp" msdata:child="epexp" msdata:parentkey="idepexp" msdata:childkey="paridepexp" />
       <msdata:Relationship name="accmotive_epexp" msdata:parent="accmotive" msdata:child="epexp" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
       <msdata:Relationship name="epexp_epexpview" msdata:parent="epexp" msdata:child="epexpview" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
+      <msdata:Relationship name="epexp_epexpattachment" msdata:parent="epexp" msdata:child="epexpattachment" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

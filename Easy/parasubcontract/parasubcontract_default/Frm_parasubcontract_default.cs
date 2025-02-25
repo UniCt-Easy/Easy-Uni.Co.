@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -450,8 +450,10 @@ namespace parasubcontract_default { //contratto//
             DS.abatement.CacheTable();
             DS.deduction.CacheTable();
             DS.tax.CacheTable();
-            
-            HelpForm.SetDenyNull(DS.parasubcontract.Columns["requested_doc"], true);
+			DS.upb_payroll.CacheTable();
+			DS.upb_payrollother.CacheTable();
+
+			HelpForm.SetDenyNull(DS.parasubcontract.Columns["requested_doc"], true);
             int esercizioprec = esercizio - 1;
             grpAddizionaliPassate.Text = "Addizionali derivanti da contratti della stessa università al 31/12/" +
                                          esercizioprec;
@@ -2913,8 +2915,8 @@ namespace parasubcontract_default { //contratto//
 			this.textBox7.ReadOnly = true;
 			this.textBox7.Size = new System.Drawing.Size(847, 24);
 			this.textBox7.TabIndex = 10;
-			this.textBox7.Text = "Gli oneri deducibili, detraibili e le detrazioni di imposta presenti nei CUD sono considerati solo in fase " +
-    "di conguaglio ";
+			this.textBox7.Text = "Gli oneri deducibili, detraibili e le detrazioni di imposta presenti nei CUD sono" +
+    " considerati solo in fase di conguaglio ";
 			// 
 			// btnVerificaProblemi
 			// 
@@ -3454,8 +3456,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgCedoliniAltriEsercizi.Name = "dgCedoliniAltriEsercizi";
 			this.dgCedoliniAltriEsercizi.Size = new System.Drawing.Size(863, 238);
 			this.dgCedoliniAltriEsercizi.TabIndex = 7;
-			this.dgCedoliniAltriEsercizi.Tag = "payroll_altriesercizi.default";
-			this.dgCedoliniAltriEsercizi.DoubleClick += new System.EventHandler(this.dgCedoliniAltriEsercizi_DoubleClick);
+			this.dgCedoliniAltriEsercizi.Tag = "payroll_altriesercizi.default.readonly_dettaglio";
 			// 
 			// btnGeneraCedolini
 			// 
@@ -3500,6 +3501,7 @@ namespace parasubcontract_default { //contratto//
 			this.dgCedolini.Size = new System.Drawing.Size(863, 188);
 			this.dgCedolini.TabIndex = 1;
 			this.dgCedolini.Tag = "payroll.default";
+			this.dgCedolini.DoubleClick += new System.EventHandler(this.dgCedolini_DoubleClick);
 			// 
 			// tabErogazioni
 			// 
@@ -6501,8 +6503,8 @@ namespace parasubcontract_default { //contratto//
             if (!ok) return;
             if (rCedolino == null) return;
             Meta.EditDataRow(rCedolino, edittype, out rCedolino);
-            //fromBtnVisualizza = true;
-            Meta.DoMainCommand("mainrefresh");
+			//fromBtnVisualizza = true;
+			Meta.DoMainCommand("mainrefresh");
         }
 
         private decimal calcolaContributiAmminNonInail(object codicePrestazione, decimal lordoAlBeneficiario) {
@@ -8432,7 +8434,12 @@ namespace parasubcontract_default { //contratto//
             VisualizzaCedolino(dgCedoliniAltriEsercizi, "readonly_dettaglio");
         }
 
-        private void tabCedolini_Click(object sender, EventArgs e) {
+		private void dgCedolini_DoubleClick(object sender, EventArgs e) {
+			VisualizzaCedolino(dgCedolini, "default");
+		}
+
+
+		private void tabCedolini_Click(object sender, EventArgs e) {
 
         }
 

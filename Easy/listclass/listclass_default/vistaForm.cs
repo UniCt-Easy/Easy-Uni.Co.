@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,9 @@ using System.Data;
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class vistaForm: System.Data.DataSet {
 // List of DataTables
+[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+[System.ComponentModel.Browsable(false)]
+public DataTable listclassattachment{get { return this.Tables["listclassattachment"];}}
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable listclass{get { return this.Tables["listclass"];}}
@@ -138,7 +141,27 @@ this.EnforceConstraints = false;
 
 	Tables.Add(T);
 
-//Relations
+
+	//////////////////// LISTCLASSATTACHMENT /////////////////////////////////
+	var tlistclassattachment= new DataTable("listclassattachment");
+	C= new DataColumn("idlistclass", typeof(String));
+	C.AllowDBNull=true;
+	tlistclassattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tlistclassattachment.Columns.Add(C);
+	tlistclassattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tlistclassattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tlistclassattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tlistclassattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tlistclassattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tlistclassattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tlistclassattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tlistclassattachment);
+	tlistclassattachment.PrimaryKey =  new DataColumn[]{tlistclassattachment.Columns["idlistclass"], tlistclassattachment.Columns["idattachment"]};
+	
+	
+	//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;
@@ -155,6 +178,10 @@ CPar = new DataColumn[1]{TPar.Columns["idlistclass"]};
 CChild = new DataColumn[1]{TChild.Columns["paridlistclass"]};
 Relations.Add(new DataRelation("FK_listclass_listclass",CPar,CChild));
 
-}
+CPar = new []{tlistclass.Columns["idlistclass"]};
+	CChild = new []{listclassattachment.Columns["idlistclass"]};
+	Relations.Add(new DataRelation("listclass_listclassattachment",CPar,CChild,false));
+	
+	}
 }
 }

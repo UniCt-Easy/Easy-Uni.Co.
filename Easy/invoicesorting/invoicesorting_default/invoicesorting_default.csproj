@@ -80,6 +80,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
+    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
@@ -96,6 +99,7 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
@@ -135,6 +139,12 @@
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\SortingMatrix\SortingMatrix.csproj">
+      <Project>{ff81a1d5-338f-4fcf-9338-0e7c70451253}</Project>
+      <Name>SortingMatrix</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

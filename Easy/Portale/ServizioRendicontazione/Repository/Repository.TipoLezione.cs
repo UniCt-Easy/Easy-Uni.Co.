@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -26,36 +27,50 @@ namespace ServizioRendicontazione.Repositories
 		// ==============================================================
 		public List<orakind> AllTipoLezione()
 		{
-			return _context.orakinds.ToList();
+			return _context.orakinds.AsNoTracking().ToList();
 		}
 
 		public orakind AddTipoLezione(string title)
 		{
-			int idorakind = 0;
-			if (_context.orakinds.Any())
-				idorakind = _context.orakinds.Max(m => m.idorakind);
-
-			int sortcode = 0;
-			if (_context.orakinds.Any())
-				sortcode = _context.orakinds.Max(m => m.idorakind);
-
-			idorakind++;
-			sortcode++;
-
-			orakind csk = new orakind()
+			try
 			{
-				idorakind = idorakind,
-				active = "S",
-				description = null,
-				sortcode = sortcode,
-				ripetizioni = "N",
-				title = title
-			};
+				int idorakind = 0;
+				if (_context.orakinds.Any())
+					idorakind = _context.orakinds.AsNoTracking().Max(m => m.idorakind);
 
-			_context.Add(csk);
-			_context.SaveChanges();
+				int sortcode = 0;
+				if (_context.orakinds.Any())
+					sortcode = _context.orakinds.AsNoTracking().Max(m => m.idorakind);
 
-			return csk;
+				idorakind++;
+				sortcode++;
+
+				orakind csk = new orakind()
+				{
+					idorakind = idorakind,
+					active = "S",
+					description = null,
+					sortcode = sortcode,
+					ripetizioni = "N",
+					title = title,
+
+					Ct = DateTime.Now,
+					Cu = common.cu,
+
+					Lt = DateTime.Now,
+					Lu = common.cu
+				};
+
+				_context.Add(csk);
+				_context.SaveChanges();
+
+				return csk;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddTipoLezione({title}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
 		}
 	}
 }

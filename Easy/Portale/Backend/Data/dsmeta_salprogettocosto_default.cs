@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_salprogettocosto_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_salprogettocosto_default: DataSet {
+public partial class dsmeta_salprogettocosto_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -66,7 +66,6 @@ private void initClass() {
 	tprogettocostosegsalview.defineColumn("assetdiaryora_idassetdiary", typeof(int));
 	tprogettocostosegsalview.defineColumn("assetdiaryora_start", typeof(DateTime));
 	tprogettocostosegsalview.defineColumn("assetdiaryora_stop", typeof(DateTime));
-	tprogettocostosegsalview.defineColumn("contrattokind_title", typeof(string));
 	tprogettocostosegsalview.defineColumn("dropdown_title", typeof(string),false);
 	tprogettocostosegsalview.defineColumn("entrydetail_description", typeof(string));
 	tprogettocostosegsalview.defineColumn("expense_description", typeof(string));
@@ -75,6 +74,7 @@ private void initClass() {
 	tprogettocostosegsalview.defineColumn("idassetdiaryora", typeof(int));
 	tprogettocostosegsalview.defineColumn("idexp", typeof(int));
 	tprogettocostosegsalview.defineColumn("idpettycash", typeof(int));
+	tprogettocostosegsalview.defineColumn("idposition", typeof(int));
 	tprogettocostosegsalview.defineColumn("idprogetto", typeof(int),false);
 	tprogettocostosegsalview.defineColumn("idprogettocosto", typeof(int),false);
 	tprogettocostosegsalview.defineColumn("idprogettotipocosto", typeof(int),false);
@@ -85,19 +85,18 @@ private void initClass() {
 	tprogettocostosegsalview.defineColumn("mese_title", typeof(string));
 	tprogettocostosegsalview.defineColumn("pettycash_description", typeof(string));
 	tprogettocostosegsalview.defineColumn("pettycash_pettycode", typeof(string));
+	tprogettocostosegsalview.defineColumn("position_title", typeof(string));
 	tprogettocostosegsalview.defineColumn("progettocosto_amount", typeof(decimal));
 	tprogettocostosegsalview.defineColumn("progettocosto_ct", typeof(DateTime),false);
 	tprogettocostosegsalview.defineColumn("progettocosto_cu", typeof(string),false);
 	tprogettocostosegsalview.defineColumn("progettocosto_doc", typeof(string));
 	tprogettocostosegsalview.defineColumn("progettocosto_docdate", typeof(DateTime));
-	tprogettocostosegsalview.defineColumn("progettocosto_idcontrattokind", typeof(int));
 	tprogettocostosegsalview.defineColumn("progettocosto_idsal", typeof(int));
 	tprogettocostosegsalview.defineColumn("progettocosto_lt", typeof(DateTime),false);
 	tprogettocostosegsalview.defineColumn("progettocosto_lu", typeof(string),false);
 	tprogettocostosegsalview.defineColumn("progettocosto_noperation", typeof(int));
 	tprogettocostosegsalview.defineColumn("progettocosto_yoperation", typeof(int));
 	tprogettocostosegsalview.defineColumn("progettotipocosto_title", typeof(string));
-	tprogettocostosegsalview.defineColumn("registry_title", typeof(string));
 	tprogettocostosegsalview.defineColumn("rendicontattivitaprogetto_description", typeof(string));
 	tprogettocostosegsalview.defineColumn("rendicontattivitaprogetto_idreg", typeof(int));
 	tprogettocostosegsalview.defineColumn("sal_start", typeof(DateTime));

@@ -69,8 +69,10 @@
         <xs:element name="perfprogettodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="attach_filename" type="xs:string" minOccurs="0" />
               <xs:element name="didprogsuddannokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idperfprogetto" type="xs:int" />
               <xs:element name="idreg_respprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />

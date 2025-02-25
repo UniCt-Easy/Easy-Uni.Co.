@@ -44,6 +44,12 @@
 						this.describeAColumn(table, '!idstruttura_struttura_alias1_strutturakind_title', 'Tipologia Tipologia delle strutture', null, 30, null);
 						objCalcFieldConfig['!idstruttura_struttura_alias1_title'] = { tableNameLookup:'struttura_alias1', columnNameLookup:'title', columnNamekey:'idstruttura' };
 						objCalcFieldConfig['!idstruttura_struttura_alias1_strutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
+						this.describeAColumn(table, '!idstruttura_struttura_alias2_title', 'Denominazione Struttura madre', null, 30, null);
+						this.describeAColumn(table, '!idstruttura_struttura_alias2_strutturakind_title', 'Tipologia Tipologia delle strutture', null, 30, null);
+						this.describeAColumn(table, '!idstruttura_struttura_active', 'Attivo', null, 36, null);
+						objCalcFieldConfig['!idstruttura_struttura_alias2_title'] = { tableNameLookup:'struttura_alias2', columnNameLookup:'title', columnNamekey:'idstruttura' };
+						objCalcFieldConfig['!idstruttura_struttura_alias2_strutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
+						objCalcFieldConfig['!idstruttura_struttura_active'] = { tableNameLookup:'struttura', columnNameLookup:'active', columnNamekey:'idstruttura' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

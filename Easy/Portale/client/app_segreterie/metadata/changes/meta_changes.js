@@ -38,21 +38,20 @@
 			//$setCaptions$
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_changes");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_changes");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idchanges', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

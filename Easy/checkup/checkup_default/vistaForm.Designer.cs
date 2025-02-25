@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,14 +26,14 @@ using System.Runtime.Serialization;
 namespace checkup_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Diagnostica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable checkup 		=> Tables["checkup"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable checkupattachment 		=> Tables["checkupattachment"];
 
 	#endregion
 
@@ -92,6 +92,33 @@ private void initClass() {
 	Tables.Add(tcheckup);
 	tcheckup.PrimaryKey =  new DataColumn[]{tcheckup.Columns["idcheckup"]};
 
+
+	//////////////////// CHECKUPATTACHMENT /////////////////////////////////
+	var tcheckupattachment= new DataTable("checkupattachment");
+	C= new DataColumn("idcheckup", typeof(int));
+	C.AllowDBNull=false;
+	tcheckupattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tcheckupattachment.Columns.Add(C);
+	tcheckupattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tcheckupattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tcheckupattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcheckupattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tcheckupattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tcheckupattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tcheckupattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tcheckupattachment);
+	tcheckupattachment.PrimaryKey =  new DataColumn[]{tcheckupattachment.Columns["idcheckup"], tcheckupattachment.Columns["idattachment"]};
+
+
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{checkup.Columns["idcheckup"]};
+	var cChild = new []{checkupattachment.Columns["idcheckup"]};
+	Relations.Add(new DataRelation("checkup_checkupattachment",cPar,cChild,false));
 
 	#endregion
 

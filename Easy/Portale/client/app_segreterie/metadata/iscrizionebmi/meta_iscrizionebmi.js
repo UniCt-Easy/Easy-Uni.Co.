@@ -36,7 +36,7 @@
 						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
 						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione' };
 						this.describeAColumn(table, '!idreg_registry_title', 'Identificativo', null, 31, null);
-						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry_alias2', columnNameLookup:'title', columnNamekey:'idreg' };
+						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry_alias3', columnNameLookup:'title', columnNamekey:'idreg' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

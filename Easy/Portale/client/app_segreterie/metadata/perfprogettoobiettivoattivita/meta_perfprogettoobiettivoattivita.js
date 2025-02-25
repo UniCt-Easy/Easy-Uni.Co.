@@ -177,19 +177,6 @@
 //$innerSetCaptionConfig_riepilogo$
 						break;
 					case 'referenti':
-						table.columns["completamento"].caption = "Percentuale di completamento";
-						table.columns["datafineeffettiva"].caption = "Data fine effettiva";
-						table.columns["datafineprevista"].caption = "Data fine prevista";
-						table.columns["datainizioeffettiva"].caption = "Data inizio effettiva";
-						table.columns["datainizioprevista"].caption = "Data inizio prevista";
-						table.columns["description"].caption = "Descrizione";
-						table.columns["idacc"].caption = "Voce di costo";
-						table.columns["idperfprogetto"].caption = "Progetto Strategico";
-						table.columns["idperfprogettoobiettivo"].caption = "Obiettivo strategico";
-						table.columns["idreg"].caption = "Chi svolge l’attività";
-						table.columns["idupb"].caption = "Unità previsionale di base (UPB)";
-						table.columns["paridperfprogettoobiettivoattivita"].caption = "Attività madre";
-						table.columns["title"].caption = "Titolo";
 //$innerSetCaptionConfig_referenti$
 						break;
 //$innerSetCaptionConfig$

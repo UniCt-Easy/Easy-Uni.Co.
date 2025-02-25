@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -66,7 +66,7 @@ namespace meta_location
 			}
 			return null;
 		}
-
+				
 		override public DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
             DataTable Levels;
             // modifica portale. in cui il DataTablenon ha la proprietà associata DataSet, quindi leggla tabella a dB
@@ -199,7 +199,7 @@ namespace meta_location
 
 		public override void DescribeTree(TreeView tree, DataTable T, string ListingType) {
 			base.DescribeTree(tree, T, ListingType);
-			string filterc=QHC.CmpEq("nlevel",1);
+			string filterc = QHC.CmpEq("nlevel",1);
 			string filtersql = QHS.CmpEq("nlevel", 1);
 			easy_node_dispatcher D = new location_node_dispatcher(
 				"locationlevel",

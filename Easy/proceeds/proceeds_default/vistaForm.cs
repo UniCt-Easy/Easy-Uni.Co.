@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,6 +49,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stamphandling 		=> Tables["stamphandling"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable proceedsattachment 		=> Tables["proceedsattachment"];
 
 	#endregion
 
@@ -441,6 +444,25 @@ private void initClass() {
 	tstamphandling.PrimaryKey =  new DataColumn[]{tstamphandling.Columns["idstamphandling"]};
 
 
+	//////////////////// PROCEEDSATTACHMENT /////////////////////////////////
+	var tproceedsattachment= new DataTable("proceedsattachment");
+	C= new DataColumn("kpro", typeof(int));
+	C.AllowDBNull=false;
+	tproceedsattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tproceedsattachment.Columns.Add(C);
+	tproceedsattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tproceedsattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tproceedsattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tproceedsattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tproceedsattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tproceedsattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tproceedsattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tproceedsattachment);
+	tproceedsattachment.PrimaryKey =  new DataColumn[]{tproceedsattachment.Columns["kpro"], tproceedsattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -464,6 +486,10 @@ private void initClass() {
 	cPar = new []{stamphandling.Columns["idstamphandling"]};
 	cChild = new []{proceeds.Columns["idstamphandling"]};
 	Relations.Add(new DataRelation("FK_stamphandling_proceeds",cPar,cChild,false));
+
+	cPar = new []{proceeds.Columns["kpro"]};
+	cChild = new []{proceedsattachment.Columns["kpro"]};
+	Relations.Add(new DataRelation("proceeds_proceedsattachment",cPar,cChild,false));
 
 	#endregion
 

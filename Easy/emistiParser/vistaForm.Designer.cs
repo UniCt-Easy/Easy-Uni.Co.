@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -131,7 +131,7 @@ private void initClass() {
 
 	//////////////////// EMISTI_REC_04 /////////////////////////////////
 	var temisti_rec_04= new emisti_rec_04Table();
-	temisti_rec_04.addBaseColumns("nrec","rata","dataemissione","codiceritenuta","tiporitenuta","importoritenuta","importoritnetto","codritoneremens","importooneremens","codrit1tantum","importorit1tantum","codcontratto","ct","cu","lt","lu","idemisti_import","progressivo_rec_01","flagriduzimpon","progressivodebito");
+	temisti_rec_04.addBaseColumns("nrec","rata","dataemissione","codiceritenuta","tiporitenuta","importoritenuta","importoritnetto","codritoneremens","importooneremens","codrit1tantum","importorit1tantum","codcontratto","ct","cu","lt","lu","idemisti_import","progressivo_rec_01","flagriduzimpon","progressivodebito","datascadritextra");
 	Tables.Add(temisti_rec_04);
 	temisti_rec_04.defineKey("nrec", "idemisti_import");
 

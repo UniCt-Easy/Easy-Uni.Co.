@@ -274,28 +274,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="upb" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="idupb" type="xs:string" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="accmotive" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="codemotive" type="xs:string" />
-              <xs:element name="idaccmotive" type="xs:string" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="progettobudgetvariazione" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="data" type="xs:dateTime" minOccurs="0" />
@@ -307,9 +289,6 @@
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="newamount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="_x0021_idaccmotive_accmotive_codemotive" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idaccmotive_accmotive_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idupb_upb_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -481,14 +460,6 @@
       <xs:field xpath="mstns:idprogettotipocosto" />
       <xs:field xpath="mstns:idworkpackage" />
     </xs:unique>
-    <xs:unique name="upb_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:upb" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:unique>
-    <xs:unique name="accmotive_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:accmotive" />
-      <xs:field xpath="mstns:idaccmotive" />
-    </xs:unique>
     <xs:unique name="progettobudgetvariazione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progettobudgetvariazione" />
       <xs:field xpath="mstns:idprogetto" />
@@ -537,8 +508,6 @@
       <msdata:Relationship name="FK_progettocosto_assetdiaryora_idassetdiaryora" msdata:parent="assetdiaryora" msdata:child="progettocosto" msdata:parentkey="idassetdiaryora" msdata:childkey="idassetdiaryora" />
       <msdata:Relationship name="FK_assetdiaryora_assetdiary_idassetdiary" msdata:parent="assetdiary" msdata:child="assetdiaryora" msdata:parentkey="idassetdiary" msdata:childkey="idassetdiary" />
       <msdata:Relationship name="FK_progettobudgetvariazione_progettobudget_idprogetto-idprogettobudget" msdata:parent="progettobudget" msdata:child="progettobudgetvariazione" msdata:parentkey="idprogetto idprogettobudget" msdata:childkey="idprogetto idprogettobudget" />
-      <msdata:Relationship name="FK_progettobudgetvariazione_upb_idupb" msdata:parent="upb" msdata:child="progettobudgetvariazione" msdata:parentkey="idupb" msdata:childkey="idupb" />
-      <msdata:Relationship name="FK_progettobudgetvariazione_accmotive_idaccmotive" msdata:parent="accmotive" msdata:child="progettobudgetvariazione" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotive" />
       <msdata:Relationship name="FK_progettobudget_progettotipocosto_idprogettotipocosto" msdata:parent="progettotipocosto" msdata:child="progettobudget" msdata:parentkey="idprogettotipocosto" msdata:childkey="idprogettotipocosto" />
       <msdata:Relationship name="FK_progettobudget_workpackagesegview_idworkpackage" msdata:parent="workpackagesegview" msdata:child="progettobudget" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
     </xs:appinfo>

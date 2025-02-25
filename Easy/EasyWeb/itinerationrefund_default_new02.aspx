@@ -3,14 +3,20 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server" >
 
 <div>
-    <div class="row">
-        <div class="col-md-3 col-lg-2">
-            <cc1:hwButton runat="server" ID="btnClassificazione" Tag="choose.itinerationrefundkind.default" TabIndex="-1" class="btn btn-primary" Text="Rimborso Spese" />
+	<div class="row">
+		<div class="col-md-3 col-lg-2">
+			<cc1:hwButton runat="server" ID="btnClassificazione" Tag="choose.itinerationrefundkind.default" TabIndex="-1" class="btn btn-primary" Text="Rimborso Spese" />
+		</div>
+		<div class="col-md-9 col-lg-4">
+			<cc1:hwDropDownList runat="server" AutoPostBack="true" ID="cmbClassificazione" CssClass="form-control" Tag="itinerationrefund.iditinerationrefundkind" TabIndex="1"></cc1:hwDropDownList>
+		</div>
+		    <!-- Assenza pagamento tracciabile (Spesa imponibile) -->
+        <div class="row">
+            <div class="col-md-12">
+                <cc1:hwCheckBox runat="server" ID="chkTaxableExpense" ThreeState="false" Tag="itinerationrefund.flagtaxableexpense:0" TabIndex="-1" Text="Assenza pagamento tracciabile (Spesa imponibile)" />
+            </div>
         </div>
-        <div class="col-md-9 col-lg-4">
-            <cc1:hwDropDownList runat="server" AutoPostBack="true" ID="cmbClassificazione"  CssClass="form-control" Tag="itinerationrefund.iditinerationrefundkind" TabIndex="1"></cc1:hwDropDownList>
-        </div>
-    </div>
+	</div>
 
     <br />
 

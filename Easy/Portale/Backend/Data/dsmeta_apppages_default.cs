@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -175,6 +175,7 @@ private void initClass() {
 	tapprelation.defineColumn("idapppages_parent", typeof(int));
 	tapprelation.defineColumn("idapprelation", typeof(int),false);
 	tapprelation.defineColumn("idapptab", typeof(int));
+	tapprelation.defineColumn("norelation", typeof(string));
 	tapprelation.defineColumn("numrowsmandatory", typeof(int));
 	tapprelation.defineColumn("position", typeof(int));
 	tapprelation.defineColumn("savebeforetest", typeof(string));
@@ -279,6 +280,7 @@ private void initClass() {
 	tappfielddetail.defineColumn("specialcontrol", typeof(string));
 	tappfielddetail.defineColumn("sqltype", typeof(string));
 	tappfielddetail.defineColumn("tablefilter", typeof(string));
+	tappfielddetail.defineColumn("testexclude", typeof(string));
 	tappfielddetail.defineColumn("testvalue", typeof(string));
 	tappfielddetail.defineColumn("text", typeof(string));
 	tappfielddetail.defineColumn("textarea", typeof(string),false);

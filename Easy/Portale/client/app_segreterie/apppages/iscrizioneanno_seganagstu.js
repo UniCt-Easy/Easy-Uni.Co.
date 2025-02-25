@@ -30,9 +30,9 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.anno)
+				if (this.isNull(parentRow.anno))
 					parentRow.anno = 1;
-				if (!parentRow.annofc)
+				if (this.isNull(parentRow.annofc))
 					parentRow.annofc = 0;
 				if (self.isNullOrMinDate(parentRow.data))
 					parentRow.data = new Date();
@@ -54,7 +54,14 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#iscrizioneanno_seganagstu_protnumero'), true);
+				this.enableControl($('#iscrizioneanno_seganagstu_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#iscrizioneanno_seganagstu_protnumero'), false);
@@ -99,7 +106,15 @@
 
 			//insertClick
 
+			//beforePost
+
 			firebtnProtocol: function (that) {
+				var idreg_origine = that.idreg_istituto;
+				var idreg_destinazione = that.idreg_istituto;
+				var oggetto = 'Iscrizione del ' + that.stringFromDate_ddmmyyyy(that.state.currentRow.data);
+				var idprotocollodockind = 5;
+				var arrayTablesToProtocol = ['iscrizioneanno'];
+				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.idiscrizioneanno;
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 

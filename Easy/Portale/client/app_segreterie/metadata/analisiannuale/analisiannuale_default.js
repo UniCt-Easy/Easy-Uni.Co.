@@ -278,7 +278,6 @@
 				this.getDataTable('pcscessazioniview').acceptChanges();
 				this.getDataTable('pcspeoview').acceptChanges();
 				this.getDataTable('pcspuntiorganicoview').acceptChanges();
-				this.getDataTable('importcontrattistipendiview').acceptChanges();
 				this.getDataTable('getcontrattikindview').acceptChanges();
 				//innerBeforePost
 			},
@@ -456,7 +455,7 @@
 			manageanalisiannuale_default_spesedirPTA0: function () {
 				var analisiannuale_default_spesedirPTA0Ctrl = $("#analisiannuale_default_spesedirPTA0");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importo0; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -469,7 +468,7 @@
 			manageanalisiannuale_default_finanzesternidirPTA0: function () {
 				var analisiannuale_default_finanzesternidirPTA0Ctrl = $("#analisiannuale_default_finanzesternidirPTA0");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importoesterno0; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -481,7 +480,7 @@
 			manageanalisiannuale_default_totspesepersonalecaricoateneo0: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo0Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo0");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.position_title.contains("Direttore generale")))
+					if (!(r.position_title.includes("Direttore generale")))
 						return r.importoateneo0; //netto
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -493,7 +492,7 @@
 			manageanalisiannuale_default_speseDG0: function () {
 				var analisiannuale_default_speseDG0Ctrl = $("#analisiannuale_default_speseDG0");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.position_title.contains("Direttore generale"))
+					if (r.position_title.includes("Direttore generale"))
 						return r.importoateneo0; //netto
 				});
 				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
@@ -505,7 +504,7 @@
 			manageanalisiannuale_default_numeratore0: function () {
 				var analisiannuale_default_numeratore0Ctrl = $("#analisiannuale_default_numeratore0");
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					return r.importo0;
+					return r.importoateneo0;
 				});
 				tot = (tot +
 					(this.state.currentRow.speseDG0 ? this.state.currentRow.speseDG0 : 0) +
@@ -557,7 +556,7 @@
 			manageanalisiannuale_default_spesedirPTA1: function () {
 				var analisiannuale_default_spesedirPTA1Ctrl = $("#analisiannuale_default_spesedirPTA1");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importo1; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -569,7 +568,7 @@
 			manageanalisiannuale_default_finanzesternidirPTA1: function () {
 				var analisiannuale_default_finanzesternidirPTA1Ctrl = $("#analisiannuale_default_finanzesternidirPTA1");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importoesterno1; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -580,7 +579,7 @@
 			manageanalisiannuale_default_totspesepersonalecaricoateneo1: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo1Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo1");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.position_title.contains("Direttore generale")))
+					if (!(r.position_title.includes("Direttore generale")))
 						return r.importoateneo1; //netto
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -591,7 +590,7 @@
 			manageanalisiannuale_default_speseDG1: function () {
 				var analisiannuale_default_speseDG1Ctrl = $("#analisiannuale_default_speseDG1");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.position_title.contains("Direttore generale"))
+					if (r.position_title.includes("Direttore generale"))
 						return r.importoateneo1; //netto
 				});
 				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
@@ -602,7 +601,7 @@
 			manageanalisiannuale_default_numeratore1: function () {
 				var analisiannuale_default_numeratore1Ctrl = $("#analisiannuale_default_numeratore1");
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					return r.importo1;
+					return r.importoateneo1;
 				});
 				tot = (tot +
 					(this.state.currentRow.speseDG1 ? this.state.currentRow.speseDG1 : 0) +
@@ -640,7 +639,7 @@
 			manageanalisiannuale_default_spesedirPTA2: function () {
 				var analisiannuale_default_spesedirPTA2Ctrl = $("#analisiannuale_default_spesedirPTA2");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importo2; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -652,7 +651,7 @@
 			manageanalisiannuale_default_finanzesternidirPTA2: function () {
 				var analisiannuale_default_finanzesternidirPTA2Ctrl = $("#analisiannuale_default_finanzesternidirPTA2");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importoesterno2; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -663,7 +662,7 @@
 			manageanalisiannuale_default_totspesepersonalecaricoateneo2: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo2Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo2");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.position_title.contains("Direttore generale")))
+					if (!(r.position_title.includes("Direttore generale")))
 						return r.importoateneo2; //netto
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -674,7 +673,7 @@
 			manageanalisiannuale_default_speseDG2: function () {
 				var analisiannuale_default_speseDG2Ctrl = $("#analisiannuale_default_speseDG2");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.position_title.contains("Direttore generale"))
+					if (r.position_title.includes("Direttore generale"))
 						return r.importoateneo2; //netto
 				});
 				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
@@ -685,7 +684,7 @@
 			manageanalisiannuale_default_numeratore2: function () {
 				var analisiannuale_default_numeratore2Ctrl = $("#analisiannuale_default_numeratore2");
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					return r.importo2;
+					return r.importoateneo2;
 				});
 				tot = (tot +
 					(this.state.currentRow.speseDG2 ? this.state.currentRow.speseDG2 : 0) +
@@ -723,7 +722,7 @@
 			manageanalisiannuale_default_spesedirPTA3: function () {
 				var analisiannuale_default_spesedirPTA3Ctrl = $("#analisiannuale_default_spesedirPTA3");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importo3; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -735,7 +734,7 @@
 			manageanalisiannuale_default_finanzesternidirPTA3: function () {
 				var analisiannuale_default_finanzesternidirPTA3Ctrl = $("#analisiannuale_default_finanzesternidirPTA3");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.isdoc === 'S') && !(r.position_title.contains("Direttore generale")))
+					if (!(r.isdoc === 'S') && !(r.position_title.includes("Direttore generale")))
 						return r.importoesterno3; //lordo
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -746,7 +745,7 @@
 			manageanalisiannuale_default_totspesepersonalecaricoateneo3: function () {
 				var analisiannuale_default_totspesepersonalecaricoateneo3Ctrl = $("#analisiannuale_default_totspesepersonalecaricoateneo3");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (!(r.position_title.contains("Direttore generale")))
+					if (!(r.position_title.includes("Direttore generale")))
 						return r.importoateneo3; //netto
 				});
 				tot = !this.isNull(tot) ? tot : 0;
@@ -757,7 +756,7 @@
 			manageanalisiannuale_default_speseDG3: function () {
 				var analisiannuale_default_speseDG3Ctrl = $("#analisiannuale_default_speseDG3");
 				var tot = this.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					if (r.position_title.contains("Direttore generale"))
+					if (r.position_title.includes("Direttore generale"))
 						return r.importoateneo3; //netto
 				});
 				tot = !this.isNullOrNotANumber(tot) ? tot : 0;
@@ -768,7 +767,7 @@
 			manageanalisiannuale_default_numeratore3: function () {
 				var analisiannuale_default_numeratore3Ctrl = $("#analisiannuale_default_numeratore3");
 				var tot = _.sumBy(this.state.DS.tables.pcspuntiorganicoview.rows, function (r) {
-					return r.importo3;
+					return r.importoateneo3;
 				});
 				tot = (tot +
 					(this.state.currentRow.speseDG3 ? this.state.currentRow.speseDG3 : 0) +

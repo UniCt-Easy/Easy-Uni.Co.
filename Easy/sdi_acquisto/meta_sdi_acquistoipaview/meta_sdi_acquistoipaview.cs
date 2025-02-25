@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,10 +47,13 @@ namespace meta_sdi_acquistoipaview {
                 foreach (DataColumn C in T.Columns)
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
+                DescribeAColumn(T, "tipodocumento", "Cod. Tipo Documento", nPos++);
+                DescribeAColumn(T, "tipodocdescription", "Tipo Documento", nPos++);
                 DescribeAColumn(T, "title", "Fornitore", nPos++);
                 DescribeAColumn(T, "protocoldate", "Data protocollo", nPos++);
                 DescribeAColumn(T, "adate", "Data Emissione", nPos++);
                 DescribeAColumn(T, "ninvoice", "Numero Fattura", nPos++);
+                DescribeAColumn(T, "split_payment", "Applica Split Payment", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "codice_ipa", "IPA", nPos++);
                 DescribeAColumn(T, "riferimento_amministrazione", "Riferimento amministrazione", nPos++);
@@ -67,7 +70,6 @@ namespace meta_sdi_acquistoipaview {
                 DescribeAColumn(T, "utente_accettata", "Utente accettazione", nPos++);
                 DescribeAColumn(T, "data_accettata", "Data accettazione", nPos++);
                 DescribeAColumn(T, "existsinvoice", "Fatt.Creata in contabilità", nPos++);
-                DescribeAColumn(T, "tipodocumento", "Tipo Documento SDI", nPos++);
                 DescribeAColumn(T, "notcreacontabilita","Fattura da non creare in Contabilità", nPos++);
                 DescribeAColumn(T, "notcreacontabilitareason","Motivazione", nPos++);
                 //DescribeAColumn(T, "exist_mt", "File dei metadati");

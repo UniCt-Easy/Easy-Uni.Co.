@@ -28,9 +28,9 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.obblig)
+				if (this.isNull(parentRow.obblig) || parentRow.obblig == '')
 					parentRow.obblig = "N";
-				if (!parentRow.profess)
+				if (this.isNull(parentRow.profess) || parentRow.profess == '')
 					parentRow.profess = "N";
 				//beforeFillFilter
 				

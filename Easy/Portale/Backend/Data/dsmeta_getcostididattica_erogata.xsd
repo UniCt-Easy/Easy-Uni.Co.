@@ -10,7 +10,6 @@
               <xs:element name="accmotive_registry_codemotive" type="xs:string" minOccurs="0" />
               <xs:element name="accmotive_registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="accmotive_title" type="xs:string" minOccurs="0" />
-              <xs:element name="classconsorsuale_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="fonteindicebibliometrico_title" type="xs:string" minOccurs="0" />
               <xs:element name="geo_city_title" type="xs:string" minOccurs="0" />
@@ -18,7 +17,6 @@
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
@@ -34,17 +32,6 @@
               <xs:element name="registry_cf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ct" type="xs:dateTime" />
               <xs:element name="registry_cu" type="xs:string" />
-              <xs:element name="registry_docenti_ct" type="xs:dateTime" />
-              <xs:element name="registry_docenti_cu" type="xs:string" />
-              <xs:element name="registry_docenti_cv" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_docenti_idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
-              <xs:element name="registry_docenti_idreg" type="xs:int" />
-              <xs:element name="registry_docenti_indicebibliometrico" type="xs:int" minOccurs="0" />
-              <xs:element name="registry_docenti_lt" type="xs:dateTime" />
-              <xs:element name="registry_docenti_lu" type="xs:string" />
-              <xs:element name="registry_docenti_matricola" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_docenti_ricevimento" type="xs:string" minOccurs="0" />
-              <xs:element name="registry_docenti_soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="registry_email_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_extension" type="xs:string" minOccurs="0" />
               <xs:element name="registry_extmatricula" type="xs:string" minOccurs="0" />
@@ -53,13 +40,19 @@
               <xs:element name="registry_foreigncf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_forename" type="xs:string" minOccurs="0" />
               <xs:element name="registry_gender" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idateco" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="registry_location" type="xs:string" minOccurs="0" />
@@ -69,11 +62,15 @@
               <xs:element name="registry_multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_pic" type="xs:string" minOccurs="0" />
               <xs:element name="registry_residence" type="xs:int" />
+              <xs:element name="registry_ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="registry_sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="registry_sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="registry_surname" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_title_en" type="xs:string" minOccurs="0" />
               <xs:element name="registry_toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="registry_txt" type="xs:string" minOccurs="0" />
               <xs:element name="registryclass_description" type="xs:string" minOccurs="0" />

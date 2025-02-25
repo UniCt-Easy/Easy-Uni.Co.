@@ -130,9 +130,7 @@
 				var goi = $('#grid_perfvalutazionepersonalesoglia_default').data("customController")
 				if (goi) {
 					if (this.state.callerPage.crea !== true) {
-						$(goi.el).css("pointer-events", "none")
-					} else {
-						$(goi.el).css("pointer-events", "unset")
+						goi.removeEvents();
 					}
 				}
 			},

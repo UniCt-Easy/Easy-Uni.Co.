@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,59 +26,38 @@ using System.Runtime.Serialization;
 namespace ddt_in_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Bolla di Ingresso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ddt_in 		=> Tables["ddt_in"];
 
-	///<summary>
-	///Merce in Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stock 		=> Tables["stock"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Causali Bolla in Ingresso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ddt_in_motive 		=> Tables["ddt_in_motive"];
 
-	///<summary>
-	///Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable store 		=> Tables["store"];
 
-	///<summary>
-	///Tipo contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable mandatekind 		=> Tables["mandatekind"];
 
-	///<summary>
-	/// Causali Ingresso
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable storeload_motive 		=> Tables["storeload_motive"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listview 		=> Tables["listview"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable ddt_inattachment 		=> Tables["ddt_inattachment"];
 
 	#endregion
 
@@ -474,6 +453,25 @@ private void initClass() {
 	tinvoicekind.PrimaryKey =  new DataColumn[]{tinvoicekind.Columns["idinvkind"]};
 
 
+	//////////////////// DDT_INATTACHMENT /////////////////////////////////
+	var tddt_inattachment= new DataTable("ddt_inattachment");
+	C= new DataColumn("idddt_in", typeof(int));
+	C.AllowDBNull=false;
+	tddt_inattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tddt_inattachment.Columns.Add(C);
+	tddt_inattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tddt_inattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tddt_inattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tddt_inattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tddt_inattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tddt_inattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tddt_inattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tddt_inattachment);
+	tddt_inattachment.PrimaryKey =  new DataColumn[]{tddt_inattachment.Columns["idddt_in"], tddt_inattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -505,6 +503,10 @@ private void initClass() {
 	cPar = new []{invoicekind.Columns["idinvkind"]};
 	cChild = new []{stock.Columns["idinvkind"]};
 	Relations.Add(new DataRelation("invoicekind_stock",cPar,cChild,false));
+
+	cPar = new []{ddt_in.Columns["idddt_in"]};
+	cChild = new []{ddt_inattachment.Columns["idddt_in"]};
+	Relations.Add(new DataRelation("ddt_in_ddt_inattachment",cPar,cChild,false));
 
 	#endregion
 

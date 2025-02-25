@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_firenet_years_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_firenet_years_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="firenet_years" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="A1max" type="xs:int" minOccurs="0" />
+              <xs:element name="A1max2" type="xs:int" minOccurs="0" />
+              <xs:element name="A1min" type="xs:int" minOccurs="0" />
+              <xs:element name="A1min2" type="xs:int" minOccurs="0" />
+              <xs:element name="A2max" type="xs:int" minOccurs="0" />
+              <xs:element name="A2max2" type="xs:int" minOccurs="0" />
+              <xs:element name="A2min" type="xs:int" minOccurs="0" />
+              <xs:element name="A2min2" type="xs:int" minOccurs="0" />
+              <xs:element name="A3max" type="xs:int" minOccurs="0" />
+              <xs:element name="A3min" type="xs:int" minOccurs="0" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="B1max" type="xs:int" minOccurs="0" />
+              <xs:element name="B1max2" type="xs:int" minOccurs="0" />
+              <xs:element name="B1min" type="xs:int" minOccurs="0" />
+              <xs:element name="B1min2" type="xs:int" minOccurs="0" />
+              <xs:element name="B2max" type="xs:int" minOccurs="0" />
+              <xs:element name="B2max2" type="xs:int" minOccurs="0" />
+              <xs:element name="B2min" type="xs:int" minOccurs="0" />
+              <xs:element name="B2min2" type="xs:int" minOccurs="0" />
+              <xs:element name="B3max" type="xs:int" minOccurs="0" />
+              <xs:element name="B3min" type="xs:int" minOccurs="0" />
+              <xs:element name="C1max" type="xs:int" minOccurs="0" />
+              <xs:element name="C1max2" type="xs:int" minOccurs="0" />
+              <xs:element name="C1min" type="xs:int" minOccurs="0" />
+              <xs:element name="C1min2" type="xs:int" minOccurs="0" />
+              <xs:element name="C2max" type="xs:int" minOccurs="0" />
+              <xs:element name="C2max2" type="xs:int" minOccurs="0" />
+              <xs:element name="C2min" type="xs:int" minOccurs="0" />
+              <xs:element name="C2min2" type="xs:int" minOccurs="0" />
+              <xs:element name="C3max" type="xs:int" minOccurs="0" />
+              <xs:element name="C3min" type="xs:int" minOccurs="0" />
+              <xs:element name="created" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="crediti" type="xs:int" minOccurs="0" />
+              <xs:element name="D1max" type="xs:int" minOccurs="0" />
+              <xs:element name="D1max2" type="xs:int" minOccurs="0" />
+              <xs:element name="D1min" type="xs:int" minOccurs="0" />
+              <xs:element name="D1min2" type="xs:int" minOccurs="0" />
+              <xs:element name="D2max" type="xs:int" minOccurs="0" />
+              <xs:element name="D2max2" type="xs:int" minOccurs="0" />
+              <xs:element name="D2min" type="xs:int" minOccurs="0" />
+              <xs:element name="D2min2" type="xs:int" minOccurs="0" />
+              <xs:element name="D3max" type="xs:int" minOccurs="0" />
+              <xs:element name="D3min" type="xs:int" minOccurs="0" />
+              <xs:element name="data_fine1_to" type="xs:string" minOccurs="0" />
+              <xs:element name="data_fine2_to" type="xs:string" minOccurs="0" />
+              <xs:element name="data_from" type="xs:string" minOccurs="0" />
+              <xs:element name="E1max" type="xs:int" minOccurs="0" />
+              <xs:element name="E1max2" type="xs:int" minOccurs="0" />
+              <xs:element name="E1min" type="xs:int" minOccurs="0" />
+              <xs:element name="E1min2" type="xs:int" minOccurs="0" />
+              <xs:element name="E2max" type="xs:int" minOccurs="0" />
+              <xs:element name="E2max2" type="xs:int" minOccurs="0" />
+              <xs:element name="E2min" type="xs:int" minOccurs="0" />
+              <xs:element name="E2min2" type="xs:int" minOccurs="0" />
+              <xs:element name="E3max" type="xs:int" minOccurs="0" />
+              <xs:element name="E3min" type="xs:int" minOccurs="0" />
+              <xs:element name="edit_operator_user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea1max" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea1min" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea2max" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea2min" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea3max" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea3min" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea4max" type="xs:int" minOccurs="0" />
+              <xs:element name="fitarea4min" type="xs:int" minOccurs="0" />
+              <xs:element name="freqmin" type="xs:int" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="laboratorio" type="xs:int" minOccurs="0" />
+              <xs:element name="maxlaboratorio" type="xs:int" minOccurs="0" />
+              <xs:element name="maxstrumentale" type="xs:int" minOccurs="0" />
+              <xs:element name="maxteorico" type="xs:int" minOccurs="0" />
+              <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="scarto" type="xs:int" minOccurs="0" />
+              <xs:element name="strumentale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="teorico" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:firenet_years" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -753,6 +753,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="assetacquireattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nassetacquire" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -873,6 +888,11 @@
       <xs:selector xpath=".//mstns:invoicekind" />
       <xs:field xpath="mstns:idinvkind" />
     </xs:unique>
+    <xs:unique name="assetacquireattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:assetacquireattachment" />
+      <xs:field xpath="mstns:nassetacquire" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -902,6 +922,7 @@
       <msdata:Relationship name="registry_assetacquire" msdata:parent="registry" msdata:child="assetacquire" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_manager1_assetacquire" msdata:parent="manager1" msdata:child="assetacquire" msdata:parentkey="idman" msdata:childkey="_x0021_idmanager" />
       <msdata:Relationship name="invoicekind_assetacquire" msdata:parent="invoicekind" msdata:child="assetacquire" msdata:parentkey="idinvkind" msdata:childkey="idinvkind" />
+      <msdata:Relationship name="assetacquire_assetacquireattachment" msdata:parent="assetacquire" msdata:child="assetacquireattachment" msdata:parentkey="nassetacquire" msdata:childkey="nassetacquire" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

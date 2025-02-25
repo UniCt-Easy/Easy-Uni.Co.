@@ -52,21 +52,16 @@
 						this.describeAColumn(table, 'voto', 'Voto', null, 370, null);
 						this.describeAColumn(table, '!idcity_geo_city_title', 'Città', null, 181, null);
 						objCalcFieldConfig['!idcity_geo_city_title'] = { tableNameLookup:'geo_city', columnNameLookup:'title', columnNamekey:'idcity' };
-						this.describeAColumn(table, '!idlearningagrkind_learningagrkind_title', 'Tipologia Fase del tirocinio', null, 201, null);
-						this.describeAColumn(table, '!idlearningagrkind_learningagrkind_description', 'Descrizione Fase del tirocinio', null, 202, null);
-						objCalcFieldConfig['!idlearningagrkind_learningagrkind_title'] = { tableNameLookup:'learningagrkind', columnNameLookup:'title', columnNamekey:'idlearningagrkind' };
-						objCalcFieldConfig['!idlearningagrkind_learningagrkind_description'] = { tableNameLookup:'learningagrkind', columnNameLookup:'description', columnNamekey:'idlearningagrkind' };
+						this.describeAColumn(table, '!idlearningagrkind_learningagrkind_title', 'Fase del tirocinio', null, 201, null);
+						objCalcFieldConfig['!idlearningagrkind_learningagrkind_title'] = { tableNameLookup:'learningagrkind_alias1', columnNameLookup:'title', columnNamekey:'idlearningagrkind' };
 						this.describeAColumn(table, '!idlearningagrtrainerkind_learningagrtrainerkind_title', 'Tipologia', null, 211, null);
 						objCalcFieldConfig['!idlearningagrtrainerkind_learningagrtrainerkind_title'] = { tableNameLookup:'learningagrtrainerkind', columnNameLookup:'title', columnNamekey:'idlearningagrtrainerkind' };
 						this.describeAColumn(table, '!idlearningagrtrainervalut_learningagrtrainervalut_title', 'Title Tipo di valutazione finale', null, 221, null);
 						this.describeAColumn(table, '!idlearningagrtrainervalut_learningagrtrainervalut_description', 'Description Tipo di valutazione finale', null, 222, null);
 						objCalcFieldConfig['!idlearningagrtrainervalut_learningagrtrainervalut_title'] = { tableNameLookup:'learningagrtrainervalut', columnNameLookup:'title', columnNamekey:'idlearningagrtrainervalut' };
 						objCalcFieldConfig['!idlearningagrtrainervalut_learningagrtrainervalut_description'] = { tableNameLookup:'learningagrtrainervalut', columnNameLookup:'description', columnNamekey:'idlearningagrtrainervalut' };
-						this.describeAColumn(table, '!idreg_aziende_registry_aziende_title', 'Azienda o ente', null, 251, null);
-						objCalcFieldConfig['!idreg_aziende_registry_aziende_title'] = { tableNameLookup:'registry_alias2', columnNameLookup:'title', columnNamekey:'idreg_aziende' };
-						objCalcFieldConfig['!idlearningagrkind_learningagrkind_title'] = { tableNameLookup:'learningagrkind_alias1', columnNameLookup:'title', columnNamekey:'idlearningagrkind' };
-						objCalcFieldConfig['!idlearningagrkind_learningagrkind_description'] = { tableNameLookup:'learningagrkind_alias1', columnNameLookup:'description', columnNamekey:'idlearningagrkind' };
-						objCalcFieldConfig['!idreg_aziende_registry_aziende_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_aziende' };
+						this.describeAColumn(table, '!idreg_aziende_registry_title', 'Azienda o ente', null, 251, null);
+						objCalcFieldConfig['!idreg_aziende_registry_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_aziende' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -77,7 +72,46 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["address"].caption = "Indirizzo";
+						table.columns["assicurazienda"].caption = "Assicurazione dell'azienda";
+						table.columns["assicuraziendacivile"].caption = "Copertura responsabilità civile";
+						table.columns["assicuraziendaspost"].caption = "Copertura infortuni negli spostamenti per e dal lavoro";
+						table.columns["assicuraziendaviagg"].caption = "Copertura viaggi di lavoro";
+						table.columns["assicuristituto"].caption = "Assicurazione dell'istituto";
+						table.columns["assicuristitutocivile"].caption = "Copertura responsabilità civile";
+						table.columns["assicuristitutospost"].caption = "Copertura infortuni negli spostamenti per e dal lavoro";
+						table.columns["assicuristitutoviagg"].caption = "Copertura viaggi di lavoro";
+						table.columns["cap"].caption = "CAP";
+						table.columns["capacitaacquis"].caption = "Capacità e competenze che verranno acquisite";
+						table.columns["ectscf"].caption = "Numero di crediti ECTS";
+						table.columns["ectstitle"].caption = "Titolo ECTS";
+						table.columns["idcity"].caption = "Città";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idlearningagrkind"].caption = "Fase del tirocinio";
+						table.columns["idlearningagrtrainerkind"].caption = "Tipologia";
+						table.columns["idlearningagrtrainervalut"].caption = "Tipo di valutazione finale";
+						table.columns["idnation"].caption = "Nazione";
+						table.columns["idreg_aziende"].caption = "Azienda o ente";
+						table.columns["location"].caption = "Località";
+						table.columns["oresettimana"].caption = "Ore di lavoro alla settimana ";
+						table.columns["pianomonit"].caption = "Piano di monitoraggio";
+						table.columns["pianovalut"].caption = "Piano di valutazione";
+						table.columns["registrainemd"].caption = "Registra l’attività nell’Europass Mobility Document";
+						table.columns["registraintor"].caption = "Registra l’attività nel Transcript of records";
+						table.columns["sostaltro"].caption = "Sostegni di qualunque altro tipo dell’azienda";
+						table.columns["sostazienda"].caption = "Sostegno economico dell’azienda";
+						table.columns["start"].caption = "Data inizio periodo ";
+						table.columns["stop"].caption = "Data fine periodo ";
+						table.columns["title"].caption = "Titolo del tirocinio ";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_learningagrtrainer");

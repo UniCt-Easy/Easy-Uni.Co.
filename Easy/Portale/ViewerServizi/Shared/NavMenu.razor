@@ -1,0 +1,72 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">ViewerServizi</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3 py-0">
+            <NavLink class="nav-link">
+                UNICAMPANIA
+            </NavLink>
+            <div class="nav-item px-3  py-0">
+                <NavLink class="nav-link" href="lezione?uniCampania">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Lezioni Esse3
+                </NavLink>
+            </div>
+            <div class="nav-item px-3  py-0">
+                <NavLink class="nav-link" href="diario?uniCampania">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Diari Esse3
+                </NavLink>
+            </div>
+        </div>
+        <div class="nav-item px-3">
+            <hr style="margin: 7px 0 !important; border: 1px solid #ccc !important;" />
+        </div>
+        <div class="nav-item px-3 py-0">
+            <NavLink class="nav-link">
+                UNISALENTO
+            </NavLink>
+            <div class="nav-item px-3  py-0">
+                <NavLink class="nav-link" href="lezione?uniSalento">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Lezioni Esse3
+                </NavLink>
+            </div>
+            <div class="nav-item px-3  py-0">
+                <NavLink class="nav-link" href="diario?uniSalento">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Diari Esse3
+                </NavLink>
+            </div>
+            <div class="nav-item px-3  py-0">
+                <NavLink class="nav-link" href="timbratura?uniSalento">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Timbrature Zucchetti
+                </NavLink>
+            </div>
+            <div class="nav-item px-3  py-0">
+                <NavLink class="nav-link" href="costoorario?uniSalento">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Costo Orario Visper
+                </NavLink>
+            </div>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

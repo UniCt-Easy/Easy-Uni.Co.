@@ -145,9 +145,19 @@
 				var self = this;
 				var progettobudgetvariazione = this.getDataTable('progettobudgetvariazione');
 				var dateCurr = new Date(1900, 1, 1);
+				let first = true;
+
+				//prima setto il budget a 0 se indefinito
+				if (!self.state.currentRow.budget) self.state.currentRow.budget = 0;
+
 				_.forEach(progettobudgetvariazione.rows, function (r) {
-					if (r.data > dateCurr && !!r.newamount && !!r.data) {
-						self.state.currentRow["!budgetvariazione"] = r.newamount
+					if (r.data > dateCurr && !!r.amount && !!r.data) {
+						if (first) {
+							self.state.currentRow["!budgetvariazione"] = (r.amount ? self.state.currentRow.budget + r.amount : self.state.currentRow.budget);
+							first = false;
+						} else {
+							self.state.currentRow["!budgetvariazione"] = (r.amount ? self.state.currentRow["!budgetvariazione"] + r.amount : self.state.currentRow["!budgetvariazione"]);
+						}
 					}
 				});
 			},

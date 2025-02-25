@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_lezione_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_lezione_default: DataSet {
+public partial class dsmeta_lezione_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -124,10 +124,10 @@ private void initClass() {
 	taffidamentosegview.defineColumn("iddidprogcurr", typeof(int),false);
 	taffidamentosegview.defineColumn("iddidprogori", typeof(int),false);
 	taffidamentosegview.defineColumn("iddidprogporzanno", typeof(int),false);
-	taffidamentosegview.defineColumn("idreg_docenti", typeof(int));
+	taffidamentosegview.defineColumn("idreg_docenti", typeof(int),false);
 	taffidamentosegview.defineColumn("title", typeof(string));
 	Tables.Add(taffidamentosegview);
-	taffidamentosegview.defineKey("idaffidamento");
+	taffidamentosegview.defineKey("aa", "idaffidamento", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idreg_docenti");
 
 	//////////////////// CANALE /////////////////////////////////
 	var tcanale= new MetaTable("canale");
@@ -188,7 +188,7 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("insegninteg_denominazione", typeof(string));
 	tattivformdefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tattivformdefaultview);
-	tattivformdefaultview.defineKey("idattivform");
+	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// DIDPROGPORZANNODEFAULTVIEW /////////////////////////////////
 	var tdidprogporzannodefaultview= new MetaTable("didprogporzannodefaultview");
@@ -211,7 +211,7 @@ private void initClass() {
 	tdidprogporzannodefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
 	tdidprogporzannodefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogporzannodefaultview);
-	tdidprogporzannodefaultview.defineKey("iddidprogporzanno");
+	tdidprogporzannodefaultview.defineKey("aa", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
 
 	//////////////////// DIDPROGANNODEFAULTVIEW /////////////////////////////////
 	var tdidprogannodefaultview= new MetaTable("didprogannodefaultview");
@@ -230,7 +230,7 @@ private void initClass() {
 	tdidprogannodefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tdidprogannodefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogannodefaultview);
-	tdidprogannodefaultview.defineKey("iddidproganno");
+	tdidprogannodefaultview.defineKey("aa", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// DIDPROGORIDEFAULTVIEW /////////////////////////////////
 	var tdidprogoridefaultview= new MetaTable("didprogoridefaultview");
@@ -248,7 +248,7 @@ private void initClass() {
 	tdidprogoridefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tdidprogoridefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogoridefaultview);
-	tdidprogoridefaultview.defineKey("iddidprogori");
+	tdidprogoridefaultview.defineKey("idcorsostudio", "iddidprog", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// DIDPROGCURR /////////////////////////////////
 	var tdidprogcurr= new MetaTable("didprogcurr");
@@ -327,15 +327,12 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("title", typeof(string));
 	tdidprogdefaultview.defineColumn("titolokind_title", typeof(string));
 	Tables.Add(tdidprogdefaultview);
-	tdidprogdefaultview.defineKey("iddidprog");
+	tdidprogdefaultview.defineKey("idcorsostudio", "iddidprog");
 
 	//////////////////// CORSOSTUDIODEFAULTVIEW /////////////////////////////////
 	var tcorsostudiodefaultview= new MetaTable("corsostudiodefaultview");
 	tcorsostudiodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tcorsostudiodefaultview.defineColumn("idcorsostudio", typeof(int),false);
-	tcorsostudiodefaultview.defineColumn("idcorsostudiolivello", typeof(int));
-	tcorsostudiodefaultview.defineColumn("idcorsostudionorma", typeof(int));
-	tcorsostudiodefaultview.defineColumn("idstruttura", typeof(int));
 	Tables.Add(tcorsostudiodefaultview);
 	tcorsostudiodefaultview.defineKey("idcorsostudio");
 
@@ -365,6 +362,7 @@ private void initClass() {
 	tlezione.defineColumn("stage", typeof(string));
 	tlezione.defineColumn("start", typeof(DateTime),false);
 	tlezione.defineColumn("stop", typeof(DateTime),false);
+	tlezione.defineColumn("titolo", typeof(string));
 	tlezione.defineColumn("visita", typeof(string));
 	Tables.Add(tlezione);
 	tlezione.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");

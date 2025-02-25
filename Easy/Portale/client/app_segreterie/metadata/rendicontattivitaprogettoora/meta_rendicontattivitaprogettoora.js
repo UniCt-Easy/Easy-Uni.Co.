@@ -27,10 +27,12 @@
 						this.describeAColumn(table, '!titleancestor', 'Descrizione', null, 10, null);
 						this.describeAColumn(table, 'data', 'Data', null, 30, null);
 						this.describeAColumn(table, 'ore', 'Numero di ore', null, 70, null);
-						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato di avanzamento lavori', null, 131, null);
-						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato di avanzamento lavori', null, 132, null);
 						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
+						this.describeAColumn(table, '!idsal_sal_numerosal', 'Numero Stato di avanzamento lavori', null, 131, null);
+						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato di avanzamento lavori', null, 132, null);
+						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato di avanzamento lavori', null, 133, null);
+						objCalcFieldConfig['!idsal_sal_numerosal'] = { tableNameLookup:'sal', columnNameLookup:'numerosal', columnNamekey:'idsal' };
 //$objCalcFieldConfig_seg$
 						break;
 					case 'segsal':
@@ -44,14 +46,24 @@
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto', null, 12, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto', null, 13, null);
-						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
-						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'start', columnNamekey:'idprogetto' };
-						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'stop', columnNamekey:'idprogetto' };
-						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_description', 'Attività', null, 31, null);
+						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto', columnNameLookup:'start', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_description', 'Descrizione Attività', null, 32, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_orepreventivate', 'Numero di ore preventivate Attività', null, 33, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_datainizioprevista', 'Data inizio prevista Attività', null, 34, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_stop', 'Data fine prevista Attività', null, 35, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_idrendicontattivitaprogettokind_title', 'Tipo di attività Attività', null, 30, null);
 						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_description'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'description', columnNamekey:'idrendicontattivitaprogetto' };
-						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato di avanzamento lavori', null, 61, null);
-						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato di avanzamento lavori', null, 62, null);
-						this.describeAColumn(table, '!idsal_sal_datablocco', 'Data di Blocco Stato di avanzamento lavori', null, 63, null);
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_orepreventivate'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'orepreventivate', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_datainizioprevista'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'datainizioprevista', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_stop'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'stop', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_idrendicontattivitaprogettokind_title'] = { tableNameLookup:'rendicontattivitaprogettokind', columnNameLookup:'title', columnNamekey:'idrendicontattivitaprogetto' };
+						this.describeAColumn(table, '!idsal_sal_numerosal', 'Numero Stato di avanzamento lavori', null, 61, null);
+						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato di avanzamento lavori', null, 62, null);
+						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato di avanzamento lavori', null, 63, null);
+						this.describeAColumn(table, '!idsal_sal_datablocco', 'Data di Blocco Stato di avanzamento lavori', null, 64, null);
+						objCalcFieldConfig['!idsal_sal_numerosal'] = { tableNameLookup:'sal', columnNameLookup:'numerosal', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
@@ -60,6 +72,39 @@
 						objCalcFieldConfig['!idworkpackage_workpackage_raggruppamento'] = { tableNameLookup:'workpackage', columnNameLookup:'raggruppamento', columnNamekey:'idworkpackage' };
 						objCalcFieldConfig['!idworkpackage_workpackage_title'] = { tableNameLookup:'workpackage', columnNameLookup:'title', columnNamekey:'idworkpackage' };
 //$objCalcFieldConfig_personale$
+						break;
+					case 'personalecosto':
+						this.describeAColumn(table, 'data', 'Data', null, 40, null);
+						this.describeAColumn(table, 'ore', 'Numero di ore', null, 50, null);
+						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 11, null);
+						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto', null, 12, null);
+						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto', null, 13, null);
+						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'start', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_description', 'Descrizione Attività', null, 32, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_orepreventivate', 'Numero di ore preventivate Attività', null, 33, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_datainizioprevista', 'Data inizio prevista Attività', null, 34, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_stop', 'Data fine prevista Attività', null, 35, null);
+						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_idrendicontattivitaprogettokind_title', 'Tipo di attività Attività', null, 30, null);
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_description'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'description', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_orepreventivate'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'orepreventivate', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_datainizioprevista'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'datainizioprevista', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_stop'] = { tableNameLookup:'rendicontattivitaprogetto', columnNameLookup:'stop', columnNamekey:'idrendicontattivitaprogetto' };
+						objCalcFieldConfig['!idrendicontattivitaprogetto_rendicontattivitaprogetto_idrendicontattivitaprogettokind_title'] = { tableNameLookup:'rendicontattivitaprogettokind', columnNameLookup:'title', columnNamekey:'idrendicontattivitaprogetto' };
+						this.describeAColumn(table, '!idsal_sal_numerosal', 'Numero Stato di avanzamento lavori', null, 61, null);
+						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio Stato di avanzamento lavori', null, 62, null);
+						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine Stato di avanzamento lavori', null, 63, null);
+						this.describeAColumn(table, '!idsal_sal_datablocco', 'Data di Blocco Stato di avanzamento lavori', null, 64, null);
+						objCalcFieldConfig['!idsal_sal_numerosal'] = { tableNameLookup:'sal', columnNameLookup:'numerosal', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
+						this.describeAColumn(table, '!idworkpackage_workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 21, null);
+						this.describeAColumn(table, '!idworkpackage_workpackage_title', 'Titolo Workpackage', null, 22, null);
+						objCalcFieldConfig['!idworkpackage_workpackage_raggruppamento'] = { tableNameLookup:'workpackage', columnNameLookup:'raggruppamento', columnNamekey:'idworkpackage' };
+						objCalcFieldConfig['!idworkpackage_workpackage_title'] = { tableNameLookup:'workpackage', columnNameLookup:'title', columnNamekey:'idworkpackage' };
+//$objCalcFieldConfig_personalecosto$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -89,6 +134,9 @@
 						table.columns["!titleancestor"].caption = "Attività";
 						table.columns["idprogetto"].caption = "Progetto";
 //$innerSetCaptionConfig_personale$
+						break;
+					case 'personalecosto':
+//$innerSetCaptionConfig_personalecosto$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -125,6 +173,9 @@
 						return "data asc ";
 					}
 					case "personale": {
+						return "data asc ";
+					}
+					case "personalecosto": {
 						return "data asc ";
 					}
 					//$getSortingin$

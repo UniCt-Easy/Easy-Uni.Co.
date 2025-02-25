@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,48 +26,30 @@ using System.Runtime.Serialization;
 namespace csa_importriep_partition_income_elenco {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep_partition_income 		=> Tables["csa_importriep_partition_income"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeview 		=> Tables["incomeview"];
 
-	///<summary>
-	///Importazione Riepiloghi CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep 		=> Tables["csa_importriep"];
 
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
@@ -100,7 +82,6 @@ private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
 	DataColumn C;
@@ -116,6 +97,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tcsa_importriep_partition_income.Columns.Add(C);
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	tcsa_importriep_partition_income.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("cu", typeof(string)));
 	tcsa_importriep_partition_income.Columns.Add( new DataColumn("lt", typeof(DateTime)));

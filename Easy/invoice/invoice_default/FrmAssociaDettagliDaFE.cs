@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -880,47 +880,6 @@ namespace invoice_default {
                 btnEseguiAssociazione.Enabled = false;
             }
         }
-
-        private DataRow IndividuaFatturaMadre(DataRow r) {
-            if (fatture_madri.Rows.Count == 0)
-                return null;
-
-            if (fatture_madri.Rows.Count == 1) {
-                DataRow R = fatture_madri.Rows[0];
-                return R;
-            }
-            if (r["IdDocumento"] == DBNull.Value) return null;
-            string VistaScelta = "invoiceview";
-            MetaData MIinvoiceview = Meta.Dispatcher.Get(VistaScelta);
-            MIinvoiceview.FilterLocked = true;
-            MIinvoiceview.DS = DS;
- 
-            show("Selezionare la Fattura madre da associare al dettaglio di descrizione "+r["Descrizione"] +
-                        " e imponibile "+CfgFn.GetNoNullDecimal(r["PrezzoUnitario"]).ToString("c"), "Avviso",MessageBoxButtons.OK);
-            DataRow MyDR = null;
-            string filter = QHS.CmpEq("doc", r["IdDocumento"]);            
-            while (MyDR == null) {
-                MyDR = MIinvoiceview.SelectOne("default", filter, null, null);
-                if (MyDR != null) {
-                    return MyDR;
-                }
-                show($@"E' necessario selezionare una fattura madre(idDocument:{r["IdDocumento"]}) da associare al dettaglio",
-                    @"Avviso", 
-                    MessageBoxButtons.OK);
-                if (filter != null) {
-                    filter = null;
-                    show(
-                        @"Non avendo selezionato nulla la ricerca della fattura non sarà fatta per documento ma tra tutte.",
-                        @"Avviso",
-                        MessageBoxButtons.OK);
-                }
-                //else {
-                //    return null;
-                //}
-            }
-            return null;
-        }
-
         private object IndividuaAliquota(DataRow FE_Selected) {
             string filterAttivita = null;
             if (flagactivity != null) {
@@ -1106,13 +1065,6 @@ namespace invoice_default {
                     R["assetkind"] = rCP["assetkind"];
                     R["idsor_siope"] = rCP["idsor_siope"];
                     R["requested_doc"] = rCP["requested_doc"];
-                // Inserisce le info della fattura madre, se trattasi di Nota di variazione
-                DataRow Rmadre = IndividuaFatturaMadre(FE_Selected);
-                    if (Rmadre != null) {
-                        R["idinvkind_main"] = Rmadre["idinvkind"];
-                        R["yinv_main"] = Rmadre["yinv"];
-                        R["ninv_main"] = Rmadre["ninv"];
-                    }
                     Tassociazioni.Rows.Add(R);
                 }//fine foreach
 
@@ -1378,14 +1330,7 @@ namespace invoice_default {
                 R["npackage"] = rFE["Quantita"];
                 R["unitsforpackage"] = rFE["unitsforpackage"];
                 R["residual"] = rFE["Quantita"];//number
-                // Inserisce le info della fattura madre, se trattasi di Nota di variazione
-                DataRow Rmadre = IndividuaFatturaMadre(rFE);
-              
-                if (Rmadre != null) {
-                    R["idinvkind_main"] = Rmadre["idinvkind"];
-                    R["yinv_main"] = Rmadre["yinv"];
-                    R["ninv_main"] = Rmadre["ninv"];
-                }
+               
                 if (R.Table.Columns.Contains("cigcode") && rFE.Table.Columns.Contains("CodiceCIG")) {
                     R["cigcode"] = rFE["CodiceCIG"];
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -26,34 +27,45 @@ namespace ServizioRendicontazione.Repositories
 		// ==============================================================
 		public List<classescuola> AllClasseScuola()
 		{
-			return _context.classescuolas.ToList();
+			return _context.classescuolas.AsNoTracking().ToList();
 		}
 
 		public classescuola AddClasseScuola(string sigla, string title, string idclassescuolakind, int? idcorsostudionorma, int? idclassescuolaarea)
 		{
-			int idclassescuola = 0;
-			if (_context.classescuolas.Any())
-				idclassescuola = _context.classescuolas.Max(m => m.idclassescuola);
-
-			idclassescuola++;
-
-			classescuola csk = new classescuola()
+			try
 			{
-				idclassescuola = idclassescuola,
-				idclassescuolaarea = idclassescuolaarea,
-				idclassescuolakind = idclassescuolakind,
-				idcorsostudionorma = idcorsostudionorma,
-				indicecineca = null,
-				obbform = null,
-				prospocc = null,
-				sigla = sigla,
-				title  = title
-			};
-		
-			_context.Add(csk);
-			_context.SaveChanges();
+				int idclassescuola = 0;
+				if (_context.classescuolas.Any())
+					idclassescuola = _context.classescuolas.AsNoTracking().Max(m => m.idclassescuola);
 
-			return csk;
+				idclassescuola++;
+
+				classescuola csk = new classescuola()
+				{
+					idclassescuola = idclassescuola,
+					idclassescuolaarea = idclassescuolaarea,
+					idclassescuolakind = idclassescuolakind,
+					idcorsostudionorma = idcorsostudionorma,
+					indicecineca = null,
+					obbform = null,
+					prospocc = null,
+					sigla = sigla,
+					title = title,
+
+					Lt = DateTime.Now,
+					Lu = common.cu
+				};
+
+				_context.Add(csk);
+				_context.SaveChanges();
+
+				return csk;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddClasseScuola({sigla}, {idclassescuolakind}, {title}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
 		}
 	}
 }

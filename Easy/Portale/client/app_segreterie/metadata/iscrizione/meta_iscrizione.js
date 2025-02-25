@@ -33,13 +33,15 @@
 //$objCalcFieldConfig_didprog$
 						break;
 					case 'seganagstu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 40, null);
+						this.describeAColumn(table, 'matricola', 'Matricola', null, 70, 50);
 						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 51, null);
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 52, null);
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Denominazione Didattica programmata', null, 51, null);
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 50, null);
 						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 50, null);
 //$objCalcFieldConfig_seganagstu$
 						break;
 					case 'seganagstuacc':
@@ -116,6 +118,9 @@
 						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_stato$
 						break;
+					case 'seganagstu':
+//$innerSetCaptionConfig_seganagstu$
+						break;
 //$innerSetCaptionConfig$
 				}
 			},
@@ -173,6 +178,9 @@
 					}
 					case "stato": {
 						return "idreg desc";
+					}
+					case "seganagstu": {
+						return "data desc";
 					}
 					//$getSortingin$
 				}

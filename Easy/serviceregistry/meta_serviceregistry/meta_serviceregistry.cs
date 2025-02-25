@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -253,7 +253,7 @@ namespace meta_serviceregistry {
                     #region task_17488
                     //idpublicinstitutionservice
                     //idthematicscope
-                    if (R["idpublicinstitutionservice"] == DBNull.Value) {
+                    if (R["idpublicinstitutionservice"] == DBNull.Value && CfgFn.GetNoNullInt32(R["yservreg"]) >= 2020) {
                         errmess = "Per un Consulente è obbligatorio specificare il Servizio Pubblico";
                         errfield = "idpublicinstitutionservice";
                         return false;

@@ -38,23 +38,33 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["redditomax"].caption = "Reddito massimo";
+						table.columns["redditomin"].caption = "Reddito Minimo";
+						table.columns["title"].caption = "Denominazione";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_fasciaisee");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_fasciaisee");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

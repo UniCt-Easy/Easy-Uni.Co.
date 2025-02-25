@@ -1,23 +1,23 @@
 ﻿(function () {
+	
+    var MetaPage = window.appMeta.MetaSegreteriePage;
 
-	var MetaPage = window.appMeta.MetaSegreteriePage;
-
-	function metaPage_perfvalutazioneuo() {
+    function metaPage_perfvalutazioneuo() {
 		MetaPage.apply(this, ['perfvalutazioneuo', 'default', false]);
-		this.name = 'Schede di valutazione delle Unità organizzative';
+        this.name = 'Schede di valutazione delle Unità organizzative';
 		this.defaultListType = 'default';
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		//pageHeaderDeclaration
-	}
+    }
 
-	metaPage_perfvalutazioneuo.prototype = _.extend(
-		new MetaPage(),
-		{
-			constructor: metaPage_perfvalutazioneuo,
-			superClass: MetaPage.prototype,
+    metaPage_perfvalutazioneuo.prototype = _.extend(
+        new MetaPage(),
+        {
+            constructor: metaPage_perfvalutazioneuo,
+            superClass: MetaPage.prototype,
 
-			getName: function () {
-				return this.name;
+            getName: function () {
+               return this.name;
 			},
 
 			//isValidFunction
@@ -26,59 +26,46 @@
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-
+				
 				//afterGetFormDataFilter
-
+				
 				//parte asincrona
 				var def = appMeta.Deferred("afterGetFormData-perfvalutazioneuo_default");
 				var arraydef = [];
-
+				
 				arraydef.push(this.manageperfvalutazioneuo_default_idstruttura());
 				arraydef.push(this.manageperfvalutazioneuo_default_completamentopsuo());
 				arraydef.push(this.manageperfvalutazioneuo_default_completamentopsauo());
 				arraydef.push(this.manageperfvalutazioneuo_default_indicatori());
 				arraydef.push(this.manageperfvalutazioneuo_default_obiettiviindividuali());
 				//afterGetFormDataInside
-
+				
 				$.when.apply($, arraydef)
 					.then(function () {
 						return def.resolve();
 					});
 				return def.promise();
 			},
-
+			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-
+				
+								//appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazioneuostatuschanges'));
 				this.manageperfvalutazioneuo_default_idstruttura();
 				this.manageperfvalutazioneuo_default_completamentopsuo();
 				this.manageperfvalutazioneuo_default_completamentopsauo();
 				this.manageperfvalutazioneuo_default_indicatori();
 				this.manageperfvalutazioneuo_default_obiettiviindividuali();
 				//beforeFillFilter
-
+				
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-perfvalutazioneuo_default");
 				var arraydef = [];
-
-				if (!this.state.isSearchState()) {
-					var filteractive = this.q.eq('struttura_active', 'Si');
-					var filter = self.state.currentRow.idstruttura ? this.q.or(filteractive, this.q.eq('idstruttura', self.state.currentRow.idstruttura)) : filteractive;
-					appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), false);
-					var perfvalutazioneuo_default_idstrutturaCtrl = $('#perfvalutazioneuo_default_idstruttura').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idstrutturaCtrl.filteredPreFillCombo(filter, null, true));
-				}
-				if (!this.state.isSearchState()) {
-					var filteractive = this.q.eq('perfschedastatus_active', 'Si');
-					var filter = self.state.currentRow.idperfschedastatus ? this.q.or(filteractive, this.q.eq('idperfschedastatus', self.state.currentRow.idperfschedastatus)) : filteractive;
-					appMeta.metaModel.cachedTable(this.getDataTable("perfschedastatusdefaultview"), false);
-					var perfvalutazioneuo_default_idperfschedastatusCtrl = $('#perfvalutazioneuo_default_idperfschedastatus').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idperfschedastatusCtrl.filteredPreFillCombo(filter, null, true));
-				}
+				
 				//beforeFillInside
-
+				
 				$.when.apply($, arraydef)
 					.then(function () {
 						return self.superClass.beforeFill.call(self)
@@ -112,27 +99,8 @@
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfvalutazioneuoattach'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfobiettiviuo'));
 				//afterClearin
-
-				//parte asincrona
-				var def = appMeta.Deferred("afterClear-perfvalutazioneuo_default");
-				var arraydef = [];
-
-				if (this.state.isSearchState()) {
-					appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), false);
-					var perfvalutazioneuo_default_idstrutturaCtrl = $('#perfvalutazioneuo_default_idstruttura').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idstrutturaCtrl.filteredPreFillCombo(null, null, true));
-				}
-				if (this.state.isSearchState()) {
-					appMeta.metaModel.cachedTable(this.getDataTable("perfschedastatusdefaultview"), false);
-					var perfvalutazioneuo_default_idperfschedastatusCtrl = $('#perfvalutazioneuo_default_idperfschedastatus').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idperfschedastatusCtrl.filteredPreFillCombo(null, null, true));
-				}
-				//afterClearInAsync
-				$.when.apply($, arraydef)
-					.then(function () {
-						return def.resolve();
-					});
-				return def.promise();
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -164,9 +132,11 @@
 				var self = this;
 				this.EnableControl();
 				this.state.DS.tables.perfvalutazioneuo.defaults({ 'year': new Date().getFullYear() });
-				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year', 2020), this.q.lt('year', (new Date().getFullYear()) + 1)));
+				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year',2020),this.q.lt('year', (new Date().getFullYear()) +1 )));
 				appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), true);
 				appMeta.metaModel.lockRead(this.getDataTable("strutturaperfelenchiview"));
+				appMeta.metaModel.insertFilter(this.getDataTable("strutturaperfelenchiview"), this.q.eq('struttura_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("perfschedastatusdefaultview"), this.q.eq('perfschedastatus_active', 'Si'));
 				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"), true);
 				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"));
 				$('#perfvalutazioneuo_default_pesoindicatori').on("change", _.partial(this.managepesoindicatori, self));
@@ -174,30 +144,30 @@
 				$('#perfvalutazioneuo_default_pesoprogaltreuo').on("change", _.partial(this.managepesoprogaltreuo, self));
 				$('#perfvalutazioneuo_default_pesoproguo').on("change", _.partial(this.managepesoproguo, self));
 				var grid_perfprogettoobiettivouoview_defaultChildsTables = [
-					{ tablename: 'perfprogettoobiettivosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia' },
-					{ tablename: 'perfprogettosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettosoglia' },
+					{ tablename: 'perfprogettoobiettivosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia'},
+					{ tablename: 'perfprogettosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettosoglia'},
 				];
 				$('#grid_perfprogettoobiettivouoview_default').data('childtables', grid_perfprogettoobiettivouoview_defaultChildsTables);
 				$('#grid_perfprogettoobiettivouoview_default').data('childtablesadd', false);
 				$('#grid_perfprogettoobiettivouoview_default').data('childtablesedit', false);
 				$('#grid_perfprogettoobiettivouoview_default').data('childtablesdelete', false);
 				var grid_perfprogettoobiettivopersonaleview_defaultChildsTables = [
-					{ tablename: 'perfprogettoobiettivosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia_alias1' },
-					{ tablename: 'perfprogettosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettosoglia_alias1' },
+					{ tablename: 'perfprogettoobiettivosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettoobiettivosoglia_alias1'},
+					{ tablename: 'perfprogettosoglia_alias1', edittype: 'default', columnlookup: 'description', columncalc: '!perfprogettosoglia_alias1'},
 				];
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtables', grid_perfprogettoobiettivopersonaleview_defaultChildsTables);
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtablesadd', false);
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtablesedit', false);
 				$('#grid_perfprogettoobiettivopersonaleview_default').data('childtablesdelete', false);
 				var grid_perfvalutazioneuoindicatori_defaultChildsTables = [
-					{ tablename: 'perfvalutazioneuoindicatorisoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazioneuoindicatorisoglia' },
+					{ tablename: 'perfvalutazioneuoindicatorisoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazioneuoindicatorisoglia'},
 				];
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtables', grid_perfvalutazioneuoindicatori_defaultChildsTables);
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtablesadd', false);
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtablesedit', false);
 				$('#grid_perfvalutazioneuoindicatori_default').data('childtablesdelete', false);
 				var grid_perfobiettiviuo_defaultChildsTables = [
-					{ tablename: 'perfobiettiviuosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfobiettiviuosoglia' },
+					{ tablename: 'perfobiettiviuosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfobiettiviuosoglia'},
 				];
 				$('#grid_perfobiettiviuo_default').data('childtables', grid_perfobiettiviuo_defaultChildsTables);
 				//fireAfterLink
@@ -309,10 +279,10 @@
 
 			//afterActivation
 
-
+			
 			//buttonClickEnd
 
-
+			
 			beforePost: function () {
 				var self = this;
 				this.getDataTable('perfprogettoobiettivouoview').acceptChanges();
@@ -338,7 +308,7 @@
 
 			editClick: function (that, grid) {
 				var msg = this.CheckRights(that, grid, 'u');
-				if (msg) return this.showMessageOk(msg);
+				if (msg) return this.showMessageOk(msg);				
 				return this.superClass.editClick(that, grid);
 			},
 
@@ -389,7 +359,7 @@
 						this.enableControl('#perfvalutazioneuo_default_pesoproguo', true)
 						this.enableControl('#perfvalutazioneuo_default_pesoprogaltreuo', true)
 					}
-
+					
 					if (this.crea == true || this.valuta_org === true)
 						this.enableControl('#perfvalutazioneuo_default_pesoindicatori', true)
 					else
@@ -398,7 +368,7 @@
 						this.enableControl('#perfvalutazioneuo_default_pesoobiettivi', true)
 					else
 						this.enableControl('#perfvalutazioneuo_default_pesoobiettivi', false)
-
+						
 				}
 
 				//pulsanti
@@ -409,7 +379,7 @@
 					this.canCancelOriginal = this.canCancel;
 				}
 
-				if (this.crea !== true && this.valuta_org !== true && this.valuta_ut !== true && this.aggiorna_org !== true && this.aggiorna_ut !== true) {
+				if (this.crea !== true && this.valuta_org !== true && this.valuta_ut !== true && this.aggiorna_org !== true && this.aggiorna_ut !== true && appMeta.security.usrEnv.progetti_performance != '\'S\'') {
 					this.canSave = false;
 					this.canInsert = false;
 					this.canInsertCopy = false;
@@ -426,16 +396,12 @@
 				if (goi) {
 					//indicatori
 					if (this.aggiorna_org !== true && this.valuta_org !== true) {
-						$(goi.el).css("pointer-events", "none")
-					} else {
-						$(goi.el).css("pointer-events", "unset")
+						goi.removeEvents();
 					}
 					//una tantum
 					var gc = $('#grid_perfobiettiviuo_default').data("customController")
 					if (this.crea !== true && this.aggiorna_ut !== true && this.valuta_ut !== true) {
-						$(gc.el).css("pointer-events", "none")
-					} else {
-						$(gc.el).css("pointer-events", "unset")
+						gc.removeEvents();
 					}
 				}
 
@@ -448,9 +414,9 @@
 							if (dtRes.rows.length) {
 								self.allowedStateChanges = dtRes.rows;
 								self.canSave = self.canSaveOriginal;
-								self.canInsert = self.canInsertOriginal;
-								self.canInsertCopy = self.canInsertCopylseOriginal;
-								self.canCancel = self.canCancelOriginal;
+								self.canInsert = self.crea ? self.canInsertOriginal : false;
+								self.canInsertCopy = self.crea ? self.canInsertCopylseOriginal : false;
+								self.canCancel = self.crea ? self.canCancelOriginal : false;
 							}
 							return true;
 						})
@@ -559,7 +525,7 @@
 						appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazioneuoindicatorisoglia"));
 
 						var gridControl = $('#grid_perfvalutazioneuoindicatori_default').data("customController");
-						if (gridControl && gridControl.dataTable.rows != null && gridControl.dataTable.rows.length > 0) {
+						if (gridControl && gridControl.dataTable.rows != null && gridControl.dataTable.rows.length>0 ) {
 							return gridControl.fillControl();
 						}
 
@@ -577,7 +543,7 @@
 				var meta = appMeta.getMeta("perfvalutazioneuoindicatori");
 				var self = this;
 
-				meta.getNewRow(this.state.currentRow.getRow(), this.getDataTable("perfvalutazioneuoindicatori")).then(function (row) {
+				meta.getNewRow(this.state.currentRow.getRow(), this.getDataTable("perfvalutazioneuoindicatori")).then(function (row) {					
 					row.current.idperfindicatore = indicatoreRow.idperfindicatore;
 					row.current.idperfvalutazioneuo = self.state.currentRow.idperfvalutazioneuo;
 					def.resolve();
@@ -693,30 +659,30 @@
 			},
 
 			manageperfvalutazioneuo_default_idstruttura: function () {
-				var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
+var grid = this.getCustomControl('perfvalutazioneuoindicatori.default.default');
 				if (this.state.currentRow.idstruttura > 0 && grid.gridRows.length == 0 && !this.state.isInsertState()) {
 					this.calculateIndicatori(null);
 				}
 			},
 
 			manageperfvalutazioneuo_default_completamentopsuo: function () {
-				//Percentuale di completamento per i progetti Strategici della UO
-				this.assignPercentuali("perfprogettoobiettivouoview", "completamentopsuo");
+               //Percentuale di completamento per i progetti Strategici della UO
+              this.assignPercentuali("perfprogettoobiettivouoview", "completamentopsuo");            
 			},
 
 			manageperfvalutazioneuo_default_completamentopsauo: function () {
-				//Percentuale di completamento dei progetti Strategici di altre UO 
-				this.assignPercentuali("perfprogettoobiettivopersonaleview", "completamentopsauo");
+      //Percentuale di completamento dei progetti Strategici di altre UO 
+       this.assignPercentuali("perfprogettoobiettivopersonaleview", "completamentopsauo");
 			},
 
 			manageperfvalutazioneuo_default_indicatori: function () {
-				//Percentuale di completamento indicatori
-				this.assignPercentuali("perfvalutazioneuoindicatori", "indicatori");
+         //Percentuale di completamento indicatori
+          this.assignPercentuali("perfvalutazioneuoindicatori", "indicatori");
 			},
 
 			manageperfvalutazioneuo_default_obiettiviindividuali: function () {
-				//Percentuale di completamento obiettivi una tantum
-				this.assignPercentuali("perfobiettiviuo", "obiettiviindividuali");
+        //Percentuale di completamento obiettivi una tantum
+        this.assignPercentuali("perfobiettiviuo", "obiettiviindividuali");
 			},
 
 			children: ['perfobiettiviuo', 'perfprogettoobiettivopersonaleview', 'perfprogettoobiettivouoview', 'perfvalutazioneuoattach', 'perfvalutazioneuoindicatori'],
@@ -730,7 +696,7 @@
 				});
 			},
 
-			managepesoindicatori: function (that) {
+			managepesoindicatori: function(that) { 
 				var def = appMeta.Deferred('managepesoindicatori');
 
 				if (that.state.isSearchState()) {
@@ -748,8 +714,8 @@
 				return def.promise();
 			},
 
-			managepesoobiettivi: function (that) {
-				var def = appMeta.Deferred('managepesoobiettivi');
+			managepesoobiettivi: function(that) { 
+								var def = appMeta.Deferred('managepesoobiettivi');
 
 				if (that.state.isSearchState()) {
 					return def.resolve();
@@ -767,7 +733,7 @@
 
 			},
 
-			managepesoprogaltreuo: function (that) {
+			managepesoprogaltreuo: function(that) { 
 				that.getFormData(true).then(function () {
 					that.calculateRisultatoPerc();
 					var result = that.state.currentRow.risultato;
@@ -778,7 +744,7 @@
 				});
 			},
 
-			managepesoproguo: function (that) {
+			managepesoproguo: function(that) { 
 				var def = appMeta.Deferred('managepesoproguo');
 
 				if (that.state.isSearchState()) {
@@ -797,7 +763,7 @@
 			},
 
 			//buttons
-		});
+        });
 
 	window.appMeta.addMetaPage('perfvalutazioneuo', 'default', metaPage_perfvalutazioneuo);
 

@@ -99,6 +99,10 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="meta_fin, Version=1.2.33.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
+    </Reference>
     <Reference Include="siopeplus_functions">
       <HintPath>..\..\siopeplus_functions\bin\Debug\siopeplus_functions.dll</HintPath>
     </Reference>
@@ -128,12 +132,6 @@
       <Project>{42D2BFEA-1727-4039-A978-5D366E5479D3}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <Reference Include="meta_fin">
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_fin</Name>
-      <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="meta_manager">
       <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

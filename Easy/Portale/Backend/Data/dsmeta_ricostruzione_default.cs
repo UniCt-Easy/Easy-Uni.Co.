@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,13 +49,25 @@ public partial class dsmeta_ricostruzione_default: DataSet {
 	public MetaTable serviziocontributi 		=> (MetaTable)Tables["serviziocontributi"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable tiponomina_alias1 		=> (MetaTable)Tables["tiponomina_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable position_alias2 		=> (MetaTable)Tables["position_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable classconsorsuale_alias1 		=> (MetaTable)Tables["classconsorsuale_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable serviziopreruoloinps 		=> (MetaTable)Tables["serviziopreruoloinps"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable tiponomina 		=> (MetaTable)Tables["tiponomina"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable position_alias1 		=> (MetaTable)Tables["position_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable classconsorsuale 		=> (MetaTable)Tables["classconsorsuale"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable serviziopreruolotesoro 		=> (MetaTable)Tables["serviziopreruolotesoro"];
@@ -73,6 +85,9 @@ public partial class dsmeta_ricostruzione_default: DataSet {
 	public MetaTable serviziriepilogoview 		=> (MetaTable)Tables["serviziriepilogoview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable istanzaafamdefaultview 		=> (MetaTable)Tables["istanzaafamdefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ricostruzionenonvaliditaview 		=> (MetaTable)Tables["ricostruzionenonvaliditaview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -86,6 +101,9 @@ public partial class dsmeta_ricostruzione_default: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ricostruzioneperiodonv 		=> (MetaTable)Tables["ricostruzioneperiodonv"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sospensione 		=> (MetaTable)Tables["sospensione"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ricostruzionekinddefaultview 		=> (MetaTable)Tables["ricostruzionekinddefaultview"];
@@ -229,14 +247,73 @@ private void initClass() {
 	Tables.Add(tserviziocontributi);
 	tserviziocontributi.defineKey("idreg", "idserviziocontributi");
 
+	//////////////////// TIPONOMINA_ALIAS1 /////////////////////////////////
+	var ttiponomina_alias1= new MetaTable("tiponomina_alias1");
+	ttiponomina_alias1.defineColumn("active", typeof(string));
+	ttiponomina_alias1.defineColumn("idtiponomina", typeof(int),false);
+	ttiponomina_alias1.defineColumn("title", typeof(string));
+	ttiponomina_alias1.ExtendedProperties["TableForReading"]="tiponomina";
+	Tables.Add(ttiponomina_alias1);
+	ttiponomina_alias1.defineKey("idtiponomina");
+
 	//////////////////// POSITION_ALIAS2 /////////////////////////////////
 	var tposition_alias2= new MetaTable("position_alias2");
 	tposition_alias2.defineColumn("active", typeof(string));
+	tposition_alias2.defineColumn("assegnoaggiuntivo", typeof(string));
+	tposition_alias2.defineColumn("codeposition", typeof(string),false);
+	tposition_alias2.defineColumn("costolordoannuo", typeof(decimal));
+	tposition_alias2.defineColumn("costolordoannuooneri", typeof(decimal));
+	tposition_alias2.defineColumn("ct", typeof(DateTime),false);
+	tposition_alias2.defineColumn("cu", typeof(string),false);
+	tposition_alias2.defineColumn("description", typeof(string),false);
+	tposition_alias2.defineColumn("elementoperequativo", typeof(string));
+	tposition_alias2.defineColumn("foreignclass", typeof(string));
 	tposition_alias2.defineColumn("idposition", typeof(int),false);
+	tposition_alias2.defineColumn("indennitadiateneo", typeof(string));
+	tposition_alias2.defineColumn("indennitadiposizione", typeof(string));
+	tposition_alias2.defineColumn("indvacancacontrattuale", typeof(string));
+	tposition_alias2.defineColumn("livello", typeof(string));
+	tposition_alias2.defineColumn("lt", typeof(DateTime),false);
+	tposition_alias2.defineColumn("lu", typeof(string),false);
+	tposition_alias2.defineColumn("maxincomeclass", typeof(int));
+	tposition_alias2.defineColumn("oremaxcompitididatempoparziale", typeof(int));
+	tposition_alias2.defineColumn("oremaxcompitididatempopieno", typeof(int));
+	tposition_alias2.defineColumn("oremaxdidatempoparziale", typeof(int));
+	tposition_alias2.defineColumn("oremaxdidatempopieno", typeof(int));
+	tposition_alias2.defineColumn("oremaxgg", typeof(int));
+	tposition_alias2.defineColumn("oremaxtempoparziale", typeof(int));
+	tposition_alias2.defineColumn("oremaxtempopieno", typeof(int));
+	tposition_alias2.defineColumn("oremincompitididatempoparziale", typeof(int));
+	tposition_alias2.defineColumn("oremincompitididatempopieno", typeof(int));
+	tposition_alias2.defineColumn("oremindidatempoparziale", typeof(int));
+	tposition_alias2.defineColumn("oremindidatempopieno", typeof(int));
+	tposition_alias2.defineColumn("oremintempoparziale", typeof(int));
+	tposition_alias2.defineColumn("oremintempopieno", typeof(int));
+	tposition_alias2.defineColumn("orestraordinariemax", typeof(int));
+	tposition_alias2.defineColumn("parttime", typeof(string));
+	tposition_alias2.defineColumn("printingorder", typeof(int));
+	tposition_alias2.defineColumn("puntiorganico", typeof(decimal));
+	tposition_alias2.defineColumn("siglaesportazione", typeof(string));
+	tposition_alias2.defineColumn("siglaimportazione", typeof(string));
+	tposition_alias2.defineColumn("tempdef", typeof(string));
+	tposition_alias2.defineColumn("tipoente", typeof(string));
+	tposition_alias2.defineColumn("tipopersonale", typeof(string));
 	tposition_alias2.defineColumn("title", typeof(string));
+	tposition_alias2.defineColumn("totaletredicesima", typeof(string));
+	tposition_alias2.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
 	tposition_alias2.ExtendedProperties["TableForReading"]="position";
 	Tables.Add(tposition_alias2);
 	tposition_alias2.defineKey("idposition");
+
+	//////////////////// CLASSCONSORSUALE_ALIAS1 /////////////////////////////////
+	var tclassconsorsuale_alias1= new MetaTable("classconsorsuale_alias1");
+	tclassconsorsuale_alias1.defineColumn("active", typeof(string),false);
+	tclassconsorsuale_alias1.defineColumn("description", typeof(string),false);
+	tclassconsorsuale_alias1.defineColumn("idclassconsorsuale", typeof(int),false);
+	tclassconsorsuale_alias1.defineColumn("title", typeof(string),false);
+	tclassconsorsuale_alias1.ExtendedProperties["TableForReading"]="classconsorsuale";
+	Tables.Add(tclassconsorsuale_alias1);
+	tclassconsorsuale_alias1.defineKey("idclassconsorsuale");
 
 	//////////////////// SERVIZIOPRERUOLOINPS /////////////////////////////////
 	var tserviziopreruoloinps= new MetaTable("serviziopreruoloinps");
@@ -246,28 +323,90 @@ private void initClass() {
 	tserviziopreruoloinps.defineColumn("ct", typeof(DateTime),false);
 	tserviziopreruoloinps.defineColumn("cu", typeof(string),false);
 	tserviziopreruoloinps.defineColumn("giorni", typeof(int));
+	tserviziopreruoloinps.defineColumn("idclassconsorsuale", typeof(int));
 	tserviziopreruoloinps.defineColumn("idposition", typeof(int));
 	tserviziopreruoloinps.defineColumn("idreg", typeof(int),false);
 	tserviziopreruoloinps.defineColumn("idserviziopreruoloinps", typeof(int),false);
+	tserviziopreruoloinps.defineColumn("idtiponomina", typeof(int));
 	tserviziopreruoloinps.defineColumn("istituzione", typeof(string));
 	tserviziopreruoloinps.defineColumn("lt", typeof(DateTime),false);
 	tserviziopreruoloinps.defineColumn("lu", typeof(string),false);
 	tserviziopreruoloinps.defineColumn("mesi", typeof(int));
 	tserviziopreruoloinps.defineColumn("start", typeof(DateTime));
 	tserviziopreruoloinps.defineColumn("stop", typeof(DateTime));
+	tserviziopreruoloinps.defineColumn("!idclassconsorsuale_classconsorsuale_title", typeof(string));
+	tserviziopreruoloinps.defineColumn("!idclassconsorsuale_classconsorsuale_description", typeof(string));
 	tserviziopreruoloinps.defineColumn("!idposition_position_title", typeof(string));
+	tserviziopreruoloinps.defineColumn("!idtiponomina_tiponomina_title", typeof(string));
 	tserviziopreruoloinps.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tserviziopreruoloinps);
 	tserviziopreruoloinps.defineKey("idreg", "idserviziopreruoloinps");
 
+	//////////////////// TIPONOMINA /////////////////////////////////
+	var ttiponomina= new MetaTable("tiponomina");
+	ttiponomina.defineColumn("active", typeof(string));
+	ttiponomina.defineColumn("idtiponomina", typeof(int),false);
+	ttiponomina.defineColumn("title", typeof(string));
+	Tables.Add(ttiponomina);
+	ttiponomina.defineKey("idtiponomina");
+
 	//////////////////// POSITION_ALIAS1 /////////////////////////////////
 	var tposition_alias1= new MetaTable("position_alias1");
 	tposition_alias1.defineColumn("active", typeof(string));
+	tposition_alias1.defineColumn("assegnoaggiuntivo", typeof(string));
+	tposition_alias1.defineColumn("codeposition", typeof(string),false);
+	tposition_alias1.defineColumn("costolordoannuo", typeof(decimal));
+	tposition_alias1.defineColumn("costolordoannuooneri", typeof(decimal));
+	tposition_alias1.defineColumn("ct", typeof(DateTime),false);
+	tposition_alias1.defineColumn("cu", typeof(string),false);
+	tposition_alias1.defineColumn("description", typeof(string),false);
+	tposition_alias1.defineColumn("elementoperequativo", typeof(string));
+	tposition_alias1.defineColumn("foreignclass", typeof(string));
 	tposition_alias1.defineColumn("idposition", typeof(int),false);
+	tposition_alias1.defineColumn("indennitadiateneo", typeof(string));
+	tposition_alias1.defineColumn("indennitadiposizione", typeof(string));
+	tposition_alias1.defineColumn("indvacancacontrattuale", typeof(string));
+	tposition_alias1.defineColumn("livello", typeof(string));
+	tposition_alias1.defineColumn("lt", typeof(DateTime),false);
+	tposition_alias1.defineColumn("lu", typeof(string),false);
+	tposition_alias1.defineColumn("maxincomeclass", typeof(int));
+	tposition_alias1.defineColumn("oremaxcompitididatempoparziale", typeof(int));
+	tposition_alias1.defineColumn("oremaxcompitididatempopieno", typeof(int));
+	tposition_alias1.defineColumn("oremaxdidatempoparziale", typeof(int));
+	tposition_alias1.defineColumn("oremaxdidatempopieno", typeof(int));
+	tposition_alias1.defineColumn("oremaxgg", typeof(int));
+	tposition_alias1.defineColumn("oremaxtempoparziale", typeof(int));
+	tposition_alias1.defineColumn("oremaxtempopieno", typeof(int));
+	tposition_alias1.defineColumn("oremincompitididatempoparziale", typeof(int));
+	tposition_alias1.defineColumn("oremincompitididatempopieno", typeof(int));
+	tposition_alias1.defineColumn("oremindidatempoparziale", typeof(int));
+	tposition_alias1.defineColumn("oremindidatempopieno", typeof(int));
+	tposition_alias1.defineColumn("oremintempoparziale", typeof(int));
+	tposition_alias1.defineColumn("oremintempopieno", typeof(int));
+	tposition_alias1.defineColumn("orestraordinariemax", typeof(int));
+	tposition_alias1.defineColumn("parttime", typeof(string));
+	tposition_alias1.defineColumn("printingorder", typeof(int));
+	tposition_alias1.defineColumn("puntiorganico", typeof(decimal));
+	tposition_alias1.defineColumn("siglaesportazione", typeof(string));
+	tposition_alias1.defineColumn("siglaimportazione", typeof(string));
+	tposition_alias1.defineColumn("tempdef", typeof(string));
+	tposition_alias1.defineColumn("tipoente", typeof(string));
+	tposition_alias1.defineColumn("tipopersonale", typeof(string));
 	tposition_alias1.defineColumn("title", typeof(string));
+	tposition_alias1.defineColumn("totaletredicesima", typeof(string));
+	tposition_alias1.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
 	tposition_alias1.ExtendedProperties["TableForReading"]="position";
 	Tables.Add(tposition_alias1);
 	tposition_alias1.defineKey("idposition");
+
+	//////////////////// CLASSCONSORSUALE /////////////////////////////////
+	var tclassconsorsuale= new MetaTable("classconsorsuale");
+	tclassconsorsuale.defineColumn("active", typeof(string),false);
+	tclassconsorsuale.defineColumn("description", typeof(string),false);
+	tclassconsorsuale.defineColumn("idclassconsorsuale", typeof(int),false);
+	tclassconsorsuale.defineColumn("title", typeof(string),false);
+	Tables.Add(tclassconsorsuale);
+	tclassconsorsuale.defineKey("idclassconsorsuale");
 
 	//////////////////// SERVIZIOPRERUOLOTESORO /////////////////////////////////
 	var tserviziopreruolotesoro= new MetaTable("serviziopreruolotesoro");
@@ -277,16 +416,21 @@ private void initClass() {
 	tserviziopreruolotesoro.defineColumn("ct", typeof(DateTime),false);
 	tserviziopreruolotesoro.defineColumn("cu", typeof(string),false);
 	tserviziopreruolotesoro.defineColumn("giorni", typeof(int));
+	tserviziopreruolotesoro.defineColumn("idclassconsorsuale", typeof(int));
 	tserviziopreruolotesoro.defineColumn("idposition", typeof(int));
 	tserviziopreruolotesoro.defineColumn("idreg", typeof(int),false);
 	tserviziopreruolotesoro.defineColumn("idserviziopreruolotesoro", typeof(int),false);
+	tserviziopreruolotesoro.defineColumn("idtiponomina", typeof(int));
 	tserviziopreruolotesoro.defineColumn("istituzione", typeof(string));
 	tserviziopreruolotesoro.defineColumn("lt", typeof(DateTime),false);
 	tserviziopreruolotesoro.defineColumn("lu", typeof(string),false);
 	tserviziopreruolotesoro.defineColumn("mesi", typeof(int));
 	tserviziopreruolotesoro.defineColumn("start", typeof(DateTime));
 	tserviziopreruolotesoro.defineColumn("stop", typeof(DateTime));
+	tserviziopreruolotesoro.defineColumn("!idclassconsorsuale_classconsorsuale_title", typeof(string));
+	tserviziopreruolotesoro.defineColumn("!idclassconsorsuale_classconsorsuale_description", typeof(string));
 	tserviziopreruolotesoro.defineColumn("!idposition_position_title", typeof(string));
+	tserviziopreruolotesoro.defineColumn("!idtiponomina_tiponomina_title", typeof(string));
 	tserviziopreruolotesoro.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tserviziopreruolotesoro);
 	tserviziopreruolotesoro.defineKey("idreg", "idserviziopreruolotesoro");
@@ -294,33 +438,80 @@ private void initClass() {
 	//////////////////// POSITION /////////////////////////////////
 	var tposition= new MetaTable("position");
 	tposition.defineColumn("active", typeof(string));
+	tposition.defineColumn("assegnoaggiuntivo", typeof(string));
+	tposition.defineColumn("codeposition", typeof(string),false);
+	tposition.defineColumn("costolordoannuo", typeof(decimal));
+	tposition.defineColumn("costolordoannuooneri", typeof(decimal));
+	tposition.defineColumn("ct", typeof(DateTime),false);
+	tposition.defineColumn("cu", typeof(string),false);
+	tposition.defineColumn("description", typeof(string),false);
+	tposition.defineColumn("elementoperequativo", typeof(string));
+	tposition.defineColumn("foreignclass", typeof(string));
 	tposition.defineColumn("idposition", typeof(int),false);
+	tposition.defineColumn("indennitadiateneo", typeof(string));
+	tposition.defineColumn("indennitadiposizione", typeof(string));
+	tposition.defineColumn("indvacancacontrattuale", typeof(string));
+	tposition.defineColumn("livello", typeof(string));
+	tposition.defineColumn("lt", typeof(DateTime),false);
+	tposition.defineColumn("lu", typeof(string),false);
+	tposition.defineColumn("maxincomeclass", typeof(int));
+	tposition.defineColumn("oremaxcompitididatempoparziale", typeof(int));
+	tposition.defineColumn("oremaxcompitididatempopieno", typeof(int));
+	tposition.defineColumn("oremaxdidatempoparziale", typeof(int));
+	tposition.defineColumn("oremaxdidatempopieno", typeof(int));
+	tposition.defineColumn("oremaxgg", typeof(int));
+	tposition.defineColumn("oremaxtempoparziale", typeof(int));
+	tposition.defineColumn("oremaxtempopieno", typeof(int));
+	tposition.defineColumn("oremincompitididatempoparziale", typeof(int));
+	tposition.defineColumn("oremincompitididatempopieno", typeof(int));
+	tposition.defineColumn("oremindidatempoparziale", typeof(int));
+	tposition.defineColumn("oremindidatempopieno", typeof(int));
+	tposition.defineColumn("oremintempoparziale", typeof(int));
+	tposition.defineColumn("oremintempopieno", typeof(int));
+	tposition.defineColumn("orestraordinariemax", typeof(int));
+	tposition.defineColumn("parttime", typeof(string));
+	tposition.defineColumn("printingorder", typeof(int));
+	tposition.defineColumn("puntiorganico", typeof(decimal));
+	tposition.defineColumn("siglaesportazione", typeof(string));
+	tposition.defineColumn("siglaimportazione", typeof(string));
+	tposition.defineColumn("tempdef", typeof(string));
+	tposition.defineColumn("tipoente", typeof(string));
+	tposition.defineColumn("tipopersonale", typeof(string));
 	tposition.defineColumn("title", typeof(string));
+	tposition.defineColumn("totaletredicesima", typeof(string));
+	tposition.defineColumn("tredicesimaindennitaintegrativaspeciale", typeof(string));
 	Tables.Add(tposition);
 	tposition.defineKey("idposition");
 
 	//////////////////// REGISTRYLEGALSTATUS /////////////////////////////////
 	var tregistrylegalstatus= new MetaTable("registrylegalstatus");
-	tregistrylegalstatus.defineColumn("!anni", typeof(string));
-	tregistrylegalstatus.defineColumn("!giorni", typeof(string));
-	tregistrylegalstatus.defineColumn("!mesi", typeof(string));
 	tregistrylegalstatus.defineColumn("active", typeof(string));
+	tregistrylegalstatus.defineColumn("anni", typeof(int));
+	tregistrylegalstatus.defineColumn("annokind", typeof(string));
+	tregistrylegalstatus.defineColumn("cedolini", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_class", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_compartment", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_role", typeof(string));
 	tregistrylegalstatus.defineColumn("ct", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("cu", typeof(string));
 	tregistrylegalstatus.defineColumn("datarivalutazione", typeof(DateTime));
+	tregistrylegalstatus.defineColumn("flagdefault", typeof(string));
+	tregistrylegalstatus.defineColumn("giorni", typeof(int));
+	tregistrylegalstatus.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrylegalstatus.defineColumn("iddaliaposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idinquadramento", typeof(int));
 	tregistrylegalstatus.defineColumn("idposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idreg", typeof(int),false);
 	tregistrylegalstatus.defineColumn("idregistrylegalstatus", typeof(int),false);
+	tregistrylegalstatus.defineColumn("idtipologiaruolo", typeof(int));
+	tregistrylegalstatus.defineColumn("idtiponomina", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclass", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclassvalidity", typeof(DateTime));
+	tregistrylegalstatus.defineColumn("istituzione", typeof(string));
 	tregistrylegalstatus.defineColumn("livello", typeof(int));
 	tregistrylegalstatus.defineColumn("lt", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("lu", typeof(string));
+	tregistrylegalstatus.defineColumn("mesi", typeof(int));
 	tregistrylegalstatus.defineColumn("parttime", typeof(decimal));
 	tregistrylegalstatus.defineColumn("percentualesufondiateneo", typeof(decimal));
 	tregistrylegalstatus.defineColumn("rtf", typeof(Byte[]));
@@ -365,6 +556,27 @@ private void initClass() {
 	tserviziriepilogoview.defineColumn("totaldays", typeof(int));
 	Tables.Add(tserviziriepilogoview);
 	tserviziriepilogoview.defineKey("idreg", "idserviziriepilogoview");
+
+	//////////////////// ISTANZAAFAMDEFAULTVIEW /////////////////////////////////
+	var tistanzaafamdefaultview= new MetaTable("istanzaafamdefaultview");
+	tistanzaafamdefaultview.defineColumn("attach_filename", typeof(string));
+	tistanzaafamdefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tistanzaafamdefaultview.defineColumn("idattach", typeof(int));
+	tistanzaafamdefaultview.defineColumn("idistanzaafam", typeof(int),false);
+	tistanzaafamdefaultview.defineColumn("idistanzaafamkind", typeof(int));
+	tistanzaafamdefaultview.defineColumn("idreg", typeof(int),false);
+	tistanzaafamdefaultview.defineColumn("istanzaafam_ct", typeof(DateTime),false);
+	tistanzaafamdefaultview.defineColumn("istanzaafam_cu", typeof(string),false);
+	tistanzaafamdefaultview.defineColumn("istanzaafam_data", typeof(DateTime));
+	tistanzaafamdefaultview.defineColumn("istanzaafam_lt", typeof(DateTime),false);
+	tistanzaafamdefaultview.defineColumn("istanzaafam_lu", typeof(string),false);
+	tistanzaafamdefaultview.defineColumn("istanzaafam_note", typeof(string));
+	tistanzaafamdefaultview.defineColumn("istanzaafam_noteistituto", typeof(string));
+	tistanzaafamdefaultview.defineColumn("istanzaafam_protanno", typeof(int));
+	tistanzaafamdefaultview.defineColumn("istanzaafam_protnumero", typeof(int));
+	tistanzaafamdefaultview.defineColumn("istanzaafamkind_title", typeof(string));
+	Tables.Add(tistanzaafamdefaultview);
+	tistanzaafamdefaultview.defineKey("idistanzaafam", "idreg");
 
 	//////////////////// RICOSTRUZIONENONVALIDITAVIEW /////////////////////////////////
 	var tricostruzionenonvaliditaview= new MetaTable("ricostruzionenonvaliditaview");
@@ -417,6 +629,24 @@ private void initClass() {
 	Tables.Add(tricostruzioneperiodonv);
 	tricostruzioneperiodonv.defineKey("idreg", "idricostruzione", "idricostruzioneperiodonv");
 
+	//////////////////// SOSPENSIONE /////////////////////////////////
+	var tsospensione= new MetaTable("sospensione");
+	tsospensione.defineColumn("ct", typeof(DateTime),false);
+	tsospensione.defineColumn("cu", typeof(string),false);
+	tsospensione.defineColumn("idaula", typeof(int));
+	tsospensione.defineColumn("idedificio", typeof(int));
+	tsospensione.defineColumn("idreg", typeof(int),false);
+	tsospensione.defineColumn("idsede", typeof(int));
+	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("lt", typeof(DateTime),false);
+	tsospensione.defineColumn("lu", typeof(string),false);
+	tsospensione.defineColumn("motivo", typeof(string));
+	tsospensione.defineColumn("start", typeof(DateTime),false);
+	tsospensione.defineColumn("stop", typeof(DateTime));
+	tsospensione.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tsospensione);
+	tsospensione.defineKey("idreg", "idsospensione");
+
 	//////////////////// RICOSTRUZIONEKINDDEFAULTVIEW /////////////////////////////////
 	var tricostruzionekinddefaultview= new MetaTable("ricostruzionekinddefaultview");
 	tricostruzionekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
@@ -454,6 +684,7 @@ private void initClass() {
 	tricostruzione.defineColumn("dpdata", typeof(DateTime));
 	tricostruzione.defineColumn("dpnumero", typeof(string));
 	tricostruzione.defineColumn("giornimilitare", typeof(int));
+	tricostruzione.defineColumn("idistanzaafam", typeof(int));
 	tricostruzione.defineColumn("idreg", typeof(int),false);
 	tricostruzione.defineColumn("idricostruzione", typeof(int),false);
 	tricostruzione.defineColumn("idricostruzionekind", typeof(int));
@@ -515,17 +746,33 @@ private void initClass() {
 	cChild = new []{serviziopreruoloinps.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_serviziopreruoloinps_ricostruzione_idreg",cPar,cChild,false));
 
+	cPar = new []{tiponomina_alias1.Columns["idtiponomina"]};
+	cChild = new []{serviziopreruoloinps.Columns["idtiponomina"]};
+	Relations.Add(new DataRelation("FK_serviziopreruoloinps_tiponomina_alias1_idtiponomina",cPar,cChild,false));
+
 	cPar = new []{position_alias2.Columns["idposition"]};
 	cChild = new []{serviziopreruoloinps.Columns["idposition"]};
 	Relations.Add(new DataRelation("FK_serviziopreruoloinps_position_alias2_idposition",cPar,cChild,false));
+
+	cPar = new []{classconsorsuale_alias1.Columns["idclassconsorsuale"]};
+	cChild = new []{serviziopreruoloinps.Columns["idclassconsorsuale"]};
+	Relations.Add(new DataRelation("FK_serviziopreruoloinps_classconsorsuale_alias1_idclassconsorsuale",cPar,cChild,false));
 
 	cPar = new []{ricostruzione.Columns["idreg"]};
 	cChild = new []{serviziopreruolotesoro.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_ricostruzione_idreg",cPar,cChild,false));
 
+	cPar = new []{tiponomina.Columns["idtiponomina"]};
+	cChild = new []{serviziopreruolotesoro.Columns["idtiponomina"]};
+	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_tiponomina_idtiponomina",cPar,cChild,false));
+
 	cPar = new []{position_alias1.Columns["idposition"]};
 	cChild = new []{serviziopreruolotesoro.Columns["idposition"]};
 	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_position_alias1_idposition",cPar,cChild,false));
+
+	cPar = new []{classconsorsuale.Columns["idclassconsorsuale"]};
+	cChild = new []{serviziopreruolotesoro.Columns["idclassconsorsuale"]};
+	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_classconsorsuale_idclassconsorsuale",cPar,cChild,false));
 
 	cPar = new []{ricostruzione.Columns["idreg"]};
 	cChild = new []{registrylegalstatus.Columns["idreg"]};
@@ -542,6 +789,14 @@ private void initClass() {
 	cPar = new []{serviziriepilogoview.Columns["idreg"]};
 	cChild = new []{ricostruzione.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_ricostruzione_serviziriepilogoview_idreg",cPar,cChild,false));
+
+	cPar = new []{istanzaafamdefaultview.Columns["idistanzaafam"]};
+	cChild = new []{ricostruzione.Columns["idistanzaafam"]};
+	Relations.Add(new DataRelation("FK_ricostruzione_istanzaafamdefaultview_idistanzaafam",cPar,cChild,false));
+
+	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
+	cChild = new []{istanzaafamdefaultview.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_istanzaafamdefaultview_getregistrydocentiamministratividefaultview_idreg",cPar,cChild,false));
 
 	cPar = new []{ricostruzionenonvaliditaview.Columns["idreg"]};
 	cChild = new []{ricostruzione.Columns["idreg"]};
@@ -562,6 +817,10 @@ private void initClass() {
 	cPar = new []{annoaccademico.Columns["aa"]};
 	cChild = new []{ricostruzioneperiodonv.Columns["aa_start"]};
 	Relations.Add(new DataRelation("FK_ricostruzioneperiodonv_annoaccademico_aa_start",cPar,cChild,false));
+
+	cPar = new []{ricostruzione.Columns["idreg"]};
+	cChild = new []{sospensione.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_sospensione_ricostruzione_idreg",cPar,cChild,false));
 
 	cPar = new []{ricostruzionekinddefaultview.Columns["idricostruzionekind"]};
 	cChild = new []{ricostruzione.Columns["idricostruzionekind"]};

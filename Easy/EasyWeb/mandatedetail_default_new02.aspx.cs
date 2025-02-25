@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -102,6 +102,10 @@ public partial class mandatedetail_default_new02 : MetaPage {
         //string filter_yearview = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
         //GetData.SetStaticFilter(DS.upbyearview, filter_yearview);
 
+        if (MandateKind.Rows.Count > 0) {
+            int flag_magazzino = CfgFn.GetNoNullInt32(MandateKind.Rows[0]["assetkind"]);
+            HwCheckScaricoImm.Visible = ((flag_magazzino & 8) != 0);
+        }
         if (firsttime) {
 
             //Filtriamo gli upb con lo stesso tipo attività del Tipo contratto passivo.

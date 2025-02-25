@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -72,7 +72,6 @@ private void initClass() {
 	tstipendiocomplemento.defineColumn("anzianitamax", typeof(int));
 	tstipendiocomplemento.defineColumn("anzianitamin", typeof(int));
 	tstipendiocomplemento.defineColumn("complementomensile", typeof(decimal));
-	tstipendiocomplemento.defineColumn("idcontrattokind", typeof(int));
 	tstipendiocomplemento.defineColumn("idinquadramento", typeof(int),false);
 	tstipendiocomplemento.defineColumn("idposition", typeof(int),false);
 	tstipendiocomplemento.defineColumn("idstipendiocomplemento", typeof(int),false);
@@ -96,7 +95,6 @@ private void initClass() {
 	tstipendio.defineColumn("ct", typeof(DateTime));
 	tstipendio.defineColumn("cu", typeof(string));
 	tstipendio.defineColumn("elementoperequativo", typeof(decimal));
-	tstipendio.defineColumn("idcontrattokind", typeof(int));
 	tstipendio.defineColumn("idinquadramento", typeof(int),false);
 	tstipendio.defineColumn("idposition", typeof(int),false);
 	tstipendio.defineColumn("idstipendio", typeof(int),false);
@@ -124,7 +122,6 @@ private void initClass() {
 	tinquadramento.defineColumn("costolordoannuooneri", typeof(decimal));
 	tinquadramento.defineColumn("ct", typeof(DateTime),false);
 	tinquadramento.defineColumn("cu", typeof(string),false);
-	tinquadramento.defineColumn("idcontrattokind", typeof(int));
 	tinquadramento.defineColumn("idinquadramento", typeof(int),false);
 	tinquadramento.defineColumn("idposition", typeof(int),false);
 	tinquadramento.defineColumn("lt", typeof(DateTime),false);

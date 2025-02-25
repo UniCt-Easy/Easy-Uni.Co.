@@ -108,8 +108,11 @@
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="meta_location">
+      <HintPath>..\..\location\meta_location\bin\Debug\meta_location.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -204,12 +207,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_list</Name>
       <HintPath>..\..\list\meta_list\bin\Debug\meta_list.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="meta_location">
-      <HintPath>..\..\location\meta_location\bin\Debug\meta_location.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Name>meta_location</Name>
       <Private>False</Private>
     </Reference>
     <Reference Include="meta_sorting">

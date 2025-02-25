@@ -149,7 +149,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="ivanotes">Note sul tipo IVA:</label>
+                                <label for="ivanotes">Note della richiesta:</label>
                             </div>
                             <div class="col-md-12">
                                 <cc1:hwTextBox TabIndex="70" runat="server" ID="ivanotes" Rows="3" CssClass="input-md form-control" TextMode="MultiLine" Tag="mandatedetail.ivanotes"></cc1:hwTextBox>
@@ -324,7 +324,7 @@
             <div class="col-md-3 offset-md-3 align-self-end">
                 <div class="row">
                     <div class="col-md-12">
-                        <cc1:hwCheckBox ID="HwCheckBox1" runat="server" TabIndex="25" Tag="mandatedetail.flagto_invoice:S:N" CssClass="input-md form-control" Text="Scarico immediato" />
+                        <cc1:hwCheckBox ID="HwCheckScaricoImm" runat="server" TabIndex="25" Tag="mandatedetail.flagto_unload:S:N" CssClass="input-md form-control" Text="Scarico immediato" />
                     </div>
 	            </div>
             </div>

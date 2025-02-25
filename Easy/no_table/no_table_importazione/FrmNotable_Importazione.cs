@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -31,6 +31,7 @@ using System.Threading;
 using System.Data.SqlClient;
 using System.Data.Sql;
 using System.Data.SqlTypes;
+using System.Linq;
 using q =  metadatalibrary.MetaExpression;
 
 
@@ -191,7 +192,8 @@ namespace notable_importazione {
 				new ImportButton(btnContributiContrattiCSAnuovaversione, ImportaContributiContrattoCSA_nuovagestione, tracciato_contributicontrattocsa_nuovaversione, "79"),
 				new ImportButton(btnAssociazioniGomp, ImportaStipGomp, tracciato_stipgomp, "80"),
 				new ImportButton(btnDettaglioRitenute, ImportaDettaglioRitenute, tracciato_dettaglioRitenute,"81"),
-				new ImportButton(btnVociCSA, ImportaVociCSA, tracciato_vocecsa,"82")
+				new ImportButton(btnVociCSA, ImportaVociCSA, tracciato_vocecsa,"82"),
+				new ImportButton(btnImportContributiCespiti, ImportaContributiCespiti, tracciato_contributiCespiti, "83"),
 			};
 
 			foreach (ImportButton IB in AllButton) {
@@ -1645,7 +1647,17 @@ namespace notable_importazione {
 			"codiceparentubic;Codice ubicazione del nodo PARENT di questo;Stringa;50",
 			"descrubic;Descrizione voce classificazione;Stringa;150",
 			"resp;Responsabile;Stringa;150",
-			"note;Note;Stringa;100"
+			"note;Note;Stringa;100",
+			"codtipoclass01;Codice Tipo class. 01;Stringa;20",
+			"codclass01;Codice class. 01;Stringa;50",
+			"codtipoclass02;Codice Tipo class. 02;Stringa;20",
+			"codclass02;Codice class. 02;Stringa;50",
+			"codtipoclass03;Codice tipo class. 03;Stringa;20",
+			"codclass03;Codice class. 03;Stringa;50",
+			"codtipoclass04;Codice Tipo class. 04;Stringa;20",
+			"codclass04;Codice class. 04;Stringa;50",
+			"codtipoclass05;Codice Tipo class. 05;Stringa;20",
+			"codclass05;Codice class. 05;Stringa;50"
 		};
 
 		void CheckLivUbicazioni(DataTable Liv, int Nlevel, string leveldescr, string code) {
@@ -1752,6 +1764,9 @@ namespace notable_importazione {
 
 					}
 
+					
+
+
 					//Aggiunge le informazioni di livello ove necessario
 					int Nlev = CfgFn.GetNoNullInt32(Reader.getCurrField("nliv"));
 					string levelname = Reader.getCurrField("descrliv").ToString();
@@ -1780,6 +1795,26 @@ namespace notable_importazione {
 					Rinv["idman"] = idman;
 					Rinv["txt"] = note;
 					Rinv["active"] = "S";
+
+					bool err;
+					//Verifica la presenza degli attr. di sicurezza
+					for (int nsor = 1; nsor <= 5; nsor++) {
+						object codiceclass = Reader.getCurrField("codclass0" + nsor.ToString());
+						object codiceTipoclass = Reader.getCurrField("codtipoclass0" + nsor.ToString());
+						if (codiceclass.ToString() == "") continue;
+						if (codiceTipoclass.ToString() == "") continue;
+
+						Rinv["idsor0" + nsor.ToString()] = GetSortCached.GetSortK(Conn,
+							codiceTipoclass.ToString(),
+							codiceclass.ToString(),
+							out err);
+						if (err) {
+							SpeedSaver.AddError(
+								$"Codice Attributo n.{nsor} di codice {codiceclass}(tipo class{codiceTipoclass})  inesistente alla riga {Reader.GetCurrRowNumber()}");
+
+						}
+					}
+
 					somedone = true;
 
 					Reader.GetNext();
@@ -4572,7 +4607,12 @@ namespace notable_importazione {
 			"tipoupb;Tipo upb ai fini dell'economico patrimoniale(Descrizione breve);Stringa;50",
 			"cofogmpcode;Codice COFOG (04.8/01.4/07.5);Stringa;10",
 			"codiceue;Codice Unione Europea (01/02/03/04);Stringa;10",
-			"limitespesa;Applica limiti di costo (S/N);Codificato;1;S|N"
+			"limitespesa;Applica limiti di costo (S/N);Codificato;1;S|N",
+
+			"flagepbloccato;EP bloccato per prima fase e variazioni (S/N);Codificato;1;S|N",
+			"flagfinanziariobloccato;Finanziario bloccato per prima fase e variazioni (S/N);Codificato;1;S|N",
+			"flagmovbudgetbloccato;Movimento di budget non atteso in P.D. (S/N);Codificato;1;S|N"
+
 		};
 
 		private void btnUPB_Click(object sender, EventArgs e) {
@@ -4711,6 +4751,13 @@ namespace notable_importazione {
 					if (flagdidattica != null && flagdidattica.ToString().ToUpper() == "S") flagkind += 1;
 					if (flagricerca != null && flagricerca.ToString().ToUpper() == "S") flagkind += 2;
 
+					object flagepbloccato = Reader.getCurrField("flagepbloccato");//EP bloccato per prima fase e variazioni
+					object flagfinanziariobloccato = Reader.getCurrField("flagfinanziariobloccato");//Finanziario bloccato per prima fase e variazioni
+					object flagmovbudgetbloccato = Reader.getCurrField("flagmovbudgetbloccato");//Movimento di budget non atteso in P.D. (per diagnostiche)
+					int flag = 0;
+					if (flagepbloccato != null && flagepbloccato.ToString().ToUpper() == "S") flag += 1;
+					if (flagfinanziariobloccato != null && flagfinanziariobloccato.ToString().ToUpper() == "S") flag += 2;
+					if (flagmovbudgetbloccato != null && flagmovbudgetbloccato.ToString().ToUpper() == "S") flag += 4;
 
 					DataRow RUpb = MetaUpb.Get_New_Row(RParUpb, Upb);
 					RUpb["codeupb"] = code;
@@ -4754,6 +4801,7 @@ namespace notable_importazione {
 
 					RUpb["flagactivity"] = flagactivity;
 					RUpb["flagkind"] = flagkind;
+					RUpb["flag"] = flag;
 
 
 					RUpb["ct"] = DateTime.Now;
@@ -10077,7 +10125,7 @@ namespace notable_importazione {
 			"codiceupb;Cod. UPB;Stringa;50",
 			"codiceconto;Cod. Conto EP Costo;Stringa;50",
 			"codicebilanciospesa;Cod. Bilancio Spesa per Imputazione Costo;Stringa;50",
-			"fasemovspesa;Fase Mov. spesa;Stringa;50",
+			"fasemovspesa;Numero Fase Mov. spesa (1,2...);Stringa;50",
 			"esercmovspesa;Eserc. Creazione Mov. Spesa;Intero;4",
 			"nummovspesa;Numero Mov. Spesa;Intero;4",
 			"fasemovbudget;Fase Mov. Budget;Intero;4",
@@ -10097,7 +10145,7 @@ namespace notable_importazione {
 			"codeupb;Cod. UPB;Stringa;50",
 			"codiceconto;Cod. Conto EP Costo;Stringa;50",
 			"codicebilanciospesa;Cod. Bilancio Spesa per Imputazione Costo;Stringa;50",
-			"fasemovspesa;Fase Mov. spesa;Stringa;50",
+			"fasemovspesa;Numero Fase Mov. spesa (1,2...);Stringa;50",
 			"esercmovspesa;Eserc. Creazione Mov. Spesa;Intero;4",
 			"nummovspesa;Numero Mov. Spesa;Intero;4",
 			"fasemovbudget;Fase Mov. Budget;Intero;4",
@@ -11997,7 +12045,7 @@ namespace notable_importazione {
                     bool err;
 					//Verifica la presenza degli attr. di sicurezza
 					for (int nsor = 1; nsor <= 5; nsor++) {
-						object codiceclass = Reader.getCurrField("codtipoclass0" + nsor.ToString());
+						object codiceclass = Reader.getCurrField("codiceclass0" + nsor.ToString());
 						object codiceTipoclass = Reader.getCurrField("codtipoclass0" + nsor.ToString());
 						if ( codiceclass.ToString()=="") continue;
 						if ( codiceTipoclass.ToString()=="") continue;
@@ -20325,6 +20373,165 @@ namespace notable_importazione {
             return result;
 		}
 
+		// in questo "tracciato" di definizione si sarebbe potuto anche inserire il nome del campo sul db per inserire programmaticamente i valori nella datarow
+		string[] tracciato_contributiCespiti = new string[] {
+			// inizio idasset,idpiece
+			"codiceinv;Codice Inventario;Stringa;20",																				//inventory.codeinventory		//cache -> inventory.idinventory
+			"numinv;Numero di inventario;Intero;8",																					//asset.ninventory
+			"nprogr;Numero progressivo cespite: 1 per i cespiti, 2 o più per gli accessori;Intero;5",
+			// fine idasset,idpiece
+			"nprogrcontributo;Numero progressivo contributo;Intero;5",	
+			"amount;Importo;Numero;22",																								//assetgrant.amount
+			"description;Descrizione;Stringa;150",																					//assetgrant.description
+			"doc;Documento;Stringa;35",																								//assetgrant.doc
+			"docdate;Data documento;Data;8", //assetgrant.docdate
+			// inizio 
+			"numerogestionerisconto;Numero apertura o consumo risconto;Intero;5",
+			// inizio idaccmotive
+			"codicecausale;Codice causale Ricavo o Riserva;Stringa;50",																				//accmotive.codemotive			//cache -> accmotive.idaccmotive
+			// fine idaccmotive
+			"annofin;Anno finanziamento;Intero;4",																					//assetgrant.ygrant
+			// inizio idepacc
+			"aaaccertamento;Anno accertamento di budget;Intero;4",																	//epacc.yepacc
+			"naccertamento;Numero accertamento di budget;Intero;8",																	//epacc.nepacc
+			// fine idepacc
+			"tipofin;Tipo finanziamento (C=Contributo finanziato da terzi, U=Utili di esercizi precedenti);Codificato;1;C|U",		//flag_financesource
+			"riservesistente; Scrittura costituzione riserve esistente (S/N);Codificato;1;S|N",										//flag_entryprofitreservedone
+		};
+
+		bool ImportaContributiCespiti() {
+
+			LeggiFile Reader = GetReader(tracciato_contributiCespiti);
+			if (Reader == null) return false;
+
+			DataSet ds = new vistaContributiCespiti();
+			DataTable assetGrantDT = ds.Tables["assetgrant"];
+			MetaData assetGrantMeta = Meta.Dispatcher.Get("assetgrant");
+			assetGrantMeta.SetDefaults(assetGrantDT);
+
+			string cu = string.Join(".", Conn.GetSys("user"), System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+			conn.RUN_SELECT_INTO_TABLE(ds.Tables["assetgrant"], null, null, null, false);
+
+			DataTable inventory = conn.RUN_SELECT("inventory", "codeinventory,idinventory", null, null, null, null, false);
+			DataTable accmotive = conn.RUN_SELECT("accmotive", "codemotive,idaccmotive", null, null, null, null, false);
+
+			Dictionary<string, int> inventoryCache = inventory.AsEnumerable().ToDictionary(row => row["codeinventory"].ToString(), row => CfgFn.GetNoNullInt32(row["idinventory"]));
+			Dictionary<string, string> accmotiveCache = accmotive.AsEnumerable().ToDictionary(row => row["codemotive"].ToString(), row => row["idaccmotive"].ToString());
+
+			//InitSpeedSaver(Conn, new List<string>() { "" });
+			Reader.Reset();
+			Reader.GetNext();
+
+			List<string> fieldNames = tracciato_contributiCespiti.Select(definition => definition.Split(';')?.First()).ToList();
+
+			while (Reader.DataPresent()) {
+
+				int numLine = Reader.GetCurrRowNumber();
+ 
+				Dictionary<string, object> readRow = fieldNames.ToDictionary(fieldName => fieldName, fieldName => Reader.getCurrField(fieldName));
+
+				if (!inventoryCache.TryGetValue(readRow["codiceinv"].ToString(), out int idinventory)) {
+					SpeedSaver.AddError($"codeinv \"{readRow["codiceinv"]}\" non valido alla riga {numLine}");
+					Reader.GetNext();
+					continue;
+                }
+
+				if (!accmotiveCache.TryGetValue(readRow["codicecausale"].ToString(), out string idaccmotive)) {
+					SpeedSaver.AddError($"codicecausale \"{readRow["codicecausale"]}\" non valido alla riga {numLine}");
+					Reader.GetNext();
+					continue;
+				}
+
+ 
+				string codeinventory = Reader.getCurrField("codiceinv").ToString();
+				string numinv = Reader.getCurrField("numinv").ToString();
+				string nprogr = Reader.getCurrField("nprogr").ToString();
+				 
+				var filter = QHS.AppAnd(QHS.CmpEq("idinventory", idinventory), QHS.CmpEq("ninventory", numinv), QHS.CmpEq("idpiece", nprogr)); 
+				object  idasset = Conn.DO_READ_VALUE("assetview",filter,  "idasset");
+ 
+  
+				if (idasset == DBNull.Value || idasset == null) {
+					SpeedSaver.AddError("Cespite " + numinv.ToString() + "/" + codeinventory +
+										" non trovato. Riga:" +
+										Reader.GetCurrRowNumber());
+					Reader.GetNext();
+					continue;
+				}
+
+				object idgrant = readRow["nprogrcontributo"];
+				if (idgrant == DBNull.Value) idgrant = 1;
+
+				if (assetGrantDT.Select( QHC.AppAnd(QHC.CmpEq("idasset", idasset), QHC.CmpEq("idpiece", nprogr),
+										 QHC.CmpEq("idgrant", idgrant))).Length > 0) {
+					//Esiste giò una riga con la stessa chiave
+					SpeedSaver.AddError("Contributo Finanziamento Cespite/Accessorio N° inventario " + numinv.ToString() + "/ n° parte " + nprogr.ToString() +
+									    " " + codeinventory+ " Progressivo Contributo " + idgrant.ToString() +
+										" già presente sul database. Riga:" +
+										Reader.GetCurrRowNumber());
+					Reader.GetNext();
+					continue;
+
+				}
+ 
+				if (idasset == null) {
+					SpeedSaver.AddError($"codiceinv \"{readRow["codiceinv"]}\", numinv \"{readRow["numinv"]}\", numparte \"{readRow["numparte"]}\" non validi alla riga {numLine}");
+					Reader.GetNext();
+					continue;
+				}
+
+ 
+				DataRow assetGrantRow = assetGrantMeta.Get_New_Row(null, assetGrantDT);
+
+ 
+				assetGrantRow["idasset"] = idasset;								 
+			    assetGrantRow["idgrant"] = idgrant;
+				assetGrantRow["idpiece"] = nprogr;
+
+				assetGrantRow["amount"] = readRow["amount"];
+				assetGrantRow["ct"] = DateTime.Now;
+				assetGrantRow["cu"] = cu;
+				assetGrantRow["description"] = readRow["description"];
+				assetGrantRow["doc"] = readRow["doc"];
+				assetGrantRow["docdate"] = ToSmalldateTimeNoHours(Reader.getCurrField("docdate"));
+				assetGrantRow["idaccmotive"] = idaccmotive;
+				assetGrantRow["idgrantload"] = readRow["numerogestionerisconto"];
+				//assetGrantRow["idunderwriting"] = readRow[""];  non lo gestiamo più
+				assetGrantRow["lt"] = DateTime.Now;
+				assetGrantRow["lu"] = cu;
+				assetGrantRow["ygrant"] = readRow["annofin"];
+ 
+				assetGrantRow["flag_financesource"] = readRow["tipofin"];
+				assetGrantRow["flag_entryprofitreservedone"] = readRow["riservesistente"];
+ 
+				// Valorizzazione accertamento di budget
+				object naccertamento = Reader.getCurrField("naccertamento");
+				object aaaccertamento = Reader.getCurrField("aaaccertamento");
+				if (naccertamento != DBNull.Value) {
+					string FiltroAccertamentoBudget = QHS.AppAnd(QHS.CmpEq("yepacc", aaaccertamento),
+						QHS.CmpEq("nepacc", naccertamento), QHS.CmpEq("nphase", 2), QHS.CmpEq("ayear", esercizio));
+					object idEpacc = Conn.DO_READ_VALUE("epaccview", FiltroAccertamentoBudget, "idepacc");
+					if (idEpacc == null || idEpacc == DBNull.Value) {
+						string mov = "Accertamento di Budget di fase  num. " + naccertamento.ToString() + " del " +
+									 aaaccertamento.ToString() + " nell'anno " + esercizio;
+						SpeedSaver.AddError(mov + " alla riga:" + Reader.GetCurrRowNumber());
+						Reader.GetNext();
+						continue;
+					}
+					else {
+						assetGrantRow["idepacc"] = idEpacc;
+					}
+				}
+				Reader.GetNext();
+			}
+
+			Reader.Close();
+			bool res = SaveData(ds, true);
+			ds.Clear();
+			return res;
+		}
+
         private void btnDettaglioRitenute_Click(object sender, EventArgs e) {
             ImportaDettaglioRitenute();
         }
@@ -20624,9 +20831,12 @@ namespace notable_importazione {
 			}
 		}
 
-	}
+        private void btnImportContributiCespiti_Click(object sender, EventArgs e) {
+			ImportaContributiCespiti();
+        }
+    }
 
-	class PostData_Migrazione : PostData {
+    class PostData_Migrazione : PostData {
         override public string GetOptimisticClause(DataRow R) {
             if (R.Table.PrimaryKey != null) {
                 if ((R.Table.Columns["lu"] != null) &&

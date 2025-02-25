@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -103,17 +103,17 @@ namespace meta_registrylegalstatus//meta_posgiuridica//
                 AddColumn(T, "!qualificadalia", typeof(string), "dalia_position.description", "Qualifica Dalia");
                 DescribeAColumn(T, "start", "Data inizio", nPos++);
                 DescribeAColumn(T, "stop", "Termine", nPos++);
-                DescribeAColumn(T, "incomeclass", "Classe", nPos++);
-				DescribeAColumn(T, "incomeclassvalidity", "Data Decorrenza", nPos++);
                 DescribeAColumn(T, "!qualifica", "Qualifica", "position.description", nPos++);
 				DescribeAColumn(T, "livello", "Livello", nPos++);
-				DescribeAColumn(T, "!qualificadalia", "Qualifica Dalia", "dalia_position.description", nPos++);
-                DescribeAColumn(T, "csa_compartment", "Comparto CSA", nPos++);
+				DescribeAColumn(T, "incomeclass", "Classe", nPos++);
+				DescribeAColumn(T, "incomeclassvalidity", "Data Decorrenza", nPos++);
+                //DescribeAColumn(T, "csa_compartment", "Comparto CSA", nPos++); // Per migliorare la leggibilità lo tolgo perchè per le univ. è sempre 1
                 DescribeAColumn(T, "csa_role", "Ruolo CSA", nPos++);
                 DescribeAColumn(T, "csa_class", "Inquadr.CSA", nPos++);
                 DescribeAColumn(T, "csa_description", "Desr.CSA", nPos++);
 				DescribeAColumn(T, "active", "Attivo", nPos++);
 				DescribeAColumn(T, "flagdefault", "Predefinito", nPos++);
+				DescribeAColumn(T, "!qualificadalia", "Qualifica Dalia", "dalia_position.description", nPos++);
 			}
             if (ListingType == "unione") {
                 foreach (DataColumn C in T.Columns)

@@ -9,7 +9,6 @@
               <xs:element name="anzianitamax" type="xs:int" minOccurs="0" />
               <xs:element name="anzianitamin" type="xs:int" minOccurs="0" />
               <xs:element name="complementomensile" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" />
               <xs:element name="idposition" type="xs:int" />
               <xs:element name="idstipendiocomplemento" type="xs:int" />
@@ -34,7 +33,6 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="elementoperequativo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" />
               <xs:element name="idposition" type="xs:int" />
               <xs:element name="idstipendio" type="xs:int" />
@@ -63,7 +61,6 @@
               <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" />
               <xs:element name="idposition" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />

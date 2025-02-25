@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -113,6 +113,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
         private decimal assigned_imponibile_dociva;
         private decimal assigned_iva_dociva;
 		private RadioButton radCsa;
+		private RadioButton radLCsa;
 		private decimal assigned_gen_dociva;
 
         public Frm_expensevar_detail() {
@@ -207,6 +208,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.label17 = new System.Windows.Forms.Label();
 			this.btnRemoveDettInvoice = new System.Windows.Forms.Button();
 			this.btnAddDettInvoice = new System.Windows.Forms.Button();
+			this.radLCsa = new System.Windows.Forms.RadioButton();
 			this.grpImporto.SuspendLayout();
 			this.grpVariazione.SuspendLayout();
 			this.grpMovimento.SuspendLayout();
@@ -472,7 +474,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(624, 506);
+			this.btnCancel.Location = new System.Drawing.Point(624, 521);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 12;
@@ -482,7 +484,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOk.Location = new System.Drawing.Point(752, 506);
+			this.btnOk.Location = new System.Drawing.Point(752, 521);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(75, 23);
 			this.btnOk.TabIndex = 13;
@@ -494,7 +496,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.grpTrasferimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.grpTrasferimento.Controls.Add(this.radioButton3);
 			this.grpTrasferimento.Controls.Add(this.radioButton1);
-			this.grpTrasferimento.Location = new System.Drawing.Point(6, 496);
+			this.grpTrasferimento.Location = new System.Drawing.Point(6, 511);
 			this.grpTrasferimento.Name = "grpTrasferimento";
 			this.grpTrasferimento.Size = new System.Drawing.Size(192, 39);
 			this.grpTrasferimento.TabIndex = 11;
@@ -522,6 +524,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.radLCsa);
 			this.groupBox2.Controls.Add(this.radCsa);
 			this.groupBox2.Controls.Add(this.radEdit);
 			this.groupBox2.Controls.Add(this.radAnnPar);
@@ -529,14 +532,14 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.groupBox2.Controls.Add(this.radNormale);
 			this.groupBox2.Location = new System.Drawing.Point(6, 308);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(247, 136);
+			this.groupBox2.Size = new System.Drawing.Size(247, 147);
 			this.groupBox2.TabIndex = 4;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tipo variazione";
 			// 
 			// radCsa
 			// 
-			this.radCsa.Location = new System.Drawing.Point(17, 108);
+			this.radCsa.Location = new System.Drawing.Point(17, 103);
 			this.radCsa.Name = "radCsa";
 			this.radCsa.Size = new System.Drawing.Size(210, 19);
 			this.radCsa.TabIndex = 8;
@@ -544,7 +547,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			// radEdit
 			// 
-			this.radEdit.Location = new System.Drawing.Point(16, 84);
+			this.radEdit.Location = new System.Drawing.Point(16, 81);
 			this.radEdit.Name = "radEdit";
 			this.radEdit.Size = new System.Drawing.Size(225, 19);
 			this.radEdit.TabIndex = 7;
@@ -552,7 +555,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			// radAnnPar
 			// 
-			this.radAnnPar.Location = new System.Drawing.Point(16, 61);
+			this.radAnnPar.Location = new System.Drawing.Point(16, 59);
 			this.radAnnPar.Name = "radAnnPar";
 			this.radAnnPar.Size = new System.Drawing.Size(152, 16);
 			this.radAnnPar.TabIndex = 2;
@@ -630,7 +633,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			// 
 			this.grpUnderWrinting.Controls.Add(this.txtUnderwriting);
 			this.grpUnderWrinting.Controls.Add(this.btnUnderwriting);
-			this.grpUnderWrinting.Location = new System.Drawing.Point(5, 436);
+			this.grpUnderWrinting.Location = new System.Drawing.Point(5, 461);
 			this.grpUnderWrinting.Name = "grpUnderWrinting";
 			this.grpUnderWrinting.Size = new System.Drawing.Size(448, 43);
 			this.grpUnderWrinting.TabIndex = 9;
@@ -775,7 +778,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(960, 575);
+			this.tabControl1.Size = new System.Drawing.Size(960, 590);
 			this.tabControl1.TabIndex = 114;
 			// 
 			// tabPage1
@@ -802,7 +805,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(952, 549);
+			this.tabPage1.Size = new System.Drawing.Size(952, 564);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Principale";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -895,12 +898,20 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			this.btnAddDettInvoice.Text = "Aggiungi";
 			this.btnAddDettInvoice.Click += new System.EventHandler(this.btnAddDettInvoice_Click);
 			// 
+			// radLCsa
+			// 
+			this.radLCsa.Location = new System.Drawing.Point(17, 122);
+			this.radLCsa.Name = "radLCsa";
+			this.radLCsa.Size = new System.Drawing.Size(210, 19);
+			this.radLCsa.TabIndex = 9;
+			this.radLCsa.Text = "Azzeramento Lordi CSA";
+			// 
 			// Frm_expensevar_detail
 			// 
 			this.AcceptButton = this.btnOk;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(960, 575);
+			this.ClientSize = new System.Drawing.Size(960, 590);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_expensevar_detail";
 			this.Text = "frmVariazioneSpesaDettaglio";
@@ -1195,7 +1206,7 @@ namespace expensevar_detail { //variazionespesadettaglio//
                 radEdit.Enabled = false;
                 return;
             }
-			/* switch (currauto)
+            /* switch (currauto)
 		 {
 			 case 0: // normale
 
@@ -1207,10 +1218,12 @@ namespace expensevar_detail { //variazionespesadettaglio//
 
 			 case 32: //AZZERACSA
 
+             case 33: //AZZERALCSA
+
 		 }*/
-			DataRow R = DS.expensevar.Rows[0];
+            DataRow R = DS.expensevar.Rows[0];
             int currauto = CfgFn.GetNoNullInt32(R["autokind"]);
-            if ((currauto == 0) || (currauto == 10) || (currauto == 22)|| (currauto == 32)) {
+            if ((currauto == 0) || (currauto == 10) || (currauto == 22)|| (currauto == 32) || (currauto == 33)) {
                 //ANPAR
                 radNormale.Enabled = true;
                 radAnnPar.Enabled = true;
@@ -1250,7 +1263,11 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			if (currauto == 0)
                 radNormale.Checked = true;
             else
-                radNormale.Checked = false;
+                radNormale.Checked = false;  
+            if (currauto == 33)  //AZZERALCSA
+                radLCsa.Checked = true;
+            else
+                radLCsa.Checked = false;
         }
 
         void GetAnnullo() {
@@ -1272,7 +1289,10 @@ namespace expensevar_detail { //variazionespesadettaglio//
 			if (radCsa.Checked) {
 				if (currauto != 32) R["autokind"] = 32;  //AZZERACSA
 			}
-		}
+            if (radLCsa.Checked) {
+                if (currauto != 33) R["autokind"] = 33;  //AZZERALCSA
+            }
+        }
 
         private void resetIvaRef() {
             if (DS.expensevar.Rows.Count == 0) return;

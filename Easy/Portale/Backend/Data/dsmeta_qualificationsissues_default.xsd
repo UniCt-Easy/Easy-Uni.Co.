@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_qualificationsissues_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_qualificationsissues_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="issuesq" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attribute_name" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idissuesq" type="xs:int" />
+              <xs:element name="idqualificationsissues" type="xs:int" />
+              <xs:element name="issue_description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="qualificationsissues" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="academic_qualification_date" type="xs:string" minOccurs="0" />
+              <xs:element name="birth_date" type="xs:string" minOccurs="0" />
+              <xs:element name="birth_place" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data_request" type="xs:string" minOccurs="0" />
+              <xs:element name="degree_class_code" type="xs:string" minOccurs="0" />
+              <xs:element name="degree_course_code" type="xs:string" minOccurs="0" />
+              <xs:element name="family_name" type="xs:string" minOccurs="0" />
+              <xs:element name="file_code" type="xs:string" minOccurs="0" />
+              <xs:element name="file_status" type="xs:string" minOccurs="0" />
+              <xs:element name="given_name" type="xs:string" minOccurs="0" />
+              <xs:element name="idqualificationsissues" type="xs:int" />
+              <xs:element name="institute_code" type="xs:string" minOccurs="0" />
+              <xs:element name="institute_name" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="person_id" type="xs:string" minOccurs="0" />
+              <xs:element name="programme_type_code" type="xs:string" minOccurs="0" />
+              <xs:element name="qualification_grade_value" type="xs:string" minOccurs="0" />
+              <xs:element name="qualification_grading_scale_maximum_grade" type="xs:string" minOccurs="0" />
+              <xs:element name="qualification_grading_scale_minimum_grade" type="xs:string" minOccurs="0" />
+              <xs:element name="qualification_name" type="xs:string" minOccurs="0" />
+              <xs:element name="subscriber_id" type="xs:string" minOccurs="0" />
+              <xs:element name="subscriber_message" type="xs:string" minOccurs="0" />
+              <xs:element name="subscriber_name" type="xs:string" minOccurs="0" />
+              <xs:element name="tax_code" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:issuesq" />
+      <xs:field xpath="mstns:idissuesq" />
+      <xs:field xpath="mstns:idqualificationsissues" />
+    </xs:unique>
+    <xs:unique name="qualificationsissues_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:qualificationsissues" />
+      <xs:field xpath="mstns:idqualificationsissues" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_issuesq_qualificationsissues_idqualificationsissues" msdata:parent="qualificationsissues" msdata:child="issuesq" msdata:parentkey="idqualificationsissues" msdata:childkey="idqualificationsissues" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

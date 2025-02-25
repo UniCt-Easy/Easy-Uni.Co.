@@ -56,13 +56,18 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="cf" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="email" type="xs:string" minOccurs="0" />
               <xs:element name="esercizio" type="xs:int" minOccurs="0" />
               <xs:element name="forename" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrationuser" type="xs:int" />
               <xs:element name="idregistrationuserstatus" type="xs:int" minOccurs="0" />
               <xs:element name="login" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="requesttimestamp" type="xs:dateTime" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
               <xs:element name="userkind" type="xs:int" minOccurs="0" />
               <xs:element name="usertype" type="xs:string" minOccurs="0" />

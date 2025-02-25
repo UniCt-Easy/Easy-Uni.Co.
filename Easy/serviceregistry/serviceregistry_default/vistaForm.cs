@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -109,6 +109,10 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable apactivitykind_backup 		=> Tables["apactivitykind_backup"];
+
+	
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable serviceregistryattachment 		=> Tables["serviceregistryattachment"]; 
 
 	#endregion
 
@@ -618,7 +622,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	treferencerule.Columns.Add(C);
 	Tables.Add(treferencerule);
-	treferencerule.PrimaryKey =  new DataColumn[]{treferencerule.Columns["idreferencerule"]};
+	treferencerule.PrimaryKey =  new DataColumn[]{treferencerule.Columns["idreferencerule"], treferencerule.Columns["ayear"]};
 
 
 	//////////////////// APFINANCIALACTIVITYVIEW /////////////////////////////////
@@ -1205,6 +1209,29 @@ private void initClass() {
 	tapactivitykind_backup.PrimaryKey =  new DataColumn[]{tapactivitykind_backup.Columns["idapactivitykind"], tapactivitykind_backup.Columns["ayear"]};
 
 
+	
+	//////////////////// SERVICEREGISTRYATTACHMENT /////////////////////////////////
+	var tserviceregistryattachment= new DataTable("serviceregistryattachment");
+	C= new DataColumn("nservreg", typeof(Int32));
+	C.AllowDBNull=true;
+	tserviceregistryattachment.Columns.Add(C);
+	C= new DataColumn("yservreg", typeof(Int32));
+	C.AllowDBNull=true;
+	tserviceregistryattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tserviceregistryattachment.Columns.Add(C);
+	tserviceregistryattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tserviceregistryattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tserviceregistryattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tserviceregistryattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tserviceregistryattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tserviceregistryattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tserviceregistryattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tserviceregistryattachment);
+	tserviceregistryattachment.PrimaryKey =  new DataColumn[]{tserviceregistryattachment.Columns["nservreg"],tserviceregistryattachment.Columns["yservreg"], tserviceregistryattachment.Columns["idattachment"]};
+	
+	
 	#endregion
 
 
@@ -1305,6 +1332,10 @@ private void initClass() {
 	cChild = new []{serviceregistry.Columns["idapactivitykind"]};
 	Relations.Add(new DataRelation("apactivitykind_serviceregistry",cPar,cChild,false));
 
+	cPar = new []{tserviceregistry.Columns["nservreg"],tserviceregistry.Columns["yservreg"]};
+	cChild = new []{serviceregistryattachment.Columns["nservreg"],serviceregistryattachment.Columns["yservreg"]};
+	Relations.Add(new DataRelation("serviceregistry_serviceregistryattachment",cPar,cChild,false));
+	
 	#endregion
 
 }

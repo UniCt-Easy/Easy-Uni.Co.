@@ -54,12 +54,21 @@
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_rendicontlezionestud_default').data('mdlconditionallookup', 'assente,S,Si;assente,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-lezione_rendicont");
-				$('#lezione_rendicont_idcorsostudio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_idcorsostudio').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#lezione_rendicont_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
 				if (t.name === "corsostudiodefaultview" && r !== null) {
 					this.state.DS.tables.didprogdefaultview.staticFilter(window.jsDataQuery.eq("idcorsostudio", r.idcorsostudio));
 					if (this.state.DS.tables.didprogdefaultview.rows.length)
@@ -68,8 +77,10 @@
 							$('#lezione_rendicont_iddidprog').val('');
 						}
 				}
-				$('#lezione_rendicont_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#lezione_rendicont_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#lezione_rendicont_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#lezione_rendicont_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
 				if (t.name === "didprogdefaultview" && r !== null) {
 					this.state.DS.tables.didprogcurr.staticFilter(window.jsDataQuery.eq("iddidprog", r.iddidprog));
 					if (this.state.DS.tables.didprogcurr.rows.length)
@@ -78,8 +89,10 @@
 							$('#lezione_rendicont_iddidprogcurr').val('');
 						}
 				}
-				$('#lezione_rendicont_iddidprogcurr').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_iddidprogcurr').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#lezione_rendicont_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#lezione_rendicont_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#lezione_rendicont_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
 				if (t.name === "didprogcurr" && r !== null) {
 					this.state.DS.tables.didprogoridefaultview.staticFilter(window.jsDataQuery.eq("iddidprogcurr", r.iddidprogcurr));
 					if (this.state.DS.tables.didprogoridefaultview.rows.length)
@@ -88,8 +101,10 @@
 							$('#lezione_rendicont_iddidprogori').val('');
 						}
 				}
-				$('#lezione_rendicont_iddidprogori').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_iddidprogori').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_iddidprogori').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#lezione_rendicont_iddidprogori').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#lezione_rendicont_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#lezione_rendicont_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
 				if (t.name === "didprogoridefaultview" && r !== null) {
 					this.state.DS.tables.didprogannodefaultview.staticFilter(window.jsDataQuery.eq("iddidprogori", r.iddidprogori));
 					if (this.state.DS.tables.didprogannodefaultview.rows.length)
@@ -98,8 +113,10 @@
 							$('#lezione_rendicont_iddidproganno').val('');
 						}
 				}
-				$('#lezione_rendicont_iddidproganno').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_iddidproganno').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_iddidproganno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#lezione_rendicont_iddidproganno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#lezione_rendicont_iddidprogori').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#lezione_rendicont_iddidprogori').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
 				if (t.name === "didprogannodefaultview" && r !== null) {
 					this.state.DS.tables.didprogporzannodefaultview.staticFilter(window.jsDataQuery.eq("iddidproganno", r.iddidproganno));
 					if (this.state.DS.tables.didprogporzannodefaultview.rows.length)
@@ -108,8 +125,10 @@
 							$('#lezione_rendicont_iddidprogporzanno').val('');
 						}
 				}
-				$('#lezione_rendicont_iddidprogporzanno').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_iddidprogporzanno').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_iddidprogporzanno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#lezione_rendicont_iddidprogporzanno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#lezione_rendicont_iddidproganno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#lezione_rendicont_iddidproganno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
 				if (t.name === "didprogporzannodefaultview" && r !== null) {
 					this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprogporzanno", r.iddidprogporzanno));
 					if (this.state.DS.tables.attivformdefaultview.rows.length)
@@ -118,8 +137,10 @@
 							$('#lezione_rendicont_idattivform').val('');
 						}
 				}
-				$('#lezione_rendicont_idattivform').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_idattivform').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_idattivform').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
+				$('#lezione_rendicont_idattivform').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
+				$('#lezione_rendicont_iddidprogporzanno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
+				$('#lezione_rendicont_iddidprogporzanno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
 				if (t.name === "attivformdefaultview" && r !== null) {
 					this.state.DS.tables.canale.staticFilter(window.jsDataQuery.eq("idattivform", r.idattivform));
 					if (this.state.DS.tables.canale.rows.length)
@@ -128,8 +149,10 @@
 							$('#lezione_rendicont_idcanale').val('');
 						}
 				}
-				$('#lezione_rendicont_idcanale').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_idcanale').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_idcanale').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
+				$('#lezione_rendicont_idcanale').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
+				$('#lezione_rendicont_idattivform').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
+				$('#lezione_rendicont_idattivform').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
 				if (t.name === "canale" && r !== null) {
 					this.state.DS.tables.affidamentosegview.staticFilter(window.jsDataQuery.eq("idcanale", r.idcanale));
 					if (this.state.DS.tables.affidamentosegview.rows.length)
@@ -138,8 +161,10 @@
 							$('#lezione_rendicont_idaffidamento').val('');
 						}
 				}
-				$('#lezione_rendicont_idaffidamento').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_rendicont_idaffidamento').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_rendicont_idaffidamento').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
+				$('#lezione_rendicont_idaffidamento').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
+				$('#lezione_rendicont_idcanale').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
+				$('#lezione_rendicont_idcanale').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
 				//afterRowSelectin
 				return def.resolve();
 			},

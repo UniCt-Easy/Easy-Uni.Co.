@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -117,9 +117,6 @@ public partial class dsmeta: DataSet {
 	public MetaTable payrollabatement 		=> (MetaTable)Tables["payrollabatement"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable payrolltaxbracket 		=> (MetaTable)Tables["payrolltaxbracket"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable parasubcontractyear 		=> (MetaTable)Tables["parasubcontractyear"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -229,6 +226,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable payrolltaxbracket 		=> (MetaTable)Tables["payrolltaxbracket"];
 
 	#endregion
 
@@ -625,23 +625,6 @@ private void initClass() {
 	tpayrollabatement.defineColumn("curramount", typeof(decimal));
 	Tables.Add(tpayrollabatement);
 	tpayrollabatement.defineKey("idpayroll", "idabatement");
-
-	//////////////////// PAYROLLTAXBRACKET /////////////////////////////////
-	var tpayrolltaxbracket= new MetaTable("payrolltaxbracket");
-	tpayrolltaxbracket.defineColumn("idpayroll", typeof(int),false);
-	tpayrolltaxbracket.defineColumn("idpayrolltax", typeof(int),false);
-	tpayrolltaxbracket.defineColumn("nbracket", typeof(short),false);
-	tpayrolltaxbracket.defineColumn("taxable", typeof(decimal));
-	tpayrolltaxbracket.defineColumn("employrate", typeof(decimal));
-	tpayrolltaxbracket.defineColumn("employtax", typeof(decimal));
-	tpayrolltaxbracket.defineColumn("adminrate", typeof(decimal));
-	tpayrolltaxbracket.defineColumn("admintax", typeof(decimal));
-	tpayrolltaxbracket.defineColumn("cu", typeof(string));
-	tpayrolltaxbracket.defineColumn("ct", typeof(DateTime));
-	tpayrolltaxbracket.defineColumn("lu", typeof(string));
-	tpayrolltaxbracket.defineColumn("lt", typeof(DateTime));
-	Tables.Add(tpayrolltaxbracket);
-	tpayrolltaxbracket.defineKey("idpayroll", "idpayrolltax", "nbracket");
 
 	//////////////////// PARASUBCONTRACTYEAR /////////////////////////////////
 	var tparasubcontractyear= new MetaTable("parasubcontractyear");
@@ -1269,6 +1252,23 @@ private void initClass() {
 	Tables.Add(tcostpartition);
 	tcostpartition.defineKey("idcostpartition");
 
+	//////////////////// PAYROLLTAXBRACKET /////////////////////////////////
+	var tpayrolltaxbracket= new MetaTable("payrolltaxbracket");
+	tpayrolltaxbracket.defineColumn("idpayroll", typeof(int),false);
+	tpayrolltaxbracket.defineColumn("idpayrolltax", typeof(int),false);
+	tpayrolltaxbracket.defineColumn("nbracket", typeof(short),false);
+	tpayrolltaxbracket.defineColumn("adminrate", typeof(decimal));
+	tpayrolltaxbracket.defineColumn("admintax", typeof(decimal));
+	tpayrolltaxbracket.defineColumn("ct", typeof(DateTime));
+	tpayrolltaxbracket.defineColumn("cu", typeof(string));
+	tpayrolltaxbracket.defineColumn("employrate", typeof(decimal));
+	tpayrolltaxbracket.defineColumn("employtax", typeof(decimal));
+	tpayrolltaxbracket.defineColumn("lt", typeof(DateTime));
+	tpayrolltaxbracket.defineColumn("lu", typeof(string));
+	tpayrolltaxbracket.defineColumn("taxable", typeof(decimal));
+	Tables.Add(tpayrolltaxbracket);
+	tpayrolltaxbracket.defineKey("idpayroll", "idpayrolltax", "nbracket");
+
 	#endregion
 
 
@@ -1291,7 +1291,6 @@ private void initClass() {
 	this.defineRelation("otherinsuranceparasubcontractyear","otherinsurance","parasubcontractyear","idotherinsurance");
 	this.defineRelation("inpsactivityparasubcontractyear","inpsactivity","parasubcontractyear","activitycode");
 	this.defineRelation("emenscontractkindparasubcontractyear","emenscontractkind","parasubcontractyear","idemenscontractkind");
-	this.defineRelation("payrolltaxpayrolltaxbracket","payrolltax","payrolltaxbracket","idpayroll","idpayrolltax");
 	this.defineRelation("payrollpayrollabatement","payroll","payrollabatement","idpayroll");
 	this.defineRelation("payrollpayrolldeduction","payroll","payrolldeduction","idpayroll");
 	this.defineRelation("taxpayrolltax","tax","payrolltax","taxcode");
@@ -1387,6 +1386,7 @@ private void initClass() {
 	this.defineRelation("serviceattachmentkind_parasubcontractattachment","serviceattachmentkind","parasubcontractattachment","idattachmentkind");
 	this.defineRelation("parasubcontract_parasubcontractattachment","parasubcontract","parasubcontractattachment","idcon");
 	this.defineRelation("costpartition_parasubcontract","costpartition","parasubcontract","idcostpartition");
+	this.defineRelation("payrolltax_payrolltaxbracket","payrolltax","payrolltaxbracket","idpayroll","idpayrolltax");
 	#endregion
 
 }

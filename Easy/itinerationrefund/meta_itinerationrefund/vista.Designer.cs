@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -336,6 +336,17 @@ public class itinerationrefundRow: MetaRow  {
 	public Decimal? requiredamount_cOriginal { 
 		get {if (this["requiredamount_c",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["requiredamount_c",DataRowVersion.Original];}
 	}
+	public Int32? flagtaxableexpense{ 
+		get {if (this["flagtaxableexpense"]==DBNull.Value)return null; return  (Int32?)this["flagtaxableexpense"];}
+		set {if (value==null) this["flagtaxableexpense"]= DBNull.Value; else this["flagtaxableexpense"]= value;}
+	}
+	public object flagtaxableexpenseValue { 
+		get{ return this["flagtaxableexpense"];}
+		set {if (value==null|| value==DBNull.Value) this["flagtaxableexpense"]= DBNull.Value; else this["flagtaxableexpense"]= value;}
+	}
+	public Int32? flagtaxableexpenseOriginal { 
+		get {if (this["flagtaxableexpense",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["flagtaxableexpense",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -370,6 +381,7 @@ public class itinerationrefundTable : MetaTableBase<itinerationrefundRow> {
 			{"amount_c",createColumn("amount_c",typeof(decimal),true,false)},
 			{"docamount_c",createColumn("docamount_c",typeof(decimal),true,false)},
 			{"requiredamount_c",createColumn("requiredamount_c",typeof(decimal),true,false)},
+			{"flagtaxableexpense",createColumn("flagtaxableexpense",typeof(int),true,false)},
 		};
 	}
 }

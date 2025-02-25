@@ -67,6 +67,7 @@
               <xs:element name="publishdatekind" type="xs:string" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
               <xs:element name="flagbit" type="xs:int" minOccurs="0" />
+              <xs:element name="idtemporaneogara" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -498,6 +499,8 @@
             <xs:sequence>
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="title" type="xs:string" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1447,6 +1450,7 @@
               <xs:element name="publishdatekind" type="xs:string" minOccurs="0" />
               <xs:element name="publishdatekinddescr" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="idtemporaneogara" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1508,6 +1512,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="tempo_tender_pending_creation_id" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1543,6 +1548,7 @@
               <xs:element name="ImportoAggiudicazione" type="xs:double" minOccurs="0" />
               <xs:element name="Rup" type="xs:string" minOccurs="0" />
               <xs:element name="RupCF" type="xs:string" />
+              <xs:element name="tempo_tender_pending_creation_id" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

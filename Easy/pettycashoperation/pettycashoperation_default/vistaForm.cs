@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -157,6 +157,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable costpartition 		=> Tables["costpartition"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable pettycashoperationattachment 		=> Tables["pettycashoperationattachment"];
 
 	#endregion
 
@@ -2393,6 +2396,31 @@ private void initClass() {
 	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
 
 
+	//////////////////// PETTYCASHOPERATIONATTACHMENT /////////////////////////////////
+	var tpettycashoperationattachment= new DataTable("pettycashoperationattachment");
+	C= new DataColumn("idpettycash", typeof(int));
+	C.AllowDBNull=false;
+	tpettycashoperationattachment.Columns.Add(C);
+	C= new DataColumn("noperation", typeof(int));
+	C.AllowDBNull=false;
+	tpettycashoperationattachment.Columns.Add(C);
+	C= new DataColumn("yoperation", typeof(short));
+	C.AllowDBNull=false;
+	tpettycashoperationattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tpettycashoperationattachment.Columns.Add(C);
+	tpettycashoperationattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tpettycashoperationattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tpettycashoperationattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tpettycashoperationattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tpettycashoperationattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tpettycashoperationattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tpettycashoperationattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tpettycashoperationattachment);
+	tpettycashoperationattachment.PrimaryKey =  new DataColumn[]{tpettycashoperationattachment.Columns["idpettycash"], tpettycashoperationattachment.Columns["noperation"], tpettycashoperationattachment.Columns["yoperation"], tpettycashoperationattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -2536,6 +2564,10 @@ private void initClass() {
 	cPar = new []{costpartition.Columns["idcostpartition"]};
 	cChild = new []{pettycashoperation.Columns["idcostpartition"]};
 	Relations.Add(new DataRelation("costpartition_pettycashoperation",cPar,cChild,false));
+
+	cPar = new []{pettycashoperation.Columns["idpettycash"], pettycashoperation.Columns["noperation"], pettycashoperation.Columns["yoperation"]};
+	cChild = new []{pettycashoperationattachment.Columns["idpettycash"], pettycashoperationattachment.Columns["noperation"], pettycashoperationattachment.Columns["yoperation"]};
+	Relations.Add(new DataRelation("pettycashoperation_pettycashoperationattachment",cPar,cChild,false));
 
 	#endregion
 

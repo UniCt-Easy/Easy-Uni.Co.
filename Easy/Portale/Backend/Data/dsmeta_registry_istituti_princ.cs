@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_registry_istituti_princ"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_registry_istituti_princ: DataSet {
+public partial class dsmeta_registry_istituti_princ: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -62,6 +62,12 @@ public class dsmeta_registry_istituti_princ: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryaddress 		=> (MetaTable)Tables["registryaddress"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getregistrydocentiamministratividefaultview_alias1 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable istitutoprinc 		=> (MetaTable)Tables["istitutoprinc"];
@@ -270,15 +276,34 @@ private void initClass() {
 	Tables.Add(tregistryaddress);
 	tregistryaddress.defineKey("idaddresskind", "idreg", "start");
 
+	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW_ALIAS1 /////////////////////////////////
+	var tgetregistrydocentiamministratividefaultview_alias1= new MetaTable("getregistrydocentiamministratividefaultview_alias1");
+	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("idreg", typeof(int),false);
+	tgetregistrydocentiamministratividefaultview_alias1.ExtendedProperties["TableForReading"]="getregistrydocentiamministratividefaultview";
+	Tables.Add(tgetregistrydocentiamministratividefaultview_alias1);
+	tgetregistrydocentiamministratividefaultview_alias1.defineKey("idreg");
+
+	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
+	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
+	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
+	Tables.Add(tgetregistrydocentiamministratividefaultview);
+	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
+
 	//////////////////// ISTITUTOPRINC /////////////////////////////////
 	var tistitutoprinc= new MetaTable("istitutoprinc");
 	tistitutoprinc.defineColumn("acronimo", typeof(string));
 	tistitutoprinc.defineColumn("codiceammipa", typeof(string));
+	tistitutoprinc.defineColumn("codiceerasmus", typeof(string));
 	tistitutoprinc.defineColumn("ct", typeof(DateTime),false);
 	tistitutoprinc.defineColumn("cu", typeof(string),false);
 	tistitutoprinc.defineColumn("idreg", typeof(int),false);
+	tistitutoprinc.defineColumn("idreg_dir", typeof(int));
+	tistitutoprinc.defineColumn("idreg_diramm", typeof(int));
 	tistitutoprinc.defineColumn("lt", typeof(DateTime),false);
 	tistitutoprinc.defineColumn("lu", typeof(string),false);
+	tistitutoprinc.defineColumn("tipoente", typeof(string));
 	Tables.Add(tistitutoprinc);
 	tistitutoprinc.defineKey("idreg");
 
@@ -340,16 +365,25 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string));
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
+	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
+	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
+	tregistry.defineColumn("idnaturagiur", typeof(int));
+	tregistry.defineColumn("idnumerodip", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("idreg_istituti", typeof(int));
 	tregistry.defineColumn("idregistryclass", typeof(string));
 	tregistry.defineColumn("idregistrykind", typeof(int));
+	tregistry.defineColumn("idsasd", typeof(int));
+	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
+	tregistry.defineColumn("indicebibliometrico", typeof(int));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -359,12 +393,16 @@ private void initClass() {
 	tregistry.defineColumn("multi_cf", typeof(string));
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
+	tregistry.defineColumn("pic", typeof(string));
 	tregistry.defineColumn("residence", typeof(int),false);
+	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
 	tregistry.defineColumn("sdi_defrifamm", typeof(string));
 	tregistry.defineColumn("sdi_norifamm", typeof(string));
+	tregistry.defineColumn("soggiorno", typeof(string));
 	tregistry.defineColumn("surname", typeof(string));
 	tregistry.defineColumn("title", typeof(string),false);
+	tregistry.defineColumn("title_en", typeof(string));
 	tregistry.defineColumn("toredirect", typeof(int));
 	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
@@ -440,6 +478,14 @@ private void initClass() {
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{istitutoprinc.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_istitutoprinc_registry_idreg",cPar,cChild,false));
+
+	cPar = new []{getregistrydocentiamministratividefaultview_alias1.Columns["idreg"]};
+	cChild = new []{istitutoprinc.Columns["idreg_diramm"]};
+	Relations.Add(new DataRelation("FK_istitutoprinc_getregistrydocentiamministratividefaultview_alias1_idreg_diramm",cPar,cChild,false));
+
+	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
+	cChild = new []{istitutoprinc.Columns["idreg_dir"]};
+	Relations.Add(new DataRelation("FK_istitutoprinc_getregistrydocentiamministratividefaultview_idreg_dir",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{aoo.Columns["idreg"]};

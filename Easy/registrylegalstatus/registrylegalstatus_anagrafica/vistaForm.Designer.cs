@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,6 +49,15 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inquadramento 		=> Tables["inquadramento"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrylegalstatusattachment 		=> Tables["registrylegalstatusattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable classconsorsuale 		=> Tables["classconsorsuale"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable tipologiaruolo 		=> Tables["tipologiaruolo"];
 
 	#endregion
 
@@ -217,6 +226,8 @@ private void initClass() {
 	tregistrylegalstatus.Columns.Add( new DataColumn("idinquadramento", typeof(int)));
 	tregistrylegalstatus.Columns.Add( new DataColumn("livello", typeof(int)));
 	tregistrylegalstatus.Columns.Add( new DataColumn("flagdefault", typeof(string)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("idclassconsorsuale", typeof(int)));
+	tregistrylegalstatus.Columns.Add( new DataColumn("idtipologiaruolo", typeof(int)));
 	Tables.Add(tregistrylegalstatus);
 	tregistrylegalstatus.PrimaryKey =  new DataColumn[]{tregistrylegalstatus.Columns["idreg"], tregistrylegalstatus.Columns["idregistrylegalstatus"]};
 
@@ -353,6 +364,80 @@ private void initClass() {
 	tinquadramento.PrimaryKey =  new DataColumn[]{tinquadramento.Columns["idinquadramento"], tinquadramento.Columns["idposition"]};
 
 
+	//////////////////// REGISTRYLEGALSTATUSATTACHMENT /////////////////////////////////
+	var tregistrylegalstatusattachment= new DataTable("registrylegalstatusattachment");
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tregistrylegalstatusattachment.Columns.Add(C);
+	C= new DataColumn("idregistrylegalstatus", typeof(int));
+	C.AllowDBNull=false;
+	tregistrylegalstatusattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tregistrylegalstatusattachment.Columns.Add(C);
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tregistrylegalstatusattachment);
+	tregistrylegalstatusattachment.PrimaryKey =  new DataColumn[]{tregistrylegalstatusattachment.Columns["idreg"], tregistrylegalstatusattachment.Columns["idregistrylegalstatus"], tregistrylegalstatusattachment.Columns["idattachment"]};
+
+
+	//////////////////// CLASSCONSORSUALE /////////////////////////////////
+	var tclassconsorsuale= new DataTable("classconsorsuale");
+	C= new DataColumn("idclassconsorsuale", typeof(int));
+	C.AllowDBNull=false;
+	tclassconsorsuale.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	tclassconsorsuale.Columns.Add(C);
+	tclassconsorsuale.Columns.Add( new DataColumn("ambitodisci", typeof(string)));
+	tclassconsorsuale.Columns.Add( new DataColumn("corr2592017", typeof(string)));
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tclassconsorsuale.Columns.Add(C);
+	tclassconsorsuale.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tclassconsorsuale.Columns.Add( new DataColumn("lu", typeof(string)));
+	C= new DataColumn("normativa", typeof(string));
+	C.AllowDBNull=false;
+	tclassconsorsuale.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tclassconsorsuale.Columns.Add(C);
+	Tables.Add(tclassconsorsuale);
+	tclassconsorsuale.PrimaryKey =  new DataColumn[]{tclassconsorsuale.Columns["idclassconsorsuale"]};
+
+
+	//////////////////// TIPOLOGIARUOLO /////////////////////////////////
+	var ttipologiaruolo= new DataTable("tipologiaruolo");
+	C= new DataColumn("idtipologiaruolo", typeof(int));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	ttipologiaruolo.Columns.Add(C);
+	Tables.Add(ttipologiaruolo);
+	ttipologiaruolo.PrimaryKey =  new DataColumn[]{ttipologiaruolo.Columns["idtipologiaruolo"]};
+
+
 	#endregion
 
 
@@ -368,6 +453,18 @@ private void initClass() {
 	cPar = new []{dalia_position.Columns["iddaliaposition"]};
 	cChild = new []{registrylegalstatus.Columns["iddaliaposition"]};
 	Relations.Add(new DataRelation("dalia_position_registrylegalstatus",cPar,cChild,false));
+
+	cPar = new []{registrylegalstatus.Columns["idreg"], registrylegalstatus.Columns["idregistrylegalstatus"]};
+	cChild = new []{registrylegalstatusattachment.Columns["idreg"], registrylegalstatusattachment.Columns["idregistrylegalstatus"]};
+	Relations.Add(new DataRelation("registrylegalstatus_registrylegalstatusattachment",cPar,cChild,false));
+
+	cPar = new []{classconsorsuale.Columns["idclassconsorsuale"]};
+	cChild = new []{registrylegalstatus.Columns["idclassconsorsuale"]};
+	Relations.Add(new DataRelation("classconsorsuale_registrylegalstatus",cPar,cChild,false));
+
+	cPar = new []{tipologiaruolo.Columns["idtipologiaruolo"]};
+	cChild = new []{registrylegalstatus.Columns["idtipologiaruolo"]};
+	Relations.Add(new DataRelation("tipologiaruolo_registrylegalstatus",cPar,cChild,false));
 
 	#endregion
 

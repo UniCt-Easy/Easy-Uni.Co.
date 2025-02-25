@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -180,8 +180,9 @@ namespace estimate_default {
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
-        private Manager currencyManager;
+		private Label label42;
+		private TextBox txtDataScadenza;
+		private Manager currencyManager;
 
         public Frm_estimate_default() {
             InitializeComponent();
@@ -854,1681 +855,1708 @@ namespace estimate_default {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.btnSituazione = new System.Windows.Forms.Button();
-            this.cmbTipoScadenza = new System.Windows.Forms.ComboBox();
-            this.DS = new estimate_default.vistaForm();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtScadenza = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtRiferminento = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtIndirizzoConsegna = new System.Windows.Forms.TextBox();
-            this.TxtTermConsegna = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.txtDataDoc = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDocumento = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.cmbTipoContratto = new System.Windows.Forms.ComboBox();
-            this.txtNumContratto = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtEsercContratto = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtTotale = new System.Windows.Forms.TextBox();
-            this.txtIva = new System.Windows.Forms.TextBox();
-            this.txtImponibile = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.btnElimina = new System.Windows.Forms.Button();
-            this.btnModifica = new System.Windows.Forms.Button();
-            this.btnInserisci = new System.Windows.Forms.Button();
-            this.detailgrid = new System.Windows.Forms.DataGrid();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtIdNsoVendita = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtDataContabile = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.Principale = new System.Windows.Forms.TabPage();
-            this.gboxValuta = new System.Windows.Forms.GroupBox();
-            this.btnCurrencyExchange = new System.Windows.Forms.Button();
-            this.txtValuta = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.txtCambio = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.gboxResponsabile = new System.Windows.Forms.GroupBox();
-            this.txtResponsabile = new System.Windows.Forms.TextBox();
-            this.gboxCliente = new System.Windows.Forms.GroupBox();
-            this.txtCliente = new System.Windows.Forms.TextBox();
-            this.gboxtipofattura = new System.Windows.Forms.GroupBox();
-            this.rdbextracom = new System.Windows.Forms.RadioButton();
-            this.rdbintracom = new System.Windows.Forms.RadioButton();
-            this.rdbitalia = new System.Windows.Forms.RadioButton();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tabDettagli = new System.Windows.Forms.TabPage();
-            this.btnAnnullaDettaglio = new System.Windows.Forms.Button();
-            this.grpDettagliAnnullati = new System.Windows.Forms.GroupBox();
-            this.dataGridDettAnn = new System.Windows.Forms.DataGrid();
-            this.btnRipartizione = new System.Windows.Forms.Button();
-            this.btnInserisciCopia = new System.Windows.Forms.Button();
-            this.btnSostituisciDettaglio = new System.Windows.Forms.Button();
-            this.btnUnisciDettagli = new System.Windows.Forms.Button();
-            this.btnDividiDettaglio = new System.Windows.Forms.Button();
-            this.Classificazioni = new System.Windows.Forms.TabPage();
-            this.dgrClassificazioni = new System.Windows.Forms.DataGrid();
-            this.btnIndElimina = new System.Windows.Forms.Button();
-            this.btnIndModifica = new System.Windows.Forms.Button();
-            this.btnIndInserisci = new System.Windows.Forms.Button();
-            this.tabAllegati = new System.Windows.Forms.TabPage();
-            this.dataGrid1 = new System.Windows.Forms.DataGrid();
-            this.btnDelAtt = new System.Windows.Forms.Button();
-            this.btnEditAtt = new System.Windows.Forms.Button();
-            this.btnInsAtt = new System.Windows.Forms.Button();
-            this.tabAttributi = new System.Windows.Forms.TabPage();
-            this.gboxclass05 = new System.Windows.Forms.GroupBox();
-            this.txtCodice05 = new System.Windows.Forms.TextBox();
-            this.btnCodice05 = new System.Windows.Forms.Button();
-            this.txtDenom05 = new System.Windows.Forms.TextBox();
-            this.gboxclass04 = new System.Windows.Forms.GroupBox();
-            this.txtCodice04 = new System.Windows.Forms.TextBox();
-            this.btnCodice04 = new System.Windows.Forms.Button();
-            this.txtDenom04 = new System.Windows.Forms.TextBox();
-            this.gboxclass03 = new System.Windows.Forms.GroupBox();
-            this.txtCodice03 = new System.Windows.Forms.TextBox();
-            this.btnCodice03 = new System.Windows.Forms.Button();
-            this.txtDenom03 = new System.Windows.Forms.TextBox();
-            this.gboxclass02 = new System.Windows.Forms.GroupBox();
-            this.txtCodice02 = new System.Windows.Forms.TextBox();
-            this.btnCodice02 = new System.Windows.Forms.Button();
-            this.txtDenom02 = new System.Windows.Forms.TextBox();
-            this.gboxclass01 = new System.Windows.Forms.GroupBox();
-            this.txtCodice01 = new System.Windows.Forms.TextBox();
-            this.btnCodice01 = new System.Windows.Forms.Button();
-            this.txtDenom01 = new System.Windows.Forms.TextBox();
-            this.tabEP = new System.Windows.Forms.TabPage();
-            this.btnVisualizzaPreimpegni = new System.Windows.Forms.Button();
-            this.btnGeneraPreimpegni = new System.Windows.Forms.Button();
-            this.btnGeneraEpExp = new System.Windows.Forms.Button();
-            this.btnVisualizzaEpExp = new System.Windows.Forms.Button();
-            this.label43 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausaleCrg = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.gBoxCausaleCredito = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.labAltroEsercizio = new System.Windows.Forms.Label();
-            this.btnGeneraEP = new System.Windows.Forms.Button();
-            this.btnVisualizzaEP = new System.Windows.Forms.Button();
-            this.labEP = new System.Windows.Forms.Label();
-            this.Altro = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtNocigmotiveCode = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtNocigmotiveTitle = new System.Windows.Forms.TextBox();
-            this.txtIdNoCigMotive = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.gboxFinanziamento = new System.Windows.Forms.GroupBox();
-            this.txtFinanziamento = new System.Windows.Forms.TextBox();
-            this.btnFinanziamento = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.txtcig = new System.Windows.Forms.TextBox();
-            this.lblcig = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.detailgrid)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.Principale.SuspendLayout();
-            this.gboxValuta.SuspendLayout();
-            this.gboxResponsabile.SuspendLayout();
-            this.gboxCliente.SuspendLayout();
-            this.gboxtipofattura.SuspendLayout();
-            this.tabDettagli.SuspendLayout();
-            this.grpDettagliAnnullati.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDettAnn)).BeginInit();
-            this.Classificazioni.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).BeginInit();
-            this.tabAllegati.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
-            this.tabAttributi.SuspendLayout();
-            this.gboxclass05.SuspendLayout();
-            this.gboxclass04.SuspendLayout();
-            this.gboxclass03.SuspendLayout();
-            this.gboxclass02.SuspendLayout();
-            this.gboxclass01.SuspendLayout();
-            this.tabEP.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.gBoxCausaleCredito.SuspendLayout();
-            this.Altro.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.gboxFinanziamento.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // btnSituazione
-            // 
-            this.btnSituazione.Location = new System.Drawing.Point(292, 74);
-            this.btnSituazione.Name = "btnSituazione";
-            this.btnSituazione.Size = new System.Drawing.Size(110, 27);
-            this.btnSituazione.TabIndex = 10;
-            this.btnSituazione.TabStop = false;
-            this.btnSituazione.Text = "Situazione";
-            this.btnSituazione.Visible = false;
-            this.btnSituazione.Click += new System.EventHandler(this.btnSituazione_Click);
-            // 
-            // cmbTipoScadenza
-            // 
-            this.cmbTipoScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.btnSituazione = new System.Windows.Forms.Button();
+			this.cmbTipoScadenza = new System.Windows.Forms.ComboBox();
+			this.DS = new estimate_default.vistaForm();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtScadenza = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtRiferminento = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.txtIndirizzoConsegna = new System.Windows.Forms.TextBox();
+			this.TxtTermConsegna = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.txtDataDoc = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtDocumento = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.cmbTipoContratto = new System.Windows.Forms.ComboBox();
+			this.txtNumContratto = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtEsercContratto = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtTotale = new System.Windows.Forms.TextBox();
+			this.txtIva = new System.Windows.Forms.TextBox();
+			this.txtImponibile = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.btnElimina = new System.Windows.Forms.Button();
+			this.btnModifica = new System.Windows.Forms.Button();
+			this.btnInserisci = new System.Windows.Forms.Button();
+			this.detailgrid = new System.Windows.Forms.DataGrid();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.txtIdNsoVendita = new System.Windows.Forms.TextBox();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.label15 = new System.Windows.Forms.Label();
+			this.txtDataContabile = new System.Windows.Forms.TextBox();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.Principale = new System.Windows.Forms.TabPage();
+			this.gboxValuta = new System.Windows.Forms.GroupBox();
+			this.btnCurrencyExchange = new System.Windows.Forms.Button();
+			this.txtValuta = new System.Windows.Forms.TextBox();
+			this.button2 = new System.Windows.Forms.Button();
+			this.txtCambio = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.gboxResponsabile = new System.Windows.Forms.GroupBox();
+			this.txtResponsabile = new System.Windows.Forms.TextBox();
+			this.gboxCliente = new System.Windows.Forms.GroupBox();
+			this.txtCliente = new System.Windows.Forms.TextBox();
+			this.gboxtipofattura = new System.Windows.Forms.GroupBox();
+			this.rdbextracom = new System.Windows.Forms.RadioButton();
+			this.rdbintracom = new System.Windows.Forms.RadioButton();
+			this.rdbitalia = new System.Windows.Forms.RadioButton();
+			this.label5 = new System.Windows.Forms.Label();
+			this.tabDettagli = new System.Windows.Forms.TabPage();
+			this.btnAnnullaDettaglio = new System.Windows.Forms.Button();
+			this.grpDettagliAnnullati = new System.Windows.Forms.GroupBox();
+			this.dataGridDettAnn = new System.Windows.Forms.DataGrid();
+			this.btnRipartizione = new System.Windows.Forms.Button();
+			this.btnInserisciCopia = new System.Windows.Forms.Button();
+			this.btnSostituisciDettaglio = new System.Windows.Forms.Button();
+			this.btnUnisciDettagli = new System.Windows.Forms.Button();
+			this.btnDividiDettaglio = new System.Windows.Forms.Button();
+			this.Classificazioni = new System.Windows.Forms.TabPage();
+			this.dgrClassificazioni = new System.Windows.Forms.DataGrid();
+			this.btnIndElimina = new System.Windows.Forms.Button();
+			this.btnIndModifica = new System.Windows.Forms.Button();
+			this.btnIndInserisci = new System.Windows.Forms.Button();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGrid1 = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.tabAttributi = new System.Windows.Forms.TabPage();
+			this.gboxclass05 = new System.Windows.Forms.GroupBox();
+			this.txtCodice05 = new System.Windows.Forms.TextBox();
+			this.btnCodice05 = new System.Windows.Forms.Button();
+			this.txtDenom05 = new System.Windows.Forms.TextBox();
+			this.gboxclass04 = new System.Windows.Forms.GroupBox();
+			this.txtCodice04 = new System.Windows.Forms.TextBox();
+			this.btnCodice04 = new System.Windows.Forms.Button();
+			this.txtDenom04 = new System.Windows.Forms.TextBox();
+			this.gboxclass03 = new System.Windows.Forms.GroupBox();
+			this.txtCodice03 = new System.Windows.Forms.TextBox();
+			this.btnCodice03 = new System.Windows.Forms.Button();
+			this.txtDenom03 = new System.Windows.Forms.TextBox();
+			this.gboxclass02 = new System.Windows.Forms.GroupBox();
+			this.txtCodice02 = new System.Windows.Forms.TextBox();
+			this.btnCodice02 = new System.Windows.Forms.Button();
+			this.txtDenom02 = new System.Windows.Forms.TextBox();
+			this.gboxclass01 = new System.Windows.Forms.GroupBox();
+			this.txtCodice01 = new System.Windows.Forms.TextBox();
+			this.btnCodice01 = new System.Windows.Forms.Button();
+			this.txtDenom01 = new System.Windows.Forms.TextBox();
+			this.tabEP = new System.Windows.Forms.TabPage();
+			this.btnVisualizzaPreimpegni = new System.Windows.Forms.Button();
+			this.btnGeneraPreimpegni = new System.Windows.Forms.Button();
+			this.btnGeneraEpExp = new System.Windows.Forms.Button();
+			this.btnVisualizzaEpExp = new System.Windows.Forms.Button();
+			this.label43 = new System.Windows.Forms.Label();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleCrg = new System.Windows.Forms.TextBox();
+			this.button7 = new System.Windows.Forms.Button();
+			this.gBoxCausaleCredito = new System.Windows.Forms.GroupBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.txtCodiceCausaleDeb = new System.Windows.Forms.TextBox();
+			this.button6 = new System.Windows.Forms.Button();
+			this.labAltroEsercizio = new System.Windows.Forms.Label();
+			this.btnGeneraEP = new System.Windows.Forms.Button();
+			this.btnVisualizzaEP = new System.Windows.Forms.Button();
+			this.labEP = new System.Windows.Forms.Label();
+			this.Altro = new System.Windows.Forms.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.txtNocigmotiveCode = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtNocigmotiveTitle = new System.Windows.Forms.TextBox();
+			this.txtIdNoCigMotive = new System.Windows.Forms.TextBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.gboxFinanziamento = new System.Windows.Forms.GroupBox();
+			this.txtFinanziamento = new System.Windows.Forms.TextBox();
+			this.btnFinanziamento = new System.Windows.Forms.Button();
+			this.label22 = new System.Windows.Forms.Label();
+			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.txtcig = new System.Windows.Forms.TextBox();
+			this.lblcig = new System.Windows.Forms.Label();
+			this.label42 = new System.Windows.Forms.Label();
+			this.txtDataScadenza = new System.Windows.Forms.TextBox();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.detailgrid)).BeginInit();
+			this.groupBox3.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			this.groupBox5.SuspendLayout();
+			this.tabControl1.SuspendLayout();
+			this.Principale.SuspendLayout();
+			this.gboxValuta.SuspendLayout();
+			this.gboxResponsabile.SuspendLayout();
+			this.gboxCliente.SuspendLayout();
+			this.gboxtipofattura.SuspendLayout();
+			this.tabDettagli.SuspendLayout();
+			this.grpDettagliAnnullati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridDettAnn)).BeginInit();
+			this.Classificazioni.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
+			this.tabAttributi.SuspendLayout();
+			this.gboxclass05.SuspendLayout();
+			this.gboxclass04.SuspendLayout();
+			this.gboxclass03.SuspendLayout();
+			this.gboxclass02.SuspendLayout();
+			this.gboxclass01.SuspendLayout();
+			this.tabEP.SuspendLayout();
+			this.groupBox11.SuspendLayout();
+			this.gBoxCausaleCredito.SuspendLayout();
+			this.Altro.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.gboxFinanziamento.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// btnSituazione
+			// 
+			this.btnSituazione.Location = new System.Drawing.Point(292, 74);
+			this.btnSituazione.Name = "btnSituazione";
+			this.btnSituazione.Size = new System.Drawing.Size(110, 27);
+			this.btnSituazione.TabIndex = 10;
+			this.btnSituazione.TabStop = false;
+			this.btnSituazione.Text = "Situazione";
+			this.btnSituazione.Visible = false;
+			this.btnSituazione.Click += new System.EventHandler(this.btnSituazione_Click);
+			// 
+			// cmbTipoScadenza
+			// 
+			this.cmbTipoScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTipoScadenza.DataSource = this.DS.expirationkind;
-            this.cmbTipoScadenza.DisplayMember = "description";
-            this.cmbTipoScadenza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoScadenza.Location = new System.Drawing.Point(40, 20);
-            this.cmbTipoScadenza.Name = "cmbTipoScadenza";
-            this.cmbTipoScadenza.Size = new System.Drawing.Size(349, 21);
-            this.cmbTipoScadenza.TabIndex = 9;
-            this.cmbTipoScadenza.Tag = "estimate.idexpirationkind?estimateview.idexpirationkind";
-            this.cmbTipoScadenza.ValueMember = "idexpirationkind";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label11.Location = new System.Drawing.Point(3, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 17);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Tipo";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtScadenza
-            // 
-            this.txtScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtScadenza.Location = new System.Drawing.Point(462, 20);
-            this.txtScadenza.Name = "txtScadenza";
-            this.txtScadenza.Size = new System.Drawing.Size(79, 20);
-            this.txtScadenza.TabIndex = 10;
-            this.txtScadenza.Tag = "estimate.paymentexpiring?estimateview.paymentexpiring";
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label12.Location = new System.Drawing.Point(394, 19);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(63, 19);
-            this.label12.TabIndex = 20;
-            this.label12.Text = "Scadenza:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(413, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(96, 18);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Riferimento:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtRiferminento
-            // 
-            this.txtRiferminento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.cmbTipoScadenza.DataSource = this.DS.expirationkind;
+			this.cmbTipoScadenza.DisplayMember = "description";
+			this.cmbTipoScadenza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipoScadenza.Location = new System.Drawing.Point(40, 20);
+			this.cmbTipoScadenza.Name = "cmbTipoScadenza";
+			this.cmbTipoScadenza.Size = new System.Drawing.Size(349, 21);
+			this.cmbTipoScadenza.TabIndex = 9;
+			this.cmbTipoScadenza.Tag = "estimate.idexpirationkind?estimateview.idexpirationkind";
+			this.cmbTipoScadenza.ValueMember = "idexpirationkind";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// label11
+			// 
+			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label11.Location = new System.Drawing.Point(3, 22);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(32, 17);
+			this.label11.TabIndex = 22;
+			this.label11.Text = "Tipo";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtScadenza
+			// 
+			this.txtScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtScadenza.Location = new System.Drawing.Point(462, 20);
+			this.txtScadenza.Name = "txtScadenza";
+			this.txtScadenza.Size = new System.Drawing.Size(79, 20);
+			this.txtScadenza.TabIndex = 10;
+			this.txtScadenza.Tag = "estimate.paymentexpiring?estimateview.paymentexpiring";
+			this.txtScadenza.Leave += new System.EventHandler(this.txtScadenza_Leave);
+			// 
+			// label12
+			// 
+			this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label12.Location = new System.Drawing.Point(394, 19);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(63, 19);
+			this.label12.TabIndex = 20;
+			this.label12.Text = "Scadenza:";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(413, 0);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(96, 18);
+			this.label10.TabIndex = 19;
+			this.label10.Text = "Riferimento:";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtRiferminento
+			// 
+			this.txtRiferminento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRiferminento.Location = new System.Drawing.Point(416, 18);
-            this.txtRiferminento.Multiline = true;
-            this.txtRiferminento.Name = "txtRiferminento";
-            this.txtRiferminento.Size = new System.Drawing.Size(564, 51);
-            this.txtRiferminento.TabIndex = 1;
-            this.txtRiferminento.Tag = "estimate.registryreference?estimateview.registryreference";
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label9.Location = new System.Drawing.Point(13, 23);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(68, 19);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Indirizzo";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtIndirizzoConsegna
-            // 
-            this.txtIndirizzoConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtRiferminento.Location = new System.Drawing.Point(416, 18);
+			this.txtRiferminento.Multiline = true;
+			this.txtRiferminento.Name = "txtRiferminento";
+			this.txtRiferminento.Size = new System.Drawing.Size(564, 51);
+			this.txtRiferminento.TabIndex = 1;
+			this.txtRiferminento.Tag = "estimate.registryreference?estimateview.registryreference";
+			// 
+			// label9
+			// 
+			this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label9.Location = new System.Drawing.Point(13, 23);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(68, 19);
+			this.label9.TabIndex = 17;
+			this.label9.Text = "Indirizzo";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtIndirizzoConsegna
+			// 
+			this.txtIndirizzoConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIndirizzoConsegna.Location = new System.Drawing.Point(16, 42);
-            this.txtIndirizzoConsegna.Multiline = true;
-            this.txtIndirizzoConsegna.Name = "txtIndirizzoConsegna";
-            this.txtIndirizzoConsegna.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtIndirizzoConsegna.Size = new System.Drawing.Size(525, 75);
-            this.txtIndirizzoConsegna.TabIndex = 14;
-            this.txtIndirizzoConsegna.Tag = "estimate.deliveryaddress";
-            // 
-            // TxtTermConsegna
-            // 
-            this.TxtTermConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtTermConsegna.Location = new System.Drawing.Point(385, 18);
-            this.TxtTermConsegna.Name = "TxtTermConsegna";
-            this.TxtTermConsegna.Size = new System.Drawing.Size(156, 20);
-            this.TxtTermConsegna.TabIndex = 13;
-            this.TxtTermConsegna.Tag = "estimate.deliveryexpiration";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.Location = new System.Drawing.Point(313, 18);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 18);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Termine:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Location = new System.Drawing.Point(11, 140);
-            this.txtDescrizione.Multiline = true;
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(386, 73);
-            this.txtDescrizione.TabIndex = 8;
-            this.txtDescrizione.Tag = "estimate.description";
-            // 
-            // txtDataDoc
-            // 
-            this.txtDataDoc.Location = new System.Drawing.Point(221, 22);
-            this.txtDataDoc.Name = "txtDataDoc";
-            this.txtDataDoc.Size = new System.Drawing.Size(66, 20);
-            this.txtDataDoc.TabIndex = 5;
-            this.txtDataDoc.Tag = "estimate.docdate";
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label4.Location = new System.Drawing.Point(177, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 17);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Data";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDocumento
-            // 
-            this.txtDocumento.Location = new System.Drawing.Point(47, 22);
-            this.txtDocumento.Name = "txtDocumento";
-            this.txtDocumento.Size = new System.Drawing.Size(129, 20);
-            this.txtDocumento.TabIndex = 4;
-            this.txtDocumento.Tag = "estimate.doc";
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label3.Location = new System.Drawing.Point(5, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 19);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Doc";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.cmbTipoContratto);
-            this.groupBox1.Controls.Add(this.txtNumContratto);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtEsercContratto);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(10, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(401, 69);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Contratto Attivo";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(10, 18);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 28);
-            this.button1.TabIndex = 0;
-            this.button1.TabStop = false;
-            this.button1.Tag = "Choose.estimatekind.default";
-            this.button1.Text = "Tipo";
-            // 
-            // cmbTipoContratto
-            // 
-            this.cmbTipoContratto.DataSource = this.DS.estimatekind;
-            this.cmbTipoContratto.DisplayMember = "description";
-            this.cmbTipoContratto.Location = new System.Drawing.Point(96, 18);
-            this.cmbTipoContratto.Name = "cmbTipoContratto";
-            this.cmbTipoContratto.Size = new System.Drawing.Size(296, 21);
-            this.cmbTipoContratto.TabIndex = 1;
-            this.cmbTipoContratto.Tag = "estimate.idestimkind";
-            this.cmbTipoContratto.ValueMember = "idestimkind";
-            // 
-            // txtNumContratto
-            // 
-            this.txtNumContratto.Location = new System.Drawing.Point(326, 45);
-            this.txtNumContratto.Name = "txtNumContratto";
-            this.txtNumContratto.Size = new System.Drawing.Size(66, 20);
-            this.txtNumContratto.TabIndex = 3;
-            this.txtNumContratto.Tag = "estimate.nestim";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(252, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 19);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Numero:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercContratto
-            // 
-            this.txtEsercContratto.Location = new System.Drawing.Point(178, 45);
-            this.txtEsercContratto.Name = "txtEsercContratto";
-            this.txtEsercContratto.Size = new System.Drawing.Size(68, 20);
-            this.txtEsercContratto.TabIndex = 2;
-            this.txtEsercContratto.Tag = "estimate.yestim.year";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(107, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Esercizio:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtTotale
-            // 
-            this.txtTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTotale.Location = new System.Drawing.Point(809, 363);
-            this.txtTotale.Name = "txtTotale";
-            this.txtTotale.ReadOnly = true;
-            this.txtTotale.Size = new System.Drawing.Size(134, 20);
-            this.txtTotale.TabIndex = 33;
-            this.txtTotale.TabStop = false;
-            this.txtTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtIva
-            // 
-            this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIva.Location = new System.Drawing.Point(646, 363);
-            this.txtIva.Name = "txtIva";
-            this.txtIva.ReadOnly = true;
-            this.txtIva.Size = new System.Drawing.Size(105, 20);
-            this.txtIva.TabIndex = 32;
-            this.txtIva.TabStop = false;
-            this.txtIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtImponibile
-            // 
-            this.txtImponibile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtImponibile.Location = new System.Drawing.Point(463, 363);
-            this.txtImponibile.Name = "txtImponibile";
-            this.txtImponibile.ReadOnly = true;
-            this.txtImponibile.Size = new System.Drawing.Size(135, 20);
-            this.txtImponibile.TabIndex = 31;
-            this.txtImponibile.TabStop = false;
-            this.txtImponibile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.Location = new System.Drawing.Point(751, 363);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(48, 19);
-            this.label16.TabIndex = 30;
-            this.label16.Text = "Totale:";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.Location = new System.Drawing.Point(598, 363);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(38, 19);
-            this.label17.TabIndex = 29;
-            this.label17.Text = "IVA:";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.Location = new System.Drawing.Point(377, 363);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(77, 19);
-            this.label18.TabIndex = 28;
-            this.label18.Text = "Imponibile:";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnElimina
-            // 
-            this.btnElimina.Location = new System.Drawing.Point(6, 73);
-            this.btnElimina.Name = "btnElimina";
-            this.btnElimina.Size = new System.Drawing.Size(86, 26);
-            this.btnElimina.TabIndex = 18;
-            this.btnElimina.TabStop = false;
-            this.btnElimina.Tag = "delete";
-            this.btnElimina.Text = "Elimina";
-            this.btnElimina.Click += new System.EventHandler(this.btnElimina_Click);
-            // 
-            // btnModifica
-            // 
-            this.btnModifica.Location = new System.Drawing.Point(6, 42);
-            this.btnModifica.Name = "btnModifica";
-            this.btnModifica.Size = new System.Drawing.Size(86, 26);
-            this.btnModifica.TabIndex = 17;
-            this.btnModifica.TabStop = false;
-            this.btnModifica.Tag = "edit.single";
-            this.btnModifica.Text = "Modifica";
-            // 
-            // btnInserisci
-            // 
-            this.btnInserisci.Location = new System.Drawing.Point(6, 10);
-            this.btnInserisci.Name = "btnInserisci";
-            this.btnInserisci.Size = new System.Drawing.Size(86, 26);
-            this.btnInserisci.TabIndex = 16;
-            this.btnInserisci.TabStop = false;
-            this.btnInserisci.Tag = "insert.single";
-            this.btnInserisci.Text = "Inserisci";
-            // 
-            // detailgrid
-            // 
-            this.detailgrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtIndirizzoConsegna.Location = new System.Drawing.Point(16, 42);
+			this.txtIndirizzoConsegna.Multiline = true;
+			this.txtIndirizzoConsegna.Name = "txtIndirizzoConsegna";
+			this.txtIndirizzoConsegna.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtIndirizzoConsegna.Size = new System.Drawing.Size(525, 75);
+			this.txtIndirizzoConsegna.TabIndex = 14;
+			this.txtIndirizzoConsegna.Tag = "estimate.deliveryaddress";
+			// 
+			// TxtTermConsegna
+			// 
+			this.TxtTermConsegna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.TxtTermConsegna.Location = new System.Drawing.Point(385, 18);
+			this.TxtTermConsegna.Name = "TxtTermConsegna";
+			this.TxtTermConsegna.Size = new System.Drawing.Size(156, 20);
+			this.TxtTermConsegna.TabIndex = 13;
+			this.TxtTermConsegna.Tag = "estimate.deliveryexpiration";
+			// 
+			// label8
+			// 
+			this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label8.Location = new System.Drawing.Point(313, 18);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(67, 18);
+			this.label8.TabIndex = 14;
+			this.label8.Text = "Termine:";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDescrizione
+			// 
+			this.txtDescrizione.Location = new System.Drawing.Point(11, 165);
+			this.txtDescrizione.Multiline = true;
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.Size = new System.Drawing.Size(386, 73);
+			this.txtDescrizione.TabIndex = 8;
+			this.txtDescrizione.Tag = "estimate.description";
+			// 
+			// txtDataDoc
+			// 
+			this.txtDataDoc.Location = new System.Drawing.Point(221, 22);
+			this.txtDataDoc.Name = "txtDataDoc";
+			this.txtDataDoc.Size = new System.Drawing.Size(66, 20);
+			this.txtDataDoc.TabIndex = 5;
+			this.txtDataDoc.Tag = "estimate.docdate";
+			this.txtDataDoc.Leave += new System.EventHandler(this.txtDataDoc_Leave);
+			// 
+			// label4
+			// 
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label4.Location = new System.Drawing.Point(177, 23);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(38, 17);
+			this.label4.TabIndex = 6;
+			this.label4.Text = "Data";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDocumento
+			// 
+			this.txtDocumento.Location = new System.Drawing.Point(47, 22);
+			this.txtDocumento.Name = "txtDocumento";
+			this.txtDocumento.Size = new System.Drawing.Size(129, 20);
+			this.txtDocumento.TabIndex = 4;
+			this.txtDocumento.Tag = "estimate.doc";
+			// 
+			// label3
+			// 
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label3.Location = new System.Drawing.Point(5, 21);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(37, 19);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "Doc";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.button1);
+			this.groupBox1.Controls.Add(this.cmbTipoContratto);
+			this.groupBox1.Controls.Add(this.txtNumContratto);
+			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Controls.Add(this.txtEsercContratto);
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Location = new System.Drawing.Point(10, 0);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(401, 69);
+			this.groupBox1.TabIndex = 0;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Contratto Attivo";
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(10, 18);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(76, 28);
+			this.button1.TabIndex = 0;
+			this.button1.TabStop = false;
+			this.button1.Tag = "Choose.estimatekind.default";
+			this.button1.Text = "Tipo";
+			// 
+			// cmbTipoContratto
+			// 
+			this.cmbTipoContratto.DataSource = this.DS.estimatekind;
+			this.cmbTipoContratto.DisplayMember = "description";
+			this.cmbTipoContratto.Location = new System.Drawing.Point(96, 18);
+			this.cmbTipoContratto.Name = "cmbTipoContratto";
+			this.cmbTipoContratto.Size = new System.Drawing.Size(296, 21);
+			this.cmbTipoContratto.TabIndex = 1;
+			this.cmbTipoContratto.Tag = "estimate.idestimkind";
+			this.cmbTipoContratto.ValueMember = "idestimkind";
+			// 
+			// txtNumContratto
+			// 
+			this.txtNumContratto.Location = new System.Drawing.Point(326, 45);
+			this.txtNumContratto.Name = "txtNumContratto";
+			this.txtNumContratto.Size = new System.Drawing.Size(66, 20);
+			this.txtNumContratto.TabIndex = 3;
+			this.txtNumContratto.Tag = "estimate.nestim";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(252, 45);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(69, 19);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Numero:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercContratto
+			// 
+			this.txtEsercContratto.Location = new System.Drawing.Point(178, 45);
+			this.txtEsercContratto.Name = "txtEsercContratto";
+			this.txtEsercContratto.Size = new System.Drawing.Size(68, 20);
+			this.txtEsercContratto.TabIndex = 2;
+			this.txtEsercContratto.Tag = "estimate.yestim.year";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(107, 45);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(66, 19);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Esercizio:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtTotale
+			// 
+			this.txtTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotale.Location = new System.Drawing.Point(809, 363);
+			this.txtTotale.Name = "txtTotale";
+			this.txtTotale.ReadOnly = true;
+			this.txtTotale.Size = new System.Drawing.Size(134, 20);
+			this.txtTotale.TabIndex = 33;
+			this.txtTotale.TabStop = false;
+			this.txtTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// txtIva
+			// 
+			this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtIva.Location = new System.Drawing.Point(646, 363);
+			this.txtIva.Name = "txtIva";
+			this.txtIva.ReadOnly = true;
+			this.txtIva.Size = new System.Drawing.Size(105, 20);
+			this.txtIva.TabIndex = 32;
+			this.txtIva.TabStop = false;
+			this.txtIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// txtImponibile
+			// 
+			this.txtImponibile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtImponibile.Location = new System.Drawing.Point(463, 363);
+			this.txtImponibile.Name = "txtImponibile";
+			this.txtImponibile.ReadOnly = true;
+			this.txtImponibile.Size = new System.Drawing.Size(135, 20);
+			this.txtImponibile.TabIndex = 31;
+			this.txtImponibile.TabStop = false;
+			this.txtImponibile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label16
+			// 
+			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label16.Location = new System.Drawing.Point(751, 363);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(48, 19);
+			this.label16.TabIndex = 30;
+			this.label16.Text = "Totale:";
+			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label17
+			// 
+			this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label17.Location = new System.Drawing.Point(598, 363);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(38, 19);
+			this.label17.TabIndex = 29;
+			this.label17.Text = "IVA:";
+			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label18
+			// 
+			this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label18.Location = new System.Drawing.Point(377, 363);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(77, 19);
+			this.label18.TabIndex = 28;
+			this.label18.Text = "Imponibile:";
+			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// btnElimina
+			// 
+			this.btnElimina.Location = new System.Drawing.Point(6, 73);
+			this.btnElimina.Name = "btnElimina";
+			this.btnElimina.Size = new System.Drawing.Size(86, 26);
+			this.btnElimina.TabIndex = 18;
+			this.btnElimina.TabStop = false;
+			this.btnElimina.Tag = "delete";
+			this.btnElimina.Text = "Elimina";
+			this.btnElimina.Click += new System.EventHandler(this.btnElimina_Click);
+			// 
+			// btnModifica
+			// 
+			this.btnModifica.Location = new System.Drawing.Point(6, 42);
+			this.btnModifica.Name = "btnModifica";
+			this.btnModifica.Size = new System.Drawing.Size(86, 26);
+			this.btnModifica.TabIndex = 17;
+			this.btnModifica.TabStop = false;
+			this.btnModifica.Tag = "edit.single";
+			this.btnModifica.Text = "Modifica";
+			// 
+			// btnInserisci
+			// 
+			this.btnInserisci.Location = new System.Drawing.Point(6, 10);
+			this.btnInserisci.Name = "btnInserisci";
+			this.btnInserisci.Size = new System.Drawing.Size(86, 26);
+			this.btnInserisci.TabIndex = 16;
+			this.btnInserisci.TabStop = false;
+			this.btnInserisci.Tag = "insert.single";
+			this.btnInserisci.Text = "Inserisci";
+			// 
+			// detailgrid
+			// 
+			this.detailgrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.detailgrid.CaptionVisible = false;
-            this.detailgrid.DataMember = "";
-            this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.detailgrid.Location = new System.Drawing.Point(106, 10);
-            this.detailgrid.Name = "detailgrid";
-            this.detailgrid.Size = new System.Drawing.Size(845, 168);
-            this.detailgrid.TabIndex = 14;
-            this.detailgrid.Tag = "estimatedetail.lista.single";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.detailgrid.CaptionVisible = false;
+			this.detailgrid.DataMember = "";
+			this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.detailgrid.Location = new System.Drawing.Point(106, 10);
+			this.detailgrid.Name = "detailgrid";
+			this.detailgrid.Size = new System.Drawing.Size(845, 168);
+			this.detailgrid.TabIndex = 14;
+			this.detailgrid.Tag = "estimatedetail.lista.single";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.txtIndirizzoConsegna);
-            this.groupBox3.Controls.Add(this.TxtTermConsegna);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(402, 127);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(553, 128);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Trasporto";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Controls.Add(this.txtIdNsoVendita);
-            this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Controls.Add(this.txtDocumento);
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.txtDataDoc);
-            this.groupBox4.Location = new System.Drawing.Point(10, 9);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(387, 56);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Documento collegato";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(295, 24);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(30, 13);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "NSO";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txtIdNsoVendita
-            // 
-            this.txtIdNsoVendita.Location = new System.Drawing.Point(332, 22);
-            this.txtIdNsoVendita.Name = "txtIdNsoVendita";
-            this.txtIdNsoVendita.Size = new System.Drawing.Size(47, 20);
-            this.txtIdNsoVendita.TabIndex = 7;
-            this.txtIdNsoVendita.Tag = "estimate.idnso_vendita";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox3.Controls.Add(this.label9);
+			this.groupBox3.Controls.Add(this.txtIndirizzoConsegna);
+			this.groupBox3.Controls.Add(this.TxtTermConsegna);
+			this.groupBox3.Controls.Add(this.label8);
+			this.groupBox3.Location = new System.Drawing.Point(402, 152);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(553, 128);
+			this.groupBox3.TabIndex = 9;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Trasporto";
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.label14);
+			this.groupBox4.Controls.Add(this.txtIdNsoVendita);
+			this.groupBox4.Controls.Add(this.label3);
+			this.groupBox4.Controls.Add(this.txtDocumento);
+			this.groupBox4.Controls.Add(this.label4);
+			this.groupBox4.Controls.Add(this.txtDataDoc);
+			this.groupBox4.Location = new System.Drawing.Point(10, 9);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(387, 56);
+			this.groupBox4.TabIndex = 4;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Documento collegato";
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Location = new System.Drawing.Point(295, 24);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(30, 13);
+			this.label14.TabIndex = 8;
+			this.label14.Text = "NSO";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// txtIdNsoVendita
+			// 
+			this.txtIdNsoVendita.Location = new System.Drawing.Point(332, 22);
+			this.txtIdNsoVendita.Name = "txtIdNsoVendita";
+			this.txtIdNsoVendita.Size = new System.Drawing.Size(47, 20);
+			this.txtIdNsoVendita.TabIndex = 7;
+			this.txtIdNsoVendita.Tag = "estimate.idnso_vendita";
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.txtScadenza);
-            this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Controls.Add(this.cmbTipoScadenza);
-            this.groupBox5.Location = new System.Drawing.Point(402, 9);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(553, 56);
-            this.groupBox5.TabIndex = 5;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Scadenza";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(10, 73);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(246, 28);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Tag = "estimate.active:S:N";
-            this.checkBox1.Text = "Utilizzabile per la contabilizzazione";
-            // 
-            // label15
-            // 
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label15.Location = new System.Drawing.Point(201, 276);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(88, 21);
-            this.label15.TabIndex = 36;
-            this.label15.Text = "Data Contabile:";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataContabile
-            // 
-            this.txtDataContabile.Location = new System.Drawing.Point(292, 276);
-            this.txtDataContabile.Name = "txtDataContabile";
-            this.txtDataContabile.Size = new System.Drawing.Size(105, 20);
-            this.txtDataContabile.TabIndex = 13;
-            this.txtDataContabile.Tag = "estimate.adate?estimateview.adate";
-            this.txtDataContabile.Leave += new System.EventHandler(this.txtDataContabile_Leave);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.groupBox5.Controls.Add(this.label42);
+			this.groupBox5.Controls.Add(this.txtDataScadenza);
+			this.groupBox5.Controls.Add(this.label12);
+			this.groupBox5.Controls.Add(this.txtScadenza);
+			this.groupBox5.Controls.Add(this.label11);
+			this.groupBox5.Controls.Add(this.cmbTipoScadenza);
+			this.groupBox5.Location = new System.Drawing.Point(402, 9);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(553, 84);
+			this.groupBox5.TabIndex = 5;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Scadenza";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.checkBox1.Location = new System.Drawing.Point(10, 73);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(246, 28);
+			this.checkBox1.TabIndex = 2;
+			this.checkBox1.Tag = "estimate.active:S:N";
+			this.checkBox1.Text = "Utilizzabile per la contabilizzazione";
+			// 
+			// label15
+			// 
+			this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label15.Location = new System.Drawing.Point(201, 301);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(88, 21);
+			this.label15.TabIndex = 36;
+			this.label15.Text = "Data Contabile:";
+			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataContabile
+			// 
+			this.txtDataContabile.Location = new System.Drawing.Point(292, 301);
+			this.txtDataContabile.Name = "txtDataContabile";
+			this.txtDataContabile.Size = new System.Drawing.Size(105, 20);
+			this.txtDataContabile.TabIndex = 13;
+			this.txtDataContabile.Tag = "estimate.adate?estimateview.adate";
+			this.txtDataContabile.Leave += new System.EventHandler(this.txtDataContabile_Leave);
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.Principale);
-            this.tabControl1.Controls.Add(this.tabDettagli);
-            this.tabControl1.Controls.Add(this.Classificazioni);
-            this.tabControl1.Controls.Add(this.tabAllegati);
-            this.tabControl1.Controls.Add(this.tabAttributi);
-            this.tabControl1.Controls.Add(this.tabEP);
-            this.tabControl1.Controls.Add(this.Altro);
-            this.tabControl1.Location = new System.Drawing.Point(10, 107);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(973, 413);
-            this.tabControl1.TabIndex = 3;
-            // 
-            // Principale
-            // 
-            this.Principale.Controls.Add(this.gboxValuta);
-            this.Principale.Controls.Add(this.gboxResponsabile);
-            this.Principale.Controls.Add(this.gboxCliente);
-            this.Principale.Controls.Add(this.gboxtipofattura);
-            this.Principale.Controls.Add(this.label5);
-            this.Principale.Controls.Add(this.label15);
-            this.Principale.Controls.Add(this.txtDataContabile);
-            this.Principale.Controls.Add(this.groupBox4);
-            this.Principale.Controls.Add(this.groupBox5);
-            this.Principale.Controls.Add(this.groupBox3);
-            this.Principale.Controls.Add(this.txtDescrizione);
-            this.Principale.Location = new System.Drawing.Point(4, 22);
-            this.Principale.Name = "Principale";
-            this.Principale.Size = new System.Drawing.Size(965, 387);
-            this.Principale.TabIndex = 0;
-            this.Principale.Text = "Principale";
-            this.Principale.UseVisualStyleBackColor = true;
-            // 
-            // gboxValuta
-            // 
-            this.gboxValuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabControl1.Controls.Add(this.Principale);
+			this.tabControl1.Controls.Add(this.tabDettagli);
+			this.tabControl1.Controls.Add(this.Classificazioni);
+			this.tabControl1.Controls.Add(this.tabAllegati);
+			this.tabControl1.Controls.Add(this.tabAttributi);
+			this.tabControl1.Controls.Add(this.tabEP);
+			this.tabControl1.Controls.Add(this.Altro);
+			this.tabControl1.Location = new System.Drawing.Point(10, 107);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(973, 413);
+			this.tabControl1.TabIndex = 3;
+			// 
+			// Principale
+			// 
+			this.Principale.Controls.Add(this.gboxValuta);
+			this.Principale.Controls.Add(this.gboxResponsabile);
+			this.Principale.Controls.Add(this.gboxCliente);
+			this.Principale.Controls.Add(this.gboxtipofattura);
+			this.Principale.Controls.Add(this.label5);
+			this.Principale.Controls.Add(this.label15);
+			this.Principale.Controls.Add(this.txtDataContabile);
+			this.Principale.Controls.Add(this.groupBox4);
+			this.Principale.Controls.Add(this.groupBox5);
+			this.Principale.Controls.Add(this.groupBox3);
+			this.Principale.Controls.Add(this.txtDescrizione);
+			this.Principale.Location = new System.Drawing.Point(4, 22);
+			this.Principale.Name = "Principale";
+			this.Principale.Size = new System.Drawing.Size(965, 387);
+			this.Principale.TabIndex = 0;
+			this.Principale.Text = "Principale";
+			this.Principale.UseVisualStyleBackColor = true;
+			// 
+			// gboxValuta
+			// 
+			this.gboxValuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxValuta.Controls.Add(this.btnCurrencyExchange);
-            this.gboxValuta.Controls.Add(this.txtValuta);
-            this.gboxValuta.Controls.Add(this.button2);
-            this.gboxValuta.Controls.Add(this.txtCambio);
-            this.gboxValuta.Controls.Add(this.label6);
-            this.gboxValuta.Location = new System.Drawing.Point(402, 70);
-            this.gboxValuta.Name = "gboxValuta";
-            this.gboxValuta.Size = new System.Drawing.Size(553, 51);
-            this.gboxValuta.TabIndex = 7;
-            this.gboxValuta.TabStop = false;
-            this.gboxValuta.Tag = "AutoChoose.txtValuta.default";
-            // 
-            // btnCurrencyExchange
-            // 
-            this.btnCurrencyExchange.Location = new System.Drawing.Point(471, 16);
-            this.btnCurrencyExchange.Name = "btnCurrencyExchange";
-            this.btnCurrencyExchange.Size = new System.Drawing.Size(75, 23);
-            this.btnCurrencyExchange.TabIndex = 32;
-            this.btnCurrencyExchange.Text = "Seleziona";
-            this.btnCurrencyExchange.UseVisualStyleBackColor = true;
-            this.btnCurrencyExchange.Visible = false;
-            this.btnCurrencyExchange.Click += new System.EventHandler(this.btnCurrencyExchange_Click);
-            // 
-            // txtValuta
-            // 
-            this.txtValuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.gboxValuta.Controls.Add(this.btnCurrencyExchange);
+			this.gboxValuta.Controls.Add(this.txtValuta);
+			this.gboxValuta.Controls.Add(this.button2);
+			this.gboxValuta.Controls.Add(this.txtCambio);
+			this.gboxValuta.Controls.Add(this.label6);
+			this.gboxValuta.Location = new System.Drawing.Point(402, 95);
+			this.gboxValuta.Name = "gboxValuta";
+			this.gboxValuta.Size = new System.Drawing.Size(553, 51);
+			this.gboxValuta.TabIndex = 7;
+			this.gboxValuta.TabStop = false;
+			this.gboxValuta.Tag = "AutoChoose.txtValuta.default";
+			// 
+			// btnCurrencyExchange
+			// 
+			this.btnCurrencyExchange.Location = new System.Drawing.Point(471, 16);
+			this.btnCurrencyExchange.Name = "btnCurrencyExchange";
+			this.btnCurrencyExchange.Size = new System.Drawing.Size(75, 23);
+			this.btnCurrencyExchange.TabIndex = 32;
+			this.btnCurrencyExchange.Text = "Seleziona";
+			this.btnCurrencyExchange.UseVisualStyleBackColor = true;
+			this.btnCurrencyExchange.Visible = false;
+			this.btnCurrencyExchange.Click += new System.EventHandler(this.btnCurrencyExchange_Click);
+			// 
+			// txtValuta
+			// 
+			this.txtValuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtValuta.Location = new System.Drawing.Point(103, 17);
-            this.txtValuta.Name = "txtValuta";
-            this.txtValuta.Size = new System.Drawing.Size(172, 20);
-            this.txtValuta.TabIndex = 1;
-            this.txtValuta.Tag = "currency.description?x";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(7, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 27);
-            this.button2.TabIndex = 31;
-            this.button2.TabStop = false;
-            this.button2.Tag = "choose.currency.default";
-            this.button2.Text = "Valuta";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // txtCambio
-            // 
-            this.txtCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCambio.Location = new System.Drawing.Point(373, 18);
-            this.txtCambio.Name = "txtCambio";
-            this.txtCambio.Size = new System.Drawing.Size(92, 20);
-            this.txtCambio.TabIndex = 2;
-            this.txtCambio.Tag = "estimate.exchangerate.fixed.5...1";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label6.Location = new System.Drawing.Point(269, 17);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 20);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Tasso di cambio:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // gboxResponsabile
-            // 
-            this.gboxResponsabile.Controls.Add(this.txtResponsabile);
-            this.gboxResponsabile.Location = new System.Drawing.Point(11, 218);
-            this.gboxResponsabile.Name = "gboxResponsabile";
-            this.gboxResponsabile.Size = new System.Drawing.Size(386, 49);
-            this.gboxResponsabile.TabIndex = 11;
-            this.gboxResponsabile.TabStop = false;
-            this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
-            this.gboxResponsabile.Text = "Responsabile";
-            // 
-            // txtResponsabile
-            // 
-            this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtValuta.Location = new System.Drawing.Point(103, 17);
+			this.txtValuta.Name = "txtValuta";
+			this.txtValuta.Size = new System.Drawing.Size(172, 20);
+			this.txtValuta.TabIndex = 1;
+			this.txtValuta.Tag = "currency.description?x";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(7, 15);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(87, 27);
+			this.button2.TabIndex = 31;
+			this.button2.TabStop = false;
+			this.button2.Tag = "choose.currency.default";
+			this.button2.Text = "Valuta";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
+			// txtCambio
+			// 
+			this.txtCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCambio.Location = new System.Drawing.Point(373, 18);
+			this.txtCambio.Name = "txtCambio";
+			this.txtCambio.Size = new System.Drawing.Size(92, 20);
+			this.txtCambio.TabIndex = 2;
+			this.txtCambio.Tag = "estimate.exchangerate.fixed.5...1";
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label6.Location = new System.Drawing.Point(269, 17);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(98, 20);
+			this.label6.TabIndex = 30;
+			this.label6.Text = "Tasso di cambio:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// gboxResponsabile
+			// 
+			this.gboxResponsabile.Controls.Add(this.txtResponsabile);
+			this.gboxResponsabile.Location = new System.Drawing.Point(11, 243);
+			this.gboxResponsabile.Name = "gboxResponsabile";
+			this.gboxResponsabile.Size = new System.Drawing.Size(386, 49);
+			this.gboxResponsabile.TabIndex = 11;
+			this.gboxResponsabile.TabStop = false;
+			this.gboxResponsabile.Tag = "AutoChoose.txtResponsabile.default.(financeactive=\'S\')";
+			this.gboxResponsabile.Text = "Responsabile";
+			// 
+			// txtResponsabile
+			// 
+			this.txtResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResponsabile.Location = new System.Drawing.Point(8, 18);
-            this.txtResponsabile.Name = "txtResponsabile";
-            this.txtResponsabile.Size = new System.Drawing.Size(371, 20);
-            this.txtResponsabile.TabIndex = 0;
-            this.txtResponsabile.Tag = "manager.title?x";
-            // 
-            // gboxCliente
-            // 
-            this.gboxCliente.Controls.Add(this.txtCliente);
-            this.gboxCliente.Location = new System.Drawing.Point(11, 70);
-            this.gboxCliente.Name = "gboxCliente";
-            this.gboxCliente.Size = new System.Drawing.Size(386, 50);
-            this.gboxCliente.TabIndex = 6;
-            this.gboxCliente.TabStop = false;
-            this.gboxCliente.Tag = "AutoChoose.txtCliente.default.(active=\'S\')";
-            this.gboxCliente.Text = "Cliente";
-            // 
-            // txtCliente
-            // 
-            this.txtCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtResponsabile.Location = new System.Drawing.Point(8, 18);
+			this.txtResponsabile.Name = "txtResponsabile";
+			this.txtResponsabile.Size = new System.Drawing.Size(371, 20);
+			this.txtResponsabile.TabIndex = 0;
+			this.txtResponsabile.Tag = "manager.title?x";
+			// 
+			// gboxCliente
+			// 
+			this.gboxCliente.Controls.Add(this.txtCliente);
+			this.gboxCliente.Location = new System.Drawing.Point(11, 95);
+			this.gboxCliente.Name = "gboxCliente";
+			this.gboxCliente.Size = new System.Drawing.Size(386, 50);
+			this.gboxCliente.TabIndex = 6;
+			this.gboxCliente.TabStop = false;
+			this.gboxCliente.Tag = "AutoChoose.txtCliente.default.(active=\'S\')";
+			this.gboxCliente.Text = "Cliente";
+			// 
+			// txtCliente
+			// 
+			this.txtCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCliente.Location = new System.Drawing.Point(14, 18);
-            this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(364, 20);
-            this.txtCliente.TabIndex = 6;
-            this.txtCliente.Tag = "registrymainview.title?mandateview.registry";
-            // 
-            // gboxtipofattura
-            // 
-            this.gboxtipofattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCliente.Location = new System.Drawing.Point(14, 18);
+			this.txtCliente.Name = "txtCliente";
+			this.txtCliente.Size = new System.Drawing.Size(364, 20);
+			this.txtCliente.TabIndex = 6;
+			this.txtCliente.Tag = "registrymainview.title?mandateview.registry";
+			// 
+			// gboxtipofattura
+			// 
+			this.gboxtipofattura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxtipofattura.Controls.Add(this.rdbextracom);
-            this.gboxtipofattura.Controls.Add(this.rdbintracom);
-            this.gboxtipofattura.Controls.Add(this.rdbitalia);
-            this.gboxtipofattura.Location = new System.Drawing.Point(402, 260);
-            this.gboxtipofattura.Name = "gboxtipofattura";
-            this.gboxtipofattura.Size = new System.Drawing.Size(553, 54);
-            this.gboxtipofattura.TabIndex = 12;
-            this.gboxtipofattura.TabStop = false;
-            this.gboxtipofattura.Text = "Tipo Contratto";
-            // 
-            // rdbextracom
-            // 
-            this.rdbextracom.AutoSize = true;
-            this.rdbextracom.Location = new System.Drawing.Point(145, 23);
-            this.rdbextracom.Name = "rdbextracom";
-            this.rdbextracom.Size = new System.Drawing.Size(113, 17);
-            this.rdbextracom.TabIndex = 25;
-            this.rdbextracom.TabStop = true;
-            this.rdbextracom.Tag = "estimate.flagintracom:X";
-            this.rdbextracom.Text = "Contratto Extra-UE";
-            this.rdbextracom.UseVisualStyleBackColor = true;
-            // 
-            // rdbintracom
-            // 
-            this.rdbintracom.AutoSize = true;
-            this.rdbintracom.Location = new System.Drawing.Point(16, 23);
-            this.rdbintracom.Name = "rdbintracom";
-            this.rdbintracom.Size = new System.Drawing.Size(115, 17);
-            this.rdbintracom.TabIndex = 24;
-            this.rdbintracom.TabStop = true;
-            this.rdbintracom.Tag = "estimate.flagintracom:S";
-            this.rdbintracom.Text = "Contratto Intracom.";
-            this.rdbintracom.UseVisualStyleBackColor = true;
-            // 
-            // rdbitalia
-            // 
-            this.rdbitalia.AutoSize = true;
-            this.rdbitalia.Location = new System.Drawing.Point(272, 23);
-            this.rdbitalia.Name = "rdbitalia";
-            this.rdbitalia.Size = new System.Drawing.Size(104, 17);
-            this.rdbitalia.TabIndex = 23;
-            this.rdbitalia.TabStop = true;
-            this.rdbitalia.Tag = "estimate.flagintracom:N";
-            this.rdbitalia.Text = "Contratto in Italia";
-            this.rdbitalia.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 123);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
-            this.label5.TabIndex = 39;
-            this.label5.Text = "Descrizione:";
-            // 
-            // tabDettagli
-            // 
-            this.tabDettagli.Controls.Add(this.btnAnnullaDettaglio);
-            this.tabDettagli.Controls.Add(this.grpDettagliAnnullati);
-            this.tabDettagli.Controls.Add(this.btnRipartizione);
-            this.tabDettagli.Controls.Add(this.btnInserisciCopia);
-            this.tabDettagli.Controls.Add(this.label18);
-            this.tabDettagli.Controls.Add(this.btnSostituisciDettaglio);
-            this.tabDettagli.Controls.Add(this.txtIva);
-            this.tabDettagli.Controls.Add(this.txtTotale);
-            this.tabDettagli.Controls.Add(this.txtImponibile);
-            this.tabDettagli.Controls.Add(this.btnUnisciDettagli);
-            this.tabDettagli.Controls.Add(this.detailgrid);
-            this.tabDettagli.Controls.Add(this.label16);
-            this.tabDettagli.Controls.Add(this.btnDividiDettaglio);
-            this.tabDettagli.Controls.Add(this.btnInserisci);
-            this.tabDettagli.Controls.Add(this.label17);
-            this.tabDettagli.Controls.Add(this.btnModifica);
-            this.tabDettagli.Controls.Add(this.btnElimina);
-            this.tabDettagli.Location = new System.Drawing.Point(4, 22);
-            this.tabDettagli.Name = "tabDettagli";
-            this.tabDettagli.Size = new System.Drawing.Size(965, 387);
-            this.tabDettagli.TabIndex = 4;
-            this.tabDettagli.Text = "Dettagli";
-            this.tabDettagli.UseVisualStyleBackColor = true;
-            // 
-            // btnAnnullaDettaglio
-            // 
-            this.btnAnnullaDettaglio.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnAnnullaDettaglio.Location = new System.Drawing.Point(7, 251);
-            this.btnAnnullaDettaglio.Name = "btnAnnullaDettaglio";
-            this.btnAnnullaDettaglio.Size = new System.Drawing.Size(85, 27);
-            this.btnAnnullaDettaglio.TabIndex = 23;
-            this.btnAnnullaDettaglio.Text = "Annulla";
-            this.btnAnnullaDettaglio.Click += new System.EventHandler(this.btnAnnullaDettaglio_Click);
-            // 
-            // grpDettagliAnnullati
-            // 
-            this.grpDettagliAnnullati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.gboxtipofattura.Controls.Add(this.rdbextracom);
+			this.gboxtipofattura.Controls.Add(this.rdbintracom);
+			this.gboxtipofattura.Controls.Add(this.rdbitalia);
+			this.gboxtipofattura.Location = new System.Drawing.Point(402, 285);
+			this.gboxtipofattura.Name = "gboxtipofattura";
+			this.gboxtipofattura.Size = new System.Drawing.Size(553, 54);
+			this.gboxtipofattura.TabIndex = 12;
+			this.gboxtipofattura.TabStop = false;
+			this.gboxtipofattura.Text = "Territorialità";
+			// 
+			// rdbextracom
+			// 
+			this.rdbextracom.AutoSize = true;
+			this.rdbextracom.Location = new System.Drawing.Point(117, 23);
+			this.rdbextracom.Name = "rdbextracom";
+			this.rdbextracom.Size = new System.Drawing.Size(67, 17);
+			this.rdbextracom.TabIndex = 25;
+			this.rdbextracom.TabStop = true;
+			this.rdbextracom.Tag = "estimate.flagintracom:X";
+			this.rdbextracom.Text = "Extra-UE";
+			this.rdbextracom.UseVisualStyleBackColor = true;
+			// 
+			// rdbintracom
+			// 
+			this.rdbintracom.AutoSize = true;
+			this.rdbintracom.Location = new System.Drawing.Point(16, 23);
+			this.rdbintracom.Name = "rdbintracom";
+			this.rdbintracom.Size = new System.Drawing.Size(40, 17);
+			this.rdbintracom.TabIndex = 24;
+			this.rdbintracom.TabStop = true;
+			this.rdbintracom.Tag = "estimate.flagintracom:S";
+			this.rdbintracom.Text = "UE";
+			this.rdbintracom.UseVisualStyleBackColor = true;
+			// 
+			// rdbitalia
+			// 
+			this.rdbitalia.AutoSize = true;
+			this.rdbitalia.Location = new System.Drawing.Point(256, 23);
+			this.rdbitalia.Name = "rdbitalia";
+			this.rdbitalia.Size = new System.Drawing.Size(47, 17);
+			this.rdbitalia.TabIndex = 23;
+			this.rdbitalia.TabStop = true;
+			this.rdbitalia.Tag = "estimate.flagintracom:N";
+			this.rdbitalia.Text = "Italia";
+			this.rdbitalia.UseVisualStyleBackColor = true;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(7, 151);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(65, 13);
+			this.label5.TabIndex = 39;
+			this.label5.Text = "Descrizione:";
+			// 
+			// tabDettagli
+			// 
+			this.tabDettagli.Controls.Add(this.btnAnnullaDettaglio);
+			this.tabDettagli.Controls.Add(this.grpDettagliAnnullati);
+			this.tabDettagli.Controls.Add(this.btnRipartizione);
+			this.tabDettagli.Controls.Add(this.btnInserisciCopia);
+			this.tabDettagli.Controls.Add(this.label18);
+			this.tabDettagli.Controls.Add(this.btnSostituisciDettaglio);
+			this.tabDettagli.Controls.Add(this.txtIva);
+			this.tabDettagli.Controls.Add(this.txtTotale);
+			this.tabDettagli.Controls.Add(this.txtImponibile);
+			this.tabDettagli.Controls.Add(this.btnUnisciDettagli);
+			this.tabDettagli.Controls.Add(this.detailgrid);
+			this.tabDettagli.Controls.Add(this.label16);
+			this.tabDettagli.Controls.Add(this.btnDividiDettaglio);
+			this.tabDettagli.Controls.Add(this.btnInserisci);
+			this.tabDettagli.Controls.Add(this.label17);
+			this.tabDettagli.Controls.Add(this.btnModifica);
+			this.tabDettagli.Controls.Add(this.btnElimina);
+			this.tabDettagli.Location = new System.Drawing.Point(4, 22);
+			this.tabDettagli.Name = "tabDettagli";
+			this.tabDettagli.Size = new System.Drawing.Size(965, 387);
+			this.tabDettagli.TabIndex = 4;
+			this.tabDettagli.Text = "Dettagli";
+			this.tabDettagli.UseVisualStyleBackColor = true;
+			// 
+			// btnAnnullaDettaglio
+			// 
+			this.btnAnnullaDettaglio.ForeColor = System.Drawing.Color.DarkRed;
+			this.btnAnnullaDettaglio.Location = new System.Drawing.Point(7, 251);
+			this.btnAnnullaDettaglio.Name = "btnAnnullaDettaglio";
+			this.btnAnnullaDettaglio.Size = new System.Drawing.Size(85, 27);
+			this.btnAnnullaDettaglio.TabIndex = 23;
+			this.btnAnnullaDettaglio.Text = "Annulla";
+			this.btnAnnullaDettaglio.Click += new System.EventHandler(this.btnAnnullaDettaglio_Click);
+			// 
+			// grpDettagliAnnullati
+			// 
+			this.grpDettagliAnnullati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpDettagliAnnullati.Controls.Add(this.dataGridDettAnn);
-            this.grpDettagliAnnullati.Location = new System.Drawing.Point(99, 185);
-            this.grpDettagliAnnullati.Name = "grpDettagliAnnullati";
-            this.grpDettagliAnnullati.Size = new System.Drawing.Size(859, 171);
-            this.grpDettagliAnnullati.TabIndex = 47;
-            this.grpDettagliAnnullati.TabStop = false;
-            this.grpDettagliAnnullati.Text = "Dettagli annullati";
-            // 
-            // dataGridDettAnn
-            // 
-            this.dataGridDettAnn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.grpDettagliAnnullati.Controls.Add(this.dataGridDettAnn);
+			this.grpDettagliAnnullati.Location = new System.Drawing.Point(99, 185);
+			this.grpDettagliAnnullati.Name = "grpDettagliAnnullati";
+			this.grpDettagliAnnullati.Size = new System.Drawing.Size(859, 171);
+			this.grpDettagliAnnullati.TabIndex = 47;
+			this.grpDettagliAnnullati.TabStop = false;
+			this.grpDettagliAnnullati.Text = "Dettagli annullati";
+			// 
+			// dataGridDettAnn
+			// 
+			this.dataGridDettAnn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridDettAnn.CaptionVisible = false;
-            this.dataGridDettAnn.DataMember = "";
-            this.dataGridDettAnn.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridDettAnn.Location = new System.Drawing.Point(7, 22);
-            this.dataGridDettAnn.Name = "dataGridDettAnn";
-            this.dataGridDettAnn.Size = new System.Drawing.Size(845, 145);
-            this.dataGridDettAnn.TabIndex = 45;
-            this.dataGridDettAnn.Tag = "estimatedetail.annullati.single";
-            // 
-            // btnRipartizione
-            // 
-            this.btnRipartizione.Location = new System.Drawing.Point(7, 285);
-            this.btnRipartizione.Name = "btnRipartizione";
-            this.btnRipartizione.Size = new System.Drawing.Size(85, 26);
-            this.btnRipartizione.TabIndex = 24;
-            this.btnRipartizione.Text = "Ripartizione";
-            this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
-            // 
-            // btnInserisciCopia
-            // 
-            this.btnInserisciCopia.Location = new System.Drawing.Point(6, 104);
-            this.btnInserisciCopia.Name = "btnInserisciCopia";
-            this.btnInserisciCopia.Size = new System.Drawing.Size(86, 46);
-            this.btnInserisciCopia.TabIndex = 19;
-            this.btnInserisciCopia.Text = "Inserisci Copia";
-            this.btnInserisciCopia.UseVisualStyleBackColor = true;
-            this.btnInserisciCopia.Click += new System.EventHandler(this.btnInserisciCopia_Click);
-            // 
-            // btnSostituisciDettaglio
-            // 
-            this.btnSostituisciDettaglio.Location = new System.Drawing.Point(7, 220);
-            this.btnSostituisciDettaglio.Name = "btnSostituisciDettaglio";
-            this.btnSostituisciDettaglio.Size = new System.Drawing.Size(85, 26);
-            this.btnSostituisciDettaglio.TabIndex = 22;
-            this.btnSostituisciDettaglio.Text = "Sostituisci";
-            this.btnSostituisciDettaglio.Click += new System.EventHandler(this.btnSostituisciDettaglio_Click);
-            // 
-            // btnUnisciDettagli
-            // 
-            this.btnUnisciDettagli.Location = new System.Drawing.Point(6, 187);
-            this.btnUnisciDettagli.Name = "btnUnisciDettagli";
-            this.btnUnisciDettagli.Size = new System.Drawing.Size(86, 28);
-            this.btnUnisciDettagli.TabIndex = 21;
-            this.btnUnisciDettagli.Text = "Unisci";
-            this.btnUnisciDettagli.Click += new System.EventHandler(this.btnUnisciDettagli_Click);
-            // 
-            // btnDividiDettaglio
-            // 
-            this.btnDividiDettaglio.Location = new System.Drawing.Point(6, 155);
-            this.btnDividiDettaglio.Name = "btnDividiDettaglio";
-            this.btnDividiDettaglio.Size = new System.Drawing.Size(86, 27);
-            this.btnDividiDettaglio.TabIndex = 20;
-            this.btnDividiDettaglio.Text = "Dividi";
-            this.btnDividiDettaglio.Click += new System.EventHandler(this.btnDividiDettaglio_Click);
-            // 
-            // Classificazioni
-            // 
-            this.Classificazioni.Controls.Add(this.dgrClassificazioni);
-            this.Classificazioni.Controls.Add(this.btnIndElimina);
-            this.Classificazioni.Controls.Add(this.btnIndModifica);
-            this.Classificazioni.Controls.Add(this.btnIndInserisci);
-            this.Classificazioni.Location = new System.Drawing.Point(4, 22);
-            this.Classificazioni.Name = "Classificazioni";
-            this.Classificazioni.Size = new System.Drawing.Size(965, 387);
-            this.Classificazioni.TabIndex = 1;
-            this.Classificazioni.Text = "Classificazioni";
-            this.Classificazioni.UseVisualStyleBackColor = true;
-            // 
-            // dgrClassificazioni
-            // 
-            this.dgrClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dataGridDettAnn.CaptionVisible = false;
+			this.dataGridDettAnn.DataMember = "";
+			this.dataGridDettAnn.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridDettAnn.Location = new System.Drawing.Point(7, 22);
+			this.dataGridDettAnn.Name = "dataGridDettAnn";
+			this.dataGridDettAnn.Size = new System.Drawing.Size(845, 145);
+			this.dataGridDettAnn.TabIndex = 45;
+			this.dataGridDettAnn.Tag = "estimatedetail.annullati.single";
+			// 
+			// btnRipartizione
+			// 
+			this.btnRipartizione.Location = new System.Drawing.Point(7, 285);
+			this.btnRipartizione.Name = "btnRipartizione";
+			this.btnRipartizione.Size = new System.Drawing.Size(85, 26);
+			this.btnRipartizione.TabIndex = 24;
+			this.btnRipartizione.Text = "Ripartizione";
+			this.btnRipartizione.Click += new System.EventHandler(this.btnRipartizione_Click);
+			// 
+			// btnInserisciCopia
+			// 
+			this.btnInserisciCopia.Location = new System.Drawing.Point(6, 104);
+			this.btnInserisciCopia.Name = "btnInserisciCopia";
+			this.btnInserisciCopia.Size = new System.Drawing.Size(86, 46);
+			this.btnInserisciCopia.TabIndex = 19;
+			this.btnInserisciCopia.Text = "Inserisci Copia";
+			this.btnInserisciCopia.UseVisualStyleBackColor = true;
+			this.btnInserisciCopia.Click += new System.EventHandler(this.btnInserisciCopia_Click);
+			// 
+			// btnSostituisciDettaglio
+			// 
+			this.btnSostituisciDettaglio.Location = new System.Drawing.Point(7, 220);
+			this.btnSostituisciDettaglio.Name = "btnSostituisciDettaglio";
+			this.btnSostituisciDettaglio.Size = new System.Drawing.Size(85, 26);
+			this.btnSostituisciDettaglio.TabIndex = 22;
+			this.btnSostituisciDettaglio.Text = "Sostituisci";
+			this.btnSostituisciDettaglio.Click += new System.EventHandler(this.btnSostituisciDettaglio_Click);
+			// 
+			// btnUnisciDettagli
+			// 
+			this.btnUnisciDettagli.Location = new System.Drawing.Point(6, 187);
+			this.btnUnisciDettagli.Name = "btnUnisciDettagli";
+			this.btnUnisciDettagli.Size = new System.Drawing.Size(86, 28);
+			this.btnUnisciDettagli.TabIndex = 21;
+			this.btnUnisciDettagli.Text = "Unisci";
+			this.btnUnisciDettagli.Click += new System.EventHandler(this.btnUnisciDettagli_Click);
+			// 
+			// btnDividiDettaglio
+			// 
+			this.btnDividiDettaglio.Location = new System.Drawing.Point(6, 155);
+			this.btnDividiDettaglio.Name = "btnDividiDettaglio";
+			this.btnDividiDettaglio.Size = new System.Drawing.Size(86, 27);
+			this.btnDividiDettaglio.TabIndex = 20;
+			this.btnDividiDettaglio.Text = "Dividi";
+			this.btnDividiDettaglio.Click += new System.EventHandler(this.btnDividiDettaglio_Click);
+			// 
+			// Classificazioni
+			// 
+			this.Classificazioni.Controls.Add(this.dgrClassificazioni);
+			this.Classificazioni.Controls.Add(this.btnIndElimina);
+			this.Classificazioni.Controls.Add(this.btnIndModifica);
+			this.Classificazioni.Controls.Add(this.btnIndInserisci);
+			this.Classificazioni.Location = new System.Drawing.Point(4, 22);
+			this.Classificazioni.Name = "Classificazioni";
+			this.Classificazioni.Size = new System.Drawing.Size(965, 387);
+			this.Classificazioni.TabIndex = 1;
+			this.Classificazioni.Text = "Classificazioni";
+			this.Classificazioni.UseVisualStyleBackColor = true;
+			// 
+			// dgrClassificazioni
+			// 
+			this.dgrClassificazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrClassificazioni.DataMember = "";
-            this.dgrClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrClassificazioni.Location = new System.Drawing.Point(7, 42);
-            this.dgrClassificazioni.Name = "dgrClassificazioni";
-            this.dgrClassificazioni.ReadOnly = true;
-            this.dgrClassificazioni.Size = new System.Drawing.Size(950, 339);
-            this.dgrClassificazioni.TabIndex = 19;
-            this.dgrClassificazioni.Tag = "estimatesorting.default.default";
-            // 
-            // btnIndElimina
-            // 
-            this.btnIndElimina.Location = new System.Drawing.Point(198, 7);
-            this.btnIndElimina.Name = "btnIndElimina";
-            this.btnIndElimina.Size = new System.Drawing.Size(81, 28);
-            this.btnIndElimina.TabIndex = 18;
-            this.btnIndElimina.Tag = "delete";
-            this.btnIndElimina.Text = "Elimina";
-            // 
-            // btnIndModifica
-            // 
-            this.btnIndModifica.Location = new System.Drawing.Point(102, 7);
-            this.btnIndModifica.Name = "btnIndModifica";
-            this.btnIndModifica.Size = new System.Drawing.Size(84, 28);
-            this.btnIndModifica.TabIndex = 17;
-            this.btnIndModifica.Tag = "edit.default";
-            this.btnIndModifica.Text = "Modifica...";
-            // 
-            // btnIndInserisci
-            // 
-            this.btnIndInserisci.Location = new System.Drawing.Point(7, 7);
-            this.btnIndInserisci.Name = "btnIndInserisci";
-            this.btnIndInserisci.Size = new System.Drawing.Size(80, 28);
-            this.btnIndInserisci.TabIndex = 16;
-            this.btnIndInserisci.Tag = "insert.default";
-            this.btnIndInserisci.Text = "Inserisci...";
-            // 
-            // tabAllegati
-            // 
-            this.tabAllegati.Controls.Add(this.dataGrid1);
-            this.tabAllegati.Controls.Add(this.btnDelAtt);
-            this.tabAllegati.Controls.Add(this.btnEditAtt);
-            this.tabAllegati.Controls.Add(this.btnInsAtt);
-            this.tabAllegati.Location = new System.Drawing.Point(4, 22);
-            this.tabAllegati.Name = "tabAllegati";
-            this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAllegati.Size = new System.Drawing.Size(965, 387);
-            this.tabAllegati.TabIndex = 5;
-            this.tabAllegati.Text = "Allegati";
-            this.tabAllegati.UseVisualStyleBackColor = true;
-            // 
-            // dataGrid1
-            // 
-            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgrClassificazioni.DataMember = "";
+			this.dgrClassificazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrClassificazioni.Location = new System.Drawing.Point(7, 42);
+			this.dgrClassificazioni.Name = "dgrClassificazioni";
+			this.dgrClassificazioni.ReadOnly = true;
+			this.dgrClassificazioni.Size = new System.Drawing.Size(950, 339);
+			this.dgrClassificazioni.TabIndex = 19;
+			this.dgrClassificazioni.Tag = "estimatesorting.default.default";
+			// 
+			// btnIndElimina
+			// 
+			this.btnIndElimina.Location = new System.Drawing.Point(198, 7);
+			this.btnIndElimina.Name = "btnIndElimina";
+			this.btnIndElimina.Size = new System.Drawing.Size(81, 28);
+			this.btnIndElimina.TabIndex = 18;
+			this.btnIndElimina.Tag = "delete";
+			this.btnIndElimina.Text = "Elimina";
+			// 
+			// btnIndModifica
+			// 
+			this.btnIndModifica.Location = new System.Drawing.Point(102, 7);
+			this.btnIndModifica.Name = "btnIndModifica";
+			this.btnIndModifica.Size = new System.Drawing.Size(84, 28);
+			this.btnIndModifica.TabIndex = 17;
+			this.btnIndModifica.Tag = "edit.default";
+			this.btnIndModifica.Text = "Modifica...";
+			// 
+			// btnIndInserisci
+			// 
+			this.btnIndInserisci.Location = new System.Drawing.Point(7, 7);
+			this.btnIndInserisci.Name = "btnIndInserisci";
+			this.btnIndInserisci.Size = new System.Drawing.Size(80, 28);
+			this.btnIndInserisci.TabIndex = 16;
+			this.btnIndInserisci.Tag = "insert.default";
+			this.btnIndInserisci.Text = "Inserisci...";
+			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGrid1);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(965, 387);
+			this.tabAllegati.TabIndex = 5;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGrid1
+			// 
+			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid1.DataMember = "";
-            this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid1.Location = new System.Drawing.Point(7, 42);
-            this.dataGrid1.Name = "dataGrid1";
-            this.dataGrid1.ReadOnly = true;
-            this.dataGrid1.Size = new System.Drawing.Size(950, 339);
-            this.dataGrid1.TabIndex = 23;
-            this.dataGrid1.Tag = "estimateattachment.lista.default";
-            // 
-            // btnDelAtt
-            // 
-            this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-            this.btnDelAtt.Name = "btnDelAtt";
-            this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-            this.btnDelAtt.TabIndex = 22;
-            this.btnDelAtt.Tag = "delete";
-            this.btnDelAtt.Text = "Elimina";
-            // 
-            // btnEditAtt
-            // 
-            this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-            this.btnEditAtt.Name = "btnEditAtt";
-            this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-            this.btnEditAtt.TabIndex = 21;
-            this.btnEditAtt.Tag = "edit.default";
-            this.btnEditAtt.Text = "Modifica...";
-            // 
-            // btnInsAtt
-            // 
-            this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-            this.btnInsAtt.Name = "btnInsAtt";
-            this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-            this.btnInsAtt.TabIndex = 20;
-            this.btnInsAtt.Tag = "insert.default";
-            this.btnInsAtt.Text = "Inserisci...";
-            // 
-            // tabAttributi
-            // 
-            this.tabAttributi.Controls.Add(this.gboxclass05);
-            this.tabAttributi.Controls.Add(this.gboxclass04);
-            this.tabAttributi.Controls.Add(this.gboxclass03);
-            this.tabAttributi.Controls.Add(this.gboxclass02);
-            this.tabAttributi.Controls.Add(this.gboxclass01);
-            this.tabAttributi.Location = new System.Drawing.Point(4, 22);
-            this.tabAttributi.Name = "tabAttributi";
-            this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttributi.Size = new System.Drawing.Size(965, 387);
-            this.tabAttributi.TabIndex = 3;
-            this.tabAttributi.Text = "Attributi";
-            this.tabAttributi.UseVisualStyleBackColor = true;
-            // 
-            // gboxclass05
-            // 
-            this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.dataGrid1.DataMember = "";
+			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid1.Location = new System.Drawing.Point(7, 42);
+			this.dataGrid1.Name = "dataGrid1";
+			this.dataGrid1.ReadOnly = true;
+			this.dataGrid1.Size = new System.Drawing.Size(950, 339);
+			this.dataGrid1.TabIndex = 23;
+			this.dataGrid1.Tag = "estimateattachment.lista.default";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.default";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.default";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// tabAttributi
+			// 
+			this.tabAttributi.Controls.Add(this.gboxclass05);
+			this.tabAttributi.Controls.Add(this.gboxclass04);
+			this.tabAttributi.Controls.Add(this.gboxclass03);
+			this.tabAttributi.Controls.Add(this.gboxclass02);
+			this.tabAttributi.Controls.Add(this.gboxclass01);
+			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
+			this.tabAttributi.Name = "tabAttributi";
+			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAttributi.Size = new System.Drawing.Size(965, 387);
+			this.tabAttributi.TabIndex = 3;
+			this.tabAttributi.Text = "Attributi";
+			this.tabAttributi.UseVisualStyleBackColor = true;
+			// 
+			// gboxclass05
+			// 
+			this.gboxclass05.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass05.Controls.Add(this.txtCodice05);
-            this.gboxclass05.Controls.Add(this.btnCodice05);
-            this.gboxclass05.Controls.Add(this.txtDenom05);
-            this.gboxclass05.Location = new System.Drawing.Point(437, 88);
-            this.gboxclass05.Name = "gboxclass05";
-            this.gboxclass05.Size = new System.Drawing.Size(525, 74);
-            this.gboxclass05.TabIndex = 28;
-            this.gboxclass05.TabStop = false;
-            this.gboxclass05.Tag = "";
-            this.gboxclass05.Text = "Classificazione 5";
-            // 
-            // txtCodice05
-            // 
-            this.txtCodice05.Location = new System.Drawing.Point(11, 50);
-            this.txtCodice05.Name = "txtCodice05";
-            this.txtCodice05.Size = new System.Drawing.Size(184, 20);
-            this.txtCodice05.TabIndex = 6;
-            // 
-            // btnCodice05
-            // 
-            this.btnCodice05.Location = new System.Drawing.Point(10, 18);
-            this.btnCodice05.Name = "btnCodice05";
-            this.btnCodice05.Size = new System.Drawing.Size(105, 27);
-            this.btnCodice05.TabIndex = 4;
-            this.btnCodice05.Tag = "manage.sorting05.tree";
-            this.btnCodice05.Text = "Codice";
-            this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom05
-            // 
-            this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass05.Controls.Add(this.txtCodice05);
+			this.gboxclass05.Controls.Add(this.btnCodice05);
+			this.gboxclass05.Controls.Add(this.txtDenom05);
+			this.gboxclass05.Location = new System.Drawing.Point(437, 88);
+			this.gboxclass05.Name = "gboxclass05";
+			this.gboxclass05.Size = new System.Drawing.Size(525, 74);
+			this.gboxclass05.TabIndex = 28;
+			this.gboxclass05.TabStop = false;
+			this.gboxclass05.Tag = "";
+			this.gboxclass05.Text = "Classificazione 5";
+			// 
+			// txtCodice05
+			// 
+			this.txtCodice05.Location = new System.Drawing.Point(11, 50);
+			this.txtCodice05.Name = "txtCodice05";
+			this.txtCodice05.Size = new System.Drawing.Size(184, 20);
+			this.txtCodice05.TabIndex = 6;
+			// 
+			// btnCodice05
+			// 
+			this.btnCodice05.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice05.Name = "btnCodice05";
+			this.btnCodice05.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice05.TabIndex = 4;
+			this.btnCodice05.Tag = "manage.sorting05.tree";
+			this.btnCodice05.Text = "Codice";
+			this.btnCodice05.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom05
+			// 
+			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom05.Location = new System.Drawing.Point(199, 9);
-            this.txtDenom05.Multiline = true;
-            this.txtDenom05.Name = "txtDenom05";
-            this.txtDenom05.ReadOnly = true;
-            this.txtDenom05.Size = new System.Drawing.Size(317, 60);
-            this.txtDenom05.TabIndex = 3;
-            this.txtDenom05.TabStop = false;
-            this.txtDenom05.Tag = "sorting05.description";
-            // 
-            // gboxclass04
-            // 
-            this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom05.Location = new System.Drawing.Point(199, 9);
+			this.txtDenom05.Multiline = true;
+			this.txtDenom05.Name = "txtDenom05";
+			this.txtDenom05.ReadOnly = true;
+			this.txtDenom05.Size = new System.Drawing.Size(317, 60);
+			this.txtDenom05.TabIndex = 3;
+			this.txtDenom05.TabStop = false;
+			this.txtDenom05.Tag = "sorting05.description";
+			// 
+			// gboxclass04
+			// 
+			this.gboxclass04.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxclass04.Controls.Add(this.txtCodice04);
-            this.gboxclass04.Controls.Add(this.btnCodice04);
-            this.gboxclass04.Controls.Add(this.txtDenom04);
-            this.gboxclass04.Location = new System.Drawing.Point(437, 7);
-            this.gboxclass04.Name = "gboxclass04";
-            this.gboxclass04.Size = new System.Drawing.Size(525, 74);
-            this.gboxclass04.TabIndex = 27;
-            this.gboxclass04.TabStop = false;
-            this.gboxclass04.Tag = "";
-            this.gboxclass04.Text = "Classificazione 4";
-            // 
-            // txtCodice04
-            // 
-            this.txtCodice04.Location = new System.Drawing.Point(11, 50);
-            this.txtCodice04.Name = "txtCodice04";
-            this.txtCodice04.Size = new System.Drawing.Size(184, 20);
-            this.txtCodice04.TabIndex = 6;
-            // 
-            // btnCodice04
-            // 
-            this.btnCodice04.Location = new System.Drawing.Point(10, 18);
-            this.btnCodice04.Name = "btnCodice04";
-            this.btnCodice04.Size = new System.Drawing.Size(105, 27);
-            this.btnCodice04.TabIndex = 4;
-            this.btnCodice04.Tag = "manage.sorting04.tree";
-            this.btnCodice04.Text = "Codice";
-            this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom04
-            // 
-            this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.gboxclass04.Controls.Add(this.txtCodice04);
+			this.gboxclass04.Controls.Add(this.btnCodice04);
+			this.gboxclass04.Controls.Add(this.txtDenom04);
+			this.gboxclass04.Location = new System.Drawing.Point(437, 7);
+			this.gboxclass04.Name = "gboxclass04";
+			this.gboxclass04.Size = new System.Drawing.Size(525, 74);
+			this.gboxclass04.TabIndex = 27;
+			this.gboxclass04.TabStop = false;
+			this.gboxclass04.Tag = "";
+			this.gboxclass04.Text = "Classificazione 4";
+			// 
+			// txtCodice04
+			// 
+			this.txtCodice04.Location = new System.Drawing.Point(11, 50);
+			this.txtCodice04.Name = "txtCodice04";
+			this.txtCodice04.Size = new System.Drawing.Size(184, 20);
+			this.txtCodice04.TabIndex = 6;
+			// 
+			// btnCodice04
+			// 
+			this.btnCodice04.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice04.Name = "btnCodice04";
+			this.btnCodice04.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice04.TabIndex = 4;
+			this.btnCodice04.Tag = "manage.sorting04.tree";
+			this.btnCodice04.Text = "Codice";
+			this.btnCodice04.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom04
+			// 
+			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom04.Location = new System.Drawing.Point(199, 9);
-            this.txtDenom04.Multiline = true;
-            this.txtDenom04.Name = "txtDenom04";
-            this.txtDenom04.ReadOnly = true;
-            this.txtDenom04.Size = new System.Drawing.Size(317, 60);
-            this.txtDenom04.TabIndex = 3;
-            this.txtDenom04.TabStop = false;
-            this.txtDenom04.Tag = "sorting04.description";
-            // 
-            // gboxclass03
-            // 
-            this.gboxclass03.Controls.Add(this.txtCodice03);
-            this.gboxclass03.Controls.Add(this.btnCodice03);
-            this.gboxclass03.Controls.Add(this.txtDenom03);
-            this.gboxclass03.Location = new System.Drawing.Point(7, 168);
-            this.gboxclass03.Name = "gboxclass03";
-            this.gboxclass03.Size = new System.Drawing.Size(422, 74);
-            this.gboxclass03.TabIndex = 25;
-            this.gboxclass03.TabStop = false;
-            this.gboxclass03.Tag = "";
-            this.gboxclass03.Text = "Classificazione 3";
-            // 
-            // txtCodice03
-            // 
-            this.txtCodice03.Location = new System.Drawing.Point(10, 50);
-            this.txtCodice03.Name = "txtCodice03";
-            this.txtCodice03.Size = new System.Drawing.Size(182, 20);
-            this.txtCodice03.TabIndex = 6;
-            // 
-            // btnCodice03
-            // 
-            this.btnCodice03.Location = new System.Drawing.Point(10, 18);
-            this.btnCodice03.Name = "btnCodice03";
-            this.btnCodice03.Size = new System.Drawing.Size(105, 27);
-            this.btnCodice03.TabIndex = 4;
-            this.btnCodice03.Tag = "manage.sorting03.tree";
-            this.btnCodice03.Text = "Codice";
-            this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom03
-            // 
-            this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom04.Location = new System.Drawing.Point(199, 9);
+			this.txtDenom04.Multiline = true;
+			this.txtDenom04.Name = "txtDenom04";
+			this.txtDenom04.ReadOnly = true;
+			this.txtDenom04.Size = new System.Drawing.Size(317, 60);
+			this.txtDenom04.TabIndex = 3;
+			this.txtDenom04.TabStop = false;
+			this.txtDenom04.Tag = "sorting04.description";
+			// 
+			// gboxclass03
+			// 
+			this.gboxclass03.Controls.Add(this.txtCodice03);
+			this.gboxclass03.Controls.Add(this.btnCodice03);
+			this.gboxclass03.Controls.Add(this.txtDenom03);
+			this.gboxclass03.Location = new System.Drawing.Point(7, 168);
+			this.gboxclass03.Name = "gboxclass03";
+			this.gboxclass03.Size = new System.Drawing.Size(422, 74);
+			this.gboxclass03.TabIndex = 25;
+			this.gboxclass03.TabStop = false;
+			this.gboxclass03.Tag = "";
+			this.gboxclass03.Text = "Classificazione 3";
+			// 
+			// txtCodice03
+			// 
+			this.txtCodice03.Location = new System.Drawing.Point(10, 50);
+			this.txtCodice03.Name = "txtCodice03";
+			this.txtCodice03.Size = new System.Drawing.Size(182, 20);
+			this.txtCodice03.TabIndex = 6;
+			// 
+			// btnCodice03
+			// 
+			this.btnCodice03.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice03.Name = "btnCodice03";
+			this.btnCodice03.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice03.TabIndex = 4;
+			this.btnCodice03.Tag = "manage.sorting03.tree";
+			this.btnCodice03.Text = "Codice";
+			this.btnCodice03.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom03
+			// 
+			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom03.Location = new System.Drawing.Point(199, 9);
-            this.txtDenom03.Multiline = true;
-            this.txtDenom03.Name = "txtDenom03";
-            this.txtDenom03.ReadOnly = true;
-            this.txtDenom03.Size = new System.Drawing.Size(215, 60);
-            this.txtDenom03.TabIndex = 3;
-            this.txtDenom03.TabStop = false;
-            this.txtDenom03.Tag = "sorting03.description";
-            // 
-            // gboxclass02
-            // 
-            this.gboxclass02.Controls.Add(this.txtCodice02);
-            this.gboxclass02.Controls.Add(this.btnCodice02);
-            this.gboxclass02.Controls.Add(this.txtDenom02);
-            this.gboxclass02.Location = new System.Drawing.Point(7, 88);
-            this.gboxclass02.Name = "gboxclass02";
-            this.gboxclass02.Size = new System.Drawing.Size(422, 74);
-            this.gboxclass02.TabIndex = 26;
-            this.gboxclass02.TabStop = false;
-            this.gboxclass02.Tag = "";
-            this.gboxclass02.Text = "Classificazione 2";
-            // 
-            // txtCodice02
-            // 
-            this.txtCodice02.Location = new System.Drawing.Point(10, 50);
-            this.txtCodice02.Name = "txtCodice02";
-            this.txtCodice02.Size = new System.Drawing.Size(182, 20);
-            this.txtCodice02.TabIndex = 6;
-            // 
-            // btnCodice02
-            // 
-            this.btnCodice02.Location = new System.Drawing.Point(10, 18);
-            this.btnCodice02.Name = "btnCodice02";
-            this.btnCodice02.Size = new System.Drawing.Size(105, 27);
-            this.btnCodice02.TabIndex = 4;
-            this.btnCodice02.Tag = "manage.sorting02.tree";
-            this.btnCodice02.Text = "Codice";
-            this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom02
-            // 
-            this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom03.Location = new System.Drawing.Point(199, 9);
+			this.txtDenom03.Multiline = true;
+			this.txtDenom03.Name = "txtDenom03";
+			this.txtDenom03.ReadOnly = true;
+			this.txtDenom03.Size = new System.Drawing.Size(215, 60);
+			this.txtDenom03.TabIndex = 3;
+			this.txtDenom03.TabStop = false;
+			this.txtDenom03.Tag = "sorting03.description";
+			// 
+			// gboxclass02
+			// 
+			this.gboxclass02.Controls.Add(this.txtCodice02);
+			this.gboxclass02.Controls.Add(this.btnCodice02);
+			this.gboxclass02.Controls.Add(this.txtDenom02);
+			this.gboxclass02.Location = new System.Drawing.Point(7, 88);
+			this.gboxclass02.Name = "gboxclass02";
+			this.gboxclass02.Size = new System.Drawing.Size(422, 74);
+			this.gboxclass02.TabIndex = 26;
+			this.gboxclass02.TabStop = false;
+			this.gboxclass02.Tag = "";
+			this.gboxclass02.Text = "Classificazione 2";
+			// 
+			// txtCodice02
+			// 
+			this.txtCodice02.Location = new System.Drawing.Point(10, 50);
+			this.txtCodice02.Name = "txtCodice02";
+			this.txtCodice02.Size = new System.Drawing.Size(182, 20);
+			this.txtCodice02.TabIndex = 6;
+			// 
+			// btnCodice02
+			// 
+			this.btnCodice02.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice02.Name = "btnCodice02";
+			this.btnCodice02.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice02.TabIndex = 4;
+			this.btnCodice02.Tag = "manage.sorting02.tree";
+			this.btnCodice02.Text = "Codice";
+			this.btnCodice02.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom02
+			// 
+			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom02.Location = new System.Drawing.Point(199, 9);
-            this.txtDenom02.Multiline = true;
-            this.txtDenom02.Name = "txtDenom02";
-            this.txtDenom02.ReadOnly = true;
-            this.txtDenom02.Size = new System.Drawing.Size(215, 60);
-            this.txtDenom02.TabIndex = 3;
-            this.txtDenom02.TabStop = false;
-            this.txtDenom02.Tag = "sorting02.description";
-            // 
-            // gboxclass01
-            // 
-            this.gboxclass01.Controls.Add(this.txtCodice01);
-            this.gboxclass01.Controls.Add(this.btnCodice01);
-            this.gboxclass01.Controls.Add(this.txtDenom01);
-            this.gboxclass01.Location = new System.Drawing.Point(7, 7);
-            this.gboxclass01.Name = "gboxclass01";
-            this.gboxclass01.Size = new System.Drawing.Size(422, 74);
-            this.gboxclass01.TabIndex = 24;
-            this.gboxclass01.TabStop = false;
-            this.gboxclass01.Tag = "";
-            this.gboxclass01.Text = "Classificazione 1";
-            // 
-            // txtCodice01
-            // 
-            this.txtCodice01.Location = new System.Drawing.Point(8, 50);
-            this.txtCodice01.Name = "txtCodice01";
-            this.txtCodice01.Size = new System.Drawing.Size(184, 20);
-            this.txtCodice01.TabIndex = 5;
-            // 
-            // btnCodice01
-            // 
-            this.btnCodice01.Location = new System.Drawing.Point(10, 18);
-            this.btnCodice01.Name = "btnCodice01";
-            this.btnCodice01.Size = new System.Drawing.Size(105, 27);
-            this.btnCodice01.TabIndex = 4;
-            this.btnCodice01.Tag = "manage.sorting01.tree";
-            this.btnCodice01.Text = "Codice";
-            this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtDenom01
-            // 
-            this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.txtDenom02.Location = new System.Drawing.Point(199, 9);
+			this.txtDenom02.Multiline = true;
+			this.txtDenom02.Name = "txtDenom02";
+			this.txtDenom02.ReadOnly = true;
+			this.txtDenom02.Size = new System.Drawing.Size(215, 60);
+			this.txtDenom02.TabIndex = 3;
+			this.txtDenom02.TabStop = false;
+			this.txtDenom02.Tag = "sorting02.description";
+			// 
+			// gboxclass01
+			// 
+			this.gboxclass01.Controls.Add(this.txtCodice01);
+			this.gboxclass01.Controls.Add(this.btnCodice01);
+			this.gboxclass01.Controls.Add(this.txtDenom01);
+			this.gboxclass01.Location = new System.Drawing.Point(7, 7);
+			this.gboxclass01.Name = "gboxclass01";
+			this.gboxclass01.Size = new System.Drawing.Size(422, 74);
+			this.gboxclass01.TabIndex = 24;
+			this.gboxclass01.TabStop = false;
+			this.gboxclass01.Tag = "";
+			this.gboxclass01.Text = "Classificazione 1";
+			// 
+			// txtCodice01
+			// 
+			this.txtCodice01.Location = new System.Drawing.Point(8, 50);
+			this.txtCodice01.Name = "txtCodice01";
+			this.txtCodice01.Size = new System.Drawing.Size(184, 20);
+			this.txtCodice01.TabIndex = 5;
+			// 
+			// btnCodice01
+			// 
+			this.btnCodice01.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice01.Name = "btnCodice01";
+			this.btnCodice01.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice01.TabIndex = 4;
+			this.btnCodice01.Tag = "manage.sorting01.tree";
+			this.btnCodice01.Text = "Codice";
+			this.btnCodice01.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// txtDenom01
+			// 
+			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDenom01.Location = new System.Drawing.Point(199, 9);
-            this.txtDenom01.Multiline = true;
-            this.txtDenom01.Name = "txtDenom01";
-            this.txtDenom01.ReadOnly = true;
-            this.txtDenom01.Size = new System.Drawing.Size(215, 60);
-            this.txtDenom01.TabIndex = 3;
-            this.txtDenom01.TabStop = false;
-            this.txtDenom01.Tag = "sorting01.description";
-            // 
-            // tabEP
-            // 
-            this.tabEP.Controls.Add(this.btnVisualizzaPreimpegni);
-            this.tabEP.Controls.Add(this.btnGeneraPreimpegni);
-            this.tabEP.Controls.Add(this.btnGeneraEpExp);
-            this.tabEP.Controls.Add(this.btnVisualizzaEpExp);
-            this.tabEP.Controls.Add(this.label43);
-            this.tabEP.Controls.Add(this.textBox3);
-            this.tabEP.Controls.Add(this.groupBox11);
-            this.tabEP.Controls.Add(this.gBoxCausaleCredito);
-            this.tabEP.Controls.Add(this.labAltroEsercizio);
-            this.tabEP.Controls.Add(this.btnGeneraEP);
-            this.tabEP.Controls.Add(this.btnVisualizzaEP);
-            this.tabEP.Controls.Add(this.labEP);
-            this.tabEP.Location = new System.Drawing.Point(4, 22);
-            this.tabEP.Name = "tabEP";
-            this.tabEP.Size = new System.Drawing.Size(965, 387);
-            this.tabEP.TabIndex = 2;
-            this.tabEP.Text = "EP";
-            this.tabEP.UseVisualStyleBackColor = true;
-            // 
-            // btnVisualizzaPreimpegni
-            // 
-            this.btnVisualizzaPreimpegni.Location = new System.Drawing.Point(470, 47);
-            this.btnVisualizzaPreimpegni.Name = "btnVisualizzaPreimpegni";
-            this.btnVisualizzaPreimpegni.Size = new System.Drawing.Size(227, 26);
-            this.btnVisualizzaPreimpegni.TabIndex = 46;
-            this.btnVisualizzaPreimpegni.TabStop = false;
-            this.btnVisualizzaPreimpegni.Text = "Visualizza Preimpegni di Budget";
-            // 
-            // btnGeneraPreimpegni
-            // 
-            this.btnGeneraPreimpegni.Location = new System.Drawing.Point(470, 14);
-            this.btnGeneraPreimpegni.Name = "btnGeneraPreimpegni";
-            this.btnGeneraPreimpegni.Size = new System.Drawing.Size(227, 26);
-            this.btnGeneraPreimpegni.TabIndex = 45;
-            this.btnGeneraPreimpegni.TabStop = false;
-            this.btnGeneraPreimpegni.Text = "Genera Preimpegni di Budget";
-            // 
-            // btnGeneraEpExp
-            // 
-            this.btnGeneraEpExp.Location = new System.Drawing.Point(238, 14);
-            this.btnGeneraEpExp.Name = "btnGeneraEpExp";
-            this.btnGeneraEpExp.Size = new System.Drawing.Size(227, 26);
-            this.btnGeneraEpExp.TabIndex = 43;
-            this.btnGeneraEpExp.TabStop = false;
-            this.btnGeneraEpExp.Text = "Genera Impegni di Budget";
-            // 
-            // btnVisualizzaEpExp
-            // 
-            this.btnVisualizzaEpExp.Location = new System.Drawing.Point(238, 47);
-            this.btnVisualizzaEpExp.Name = "btnVisualizzaEpExp";
-            this.btnVisualizzaEpExp.Size = new System.Drawing.Size(227, 26);
-            this.btnVisualizzaEpExp.TabIndex = 44;
-            this.btnVisualizzaEpExp.TabStop = false;
-            this.btnVisualizzaEpExp.Text = "Visualizza Impegni di Budget";
-            // 
-            // label43
-            // 
-            this.label43.Location = new System.Drawing.Point(398, 156);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(319, 18);
-            this.label43.TabIndex = 18;
-            this.label43.Text = "Data correzione causale di credito";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(402, 181);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(160, 20);
-            this.textBox3.TabIndex = 2;
-            this.textBox3.Tag = "estimate.idaccmotivecredit_datacrg?estimateview.idaccmotivecredit_datacrg";
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.textBox4);
-            this.groupBox11.Controls.Add(this.txtCodiceCausaleCrg);
-            this.groupBox11.Controls.Add(this.button7);
-            this.groupBox11.Location = new System.Drawing.Point(402, 209);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(388, 83);
-            this.groupBox11.TabIndex = 16;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Tag = "AutoManage.txtCodiceCausaleCrg.tree.(in_use = \'S\')";
-            this.groupBox11.Text = "Causale di credito aggiornata";
-            this.groupBox11.UseCompatibleTextRendering = true;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(166, 14);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(215, 61);
-            this.textBox4.TabIndex = 2;
-            this.textBox4.TabStop = false;
-            this.textBox4.Tag = "accmotiveapplied_crg.motive";
-            // 
-            // txtCodiceCausaleCrg
-            // 
-            this.txtCodiceCausaleCrg.Location = new System.Drawing.Point(12, 55);
-            this.txtCodiceCausaleCrg.Name = "txtCodiceCausaleCrg";
-            this.txtCodiceCausaleCrg.Size = new System.Drawing.Size(149, 20);
-            this.txtCodiceCausaleCrg.TabIndex = 3;
-            this.txtCodiceCausaleCrg.Tag = "accmotiveapplied_crg.codemotive?estimateview.codemotivedebit_crg";
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(10, 19);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(124, 27);
-            this.button7.TabIndex = 0;
-            this.button7.TabStop = false;
-            this.button7.Tag = "manage.accmotiveapplied_crg.tree";
-            this.button7.Text = "Causale";
-            // 
-            // gBoxCausaleCredito
-            // 
-            this.gBoxCausaleCredito.Controls.Add(this.textBox1);
-            this.gBoxCausaleCredito.Controls.Add(this.txtCodiceCausaleDeb);
-            this.gBoxCausaleCredito.Controls.Add(this.button6);
-            this.gBoxCausaleCredito.Location = new System.Drawing.Point(9, 209);
-            this.gBoxCausaleCredito.Name = "gBoxCausaleCredito";
-            this.gBoxCausaleCredito.Size = new System.Drawing.Size(388, 83);
-            this.gBoxCausaleCredito.TabIndex = 14;
-            this.gBoxCausaleCredito.TabStop = false;
-            this.gBoxCausaleCredito.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
-            this.gBoxCausaleCredito.Text = "Causale di credito";
-            this.gBoxCausaleCredito.UseCompatibleTextRendering = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(166, 14);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(215, 61);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.TabStop = false;
-            this.textBox1.Tag = "accmotiveapplied_credit.motive";
-            // 
-            // txtCodiceCausaleDeb
-            // 
-            this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(12, 55);
-            this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
-            this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(149, 20);
-            this.txtCodiceCausaleDeb.TabIndex = 1;
-            this.txtCodiceCausaleDeb.Tag = "accmotiveapplied_credit.codemotive?estimateview.codemotivecredit";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(10, 19);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(124, 27);
-            this.button6.TabIndex = 0;
-            this.button6.TabStop = false;
-            this.button6.Tag = "manage.accmotiveapplied_credit.tree";
-            this.button6.Text = "Causale";
-            // 
-            // labAltroEsercizio
-            // 
-            this.labAltroEsercizio.AutoSize = true;
-            this.labAltroEsercizio.Location = new System.Drawing.Point(14, 118);
-            this.labAltroEsercizio.Name = "labAltroEsercizio";
-            this.labAltroEsercizio.Size = new System.Drawing.Size(324, 13);
-            this.labAltroEsercizio.TabIndex = 5;
-            this.labAltroEsercizio.Text = "Il contratto non contiene scritture di competenza di questo esercizio";
-            // 
-            // btnGeneraEP
-            // 
-            this.btnGeneraEP.Location = new System.Drawing.Point(7, 47);
-            this.btnGeneraEP.Name = "btnGeneraEP";
-            this.btnGeneraEP.Size = new System.Drawing.Size(226, 27);
-            this.btnGeneraEP.TabIndex = 3;
-            this.btnGeneraEP.Text = "Genera le scritture in partita doppia";
-            this.btnGeneraEP.UseVisualStyleBackColor = true;
-            // 
-            // btnVisualizzaEP
-            // 
-            this.btnVisualizzaEP.Location = new System.Drawing.Point(7, 14);
-            this.btnVisualizzaEP.Name = "btnVisualizzaEP";
-            this.btnVisualizzaEP.Size = new System.Drawing.Size(226, 26);
-            this.btnVisualizzaEP.TabIndex = 2;
-            this.btnVisualizzaEP.Text = "Visualizza le scritture in partita doppia";
-            this.btnVisualizzaEP.UseVisualStyleBackColor = true;
-            // 
-            // labEP
-            // 
-            this.labEP.AutoSize = true;
-            this.labEP.Location = new System.Drawing.Point(14, 92);
-            this.labEP.Name = "labEP";
-            this.labEP.Size = new System.Drawing.Size(237, 13);
-            this.labEP.TabIndex = 0;
-            this.labEP.Text = "Le scritture in partita doppia sono state generate.";
-            // 
-            // Altro
-            // 
-            this.Altro.Controls.Add(this.groupBox2);
-            this.Altro.Controls.Add(this.gboxFinanziamento);
-            this.Altro.Controls.Add(this.label22);
-            this.Altro.Controls.Add(this.textBox7);
-            this.Altro.Controls.Add(this.txtcig);
-            this.Altro.Controls.Add(this.lblcig);
-            this.Altro.Location = new System.Drawing.Point(4, 22);
-            this.Altro.Name = "Altro";
-            this.Altro.Padding = new System.Windows.Forms.Padding(3);
-            this.Altro.Size = new System.Drawing.Size(965, 387);
-            this.Altro.TabIndex = 6;
-            this.Altro.Text = "Altro";
-            this.Altro.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtNocigmotiveCode);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.txtNocigmotiveTitle);
-            this.groupBox2.Controls.Add(this.txtIdNoCigMotive);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Location = new System.Drawing.Point(7, 130);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(510, 135);
-            this.groupBox2.TabIndex = 73;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Motivazione Assenza CIG";
-            // 
-            // txtNocigmotiveCode
-            // 
-            this.txtNocigmotiveCode.Location = new System.Drawing.Point(257, 23);
-            this.txtNocigmotiveCode.Name = "txtNocigmotiveCode";
-            this.txtNocigmotiveCode.Size = new System.Drawing.Size(245, 20);
-            this.txtNocigmotiveCode.TabIndex = 67;
-            this.txtNocigmotiveCode.Tag = "nocigmotive.codenocigmotive";
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(119, 20);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(27, 22);
-            this.label7.TabIndex = 70;
-            this.label7.Text = "ID";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNocigmotiveTitle
-            // 
-            this.txtNocigmotiveTitle.Location = new System.Drawing.Point(8, 47);
-            this.txtNocigmotiveTitle.Multiline = true;
-            this.txtNocigmotiveTitle.Name = "txtNocigmotiveTitle";
-            this.txtNocigmotiveTitle.Size = new System.Drawing.Size(494, 74);
-            this.txtNocigmotiveTitle.TabIndex = 68;
-            this.txtNocigmotiveTitle.Tag = "nocigmotive.title";
-            // 
-            // txtIdNoCigMotive
-            // 
-            this.txtIdNoCigMotive.Location = new System.Drawing.Point(151, 23);
-            this.txtIdNoCigMotive.Name = "txtIdNoCigMotive";
-            this.txtIdNoCigMotive.Size = new System.Drawing.Size(50, 20);
-            this.txtIdNoCigMotive.TabIndex = 20;
-            this.txtIdNoCigMotive.Tag = "estimate.idnocigmotive";
-            this.txtIdNoCigMotive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label13.Location = new System.Drawing.Point(206, 20);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(46, 22);
-            this.label13.TabIndex = 71;
-            this.label13.Text = "Codice";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // gboxFinanziamento
-            // 
-            this.gboxFinanziamento.Controls.Add(this.txtFinanziamento);
-            this.gboxFinanziamento.Controls.Add(this.btnFinanziamento);
-            this.gboxFinanziamento.Location = new System.Drawing.Point(7, 5);
-            this.gboxFinanziamento.Name = "gboxFinanziamento";
-            this.gboxFinanziamento.Size = new System.Drawing.Size(510, 55);
-            this.gboxFinanziamento.TabIndex = 10;
-            this.gboxFinanziamento.TabStop = false;
-            this.gboxFinanziamento.Tag = "AutoChoose.txtFinanziamento.default.(active = \'S\')";
-            // 
-            // txtFinanziamento
-            // 
-            this.txtFinanziamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtDenom01.Location = new System.Drawing.Point(199, 9);
+			this.txtDenom01.Multiline = true;
+			this.txtDenom01.Name = "txtDenom01";
+			this.txtDenom01.ReadOnly = true;
+			this.txtDenom01.Size = new System.Drawing.Size(215, 60);
+			this.txtDenom01.TabIndex = 3;
+			this.txtDenom01.TabStop = false;
+			this.txtDenom01.Tag = "sorting01.description";
+			// 
+			// tabEP
+			// 
+			this.tabEP.Controls.Add(this.btnVisualizzaPreimpegni);
+			this.tabEP.Controls.Add(this.btnGeneraPreimpegni);
+			this.tabEP.Controls.Add(this.btnGeneraEpExp);
+			this.tabEP.Controls.Add(this.btnVisualizzaEpExp);
+			this.tabEP.Controls.Add(this.label43);
+			this.tabEP.Controls.Add(this.textBox3);
+			this.tabEP.Controls.Add(this.groupBox11);
+			this.tabEP.Controls.Add(this.gBoxCausaleCredito);
+			this.tabEP.Controls.Add(this.labAltroEsercizio);
+			this.tabEP.Controls.Add(this.btnGeneraEP);
+			this.tabEP.Controls.Add(this.btnVisualizzaEP);
+			this.tabEP.Controls.Add(this.labEP);
+			this.tabEP.Location = new System.Drawing.Point(4, 22);
+			this.tabEP.Name = "tabEP";
+			this.tabEP.Size = new System.Drawing.Size(965, 387);
+			this.tabEP.TabIndex = 2;
+			this.tabEP.Text = "EP";
+			this.tabEP.UseVisualStyleBackColor = true;
+			// 
+			// btnVisualizzaPreimpegni
+			// 
+			this.btnVisualizzaPreimpegni.Location = new System.Drawing.Point(470, 47);
+			this.btnVisualizzaPreimpegni.Name = "btnVisualizzaPreimpegni";
+			this.btnVisualizzaPreimpegni.Size = new System.Drawing.Size(227, 26);
+			this.btnVisualizzaPreimpegni.TabIndex = 46;
+			this.btnVisualizzaPreimpegni.TabStop = false;
+			this.btnVisualizzaPreimpegni.Text = "Visualizza Preimpegni di Budget";
+			// 
+			// btnGeneraPreimpegni
+			// 
+			this.btnGeneraPreimpegni.Location = new System.Drawing.Point(470, 14);
+			this.btnGeneraPreimpegni.Name = "btnGeneraPreimpegni";
+			this.btnGeneraPreimpegni.Size = new System.Drawing.Size(227, 26);
+			this.btnGeneraPreimpegni.TabIndex = 45;
+			this.btnGeneraPreimpegni.TabStop = false;
+			this.btnGeneraPreimpegni.Text = "Genera Preimpegni di Budget";
+			// 
+			// btnGeneraEpExp
+			// 
+			this.btnGeneraEpExp.Location = new System.Drawing.Point(238, 14);
+			this.btnGeneraEpExp.Name = "btnGeneraEpExp";
+			this.btnGeneraEpExp.Size = new System.Drawing.Size(227, 26);
+			this.btnGeneraEpExp.TabIndex = 43;
+			this.btnGeneraEpExp.TabStop = false;
+			this.btnGeneraEpExp.Text = "Genera Impegni di Budget";
+			// 
+			// btnVisualizzaEpExp
+			// 
+			this.btnVisualizzaEpExp.Location = new System.Drawing.Point(238, 47);
+			this.btnVisualizzaEpExp.Name = "btnVisualizzaEpExp";
+			this.btnVisualizzaEpExp.Size = new System.Drawing.Size(227, 26);
+			this.btnVisualizzaEpExp.TabIndex = 44;
+			this.btnVisualizzaEpExp.TabStop = false;
+			this.btnVisualizzaEpExp.Text = "Visualizza Impegni di Budget";
+			// 
+			// label43
+			// 
+			this.label43.Location = new System.Drawing.Point(398, 156);
+			this.label43.Name = "label43";
+			this.label43.Size = new System.Drawing.Size(319, 18);
+			this.label43.TabIndex = 18;
+			this.label43.Text = "Data correzione causale di credito";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(402, 181);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(160, 20);
+			this.textBox3.TabIndex = 2;
+			this.textBox3.Tag = "estimate.idaccmotivecredit_datacrg?estimateview.idaccmotivecredit_datacrg";
+			// 
+			// groupBox11
+			// 
+			this.groupBox11.Controls.Add(this.textBox4);
+			this.groupBox11.Controls.Add(this.txtCodiceCausaleCrg);
+			this.groupBox11.Controls.Add(this.button7);
+			this.groupBox11.Location = new System.Drawing.Point(402, 209);
+			this.groupBox11.Name = "groupBox11";
+			this.groupBox11.Size = new System.Drawing.Size(388, 83);
+			this.groupBox11.TabIndex = 16;
+			this.groupBox11.TabStop = false;
+			this.groupBox11.Tag = "AutoManage.txtCodiceCausaleCrg.tree.(in_use = \'S\')";
+			this.groupBox11.Text = "Causale di credito aggiornata";
+			this.groupBox11.UseCompatibleTextRendering = true;
+			// 
+			// textBox4
+			// 
+			this.textBox4.Location = new System.Drawing.Point(166, 14);
+			this.textBox4.Multiline = true;
+			this.textBox4.Name = "textBox4";
+			this.textBox4.ReadOnly = true;
+			this.textBox4.Size = new System.Drawing.Size(215, 61);
+			this.textBox4.TabIndex = 2;
+			this.textBox4.TabStop = false;
+			this.textBox4.Tag = "accmotiveapplied_crg.motive";
+			// 
+			// txtCodiceCausaleCrg
+			// 
+			this.txtCodiceCausaleCrg.Location = new System.Drawing.Point(12, 55);
+			this.txtCodiceCausaleCrg.Name = "txtCodiceCausaleCrg";
+			this.txtCodiceCausaleCrg.Size = new System.Drawing.Size(149, 20);
+			this.txtCodiceCausaleCrg.TabIndex = 3;
+			this.txtCodiceCausaleCrg.Tag = "accmotiveapplied_crg.codemotive?estimateview.codemotivedebit_crg";
+			// 
+			// button7
+			// 
+			this.button7.Location = new System.Drawing.Point(10, 19);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(124, 27);
+			this.button7.TabIndex = 0;
+			this.button7.TabStop = false;
+			this.button7.Tag = "manage.accmotiveapplied_crg.tree";
+			this.button7.Text = "Causale";
+			// 
+			// gBoxCausaleCredito
+			// 
+			this.gBoxCausaleCredito.Controls.Add(this.textBox1);
+			this.gBoxCausaleCredito.Controls.Add(this.txtCodiceCausaleDeb);
+			this.gBoxCausaleCredito.Controls.Add(this.button6);
+			this.gBoxCausaleCredito.Location = new System.Drawing.Point(9, 209);
+			this.gBoxCausaleCredito.Name = "gBoxCausaleCredito";
+			this.gBoxCausaleCredito.Size = new System.Drawing.Size(388, 83);
+			this.gBoxCausaleCredito.TabIndex = 14;
+			this.gBoxCausaleCredito.TabStop = false;
+			this.gBoxCausaleCredito.Tag = "AutoManage.txtCodiceCausaleDeb.tree.(in_use = \'S\')";
+			this.gBoxCausaleCredito.Text = "Causale di credito";
+			this.gBoxCausaleCredito.UseCompatibleTextRendering = true;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(166, 14);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(215, 61);
+			this.textBox1.TabIndex = 2;
+			this.textBox1.TabStop = false;
+			this.textBox1.Tag = "accmotiveapplied_credit.motive";
+			// 
+			// txtCodiceCausaleDeb
+			// 
+			this.txtCodiceCausaleDeb.Location = new System.Drawing.Point(12, 55);
+			this.txtCodiceCausaleDeb.Name = "txtCodiceCausaleDeb";
+			this.txtCodiceCausaleDeb.Size = new System.Drawing.Size(149, 20);
+			this.txtCodiceCausaleDeb.TabIndex = 1;
+			this.txtCodiceCausaleDeb.Tag = "accmotiveapplied_credit.codemotive?estimateview.codemotivecredit";
+			// 
+			// button6
+			// 
+			this.button6.Location = new System.Drawing.Point(10, 19);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(124, 27);
+			this.button6.TabIndex = 0;
+			this.button6.TabStop = false;
+			this.button6.Tag = "manage.accmotiveapplied_credit.tree";
+			this.button6.Text = "Causale";
+			// 
+			// labAltroEsercizio
+			// 
+			this.labAltroEsercizio.AutoSize = true;
+			this.labAltroEsercizio.Location = new System.Drawing.Point(14, 118);
+			this.labAltroEsercizio.Name = "labAltroEsercizio";
+			this.labAltroEsercizio.Size = new System.Drawing.Size(324, 13);
+			this.labAltroEsercizio.TabIndex = 5;
+			this.labAltroEsercizio.Text = "Il contratto non contiene scritture di competenza di questo esercizio";
+			// 
+			// btnGeneraEP
+			// 
+			this.btnGeneraEP.Location = new System.Drawing.Point(7, 47);
+			this.btnGeneraEP.Name = "btnGeneraEP";
+			this.btnGeneraEP.Size = new System.Drawing.Size(226, 27);
+			this.btnGeneraEP.TabIndex = 3;
+			this.btnGeneraEP.Text = "Genera le scritture in partita doppia";
+			this.btnGeneraEP.UseVisualStyleBackColor = true;
+			// 
+			// btnVisualizzaEP
+			// 
+			this.btnVisualizzaEP.Location = new System.Drawing.Point(7, 14);
+			this.btnVisualizzaEP.Name = "btnVisualizzaEP";
+			this.btnVisualizzaEP.Size = new System.Drawing.Size(226, 26);
+			this.btnVisualizzaEP.TabIndex = 2;
+			this.btnVisualizzaEP.Text = "Visualizza le scritture in partita doppia";
+			this.btnVisualizzaEP.UseVisualStyleBackColor = true;
+			// 
+			// labEP
+			// 
+			this.labEP.AutoSize = true;
+			this.labEP.Location = new System.Drawing.Point(14, 92);
+			this.labEP.Name = "labEP";
+			this.labEP.Size = new System.Drawing.Size(237, 13);
+			this.labEP.TabIndex = 0;
+			this.labEP.Text = "Le scritture in partita doppia sono state generate.";
+			// 
+			// Altro
+			// 
+			this.Altro.Controls.Add(this.groupBox2);
+			this.Altro.Controls.Add(this.gboxFinanziamento);
+			this.Altro.Controls.Add(this.label22);
+			this.Altro.Controls.Add(this.textBox7);
+			this.Altro.Controls.Add(this.txtcig);
+			this.Altro.Controls.Add(this.lblcig);
+			this.Altro.Location = new System.Drawing.Point(4, 22);
+			this.Altro.Name = "Altro";
+			this.Altro.Padding = new System.Windows.Forms.Padding(3);
+			this.Altro.Size = new System.Drawing.Size(965, 387);
+			this.Altro.TabIndex = 6;
+			this.Altro.Text = "Altro";
+			this.Altro.UseVisualStyleBackColor = true;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.txtNocigmotiveCode);
+			this.groupBox2.Controls.Add(this.label7);
+			this.groupBox2.Controls.Add(this.txtNocigmotiveTitle);
+			this.groupBox2.Controls.Add(this.txtIdNoCigMotive);
+			this.groupBox2.Controls.Add(this.label13);
+			this.groupBox2.Location = new System.Drawing.Point(7, 130);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(510, 135);
+			this.groupBox2.TabIndex = 73;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Motivazione Assenza CIG";
+			// 
+			// txtNocigmotiveCode
+			// 
+			this.txtNocigmotiveCode.Location = new System.Drawing.Point(257, 23);
+			this.txtNocigmotiveCode.Name = "txtNocigmotiveCode";
+			this.txtNocigmotiveCode.Size = new System.Drawing.Size(245, 20);
+			this.txtNocigmotiveCode.TabIndex = 67;
+			this.txtNocigmotiveCode.Tag = "nocigmotive.codenocigmotive";
+			// 
+			// label7
+			// 
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label7.Location = new System.Drawing.Point(119, 20);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(27, 22);
+			this.label7.TabIndex = 70;
+			this.label7.Text = "ID";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNocigmotiveTitle
+			// 
+			this.txtNocigmotiveTitle.Location = new System.Drawing.Point(8, 47);
+			this.txtNocigmotiveTitle.Multiline = true;
+			this.txtNocigmotiveTitle.Name = "txtNocigmotiveTitle";
+			this.txtNocigmotiveTitle.Size = new System.Drawing.Size(494, 74);
+			this.txtNocigmotiveTitle.TabIndex = 68;
+			this.txtNocigmotiveTitle.Tag = "nocigmotive.title";
+			// 
+			// txtIdNoCigMotive
+			// 
+			this.txtIdNoCigMotive.Location = new System.Drawing.Point(151, 23);
+			this.txtIdNoCigMotive.Name = "txtIdNoCigMotive";
+			this.txtIdNoCigMotive.Size = new System.Drawing.Size(50, 20);
+			this.txtIdNoCigMotive.TabIndex = 20;
+			this.txtIdNoCigMotive.Tag = "estimate.idnocigmotive";
+			this.txtIdNoCigMotive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label13
+			// 
+			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label13.Location = new System.Drawing.Point(206, 20);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(46, 22);
+			this.label13.TabIndex = 71;
+			this.label13.Text = "Codice";
+			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// gboxFinanziamento
+			// 
+			this.gboxFinanziamento.Controls.Add(this.txtFinanziamento);
+			this.gboxFinanziamento.Controls.Add(this.btnFinanziamento);
+			this.gboxFinanziamento.Location = new System.Drawing.Point(7, 5);
+			this.gboxFinanziamento.Name = "gboxFinanziamento";
+			this.gboxFinanziamento.Size = new System.Drawing.Size(510, 55);
+			this.gboxFinanziamento.TabIndex = 10;
+			this.gboxFinanziamento.TabStop = false;
+			this.gboxFinanziamento.Tag = "AutoChoose.txtFinanziamento.default.(active = \'S\')";
+			// 
+			// txtFinanziamento
+			// 
+			this.txtFinanziamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFinanziamento.Location = new System.Drawing.Point(135, 19);
-            this.txtFinanziamento.Multiline = true;
-            this.txtFinanziamento.Name = "txtFinanziamento";
-            this.txtFinanziamento.Size = new System.Drawing.Size(367, 25);
-            this.txtFinanziamento.TabIndex = 2;
-            this.txtFinanziamento.TabStop = false;
-            this.txtFinanziamento.Tag = "underwriting.title?estimateview.underwriting";
-            // 
-            // btnFinanziamento
-            // 
-            this.btnFinanziamento.Location = new System.Drawing.Point(8, 18);
-            this.btnFinanziamento.Name = "btnFinanziamento";
-            this.btnFinanziamento.Size = new System.Drawing.Size(125, 27);
-            this.btnFinanziamento.TabIndex = 0;
-            this.btnFinanziamento.Tag = "choose.underwriting.default";
-            this.btnFinanziamento.Text = "Finanziamento";
-            this.btnFinanziamento.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label22.Location = new System.Drawing.Point(-1, 62);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(203, 22);
-            this.label22.TabIndex = 63;
-            this.label22.Tag = "mandate.external_reference";
-            this.label22.Text = "Codice proveniente da importazione";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(207, 65);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(310, 20);
-            this.textBox7.TabIndex = 62;
-            this.textBox7.Tag = "estimate.external_reference";
-            // 
-            // txtcig
-            // 
-            this.txtcig.Location = new System.Drawing.Point(405, 106);
-            this.txtcig.Name = "txtcig";
-            this.txtcig.Size = new System.Drawing.Size(112, 20);
-            this.txtcig.TabIndex = 64;
-            this.txtcig.Tag = "estimate.cigcode";
-            // 
-            // lblcig
-            // 
-            this.lblcig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblcig.Location = new System.Drawing.Point(211, 105);
-            this.lblcig.Name = "lblcig";
-            this.lblcig.Size = new System.Drawing.Size(188, 22);
-            this.lblcig.TabIndex = 65;
-            this.lblcig.Tag = "";
-            this.lblcig.Text = "Codice Identificativo di Gara (CIG)";
-            this.lblcig.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // Frm_estimate_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(993, 530);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.txtRiferminento);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnSituazione);
-            this.Name = "Frm_estimate_default";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.detailgrid)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.Principale.ResumeLayout(false);
-            this.Principale.PerformLayout();
-            this.gboxValuta.ResumeLayout(false);
-            this.gboxValuta.PerformLayout();
-            this.gboxResponsabile.ResumeLayout(false);
-            this.gboxResponsabile.PerformLayout();
-            this.gboxCliente.ResumeLayout(false);
-            this.gboxCliente.PerformLayout();
-            this.gboxtipofattura.ResumeLayout(false);
-            this.gboxtipofattura.PerformLayout();
-            this.tabDettagli.ResumeLayout(false);
-            this.tabDettagli.PerformLayout();
-            this.grpDettagliAnnullati.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDettAnn)).EndInit();
-            this.Classificazioni.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).EndInit();
-            this.tabAllegati.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
-            this.tabAttributi.ResumeLayout(false);
-            this.gboxclass05.ResumeLayout(false);
-            this.gboxclass05.PerformLayout();
-            this.gboxclass04.ResumeLayout(false);
-            this.gboxclass04.PerformLayout();
-            this.gboxclass03.ResumeLayout(false);
-            this.gboxclass03.PerformLayout();
-            this.gboxclass02.ResumeLayout(false);
-            this.gboxclass02.PerformLayout();
-            this.gboxclass01.ResumeLayout(false);
-            this.gboxclass01.PerformLayout();
-            this.tabEP.ResumeLayout(false);
-            this.tabEP.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            this.gBoxCausaleCredito.ResumeLayout(false);
-            this.gBoxCausaleCredito.PerformLayout();
-            this.Altro.ResumeLayout(false);
-            this.Altro.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.gboxFinanziamento.ResumeLayout(false);
-            this.gboxFinanziamento.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.txtFinanziamento.Location = new System.Drawing.Point(135, 19);
+			this.txtFinanziamento.Multiline = true;
+			this.txtFinanziamento.Name = "txtFinanziamento";
+			this.txtFinanziamento.Size = new System.Drawing.Size(367, 25);
+			this.txtFinanziamento.TabIndex = 2;
+			this.txtFinanziamento.TabStop = false;
+			this.txtFinanziamento.Tag = "underwriting.title?estimateview.underwriting";
+			// 
+			// btnFinanziamento
+			// 
+			this.btnFinanziamento.Location = new System.Drawing.Point(8, 18);
+			this.btnFinanziamento.Name = "btnFinanziamento";
+			this.btnFinanziamento.Size = new System.Drawing.Size(125, 27);
+			this.btnFinanziamento.TabIndex = 0;
+			this.btnFinanziamento.Tag = "choose.underwriting.default";
+			this.btnFinanziamento.Text = "Finanziamento";
+			this.btnFinanziamento.UseVisualStyleBackColor = true;
+			// 
+			// label22
+			// 
+			this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label22.Location = new System.Drawing.Point(-1, 62);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(203, 22);
+			this.label22.TabIndex = 63;
+			this.label22.Tag = "mandate.external_reference";
+			this.label22.Text = "Codice proveniente da importazione";
+			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox7
+			// 
+			this.textBox7.Location = new System.Drawing.Point(207, 65);
+			this.textBox7.Name = "textBox7";
+			this.textBox7.Size = new System.Drawing.Size(310, 20);
+			this.textBox7.TabIndex = 62;
+			this.textBox7.Tag = "estimate.external_reference";
+			// 
+			// txtcig
+			// 
+			this.txtcig.Location = new System.Drawing.Point(405, 106);
+			this.txtcig.Name = "txtcig";
+			this.txtcig.Size = new System.Drawing.Size(112, 20);
+			this.txtcig.TabIndex = 64;
+			this.txtcig.Tag = "estimate.cigcode";
+			// 
+			// lblcig
+			// 
+			this.lblcig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.lblcig.Location = new System.Drawing.Point(211, 105);
+			this.lblcig.Name = "lblcig";
+			this.lblcig.Size = new System.Drawing.Size(188, 22);
+			this.lblcig.TabIndex = 65;
+			this.lblcig.Tag = "";
+			this.lblcig.Text = "Codice Identificativo di Gara (CIG)";
+			this.lblcig.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label42
+			// 
+			this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label42.Location = new System.Drawing.Point(396, 52);
+			this.label42.Name = "label42";
+			this.label42.Size = new System.Drawing.Size(56, 16);
+			this.label42.TabIndex = 26;
+			this.label42.Text = "Data";
+			this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataScadenza
+			// 
+			this.txtDataScadenza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDataScadenza.Location = new System.Drawing.Point(453, 52);
+			this.txtDataScadenza.Name = "txtDataScadenza";
+			this.txtDataScadenza.ReadOnly = true;
+			this.txtDataScadenza.Size = new System.Drawing.Size(88, 20);
+			this.txtDataScadenza.TabIndex = 25;
+			this.txtDataScadenza.Tag = "";
+			this.txtDataScadenza.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// Frm_estimate_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.AutoScroll = true;
+			this.ClientSize = new System.Drawing.Size(993, 530);
+			this.Controls.Add(this.checkBox1);
+			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.txtRiferminento);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.btnSituazione);
+			this.Name = "Frm_estimate_default";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.detailgrid)).EndInit();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
+			this.tabControl1.ResumeLayout(false);
+			this.Principale.ResumeLayout(false);
+			this.Principale.PerformLayout();
+			this.gboxValuta.ResumeLayout(false);
+			this.gboxValuta.PerformLayout();
+			this.gboxResponsabile.ResumeLayout(false);
+			this.gboxResponsabile.PerformLayout();
+			this.gboxCliente.ResumeLayout(false);
+			this.gboxCliente.PerformLayout();
+			this.gboxtipofattura.ResumeLayout(false);
+			this.gboxtipofattura.PerformLayout();
+			this.tabDettagli.ResumeLayout(false);
+			this.tabDettagli.PerformLayout();
+			this.grpDettagliAnnullati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridDettAnn)).EndInit();
+			this.Classificazioni.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrClassificazioni)).EndInit();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+			this.tabAttributi.ResumeLayout(false);
+			this.gboxclass05.ResumeLayout(false);
+			this.gboxclass05.PerformLayout();
+			this.gboxclass04.ResumeLayout(false);
+			this.gboxclass04.PerformLayout();
+			this.gboxclass03.ResumeLayout(false);
+			this.gboxclass03.PerformLayout();
+			this.gboxclass02.ResumeLayout(false);
+			this.gboxclass02.PerformLayout();
+			this.gboxclass01.ResumeLayout(false);
+			this.gboxclass01.PerformLayout();
+			this.tabEP.ResumeLayout(false);
+			this.tabEP.PerformLayout();
+			this.groupBox11.ResumeLayout(false);
+			this.groupBox11.PerformLayout();
+			this.gBoxCausaleCredito.ResumeLayout(false);
+			this.gBoxCausaleCredito.PerformLayout();
+			this.Altro.ResumeLayout(false);
+			this.Altro.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.gboxFinanziamento.ResumeLayout(false);
+			this.gboxFinanziamento.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
         #endregion
@@ -2744,7 +2772,7 @@ namespace estimate_default {
                     }
                 }
                 if (mostramessaggio) {
-                    string msg = "E' stato modificato l'UPB o la Casuale EP. Rigenerare le scritture EP della fattura collegata al Contratto Attivo.";
+                    string msg = "E' stato modificato l'UPB o la Causale EP. Rigenerare le scritture EP della fattura collegata al Contratto Attivo.";
                     var shower = MetaFactory.factory.getSingleton<IMessageShower>();
                     shower.Show(null, msg, "AVVISO IMPORTANTE", MessageBoxButtons.OK);
                 }
@@ -2832,10 +2860,9 @@ namespace estimate_default {
 
                 string flagmultireg_selected = (row_estimatekind == null ? "" : row_estimatekind["multireg"].ToString());
                 gboxCliente.Visible = flagmultireg_selected != "S";
+				CalcolaDataScadenza();
 
-
-
-                if (Meta.FirstFillForThisRow && Meta.InsertMode && cmbTipoContratto.SelectedIndex > 0) {
+				if (Meta.FirstFillForThisRow && Meta.InsertMode && cmbTipoContratto.SelectedIndex > 0) {
                     if (row_estimatekind != null) {
                         SetNumContratto(row_estimatekind);
                     }
@@ -2994,6 +3021,7 @@ namespace estimate_default {
             txtCliente.ReadOnly = false;
             gboxCliente.Visible = true;
             btnSituazione.Enabled = false;
+			txtDataScadenza.Text = "";
             EPM.mostraEtichette();
             DataColumn C = DS.estimate.Columns["nestim"];
             RowChange.ClearAutoIncrement(C);
@@ -3198,7 +3226,13 @@ namespace estimate_default {
                     Meta.helpForm.FillControls(gBoxCausaleCredito.Controls);
                 }
             }
-        }
+
+			if (T.TableName == "expirationkind")
+			{
+				if (R != null)
+					CalcolaDataScadenza();
+			}
+		}
 
         object GetResponsabile() {
             return Meta.GetAutoField(txtResponsabile);
@@ -3881,5 +3915,107 @@ namespace estimate_default {
         private void txtDataContabile_Leave(object sender, EventArgs e) {
             UiHelper.UpdateControls(currencyManager, txtCambio, currentRow, txtDataContabile.Text);
         }
-    }
+
+		private void CalcolaDataScadenza()
+		{
+			if (Meta.IsEmpty)
+				return;
+			object TipoScadenza;
+			if (cmbTipoScadenza.SelectedIndex > 0)
+			{
+				TipoScadenza = cmbTipoScadenza.SelectedValue;
+			}
+			else
+				return;
+
+			int ngiorni = CfgFn.GetNoNullInt32(txtScadenza.Text);
+			DateTime dataRegistrazione = DateTime.MinValue;
+			if (txtDataContabile.Text != "")
+			{
+				object t = HelpForm.GetObjectFromString(typeof(DateTime), txtDataContabile.Text,
+					txtDataContabile.Tag.ToString());
+				if (t != DBNull.Value && t != null) dataRegistrazione = (DateTime)t;
+			}
+
+			DateTime dataDocumento = DateTime.MinValue;
+			if (txtDataDoc.Text != "")
+			{
+				object t = HelpForm.GetObjectFromString(typeof(DateTime), txtDataDoc.Text, txtDataDoc.Tag.ToString());
+				if (t != DBNull.Value && t != null) dataDocumento = (DateTime)t;
+			}
+
+			DateTime dataScadenza = DateTime.MinValue;
+			//  1	Data contabile = data registrazione
+			//  2	Data documento
+			//  3	Fine mese data documento
+			//  4	Fine mese data contabile
+			//  5	Pagamento Immediato
+			//  6   Data ricezione
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 1 && CfgFn.GetNoNullInt32(ngiorni) > 0)
+			{
+				dataScadenza = dataRegistrazione.AddDays(ngiorni);
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 1 && CfgFn.GetNoNullInt32(ngiorni) == 0)
+			{
+				dataScadenza = dataRegistrazione;
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 2 && CfgFn.GetNoNullInt32(ngiorni) > 0 && txtDataDoc.Text != "")
+			{
+				dataScadenza = dataDocumento.AddDays(ngiorni);
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 2 && CfgFn.GetNoNullInt32(ngiorni) == 0 &&
+				txtDataDoc.Text != "")
+			{
+				dataScadenza = dataDocumento;
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 3 && txtDataDoc.Text != "")
+			{
+				int intMese = dataDocumento.Month;
+				int intAnno = dataDocumento.Year;
+				int intGiorno = DateTime.DaysInMonth(intAnno, intMese);
+				DateTime FineMeseDataDocumento = new DateTime(intAnno, intMese, intGiorno);
+				FineMeseDataDocumento = FineMeseDataDocumento.AddDays(ngiorni);
+				dataScadenza = FineMeseDataDocumento;
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 4)
+			{
+				int intMese = dataRegistrazione.Month;
+				int intAnno = dataRegistrazione.Year;
+				int intGiorno = DateTime.DaysInMonth(intAnno, intMese);
+				DateTime FineMeseDataContabile = new DateTime(intAnno, intMese, intGiorno);
+				FineMeseDataContabile = FineMeseDataContabile.AddDays(ngiorni);
+				dataScadenza = FineMeseDataContabile;
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 5)
+			{
+				dataScadenza = dataRegistrazione;
+			}
+
+			if (CfgFn.GetNoNullInt32(TipoScadenza) == 6)
+			{
+				dataScadenza = dataRegistrazione.AddDays(ngiorni);
+			}
+
+			txtDataScadenza.Text = dataScadenza == DateTime.MinValue
+				? null
+				: HelpForm.StringValue(dataScadenza, txtDataScadenza.Tag.ToString());
+		}
+
+		private void txtScadenza_Leave(object sender, EventArgs e)
+		{
+			CalcolaDataScadenza();
+		}
+
+		private void txtDataDoc_Leave(object sender, EventArgs e)
+		{
+			CalcolaDataScadenza();
+		}
+	}
 }

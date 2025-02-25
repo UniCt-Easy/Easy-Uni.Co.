@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -278,6 +278,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable mandatedetail_pagamenti 		=> (MetaTable)Tables["mandatedetail_pagamenti"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable expenseattachment 		=> (MetaTable)Tables["expenseattachment"];
 
 	#endregion
 
@@ -1706,6 +1709,20 @@ private void initClass() {
 	Tables.Add(tmandatedetail_pagamenti);
 	tmandatedetail_pagamenti.defineKey("idmankind", "nman", "rownum", "yman");
 
+	//////////////////// EXPENSEATTACHMENT /////////////////////////////////
+	var texpenseattachment= new MetaTable("expenseattachment");
+	texpenseattachment.defineColumn("idexp", typeof(int),false);
+	texpenseattachment.defineColumn("idattachment", typeof(int),false);
+	texpenseattachment.defineColumn("attachment", typeof(Byte[]));
+	texpenseattachment.defineColumn("filename", typeof(string));
+	texpenseattachment.defineColumn("cu", typeof(string));
+	texpenseattachment.defineColumn("ct", typeof(DateTime));
+	texpenseattachment.defineColumn("lu", typeof(string));
+	texpenseattachment.defineColumn("lt", typeof(DateTime));
+	texpenseattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(texpenseattachment);
+	texpenseattachment.defineKey("idexp", "idattachment");
+
 	#endregion
 
 
@@ -1843,6 +1860,7 @@ private void initClass() {
 	this.defineRelation("mandatedetail_taxable_expenselastmandatedetail","mandatedetail_taxable","expenselastmandatedetail","idmankind","yman","nman","rownum");
 	this.defineRelation("mandatekind_expenselastmandatedetail","mandatekind","expenselastmandatedetail","idmankind");
 	this.defineRelation("mandatedetail_pagamenti_expenselastmandatedetail","mandatedetail_pagamenti","expenselastmandatedetail","idmankind","nman","rownum","yman");
+	this.defineRelation("expense_expenseattachment","expense","expenseattachment","idexp");
 	#endregion
 
 }

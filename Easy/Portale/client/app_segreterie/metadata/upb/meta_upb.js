@@ -26,7 +26,7 @@
 					case 'seg':
 						this.describeAColumn(table, 'codeupb', 'Codice', null, 10, 50);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 150);
-						this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
+						//this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
 //$objCalcFieldConfig_seg$
 						break;
 					case 'default':

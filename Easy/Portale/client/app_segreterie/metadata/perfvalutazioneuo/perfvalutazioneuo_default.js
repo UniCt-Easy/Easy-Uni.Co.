@@ -52,6 +52,7 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+								//appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazioneuostatuschanges'));
 				this.manageperfvalutazioneuo_default_idstruttura();
 				this.manageperfvalutazioneuo_default_completamentopsuo();
 				this.manageperfvalutazioneuo_default_completamentopsauo();
@@ -63,20 +64,6 @@
 				var def = appMeta.Deferred("beforeFill-perfvalutazioneuo_default");
 				var arraydef = [];
 				
-				if (!this.state.isSearchState()) {
-					var filteractive = this.q.eq('struttura_active', 'Si');
-					var filter = self.state.currentRow.idstruttura ? this.q.or(filteractive, this.q.eq('idstruttura', self.state.currentRow.idstruttura)) : filteractive;
-					appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), false);
-					var perfvalutazioneuo_default_idstrutturaCtrl = $('#perfvalutazioneuo_default_idstruttura').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idstrutturaCtrl.filteredPreFillCombo(filter, null, true));
-				}
-				if (!this.state.isSearchState()) {
-					var filteractive = this.q.eq('perfschedastatus_active', 'Si');
-					var filter = self.state.currentRow.idperfschedastatus ? this.q.or(filteractive, this.q.eq('idperfschedastatus', self.state.currentRow.idperfschedastatus)) : filteractive;
-					appMeta.metaModel.cachedTable(this.getDataTable("perfschedastatusdefaultview"), false);
-					var perfvalutazioneuo_default_idperfschedastatusCtrl = $('#perfvalutazioneuo_default_idperfschedastatus').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idperfschedastatusCtrl.filteredPreFillCombo(filter, null, true));
-				}
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -113,26 +100,7 @@
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneuo'), this.getDataTable('perfobiettiviuo'));
 				//afterClearin
 				
-				//parte asincrona
-				var def = appMeta.Deferred("afterClear-perfvalutazioneuo_default");
-				var arraydef = [];
-
-				if (this.state.isSearchState()) {
-					appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), false);
-					var perfvalutazioneuo_default_idstrutturaCtrl = $('#perfvalutazioneuo_default_idstruttura').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idstrutturaCtrl.filteredPreFillCombo(null, null, true));
-				}
-				if (this.state.isSearchState()) {
-					appMeta.metaModel.cachedTable(this.getDataTable("perfschedastatusdefaultview"), false);
-					var perfvalutazioneuo_default_idperfschedastatusCtrl = $('#perfvalutazioneuo_default_idperfschedastatus').data("customController");
-					arraydef.push(perfvalutazioneuo_default_idperfschedastatusCtrl.filteredPreFillCombo(null, null, true));
-				}
-				//afterClearInAsync
-				$.when.apply($, arraydef)
-					.then(function () {
-						return def.resolve();
-					});
-				return def.promise();
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -167,6 +135,8 @@
 				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year',2020),this.q.lt('year', (new Date().getFullYear()) +1 )));
 				appMeta.metaModel.cachedTable(this.getDataTable("strutturaperfelenchiview"), true);
 				appMeta.metaModel.lockRead(this.getDataTable("strutturaperfelenchiview"));
+				appMeta.metaModel.insertFilter(this.getDataTable("strutturaperfelenchiview"), this.q.eq('struttura_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("perfschedastatusdefaultview"), this.q.eq('perfschedastatus_active', 'Si'));
 				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"), true);
 				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"));
 				$('#perfvalutazioneuo_default_pesoindicatori').on("change", _.partial(this.managepesoindicatori, self));
@@ -409,7 +379,7 @@
 					this.canCancelOriginal = this.canCancel;
 				}
 
-				if (this.crea !== true && this.valuta_org !== true && this.valuta_ut !== true && this.aggiorna_org !== true && this.aggiorna_ut !== true) {
+				if (this.crea !== true && this.valuta_org !== true && this.valuta_ut !== true && this.aggiorna_org !== true && this.aggiorna_ut !== true && appMeta.security.usrEnv.progetti_performance != '\'S\'') {
 					this.canSave = false;
 					this.canInsert = false;
 					this.canInsertCopy = false;
@@ -426,16 +396,12 @@
 				if (goi) {
 					//indicatori
 					if (this.aggiorna_org !== true && this.valuta_org !== true) {
-						$(goi.el).css("pointer-events", "none")
-					} else {
-						$(goi.el).css("pointer-events", "unset")
+						goi.removeEvents();
 					}
 					//una tantum
 					var gc = $('#grid_perfobiettiviuo_default').data("customController")
 					if (this.crea !== true && this.aggiorna_ut !== true && this.valuta_ut !== true) {
-						$(gc.el).css("pointer-events", "none")
-					} else {
-						$(gc.el).css("pointer-events", "unset")
+						gc.removeEvents();
 					}
 				}
 
@@ -448,9 +414,9 @@
 							if (dtRes.rows.length) {
 								self.allowedStateChanges = dtRes.rows;
 								self.canSave = self.canSaveOriginal;
-								self.canInsert = self.canInsertOriginal;
-								self.canInsertCopy = self.canInsertCopylseOriginal;
-								self.canCancel = self.canCancelOriginal;
+								self.canInsert = self.crea ? self.canInsertOriginal : false;
+								self.canInsertCopy = self.crea ? self.canInsertCopylseOriginal : false;
+								self.canCancel = self.crea ? self.canCancelOriginal : false;
 							}
 							return true;
 						})

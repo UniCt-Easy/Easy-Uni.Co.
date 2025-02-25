@@ -32,7 +32,7 @@
 						this.describeAColumn(table, 'capofilatxt', 'Ente capofila non censito', null, 260, 2048);
 						this.describeAColumn(table, 'start', 'Data di inizio', null, 300, null);
 						this.describeAColumn(table, 'stop', 'Data di fine', null, 310, null);
-						this.describeAColumn(table, 'datacontabile', 'Data chiusura contablile', null, 330, null);
+						this.describeAColumn(table, 'datacontabile', 'Data chiusura contabile', null, 330, null);
 						this.describeAColumn(table, 'budget', 'Costo totale per l\'ateneo', 'fixed.2', 410, null);
 						this.describeAColumn(table, 'contributoente', 'Contributo totale ottenuto per l\'ateneo dall’ente finanziatore', 'fixed.2', 420, null);
 						this.describeAColumn(table, 'contributo', 'Cofinanziamento ottenuto dall\'ateneo', 'fixed.2', 430, null);
@@ -59,7 +59,7 @@
 						this.describeAColumn(table, 'capofilatxt', 'Ente capofila non censito', null, 280, 2048);
 						this.describeAColumn(table, 'start', 'Data di inizio', null, 300, null);
 						this.describeAColumn(table, 'stop', 'Data di fine', null, 310, null);
-						this.describeAColumn(table, 'datacontabile', 'Data chiusura contablile', null, 330, null);
+						this.describeAColumn(table, 'datacontabile', 'Data chiusura contabile', null, 330, null);
 						this.describeAColumn(table, 'budget', 'Costo/budget dell\'ateneo proposto', 'fixed.2', 400, null);
 						this.describeAColumn(table, 'contributoenterichiesto', 'Di cui contributo totale richiesto dall’ateneo all’ente finanziatore', 'fixed.2', 410, null);
 						this.describeAColumn(table, 'contributorichiesto', 'Di cui cofinanziamento proposto', 'fixed.2', 420, null);
@@ -83,7 +83,7 @@
 						this.describeAColumn(table, 'capofilatxt', 'Ente capofila non censito', null, 260, 2048);
 						this.describeAColumn(table, 'start', 'Data di inizio', null, 300, null);
 						this.describeAColumn(table, 'stop', 'Data di fine', null, 310, null);
-						this.describeAColumn(table, 'datacontabile', 'Data chiusura contablile', null, 330, null);
+						this.describeAColumn(table, 'datacontabile', 'Data chiusura contabile', null, 330, null);
 						this.describeAColumn(table, 'budget', 'Costo totale per l\'ateneo', 'fixed.2', 410, null);
 						this.describeAColumn(table, 'contributoente', 'Contributo totale ottenuto per l\'ateneo dall’ente finanziatore', 'fixed.2', 420, null);
 						this.describeAColumn(table, 'contributo', 'Cofinanziamento ottenuto dall\'ateneo', 'fixed.2', 430, null);
@@ -102,7 +102,7 @@
 						this.describeAColumn(table, 'capofilatxt', 'Ente capofila non censito', null, 260, 2048);
 						this.describeAColumn(table, 'start', 'Data di inizio', null, 300, null);
 						this.describeAColumn(table, 'stop', 'Data di fine', null, 310, null);
-						this.describeAColumn(table, 'datacontabile', 'Data chiusura contablile', null, 330, null);
+						this.describeAColumn(table, 'datacontabile', 'Data chiusura contabile', null, 330, null);
 						this.describeAColumn(table, 'budget', 'Costo totale per l\'ateneo', 'fixed.2', 410, null);
 						this.describeAColumn(table, 'contributoente', 'Contributo totale ottenuto per l\'ateneo dall’ente finanziatore', 'fixed.2', 420, null);
 						this.describeAColumn(table, 'contributo', 'Cofinanziamento ottenuto dall\'ateneo', 'fixed.2', 430, null);
@@ -163,7 +163,7 @@
 						table.columns["contributorichiesto"].caption = "Cofinanziamento richiesto all'ateneo";
 						table.columns["cup"].caption = "Codice univoco progetto (CUP)";
 						table.columns["data"].caption = "Data di presentazione";
-						table.columns["datacontabile"].caption = "Data chiusura contablile";
+						table.columns["datacontabile"].caption = "Data chiusura contabile";
 						table.columns["dataesito"].caption = "Data dell’esito di valutazione";
 						table.columns["description"].caption = "Descrizione / Abstract";
 						table.columns["finanziamento"].caption = "Riferimenti del finanziamento";
@@ -205,6 +205,7 @@
 						table.columns["contributorichiesto"].caption = "Di cui cofinanziamento proposto";
 						table.columns["costoapprovatoateneo"].caption = "Costo/budget dell'ateneo approvato";
 						table.columns["costoapprovatoateneocalcolato"].caption = "Costo/budget dell'ateneo approvato calcolato";
+						table.columns["idattach"].caption = "Logo del progetto";
 						table.columns["idreg"].caption = "Principal investigator / Referente scientifico";
 						table.columns["idreg_amm"].caption = "Referente amministrativo";
 						table.columns["respamministrativi"].caption = "Responsabili amministrativi";

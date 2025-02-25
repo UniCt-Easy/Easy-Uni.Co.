@@ -1237,6 +1237,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="incomeattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idinc" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1445,6 +1460,11 @@
       <xs:field xpath="mstns:nestim" />
       <xs:field xpath="mstns:rownum" />
     </xs:unique>
+    <xs:unique name="incomeattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:incomeattachment" />
+      <xs:field xpath="mstns:idinc" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1487,6 +1507,7 @@
       <msdata:Relationship name="estimatekind_incomelastestimatedetail" msdata:parent="estimatekind" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind" msdata:childkey="idestimkind" />
       <msdata:Relationship name="estimatedetail_taxable_incomelastestimatedetail" msdata:parent="estimatedetail_taxable" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind yestim nestim rownum" msdata:childkey="idestimkind yestim nestim rownum" />
       <msdata:Relationship name="estimatedetail_incassi_incomelastestimatedetail" msdata:parent="estimatedetail_incassi" msdata:child="incomelastestimatedetail" msdata:parentkey="idestimkind yestim nestim rownum" msdata:childkey="idestimkind yestim nestim rownum" />
+      <msdata:Relationship name="income_incomeattachment" msdata:parent="income" msdata:child="incomeattachment" msdata:parentkey="idinc" msdata:childkey="idinc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

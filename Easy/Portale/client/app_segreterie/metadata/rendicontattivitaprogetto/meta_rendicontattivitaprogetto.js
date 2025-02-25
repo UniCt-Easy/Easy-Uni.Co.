@@ -145,24 +145,22 @@
 						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
 						table.columns["datainizioprevista"].caption = "Data inizio prevista";
 						table.columns["description"].caption = "Descrizione";
-						table.columns["iditineration"].caption = "Missione";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idreg"].caption = "Partecipante";
 						table.columns["idworkpackage"].caption = "Workpackage";
 						table.columns["orepreventivate"].caption = "Numero di ore preventivate";
 						table.columns["stop"].caption = "Data fine prevista";
 						table.columns["idrendicontattivitaprogettokind"].caption = "Tipo di attività";
-//$innerSetCaptionConfig_anagamm$
+						//$innerSetCaptionConfig_anagamm$
 						break;
 					case 'anag':
 						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
-//$innerSetCaptionConfig_anag$
+						//$innerSetCaptionConfig_anag$
 						break;
 					case 'seg':
 						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
 						table.columns["datainizioprevista"].caption = "Data inizio prevista";
 						table.columns["description"].caption = "Descrizione";
-						table.columns["iditineration"].caption = "Missione";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idreg"].caption = "Partecipante";
 						table.columns["idworkpackage"].caption = "Workpackage";
@@ -172,7 +170,7 @@
 						table.columns["!titolobreve"].caption = "Progetto";
 						table.columns["!wp"].caption = "Workpackage";
 						table.columns["!raggruppamento"].caption = "Raggruppamento";
-//$innerSetCaptionConfig_seg$
+						//$innerSetCaptionConfig_seg$
 						break;
 					case 'docente':
 						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
@@ -183,7 +181,6 @@
 					case 'segsal':
 						table.columns["datainizioprevista"].caption = "Data inizio prevista";
 						table.columns["description"].caption = "Descrizione";
-						table.columns["iditineration"].caption = "Missione";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idreg"].caption = "Partecipante";
 						table.columns["idworkpackage"].caption = "Workpackage";
@@ -193,15 +190,6 @@
 //$innerSetCaptionConfig_segsal$
 						break;
 					case 'personale':
-						table.columns["datainizioprevista"].caption = "Data inizio prevista";
-						table.columns["description"].caption = "Descrizione";
-						table.columns["iditineration"].caption = "Missione";
-						table.columns["idprogetto"].caption = "Progetto";
-						table.columns["idreg"].caption = "Partecipante";
-						table.columns["idworkpackage"].caption = "Workpackage";
-						table.columns["orepreventivate"].caption = "Numero di ore preventivate";
-						table.columns["stop"].caption = "Data fine prevista";
-						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
 //$innerSetCaptionConfig_personale$
 						break;
 //$innerSetCaptionConfig$

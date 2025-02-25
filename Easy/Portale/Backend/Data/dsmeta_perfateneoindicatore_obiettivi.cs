@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,8 +30,6 @@ namespace Backend.Data {
 public class dsmeta_perfateneoindicatore_obiettivi: DataSet {
 
 	#region Table members declaration
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable struttura 		=> (MetaTable)Tables["struttura"];
@@ -82,13 +80,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_perfateneoindicatore_obiettivi.xsd";
 
 	#region create DataTables
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
 
 	//////////////////// STRUTTURA /////////////////////////////////
 	var tstruttura= new MetaTable("struttura");
@@ -101,9 +92,6 @@ private void initClass() {
 	tstruttura.defineColumn("fax", typeof(string));
 	tstruttura.defineColumn("idaoo", typeof(int));
 	tstruttura.defineColumn("idreg", typeof(int));
-	tstruttura.defineColumn("idreg_appr", typeof(int));
-	tstruttura.defineColumn("idreg_resp", typeof(int));
-	tstruttura.defineColumn("idreg_valut", typeof(int));
 	tstruttura.defineColumn("idsede", typeof(int),false);
 	tstruttura.defineColumn("idstruttura", typeof(int),false);
 	tstruttura.defineColumn("idstrutturakind", typeof(int),false);
@@ -228,18 +216,6 @@ private void initClass() {
 	cPar = new []{struttura.Columns["idstruttura"]};
 	cChild = new []{strutturaperfateneoindicatore.Columns["idstruttura"]};
 	Relations.Add(new DataRelation("FK_strutturaperfateneoindicatore_struttura_idstruttura",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{struttura.Columns["idreg_valut"]};
-	Relations.Add(new DataRelation("FK_struttura_registry_idreg_valut",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{struttura.Columns["idreg_resp"]};
-	Relations.Add(new DataRelation("FK_struttura_registry_idreg_resp",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{struttura.Columns["idreg_appr"]};
-	Relations.Add(new DataRelation("FK_struttura_registry_idreg_appr",cPar,cChild,false));
 
 	cPar = new []{perfateneoindicatore.Columns["idperfateneoindicatore"], perfateneoindicatore.Columns["idperfateneoobiettivo"], perfateneoindicatore.Columns["idperfvalutazioneateneo"]};
 	cChild = new []{perfateneostakeholderperfateneoindicatore.Columns["idperfateneoindicatore"], perfateneostakeholderperfateneoindicatore.Columns["idperfateneoobiettivo"], perfateneostakeholderperfateneoindicatore.Columns["idperfvalutazioneateneo"]};

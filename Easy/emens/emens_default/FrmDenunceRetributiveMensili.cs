@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -88,6 +88,8 @@ namespace emens_default//DenunceRetributiveMensili//
 		{
 			InitializeComponent();
 
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "xml";
 
             // Caption per tabella EMENS
@@ -105,7 +107,12 @@ namespace emens_default//DenunceRetributiveMensili//
 			dsEmens.Emens.Columns["Dal"].Caption = "Dal";
 			dsEmens.Emens.Columns["Al"].Caption = "Al";
 			dsEmens.Emens.Columns["CodCalamita"].Caption = "";
-            dsEmens.Emens.Columns["CodCertificazione"].Caption = "";            
+            dsEmens.Emens.Columns["CodCertificazione"].Caption = "";
+
+            if (isBlazor())
+			{
+                txtNomeFile.Visible = false;
+			}
 		}
 
 		/// <summary>
@@ -166,8 +173,6 @@ namespace emens_default//DenunceRetributiveMensili//
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.txtUnified = new System.Windows.Forms.TextBox();
             this.btnGeneraUniEmens = new System.Windows.Forms.Button();
-            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsEmens)).BeginInit();
             this.grpDatiMittente.SuspendLayout();
@@ -1081,6 +1086,8 @@ namespace emens_default//DenunceRetributiveMensili//
             stw.Write(sw.ToString());
             stw.Close();
 
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtNomeFile.Text, false);
+
             btnApriFile.Enabled = true;
             btnSalvaFile.Enabled = true;
 
@@ -1155,7 +1162,9 @@ namespace emens_default//DenunceRetributiveMensili//
 			Stream stream = saveFileDialog1.OpenFile();
 			stream.Write(xml, 0, xml.Length);
 			stream.Close();
-		}
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtNomeFile.Text, false);
+        }
 
 		private void btnSalvaFile_Click(object sender, System.EventArgs e)
 		{

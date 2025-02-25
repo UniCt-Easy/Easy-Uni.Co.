@@ -13,7 +13,7 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="doc" type="xs:string" minOccurs="0" />
               <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idinc" type="xs:int" minOccurs="0" />
               <xs:element name="idprogettotipocosto" type="xs:int" minOccurs="0" />
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />

@@ -8,11 +8,8 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idaula" type="xs:int" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idedificio" type="xs:int" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
-              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -20,32 +17,17 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idedificio" type="xs:int" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="registry_docenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="cv" type="xs:string" minOccurs="0" />
-              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
-              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
-              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
-              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="matricola" type="xs:string" minOccurs="0" />
-              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
-              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -118,6 +100,7 @@
               <xs:element name="stage" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
               <xs:element name="visita" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -127,13 +110,16 @@
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:auladefaultview" />
       <xs:field xpath="mstns:idaula" />
+      <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="edificiodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:edificiodefaultview" />
       <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
-    <xs:unique name="registry_docenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry_docenti" />
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="affidamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -173,7 +159,7 @@
       <msdata:Relationship name="FK_lezione_auladefaultview_idaula" msdata:parent="auladefaultview" msdata:child="lezione" msdata:parentkey="idaula" msdata:childkey="idaula" />
       <msdata:Relationship name="FK_auladefaultview_edificiodefaultview_idedificio" msdata:parent="edificiodefaultview" msdata:child="auladefaultview" msdata:parentkey="idedificio" msdata:childkey="idedificio" />
       <msdata:Relationship name="FK_lezione_edificiodefaultview_idedificio" msdata:parent="edificiodefaultview" msdata:child="lezione" msdata:parentkey="idedificio" msdata:childkey="idedificio" />
-      <msdata:Relationship name="FK_lezione_registry_docenti_idreg_docenti" msdata:parent="registry_docenti" msdata:child="lezione" msdata:parentkey="idreg" msdata:childkey="idreg_docenti" />
+      <msdata:Relationship name="FK_lezione_registry_idreg_docenti" msdata:parent="registry" msdata:child="lezione" msdata:parentkey="idreg" msdata:childkey="idreg_docenti" />
       <msdata:Relationship name="FK_lezione_affidamento_idaffidamento" msdata:parent="affidamento" msdata:child="lezione" msdata:parentkey="idaffidamento" msdata:childkey="idaffidamento" />
     </xs:appinfo>
   </xs:annotation>

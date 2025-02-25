@@ -32,8 +32,8 @@
 						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
 						this.describeAColumn(table, 'registryistituti_title', 'Istituto, Ente o Azienda', null, 4100, 101);
 						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 5000, 15);
-						this.describeAColumn(table, 'classconsorsuale_title', 'Classe consorsuale', null, 5100, 50);
 						this.describeAColumn(table, 'registry_active', 'attivo', null, 6000, null);
+						this.describeAColumn(table, 'registry_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 54000, 9);
 //$objCalcFieldConfig_docenti_docente$
 						break;
 //$objCalcFieldConfig$

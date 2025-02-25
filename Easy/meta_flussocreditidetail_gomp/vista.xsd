@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vista" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vista" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="flussocreditidetail_gomp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idflusso" type="xs:int" />
+              <xs:element name="iddetail" type="xs:int" />
+              <xs:element name="annoregolamento" type="xs:int" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecausale" type="xs:string" minOccurs="0" />
+              <xs:element name="codicecorsolaurea" type="xs:string" />
+              <xs:element name="codicedipartimento" type="xs:string" />
+              <xs:element name="codicesede" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="fuoricorso" type="xs:string" minOccurs="0" />
+              <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="importoversamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iuv" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="tipologiacorso" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flussocreditidetail_gomp" />
+      <xs:field xpath="mstns:idflusso" />
+      <xs:field xpath="mstns:iddetail" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

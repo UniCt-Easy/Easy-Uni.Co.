@@ -26,7 +26,7 @@
 					case 'segmi':
 						this.describeAColumn(table, 'changes', 'Changes', null, 20, null);
 						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
-						this.describeAColumn(table, 'idiscrizionebmi', 'Iscrizione al bando di mobilit? internazionale', null, 100, null);
+						this.describeAColumn(table, 'idchangeskind', 'Changes kind', null, 40, null);
 //$objCalcFieldConfig_segmi$
 						break;
 					case 'segstudprat':
@@ -115,7 +115,30 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'segmi':
+						table.columns["changesother"].caption = "Changes other";
+						table.columns["idchangeskind"].caption = "Changes kind";
+						table.columns["idconvalida"].caption = "Convalida";
+						table.columns["iddichiar"].caption = "Altro titolo";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione della convalida";
+						table.columns["idiscrizione_from"].caption = "Iscrizione del sostenimento";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idlearningagrstud"].caption = "Learning agreements for studies";
+						table.columns["idlearningagrtrainer"].caption = "Learning agreements for traineership";
+						table.columns["idpratica"].caption = "Pratica";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idsostenimento"].caption = "Sostenimento";
+						table.columns["idtirocinioprogetto"].caption = "Progetto del tirocinio";
+//$innerSetCaptionConfig_segmi$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_convalidante");
@@ -148,6 +171,9 @@
 					}
 					case "segistpass": {
 						return "idsostenimento desc";
+					}
+					case "segmi": {
+						return "changes asc ";
 					}
 					//$getSortingin$
 				}

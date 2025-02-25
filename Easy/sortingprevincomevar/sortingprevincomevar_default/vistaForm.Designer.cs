@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,12 +26,9 @@ using System.Runtime.Serialization;
 namespace sortingprevincomevar_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Variazione classificazione entrate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingprevincomevar 		=> Tables["sortingprevincomevar"];
 
@@ -40,6 +37,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingprevincomevarview 		=> Tables["sortingprevincomevarview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingprevincomevarattachment 		=> Tables["sortingprevincomevarattachment"];
 
 	#endregion
 
@@ -181,6 +181,28 @@ private void initClass() {
 	tsortingprevincomevarview.PrimaryKey =  new DataColumn[]{tsortingprevincomevarview.Columns["yvar"], tsortingprevincomevarview.Columns["nvar"]};
 
 
+	//////////////////// SORTINGPREVINCOMEVARATTACHMENT /////////////////////////////////
+	var tsortingprevincomevarattachment= new DataTable("sortingprevincomevarattachment");
+	C= new DataColumn("nvar", typeof(int));
+	C.AllowDBNull=false;
+	tsortingprevincomevarattachment.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
+	C.AllowDBNull=false;
+	tsortingprevincomevarattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tsortingprevincomevarattachment.Columns.Add(C);
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tsortingprevincomevarattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tsortingprevincomevarattachment);
+	tsortingprevincomevarattachment.PrimaryKey =  new DataColumn[]{tsortingprevincomevarattachment.Columns["nvar"], tsortingprevincomevarattachment.Columns["yvar"], tsortingprevincomevarattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -188,6 +210,10 @@ private void initClass() {
 	var cPar = new []{sortingview.Columns["idsor"]};
 	var cChild = new []{sortingprevincomevar.Columns["idsor"]};
 	Relations.Add(new DataRelation("sortingview_sortingprevincomevar",cPar,cChild,false));
+
+	cPar = new []{sortingprevincomevar.Columns["nvar"], sortingprevincomevar.Columns["yvar"]};
+	cChild = new []{sortingprevincomevarattachment.Columns["nvar"], sortingprevincomevarattachment.Columns["yvar"]};
+	Relations.Add(new DataRelation("sortingprevincomevar_sortingprevincomevarattachment",cPar,cChild,false));
 
 	#endregion
 

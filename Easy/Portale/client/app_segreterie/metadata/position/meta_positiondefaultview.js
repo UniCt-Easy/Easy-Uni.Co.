@@ -30,7 +30,7 @@
 						this.describeAColumn(table, 'position_costolordoannuooneri', 'Costo lordo annuo e oneri', 'fixed.2', 21000, null);
 						this.describeAColumn(table, 'position_puntiorganico', 'Punti organico', 'fixed.2', 23000, null);
 						this.describeAColumn(table, 'position_tipopersonale', 'Categoria di personale', null, 26000, null);
-						this.describeAColumn(table, 'position_codeposition', 'Codice qualifica', null, 27000, 20);
+						this.describeAColumn(table, 'position_codeposition', 'Codice', null, 27000, 20);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

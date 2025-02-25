@@ -182,7 +182,7 @@
       <msdata:Relationship name="FK_contrattostipendioannuoview_year_year" msdata:parent="year" msdata:child="contrattostipendioannuoview" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_contrattostipendioannuoview_stipendioannuodefaultview_idstipendioannuo" msdata:parent="stipendioannuodefaultview" msdata:child="contrattostipendioannuoview" msdata:parentkey="idstipendioannuo" msdata:childkey="idstipendioannuo" />
       <msdata:Relationship name="FK_contrattostipendioannuoview_registrydefaultview_idreg" msdata:parent="registrydefaultview" msdata:child="contrattostipendioannuoview" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_contrattostipendioannuoview_registrylegalstatusdefaultview_idregistrylegalstatus" msdata:parent="registrylegalstatusdefaultview" msdata:child="contrattostipendioannuoview" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+      <msdata:Relationship name="FK_contrattostipendioannuoview_registrylegalstatusdefaultview_idregistrylegalstatus" msdata:parent="registrylegalstatusdefaultview" msdata:child="contrattostipendioannuoview" msdata:parentkey="idregistrylegalstatus idreg" msdata:childkey="idregistrylegalstatus idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

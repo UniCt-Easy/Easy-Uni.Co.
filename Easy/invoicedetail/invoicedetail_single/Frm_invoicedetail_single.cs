@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
 using q=metadatalibrary.MetaExpression;
@@ -26,6 +25,9 @@ using funzioni_configurazione;//funzioni_configurazione
 using System.Data;
 using ep_functions;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace invoicedetail_single //dettdocumentoivasingle//
 {
@@ -683,7 +685,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblPercIndeduc.Name = "lblPercIndeduc";
 			this.lblPercIndeduc.Size = new System.Drawing.Size(88, 16);
 			this.lblPercIndeduc.TabIndex = 39;
-			this.lblPercIndeduc.Text = "% Indetraibilit‡";
+			this.lblPercIndeduc.Text = "% Indetraibilit√†";
 			this.lblPercIndeduc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// grpValoreTotaleInEuro
@@ -817,7 +819,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblidpackage.Name = "lblidpackage";
 			this.lblidpackage.Size = new System.Drawing.Size(78, 17);
 			this.lblidpackage.TabIndex = 18;
-			this.lblidpackage.Text = "Quantit‡:";
+			this.lblidpackage.Text = "Quantit√†:";
 			this.lblidpackage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// grpValoreUnitInValuta
@@ -2046,8 +2048,9 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(104, 23);
 			this.button2.TabIndex = 0;
-			this.button2.Tag = "manage.accmotiveapplied.tree";
+			this.button2.Tag = "";
 			this.button2.Text = "Causale";
+			this.button2.Click += new System.EventHandler(this.btnCausale_Click);
 			// 
 			// gboxCompetenza
 			// 
@@ -2197,7 +2200,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(444, 16);
 			this.label24.TabIndex = 40;
-			this.label24.Text = "Massa netta in Kilogrammi (solo se Ë presente una unit‡ di misura supplementare)";
+			this.label24.Text = "Massa netta in Kilogrammi (solo se √® presente una unit√† di misura supplementare)";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// gboxIntrastatCode
@@ -2234,7 +2237,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.labUnitaMisura.Name = "labUnitaMisura";
 			this.labUnitaMisura.Size = new System.Drawing.Size(167, 16);
 			this.labUnitaMisura.TabIndex = 44;
-			this.labUnitaMisura.Text = "Unit‡ di misura supplementare:";
+			this.labUnitaMisura.Text = "Unit√† di misura supplementare:";
 			this.labUnitaMisura.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtIntrastatDescription
@@ -2449,7 +2452,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.grpComunicazioni.Size = new System.Drawing.Size(400, 95);
 			this.grpComunicazioni.TabIndex = 1;
 			this.grpComunicazioni.TabStop = false;
-			this.grpComunicazioni.Text = "Tipologia per le operazioni con Paesi a fiscalit‡ privilegiata";
+			this.grpComunicazioni.Text = "Tipologia per le operazioni con Paesi a fiscalit√† privilegiata";
 			// 
 			// rdbNonSpec
 			// 
@@ -2615,7 +2618,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.rdbVarStorno.Size = new System.Drawing.Size(100, 17);
 			this.rdbVarStorno.TabIndex = 8;
 			this.rdbVarStorno.Tag = "invoicedetail.leasing:D";
-			this.rdbVarStorno.Text = "Unit‡ da diporto ";
+			this.rdbVarStorno.Text = "Unit√† da diporto ";
 			// 
 			// rdbVarAssestamento
 			// 
@@ -2740,7 +2743,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(169, 13);
 			this.label11.TabIndex = 0;
-			this.label11.Text = "Escludi, il dettaglio fattura, perchË:";
+			this.label11.Text = "Escludi, il dettaglio fattura, perch√®:";
 			// 
 			// tabFatturaElettronica
 			// 
@@ -3309,7 +3312,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblidunit.Name = "lblidunit";
 			this.lblidunit.Size = new System.Drawing.Size(111, 17);
 			this.lblidunit.TabIndex = 20;
-			this.lblidunit.Text = "Totale Quantit‡:";
+			this.lblidunit.Text = "Totale Quantit√†:";
 			this.lblidunit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// gboxListino
@@ -3399,7 +3402,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblIcmbdpackage.Name = "lblIcmbdpackage";
 			this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
 			this.lblIcmbdpackage.TabIndex = 21;
-			this.lblIcmbdpackage.Text = "U.t‡ di misura imballo";
+			this.lblIcmbdpackage.Text = "U.t√† di misura imballo";
 			// 
 			// label27
 			// 
@@ -3409,7 +3412,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(71, 13);
 			this.label27.TabIndex = 23;
-			this.label27.Text = "U.t‡ di misura";
+			this.label27.Text = "U.t√† di misura";
 			// 
 			// cmbUnitaMisuraCS
 			// 
@@ -3860,7 +3863,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 if (!controller.DrawStateIsDone) return;
                 if (controller.IsEmpty) return;
                 if (R == null) {
-                    lblidpackage.Text = "Q.t‡";
+                    lblidpackage.Text = "Q.t√†";
                     //lblImportoUnitario.Text = "Importo unitario";
                     return;
                 }
@@ -4422,15 +4425,53 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                     filter = QHS.AppAnd(filter, QHS.Like("description", Description));
                 }
             }
-            DataRow Choosen = Mlistino.SelectOne("default", filter, "listview", null);
-            if (Choosen == null) return;
+
+			// PARTE RELATIVA AL FILTRO COSTRUITO CON L'AUSILIO DEL MOTORE AI
+
+			string error = "";
+			DataTable T = null;
+			string sql = "";
+
+			// GET DESCRIPTION
+			string sentence = txtDescrizione.Text;
+			string[] sortcodes = { };
+
+			// CALL API AI
+			if (!string.IsNullOrEmpty(sentence))
+				sortcodes = AI_getSiope(sentence, out error);
+			string filterAI = "";
+			// CHECK API RESULT FILTERED BY SIOPE  sortcodes 
+			if (sortcodes != null) {
+				if (string.IsNullOrEmpty(error) && sortcodes.Length > 0) {
+					// CREATE QUERY
+					string siope_ES = (AV.ToString().ToUpper() == "A") ? SPESE : ENTRATE;
+					sql = ListAIQuery(security.GetEsercizio(), siope_ES, filterEpOperation, sortcodes);
+
+					// GET DATATABLE
+					T = Conn.SQLRunner(sql);
+					if ((T != null) && (T.Rows.Count > 0)) {
+						string lista_idListing = QHS.DistinctVal(T.Select(), "idlist");
+						string FF = qhs.FieldInList("idlist", lista_idListing);
+						filterAI = qhs.AppAnd(filter, FF);
+					}
+				}
+			}
+			DataRow Choosen = null;
+			if (filterAI!="")
+				Choosen = Mlistino.SelectOne("ailist", filterAI, "listview", null);
+            
+			if (Choosen == null)
+				Choosen = Mlistino.SelectOne("default", filter, "listview", null);
+
+			if (Choosen == null) return;
 
             aggiornaListino(Choosen);
 
             return;
         }
 
-        private void riempiOggetti(DataRow listRow) {
+
+		private void riempiOggetti(DataRow listRow) {
             txtListino.Text = (listRow != null) ? listRow["intcode"].ToString() : "";
             txtDescrizioneListino.Text = (listRow != null) ? listRow["description"].ToString() : "";
             txtCoeffConversione.Text = (listRow != null) ? listRow["unitsforpackage"].ToString() : "";
@@ -4505,7 +4546,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             object idunit = Curr["idunit"];
 
             if (idpackage == null || idpackage == DBNull.Value) {
-                lblidpackage.Text = "Q.t‡";
+                lblidpackage.Text = "Q.t√†";
                 //lblImportoUnitario.Text = "Importo unitario";
             }
             else {
@@ -4543,7 +4584,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
         private void adeguaQuantitaTotale() {
             if (txtCoeffConversione.Text == "") {
-                // Se cancello il Coeff. di Conversione, la q.t‡ totale sar‡ uguale alla q.t‡ per l'imballo.
+                // Se cancello il Coeff. di Conversione, la q.t√† totale sar√† uguale alla q.t√† per l'imballo.
                 double npackage = CfgFn.GetNoNullDouble(txtQuantitaConfezioni.Text);
                 txtQuantita.Text = HelpForm.StringValue(npackage, "x.y");
                 return;
@@ -5107,7 +5148,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 }
             }
             enableDisableQuantita(Curr);
-            // Il check Ë sempre Abilitato, Ë il metodo a valutare se agire o meno.
+            // Il check √® sempre Abilitato, √® il metodo a valutare se agire o meno.
             //object ResiduoDettOrdine =  CalcolaResiduiDettaglioOrdine(Curr);
             //if (Meta.EditMode && EsisteContabilizzazioneDettOrdine(Curr) && CfgFn.GetNoNullDecimal(ResiduoDettOrdine) > 0) {
             //    chkResiduoOrdine.Enabled = true;
@@ -5116,7 +5157,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             //    chkResiduoOrdine.Enabled = false;
             //}
             if ((AV != null) && (AV.ToString().ToUpper() == "V")) {
-                cmbTipocessioneprestazione.Enabled = true; // Ë abilitato solo per le fatture di vendita
+                cmbTipocessioneprestazione.Enabled = true; // √® abilitato solo per le fatture di vendita
                 txtRiferimentoNormativo.ReadOnly = false;
             }
             else {
@@ -5153,6 +5194,8 @@ namespace invoicedetail_single //dettdocumentoivasingle//
         public string getFilterForMandateDetail(DataRow Curr) {
 			DataRow rInvoicedetail = Meta.SourceRow;
 			if (rInvoicedetail == null) return "";
+			bool monofase = Conn.RUN_SELECT_COUNT("expensephase", null, true) == 1 ? true : false;
+
 			DataRow rInvoice = rInvoicedetail.GetParentRow("invoiceinvoicedetail");
 			if (rInvoice == null) return "";
 			object idreg = rInvoice["idreg"];
@@ -5195,7 +5238,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             string filtercontab = null;
             string filtermandate = null;
             // Filtro contabilizzazione
-            if ((Curr["idexp_taxable"] != DBNull.Value) || (Curr["idexp_iva"] != DBNull.Value)) {                
+            if (((Curr["idexp_taxable"] != DBNull.Value) || (Curr["idexp_iva"] != DBNull.Value))&&(!monofase)){                
                 if (Curr["idexp_taxable"] != DBNull.Value) {
                     object idExpFaseImpegno_taxable = Conn.DO_READ_VALUE("expenselink",
                         QHS.AppAnd(QHS.CmpEq("idchild", Curr["idexp_taxable"]),
@@ -5220,7 +5263,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 }
                 else return "";
             }
-            // Filtro quantit‡ campo residual
+            // Filtro quantit√† campo residual
             decimal number = CfgFn.GetNoNullDecimal(Curr["number"]);
             string filternumber = QHS.CmpGe("residual", number);
 
@@ -5240,7 +5283,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             }
 
             if (Curr["idmankind"] != DBNull.Value && CfgFn.GetNoNullInt32(Curr["yman"]) >= minimoAnnoImpegniDiBudget) {
-                //Se la fattura Ë collegata a dettaglio C.P., prenderemo l'impegno di budget di quel dettaglio.
+                //Se la fattura √® collegata a dettaglio C.P., prenderemo l'impegno di budget di quel dettaglio.
                 string filterManDet = QHS.AppAnd(QHS.CmpEq("idmankind", Curr["idmankind"]), QHS.CmpEq("yman", Curr["yman"]),
                     QHS.CmpEq("nman", Curr["nman"]));
                 DataTable MandateDetail = Conn.RUN_SELECT("mandatedetail", "idepexp", null, filterManDet, null, true);
@@ -5313,7 +5356,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             int nphase = 2; // Accertamento
             string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", security.GetEsercizio()), QHS.CmpEq("nphase", nphase));
 
-            //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.
+            //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.
             if (Curr["idestimkind"] != DBNull.Value && CfgFn.GetNoNullInt32(Curr["yestim"]) >= minimoAnnoImpegniDiBudget) {
                 string filterEstimDet = QHS.AppAnd(QHS.CmpEq("idestimkind", Curr["idestimkind"]),
                 QHS.CmpEq("yestim", Curr["yestim"]),
@@ -5349,7 +5392,9 @@ namespace invoicedetail_single //dettdocumentoivasingle//
         }
 
         public string getFilterForEstimateDetail(DataRow Curr) {
-            DataRow rInvoicedetail = Meta.SourceRow;
+			bool monofase = Conn.RUN_SELECT_COUNT("incomephase", null, true) == 1 ? true : false;
+
+			DataRow rInvoicedetail = Meta.SourceRow;
             DataRow rInvoice = rInvoicedetail.GetParentRow("invoiceinvoicedetail");
             object idreg = rInvoice["idreg"];
             string regfilter = QHS.CmpEq("idreg", idreg);
@@ -5363,7 +5408,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             string filtercontab = null;
             string filterestimate = null;
             // Filtro contabilizzazione
-            if ((Curr["idinc_taxable"] != DBNull.Value) || (Curr["idinc_iva"] != DBNull.Value)) {
+            if (((Curr["idinc_taxable"] != DBNull.Value) || (Curr["idinc_iva"] != DBNull.Value))&&(!monofase)){
                 object idExpFaseAccertamento_taxable = Conn.DO_READ_VALUE("incomelink",
                     QHS.AppAnd(QHS.CmpEq("idchild", Curr["idinc_taxable"]),
                         QHS.CmpEq("nlevel", security.GetSys("estimatephase"))), "idparent");
@@ -5385,7 +5430,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 }
                 else return "";
             }
-            // Filtro quantit‡ campo residual
+            // Filtro quantit√† campo residual
             decimal number = CfgFn.GetNoNullDecimal(Curr["number"]);
             string filternumber = QHS.CmpGe("residual", number);
 
@@ -5633,12 +5678,12 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             MetaData.GetFormData(this, true);
 
             if (Curr["idmankind"] != DBNull.Value) {
-                show("Non Ë previsto associare un preimpegno a fatture collegate a contratti", "Avviso");
+                show("Non √® previsto associare un preimpegno a fatture collegate a contratti", "Avviso");
                 return;
             }
 
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'impegno di budget",
+                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -5664,7 +5709,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
             DataRow Curr = DS.invoicedetail.Rows[0];
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'impegno di budget",
+                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -5711,7 +5756,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
 				//	string listaidaccmotive = QHS.DistinctVal(invdetail_accmotive.Select(), "idaccmotive");
 
-				//	// L'utente puÚ scegliere la causale desiderata da un elenco 
+				//	// L'utente pu√≤ scegliere la causale desiderata da un elenco 
 				//	MetaData accmotive = MetaData.GetMetaData(this, "accmotive");
 				//	accmotive.DS = DS.Clone();
 				//	accmotive.FilterLocked = true;
@@ -5803,5 +5848,284 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			if (txtRownum_Main.Text == "") return;
 			btnCollegaRigaFatturaMadre_Click(sender, e);
 		}
+
+		private const string ENTRATE = "entrate";
+		private const string SPESE = "spese";
+
+		private void btnCausale_Click(object sender, EventArgs e)
+		{
+			string error = "";
+
+			DataTable T = null;
+			string sql = "";
+
+			// GET DESCRIPTION
+			string sentence = txtDescrizione.Text;
+
+			
+			string[] sortcodes = { };
+
+			// CALL API AI
+			if (!string.IsNullOrEmpty(sentence))
+				sortcodes = AI_getSiope(sentence, out error);
+
+			// CHECK API RESULT
+			if (sortcodes != null)
+			{
+				if (string.IsNullOrEmpty(error) && sortcodes.Length > 0)
+				{
+					// CREATE QUERY
+					string siope_ES = (AV.ToString().ToUpper() == "A") ? SPESE : ENTRATE;
+					sql = accMotiveQry(security.GetEsercizio(), siope_ES, filterEpOperation, sortcodes);
+
+					// GET DATATABLE
+					T = Conn.SQLRunner(sql);
+				}
+			}
+
+			if ((T != null) && (T.Rows.Count > 0)) {
+				string lista_idaccmotive = QHS.DistinctVal(T.Select(), "idaccmotive");
+				string FF = qhs.FieldInList("idaccmotive", lista_idaccmotive);
+
+				MetaData Mcausali = MetaData.GetMetaData(this, "accmotiveapplied");
+				Mcausali.FilterLocked = true;
+				Mcausali.DS = DS.Clone();
+				FF = qhs.AppAnd(FF, filterEpOperation);
+
+				DataRow[] Selected = null;
+                Frm_scegliCausaleAI F = new Frm_scegliCausaleAI(Meta, sql);
+                createForm(F, this);
+                if (F.ShowDialog(this) != DialogResult.OK) {
+					//Se non ho selezionato niente, apre il Tree
+					MetaData.DoMainCommand(this, "manage.accmotiveapplied.tree." + filterEpOperation);
+					return;
+				}
+				else { 
+					Selected = F.SelectedRows; 
+				}
+				if ((Selected!=null)&& (Selected.Length > 0)) {
+					//Se ho seelzioanto qualcosa, compila gli altri campi
+					DataRow rSelected = Selected[0];
+
+					// =====================================
+					// Causale
+					// =====================================
+					DS.invoicedetail.Rows[0]["detaildescription"] = txtDescrizione.Text;
+                    DS.invoicedetail.Rows[0]["idaccmotive"] = rSelected["idaccmotive"];
+                    DS.invoicedetail.Rows[0]["idsor_siope"] = rSelected["idsor"];
+
+                    Meta.myGetData.GetTemporaryValues(DS.invoicedetail);
+                    Meta.FreshForm(true);
+                }
+			}
+			else {
+				//Se la query non restituisce nulla, apre il Tree
+				MetaData.DoMainCommand(this, "manage.accmotiveapplied.tree." + filterEpOperation);
+			}
+
+		}
+
+		private string[] AI_getSiope(string sentence, out string error)
+		{
+			error = "";
+			string api_url = "";
+			int nresp = 5;
+			string[] list = null;
+
+			// Acquisto o Vendita
+			string av_type = AV.ToString().ToUpper() == "A" ? "A" : "V";
+
+			// url										param
+			// http://deepblue:4545/siope/acquisti		5|entrate
+			DataTable SIOPE_EndPoint = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code", $"SIOPEURL_{av_type}"), null, true);
+
+			// Se non ci sono righe il servizio di AI non √® configurato
+			if (SIOPE_EndPoint.Rows.Count <= 0)
+				return list;
+
+			// 5|entrate
+			string api_param = SIOPE_EndPoint.Rows[0]["param"].ToString();
+			if (string.IsNullOrEmpty(api_param))
+				return list;
+
+			string[] par = api_param.Split('|');
+			if (par.Length > 2)
+			{
+				// http://deepblue:4545/siope/acquisti
+				// http://10.10.10.183:4545/siope/acquisti;
+				api_url = par[0];
+				// N
+				int nr = 0;
+				int.TryParse(par[1], out nr);
+				if (nr > 0)
+					nresp = nr;
+			}
+
+			if (string.IsNullOrEmpty(api_url))
+				return list;
+
+			string clientUrl = $"{api_url}?sentence={sentence}&nresp={nresp}";
+
+			string token;
+            try {
+				token = par[3];
+            }
+            catch (Exception) {
+				error = $"{"Configurazione errata."}";
+				return list;
+			}
+
+			using (HttpClient client = new HttpClient())
+			{
+				client.DefaultRequestHeaders.Add("psk", token);
+				client.Timeout = new TimeSpan(0, 1, 0);
+				// =========================
+				// GET
+				// =========================
+				HttpResponseMessage response = new HttpResponseMessage();
+				try {
+					var taskResponse = Task.Run(async () => await client.GetAsync(clientUrl));
+					response = taskResponse.GetAwaiter().GetResult();
+				}
+				catch (Exception Ex) {
+					// error = Ex.Message;
+					//Se il servizio per qualche motivo non risponde, esce. Non fornisce alcun messaggio all'utente, ma cosa deve essere trasparente.
+					error = $"{"Il serviziodi Intelligenza Artificiale non √® attivo."}";
+					return list;
+				}
+
+				// Success ?
+				if (response.IsSuccessStatusCode)
+				{
+					// Response
+					var taskResponseBody = Task.Run(async () => await response.Content.ReadAsStringAsync());
+					string responseBody = taskResponseBody.GetAwaiter().GetResult();
+					if (responseBody.Contains("errDetails"))
+					{
+						error = $"{"Failed to call API: " + responseBody}";
+					}
+					else
+					{
+						try
+						{
+							list = responseBody.Replace("[", "").Replace("]", "").Replace("\n", "").Replace("\r", "").Replace(" ", "").Split(',');
+						}
+						catch (Exception Ex)
+						{
+							error = Ex.Message;
+						}
+					}
+				}
+				else
+				{
+					error = $"{"Failed to call API: " + response.ReasonPhrase}";
+				}
+			}
+
+			return list;
+		}
+
+		/// <summary>
+		/// esercizio = 2022
+		/// tipo = entrate, spese
+		/// idepoperation = (idepoperation='fatven')AND((flagamm IS NULL)OR(flagamm='S'))
+		/// sortcodes = [ 1030102999, 1030102007, 1030105006, 2020199001, 1030102001 ]
+		/// </summary>
+		/// <param name="esercizio"></param>
+		/// <param name="tipo"></param>
+		/// <param name="idepoperation"></param>
+		/// <param name="sortcodes"></param>
+		/// <returns></returns>
+		private string accMotiveQry(int esercizio, string tipo, string idepoperation, string[] sortcodes)
+		{
+			string qry = $@"
+SELECT 
+	CASE
+		WHEN priority IS null
+		THEN null
+		ELSE ROW_NUMBER() OVER (ORDER BY isnull(priority, 100), codemotive)
+	END as AI,
+accmotive.*
+FROM (
+	SELECT a.*, s.idsor, s.sortcode, s.description
+	FROM accmotiveapplied a
+	JOIN accmotivesorting asor ON a.idaccmotive = asor.idaccmotive
+	JOIN sorting s ON s.idsor = asor.idsor
+	JOIN sortingkind sk ON sk.idsorkind = s.idsorkind
+	JOIN siopekind spk ON spk.codesorkind_siope{tipo} = sk.codesorkind
+	WHERE spk.ayear = {esercizio}
+	and {idepoperation}
+	and in_use = 'S'
+) accmotive";
+
+			if ((sortcodes != null) && (sortcodes.Length>0)) {
+				string prioritySelect = string.Join("\r\n\t\tunion\r\n\t\t", sortcodes.Select((s, i) => $"select {i} as priority, '{s}' as sortcode"));
+				qry += $@"
+INNER JOIN (
+	SELECT priority, sortcode FROM (
+		{prioritySelect}
+	) sel
+) aipriority ON accmotive.sortcode = aipriority.sortcode";
+			}
+			
+			qry += @"
+ORDER BY ISNULL(priority, 100), codemotive";
+
+			return qry;
+		}
+
+
+		/// </summary>
+		/// <param name="esercizio"></param>
+		/// <param name="tipo"></param>
+		/// <param name="idepoperation"></param>
+		/// <param name="sortcodes"></param>
+		/// <returns></returns>
+		/// // filtro i listini, le classificazioni merceologiche e le causali EP che sono compatibili con i codici Siope restituiti dal servizio AI
+		/// // con lo scopo di ottenere un elenco guidato di voci di listino 
+		private string ListAIQuery(int esercizio, string tipo, string idepoperation, string[] sortcodes) {
+			string qry = $@"
+			SELECT 
+				CASE
+					WHEN priority IS null
+					THEN null
+					ELSE ROW_NUMBER() OVER (ORDER BY isnull(priority, 100), codemotive)
+				END as AI,
+			listview.*
+			FROM (
+				SELECT l.*, lc.title, a.idaccmotive, a.codemotive, s.idsor, s.sortcode, s.description as siope
+				FROM list l
+				JOIN listclass lc ON l.idlistclass = lc.idlistclass
+				JOIN accmotiveapplied a ON lc.idaccmotive = a.idaccmotive
+				JOIN accmotivesorting asor ON a.idaccmotive = asor.idaccmotive
+				JOIN sorting s ON s.idsor = asor.idsor
+				JOIN sortingkind sk ON sk.idsorkind = s.idsorkind
+				JOIN siopekind spk ON spk.codesorkind_siope{tipo} = sk.codesorkind
+				WHERE spk.ayear = {esercizio}
+				and {idepoperation}
+				and in_use = 'S'
+			) listview";
+
+			if ((sortcodes != null) && (sortcodes.Length > 0)) {
+				string prioritySelect = string.Join("\r\n\t\tunion\r\n\t\t", sortcodes.Select((s, i) => $"select {i} as priority, '{s}' as sortcode"));
+				qry += $@"
+				INNER JOIN (
+					SELECT priority, sortcode FROM (
+						{prioritySelect}
+					) sel
+				) aipriority ON listview.sortcode = aipriority.sortcode";
+							}
+
+							qry += @"
+				ORDER BY ISNULL(priority, 100)";
+
+							return qry;
+		}
 	}
 }
+
+
+
+ 
+ 
+

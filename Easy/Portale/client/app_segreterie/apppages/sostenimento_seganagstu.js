@@ -32,7 +32,7 @@
 				
 				if (self.isNullOrMinDate(parentRow.data))
 					parentRow.data = new Date();
-				if (!parentRow.votolode)
+				if (this.isNull(parentRow.votolode) || parentRow.votolode == '')
 					parentRow.votolode = "N";
 				//beforeFillFilter
 				
@@ -52,7 +52,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#sostenimento_seganagstu_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#sostenimento_seganagstu_protanno'), false);
@@ -64,6 +70,7 @@
 				var self = this;
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("sostenimentoesitodefaultview"), this.q.eq('sostenimentoesito_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -95,6 +102,8 @@
 
 			//insertClick
 
+			//beforePost
+
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.idreg_istituto;
 				var idreg_destinazione = that.idreg_istituto;
@@ -102,6 +111,7 @@
 				var idprotocollodockind = 5;
 				var arrayTablesToProtocol = ['sostenimento'];
 				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.idsostenimento;
+
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -120,7 +120,9 @@ namespace meta_invoiceview//meta_documentoivaview//
 			    DescribeAColumn(T, "cc_dedicato", "CC dedicato", pos++);
 			    DescribeAColumn(T, "visura_camerale", "Visura Camerale", pos++);
 			    DescribeAColumn(T, "durc", "Durc", pos++);
-			}
+                DescribeAColumn(T, "codenocigmotive", "Cod. Esclusione CIG", pos++);
+                DescribeAColumn(T, "nocigmotive", "Motivo Esclusione CIG", pos++);
+            }
             if (ListingType=="fecollegata") {
                 foreach (DataColumn C in T.Columns)
                     DescribeAColumn(T, C.ColumnName, "", -1);

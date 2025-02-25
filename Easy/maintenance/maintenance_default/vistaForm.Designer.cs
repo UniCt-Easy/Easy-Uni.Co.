@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,32 +26,26 @@ using System.Runtime.Serialization;
 namespace maintenance_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventory 		=> Tables["inventory"];
 
-	///<summary>
-	///Tipo Manutenzione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable maintenancekind 		=> Tables["maintenancekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable maintenanceview 		=> Tables["maintenanceview"];
 
-	///<summary>
-	///Manutenzione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable maintenance 		=> Tables["maintenance"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetpieceview 		=> Tables["assetpieceview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable maintenanceattachment 		=> Tables["maintenanceattachment"];
 
 	#endregion
 
@@ -288,8 +282,45 @@ private void initClass() {
 	tassetpieceview.Columns.Add(C);
 	tassetpieceview.Columns.Add( new DataColumn("cost", typeof(decimal)));
 	tassetpieceview.Columns.Add( new DataColumn("abatable", typeof(decimal)));
+	C= new DataColumn("idsor01", typeof(int));
+	C.ReadOnly=true;
+	tassetpieceview.Columns.Add(C);
+	C= new DataColumn("idsor02", typeof(int));
+	C.ReadOnly=true;
+	tassetpieceview.Columns.Add(C);
+	C= new DataColumn("idsor03", typeof(int));
+	C.ReadOnly=true;
+	tassetpieceview.Columns.Add(C);
+	C= new DataColumn("idsor04", typeof(int));
+	C.ReadOnly=true;
+	tassetpieceview.Columns.Add(C);
+	C= new DataColumn("idsor05", typeof(int));
+	C.ReadOnly=true;
+	tassetpieceview.Columns.Add(C);
+	tassetpieceview.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tassetpieceview.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tassetpieceview.Columns.Add( new DataColumn("idsor3", typeof(int)));
 	Tables.Add(tassetpieceview);
 	tassetpieceview.PrimaryKey =  new DataColumn[]{tassetpieceview.Columns["idasset"], tassetpieceview.Columns["idpiece"]};
+
+
+	//////////////////// MAINTENANCEATTACHMENT /////////////////////////////////
+	var tmaintenanceattachment= new DataTable("maintenanceattachment");
+	C= new DataColumn("nmaintenance", typeof(int));
+	C.AllowDBNull=false;
+	tmaintenanceattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tmaintenanceattachment.Columns.Add(C);
+	tmaintenanceattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tmaintenanceattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tmaintenanceattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tmaintenanceattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tmaintenanceattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tmaintenanceattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tmaintenanceattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tmaintenanceattachment);
+	tmaintenanceattachment.PrimaryKey =  new DataColumn[]{tmaintenanceattachment.Columns["nmaintenance"], tmaintenanceattachment.Columns["idattachment"]};
 
 
 	#endregion
@@ -307,6 +338,10 @@ private void initClass() {
 	cPar = new []{maintenancekind.Columns["idmaintenancekind"]};
 	cChild = new []{maintenance.Columns["idmaintenancekind"]};
 	Relations.Add(new DataRelation("maintenancekindmaintenance",cPar,cChild,false));
+
+	cPar = new []{maintenance.Columns["nmaintenance"]};
+	cChild = new []{maintenanceattachment.Columns["nmaintenance"]};
+	Relations.Add(new DataRelation("maintenance_maintenanceattachment",cPar,cChild,false));
 
 	#endregion
 

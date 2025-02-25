@@ -41,7 +41,9 @@
 					var title = r.ore + ' ore';
 					if(r.idrendicontaltrokind) {
 						var tipoRows = self.getDataTable("rendicontaltrokind").select(self.q.eq('idrendicontaltrokind', r.idrendicontaltrokind));
-						title += ' per ' + tipoRows[0].title;
+						if (tipoRows.length) {
+							title += ' per ' + tipoRows[0].title;
+						}
 					}
 					r['!title'] = title;
 				});				if (this.state.isSearchState()) {
@@ -58,11 +60,6 @@
 					this.helpForm.filter($('#registry_docenti_docente_idstruttura'), null);
 				} else {
 					this.helpForm.filter($('#registry_docenti_docente_idstruttura'), this.q.eq('struttura_active', 'Si'));
-				}
-				if (this.state.isSearchState()) {
-					this.helpForm.filter($('#registry_docenti_docente_idclassconsorsuale'), null);
-				} else {
-					this.helpForm.filter($('#registry_docenti_docente_idclassconsorsuale'), this.q.eq('classconsorsuale_active', 'Si'));
 				}
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_docenti_docente_idreg_istituti'), null);
@@ -112,8 +109,6 @@
 				this.enableControl($('#registry_docenti_docente_idstruttura'), true);
 				this.helpForm.filter($('#registry_docenti_docente_idstruttura'), null);
 				this.enableControl($('#registry_docenti_docente_idsasd'), true);
-				this.enableControl($('#registry_docenti_docente_idclassconsorsuale'), true);
-				this.helpForm.filter($('#registry_docenti_docente_idclassconsorsuale'), null);
 				this.enableControl($('#registry_docenti_docente_idreg_istituti'), true);
 				this.helpForm.filter($('#registry_docenti_docente_idreg_istituti'), null);
 				this.enableControl($('#registry_docenti_docente_idfonteindicebibliometrico'), true);
@@ -121,10 +116,12 @@
 				this.enableControl($('#registry_docenti_docente_activeSi'), true);
 				this.enableControl($('#registry_docenti_docente_activeNo'), true);
 				this.enableControl($('#registry_docenti_docente_idreg'), true);
+				this.enableControl($('#registry_docenti_docente_idanpr'), true);
 				this.enableControl($('#registry_docenti_docente_badgecode'), true);
 				this.enableControl($('#registry_docenti_docente_annotation'), true);
 				this.enableControl($('#registry_docenti_docente_multi_cfSi'), true);
 				this.enableControl($('#registry_docenti_docente_multi_cfNo'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				//afterClearin
 				
 				//afterClearInAsyncBase
@@ -149,10 +146,9 @@
 				this.setDenyNull("registry","forename");
 				this.setDenyNull("registry","gender");
 				this.setDenyNull("registry","birthdate");
-				this.setDenyNull("registry","idcity");
 				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
 				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
-				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
+				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
 				$('#grid_progettotimesheet_datipersonali').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -226,17 +222,18 @@
 				this.enableControl($('#registry_docenti_docente_soggiorno'), false);
 				this.enableControl($('#registry_docenti_docente_idstruttura'), false);
 				this.enableControl($('#registry_docenti_docente_idsasd'), false);
-				this.enableControl($('#registry_docenti_docente_idclassconsorsuale'), false);
 				this.enableControl($('#registry_docenti_docente_idreg_istituti'), false);
 				this.enableControl($('#registry_docenti_docente_idfonteindicebibliometrico'), false);
 				this.enableControl($('#registry_docenti_docente_indicebibliometrico'), false);
 				this.enableControl($('#registry_docenti_docente_activeSi'), false);
 				this.enableControl($('#registry_docenti_docente_activeNo'), false);
 				this.enableControl($('#registry_docenti_docente_idreg'), false);
+				this.enableControl($('#registry_docenti_docente_idanpr'), false);
 				this.enableControl($('#registry_docenti_docente_badgecode'), false);
 				this.enableControl($('#registry_docenti_docente_annotation'), false);
 				this.enableControl($('#registry_docenti_docente_multi_cfSi'), false);
 				this.enableControl($('#registry_docenti_docente_multi_cfNo'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
 				//afterFillin
 
 				var self = this;
@@ -265,8 +262,8 @@
 					return that.showMessageOk('Occorre indicare chi svolge l\'attività e salvare');
 
 				const today = new Date(); // Data corrente
-				const start = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-				const stop = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+				const start = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
+				const stop = new Date(today.getFullYear() + 3, today.getMonth(), today.getDate());
 
 				let maxHoursPerDayTable = null;
 				let idreg = that.state.currentRow.idreg;

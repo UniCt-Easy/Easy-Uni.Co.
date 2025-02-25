@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,16 +35,16 @@ namespace meta_position//meta_qualifica//
 		public Meta_position(DataAccess Conn, MetaDataDispatcher Dispatcher):
 			base(Conn, Dispatcher, "position") 
 		{
-			EditTypes.Add("lista");
+			EditTypes.Add("default");
 			ListingTypes.Add("default");
 		}
 		protected override Form GetForm(string FormName)
 		{
-			if (FormName=="lista") 
+			if (FormName== "default") 
 			{
 				Name = "Qualifica";
 				DefaultListType = "default";
-				return MetaData.GetFormByDllName("position_lista");//PinoRana
+				return MetaData.GetFormByDllName("position_default");//PinoRana
 			}
 			if (FormName=="riepilogo") {
 				Name = "Verifica Inquadramento";
@@ -70,7 +70,11 @@ namespace meta_position//meta_qualifica//
                 DescribeAColumn(T, "codeposition", ".#", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "maxincomeclass", "Classe Stip. Max", nPos++);
-                DescribeAColumn(T, "foreignclass", "Classe di appartenenza per Miss.all'estero", nPos++);
+				DescribeAColumn(T, "foreignclass", "Classe di appartenenza per Miss.all'estero", nPos++);
+				DescribeAColumn(T, "tipopersonale", "Categoria di personale", nPos++);
+				DescribeAColumn(T, "title", "Descrizione ruolo giuridico", nPos++);
+				DescribeAColumn(T, "siglaesportazione", "Sigla esportazione", nPos++);
+				DescribeAColumn(T, "siglaimportazione", "Sigla importazione", nPos++);
 				DescribeAColumn(T, "assegnoaggiuntivo", "Abilita assegno aggiuntivo", nPos++);
 				DescribeAColumn(T, "costolordoannuo", "	Costo lordo annuo", nPos++);
 				DescribeAColumn(T, "costolordoannuooneri", "Costo lordo annuo e oneri", nPos++);
@@ -96,11 +100,8 @@ namespace meta_position//meta_qualifica//
 				DescribeAColumn(T, "orestraordinariemax", "Ore massime di straordinario rendicontabili", nPos++);
 				DescribeAColumn(T, "parttime", "Abilita part-time", nPos++);
 				DescribeAColumn(T, "puntiorganico", "Punti organico", nPos++);
-				DescribeAColumn(T, "siglaesportazione", "Sigla esportazione", nPos++);
-				DescribeAColumn(T, "siglaimportazione", "Sigla importazione", nPos++);
 				DescribeAColumn(T, "tempdef", "Abilita tempo definito o parziale", nPos++);
 				DescribeAColumn(T, "tipoente", "Tipo ente", nPos++);
-				DescribeAColumn(T, "tipopersonale", "Categoria di personale", nPos++);
 				DescribeAColumn(T, "totaletredicesima", "Abilita totale tredicesima", nPos++);
 				DescribeAColumn(T, "tredicesimaindennitaintegrativaspeciale", "Abilita tredicesima indennità integrativa speciale", nPos++);
 

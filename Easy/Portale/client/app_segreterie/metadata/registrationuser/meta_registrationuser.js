@@ -40,6 +40,7 @@
 						this.describeAColumn(table, 'email', 'E-Mail', null, 50, 1024);
 						this.describeAColumn(table, 'login', 'Login', null, 60, 60);
 						this.describeAColumn(table, 'usertype', 'Categoria di utente', null, 70, 50);
+						this.describeAColumn(table, 'requesttimestamp', 'Data della richiesta', 'g', 110, null);
 //$objCalcFieldConfig_usr$
 						break;
 //$objCalcFieldConfig$
@@ -57,6 +58,7 @@
 						table.columns["email"].caption = "E-Mail";
 						table.columns["forename"].caption = "Nome";
 						table.columns["idregistrationuserstatus"].caption = "Stato della richiesta";
+						table.columns["requesttimestamp"].caption = "Data della richiesta";
 						table.columns["surname"].caption = "Cognome";
 						table.columns["userkind"].caption = "Tipologia di accesso";
 						table.columns["usertype"].caption = "Categoria di utente";

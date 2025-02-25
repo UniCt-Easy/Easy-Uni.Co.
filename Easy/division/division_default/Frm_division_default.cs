@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -53,6 +53,11 @@ namespace division_default {//sezione//
 		private System.Windows.Forms.Button btnIndModifica;
 		private System.Windows.Forms.Button btnIndInserisci;
 		private Crownwood.Magic.Controls.TabControl MagicTab;
+		private Crownwood.Magic.Controls.TabPage tabAllegati;
+		private System.Windows.Forms.DataGrid dataGridAllegati;
+		private System.Windows.Forms.Button btnDelAtt;
+		private System.Windows.Forms.Button btnEditAtt;
+		private System.Windows.Forms.Button btnInsAtt;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox3;
@@ -125,6 +130,11 @@ namespace division_default {//sezione//
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.MagicTab = new Crownwood.Magic.Controls.TabControl();
+			this.tabAllegati = new Crownwood.Magic.Controls.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button(); 
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.ClassSup = new Crownwood.Magic.Controls.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -139,6 +149,8 @@ namespace division_default {//sezione//
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DS = new division_default.vistaForm();
             this.MagicTab.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
             this.ClassSup.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrIndirizzo)).BeginInit();
@@ -326,8 +338,64 @@ namespace division_default {//sezione//
             this.MagicTab.TabIndex = 1;
             this.MagicTab.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.Generalita,
-            this.ClassSup});
+            this.ClassSup,
+			this.tabAllegati});
             // 
+			// tabAllegati
+			// 
+			this.tabAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+            this.tabAllegati.Location = new System.Drawing.Point(0, 0);
+            this.tabAllegati.Name = "tabAllegati";
+            this.tabAllegati.Selected = false;
+            this.tabAllegati.Size = new System.Drawing.Size(544, 328);
+            this.tabAllegati.TabIndex = 15;
+            this.tabAllegati.Title = "Allegati";
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "divisionattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -508,7 +576,9 @@ namespace division_default {//sezione//
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.ResumeLayout(false);
+            this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
+			this.ResumeLayout(false);
 
 		}
 		#endregion

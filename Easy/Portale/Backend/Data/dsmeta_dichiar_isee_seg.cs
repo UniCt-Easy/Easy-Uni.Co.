@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_dichiar_isee_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_dichiar_isee_seg: DataSet {
+public partial class dsmeta_dichiar_isee_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -87,12 +87,8 @@ private void initClass() {
 	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
 	var tregistrystudentiview= new MetaTable("registrystudentiview");
 	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
 	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
+	tregistrystudentiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrystudentiview);
 	tregistrystudentiview.defineKey("idreg");
 
@@ -151,7 +147,7 @@ private void initClass() {
 
 	cPar = new []{dichiar.Columns["iddichiar"], dichiar.Columns["idreg"]};
 	cChild = new []{dichiar_isee.Columns["iddichiar"], dichiar_isee.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_dichiar_isee_dichiar_iddichiar-idreg-",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_dichiar_isee_dichiar_iddichiar-idreg",cPar,cChild,false));
 
 	#endregion
 

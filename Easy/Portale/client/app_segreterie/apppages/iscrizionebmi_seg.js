@@ -67,6 +67,7 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#iscrizionebmi_seg_idreg'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizionebmi'), this.getDataTable('cefrlanglevel'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
@@ -74,6 +75,8 @@
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('convalida_alias2'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('cefrlanglevel_alias3'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -88,7 +91,7 @@
 
 			afterLink: function () {
 				var self = this;
-				appMeta.metaModel.computeRowsAs(this.state.DS.tables.cefrlanglevel, "default", this.superClass.calculateFields);
+				appMeta.metaModel.computeRowsAs(this.state.DS.tables.cefrlanglevel, "ibmi", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("cefrlanglevel");
 				$("#btn_add_iscrizionebmiattach_idattach").on("click", _.partial(this.searchAndAssignattach, self));
 				$("#btn_add_iscrizionebmiattach_idattach").prop("disabled", true);
@@ -96,6 +99,7 @@
 				$("#btn_add_iscrizionebmirequisito_idiscrizionebmi").prop("disabled", true);
 				this.setDenyNull("iscrizionebmi","idiscrizione");
 				this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.registrystudentiview);
+				appMeta.metaModel.insertFilter(this.getDataTable("cefrdefaultview"), this.q.eq('cefr_active', 'Si'));
 				$('#grid_learningagrtrainer_seg').data('mdlconditionallookup', 'assicurazienda,S,Si;assicurazienda,N,No;assicuraziendacivile,S,Si;assicuraziendacivile,N,No;assicuraziendaspost,S,Si;assicuraziendaspost,N,No;assicuraziendaviagg,S,Si;assicuraziendaviagg,N,No;assicuristituto,S,Si;assicuristituto,N,No;assicuristitutocivile,S,Si;assicuristitutocivile,N,No;assicuristitutospost,S,Si;assicuristitutospost,N,No;assicuristitutoviagg,S,Si;assicuristitutoviagg,N,No;registrainemd,S,Si;registrainemd,N,No;registraintor,S,Si;registraintor,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -107,8 +111,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-iscrizionebmi_seg");
-				$('#iscrizionebmi_seg_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizionebmi_seg_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#iscrizionebmi_seg_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#iscrizionebmi_seg_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				//afterRowSelectin
 				return def.resolve();
 			},

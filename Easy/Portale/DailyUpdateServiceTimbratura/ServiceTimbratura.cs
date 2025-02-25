@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -24,15 +24,17 @@ namespace DailyUpdateServiceTimbratura
 {
     public partial class ServiceTimbratura : ServiceBase
 	{
-        // Costo Orario
+		private string _logFileName = "__WindowsServiceLog.txt";
+
+		// Costo Orario
 		private int CostoOrario_hh = 0;
         private int CostoOrario_mm = 0;
-		private Timer timerCostoOrario;
+		private Timer timerCostoOrario = new Timer();
 
         // Timbratura
 		private int Timbrature_hh = 0;
         private int Timbrature_mm = 0;
-        private Timer timerTimbrature;
+        private Timer timerTimbrature = new Timer();
 
         public ServiceTimbratura()
         {
@@ -41,28 +43,39 @@ namespace DailyUpdateServiceTimbratura
 
         protected override void OnStart(string[] args)
         {
-            inf("Service Started");
+			logInfo("Service Started");
 
-			// ====================================================================================================================
-			// Read App Setting
-			// ====================================================================================================================
-			Timbratura.getInfo(out bool enableCostoOrario, out bool enableTimbratura, out string hourStartCostoOrario, out string hourStartTimbratura);
+            // ====================================================================================================================
+            // Read App Setting
+            // ====================================================================================================================
+            Timbratura.getInfo(out bool enableCostoOrario, out bool enableTimbratura, out string hourStartCostoOrario, out string hourStartTimbratura);
 
-			inf($"{(enableCostoOrario ? $"CostoOrario Start at {hourStartCostoOrario}" : "CostoOrario Disabled")}\r\n" +
-                $"{(enableTimbratura ? $"Timbratura Start at {hourStartTimbratura}" : "Timbratura Disabled")}\r\n");
+            //bool enableCostoOrario = true;
+            //bool enableTimbratura = true;
+            //string hourStartCostoOrario = "16:00";
+            //string hourStartTimbratura = "16:20";
+
+
+			logInfo($"{(enableCostoOrario ? $"CostoOrario Start at {hourStartCostoOrario}" : "CostoOrario Disabled")} - " +
+                    $"{(enableTimbratura ? $"Timbratura Start at {hourStartTimbratura}" : "Timbratura Disabled")}");
 
 			// ====================================================================================================================
 			// CostoOrario
 			// ====================================================================================================================
             if (enableCostoOrario)
 			{
+				// HH:mm
 				CostoOrario_hh = int.Parse(hourStartCostoOrario.Split(':')[0]);
 				CostoOrario_mm = int.Parse(hourStartCostoOrario.Split(':')[1]);
 
+				// Intervallo
 				double interval = CalcInterval(CostoOrario_hh, CostoOrario_mm, 0);
-                timerCostoOrario = new Timer(interval);
-                timerCostoOrario.Elapsed += new ElapsedEventHandler(OnTimerElapsedCostoOrario);
-                timerCostoOrario.Enabled = enableCostoOrario;
+				// logInfo("Next Costo orario in " + FormatMilliseconds(interval));
+
+				// Timbrature
+				timerCostoOrario.Elapsed += new ElapsedEventHandler(OnTimerElapsedCostoOrario);
+				timerCostoOrario.Interval = interval;
+				timerCostoOrario.Enabled = enableCostoOrario;
             }
 
 			// ====================================================================================================================
@@ -70,40 +83,71 @@ namespace DailyUpdateServiceTimbratura
 			// ====================================================================================================================
             if (enableTimbratura)
 			{
+				// HH:mm
 				Timbrature_hh = int.Parse(hourStartTimbratura.Split(':')[0]);
 				Timbrature_mm = int.Parse(hourStartTimbratura.Split(':')[1]);
+				
+				// Intervallo
+				double interval = CalcInterval(Timbrature_hh, Timbrature_mm, 0);
+				// logInfo("Next Timbratura in " + FormatMilliseconds(interval));
 
 				// Timbrature
-				double interval = CalcInterval(Timbrature_hh, Timbrature_mm, 0);
-                timerTimbrature = new Timer(interval);
-                timerTimbrature.Elapsed += new ElapsedEventHandler(OnTimerElapsedTimbrature);
-                timerTimbrature.Enabled = enableTimbratura;
+				timerTimbrature.Elapsed += new ElapsedEventHandler(OnTimerElapsedTimbrature);
+				timerTimbrature.Interval = interval;
+				timerTimbrature.Enabled = enableTimbratura;
             }
         }
 
         protected override void OnStop()
         {
-            timerTimbrature.Dispose();
+			timerTimbrature.Enabled = false;
+			timerCostoOrario.Enabled = false;
+			timerTimbrature.Dispose();
             timerCostoOrario.Dispose();
 
-            inf("Service Stopped");
+			logInfo("Service Stopped");
         }
 
         private void OnTimerElapsedTimbrature(object sender, ElapsedEventArgs e)
         {
-            Timbratura timbratura = new Timbratura();
+			// Prossimo Intervallo
+			double interval = CalcInterval(Timbrature_hh, Timbrature_mm, 0);
+			// logInfo("Next Timbratura in " + FormatMilliseconds(interval));
+
+			// Timbrature
+			timerTimbrature.Interval = interval;
+			Timbratura timbratura = new Timbratura();
             timbratura.DoUpdateTimbrature();
-            timerTimbrature.Interval = CalcInterval(Timbrature_hh, Timbrature_mm, 0);
-        }
+
+		}
 
         private void OnTimerElapsedCostoOrario(object sender, ElapsedEventArgs e)
         {
-            Timbratura timbratura = new Timbratura();
-            timbratura.DoUpdateCostoOrario();
-            timerCostoOrario.Interval = CalcInterval(CostoOrario_hh, CostoOrario_mm, 0);
-        }
+			// Prossimo Intervallo
+			double interval = CalcInterval(CostoOrario_hh, CostoOrario_mm, 0);
+			// logInfo("Next Costo orario in " + FormatMilliseconds(interval));
 
-        private double CalcInterval(int hh, int mm, int ss)
+			timerCostoOrario.Interval = interval;
+			Timbratura timbratura = new Timbratura();
+            timbratura.DoUpdateCostoOrario();
+		}
+
+		public static string FormatMilliseconds(double milliseconds)
+		{
+			TimeSpan timeSpan = TimeSpan.FromMilliseconds(milliseconds);
+
+			// Extract individual components
+			int days = timeSpan.Days;
+			int hours = timeSpan.Hours;
+			int minutes = timeSpan.Minutes;
+			int seconds = timeSpan.Seconds;
+			int millisecondsPart = timeSpan.Milliseconds;
+
+			// Format into the desired string
+			return $"{days:D2} {hours:D2}:{minutes:D2}:{seconds:D2}.{millisecondsPart:D3}";
+		}
+
+		private double CalcInterval(int hh, int mm, int ss)
         {
             DateTime now = DateTime.Now;
             DateTime scheduledTime = new DateTime(now.Year, now.Month, now.Day, hh, mm, ss);
@@ -114,9 +158,12 @@ namespace DailyUpdateServiceTimbratura
             return (scheduledTime - now).TotalMilliseconds;
         }
 
-        private void inf(string s)
-        {
-            try { System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}__log.txt", DateTime.Now.ToString("yy-MM-dd HH:mm:ss") + " - " + s + "\r\n"); } catch { }
-        }
-    }
+		// =======================================================================================================================================
+		// PRINT LOG
+		// =======================================================================================================================================
+		private void logInfo(string s)
+		{
+			try { System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}{_logFileName}", DateTime.Now.ToString("yy-MM-dd HH:mm:ss") + " - " + s + "\r\n"); } catch { }
+		}
+	}
 }

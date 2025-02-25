@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,8 +42,15 @@ namespace electronicinvoice_default {
 
         public Frm_electronicinvoice_default() {
             InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             saveFileDialog1.DefaultExt = "xml";
             QueryCreator.SetTableForPosting(DS.invoiceview, "invoice");
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+			}
 
         }
 
@@ -943,12 +950,18 @@ namespace electronicinvoice_default {
             stw.Close();
             //DS.electronicinvoice.Rows[0]["docelectronicinvoice"] = sw.ToString();
 
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(NomeCompletoFileXML, false);
+
             string xmlString = sw.ToString();
             byte[] xml = new UTF8Encoding().GetBytes(xmlString);
             DS.electronicinvoice.Rows[0]["rtf"] = xml;
 
             Meta.SaveFormData();
-            show("Creato il file " + NomeCompletoFileXML, "Avviso");
+
+            if (isBlazor())
+                show("Download del file effettuato", "Avviso");
+            else
+                show("Creato il file " + NomeCompletoFileXML, "Avviso");
             //ValidaFile_conXSD();
 
         }

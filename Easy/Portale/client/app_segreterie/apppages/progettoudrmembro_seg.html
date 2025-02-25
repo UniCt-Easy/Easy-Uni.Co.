@@ -13,7 +13,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_idprogettoudrmembrokind">Ruolo</label>
-					<select id="progettoudrmembro_seg_idprogettoudrmembrokind" class="custom-select d-block w-100"  data-source-name="progettoudrmembrokinddefaultview" data-value-member="idprogettoudrmembrokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="progettoudrmembro.idprogettoudrmembrokind?progettoudrmembrosegview.progettoudrmembro_idprogettoudrmembrokind"   > </select>
+					<select id="progettoudrmembro_seg_idprogettoudrmembrokind" class="custom-select d-block w-100"  data-source-name="progettoudrmembrokinddefaultview" data-value-member="idprogettoudrmembrokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="progettoudrmembro.idprogettoudrmembrokind?progettoudrmembrosegview.progettoudrmembro_idprogettoudrmembrokind"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -50,22 +50,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#progettoudrmembro_seg_start").datepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
 					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_start">Dal</label>
-					<input id="progettoudrmembro_seg_start" type="text" class="form-control" data-tag="progettoudrmembro.start?progettoudrmembrosegview.progettoudrmembro_start"  />
+					<input id="progettoudrmembro_seg_start" type="text" class="form-control" data-tag="progettoudrmembro.start?progettoudrmembrosegview.progettoudrmembro_start"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#progettoudrmembro_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
 					<label class="col-form-label col-md-12" for="progettoudrmembro_seg_stop">Al</label>
-					<input id="progettoudrmembro_seg_stop" type="text" class="form-control" data-tag="progettoudrmembro.stop?progettoudrmembrosegview.progettoudrmembro_stop"  />
+					<input id="progettoudrmembro_seg_stop" type="text" class="form-control" data-tag="progettoudrmembro.stop?progettoudrmembrosegview.progettoudrmembro_stop"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">

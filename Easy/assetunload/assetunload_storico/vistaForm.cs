@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -64,6 +64,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable costpartition 		=> Tables["costpartition"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetunloadattachment 		=> Tables["assetunloadattachment"];
 
 	#endregion
 
@@ -752,6 +755,25 @@ private void initClass() {
 	tcostpartition.PrimaryKey =  new DataColumn[]{tcostpartition.Columns["idcostpartition"]};
 
 
+	//////////////////// ASSETUNLOADATTACHMENT /////////////////////////////////
+	var tassetunloadattachment= new DataTable("assetunloadattachment");
+	C= new DataColumn("idassetunload", typeof(int));
+	C.AllowDBNull=false;
+	tassetunloadattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tassetunloadattachment.Columns.Add(C);
+	tassetunloadattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tassetunloadattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tassetunloadattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tassetunloadattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tassetunloadattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tassetunloadattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tassetunloadattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tassetunloadattachment);
+	tassetunloadattachment.PrimaryKey =  new DataColumn[]{tassetunloadattachment.Columns["idassetunload"], tassetunloadattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -787,6 +809,10 @@ private void initClass() {
 	cPar = new []{costpartition.Columns["idcostpartition"]};
 	cChild = new []{assetunload.Columns["idcostpartition"]};
 	Relations.Add(new DataRelation("costpartition_assetunload",cPar,cChild,false));
+
+	cPar = new []{assetunload.Columns["idassetunload"]};
+	cChild = new []{assetunloadattachment.Columns["idassetunload"]};
+	Relations.Add(new DataRelation("assetunload_assetunloadattachment",cPar,cChild,false));
 
 	#endregion
 

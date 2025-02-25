@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,24 +29,15 @@ namespace csa_bill_detail {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_bill 		=> Tables["csa_bill"];
 
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Partita pendente
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable bill 		=> Tables["bill"];
 
@@ -157,6 +148,7 @@ private void initClass() {
 	tcsa_bill.Columns.Add( new DataColumn("lu", typeof(string)));
 	tcsa_bill.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	tcsa_bill.Columns.Add( new DataColumn("cu", typeof(string)));
+	tcsa_bill.Columns.Add( new DataColumn("ybill", typeof(short)));
 	Tables.Add(tcsa_bill);
 	tcsa_bill.PrimaryKey =  new DataColumn[]{tcsa_bill.Columns["idcsa_import"], tcsa_bill.Columns["idcsa_bill"]};
 
@@ -266,13 +258,13 @@ private void initClass() {
 	cChild = new []{csa_bill.Columns["idreg"]};
 	Relations.Add(new DataRelation("registry_csa_bill",cPar,cChild,false));
 
-	cPar = new []{bill.Columns["nbill"]};
-	cChild = new []{csa_bill.Columns["nbill"]};
-	Relations.Add(new DataRelation("bill_csa_bill",cPar,cChild,false));
-
 	cPar = new []{bill.Columns["ybill"], bill.Columns["nbill"], bill.Columns["billkind"]};
 	cChild = new []{csa_bill_sosp_tocoverview.Columns["ybill"], csa_bill_sosp_tocoverview.Columns["nbill"], csa_bill_sosp_tocoverview.Columns["billkind"]};
 	Relations.Add(new DataRelation("bill_csa_bill_sosp_tocoverview",cPar,cChild,false));
+
+	cPar = new []{bill.Columns["nbill"], bill.Columns["ybill"]};
+	cChild = new []{csa_bill.Columns["nbill"], csa_bill.Columns["ybill"]};
+	Relations.Add(new DataRelation("bill_csa_bill",cPar,cChild,false));
 
 	#endregion
 

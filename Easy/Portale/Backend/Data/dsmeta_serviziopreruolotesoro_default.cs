@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,12 @@ namespace Backend.Data {
 public partial class dsmeta_serviziopreruolotesoro_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable tiponominadefaultview 		=> (MetaTable)Tables["tiponominadefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable classconsorsualedefaultview 		=> (MetaTable)Tables["classconsorsualedefaultview"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable positiondefaultview 		=> (MetaTable)Tables["positiondefaultview"];
 
@@ -61,11 +67,75 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_serviziopreruolotesoro_default.xsd";
 
 	#region create DataTables
+	//////////////////// TIPONOMINADEFAULTVIEW /////////////////////////////////
+	var ttiponominadefaultview= new MetaTable("tiponominadefaultview");
+	ttiponominadefaultview.defineColumn("dropdown_title", typeof(string),false);
+	ttiponominadefaultview.defineColumn("idtiponomina", typeof(int),false);
+	ttiponominadefaultview.defineColumn("tiponomina_active", typeof(string));
+	ttiponominadefaultview.defineColumn("tiponomina_ct", typeof(DateTime),false);
+	ttiponominadefaultview.defineColumn("tiponomina_cu", typeof(string),false);
+	ttiponominadefaultview.defineColumn("tiponomina_description", typeof(string));
+	ttiponominadefaultview.defineColumn("tiponomina_lt", typeof(DateTime),false);
+	ttiponominadefaultview.defineColumn("tiponomina_lu", typeof(string),false);
+	ttiponominadefaultview.defineColumn("tiponomina_sortcode", typeof(int));
+	ttiponominadefaultview.defineColumn("title", typeof(string));
+	Tables.Add(ttiponominadefaultview);
+	ttiponominadefaultview.defineKey("idtiponomina");
+
+	//////////////////// CLASSCONSORSUALEDEFAULTVIEW /////////////////////////////////
+	var tclassconsorsualedefaultview= new MetaTable("classconsorsualedefaultview");
+	tclassconsorsualedefaultview.defineColumn("classconsorsuale_active", typeof(string));
+	tclassconsorsualedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tclassconsorsualedefaultview.defineColumn("idclassconsorsuale", typeof(int),false);
+	Tables.Add(tclassconsorsualedefaultview);
+	tclassconsorsualedefaultview.defineKey("idclassconsorsuale");
+
 	//////////////////// POSITIONDEFAULTVIEW /////////////////////////////////
 	var tpositiondefaultview= new MetaTable("positiondefaultview");
 	tpositiondefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tpositiondefaultview.defineColumn("idposition", typeof(int),false);
 	tpositiondefaultview.defineColumn("position_active", typeof(string));
+	tpositiondefaultview.defineColumn("position_assegnoaggiuntivo", typeof(string));
+	tpositiondefaultview.defineColumn("position_codeposition", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_costolordoannuo", typeof(decimal));
+	tpositiondefaultview.defineColumn("position_costolordoannuooneri", typeof(decimal));
+	tpositiondefaultview.defineColumn("position_ct", typeof(DateTime),false);
+	tpositiondefaultview.defineColumn("position_cu", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_description", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_elementoperequativo", typeof(string));
+	tpositiondefaultview.defineColumn("position_foreignclass", typeof(string));
+	tpositiondefaultview.defineColumn("position_indennitadiateneo", typeof(string));
+	tpositiondefaultview.defineColumn("position_indennitadiposizione", typeof(string));
+	tpositiondefaultview.defineColumn("position_indvacancacontrattuale", typeof(string));
+	tpositiondefaultview.defineColumn("position_livello", typeof(string));
+	tpositiondefaultview.defineColumn("position_lt", typeof(DateTime),false);
+	tpositiondefaultview.defineColumn("position_lu", typeof(string),false);
+	tpositiondefaultview.defineColumn("position_maxincomeclass", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxcompitididatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxcompitididatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxdidatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxdidatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxgg", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxtempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremaxtempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremincompitididatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremincompitididatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremindidatempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremindidatempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremintempoparziale", typeof(int));
+	tpositiondefaultview.defineColumn("position_oremintempopieno", typeof(int));
+	tpositiondefaultview.defineColumn("position_orestraordinariemax", typeof(int));
+	tpositiondefaultview.defineColumn("position_parttime", typeof(string));
+	tpositiondefaultview.defineColumn("position_printingorder", typeof(int));
+	tpositiondefaultview.defineColumn("position_puntiorganico", typeof(decimal));
+	tpositiondefaultview.defineColumn("position_siglaesportazione", typeof(string));
+	tpositiondefaultview.defineColumn("position_siglaimportazione", typeof(string));
+	tpositiondefaultview.defineColumn("position_tempdef", typeof(string));
+	tpositiondefaultview.defineColumn("position_tipoente", typeof(string));
+	tpositiondefaultview.defineColumn("position_tipopersonale", typeof(string));
+	tpositiondefaultview.defineColumn("position_totaletredicesima", typeof(string));
+	tpositiondefaultview.defineColumn("position_tredicesimaindennitaintegrativaspeciale", typeof(string));
+	tpositiondefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tpositiondefaultview);
 	tpositiondefaultview.defineKey("idposition");
 
@@ -77,9 +147,11 @@ private void initClass() {
 	tserviziopreruolotesoro.defineColumn("ct", typeof(DateTime),false);
 	tserviziopreruolotesoro.defineColumn("cu", typeof(string),false);
 	tserviziopreruolotesoro.defineColumn("giorni", typeof(int));
+	tserviziopreruolotesoro.defineColumn("idclassconsorsuale", typeof(int));
 	tserviziopreruolotesoro.defineColumn("idposition", typeof(int));
 	tserviziopreruolotesoro.defineColumn("idreg", typeof(int),false);
 	tserviziopreruolotesoro.defineColumn("idserviziopreruolotesoro", typeof(int),false);
+	tserviziopreruolotesoro.defineColumn("idtiponomina", typeof(int));
 	tserviziopreruolotesoro.defineColumn("istituzione", typeof(string));
 	tserviziopreruolotesoro.defineColumn("lt", typeof(DateTime),false);
 	tserviziopreruolotesoro.defineColumn("lu", typeof(string),false);
@@ -93,8 +165,16 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{positiondefaultview.Columns["idposition"]};
-	var cChild = new []{serviziopreruolotesoro.Columns["idposition"]};
+	var cPar = new []{tiponominadefaultview.Columns["idtiponomina"]};
+	var cChild = new []{serviziopreruolotesoro.Columns["idtiponomina"]};
+	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_tiponominadefaultview_idtiponomina",cPar,cChild,false));
+
+	cPar = new []{classconsorsualedefaultview.Columns["idclassconsorsuale"]};
+	cChild = new []{serviziopreruolotesoro.Columns["idclassconsorsuale"]};
+	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_classconsorsualedefaultview_idclassconsorsuale",cPar,cChild,false));
+
+	cPar = new []{positiondefaultview.Columns["idposition"]};
+	cChild = new []{serviziopreruolotesoro.Columns["idposition"]};
 	Relations.Add(new DataRelation("FK_serviziopreruolotesoro_positiondefaultview_idposition",cPar,cChild,false));
 
 	#endregion

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,248 +15,220 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace notable_importazione {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaUbicazioni: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable location{get { return this.Tables["location"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable locationlevel{get { return this.Tables["locationlevel"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable manager{get { return this.Tables["manager"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable division{get { return this.Tables["division"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace notable_importazione {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaUbicazioni"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaUbicazioni: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable location 		=> Tables["location"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable locationlevel 		=> Tables["locationlevel"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable manager 		=> Tables["manager"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable division 		=> Tables["division"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaUbicazioni(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaUbicazioni";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaUbicazioni.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaUbicazioni (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaUbicazioni";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaUbicazioni.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("location");
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// LOCATION /////////////////////////////////
+	var tlocation= new DataTable("location");
+	tlocation.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tlocation.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tlocation.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("locationcode", typeof(System.String), "");
+	tlocation.Columns.Add(C);
+	C= new DataColumn("locationcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tlocation.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tlocation.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idman", typeof(System.Int32), ""));
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tlocation.Columns.Add(C);
+	tlocation.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tlocation.Columns.Add( new DataColumn("txt", typeof(string)));
+	tlocation.Columns.Add( new DataColumn("idman", typeof(int)));
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idlocation", typeof(System.Int32), "");
+	tlocation.Columns.Add(C);
+	C= new DataColumn("idlocation", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tlocation.Columns.Add(C);
+	tlocation.Columns.Add( new DataColumn("paridlocation", typeof(int)));
+	tlocation.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tlocation.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tlocation.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tlocation.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tlocation.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	Tables.Add(tlocation);
+	tlocation.PrimaryKey =  new DataColumn[]{tlocation.Columns["idlocation"]};
 
-	T.Columns.Add(new DataColumn("paridlocation", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idlocation"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("locationlevel");
-	C= new DataColumn("codelen", typeof(System.Byte), "");
+	//////////////////// LOCATIONLEVEL /////////////////////////////////
+	var tlocationlevel= new DataTable("locationlevel");
+	C= new DataColumn("codelen", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tlocationlevel.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tlocationlevel.Columns.Add(C);
+	Tables.Add(tlocationlevel);
+	tlocationlevel.PrimaryKey =  new DataColumn[]{tlocationlevel.Columns["nlevel"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["nlevel"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("manager");
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// MANAGER /////////////////////////////////
+	var tmanager= new DataTable("manager");
+	tmanager.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("email", typeof(System.String), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tmanager.Columns.Add(C);
+	tmanager.Columns.Add( new DataColumn("email", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("passwordweb", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("phonenumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("title", typeof(System.String), "");
+	tmanager.Columns.Add(C);
+	tmanager.Columns.Add( new DataColumn("passwordweb", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("phonenumber", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("title", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("userweb", typeof(System.String), ""));
-	C= new DataColumn("idman", typeof(System.Int32), "");
+	tmanager.Columns.Add(C);
+	tmanager.Columns.Add( new DataColumn("txt", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("userweb", typeof(string)));
+	C= new DataColumn("idman", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iddivision", typeof(System.Int32), "");
+	tmanager.Columns.Add(C);
+	C= new DataColumn("iddivision", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tmanager.Columns.Add(C);
+	Tables.Add(tmanager);
+	tmanager.PrimaryKey =  new DataColumn[]{tmanager.Columns["idman"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idman"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("division");
-	C= new DataColumn("iddivision", typeof(System.Int32), "");
+	//////////////////// DIVISION /////////////////////////////////
+	var tdivision= new DataTable("division");
+	C= new DataColumn("iddivision", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("address", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cap", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("city", typeof(System.String), ""));
-	C= new DataColumn("codedivision", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	tdivision.Columns.Add( new DataColumn("address", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("cap", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("city", typeof(string)));
+	C= new DataColumn("codedivision", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("country", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tdivision.Columns.Add(C);
+	tdivision.Columns.Add( new DataColumn("country", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("faxnumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("faxprefix", typeof(System.String), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tdivision.Columns.Add(C);
+	tdivision.Columns.Add( new DataColumn("faxnumber", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("faxprefix", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tdivision.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("phonenumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("phoneprefix", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["iddivision"]};
-	T.PrimaryKey = key;
+	tdivision.Columns.Add(C);
+	tdivision.Columns.Add( new DataColumn("phonenumber", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("phoneprefix", typeof(string)));
+	tdivision.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tdivision.Columns.Add( new DataColumn("txt", typeof(string)));
+	Tables.Add(tdivision);
+	tdivision.PrimaryKey =  new DataColumn[]{tdivision.Columns["iddivision"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["division"];
-TChild= Tables["manager"];
-CPar = new DataColumn[1]{TPar.Columns["iddivision"]};
-CChild = new DataColumn[1]{TChild.Columns["iddivision"]};
-Relations.Add(new DataRelation("division_manager",CPar,CChild));
+	#endregion
 
-TPar= Tables["locationlevel"];
-TChild= Tables["location"];
-CPar = new DataColumn[1]{TPar.Columns["nlevel"]};
-CChild = new DataColumn[1]{TChild.Columns["nlevel"]};
-Relations.Add(new DataRelation("locationlevel_location",CPar,CChild));
 
-TPar= Tables["manager"];
-TChild= Tables["location"];
-CPar = new DataColumn[1]{TPar.Columns["idman"]};
-CChild = new DataColumn[1]{TChild.Columns["idman"]};
-Relations.Add(new DataRelation("manager_location",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{division.Columns["iddivision"]};
+	var cChild = new []{manager.Columns["iddivision"]};
+	Relations.Add(new DataRelation("division_manager",cPar,cChild,false));
 
-TPar= Tables["location"];
-TChild= Tables["location"];
-CPar = new DataColumn[1]{TPar.Columns["idlocation"]};
-CChild = new DataColumn[1]{TChild.Columns["paridlocation"]};
-Relations.Add(new DataRelation("location_location",CPar,CChild));
+	cPar = new []{location.Columns["idlocation"]};
+	cChild = new []{location.Columns["paridlocation"]};
+	Relations.Add(new DataRelation("location_location",cPar,cChild,false));
+
+	cPar = new []{manager.Columns["idman"]};
+	cChild = new []{location.Columns["idman"]};
+	Relations.Add(new DataRelation("manager_location",cPar,cChild,false));
+
+	cPar = new []{locationlevel.Columns["nlevel"]};
+	cChild = new []{location.Columns["nlevel"]};
+	Relations.Add(new DataRelation("locationlevel_location",cPar,cChild,false));
+
+	#endregion
 
 }
 }

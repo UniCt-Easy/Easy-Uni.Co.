@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -122,8 +122,10 @@ namespace nso_vendita_default {
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
 			this._folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-			this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
-			this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+			this.label9 = new System.Windows.Forms.Label();
+			this.txtCodiceIdentificativoGara = new System.Windows.Forms.TextBox();
+			this.txtCdEsclusioneGara = new System.Windows.Forms.TextBox();
+			this.txtCodEsclusioneGara = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -151,7 +153,7 @@ namespace nso_vendita_default {
 			this.tabControl1.Location = new System.Drawing.Point(3, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(767, 519);
+			this.tabControl1.Size = new System.Drawing.Size(787, 577);
 			this.tabControl1.TabIndex = 34;
 			// 
 			// tabPrincipale
@@ -181,7 +183,7 @@ namespace nso_vendita_default {
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
 			this.tabPrincipale.Name = "tabPrincipale";
 			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPrincipale.Size = new System.Drawing.Size(759, 493);
+			this.tabPrincipale.Size = new System.Drawing.Size(779, 551);
 			this.tabPrincipale.TabIndex = 0;
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
@@ -206,7 +208,7 @@ namespace nso_vendita_default {
 			this.txtEmailAvvisoRicezione.Margin = new System.Windows.Forms.Padding(2);
 			this.txtEmailAvvisoRicezione.Multiline = true;
 			this.txtEmailAvvisoRicezione.Name = "txtEmailAvvisoRicezione";
-			this.txtEmailAvvisoRicezione.Size = new System.Drawing.Size(195, 59);
+			this.txtEmailAvvisoRicezione.Size = new System.Drawing.Size(215, 59);
 			this.txtEmailAvvisoRicezione.TabIndex = 72;
 			this.txtEmailAvvisoRicezione.Tag = "nso_vendita.email_nso";
 			// 
@@ -218,7 +220,7 @@ namespace nso_vendita_default {
 			this.btnVisualizza.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnVisualizza.Location = new System.Drawing.Point(553, 61);
 			this.btnVisualizza.Name = "btnVisualizza";
-			this.btnVisualizza.Size = new System.Drawing.Size(195, 27);
+			this.btnVisualizza.Size = new System.Drawing.Size(215, 27);
 			this.btnVisualizza.TabIndex = 28;
 			this.btnVisualizza.Text = "Visualizza File";
 			this.btnVisualizza.UseVisualStyleBackColor = true;
@@ -230,7 +232,7 @@ namespace nso_vendita_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDataRifiutata.Location = new System.Drawing.Point(553, 265);
 			this.txtDataRifiutata.Name = "txtDataRifiutata";
-			this.txtDataRifiutata.Size = new System.Drawing.Size(195, 20);
+			this.txtDataRifiutata.Size = new System.Drawing.Size(215, 20);
 			this.txtDataRifiutata.TabIndex = 71;
 			this.txtDataRifiutata.TabStop = false;
 			this.txtDataRifiutata.Tag = "nso_vendita.data_rifiutata";
@@ -252,7 +254,7 @@ namespace nso_vendita_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUserRifiutata.Location = new System.Drawing.Point(553, 226);
 			this.txtUserRifiutata.Name = "txtUserRifiutata";
-			this.txtUserRifiutata.Size = new System.Drawing.Size(195, 20);
+			this.txtUserRifiutata.Size = new System.Drawing.Size(215, 20);
 			this.txtUserRifiutata.TabIndex = 69;
 			this.txtUserRifiutata.TabStop = false;
 			this.txtUserRifiutata.Tag = "nso_vendita.utente_rifiutata";
@@ -274,7 +276,7 @@ namespace nso_vendita_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDataAccettata.Location = new System.Drawing.Point(553, 165);
 			this.txtDataAccettata.Name = "txtDataAccettata";
-			this.txtDataAccettata.Size = new System.Drawing.Size(195, 20);
+			this.txtDataAccettata.Size = new System.Drawing.Size(215, 20);
 			this.txtDataAccettata.TabIndex = 67;
 			this.txtDataAccettata.TabStop = false;
 			this.txtDataAccettata.Tag = "nso_vendita.data_accettata";
@@ -296,7 +298,7 @@ namespace nso_vendita_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUserAccettata.Location = new System.Drawing.Point(553, 126);
 			this.txtUserAccettata.Name = "txtUserAccettata";
-			this.txtUserAccettata.Size = new System.Drawing.Size(195, 20);
+			this.txtUserAccettata.Size = new System.Drawing.Size(215, 20);
 			this.txtUserAccettata.TabIndex = 65;
 			this.txtUserAccettata.TabStop = false;
 			this.txtUserAccettata.Tag = "nso_vendita.utente_accettata";
@@ -455,7 +457,11 @@ namespace nso_vendita_default {
 			// 
 			// grpDatiFattura
 			// 
+			this.grpDatiFattura.Controls.Add(this.txtCodEsclusioneGara);
+			this.grpDatiFattura.Controls.Add(this.txtCdEsclusioneGara);
+			this.grpDatiFattura.Controls.Add(this.label9);
 			this.grpDatiFattura.Controls.Add(this.label6);
+			this.grpDatiFattura.Controls.Add(this.txtCodiceIdentificativoGara);
 			this.grpDatiFattura.Controls.Add(this.txtClienteTaxId);
 			this.grpDatiFattura.Controls.Add(this.groupBox2);
 			this.grpDatiFattura.Controls.Add(this.label13);
@@ -480,7 +486,7 @@ namespace nso_vendita_default {
 			this.grpDatiFattura.Controls.Add(this.txtCodiceIpa);
 			this.grpDatiFattura.Location = new System.Drawing.Point(13, 166);
 			this.grpDatiFattura.Name = "grpDatiFattura";
-			this.grpDatiFattura.Size = new System.Drawing.Size(532, 277);
+			this.grpDatiFattura.Size = new System.Drawing.Size(532, 336);
 			this.grpDatiFattura.TabIndex = 43;
 			this.grpDatiFattura.TabStop = false;
 			this.grpDatiFattura.Text = "Dati Ordine";
@@ -626,7 +632,7 @@ namespace nso_vendita_default {
 			// label30
 			// 
 			this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label30.Location = new System.Drawing.Point(205, 70);
+			this.label30.Location = new System.Drawing.Point(173, 70);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(27, 18);
 			this.label30.TabIndex = 45;
@@ -659,7 +665,7 @@ namespace nso_vendita_default {
 			// txtOrderTaxTotal
 			// 
 			this.txtOrderTaxTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.txtOrderTaxTotal.Location = new System.Drawing.Point(237, 70);
+			this.txtOrderTaxTotal.Location = new System.Drawing.Point(205, 70);
 			this.txtOrderTaxTotal.Margin = new System.Windows.Forms.Padding(2);
 			this.txtOrderTaxTotal.Name = "txtOrderTaxTotal";
 			this.txtOrderTaxTotal.Size = new System.Drawing.Size(76, 20);
@@ -825,7 +831,7 @@ namespace nso_vendita_default {
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(284, 445);
+			this.label3.Location = new System.Drawing.Point(284, 505);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(120, 18);
 			this.label3.TabIndex = 38;
@@ -835,7 +841,7 @@ namespace nso_vendita_default {
 			// txtNomeFilecompresso
 			// 
 			this.txtNomeFilecompresso.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFilecompresso.Location = new System.Drawing.Point(286, 464);
+			this.txtNomeFilecompresso.Location = new System.Drawing.Point(286, 524);
 			this.txtNomeFilecompresso.Name = "txtNomeFilecompresso";
 			this.txtNomeFilecompresso.Size = new System.Drawing.Size(262, 20);
 			this.txtNomeFilecompresso.TabIndex = 37;
@@ -843,7 +849,7 @@ namespace nso_vendita_default {
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(10, 445);
+			this.label2.Location = new System.Drawing.Point(10, 505);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(70, 18);
 			this.label2.TabIndex = 36;
@@ -853,7 +859,7 @@ namespace nso_vendita_default {
 			// txtNomeFile
 			// 
 			this.txtNomeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtNomeFile.Location = new System.Drawing.Point(12, 464);
+			this.txtNomeFile.Location = new System.Drawing.Point(12, 524);
 			this.txtNomeFile.Name = "txtNomeFile";
 			this.txtNomeFile.Size = new System.Drawing.Size(262, 20);
 			this.txtNomeFile.TabIndex = 35;
@@ -866,7 +872,7 @@ namespace nso_vendita_default {
 			this.gboxStato.Controls.Add(this.cmbStatus);
 			this.gboxStato.Location = new System.Drawing.Point(551, 10);
 			this.gboxStato.Name = "gboxStato";
-			this.gboxStato.Size = new System.Drawing.Size(197, 40);
+			this.gboxStato.Size = new System.Drawing.Size(217, 40);
 			this.gboxStato.TabIndex = 34;
 			this.gboxStato.TabStop = false;
 			this.gboxStato.Text = "Stato";
@@ -880,7 +886,7 @@ namespace nso_vendita_default {
 			this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbStatus.Location = new System.Drawing.Point(6, 14);
 			this.cmbStatus.Name = "cmbStatus";
-			this.cmbStatus.Size = new System.Drawing.Size(186, 21);
+			this.cmbStatus.Size = new System.Drawing.Size(206, 21);
 			this.cmbStatus.TabIndex = 43;
 			this.cmbStatus.Tag = "nso_vendita.idnso_status?nso_venditaview.idnso_status";
 			this.cmbStatus.ValueMember = "idnso_status";
@@ -1033,15 +1039,58 @@ namespace nso_vendita_default {
 			this.textBox3.TabIndex = 49;
 			this.textBox3.Tag = "nso_vendita.mt_prot";
 			// 
-			// saveFileDialog1
+			// label9
 			// 
-			//this.saveFileDialog1.SupportMultiDottedExtensions = true;
+			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(157, 274);
+			this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(168, 13);
+			this.label9.TabIndex = 75;
+			this.label9.Text = "Codice CIG o Motivo assenza CIG";
+			// 
+			// txtCodiceIdentificativoGara
+			// 
+			this.txtCodiceIdentificativoGara.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceIdentificativoGara.Location = new System.Drawing.Point(329, 271);
+			this.txtCodiceIdentificativoGara.Margin = new System.Windows.Forms.Padding(2);
+			this.txtCodiceIdentificativoGara.Multiline = true;
+			this.txtCodiceIdentificativoGara.Name = "txtCodiceIdentificativoGara";
+			this.txtCodiceIdentificativoGara.Size = new System.Drawing.Size(195, 20);
+			this.txtCodiceIdentificativoGara.TabIndex = 74;
+			this.txtCodiceIdentificativoGara.Tag = "nso_vendita.codice_identificativo_gara";
+			// 
+			// txtCdEsclusioneGara
+			// 
+			this.txtCdEsclusioneGara.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCdEsclusioneGara.Location = new System.Drawing.Point(171, 295);
+			this.txtCdEsclusioneGara.Margin = new System.Windows.Forms.Padding(2);
+			this.txtCdEsclusioneGara.Multiline = true;
+			this.txtCdEsclusioneGara.Name = "txtCdEsclusioneGara";
+			this.txtCdEsclusioneGara.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtCdEsclusioneGara.Size = new System.Drawing.Size(353, 36);
+			this.txtCdEsclusioneGara.TabIndex = 76;
+			this.txtCdEsclusioneGara.Tag = "nocigmotive.title";
+			// 
+			// txtCodEsclusioneGara
+			// 
+			this.txtCodEsclusioneGara.Location = new System.Drawing.Point(4, 295);
+			this.txtCodEsclusioneGara.Margin = new System.Windows.Forms.Padding(2);
+			this.txtCodEsclusioneGara.Multiline = true;
+			this.txtCodEsclusioneGara.Name = "txtCodEsclusioneGara";
+			this.txtCodEsclusioneGara.Size = new System.Drawing.Size(163, 20);
+			this.txtCodEsclusioneGara.TabIndex = 77;
+			this.txtCodEsclusioneGara.Tag = "nocigmotive.codenocigmotive";
 			// 
 			// Frm_nso_vendita_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(774, 532);
+			this.ClientSize = new System.Drawing.Size(794, 590);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_nso_vendita_default";
 			this.Text = "Frm_nso_vendita_default";
@@ -1152,5 +1201,9 @@ namespace nso_vendita_default {
 		private System.Windows.Forms.TextBox txtEmailAvvisoRicezione;
 		private metadatalibrary.ISaveFileDialog saveFileDialog1;
 		private metadatalibrary.IFolderBrowserDialog folderBrowserDialog1;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.TextBox txtCodiceIdentificativoGara;
+		private System.Windows.Forms.TextBox txtCdEsclusioneGara;
+		private System.Windows.Forms.TextBox txtCodEsclusioneGara;
 	}
 }

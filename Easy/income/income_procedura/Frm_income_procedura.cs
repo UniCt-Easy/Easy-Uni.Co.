@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -260,6 +260,11 @@ namespace income_procedura//entrataprocedura//
 		private DataGrid gridDettIncassi;
 		private Button btnAdd;
 		private TabPage tabFatture;
+		private TabPage tabAllegati;
+		private DataGrid dataGridAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
 		private System.ComponentModel.IContainer components;
 		#endregion
 		public Frm_income_procedura() {
@@ -289,7 +294,7 @@ namespace income_procedura//entrataprocedura//
 			to_mainrefresh=false;
 
 //			tabControl1.Appearance = 
-//				Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiBox;
+//				System.Windows.Forms.TabControl.VisualAppearance.MultiBox;
 //			tabControl1.HotTrack=true;
 //			tabControl1.PositionTop=true;
 			tabControl1.SelectedIndex=0;
@@ -480,6 +485,11 @@ namespace income_procedura//entrataprocedura//
 			this.txtDescrContoCustomer = new System.Windows.Forms.TextBox();
 			this.txtCodiceContoCustomer = new System.Windows.Forms.TextBox();
 			this.btnContoCredito = new System.Windows.Forms.Button();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.grpReversaleIncasso.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.grpTipoConto.SuspendLayout();
@@ -522,6 +532,8 @@ namespace income_procedura//entrataprocedura//
 			this.gboxIncassi.SuspendLayout();
 			this.tabAltro.SuspendLayout();
 			this.grpContocredito.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// SubEntity_chbCoperturaIniziativa
@@ -1079,6 +1091,7 @@ namespace income_procedura//entrataprocedura//
 			this.tabControl1.Controls.Add(this.tabAssCrediti);
 			this.tabControl1.Controls.Add(this.tabAssIncassi);
 			this.tabControl1.Controls.Add(this.tabAltro);
+			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.ImageList = this.imageList1;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -1934,7 +1947,7 @@ namespace income_procedura//entrataprocedura//
 			this.labBollette1.AutoSize = true;
 			this.labBollette1.Location = new System.Drawing.Point(63, 16);
 			this.labBollette1.Name = "labBollette1";
-			this.labBollette1.Size = new System.Drawing.Size(625, 13);
+			this.labBollette1.Size = new System.Drawing.Size(608, 13);
 			this.labBollette1.TabIndex = 33;
 			this.labBollette1.Text = "Per utilizzare il collegamento multiplo con le bollette è necessario selezionare " +
     "\"Regolarizza disposizione di incasso già effettuata\"";
@@ -2192,6 +2205,60 @@ namespace income_procedura//entrataprocedura//
 			this.btnContoCredito.Tag = "Choose.account.tree.((flagaccountusage&48)<>0)";
 			this.btnContoCredito.Text = "Conto";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Size = new System.Drawing.Size(822, 503);
+			this.tabAllegati.TabIndex = 9;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(8, 41);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(807, 455);
+			this.dataGridAllegati.TabIndex = 27;
+			this.dataGridAllegati.Tag = "incomeattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(199, 6);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(103, 6);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(8, 6);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// Frm_income_procedura
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2264,6 +2331,8 @@ namespace income_procedura//entrataprocedura//
 			this.tabAltro.PerformLayout();
 			this.grpContocredito.ResumeLayout(false);
 			this.grpContocredito.PerformLayout();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -6615,21 +6684,34 @@ namespace income_procedura//entrataprocedura//
 		string CalculateFilterForEstimateDetailLinking(bool SQL){
             QueryHelper qh = SQL ? QHS : QHC;
             string MyFilter = "";
-			
-			string idreg = DS.income.Rows[0]["idreg"].ToString();
-			string idupb = DS.incomeyear.Rows[0]["idupb"].ToString();
 
-            //MyFilter = "(idestimkind="+
-            //    QueryCreator.quotedstrvalue(EstimateLinked["idestimkind"],SQL)+")AND"+
-            //    "(yestim="+
-            //    QueryCreator.quotedstrvalue(EstimateLinked["yestim"],SQL)+")AND"+
-            //    "(nestim="+
-            //    QueryCreator.quotedstrvalue(EstimateLinked["nestim"],SQL)+")"; 
-            MyFilter = qh.AppAnd(MyFilter, qh.MCmp(EstimateLinked, "idestimkind", "yestim", "nestim"));
+			string idreg = "";
+			string idupb = "";
+			if (EstimateLinked == null) return MyFilter;
+			if (DS.income.Rows.Count > 0)
+				idreg = DS.income.Rows[0]["idreg"].ToString();
+			if (DS.incomeyear.Rows.Count > 0)
+				idupb = DS.incomeyear.Rows[0]["idupb"].ToString();
+ 
+			MyFilter = qh.AppAnd(MyFilter, qh.MCmp(EstimateLinked, "idestimkind", "yestim", "nestim"));
 
-            //DataRow TipoContratto=DS.estimatekind.Select("(idestimkind="+
-            //    QueryCreator.quotedstrvalue(EstimateLinked["idestimkind"],SQL)+")")[0];
-            DataRow TipoContratto = DS.estimatekind.Select(qh.CmpEq("idestimkind", EstimateLinked["idestimkind"]))[0];
+			DataRow TipoContratto = null;
+			if ((DS.estimatekind != null) && (DS.estimatekind.Rows.Count > 0)) {
+				DataRow[] TipiContratto = DS.estimatekind.Select(qh.CmpEq("idestimkind", EstimateLinked["idestimkind"]));
+				if (TipiContratto.Length == 0) {
+					MyConn.RUN_SELECT_INTO_TABLE(DS.estimatekind, null, QHS.CmpEq("idestimkind", EstimateLinked["idestimkind"]), null, true);
+					TipiContratto = DS.estimatekind.Select(qh.CmpEq("idestimkind", EstimateLinked["idestimkind"]));
+					if (TipiContratto.Length > 0) {
+						TipoContratto = TipiContratto[0];
+					}
+					else {
+						return MyFilter;
+					}
+				}
+				else {
+					TipoContratto = TipiContratto[0];
+				}
+			}
 
 			if (TipoContratto["multireg"].ToString().ToUpper()=="S"){
 				if (idreg!="")

@@ -81,9 +81,6 @@
     <Compile Include="Frm_grantload_default.Designer.cs">
       <DependentUpon>Frm_grantload_default.cs</DependentUpon>
     </Compile>
-    <Compile Include="vistaForm.cs">
-      <DependentUpon>vistaForm.xsd</DependentUpon>
-    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -91,7 +88,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

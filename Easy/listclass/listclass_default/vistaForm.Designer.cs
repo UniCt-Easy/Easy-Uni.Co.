@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,42 +29,24 @@ namespace listclass_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Classificazione Merceologica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listclass 		=> Tables["listclass"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable accmotiveapplied 		=> Tables["accmotiveapplied"];
 
-	///<summary>
-	///Codice del servizio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatservice 		=> Tables["intrastatservice"];
 
-	///<summary>
-	/// Natura della transazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatsupplymethod 		=> Tables["intrastatsupplymethod"];
 
-	///<summary>
-	///Classificazione Merceologica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable listclassyear 		=> Tables["listclassyear"];
 
-	///<summary>
-	///Nomenclatura combinata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatcode 		=> Tables["intrastatcode"];
 
-	///<summary>
-	///Unit√† di misura supplementare
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable intrastatmeasure 		=> Tables["intrastatmeasure"];
 
@@ -74,9 +56,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
 
-	///<summary>
-	///Causali finanziarie (gerarchia)
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finmotive 		=> Tables["finmotive"];
 
@@ -88,6 +67,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finmotive_iva 		=> Tables["finmotive_iva"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable listclassattachment 		=> Tables["listclassattachment"];
 
 	#endregion
 
@@ -519,6 +501,25 @@ private void initClass() {
 	tfinmotive_iva.PrimaryKey =  new DataColumn[]{tfinmotive_iva.Columns["idfinmotive"]};
 
 
+	//////////////////// LISTCLASSATTACHMENT /////////////////////////////////
+	var tlistclassattachment= new DataTable("listclassattachment");
+	C= new DataColumn("idlistclass", typeof(string));
+	C.AllowDBNull=false;
+	tlistclassattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tlistclassattachment.Columns.Add(C);
+	tlistclassattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tlistclassattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tlistclassattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tlistclassattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tlistclassattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tlistclassattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tlistclassattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tlistclassattachment);
+	tlistclassattachment.PrimaryKey =  new DataColumn[]{tlistclassattachment.Columns["idlistclass"], tlistclassattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -566,6 +567,10 @@ private void initClass() {
 	cPar = new []{finmotive_iva.Columns["idfinmotive"]};
 	cChild = new []{listclass.Columns["idfinmotive_iva"]};
 	Relations.Add(new DataRelation("finmotive_iva_listclass",cPar,cChild,false));
+
+	cPar = new []{listclass.Columns["idlistclass"]};
+	cChild = new []{listclassattachment.Columns["idlistclass"]};
+	Relations.Add(new DataRelation("listclass_listclassattachment",cPar,cChild,false));
 
 	#endregion
 

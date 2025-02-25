@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -98,13 +98,19 @@ private void initClass() {
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("getdocentiamministrativiresponsabili_istituto", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("getdocentiamministrativiresponsabili_resplevel", typeof(int));
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("getdocentiamministrativiresponsabili_ssd", typeof(string));
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("getdocentiamministrativiresponsabili_start", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("getdocentiamministrativiresponsabili_stop", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("getdocentiamministrativiresponsabili_struttura", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("struttura_idstrutturakind", typeof(int));
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("struttura_title", typeof(string));
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("strutturakind_title", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineColumn("surname", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview_alias1.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilidefaultview";
 	Tables.Add(tgetdocentiamministrativiresponsabilidefaultview_alias1);
-	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilidefaultview_alias1.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILIDEFAULTVIEW /////////////////////////////////
 	var tgetdocentiamministrativiresponsabilidefaultview= new MetaTable("getdocentiamministrativiresponsabilidefaultview");
@@ -116,12 +122,18 @@ private void initClass() {
 	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("getdocentiamministrativiresponsabili_istituto", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("getdocentiamministrativiresponsabili_resplevel", typeof(int));
 	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("getdocentiamministrativiresponsabili_ssd", typeof(string));
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("getdocentiamministrativiresponsabili_start", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("getdocentiamministrativiresponsabili_stop", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("getdocentiamministrativiresponsabili_struttura", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("struttura_idstrutturakind", typeof(int));
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("struttura_title", typeof(string));
+	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("strutturakind_title", typeof(string));
 	tgetdocentiamministrativiresponsabilidefaultview.defineColumn("surname", typeof(string));
 	Tables.Add(tgetdocentiamministrativiresponsabilidefaultview);
-	tgetdocentiamministrativiresponsabilidefaultview.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilidefaultview.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// PERFVALUTAZIONEPERSONALECOMPORTAMENTOSOGLIA /////////////////////////////////
 	var tperfvalutazionepersonalecomportamentosoglia= new MetaTable("perfvalutazionepersonalecomportamentosoglia");

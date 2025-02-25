@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,18 +26,12 @@ using System.Runtime.Serialization;
 namespace registryreference_contatto {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Contatto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registryreference 		=> Tables["registryreference"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
@@ -46,6 +40,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registrymainview 		=> Tables["registrymainview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registryreferenceattachment 		=> Tables["registryreferenceattachment"];
 
 	#endregion
 
@@ -254,6 +251,28 @@ private void initClass() {
 	tregistrymainview.PrimaryKey =  new DataColumn[]{tregistrymainview.Columns["idreg"]};
 
 
+	//////////////////// REGISTRYREFERENCEATTACHMENT /////////////////////////////////
+	var tregistryreferenceattachment= new DataTable("registryreferenceattachment");
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tregistryreferenceattachment.Columns.Add(C);
+	C= new DataColumn("idregistryreference", typeof(int));
+	C.AllowDBNull=false;
+	tregistryreferenceattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tregistryreferenceattachment.Columns.Add(C);
+	tregistryreferenceattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tregistryreferenceattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tregistryreferenceattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tregistryreferenceattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tregistryreferenceattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tregistryreferenceattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tregistryreferenceattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tregistryreferenceattachment);
+	tregistryreferenceattachment.PrimaryKey =  new DataColumn[]{tregistryreferenceattachment.Columns["idreg"], tregistryreferenceattachment.Columns["idregistryreference"], tregistryreferenceattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -261,6 +280,10 @@ private void initClass() {
 	var cPar = new []{registry.Columns["idreg"]};
 	var cChild = new []{registryreference.Columns["idreg"]};
 	Relations.Add(new DataRelation("registryregistryreference",cPar,cChild,false));
+
+	cPar = new []{registryreference.Columns["idreg"], registryreference.Columns["idregistryreference"]};
+	cChild = new []{registryreferenceattachment.Columns["idreg"], registryreferenceattachment.Columns["idregistryreference"]};
+	Relations.Add(new DataRelation("registryreference_registryreferenceattachment",cPar,cChild,false));
 
 	#endregion
 

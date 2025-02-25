@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -89,12 +89,6 @@ public partial class dsmeta_progettobudget_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettocosto 		=> (MetaTable)Tables["progettocosto"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable upb 		=> (MetaTable)Tables["upb"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable accmotive 		=> (MetaTable)Tables["accmotive"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettobudgetvariazione 		=> (MetaTable)Tables["progettobudgetvariazione"];
@@ -392,25 +386,9 @@ private void initClass() {
 	Tables.Add(tprogettocosto);
 	tprogettocosto.defineKey("idprogetto", "idprogettocosto", "idprogettotipocosto", "idworkpackage");
 
-	//////////////////// UPB /////////////////////////////////
-	var tupb= new MetaTable("upb");
-	tupb.defineColumn("active", typeof(string));
-	tupb.defineColumn("idupb", typeof(string),false);
-	tupb.defineColumn("title", typeof(string),false);
-	Tables.Add(tupb);
-	tupb.defineKey("idupb");
-
-	//////////////////// ACCMOTIVE /////////////////////////////////
-	var taccmotive= new MetaTable("accmotive");
-	taccmotive.defineColumn("active", typeof(string));
-	taccmotive.defineColumn("codemotive", typeof(string),false);
-	taccmotive.defineColumn("idaccmotive", typeof(string),false);
-	taccmotive.defineColumn("title", typeof(string),false);
-	Tables.Add(taccmotive);
-	taccmotive.defineKey("idaccmotive");
-
 	//////////////////// PROGETTOBUDGETVARIAZIONE /////////////////////////////////
 	var tprogettobudgetvariazione= new MetaTable("progettobudgetvariazione");
+	tprogettobudgetvariazione.defineColumn("amount", typeof(decimal));
 	tprogettobudgetvariazione.defineColumn("ct", typeof(DateTime));
 	tprogettobudgetvariazione.defineColumn("cu", typeof(string));
 	tprogettobudgetvariazione.defineColumn("data", typeof(DateTime));
@@ -422,9 +400,6 @@ private void initClass() {
 	tprogettobudgetvariazione.defineColumn("lt", typeof(DateTime));
 	tprogettobudgetvariazione.defineColumn("lu", typeof(string));
 	tprogettobudgetvariazione.defineColumn("newamount", typeof(decimal));
-	tprogettobudgetvariazione.defineColumn("!idaccmotive_accmotive_codemotive", typeof(string));
-	tprogettobudgetvariazione.defineColumn("!idaccmotive_accmotive_title", typeof(string));
-	tprogettobudgetvariazione.defineColumn("!idupb_upb_title", typeof(string));
 	tprogettobudgetvariazione.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tprogettobudgetvariazione);
 	tprogettobudgetvariazione.defineKey("idprogetto", "idprogettobudget", "idprogettobudgetvariazione");
@@ -577,14 +552,6 @@ private void initClass() {
 	cPar = new []{progettobudget.Columns["idprogetto"], progettobudget.Columns["idprogettobudget"]};
 	cChild = new []{progettobudgetvariazione.Columns["idprogetto"], progettobudgetvariazione.Columns["idprogettobudget"]};
 	Relations.Add(new DataRelation("FK_progettobudgetvariazione_progettobudget_idprogetto-idprogettobudget",cPar,cChild,false));
-
-	cPar = new []{upb.Columns["idupb"]};
-	cChild = new []{progettobudgetvariazione.Columns["idupb"]};
-	Relations.Add(new DataRelation("FK_progettobudgetvariazione_upb_idupb",cPar,cChild,false));
-
-	cPar = new []{accmotive.Columns["idaccmotive"]};
-	cChild = new []{progettobudgetvariazione.Columns["idaccmotive"]};
-	Relations.Add(new DataRelation("FK_progettobudgetvariazione_accmotive_idaccmotive",cPar,cChild,false));
 
 	cPar = new []{progettotipocosto.Columns["idprogettotipocosto"]};
 	cChild = new []{progettobudget.Columns["idprogettotipocosto"]};

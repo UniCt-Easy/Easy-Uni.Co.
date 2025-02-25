@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1182,6 +1182,7 @@ private void initClass() {
 	tcsa_bill.Columns.Add( new DataColumn("!registry", typeof(string)));
 	tcsa_bill.Columns.Add( new DataColumn("!motive", typeof(string)));
 	tcsa_bill.Columns.Add( new DataColumn("!datasospeso", typeof(string)));
+	tcsa_bill.Columns.Add( new DataColumn("ybill", typeof(short)));
 	Tables.Add(tcsa_bill);
 	tcsa_bill.PrimaryKey =  new DataColumn[]{tcsa_bill.Columns["idcsa_import"], tcsa_bill.Columns["idcsa_bill"]};
 
@@ -1594,6 +1595,7 @@ private void initClass() {
 	temisti_rec_04.Columns.Add( new DataColumn("progressivo_rec_01", typeof(int)));
 	temisti_rec_04.Columns.Add( new DataColumn("flagriduzimpon", typeof(string)));
 	temisti_rec_04.Columns.Add( new DataColumn("progressivodebito", typeof(int)));
+	temisti_rec_04.Columns.Add( new DataColumn("datascadritextra", typeof(string)));
 	Tables.Add(temisti_rec_04);
 	temisti_rec_04.PrimaryKey =  new DataColumn[]{temisti_rec_04.Columns["nrec"], temisti_rec_04.Columns["idemisti_import"]};
 
@@ -1894,10 +1896,6 @@ private void initClass() {
 	cChild = new []{csa_bill.Columns["idreg"]};
 	Relations.Add(new DataRelation("registry_sospesi_csa_bill",cPar,cChild,false));
 
-	cPar = new []{bill_ripartizione.Columns["nbill"]};
-	cChild = new []{csa_bill.Columns["nbill"]};
-	Relations.Add(new DataRelation("bill_csa_bill",cPar,cChild,false));
-
 	cPar = new []{emisti_import.Columns["idemisti_import"]};
 	cChild = new []{emisti_rec_01.Columns["idemisti_import"]};
 	Relations.Add(new DataRelation("emisti_import_emisti_rec_01",cPar,cChild,false));
@@ -1945,6 +1943,10 @@ private void initClass() {
 	cPar = new []{csa_import.Columns["idcsa_import"]};
 	cChild = new []{csa_importver.Columns["idcsa_import"]};
 	Relations.Add(new DataRelation("csa_import_csa_importver",cPar,cChild,false));
+
+	cPar = new []{bill_ripartizione.Columns["nbill"], bill_ripartizione.Columns["ybill"]};
+	cChild = new []{csa_bill.Columns["nbill"], csa_bill.Columns["ybill"]};
+	Relations.Add(new DataRelation("bill_csa_bill",cPar,cChild,false));
 
 	#endregion
 

@@ -23,10 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'start', 'Data di inizio', null, 1000, null);
+						this.describeAColumn(table, 'numerosal', 'Numero', null, 1000, null);
+						this.describeAColumn(table, 'sal_start', 'Data di inizio', null, 2000, null);
 						this.describeAColumn(table, 'sal_stop', 'Data di fine', null, 4000, null);
 						this.describeAColumn(table, 'sal_budget', 'Budget preventivato', 'fixed.2', 5000, null);
 						this.describeAColumn(table, 'sal_datablocco', 'Data di Blocco', null, 7000, null);
+						this.describeAColumn(table, 'sal_autoassociazione', 'Associazione automatica dei dati', null, 8000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -49,7 +51,7 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
-						return "start asc ";
+						return "sal_start asc ";
 					}
 					//$getSortingin$
 				}

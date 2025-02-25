@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,6 +40,13 @@ namespace assetacquire_import {
             InitializeComponent();
             openFileDialog1 = createOpenFileDialog(_openFileDialog1);
             dlgFolder = createFolderBrowserDialog(_dlgFolder);
+
+            if (isBlazor())
+			{
+                txtFolder.Visible = false;
+                btnFolder.Visible = false;
+                label1.Visible = false;
+			}
         }
 
         public void MetaData_AfterLink() {
@@ -70,6 +77,10 @@ namespace assetacquire_import {
         int nPassi = 14;
 
         private void btnImporta_Click(object sender, EventArgs e) {
+            if (isBlazor())
+			{
+                SelezionaCartella();
+			}
             progressBar1.Minimum = 0;
             progressBar1.Maximum = nPassi;
 
@@ -1236,6 +1247,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetacquire")) {
                 if (!travasaCaricoBene(tw, out errMess)) {
                     tw.Close();
+                    MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
                     show(this, errMess);
                     return false;
                 }
@@ -1244,6 +1256,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetload")) {
                 if (!travasaBuonoCarico(tw, out errMess)) {
                     tw.Close();
+                    MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
                     show(this, errMess);
                     return false;
                 }
@@ -1252,6 +1265,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetunload")) {
                 if (!travasaBuonoScarico(tw, out errMess)) {
                     tw.Close();
+                    MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
                     show(this, errMess);
                     return false;
                 }
@@ -1260,6 +1274,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("assetamortization")) {
                 if (!travasaRivalutazioneBene(tw, out errMess)) {
                     tw.Close();
+                    MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
                     show(this, errMess);
                     return false;
                 }
@@ -1268,6 +1283,7 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("asset")) {
                 if (!travasaBeneInventariabile(tw, out errMess)) {
                     tw.Close();
+                    MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
                     show(this, errMess);
                     return false;
                 }
@@ -1276,11 +1292,15 @@ namespace assetacquire_import {
             if (dsFile.Tables.Contains("registry")) {
                 if (!travasaAnagrafica(tw, out errMess)) {
                     tw.Close();
+                    MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
                     show(this, errMess);
                     return false;
                 }
             }
             tw.Close();
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fs.Name, false);
+
             return true;
         }
 
@@ -1747,6 +1767,7 @@ namespace assetacquire_import {
             try {
                 FileStream fs = new FileStream(fileName, FileMode.Create);
                 fs.Close();
+
                 return fs;
             }
             catch (Exception ex) {
@@ -1790,10 +1811,16 @@ namespace assetacquire_import {
         }
 
         private void btnFolder_Click(object sender, EventArgs e) {
-            DialogResult dr = dlgFolder.ShowDialog();
-            if (dr == DialogResult.OK) {
-                txtFolder.Text = dlgFolder.SelectedPath;
-            }
+            SelezionaCartella();
         }
+
+        private void SelezionaCartella()
+		{
+            DialogResult dr = dlgFolder.ShowDialog();
+            if (dr == DialogResult.OK)
+			{
+                txtFolder.Text = dlgFolder.SelectedPath;
+			}
+		}
     }
 }

@@ -89,6 +89,7 @@
               <xs:element name="stage" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
               <xs:element name="visita" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -114,8 +115,7 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idstruttura" type="xs:int" />
-              <xs:element name="idupb" type="xs:string" minOccurs="0" />
-              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -123,8 +123,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aulakind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="aulakind_ct" type="xs:dateTime" />
+              <xs:element name="aulakind_cu" type="xs:string" />
+              <xs:element name="aulakind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="aulakind_lt" type="xs:dateTime" />
+              <xs:element name="aulakind_lu" type="xs:string" />
+              <xs:element name="aulakind_sortcode" type="xs:int" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idaulakind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -132,9 +139,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idedificio" type="xs:int" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -247,6 +252,7 @@
     <xs:unique name="edificiodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:edificiodefaultview" />
       <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="sededefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sededefaultview" />

@@ -799,6 +799,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="paymentattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="kpay" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -908,6 +923,11 @@
       <xs:field xpath="mstns:nman" />
       <xs:field xpath="mstns:rownum" />
     </xs:unique>
+    <xs:unique name="paymentattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:paymentattachment" />
+      <xs:field xpath="mstns:kpay" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -930,6 +950,7 @@
       <msdata:Relationship name="managerpayment" msdata:parent="manager" msdata:child="payment" msdata:parentkey="idman" msdata:childkey="idman" />
       <msdata:Relationship name="paymenttransmissionpayment" msdata:parent="paymenttransmission" msdata:child="payment" msdata:parentkey="kpaymenttransmission" msdata:childkey="kpaymenttransmission" />
       <msdata:Relationship name="fin_payment" msdata:parent="fin" msdata:child="payment" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="payment_paymentattachment" msdata:parent="payment" msdata:child="paymentattachment" msdata:parentkey="kpay" msdata:childkey="kpay" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_aula_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_aula_default: DataSet {
+public partial class dsmeta_aula_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -170,6 +170,7 @@ private void initClass() {
 	tlezione.defineColumn("stage", typeof(string));
 	tlezione.defineColumn("start", typeof(DateTime),false);
 	tlezione.defineColumn("stop", typeof(DateTime),false);
+	tlezione.defineColumn("titolo", typeof(string));
 	tlezione.defineColumn("visita", typeof(string));
 	Tables.Add(tlezione);
 	tlezione.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");
@@ -192,28 +193,32 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
 	//////////////////// AULAKINDDEFAULTVIEW /////////////////////////////////
 	var taulakinddefaultview= new MetaTable("aulakinddefaultview");
 	taulakinddefaultview.defineColumn("aulakind_active", typeof(string));
+	taulakinddefaultview.defineColumn("aulakind_ct", typeof(DateTime),false);
+	taulakinddefaultview.defineColumn("aulakind_cu", typeof(string),false);
+	taulakinddefaultview.defineColumn("aulakind_description", typeof(string));
+	taulakinddefaultview.defineColumn("aulakind_lt", typeof(DateTime),false);
+	taulakinddefaultview.defineColumn("aulakind_lu", typeof(string),false);
+	taulakinddefaultview.defineColumn("aulakind_sortcode", typeof(int),false);
 	taulakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taulakinddefaultview.defineColumn("idaulakind", typeof(int),false);
+	taulakinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(taulakinddefaultview);
 	taulakinddefaultview.defineKey("idaulakind");
 
 	//////////////////// EDIFICIODEFAULTVIEW /////////////////////////////////
 	var tedificiodefaultview= new MetaTable("edificiodefaultview");
 	tedificiodefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tedificiodefaultview.defineColumn("idcity", typeof(int));
 	tedificiodefaultview.defineColumn("idedificio", typeof(int),false);
-	tedificiodefaultview.defineColumn("idnation", typeof(int));
 	tedificiodefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tedificiodefaultview);
-	tedificiodefaultview.defineKey("idedificio");
+	tedificiodefaultview.defineKey("idedificio", "idsede");
 
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");

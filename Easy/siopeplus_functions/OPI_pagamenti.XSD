@@ -71,6 +71,8 @@
     <xs:restriction base="xs:string">
       <xs:length value="10"/>
       <xs:pattern value="[0-9]{7}[0-9A-F]{3}"/>
+      <xs:pattern value="[V-Z]{1}[0-9A-F]{9}"/>
+      <xs:pattern value="[A-U]{1}[0-9A-F]{9}"/>
     </xs:restriction>
   </xs:simpleType>
   <!--  -->
@@ -543,7 +545,6 @@ SOSTITUZIONE</xs:documentation>
 CASSA
 ACCREDITO BANCA D'ITALIA
 REGOLARIZZAZIONE
-REGOLARIZZAZIONE ACCREDITO BANCA D'ITALIA
 PRELIEVO DA CC POSTALE
 COMPENSAZIONE</xs:documentation>
               </xs:annotation>
@@ -552,7 +553,6 @@ COMPENSAZIONE</xs:documentation>
                   <xs:enumeration value="CASSA"/>
                   <xs:enumeration value="ACCREDITO BANCA D'ITALIA"/>
                   <xs:enumeration value="REGOLARIZZAZIONE"/>
-                  <xs:enumeration value="REGOLARIZZAZIONE ACCREDITO BANCA D'ITALIA"/>
                   <xs:enumeration value="PRELIEVO DA CC POSTALE"/>
                   <xs:enumeration value="COMPENSAZIONE"/>
                 </xs:restriction>
@@ -780,14 +780,11 @@ SOSTITUZIONE</xs:documentation>
                   ASSEGNO CIRCOLARE
                   AVVISO PAGOPA
                   ACCREDITO CONTO CORRENTE POSTALE
-                  ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A
-                  ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B
+                  ACCREDITO TESORERIA PROVINCIALE STATO
                   F24EP
                   VAGLIA POSTALE
                   VAGLIA TESORO
                   REGOLARIZZAZIONE
-                  REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A
-                  REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B
                   ADDEBITO PREAUTORIZZATO DISPOSIZIONE DOCUMENTO ESTERNO
                   COMPENSAZIONE
                   BONIFICO ESTERO EURO</xs:documentation>
@@ -799,14 +796,11 @@ SOSTITUZIONE</xs:documentation>
                   <xs:enumeration value="SEPA CREDIT TRANSFER"/>
                   <xs:enumeration value="ASSEGNO CIRCOLARE"/>
                   <xs:enumeration value="ACCREDITO CONTO CORRENTE POSTALE"/>
-                  <xs:enumeration value="ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A"/>
-                  <xs:enumeration value="ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B"/>
+                  <xs:enumeration value="ACCREDITO TESORERIA PROVINCIALE STATO"/>
                   <xs:enumeration value="F24EP"/>
                   <xs:enumeration value="VAGLIA POSTALE"/>
                   <xs:enumeration value="VAGLIA TESORO"/>
                   <xs:enumeration value="REGOLARIZZAZIONE"/>
-                  <xs:enumeration value="REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A"/>
-                  <xs:enumeration value="REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B"/>
                   <xs:enumeration value="ADDEBITO PREAUTORIZZATO"/>
                   <xs:enumeration value="DISPOSIZIONE DOCUMENTO ESTERNO"/>
                   <xs:enumeration value="COMPENSAZIONE"/>
@@ -859,16 +853,6 @@ VINCOLATA: UTILIZZO SOMME VINCOLATE</xs:documentation>
                 <xs:restriction base="xs:string">
                   <xs:enumeration value="LIBERA"/>
                   <xs:enumeration value="VINCOLATA"/>
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="numero_conto_banca_italia_ente_ricevente" minOccurs="0">
-              <xs:annotation>
-                <xs:documentation>Utilizzato per operazioni di "girofondo"</xs:documentation>
-              </xs:annotation>
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:pattern value="\d{1,7}"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
@@ -1628,6 +1612,8 @@ M2 = due cifre che indicano il mene "al" di riferimento del versamento (es, 01 g
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string"/>
+          <xs:minLength value="1"/>
+          <xs:maxLength value="20"/>
         </xs:simpleType>
       </xs:element>
       <xs:element name="importo_siope">

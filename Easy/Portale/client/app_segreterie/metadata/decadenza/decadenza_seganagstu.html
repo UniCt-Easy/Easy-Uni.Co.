@@ -10,13 +10,8 @@
 					<select id="decadenza_seganagstu_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="decadenza.aa"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#decadenza_seganagstu_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="decadenza_seganagstu_data">Data</label>
-					<input id="decadenza_seganagstu_data" type="text" class="form-control" data-tag="decadenza.data.g"  data-mandatory />
+					<input id="decadenza_seganagstu_data" type="text" class="form-control" data-tag="decadenza.data.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
@@ -29,9 +24,6 @@
 					<input id="decadenza_seganagstu_protanno" type="text" class="form-control" data-tag="decadenza.protanno"  data-mandatory />
 				</div>
 			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
 </form>
 
 </div>

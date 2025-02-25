@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,6 +35,11 @@ namespace assetsetup_creaxml {
         public FrmAssetSetup_CreaXml() {
             InitializeComponent();
             saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+
+            if (isBlazor())
+			{
+                txtFile.Visible = false;
+			}
         }
 
         private void btnFile_Click(object sender, EventArgs e) {
@@ -95,12 +100,17 @@ namespace assetsetup_creaxml {
                 FileStream fs = new FileStream(fileName, FileMode.Create);
                 dsEsporta.WriteXml(fs, XmlWriteMode.WriteSchema);
                 fs.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
             }
             catch (Exception ex) {
                 show(this, "Impossibile generare il file\n" + ex.Message);
                 return;
             }
-            show(this, "File generato correttamente. Il percorso dove trovare il file è: " + fileName);
+            if (isBlazor())
+                show(this, "File scaricato");
+            else
+                show(this, "File generato correttamente. Il percorso dove trovare il file è: " + fileName);
             azzeraDataSet();
             dsEsporta.Clear();
         }

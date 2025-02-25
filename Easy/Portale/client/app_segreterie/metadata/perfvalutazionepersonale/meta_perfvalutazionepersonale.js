@@ -131,43 +131,9 @@
 //$innerSetCaptionConfig_tuscia$
 						break;
 					case 'onlyprestazionali':
-						table.columns["idafferenza"].caption = "Afferenza";
-						table.columns["idperfschedastatus"].caption = "Stato";
-						table.columns["idreg"].caption = "Valutato";
-						table.columns["idreg_appr"].caption = "Approvatore";
-						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
-						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
-						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
-						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
-						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
-						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
-						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
-						table.columns["percperfuo"].caption = "Percentuale di completamento dell’unità organizzativa";
-						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
-						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
-						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
-						table.columns["risultato"].caption = "Percentuale risultato";
-						table.columns["year"].caption = "Anno solare";
 //$innerSetCaptionConfig_onlyprestazionali$
 						break;
 					case 'onlycomportamentali':
-						table.columns["idafferenza"].caption = "Afferenza";
-						table.columns["idperfschedastatus"].caption = "Stato";
-						table.columns["idreg"].caption = "Valutato";
-						table.columns["idreg_appr"].caption = "Approvatore";
-						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
-						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
-						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
-						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
-						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
-						table.columns["perccomportamenti"].caption = "Percentuale di completamento dei comportamenti attesi";
-						table.columns["percobiettivi"].caption = "Percentuale di completamento degli obiettivi individuali";
-						table.columns["percperfuo"].caption = "Percentuale di completamento dell’unità organizzativa";
-						table.columns["pesocomportamenti"].caption = "Peso della valutazione della performance dei comportamenti attesi";
-						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi individuali";
-						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
-						table.columns["risultato"].caption = "Percentuale risultato";
-						table.columns["year"].caption = "Anno solare";
 //$innerSetCaptionConfig_onlycomportamentali$
 						break;
 					case 'tusciasint':
@@ -175,15 +141,6 @@
 						table.columns["!compponderato"].caption = "Comportamentali: Valutazione ponderata";
 						table.columns["!obiettiviponderato"].caption = "Individuali: Valutazione ponderata";
 						table.columns["!uoponderato"].caption = "Organizzativi: Valutazione ponderata";
-						table.columns["idafferenza"].caption = "Afferenza";
-						table.columns["idperfschedastatus"].caption = "Stato";
-						table.columns["idreg"].caption = "Valutato";
-						table.columns["idreg_appr"].caption = "Approvatore";
-						table.columns["idreg_comp"].caption = "Compilatore obiettivi individuali";
-						table.columns["idreg_compcomp"].caption = "Compilatore comportamenti";
-						table.columns["idreg_create"].caption = "Inserisce obiettivi individuali";
-						table.columns["idreg_val"].caption = "Valutatore obiettivi individuali";
-						table.columns["idreg_valcomp"].caption = "Valutatore comportamenti";
 						table.columns["percateneo"].caption = "Strategici: Valutazione";
 						table.columns["perccomportamenti"].caption = "Comportamentali: Valutazione";
 						table.columns["percobiettivi"].caption = "Individuali: Valutazione";
@@ -192,8 +149,6 @@
 						table.columns["pesocomportamenti"].caption = "Comportamentali: Peso";
 						table.columns["pesoobiettivi"].caption = "Individuali: Peso";
 						table.columns["pesoperfuo"].caption = "Organizzativi: Peso";
-						table.columns["risultato"].caption = "Percentuale risultato";
-						table.columns["year"].caption = "Anno solare";
 						table.columns["risultato"].caption = "Valutazione complessiva";
 //$innerSetCaptionConfig_tusciasint$
 						break;
@@ -235,6 +190,8 @@
 						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
 						table.columns["risultato"].caption = "Percentuale risultato";
 						table.columns["year"].caption = "Anno solare";
+						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";
+						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
 						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";
 						table.columns["pesoperfuo"].caption = "Peso della valutazione della performance organizzativa";
 						table.columns["percperfuo"].caption = "Percentuale di completamento della performance organizzativa";

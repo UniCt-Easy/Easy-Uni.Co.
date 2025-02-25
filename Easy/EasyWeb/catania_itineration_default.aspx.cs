@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -335,6 +335,9 @@ public partial class catania_itineration_default :MetaPage {
         object iditinerationrefundkind = Conn.DO_READ_VALUE("itinerationrefundkind",
             QHS.AppAnd(QHS.CmpEq("iditinerationrefundkindgroup", idfundkindgroup), QHS.CmpEq("active", "S"), QHS.CmpEq("flagadvance", "S")),
             "iditinerationrefundkind", "codeitinerationrefundkind asc");
+        int flagTraceability = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("itinerationrefundkind",
+            QHS.AppAnd(QHS.CmpEq("iditinerationrefundkindgroup", idfundkindgroup), QHS.CmpEq("active", "S"), QHS.CmpEq("flagadvance", "S")),
+            "flagtraceability", "codeitinerationrefundkind asc"));
         DataRow[] found = DS.itinerationrefund_advance.Select(QHC.CmpEq("iditinerationrefundkind", iditinerationrefundkind));
         DataRow SpeseAnticipo;
         decimal importo = 0;
@@ -398,6 +401,14 @@ public partial class catania_itineration_default :MetaPage {
             if (kind != "altro") {
                     SpeseAnticipo["advancepercentage"] = percentualeanticipo;
             }
+
+            if ((flagTraceability & 1) == 0) {
+                SpeseAnticipo["flagtaxableexpense"] = 0;
+            }
+            else {
+                SpeseAnticipo["flagtaxableexpense"] = 1;
+            }
+
         }
         CalcolaTotaleCostiAnticipo(Curr, false);
     }
@@ -595,7 +606,37 @@ public partial class catania_itineration_default :MetaPage {
         PostData.RemoveFalseUpdates(DS);
 
         DataRow CurrRow = DS.itineration.Rows[0];
+        if (CurrRow.RowState == DataRowState.Deleted) {
+            foreach (var A in DS.itinerationattachment.Select()) {
+                if (A.RowState != DataRowState.Deleted)
+                    A.Delete();
+            }
+        }
 
+        string filterAttachment = "";
+        //Se ci sono spese di anticipo cancellato, prende la chiave.
+        if (DS.itinerationrefund_advance.Rows.Count > 0) {
+            foreach (DataRow A in DS.itinerationrefund_advance.Rows) {
+                if (A.RowState == DataRowState.Detached || A.RowState == DataRowState.Deleted) {
+                    filterAttachment = QHS.DoPar(QHS.AppOr(filterAttachment, QHS.CmpKey(A)));
+                }
+            }
+        }
+        //Se ci sono spese a rendiconto cancellate, prende la chiave.
+        if (DS.itinerationrefund_balance.Rows.Count > 0) {
+            foreach (DataRow A in DS.itinerationrefund_balance.Rows) {
+                if (A.RowState == DataRowState.Detached || A.RowState == DataRowState.Deleted) {
+                    filterAttachment = QHS.DoPar(QHS.AppOr(filterAttachment, QHS.CmpKey(A)));
+                }
+            }
+        }
+        //Se il filtro è stato valorizzato vuol dire che alcune spese sono in cancellazione, quindi calcella gli allegati ad esse associati.
+        if ((filterAttachment != "") && DS.itinerationrefundattachment.Rows.Count > 0) {
+            foreach (var Ritinerationrefundattachment in DS.itinerationrefundattachment.Select(filterAttachment)) {
+                if (Ritinerationrefundattachment.RowState != DataRowState.Deleted)
+                    Ritinerationrefundattachment.Delete();
+            }
+        }
         if (CurrRow.RowState != DataRowState.Deleted) {
             int CurrentStatus = CfgFn.GetNoNullInt32(CurrRow["iditinerationstatus"]);
             int OriginalStatus;
@@ -779,7 +820,7 @@ public partial class catania_itineration_default :MetaPage {
                 EnableDisableControls(HwCheckClause, true);
                 EnableDisableControls(txtMotivazione, true);
 
-                if (status == 5)
+                if ((status == 5)||(status ==8))
                     EnableDisableControls(btnAnnullaMissione, false);
                 else
                     EnableDisableControls(btnAnnullaMissione, true);
@@ -960,7 +1001,7 @@ public partial class catania_itineration_default :MetaPage {
     }
     public override void AfterRowSelect(DataTable T, DataRow R) {
         if (T.TableName == "registry") {
-            ImpostaPosGiuridica(false); // ClearPosGiuridica();
+            ImpostaPosGiuridica(false, false); // ClearPosGiuridica();
             if (R != null) {
                 filtraModPagamento(R["idreg"]);
             }
@@ -1037,7 +1078,7 @@ public partial class catania_itineration_default :MetaPage {
             string filterGE;
             filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                             QHS.CmpEq("idposition", MyCfg.idposition),
-                            QHS.CmpEq("livello", MyCfg.livello),
+                            QHS.NullOrEq("livello", MyCfg.livello),
                             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -2263,7 +2304,7 @@ public partial class catania_itineration_default :MetaPage {
     }
 
 
-    private void ImpostaPosGiuridica(bool changerole) {
+    private void ImpostaPosGiuridica(bool changerole, bool fromButtonRuolo) {
         if (PState.IsEmpty)
             return;
         DataRow Curr = DS.itineration.Rows[0];
@@ -2303,9 +2344,28 @@ public partial class catania_itineration_default :MetaPage {
 
         string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
         string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
-
-        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine), QHS.CmpEq("active", "S"));
-
+        //Se clicco sul button devo consentire scegliere qualsiasi cosa, e quindi mostriamo le qualifiche:
+        //valide alla data inizio o valide alla data fine
+        // start <= data inizio oppure start <= data fine
+        if (fromButtonRuolo) {
+            //start <= data inizio e stop >= data inizio, valida a cavallo delle data inizio, deve essere valida prima e dopo la data inizio
+            //OR
+            //start <=data fine e stop >= data fine, valida a cavallo della data fine, deve essere valida prima e dopo la data fine
+            // OR
+            //start >=data inizio e stop null o <= data fine. Con questa condizione mostriamo anche i ruoli che nascono e muoiono durante la missione(è un caso remoto ma è meglio mostrarli)
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
+                QHS.DoPar(QHS.AppOr(
+                    QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
+                    QHS.AppAnd(QHS.CmpLe("start", datafine), QHS.NullOrGe("stop", datafine)),
+                    QHS.AppAnd(QHS.CmpGe("start", datainizio), QHS.NullOrLe("stop", datafine))
+                    ))
+                );
+        }
+        else {
+            //Qualifica valida nel periodo della missione
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.CmpEq("active", "S"),
+                QHS.NullOrGe("stop", datafine));
+        }
         if ((LastFilterPosGiuridica == filter) && (!changerole))
             return;
 
@@ -2317,15 +2377,30 @@ public partial class catania_itineration_default :MetaPage {
 
         int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
 
+        // usa un filtro meno restrittivo, prende le qualifiche valide alla data inizio o valide alla data fine:
+        // data inizio missione beetwen Start and Stop
+        // OR
+        // data fine missione beetwen Start and Stop
         if (NposGiuridiche == 0) {
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
+            QHS.DoPar(QHS.AppOr(
+                QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
+                QHS.AppAnd(QHS.CmpLe("start", datafine), QHS.NullOrGe("stop", datafine)),
+                QHS.AppAnd(QHS.CmpGe("start", datainizio), QHS.NullOrLe("stop", datafine))
+                    ))
+                );
+            NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
+        }
+        if (NposGiuridiche == 0) {
+            if (LastFilterPosGiuridica != filter) {
+                ShowClientMessage(
+                    "I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
+                //show(
+                //	"Non è stato possibile individuare una Posizione giuridica dell'incaricato. Cliccare ''Seleziona Ruolo'' per sceglierne uno adeguato.", "Avviso");
+            }
             ClearPosGiuridica();
             LastFilterPosGiuridica = filter;
-            //btnCambiaRuolo.Visible = false;
-            //btnCambiaRuolo.Visible = false;
-            if (LastFilterPosGiuridica != filter) {
-                //MessageBox.Show("I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
-                ShowClientMessage("I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
-            }
+            ////btnCambiaRuolo.Enabled = false;
             return;
         }
         LastFilterPosGiuridica = filter;
@@ -2403,7 +2478,7 @@ public partial class catania_itineration_default :MetaPage {
         string filterGE;
         filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                         QHS.CmpEq("idposition", MyCfg.idposition),
-                        QHS.CmpEq("livello", MyCfg.livello),
+                        QHS.NullOrEq("livello", MyCfg.livello),
                         "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -2455,7 +2530,7 @@ public partial class catania_itineration_default :MetaPage {
 
 
     public void btnCambiaRuolo_Click(object sender, EventArgs e) {
-        ImpostaPosGiuridica(true);
+        ImpostaPosGiuridica(true, true);
 
     }
 
@@ -2516,14 +2591,14 @@ public partial class catania_itineration_default :MetaPage {
         CommFun.GetFormData(true);
 
         if (((hwTextBox)sender) == txtIncaricato) {
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
         }
 
         if (/*(MissFun.CampoDataPerPosGiuridica == "start") &&*/ (((hwTextBox)sender) == txtDataInizioOrario)) {
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
         }
         if (((hwTextBox)sender) == txtDataFineOrario) {
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
         }
 
     }
@@ -3850,7 +3925,7 @@ public partial class catania_itineration_default :MetaPage {
 
         int status = CfgFn.GetNoNullInt32(CurrentRow["iditinerationstatus"]);
 
-        if (!new[] { 1, 3, 5 }.Contains(status))
+        if (!new[] { 1, 3, 5, 8 }.Contains(status))
             return;
 
         bool res = ShowClientMessage("Sei sicuro di voler annullare la missione? " +

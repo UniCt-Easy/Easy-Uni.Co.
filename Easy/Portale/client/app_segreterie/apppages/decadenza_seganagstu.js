@@ -6,8 +6,6 @@
 		MetaPage.apply(this, ['decadenza', 'seganagstu', true]);
         this.name = 'Decadenza';
 		this.defaultListType = 'seganagstu';
-		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
-		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -50,7 +48,14 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#decadenza_seganagstu_protnumero'), true);
+				this.enableControl($('#decadenza_seganagstu_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#decadenza_seganagstu_protnumero'), false);
@@ -59,44 +64,19 @@
 				return this.superClass.afterFill.call(this);
 			},
 
-			afterLink: function () {
-				var self = this;
-				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
-				$("#btnProtocol").prop("disabled", true);
-				//fireAfterLink
-				return this.superClass.afterLink.call(this).then(function () {
-					var arraydef = [];
-					//fireAfterLinkAsinc
-					return $.when.apply($, arraydef);
-				});
-			},
+			//afterLink
 
 			//afterRowSelect
 
 			//afterActivation
 
-			rowSelected: function (dataRow) {
-				$("#btnProtocol").prop("disabled", false);
-				//firerowSelected
-			},
+			//rowSelected
 
-
-			buttonClickEnd: function (currMetaPage, cmd) {
-				//fireRelButtonClickEnd
-				cmd = cmd.toLowerCase();
-				if (cmd === "mainsetsearch") {
-					$("#btnProtocol").prop("disabled", true);
-					//firebuttonClickEnd
-				}
-				return this.superClass.buttonClickEnd(currMetaPage, cmd);
-			},
-
+			//buttonClickEnd
 
 			//insertClick
 
-			firebtnProtocol: function (that) {
-				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
-			},
+			//beforePost
 
 			//buttons
         });

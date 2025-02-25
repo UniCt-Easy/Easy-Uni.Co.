@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_affidamento_docente"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_affidamento_docente: DataSet {
+public partial class dsmeta_affidamento_docente: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -117,6 +117,7 @@ private void initClass() {
 	tlezione_alias2.defineColumn("stage", typeof(string));
 	tlezione_alias2.defineColumn("start", typeof(DateTime),false);
 	tlezione_alias2.defineColumn("stop", typeof(DateTime),false);
+	tlezione_alias2.defineColumn("titolo", typeof(string));
 	tlezione_alias2.defineColumn("visita", typeof(string));
 	tlezione_alias2.ExtendedProperties["TableForReading"]="lezione";
 	Tables.Add(tlezione_alias2);
@@ -233,15 +234,30 @@ private void initClass() {
 	var terogazkinddefaultview= new MetaTable("erogazkinddefaultview");
 	terogazkinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	terogazkinddefaultview.defineColumn("erogazkind_active", typeof(string));
+	terogazkinddefaultview.defineColumn("erogazkind_ans", typeof(string));
+	terogazkinddefaultview.defineColumn("erogazkind_description", typeof(string));
+	terogazkinddefaultview.defineColumn("erogazkind_lt", typeof(DateTime),false);
+	terogazkinddefaultview.defineColumn("erogazkind_lu", typeof(string),false);
+	terogazkinddefaultview.defineColumn("erogazkind_sortcode", typeof(int),false);
 	terogazkinddefaultview.defineColumn("iderogazkind", typeof(int),false);
+	terogazkinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(terogazkinddefaultview);
 	terogazkinddefaultview.defineKey("iderogazkind");
 
 	//////////////////// AFFIDAMENTOKINDDEFAULTVIEW /////////////////////////////////
 	var taffidamentokinddefaultview= new MetaTable("affidamentokinddefaultview");
 	taffidamentokinddefaultview.defineColumn("affidamentokind_active", typeof(string));
+	taffidamentokinddefaultview.defineColumn("affidamentokind_costoora", typeof(decimal));
+	taffidamentokinddefaultview.defineColumn("affidamentokind_costoorariodacontratto", typeof(string));
+	taffidamentokinddefaultview.defineColumn("affidamentokind_ct", typeof(DateTime),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_cu", typeof(string),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_description", typeof(string),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_lt", typeof(DateTime),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_lu", typeof(string),false);
+	taffidamentokinddefaultview.defineColumn("affidamentokind_sortcode", typeof(int),false);
 	taffidamentokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taffidamentokinddefaultview.defineColumn("idaffidamentokind", typeof(int),false);
+	taffidamentokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(taffidamentokinddefaultview);
 	taffidamentokinddefaultview.defineKey("idaffidamentokind");
 

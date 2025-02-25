@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,14 +36,19 @@ namespace meta_itinerationrefundkind
             ListingTypes.Add("checkimport");
 		}
 
-      
-		protected override Form GetForm(string FormName){
+
+        public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude)
+        {
+            if (ListingType == "default")
+				return base.SelectOne(ListingType, filter, "itinerationrefundkindview", Exclude);
+            return base.SelectOne(ListingType, filter, "itinerationrefundkind", Exclude);
+        }
+
+        protected override Form GetForm(string FormName){
 			if (FormName=="default")
 			{
-				DefaultListType="default";
+				DefaultListType= "default";
 				Name="Rimborso Spese";
-				ActAsList();        
-				SearchEnabled = false;
 				return MetaData.GetFormByDllName("itinerationrefundkind_default");//PinoRana
 			}
 			return null;
@@ -83,6 +88,7 @@ namespace meta_itinerationrefundkind
             SetDefault(T, "active", "S");
             SetDefault(T, "flagbalance", "S");
             SetDefault(T, "flagadvance", "S");
+            SetDefault(T, "flagtraceability", 0);
 
         }
         public override DataRow Get_New_Row (DataRow ParentRow, DataTable T) {

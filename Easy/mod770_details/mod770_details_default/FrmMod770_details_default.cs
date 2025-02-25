@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -67,7 +67,15 @@ namespace mod770_details_default
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "77s";
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+                btnSalvaIn.Text = "Scarica";
+			}
+
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
@@ -114,7 +122,6 @@ namespace mod770_details_default
 			this.dgrVerifiche = new System.Windows.Forms.DataGrid();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.btnRiepilogoRitenute = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
@@ -783,13 +790,22 @@ namespace mod770_details_default
 
 			tw.Close();
 
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
+            string message;
+
+            if (isBlazor())
+                message = "Modello 770 scaricato";
+            else
+                message = "Modello 770 salvato nel file: " + saveFileDialog1.FileName;
+
             if (soloRecordH) {
-                show(this, "Modello 770 salvato nel file: " + saveFileDialog1.FileName
+                show(this, message
                     + "\nComunicazioni Somme liquidate a seguito di procedure di pignoramento presso terzi e lavoratori autonomi stranieri privi di codice fiscale italiano:   " + nRI + "  (" + nRecordI + " record di tipo \"I\")",
                     "Creazione 770 terminata");
             }
             else {
-                show(this, "Modello 770 salvato nel file: " + saveFileDialog1.FileName
+                show(this, message
                     + "\n\nComunicazioni Lavoro Dipendente: " + nRG + "  (" + nRecordG + " record di tipo \"G\")",
                     "Creazione 770 terminata");
             }
@@ -956,7 +972,7 @@ namespace mod770_details_default
         }
 
 
-         private void btn02_Click(object sender, EventArgs e)
+        private void btn02_Click(object sender, EventArgs e)
         {
 			//Prestazioni Certificazioni CUD
             int esercizio = (int)Meta.GetSys("esercizio");
@@ -988,7 +1004,7 @@ namespace mod770_details_default
 			}
         }
 
-          private void btn03_Click(object sender, EventArgs e)
+        private void btn03_Click(object sender, EventArgs e)
         {
 			//3) Prestazioni Certificazioni In Non CUD
             int esercizio = (int)Meta.GetSys("esercizio");

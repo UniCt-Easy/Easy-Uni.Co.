@@ -82,6 +82,8 @@
 
 			//insertClick
 
+			//beforePost
+
 			managefasciaisee_default_idfasciaisee: function () {
 				var def = appMeta.Deferred("beforeFill-managefasciaisee_idfasciaisee");
 				var self = this;

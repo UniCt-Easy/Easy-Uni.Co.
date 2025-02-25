@@ -95,11 +95,12 @@
     <Reference Include="meta_mandate">
       <HintPath>..\meta_mandate\bin\Debug\meta_mandate.dll</HintPath>
     </Reference>
-    <Reference Include="meta_mandatedetail">
-      <HintPath>..\..\mandatedetail\meta_mandatedetail\bin\Debug\meta_mandatedetail.dll</HintPath>
-    </Reference>
     <Reference Include="meta_registry">
       <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -121,6 +122,10 @@
       <Project>{B1D20D41-234E-4137-9C13-96E4BDC21B6B}</Project>
       <Name>manage_epexpvar</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mandatedetail\meta_mandatedetail\meta_mandatedetail.csproj">
+      <Project>{e779d797-3da5-46ac-b096-20193d734db4}</Project>
+      <Name>meta_mandatedetail</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\mandatekind\meta_mandatekind\meta_mandatekind.csproj">
       <Project>{dd5878d5-ab66-4c16-bd3b-a37866c756c7}</Project>

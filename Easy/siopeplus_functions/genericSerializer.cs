@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,6 +23,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace siopeplus_functions {
@@ -50,9 +51,37 @@ namespace siopeplus_functions {
             File.WriteAllBytes(filePath, e.GetBytes(xml));
         }
 
-        public static string RemoveInvalidXmlChars(string xmlContent)
-        {
-            return Regex.Replace(xmlContent, @"[^a-zA-Z0-9.,<>:;=_?\x27\x2d\x5c\x2f\x22\s]+", "");
+
+
+
+
+        static string RemoveSpecialCharsExceptPattern(string input, string pattern) {
+            // Find all matches for the pattern to exclude
+            var matches = Regex.Matches(input, pattern);
+            var preservedValues = new string[matches.Count];
+
+            for (int i = 0; i < matches.Count; i++) {
+                preservedValues[i] = matches[i].Value;
+                input = input.Replace(matches[i].Value, $"__PRESERVE_{i}__");
+            }
+
+            // Apply regex to remove special characters
+            input = Regex.Replace(input, @"[^a-zA-Z0-9.,<>:;=_?\b\x27\x2d\x5c\x2f\x22\s]+", "");
+
+            // Restore the preserved values
+            for (int i = 0; i < preservedValues.Length; i++) {
+                input = input.Replace($"__PRESERVE_{i}__", preservedValues[i]);
+            }
+
+            return input;
+        }
+
+        public static string RemoveInvalidXmlChars(string xmlContent)  {
+
+            string result = RemoveSpecialCharsExceptPattern(xmlContent, @"<numero_fattura_siope>.*?</numero_fattura_siope>");
+            return result;
+
+            //return Regex.Replace(xmlContent, @"[^a-zA-Z0-9.,<>:;=_?\x27\x2d\x5c\x2f\x22\s]+", "");
         }
 
         public static string toXml<T>(this T value, Encoding e= null) {

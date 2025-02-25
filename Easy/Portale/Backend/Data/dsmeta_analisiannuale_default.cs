@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -32,9 +32,6 @@ public partial class dsmeta_analisiannuale_default: DataSet {
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable getcontrattikindview 		=> (MetaTable)Tables["getcontrattikindview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable importcontrattistipendiview 		=> (MetaTable)Tables["importcontrattistipendiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pcsbilancio 		=> (MetaTable)Tables["pcsbilancio"];
@@ -145,28 +142,6 @@ private void initClass() {
 	tgetcontrattikindview.defineColumn("title", typeof(string),false);
 	Tables.Add(tgetcontrattikindview);
 	tgetcontrattikindview.defineKey("idposition");
-
-	//////////////////// IMPORTCONTRATTISTIPENDIVIEW /////////////////////////////////
-	var timportcontrattistipendiview= new MetaTable("importcontrattistipendiview");
-	timportcontrattistipendiview.defineColumn("anno", typeof(int),false);
-	timportcontrattistipendiview.defineColumn("cognome", typeof(string));
-	timportcontrattistipendiview.defineColumn("datafine", typeof(DateTime));
-	timportcontrattistipendiview.defineColumn("datainizio", typeof(DateTime),false);
-	timportcontrattistipendiview.defineColumn("datarivalutazione", typeof(DateTime));
-	timportcontrattistipendiview.defineColumn("idinquadramento", typeof(int));
-	timportcontrattistipendiview.defineColumn("idposition", typeof(int),false);
-	timportcontrattistipendiview.defineColumn("idreg", typeof(int),false);
-	timportcontrattistipendiview.defineColumn("idregistrylegalstatus", typeof(int),false);
-	timportcontrattistipendiview.defineColumn("idstipendio", typeof(int));
-	timportcontrattistipendiview.defineColumn("idstipendioannuo", typeof(int),false);
-	timportcontrattistipendiview.defineColumn("inquadramento", typeof(string));
-	timportcontrattistipendiview.defineColumn("lordo", typeof(decimal));
-	timportcontrattistipendiview.defineColumn("matricola", typeof(string));
-	timportcontrattistipendiview.defineColumn("nome", typeof(string));
-	timportcontrattistipendiview.defineColumn("oneri", typeof(decimal));
-	timportcontrattistipendiview.defineColumn("ruolo", typeof(string));
-	Tables.Add(timportcontrattistipendiview);
-	timportcontrattistipendiview.defineKey("anno", "idreg", "idregistrylegalstatus", "idstipendioannuo");
 
 	//////////////////// PCSBILANCIO /////////////////////////////////
 	var tpcsbilancio= new MetaTable("pcsbilancio");
@@ -563,12 +538,8 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{importcontrattistipendiview.Columns["anno"]};
-	var cChild = new []{analisiannuale.Columns["year"]};
-	Relations.Add(new DataRelation("FK_analisiannuale_importcontrattistipendiview_year",cPar,cChild,false));
-
-	cPar = new []{analisiannuale.Columns["idanalisiannuale"], analisiannuale.Columns["year"]};
-	cChild = new []{pcsbilancio.Columns["idanalisiannuale"], pcsbilancio.Columns["year"]};
+	var cPar = new []{analisiannuale.Columns["idanalisiannuale"], analisiannuale.Columns["year"]};
+	var cChild = new []{pcsbilancio.Columns["idanalisiannuale"], pcsbilancio.Columns["year"]};
 	Relations.Add(new DataRelation("FK_pcsbilancio_analisiannuale_idanalisiannuale-year",cPar,cChild,false));
 
 	cPar = new []{pcspuntiorganicoview.Columns["idanalisiannuale"], pcspuntiorganicoview.Columns["year"]};
@@ -607,8 +578,8 @@ private void initClass() {
 	cChild = new []{stipendioannuo.Columns["year"]};
 	Relations.Add(new DataRelation("FK_stipendioannuo_analisiannuale_year",cPar,cChild,false));
 
-	cPar = new []{registrylegalstatus.Columns["idregistrylegalstatus"]};
-	cChild = new []{stipendioannuo.Columns["idregistrylegalstatus"]};
+	cPar = new []{registrylegalstatus.Columns["idregistrylegalstatus"], registrylegalstatus.Columns["idreg"] };
+	cChild = new []{stipendioannuo.Columns["idregistrylegalstatus"], stipendioannuo.Columns["idreg"] };
 	Relations.Add(new DataRelation("FK_stipendioannuo_registrylegalstatus_idregistrylegalstatus",cPar,cChild,false));
 
 	cPar = new []{inquadramento.Columns["idinquadramento"]};

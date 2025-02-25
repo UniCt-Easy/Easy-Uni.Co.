@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_staffagrteaching_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_staffagrteaching_seg: DataSet {
+public partial class dsmeta_staffagrteaching_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -41,6 +41,9 @@ public class dsmeta_staffagrteaching_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_nation 		=> (MetaTable)Tables["geo_nation"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable eqf 		=> (MetaTable)Tables["eqf"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable isced2013 		=> (MetaTable)Tables["isced2013"];
@@ -105,6 +108,13 @@ private void initClass() {
 	Tables.Add(tgeo_nation);
 	tgeo_nation.defineKey("idnation");
 
+	//////////////////// EQF /////////////////////////////////
+	var teqf= new MetaTable("eqf");
+	teqf.defineColumn("ideqf", typeof(int),false);
+	teqf.defineColumn("level", typeof(int));
+	Tables.Add(teqf);
+	teqf.defineKey("ideqf");
+
 	//////////////////// ISCED2013 /////////////////////////////////
 	var tisced2013= new MetaTable("isced2013");
 	tisced2013.defineColumn("active", typeof(string));
@@ -118,9 +128,9 @@ private void initClass() {
 	tstaffagrteaching.defineColumn("ct", typeof(DateTime),false);
 	tstaffagrteaching.defineColumn("cu", typeof(string),false);
 	tstaffagrteaching.defineColumn("idbandomi", typeof(int),false);
+	tstaffagrteaching.defineColumn("ideqf", typeof(int),false);
 	tstaffagrteaching.defineColumn("idisced2013", typeof(int),false);
 	tstaffagrteaching.defineColumn("idiscrizionebmi", typeof(int),false);
-	tstaffagrteaching.defineColumn("idlivelloeqf", typeof(int),false);
 	tstaffagrteaching.defineColumn("idnation", typeof(int));
 	tstaffagrteaching.defineColumn("idreg", typeof(int),false);
 	tstaffagrteaching.defineColumn("idreg_docenti", typeof(int),false);
@@ -157,6 +167,10 @@ private void initClass() {
 	cPar = new []{geo_nation.Columns["idnation"]};
 	cChild = new []{staffagrteaching.Columns["idnation"]};
 	Relations.Add(new DataRelation("FK_staffagrteaching_geo_nation_idnation",cPar,cChild,false));
+
+	cPar = new []{eqf.Columns["ideqf"]};
+	cChild = new []{staffagrteaching.Columns["ideqf"]};
+	Relations.Add(new DataRelation("FK_staffagrteaching_eqf_ideqf",cPar,cChild,false));
 
 	cPar = new []{isced2013.Columns["idisced2013"]};
 	cChild = new []{staffagrteaching.Columns["idisced2013"]};

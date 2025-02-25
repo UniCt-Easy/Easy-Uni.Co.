@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -217,13 +217,19 @@ private void initClass() {
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("getdocentiamministrativiresponsabili_istituto", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("getdocentiamministrativiresponsabili_resplevel", typeof(int));
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("getdocentiamministrativiresponsabili_ssd", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("getdocentiamministrativiresponsabili_start", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("getdocentiamministrativiresponsabili_stop", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("getdocentiamministrativiresponsabili_struttura", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("struttura_idstrutturakind", typeof(int));
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("struttura_title", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("strutturakind_title", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineColumn("surname", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias5.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias5);
-	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview_alias5.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS4 /////////////////////////////////
 	var tgetdocentiamministrativiresponsabilinomcognview_alias4= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias4");
@@ -235,33 +241,39 @@ private void initClass() {
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_istituto", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_resplevel", typeof(int));
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_ssd", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_start", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_stop", typeof(DateTime));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("getdocentiamministrativiresponsabili_struttura", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("struttura", typeof(string),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("struttura_idstrutturakind", typeof(int));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("struttura_title", typeof(string));
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("strutturakind_title", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineColumn("surname", typeof(string));
 	tgetdocentiamministrativiresponsabilinomcognview_alias4.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias4);
-	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview_alias4.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS3 /////////////////////////////////
 	var tgetdocentiamministrativiresponsabilinomcognview_alias3= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias3");
 	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("dropdown_title", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineColumn("struttura", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias3.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias3);
-	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview_alias3.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW_ALIAS2 /////////////////////////////////
 	var tgetdocentiamministrativiresponsabilinomcognview_alias2= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias2");
 	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("dropdown_title", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineColumn("struttura", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias2.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias2);
-	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview_alias2.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// PERFVALUTAZIONEPERSONALESOGLIA /////////////////////////////////
 	var tperfvalutazionepersonalesoglia= new MetaTable("perfvalutazionepersonalesoglia");
@@ -304,20 +316,20 @@ private void initClass() {
 	var tgetdocentiamministrativiresponsabilinomcognview_alias1= new MetaTable("getdocentiamministrativiresponsabilinomcognview_alias1");
 	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("dropdown_title", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineColumn("struttura", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview_alias1.ExtendedProperties["TableForReading"]="getdocentiamministrativiresponsabilinomcognview";
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview_alias1);
-	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview_alias1.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// GETDOCENTIAMMINISTRATIVIRESPONSABILINOMCOGNVIEW /////////////////////////////////
 	var tgetdocentiamministrativiresponsabilinomcognview= new MetaTable("getdocentiamministrativiresponsabilinomcognview");
 	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("dropdown_title", typeof(string),false);
 	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("idreg", typeof(int),false);
+	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("idstruttura", typeof(int),false);
 	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("ruolo", typeof(string),false);
-	tgetdocentiamministrativiresponsabilinomcognview.defineColumn("struttura", typeof(string),false);
 	Tables.Add(tgetdocentiamministrativiresponsabilinomcognview);
-	tgetdocentiamministrativiresponsabilinomcognview.defineKey("idreg", "ruolo", "struttura");
+	tgetdocentiamministrativiresponsabilinomcognview.defineKey("idreg", "idstruttura", "ruolo");
 
 	//////////////////// PERFVALUTAZIONEPERSONALECOMPORTAMENTOSOGLIA /////////////////////////////////
 	var tperfvalutazionepersonalecomportamentosoglia= new MetaTable("perfvalutazionepersonalecomportamentosoglia");

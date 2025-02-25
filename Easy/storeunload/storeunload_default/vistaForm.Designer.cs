@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,53 +26,35 @@ using System.Runtime.Serialization;
 namespace storeunload_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Scarico Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable storeunload 		=> Tables["storeunload"];
 
-	///<summary>
-	///Dettaglio scarico magazzino 
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable storeunloaddetail 		=> Tables["storeunloaddetail"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	/// Causali Scarico Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable storeunload_motive 		=> Tables["storeunload_motive"];
 
-	///<summary>
-	///Magazzino
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable store 		=> Tables["store"];
 
-	///<summary>
-	///Prenotazione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable booking 		=> Tables["booking"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stockview 		=> Tables["stockview"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable storeunloadattachment 		=> Tables["storeunloadattachment"];
 
 	#endregion
 
@@ -404,6 +386,25 @@ private void initClass() {
 	tmanager.PrimaryKey =  new DataColumn[]{tmanager.Columns["idman"]};
 
 
+	//////////////////// STOREUNLOADATTACHMENT /////////////////////////////////
+	var tstoreunloadattachment= new DataTable("storeunloadattachment");
+	C= new DataColumn("idstoreunload", typeof(int));
+	C.AllowDBNull=false;
+	tstoreunloadattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tstoreunloadattachment.Columns.Add(C);
+	tstoreunloadattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tstoreunloadattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tstoreunloadattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tstoreunloadattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tstoreunloadattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tstoreunloadattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tstoreunloadattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tstoreunloadattachment);
+	tstoreunloadattachment.PrimaryKey =  new DataColumn[]{tstoreunloadattachment.Columns["idstoreunload"], tstoreunloadattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -435,6 +436,10 @@ private void initClass() {
 	cPar = new []{storeunload_motive.Columns["idstoreunload_motive"]};
 	cChild = new []{storeunload.Columns["idstoreunload_motive"]};
 	Relations.Add(new DataRelation("storeunload_motive_storeunload",cPar,cChild,false));
+
+	cPar = new []{storeunload.Columns["idstoreunload"]};
+	cChild = new []{storeunloadattachment.Columns["idstoreunload"]};
+	Relations.Add(new DataRelation("storeunload_storeunloadattachment",cPar,cChild,false));
 
 	#endregion
 

@@ -105,39 +105,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getregistrydocentiamministrativi_alias2" msprop:TableForReading="getregistrydocentiamministrativi" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="forename" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="surname" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="getregistrydocentiamministrativi_alias1" msprop:TableForReading="getregistrydocentiamministrativi" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="forename" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="surname" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="getregistrydocentiamministrativi" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="forename" type="xs:string" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="surname" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="struttura" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -150,9 +117,6 @@
               <xs:element name="fax" type="xs:string" minOccurs="0" />
               <xs:element name="idaoo" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg_appr" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg_resp" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg_valut" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
               <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idstrutturakind" type="xs:int" />
@@ -167,18 +131,6 @@
               <xs:element name="telefono" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="title_en" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_appr_getregistrydocentiamministrativi_surname" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_appr_getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_appr_getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_appr_getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_resp_getregistrydocentiamministrativi_surname" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_resp_getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_resp_getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_resp_getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_valut_getregistrydocentiamministrativi_surname" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_valut_getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_valut_getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idreg_valut_getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -330,18 +282,7 @@
       <xs:field xpath="mstns:idprogettoreport" />
       <xs:field xpath="mstns:idprogettostatuskind" />
     </xs:unique>
-    <xs:unique name="getregistrydocentiamministrativi_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministrativi_alias2" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="getregistrydocentiamministrativi_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministrativi_alias1" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="getregistrydocentiamministrativi_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministrativi" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
+
     <xs:unique name="struttura_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:struttura" />
       <xs:field xpath="mstns:idstruttura" />
@@ -399,9 +340,6 @@
       <msdata:Relationship name="FK_progettoreportprogettostatuskind_progettostatuskind_idprogettostatuskind" msdata:parent="progettostatuskind" msdata:child="progettoreportprogettostatuskind" msdata:parentkey="idprogettostatuskind" msdata:childkey="idprogettostatuskind" />
       <msdata:Relationship name="FK_progettoreportstruttura_progettoreport_idprogettoreport" msdata:parent="progettoreport" msdata:child="progettoreportstruttura" msdata:parentkey="idprogettoreport" msdata:childkey="idprogettoreport" />
       <msdata:Relationship name="FK_progettoreportstruttura_struttura_idstruttura" msdata:parent="struttura" msdata:child="progettoreportstruttura" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
-      <msdata:Relationship name="FK_struttura_getregistrydocentiamministrativi_alias2_idreg_valut" msdata:parent="getregistrydocentiamministrativi_alias2" msdata:child="struttura" msdata:parentkey="idreg" msdata:childkey="idreg_valut" />
-      <msdata:Relationship name="FK_struttura_getregistrydocentiamministrativi_alias1_idreg_resp" msdata:parent="getregistrydocentiamministrativi_alias1" msdata:child="struttura" msdata:parentkey="idreg" msdata:childkey="idreg_resp" />
-      <msdata:Relationship name="FK_struttura_getregistrydocentiamministrativi_idreg_appr" msdata:parent="getregistrydocentiamministrativi" msdata:child="struttura" msdata:parentkey="idreg" msdata:childkey="idreg_appr" />
       <msdata:Relationship name="FK_progettoreport_year_year" msdata:parent="year" msdata:child="progettoreport" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_progettoreportregistryprogfin_progettoreport_idprogettoreport" msdata:parent="progettoreport" msdata:child="progettoreportregistryprogfin" msdata:parentkey="idprogettoreport" msdata:childkey="idprogettoreport" />
       <msdata:Relationship name="FK_progettoreportregistryprogfin_registryprogfin_idregistryprogfin" msdata:parent="registryprogfin" msdata:child="progettoreportregistryprogfin" msdata:parentkey="idregistryprogfin" msdata:childkey="idregistryprogfin" />

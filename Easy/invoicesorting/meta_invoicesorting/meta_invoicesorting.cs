@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,14 +47,42 @@ namespace meta_invoicesorting
 			base.DescribeColumns(T, ListingType);
 			
 			if (ListingType=="default") {
+
+				
+
 				foreach (DataColumn C in T.Columns)
 					DescribeAColumn(T,C.ColumnName,"",-1);
 				int nPos = 0;
-				DescribeAColumn(T,"idsorkind","Tipo",nPos++);
+				DescribeAColumn(T, "idsorkind","Tipo",nPos++);
 				DescribeAColumn(T, "quota", "Quota",nPos++);
 				DescribeAColumn(T, "!codiceclass", "Codice","sorting.sortcode",nPos++);
 				DescribeAColumn(T, "!descrizione", "Descrizione","sorting.description",nPos++);
+
+				//if (this.ExtraParameter != null) {
+				object idsorkind = this.ExtraParameter;
+
+				//DataTable SortingKind = Conn.RUN_SELECT("sortingkind", "*", null, "(idsorkind=" +
+				//	QueryCreator.quotedstrvalue(idsorkind, true) + ")",
+				//	null, true);
+				//if (SortingKind.Rows.Count != 1) return;
+				//DataRow CaptionsRow = SortingKind.Rows[0];
+
+				for (int i = 1; i <= 5; i++) {
+					DescribeAColumn(T, "valued" + i.ToString(), "Data " + i.ToString(), nPos++); 
+				}
+				//for (int i = 1; i <= 5; i++) {
+				//	DescribeAColumn(T, "valuen" + i.ToString(), "Valore " + i.ToString(), nPos++);
+				//}
+				//for (int i = 1; i <= 5; i++) {
+				//	DescribeAColumn(T, "values" + i.ToString(), "Testo " + i.ToString(), nPos++);
+				//}
+				//for (int i = 1; i <= 5; i++) {
+				//	DescribeAColumn(T, "valuev" + i.ToString(), "Importo " + i.ToString(), nPos++);
+				//}
+
+
 				HelpForm.SetFormatForColumn(T.Columns["quota"],"p");
+				ComputeRowsAs(T, "default");
 			}
 		}
 		

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -496,6 +496,7 @@ private void initClass() {
 	tincomelastview.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tincomelastview.Columns.Add( new DataColumn("codetreasurer", typeof(string)));
 	tincomelastview.Columns.Add( new DataColumn("treasurer", typeof(string)));
+	tincomelastview.Columns.Add( new DataColumn("idtreasurer_bill", typeof(int)));
 	Tables.Add(tincomelastview);
 	tincomelastview.PrimaryKey =  new DataColumn[]{tincomelastview.Columns["idinc"]};
 

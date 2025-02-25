@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,11 +35,12 @@ using System.Threading.Tasks;
 namespace UbiBancaService {
     public class Servizio {
         public static global::UbiBancaService.gestorePosizioni Create() {
-            return Create(null, null, null, true);
+            return Create(null, null, null, true, null, null, null, null);
 
         }
 
-        public static gestorePosizioni Create(string userName, string password, string URL, bool test) {
+        public static gestorePosizioni Create(string userName, string password, string URL, bool test,
+             X509Certificate2 clientcert = null, X509Certificate2 servicecert = null, X509Certificate2 clientcerttest = null, X509Certificate2 servicecerttest = null) {
             if (URL == null) URL = "https://cuniba.ubibanca.it/gestoreposizioni/services/soap/gestorePosizioni?";
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
@@ -97,12 +98,12 @@ namespace UbiBancaService {
             factory.Endpoint.Behaviors.Add(new CleanNameSpacesBehavior("xsi", "xsd", "iuv"));//"xsi", "xsd","xsd1"
 
             if (test) {
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "6b9233c509e2d2a4d0dafa6207bc5c07720716a7");
-                factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3ed8765d55f336bc43f08e0decd9573c64866049");
+                factory.Credentials.ServiceCertificate.DefaultCertificate = servicecerttest ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "6b9233c509e2d2a4d0dafa6207bc5c07720716a7");/* intesa3.cer*/
+                factory.Credentials.ClientCertificate.Certificate = clientcerttest ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3ed8765d55f336bc43f08e0decd9573c64866049");/* intesa1.cer*/
             }
             else {
-                factory.Credentials.ServiceCertificate.DefaultCertificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "a32787f1f3d287c96030cd2ad17492344af5c575");
-                factory.Credentials.ClientCertificate.Certificate = pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3ed8765d55f336bc43f08e0decd9573c64866049");
+                factory.Credentials.ServiceCertificate.DefaultCertificate = servicecert ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "a32787f1f3d287c96030cd2ad17492344af5c575"); /* intesa1.cer*/
+                factory.Credentials.ClientCertificate.Certificate = clientcert ?? pagoPaService.PagoPaService.getCertificateByThumbPrint(StoreName.My, StoreLocation.CurrentUser, "3ed8765d55f336bc43f08e0decd9573c64866049"); /* intesa1.cer*/
             }
             factory.Endpoint.Behaviors.Add(new AuthenticationHeaderBehavior(userName, password));
 

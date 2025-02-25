@@ -43,10 +43,10 @@
         <xs:element name="registrylegalstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="_x0021_anni" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_giorni" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_mesi" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="annokind" type="xs:string" minOccurs="0" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
               <xs:element name="csa_class" type="xs:string" minOccurs="0" />
               <xs:element name="csa_compartment" type="xs:string" minOccurs="0" />
               <xs:element name="csa_role" type="xs:string" minOccurs="0" />
@@ -54,16 +54,22 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
               <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
               <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
               <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="idtipologiaruolo" type="xs:int" minOccurs="0" />
+              <xs:element name="idtiponomina" type="xs:int" minOccurs="0" />
               <xs:element name="incomeclass" type="xs:int" minOccurs="0" />
               <xs:element name="incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
               <xs:element name="livello" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
               <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
               <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
@@ -101,6 +107,7 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="have104" type="xs:string" minOccurs="0" />
               <xs:element name="idcongiuntokind" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_parente" type="xs:int" />
@@ -112,7 +119,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="progettotimesheetprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="progettotimesheetprogetto" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
@@ -144,8 +151,18 @@
               <xs:element name="datablocco" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rendicontaltrokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idrendicontaltrokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -177,6 +194,7 @@
               <xs:element name="idprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="idprogettotimesheet" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idrendicontaltrokind" type="xs:int" minOccurs="0" />
               <xs:element name="idsal" type="xs:int" minOccurs="0" />
               <xs:element name="idtimesheettemplate" type="xs:string" minOccurs="0" />
               <xs:element name="intestazioneallsheet" type="xs:string" minOccurs="0" />
@@ -185,6 +203,7 @@
               <xs:element name="multilinetype" type="xs:string" minOccurs="0" />
               <xs:element name="output" type="xs:string" minOccurs="0" />
               <xs:element name="riepilogoanno" type="xs:string" minOccurs="0" />
+              <xs:element name="sede" type="xs:string" minOccurs="0" />
               <xs:element name="showactivitiesrow" type="xs:string" minOccurs="0" />
               <xs:element name="showotheractivitiesrow" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -194,6 +213,8 @@
               <xs:element name="_x0021_idprogetto_progetto_titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogetto_progetto_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idprogetto_progetto_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontaltrokind_rendicontaltrokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsal_sal_numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_datablocco" type="xs:dateTime" minOccurs="0" />
@@ -331,11 +352,11 @@
               <xs:element name="gender" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idanpr" type="xs:string" minOccurs="0" />
               <xs:element name="idateco" type="xs:int" minOccurs="0" />
               <xs:element name="idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
               <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
@@ -428,6 +449,10 @@
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
     </xs:unique>
+    <xs:unique name="rendicontaltrokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontaltrokind" />
+      <xs:field xpath="mstns:idrendicontaltrokind" />
+    </xs:unique>
     <xs:unique name="progetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progetto" />
       <xs:field xpath="mstns:idprogetto" />
@@ -502,6 +527,7 @@
       <msdata:Relationship name="FK_progettotimesheet_year_year" msdata:parent="year" msdata:child="progettotimesheet" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_progettotimesheet_timesheettemplate_idtimesheettemplate" msdata:parent="timesheettemplate" msdata:child="progettotimesheet" msdata:parentkey="idtimesheettemplate" msdata:childkey="idtimesheettemplate" />
       <msdata:Relationship name="FK_progettotimesheet_sal_idsal" msdata:parent="sal" msdata:child="progettotimesheet" msdata:parentkey="idsal" msdata:childkey="idsal" />
+      <msdata:Relationship name="FK_progettotimesheet_rendicontaltrokind_idrendicontaltrokind" msdata:parent="rendicontaltrokind" msdata:child="progettotimesheet" msdata:parentkey="idrendicontaltrokind" msdata:childkey="idrendicontaltrokind" />
       <msdata:Relationship name="FK_progettotimesheet_progetto_idprogetto" msdata:parent="progetto" msdata:child="progettotimesheet" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettotimesheet_mese_idmese" msdata:parent="mese" msdata:child="progettotimesheet" msdata:parentkey="idmese" msdata:childkey="idmese" />
       <msdata:Relationship name="FK_registry_residence_residence" msdata:parent="residence" msdata:child="registry" msdata:parentkey="idresidence" msdata:childkey="residence" />

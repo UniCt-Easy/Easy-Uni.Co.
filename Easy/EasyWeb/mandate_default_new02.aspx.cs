@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -68,7 +68,14 @@ public partial class mandate_default_new02 : MetaPage {
         DS = (vistaForm_Mandate)D;
     }
 
+    bool abilitaLotti(object idmankind) {
+        DataRow[] r = DS.mandatekind.Select(QHC.CmpEq("idmankind", idmankind));
+        if (r.Length == 0) return true;
+        int flag = CfgFn.GetNoNullInt32(r[0]["flag"]) & 1;
+        if (flag == 0) return true;
 
+        return false;
+    }
     private void btnInserisciCopia_Click(object sender, EventArgs e) {
         if (DS.mandate.Rows.Count == 0)
             return;
@@ -174,6 +181,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         HelpForm.SetDenyNull(DS.mandate.Columns["active"], true);
         DataAccess.SetTableForReading(DS.upb_detail, "upb");
+        DataAccess.SetTableForReading(DS.registrymainview_rup, "registrymainview");
 
         GetData.CacheTable(DS.config, QHS.CmpEq("ayear", Conn.Security.GetSys("esercizio")), null, false);
         HelpForm.SetFormatForColumn(DS.mandatedetail.Columns["number"], "N");
@@ -226,6 +234,15 @@ public partial class mandate_default_new02 : MetaPage {
         else {
             LabelConsip.Visible = false;
             Panel3.Visible = false;
+        }
+    }
+
+    void VisualizzaNascondiLotti(bool visualizza) {
+        if (visualizza) {
+            HwPanelRUP.Visible = true;
+        }
+        else {
+           HwPanelRUP.Visible = false;
         }
     }
 
@@ -826,6 +843,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         object curridmankind = (idmankind.SelectedValue != null) ? idmankind.SelectedValue : null;
         VisualizzaNascondiConsip(abilitaConsip(curridmankind));
+        VisualizzaNascondiLotti(abilitaLotti(curridmankind));
 
         DataRow row_mandatekind = null;
         if (curridmankind != null && curridmankind.ToString() != "") {
@@ -1078,7 +1096,7 @@ public partial class mandate_default_new02 : MetaPage {
         
 
         VisualizzaNascondiConsip(true);
-
+        VisualizzaNascondiLotti(true);
         yman.Text = Conn.Security.GetSys("esercizio").ToString();
         yman.ReadOnly = false;
         //txtCredDeb.ReadOnly = false;
@@ -1127,6 +1145,7 @@ public partial class mandate_default_new02 : MetaPage {
     //    }
     //}
 
+
     public override void AfterRowSelect(DataTable T, DataRow R) {
 
         if (T.TableName == "store" && CommFun.DrawStateIsDone) {
@@ -1145,7 +1164,6 @@ public partial class mandate_default_new02 : MetaPage {
             return;
         }
 
-        
         if (T.TableName == "mandatekind") {
             if (PState.InsertMode) {
                 object idupb_selected = (R == null ? "" : R["idupb"]);
@@ -1154,6 +1172,7 @@ public partial class mandate_default_new02 : MetaPage {
             bool viewConsip = false;
             if (R != null) {
                 VisualizzaNascondiConsip(abilitaConsip(R["idmankind"]));
+                VisualizzaNascondiLotti(abilitaLotti(R["idmankind"]));
                 DataRow[] r = DS.mandatekind.Select(QHC.CmpEq("idmankind", R["idmankind"]));
                 if (r.Length == 0) viewConsip = true;
                 int flag = CfgFn.GetNoNullInt32(r[0]["flag"]) & 2;
@@ -1168,8 +1187,21 @@ public partial class mandate_default_new02 : MetaPage {
                 liconsip.Visible = false;
                 tabconsip.Visible = false;
             }
-        }
-
+			//if (PState.InsertMode) {
+			//	object idreg_rupanac_selected = (R == null ? DBNull.Value : R["idreg_rupanac"]);
+			//	DataRow Curr = DS.mandate.Rows[0];
+			//	if (idreg_rupanac_selected != DBNull.Value) {
+   //                 // Solo se è valorizzato, lo inserisce nel form. Diversamente lascia quello che sta.
+			//		Curr["idreg_rupanac"] = idreg_rupanac_selected;
+			//		CommFun.FreshPage(true, false);
+			//	}
+			//	else {
+			//		Curr["idreg_rupanac"] = DBNull.Value;
+			//		txtRUP.Text = "";
+			//		//CommFun.FreshPage(true, false);
+			//	}
+			//}
+		}
 
         if (T.TableName == "mandatekind") {
             if (R == null)

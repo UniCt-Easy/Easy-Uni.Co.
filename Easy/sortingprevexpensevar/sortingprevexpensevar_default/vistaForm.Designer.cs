@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 namespace sortingprevexpensevar_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -35,11 +35,11 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingview 		=> Tables["sortingview"];
 
-	///<summary>
-	///Variazione classificazione spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingprevexpensevar 		=> Tables["sortingprevexpensevar"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable sortingprevexpensevarattachment 		=> Tables["sortingprevexpensevarattachment"];
 
 	#endregion
 
@@ -181,6 +181,28 @@ private void initClass() {
 	tsortingprevexpensevar.PrimaryKey =  new DataColumn[]{tsortingprevexpensevar.Columns["yvar"], tsortingprevexpensevar.Columns["nvar"]};
 
 
+	//////////////////// SORTINGPREVEXPENSEVARATTACHMENT /////////////////////////////////
+	var tsortingprevexpensevarattachment= new DataTable("sortingprevexpensevarattachment");
+	C= new DataColumn("nvar", typeof(int));
+	C.AllowDBNull=false;
+	tsortingprevexpensevarattachment.Columns.Add(C);
+	C= new DataColumn("yvar", typeof(short));
+	C.AllowDBNull=false;
+	tsortingprevexpensevarattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tsortingprevexpensevarattachment.Columns.Add(C);
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tsortingprevexpensevarattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tsortingprevexpensevarattachment);
+	tsortingprevexpensevarattachment.PrimaryKey =  new DataColumn[]{tsortingprevexpensevarattachment.Columns["nvar"], tsortingprevexpensevarattachment.Columns["yvar"], tsortingprevexpensevarattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -188,6 +210,10 @@ private void initClass() {
 	var cPar = new []{sortingview.Columns["idsor"]};
 	var cChild = new []{sortingprevexpensevar.Columns["idsor"]};
 	Relations.Add(new DataRelation("sortingview_sortingprevexpensevar",cPar,cChild,false));
+
+	cPar = new []{sortingprevexpensevar.Columns["nvar"], sortingprevexpensevar.Columns["yvar"]};
+	cChild = new []{sortingprevexpensevarattachment.Columns["nvar"], sortingprevexpensevarattachment.Columns["yvar"]};
+	Relations.Add(new DataRelation("sortingprevexpensevar_sortingprevexpensevarattachment",cPar,cChild,false));
 
 	#endregion
 

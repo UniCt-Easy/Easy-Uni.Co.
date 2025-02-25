@@ -27,24 +27,28 @@
 						this.describeAColumn(table, '!title', 'Lezione', null, 10, null);
 						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 30, null);
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 40, null);
+						this.describeAColumn(table, 'titolo', 'Titolo', null, 80, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 					case 'rendicont':
 						this.describeAColumn(table, '!title', 'Lezione', null, 10, null);
 						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 90, null);
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 100, null);
+						this.describeAColumn(table, 'titolo', 'Titolo', null, 110, 2048);
 //$objCalcFieldConfig_rendicont$
 						break;
 					case 'attivform':
 						this.describeAColumn(table, '!title', 'Lezione', null, 10, null);
 						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 30, null);
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 40, null);
+						this.describeAColumn(table, 'titolo', 'Titolo', null, 80, 2048);
 //$objCalcFieldConfig_attivform$
 						break;
 					case 'default':
 						this.describeAColumn(table, '!title', 'Lezione', null, 10, null);
 						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 90, null);
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 100, null);
+						this.describeAColumn(table, 'titolo', 'Titolo', null, 110, 2048);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -75,52 +79,19 @@
 						table.columns["nonsvolta"].caption = "Non svolta";
 						table.columns["start"].caption = "Data e ora inizio";
 						table.columns["stop"].caption = "Data e ora fine";
+						table.columns["titolo"].caption = "Titolo";
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'rendicont':
-						table.columns["!title"].caption = "Lezione";
 						table.columns["idcorsostudio"].caption = "Corso di studi";
-						table.columns["idaffidamento"].caption = "Affidamento";
-						table.columns["idattivform"].caption = "attività formativa";
-						table.columns["idaula"].caption = "Aula";
-						table.columns["idcanale"].caption = "Canale";
-						table.columns["iddidprog"].caption = "Didattica programmata";
-						table.columns["iddidproganno"].caption = "Anno di corso";
-						table.columns["iddidprogcurr"].caption = "Curriculum";
-						table.columns["iddidprogori"].caption = "Orientamento";
-						table.columns["iddidprogporzanno"].caption = "Porzione d'anno";
-						table.columns["idedificio"].caption = "Edificio";
-						table.columns["idlezione"].caption = "Identificativo";
-						table.columns["idreg_docenti"].caption = "Docente";
-						table.columns["idsede"].caption = "Sede";
-						table.columns["nonsvolta"].caption = "Non svolta";
-						table.columns["start"].caption = "Data e ora inizio";
-						table.columns["stop"].caption = "Data e ora fine";
+						table.columns["titolo"].caption = "Titolo";
 //$innerSetCaptionConfig_rendicont$
 						break;
 					case 'attivform':
-						table.columns["!title"].caption = "Lezione";
-						table.columns["idaffidamento"].caption = "Affidamento";
-						table.columns["idattivform"].caption = "attività formativa";
-						table.columns["idaula"].caption = "Aula";
-						table.columns["idcanale"].caption = "Canale";
-						table.columns["iddidprog"].caption = "Didattica programmata";
-						table.columns["iddidproganno"].caption = "Anno di corso";
-						table.columns["iddidprogcurr"].caption = "Curriculum";
-						table.columns["iddidprogori"].caption = "Orientamento";
-						table.columns["iddidprogporzanno"].caption = "Porzione d'anno";
-						table.columns["idedificio"].caption = "Edificio";
-						table.columns["idlezione"].caption = "Identificativo";
-						table.columns["idreg_docenti"].caption = "Docente";
-						table.columns["idsede"].caption = "Sede";
-						table.columns["nonsvolta"].caption = "Non svolta";
-						table.columns["start"].caption = "Data e ora inizio";
-						table.columns["stop"].caption = "Data e ora fine";
+						table.columns["titolo"].caption = "Titolo";
 //$innerSetCaptionConfig_attivform$
 						break;
 					case 'default':
-						table.columns["!title"].caption = "Lezione";
-						table.columns["idcorsostudio"].caption = "Corso di studi";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$
@@ -156,6 +127,9 @@
 					}
 					case "default": {
 						return "!title asc ";
+					}
+					case "rendicont": {
+						return "!title asc , titolo desc";
 					}
 					//$getSortingin$
 				}

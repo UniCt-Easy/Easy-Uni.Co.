@@ -130,6 +130,7 @@
 						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry_alias2', columnNameLookup:'title', columnNamekey:'idreg' };
 						this.describeAColumn(table, '!idsostenimentoesito_sostenimentoesito_title', 'Esito', null, 121, null);
 						objCalcFieldConfig['!idsostenimentoesito_sostenimentoesito_title'] = { tableNameLookup:'sostenimentoesito', columnNameLookup:'title', columnNamekey:'idsostenimentoesito' };
+						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry_alias3', columnNameLookup:'title', columnNamekey:'idreg' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -163,6 +164,27 @@
 						table.columns["votosu"].caption = "Su";
 //$innerSetCaptionConfig_ingresso$
 						break;
+					case 'seganagstu':
+						table.columns["ects"].caption = "ECTS";
+						table.columns["idappello"].caption = "Appello";
+						table.columns["idattivform"].caption = "Attività formativa";
+						table.columns["idcorsostudio"].caption = "Corso studio";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idprova"].caption = "Prova";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idsostenimento"].caption = "Identificativo";
+						table.columns["idsostenimentoesito"].caption = "Esito";
+						table.columns["idtitolostudio"].caption = "Titolo di studio";
+						table.columns["insecod"].caption = "Codice insegnamento";
+						table.columns["insedesc"].caption = "Insegnamento";
+						table.columns["paridsostenimento"].caption = "Sostenimento parziale di";
+						table.columns["protanno"].caption = "Anno protocollo";
+						table.columns["protnumero"].caption = "Numero Protocollo";
+						table.columns["votolode"].caption = "Lode";
+						table.columns["votosu"].caption = "Su";
+//$innerSetCaptionConfig_seganagstu$
+						break;
 //$innerSetCaptionConfig$
 				}
 			},
@@ -189,7 +211,15 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "seganagstu": {
+						return "data asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

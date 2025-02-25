@@ -23,7 +23,7 @@
               <xs:element name="idpettycash" type="xs:int" minOccurs="0" />
               <xs:element name="noperation" type="xs:int" minOccurs="0" />
               <xs:element name="yoperation" type="xs:short" minOccurs="0" />
-              <xs:element name="idcontrattokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" minOccurs="0" />
 			  <xs:element name="idassetdiaryora" type="xs:int" minOccurs="0" />
 			  <xs:element name="idsalprogettoassetworkpackagemese" type="xs:int" minOccurs="0" />

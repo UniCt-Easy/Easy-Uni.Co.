@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,14 @@ namespace servicetrasmission_consolida{
         public Frm_servicetrasmission_consolida()
         {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "xml";
+
+            if (isBlazor())
+			{
+                txtNomeFile.Visible = false;
+			}
         }
         CQueryHelper QHC;
         QueryHelper QHS;
@@ -246,6 +253,9 @@ namespace servicetrasmission_consolida{
             StreamWriter stw = new StreamWriter(saveFileDialog1.OpenFile());
             stw.Write(sw.ToString());
             stw.Close();
+            
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
             show(this, "Operazione Eseguita", "");
         }
 

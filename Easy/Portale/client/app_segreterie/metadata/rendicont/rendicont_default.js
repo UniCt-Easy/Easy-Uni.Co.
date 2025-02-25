@@ -186,40 +186,44 @@
 			},
 
 			fireOpenScheduleConfig: function (that) {
-	if (!that.state.currentRow.idreg_docenti)
-		return that.showMessageOk('Occorre indicare chi svolge l\'attività e salvare');
-	var aa = that.state.currentRow.aa.split("/");
-	var start = new Date(aa[0], 10, 1); //inizio anno accademico
-	var stop = new Date(aa[1], 9, 31); //fine anno accademico
-	let maxHoursPerDayTable = null;
-	let idreg_docenti = that.state.currentRow.idreg_docenti;
-	let filter = that.q.and([
-		that.q.eq("idreg", idreg_docenti),
-		that.q.or(that.q.isNull("start"), that.q.le("start", start)),
-		that.q.or(that.q.isNull("stop"), that.q.ge("stop", stop))
-	]);
-	appMeta.getData.runSelect("getoremaxgg" , "*" , filter, null)
-		.then(function (dt) {
-			maxHoursPerDayTable = dt;
-			return that.getFormData(true);
-		}).then(function () {
-				var scheduler = new appMeta.scheduleConfig(that,
-					{
-						endDate: stop,
-						minDateValue : start,
-						maxHours: 1500, //massimo ore lavorabili per docente per anno
-						tableNameSchedule: 'rendicontaltro',
-						columnDate: 'data',
-						columnOre: 'ore',
-						columnTitle : '!title',
-						columnTitleValue : "schedulazione",
-						calendarTag : "rendicontaltro.default.default",
-						maxHoursPerDayTable : maxHoursPerDayTable,
-						chooseKind : true
-					});
-				return scheduler.show();
-			});
-}
+				if (!that.state.currentRow.idreg_docenti)
+					return that.showMessageOk('Occorre indicare chi svolge l\'attività e salvare');
+				if ($('#rendicont_default_aa').val())
+					that.state.currentRow.aa = $('#rendicont_default_aa').val();
+				if (!that.state.currentRow.aa)
+					return that.showMessageOk('Occorre indicare l\'anno accademico da rendicontare');
+				var aa = that.state.currentRow.aa.split("/");
+				var start = new Date(aa[0], 10, 1); //inizio anno accademico
+				var stop = new Date(aa[1], 9, 31); //fine anno accademico
+				let maxHoursPerDayTable = null;
+				let idreg_docenti = that.state.currentRow.idreg_docenti;
+				let filter = that.q.and([
+					that.q.eq("idreg", idreg_docenti),
+					that.q.or(that.q.isNull("start"), that.q.le("start", start)),
+					that.q.or(that.q.isNull("stop"), that.q.ge("stop", stop))
+				]);
+				appMeta.getData.runSelect("getoremaxgg" , "*" , filter, null)
+					.then(function (dt) {
+						maxHoursPerDayTable = dt;
+						return that.getFormData(true);
+					}).then(function () {
+							var scheduler = new appMeta.scheduleConfig(that,
+								{
+									endDate: stop,
+									minDateValue : start,
+									maxHours: 1500, //massimo ore lavorabili per docente per anno
+									tableNameSchedule: 'rendicontaltro',
+									columnDate: 'data',
+									columnOre: 'ore',
+									columnTitle : '!title',
+									columnTitleValue : "schedulazione",
+									calendarTag : "rendicontaltro.default.default",
+									maxHoursPerDayTable : maxHoursPerDayTable,
+									chooseKind : true
+								});
+							return scheduler.show();
+						});
+			}
 ,
 
 			managerendicont_default_title: function () {

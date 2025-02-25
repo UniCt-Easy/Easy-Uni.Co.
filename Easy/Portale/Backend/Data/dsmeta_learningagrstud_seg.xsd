@@ -3,78 +3,6 @@
   <xs:element name="dsmeta_learningagrstud_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idnation" type="xs:int" />
-              <xs:element name="lang" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="cefrdefaultview_alias4" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcefr" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="cefrdefaultview_alias3" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcefr" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="cefrdefaultview_alias2" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcefr" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="cefrdefaultview_alias1" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcefr" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="cefrdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcefr" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="cefrlanglevel" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="idaccordoscambiomi" type="xs:int" minOccurs="0" />
-              <xs:element name="idaccordoscambiomidett" type="xs:int" minOccurs="0" />
-              <xs:element name="idaccordoscambiomidettaz" type="xs:int" minOccurs="0" />
-              <xs:element name="idaccordoscambiomidettlangkind" type="xs:int" />
-              <xs:element name="idcefr_compasc" type="xs:int" minOccurs="0" />
-              <xs:element name="idcefr_complett" type="xs:int" minOccurs="0" />
-              <xs:element name="idcefr_parlinter" type="xs:int" minOccurs="0" />
-              <xs:element name="idcefr_parlprod" type="xs:int" minOccurs="0" />
-              <xs:element name="idcefr_scritto" type="xs:int" minOccurs="0" />
-              <xs:element name="idcefrlanglevel" type="xs:int" />
-              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
-              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
-              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="convalidato" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -90,9 +18,9 @@
               <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
               <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
               <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
-              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
               <xs:element name="idistanza" type="xs:int" minOccurs="0" />
-              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" />
               <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
               <xs:element name="idpratica" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
@@ -101,15 +29,43 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="convalidante" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="changes" type="xs:string" minOccurs="0" />
+              <xs:element name="changesother" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idchangeskind" type="xs:int" minOccurs="0" />
+              <xs:element name="idconvalida" type="xs:int" />
+              <xs:element name="idconvalidante" type="xs:int" />
+              <xs:element name="iddichiar" type="xs:int" minOccurs="0" />
+              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idpratica" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idsostenimento" type="xs:int" minOccurs="0" />
+              <xs:element name="idtirocinioprogetto" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="convalidakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idconvalidakind" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="convalida" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="convalida" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="cf" type="xs:decimal" minOccurs="0" />
@@ -123,9 +79,9 @@
               <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
               <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
               <xs:element name="idiscrizione_from" type="xs:int" minOccurs="0" />
-              <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
               <xs:element name="idistanza" type="xs:int" minOccurs="0" />
-              <xs:element name="idlearningagrstud" type="xs:int" minOccurs="0" />
+              <xs:element name="idlearningagrstud" type="xs:int" />
               <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
               <xs:element name="idpratica" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
@@ -138,23 +94,164 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="lang" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrdefaultview_alias4" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cefr_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcefr" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrdefaultview_alias3" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cefr_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcefr" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrdefaultview_alias2" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cefr_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcefr" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrdefaultview_alias1" msprop:TableForReading="cefrdefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cefr_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcefr" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cefr_active" type="xs:string" minOccurs="0" />
+              <xs:element name="cefr_descriptioncompasc" type="xs:string" />
+              <xs:element name="cefr_descriptioncomplett" type="xs:string" />
+              <xs:element name="cefr_descriptionparlinter" type="xs:string" />
+              <xs:element name="cefr_descriptionparlprod" type="xs:string" />
+              <xs:element name="cefr_descriptionscritto" type="xs:string" />
+              <xs:element name="cefr_lt" type="xs:dateTime" />
+              <xs:element name="cefr_lu" type="xs:string" />
+              <xs:element name="cefr_sortcode" type="xs:int" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcefr" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cefrlanglevel" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaccordoscambiomi" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidett" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettaz" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccordoscambiomidettlangkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_compasc" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_complett" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlinter" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_parlprod" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefr_scritto" type="xs:int" minOccurs="0" />
+              <xs:element name="idcefrlanglevel" type="xs:int" />
+              <xs:element name="idiscrizionebmi" type="xs:int" />
+              <xs:element name="idlearningagrstud" type="xs:int" />
+              <xs:element name="idlearningagrtrainer" type="xs:int" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mobilityperiodtype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idmobilityperiodtype" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aoo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codiceipa" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_ct" type="xs:dateTime" />
+              <xs:element name="struttura_cu" type="xs:string" />
+              <xs:element name="struttura_email" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_fax" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idaoo" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idsede" type="xs:int" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" />
+              <xs:element name="struttura_lt" type="xs:dateTime" />
+              <xs:element name="struttura_lu" type="xs:string" />
+              <xs:element name="struttura_pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="eqf" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ideqf" type="xs:int" />
+              <xs:element name="level" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="registryistitutiesteriview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnace" type="xs:string" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="residence" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="learningagrkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="learningagrkinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idlearningagrkind" type="xs:int" />
+              <xs:element name="learningagrkind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="learningagrkind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="learningagrkind_lt" type="xs:dateTime" />
+              <xs:element name="learningagrkind_lu" type="xs:string" />
+              <xs:element name="learningagrkind_sortcode" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -164,12 +261,16 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+              <xs:element name="department" type="xs:string" minOccurs="0" />
               <xs:element name="idbandomi" type="xs:int" />
+              <xs:element name="ideqf" type="xs:int" minOccurs="0" />
               <xs:element name="idiscrizionebmi" type="xs:int" />
               <xs:element name="idlearningagrkind" type="xs:int" />
               <xs:element name="idlearningagrstud" type="xs:int" />
+              <xs:element name="idmobilityperiodtype" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_istitutiesteri" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="note" type="xs:string" minOccurs="0" />
@@ -181,6 +282,33 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalidato" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idconvalidato" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idlearningagrstud" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="convalidante_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalidante" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idconvalidante" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idlearningagrstud" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="convalidakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalidakind" />
+      <xs:field xpath="mstns:idconvalidakind" />
+    </xs:unique>
+    <xs:unique name="convalida_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:convalida" />
+      <xs:field xpath="mstns:idconvalida" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idlearningagrstud" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="geo_nation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:geo_nation" />
       <xs:field xpath="mstns:idnation" />
     </xs:unique>
@@ -207,28 +335,27 @@
     <xs:unique name="cefrlanglevel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:cefrlanglevel" />
       <xs:field xpath="mstns:idcefrlanglevel" />
+      <xs:field xpath="mstns:idiscrizionebmi" />
+      <xs:field xpath="mstns:idlearningagrstud" />
     </xs:unique>
-    <xs:unique name="convalidato_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:convalidato" />
-      <xs:field xpath="mstns:idconvalida" />
-      <xs:field xpath="mstns:idconvalidato" />
-      <xs:field xpath="mstns:idreg" />
+    <xs:unique name="mobilityperiodtype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mobilityperiodtype" />
+      <xs:field xpath="mstns:idmobilityperiodtype" />
     </xs:unique>
-    <xs:unique name="convalidakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:convalidakind" />
-      <xs:field xpath="mstns:idconvalidakind" />
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
     </xs:unique>
-    <xs:unique name="convalida_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:convalida" />
-      <xs:field xpath="mstns:idconvalida" />
-      <xs:field xpath="mstns:idreg" />
+    <xs:unique name="eqf_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:eqf" />
+      <xs:field xpath="mstns:ideqf" />
     </xs:unique>
     <xs:unique name="registryistitutiesteriview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registryistitutiesteriview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="learningagrkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:learningagrkind" />
+    <xs:unique name="learningagrkinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:learningagrkinddefaultview" />
       <xs:field xpath="mstns:idlearningagrkind" />
     </xs:unique>
     <xs:unique name="learningagrstud_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -241,6 +368,10 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_convalida_learningagrstud_idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="learningagrstud" msdata:child="convalida" msdata:parentkey="idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idiscrizionebmi idlearningagrstud idreg" />
+      <msdata:Relationship name="FK_convalidato_convalida_idconvalida-idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="convalida" msdata:child="convalidato" msdata:parentkey="idconvalida idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idconvalida idiscrizionebmi idlearningagrstud idreg" />
+      <msdata:Relationship name="FK_convalidante_convalida_idconvalida-idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="convalida" msdata:child="convalidante" msdata:parentkey="idconvalida idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idconvalida idiscrizionebmi idlearningagrstud idreg" />
+      <msdata:Relationship name="FK_convalida_convalidakind_idconvalidakind" msdata:parent="convalidakind" msdata:child="convalida" msdata:parentkey="idconvalidakind" msdata:childkey="idconvalidakind" />
       <msdata:Relationship name="FK_cefrlanglevel_learningagrstud_idiscrizionebmi-idlearningagrstud" msdata:parent="learningagrstud" msdata:child="cefrlanglevel" msdata:parentkey="idiscrizionebmi idlearningagrstud" msdata:childkey="idiscrizionebmi idlearningagrstud" />
       <msdata:Relationship name="FK_cefrlanglevel_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="cefrlanglevel" msdata:parentkey="idnation" msdata:childkey="idnation" />
       <msdata:Relationship name="FK_cefrlanglevel_cefrdefaultview_alias4_idcefr_scritto" msdata:parent="cefrdefaultview_alias4" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_scritto" />
@@ -248,11 +379,11 @@
       <msdata:Relationship name="FK_cefrlanglevel_cefrdefaultview_alias2_idcefr_parlinter" msdata:parent="cefrdefaultview_alias2" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_parlinter" />
       <msdata:Relationship name="FK_cefrlanglevel_cefrdefaultview_alias1_idcefr_complett" msdata:parent="cefrdefaultview_alias1" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_complett" />
       <msdata:Relationship name="FK_cefrlanglevel_cefrdefaultview_idcefr_compasc" msdata:parent="cefrdefaultview" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_compasc" />
-      <msdata:Relationship name="FK_convalida_learningagrstud_idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="learningagrstud" msdata:child="convalida" msdata:parentkey="idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idiscrizionebmi idlearningagrstud idreg" />
-      <msdata:Relationship name="FK_convalidato_convalida_idconvalida-idreg" msdata:parent="convalida" msdata:child="convalidato" msdata:parentkey="idconvalida idreg" msdata:childkey="idconvalida idreg" />
-      <msdata:Relationship name="FK_convalida_convalidakind_idconvalidakind" msdata:parent="convalidakind" msdata:child="convalida" msdata:parentkey="idconvalidakind" msdata:childkey="idconvalidakind" />
+      <msdata:Relationship name="FK_learningagrstud_mobilityperiodtype_idmobilityperiodtype" msdata:parent="mobilityperiodtype" msdata:child="learningagrstud" msdata:parentkey="idmobilityperiodtype" msdata:childkey="idmobilityperiodtype" />
+      <msdata:Relationship name="FK_learningagrstud_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="learningagrstud" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_learningagrstud_eqf_ideqf" msdata:parent="eqf" msdata:child="learningagrstud" msdata:parentkey="ideqf" msdata:childkey="ideqf" />
       <msdata:Relationship name="FK_learningagrstud_registryistitutiesteriview_idreg_istitutiesteri" msdata:parent="registryistitutiesteriview" msdata:child="learningagrstud" msdata:parentkey="idreg" msdata:childkey="idreg_istitutiesteri" />
-      <msdata:Relationship name="FK_learningagrstud_learningagrkind_idlearningagrkind" msdata:parent="learningagrkind" msdata:child="learningagrstud" msdata:parentkey="idlearningagrkind" msdata:childkey="idlearningagrkind" />
+      <msdata:Relationship name="FK_learningagrstud_learningagrkinddefaultview_idlearningagrkind" msdata:parent="learningagrkinddefaultview" msdata:child="learningagrstud" msdata:parentkey="idlearningagrkind" msdata:childkey="idlearningagrkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

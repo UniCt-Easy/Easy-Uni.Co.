@@ -32,11 +32,14 @@
 						this.describeAColumn(table, 'ssd', 'SSD', null, 60, 50);
 						this.describeAColumn(table, 'struttura', 'Struttura', null, 70, 1024);
 						this.describeAColumn(table, 'istituto', 'Istituto', null, 80, 101);
+						this.describeAColumn(table, 'active', 'Active', null, 110, null);
+						this.describeAColumn(table, 'categoria', 'Categoria', null, 120, 1);
 //$objCalcFieldConfig_default$
 						break;
 					case 'nomcogn':
 						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
 						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
+						this.describeAColumn(table, 'active', 'Active', null, 120, null);
 //$objCalcFieldConfig_nomcogn$
 						break;
 					case 'macroarea':
@@ -49,12 +52,14 @@
 						this.describeAColumn(table, 'macroareadidattica', 'Macroarea', null, 70, 1024);
 						this.describeAColumn(table, 'struttura', 'Struttura', null, 80, 1024);
 						this.describeAColumn(table, 'istituto', 'Istituto', null, 90, 101);
+						this.describeAColumn(table, 'active', 'Active', null, 110, null);
 //$objCalcFieldConfig_macroarea$
 						break;
 					case 'nomcognmat':
 						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
 						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
 						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 30, 40);
+						this.describeAColumn(table, 'active', 'Active', null, 120, null);
 //$objCalcFieldConfig_nomcognmat$
 						break;
 //$objCalcFieldConfig$
@@ -69,34 +74,20 @@
 				switch (edittype) {
 					case 'default':
 						table.columns["cf"].caption = "CF";
+						table.columns["extmatricula"].caption = "Matricola";
 						table.columns["forename"].caption = "Nome";
 						table.columns["ssd"].caption = "SSD";
 						table.columns["surname"].caption = "Cognome";
-						table.columns["extmatricula"].caption = "Matricola";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'nomcogn':
-						table.columns["cf"].caption = "CF";
-						table.columns["forename"].caption = "Nome";
-						table.columns["ssd"].caption = "SSD";
-						table.columns["surname"].caption = "Cognome";
 //$innerSetCaptionConfig_nomcogn$
 						break;
 					case 'macroarea':
-						table.columns["cf"].caption = "CF";
-						table.columns["extmatricula"].caption = "Matricola";
-						table.columns["forename"].caption = "Nome";
 						table.columns["macroareadidattica"].caption = "Macroarea";
-						table.columns["ssd"].caption = "SSD";
-						table.columns["surname"].caption = "Cognome";
 //$innerSetCaptionConfig_macroarea$
 						break;
 					case 'nomcognmat':
-						table.columns["cf"].caption = "CF";
-						table.columns["extmatricula"].caption = "Matricola";
-						table.columns["forename"].caption = "Nome";
-						table.columns["ssd"].caption = "SSD";
-						table.columns["surname"].caption = "Cognome";
 //$innerSetCaptionConfig_nomcognmat$
 						break;
 //$innerSetCaptionConfig$

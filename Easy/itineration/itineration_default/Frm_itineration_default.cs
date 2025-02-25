@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -422,6 +422,7 @@ namespace itineration_default { //missione//
 		private TextBox textBox25;
 		private Label label65;
 		private TextBox txtPercAnticipoItaliaEstero;
+		private TextBox textBox27;
 		private EP_Manager EPM;
 
         public Frm_itineration_default() {
@@ -830,6 +831,7 @@ namespace itineration_default { //missione//
 			this.label61 = new System.Windows.Forms.Label();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.myTip = new System.Windows.Forms.ToolTip(this.components);
+			this.textBox27 = new System.Windows.Forms.TextBox();
 			this.tabCtrlMissione.SuspendLayout();
 			this.tabGeneralita.SuspendLayout();
 			this.gboxRif.SuspendLayout();
@@ -1682,7 +1684,8 @@ namespace itineration_default { //missione//
 			this.grpIncaricato.TabIndex = 5;
 			this.grpIncaricato.TabStop = false;
 			this.grpIncaricato.Tag = "AutoChoose.txtIncaricato.default.((human=\'S\') and (active = \'S\') AND (idreg IN(SE" +
-	"LECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = \'S\')  ))";
+    "LECT idreg FROM registrylegalstatus WHERE idposition IS NOT NULL and (active = \'" +
+    "S\')  ))";
 			this.grpIncaricato.Text = "Percipiente";
 			// 
 			// txtIncaricato
@@ -2632,6 +2635,7 @@ namespace itineration_default { //missione//
 			// 
 			// tabCalcolo
 			// 
+			this.tabCalcolo.Controls.Add(this.textBox27);
 			this.tabCalcolo.Controls.Add(this.textBox16);
 			this.tabCalcolo.Controls.Add(this.txtSpeseSaldo);
 			this.tabCalcolo.Controls.Add(this.labelSpeseSaldo);
@@ -4937,6 +4941,16 @@ namespace itineration_default { //missione//
 			this.myTip.InitialDelay = 30;
 			this.myTip.ReshowDelay = 6;
 			// 
+			// textBox27
+			// 
+			this.textBox27.Location = new System.Drawing.Point(410, 294);
+			this.textBox27.Name = "textBox27";
+			this.textBox27.ReadOnly = true;
+			this.textBox27.Size = new System.Drawing.Size(336, 20);
+			this.textBox27.TabIndex = 30;
+			this.textBox27.TabStop = false;
+			this.textBox27.Text = "Le ritenute mostrate verranno applicate in sede di Rendiconto.";
+			// 
 			// Frm_itineration_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -5090,8 +5104,10 @@ namespace itineration_default { //missione//
 
         DateTime DateSys;
         object idsorkindDalia;
+		//bool showmessageSpeseAntCT = true;
+		bool showmessageSpeseRendCT = true;
 
-        public void MetaData_AfterLink() {
+		public void MetaData_AfterLink() {
             grpTappe.Enabled = false;
             Meta = this.getInstance<IMetaData>();
             Conn = this.getInstance<IDataAccess>();
@@ -5304,7 +5320,7 @@ namespace itineration_default { //missione//
             EPM.mostraEtichette();
             txtDateCompleted.Visible = (chkPagabile.CheckState == CheckState.Checked);
             btnAggiorna.Enabled = false;
-            btnCambiaRuolo.Visible = false;
+            btnCambiaRuolo.Enabled = false;
             txtEsercmissione.Text = security.GetSys("esercizio").ToString();
             txtQuotaEsenteMissione.Text = "";
             txtQuotaImponibileTappa.Text = "";
@@ -5313,7 +5329,8 @@ namespace itineration_default { //missione//
             ClearPosGiuridica();
             ClearImpEsente(false);
             ClearCalculated();
-            btnSituazione.Enabled = false;
+			ClearComboPrestazione();
+			btnSituazione.Enabled = false;
             btnToExcel.Enabled = false;
             azzeraTxtRitenute();
             VisualizzaEtichetteAP();
@@ -5759,7 +5776,9 @@ namespace itineration_default { //missione//
             if (controller.IsEmpty) return;
             DataRow Curr = DS.itineration.Rows[0];
 
-            string filter;
+			btnCambiaRuolo.Enabled = true; // new
+
+			string filter;
 
             object datainizio = Curr[MissFun.CampoDataPerPosGiuridica];
             object datafine = Curr["stop"];
@@ -5781,21 +5800,21 @@ namespace itineration_default { //missione//
                 return;
             }
 
-            string strdate = QueryCreator.quotedstrvalue((DateTime) datainizio, true);
+			string strdate = QueryCreator.quotedstrvalue((DateTime) datainizio, true);
             string strdatefine = QueryCreator.quotedstrvalue((DateTime) datafine, true);
 
             filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio),
                 QHS.NullOrGe("stop", datafine));
 
-            int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
-            if (NposGiuridiche > 1)
-                btnCambiaRuolo.Visible = true;
-            else
-                btnCambiaRuolo.Visible = false;
+            //int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
+            //if (NposGiuridiche > 1)
+				btnCambiaRuolo.Enabled = true;
+			//else
+			//btnCambiaRuolo.Enabled = false;
 
-        }
+		}
 
-        public void MetaData_AfterPost() {
+		public void MetaData_AfterPost() {
 
             EPM.afterPost();
             if (DS.itineration.Rows.Count > 0 && EPM.UsaImpegniDiBudget) {
@@ -6087,7 +6106,176 @@ namespace itineration_default { //missione//
             MetaData.SetDefault(DS.itinerationrefund_balance, "starttime", datainizio);
             MetaData.SetDefault(DS.itinerationrefund_balance, "stoptime", datafine);
             MetaData.SetDefault(DS.itinerationrefund_balance, "flagadvancebalance", "S");
+
+			PropagaAggiornamentoDateaSpese(datainizio, datafine);
         }
+		private void PropagaAggiornamentoDateaSpese(object datainizio, object datafine) {
+			// Agisce solo in modifica, perchè l'insert viene fatto lato web
+			if (!controller.EditMode) return;
+			
+
+			DataTable Tlicense = Conn.RUN_SELECT("license", "cf, p_iva", null, null, null, false);
+			bool catania = false;
+			if (Tlicense != null && Tlicense.Columns.Count > 0) {
+				DataRow R = Tlicense.Rows[0];
+				//Controlliamo che si tratti di Catania
+				if (((R["cf"] != DBNull.Value) && (R["cf"].ToString() == "02772010878")) || ((R["p_iva"] != DBNull.Value) && (R["p_iva"].ToString() == "02772010878"))) {
+					catania = true; ;
+				}
+			}
+			//La propagazione agisce solo per Catania
+			if (!catania) return;
+
+			object currencyEUR = Conn.DO_READ_VALUE("currency", QHS.CmpEq("codecurrency", "EUR"), "idcurrency");
+
+			DataRow Ritineration = DS.itineration.Rows[0];
+
+			bool isStartModified = false;
+			if (txtDataInizio.Text != HelpForm.StringValue(Ritineration["start", DataRowVersion.Original], txtDataInizio.Tag.ToString())) {
+				isStartModified = true;
+			}
+			bool isStopModified = false;
+			if (txtDataFine.Text != HelpForm.StringValue(Ritineration["stop", DataRowVersion.Original], txtDataFine.Tag.ToString())) {
+				isStopModified = true;
+			}
+
+			//Se le date non sono state modificate, esce.
+			if (!isStartModified && !isStopModified)
+				return;
+			string filter = QHS.AppAnd(QHS.CmpEq("iditineration",Ritineration["iditineration"]), QHS.AppAnd("movkind","4")); // Controlla se esiste il pagamento della missione = Missione liquidata
+			int N = Conn.RUN_SELECT_COUNT("expenseitineration", filter, false);
+			//N += Conn.RUN_SELECT_COUNT("pettycashoperationitineration", filter, false);
+			//Se la missione è stata liquidata non sarà possibile propagare le modifiche della data
+			if ((N > 0) && (isStartModified || isStopModified)) {
+				show("Non è possibile modificare le date della Missione perchè è stata liquidata.");
+				//riscrive i valori originali
+				if (isStartModified) {
+					Ritineration["start"] = Ritineration["start", DataRowVersion.Original];
+					txtDataInizio.Text = HelpForm.StringValue(Ritineration["start"], txtDataInizio.Tag.ToString());
+				}
+				if (isStopModified) {
+					Ritineration["stop"] = Ritineration["stop", DataRowVersion.Original];
+					txtDataFine.Text = HelpForm.StringValue(Ritineration["stop"], txtDataFine.Tag.ToString());
+				}
+				return;
+			}
+
+			//Se è stata modificata una data controlla la presenza dell'allegato "autorizzazione del responsabile", se manca, esce.
+			if (isStartModified || isStopModified) {
+				object idattachmentkindResp = Conn.DO_READ_VALUE("itinerationattachmentkind", QHS.Like("title", "%Autorizzazione%respons%"), "idattachmentkind");
+				 if (idattachmentkindResp ==DBNull.Value || (DS.itinerationattachment.Select(qhc.CmpEq("idattachmentkind", idattachmentkindResp)).Length == 0)) {
+					show("Per modificare Data inzio/Fine della Missione, si deve inserire un allegato di tipo: Autorizzazione del responsabile");
+					return;
+				}
+			}
+
+
+			//inizializzo con la data attuale, perchè o resta invariate o verrà aggiornata dopo
+
+			if ((isStartModified) && Ritineration["starttime"]!=DBNull.Value) {
+				DateTime newStarttime = ((DateTime)Ritineration["start"]).Date + ((DateTime)Ritineration["starttime"]).TimeOfDay;
+				Ritineration["starttime"] = newStarttime;
+				txtDataOraInizio.Text = HelpForm.StringValue(newStarttime, txtDataOraInizio.Tag.ToString());
+			}
+
+			//inizializzo con la data attuale, perchè o resta invariate o verrà aggiornata dopo
+			DateTime CurrStop = (DateTime)Ritineration["stop"];
+			if ((isStopModified) && Ritineration["stoptime"]!=DBNull.Value) {
+				DateTime newStoptime = ((DateTime)Ritineration["stop"]).Date + ((DateTime)Ritineration["stoptime"]).TimeOfDay;
+				Ritineration["stoptime"] = newStoptime;
+				txtDataOraTermine.Text = HelpForm.StringValue(newStoptime, txtDataOraTermine.Tag.ToString());
+			}
+			
+			// Propago la modifica alle date delle spese.
+			if (isStartModified || isStopModified) {
+				//Quelle di ANTICIPO le abbiamo inserite noi automaticamente da web
+				//string elencospese = "";
+				foreach (DataRow Rrefund in DS.itinerationrefund_advance.Rows) {
+					if (Rrefund.RowState == DataRowState.Deleted) continue;
+					Rrefund["starttime"] = ((DateTime)Ritineration["start"]).Date + ((DateTime)Rrefund["starttime"]).TimeOfDay;
+					Rrefund["stoptime"] = ((DateTime)Ritineration["stop"]).Date + ((DateTime)Rrefund["stoptime"]).TimeOfDay;
+
+					//object idcurrency = CfgFn.GetNoNullDouble(Rrefund["idcurrency"]);
+					//if (CfgFn.GetNoNullInt32(idcurrency) != CfgFn.GetNoNullInt32(currencyEUR)) {
+					//	elencospese += Rrefund["nrefund"].ToString() + " ,";
+					//}
+				}
+				//if (elencospese != "") {
+				//	string messageTassodicambio = "Controllare le spese di Anticipo Num.: " + elencospese +" perchè hanno un tasso di cambio diverso da Euro.";
+				//	if (showmessageSpeseAntCT) {
+				//		show(messageTassodicambio, "Avviso");
+				//		showmessageSpeseAntCT = false;
+				//	}
+				//}
+
+
+				string elencospeseRend = "";                
+				//Cicla sulle spese a SALDO
+				foreach (DataRow Rrefund in DS.itinerationrefund_balance.Rows) {
+					if (Rrefund.RowState == DataRowState.Deleted) continue;
+					// se Data inizio è stato modificato, ma la spesa ha una Data inizio diversa da quella della missione( perchè l'utente l'ha modificato a mano)
+					// e ora questa data diventa incoerente con il nuovo intervallo, allora dobbiamo avvisarlo di correggere a mano la data.
+					// Date attuali: Inizio 10/08/2024 fine 20/08/2024
+					// Date nuove: Inizio  10/08/2024 fine 15/08/2024
+					// le spese hanno inizio e fine 10/08/2024 - 20/08/2024
+					// =>
+					// le spesa saranno modifica in inizio e fine 10/08/2024 fine 15/08/2024
+					// Laddove vi fosse una spesa a rendiconto non coerente col nuovo periodo, avente per esempio:
+					// data inizio 19/08/2024 data fine 19/08/2024
+					//Avviseremo l'utente di valorizzare opportunamente la data
+					// Idem per la data fine.
+					if (isStartModified
+						//start della spesa è diversa da start originale della missione
+						&& (DateTime)Rrefund["starttime"] != (DateTime)Ritineration["start", DataRowVersion.Original] + ((DateTime)Rrefund["starttime"]).TimeOfDay) {
+						// controlla che start della spesa sia compresa nel nuovo range
+						if( !((DateTime)Rrefund["starttime"] >= ((DateTime)Ritineration["start"]).Date + ((DateTime)Rrefund["starttime"]).TimeOfDay
+							&& (DateTime)Rrefund["starttime"] <= ((DateTime)Ritineration["stop"]).Date + ((DateTime)Rrefund["stoptime"]).TimeOfDay)) {
+							show("La data Inizio " + Rrefund["starttime"].ToString() 
+								+ " della spesa Rendiconto n." + Rrefund["nrefund"].ToString() + " : "+ Rrefund["description"].ToString()
+								+ ", è incoerentente con le nuove date della Missione.\nInserire la data opportuna.", "Avviso");
+							continue;
+						} 
+					}
+
+					if (isStopModified
+							&& (DateTime)Rrefund["stoptime"] != (DateTime)Ritineration["stop", DataRowVersion.Original] + ((DateTime)Rrefund["stoptime"]).TimeOfDay) {
+						// controlla che stop della spesa sia compresa nel nuovo range
+						if (!((DateTime)Rrefund["stoptime"] >= ((DateTime)Ritineration["start"]).Date + ((DateTime)Rrefund["starttime"]).TimeOfDay
+							&& (DateTime)Rrefund["stoptime"] <= ((DateTime)Ritineration["stop"]).Date + ((DateTime)Rrefund["stoptime"]).TimeOfDay)) {
+							show("La data Fine " + Rrefund["stoptime"].ToString()
+								+ " della spesa Rendiconto n." + Rrefund["nrefund"].ToString() + " : " + Rrefund["description"].ToString()
+								+ ", è incoerentente con le nuove date della Missione.\nInserire la data opportuna.", "Avviso");
+
+							continue;
+						}
+					}
+					//Se siamo nel caso normale, in cui le spese hanno data inizio e fine uguali a data inizio e fine missione,
+					//oppure hanno un range completamente diverso da quello originale, allora le aggiorniamo.
+					if (isStartModified)
+						Rrefund["starttime"] = ((DateTime)Ritineration["start"]).Date + ((DateTime)Rrefund["starttime"]).TimeOfDay;
+
+					if (isStopModified) {
+						Rrefund["stoptime"] = ((DateTime)Ritineration["stop"]).Date + ((DateTime)Rrefund["stoptime"]).TimeOfDay;
+						//Se è stato applicato un tasso di cambio diverso da Euro, avvisiamo l'utente di fare un controllo casomai nelle nuove date il tasso di cambio fosse diverso da quello
+						// delle vecchie date. Lo facciamo solo sulla data fine, perchè essa viene considerata come giornata nel determinare il tasso di cambio
+						object idcurrency = CfgFn.GetNoNullDouble(Rrefund["idcurrency"]);
+						if ((CfgFn.GetNoNullInt32(idcurrency) != CfgFn.GetNoNullInt32(currencyEUR))&& Rrefund["docdate"]==DBNull.Value)  {
+							elencospeseRend += Rrefund["nrefund"].ToString() + " ,";
+						}
+					}
+
+				}
+				// NB il tasso di cambio viene determinato sulla basa di docdate, se null viene considerato stop. Per cui il messaggio all'utente viene mostrato solo se 
+				// è stata cambiata la data fine e docdate is null
+				if (elencospeseRend != "") {
+					string messageTassodicambioRend = "Controllare le spese a Rendiconto Num.: " + elencospeseRend + " perchè hanno un tasso di cambio diverso da Euro.";
+					if (showmessageSpeseRendCT) {
+						show(messageTassodicambioRend, "Avviso");
+						showmessageSpeseRendCT = false;
+					}
+				}
+			}
+		}
 
         private bool getSimulatedFaseAnticipoMissione(DataRow itineration) {
             if (itineration == null || itineration.RowState == DataRowState.Deleted) return true;
@@ -6143,6 +6331,7 @@ namespace itineration_default { //missione//
 
         void AggiornaSoloInformazioni() {
             if (controller.IsEmpty) return;
+			btnCambiaRuolo.Enabled = true;
             DataRow Curr = DS.itineration.Rows[0];
 
             string filter;
@@ -6337,7 +6526,7 @@ namespace itineration_default { //missione//
                     " ORDER BY start DESC ", true);
                 if (supposedIncome == null || supposedIncome == DBNull.Value) {
                     show(
-                        "I dati relativi alla posizione retributiva dell'incaricato sono incomplete o mancanti. Il reddito presunto considerato sarà pari a zero.",
+                        "I dati relativi alla Posizione Retributiva dell'incaricato sono incomplete o mancanti. Il reddito presunto considerato sarà pari a zero.",
                         "Avviso");
                 }
 
@@ -6449,8 +6638,8 @@ namespace itineration_default { //missione//
             txtRuoloCSA.Text = "";
             txtCompartoCSA.Text = "";
             txtInquadrcsa.Text = "";
-            btnCambiaRuolo.Visible = false;
-            MyCfg.incomeclass = DBNull.Value;
+			//btnCambiaRuolo.Enabled = false;
+			MyCfg.incomeclass = DBNull.Value;
             resetPosizioneGiuridica();
             //            MyCfg.idposition = DBNull.Value;
             MyCfg.idwor = DBNull.Value;
@@ -6469,9 +6658,9 @@ namespace itineration_default { //missione//
             txtRuoloCSA.Text = "";
             txtCompartoCSA.Text = "";
             txtInquadrcsa.Text = "";
-            btnCambiaRuolo.Visible = false;
-            //			if (Meta.IsEmpty) return;
-            MyCfg.incomeclass = DBNull.Value;
+			//btnCambiaRuolo.Enabled = false;
+			//			if (Meta.IsEmpty) return;
+			MyCfg.incomeclass = DBNull.Value;
             MyCfg.foreignclass = "";
             resetPosizioneGiuridica();
             //            MyCfg.idposition = DBNull.Value;
@@ -6479,7 +6668,6 @@ namespace itineration_default { //missione//
             MyCfg.incomeclassvalidity = DBNull.Value;
             MyCfg.matricula = DBNull.Value;
             SetExtraParameterForDetails();
-            ClearComboPrestazione();
         }
 
         void FiltraComboPrestazioneInBaseANiente(bool enableold) {
@@ -6523,10 +6711,6 @@ namespace itineration_default { //missione//
             ((DataTable) cmbPrestazione.DataSource).Clear();
         }
 
-        void ScegliRuolo() {
-            ImpostaPosGiuridica(true);
-        }
-
         void DetectPosGiuridica() {
             if (controller.IsEmpty) return;
             DataRow Curr = DS.itineration.Rows[0];
@@ -6553,11 +6737,11 @@ namespace itineration_default { //missione//
         /// <summary>
         /// Calcola il GroupBox PosizioneGiuridica in base alla datainizio della riga corrente
         /// </summary>
-        private void ImpostaPosGiuridica(bool changerole) {
+        private void ImpostaPosGiuridica(bool changerole, bool fromButtonRuolo) {
             if (controller.IsEmpty) return;
             DataRow Curr = DS.itineration.Rows[0];
 
-            string filter;
+			string filter;
             //string sorting;
 
             object datainizio = Curr[MissFun.CampoDataPerPosGiuridica];
@@ -6581,10 +6765,28 @@ namespace itineration_default { //missione//
 
             string strdate = QueryCreator.quotedstrvalue((DateTime) datainizio, true);
             string strdatefine = QueryCreator.quotedstrvalue((DateTime) datafine, true);
-
-            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.CmpEq("active","S"),
-                QHS.NullOrGe("stop", datafine));
-
+			//Se clicco sul button devo consentire scegliere qualsiasi cosa, e quindi mostriamo le qualifiche:
+			//valide alla data inizio o valide alla data fine
+			// start <= data inizio oppure start <= data fine
+			if (fromButtonRuolo) {
+				//start <= data inizio e stop >= data inizio, valida a cavallo delle data inizio, deve essere valida prima e dopo la data inizio
+				//OR
+				//start <=data fine e stop >= data fine, valida a cavallo della data fine, deve essere valida prima e dopo la data fine
+				// OR
+				//start >=data inizio e stop null o <= data fine. Con questa condizione mostriamo anche i ruoli che nascono e muoiono durante la missione(è un caso remoto ma è meglio mostrarli)
+				filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
+					QHS.DoPar(QHS.AppOr( 
+						QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
+						QHS.AppAnd(QHS.CmpLe("start", datafine), QHS.NullOrGe("stop", datafine)),
+						QHS.AppAnd(QHS.CmpGe("start", datainizio), QHS.NullOrLe("stop", datafine))
+						))
+					);
+			}
+			else {
+				//Qualifica valida nel periodo della missione
+				filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.CmpEq("active", "S"),
+					QHS.NullOrGe("stop", datafine));
+			}
             if ((LastFilterPosGiuridica == filter) && (!changerole)) return;
 
             //sorting = "start DESC";
@@ -6594,16 +6796,31 @@ namespace itineration_default { //missione//
             //    sorting, filter, "1", false);
 
             int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
-
-            if (NposGiuridiche == 0) {
+			// usa un filtro meno restrittivo, prende le qualifiche valide alla data inizio o valide alla data fine:
+			// data inizio missione beetwen Start and Stop
+			// OR
+			// data fine missione beetwen Start and Stop
+			if (NposGiuridiche == 0) {
+				filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
+				QHS.DoPar(QHS.AppOr(
+					QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
+					QHS.AppAnd(QHS.CmpLe("start", datafine), QHS.NullOrGe("stop", datafine)),
+					QHS.AppAnd(QHS.CmpGe("start", datainizio), QHS.NullOrLe("stop", datafine))
+						))
+					);
+				NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
+			}
+			if (NposGiuridiche == 0) {
                 if (LastFilterPosGiuridica != filter) {
-                    show(
-                        "I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
-                }
+					show(
+					    "I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
+					//show(
+					//	"Non è stato possibile individuare una Posizione giuridica dell'incaricato. Cliccare ''Seleziona Ruolo'' per sceglierne uno adeguato.", "Avviso");
+				}
                 ClearPosGiuridica();
                 LastFilterPosGiuridica = filter;
-                btnCambiaRuolo.Visible = false;
-                return;
+				////btnCambiaRuolo.Enabled = false;
+				return;
             }
             LastFilterPosGiuridica = filter;
 
@@ -6626,13 +6843,24 @@ namespace itineration_default { //missione//
                     null,
                     QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb),
                         QHS.CmpEq("idregistrylegalstatus", RcurrPosGiuridica["idregistrylegalstatus"])), null, false);
-                btnCambiaRuolo.Visible = true;
-            }
-            if (NposGiuridiche == 1) {
-                SelClass = Conn.RUN_SELECT("legalstatuscontract",
-					"idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
-                    null, filter, null, false);
-                btnCambiaRuolo.Visible = false;
+				////btnCambiaRuolo.Enabled = true;
+			}
+			if (NposGiuridiche == 1) {
+				//MetaData Mlegalstatuscontract_1 = MetaData.GetMetaData(this, "legalstatuscontract");
+				//Mlegalstatuscontract_1.DS = DS.Copy();
+				//Mlegalstatuscontract_1.FilterLocked = true;
+				//RcurrPosGiuridica = Mlegalstatuscontract_1.SelectOne("anagrafica", filter, "legalstatuscontract", null);
+				//// ha mostrato l'elenco, ma lo fa per dare un senso al click del mouse, e poi prende l'unica riga buona
+				//if (RcurrPosGiuridica != null) {
+					SelClass = Conn.RUN_SELECT("legalstatuscontract",
+						"idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
+						null, filter, null, false);
+					//btnCambiaRuolo.Enabled = false;
+				//}
+				if (fromButtonRuolo) {
+					show(
+						"Posizione giuridica valorizzata.", "Avviso");
+				}
             }
             DataRow RowClass = SelClass.Rows[0];
 
@@ -6796,7 +7024,7 @@ namespace itineration_default { //missione//
             controller.GetFormData(true);
 
             if (((Control) sender) == txtIncaricato) {
-                ImpostaPosGiuridica(false);
+                ImpostaPosGiuridica(false, false);
                 CalcolaRitenute(true);
             }
             if (((Control) sender) == cmbPrestazione) {
@@ -6804,11 +7032,11 @@ namespace itineration_default { //missione//
             }
 
             if ((MissFun.CampoDataPerPosGiuridica == "start") && (((Control) sender) == txtDataInizio)) {
-                ImpostaPosGiuridica(false);
+                ImpostaPosGiuridica(false, false);
                 CalcolaRitenute(true);
             }
             if (((Control) sender) == txtDataFine) {
-                ImpostaPosGiuridica(false);
+                ImpostaPosGiuridica(false, false);
                 CalcolaRitenute(true);
             }
 
@@ -6930,8 +7158,7 @@ namespace itineration_default { //missione//
             DataTable TipoSpese = getFaseAnticipoMissione()
                 ? DS.itinerationrefundkind_advance
                 : DS.itinerationrefundkind_balance;
-
-            decimal imponibile_per_ritenute = MissFun.TotQuoteImponibiliTappe(Curr, DS.itinerationlap, MyCfg)
+			decimal imponibile_per_ritenute = MissFun.TotQuoteImponibiliTappe(Curr, DS.itinerationlap, MyCfg)
                                               + MissFun.IF_TotQuoteImponibiliSpese(Spese, TipoSpese, MyCfg);
 
             //Elimina dalla tabella MissioneRitenuta le righe che non saranno utilizzate
@@ -7541,7 +7768,7 @@ namespace itineration_default { //missione//
             LastOutCalcolaRitenute = null;
             LastImpEsenteFilter = null;
             LastFilterPosGiuridica = null;
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
             //ImpostaImpEsente(true); già chiamato da ImpostaPosGiuridica
 
             DataRow CurrMiss = DS.itineration.Rows[0];
@@ -7762,15 +7989,6 @@ namespace itineration_default { //missione//
 
         }
 
-        private void btnRuolo_Click(object sender, System.EventArgs e) {
-            ScegliRuolo();
-        }
-
-
-
-
-
-
 
 
         void VisualizzaEtichetteAP() {
@@ -7913,7 +8131,7 @@ namespace itineration_default { //missione//
 
         private void btnCambiaRuolo_Click(object sender, EventArgs e) {
             if (controller.IsEmpty) return;
-            ImpostaPosGiuridica(true);
+            ImpostaPosGiuridica(true, true);
         }
 
         private void btnAccetta_Click(object sender, EventArgs e) {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -264,6 +264,11 @@ namespace income_gerarchico //EntrataGerarchico//
 		private DataGrid gridDettIncassi;
 		private Button btnAdd;
 		private TabPage tabFatture;
+		private TabPage tabAllegati;
+		private DataGrid dataGridAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
 		decimal DisponibilePerProssimafase;
 
 		bool faseIvaInclusa() {
@@ -508,6 +513,11 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.txtCodiceContoCustomer = new System.Windows.Forms.TextBox();
 			this.btnContoCredito = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.groupBox15.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).BeginInit();
@@ -552,6 +562,8 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxCrediti.SuspendLayout();
 			this.tabAltro.SuspendLayout();
 			this.grpContocredito.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -595,7 +607,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.groupBox15.Controls.Add(this.DGridDettagliClassificazioni);
 			this.groupBox15.Location = new System.Drawing.Point(8, 200);
 			this.groupBox15.Name = "groupBox15";
-			this.groupBox15.Size = new System.Drawing.Size(790, 285);
+			this.groupBox15.Size = new System.Drawing.Size(787, 283);
 			this.groupBox15.TabIndex = 33;
 			this.groupBox15.TabStop = false;
 			this.groupBox15.Text = "Dettagli classificazioni";
@@ -640,7 +652,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.DGridDettagliClassificazioni.Location = new System.Drawing.Point(16, 56);
 			this.DGridDettagliClassificazioni.Name = "DGridDettagliClassificazioni";
 			this.DGridDettagliClassificazioni.ReadOnly = true;
-			this.DGridDettagliClassificazioni.Size = new System.Drawing.Size(766, 216);
+			this.DGridDettagliClassificazioni.Size = new System.Drawing.Size(763, 214);
 			this.DGridDettagliClassificazioni.TabIndex = 7;
 			this.DGridDettagliClassificazioni.Tag = "incomesorted.default";
 			this.DGridDettagliClassificazioni.DoubleClick += new System.EventHandler(this.DGridDettagliClassificazioni_DoubleClick);
@@ -657,7 +669,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.DGridClassificazioni.Name = "DGridClassificazioni";
 			this.DGridClassificazioni.ParentRowsVisible = false;
 			this.DGridClassificazioni.ReadOnly = true;
-			this.DGridClassificazioni.Size = new System.Drawing.Size(790, 160);
+			this.DGridClassificazioni.Size = new System.Drawing.Size(787, 160);
 			this.DGridClassificazioni.TabIndex = 31;
 			this.DGridClassificazioni.Tag = "sortingkind.default";
 			// 
@@ -1115,7 +1127,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.GBoxVariazioni.Controls.Add(this.gridVariazioni);
 			this.GBoxVariazioni.Location = new System.Drawing.Point(8, 8);
 			this.GBoxVariazioni.Name = "GBoxVariazioni";
-			this.GBoxVariazioni.Size = new System.Drawing.Size(790, 487);
+			this.GBoxVariazioni.Size = new System.Drawing.Size(787, 485);
 			this.GBoxVariazioni.TabIndex = 3;
 			this.GBoxVariazioni.TabStop = false;
 			this.GBoxVariazioni.Text = "Variazioni al movimento di entrata corrente";
@@ -1156,7 +1168,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gridVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.gridVariazioni.Location = new System.Drawing.Point(16, 56);
 			this.gridVariazioni.Name = "gridVariazioni";
-			this.gridVariazioni.Size = new System.Drawing.Size(766, 413);
+			this.gridVariazioni.Size = new System.Drawing.Size(763, 411);
 			this.gridVariazioni.TabIndex = 30;
 			this.gridVariazioni.Tag = "incomevar.default.detail";
 			// 
@@ -1190,7 +1202,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// txtImportoAssegnareCrediti
 			// 
 			this.txtImportoAssegnareCrediti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtImportoAssegnareCrediti.Location = new System.Drawing.Point(647, 16);
+			this.txtImportoAssegnareCrediti.Location = new System.Drawing.Point(644, 16);
 			this.txtImportoAssegnareCrediti.Name = "txtImportoAssegnareCrediti";
 			this.txtImportoAssegnareCrediti.ReadOnly = true;
 			this.txtImportoAssegnareCrediti.Size = new System.Drawing.Size(136, 20);
@@ -1200,7 +1212,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// labImportoDaAssegnare
 			// 
 			this.labImportoDaAssegnare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.labImportoDaAssegnare.Location = new System.Drawing.Point(463, 16);
+			this.labImportoDaAssegnare.Location = new System.Drawing.Point(460, 16);
 			this.labImportoDaAssegnare.Name = "labImportoDaAssegnare";
 			this.labImportoDaAssegnare.Size = new System.Drawing.Size(176, 23);
 			this.labImportoDaAssegnare.TabIndex = 10;
@@ -1216,14 +1228,14 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 48);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(777, 437);
+			this.dataGrid1.Size = new System.Drawing.Size(774, 435);
 			this.dataGrid1.TabIndex = 7;
 			this.dataGrid1.Tag = "creditpart.detail.detail";
 			// 
 			// txtImportoAssegnareIncassi
 			// 
 			this.txtImportoAssegnareIncassi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtImportoAssegnareIncassi.Location = new System.Drawing.Point(649, 16);
+			this.txtImportoAssegnareIncassi.Location = new System.Drawing.Point(646, 16);
 			this.txtImportoAssegnareIncassi.Name = "txtImportoAssegnareIncassi";
 			this.txtImportoAssegnareIncassi.ReadOnly = true;
 			this.txtImportoAssegnareIncassi.Size = new System.Drawing.Size(136, 20);
@@ -1233,7 +1245,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// label7
 			// 
 			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label7.Location = new System.Drawing.Point(465, 16);
+			this.label7.Location = new System.Drawing.Point(462, 16);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(176, 23);
 			this.label7.TabIndex = 15;
@@ -1249,7 +1261,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.dataGrid2.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid2.Location = new System.Drawing.Point(8, 48);
 			this.dataGrid2.Name = "dataGrid2";
-			this.dataGrid2.Size = new System.Drawing.Size(777, 437);
+			this.dataGrid2.Size = new System.Drawing.Size(774, 435);
 			this.dataGrid2.TabIndex = 14;
 			this.dataGrid2.Tag = "proceedspart.detail.detail";
 			// 
@@ -1303,6 +1315,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabControl1.Controls.Add(this.tabAssIncassi);
 			this.tabControl1.Controls.Add(this.tabAssCrediti);
 			this.tabControl1.Controls.Add(this.tabAltro);
+			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.ImageList = this.imageList1;
 			this.tabControl1.Location = new System.Drawing.Point(187, 0);
@@ -1722,14 +1735,14 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabClassSup.ImageIndex = 1;
 			this.tabClassSup.Location = new System.Drawing.Point(4, 23);
 			this.tabClassSup.Name = "tabClassSup";
-			this.tabClassSup.Size = new System.Drawing.Size(806, 504);
+			this.tabClassSup.Size = new System.Drawing.Size(803, 502);
 			this.tabClassSup.TabIndex = 1;
 			this.tabClassSup.Text = "Classificazioni";
 			// 
 			// btnGeneraClassAutomatiche
 			// 
 			this.btnGeneraClassAutomatiche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnGeneraClassAutomatiche.Location = new System.Drawing.Point(601, 8);
+			this.btnGeneraClassAutomatiche.Location = new System.Drawing.Point(598, 8);
 			this.btnGeneraClassAutomatiche.Name = "btnGeneraClassAutomatiche";
 			this.btnGeneraClassAutomatiche.Size = new System.Drawing.Size(192, 23);
 			this.btnGeneraClassAutomatiche.TabIndex = 34;
@@ -1742,7 +1755,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabDetails.Controls.Add(this.gboxDettEstimate);
 			this.tabDetails.Location = new System.Drawing.Point(4, 23);
 			this.tabDetails.Name = "tabDetails";
-			this.tabDetails.Size = new System.Drawing.Size(806, 504);
+			this.tabDetails.Size = new System.Drawing.Size(803, 502);
 			this.tabDetails.TabIndex = 7;
 			this.tabDetails.Text = "Contratti attivi";
 			// 
@@ -1760,7 +1773,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxIncassoDettContratti.Controls.Add(this.btnAdd);
 			this.gboxIncassoDettContratti.Location = new System.Drawing.Point(10, 206);
 			this.gboxIncassoDettContratti.Name = "gboxIncassoDettContratti";
-			this.gboxIncassoDettContratti.Size = new System.Drawing.Size(785, 295);
+			this.gboxIncassoDettContratti.Size = new System.Drawing.Size(782, 293);
 			this.gboxIncassoDettContratti.TabIndex = 70;
 			this.gboxIncassoDettContratti.TabStop = false;
 			this.gboxIncassoDettContratti.Text = "Dettagli Contratto Attivo incassati";
@@ -1787,7 +1800,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// txtTotDettIncassi
 			// 
 			this.txtTotDettIncassi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtTotDettIncassi.Location = new System.Drawing.Point(6, 267);
+			this.txtTotDettIncassi.Location = new System.Drawing.Point(6, 265);
 			this.txtTotDettIncassi.Name = "txtTotDettIncassi";
 			this.txtTotDettIncassi.ReadOnly = true;
 			this.txtTotDettIncassi.Size = new System.Drawing.Size(80, 20);
@@ -1797,7 +1810,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// label11
 			// 
 			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label11.Location = new System.Drawing.Point(6, 248);
+			this.label11.Location = new System.Drawing.Point(6, 246);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(48, 16);
 			this.label11.TabIndex = 3;
@@ -1823,7 +1836,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gridDettIncassi.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.gridDettIncassi.Location = new System.Drawing.Point(96, 16);
 			this.gridDettIncassi.Name = "gridDettIncassi";
-			this.gridDettIncassi.Size = new System.Drawing.Size(681, 273);
+			this.gridDettIncassi.Size = new System.Drawing.Size(678, 271);
 			this.gridDettIncassi.TabIndex = 1;
 			this.gridDettIncassi.Tag = "incomelastestimatedetail.detail.detail";
 			// 
@@ -1848,7 +1861,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxDettEstimate.Controls.Add(this.btnAddDetEstimate);
 			this.gboxDettEstimate.Location = new System.Drawing.Point(10, 0);
 			this.gboxDettEstimate.Name = "gboxDettEstimate";
-			this.gboxDettEstimate.Size = new System.Drawing.Size(785, 200);
+			this.gboxDettEstimate.Size = new System.Drawing.Size(782, 200);
 			this.gboxDettEstimate.TabIndex = 3;
 			this.gboxDettEstimate.TabStop = false;
 			this.gboxDettEstimate.Text = "Dettagli Contratto Attivo";
@@ -1898,7 +1911,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.dgrDettagliContratto.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.dgrDettagliContratto.Location = new System.Drawing.Point(96, 16);
 			this.dgrDettagliContratto.Name = "dgrDettagliContratto";
-			this.dgrDettagliContratto.Size = new System.Drawing.Size(681, 176);
+			this.dgrDettagliContratto.Size = new System.Drawing.Size(678, 176);
 			this.dgrDettagliContratto.TabIndex = 1;
 			// 
 			// btnAddDetEstimate
@@ -1916,7 +1929,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabFatture.Location = new System.Drawing.Point(4, 23);
 			this.tabFatture.Name = "tabFatture";
 			this.tabFatture.Padding = new System.Windows.Forms.Padding(3);
-			this.tabFatture.Size = new System.Drawing.Size(806, 504);
+			this.tabFatture.Size = new System.Drawing.Size(803, 502);
 			this.tabFatture.TabIndex = 9;
 			this.tabFatture.Text = "Fatture";
 			this.tabFatture.UseVisualStyleBackColor = true;
@@ -1934,7 +1947,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxDettInvoice.Controls.Add(this.dgrDettagliFattura);
 			this.gboxDettInvoice.Location = new System.Drawing.Point(3, 6);
 			this.gboxDettInvoice.Name = "gboxDettInvoice";
-			this.gboxDettInvoice.Size = new System.Drawing.Size(797, 293);
+			this.gboxDettInvoice.Size = new System.Drawing.Size(794, 291);
 			this.gboxDettInvoice.TabIndex = 4;
 			this.gboxDettInvoice.TabStop = false;
 			this.gboxDettInvoice.Text = "Dettagli Fattura";
@@ -1951,7 +1964,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// txtTotInvoiceDetail
 			// 
 			this.txtTotInvoiceDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtTotInvoiceDetail.Location = new System.Drawing.Point(8, 257);
+			this.txtTotInvoiceDetail.Location = new System.Drawing.Point(8, 255);
 			this.txtTotInvoiceDetail.Name = "txtTotInvoiceDetail";
 			this.txtTotInvoiceDetail.ReadOnly = true;
 			this.txtTotInvoiceDetail.Size = new System.Drawing.Size(80, 20);
@@ -1961,7 +1974,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			// label17
 			// 
 			this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label17.Location = new System.Drawing.Point(8, 241);
+			this.label17.Location = new System.Drawing.Point(8, 239);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(48, 16);
 			this.label17.TabIndex = 5;
@@ -1995,7 +2008,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.dgrDettagliFattura.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrDettagliFattura.Location = new System.Drawing.Point(96, 16);
 			this.dgrDettagliFattura.Name = "dgrDettagliFattura";
-			this.dgrDettagliFattura.Size = new System.Drawing.Size(693, 269);
+			this.dgrDettagliFattura.Size = new System.Drawing.Size(690, 267);
 			this.dgrDettagliFattura.TabIndex = 2;
 			// 
 			// tabIncasso
@@ -2008,7 +2021,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabIncasso.Controls.Add(this.groupBox9);
 			this.tabIncasso.Location = new System.Drawing.Point(4, 23);
 			this.tabIncasso.Name = "tabIncasso";
-			this.tabIncasso.Size = new System.Drawing.Size(806, 504);
+			this.tabIncasso.Size = new System.Drawing.Size(803, 502);
 			this.tabIncasso.TabIndex = 2;
 			this.tabIncasso.Text = "Reversale";
 			// 
@@ -2083,7 +2096,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.labBollette1.AutoSize = true;
 			this.labBollette1.Location = new System.Drawing.Point(64, 16);
 			this.labBollette1.Name = "labBollette1";
-			this.labBollette1.Size = new System.Drawing.Size(625, 13);
+			this.labBollette1.Size = new System.Drawing.Size(608, 13);
 			this.labBollette1.TabIndex = 33;
 			this.labBollette1.Text = "Per utilizzare il collegamento multiplo con le bollette è necessario selezionare " +
     "\"Regolarizza disposizione di incasso già effettuata\"";
@@ -2150,7 +2163,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.grpModRiscossione.Controls.Add(this.SubEntity_chkCassa);
 			this.grpModRiscossione.Location = new System.Drawing.Point(16, 70);
 			this.grpModRiscossione.Name = "grpModRiscossione";
-			this.grpModRiscossione.Size = new System.Drawing.Size(790, 48);
+			this.grpModRiscossione.Size = new System.Drawing.Size(787, 48);
 			this.grpModRiscossione.TabIndex = 92;
 			this.grpModRiscossione.TabStop = false;
 			this.grpModRiscossione.Text = "Modalità di riscossione";
@@ -2199,7 +2212,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(450, 56);
+			this.textBox1.Size = new System.Drawing.Size(447, 56);
 			this.textBox1.TabIndex = 20;
 			this.textBox1.Text = "il numero della reversale di incasso viene riempito solo quando verrà emessa la r" +
     "eversale da associare al movimento di entrata";
@@ -2209,7 +2222,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabVariazioni.Controls.Add(this.GBoxVariazioni);
 			this.tabVariazioni.Location = new System.Drawing.Point(4, 23);
 			this.tabVariazioni.Name = "tabVariazioni";
-			this.tabVariazioni.Size = new System.Drawing.Size(806, 504);
+			this.tabVariazioni.Size = new System.Drawing.Size(803, 502);
 			this.tabVariazioni.TabIndex = 4;
 			this.tabVariazioni.Text = "Variazioni";
 			// 
@@ -2218,7 +2231,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabAssIncassi.Controls.Add(this.gboxIncassi);
 			this.tabAssIncassi.Location = new System.Drawing.Point(4, 23);
 			this.tabAssIncassi.Name = "tabAssIncassi";
-			this.tabAssIncassi.Size = new System.Drawing.Size(806, 504);
+			this.tabAssIncassi.Size = new System.Drawing.Size(803, 502);
 			this.tabAssIncassi.TabIndex = 6;
 			this.tabAssIncassi.Text = "Assegnazione di cassa";
 			// 
@@ -2235,7 +2248,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxIncassi.Controls.Add(this.label7);
 			this.gboxIncassi.Location = new System.Drawing.Point(8, 8);
 			this.gboxIncassi.Name = "gboxIncassi";
-			this.gboxIncassi.Size = new System.Drawing.Size(793, 493);
+			this.gboxIncassi.Size = new System.Drawing.Size(790, 491);
 			this.gboxIncassi.TabIndex = 17;
 			this.gboxIncassi.TabStop = false;
 			// 
@@ -2244,7 +2257,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabAssCrediti.Controls.Add(this.gboxCrediti);
 			this.tabAssCrediti.Location = new System.Drawing.Point(4, 23);
 			this.tabAssCrediti.Name = "tabAssCrediti";
-			this.tabAssCrediti.Size = new System.Drawing.Size(806, 504);
+			this.tabAssCrediti.Size = new System.Drawing.Size(803, 502);
 			this.tabAssCrediti.TabIndex = 5;
 			this.tabAssCrediti.Text = "Assegnazione credito";
 			// 
@@ -2261,7 +2274,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.gboxCrediti.Controls.Add(this.labImportoDaAssegnare);
 			this.gboxCrediti.Location = new System.Drawing.Point(8, 8);
 			this.gboxCrediti.Name = "gboxCrediti";
-			this.gboxCrediti.Size = new System.Drawing.Size(793, 493);
+			this.gboxCrediti.Size = new System.Drawing.Size(790, 491);
 			this.gboxCrediti.TabIndex = 12;
 			this.gboxCrediti.TabStop = false;
 			// 
@@ -2275,7 +2288,7 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabAltro.Location = new System.Drawing.Point(4, 23);
 			this.tabAltro.Name = "tabAltro";
 			this.tabAltro.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAltro.Size = new System.Drawing.Size(806, 504);
+			this.tabAltro.Size = new System.Drawing.Size(803, 502);
 			this.tabAltro.TabIndex = 8;
 			this.tabAltro.Text = "Altro";
 			this.tabAltro.UseVisualStyleBackColor = true;
@@ -2358,6 +2371,60 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.btnContoCredito.Tag = "Choose.account.tree.((flagaccountusage&48)<>0)";
 			this.btnContoCredito.Text = "Conto";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Size = new System.Drawing.Size(803, 502);
+			this.tabAllegati.TabIndex = 10;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(788, 454);
+			this.dataGridAllegati.TabIndex = 27;
+			this.dataGridAllegati.Tag = "incomeattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// Frm_income_gerarchico
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2437,6 +2504,8 @@ namespace income_gerarchico //EntrataGerarchico//
 			this.tabAltro.PerformLayout();
 			this.grpContocredito.ResumeLayout(false);
 			this.grpContocredito.PerformLayout();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -7440,12 +7509,34 @@ namespace income_gerarchico //EntrataGerarchico//
 			QueryHelper qh = SQL ? QHS : QHC;
 			string MyFilter = "";
 
-			string idreg = DS.income.Rows[0]["idreg"].ToString();
-			string idupb = DS.incomeyear.Rows[0]["idupb"].ToString();
+			string idreg = "";
+			string idupb = "";
+			if (EstimateLinked == null) return MyFilter;
+			if (DS.income.Rows.Count > 0)
+				idreg = DS.income.Rows[0]["idreg"].ToString();
+			if (DS.incomeyear.Rows.Count > 0)
+				idupb = DS.incomeyear.Rows[0]["idupb"].ToString();
 
 			MyFilter = qh.AppAnd(MyFilter, qh.MCmp(EstimateLinked, "idestimkind", "yestim", "nestim"));
 
-			DataRow TipoContratto = DS.estimatekind.Select(qh.CmpEq("idestimkind", EstimateLinked["idestimkind"]))[0];
+			DataRow TipoContratto = null;
+			if ((DS.estimatekind != null) && (DS.estimatekind.Rows.Count > 0)) {
+				DataRow[] TipiContratto = DS.estimatekind.Select(qh.CmpEq("idestimkind", EstimateLinked["idestimkind"]));
+				if (TipiContratto.Length == 0) {
+					MyConn.RUN_SELECT_INTO_TABLE(DS.estimatekind, null, QHS.CmpEq("idestimkind", EstimateLinked["idestimkind"]), null, true);
+					TipiContratto = DS.estimatekind.Select(qh.CmpEq("idestimkind", EstimateLinked["idestimkind"]));
+					if (TipiContratto.Length > 0) {
+						TipoContratto = TipiContratto[0];
+					}
+					else {
+						return MyFilter;
+					}
+				}
+				else {
+					TipoContratto = TipiContratto[0];
+				}
+			}
+
 			if (TipoContratto["multireg"].ToString().ToUpper() == "S") {
 				if (idreg != "")
 					MyFilter = qh.AppAnd(MyFilter, qh.CmpEq("idreg", idreg));

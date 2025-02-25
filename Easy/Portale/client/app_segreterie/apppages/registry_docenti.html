@@ -64,7 +64,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idtitle">Titolo</label>
-					<select id="registry_docenti_idtitle" class="custom-select d-block w-100"  data-source-name="title" data-value-member="idtitle" data-display-member="description" data-sort-member="" data-custom-control="combo" data-tag="registry.idtitle?registrydocentiview.registry_idtitle"   > </select>
+					<select id="registry_docenti_idtitle" class="custom-select d-block w-100"  data-source-name="title" data-value-member="idtitle" data-display-member="description" data-sort-member="description" data-custom-control="combo" data-tag="registry.idtitle?registrydocentiview.registry_idtitle"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -112,7 +112,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idmaritalstatus">Stato civile</label>
-					<select id="registry_docenti_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-sort-member="" data-custom-control="combo" data-tag="registry.idmaritalstatus?registrydocentiview.registry_idmaritalstatus"   > </select>
+					<select id="registry_docenti_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-sort-member="description" data-custom-control="combo" data-tag="registry.idmaritalstatus?registrydocentiview.registry_idmaritalstatus"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -122,13 +122,13 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idregistryclass">Tipologia fiscale</label>
-					<select id="registry_docenti_idregistryclass" class="custom-select d-block w-100"  data-source-name="registryclasspersoneview" data-value-member="idregistryclass" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="registry.idregistryclass?registrydocentiview.registry_idregistryclass"   > </select>
+					<select id="registry_docenti_idregistryclass" class="custom-select d-block w-100"  data-source-name="registryclasspersoneview" data-value-member="idregistryclass" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="registry.idregistryclass?registrydocentiview.registry_idregistryclass"   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_residence">Residenza</label>
-					<select id="registry_docenti_residence" class="custom-select d-block w-100"  data-source-name="residence" data-value-member="idresidence" data-display-member="description" data-sort-member="" data-custom-control="combo" data-tag="registry.residence?registrydocentiview.registry_residence"  data-mandatory  > </select>
+					<select id="registry_docenti_residence" class="custom-select d-block w-100"  data-source-name="residence" data-value-member="idresidence" data-display-member="description" data-sort-member="description" data-custom-control="combo" data-tag="registry.residence?registrydocentiview.registry_residence"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_location">ubicazione</label>
@@ -165,14 +165,6 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_docenti_idclassconsorsuale">Classe consorsuale</label>
-					<div>
-						<input id="registry_docenti_idclassconsorsuale" name="registry_docenti_idclassconsorsuale" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="classconsorsualedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idreg_istituti">Istituto, Ente o Azienda</label>
 					<div>
 						<input id="registry_docenti_idreg_istituti" name="registry_docenti_idreg_istituti" type="text" data-listtype="istituti"  class="form-control" data-minchar="2" data-tag="registryistitutiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
@@ -188,7 +180,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idfonteindicebibliometrico">Fonte</label>
-					<select id="registry_docenti_idfonteindicebibliometrico" class="custom-select d-block w-100"  data-source-name="fonteindicebibliometrico" data-value-member="idfonteindicebibliometrico" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="registry.idfonteindicebibliometrico?registrydocentiview.registry_idfonteindicebibliometrico"   > </select>
+					<select id="registry_docenti_idfonteindicebibliometrico" class="custom-select d-block w-100"  data-source-name="fonteindicebibliometrico" data-value-member="idfonteindicebibliometrico" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="registry.idfonteindicebibliometrico?registrydocentiview.registry_idfonteindicebibliometrico"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_indicebibliometrico">Indice bibliometrico (H-Index)</label>
@@ -206,6 +198,12 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idreg">Identificativo</label>
 					<input id="registry_docenti_idreg" type="text" class="form-control" data-tag="registry.idreg?registrydocentiview.idreg"  data-mandatory />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_docenti_idanpr">Identificativo dell'Anagrafe Nazionale della Popolazione Residente</label>
+					<input id="registry_docenti_idanpr" type="text" class="form-control" data-tag="registry.idanpr?registrydocentiview.registry_idanpr" />
 				</div>
 			</div>
 	</div>
@@ -325,6 +323,7 @@
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabregistry_docenti_16" role="tabpanel">
+	<div class="custom_lng_div" data-langkey="tablabelregistry_docenti_16" >Il costo orario è stato calcolato su base annuale di 1500 ore lavorative.</div>
 				<div class="gridx" id="grid_costoorario_default" data-tag="costoorario.default.default" data-custom-control="gridx" ></div>
 	</div>
 </div>

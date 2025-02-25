@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,10 +38,16 @@ namespace f24ordinario_default {
 		
 		public Frm_f24ordinario_default() {
 			InitializeComponent();
+			saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
 			saveFileDialog1.DefaultExt = "T24";
 			string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "f24ordinario/prog/temp");
 			if (Directory.Exists(dir)) {
 				saveFileDialog1.InitialDirectory = dir;
+			}
+
+			if (isBlazor())
+			{
+				txtPercorso.Visible = false;
 			}
 		}
 		int esercizio;
@@ -768,6 +774,8 @@ namespace f24ordinario_default {
 				generaRecordZ(sw, numeroDiRecordV);
 				sw.Flush();
 				sw.Close();
+
+				MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtPercorso.Text, false);
 
 				txtDataGenerazione.Text = HelpForm.StringValue(Meta.GetSys("datacontabile"),
 				txtDataGenerazione.Tag.ToString(), DS.f24ordinario.Columns["adate"]);

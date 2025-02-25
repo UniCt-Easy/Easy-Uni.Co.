@@ -58,8 +58,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-lezione_default");
-				$('#lezione_default_idcorsostudio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_idcorsostudio').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#lezione_default_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
 				if (t.name === "corsostudiodefaultview" && r !== null) {
 					this.state.DS.tables.didprogdefaultview.staticFilter(window.jsDataQuery.eq("idcorsostudio", r.idcorsostudio));
 					if (this.state.DS.tables.didprogdefaultview.rows.length)
@@ -68,8 +68,10 @@
 							$('#lezione_default_iddidprog').val('');
 						}
 				}
-				$('#lezione_default_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#lezione_default_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#lezione_default_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#lezione_default_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
 				if (t.name === "didprogdefaultview" && r !== null) {
 					this.state.DS.tables.didprogcurr.staticFilter(window.jsDataQuery.eq("iddidprog", r.iddidprog));
 					if (this.state.DS.tables.didprogcurr.rows.length)
@@ -78,8 +80,10 @@
 							$('#lezione_default_iddidprogcurr').val('');
 						}
 				}
-				$('#lezione_default_iddidprogcurr').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_iddidprogcurr').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#lezione_default_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#lezione_default_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#lezione_default_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
 				if (t.name === "didprogcurr" && r !== null) {
 					this.state.DS.tables.didprogoridefaultview.staticFilter(window.jsDataQuery.eq("iddidprogcurr", r.iddidprogcurr));
 					if (this.state.DS.tables.didprogoridefaultview.rows.length)
@@ -88,8 +92,10 @@
 							$('#lezione_default_iddidprogori').val('');
 						}
 				}
-				$('#lezione_default_iddidprogori').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_iddidprogori').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_iddidprogori').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#lezione_default_iddidprogori').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#lezione_default_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#lezione_default_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
 				if (t.name === "didprogoridefaultview" && r !== null) {
 					this.state.DS.tables.didprogannodefaultview.staticFilter(window.jsDataQuery.eq("iddidprogori", r.iddidprogori));
 					if (this.state.DS.tables.didprogannodefaultview.rows.length)
@@ -98,8 +104,10 @@
 							$('#lezione_default_iddidproganno').val('');
 						}
 				}
-				$('#lezione_default_iddidproganno').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_iddidproganno').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_iddidproganno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#lezione_default_iddidproganno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#lezione_default_iddidprogori').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#lezione_default_iddidprogori').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
 				if (t.name === "didprogannodefaultview" && r !== null) {
 					this.state.DS.tables.didprogporzannodefaultview.staticFilter(window.jsDataQuery.eq("iddidproganno", r.iddidproganno));
 					if (this.state.DS.tables.didprogporzannodefaultview.rows.length)
@@ -108,8 +116,10 @@
 							$('#lezione_default_iddidprogporzanno').val('');
 						}
 				}
-				$('#lezione_default_iddidprogporzanno').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_iddidprogporzanno').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_iddidprogporzanno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#lezione_default_iddidprogporzanno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#lezione_default_iddidproganno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#lezione_default_iddidproganno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
 				if (t.name === "didprogporzannodefaultview" && r !== null) {
 					this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprogporzanno", r.iddidprogporzanno));
 					if (this.state.DS.tables.attivformdefaultview.rows.length)
@@ -118,8 +128,10 @@
 							$('#lezione_default_idattivform').val('');
 						}
 				}
-				$('#lezione_default_idattivform').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_idattivform').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_idattivform').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
+				$('#lezione_default_idattivform').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
+				$('#lezione_default_iddidprogporzanno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
+				$('#lezione_default_iddidprogporzanno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
 				if (t.name === "attivformdefaultview" && r !== null) {
 					this.state.DS.tables.canale.staticFilter(window.jsDataQuery.eq("idattivform", r.idattivform));
 					if (this.state.DS.tables.canale.rows.length)
@@ -128,8 +140,10 @@
 							$('#lezione_default_idcanale').val('');
 						}
 				}
-				$('#lezione_default_idcanale').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_idcanale').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_idcanale').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
+				$('#lezione_default_idcanale').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
+				$('#lezione_default_idattivform').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
+				$('#lezione_default_idattivform').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcanale);
 				if (t.name === "canale" && r !== null) {
 					this.state.DS.tables.affidamentosegview.staticFilter(window.jsDataQuery.eq("idcanale", r.idcanale));
 					if (this.state.DS.tables.affidamentosegview.rows.length)
@@ -138,8 +152,10 @@
 							$('#lezione_default_idaffidamento').val('');
 						}
 				}
-				$('#lezione_default_idaffidamento').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#lezione_default_idaffidamento').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#lezione_default_idaffidamento').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
+				$('#lezione_default_idaffidamento').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
+				$('#lezione_default_idcanale').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
+				$('#lezione_default_idcanale').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idaffidamento);
 				//afterRowSelectin
 				return def.resolve();
 			},

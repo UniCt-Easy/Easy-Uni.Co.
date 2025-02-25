@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -108,8 +108,12 @@ namespace meta_estimatedetailview {
                 DescribeAColumn(T, "competencystart", "Inizio comp.", nPos++);
                 DescribeAColumn(T, "competencystop", "Fine comp.", nPos++);
                 DescribeAColumn(T, "flagintracom", "Intracom", nPos++);
+				DescribeAColumn(T, "yepacc", "Anno accert. di B.", nPos++);
+				DescribeAColumn(T, "nepacc", "N. accert. di B.", nPos++);
+				DescribeAColumn(T, "yepacc_pre", "Anno preaccert. di Budget", nPos++);
+				DescribeAColumn(T, "nepacc_pre", "N. preaccert. di Budget", nPos++);
 
-                HelpForm.SetFormatForColumn(T.Columns["number"], "n");
+				HelpForm.SetFormatForColumn(T.Columns["number"], "n");
 			}
             if(listtype=="flussocrediti"){
                 foreach (DataColumn C in T.Columns)

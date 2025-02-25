@@ -57,6 +57,7 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'seg':
+						table.columns["!titolobreve"].caption = "Progetto";
 						table.columns["description"].caption = "Descrizione";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idstruttura"].caption = "Dipartimento";

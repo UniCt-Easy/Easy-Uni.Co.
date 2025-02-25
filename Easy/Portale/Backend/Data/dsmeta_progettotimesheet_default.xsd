@@ -95,6 +95,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="progetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -122,6 +137,7 @@
               <xs:element name="durata" type="xs:int" minOccurs="0" />
               <xs:element name="finanziamento" type="xs:string" minOccurs="0" />
               <xs:element name="finanziatoretxt" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
               <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
               <xs:element name="idduratakind" type="xs:int" minOccurs="0" />
@@ -153,6 +169,7 @@
               <xs:element name="ulteriorecup" type="xs:string" minOccurs="0" />
               <xs:element name="unitaorganizzativa" type="xs:string" minOccurs="0" />
               <xs:element name="url" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idcorsostudio_corsostudio_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idcorsostudio_corsostudio_annoistituz" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idpartnerkind_partnerkind_title" type="xs:string" minOccurs="0" />
@@ -187,6 +204,10 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="sal_budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sal_datablocco" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -311,6 +332,7 @@
               <xs:element name="multilinetype" type="xs:string" minOccurs="0" />
               <xs:element name="output" type="xs:string" minOccurs="0" />
               <xs:element name="riepilogoanno" type="xs:string" minOccurs="0" />
+              <xs:element name="sede" type="xs:string" minOccurs="0" />
               <xs:element name="showactivitiesrow" type="xs:string" minOccurs="0" />
               <xs:element name="showotheractivitiesrow" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -360,6 +382,10 @@
     <xs:unique name="corsostudio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:corsostudio" />
       <xs:field xpath="mstns:idcorsostudio" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
     </xs:unique>
     <xs:unique name="progetto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progetto" />
@@ -411,6 +437,7 @@
       <msdata:Relationship name="FK_progetto_progettokind_idprogettokind" msdata:parent="progettokind" msdata:child="progetto" msdata:parentkey="idprogettokind" msdata:childkey="idprogettokind" />
       <msdata:Relationship name="FK_progetto_partnerkind_idpartnerkind" msdata:parent="partnerkind" msdata:child="progetto" msdata:parentkey="idpartnerkind" msdata:childkey="idpartnerkind" />
       <msdata:Relationship name="FK_progetto_corsostudio_idcorsostudio" msdata:parent="corsostudio" msdata:child="progetto" msdata:parentkey="idcorsostudio" msdata:childkey="idcorsostudio" />
+      <msdata:Relationship name="FK_progetto_attach_idattach" msdata:parent="attach" msdata:child="progetto" msdata:parentkey="idattach" msdata:childkey="idattach" />
       <msdata:Relationship name="FK_progettotimesheet_salelenchiview_idsal" msdata:parent="salelenchiview" msdata:child="progettotimesheet" msdata:parentkey="idsal" msdata:childkey="idsal" />
       <msdata:Relationship name="FK_salelenchiview_progettoelenchiview_idprogetto" msdata:parent="progettoelenchiview" msdata:child="salelenchiview" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettotimesheet_mese_idmese" msdata:parent="mese" msdata:child="progettotimesheet" msdata:parentkey="idmese" msdata:childkey="idmese" />

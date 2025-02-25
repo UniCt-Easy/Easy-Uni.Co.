@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sostenimento_seganagstu"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sostenimento_seganagstu: DataSet {
+public partial class dsmeta_sostenimento_seganagstu: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -68,6 +68,12 @@ private void initClass() {
 	var tsostenimentoesitodefaultview= new MetaTable("sostenimentoesitodefaultview");
 	tsostenimentoesitodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsostenimentoesitodefaultview.defineColumn("idsostenimentoesito", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_active", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_description", typeof(string),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lt", typeof(DateTime));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lu", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_sortcode", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tsostenimentoesitodefaultview);
 	tsostenimentoesitodefaultview.defineKey("idsostenimentoesito");
 
@@ -82,11 +88,9 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("iddidprogcurr", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
-	tattivformdefaultview.defineColumn("idinsegn", typeof(int),false);
-	tattivformdefaultview.defineColumn("idinsegninteg", typeof(int));
 	tattivformdefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tattivformdefaultview);
-	tattivformdefaultview.defineKey("idattivform");
+	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// SOSTENIMENTO /////////////////////////////////
 	var tsostenimento= new MetaTable("sostenimento");

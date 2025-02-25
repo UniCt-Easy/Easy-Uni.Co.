@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -251,7 +251,7 @@ namespace ep_functions {
 
             DataRow[] contiBanca = EP.GetAccMotiveDetails(idaccmotive);
             if (contiBanca.Length == 0) {
-                ShowMessage("La causale del pagamento / incasso a banca non è ben configurata.", "Errore");
+                ShowMessage("La causale EP sul tesoriere del pagamento/incasso non è ben configurata.", "Errore");
                 return DBNull.Value;
             }
 
@@ -1362,8 +1362,6 @@ namespace ep_functions {
             }
 
             if (r.Table.TableName == "taxpay") {
-                if (!usaContiPresentazioneDocumenti)
-                    return false; // Le Scritture verranno effettuate in fase di trasmissioneesistenti non abilitati
                 return true;
             }
 
@@ -1645,7 +1643,7 @@ namespace ep_functions {
             if (r.Table.TableName == "pettycashoperation") {
                 int flag = CfgFn.GetNoNullInt32(r["flag"]);
                 if ((flag & 8) == 0) return false;
-                if (getContabilizzazioneFondo(r) != Tipocont.ContNone) return false;
+                if (getContabilizzazioneFondo(r) != TCont.None) return false;
                 return true;
             }
 
@@ -1789,25 +1787,25 @@ namespace ep_functions {
         private Dictionary<int, bool> existContractEpExp = new Dictionary<int, bool>();
         private Dictionary<string, bool> existContractTaxEpExp = new Dictionary<string, bool>();
 
-        private enum Tipocont {
-            ContNone,
-            ContMissione,
-            ContIva,
-            ContOccasionale,
-            ContProfessionale
+        public enum TCont {
+            None,
+            Missione,
+            Iva,
+            Occasionale,
+            Professionale
         };
 
         public string tipoScrittura;
 
-        Tipocont getContabilizzazioneFondo(DataRow curr) {
+        TCont getContabilizzazioneFondo(DataRow curr) {
             string filter = QHS.CmpKey(curr);
-            if (Conn.RUN_SELECT_COUNT("pettycashoperationinvoice", filter, false) > 0) return Tipocont.ContIva;
-            if (Conn.RUN_SELECT_COUNT("pettycashoperationitineration", filter, false) > 0) return Tipocont.ContMissione;
+            if (Conn.RUN_SELECT_COUNT("pettycashoperationinvoice", filter, false) > 0) return TCont.Iva;
+            if (Conn.RUN_SELECT_COUNT("pettycashoperationitineration", filter, false) > 0) return TCont.Missione;
             if (Conn.RUN_SELECT_COUNT("pettycashoperationprofservice", filter, false) > 0)
-                return Tipocont.ContProfessionale;
+                return TCont.Professionale;
             if (Conn.RUN_SELECT_COUNT("pettycashoperationcasualcontract", filter, false) > 0)
-                return Tipocont.ContOccasionale;
-            return Tipocont.ContNone;
+                return TCont.Occasionale;
+            return TCont.None;
         }
 
         public bool impegniAbilitati(DataRow r) {
@@ -3007,7 +3005,7 @@ namespace ep_functions {
                 if (string.IsNullOrEmpty(idrel)) continue;
                 var parts = idrel.Split('§');
                 var mainId = BudgetFunction.ComposeObjects(parts.ToList().Take(parts.Length - 1).ToArray());
-                EP.GetEntryForDocument(mainId, true);
+                EP.GetEntryForDocument(mainId, false);
                 EP.DeleteDetailByIdRelated(idrel, invokedByInnerPosting ? postingClass : null);
             }
         }
@@ -3296,6 +3294,10 @@ namespace ep_functions {
                                        //split payment
                                        (mytipoRegistro == "V"); //vendita
 
+            bool splitPaymentAcquisto = (curr["flag_enable_split_payment"].ToString().ToUpper() == "S") &&
+                                     //split payment
+                                     (mytipoRegistro == "A"); //acquisto
+
             DataTable invKindYear = Conn.RUN_SELECT("invoicekindyear", "*", null,
                 QHS.AppAnd(QHS.CmpEq("ayear", esercizio), QHS.CmpEq("idinvkind", curr["idinvkind"])), null, false);
             if (invKindYear.Select().Length == 0) {
@@ -3403,20 +3405,7 @@ namespace ep_functions {
             }
 
 
-            if (isIntraCom && istituzionale) {
-                object idaccIvapay;
-                //if (vendita) { NON ESISTONO VENDITE ISTITUZIONALI, cmq ora si è dismesso l'uso del conto per il rimborso , task 9849
-                // qua ci passava nel caso di autofatture intra, ora non più usate
-                //    idregIva = _idregRimborso12;
-                //    idaccIvapay = idaccRefund12;
-                //}
-                //else {
-                idregIva = _idregVersamento12;
-                idaccIvapay = ivaPayment12;
-                //}
-                if (contoIvaCreditoODebito == DBNull.Value)
-                    contoIvaCreditoODebito = idaccIvapay;
-            }
+           
 
             object contoDebitoCreditovsFornitore; //conto di debito o credito
             object idaccmotiveDebit = getIdAccMotiveDebitCredit(curr["idaccmotivedebit"], curr["idaccmotivedebit_crg"],
@@ -3433,6 +3422,17 @@ namespace ep_functions {
                 return false;
             }
 
+
+            if (isIntraCom && istituzionale) {
+                object idaccIvapay;
+                idregIva = _idregVersamento12;
+                idaccIvapay = ivaPayment12;
+                if (contoIvaCreditoODebito == DBNull.Value)
+                    contoIvaCreditoODebito = idaccIvapay;
+                // contoIvaCreditoODebito = splitPaymentAcquisto ? idaccIvapay : contoDebitoCreditovsFornitore;
+            }
+ 
+           
             object idaccRegistryBolla = DBNull.Value;
             if (fatturaSpedizioniere) {
                 //conto usato nella seconda scrittura in segno opposto su valore doganale o spese anticipate, per il solo costo 
@@ -3759,6 +3759,28 @@ namespace ep_functions {
                                 DataRow rMainInvoicedetail = tMainInvoicedetail.Rows[0];
                                 idepexp_main = getIdEpExpByIdRelated(BudgetFunction.GetIdForDocument(rMainInvoicedetail), 2);
                                 idepacc_main = getIdEpAccByIdRelated(BudgetFunction.GetIdForDocument(rMainInvoicedetail), 2);
+                                // Se la fattura è associata al CP, nella scrittura EP della fattura ci sarà l'impegno che avrà l'idrelated del CP,
+                                // quindi deve leggere l'idepexp usando l'idrelated del CP
+                                if ((idepexp_main == DBNull.Value) && (rMainInvoicedetail["idmankind"] != null && rMainInvoicedetail["idmankind"] != DBNull.Value)) {
+                                    string filterCP = QHS.AppAnd(QHS.CmpEq("idmankind", rMainInvoicedetail["idmankind"]), QHS.CmpEq("yman", rMainInvoicedetail["yman"]),
+                                            QHS.CmpEq("nman", rMainInvoicedetail["nman"]), QHS.CmpEq("rownum", rMainInvoicedetail["manrownum"]));
+                                    DataTable tMandatedetail = Conn.RUN_SELECT("mandatedetail", "*", null, filterCP, null, false);
+                                    if (tMandatedetail != null && tMandatedetail.Rows.Count == 1) {
+                                        DataRow rMandatedetail = tMandatedetail.Rows[0];
+                                        idepexp_main = getIdEpExpByIdRelated(BudgetFunction.GetIdForDocument(rMandatedetail), 2);
+                                    }
+                                }
+                                // Se la fattura è associata al CA, nella scrittura EP della fattura ci sarà l'accertamento che avrà l'idrelated del CA,
+                                // quindi deve leggere l'idepacc usando l'idrelated del CC
+                                if ((idepacc_main == DBNull.Value) && (rMainInvoicedetail["idestimkind"] != null && rMainInvoicedetail["idestimkind"] != DBNull.Value)) {
+                                    string filterCA = QHS.AppAnd(QHS.CmpEq("idestimkind", rMainInvoicedetail["idestimkind"]), QHS.CmpEq("yestim", rMainInvoicedetail["yestim"]),
+                                            QHS.CmpEq("nestim", rMainInvoicedetail["nestim"]), QHS.CmpEq("rownum", rMainInvoicedetail["estimrownum"]));
+                                    DataTable tEstimatedetail = Conn.RUN_SELECT("estimatedetail", "*", null, filterCA, null, false);
+                                    if (tEstimatedetail != null && tEstimatedetail.Rows.Count == 1) {
+                                        DataRow rEstimatedetail = tEstimatedetail.Rows[0];
+                                        idepacc_main = getIdEpAccByIdRelated(BudgetFunction.GetIdForDocument(rEstimatedetail), 2);
+                                    }
+                                }
                             }
                         }
                         else {
@@ -4321,18 +4343,28 @@ namespace ep_functions {
                         if (!splitPaymentVendita) {
                             //iva detraibile senza impegno/acc di budget
                             EP.EffettuaScritturaImpegnoBudget(idepcontext,
-                                ivaDetraibilePerDettaglio + (diffProrata > 0 ? diffProrata : 0), 
+                                ivaDetraibilePerDettaglio + (diffProrata > 0 ? diffProrata : 0),
                                 contoDebitoCreditovsFornitore,
                                 idreg, idupbIva, rInvDet["competencystart"], rInvDet["competencystop"],
                                 //rInvDet, idaccmotiveMainDebit, null, null, idrelated,"iva detraibile");
                                 rInvDet, idaccmotive, null, null, idrelated,
                                 nomeDebitoCredito //"iva detraibile"
                             );
+                            //solo per iva indetraibile delle fatture di acquisto istituzionale split payment  
+                            //a iva immediata (non vale per le fatture iva differita) deve prendere il conto di debito configurato nella scheda Normale del 
+                            //Tipo documento IVA (questa configurazione verrà usata per i casi in cui non vogliono gestire il Recupero
+                            //Iva Split Payment e il debito IVA si deve aprire il sede registrazione fattura. Si chiuderà in Liquidazione IVA )
+                            //se la fattura non è split, oppure è a iva differita, deve rimanere come è adesso debiti verso fornitori
+                            
+                            object contoTransitorioIvaDebito = tipoDocYear["idacc"];
+
+                            bool usaContoDebitoTransitorioIvaImmediata =(splitPaymentAcquisto)&&(istituzionale) && (!deferred) && (contoTransitorioIvaDebito != DBNull.Value);
+                            usaContoDebitoTransitorioIvaImmediata = usaContoDebitoTransitorioIvaImmediata || !(curr["flag_enable_split_payment"].ToString().ToUpper() != "S") && (mytipoRegistro == "A") && (isIntraCom) && (istituzionale) && (!deferred) && (contoTransitorioIvaDebito != DBNull.Value);
 
                             //iva indetraibile CON impegno di budget
                             EP.EffettuaScritturaImpegnoBudget(idepcontext,
-                                ivaIndetraibilePerDettaglio + (diffProrata < 0 ? diffProrata : 0),      
-                                contoDebitoCreditovsFornitore,
+                                ivaIndetraibilePerDettaglio + (diffProrata < 0 ? diffProrata : 0),
+                                usaContoDebitoTransitorioIvaImmediata ? contoTransitorioIvaDebito : contoDebitoCreditovsFornitore,
                                 idreg, idupbIva, rInvDet["competencystart"], rInvDet["competencystop"],
                                 //rInvDet, idaccmotiveMainDebit,  idepexpForDebit, idepaccForCredit, idrelated,
                                 rInvDet, idaccmotive, idepexpForDebit, idepaccForCredit, idrelated,
@@ -4689,6 +4721,7 @@ namespace ep_functions {
 
                     //L'importo serve sempre, lo mettiamo già nella variabile!
                     decimal importo = CfgFn.GetNoNullDecimal(rLiquidazione["amount"]);
+                    
                     decimal variazioni = CfgFn.GetNoNullDecimal(Conn.DO_READ_VALUE("expensevar",
                         QHS.AppAnd(QHS.CmpEq("yvar", Conn.GetEsercizio()), QHS.CmpEq("idexp", rLiquidazione["idexp"]),
                             QHS.CmpLe("adate", dataRiferimento), QHS.IsNull("kpaymenttransmission")),
@@ -4737,53 +4770,14 @@ namespace ep_functions {
                                 rLiquidazione["idupb"], null, idaccmotiveFps, "foeco§" + autocode, descrdet);
 
                             break;
-                        case 2: //Liquidazione ritenute
-                            //Liquidazione ritenute: effettua una scrittura dal conto di pagamento delle ritenute
-                            // al conto della BANCA
-                            if (usaContiPresentazioneDocumenti) break;
-                            object codiceriten = rLiquidazione["autocode"];
-                            int taxcode = CfgFn.GetNoNullInt32(codiceriten);
-                            TaxInfo tax = TaxInfo.getInfo(taxInfo, taxcode);
-                            if (tax == null) { // (_tax.Select(QHC.CmpEq("taxcode", codiceriten)).Length == 0) 
-                                ShowMessage(
-                                    "Il codice " + codiceriten + " non è il codice di una ritenuta esistente",
-                                    "Errore");
-                                return false;
-                            }
 
-                            DataRow motiveRow = tax.getInfo(CfgFn.GetNoNullInt32(0));
-                            if (motiveRow == null) { // (_tax.Select(QHC.CmpEq("taxcode", codiceriten)).Length == 0) 
-                                ShowMessage(
-                                    "Il codice " + tax.taxRef() +
-                                    " non è il codice di una ritenuta configurata per l'EP.", "Errore");
-                                return false;
-                            }
-
-                            //Prende la causale di pagamento associato alla liqudazione (pay) della ritenuta 
-                            object idaccmotiveRiten = motiveRow["idaccmotive_pay"];
-                            if (idaccmotiveRiten == DBNull.Value) {
-                                ShowMessage("La ritenuta di codice " + tax.taxRef() +
-                                            " non è stata configurata per l'E/P");
-                                return false;
-                            }
-
-                            //Per ogni conto associato alla causale genera una scrittura 
-                            DataRow[] rEntries = EP.GetAccMotiveDetails(idaccmotiveRiten);
-                            if (rEntries.Length == 0) {
-                                ShowMessage("La ritenuta di codice " + tax.taxRef() +
-                                            " non ben configurata per l'E/P");
-                                return false;
-                            }
-
-                            object idAccRiten = rEntries[0]["idacc"];
-
-
-                            EP.EffettuaScritturaIdRelated("LIQRIT", importo, idAccRiten, rLiquidazione["idreg"],
-                                rLiquidazione["idupb"], null, idaccmotiveRiten, idrelDebit, descrdet);
-                            EP.EffettuaScritturaIdRelated("LIQRIT", importo, idaccPayment, rLiquidazione["idreg"],
-                                rLiquidazione["idupb"], null, idaccmotiveRiten, idrelated, descrdet);
+                        case 2: 
+                            // Liquidazione ritenute
+                            // Attenzione ora in nessun caso deve generare la scrittura su pagamenti automatici da
+                            // liquidazione ritenute VEDERE TASK 19146, deve invece generare scrittura direttamente sulla 
+                            // liquidazione delle ritenute
                             break;
-
+ 
                         case 15: { /*manca causale*/
                             //Liquidazione IVA Consolidata INTERNA,  ORMAI IN DISUSO 
                             EP.EffettuaScritturaIdRelated("PAGAM", importo, idaccPayment, rLiquidazione["idreg"],
@@ -4946,13 +4940,14 @@ namespace ep_functions {
                                 }
                             }
                             else {
-
-                                //Contributo
-                                EP.EffettuaScritturaImpegnoBudget("APPCONTRIB", importo, myaccFornitore,
-                                    rLiquidazione["idreg"], rLiquidazione["idupb"],
-                                    null, idaccmotivecost, idepexp, null, idrelatedDebitoContoErario,
-                                    (rLiquidazione["doc"] + " ").TrimStart() + rLiquidazione["description"]);
-
+                                    //Entra in questo ramo anche in assenza di impegni di budget, quando il contributo viene gestito 
+                                    //su partita di giro e con utilizzo del conto di debito transitorio che viene aperto 
+                                    //sul compenso
+                                    //Contributo
+                                    EP.EffettuaScritturaImpegnoBudget("APPCONTRIB", importo, myaccFornitore,
+                                        rLiquidazione["idreg"], rLiquidazione["idupb"],
+                                        null, idaccmotivecost, idepexp, null, idrelatedDebitoContoErario + '§' + rLiquidazione["idreg"],
+                                        (rLiquidazione["doc"] + " ").TrimStart() + rLiquidazione["description"]);
 
                             }
 
@@ -4986,29 +4981,16 @@ namespace ep_functions {
                         }
 
                         case 20: { /*manca causale*/
-                            //Ritenute e contributi da import CSA   VERSAMENTI
-                            if (usaContiPresentazioneDocumenti) break;
-
-                            EP.EffettuaScritturaIdRelated("PAGAM", importo, idaccPayment,
-                                rLiquidazione["idreg"], rLiquidazione["idupb"], null, null, idrelated, descrdet);
-                            // DEBITO (conto generico)      A       BANCA pagamento
-                            object idregToConsider = rLiquidazione["idreg"];
-                            // prendo la stessa anagrafica sui due dettagli
-                            if (autocode != 0) {
-                                // prendo l'anagrafica associata all'ente CSA 
-                                idregToConsider = Conn.DO_READ_VALUE("csa_agency", QHS.CmpEq("idcsa_agency", autocode),
-                                    "idreg");
-                            }
-
-                            EP.EffettuaScrittura("PAGAM", importo, idAccFornitore,
-                                idregToConsider, rLiquidazione["idupb"], null, null, null, null, descrdet);
+                            //Ritenute e contributi da import CSA   VERSAMENTI VECCHIA GESTIONE STIPENDI
                             break;
                         }
 
                         default:
-                            //Deve generare una scrittura netta dal debiti vs fornitore a banca, e una serie di scritture
-                            // da debiti vs fornitore ai vari conti di debito vs enti x ritenute dip.
-                            //Nulla accade x i contributi !!
+                            //Deve generare una scrittura netta da debiti vs fornitore a banca, e una serie di scritture
+                            //da debiti vs fornitore ai vari conti di debito vs enti x ritenute c/dip
+                            //tranne nel caso in cui non sia configurata la gestione delle ritenute c/dip con variazione
+                            //negativa al movimento di spesa del pagamento principale
+                
                             if (autokind == 21 && usaContiPresentazioneDocumenti) break; //LORDI
 
                             // Scritture sulle ritenute, ove presenti
@@ -5018,14 +5000,15 @@ namespace ep_functions {
                                 null, filtroDettaglio, null, true);
                             foreach (DataRow taxRow2 in tDettaglioRitenute.Rows) {
                                 object codicerit = taxRow2["taxcode"];
-                                decimal importoRitenuta = CfgFn.GetNoNullDecimal(taxRow2["employtax"]);
-                                decimal contributo = CfgFn.GetNoNullDecimal(taxRow2["admintax"]);
-
+                                object idexp = taxRow2["idexp"];
+                                decimal importoRitenutaDip = CfgFn.GetNoNullDecimal(taxRow2["employtax"]);
+                                decimal importoRitenutaAmm = CfgFn.GetNoNullDecimal(taxRow2["admintax"]);
+                                string taxref = taxRow2["taxref"].ToString();
                                 DataTable tRegs = tHelp.GetIdRegFor(codicerit, rLiquidazione["idexp"]);
                                 //Prende i conti associati alla causale se non ci sono già
                                 object idaccPay = idAccFornitore;
                                 object idaccmotiveRitpay = taxRow2["idaccmotive_pay"];
-                                if (idaccmotiveRitpay == DBNull.Value && (importoRitenuta > 0)) {
+                                if (idaccmotiveRitpay == DBNull.Value && (importoRitenutaDip > 0)) {
                                     object nmov = Conn.DO_READ_VALUE("expense", QHS.CmpEq("idexp", taxRow2["idexp"]),
                                         "nmov");
                                     ShowMessage("La ritenuta di codice " + taxRow2["taxref"] +
@@ -5051,26 +5034,30 @@ namespace ep_functions {
 
 
                                 //Effettua la scrittura debito CONTO erario A debito VERSO erario nel caso di 
-                                // liq.diretta e debito conto erario configurato, per la parte CONTRIBUTO
-                                object idaccmotiveRitdeb = taxRow2["idaccmotive_debit"];
-                                if (liqDiretta && idaccmotiveRitdeb != DBNull.Value && contributo != 0) {
+                                // liq.diretta e debito conto erario configurato, per la parte CONTRIBUTO C/ENTE
+                                object idaccmotiveRitdeb = taxRow2["idaccmotive_debit"]; // conto transitorio
+                                if (liqDiretta && idaccmotiveRitdeb != DBNull.Value && importoRitenutaAmm != 0) {
                                     DataRow[] contiDeb = EP.GetAccMotiveDetails(idaccmotiveRitdeb);
+                                    string idrelatedCompensoRiten = idrelatedDebitFor(idexp, codicerit) ;
+                                    string idrelatedRitenuta =_composeObjects("ritenuta", idexp, codicerit); 
                                     //Effettua scrittura debito conto inps a conto pag. ritenute									
                                     foreach (DataRow rEntry2 in contiDeb) {
                                         //Il foreach in realtà troverà al massimo una riga
-                                        EP.EffettuaScrittura("APPCONTRIB", contributo, rEntry2["idacc"],
-                                            idregauto, rLiquidazione["idupb"], null, null, null, idaccmotiveRitdeb,
+                                        EP.EffettuaScritturaIdRelated("APPCONTRIB", importoRitenutaAmm, rEntry2["idacc"],
+                                            idregauto, rLiquidazione["idupb"], null, idaccmotiveRitdeb, idrelatedCompensoRiten + "§" + idregauto,
                                             (rLiquidazione["doc"] + " ").TrimStart() + rLiquidazione["description"]);
                                     }
 
+                                    //Effettua la scrittura DA debito conto inps   A debito VERSO erario nel caso di 
+                                    // CONTRIBUTO e debito conto erario configurato, per la parte CONTRIBUTO
                                     foreach (DataRow ttr in tRegs.Rows) {
-                                        decimal amountToConsider = contributo * CfgFn.GetNoNullDecimal(ttr["quota"]);
+                                        decimal amountToConsider = importoRitenutaAmm * CfgFn.GetNoNullDecimal(ttr["quota"]);
                                         int idregToConsider = CfgFn.GetNoNullInt32(ttr["idreg"]);
 
-                                        EP.EffettuaScrittura("APPCONTRIB", -amountToConsider, idaccPay,
+                                        EP.EffettuaScritturaIdRelated("APPRITEN", -amountToConsider, idaccPay,
                                             idregToConsider, //era: rLiquidazione["idreg"]
-                                            rLiquidazione["idupb"], null, null, null, idaccmotiveRitdeb,
-                                            (rLiquidazione["doc"] + " ").TrimStart() + rLiquidazione["description"]);
+                                            rLiquidazione["idupb"], null, idaccmotiveRitdeb, idrelatedRitenuta,
+                                            "Contributo " + taxref + rLiquidazione["description"] );
                                     }
                                 }
 
@@ -5696,6 +5683,21 @@ namespace ep_functions {
                 return _composeObjects("profservice", ycon, ncon, "RITEN", taxcode);
             }
 
+            DataTable contProfServiceInvoice = Conn.RUN_SELECT("invoicedetail", "ycon,ncon", null,
+               QHS.AppAnd(/*QHS.CmpEq("yinv", esercizio),*/ QHS.IsNotNull("ycon"),
+               // contabilizzazione imponibile o iva
+               QHS.DoPar(QHS.AppOr(
+               QHS.CmpEq("idexp_taxable", idExpFaseImpegno),
+               QHS.CmpEq("idexp_iva", idExpFaseImpegno)) )
+               ), null, false);
+            if (contProfServiceInvoice != null && contProfServiceInvoice.Rows.Count > 0) {
+                DataRow rExpCon = contProfService.Rows[0];
+                object ycon = rExpCon["ycon"];
+                object ncon = rExpCon["ncon"];
+                return _composeObjects("profservice", ycon, ncon, "RITEN", taxcode);
+            }
+
+
             //Vede se è pagamento di una missione
             //gli impegni di budget ad essa associati possono essere di tipo anticipo o saldo, ma i debiti sugli anticipi non possono essere collegati
             //    a impegni "provvisori", quindi le scritture sui debiti relativi ad anticipi dovrebbero avere la stessa causale della missione
@@ -5705,14 +5707,15 @@ namespace ep_functions {
             // 4 "Pagamento o saldo della missione"
             // 5 "Anticipo della missione su partita di giro"
             // 6 "Anticipo della missione sul capitolo di spesa"
-            DataTable contItineration = Conn.RUN_SELECT("expenseitinerationview", "yitineration,nitineration", null,
+            DataTable contItineration = Conn.RUN_SELECT("expenseitinerationview", "iditineration, yitineration,nitineration", null,
                 QHS.AppAnd(QHS.CmpEq("ayear", esercizio), QHS.CmpEq("idexp", idExpFaseImpegno),
                     QHS.CmpNe("movkind", 5)), null, false);
             if (contItineration != null && contItineration.Rows.Count > 0) {
                 DataRow rExpCon = contItineration.Rows[0];
+                object iditineration = rExpCon["iditineration"];
                 object yitineration = rExpCon["yitineration"];
                 object nitineration = rExpCon["nitineration"];
-                return _composeObjects("itineration", yitineration, nitineration, "RITEN", taxcode);
+                return _composeObjects("itineration", iditineration, "RITEN", taxcode);
             }
 
             return null;
@@ -5794,15 +5797,16 @@ namespace ep_functions {
             // 4 "Pagamento o saldo della missione"
             // 5 "Anticipo della missione su partita di giro"
             // 6 "Anticipo della missione sul capitolo di spesa"
-            DataTable contItineration = Conn.RUN_SELECT("expenseitinerationview", "yitineration,nitineration", null,
+            DataTable contItineration = Conn.RUN_SELECT("expenseitinerationview", "iditineration, yitineration,nitineration", null,
                 QHS.AppAnd(QHS.CmpEq("idexp", idExpFaseImpegno),
                     QHS.CmpNe("movkind", 5)), null, false);
             if (contItineration != null && contItineration.Rows.Count > 0) {
                 DataRow rExpCon = contItineration.Rows[0];
+                object iditineration = rExpCon["iditineration"];
                 object yitineration = rExpCon["yitineration"];
                 object nitineration = rExpCon["nitineration"];
                 idRelatedConn = _composeObjects("itineration", yitineration, nitineration);
-                idRelatedConnRiten = _composeObjects("itineration", yitineration, nitineration, "RITEN", taxcode);
+                idRelatedConnRiten = _composeObjects("itineration", iditineration, "RITEN", taxcode);
                 return getIdExpImpegnoFromIdRelated(idRelatedConn, idRelatedConnRiten, idreg, defaultAmount);
             }
 
@@ -6769,30 +6773,142 @@ namespace ep_functions {
         /// <param name="isVariazione"></param>
         /// <param name="descrMov"></param>
         /// <returns></returns>
+        /// 
+        bool GeneraScritturaDebitoRitenute(object ycon, object ncon, object idser, object idexp, 
+                                    object idReg, object idAccDebito, object idUpb, 
+                                    string tablename,bool isVariazione, out decimal totaleScritto) {
+
+            // In caso di gestione delle Ritenute con variazione negativa sul movimento di spesa per sottrarre
+            // le ritenute conto dipendente, aggiungo ulteriori dettagli secondo lo schema
+            // DA DEBITI VERSO  FORNITORI (DARE)            A              DEBITI V/ENTE VERSAMENTO PER RITENUTE (AVERE)
+            // Infatti in tale configurazione i dettagli precedentemente inseriti corrispondono solo al netto a pagare
+            // e la scrittura risulterebbe incompleta
+            object mainIdupb =  "0001"; // UPB Ateneo
+            totaleScritto = 0;
+
+            int segno = 1;
+            if (isVariazione) segno = -1;
+            DataTable tExpenseVar = Conn.RUN_SELECT("expensevar",
+            "idexp, nvar, amount,autokind,autocode,  description",
+            null, QHS.AppAnd(QHS.CmpEq("autokind", 4),
+                             QHS.IsNotNull("autocode"),
+                             QHS.CmpLt("amount", 0), // importo carico/dipendente > 0
+                             QHS.CmpEq("idexp", idexp)), null, null,
+            false);
+
+            if (tExpenseVar.Rows.Count > 0) {
+
+                foreach (DataRow rVar in tExpenseVar.Rows) {
+
+                    //_composeObjects("cascon", ycon, ncon, "RITEN", taxcode);
+                    //_composeObjects("wageadd", ycon, ncon, "RITEN", taxcode);
+                    //_composeObjects("payroll", idpayroll, "RITEN", taxcode);
+                    //_composeObjects("profservice", ycon, ncon, "RITEN", taxcode);
+                    //_composeObjects("itineration", yitineration, nitineration, "RITEN", taxcode);
+                    string idRelatedCompenso = _composeObjects(tablename, ycon, ncon);
+                    // string idRelatedCompensoRiten = _composeObjects(tablename, ycon, ncon, "RITEN", rVar["autocode"]);
+                    string idRelatedCompensoRiten = _composeObjects("ritenuta", idexp, rVar["autocode"]);
+                    //idser codice prestazione del compenso
+                    //prende la causale di pagamento associato alla liqudazione (pay) della ritenuta 
+                    TaxInfo tInfo = TaxInfo.getInfo(taxInfo, CfgFn.GetNoNullInt32(rVar["autocode"]));
+                    object taxref = tInfo.taxRef();
+                    string descriptionVar = rVar["description"].ToString();
+                    if (tInfo == null) {
+                        ShowMessage("La ritenuta di codice " + taxref + " non è stata configurata per l'E/P");
+                        return false;
+                    }
+
+                    DataRow rMotive = tInfo.getInfo(CfgFn.GetNoNullInt32(idser));
+
+                    if (rMotive == null) {
+                        ShowMessage("La ritenuta di codice " + taxref + " non è stata configurata per l'E/P");
+                        return false;
+                    }
+
+                    object idaccmotiveDebit = rMotive["idaccmotive_debit"];
+                    object idaccmotiveRiten = rMotive["idaccmotive_pay"];
+
+                    DataRow[] rEntries = EP.GetAccMotiveDetails(idaccmotiveRiten);
+                    if (rEntries.Length == 0) {
+                        ShowMessage("La ritenuta di codice " + taxref + " non ben configurata per l E/P");
+                        return false;
+                    }
+
+                    object idAccRiten = rEntries[0]["idacc"];
+
+
+                    // Effettua la scrittura debiti verso fornitori   A debito VERSO erario nel caso di 
+                    // RITENUTA e debito VERSO erario configurato, per la parte RITENUTA
+
+                    DataTable regs = _teh.GetIdRegFor(rVar["autocode"], idexp);
+
+
+                    var employtax = -CfgFn.GetNoNullDecimal(rVar["amount"]) * segno;
+
+                    if (employtax != 0) {
+                        // PER I PROFESSIONALI LA COMPONENTE DEL DEBITO V/FORNITORI CHE SI CHIUDE PER LA RITENUTA C/DIPENDENTE 
+                        // E' GIA' STATA INCLUSA NELLA SCRITTURA DELLA FATTURA
+                        if (tablename.ToUpper() != "PROFSERVICE") { 
+                            decimal importoScritturaRitenDD =
+                            importoScritturaInDare(employtax, idAccDebito, "PAGAM")*segno;
+                      
+                            EP.EffettuaScritturaImpegnoBudget("PAGAM", importoScritturaRitenDD, idAccDebito, idReg, idUpb, null,
+                            idaccmotiveRiten, null,
+                            null,
+                            idRelatedCompenso, descriptionVar);
+                        }
+                        foreach (DataRow ttr in regs.Rows) {
+                            decimal amountToConsider = employtax * CfgFn.GetNoNullDecimal(ttr["quota"]) * segno;
+                            int idregToConsider = CfgFn.GetNoNullInt32(ttr["idreg"]);
+                            EP.EffettuaScritturaIdRelated("PAGAM", -amountToConsider, idAccRiten,//DEBITO VERSO ERARIO
+                            idregToConsider,
+                            mainIdupb, null, idaccmotiveRiten,
+                            idRelatedCompensoRiten 
+                            , descriptionVar);
+                            totaleScritto += amountToConsider;
+                        }
+                    }
+
+
+                }
+            }
+            return true;
+        }
         bool generaScritturaDebito(decimal importoNettoDaSplit,
             decimal importoIvaSplit /* importoRecuperoSplitPaymentCommerciale */,
             object idAccDebito, object idAccIvaSplit,
             object idReg, object idUpb, object idexp, object idaccmotive, bool isVariazione, object descrMov,
             object idfin, bool pGiro,
             object idrelated = null) {
+            object idExpFaseImpegno = Conn.DO_READ_VALUE("expenselink", QHS.AppAnd(QHS.CmpEq("idchild", idexp),
+            QHS.CmpEq("nlevel", Conn.GetSys("itinerationphase"))), "idparent");
             //QueryCreator.MarkEvent($"importoNettoDaSplit:{importoNettoDaSplit}  importoIvaSplit:{importoIvaSplit} isvariazione:{isVariazione} descrMov:{descrMov} ");
             //Vede se è contabilizzazione fattura
             DataTable dettFattura = Conn.RUN_SELECT("invoicedetailview",
                 "invoicekind,yinv,ninv,rownum," +
                 "invoicekind_main, yinv_main, ninv_main, rownum_main," +
-                "idinvkind, idinvkind_main ,flagbit, " +
-                "idepexp,idepacc,taxable_euro,iva_euro,idaccmotive, unabatable_euro,flagvariation,isnull(detaildescription,description) as description",
+                "idinvkind, idinvkind_main ,flagbit, flagbitinvoice," +
+                "idepexp,idepacc,taxable_euro,iva_euro,idaccmotive, unabatable_euro,flagvariation,isnull(detaildescription,description) as description," +
+                "ycon, ncon", /*riferimento eventuale parcella professionale*/
                 null,
                 QHS.AppOr(QHS.CmpEq("idexp_taxable", idexp), QHS.CmpEq("idexp_iva", idexp)), null, false);
 
- 
+
+            var profservicelist = new Dictionary<int, DataRow>();
 
             if (dettFattura != null && dettFattura.Rows.Count > 0) {
                 // Lettura eventuale causale di costo dal documento
                 DataRow rDettFattura = dettFattura.Rows[0];
-                int flagInvoice = CfgFn.GetNoNullInt32(rDettFattura["flagbit"]);
-                bool bollaDoganale = ((flagInvoice & 1) != 0);
-                bool fatturaSpedizioniere = ((flagInvoice & 2) != 0);
+                int flagBitInvoiceDetail = CfgFn.GetNoNullInt32(rDettFattura["flagbit"]);
+                // FLAGBIT SUL DETTAGLIO FATTURA, SPESE ANTICIPATE DA SPEDIZIONIERE,
+                // NON SO PERCHE' DICIAMO BLOLLA DOGANALE
+                bool bollaDoganale = ((flagBitInvoiceDetail & 1) != 0);
+
+
+                // FLAGBIT SULLA FATTURA (ATTENZIONE A NON CONFONDERE CON L'OMONIMO FLAG SU INVOICEDETAIL),
+                // INDICANTE SE FATTURA SPEDIZIONIERE
+                int flagBitInvoice = CfgFn.GetNoNullInt32(rDettFattura["flagbitinvoice"]);
+                bool fatturaSpedizioniere = ((flagBitInvoice & 2) != 0);  
                 idaccmotive = rDettFattura["idaccmotive"];
                 //var imponibili = new Dictionary<int, importo_causale>();
                 //var ivaindet = new Dictionary<int, importo_causale>();
@@ -6819,8 +6935,8 @@ namespace ep_functions {
                         segno = -1;
                         //Se la NC è collegata ad un dettaglio fattura, il dettaglio scritture dovrà essere valorizzato col dett. fattura madre
                         if ((rDett["rownum_main"] != null) && (rDett["rownum_main"] != DBNull.Value)) {
-                         idrelatedDett =
-                                $"inv§{rDett["idinvkind_main"]}§{rDett["yinv_main"]}§{rDett["ninv_main"]}§{rDett["rownum_main"]}";
+                            idrelatedDett =
+                                   $"inv§{rDett["idinvkind_main"]}§{rDett["yinv_main"]}§{rDett["ninv_main"]}§{rDett["rownum_main"]}";
                         }
                     }
                     //else {
@@ -6852,13 +6968,23 @@ namespace ep_functions {
                             //NON C'è recupero split commerciale
                             if (importoNettoDaSplit != 0) {
                                 //L'importo non è completamente stornato
-                                var scrittura = singolaScritturaDebitoIdRelated(fatturaSpedizioniere ? DBNull.Value:rDett["idepexp"], rDett["idepacc"],
+                                var scrittura = singolaScritturaDebitoIdRelated(fatturaSpedizioniere ? DBNull.Value : rDett["idepexp"], rDett["idepacc"],
                                     idaccmotive,
                                     (imponibileDec + ivaIndetraibileDec) * segno, idAccDebito, idReg, idUpb,
                                     idrelatedDett, //  devo sommare le iva indetraibili non posso chiudere un debito senza imp. di budget
                                     isVariazione, description);
                                 totaleScritto += scrittura; //+ ivaIndetraibileDec
                                 //aggiornaImporti(imponibili, CfgFn.GetNoNullInt32(rDett["idepexp"]), idaccmotive, (imponibileDec)*segno);    //+ ivaIndetraibileDec
+                                //Siamo nell'else, ramo in cui NON c'è iva split. Se ci fosse ivaIndetraibile sarebbe usata nella scrittura precedente. Questo è il caso in cui l'iva è tutta detraibile, cioè iva - ivaDetraibile = iva indetraibile = 0
+                                // Questo pezzo di codice lo scriviamo perchè in caso di Fatt. Comm. no split, la scrittura dell'iva la farebbe fuori da questo ciclo come parte residuale.
+                                if (iva > 0 && iva == ivaDetraibile) {
+                                    scrittura = singolaScritturaDebitoIdRelated(fatturaSpedizioniere ? DBNull.Value : rDett["idepexp"], rDett["idepacc"],
+                                    idaccmotive,
+                                    Convert.ToDecimal(iva) * segno, idAccDebito, idReg, idUpb,
+                                    idrelatedDett,
+                                    isVariazione, description);
+                                    totaleScritto += scrittura;
+                                }
                             }
                             else {
                                 //storno totale       SIA PER COMMERCIALE CHE PER ISTITUZIONALE stornate totalmente
@@ -6884,7 +7010,7 @@ namespace ep_functions {
 
                     if (movkind == 2) { //solo iva
                         if (importoIvaSplit != 0) {
-                     
+
                             object idclawbackSplitPayment = Conn.DO_READ_VALUE("clawback", QHS.CmpEq("clawbackref", "15_SPLIT_PAYMENT"), "idclawback");
                             object idclawbackSplitPaymentComm = Conn.DO_READ_VALUE("clawback", QHS.CmpEq("clawbackref", "16_SPLIT_PAYMENT_C"), "idclawback");
                             object idclawbackSplitPaymentIst = Conn.DO_READ_VALUE("clawback", QHS.CmpEq("clawbackref", "IVAESTERA_IST"), "idclawback");
@@ -6905,7 +7031,7 @@ namespace ep_functions {
                                                                                q.eq("autocode", idclawbackIvaEstera),
                                                                                q.eq("idpayment", idexp)));
 
-                            if ((rContabilizzazioniNoteCredito.Count ==0) && (rRecuperi.Count>0)) {
+                            if ((rContabilizzazioniNoteCredito.Count == 0) && (rRecuperi.Count > 0)) {
                                 decimal importoDaUsareDet = CfgFn.GetNoNullDecimal(rDett["iva_euro"]);
                                 var scrittura = singolaScritturaDebitoIdRelated(rDett["idepexp"], rDett["idepacc"],
                                                         idaccmotive,
@@ -6913,7 +7039,7 @@ namespace ep_functions {
                                                         description);
                                 totaleIvaSplitScritto += scrittura;
                             }
-           
+
                         }
                         else {
                             if (importoNettoDaSplit != 0) {
@@ -6936,8 +7062,6 @@ namespace ep_functions {
                                 //Per il commerciale non deve fare nulla 
                                 //Per l'istituzionale iva va su debito vs fornitori
                                 //Per l'istituzionale deve  aggiungere anche l'iva indetraibile all'imponibile 
-
-
                             }
                         }
 
@@ -6951,16 +7075,37 @@ namespace ep_functions {
 
                         //aggiornaImporti(imponibili, CfgFn.GetNoNullInt32(rDett["idepexp"]), idaccmotive, imponibileDec * segno);
                     }
-                }
 
+                    // Gestisco il caso contabilizzazione della parcella professionale nel dettaglio fattura
+                    // l'importo  al netto da Split Payment è comprensivo delle ritenute conto dipendente pertanto  
+                    // il debito verso fornitori per le ritenute c/dipendente è stata chiusa prima, 
+                    // var profservicelist = new Dictionary<int, DataRow>();
+                    object ycon = rDett["ycon"];
+                    object ncon = rDett["ncon"];
+
+                    DataTable parcella = Conn.RUN_SELECT("profservice", "idinvkind,yinv,ninv,idaccmotive, idser", null,
+                    QHS.AppAnd(QHS.CmpEq("ycon", ycon), QHS.CmpEq("ncon", ncon), QHS.IsNotNull("idinvkind")), null,
+                    false);
+
+                    if (parcella != null && parcella.Rows.Count > 0) {
+                        DataRow rParcella = parcella.Rows[0];
+                        int k = CfgFn.GetNoNullInt32(idexp);
+                        if (profservicelist.ContainsKey(k)) continue;
+                        profservicelist[CfgFn.GetNoNullInt32(idexp)] = rParcella;
+                        object idser = rParcella["idser"];
+                        decimal totaleScrittoDaRitenute = 0;
+                        GeneraScritturaDebitoRitenute(ycon, ncon, idser, idexp, idReg, idAccDebito, idUpb, "profservice", isVariazione, out totaleScrittoDaRitenute);
+                        totaleScritto -= totaleScrittoDaRitenute;
+                    }
+
+                }
                 string idrelatedMainInv =
-                    $"inv§{rDettFattura["idinvkind"]}§{rDettFattura["yinv"]}§{rDettFattura["ninv"]}";
+                $"inv§{rDettFattura["idinvkind"]}§{rDettFattura["yinv"]}§{rDettFattura["ninv"]}";
 
                 //idrelated expense§idexp§debit
                 singolaScritturaDebitoIdRelated(DBNull.Value, DBNull.Value, idaccmotive,
                     importoNettoDaSplit - totaleScritto,
                     idAccDebito, idReg, idUpb, idrelatedMainInv, isVariazione, description);
-                //bool res = spezzaScritturaDebito(imponibili, importoNettoDaSplit, idAccDebito, idReg, idUpb, idaccmotive, idexp, isVariazione,description,false);
 
                 //rettifica del task 14947 caso 5a ) commerciale - 18630 deve prendere l'idrelated del documento iva CON dettaglio
                 EP.EffettuaScritturaImpegnoBudget("PAGAM", importoIvaSplit- totaleIvaSplitScritto, idAccIvaSplit, idReg, "0001", null,
@@ -6980,10 +7125,6 @@ namespace ep_functions {
                 importo += importoIvaSplit;
             }
 
-            object idExpFaseImpegno = Conn.DO_READ_VALUE("expenselink", QHS.AppAnd(QHS.CmpEq("idchild", idexp),
-                QHS.CmpEq("nlevel", Conn.GetSys("itinerationphase"))), "idparent");
-
-           
             DataTable dettCPassivo = Conn.RUN_SELECT("expenselastmandatedetailview",
                 "idepexp,idaccmotive,amount as totaldebit,originalamount as totaldebitoriginal,nman,yman,rownum,mandatekind,idmankind", null,
                 QHS.CmpEq("idexp", idexp), null, false);
@@ -7071,34 +7212,11 @@ namespace ep_functions {
                 }
 			}
 
-            /*
-            //Vede se è pagamento di un contratto passivo 
-            DataTable dettCPassivo = Conn.RUN_SELECT("mandatedetailview",
-                "idepexp,rowtotal as totaldebit,idaccmotive, idmankind,mankind,nman,yman,rownum", null,
-                QHS.AppAnd(QHS.CmpEq("idexp_taxable", idExpFaseImpegno), QHS.IsNull("stop")), null, false);
-            string idrelmain = null;
-            if (dettCPassivo != null && dettCPassivo.Rows.Count > 0) {
-                dettCPassivo.Columns.Add("idrelated", typeof(string));
-                foreach (DataRow rDet in dettCPassivo.Rows) {
-                    rDet["idrelated"] = $"man§{rDet["idmankind"]}§{rDet["yman"]}§{rDet["nman"]}§{rDet["rownum"]}";
-                    idrelmain = $"man§{rDet["idmankind"]}§{rDet["yman"]}§{rDet["nman"]}";
-                }
+   
 
-                DataRow rdettCPassivo = dettCPassivo.Rows[0];
-                idaccmotive = rdettCPassivo["idaccmotive"];
-                object description = nomeCPassivo(dettCPassivo.Rows[0]);
-                QueryCreator.MarkEvent(description.ToString());
-                //QueryCreator.MarkEvent($"Total idepexp {rdettCPassivo["idepexp"]} debit = {rdettCPassivo["totaldebit"]}");
-                //Ripartisce l'importo del movimento di spesa tra i dettagli contabilizzati nell'impegno finanziario
-                return spezzaScritturaDebito(
-                    ottieniImportiImpegnoDaTabellaIdrelated(dettCPassivo, "idepexp", "totaldebit", isVariazione),null,
-                    importo,
-                    idAccDebito, idReg, idUpb, idaccmotive, isVariazione, idrelmain, description, true);
+            // Vede se è pagamento di una prestazione professionale, non si arriva più in quella parte del programma 
+            // perchè la scrittura viene generata in fattura
 
-            }
-            */
-
-            //Vede se è pagamento di una prestazione professionale 
             // NO: in questo caso il debito sarà chiuso in fase di pagamento fattura, 
             // mentre per eventuali contributi sarà fatto in fase di liquidazione ritenute
             DataTable contParcella = Conn.RUN_SELECT("expenseprofserviceview", "ycon,ncon,idaccmotive,curramount", null,
@@ -7107,14 +7225,14 @@ namespace ep_functions {
                 DataRow rExpCon = contParcella.Rows[0];
                 object ycon = rExpCon["ycon"];
                 object ncon = rExpCon["ncon"];
-
                 object description = nomeParcella(contParcella.Rows[0]);
                 //QueryCreator.MarkEvent(description.ToString());
-                DataTable parcella = Conn.RUN_SELECT("profservice", "idinvkind,yinv,ninv,idaccmotive", null,
+                DataTable parcella = Conn.RUN_SELECT("profservice", "idinvkind,yinv,ninv,idaccmotive, idser", null,
                     QHS.AppAnd(QHS.CmpEq("ycon", ycon), QHS.CmpEq("ncon", ncon), QHS.IsNotNull("idinvkind")), null,
                     false);
                 if (parcella != null && parcella.Rows.Count > 0) {
                     DataRow rParcella = parcella.Rows[0];
+                    object idser = rParcella["idser"];
                     idaccmotive = rParcella["idaccmotive"];
                     //prende gli impegni di budget dei  dett. fattura ove ne esistano
                     dettFattura = Conn.RUN_SELECT("invoicedetailview",
@@ -7194,6 +7312,14 @@ namespace ep_functions {
                                 idaccmotive, isVariazione, idrelmainInvoice, descrFatt, riproporzionaDettagli);
                         return true;
                     }
+
+                    // In caso di gestione delle Ritenute con variazione negativa sul movimento di spesa per sottrarre
+                    // le ritenute conto dipendente, aggiungo ulteriori dettagli secondo lo schema
+                    // DA DEBITI VERSO  FORNITORI (DARE)            A              DEBITI V/ENTE VERSAMENTO PER RITENUTE (AVERE)
+                    // Infatti in tale configurazione i dettagli precedentemente inseriti corrispondono solo al netto a pagare
+                    // e la scrittura risulterebbe incompleta
+                    decimal totaleScrittoDaRitenute = 0;
+                    GeneraScritturaDebitoRitenute(ycon, ncon, idser, idexp, idReg, idAccDebito, idUpb, "profservice", isVariazione, out totaleScrittoDaRitenute);
                 }
 
                 string idRelatedConn = _composeObjects("profservice", ycon, ncon);
@@ -7208,6 +7334,9 @@ namespace ep_functions {
                         ottieniImportiImpegnoDaTabellaIdrelated(impegniBudget, "idepexp", "totaldebit", isVariazione), importo,
                         idAccDebito, idReg, idUpb, idaccmotive, isVariazione, null, description, true);
                 }
+
+
+
                 //Caso residuale: Chiude direttamente il debito della parcella, qualora non sia riuscito nè a trovare fatture 
                 //nè a chiudere il debito sulle fatture. Forse questo caso è superato da anni, ma lo teniamo ancora
                 //se isVariazione importo è già negativo, non c'è bisogno di invertire con importoScritturaInAvere
@@ -7225,15 +7354,15 @@ namespace ep_functions {
             //Vede se è pagamento di una prestazione occasionale 
             //gli impegni di budget ad essa associati possono essere di tipo CASCON, CASCON-RITEN e CASCON-SPESA.
             //In questa sede dobbiamo saltare quelli di tipo RITEN ove presenti
-            DataTable contOccasionale = Conn.RUN_SELECT("expensecasualcontractview", "ycon,ncon,idaccmotive,curramount",
-                null,
-                QHS.CmpEq("idexp", idExpFaseImpegno), null, false);
+            DataTable contOccasionale = Conn.RUN_SELECT("expensecasualcontractview", "ycon,ncon,idaccmotive,curramount, idser",
+                           null,
+                           QHS.CmpEq("idexp", idExpFaseImpegno), null, false);
             if (contOccasionale != null && contOccasionale.Rows.Count > 0) {
                 DataRow rExpCon = contOccasionale.Rows[0];
                 idaccmotive = rExpCon["idaccmotive"];
                 object ycon = rExpCon["ycon"];
                 object ncon = rExpCon["ncon"];
-
+                object idser = rExpCon["idser"];
                 object description = nomeOccasionale(rExpCon);
                 string idRelatedConn = _composeObjects("cascon", ycon, ncon);
                 string filter = "((idrelated LIKE '" + idRelatedConn + "§%' AND NOT idrelated LIKE '" + idRelatedConn +
@@ -7245,37 +7374,56 @@ namespace ep_functions {
                     false); //QHS.CmpEq("ayear", esercizio),
 
                 if (impegniBudget.Rows.Count > 0) {
-                    return spezzaScritturaDebito(
+                     spezzaScritturaDebito(
                         ottieniImportiImpegnoDaTabellaIdrelated(impegniBudget, "idepexp", "totaldebit", isVariazione), importo,
                         idAccDebito, idReg, idUpb, idaccmotive, isVariazione, null, description, true);
                 }
-
-                decimal importoScritturaDD = // isVariazione ? importoScritturaInAvere(importo, idAccDebito, "PAGAM"):
-                    importoScritturaInDare(importo, idAccDebito, "PAGAM");
-                EP.EffettuaScritturaImpegnoBudget("PAGAM", importoScritturaDD, idAccDebito, idReg, idUpb, null,
-                    idaccmotive, null,
-                    null,
-                    idRelatedConn, description); //+ "§debit"  15040 rimuovo    "expense§" + idexp 
-                return true;
+                else { 
+                    decimal importoScritturaDD = // isVariazione ? importoScritturaInAvere(importo, idAccDebito, "PAGAM"):
+                        importoScritturaInDare(importo, idAccDebito, "PAGAM");
+                    EP.EffettuaScritturaImpegnoBudget("PAGAM", importoScritturaDD, idAccDebito, idReg, idUpb, null,
+                        idaccmotive, null,
+                        null,
+                        idRelatedConn, description); //+ "§debit"  15040 rimuovo    "expense§" + idexp 
+                }
+                // In caso di gestione delle Ritenute con variazione negativa sul movimento di spesa per sottrarre
+                // le ritenute conto dipendente, aggiungo ulteriori dettagli secondo lo schema
+                // DA DEBITI VERSO  FORNITORI (DARE)            A              DEBITI V/ENTE VERSAMENTO PER RITENUTE (AVERE)
+                // Infatti in tale configurazione i dettagli precedentemente inseriti corrispondono solo al netto a pagare
+                // e la scrittura risulterebbe incompleta
+                decimal totaleScrittoDaRitenute = 0;
+                return GeneraScritturaDebitoRitenute(ycon, ncon, idser, idexp, idReg, idAccDebito, idUpb, "cascon", isVariazione, out 
+                    totaleScrittoDaRitenute);
+               
             }
 
             //Vede se è pagamento di una prestazione dipendente 
             //gli impegni di budget ad essa associati possono essere di tipo CASCON, CASCON-RITEN e CASCON-SPESA.
             //In questa sede dobbiamo saltare quelli di tipo RITEN ove presenti
-            DataTable contWageAdd = Conn.RUN_SELECT("expensewageadditionview", "ycon,ncon,idaccmotive,curramount", null,
+            DataTable contWageAdd = Conn.RUN_SELECT("expensewageadditionview", "ycon,ncon,idser,idaccmotive,curramount", null,
                 QHS.AppAnd(QHS.CmpEq("idexp", idExpFaseImpegno), QHS.CmpEq("ayear", esercizio)), null, false);
             if (contWageAdd != null && contWageAdd.Rows.Count > 0) {
                 DataRow rExpCon = contWageAdd.Rows[0];
                 idaccmotive = rExpCon["idaccmotive"];
                 object ycon = rExpCon["ycon"];
                 object ncon = rExpCon["ncon"];
+                object idser = rExpCon["idser"];
                 object description = nomeCompensoDipendente(rExpCon);
 
                 string idRelatedConn = _composeObjects("wageadd", ycon, ncon);
                 string filter = "((idrelated LIKE '" + idRelatedConn + "§%' AND NOT idrelated LIKE '" + idRelatedConn +
                                 "§RITEN§%')OR(" + QHS.CmpEq("idrelated", idRelatedConn) + "))";
-                return effettuaScritturaSuElencoImpegni(filter, importo, idAccDebito, idReg, idUpb, idaccmotive,
+                effettuaScritturaSuElencoImpegni(filter, importo, idAccDebito, idReg, idUpb, idaccmotive,
                     isVariazione, idRelatedConn, description);
+
+                // In caso di gestione delle Ritenute con variazione negativa sul movimento di spesa per sottrarre
+                // le ritenute conto dipendente, aggiungo ulteriori dettagli secondo lo schema
+                // DA DEBITI VERSO  FORNITORI (DARE)            A              DEBITI V/ENTE VERSAMENTO PER RITENUTE (AVERE)
+                // Infatti in tale configurazione i dettagli precedentemente inseriti corrispondono solo al netto a pagare
+                // e la scrittura risulterebbe incompleta
+                decimal totaleScrittoDaRitenute = 0;
+                return GeneraScritturaDebitoRitenute(ycon, ncon, idser, idexp, idReg, idAccDebito, idUpb, "wageadd", isVariazione, out totaleScrittoDaRitenute);
+
             }
 
             //Vede se è pagamento di una missione
@@ -7287,8 +7435,7 @@ namespace ep_functions {
             // 4 "Pagamento o saldo della missione"
             // 5 "Anticipo della missione su partita di giro"
             // 6 "Anticipo della missione sul capitolo di spesa"
-            DataTable contItineration = Conn.RUN_SELECT("expenseitinerationview",
-                "iditineration,yitineration,nitineration,idaccmotive,curramount",
+            DataTable contItineration = Conn.RUN_SELECT("expenseitinerationview","iditineration,yitineration,nitineration,idser, idaccmotive,curramount",
                 null,
                 QHS.AppAnd(QHS.CmpEq("idexp", idExpFaseImpegno), QHS.CmpEq("ayear", esercizio),
                     QHS.CmpNe("movkind", 5)),
@@ -7300,30 +7447,48 @@ namespace ep_functions {
                 object yitineration = rExpCon["yitineration"];
                 object nitineration = rExpCon["nitineration"];
                 object description = nomeMissione(rExpCon);
+                object idser = rExpCon["idser"];
 
                 string idRelatedConn = _composeObjects("itineration", iditineration);
                 string filter = "((idrelated LIKE '" + idRelatedConn + "§%' AND NOT idrelated LIKE '" + idRelatedConn +
                                 "§RITEN§%')OR(" + QHS.CmpEq("idrelated", idRelatedConn) + "))";
-                return effettuaScritturaSuElencoImpegni(filter, importo, idAccDebito, idReg, idUpb, idaccmotive,
+                effettuaScritturaSuElencoImpegni(filter, importo, idAccDebito, idReg, idUpb, idaccmotive,
                     isVariazione, idRelatedConn, descrMov);
+
+                // In caso di gestione delle Ritenute con variazione negativa sul movimento di spesa per sottrarre
+                // le ritenute conto dipendente, aggiungo ulteriori dettagli secondo lo schema
+                // DA DEBITI VERSO  FORNITORI (DARE)            A              DEBITI V/ENTE VERSAMENTO PER RITENUTE (AVERE)
+                // Infatti in tale configurazione i dettagli precedentemente inseriti corrispondono solo al netto a pagare
+                // e la scrittura risulterebbe incompleta
+                decimal totaleScrittoDaRitenute = 0;
+                return GeneraScritturaDebitoRitenute(yitineration, nitineration, idser, idexp, idReg, idAccDebito, idUpb, "itineration", isVariazione, out totaleScrittoDaRitenute);
             }
 
             //Vede se è pagamento di un cedolino
             //gli impegni di budget ad essa associati possono essere di tipo CASCON, CASCON-RITEN e CASCON-SPESA.
             //In questa sede dobbiamo saltare quelli di tipo RITEN ove presenti
             DataTable contPayroll = Conn.RUN_SELECT("expensepayrollview",
-                "idcon, description,idpayroll,idaccmotive,curramount", null,
+                "idcon, description,idpayroll,idser, idaccmotive,curramount", null,
                 QHS.AppAnd(QHS.CmpEq("idexp", idExpFaseImpegno), QHS.CmpEq("ayear", esercizio)), null, false);
             if (contPayroll != null && contPayroll.Rows.Count > 0) {
                 DataRow rExpCon = contPayroll.Rows[0];
                 idaccmotive = rExpCon["idaccmotive"];
                 object description = nomeCedolino(rExpCon); //rExpCon["description"];
                 object idpayroll = rExpCon["idpayroll"];
+                object idser = rExpCon["idser"];
                 string idRelatedConn = _composeObjects("payroll", idpayroll);
                 string filter = "((idrelated LIKE '" + idRelatedConn + "§%' AND NOT idrelated LIKE '" + idRelatedConn +
                                 "§RITEN§%')OR(" + QHS.CmpEq("idrelated", idRelatedConn) + "))";
-                return effettuaScritturaSuElencoImpegni(filter, importo, idAccDebito, idReg, idUpb, idaccmotive,
+                effettuaScritturaSuElencoImpegni(filter, importo, idAccDebito, idReg, idUpb, idaccmotive,
                     isVariazione, idRelatedConn, description);
+
+                // In caso di gestione delle Ritenute con variazione negativa sul movimento di spesa per sottrarre
+                // le ritenute conto dipendente, aggiungo ulteriori dettagli secondo lo schema
+                // DA DEBITI VERSO  FORNITORI (DARE)            A              DEBITI V/ENTE VERSAMENTO PER RITENUTE (AVERE)
+                // Infatti in tale configurazione i dettagli precedentemente inseriti corrispondono solo al netto a pagare
+                // e la scrittura risulterebbe incompleta
+                decimal totaleScrittoDaRitenute = 0;
+                return GeneraScritturaDebitoRitenute(null, idpayroll, idser, idexp, idReg, idAccDebito, idUpb, "payroll", isVariazione, out totaleScrittoDaRitenute );
             }
             if (idrelated == null) {
                 idrelated = "expense§" + idexp; //+ "§debit"  15040 rimuovo
@@ -7344,6 +7509,8 @@ namespace ep_functions {
                 if ((idIncLinked != null) &&(idIncLinked!=DBNull.Value)){
                     idrelated = "pgiro§" + idIncLinked;
                 }
+
+              
             }
 
             //Senza documento
@@ -8982,7 +9149,8 @@ namespace ep_functions {
                 }
 
                 result.Add(new InfoContributi(contiContribFinanz[0]["idacc"], importo, idregauto,
-                    idrelated + "§" + idregauto, idaccmotiveTouse.ToString(), getIdEpExpByIdRelated(idrelated, 2)));
+                    idrelated+ "§" + idregauto,
+                    idaccmotiveTouse.ToString(), getIdEpExpByIdRelated(idrelated, 2)));
             }
             else {
                 idaccmotiveTouse = motiveRow["idaccmotive_pay"];
@@ -9004,7 +9172,7 @@ namespace ep_functions {
                 foreach (DataRow registry in regs.Rows) {
                     decimal amountToConsider = CfgFn.RoundValuta(importo * CfgFn.GetNoNullDecimal(registry["quota"]));
                     int idreg = CfgFn.GetNoNullInt32(registry["idreg"]);
-                    string idrel = idrelated + "§" + idreg;
+                    string idrel = idrelated + "§" + idreg;    
                     result.Add(new InfoContributi(contiContribFinanz[0]["idacc"], amountToConsider,
                         idreg, idrel, idaccmotiveTouse.ToString(), getIdEpExpByIdRelated(idrel, 2)));
                 }
@@ -9436,15 +9604,15 @@ namespace ep_functions {
             object idaccRegistry = EP.GetSupplierAccountForRegistry(idaccmotDebit, idreg);
 
 
-            Tipocont currCont = getContabilizzazioneFondo(curr);
-            if (idaccmotCost != DBNull.Value && currCont != Tipocont.ContNone) {
+            TCont currCont = getContabilizzazioneFondo(curr);
+            if (idaccmotCost != DBNull.Value && currCont != TCont.None) {
                 ShowMessage(
                     "La causale di costo selezionata sarà ignorata poichè la spesa contabilizza un documento",
                     "Avviso", false);
                 idaccmotCost = DBNull.Value;
             }
 
-            if (idaccmotDebit != DBNull.Value && currCont == Tipocont.ContNone) {
+            if (idaccmotDebit != DBNull.Value && currCont == TCont.None) {
                 ShowMessage(
                     "La causale di debito selezionata sarà ignorata poichè la spesa non contabilizza un documento",
                     "Avviso", false);
@@ -9452,7 +9620,7 @@ namespace ep_functions {
             }
 
             if (idaccmotDebit == DBNull.Value &&
-                currCont != Tipocont.ContNone) {
+                currCont != TCont.None) {
                 ShowMessage(
                     "Non è stata impostata la causale di debito. Sarà usata una causale di debito standard.", "Avviso",
                     false);
@@ -9460,7 +9628,7 @@ namespace ep_functions {
 
 
             if (idaccmotCost == DBNull.Value &&
-                currCont == Tipocont.ContNone) {
+                currCont == TCont.None) {
                 ShowMessage("Non è stata impostata la causale di costo. Impossibile effettuare le scritture",
                     "Errore");
                 return false;
@@ -9469,17 +9637,40 @@ namespace ep_functions {
             string idepcontextCosto = "PSPESEC";
             string idepcontextDebito = "PSPESED";
             decimal importo = CfgFn.GetNoNullDecimal(curr["amount"]);
+
             string idrelated = BudgetFunction.GetIdForDocument(curr);
+            DataRow middleRelatedRow;
+            DataRow[] queryResult;
+            switch (currCont) {
+                case TCont.Missione:
+                    queryResult = Conn.RUN_SELECT("pettycashoperationitineration", "*", null, QHS.CmpKey(curr), null, false).Select();
+                    if (queryResult.Any()) {
+                        middleRelatedRow = queryResult.First();
+                        middleRelatedRow.Table.TableName = "itineration"; //GetIdForDocument usa il tablename per creare l'idrelated - lo cambiamo in attesa ristrutturazione con struttura dati che associ tabella a campi
+                        idrelated = BudgetFunction.GetIdForDocument(middleRelatedRow);
+                    }
+                    break;
+                case TCont.Iva:
+                    queryResult = Conn.RUN_SELECT("pettycashoperationinvoice", "*", null, QHS.CmpKey(curr), null, false).Select();
+                    if (queryResult.Any()) {
+                        middleRelatedRow = queryResult.First();
+                        middleRelatedRow.Table.TableName = "invoice"; //GetIdForDocument usa il tablename per creare l'idrelated - lo cambiamo in attesa ristrutturazione con struttura dati che associ tabella a campi
+                        idrelated = BudgetFunction.GetIdForDocument(middleRelatedRow);
+                    }
+                    break;
+            }
 
             DataRow RAccount = null;
-            bool isDebito = true;
+            bool isCosto = false;
+            bool isDebito = false;
+            bool isCredito = false;
             object idacc = null;
-
-            // A volte usano il groupbox della causale costo mettendo una causale di debito
-            // invece di utilizzare il groupbox della causale di debito, perchè diventa disabilitato
+            // la causale scelta potrebbe essere di costo / debito / credito 
             if (idaccmotCost != DBNull.Value) {
                 idacc = getIdAccFromMotive(idaccmotCost);
-                isDebito = !EP.isCosto(idacc);
+                isCosto = EP.isCosto(idacc);  
+                isDebito = EP.isDebit(idacc);
+                isCredito = EP.isCredit(idacc);
             }
             else
             // hanno valorizzato una causale di debito 
@@ -9504,10 +9695,10 @@ namespace ep_functions {
                 //}
 
 
-                //Scrittura : COSTO		A	DEBITO		contesto PSPESEC (P.SPESE COSTO)
+                //Scrittura : COSTO/CREDITO		A	DEBITO		contesto PSPESEC (P.SPESE COSTO)
                 //			  DEBITO	A	F.ECONOMALE	contesto PSPESED (P.SPESE DEBITO)
                 //che si semplifica in:
-                //			  COSTO (PSPESEC)	A F.ECONOMALE (PSPESED)
+                //			  COSTO/CREDITO (PSPESEC)	A F.ECONOMALE (PSPESED)
                 object idaccmotive = idaccmotCost;
                 DataRow[] contiCosto = EP.GetAccMotiveDetails(idaccmotive.ToString());
                 if (contiCosto.Length > 0) {
@@ -9585,10 +9776,9 @@ namespace ep_functions {
 
         private bool generaScrittureLiquidazioneRitenute(DataRow curr, BudgetFunction bf) {
 
-            if (!usaContiPresentazioneDocumenti)
-                return false; // Le Scritture verranno effettuate in fase di trasmissione
-
             // Effettua scritture del Tipo Debito a CONTO PRESENTAZIONE DOCUMENTI IN BANCA
+          
+            //Il conto banca è quello di presentazione documenti alla banca oppure se non configurato è quello di pagamento alla banca
             object idaccPayment = _rConfig["idacc_bankpaydoc"];
 
             object codiceriten = curr["taxcode"];
@@ -9621,7 +9811,7 @@ namespace ep_functions {
 
             //Movimenti delle liquidazioni ritenute
             var tSpesaLiquidazioneRitenuta = Conn.RUN_SELECT("taxpayexpenseview",
-                "idexp,idser,curramount,idreg,idupb,description", null,
+                "idexp,idser,curramount,idreg,idupb,description,idtreasurer", null,
                 filterExp,
                 null, true);
             if (tSpesaLiquidazioneRitenuta.Rows.Count == 0) {
@@ -9631,12 +9821,22 @@ namespace ep_functions {
                 return false;
             }
 
+          
+
             DataRow mainEntry = EP.SetEntry(curr["description"], curr["adate"],
                 DBNull.Value, DBNull.Value, EP_functions.GetIdForDocument(curr));
 
             EP.ClearDetails(mainEntry);
             //ci possono essere più righe in tSpesa, le prendiamo tutte
             foreach (DataRow rSpesa in tSpesaLiquidazioneRitenuta.Rows) {
+
+                if (idaccPayment == DBNull.Value) {
+                    idaccPayment = getAccountTreasurer(rSpesa["idtreasurer"], "D");
+                    if (idaccPayment == DBNull.Value) {
+                        return false;
+                    }
+                }
+
                 EP.EffettuaScritturaIdRelated("LIQRIT", CfgFn.GetNoNullDecimal(rSpesa["curramount"]), idaccPayment,
                     rSpesa["idreg"], rSpesa["idupb"], null, null, "expense§" + rSpesa["idexp"].ToString(),
                     rSpesa["description"]); //idaccmotiveRiten
@@ -9697,19 +9897,16 @@ namespace ep_functions {
                                 EP.EffettuaScritturaImpegnoBudget("LIQRIT", deb.amount, idAccRiten,
                                     deb.idreg, rExpView["idupb"], null, deb.idaccmotive, deb.idepexp, null,
                                     deb.idrelated, rExpView["description"]); //idaccmotiveRiten
-                                //EP.EffettuaScritturaIdRelated("LIQRIT", deb.amount, idaccPayment,
-                                //    deb.idreg, idupbMain, null, deb.idaccmotive,null,null); //idaccmotiveRiten
                             }
                         }
                         else {
-                            //non dovrebbe mai passare di qua, l'impegno deve trovarlo per i contributi
+                            // Ramo in cui non si usano gli impegni di budget il budget 
+                            string idrelatedRiten = idrelatedDebitFor(idexp, rDettaglioRitenuta["taxcode"]);
                             foreach (DataRow currReg in regs.Rows) {
-                                decimal amountToConsider = admintax * CfgFn.GetNoNullDecimal(currReg["quota"]);
-                                EP.EffettuaScritturaImpegnoBudget("LIQRIT", amountToConsider, idAccRiten,
-                                    currReg["idreg"], rExpView["idupb"], null, idaccmotiveRiten, null, null, null,
-                                    rExpView["description"]); // rExpView["idreg"]
-                                //EP.EffettuaScritturaIdRelated("LIQRIT", amountToConsider, idaccPayment,
-                                //    currReg["idreg"], idupbMain, null, idaccmotiveRiten,null,null); //idaccmotiveRiten
+                            decimal amountToConsider = admintax * CfgFn.GetNoNullDecimal(currReg["quota"]);
+                            EP.EffettuaScritturaIdRelated("LIQRIT", amountToConsider, idAccRiten,
+                            currReg["idreg"], rExpView["idupb"], null, idaccmotiveRiten, idrelatedRiten +'§' + currReg["idreg"],
+                            rExpView["description"]); //rLiquidazione["idreg"]
                             }
                         }
 
@@ -10601,7 +10798,7 @@ namespace ep_functions {
 
             //}
 
-            #region gestione "SIENA" iva sul totale 
+                #region gestione "SIENA" iva sul totale 
 
             //ivaCredito: somma delle iva detraibili riga per riga (se modo non è "riga per riga" non applica il prorata)
             //_totaliLiq.credito: importo che tiene conto del tipo calcolo (di solito è quindi minore di  ivaCredito)
@@ -13094,9 +13291,9 @@ namespace ep_functions {
             }
         }
 
-        Dictionary<int, importo_causale> getImportiImpegni(DataRow curr, Tipocont currCont) {
+        Dictionary<int, importo_causale> getImportiImpegni(DataRow curr, TCont currCont) {
 
-            if (currCont == Tipocont.ContIva) {
+            if (currCont == TCont.Iva) {
                 var r = Conn.RUN_SELECT("pettycashoperationinvoice", "*", null, QHS.CmpKey(curr), null, false).Rows[0];
                 //DataTable 
                 //var idRelated = _composeObjects("inv", r["idinvkind"], r["yinv"], r["ninv"]);
@@ -13105,7 +13302,7 @@ namespace ep_functions {
                 return getImportiFattura(r["idinvkind"], r["yinv"], r["ninv"]);
             }
 
-            if (currCont == Tipocont.ContOccasionale) {
+            if (currCont == TCont.Occasionale) {
                 var r =
                     Conn.RUN_SELECT("pettycashoperationcasualcontract", "*", null, QHS.CmpKey(curr), null, false).Rows[0
                     ];
@@ -13115,7 +13312,7 @@ namespace ep_functions {
                 return getImportiDaImpegni(BudgetFunction.getDocChildCondition(QHS, idRelated), idreg, "totcurramount");
             }
 
-            if (currCont == Tipocont.ContProfessionale) {
+            if (currCont == TCont.Professionale) {
                 var r =
                     Conn.RUN_SELECT("pettycashoperationprofservice", "*", null, QHS.CmpKey(curr), null, false).Rows[0];
                 var idRelated = _composeObjects("profservice", r["ycon"], r["ncon"]);
@@ -13124,7 +13321,7 @@ namespace ep_functions {
                 return getImportiDaImpegni(BudgetFunction.getDocChildCondition(QHS, idRelated), idreg, "totaldebit");
             }
 
-            if (currCont == Tipocont.ContMissione) {
+            if (currCont == TCont.Missione) {
                 var r =
                     Conn.RUN_SELECT("pettycashoperationitineration", "*", null, QHS.CmpKey(curr), null, false).Rows[0];
                 object idreg = Conn.DO_READ_VALUE("itineration",
@@ -13579,7 +13776,9 @@ namespace ep_functions {
                         "Errore");
                     return false;
                 }
-
+                string descrRisconto = $"Risconto del contributo {descrGrant} del {descrCespite}";
+                string descrizioneAccertamento = descrRisconto.Length>150?descrRisconto.Substring(0,150):descrRisconto;
+ 
                 decimal amount = CfgFn.GetNoNullDecimal(rGrantDet["amount"]);
                 var idacc = getIdAccFromMotive(idaccmotive, idupb);
                 if (idacc == null || idacc == DBNull.Value) {
@@ -13594,7 +13793,7 @@ namespace ep_functions {
 
                 var parentIdEpAcc = getIdEpAccByIdRelated(idrel, nphase - 1);
                 var currEpAcc = bf.addEpAcc(DBNull.Value, idman, amount,
-                    $"Risconto del contributo {descrGrant} del {descrCespite}", dataAccertamenti, idacc, idupb, idrel,
+                    descrizioneAccertamento, dataAccertamenti, idacc, idupb, idrel,
                     DBNull.Value, DBNull.Value,
                     DBNull.Value, DBNull.Value, nphase, parentIdEpAcc, idaccmotive);
                 if (currEpAcc == null) return false;
@@ -19014,13 +19213,13 @@ namespace ep_functions {
 
             string idrelMain = BudgetFunction.GetIdForDocument(curr);
             string filterContract = QHS.CmpKey(curr);
-            DataTable tContractYear = Conn.RUN_SELECT("casualcontractyear", "*", null,
+            DataTable TContYear = Conn.RUN_SELECT("casualcontractyear", "*", null,
                 QHS.AppAnd(filterContract, QHS.CmpEq("ayear", esercizio)), null, false);
             DataTable spese = Conn.RUN_SELECT("casualcontractrefund", "*", null, filterContract, null, false);
             DataTable tipiSpesa = Conn.RUN_SELECT("casualrefund", "*", null, null, null, false);
 
 
-            DataRow currYear = tContractYear.Rows[0];
+            DataRow currYear = TContYear.Rows[0];
             calcolooccasionale.calcOccasionale mycalc = new calcolooccasionale.calcOccasionale(Conn, curr, currYear,
                 spese, tipiSpesa);
             bool res = mycalc.GetInfoContratto();
@@ -20232,6 +20431,9 @@ namespace ep_functions {
             if (curr.Table.Columns.Contains("ndetail")) {
                 doc += "/" + curr["ndetail"];
             }
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
 
             List<InfoImpegno> listaInfo = getAmountsForImpegniRiep(curr, nphase, true);
             foreach (InfoImpegno i in listaInfo) {
@@ -20355,7 +20557,9 @@ namespace ep_functions {
                          yimport + "/" +
                          nimport.ToString().PadLeft(2, '0');
             if (nuovaGestione) doc += "/" + curr["ndetail"];
-
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
             List<InfoImpegno> listaInfo = getAmountsForAccertamentiRiep(curr, nphase);
             foreach (InfoImpegno i in listaInfo) {
                 object currUPB = getUpbForEpAcc(i.parIdExp, idupb);
@@ -20434,6 +20638,9 @@ namespace ep_functions {
                          curr["idver"] + " Import. " +
                          yimport + "/" +
                          nimport.ToString().PadLeft(2, '0') + "/" + curr["ndetail"];
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
             object description = doc + " - Voce: " + curr["vocecsa"].ToString();
             List<InfoImpegno> listaInfo = getAmountsForImpegniVersamenti(curr, nphase, true);
             foreach (InfoImpegno i in listaInfo) {
@@ -20544,6 +20751,9 @@ namespace ep_functions {
                          curr["idver"] + " Import. " +
                          yimport + "/" +
                          nimport.ToString().PadLeft(2, '0');
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
             object description = doc + " - Voce: " + curr["vocecsa"].ToString();
             List<InfoImpegno> listaInfo = getAmountsForImpegniVersamenti(curr, nphase, false);
             foreach (InfoImpegno i in listaInfo) {
@@ -20627,6 +20837,9 @@ namespace ep_functions {
                          curr["idver"] + " Import. CSA " +
                          yimport + "/" +
                          nimport.ToString().PadLeft(2, '0');
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
             object description = doc + " - Voce: " + curr["vocecsa"].ToString();
             List<InfoImpegno> listaInfo = getAmountsForAccertamentiVersamenti(curr, nphase);
             foreach (InfoImpegno i in listaInfo) {
@@ -20938,7 +21151,7 @@ namespace ep_functions {
                             if (idupb_inv.ToString() != idupb.ToString() || idupb_iva_inv.ToString() != idupb_iva.ToString()
                                 || (newIdAcc != DBNull.Value && oldIdAcc.ToString() != newIdAcc.ToString())) {
 
-                                string msg = "E' stato modificato l'UPB o la Casuale EP. Rigenerare le scritture EP della fattura collegata al Contratto Passivo.";
+                                string msg = "E' stato modificato l'UPB o la Causale EP. Rigenerare le scritture EP della fattura collegata al Contratto Passivo.";
                                 var shower = MetaFactory.factory.getSingleton<IMessageShower>();
                                 shower.Show(null, msg, "AVVISO IMPORTANTE", MessageBoxButtons.OK);
 
@@ -21119,7 +21332,7 @@ namespace ep_functions {
                             //        new[] { "idupb", "idupb_iva" },
                             //        new[] { QHS.quote(idupb), QHS.quote(idupb_iva) }, 2);
                             
-                                string msg = "E' stato modificato l'UPB o la Casuale EP. Rigenerare le scritture EP della fattura collegata al Contratto Attivo.";
+                                string msg = "E' stato modificato l'UPB o la Causale EP. Rigenerare le scritture EP della fattura collegata al Contratto Attivo.";
                                     var shower = MetaFactory.factory.getSingleton<IMessageShower>();
                                 shower.Show(null, msg, "AVVISO IMPORTANTE", MessageBoxButtons.OK);
 
@@ -25041,6 +25254,8 @@ namespace ep_functions {
                     return CreateFilter(QHS, obj1, "idpayroll", "fiscalyear", "npayroll");
                 case "wageaddition":
                     return CreateFilter(QHS, obj1, "ycon", "ncon");
+                case "profservice":
+                    return CreateFilter(QHS, obj1, "ycon", "ncon");
                 case "itineration":
                     return CreateFilter(QHS, obj1, "yitineration", "nitineration");
                 case "pettycashoperation":
@@ -25651,7 +25866,13 @@ namespace ep_functions {
                 Conn.RUN_SELECT_INTO_TABLE(tt, null, QHS.CmpKey(entry), null, true);
 
                 Conn.RUN_SELECT_INTO_TABLE(tt3, null, QHS.CmpKey(entry), null, true);
-                foreach (DataRow r3 in tt3.Select(QHC.CmpKey(entry))) r3.Delete();
+                if (tt3.Select(QHC.CmpKey(entry)).Length > 0) {
+                    showMessage("Ci sono ratei associati alle scritture che saranno scollegati. Sarà " +
+                                    "necessario ricollegarli a mano", "Avviso", false);
+                    foreach (DataRow r3 in tt3.Select(QHC.CmpKey(entry))) r3.Delete();
+                }
+
+
             }
 
             scrittureAzzerate.Clear();

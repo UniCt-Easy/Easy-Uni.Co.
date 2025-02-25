@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -193,7 +193,8 @@ namespace meta_sorting{//meta_classmovimenti//
 			if (edit_type=="treeall") return base.SelectByCondition(filter,"sorting");
 
             if (edit_type == "tree5") {
-                filter = QHS.AppAnd(filter, QHS.CmpEq("nlevel", 5));
+                int maxLevel = this.ExtraParameter != null ? CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortinglevel", this.ExtraParameter.ToString(), "max(nlevel)")) : 5;
+                filter = QHS.AppAnd(filter, QHS.CmpEq("nlevel", maxLevel));
                 return base.SelectByCondition(filter, "sortingview");
             }
 
@@ -228,7 +229,8 @@ namespace meta_sorting{//meta_classmovimenti//
             }
             if (ListingType == "treeall") return base.SelectOne(ListingType, filter, "sortingall", Exclude);
             if (ListingType == "tree5") {
-                filter = QHS.AppAnd(filter, QHS.CmpEq("nlevel", 5));
+                int maxLevel = this.ExtraParameter != null ? CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortinglevel", this.ExtraParameter.ToString(), "max(nlevel)")) : 5;
+                filter = QHS.AppAnd(filter, QHS.CmpEq("nlevel", maxLevel));
             } 
             return base.SelectOne(ListingType, filter, "sorting", Exclude);
         }	
@@ -259,7 +261,7 @@ namespace meta_sorting{//meta_classmovimenti//
             string filterSortLevel = "";
 
             if (ListingType == "tree5") {
-                maxlevel = 5;
+                maxlevel = T.ExtendedProperties.ContainsKey(MetaData.ExtraParams) ? CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortinglevel", T.ExtendedProperties[MetaData.ExtraParams].ToString(), "max(nlevel)")) : 5;
                 filterSortLevel = QHS.CmpLe("nlevel", maxlevel);
                 myGetData.SetStaticFilter("sortinglevel", filterSortLevel);
             }
@@ -299,7 +301,7 @@ namespace meta_sorting{//meta_classmovimenti//
             //    );
             int maxlevel = 0;
             if (ListingType == "tree5") {
-                maxlevel = 5;
+                maxlevel = T.ExtendedProperties.ContainsKey(MetaData.ExtraParams) ? CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortinglevel", T.ExtendedProperties[MetaData.ExtraParams].ToString(), "max(nlevel)")) : 5;
             }
             bool all = false;
 	        if (ListingType == "treeall") {

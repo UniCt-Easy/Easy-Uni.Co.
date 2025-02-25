@@ -53,16 +53,25 @@
               <xs:element name="gender" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
               <xs:element name="idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="location" type="xs:string" minOccurs="0" />
@@ -72,12 +81,16 @@
               <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
               <xs:element name="residence" type="xs:int" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
               <xs:element name="toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="txt" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -267,39 +280,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="didprog_alias8" msprop:TableForReading="didprog" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idsede" type="xs:int" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="importcontrattistipendiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="anno" type="xs:int" />
-              <xs:element name="idcontratto" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idstipendioannuo" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="iscrizione_alias6" msprop:TableForReading="iscrizione" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="anno" type="xs:int" minOccurs="0" />
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idiscrizione" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="statuskind_alias3" msprop:TableForReading="statuskind" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -339,6 +319,29 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="didprog_alias8" msprop:TableForReading="didprog" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizione_alias6" msprop:TableForReading="iscrizione" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="istanza_pas" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -353,12 +356,8 @@
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idiscrizione_from_iscrizione_anno" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idiscrizione_from_iscrizione_aa" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_from_iscrizione_anno_cognome" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_from_iscrizione_anno_inquadramento" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_from_iscrizione_anno_matricola" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_from_iscrizione_anno_nome" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_from_iscrizione_anno_ruolo" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idiscrizione_from_iscrizione_iddidprog_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idiscrizione_from_iscrizione_iddidprog_aa" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idiscrizione_from_iscrizione_iddidprog_idsede" type="xs:int" minOccurs="0" />
@@ -1471,24 +1470,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="studprenotkinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idstudprenotkind" type="xs:int" />
-              <xs:element name="studprenotkind_active" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="studdirittokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idstuddirittokind" type="xs:int" />
-              <xs:element name="studdirittokind_active" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="geo_city" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -1509,8 +1490,12 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idmaritalstatus" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1563,16 +1548,25 @@
               <xs:element name="gender" type="xs:string" />
               <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
               <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
               <xs:element name="idcategory" type="xs:string" minOccurs="0" />
               <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
               <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="location" type="xs:string" minOccurs="0" />
@@ -1582,28 +1576,18 @@
               <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
               <xs:element name="residence" type="xs:int" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
               <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
               <xs:element name="surname" type="xs:string" />
               <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
               <xs:element name="toredirect" type="xs:int" minOccurs="0" />
               <xs:element name="txt" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="registry_studenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="authinps" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idstuddirittokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idstudprenotkind" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1675,25 +1659,6 @@
       <xs:field xpath="mstns:idpratica" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="didprog_alias8_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:didprog_alias8" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-    </xs:unique>
-    <xs:unique name="importcontrattistipendiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:importcontrattistipendiview" />
-      <xs:field xpath="mstns:anno" />
-      <xs:field xpath="mstns:idcontratto" />
-      <xs:field xpath="mstns:idreg" />
-      <xs:field xpath="mstns:idstipendioannuo" />
-    </xs:unique>
-    <xs:unique name="iscrizione_alias6_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:iscrizione_alias6" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-      <xs:field xpath="mstns:idiscrizione" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
     <xs:unique name="statuskind_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:statuskind_alias3" />
       <xs:field xpath="mstns:idstatuskind" />
@@ -1710,6 +1675,18 @@
       <xs:field xpath="mstns:idistanza" />
       <xs:field xpath="mstns:idistanzakind" />
       <xs:field xpath="mstns:idreg_studenti" />
+    </xs:unique>
+    <xs:unique name="didprog_alias8_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprog_alias8" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+    </xs:unique>
+    <xs:unique name="iscrizione_alias6_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizione_alias6" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="istanza_pas_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:istanza_pas" />
@@ -2158,14 +2135,6 @@
       <xs:field xpath="mstns:idiscrizione" />
       <xs:field xpath="mstns:idreg_studenti" />
     </xs:unique>
-    <xs:unique name="studprenotkinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:studprenotkinddefaultview" />
-      <xs:field xpath="mstns:idstudprenotkind" />
-    </xs:unique>
-    <xs:unique name="studdirittokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:studdirittokinddefaultview" />
-      <xs:field xpath="mstns:idstuddirittokind" />
-    </xs:unique>
     <xs:unique name="geo_city_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:geo_city" />
       <xs:field xpath="mstns:idcity" />
@@ -2194,10 +2163,6 @@
       <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="registry_studenti_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry_studenti" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -2216,11 +2181,10 @@
       <msdata:Relationship name="FK_nullaosta_alias3_istanza_pas_idcorsostudio-iddidprog-idiscrizione-idistanza-idistanzakind-idreg" msdata:parent="istanza_pas" msdata:child="nullaosta_alias3" msdata:parentkey="idcorsostudio iddidprog idiscrizione idistanza idistanzakind idreg" msdata:childkey="idcorsostudio iddidprog idiscrizione idistanza idistanzakind idreg" />
       <msdata:Relationship name="FK_diniego_alias4_istanza_pas_idcorsostudio-iddidprog-idiscrizione-idistanza-idistanzakind-idreg" msdata:parent="istanza_pas" msdata:child="diniego_alias4" msdata:parentkey="idcorsostudio iddidprog idiscrizione idistanza idistanzakind idreg" msdata:childkey="idcorsostudio iddidprog idiscrizione idistanza idistanzakind idreg" />
       <msdata:Relationship name="FK_pratica_istanza_pas_idcorsostudio-iddidprog-idiscrizione-idistanza-idistanzakind-idreg" msdata:parent="istanza_pas" msdata:child="pratica" msdata:parentkey="idcorsostudio iddidprog idiscrizione idistanza idistanzakind idreg" msdata:childkey="idcorsostudio iddidprog idiscrizione idistanza idistanzakind idreg" />
-      <msdata:Relationship name="FK_istanza_pas_iscrizione_alias6_idiscrizione_from" msdata:parent="iscrizione_alias6" msdata:child="istanza_pas" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione_from" />
-      <msdata:Relationship name="FK_iscrizione_alias6_didprog_alias8_iddidprog" msdata:parent="didprog_alias8" msdata:child="iscrizione_alias6" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
-      <msdata:Relationship name="FK_iscrizione_alias6_importcontrattistipendiview_anno" msdata:parent="importcontrattistipendiview" msdata:child="iscrizione_alias6" msdata:parentkey="anno" msdata:childkey="anno" />
       <msdata:Relationship name="FK_istanza_alias3_statuskind_alias3_idstatuskind" msdata:parent="statuskind_alias3" msdata:child="istanza_alias3" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
       <msdata:Relationship name="FK_istanza_alias3_annoaccademico_alias8_aa" msdata:parent="annoaccademico_alias8" msdata:child="istanza_alias3" msdata:parentkey="aa" msdata:childkey="aa" />
+      <msdata:Relationship name="FK_istanza_pas_iscrizione_alias6_idiscrizione_from" msdata:parent="iscrizione_alias6" msdata:child="istanza_pas" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione_from" />
+      <msdata:Relationship name="FK_iscrizione_alias6_didprog_alias8_iddidprog" msdata:parent="didprog_alias8" msdata:child="iscrizione_alias6" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
       <msdata:Relationship name="FK_istanza_alias2_registry_idreg" msdata:parent="registry" msdata:child="istanza_alias2" msdata:parentkey="idreg" msdata:childkey="idreg_studenti" />
       <msdata:Relationship name="FK_istanza_imm_alias2_istanza_alias2_idcorsostudio-iddidprog-idistanza-idistanzakind-idreg" msdata:parent="istanza_alias2" msdata:child="istanza_imm_alias2" msdata:parentkey="idcorsostudio iddidprog idistanza idistanzakind idreg_studenti" msdata:childkey="idcorsostudio iddidprog idistanza idistanzakind idreg" />
       <msdata:Relationship name="FK_diniego_alias3_istanza_imm_alias2_idcorsostudio-iddidprog-idistanza-idistanzakind-idreg" msdata:parent="istanza_imm_alias2" msdata:child="diniego_alias3" msdata:parentkey="idcorsostudio iddidprog idistanza idistanzakind idreg" msdata:childkey="idcorsostudio iddidprog idistanza idistanzakind idreg" />
@@ -2289,15 +2253,12 @@
       <msdata:Relationship name="FK_bandodsiscr_registry_idreg_studenti" msdata:parent="registry" msdata:child="bandodsiscr" msdata:parentkey="idreg" msdata:childkey="idreg_studenti" />
       <msdata:Relationship name="FK_bandodsiscresito_bandodsiscr_idbandods-idbandodsiscr-idbandodsservizio-idiscrizione-idreg_studenti" msdata:parent="bandodsiscr" msdata:child="bandodsiscresito" msdata:parentkey="idbandods idbandodsiscr idbandodsservizio idiscrizione idreg_studenti" msdata:childkey="idbandods idbandodsiscr idbandodsservizio idiscrizione idreg_studenti" />
       <msdata:Relationship name="FK_bandodsiscr_accreditokind_idaccreditokind" msdata:parent="accreditokind" msdata:child="bandodsiscr" msdata:parentkey="idaccreditokind" msdata:childkey="idaccreditokind" />
-      <msdata:Relationship name="FK_registry_studenti_studprenotkinddefaultview_idstudprenotkind" msdata:parent="studprenotkinddefaultview" msdata:child="registry_studenti" msdata:parentkey="idstudprenotkind" msdata:childkey="idstudprenotkind" />
-      <msdata:Relationship name="FK_registry_studenti_studdirittokinddefaultview_idstuddirittokind" msdata:parent="studdirittokinddefaultview" msdata:child="registry_studenti" msdata:parentkey="idstuddirittokind" msdata:childkey="idstuddirittokind" />
       <msdata:Relationship name="FK_registry_geo_city_idcity" msdata:parent="geo_city" msdata:child="registry" msdata:parentkey="idcity" msdata:childkey="idcity" />
       <msdata:Relationship name="FK_registry_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="registry" msdata:parentkey="idnation" msdata:childkey="idnation" />
       <msdata:Relationship name="FK_registry_maritalstatus_idmaritalstatus" msdata:parent="maritalstatus" msdata:child="registry" msdata:parentkey="idmaritalstatus" msdata:childkey="idmaritalstatus" />
       <msdata:Relationship name="FK_registry_residence_residence" msdata:parent="residence" msdata:child="registry" msdata:parentkey="idresidence" msdata:childkey="residence" />
       <msdata:Relationship name="FK_registry_title_idtitle" msdata:parent="title" msdata:child="registry" msdata:parentkey="idtitle" msdata:childkey="idtitle" />
       <msdata:Relationship name="FK_registry_registryclasspersoneview_idregistryclass" msdata:parent="registryclasspersoneview" msdata:child="registry" msdata:parentkey="idregistryclass" msdata:childkey="idregistryclass" />
-      <msdata:Relationship name="FK_registry_studenti_registry_idreg" msdata:parent="registry" msdata:child="registry_studenti" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sasd_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sasd_default: DataSet {
+public partial class dsmeta_sasd_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -106,6 +106,7 @@ private void initClass() {
 	tsasd.defineColumn("idsasd", typeof(int),false);
 	tsasd.defineColumn("lt", typeof(DateTime));
 	tsasd.defineColumn("lu", typeof(string));
+	tsasd.defineColumn("tipoente", typeof(string));
 	tsasd.defineColumn("title", typeof(string),false);
 	Tables.Add(tsasd);
 	tsasd.defineKey("idsasd");

@@ -172,6 +172,7 @@
               <xs:element name="progressivo_rec_01" type="xs:int" minOccurs="0" />
               <xs:element name="flagriduzimpon" type="xs:string" minOccurs="0" />
               <xs:element name="progressivodebito" type="xs:int" minOccurs="0" />
+              <xs:element name="datascadritextra" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

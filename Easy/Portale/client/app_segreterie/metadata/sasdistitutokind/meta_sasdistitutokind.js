@@ -24,15 +24,13 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, '!idistitutokind_istitutokind_tipoistituto', 'Tipologia', null, 11, null);
-						this.describeAColumn(table, '!idistitutokind_istitutokind_tipoistitutoen', 'Tipologia (EN)', null, 10, null);
-						this.describeAColumn(table, '!idistitutokind_istitutokind_tipoistitutosigla', 'Sigla', null, 10, null);
-						objCalcFieldConfig['!idistitutokind_istitutokind_tipoistituto'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistituto', columnNamekey:'idistitutokind' };
-						objCalcFieldConfig['!idistitutokind_istitutokind_tipoistitutoen'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistitutoen', columnNamekey:'idistitutokind' };
-						objCalcFieldConfig['!idistitutokind_istitutokind_tipoistitutosigla'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistitutosigla', columnNamekey:'idistitutokind' };
+						this.describeAColumn(table, 'idistitutokind', 'Identificativo', null, 10, null);
 						this.describeAColumn(table, '!idistitutokind_istitutokind_tipoistituto', 'Tipologia', null, 13, null);
 						this.describeAColumn(table, '!idistitutokind_istitutokind_tipoistitutoen', 'Tipologia (EN)', null, 13, null);
 						this.describeAColumn(table, '!idistitutokind_istitutokind_tipoistitutosigla', 'Sigla', null, 14, null);
+						objCalcFieldConfig['!idistitutokind_istitutokind_tipoistituto'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistituto', columnNamekey:'idistitutokind' };
+						objCalcFieldConfig['!idistitutokind_istitutokind_tipoistitutoen'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistitutoen', columnNamekey:'idistitutokind' };
+						objCalcFieldConfig['!idistitutokind_istitutokind_tipoistitutosigla'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistitutosigla', columnNamekey:'idistitutokind' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

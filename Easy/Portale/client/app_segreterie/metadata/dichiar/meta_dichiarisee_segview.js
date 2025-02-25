@@ -23,16 +23,16 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'isee_seg':
-						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
-						this.describeAColumn(table, 'dichiar_date', 'Data', null, 30, null);
-						this.describeAColumn(table, 'registry_title', 'Studente', null, 60, 101);
-						this.describeAColumn(table, 'dichiar_isee_anno', 'Anno', null, 510, null);
-						this.describeAColumn(table, 'dichiar_isee_conforme', 'Conformità', null, 520, null);
-						this.describeAColumn(table, 'dichiar_isee_dataauthdiff', 'Data autorizzazione', null, 530, null);
-						this.describeAColumn(table, 'dichiar_isee_datasottoscriz', 'Data di sottoscrizione', null, 540, null);
-						this.describeAColumn(table, 'dichiar_isee_enterilascio', 'Ente del rilascio', null, 550, 50);
-						this.describeAColumn(table, 'dichiar_isee_isee', 'Valore ISEE', 'fixed.2', 580, null);
-						this.describeAColumn(table, 'dichiar_isee_numeroprot', 'Numero protocollo dell\'ente di rilascio', null, 590, 50);
+						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 1000, 9);
+						this.describeAColumn(table, 'dichiar_date', 'Data', null, 3000, null);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 6300, 101);
+						this.describeAColumn(table, 'dichiar_isee_anno', 'Anno', null, 51000, null);
+						this.describeAColumn(table, 'dichiar_isee_conforme', 'Conformità', null, 52000, null);
+						this.describeAColumn(table, 'dichiar_isee_dataauthdiff', 'Data autorizzazione', null, 53000, null);
+						this.describeAColumn(table, 'dichiar_isee_datasottoscriz', 'Data di sottoscrizione', null, 54000, null);
+						this.describeAColumn(table, 'dichiar_isee_enterilascio', 'Ente del rilascio', null, 55000, 50);
+						this.describeAColumn(table, 'dichiar_isee_isee', 'Valore ISEE', 'fixed.2', 58000, null);
+						this.describeAColumn(table, 'dichiar_isee_numeroprot', 'Numero protocollo dell\'ente di rilascio', null, 59000, 50);
 //$objCalcFieldConfig_isee_seg$
 						break;
 //$objCalcFieldConfig$

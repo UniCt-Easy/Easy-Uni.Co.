@@ -68,8 +68,11 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazioneateneores'), this.getDataTable('perfvalutazioneateneoresattach'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {

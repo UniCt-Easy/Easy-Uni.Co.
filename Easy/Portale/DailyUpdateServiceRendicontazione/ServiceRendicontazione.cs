@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,7 +55,13 @@ namespace DailyUpdateServiceRendicontazione
 					await Task.Delay(initialDelay, stoppingToken);
 
 					if (enableRendicontazione)
+					{
+						// Preleva dati anno accademico 2022-2023-2024
+						new Rendicontazione().InsDiari();
+
+						// Preleva dati anno accademico 2023-2024 (1-set-2023 - 31-08-23)
 						new Rendicontazione().InsLezioni();
+                    }
 					
 				}
 			}
@@ -91,7 +97,7 @@ namespace DailyUpdateServiceRendicontazione
 		// =======================================================================================================================================
 		private void logInfo(string s)
 		{
-			try { System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}{_logFileName}", DateTime.Now.ToString("yy-MM-dd hh:mm:ss") + " - " + s + "\r\n"); } catch { }
+			try { System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}{_logFileName}", DateTime.Now.ToString("yy-MM-dd HH:mm:ss") + " - " + s + "\r\n"); } catch { }
 		}
 	}
 }

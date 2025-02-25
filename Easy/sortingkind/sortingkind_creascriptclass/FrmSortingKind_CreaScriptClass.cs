@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -208,7 +208,13 @@ namespace sortingkind_creascriptclass {
             StreamWriter fsw = new StreamWriter(filename, false, Encoding.Default);
             fsw.Write(sw.ToString());
             fsw.Close();
-            lblFile.Text = "Script salvato in " + filename;
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(filename, false);
+
+            if (isBlazor())
+                lblFile.Text = "Script scaricato";
+            else
+                lblFile.Text = "Script salvato in " + filename;
             return true;
         }
 
@@ -239,6 +245,9 @@ namespace sortingkind_creascriptclass {
 
             GeneraSQL.GeneraStrutturaEDati(Meta.Conn, dsIT, writer, UpdateType.onlyInsert, DataGenerationType.onlyData, true);
             writer.Close();
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(filename, false);
+
             show("File generato correttamente");
             return;
         }

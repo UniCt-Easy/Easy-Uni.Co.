@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,9 @@ using System.Data;
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class vistaForm: System.Data.DataSet {
 // List of DataTables
+[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+[System.ComponentModel.Browsable(false)]
+public DataTable estimatekindattachment{get { return this.Tables["estimatekindattachment"];}}
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable estimatekind{get { return Tables["estimatekind"];}}
@@ -555,7 +558,27 @@ EnforceConstraints = false;
 	T.PrimaryKey = key;
 
 
-//Relations
+
+	//////////////////// ESTIMATEKINDATTACHMENT /////////////////////////////////
+	var testimatekindattachment= new DataTable("estimatekindattachment");
+	C= new DataColumn("idestimkind", typeof(String));
+	C.AllowDBNull=true;
+	testimatekindattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	testimatekindattachment.Columns.Add(C);
+	testimatekindattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	testimatekindattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	testimatekindattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	testimatekindattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	testimatekindattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	testimatekindattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	testimatekindattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(testimatekindattachment);
+	testimatekindattachment.PrimaryKey =  new DataColumn[]{testimatekindattachment.Columns["idestimkind"], testimatekindattachment.Columns["idattachment"]};
+	
+	
+	//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;
@@ -602,6 +625,12 @@ CPar = new DataColumn[1]{TPar.Columns["idupb"]};
 CChild = new DataColumn[1]{TChild.Columns["idupb"]};
 Relations.Add(new DataRelation("upbestimatekind",CPar,CChild));
 
+TPar = Tables["estimatekind"];
+TChild = Tables["estimatekindattachment"];
+CPar = new DataColumn[1]{ TPar.Columns["idestimkind"]};
+CChild = new DataColumn[1] { TChild.Columns["idestimkind"]};
+Relations.Add(new DataRelation("estimatekind_estimatekindattachment",CPar,CChild,false));
+	
 }
 }
 }

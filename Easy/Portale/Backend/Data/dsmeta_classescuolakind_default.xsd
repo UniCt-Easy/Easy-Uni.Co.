@@ -3,6 +3,14 @@
   <xs:element name="dsmeta_classescuolakind_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="eqf" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ideqf" type="xs:int" />
+              <xs:element name="level" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="corsostudiolivellodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -15,8 +23,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="corsostudiokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="corsostudiokind_ct" type="xs:dateTime" />
+              <xs:element name="corsostudiokind_cu" type="xs:string" />
+              <xs:element name="corsostudiokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="corsostudiokind_lt" type="xs:dateTime" />
+              <xs:element name="corsostudiokind_lu" type="xs:string" />
+              <xs:element name="corsostudiokind_sortcode" type="xs:int" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idcorsostudiokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -26,6 +41,7 @@
               <xs:element name="idclassescuolakind" type="xs:string" />
               <xs:element name="idcorsostudiokind" type="xs:int" />
               <xs:element name="idcorsostudiolivello" type="xs:int" minOccurs="0" />
+              <xs:element name="ideqf" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
@@ -33,6 +49,10 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:eqf" />
+      <xs:field xpath="mstns:ideqf" />
+    </xs:unique>
+    <xs:unique name="corsostudiolivellodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:corsostudiolivellodefaultview" />
       <xs:field xpath="mstns:idcorsostudiolivello" />
     </xs:unique>
@@ -47,6 +67,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_classescuolakind_eqf_ideqf" msdata:parent="eqf" msdata:child="classescuolakind" msdata:parentkey="ideqf" msdata:childkey="ideqf" />
       <msdata:Relationship name="FK_classescuolakind_corsostudiolivellodefaultview_idcorsostudiolivello" msdata:parent="corsostudiolivellodefaultview" msdata:child="classescuolakind" msdata:parentkey="idcorsostudiolivello" msdata:childkey="idcorsostudiolivello" />
       <msdata:Relationship name="FK_classescuolakind_corsostudiokinddefaultview_idcorsostudiokind" msdata:parent="corsostudiokinddefaultview" msdata:child="classescuolakind" msdata:parentkey="idcorsostudiokind" msdata:childkey="idcorsostudiokind" />
     </xs:appinfo>

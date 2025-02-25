@@ -56,7 +56,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="idmankind">Tipo contratto</label>
+                            <label for="idmankind">Tipo Richiesta</label>
                             <cc1:hwDropDownList ID="idmankind" Tag="mandate.idmankind" runat="server" CssClass="form-control" AutoPostBack="True" TabIndex="10"></cc1:hwDropDownList><br />
                         </div>
                         <div class="col-6 col-md-3">
@@ -113,6 +113,17 @@
                                         Rows="5"
                                         Tag="mandate.applierannotations" TextMode="MultiLine"></cc1:hwTextBox>
                         </div>
+                    </div>
+                    <div class="row">
+	                     <div class="col-md-12">
+		                    <cc1:hwPanel GroupingText="R.U.P. Responsabile Unico del Procedimento per ANAC"  CssClass="stdfieldset form-group" ID="HwPanelRUP" runat="server" Tag="AutoChoose.txtRUP.lista.(active='S')">
+			                    <div class="row">
+				                    <div class="col-md-12">
+					                    <cc1:hwTextBox TabIndex="20" ID="txtRUP" 	CssClass="form-control" Tag="registrymainview_rup.title?mandateview.rupanac" runat="server"></cc1:hwTextBox>
+				                    </div>
+			                    </div>
+		                    </cc1:hwPanel>
+	                    </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mt-5">

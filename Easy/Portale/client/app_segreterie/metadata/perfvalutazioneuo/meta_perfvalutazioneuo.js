@@ -70,51 +70,11 @@
 						table.columns["completamentopsauo"].caption = "Percentuale di completamento dei progetti Strategici di altre UO";
 						table.columns["completamentopsuo"].caption = "Percentuale di completamento per i progetti Strategici della UO";
 						table.columns["idperfschedastatus"].caption = "Stato";
-						table.columns["idreg_val"].caption = "Valutatore";
-						table.columns["idstruttura"].caption = "Struttura";
-						table.columns["indicatori"].caption = "Percentuale di completamento degli indicatori";
-						table.columns["obiettiviindividuali"].caption = "Percentuale di completamento degli obiettivi individuali";
-						table.columns["pesoindicatori"].caption = "Peso della valutazione della performance degli indicatori ";
-						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi una tantum";
-						table.columns["pesoprogaltreuo"].caption = "Peso della valutazione della performance dei Progetti Strategici di altre UO ";
-						table.columns["pesoproguo"].caption = "Peso della valutazione della performance dei Progetti Strategici della UO";
-						table.columns["risultato"].caption = "Risultato %";
-						table.columns["year"].caption = "Anno solare";
-						table.columns["completamentopsauo"].caption = "Percentuale di completamento dei progetti Strategici di altre UO";
-						table.columns["completamentopsuo"].caption = "Percentuale di completamento per i progetti Strategici della UO";
-						table.columns["idperfschedastatus"].caption = "Stato";
-						table.columns["idreg_val"].caption = "Valutatore";
-						table.columns["idstruttura"].caption = "Struttura";
-						table.columns["indicatori"].caption = "Percentuale di completamento degli indicatori";
-						table.columns["obiettiviindividuali"].caption = "Percentuale di completamento degli obiettivi individuali";
-						table.columns["pesoindicatori"].caption = "Peso della valutazione della performance degli indicatori ";
-						table.columns["pesoobiettivi"].caption = "Peso della valutazione della performance degli obiettivi una tantum";
-						table.columns["pesoprogaltreuo"].caption = "Peso della valutazione della performance dei Progetti Strategici di altre UO ";
-						table.columns["pesoproguo"].caption = "Peso della valutazione della performance dei Progetti Strategici della UO";
-						table.columns["risultato"].caption = "Risultato %";
-						table.columns["year"].caption = "Anno solare";
-						table.columns["completamentopsauo"].caption = "Percentuale di completamento dei progetti Strategici di altre UO";
-						table.columns["obiettiviindividuali"].caption = "Percentuale di completamento degli obiettivi una tantum";
 						table.columns["idreg_appr"].caption = "Approvatore";
-												table.columns["idstruttura"].caption = "Unità organizzativa";
-						table.columns["pesoindicatori"].caption = "Peso della valutazione della performance degli indicatori";
-						table.columns["idreg_appr"].caption = "Compilatore";
 						table.columns["idreg_comp"].caption = "Compilatore obiettivi una tantum";
 						table.columns["idreg_compobborg"].caption = "Compilatore indicatori";
 						table.columns["idreg_create"].caption = "Inserisce obiettivi una tantum";
 						table.columns["idreg_val"].caption = "Valutatore obiettivi una tantum";
-						table.columns["idreg_valobborg"].caption = "Valutatore indicatori";
-//$innerSetCaptionConfig_default$
-						break;
-										case 'onlyunatantum':
-						table.columns["completamentopsauo"].caption = "Percentuale di completamento dei progetti Strategici di altre UO";
-						table.columns["completamentopsuo"].caption = "Percentuale di completamento per i progetti Strategici della UO";
-						table.columns["idperfschedastatus"].caption = "Stato";
-						table.columns["idreg_appr"].caption = "Approvatore";
-						table.columns["idreg_comp"].caption = "Compilatore obiettivi organizzativi";
-						table.columns["idreg_compobborg"].caption = "Compilatore indicatori";
-						table.columns["idreg_create"].caption = "Inserisce obiettivi organizzativi";
-						table.columns["idreg_val"].caption = "Valutatore obiettivi organizzativi";
 						table.columns["idreg_valobborg"].caption = "Valutatore indicatori";
 						table.columns["idstruttura"].caption = "Unità organizzativa";
 						table.columns["indicatori"].caption = "Percentuale di completamento degli indicatori";
@@ -125,6 +85,12 @@
 						table.columns["pesoproguo"].caption = "Peso della valutazione della performance dei Progetti Strategici della UO";
 						table.columns["risultato"].caption = "Risultato %";
 						table.columns["year"].caption = "Anno solare";
+//$innerSetCaptionConfig_default$
+						break;
+										case 'onlyunatantum':
+						table.columns["idreg_comp"].caption = "Compilatore obiettivi organizzativi";
+						table.columns["idreg_create"].caption = "Inserisce obiettivi organizzativi";
+						table.columns["idreg_val"].caption = "Valutatore obiettivi organizzativi";
 						table.columns["indicatori"].caption = "Percentuale di completamento degli uffici sottostanti";
 						table.columns["obiettiviindividuali"].caption = "Percentuale di completamento degli obiettivi organizzativi";
 						table.columns["pesoindicatori"].caption = "Peso della valutazione della performance degli uffici sottostanti";

@@ -79,9 +79,12 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('aoo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('struttura'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {

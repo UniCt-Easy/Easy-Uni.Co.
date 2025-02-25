@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +42,8 @@ namespace sdi_vendita_default {
 
         public Frm_sdi_vendita_default() {
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(_openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             saveFileDialog1.DefaultExt = "xml";
             saveFileDialog1.SupportMultiDottedExtensions = true;
         }
@@ -339,7 +341,13 @@ namespace sdi_vendita_default {
                 doc.WriteTo(xW);
                 xW.Flush();
                 xW.Close();
-                show("Salvataggio del file " + fname + " effettuato");
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fname, false);
+
+                if (isBlazor())
+                    show("Download effettuato");
+                else
+                    show("Salvataggio del file " + fname + " effettuato");
             }
             catch (Exception e1) {
                 QueryCreator.ShowError(this, "Errore nel salvataggio del file " + fname, e1.ToString());

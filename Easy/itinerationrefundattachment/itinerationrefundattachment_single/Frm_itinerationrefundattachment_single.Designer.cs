@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,6 @@ namespace itinerationrefundattachment_single {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.DS = new itinerationrefundattachment_single.DataSet1();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -49,19 +48,19 @@ namespace itinerationrefundattachment_single {
 			this.btnAllega = new System.Windows.Forms.Button();
 			this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.chkWebDefault = new System.Windows.Forms.CheckBox();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cmbTipoAllegato = new System.Windows.Forms.ComboBox();
+			this.DS = new itinerationrefundattachment_single.DataSet1();
 			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(430, 114);
+			this.btnCancel.Location = new System.Drawing.Point(430, 177);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(73, 28);
 			this.btnCancel.TabIndex = 88;
@@ -73,7 +72,7 @@ namespace itinerationrefundattachment_single {
 			// 
 			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOk.Location = new System.Drawing.Point(329, 114);
+			this.btnOk.Location = new System.Drawing.Point(329, 177);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(73, 28);
 			this.btnOk.TabIndex = 87;
@@ -86,7 +85,7 @@ namespace itinerationrefundattachment_single {
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.labAutocertFileName);
-			this.groupBox1.Location = new System.Drawing.Point(12, 12);
+			this.groupBox1.Location = new System.Drawing.Point(12, 82);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(542, 53);
 			this.groupBox1.TabIndex = 86;
@@ -99,11 +98,11 @@ namespace itinerationrefundattachment_single {
 			this.labAutocertFileName.Name = "labAutocertFileName";
 			this.labAutocertFileName.Size = new System.Drawing.Size(505, 16);
 			this.labAutocertFileName.TabIndex = 75;
-			this.labAutocertFileName.Tag = "mandateattachment.filename";
+			this.labAutocertFileName.Tag = "itinerationrefundattachment.filename";
 			// 
 			// btnVisualizza
 			// 
-			this.btnVisualizza.Location = new System.Drawing.Point(124, 71);
+			this.btnVisualizza.Location = new System.Drawing.Point(124, 141);
 			this.btnVisualizza.Name = "btnVisualizza";
 			this.btnVisualizza.Size = new System.Drawing.Size(79, 24);
 			this.btnVisualizza.TabIndex = 85;
@@ -113,7 +112,7 @@ namespace itinerationrefundattachment_single {
 			// 
 			// btnAllega
 			// 
-			this.btnAllega.Location = new System.Drawing.Point(12, 71);
+			this.btnAllega.Location = new System.Drawing.Point(12, 141);
 			this.btnAllega.Name = "btnAllega";
 			this.btnAllega.Size = new System.Drawing.Size(79, 24);
 			this.btnAllega.TabIndex = 84;
@@ -121,24 +120,52 @@ namespace itinerationrefundattachment_single {
 			this.btnAllega.UseVisualStyleBackColor = true;
 			this.btnAllega.Click += new System.EventHandler(this.btnAllega_Click);
 			// 
-			// openFileDialog1
+			// _openFileDialog1
 			// 
 			this._openFileDialog1.Title = "Selezione documento";
 			// 
 			// chkWebDefault
 			// 
-			this.chkWebDefault.Location = new System.Drawing.Point(490, 79);
+			this.chkWebDefault.Location = new System.Drawing.Point(490, 149);
 			this.chkWebDefault.Name = "chkWebDefault";
 			this.chkWebDefault.Size = new System.Drawing.Size(64, 16);
 			this.chkWebDefault.TabIndex = 89;
 			this.chkWebDefault.Tag = "itinerationrefundattachment.active:S:N";
 			this.chkWebDefault.Text = "Attivo";
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.cmbTipoAllegato);
+			this.groupBox2.Location = new System.Drawing.Point(12, 12);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(542, 58);
+			this.groupBox2.TabIndex = 90;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Tipo di documento allegato";
+			// 
+			// cmbTipoAllegato
+			// 
+			this.cmbTipoAllegato.DataSource = this.DS.itinerationrefundattachmentkind;
+			this.cmbTipoAllegato.DisplayMember = "title";
+			this.cmbTipoAllegato.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipoAllegato.FormattingEnabled = true;
+			this.cmbTipoAllegato.Location = new System.Drawing.Point(18, 23);
+			this.cmbTipoAllegato.Name = "cmbTipoAllegato";
+			this.cmbTipoAllegato.Size = new System.Drawing.Size(502, 21);
+			this.cmbTipoAllegato.TabIndex = 0;
+			this.cmbTipoAllegato.Tag = "itinerationrefundattachment.iditinerationrefundattachmentkind";
+			this.cmbTipoAllegato.ValueMember = "iditinerationrefundattachmentkind";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			// 
 			// Frm_itinerationrefundattachment_single
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(580, 154);
+			this.ClientSize = new System.Drawing.Size(580, 217);
+			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.chkWebDefault);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnOk);
@@ -147,8 +174,9 @@ namespace itinerationrefundattachment_single {
 			this.Controls.Add(this.btnAllega);
 			this.Name = "Frm_itinerationrefundattachment_single";
 			this.Text = "Frm_itinerationrefundattachment_single";
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -163,5 +191,7 @@ namespace itinerationrefundattachment_single {
 		private System.Windows.Forms.OpenFileDialog _openFileDialog1;
 		public DataSet1 DS;
 		private System.Windows.Forms.CheckBox chkWebDefault;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.ComboBox cmbTipoAllegato;
 	}
 }

@@ -7,7 +7,6 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idareadidattica" type="xs:int" minOccurs="0" />
               <xs:element name="idsasd" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -87,6 +86,7 @@
     <xs:unique name="sasdgruppodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sasdgruppodefaultview" />
       <xs:field xpath="mstns:idsasdgruppo" />
+      <xs:field xpath="mstns:idtipoattform" />
     </xs:unique>
     <xs:unique name="ambitoareadiscdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:ambitoareadiscdefaultview" />

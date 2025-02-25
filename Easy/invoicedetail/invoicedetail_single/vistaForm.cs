@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,102 +42,195 @@ namespace invoicedetail_single {
 public partial class dsmeta: DataSet {
 
 	#region Table members declaration
+	///<summary>
+	///Elenco aliquote
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public ivakindTable ivakind 		=> (ivakindTable)Tables["ivakind"];
 
+	///<summary>
+	///Dettaglio documento IVA
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicedetailTable invoicedetail 		=> (invoicedetailTable)Tables["invoicedetail"];
 
+	///<summary>
+	///Classificazione Movimenti
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting1 		=> (sortingTable)Tables["sorting1"];
 
+	///<summary>
+	///Classificazione Movimenti
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting2 		=> (sortingTable)Tables["sorting2"];
 
+	///<summary>
+	///Classificazione Movimenti
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting3 		=> (sortingTable)Tables["sorting3"];
 
+	///<summary>
+	///U.P.B.
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
+	///<summary>
+	///Tipo contratto passivo
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public mandatekindTable mandatekind 		=> (mandatekindTable)Tables["mandatekind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accmotiveappliedTable accmotiveapplied 		=> (accmotiveappliedTable)Tables["accmotiveapplied"];
 
+	///<summary>
+	///Tipo di Contratto attivo
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public estimatekindTable estimatekind 		=> (estimatekindTable)Tables["estimatekind"];
 
+	///<summary>
+	///Movimento di spesa
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenseTable expense_iva 		=> (expenseTable)Tables["expense_iva"];
 
+	///<summary>
+	///Movimento di spesa
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public expenseTable expense_taxable 		=> (expenseTable)Tables["expense_taxable"];
 
+	///<summary>
+	///Movimento di entrata
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomeTable income_iva 		=> (incomeTable)Tables["income_iva"];
 
+	///<summary>
+	///Movimento di entrata
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public incomeTable income_taxable 		=> (incomeTable)Tables["income_taxable"];
 
+	///<summary>
+	///Unit√† di misura supplementare
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatmeasure 		=> (MetaTable)Tables["intrastatmeasure"];
 
+	///<summary>
+	///Nomenclatura combinata
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatcode 		=> (MetaTable)Tables["intrastatcode"];
 
+	///<summary>
+	///Codice del servizio
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatservice 		=> (MetaTable)Tables["intrastatservice"];
 
+	///<summary>
+	/// Natura della transazione
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable intrastatsupplymethod 		=> (MetaTable)Tables["intrastatsupplymethod"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable listview 		=> (MetaTable)Tables["listview"];
 
+	///<summary>
+	/// Unit√† di Misura per l'acquisto
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable package 		=> (MetaTable)Tables["package"];
 
+	///<summary>
+	///Unit√† di Misura per il carico/scarico
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable unit 		=> (MetaTable)Tables["unit"];
 
+	///<summary>
+	///Classificazione Merceologica
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable listclass 		=> (MetaTable)Tables["listclass"];
 
+	///<summary>
+	///U.P.B.
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb_iva 		=> (upbTable)Tables["upb_iva"];
 
+	///<summary>
+	///Tipo di documento
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public invoicekindTable invoicekind 		=> (invoicekindTable)Tables["invoicekind"];
 
+	///<summary>
+	///Tipo Cessione / Prestazione per fattura elettronica
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fetransfer 		=> (MetaTable)Tables["fetransfer"];
 
+	///<summary>
+	///trattasi di valori codificati dalla PCC
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pccdebitmotive 		=> (MetaTable)Tables["pccdebitmotive"];
 
+	///<summary>
+	///trattasi di valori codificati dalla PCC
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable pccdebitstatus 		=> (MetaTable)Tables["pccdebitstatus"];
 
+	///<summary>
+	///Ripartizione dei costi
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costpartition 		=> (MetaTable)Tables["costpartition"];
 
+	///<summary>
+	///Impegno di Budget
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public epexpTable epexp 		=> (epexpTable)Tables["epexp"];
 
+	///<summary>
+	///dettagli di una fattura inseriti in liquidazione
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable invoicedetaildeferred 		=> (MetaTable)Tables["invoicedetaildeferred"];
 
+	///<summary>
+	///Accertamento di Budget
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epacc 		=> (MetaTable)Tables["epacc"];
 
+	///<summary>
+	///Causali finanziarie (gerarchia)
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable finmotive_income 		=> (MetaTable)Tables["finmotive_income"];
 
+	///<summary>
+	///Classificazione Movimenti
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting_siope 		=> (sortingTable)Tables["sorting_siope"];
 
+	///<summary>
+	///Impegno di Budget
+	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public epexpTable epexp_pre 		=> (epexpTable)Tables["epexp_pre"];
 
@@ -146,6 +239,12 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable finmotive_iva_income 		=> (MetaTable)Tables["finmotive_iva_income"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable apiendpoint 		=> (MetaTable)Tables["apiendpoint"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable app_config 		=> (MetaTable)Tables["app_config"];
 
 	#endregion
 
@@ -540,6 +639,33 @@ private void initClass() {
 	tfinmotive_iva_income.defineColumn("cu", typeof(string));
 	Tables.Add(tfinmotive_iva_income);
 	tfinmotive_iva_income.defineKey("idfinmotive");
+
+	//////////////////// APIENDPOINT /////////////////////////////////
+	var tapiendpoint= new MetaTable("apiendpoint");
+	tapiendpoint.defineColumn("apicode", typeof(string),false);
+	tapiendpoint.defineColumn("description", typeof(string));
+	tapiendpoint.defineColumn("url", typeof(string),false);
+	tapiendpoint.defineColumn("param", typeof(string));
+	tapiendpoint.defineColumn("ct", typeof(DateTime),false);
+	tapiendpoint.defineColumn("cu", typeof(string),false);
+	tapiendpoint.defineColumn("lt", typeof(DateTime),false);
+	tapiendpoint.defineColumn("lu", typeof(string),false);
+	tapiendpoint.defineColumn("flagapiendpoint", typeof(int));
+	Tables.Add(tapiendpoint);
+	tapiendpoint.defineKey("apicode");
+
+	//////////////////// APP_CONFIG /////////////////////////////////
+	var tapp_config= new MetaTable("app_config");
+	tapp_config.defineColumn("code", typeof(string),false);
+	tapp_config.defineColumn("description", typeof(string),false);
+	tapp_config.defineColumn("param", typeof(string),false);
+	tapp_config.defineColumn("ct", typeof(DateTime),false);
+	tapp_config.defineColumn("cu", typeof(string),false);
+	tapp_config.defineColumn("lt", typeof(DateTime),false);
+	tapp_config.defineColumn("lu", typeof(string),false);
+	tapp_config.defineColumn("flag", typeof(int));
+	Tables.Add(tapp_config);
+	tapp_config.defineKey("code");
 
 	#endregion
 

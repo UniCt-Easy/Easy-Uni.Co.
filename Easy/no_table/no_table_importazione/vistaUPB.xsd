@@ -87,6 +87,7 @@
               <xs:element name="idepupbkind" type="xs:int" minOccurs="0" />
               <xs:element name="cofogmpcode" type="xs:string" minOccurs="0" />
               <xs:element name="uesiopecode" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

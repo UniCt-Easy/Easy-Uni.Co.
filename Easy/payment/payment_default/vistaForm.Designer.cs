@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -49,6 +49,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable paymentattachment 		=> Tables["paymentattachment"];
 
 	#endregion
 
@@ -466,6 +469,25 @@ private void initClass() {
 	tconfig.PrimaryKey =  new DataColumn[]{tconfig.Columns["ayear"]};
 
 
+	//////////////////// PAYMENTATTACHMENT /////////////////////////////////
+	var tpaymentattachment= new DataTable("paymentattachment");
+	C= new DataColumn("kpay", typeof(int));
+	C.AllowDBNull=false;
+	tpaymentattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tpaymentattachment.Columns.Add(C);
+	tpaymentattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tpaymentattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tpaymentattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tpaymentattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tpaymentattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tpaymentattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tpaymentattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tpaymentattachment);
+	tpaymentattachment.PrimaryKey =  new DataColumn[]{tpaymentattachment.Columns["kpay"], tpaymentattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -489,6 +511,10 @@ private void initClass() {
 	cPar = new []{stamphandling.Columns["idstamphandling"]};
 	cChild = new []{payment.Columns["idstamphandling"]};
 	Relations.Add(new DataRelation("stamphandlingpayment",cPar,cChild,false));
+
+	cPar = new []{payment.Columns["kpay"]};
+	cChild = new []{paymentattachment.Columns["kpay"]};
+	Relations.Add(new DataRelation("payment_paymentattachment",cPar,cChild,false));
 
 	#endregion
 

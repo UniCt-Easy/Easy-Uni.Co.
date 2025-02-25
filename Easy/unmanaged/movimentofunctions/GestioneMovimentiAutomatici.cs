@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -434,22 +434,25 @@ namespace movimentofunctions {
 				/* RITENUTE -- IMPOSTAZIONE 2 */
 				if (employtaxkind == 2) {
 					if (totemploytax > 0) {
-						DataRow rAutomovS = tAutomov.NewRow();
-						rAutomovS["movkind"] = "Variazione Spesa";
-						rAutomovS["idman"] = DBNull.Value;
-						rAutomovS["idreg"] = DBNull.Value;
-						rAutomovS["idfin"] = DBNull.Value;
-						rAutomovS["idupb"] = DBNull.Value;
-						// Eventualmente questa riga deve essere riempita + tardi o la descrizione deve essere diversa
-						// in quanto nmov è un campo ad autoincremento
-						rAutomovS["description"] = "Ritenute "
-							+ " su pagamento eserc. " + ymov + " n. " + nmov;
-						rAutomovS["amount"] = - totemploytax;
-                        rAutomovS["autocode"] = DBNull.Value;
-                        rAutomovS["autokind"] = IDAUTOKIND_RITENUTA;
-					    rAutomovS["doc"] = rSpesa["doc"];
-					    rAutomovS["docdate"] = rSpesa["docdate"];
-                        tAutomov.Rows.Add(rAutomovS);
+						foreach (DataRow rTax in tTax.Select(QHS.IsNotNull("employtax"), "taxcode")) {
+							employtax = CfgFn.GetNoNullDecimal(rTax["employtax"]);
+
+							if (employtax == 0) continue;
+
+							DataRow rAutomovS = tAutomov.NewRow();
+							rAutomovS["movkind"] = "Variazione Spesa";
+							rAutomovS["idman"] = DBNull.Value;
+							rAutomovS["idreg"] = DBNull.Value;
+							rAutomovS["idfin"] = DBNull.Value;
+							rAutomovS["idupb"] = DBNull.Value;
+							rAutomovS["description"] = "Ritenuta " + rTax["description"] + " su pagamento eserc. " + ymov + " n. " + nmov;
+							rAutomovS["amount"] = -employtax;
+							rAutomovS["autocode"] = rTax["taxcode"];
+							rAutomovS["autokind"] = IDAUTOKIND_RITENUTA;
+							rAutomovS["doc"] = rSpesa["doc"];
+							rAutomovS["docdate"] = rSpesa["docdate"];
+							tAutomov.Rows.Add(rAutomovS);
+						}
 					}
 
 

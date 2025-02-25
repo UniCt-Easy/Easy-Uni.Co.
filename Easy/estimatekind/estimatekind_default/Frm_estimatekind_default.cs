@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -88,6 +88,11 @@ namespace estimatekind_default
         private RadioButton radioButton3;
         private RadioButton radioButton4;
         private TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabAllegati;
+		private System.Windows.Forms.DataGrid dataGridAllegati;
+		private System.Windows.Forms.Button btnDelAtt;
+		private System.Windows.Forms.Button btnEditAtt;
+		private System.Windows.Forms.Button btnInsAtt;
         private TabPage tabGenerale;
         private TabPage tabAttributi;
         private CheckBox checkBox3;
@@ -267,6 +272,11 @@ namespace estimatekind_default
 			this.label13 = new System.Windows.Forms.Label();
 			this.lblPercIndeduc = new System.Windows.Forms.Label();
 			this.txtPercIndeduc = new System.Windows.Forms.TextBox();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabGenerale.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
@@ -284,6 +294,8 @@ namespace estimatekind_default
 			this.tabPage2.SuspendLayout();
 			this.gBoxIvaKind.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label2
@@ -304,14 +316,14 @@ namespace estimatekind_default
 			// 
 			this.textBox2.Location = new System.Drawing.Point(0, 0);
 			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(100, 22);
+			this.textBox2.Size = new System.Drawing.Size(100, 20);
 			this.textBox2.TabIndex = 0;
 			// 
 			// textBox1
 			// 
 			this.textBox1.Location = new System.Drawing.Point(0, 0);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 22);
+			this.textBox1.Size = new System.Drawing.Size(100, 20);
 			this.textBox1.TabIndex = 0;
 			// 
 			// groupBox1
@@ -333,21 +345,21 @@ namespace estimatekind_default
 			// 
 			this.cmbUPB.Location = new System.Drawing.Point(0, 0);
 			this.cmbUPB.Name = "cmbUPB";
-			this.cmbUPB.Size = new System.Drawing.Size(121, 25);
+			this.cmbUPB.Size = new System.Drawing.Size(121, 21);
 			this.cmbUPB.TabIndex = 0;
 			// 
 			// textBox3
 			// 
 			this.textBox3.Location = new System.Drawing.Point(0, 0);
 			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(100, 22);
+			this.textBox3.Size = new System.Drawing.Size(100, 20);
 			this.textBox3.TabIndex = 0;
 			// 
 			// textBox7
 			// 
 			this.textBox7.Location = new System.Drawing.Point(0, 0);
 			this.textBox7.Name = "textBox7";
-			this.textBox7.Size = new System.Drawing.Size(100, 22);
+			this.textBox7.Size = new System.Drawing.Size(100, 20);
 			this.textBox7.TabIndex = 0;
 			// 
 			// label6
@@ -361,21 +373,21 @@ namespace estimatekind_default
 			// 
 			this.textBox6.Location = new System.Drawing.Point(0, 0);
 			this.textBox6.Name = "textBox6";
-			this.textBox6.Size = new System.Drawing.Size(100, 22);
+			this.textBox6.Size = new System.Drawing.Size(100, 20);
 			this.textBox6.TabIndex = 0;
 			// 
 			// textBox5
 			// 
 			this.textBox5.Location = new System.Drawing.Point(0, 0);
 			this.textBox5.Name = "textBox5";
-			this.textBox5.Size = new System.Drawing.Size(100, 22);
+			this.textBox5.Size = new System.Drawing.Size(100, 20);
 			this.textBox5.TabIndex = 0;
 			// 
 			// textBox4
 			// 
 			this.textBox4.Location = new System.Drawing.Point(0, 0);
 			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(100, 22);
+			this.textBox4.Size = new System.Drawing.Size(100, 20);
 			this.textBox4.TabIndex = 0;
 			// 
 			// label5
@@ -479,6 +491,7 @@ namespace estimatekind_default
 			this.tabControl1.Controls.Add(this.tabAttributi);
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -512,37 +525,37 @@ namespace estimatekind_default
 			this.tabGenerale.Controls.Add(this.textBox9);
 			this.tabGenerale.Controls.Add(this.textBox10);
 			this.tabGenerale.Controls.Add(this.label7);
-			this.tabGenerale.Location = new System.Drawing.Point(4, 25);
+			this.tabGenerale.Location = new System.Drawing.Point(4, 22);
 			this.tabGenerale.Name = "tabGenerale";
 			this.tabGenerale.Padding = new System.Windows.Forms.Padding(3);
-			this.tabGenerale.Size = new System.Drawing.Size(616, 546);
+			this.tabGenerale.Size = new System.Drawing.Size(616, 549);
 			this.tabGenerale.TabIndex = 0;
 			this.tabGenerale.Text = "Generale";
 			this.tabGenerale.UseVisualStyleBackColor = true;
 			// 
 			// checkBox5
 			// 
-			this.checkBox5.Location = new System.Drawing.Point(394, 318);
+			this.checkBox5.Location = new System.Drawing.Point(328, 276);
 			this.checkBox5.Name = "checkBox5";
-			this.checkBox5.Size = new System.Drawing.Size(336, 33);
+			this.checkBox5.Size = new System.Drawing.Size(280, 28);
 			this.checkBox5.TabIndex = 38;
 			this.checkBox5.Tag = "estimatekind.flag:2";
 			this.checkBox5.Text = "La reversale generata non filtra per anagrafica";
 			// 
 			// checkBox4
 			// 
-			this.checkBox4.Location = new System.Drawing.Point(394, 279);
+			this.checkBox4.Location = new System.Drawing.Point(328, 242);
 			this.checkBox4.Name = "checkBox4";
-			this.checkBox4.Size = new System.Drawing.Size(336, 33);
+			this.checkBox4.Size = new System.Drawing.Size(280, 28);
 			this.checkBox4.TabIndex = 37;
 			this.checkBox4.Tag = "estimatekind.flag:1";
 			this.checkBox4.Text = "Rimborso Prestazione(CU)";
 			// 
 			// chkFlag
 			// 
-			this.chkFlag.Location = new System.Drawing.Point(394, 240);
+			this.chkFlag.Location = new System.Drawing.Point(328, 208);
 			this.chkFlag.Name = "chkFlag";
-			this.chkFlag.Size = new System.Drawing.Size(336, 32);
+			this.chkFlag.Size = new System.Drawing.Size(280, 28);
 			this.chkFlag.TabIndex = 36;
 			this.chkFlag.Tag = "estimatekind.flag:0";
 			this.chkFlag.Text = "Accertamenti differiti nella fase incasso";
@@ -554,9 +567,9 @@ namespace estimatekind_default
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(12, 107);
+			this.gboxUPB.Location = new System.Drawing.Point(10, 93);
 			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(593, 126);
+			this.gboxUPB.Size = new System.Drawing.Size(598, 109);
 			this.gboxUPB.TabIndex = 35;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
@@ -565,9 +578,9 @@ namespace estimatekind_default
 			// 
 			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(4, 96);
+			this.txtUPB.Location = new System.Drawing.Point(3, 83);
 			this.txtUPB.Name = "txtUPB";
-			this.txtUPB.Size = new System.Drawing.Size(578, 22);
+			this.txtUPB.Size = new System.Drawing.Size(586, 20);
 			this.txtUPB.TabIndex = 6;
 			this.txtUPB.Tag = "upb.codeupb?x";
 			// 
@@ -575,11 +588,11 @@ namespace estimatekind_default
 			// 
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(168, 12);
+			this.txtDescrUPB.Location = new System.Drawing.Point(140, 10);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(414, 77);
+			this.txtDescrUPB.Size = new System.Drawing.Size(449, 67);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
@@ -589,9 +602,9 @@ namespace estimatekind_default
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(7, 66);
+			this.btnUPBCode.Location = new System.Drawing.Point(6, 57);
 			this.btnUPBCode.Name = "btnUPBCode";
-			this.btnUPBCode.Size = new System.Drawing.Size(135, 23);
+			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
 			this.btnUPBCode.Tag = " manage.upb.tree";
@@ -601,18 +614,18 @@ namespace estimatekind_default
 			// checkBox3
 			// 
 			this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBox3.Location = new System.Drawing.Point(353, 8);
+			this.checkBox3.Location = new System.Drawing.Point(294, 7);
 			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(116, 30);
+			this.checkBox3.Size = new System.Drawing.Size(97, 26);
 			this.checkBox3.TabIndex = 2;
 			this.checkBox3.Tag = "estimatekind.active:S:N";
 			this.checkBox3.Text = "Attivo";
 			// 
 			// label12
 			// 
-			this.label12.Location = new System.Drawing.Point(28, 12);
+			this.label12.Location = new System.Drawing.Point(23, 10);
 			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(74, 18);
+			this.label12.Size = new System.Drawing.Size(62, 16);
 			this.label12.TabIndex = 15;
 			this.label12.Text = "Codice:";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -621,45 +634,45 @@ namespace estimatekind_default
 			// 
 			this.groupBox20.Controls.Add(this.radioButton3);
 			this.groupBox20.Controls.Add(this.radioButton4);
-			this.groupBox20.Location = new System.Drawing.Point(11, 325);
+			this.groupBox20.Location = new System.Drawing.Point(9, 282);
 			this.groupBox20.Name = "groupBox20";
-			this.groupBox20.Size = new System.Drawing.Size(355, 65);
+			this.groupBox20.Size = new System.Drawing.Size(296, 56);
 			this.groupBox20.TabIndex = 9;
 			this.groupBox20.TabStop = false;
 			this.groupBox20.Text = "Numerazione dei contratti attivi";
 			// 
 			// radioButton3
 			// 
-			this.radioButton3.Location = new System.Drawing.Point(10, 18);
+			this.radioButton3.Location = new System.Drawing.Point(8, 16);
 			this.radioButton3.Name = "radioButton3";
-			this.radioButton3.Size = new System.Drawing.Size(115, 19);
+			this.radioButton3.Size = new System.Drawing.Size(96, 16);
 			this.radioButton3.TabIndex = 1;
 			this.radioButton3.Tag = "estimatekind.flag_autodocnumbering:N";
 			this.radioButton3.Text = "Manuale";
 			// 
 			// radioButton4
 			// 
-			this.radioButton4.Location = new System.Drawing.Point(10, 37);
+			this.radioButton4.Location = new System.Drawing.Point(8, 32);
 			this.radioButton4.Name = "radioButton4";
-			this.radioButton4.Size = new System.Drawing.Size(115, 18);
+			this.radioButton4.Size = new System.Drawing.Size(96, 16);
 			this.radioButton4.TabIndex = 2;
 			this.radioButton4.Tag = "estimatekind.flag_autodocnumbering:S";
 			this.radioButton4.Text = "Automatica";
 			// 
 			// label11
 			// 
-			this.label11.Location = new System.Drawing.Point(8, 48);
+			this.label11.Location = new System.Drawing.Point(7, 42);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(95, 15);
+			this.label11.Size = new System.Drawing.Size(79, 13);
 			this.label11.TabIndex = 16;
 			this.label11.Text = "Descrizione";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label23
 			// 
-			this.label23.Location = new System.Drawing.Point(236, 277);
+			this.label23.Location = new System.Drawing.Point(197, 240);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(135, 18);
+			this.label23.Size = new System.Drawing.Size(112, 16);
 			this.label23.TabIndex = 34;
 			this.label23.Text = "Importo Scostamento";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -668,126 +681,126 @@ namespace estimatekind_default
 			// 
 			this.textBox14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox14.Location = new System.Drawing.Point(110, 45);
+			this.textBox14.Location = new System.Drawing.Point(92, 39);
 			this.textBox14.Multiline = true;
 			this.textBox14.Name = "textBox14";
-			this.textBox14.Size = new System.Drawing.Size(495, 55);
+			this.textBox14.Size = new System.Drawing.Size(516, 48);
 			this.textBox14.TabIndex = 3;
 			this.textBox14.Tag = "estimatekind.description";
 			// 
 			// label22
 			// 
-			this.label22.Location = new System.Drawing.Point(246, 231);
+			this.label22.Location = new System.Drawing.Point(205, 200);
 			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(115, 18);
+			this.label22.Size = new System.Drawing.Size(96, 16);
 			this.label22.TabIndex = 0;
 			this.label22.Text = "% Scostamento";
 			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox13
 			// 
-			this.textBox13.Location = new System.Drawing.Point(110, 10);
+			this.textBox13.Location = new System.Drawing.Point(92, 9);
 			this.textBox13.Name = "textBox13";
-			this.textBox13.Size = new System.Drawing.Size(218, 22);
+			this.textBox13.Size = new System.Drawing.Size(181, 20);
 			this.textBox13.TabIndex = 1;
 			this.textBox13.Tag = "estimatekind.idestimkind";
 			// 
 			// txtDeltaPerc
 			// 
-			this.txtDeltaPerc.Location = new System.Drawing.Point(275, 249);
+			this.txtDeltaPerc.Location = new System.Drawing.Point(229, 216);
 			this.txtDeltaPerc.Name = "txtDeltaPerc";
-			this.txtDeltaPerc.Size = new System.Drawing.Size(86, 22);
+			this.txtDeltaPerc.Size = new System.Drawing.Size(72, 20);
 			this.txtDeltaPerc.TabIndex = 7;
 			this.txtDeltaPerc.Tag = "estimatekind.deltapercentage.fixed.4..%.100";
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(12, 393);
+			this.label10.Location = new System.Drawing.Point(10, 341);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(120, 19);
+			this.label10.Size = new System.Drawing.Size(100, 16);
 			this.label10.TabIndex = 20;
 			this.label10.Text = "Ufficio Emittente:";
 			// 
 			// txDeltaAmount
 			// 
-			this.txDeltaAmount.Location = new System.Drawing.Point(236, 295);
+			this.txDeltaAmount.Location = new System.Drawing.Point(197, 256);
 			this.txDeltaAmount.Name = "txDeltaAmount";
-			this.txDeltaAmount.Size = new System.Drawing.Size(125, 22);
+			this.txDeltaAmount.Size = new System.Drawing.Size(104, 20);
 			this.txDeltaAmount.TabIndex = 8;
 			this.txDeltaAmount.Tag = "estimatekind.deltaamount";
 			this.txDeltaAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label9
 			// 
-			this.label9.Location = new System.Drawing.Point(12, 440);
+			this.label9.Location = new System.Drawing.Point(10, 381);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(120, 18);
+			this.label9.Size = new System.Drawing.Size(100, 16);
 			this.label9.TabIndex = 21;
 			this.label9.Text = "Telefono:";
 			// 
 			// checkBox2
 			// 
-			this.checkBox2.Location = new System.Drawing.Point(16, 277);
+			this.checkBox2.Location = new System.Drawing.Point(13, 240);
 			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(172, 33);
+			this.checkBox2.Size = new System.Drawing.Size(144, 29);
 			this.checkBox2.TabIndex = 6;
 			this.checkBox2.Tag = "estimatekind.multireg:S:N";
 			this.checkBox2.Text = "Anagrafica nel dettaglio";
 			// 
 			// label8
 			// 
-			this.label8.Location = new System.Drawing.Point(208, 445);
+			this.label8.Location = new System.Drawing.Point(173, 386);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(120, 19);
+			this.label8.Size = new System.Drawing.Size(100, 16);
 			this.label8.TabIndex = 22;
 			this.label8.Text = "Fax:";
 			// 
 			// checkBox1
 			// 
-			this.checkBox1.Location = new System.Drawing.Point(16, 240);
+			this.checkBox1.Location = new System.Drawing.Point(13, 208);
 			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(153, 30);
+			this.checkBox1.Size = new System.Drawing.Size(128, 26);
 			this.checkBox1.TabIndex = 5;
 			this.checkBox1.Tag = "estimatekind.linktoinvoice:S:N";
 			this.checkBox1.Text = "Collegabile a fattura";
 			// 
 			// textBox12
 			// 
-			this.textBox12.Location = new System.Drawing.Point(12, 412);
+			this.textBox12.Location = new System.Drawing.Point(10, 357);
 			this.textBox12.Name = "textBox12";
-			this.textBox12.Size = new System.Drawing.Size(355, 22);
+			this.textBox12.Size = new System.Drawing.Size(296, 20);
 			this.textBox12.TabIndex = 10;
 			this.textBox12.Tag = "estimatekind.office";
 			// 
 			// textBox11
 			// 
-			this.textBox11.Location = new System.Drawing.Point(12, 458);
+			this.textBox11.Location = new System.Drawing.Point(10, 397);
 			this.textBox11.Name = "textBox11";
-			this.textBox11.Size = new System.Drawing.Size(154, 22);
+			this.textBox11.Size = new System.Drawing.Size(128, 20);
 			this.textBox11.TabIndex = 11;
 			this.textBox11.Tag = "estimatekind.phonenumber";
 			// 
 			// textBox9
 			// 
-			this.textBox9.Location = new System.Drawing.Point(12, 504);
+			this.textBox9.Location = new System.Drawing.Point(10, 437);
 			this.textBox9.Name = "textBox9";
-			this.textBox9.Size = new System.Drawing.Size(355, 22);
+			this.textBox9.Size = new System.Drawing.Size(296, 20);
 			this.textBox9.TabIndex = 13;
 			this.textBox9.Tag = "estimatekind.email";
 			// 
 			// textBox10
 			// 
-			this.textBox10.Location = new System.Drawing.Point(208, 464);
+			this.textBox10.Location = new System.Drawing.Point(173, 402);
 			this.textBox10.Name = "textBox10";
-			this.textBox10.Size = new System.Drawing.Size(153, 22);
+			this.textBox10.Size = new System.Drawing.Size(128, 20);
 			this.textBox10.TabIndex = 12;
 			this.textBox10.Tag = "estimatekind.faxnumber";
 			// 
 			// label7
 			// 
-			this.label7.Location = new System.Drawing.Point(12, 486);
+			this.label7.Location = new System.Drawing.Point(10, 421);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(120, 18);
+			this.label7.Size = new System.Drawing.Size(100, 16);
 			this.label7.TabIndex = 26;
 			this.label7.Text = "Email:";
 			// 
@@ -798,10 +811,10 @@ namespace estimatekind_default
 			this.tabAttributi.Controls.Add(this.gboxclass03);
 			this.tabAttributi.Controls.Add(this.gboxclass02);
 			this.tabAttributi.Controls.Add(this.gboxclass01);
-			this.tabAttributi.Location = new System.Drawing.Point(4, 25);
+			this.tabAttributi.Location = new System.Drawing.Point(4, 22);
 			this.tabAttributi.Name = "tabAttributi";
 			this.tabAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAttributi.Size = new System.Drawing.Size(616, 546);
+			this.tabAttributi.Size = new System.Drawing.Size(512, 472);
 			this.tabAttributi.TabIndex = 1;
 			this.tabAttributi.Text = "Attributi";
 			this.tabAttributi.UseVisualStyleBackColor = true;
@@ -813,9 +826,9 @@ namespace estimatekind_default
 			this.gboxclass05.Controls.Add(this.txtCodice05);
 			this.gboxclass05.Controls.Add(this.btnCodice05);
 			this.gboxclass05.Controls.Add(this.txtDenom05);
-			this.gboxclass05.Location = new System.Drawing.Point(10, 330);
+			this.gboxclass05.Location = new System.Drawing.Point(8, 286);
 			this.gboxclass05.Name = "gboxclass05";
-			this.gboxclass05.Size = new System.Drawing.Size(587, 74);
+			this.gboxclass05.Size = new System.Drawing.Size(489, 64);
 			this.gboxclass05.TabIndex = 33;
 			this.gboxclass05.TabStop = false;
 			this.gboxclass05.Tag = "";
@@ -823,16 +836,16 @@ namespace estimatekind_default
 			// 
 			// txtCodice05
 			// 
-			this.txtCodice05.Location = new System.Drawing.Point(11, 44);
+			this.txtCodice05.Location = new System.Drawing.Point(9, 38);
 			this.txtCodice05.Name = "txtCodice05";
-			this.txtCodice05.Size = new System.Drawing.Size(263, 22);
+			this.txtCodice05.Size = new System.Drawing.Size(219, 20);
 			this.txtCodice05.TabIndex = 6;
 			// 
 			// btnCodice05
 			// 
-			this.btnCodice05.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice05.Location = new System.Drawing.Point(8, 16);
 			this.btnCodice05.Name = "btnCodice05";
-			this.btnCodice05.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice05.Size = new System.Drawing.Size(88, 23);
 			this.btnCodice05.TabIndex = 4;
 			this.btnCodice05.Tag = "manage.sorting05.tree";
 			this.btnCodice05.Text = "Codice";
@@ -843,11 +856,11 @@ namespace estimatekind_default
 			this.txtDenom05.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom05.Location = new System.Drawing.Point(281, 9);
+			this.txtDenom05.Location = new System.Drawing.Point(234, 8);
 			this.txtDenom05.Multiline = true;
 			this.txtDenom05.Name = "txtDenom05";
 			this.txtDenom05.ReadOnly = true;
-			this.txtDenom05.Size = new System.Drawing.Size(297, 60);
+			this.txtDenom05.Size = new System.Drawing.Size(248, 52);
 			this.txtDenom05.TabIndex = 3;
 			this.txtDenom05.TabStop = false;
 			this.txtDenom05.Tag = "sorting05.description";
@@ -859,9 +872,9 @@ namespace estimatekind_default
 			this.gboxclass04.Controls.Add(this.txtCodice04);
 			this.gboxclass04.Controls.Add(this.btnCodice04);
 			this.gboxclass04.Controls.Add(this.txtDenom04);
-			this.gboxclass04.Location = new System.Drawing.Point(10, 249);
+			this.gboxclass04.Location = new System.Drawing.Point(8, 216);
 			this.gboxclass04.Name = "gboxclass04";
-			this.gboxclass04.Size = new System.Drawing.Size(587, 74);
+			this.gboxclass04.Size = new System.Drawing.Size(489, 64);
 			this.gboxclass04.TabIndex = 32;
 			this.gboxclass04.TabStop = false;
 			this.gboxclass04.Tag = "";
@@ -869,16 +882,16 @@ namespace estimatekind_default
 			// 
 			// txtCodice04
 			// 
-			this.txtCodice04.Location = new System.Drawing.Point(11, 44);
+			this.txtCodice04.Location = new System.Drawing.Point(9, 38);
 			this.txtCodice04.Name = "txtCodice04";
-			this.txtCodice04.Size = new System.Drawing.Size(263, 22);
+			this.txtCodice04.Size = new System.Drawing.Size(219, 20);
 			this.txtCodice04.TabIndex = 6;
 			// 
 			// btnCodice04
 			// 
-			this.btnCodice04.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice04.Location = new System.Drawing.Point(8, 16);
 			this.btnCodice04.Name = "btnCodice04";
-			this.btnCodice04.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice04.Size = new System.Drawing.Size(88, 23);
 			this.btnCodice04.TabIndex = 4;
 			this.btnCodice04.Tag = "manage.sorting04.tree";
 			this.btnCodice04.Text = "Codice";
@@ -889,11 +902,11 @@ namespace estimatekind_default
 			this.txtDenom04.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom04.Location = new System.Drawing.Point(281, 14);
+			this.txtDenom04.Location = new System.Drawing.Point(234, 12);
 			this.txtDenom04.Multiline = true;
 			this.txtDenom04.Name = "txtDenom04";
 			this.txtDenom04.ReadOnly = true;
-			this.txtDenom04.Size = new System.Drawing.Size(297, 53);
+			this.txtDenom04.Size = new System.Drawing.Size(248, 46);
 			this.txtDenom04.TabIndex = 3;
 			this.txtDenom04.TabStop = false;
 			this.txtDenom04.Tag = "sorting04.description";
@@ -905,9 +918,9 @@ namespace estimatekind_default
 			this.gboxclass03.Controls.Add(this.txtCodice03);
 			this.gboxclass03.Controls.Add(this.btnCodice03);
 			this.gboxclass03.Controls.Add(this.txtDenom03);
-			this.gboxclass03.Location = new System.Drawing.Point(10, 168);
+			this.gboxclass03.Location = new System.Drawing.Point(8, 146);
 			this.gboxclass03.Name = "gboxclass03";
-			this.gboxclass03.Size = new System.Drawing.Size(587, 74);
+			this.gboxclass03.Size = new System.Drawing.Size(489, 64);
 			this.gboxclass03.TabIndex = 30;
 			this.gboxclass03.TabStop = false;
 			this.gboxclass03.Tag = "";
@@ -915,16 +928,16 @@ namespace estimatekind_default
 			// 
 			// txtCodice03
 			// 
-			this.txtCodice03.Location = new System.Drawing.Point(10, 44);
+			this.txtCodice03.Location = new System.Drawing.Point(8, 38);
 			this.txtCodice03.Name = "txtCodice03";
-			this.txtCodice03.Size = new System.Drawing.Size(262, 22);
+			this.txtCodice03.Size = new System.Drawing.Size(219, 20);
 			this.txtCodice03.TabIndex = 6;
 			// 
 			// btnCodice03
 			// 
-			this.btnCodice03.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice03.Location = new System.Drawing.Point(8, 16);
 			this.btnCodice03.Name = "btnCodice03";
-			this.btnCodice03.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice03.Size = new System.Drawing.Size(88, 23);
 			this.btnCodice03.TabIndex = 4;
 			this.btnCodice03.Tag = "manage.sorting03.tree";
 			this.btnCodice03.Text = "Codice";
@@ -935,11 +948,11 @@ namespace estimatekind_default
 			this.txtDenom03.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom03.Location = new System.Drawing.Point(280, 9);
+			this.txtDenom03.Location = new System.Drawing.Point(233, 8);
 			this.txtDenom03.Multiline = true;
 			this.txtDenom03.Name = "txtDenom03";
 			this.txtDenom03.ReadOnly = true;
-			this.txtDenom03.Size = new System.Drawing.Size(298, 60);
+			this.txtDenom03.Size = new System.Drawing.Size(249, 52);
 			this.txtDenom03.TabIndex = 3;
 			this.txtDenom03.TabStop = false;
 			this.txtDenom03.Tag = "sorting03.description";
@@ -951,9 +964,9 @@ namespace estimatekind_default
 			this.gboxclass02.Controls.Add(this.txtCodice02);
 			this.gboxclass02.Controls.Add(this.btnCodice02);
 			this.gboxclass02.Controls.Add(this.txtDenom02);
-			this.gboxclass02.Location = new System.Drawing.Point(10, 88);
+			this.gboxclass02.Location = new System.Drawing.Point(8, 76);
 			this.gboxclass02.Name = "gboxclass02";
-			this.gboxclass02.Size = new System.Drawing.Size(587, 74);
+			this.gboxclass02.Size = new System.Drawing.Size(489, 64);
 			this.gboxclass02.TabIndex = 31;
 			this.gboxclass02.TabStop = false;
 			this.gboxclass02.Tag = "";
@@ -961,16 +974,16 @@ namespace estimatekind_default
 			// 
 			// txtCodice02
 			// 
-			this.txtCodice02.Location = new System.Drawing.Point(10, 44);
+			this.txtCodice02.Location = new System.Drawing.Point(8, 38);
 			this.txtCodice02.Name = "txtCodice02";
-			this.txtCodice02.Size = new System.Drawing.Size(262, 22);
+			this.txtCodice02.Size = new System.Drawing.Size(219, 20);
 			this.txtCodice02.TabIndex = 6;
 			// 
 			// btnCodice02
 			// 
-			this.btnCodice02.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice02.Location = new System.Drawing.Point(8, 16);
 			this.btnCodice02.Name = "btnCodice02";
-			this.btnCodice02.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice02.Size = new System.Drawing.Size(88, 23);
 			this.btnCodice02.TabIndex = 4;
 			this.btnCodice02.Tag = "manage.sorting02.tree";
 			this.btnCodice02.Text = "Codice";
@@ -981,11 +994,11 @@ namespace estimatekind_default
 			this.txtDenom02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom02.Location = new System.Drawing.Point(280, 9);
+			this.txtDenom02.Location = new System.Drawing.Point(233, 8);
 			this.txtDenom02.Multiline = true;
 			this.txtDenom02.Name = "txtDenom02";
 			this.txtDenom02.ReadOnly = true;
-			this.txtDenom02.Size = new System.Drawing.Size(298, 60);
+			this.txtDenom02.Size = new System.Drawing.Size(249, 52);
 			this.txtDenom02.TabIndex = 3;
 			this.txtDenom02.TabStop = false;
 			this.txtDenom02.Tag = "sorting02.description";
@@ -997,9 +1010,9 @@ namespace estimatekind_default
 			this.gboxclass01.Controls.Add(this.txtCodice01);
 			this.gboxclass01.Controls.Add(this.btnCodice01);
 			this.gboxclass01.Controls.Add(this.txtDenom01);
-			this.gboxclass01.Location = new System.Drawing.Point(10, 7);
+			this.gboxclass01.Location = new System.Drawing.Point(8, 6);
 			this.gboxclass01.Name = "gboxclass01";
-			this.gboxclass01.Size = new System.Drawing.Size(587, 74);
+			this.gboxclass01.Size = new System.Drawing.Size(489, 64);
 			this.gboxclass01.TabIndex = 29;
 			this.gboxclass01.TabStop = false;
 			this.gboxclass01.Tag = "";
@@ -1007,16 +1020,16 @@ namespace estimatekind_default
 			// 
 			// txtCodice01
 			// 
-			this.txtCodice01.Location = new System.Drawing.Point(8, 46);
+			this.txtCodice01.Location = new System.Drawing.Point(7, 40);
 			this.txtCodice01.Name = "txtCodice01";
-			this.txtCodice01.Size = new System.Drawing.Size(264, 22);
+			this.txtCodice01.Size = new System.Drawing.Size(220, 20);
 			this.txtCodice01.TabIndex = 5;
 			// 
 			// btnCodice01
 			// 
-			this.btnCodice01.Location = new System.Drawing.Point(10, 18);
+			this.btnCodice01.Location = new System.Drawing.Point(8, 16);
 			this.btnCodice01.Name = "btnCodice01";
-			this.btnCodice01.Size = new System.Drawing.Size(105, 27);
+			this.btnCodice01.Size = new System.Drawing.Size(88, 23);
 			this.btnCodice01.TabIndex = 4;
 			this.btnCodice01.Tag = "manage.sorting01.tree";
 			this.btnCodice01.Text = "Codice";
@@ -1027,11 +1040,11 @@ namespace estimatekind_default
 			this.txtDenom01.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenom01.Location = new System.Drawing.Point(280, 9);
+			this.txtDenom01.Location = new System.Drawing.Point(233, 8);
 			this.txtDenom01.Multiline = true;
 			this.txtDenom01.Name = "txtDenom01";
 			this.txtDenom01.ReadOnly = true;
-			this.txtDenom01.Size = new System.Drawing.Size(298, 60);
+			this.txtDenom01.Size = new System.Drawing.Size(249, 52);
 			this.txtDenom01.TabIndex = 3;
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
@@ -1039,10 +1052,10 @@ namespace estimatekind_default
 			// tabPage1
 			// 
 			this.tabPage1.Controls.Add(this.tabControlReport);
-			this.tabPage1.Location = new System.Drawing.Point(4, 25);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(616, 546);
+			this.tabPage1.Size = new System.Drawing.Size(512, 472);
 			this.tabPage1.TabIndex = 2;
 			this.tabPage1.Text = "Stampa";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -1053,19 +1066,19 @@ namespace estimatekind_default
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControlReport.Controls.Add(this.tabPage4);
 			this.tabControlReport.Controls.Add(this.tabPage5);
-			this.tabControlReport.Location = new System.Drawing.Point(10, 7);
+			this.tabControlReport.Location = new System.Drawing.Point(8, 6);
 			this.tabControlReport.Name = "tabControlReport";
 			this.tabControlReport.SelectedIndex = 0;
-			this.tabControlReport.Size = new System.Drawing.Size(595, 168);
+			this.tabControlReport.Size = new System.Drawing.Size(496, 146);
 			this.tabControlReport.TabIndex = 63;
 			// 
 			// tabPage4
 			// 
 			this.tabPage4.Controls.Add(this.textBox16);
-			this.tabPage4.Location = new System.Drawing.Point(4, 25);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(587, 139);
+			this.tabPage4.Size = new System.Drawing.Size(488, 120);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Intestazione Report";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -1078,17 +1091,17 @@ namespace estimatekind_default
 			this.textBox16.Multiline = true;
 			this.textBox16.Name = "textBox16";
 			this.textBox16.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox16.Size = new System.Drawing.Size(581, 133);
+			this.textBox16.Size = new System.Drawing.Size(482, 114);
 			this.textBox16.TabIndex = 39;
 			this.textBox16.Tag = "estimatekind.header";
 			// 
 			// tabPage5
 			// 
 			this.tabPage5.Controls.Add(this.textBox17);
-			this.tabPage5.Location = new System.Drawing.Point(4, 25);
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(712, 139);
+			this.tabPage5.Size = new System.Drawing.Size(488, 120);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "Indirizzo";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -1101,17 +1114,17 @@ namespace estimatekind_default
 			this.textBox17.Multiline = true;
 			this.textBox17.Name = "textBox17";
 			this.textBox17.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox17.Size = new System.Drawing.Size(706, 133);
+			this.textBox17.Size = new System.Drawing.Size(482, 114);
 			this.textBox17.TabIndex = 39;
 			this.textBox17.Tag = "estimatekind.address";
 			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.gBoxIvaKind);
-			this.tabPage2.Location = new System.Drawing.Point(4, 25);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(616, 546);
+			this.tabPage2.Size = new System.Drawing.Size(512, 472);
 			this.tabPage2.TabIndex = 3;
 			this.tabPage2.Text = "Iva";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -1124,18 +1137,18 @@ namespace estimatekind_default
 			this.gBoxIvaKind.Controls.Add(this.label13);
 			this.gBoxIvaKind.Controls.Add(this.lblPercIndeduc);
 			this.gBoxIvaKind.Controls.Add(this.txtPercIndeduc);
-			this.gBoxIvaKind.Location = new System.Drawing.Point(7, 22);
+			this.gBoxIvaKind.Location = new System.Drawing.Point(6, 19);
 			this.gBoxIvaKind.Name = "gBoxIvaKind";
-			this.gBoxIvaKind.Size = new System.Drawing.Size(517, 58);
+			this.gBoxIvaKind.Size = new System.Drawing.Size(431, 50);
 			this.gBoxIvaKind.TabIndex = 11;
 			this.gBoxIvaKind.TabStop = false;
 			this.gBoxIvaKind.Text = "Forza Tipo IVA";
 			// 
 			// btnTipo
 			// 
-			this.btnTipo.Location = new System.Drawing.Point(10, 27);
+			this.btnTipo.Location = new System.Drawing.Point(8, 23);
 			this.btnTipo.Name = "btnTipo";
-			this.btnTipo.Size = new System.Drawing.Size(76, 26);
+			this.btnTipo.Size = new System.Drawing.Size(64, 23);
 			this.btnTipo.TabIndex = 7;
 			this.btnTipo.TabStop = false;
 			this.btnTipo.Tag = "choose.ivakind.default";
@@ -1147,9 +1160,9 @@ namespace estimatekind_default
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbTipoIVA.DataSource = this.DS.ivakind;
 			this.cmbTipoIVA.DisplayMember = "description";
-			this.cmbTipoIVA.Location = new System.Drawing.Point(96, 27);
+			this.cmbTipoIVA.Location = new System.Drawing.Point(80, 23);
 			this.cmbTipoIVA.Name = "cmbTipoIVA";
-			this.cmbTipoIVA.Size = new System.Drawing.Size(181, 24);
+			this.cmbTipoIVA.Size = new System.Drawing.Size(151, 21);
 			this.cmbTipoIVA.TabIndex = 1;
 			this.cmbTipoIVA.Tag = "estimatekind.idivakind_forced";
 			this.cmbTipoIVA.ValueMember = "idivakind";
@@ -1163,10 +1176,10 @@ namespace estimatekind_default
 			// txtIva
 			// 
 			this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtIva.Location = new System.Drawing.Point(287, 28);
+			this.txtIva.Location = new System.Drawing.Point(239, 24);
 			this.txtIva.Name = "txtIva";
 			this.txtIva.ReadOnly = true;
-			this.txtIva.Size = new System.Drawing.Size(86, 22);
+			this.txtIva.Size = new System.Drawing.Size(72, 20);
 			this.txtIva.TabIndex = 2;
 			this.txtIva.TabStop = false;
 			this.txtIva.Tag = "ivakind.rate.fixed.4..%.100";
@@ -1175,9 +1188,9 @@ namespace estimatekind_default
 			// label13
 			// 
 			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label13.Location = new System.Drawing.Point(287, 9);
+			this.label13.Location = new System.Drawing.Point(239, 8);
 			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(86, 19);
+			this.label13.Size = new System.Drawing.Size(72, 16);
 			this.label13.TabIndex = 35;
 			this.label13.Text = "Aliquota";
 			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1185,9 +1198,9 @@ namespace estimatekind_default
 			// lblPercIndeduc
 			// 
 			this.lblPercIndeduc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblPercIndeduc.Location = new System.Drawing.Point(392, 9);
+			this.lblPercIndeduc.Location = new System.Drawing.Point(327, 8);
 			this.lblPercIndeduc.Name = "lblPercIndeduc";
-			this.lblPercIndeduc.Size = new System.Drawing.Size(106, 19);
+			this.lblPercIndeduc.Size = new System.Drawing.Size(88, 16);
 			this.lblPercIndeduc.TabIndex = 39;
 			this.lblPercIndeduc.Text = "% Indetraibilità";
 			this.lblPercIndeduc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1195,18 +1208,73 @@ namespace estimatekind_default
 			// txtPercIndeduc
 			// 
 			this.txtPercIndeduc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtPercIndeduc.Location = new System.Drawing.Point(392, 28);
+			this.txtPercIndeduc.Location = new System.Drawing.Point(327, 24);
 			this.txtPercIndeduc.Name = "txtPercIndeduc";
 			this.txtPercIndeduc.ReadOnly = true;
-			this.txtPercIndeduc.Size = new System.Drawing.Size(106, 22);
+			this.txtPercIndeduc.Size = new System.Drawing.Size(88, 20);
 			this.txtPercIndeduc.TabIndex = 3;
 			this.txtPercIndeduc.TabStop = false;
 			this.txtPercIndeduc.Tag = "ivakind.unabatabilitypercentage.fixed.4..%.100";
 			this.txtPercIndeduc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(512, 472);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(6, 36);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(501, 435);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "estimatekindattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(165, 6);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(68, 24);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(85, 6);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(69, 24);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(6, 6);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(67, 24);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// Frm_estimatekind_default
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(624, 575);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_estimatekind_default";
@@ -1238,6 +1306,8 @@ namespace estimatekind_default
 			this.gBoxIvaKind.ResumeLayout(false);
 			this.gBoxIvaKind.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}

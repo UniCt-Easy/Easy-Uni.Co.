@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,9 @@ using funzioni_configurazione;//funzioni_configurazione
 using ep_functions;
 using System.Collections.Generic;
 using q = metadatalibrary.MetaExpression;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace mandatedetail_single//dettordinegenericosingle//
 {
@@ -68,8 +71,6 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		private System.Windows.Forms.Button btnClassif;
 		private System.Windows.Forms.TextBox txtCodClassif;
 		private System.Windows.Forms.TextBox txtDescClassif;
-		private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.TextBox txtResiduo;
@@ -127,8 +128,6 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		private System.Windows.Forms.TextBox txtTaxRate;
 		private System.Windows.Forms.TextBox txtCredDeb;
 		private System.Windows.Forms.GroupBox grpRegistry;
-		private System.Windows.Forms.TextBox txtStart;
-		private System.Windows.Forms.TextBox txtStop;
 		private System.Windows.Forms.GroupBox grpTipoBene;
 		private System.Windows.Forms.GroupBox grpCausale;
 		private System.Windows.Forms.Button btnCalcoloSconto;
@@ -233,12 +232,15 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		private TextBox txtPagato;
 		private TabPage tabPrincipale;
 		MetaData Meta;
-
+		private TextBox txtStart;
+		private Label label5;
+		private TextBox txtStop;
+		private Label label2;
+		object AV; // Acquisto/Vendita (seleziona il contesto dei codici SIOPE, sempre A in questo caso)
 		public Frm_mandatedetail_single()
 		{
 			InitializeComponent();
-
-			
+			AV = "A"; // ACQUISTO
 		}
 		
 		/// <summary>
@@ -294,10 +296,6 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.radioServizi = new System.Windows.Forms.RadioButton();
 			this.radioInvent = new System.Windows.Forms.RadioButton();
 			this.radioNonInvent = new System.Windows.Forms.RadioButton();
-			this.label2 = new System.Windows.Forms.Label();
-			this.txtStart = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
-			this.txtStop = new System.Windows.Forms.TextBox();
 			this.gboxIVA = new System.Windows.Forms.GroupBox();
 			this.txtNumeroIva = new System.Windows.Forms.TextBox();
 			this.txtEsercizioIva = new System.Windows.Forms.TextBox();
@@ -316,34 +314,17 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
-			this.grpRegistry = new System.Windows.Forms.GroupBox();
-			this.txtCredDeb = new System.Windows.Forms.TextBox();
-			this.gboxListino = new System.Windows.Forms.GroupBox();
+			this.txtStart = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtStop = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.txtPrezzounitarioListino = new System.Windows.Forms.TextBox();
 			this.label26 = new System.Windows.Forms.Label();
-			this.txtCoeffConversione = new System.Windows.Forms.TextBox();
-			this.label20 = new System.Windows.Forms.Label();
-			this.cmbUnitaMisuraAcquisto = new System.Windows.Forms.ComboBox();
-			this.lblIcmbdpackage = new System.Windows.Forms.Label();
-			this.label25 = new System.Windows.Forms.Label();
-			this.cmbUnitaMisuraCS = new System.Windows.Forms.ComboBox();
-			this.chkListDescription = new System.Windows.Forms.CheckBox();
-			this.btnListino = new System.Windows.Forms.Button();
-			this.txtListino = new System.Windows.Forms.TextBox();
-			this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
 			this.txtQuantitaConfezioni = new System.Windows.Forms.TextBox();
 			this.lblidpackage = new System.Windows.Forms.Label();
-			this.chkPromiscuo = new System.Windows.Forms.CheckBox();
 			this.btnSuggerimento = new System.Windows.Forms.Button();
 			this.gboxPagato = new System.Windows.Forms.GroupBox();
 			this.txtPagato = new System.Windows.Forms.TextBox();
-			this.grpAttivita = new System.Windows.Forms.GroupBox();
-			this.rdbPromiscua = new System.Windows.Forms.RadioButton();
-			this.rdbCommerciale = new System.Windows.Forms.RadioButton();
-			this.rdbQualsiasi = new System.Windows.Forms.RadioButton();
-			this.rdbIstituzionale = new System.Windows.Forms.RadioButton();
-			this.textBox6 = new System.Windows.Forms.TextBox();
-			this.label17 = new System.Windows.Forms.Label();
 			this.grpTipoIva = new System.Windows.Forms.GroupBox();
 			this.btnTipo = new System.Windows.Forms.Button();
 			this.cmbTipoIVA = new System.Windows.Forms.ComboBox();
@@ -351,6 +332,13 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label21 = new System.Windows.Forms.Label();
 			this.label22 = new System.Windows.Forms.Label();
 			this.txtPercIndeduc = new System.Windows.Forms.TextBox();
+			this.grpAttivita = new System.Windows.Forms.GroupBox();
+			this.rdbPromiscua = new System.Windows.Forms.RadioButton();
+			this.rdbCommerciale = new System.Windows.Forms.RadioButton();
+			this.rdbQualsiasi = new System.Windows.Forms.RadioButton();
+			this.rdbIstituzionale = new System.Windows.Forms.RadioButton();
+			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.label17 = new System.Windows.Forms.Label();
 			this.btnCalcoloSconto = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.gBoxupbIVA = new System.Windows.Forms.GroupBox();
@@ -394,7 +382,6 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtDescUbicazione = new System.Windows.Forms.TextBox();
 			this.txtUbicazione = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.btnRemoveEpAcc = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.btnScollegaPreimpegno = new System.Windows.Forms.Button();
 			this.btnCollegaPreimpegno = new System.Windows.Forms.Button();
@@ -402,14 +389,15 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label24 = new System.Windows.Forms.Label();
 			this.txtNumPreimpegno = new System.Windows.Forms.TextBox();
 			this.txtEsercPreImpegno = new System.Windows.Forms.TextBox();
-			this.btnLinkEpAcc = new System.Windows.Forms.Button();
 			this.grpBoxSiopeEP = new System.Windows.Forms.GroupBox();
 			this.btnSiope = new System.Windows.Forms.Button();
 			this.txtDescSiope = new System.Windows.Forms.TextBox();
 			this.txtCodSiope = new System.Windows.Forms.TextBox();
 			this.grpBoxAccertamentiBudget = new System.Windows.Forms.GroupBox();
+			this.btnRemoveEpAcc = new System.Windows.Forms.Button();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
+			this.btnLinkEpAcc = new System.Windows.Forms.Button();
 			this.txtNumAccBudget = new System.Windows.Forms.TextBox();
 			this.txtEsercAccBudget = new System.Windows.Forms.TextBox();
 			this.grpBoxImpegniBudget = new System.Windows.Forms.GroupBox();
@@ -447,6 +435,20 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtCausale = new System.Windows.Forms.TextBox();
 			this.label30 = new System.Windows.Forms.Label();
 			this.cmbStatodelDebito = new System.Windows.Forms.ComboBox();
+			this.grpRegistry = new System.Windows.Forms.GroupBox();
+			this.txtCredDeb = new System.Windows.Forms.TextBox();
+			this.gboxListino = new System.Windows.Forms.GroupBox();
+			this.txtCoeffConversione = new System.Windows.Forms.TextBox();
+			this.label20 = new System.Windows.Forms.Label();
+			this.cmbUnitaMisuraAcquisto = new System.Windows.Forms.ComboBox();
+			this.lblIcmbdpackage = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.cmbUnitaMisuraCS = new System.Windows.Forms.ComboBox();
+			this.chkListDescription = new System.Windows.Forms.CheckBox();
+			this.btnListino = new System.Windows.Forms.Button();
+			this.txtListino = new System.Windows.Forms.TextBox();
+			this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
+			this.chkPromiscuo = new System.Windows.Forms.CheckBox();
 			this.btnCodice = new System.Windows.Forms.Button();
 			this.grpValoreUnitInValuta.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -458,11 +460,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
-			this.grpRegistry.SuspendLayout();
-			this.gboxListino.SuspendLayout();
 			this.gboxPagato.SuspendLayout();
-			this.grpAttivita.SuspendLayout();
 			this.grpTipoIva.SuspendLayout();
+			this.grpAttivita.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.gBoxupbIVA.SuspendLayout();
 			this.tabAnalitico.SuspendLayout();
@@ -489,21 +489,23 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPCC.SuspendLayout();
 			this.grpPcc.SuspendLayout();
 			this.grpNaturadiSpesa.SuspendLayout();
+			this.grpRegistry.SuspendLayout();
+			this.gboxListino.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// txtDescrizione
 			// 
-			this.txtDescrizione.Location = new System.Drawing.Point(7, 76);
+			this.txtDescrizione.Location = new System.Drawing.Point(18, 69);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
 			this.txtDescrizione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDescrizione.Size = new System.Drawing.Size(472, 69);
+			this.txtDescrizione.Size = new System.Drawing.Size(406, 69);
 			this.txtDescrizione.TabIndex = 2;
 			this.txtDescrizione.Tag = "mandatedetail.detaildescription";
 			// 
 			// label6
 			// 
-			this.label6.Location = new System.Drawing.Point(7, 62);
+			this.label6.Location = new System.Drawing.Point(18, 55);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(72, 14);
 			this.label6.TabIndex = 0;
@@ -513,7 +515,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// btnOK
 			// 
 			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOK.Location = new System.Drawing.Point(810, 541);
+			this.btnOK.Location = new System.Drawing.Point(731, 517);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(75, 23);
 			this.btnOK.TabIndex = 11;
@@ -524,7 +526,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// btnAnnulla
 			// 
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnAnnulla.Location = new System.Drawing.Point(908, 541);
+			this.btnAnnulla.Location = new System.Drawing.Point(812, 517);
 			this.btnAnnulla.Name = "btnAnnulla";
 			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
 			this.btnAnnulla.TabIndex = 12;
@@ -534,19 +536,19 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// lblidunit
 			// 
 			this.lblidunit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.lblidunit.Location = new System.Drawing.Point(126, 255);
+			this.lblidunit.Location = new System.Drawing.Point(148, 76);
 			this.lblidunit.Name = "lblidunit";
-			this.lblidunit.Size = new System.Drawing.Size(131, 16);
+			this.lblidunit.Size = new System.Drawing.Size(145, 16);
 			this.lblidunit.TabIndex = 16;
-			this.lblidunit.Text = "Totale Quantit‡ Ordinata:";
+			this.lblidunit.Text = "Totale Quantit√† Ordinata:";
 			this.lblidunit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtQuantita
 			// 
-			this.txtQuantita.Location = new System.Drawing.Point(129, 270);
+			this.txtQuantita.Location = new System.Drawing.Point(151, 91);
 			this.txtQuantita.Name = "txtQuantita";
 			this.txtQuantita.ReadOnly = true;
-			this.txtQuantita.Size = new System.Drawing.Size(88, 20);
+			this.txtQuantita.Size = new System.Drawing.Size(124, 20);
 			this.txtQuantita.TabIndex = 31;
 			this.txtQuantita.TabStop = false;
 			this.txtQuantita.Tag = "mandatedetail.number.N";
@@ -560,7 +562,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpValoreUnitInValuta.Controls.Add(this.txtImponibile);
 			this.grpValoreUnitInValuta.Controls.Add(this.label16);
 			this.grpValoreUnitInValuta.Controls.Add(this.lblImportoUnitario);
-			this.grpValoreUnitInValuta.Location = new System.Drawing.Point(437, 315);
+			this.grpValoreUnitInValuta.Location = new System.Drawing.Point(432, 76);
 			this.grpValoreUnitInValuta.Name = "grpValoreUnitInValuta";
 			this.grpValoreUnitInValuta.Size = new System.Drawing.Size(287, 66);
 			this.grpValoreUnitInValuta.TabIndex = 8;
@@ -630,7 +632,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.groupBox2.Controls.Add(this.txtImponibileEUR);
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Location = new System.Drawing.Point(437, 243);
+			this.groupBox2.Location = new System.Drawing.Point(432, 7);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(287, 66);
 			this.groupBox2.TabIndex = 6;
@@ -639,7 +641,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtImpDeducEUR
 			// 
-			this.txtImpDeducEUR.Location = new System.Drawing.Point(184, 30);
+			this.txtImpDeducEUR.Location = new System.Drawing.Point(184, 38);
 			this.txtImpDeducEUR.Name = "txtImpDeducEUR";
 			this.txtImpDeducEUR.Size = new System.Drawing.Size(88, 20);
 			this.txtImpDeducEUR.TabIndex = 3;
@@ -648,7 +650,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label23
 			// 
-			this.label23.Location = new System.Drawing.Point(184, 14);
+			this.label23.Location = new System.Drawing.Point(184, 22);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(88, 16);
 			this.label23.TabIndex = 48;
@@ -657,7 +659,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtIvaEUR
 			// 
-			this.txtIvaEUR.Location = new System.Drawing.Point(104, 30);
+			this.txtIvaEUR.Location = new System.Drawing.Point(104, 38);
 			this.txtIvaEUR.Name = "txtIvaEUR";
 			this.txtIvaEUR.Size = new System.Drawing.Size(72, 20);
 			this.txtIvaEUR.TabIndex = 2;
@@ -667,7 +669,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtImponibileEUR
 			// 
-			this.txtImponibileEUR.Location = new System.Drawing.Point(8, 30);
+			this.txtImponibileEUR.Location = new System.Drawing.Point(8, 38);
 			this.txtImponibileEUR.Name = "txtImponibileEUR";
 			this.txtImponibileEUR.ReadOnly = true;
 			this.txtImponibileEUR.Size = new System.Drawing.Size(88, 20);
@@ -677,7 +679,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(104, 14);
+			this.label3.Location = new System.Drawing.Point(104, 22);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(56, 16);
 			this.label3.TabIndex = 35;
@@ -686,7 +688,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(8, 14);
+			this.label4.Location = new System.Drawing.Point(8, 22);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(64, 16);
 			this.label4.TabIndex = 34;
@@ -698,11 +700,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtAppunti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtAppunti.Location = new System.Drawing.Point(6, 21);
+			this.txtAppunti.Location = new System.Drawing.Point(6, 3);
 			this.txtAppunti.Multiline = true;
 			this.txtAppunti.Name = "txtAppunti";
 			this.txtAppunti.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtAppunti.Size = new System.Drawing.Size(949, 470);
+			this.txtAppunti.Size = new System.Drawing.Size(886, 302);
 			this.txtAppunti.TabIndex = 19;
 			this.txtAppunti.Tag = "mandatedetail.annotations";
 			// 
@@ -808,52 +810,13 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.radioNonInvent.Tag = "mandatedetail.assetkind:P";
 			this.radioNonInvent.Text = "Aumento di valore";
 			// 
-			// label2
-			// 
-			this.label2.Location = new System.Drawing.Point(70, 306);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(448, 16);
-			this.label2.TabIndex = 17;
-			this.label2.Text = "Data contabile (da inserire se questo dettaglio non era presente nel contratto or" +
-    "iginale)";
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtStart
-			// 
-			this.txtStart.Location = new System.Drawing.Point(524, 302);
-			this.txtStart.Name = "txtStart";
-			this.txtStart.Size = new System.Drawing.Size(104, 20);
-			this.txtStart.TabIndex = 5;
-			this.txtStart.Tag = "mandatedetail.start";
-			this.txtStart.Leave += new System.EventHandler(this.txtStart_Leave);
-			// 
-			// label5
-			// 
-			this.label5.Location = new System.Drawing.Point(35, 330);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(483, 16);
-			this.label5.TabIndex = 19;
-			this.label5.Text = "Data annullamento (da inserire se il dettaglio Ë stato annullato o sostituito da " +
-    "un altro dettaglio)";
-			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtStop
-			// 
-			this.txtStop.Location = new System.Drawing.Point(524, 326);
-			this.txtStop.Name = "txtStop";
-			this.txtStop.ReadOnly = true;
-			this.txtStop.Size = new System.Drawing.Size(104, 20);
-			this.txtStop.TabIndex = 6;
-			this.txtStop.Tag = "mandatedetail.stop";
-			this.txtStop.Leave += new System.EventHandler(this.txtStop_Leave);
-			// 
 			// gboxIVA
 			// 
 			this.gboxIVA.Controls.Add(this.txtNumeroIva);
 			this.gboxIVA.Controls.Add(this.txtEsercizioIva);
-			this.gboxIVA.Location = new System.Drawing.Point(326, 227);
+			this.gboxIVA.Location = new System.Drawing.Point(277, 141);
 			this.gboxIVA.Name = "gboxIVA";
-			this.gboxIVA.Size = new System.Drawing.Size(214, 45);
+			this.gboxIVA.Size = new System.Drawing.Size(260, 49);
 			this.gboxIVA.TabIndex = 4;
 			this.gboxIVA.TabStop = false;
 			this.gboxIVA.Text = "Contabilizzazione IVA in finanziario";
@@ -880,16 +843,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label9
 			// 
-			this.label9.Location = new System.Drawing.Point(8, 27);
+			this.label9.Location = new System.Drawing.Point(8, 7);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(152, 17);
 			this.label9.TabIndex = 21;
-			this.label9.Text = "Quantit‡ inserita in fatture:";
+			this.label9.Text = "Quantit√† inserita in fatture:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtNInvoiced
 			// 
-			this.txtNInvoiced.Location = new System.Drawing.Point(11, 44);
+			this.txtNInvoiced.Location = new System.Drawing.Point(11, 24);
 			this.txtNInvoiced.Name = "txtNInvoiced";
 			this.txtNInvoiced.ReadOnly = true;
 			this.txtNInvoiced.Size = new System.Drawing.Size(100, 20);
@@ -899,7 +862,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(163, 27);
+			this.label10.Location = new System.Drawing.Point(163, 7);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(120, 17);
 			this.label10.TabIndex = 23;
@@ -908,7 +871,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtResiduo
 			// 
-			this.txtResiduo.Location = new System.Drawing.Point(166, 44);
+			this.txtResiduo.Location = new System.Drawing.Point(166, 24);
 			this.txtResiduo.Name = "txtResiduo";
 			this.txtResiduo.ReadOnly = true;
 			this.txtResiduo.Size = new System.Drawing.Size(100, 20);
@@ -919,16 +882,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			this.gboxImponibile.Controls.Add(this.txtNumImponibile);
 			this.gboxImponibile.Controls.Add(this.txtEsercizioImponibile);
-			this.gboxImponibile.Location = new System.Drawing.Point(326, 156);
+			this.gboxImponibile.Location = new System.Drawing.Point(11, 140);
 			this.gboxImponibile.Name = "gboxImponibile";
-			this.gboxImponibile.Size = new System.Drawing.Size(214, 66);
+			this.gboxImponibile.Size = new System.Drawing.Size(260, 49);
 			this.gboxImponibile.TabIndex = 3;
 			this.gboxImponibile.TabStop = false;
 			this.gboxImponibile.Text = "Contabilizzazione imponibile in finanziario";
 			// 
 			// txtNumImponibile
 			// 
-			this.txtNumImponibile.Location = new System.Drawing.Point(63, 31);
+			this.txtNumImponibile.Location = new System.Drawing.Point(63, 20);
 			this.txtNumImponibile.Name = "txtNumImponibile";
 			this.txtNumImponibile.ReadOnly = true;
 			this.txtNumImponibile.Size = new System.Drawing.Size(64, 20);
@@ -938,7 +901,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtEsercizioImponibile
 			// 
-			this.txtEsercizioImponibile.Location = new System.Drawing.Point(8, 31);
+			this.txtEsercizioImponibile.Location = new System.Drawing.Point(8, 20);
 			this.txtEsercizioImponibile.Name = "txtEsercizioImponibile";
 			this.txtEsercizioImponibile.ReadOnly = true;
 			this.txtEsercizioImponibile.Size = new System.Drawing.Size(40, 20);
@@ -951,7 +914,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.btnUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
-			this.gboxUPB.Location = new System.Drawing.Point(4, 27);
+			this.gboxUPB.Location = new System.Drawing.Point(11, 15);
 			this.gboxUPB.Name = "gboxUPB";
 			this.gboxUPB.Size = new System.Drawing.Size(316, 124);
 			this.gboxUPB.TabIndex = 1;
@@ -1020,86 +983,82 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabControl1.Controls.Add(this.tabMagazzino);
 			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Controls.Add(this.tabPCC);
-			this.tabControl1.Location = new System.Drawing.Point(14, 12);
+			this.tabControl1.Location = new System.Drawing.Point(12, 174);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(969, 523);
+			this.tabControl1.Size = new System.Drawing.Size(906, 337);
 			this.tabControl1.TabIndex = 10;
 			this.tabControl1.TabStop = false;
 			// 
 			// tabPrincipale
 			// 
 			this.tabPrincipale.BackColor = System.Drawing.SystemColors.Control;
-			this.tabPrincipale.Controls.Add(this.grpRegistry);
-			this.tabPrincipale.Controls.Add(this.gboxListino);
+			this.tabPrincipale.Controls.Add(this.txtStart);
+			this.tabPrincipale.Controls.Add(this.label5);
+			this.tabPrincipale.Controls.Add(this.txtStop);
+			this.tabPrincipale.Controls.Add(this.label2);
+			this.tabPrincipale.Controls.Add(this.txtPrezzounitarioListino);
+			this.tabPrincipale.Controls.Add(this.label26);
 			this.tabPrincipale.Controls.Add(this.txtQuantitaConfezioni);
-			this.tabPrincipale.Controls.Add(this.txtDescrizione);
 			this.tabPrincipale.Controls.Add(this.lblidpackage);
-			this.tabPrincipale.Controls.Add(this.chkPromiscuo);
-			this.tabPrincipale.Controls.Add(this.label6);
 			this.tabPrincipale.Controls.Add(this.btnSuggerimento);
 			this.tabPrincipale.Controls.Add(this.gboxPagato);
 			this.tabPrincipale.Controls.Add(this.txtQuantita);
+			this.tabPrincipale.Controls.Add(this.grpTipoIva);
 			this.tabPrincipale.Controls.Add(this.grpAttivita);
 			this.tabPrincipale.Controls.Add(this.grpValoreUnitInValuta);
 			this.tabPrincipale.Controls.Add(this.lblidunit);
 			this.tabPrincipale.Controls.Add(this.textBox6);
 			this.tabPrincipale.Controls.Add(this.label17);
 			this.tabPrincipale.Controls.Add(this.groupBox2);
-			this.tabPrincipale.Controls.Add(this.grpTipoIva);
 			this.tabPrincipale.Controls.Add(this.btnCalcoloSconto);
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
 			this.tabPrincipale.Name = "tabPrincipale";
 			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPrincipale.Size = new System.Drawing.Size(961, 497);
+			this.tabPrincipale.Size = new System.Drawing.Size(898, 311);
 			this.tabPrincipale.TabIndex = 8;
 			this.tabPrincipale.Text = "Principale";
 			// 
-			// grpRegistry
+			// txtStart
 			// 
-			this.grpRegistry.Controls.Add(this.txtCredDeb);
-			this.grpRegistry.Location = new System.Drawing.Point(6, 10);
-			this.grpRegistry.Name = "grpRegistry";
-			this.grpRegistry.Size = new System.Drawing.Size(473, 41);
-			this.grpRegistry.TabIndex = 1;
-			this.grpRegistry.TabStop = false;
-			this.grpRegistry.Tag = "AutoChoose.txtCredDeb.default.(active=\'S\')";
-			this.grpRegistry.Text = "Fornitore";
+			this.txtStart.Location = new System.Drawing.Point(12, 222);
+			this.txtStart.Name = "txtStart";
+			this.txtStart.Size = new System.Drawing.Size(104, 20);
+			this.txtStart.TabIndex = 61;
+			this.txtStart.Tag = "mandatedetail.start";
 			// 
-			// txtCredDeb
+			// label5
 			// 
-			this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCredDeb.Location = new System.Drawing.Point(6, 16);
-			this.txtCredDeb.Name = "txtCredDeb";
-			this.txtCredDeb.Size = new System.Drawing.Size(461, 20);
-			this.txtCredDeb.TabIndex = 6;
-			this.txtCredDeb.Tag = "registrymainview.title?mandatedetailview.registry";
+			this.label5.Location = new System.Drawing.Point(9, 249);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(483, 16);
+			this.label5.TabIndex = 64;
+			this.label5.Text = "Data annullamento (da inserire se il dettaglio √® stato annullato o sostituito da " +
+    "un altro dettaglio)";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// gboxListino
+			// txtStop
 			// 
-			this.gboxListino.Controls.Add(this.txtPrezzounitarioListino);
-			this.gboxListino.Controls.Add(this.label26);
-			this.gboxListino.Controls.Add(this.txtCoeffConversione);
-			this.gboxListino.Controls.Add(this.label20);
-			this.gboxListino.Controls.Add(this.cmbUnitaMisuraAcquisto);
-			this.gboxListino.Controls.Add(this.lblIcmbdpackage);
-			this.gboxListino.Controls.Add(this.label25);
-			this.gboxListino.Controls.Add(this.cmbUnitaMisuraCS);
-			this.gboxListino.Controls.Add(this.chkListDescription);
-			this.gboxListino.Controls.Add(this.btnListino);
-			this.gboxListino.Controls.Add(this.txtListino);
-			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
-			this.gboxListino.Location = new System.Drawing.Point(486, 10);
-			this.gboxListino.Name = "gboxListino";
-			this.gboxListino.Size = new System.Drawing.Size(463, 214);
-			this.gboxListino.TabIndex = 3;
-			this.gboxListino.TabStop = false;
-			this.gboxListino.Tag = "";
+			this.txtStop.Location = new System.Drawing.Point(12, 275);
+			this.txtStop.Name = "txtStop";
+			this.txtStop.ReadOnly = true;
+			this.txtStop.Size = new System.Drawing.Size(104, 20);
+			this.txtStop.TabIndex = 62;
+			this.txtStop.Tag = "mandatedetail.stop";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(9, 197);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(448, 16);
+			this.label2.TabIndex = 63;
+			this.label2.Text = "Data contabile (da inserire se questo dettaglio non era presente nel contratto or" +
+    "iginale)";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtPrezzounitarioListino
 			// 
-			this.txtPrezzounitarioListino.Location = new System.Drawing.Point(306, 178);
+			this.txtPrezzounitarioListino.Location = new System.Drawing.Point(299, 91);
 			this.txtPrezzounitarioListino.Name = "txtPrezzounitarioListino";
 			this.txtPrezzounitarioListino.ReadOnly = true;
 			this.txtPrezzounitarioListino.Size = new System.Drawing.Size(118, 20);
@@ -1108,135 +1067,18 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label26
 			// 
-			this.label26.Location = new System.Drawing.Point(303, 160);
+			this.label26.Location = new System.Drawing.Point(300, 75);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(94, 16);
+			this.label26.Size = new System.Drawing.Size(117, 16);
 			this.label26.TabIndex = 36;
 			this.label26.Text = "Prezzo unitario";
 			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// txtCoeffConversione
-			// 
-			this.txtCoeffConversione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCoeffConversione.Location = new System.Drawing.Point(306, 87);
-			this.txtCoeffConversione.Name = "txtCoeffConversione";
-			this.txtCoeffConversione.ReadOnly = true;
-			this.txtCoeffConversione.Size = new System.Drawing.Size(85, 20);
-			this.txtCoeffConversione.TabIndex = 8;
-			this.txtCoeffConversione.TabStop = false;
-			this.txtCoeffConversione.Tag = "mandatedetail.unitsforpackage?x";
-			// 
-			// label20
-			// 
-			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(303, 73);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(107, 13);
-			this.label20.TabIndex = 22;
-			this.label20.Text = "Coeff. di conversione";
-			// 
-			// cmbUnitaMisuraAcquisto
-			// 
-			this.cmbUnitaMisuraAcquisto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbUnitaMisuraAcquisto.DataSource = this.DS.package;
-			this.cmbUnitaMisuraAcquisto.DisplayMember = "description";
-			this.cmbUnitaMisuraAcquisto.Enabled = false;
-			this.cmbUnitaMisuraAcquisto.FormattingEnabled = true;
-			this.cmbUnitaMisuraAcquisto.Location = new System.Drawing.Point(306, 37);
-			this.cmbUnitaMisuraAcquisto.Name = "cmbUnitaMisuraAcquisto";
-			this.cmbUnitaMisuraAcquisto.Size = new System.Drawing.Size(118, 21);
-			this.cmbUnitaMisuraAcquisto.TabIndex = 7;
-			this.cmbUnitaMisuraAcquisto.Tag = "mandatedetail.idpackage";
-			this.cmbUnitaMisuraAcquisto.ValueMember = "idpackage";
-			// 
-			// lblIcmbdpackage
-			// 
-			this.lblIcmbdpackage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblIcmbdpackage.AutoSize = true;
-			this.lblIcmbdpackage.Location = new System.Drawing.Point(303, 23);
-			this.lblIcmbdpackage.Name = "lblIcmbdpackage";
-			this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
-			this.lblIcmbdpackage.TabIndex = 21;
-			this.lblIcmbdpackage.Text = "U.t‡ di misura imballo";
-			// 
-			// label25
-			// 
-			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(304, 116);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(71, 13);
-			this.label25.TabIndex = 23;
-			this.label25.Text = "U.t‡ di misura";
-			// 
-			// cmbUnitaMisuraCS
-			// 
-			this.cmbUnitaMisuraCS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbUnitaMisuraCS.DataSource = this.DS.unit;
-			this.cmbUnitaMisuraCS.DisplayMember = "description";
-			this.cmbUnitaMisuraCS.Enabled = false;
-			this.cmbUnitaMisuraCS.FormattingEnabled = true;
-			this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(306, 130);
-			this.cmbUnitaMisuraCS.Name = "cmbUnitaMisuraCS";
-			this.cmbUnitaMisuraCS.Size = new System.Drawing.Size(118, 21);
-			this.cmbUnitaMisuraCS.TabIndex = 9;
-			this.cmbUnitaMisuraCS.Tag = "mandatedetail.idunit";
-			this.cmbUnitaMisuraCS.ValueMember = "idunit";
-			// 
-			// chkListDescription
-			// 
-			this.chkListDescription.Location = new System.Drawing.Point(11, 11);
-			this.chkListDescription.Name = "chkListDescription";
-			this.chkListDescription.Size = new System.Drawing.Size(277, 20);
-			this.chkListDescription.TabIndex = 4;
-			this.chkListDescription.TabStop = false;
-			this.chkListDescription.Text = "Fitra per Descrizione/Class.Merceologica";
-			// 
-			// btnListino
-			// 
-			this.btnListino.BackColor = System.Drawing.SystemColors.Control;
-			this.btnListino.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnListino.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnListino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnListino.ImageIndex = 0;
-			this.btnListino.Location = new System.Drawing.Point(6, 75);
-			this.btnListino.Name = "btnListino";
-			this.btnListino.Size = new System.Drawing.Size(57, 23);
-			this.btnListino.TabIndex = 1;
-			this.btnListino.TabStop = false;
-			this.btnListino.Tag = "";
-			this.btnListino.Text = "Listino";
-			this.btnListino.UseVisualStyleBackColor = false;
-			this.btnListino.Click += new System.EventHandler(this.btnListino_Click);
-			// 
-			// txtListino
-			// 
-			this.txtListino.Location = new System.Drawing.Point(6, 104);
-			this.txtListino.Name = "txtListino";
-			this.txtListino.Size = new System.Drawing.Size(269, 20);
-			this.txtListino.TabIndex = 6;
-			this.txtListino.Tag = "";
-			this.txtListino.TextChanged += new System.EventHandler(this.txtListino_TextChanged);
-			this.txtListino.Enter += new System.EventHandler(this.txtListino_Enter);
-			this.txtListino.Leave += new System.EventHandler(this.txtListino_Leave);
-			// 
-			// txtDescrizioneListino
-			// 
-			this.txtDescrizioneListino.Location = new System.Drawing.Point(76, 37);
-			this.txtDescrizioneListino.Multiline = true;
-			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
-			this.txtDescrizioneListino.ReadOnly = true;
-			this.txtDescrizioneListino.Size = new System.Drawing.Size(199, 61);
-			this.txtDescrizioneListino.TabIndex = 9;
-			this.txtDescrizioneListino.TabStop = false;
-			this.txtDescrizioneListino.Tag = "";
-			// 
 			// txtQuantitaConfezioni
 			// 
-			this.txtQuantitaConfezioni.Location = new System.Drawing.Point(6, 270);
+			this.txtQuantitaConfezioni.Location = new System.Drawing.Point(12, 91);
 			this.txtQuantitaConfezioni.Name = "txtQuantitaConfezioni";
-			this.txtQuantitaConfezioni.Size = new System.Drawing.Size(88, 20);
+			this.txtQuantitaConfezioni.Size = new System.Drawing.Size(113, 20);
 			this.txtQuantitaConfezioni.TabIndex = 4;
 			this.txtQuantitaConfezioni.Tag = "mandatedetail.npackage.N";
 			this.txtQuantitaConfezioni.Leave += new System.EventHandler(this.txtNumConfezioni_Leave);
@@ -1245,28 +1087,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			this.lblidpackage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.lblidpackage.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.lblidpackage.Location = new System.Drawing.Point(5, 254);
+			this.lblidpackage.Location = new System.Drawing.Point(11, 75);
 			this.lblidpackage.Name = "lblidpackage";
-			this.lblidpackage.Size = new System.Drawing.Size(53, 16);
+			this.lblidpackage.Size = new System.Drawing.Size(114, 16);
 			this.lblidpackage.TabIndex = 27;
-			this.lblidpackage.Text = "Quantit‡";
+			this.lblidpackage.Text = "Quantit√†";
 			this.lblidpackage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// chkPromiscuo
-			// 
-			this.chkPromiscuo.ForeColor = System.Drawing.Color.DarkRed;
-			this.chkPromiscuo.Location = new System.Drawing.Point(310, 266);
-			this.chkPromiscuo.Name = "chkPromiscuo";
-			this.chkPromiscuo.Size = new System.Drawing.Size(80, 24);
-			this.chkPromiscuo.TabIndex = 30;
-			this.chkPromiscuo.TabStop = false;
-			this.chkPromiscuo.Tag = "mandatedetail.flagmixed:S:N";
-			this.chkPromiscuo.Text = "Promiscuo";
-			this.chkPromiscuo.Visible = false;
 			// 
 			// btnSuggerimento
 			// 
-			this.btnSuggerimento.Location = new System.Drawing.Point(6, 402);
+			this.btnSuggerimento.Location = new System.Drawing.Point(510, 193);
 			this.btnSuggerimento.Name = "btnSuggerimento";
 			this.btnSuggerimento.Size = new System.Drawing.Size(162, 40);
 			this.btnSuggerimento.TabIndex = 32;
@@ -1276,9 +1106,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// gboxPagato
 			// 
 			this.gboxPagato.Controls.Add(this.txtPagato);
-			this.gboxPagato.Location = new System.Drawing.Point(730, 243);
+			this.gboxPagato.Location = new System.Drawing.Point(725, 7);
 			this.gboxPagato.Name = "gboxPagato";
-			this.gboxPagato.Size = new System.Drawing.Size(225, 66);
+			this.gboxPagato.Size = new System.Drawing.Size(166, 66);
 			this.gboxPagato.TabIndex = 33;
 			this.gboxPagato.TabStop = false;
 			this.gboxPagato.Text = "Pagato";
@@ -1288,9 +1118,90 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtPagato.Location = new System.Drawing.Point(6, 30);
 			this.txtPagato.Name = "txtPagato";
 			this.txtPagato.ReadOnly = true;
-			this.txtPagato.Size = new System.Drawing.Size(213, 20);
+			this.txtPagato.Size = new System.Drawing.Size(154, 20);
 			this.txtPagato.TabIndex = 0;
 			this.txtPagato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// grpTipoIva
+			// 
+			this.grpTipoIva.Controls.Add(this.btnTipo);
+			this.grpTipoIva.Controls.Add(this.cmbTipoIVA);
+			this.grpTipoIva.Controls.Add(this.txtTaxRate);
+			this.grpTipoIva.Controls.Add(this.label21);
+			this.grpTipoIva.Controls.Add(this.label22);
+			this.grpTipoIva.Controls.Add(this.txtPercIndeduc);
+			this.grpTipoIva.Location = new System.Drawing.Point(12, 7);
+			this.grpTipoIva.Name = "grpTipoIva";
+			this.grpTipoIva.Size = new System.Drawing.Size(414, 65);
+			this.grpTipoIva.TabIndex = 5;
+			this.grpTipoIva.TabStop = false;
+			// 
+			// btnTipo
+			// 
+			this.btnTipo.Location = new System.Drawing.Point(6, 12);
+			this.btnTipo.Name = "btnTipo";
+			this.btnTipo.Size = new System.Drawing.Size(64, 23);
+			this.btnTipo.TabIndex = 7;
+			this.btnTipo.TabStop = false;
+			this.btnTipo.Tag = "choose.ivakind.default";
+			this.btnTipo.Text = "Tipo IVA";
+			// 
+			// cmbTipoIVA
+			// 
+			this.cmbTipoIVA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbTipoIVA.DataSource = this.DS.ivakind;
+			this.cmbTipoIVA.DisplayMember = "description";
+			this.cmbTipoIVA.Location = new System.Drawing.Point(6, 38);
+			this.cmbTipoIVA.Name = "cmbTipoIVA";
+			this.cmbTipoIVA.Size = new System.Drawing.Size(262, 21);
+			this.cmbTipoIVA.TabIndex = 2;
+			this.cmbTipoIVA.Tag = "mandatedetail.idivakind";
+			this.cmbTipoIVA.ValueMember = "idivakind";
+			// 
+			// txtTaxRate
+			// 
+			this.txtTaxRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTaxRate.Location = new System.Drawing.Point(273, 39);
+			this.txtTaxRate.Name = "txtTaxRate";
+			this.txtTaxRate.ReadOnly = true;
+			this.txtTaxRate.Size = new System.Drawing.Size(60, 20);
+			this.txtTaxRate.TabIndex = 2;
+			this.txtTaxRate.TabStop = false;
+			this.txtTaxRate.Tag = "mandatedetail.taxrate.fixed.4..%.100";
+			this.txtTaxRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label21
+			// 
+			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label21.Location = new System.Drawing.Point(271, 23);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(53, 16);
+			this.label21.TabIndex = 35;
+			this.label21.Text = "Aliquota";
+			this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label22
+			// 
+			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label22.Location = new System.Drawing.Point(330, 23);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(83, 16);
+			this.label22.TabIndex = 39;
+			this.label22.Text = "% Indetraibilit√†";
+			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// txtPercIndeduc
+			// 
+			this.txtPercIndeduc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtPercIndeduc.Location = new System.Drawing.Point(338, 39);
+			this.txtPercIndeduc.Name = "txtPercIndeduc";
+			this.txtPercIndeduc.ReadOnly = true;
+			this.txtPercIndeduc.Size = new System.Drawing.Size(70, 20);
+			this.txtPercIndeduc.TabIndex = 3;
+			this.txtPercIndeduc.TabStop = false;
+			this.txtPercIndeduc.Tag = "ivakind.unabatabilitypercentage.fixed.4..%.100";
+			this.txtPercIndeduc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// grpAttivita
 			// 
@@ -1298,12 +1209,12 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpAttivita.Controls.Add(this.rdbCommerciale);
 			this.grpAttivita.Controls.Add(this.rdbQualsiasi);
 			this.grpAttivita.Controls.Add(this.rdbIstituzionale);
-			this.grpAttivita.Location = new System.Drawing.Point(730, 315);
+			this.grpAttivita.Location = new System.Drawing.Point(725, 76);
 			this.grpAttivita.Name = "grpAttivita";
-			this.grpAttivita.Size = new System.Drawing.Size(186, 93);
+			this.grpAttivita.Size = new System.Drawing.Size(167, 93);
 			this.grpAttivita.TabIndex = 9;
 			this.grpAttivita.TabStop = false;
-			this.grpAttivita.Text = "Attivit‡";
+			this.grpAttivita.Text = "Attivit√†";
 			// 
 			// rdbPromiscua
 			// 
@@ -1347,109 +1258,28 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// textBox6
 			// 
-			this.textBox6.Location = new System.Drawing.Point(7, 328);
+			this.textBox6.Location = new System.Drawing.Point(9, 141);
 			this.textBox6.Multiline = true;
 			this.textBox6.Name = "textBox6";
 			this.textBox6.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBox6.Size = new System.Drawing.Size(424, 53);
+			this.textBox6.Size = new System.Drawing.Size(412, 53);
 			this.textBox6.TabIndex = 7;
 			this.textBox6.Tag = "mandatedetail.ivanotes";
 			// 
 			// label17
 			// 
-			this.label17.Location = new System.Drawing.Point(7, 310);
+			this.label17.Location = new System.Drawing.Point(11, 119);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(142, 23);
 			this.label17.TabIndex = 0;
-			this.label17.Text = "Note sull\'IVA del dettaglio:";
+			this.label17.Text = "Note della Richiesta:";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// grpTipoIva
-			// 
-			this.grpTipoIva.Controls.Add(this.btnTipo);
-			this.grpTipoIva.Controls.Add(this.cmbTipoIVA);
-			this.grpTipoIva.Controls.Add(this.txtTaxRate);
-			this.grpTipoIva.Controls.Add(this.label21);
-			this.grpTipoIva.Controls.Add(this.label22);
-			this.grpTipoIva.Controls.Add(this.txtPercIndeduc);
-			this.grpTipoIva.Location = new System.Drawing.Point(6, 156);
-			this.grpTipoIva.Name = "grpTipoIva";
-			this.grpTipoIva.Size = new System.Drawing.Size(474, 68);
-			this.grpTipoIva.TabIndex = 5;
-			this.grpTipoIva.TabStop = false;
-			// 
-			// btnTipo
-			// 
-			this.btnTipo.Location = new System.Drawing.Point(6, 13);
-			this.btnTipo.Name = "btnTipo";
-			this.btnTipo.Size = new System.Drawing.Size(64, 23);
-			this.btnTipo.TabIndex = 7;
-			this.btnTipo.TabStop = false;
-			this.btnTipo.Tag = "choose.ivakind.default";
-			this.btnTipo.Text = "Tipo IVA";
-			// 
-			// cmbTipoIVA
-			// 
-			this.cmbTipoIVA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbTipoIVA.DataSource = this.DS.ivakind;
-			this.cmbTipoIVA.DisplayMember = "description";
-			this.cmbTipoIVA.Location = new System.Drawing.Point(6, 39);
-			this.cmbTipoIVA.Name = "cmbTipoIVA";
-			this.cmbTipoIVA.Size = new System.Drawing.Size(322, 21);
-			this.cmbTipoIVA.TabIndex = 2;
-			this.cmbTipoIVA.Tag = "mandatedetail.idivakind";
-			this.cmbTipoIVA.ValueMember = "idivakind";
-			// 
-			// txtTaxRate
-			// 
-			this.txtTaxRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTaxRate.Location = new System.Drawing.Point(333, 40);
-			this.txtTaxRate.Name = "txtTaxRate";
-			this.txtTaxRate.ReadOnly = true;
-			this.txtTaxRate.Size = new System.Drawing.Size(60, 20);
-			this.txtTaxRate.TabIndex = 2;
-			this.txtTaxRate.TabStop = false;
-			this.txtTaxRate.Tag = "mandatedetail.taxrate.fixed.4..%.100";
-			this.txtTaxRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label21
-			// 
-			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label21.Location = new System.Drawing.Point(331, 24);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(53, 16);
-			this.label21.TabIndex = 35;
-			this.label21.Text = "Aliquota";
-			this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label22
-			// 
-			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label22.Location = new System.Drawing.Point(390, 24);
-			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(83, 16);
-			this.label22.TabIndex = 39;
-			this.label22.Text = "% Indetraibilit‡";
-			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// txtPercIndeduc
-			// 
-			this.txtPercIndeduc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtPercIndeduc.Location = new System.Drawing.Point(398, 40);
-			this.txtPercIndeduc.Name = "txtPercIndeduc";
-			this.txtPercIndeduc.ReadOnly = true;
-			this.txtPercIndeduc.Size = new System.Drawing.Size(70, 20);
-			this.txtPercIndeduc.TabIndex = 3;
-			this.txtPercIndeduc.TabStop = false;
-			this.txtPercIndeduc.Tag = "ivakind.unabatabilitypercentage.fixed.4..%.100";
-			this.txtPercIndeduc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// btnCalcoloSconto
 			// 
-			this.btnCalcoloSconto.Location = new System.Drawing.Point(10, 463);
+			this.btnCalcoloSconto.Location = new System.Drawing.Point(511, 239);
 			this.btnCalcoloSconto.Name = "btnCalcoloSconto";
-			this.btnCalcoloSconto.Size = new System.Drawing.Size(125, 28);
+			this.btnCalcoloSconto.Size = new System.Drawing.Size(161, 36);
 			this.btnCalcoloSconto.TabIndex = 60;
 			this.btnCalcoloSconto.Text = "Calcolo Sconto";
 			this.btnCalcoloSconto.Visible = false;
@@ -1465,13 +1295,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPage1.Controls.Add(this.gboxUPB);
 			this.tabPage1.Controls.Add(this.gboxImponibile);
 			this.tabPage1.Controls.Add(this.gboxIVA);
-			this.tabPage1.Controls.Add(this.txtStart);
-			this.tabPage1.Controls.Add(this.label5);
-			this.tabPage1.Controls.Add(this.txtStop);
-			this.tabPage1.Controls.Add(this.label2);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(961, 497);
+			this.tabPage1.Size = new System.Drawing.Size(898, 311);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Finanziario";
 			// 
@@ -1481,9 +1307,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.gBoxupbIVA.Controls.Add(this.label14);
 			this.gBoxupbIVA.Controls.Add(this.buttonupbIVA);
 			this.gBoxupbIVA.Controls.Add(this.textBox3);
-			this.gBoxupbIVA.Location = new System.Drawing.Point(326, 25);
+			this.gBoxupbIVA.Location = new System.Drawing.Point(333, 13);
 			this.gBoxupbIVA.Name = "gBoxupbIVA";
-			this.gBoxupbIVA.Size = new System.Drawing.Size(302, 126);
+			this.gBoxupbIVA.Size = new System.Drawing.Size(320, 126);
 			this.gBoxupbIVA.TabIndex = 61;
 			this.gBoxupbIVA.TabStop = false;
 			this.gBoxupbIVA.Tag = "AutoChoose.txtUPBiva.default.(active=\'S\')";
@@ -1495,7 +1321,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUPBiva.Location = new System.Drawing.Point(9, 100);
 			this.txtUPBiva.Name = "txtUPBiva";
-			this.txtUPBiva.Size = new System.Drawing.Size(287, 20);
+			this.txtUPBiva.Size = new System.Drawing.Size(305, 20);
 			this.txtUPBiva.TabIndex = 7;
 			this.txtUPBiva.Tag = "upb_iva.codeupb?x";
 			// 
@@ -1514,7 +1340,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.buttonupbIVA.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.buttonupbIVA.Location = new System.Drawing.Point(10, 77);
 			this.buttonupbIVA.Name = "buttonupbIVA";
-			this.buttonupbIVA.Size = new System.Drawing.Size(76, 20);
+			this.buttonupbIVA.Size = new System.Drawing.Size(115, 20);
 			this.buttonupbIVA.TabIndex = 5;
 			this.buttonupbIVA.TabStop = false;
 			this.buttonupbIVA.Tag = "manage.upb_iva.tree";
@@ -1526,11 +1352,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox3.Location = new System.Drawing.Point(112, 16);
+			this.textBox3.Location = new System.Drawing.Point(131, 16);
 			this.textBox3.Multiline = true;
 			this.textBox3.Name = "textBox3";
 			this.textBox3.ReadOnly = true;
-			this.textBox3.Size = new System.Drawing.Size(185, 78);
+			this.textBox3.Size = new System.Drawing.Size(184, 78);
 			this.textBox3.TabIndex = 4;
 			this.textBox3.TabStop = false;
 			this.textBox3.Tag = "upb_iva.title";
@@ -1538,14 +1364,14 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// cmbCIG
 			// 
 			this.cmbCIG.FormattingEnabled = true;
-			this.cmbCIG.Location = new System.Drawing.Point(11, 173);
+			this.cmbCIG.Location = new System.Drawing.Point(552, 217);
 			this.cmbCIG.Name = "cmbCIG";
 			this.cmbCIG.Size = new System.Drawing.Size(188, 21);
 			this.cmbCIG.TabIndex = 60;
 			// 
 			// lblcig
 			// 
-			this.lblcig.Location = new System.Drawing.Point(10, 156);
+			this.lblcig.Location = new System.Drawing.Point(551, 200);
 			this.lblcig.Name = "lblcig";
 			this.lblcig.Size = new System.Drawing.Size(173, 19);
 			this.lblcig.TabIndex = 59;
@@ -1555,7 +1381,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label18
 			// 
-			this.label18.Location = new System.Drawing.Point(10, 211);
+			this.label18.Location = new System.Drawing.Point(551, 248);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(170, 16);
 			this.label18.TabIndex = 23;
@@ -1564,7 +1390,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtCupCode
 			// 
-			this.txtCupCode.Location = new System.Drawing.Point(11, 228);
+			this.txtCupCode.Location = new System.Drawing.Point(552, 265);
 			this.txtCupCode.Name = "txtCupCode";
 			this.txtCupCode.Size = new System.Drawing.Size(188, 20);
 			this.txtCupCode.TabIndex = 2;
@@ -1578,7 +1404,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(961, 497);
+			this.tabAnalitico.Size = new System.Drawing.Size(898, 311);
 			this.tabAnalitico.TabIndex = 3;
 			this.tabAnalitico.Text = "Analitico";
 			// 
@@ -1633,9 +1459,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.gboxclass3.Controls.Add(this.btnCodice3);
 			this.gboxclass3.Controls.Add(this.txtDenom3);
 			this.gboxclass3.Controls.Add(this.txtCodice3);
-			this.gboxclass3.Location = new System.Drawing.Point(3, 101);
+			this.gboxclass3.Location = new System.Drawing.Point(8, 96);
 			this.gboxclass3.Name = "gboxclass3";
-			this.gboxclass3.Size = new System.Drawing.Size(409, 97);
+			this.gboxclass3.Size = new System.Drawing.Size(404, 97);
 			this.gboxclass3.TabIndex = 3;
 			this.gboxclass3.TabStop = false;
 			this.gboxclass3.Tag = "AutoManage.txtCodice.treeclassmovimenti";
@@ -1660,7 +1486,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtDenom3.Multiline = true;
 			this.txtDenom3.Name = "txtDenom3";
 			this.txtDenom3.ReadOnly = true;
-			this.txtDenom3.Size = new System.Drawing.Size(235, 46);
+			this.txtDenom3.Size = new System.Drawing.Size(230, 46);
 			this.txtDenom3.TabIndex = 3;
 			this.txtDenom3.TabStop = false;
 			this.txtDenom3.Tag = "sorting3.description";
@@ -1680,7 +1506,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.gboxclass2.Controls.Add(this.btnCodice2);
 			this.gboxclass2.Controls.Add(this.txtDenom2);
 			this.gboxclass2.Controls.Add(this.txtCodice2);
-			this.gboxclass2.Location = new System.Drawing.Point(8, 215);
+			this.gboxclass2.Location = new System.Drawing.Point(8, 191);
 			this.gboxclass2.Name = "gboxclass2";
 			this.gboxclass2.Size = new System.Drawing.Size(404, 89);
 			this.gboxclass2.TabIndex = 2;
@@ -1781,7 +1607,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabFatturazione.Controls.Add(this.label9);
 			this.tabFatturazione.Location = new System.Drawing.Point(4, 22);
 			this.tabFatturazione.Name = "tabFatturazione";
-			this.tabFatturazione.Size = new System.Drawing.Size(961, 497);
+			this.tabFatturazione.Size = new System.Drawing.Size(898, 311);
 			this.tabFatturazione.TabIndex = 1;
 			this.tabFatturazione.Text = "Fatturazione";
 			// 
@@ -1791,9 +1617,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.groupBox1.Controls.Add(this.radioButton5);
 			this.groupBox1.Controls.Add(this.radioButton4);
 			this.groupBox1.Controls.Add(this.radioButton3);
-			this.groupBox1.Location = new System.Drawing.Point(11, 90);
+			this.groupBox1.Location = new System.Drawing.Point(11, 52);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(932, 55);
+			this.groupBox1.Size = new System.Drawing.Size(884, 55);
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Ripartizione totale acquisti - Quadro VF";
@@ -1801,7 +1627,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// radioButton6
 			// 
 			this.radioButton6.AutoSize = true;
-			this.radioButton6.Location = new System.Drawing.Point(757, 19);
+			this.radioButton6.Location = new System.Drawing.Point(679, 19);
 			this.radioButton6.Name = "radioButton6";
 			this.radioButton6.Size = new System.Drawing.Size(151, 17);
 			this.radioButton6.TabIndex = 32;
@@ -1813,7 +1639,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// radioButton5
 			// 
 			this.radioButton5.AutoSize = true;
-			this.radioButton5.Location = new System.Drawing.Point(174, 19);
+			this.radioButton5.Location = new System.Drawing.Point(145, 19);
 			this.radioButton5.Name = "radioButton5";
 			this.radioButton5.Size = new System.Drawing.Size(335, 17);
 			this.radioButton5.TabIndex = 31;
@@ -1825,7 +1651,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// radioButton4
 			// 
 			this.radioButton4.AutoSize = true;
-			this.radioButton4.Location = new System.Drawing.Point(541, 19);
+			this.radioButton4.Location = new System.Drawing.Point(484, 19);
 			this.radioButton4.Name = "radioButton4";
 			this.radioButton4.Size = new System.Drawing.Size(187, 17);
 			this.radioButton4.TabIndex = 30;
@@ -1848,16 +1674,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// checkBox1
 			// 
-			this.checkBox1.Location = new System.Drawing.Point(653, 44);
+			this.checkBox1.Location = new System.Drawing.Point(459, 24);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(290, 24);
 			this.checkBox1.TabIndex = 2;
 			this.checkBox1.Tag = "mandatedetail.toinvoice:N:S";
-			this.checkBox1.Text = "Non proporre pi˘ il dettaglio per l\'inserimento in fatture";
+			this.checkBox1.Text = "Non proporre pi√π il dettaglio per l\'inserimento in fatture";
 			// 
 			// label13
 			// 
-			this.label13.Location = new System.Drawing.Point(8, 167);
+			this.label13.Location = new System.Drawing.Point(9, 108);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(169, 22);
 			this.label13.TabIndex = 27;
@@ -1871,9 +1697,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGrid1.DataMember = "";
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGrid1.Location = new System.Drawing.Point(11, 189);
+			this.dataGrid1.Location = new System.Drawing.Point(11, 133);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(932, 302);
+			this.dataGrid1.Size = new System.Drawing.Size(869, 175);
 			this.dataGrid1.TabIndex = 26;
 			this.dataGrid1.Tag = "invoicedetail.dettordine";
 			// 
@@ -1884,7 +1710,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPage3.Controls.Add(this.grpTipoBene);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(961, 497);
+			this.tabPage3.Size = new System.Drawing.Size(898, 311);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Patrimonio";
 			// 
@@ -1930,9 +1756,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.Add(this.btnRemoveEpAcc);
 			this.tabPage2.Controls.Add(this.groupBox3);
-			this.tabPage2.Controls.Add(this.btnLinkEpAcc);
 			this.tabPage2.Controls.Add(this.grpBoxSiopeEP);
 			this.tabPage2.Controls.Add(this.grpBoxAccertamentiBudget);
 			this.tabPage2.Controls.Add(this.grpBoxImpegniBudget);
@@ -1941,21 +1765,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPage2.Controls.Add(this.grpCausale);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(961, 497);
+			this.tabPage2.Size = new System.Drawing.Size(898, 311);
 			this.tabPage2.TabIndex = 4;
 			this.tabPage2.Text = "E/P";
-			// 
-			// btnRemoveEpAcc
-			// 
-			this.btnRemoveEpAcc.Location = new System.Drawing.Point(865, 389);
-			this.btnRemoveEpAcc.Name = "btnRemoveEpAcc";
-			this.btnRemoveEpAcc.Size = new System.Drawing.Size(75, 23);
-			this.btnRemoveEpAcc.TabIndex = 13;
-			this.btnRemoveEpAcc.TabStop = false;
-			this.btnRemoveEpAcc.Tag = "";
-			this.btnRemoveEpAcc.Text = "Scollega";
-			this.btnRemoveEpAcc.Visible = false;
-			this.btnRemoveEpAcc.Click += new System.EventHandler(this.btnRemoveEpAcc_Click);
 			// 
 			// groupBox3
 			// 
@@ -1965,16 +1777,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.groupBox3.Controls.Add(this.label24);
 			this.groupBox3.Controls.Add(this.txtNumPreimpegno);
 			this.groupBox3.Controls.Add(this.txtEsercPreImpegno);
-			this.groupBox3.Location = new System.Drawing.Point(8, 367);
+			this.groupBox3.Location = new System.Drawing.Point(9, 193);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(347, 64);
+			this.groupBox3.Size = new System.Drawing.Size(347, 72);
 			this.groupBox3.TabIndex = 50;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Preimpegno di Budget selezionato manualmente";
 			// 
 			// btnScollegaPreimpegno
 			// 
-			this.btnScollegaPreimpegno.Location = new System.Drawing.Point(263, 29);
+			this.btnScollegaPreimpegno.Location = new System.Drawing.Point(263, 31);
 			this.btnScollegaPreimpegno.Name = "btnScollegaPreimpegno";
 			this.btnScollegaPreimpegno.Size = new System.Drawing.Size(75, 23);
 			this.btnScollegaPreimpegno.TabIndex = 15;
@@ -1985,7 +1797,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// btnCollegaPreimpegno
 			// 
-			this.btnCollegaPreimpegno.Location = new System.Drawing.Point(180, 29);
+			this.btnCollegaPreimpegno.Location = new System.Drawing.Point(182, 31);
 			this.btnCollegaPreimpegno.Name = "btnCollegaPreimpegno";
 			this.btnCollegaPreimpegno.Size = new System.Drawing.Size(75, 23);
 			this.btnCollegaPreimpegno.TabIndex = 14;
@@ -2033,24 +1845,12 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.txtEsercPreImpegno.TabStop = false;
 			this.txtEsercPreImpegno.Tag = "pre_epexp.yepexp";
 			// 
-			// btnLinkEpAcc
-			// 
-			this.btnLinkEpAcc.Location = new System.Drawing.Point(784, 389);
-			this.btnLinkEpAcc.Name = "btnLinkEpAcc";
-			this.btnLinkEpAcc.Size = new System.Drawing.Size(75, 23);
-			this.btnLinkEpAcc.TabIndex = 12;
-			this.btnLinkEpAcc.TabStop = false;
-			this.btnLinkEpAcc.Tag = "";
-			this.btnLinkEpAcc.Text = "Collega";
-			this.btnLinkEpAcc.Visible = false;
-			this.btnLinkEpAcc.Click += new System.EventHandler(this.btnLinkEpAcc_Click);
-			// 
 			// grpBoxSiopeEP
 			// 
 			this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
 			this.grpBoxSiopeEP.Controls.Add(this.txtDescSiope);
 			this.grpBoxSiopeEP.Controls.Add(this.txtCodSiope);
-			this.grpBoxSiopeEP.Location = new System.Drawing.Point(8, 145);
+			this.grpBoxSiopeEP.Location = new System.Drawing.Point(256, 3);
 			this.grpBoxSiopeEP.Name = "grpBoxSiopeEP";
 			this.grpBoxSiopeEP.Size = new System.Drawing.Size(242, 103);
 			this.grpBoxSiopeEP.TabIndex = 49;
@@ -2082,7 +1882,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// txtCodSiope
 			// 
-			this.txtCodSiope.Location = new System.Drawing.Point(6, 72);
+			this.txtCodSiope.Location = new System.Drawing.Point(6, 74);
 			this.txtCodSiope.Name = "txtCodSiope";
 			this.txtCodSiope.ReadOnly = true;
 			this.txtCodSiope.Size = new System.Drawing.Size(230, 20);
@@ -2091,16 +1891,30 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// grpBoxAccertamentiBudget
 			// 
+			this.grpBoxAccertamentiBudget.Controls.Add(this.btnRemoveEpAcc);
 			this.grpBoxAccertamentiBudget.Controls.Add(this.label11);
 			this.grpBoxAccertamentiBudget.Controls.Add(this.label12);
+			this.grpBoxAccertamentiBudget.Controls.Add(this.btnLinkEpAcc);
 			this.grpBoxAccertamentiBudget.Controls.Add(this.txtNumAccBudget);
 			this.grpBoxAccertamentiBudget.Controls.Add(this.txtEsercAccBudget);
-			this.grpBoxAccertamentiBudget.Location = new System.Drawing.Point(576, 367);
+			this.grpBoxAccertamentiBudget.Location = new System.Drawing.Point(538, 193);
 			this.grpBoxAccertamentiBudget.Name = "grpBoxAccertamentiBudget";
-			this.grpBoxAccertamentiBudget.Size = new System.Drawing.Size(168, 64);
+			this.grpBoxAccertamentiBudget.Size = new System.Drawing.Size(333, 72);
 			this.grpBoxAccertamentiBudget.TabIndex = 48;
 			this.grpBoxAccertamentiBudget.TabStop = false;
 			this.grpBoxAccertamentiBudget.Text = "Accertamento di Budget";
+			// 
+			// btnRemoveEpAcc
+			// 
+			this.btnRemoveEpAcc.Location = new System.Drawing.Point(249, 32);
+			this.btnRemoveEpAcc.Name = "btnRemoveEpAcc";
+			this.btnRemoveEpAcc.Size = new System.Drawing.Size(75, 23);
+			this.btnRemoveEpAcc.TabIndex = 13;
+			this.btnRemoveEpAcc.TabStop = false;
+			this.btnRemoveEpAcc.Tag = "";
+			this.btnRemoveEpAcc.Text = "Scollega";
+			this.btnRemoveEpAcc.Visible = false;
+			this.btnRemoveEpAcc.Click += new System.EventHandler(this.btnRemoveEpAcc_Click);
 			// 
 			// label11
 			// 
@@ -2120,6 +1934,18 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label12.TabIndex = 6;
 			this.label12.Text = "Esercizio";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// btnLinkEpAcc
+			// 
+			this.btnLinkEpAcc.Location = new System.Drawing.Point(168, 32);
+			this.btnLinkEpAcc.Name = "btnLinkEpAcc";
+			this.btnLinkEpAcc.Size = new System.Drawing.Size(75, 23);
+			this.btnLinkEpAcc.TabIndex = 12;
+			this.btnLinkEpAcc.TabStop = false;
+			this.btnLinkEpAcc.Tag = "";
+			this.btnLinkEpAcc.Text = "Collega";
+			this.btnLinkEpAcc.Visible = false;
+			this.btnLinkEpAcc.Click += new System.EventHandler(this.btnLinkEpAcc_Click);
 			// 
 			// txtNumAccBudget
 			// 
@@ -2147,9 +1973,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpBoxImpegniBudget.Controls.Add(this.label33);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtNumIxBudget);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtEsercIxBudget);
-			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(381, 367);
+			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(364, 193);
 			this.grpBoxImpegniBudget.Name = "grpBoxImpegniBudget";
-			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(168, 64);
+			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(168, 72);
 			this.grpBoxImpegniBudget.TabIndex = 47;
 			this.grpBoxImpegniBudget.TabStop = false;
 			this.grpBoxImpegniBudget.Text = "Impegno di Budget";
@@ -2204,9 +2030,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.gboxCompetenzaEconomica.Controls.Add(this.label8);
 			this.gboxCompetenzaEconomica.Controls.Add(this.txtEPStart);
 			this.gboxCompetenzaEconomica.Controls.Add(this.label7);
-			this.gboxCompetenzaEconomica.Location = new System.Drawing.Point(8, 269);
+			this.gboxCompetenzaEconomica.Location = new System.Drawing.Point(8, 112);
 			this.gboxCompetenzaEconomica.Name = "gboxCompetenzaEconomica";
-			this.gboxCompetenzaEconomica.Size = new System.Drawing.Size(937, 67);
+			this.gboxCompetenzaEconomica.Size = new System.Drawing.Size(563, 76);
 			this.gboxCompetenzaEconomica.TabIndex = 3;
 			this.gboxCompetenzaEconomica.TabStop = false;
 			this.gboxCompetenzaEconomica.Text = "Competenza economica";
@@ -2214,7 +2040,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// rdEPKind_N
 			// 
 			this.rdEPKind_N.AutoSize = true;
-			this.rdEPKind_N.Location = new System.Drawing.Point(273, 33);
+			this.rdEPKind_N.Location = new System.Drawing.Point(276, 15);
 			this.rdEPKind_N.Name = "rdEPKind_N";
 			this.rdEPKind_N.Size = new System.Drawing.Size(279, 17);
 			this.rdEPKind_N.TabIndex = 6;
@@ -2225,7 +2051,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// rdEPKind_F
 			// 
 			this.rdEPKind_F.AutoSize = true;
-			this.rdEPKind_F.Location = new System.Drawing.Point(734, 34);
+			this.rdEPKind_F.Location = new System.Drawing.Point(433, 44);
 			this.rdEPKind_F.Name = "rdEPKind_F";
 			this.rdEPKind_F.Size = new System.Drawing.Size(114, 17);
 			this.rdEPKind_F.TabIndex = 5;
@@ -2236,7 +2062,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// rdEPKind_R
 			// 
 			this.rdEPKind_R.AutoSize = true;
-			this.rdEPKind_R.Location = new System.Drawing.Point(568, 33);
+			this.rdEPKind_R.Location = new System.Drawing.Point(276, 44);
 			this.rdEPKind_R.Name = "rdEPKind_R";
 			this.rdEPKind_R.Size = new System.Drawing.Size(143, 17);
 			this.rdEPKind_R.TabIndex = 4;
@@ -2257,9 +2083,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label8.AutoSize = true;
 			this.label8.Location = new System.Drawing.Point(130, 17);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(112, 13);
+			this.label8.Size = new System.Drawing.Size(53, 13);
 			this.label8.TabIndex = 2;
-			this.label8.Text = "Data fine comp. econ.";
+			this.label8.Text = "Data Fine";
 			// 
 			// txtEPStart
 			// 
@@ -2274,16 +2100,16 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label7.AutoSize = true;
 			this.label7.Location = new System.Drawing.Point(6, 17);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(118, 13);
+			this.label7.Size = new System.Drawing.Size(57, 13);
 			this.label7.TabIndex = 0;
-			this.label7.Text = "Data inizio comp. econ.";
+			this.label7.Text = "Data Inizio";
 			// 
 			// grpCausaleAnnullamento
 			// 
 			this.grpCausaleAnnullamento.Controls.Add(this.textBox2);
 			this.grpCausaleAnnullamento.Controls.Add(this.txtCodiceCausaleAnnullamento);
 			this.grpCausaleAnnullamento.Controls.Add(this.btnCausaleAnnullamento);
-			this.grpCausaleAnnullamento.Location = new System.Drawing.Point(275, 36);
+			this.grpCausaleAnnullamento.Location = new System.Drawing.Point(504, 3);
 			this.grpCausaleAnnullamento.Name = "grpCausaleAnnullamento";
 			this.grpCausaleAnnullamento.Size = new System.Drawing.Size(242, 103);
 			this.grpCausaleAnnullamento.TabIndex = 2;
@@ -2324,7 +2150,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpCausale.Controls.Add(this.txtDescrizioneCausale);
 			this.grpCausale.Controls.Add(this.txtCodiceCausale);
 			this.grpCausale.Controls.Add(this.btnCausaleEP);
-			this.grpCausale.Location = new System.Drawing.Point(8, 36);
+			this.grpCausale.Location = new System.Drawing.Point(8, 3);
 			this.grpCausale.Name = "grpCausale";
 			this.grpCausale.Size = new System.Drawing.Size(242, 103);
 			this.grpCausale.TabIndex = 1;
@@ -2357,8 +2183,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.btnCausaleEP.Name = "btnCausaleEP";
 			this.btnCausaleEP.Size = new System.Drawing.Size(83, 23);
 			this.btnCausaleEP.TabIndex = 0;
-			this.btnCausaleEP.Tag = "manage.accmotiveapplied.tree";
+			this.btnCausaleEP.Tag = "";
 			this.btnCausaleEP.Text = "Causale";
+			this.btnCausaleEP.Click += new System.EventHandler(this.btnCausaleEP_Click);
 			// 
 			// tabMagazzino
 			// 
@@ -2368,7 +2195,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabMagazzino.Location = new System.Drawing.Point(4, 22);
 			this.tabMagazzino.Name = "tabMagazzino";
 			this.tabMagazzino.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMagazzino.Size = new System.Drawing.Size(961, 497);
+			this.tabMagazzino.Size = new System.Drawing.Size(898, 311);
 			this.tabMagazzino.TabIndex = 5;
 			this.tabMagazzino.Text = "Magazzino";
 			this.tabMagazzino.UseVisualStyleBackColor = true;
@@ -2378,7 +2205,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.chktounload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.chktounload.AutoSize = true;
 			this.chktounload.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.chktounload.Location = new System.Drawing.Point(705, 37);
+			this.chktounload.Location = new System.Drawing.Point(642, 10);
 			this.chktounload.Name = "chktounload";
 			this.chktounload.Size = new System.Drawing.Size(243, 17);
 			this.chktounload.TabIndex = 32;
@@ -2389,7 +2216,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(8, 44);
+			this.label1.Location = new System.Drawing.Point(13, 14);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(192, 16);
 			this.label1.TabIndex = 31;
@@ -2402,9 +2229,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgrDettMagazzino.DataMember = "";
 			this.dgrDettMagazzino.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dgrDettMagazzino.Location = new System.Drawing.Point(11, 60);
+			this.dgrDettMagazzino.Location = new System.Drawing.Point(11, 36);
 			this.dgrDettMagazzino.Name = "dgrDettMagazzino";
-			this.dgrDettMagazzino.Size = new System.Drawing.Size(937, 430);
+			this.dgrDettMagazzino.Size = new System.Drawing.Size(874, 258);
 			this.dgrDettMagazzino.TabIndex = 30;
 			this.dgrDettMagazzino.Tag = "stockview.dettordine";
 			// 
@@ -2414,7 +2241,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(961, 497);
+			this.tabPage5.Size = new System.Drawing.Size(898, 311);
 			this.tabPage5.TabIndex = 6;
 			this.tabPage5.Text = "Appunti";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -2424,7 +2251,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabPCC.Controls.Add(this.grpPcc);
 			this.tabPCC.Location = new System.Drawing.Point(4, 22);
 			this.tabPCC.Name = "tabPCC";
-			this.tabPCC.Size = new System.Drawing.Size(961, 497);
+			this.tabPCC.Size = new System.Drawing.Size(898, 311);
 			this.tabPCC.TabIndex = 7;
 			this.tabPCC.Text = "PCC";
 			this.tabPCC.UseVisualStyleBackColor = true;
@@ -2436,7 +2263,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpPcc.Controls.Add(this.txtCausale);
 			this.grpPcc.Controls.Add(this.label30);
 			this.grpPcc.Controls.Add(this.cmbStatodelDebito);
-			this.grpPcc.Location = new System.Drawing.Point(3, 19);
+			this.grpPcc.Location = new System.Drawing.Point(7, 3);
 			this.grpPcc.Name = "grpPcc";
 			this.grpPcc.Size = new System.Drawing.Size(805, 191);
 			this.grpPcc.TabIndex = 29;
@@ -2529,6 +2356,175 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.cmbStatodelDebito.Tag = "mandatedetail.idpccdebitstatus";
 			this.cmbStatodelDebito.ValueMember = "idpccdebitstatus";
 			// 
+			// grpRegistry
+			// 
+			this.grpRegistry.Controls.Add(this.txtCredDeb);
+			this.grpRegistry.Location = new System.Drawing.Point(17, 3);
+			this.grpRegistry.Name = "grpRegistry";
+			this.grpRegistry.Size = new System.Drawing.Size(407, 41);
+			this.grpRegistry.TabIndex = 1;
+			this.grpRegistry.TabStop = false;
+			this.grpRegistry.Tag = "AutoChoose.txtCredDeb.default.(active=\'S\')";
+			this.grpRegistry.Text = "Fornitore";
+			// 
+			// txtCredDeb
+			// 
+			this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCredDeb.Location = new System.Drawing.Point(6, 15);
+			this.txtCredDeb.Name = "txtCredDeb";
+			this.txtCredDeb.Size = new System.Drawing.Size(395, 20);
+			this.txtCredDeb.TabIndex = 6;
+			this.txtCredDeb.Tag = "registrymainview.title?mandatedetailview.registry";
+			// 
+			// gboxListino
+			// 
+			this.gboxListino.Controls.Add(this.txtCoeffConversione);
+			this.gboxListino.Controls.Add(this.label20);
+			this.gboxListino.Controls.Add(this.cmbUnitaMisuraAcquisto);
+			this.gboxListino.Controls.Add(this.lblIcmbdpackage);
+			this.gboxListino.Controls.Add(this.label25);
+			this.gboxListino.Controls.Add(this.cmbUnitaMisuraCS);
+			this.gboxListino.Controls.Add(this.chkListDescription);
+			this.gboxListino.Controls.Add(this.btnListino);
+			this.gboxListino.Controls.Add(this.txtListino);
+			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
+			this.gboxListino.Location = new System.Drawing.Point(430, 3);
+			this.gboxListino.Name = "gboxListino";
+			this.gboxListino.Size = new System.Drawing.Size(477, 160);
+			this.gboxListino.TabIndex = 3;
+			this.gboxListino.TabStop = false;
+			this.gboxListino.Tag = "";
+			// 
+			// txtCoeffConversione
+			// 
+			this.txtCoeffConversione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCoeffConversione.Location = new System.Drawing.Point(320, 87);
+			this.txtCoeffConversione.Name = "txtCoeffConversione";
+			this.txtCoeffConversione.ReadOnly = true;
+			this.txtCoeffConversione.Size = new System.Drawing.Size(85, 20);
+			this.txtCoeffConversione.TabIndex = 8;
+			this.txtCoeffConversione.TabStop = false;
+			this.txtCoeffConversione.Tag = "mandatedetail.unitsforpackage?x";
+			// 
+			// label20
+			// 
+			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label20.AutoSize = true;
+			this.label20.Location = new System.Drawing.Point(317, 73);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(107, 13);
+			this.label20.TabIndex = 22;
+			this.label20.Text = "Coeff. di conversione";
+			// 
+			// cmbUnitaMisuraAcquisto
+			// 
+			this.cmbUnitaMisuraAcquisto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbUnitaMisuraAcquisto.DataSource = this.DS.package;
+			this.cmbUnitaMisuraAcquisto.DisplayMember = "description";
+			this.cmbUnitaMisuraAcquisto.Enabled = false;
+			this.cmbUnitaMisuraAcquisto.FormattingEnabled = true;
+			this.cmbUnitaMisuraAcquisto.Location = new System.Drawing.Point(320, 37);
+			this.cmbUnitaMisuraAcquisto.Name = "cmbUnitaMisuraAcquisto";
+			this.cmbUnitaMisuraAcquisto.Size = new System.Drawing.Size(118, 21);
+			this.cmbUnitaMisuraAcquisto.TabIndex = 7;
+			this.cmbUnitaMisuraAcquisto.Tag = "mandatedetail.idpackage";
+			this.cmbUnitaMisuraAcquisto.ValueMember = "idpackage";
+			// 
+			// lblIcmbdpackage
+			// 
+			this.lblIcmbdpackage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblIcmbdpackage.AutoSize = true;
+			this.lblIcmbdpackage.Location = new System.Drawing.Point(317, 23);
+			this.lblIcmbdpackage.Name = "lblIcmbdpackage";
+			this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
+			this.lblIcmbdpackage.TabIndex = 21;
+			this.lblIcmbdpackage.Text = "U.t√† di misura imballo";
+			// 
+			// label25
+			// 
+			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(318, 116);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(71, 13);
+			this.label25.TabIndex = 23;
+			this.label25.Text = "U.t√† di misura";
+			// 
+			// cmbUnitaMisuraCS
+			// 
+			this.cmbUnitaMisuraCS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbUnitaMisuraCS.DataSource = this.DS.unit;
+			this.cmbUnitaMisuraCS.DisplayMember = "description";
+			this.cmbUnitaMisuraCS.Enabled = false;
+			this.cmbUnitaMisuraCS.FormattingEnabled = true;
+			this.cmbUnitaMisuraCS.Location = new System.Drawing.Point(320, 130);
+			this.cmbUnitaMisuraCS.Name = "cmbUnitaMisuraCS";
+			this.cmbUnitaMisuraCS.Size = new System.Drawing.Size(118, 21);
+			this.cmbUnitaMisuraCS.TabIndex = 9;
+			this.cmbUnitaMisuraCS.Tag = "mandatedetail.idunit";
+			this.cmbUnitaMisuraCS.ValueMember = "idunit";
+			// 
+			// chkListDescription
+			// 
+			this.chkListDescription.Location = new System.Drawing.Point(11, 11);
+			this.chkListDescription.Name = "chkListDescription";
+			this.chkListDescription.Size = new System.Drawing.Size(277, 20);
+			this.chkListDescription.TabIndex = 4;
+			this.chkListDescription.TabStop = false;
+			this.chkListDescription.Text = "Fitra per Descrizione/Class.Merceologica";
+			// 
+			// btnListino
+			// 
+			this.btnListino.BackColor = System.Drawing.SystemColors.Control;
+			this.btnListino.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnListino.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnListino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnListino.ImageIndex = 0;
+			this.btnListino.Location = new System.Drawing.Point(6, 75);
+			this.btnListino.Name = "btnListino";
+			this.btnListino.Size = new System.Drawing.Size(85, 23);
+			this.btnListino.TabIndex = 1;
+			this.btnListino.TabStop = false;
+			this.btnListino.Tag = "";
+			this.btnListino.Text = "Listino";
+			this.btnListino.UseVisualStyleBackColor = false;
+			this.btnListino.Click += new System.EventHandler(this.btnListino_Click);
+			// 
+			// txtListino
+			// 
+			this.txtListino.Location = new System.Drawing.Point(6, 104);
+			this.txtListino.Name = "txtListino";
+			this.txtListino.Size = new System.Drawing.Size(292, 20);
+			this.txtListino.TabIndex = 6;
+			this.txtListino.Tag = "";
+			this.txtListino.TextChanged += new System.EventHandler(this.txtListino_TextChanged);
+			this.txtListino.Enter += new System.EventHandler(this.txtListino_Enter);
+			this.txtListino.Leave += new System.EventHandler(this.txtListino_Leave);
+			// 
+			// txtDescrizioneListino
+			// 
+			this.txtDescrizioneListino.Location = new System.Drawing.Point(97, 37);
+			this.txtDescrizioneListino.Multiline = true;
+			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
+			this.txtDescrizioneListino.ReadOnly = true;
+			this.txtDescrizioneListino.Size = new System.Drawing.Size(201, 61);
+			this.txtDescrizioneListino.TabIndex = 9;
+			this.txtDescrizioneListino.TabStop = false;
+			this.txtDescrizioneListino.Tag = "";
+			// 
+			// chkPromiscuo
+			// 
+			this.chkPromiscuo.ForeColor = System.Drawing.Color.DarkRed;
+			this.chkPromiscuo.Location = new System.Drawing.Point(344, 144);
+			this.chkPromiscuo.Name = "chkPromiscuo";
+			this.chkPromiscuo.Size = new System.Drawing.Size(80, 24);
+			this.chkPromiscuo.TabIndex = 30;
+			this.chkPromiscuo.TabStop = false;
+			this.chkPromiscuo.Tag = "mandatedetail.flagmixed:S:N";
+			this.chkPromiscuo.Text = "Promiscuo";
+			this.chkPromiscuo.Visible = false;
+			// 
 			// btnCodice
 			// 
 			this.btnCodice.Location = new System.Drawing.Point(0, 0);
@@ -2539,10 +2535,15 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// Frm_mandatedetail_single
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(995, 576);
+			this.ClientSize = new System.Drawing.Size(919, 548);
+			this.Controls.Add(this.grpRegistry);
+			this.Controls.Add(this.gboxListino);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.btnAnnulla);
+			this.Controls.Add(this.chkPromiscuo);
+			this.Controls.Add(this.txtDescrizione);
 			this.Controls.Add(this.btnOK);
+			this.Controls.Add(this.label6);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.Name = "Frm_mandatedetail_single";
@@ -2565,15 +2566,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.tabControl1.ResumeLayout(false);
 			this.tabPrincipale.ResumeLayout(false);
 			this.tabPrincipale.PerformLayout();
-			this.grpRegistry.ResumeLayout(false);
-			this.grpRegistry.PerformLayout();
-			this.gboxListino.ResumeLayout(false);
-			this.gboxListino.PerformLayout();
 			this.gboxPagato.ResumeLayout(false);
 			this.gboxPagato.PerformLayout();
-			this.grpAttivita.ResumeLayout(false);
 			this.grpTipoIva.ResumeLayout(false);
 			this.grpTipoIva.PerformLayout();
+			this.grpAttivita.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
 			this.gBoxupbIVA.ResumeLayout(false);
@@ -2620,7 +2617,12 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpPcc.PerformLayout();
 			this.grpNaturadiSpesa.ResumeLayout(false);
 			this.grpNaturadiSpesa.PerformLayout();
+			this.grpRegistry.ResumeLayout(false);
+			this.grpRegistry.PerformLayout();
+			this.gboxListino.ResumeLayout(false);
+			this.gboxListino.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
         #endregion
@@ -2691,7 +2693,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             int nphase = 2; // Accertamento
             string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), QHS.CmpEq("nphase", nphase));
 
-            //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
+            //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
             //La scelta va fatta solo sugli Accertamenti di Budget imputati a Conti di Ricavi
             Filterbase = QHS.AppAnd(Filterbase, QHS.CmpEq("revenue", "S"));
             if (Curr["idupb"] != null && Curr["idupb"] != DBNull.Value) {
@@ -2704,7 +2706,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        int nphase = 1; // Preimpegno
 	        string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), QHS.CmpEq("nphase", nphase));
 
-	        //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
+	        //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
 	        //La scelta va fatta solo sugli Accertamenti di Budget imputati a Conti di Ricavi
 	        Filterbase = QHS.AppAnd(Filterbase,QHS.CmpGt("totavailable",0),
 	                QHS.DoPar(QHS.AppOr(QHS.CmpEq("fixedassets","S"),QHS.CmpEq("cost", "S")))) ;
@@ -2849,7 +2851,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        if (drParent.RowState != DataRowState.Added && linktoinvoice=="S") {
                 //Verifica se ci sono ratei o scritture di fatt. a ricevere 
 	            string idrelated = EP_functions.GetIdForDocument(drParent);
-	            idrelated = idrelated + "ß" + DR["rownum"];
+	            idrelated = idrelated + "¬ß" + DR["rownum"];
 	            int nRatei = Conn.RUN_SELECT_COUNT("entrydetail", QHS.CmpEq("idrelated", idrelated), false);
 	            if (nRatei > 0) {
 	                gboxCompetenzaEconomica.Enabled = false;
@@ -2872,8 +2874,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        //}
 
 
-	        //Filtriamo gli upb con lo stesso tipo attivit‡ del Tipo contratto passivo.
-	        //Le upb con tipoattivit‡ 'qualsiasi' verranno sempre mostrate
+	        //Filtriamo gli upb con lo stesso tipo attivit√† del Tipo contratto passivo.
+	        //Le upb con tipoattivit√† 'qualsiasi' verranno sempre mostrate
 	        int flagactivity = 0;
 
 	        flagactivity = CfgFn.GetNoNullInt32(MandateKind.Rows[0]["flagactivity"]);
@@ -2976,7 +2978,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	            tabControl1.TabPages.Remove(tabFatturazione);
 	        }
 
-            //MODIFICHE TASK 10565 (commentato codice sottostante poichÈ inutile)
+            //MODIFICHE TASK 10565 (commentato codice sottostante poich√© inutile)
             //DataTable DetailsMandate = DR.Table.DataSet.Tables["mandatedetail"];
             //string filter = QHC.CmpEq("idgroup", DR["idgroup"]);
             //DataRow[] Selected = DetailsMandate.Select(filter);
@@ -2984,9 +2986,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
             //decimal detailsGroup = Selected.Length;
             //if (detailsGroup > 1) {
             //    DisableEditGroup();
-            //DisableIfBrother(Selected);//Disabilita i text se un fratello Ë stato contabilizzato
+            //DisableIfBrother(Selected);//Disabilita i text se un fratello √® stato contabilizzato
             //if ((DR["idexp_iva"] != DBNull.Value) || (DR["idexp_taxable"] != DBNull.Value)) {
-            //DisablePostLinked();  // Anche se il dett.Ë contabilizzato tutte le info saranno editabili
+            //DisablePostLinked();  // Anche se il dett.√® contabilizzato tutte le info saranno editabili
             //    }
             //}
 
@@ -2998,10 +3000,6 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        }
 	        else {
 	            gboxListino.Visible = true;
-	        }
-
-	        if (ShowRegistry == false && (countList == 0)) {
-	            MakeSpaceFrom(grpRegistry);
 	        }
 	        List<string> ls = new List<string>();
 	        ls.Add("");
@@ -3116,25 +3114,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 }
             }
         }
-        void MakeSpaceFrom(GroupBox G) {
-			TabPage T = (TabPage)G.Parent;
-			int disp = G.Height;
-			int y0 = G.Location.Y;
-			T.SuspendLayout();
-			foreach (Control C in T.Controls) {
-				if (C.Location.Y < y0) continue;
-				if ((C.Anchor & AnchorStyles.Bottom) == 0)
-					C.Location = new Point(C.Location.X, C.Location.Y - disp);
-				else {
-					if ((C.Anchor & AnchorStyles.Top) != 0) {
-						C.Size = new Size(C.Size.Width, C.Size.Height + disp);
-						C.Location = new Point(C.Location.X, C.Location.Y - disp);
-					}
-				}
-			}
-			T.Size = new Size(T.Size.Width, T.Size.Height - disp);
-			T.ResumeLayout();
-		}
+ 
 		object GetCtrlByName(string Name){
 			System.Reflection.FieldInfo Ctrl = this.GetType().GetField(Name);
 			if (Ctrl==null) return null;
@@ -3144,7 +3124,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			return Ctrl.GetValue(this);
 		}
 
-        //MODIFICHE TASK 10565 (commentato codice sottostante poichÈ inutile)
+        //MODIFICHE TASK 10565 (commentato codice sottostante poich√© inutile)
         //void DisablePostLinked()
         //{
         //    txtImponibile.Enabled = false;
@@ -3190,7 +3170,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
 
 
-        //MODIFICHE TASK 10565 (commentato codice sottostante poichÈ inutile)
+        //MODIFICHE TASK 10565 (commentato codice sottostante poich√© inutile)
 
         //void DisableEditGroup(){
         //          grpCausale.Enabled = false;
@@ -3302,7 +3282,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             ImpostaFiltroAliqIva();
             ImpostaTageFiltriUPB(getActivitySelection(), Curr["idupb"]);
 
-            // Se Ë un C.P.  documento equivalente di pagamento, allora vanno indicati tutti i campi per la PCC
+            // Se √® un C.P.  documento equivalente di pagamento, allora vanno indicati tutti i campi per la PCC
             if (abilitaPCC(curr["idmankind"])) {
                 btnCasuale.Enabled = true;
                 cmbStatodelDebito.Enabled = true;
@@ -3311,7 +3291,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 }
                 EnableDisableNaturadispesa();
             }
-            // Se Ë un C.P. collegabile a fattura, va indicara solo la natura di spesa, perchË sar‡ ereditata dai dettagli fattura con la funzione Aggiungi da Ordine
+            // Se √® un C.P. collegabile a fattura, va indicara solo la natura di spesa, perch√® sar√† ereditata dai dettagli fattura con la funzione Aggiungi da Ordine
             else {
                 rdbSpesaCorrente.Enabled = true;
                 rdbContoCapitale.Enabled = true;
@@ -3319,7 +3299,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 btnCasuale.Enabled = false;
                 if (cmbStatodelDebito.SelectedIndex > 0) {
                     cmbStatodelDebito.SelectedIndex = -1;
-                    show(this, "Lo stato del debito Ë stato azzerato poichË il contratto Ë collegabile a fattura.");
+                    show(this, "Lo stato del debito √® stato azzerato poich√® il contratto √® collegabile a fattura.");
                 }
                 cmbStatodelDebito.Enabled = false;
             }
@@ -3463,7 +3443,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             object idunit = Curr["idunit"];
 
             if (idpackage == null || idpackage == DBNull.Value || CfgFn.GetNoNullInt32(idpackage)==0){
-                lblidpackage.Text = "Q.t‡";
+                lblidpackage.Text = "Q.t√†";
                 //lblImportoUnitario.Text = "Importo unitario";
             }
             else{
@@ -3473,7 +3453,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             }
 
             if (idunit == null || idunit == DBNull.Value || CfgFn.GetNoNullInt32(idunit) == 0) {
-                lblidunit.Text = "Totale quantit‡ Ordinata";
+                lblidunit.Text = "Totale quantit√† Ordinata";
             }
             else{
                 string UnitaCarico = Conn.DO_READ_VALUE("unit", QHS.CmpEq("idunit", idunit), "description").ToString();
@@ -3549,7 +3529,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (R == null) return;
                 if (R.RowState == DataRowState.Detached) return;
                 if (R["cupcode"].ToString() != "") txtCupCode.Text = R["cupcode"].ToString();
-				// L'UPB scelto non ha CUP, ma il campo CUP Ë valorizzato perchË magari associato all'UPB precedente.
+				// L'UPB scelto non ha CUP, ma il campo CUP √® valorizzato perch√® magari associato all'UPB precedente.
 				if ((R["cupcode"].ToString() == "") && (txtCupCode.Text != "")){
 					if (show("L'UPB selezionato non ha un CUP associato. Cancello il CUP dal dettaglio?", "Conferma",
 						MessageBoxButtons.OKCancel) == DialogResult.OK){
@@ -3633,7 +3613,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (!Meta.DrawStateIsDone) return;
                 if (Meta.IsEmpty) return;
                 if (R == null){
-                    lblidpackage.Text = "Q.t‡";
+                    lblidpackage.Text = "Q.t√†";
                     //lblImportoUnitario.Text = "Importo unitario";
                     return;
                 }
@@ -3647,7 +3627,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (Meta.IsEmpty) return;
                 if (R == null)
                 {
-                    lblidunit.Text = "Totale quantit‡ Ordinata";
+                    lblidunit.Text = "Totale quantit√† Ordinata";
                     return;
                 }
                 string UnitaCarico = R["description"].ToString();
@@ -3662,7 +3642,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if ((Curr["flagactivity"].ToString() != upb_flagactivity.ToString()) 
                 && (upb_flagactivity.ToString() == "1" || upb_flagactivity.ToString() == "2"))
             {
-               if (show("Cambio il Tipo attivit‡ in base all'UPB selezionato?",
+               if (show("Cambio il Tipo attivit√† in base all'UPB selezionato?",
 							"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK) {
                                 Curr["flagactivity"]=upb_flagactivity;
                                 if (upb_flagactivity.ToString() == "1") {
@@ -3858,9 +3838,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		}
 
 		private void btnRemoveImponibile_Click(object sender, System.EventArgs e) {
-			if (show(this,"Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ "+
+			if (show(this,"Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer√† "+
 				"comunque a contabilizzare il contratto passivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione "+
-				"del il contratto passivo Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r"+
+				"del il contratto passivo √® necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r"+
 				"Procedo a rimuovere la contabilizzazione del dettaglio?","Avviso",MessageBoxButtons.YesNo)!=
 				DialogResult.Yes) return;
 			DataRow Curr = DS.mandatedetail.Rows[0];			
@@ -3999,7 +3979,43 @@ namespace mandatedetail_single//dettordinegenericosingle//
             filterAssetKind = QHS.AppOr(filterAssetKind, QHS.IsNull("assetkind"));
             filter = QHS.AppAnd(filter,QHS.DoPar(filterAssetKind));
 
-            DataRow Choosen = Mlistino.SelectOne("default", filter, "listview", null);
+			// PARTE RELATIVA AL FILTRO COSTRUITO CON L'AUSILIO DEL MOTORE AI
+
+			string error = "";
+			DataTable T = null;
+			string sql = "";
+
+			// GET DESCRIPTION
+			string sentence = txtDescrizione.Text;
+			string[] sortcodes = { };
+
+			// CALL API AI
+			if (!string.IsNullOrEmpty(sentence))
+				sortcodes = AI_getSiope(sentence, out error);
+			string filterAI = "";
+			// CHECK API RESULT FILTERED BY SIOPE  sortcodes 
+			if (sortcodes != null) {
+				if (string.IsNullOrEmpty(error) && sortcodes.Length > 0) {
+					// CREATE QUERY
+					string siope_ES = (AV.ToString().ToUpper() == "A") ? SPESE : ENTRATE;
+					sql = ListAIQuery(security.GetEsercizio(), siope_ES, filterEpOperation, sortcodes);
+
+					// GET DATATABLE
+					T = Conn.SQLRunner(sql);
+					if ((T != null) && (T.Rows.Count > 0)) {
+						string lista_idListing = QHS.DistinctVal(T.Select(), "idlist");
+						string FF = qhs.FieldInList("idlist", lista_idListing);
+						filterAI = qhs.AppAnd(filter, FF);
+					}
+				}
+			}
+			DataRow Choosen = null;
+			if (filterAI != "")
+				Choosen = Mlistino.SelectOne("ailist", filterAI, "listview", null);
+
+			if (Choosen == null)
+				Choosen = Mlistino.SelectOne("default", filter, "listview", null);
+
             if (Choosen == null) return;
 
             AggiornaListino(Choosen);
@@ -4018,7 +4034,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
         private void AdeguaQuantitaTotale(){
             if (txtCoeffConversione.Text == "")
             {
-                // Se cancello il Coeff. di Conversione, la q.t‡ totale sar‡ uguale alla q.t‡ per l'imballo.
+                // Se cancello il Coeff. di Conversione, la q.t√† totale sar√† uguale alla q.t√† per l'imballo.
                 double npackage = CfgFn.GetNoNullDouble(txtQuantitaConfezioni.Text);
                 txtQuantita.Text = HelpForm.StringValue(npackage, "x.y");
                 return;
@@ -4211,11 +4227,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if (rdbQualsiasi.Checked)
                 return 4; //nessun filtro
             if (rdbCommerciale.Checked)
-                return 2;  //tipo attivit‡ commerciale 
+                return 2;  //tipo attivit√† commerciale 
             if (rdbIstituzionale.Checked)
-                return 1;  //tipo attivit‡ istituzionale
+                return 1;  //tipo attivit√† istituzionale
             if (rdbPromiscua.Checked)
-                return 3;  //tipo attivit‡ promiscua/altro
+                return 3;  //tipo attivit√† promiscua/altro
             return 4;
         }
 
@@ -4226,11 +4242,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
             string flagintracom = DRP["flagintracom"].ToString();
             
 	        if (rdbCommerciale.Checked)
-                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit‡ commerciale 
+                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit√† commerciale 
             if (rdbIstituzionale.Checked)
-                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit‡ istituzionale
+                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit√† istituzionale
             if (rdbPromiscua.Checked)
-                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit‡ promiscua/altro
+                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit√† promiscua/altro
 
             if (flagintracom=="N")
                 filteriva = QHS.AppAnd(filteriva, QHS.BitSet("flag", 6));  //Italia
@@ -4338,13 +4354,13 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if (Meta.IsEmpty)return;
             var Curr = DS.mandatedetail.First();
             if (Curr.rownum_originValue != DBNull.Value) {
-                show("Non Ë possibile collegare un preimpegno ad un contratto passivo collegato ad una richiesta d'ordine",
+                show("Non √® possibile collegare un preimpegno ad un contratto passivo collegato ad una richiesta d'ordine",
                     "Errore");
                 return;
             }
             MetaData.GetFormData(this, true);
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non Ë possibile collegare un preimpegno avendo gi‡ generato l'impegno di budget",
+                show("Non √® possibile collegare un preimpegno avendo gi√† generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -4370,7 +4386,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
             DataRow Curr = DS.mandatedetail.Rows[0];
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'impegno di budget",
+                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -4388,13 +4404,13 @@ namespace mandatedetail_single//dettordinegenericosingle//
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtStop.Text, txtStop.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di fine validit‡ sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di fine validit√† sia dell'esercizio.", "Errore");
                 txtStop.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.mandatedetail[0];
                 if (((DateTime) d).Year < curr.yman) {
-                    show("E' necessario che la data di fine validit‡ non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di fine validit√† non preceda l'anno di creazione del contratto.", "Errore");
                     txtStop.Text = "";
                 }
             }
@@ -4406,14 +4422,14 @@ namespace mandatedetail_single//dettordinegenericosingle//
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtStart.Text, txtStart.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di inizio validit‡ sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di inizio validit√† sia dell'esercizio.", "Errore");
                 txtStart.Text = "";
             }
 
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.mandatedetail[0];
                 if (((DateTime) d).Year < curr.yman) {
-                    show("E' necessario che la data di inizio validit‡ non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di inizio validit√† non preceda l'anno di creazione del contratto.", "Errore");
                     txtStart.Text = "";
                 }
             }
@@ -4436,6 +4452,266 @@ namespace mandatedetail_single//dettordinegenericosingle//
             DialogResult D = F.ShowDialog(this);
             if (D != DialogResult.OK) return;
 			this.txtSconto.Text = HelpForm.StringValue(F.sconto, "x.y.fixed.4....%.100");		
+		}
+
+		private const string ENTRATE = "entrate";
+		private const string SPESE = "spese";
+
+		private string[] AI_getSiope(string sentence, out string error) {
+			error = "";
+			string api_url = "";
+			int nresp = 5;
+			string[] list = null;
+
+			// Acquisto o Vendita
+			string av_type = AV.ToString().ToUpper() == "A" ? "A" : "V";
+
+			// url										param
+			// http://deepblue:4545/siope/acquisti		5|entrate
+			DataTable SIOPE_EndPoint = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code", $"SIOPEURL_{av_type}"), null, true);
+
+			// Se non ci sono righe il servizio di AI non √® configurato
+			if (SIOPE_EndPoint.Rows.Count <= 0)
+				return list;
+
+			// 5|entrate
+			string api_param = SIOPE_EndPoint.Rows[0]["param"].ToString();
+			if (string.IsNullOrEmpty(api_param))
+				return list;
+
+			string[] par = api_param.Split('|');
+			if (par.Length > 2) {
+				// http://deepblue:4545/siope/acquisti
+				// http://10.10.10.183:4545/siope/acquisti;
+				api_url = par[0];
+				// N
+				int nr = 0;
+				int.TryParse(par[1], out nr);
+				if (nr > 0)
+					nresp = nr;
+			}
+
+			if (string.IsNullOrEmpty(api_url))
+				return list;
+
+			string clientUrl = $"{api_url}?sentence={sentence}&nresp={nresp}";
+
+			string token;
+			try {
+				token = par[3];
+			}
+			catch (Exception) {
+				error = $"{"Configurazione errata."}";
+				return list;
+			}
+
+			using (HttpClient client = new HttpClient()) {
+
+				client.DefaultRequestHeaders.Add("psk", token);
+				client.Timeout = new TimeSpan(0, 1, 0);
+				// =========================
+				// GET
+				// =========================
+				HttpResponseMessage response = new HttpResponseMessage();
+				try {
+					var taskResponse = Task.Run(async () => await client.GetAsync(clientUrl));
+					response = taskResponse.GetAwaiter().GetResult();
+				}
+				catch (Exception Ex) {
+					// error = Ex.Message;
+					//Se il servizio per qualche motivo non risponde, esce. Non fornisce alcun messaggio all'utente, ma cosa deve essere trasparente.
+					error = $"{"Il serviziodi Intelligenza Artificiale non √® attivo."}";
+					return list;
+				}
+
+				// Success ?
+				if (response.IsSuccessStatusCode) {
+					// Response
+					var taskResponseBody = Task.Run(async () => await response.Content.ReadAsStringAsync());
+					string responseBody = taskResponseBody.GetAwaiter().GetResult();
+					if (responseBody.Contains("errDetails")) {
+						error = $"{"Failed to call API: " + responseBody}";
+					}
+					else {
+						try {
+							list = responseBody.Replace("[", "").Replace("]", "").Replace("\n", "").Replace("\r", "").Replace(" ", "").Split(',');
+						}
+						catch (Exception Ex) {
+							error = Ex.Message;
+						}
+					}
+				}
+				else {
+					error = $"{"Failed to call API: " + response.ReasonPhrase}";
+				}
+			}
+
+			return list;
+		}
+
+		/// <summary>
+		/// esercizio = 2022
+		/// tipo = entrate, spese
+		/// idepoperation = (idepoperation='fatven')AND((flagamm IS NULL)OR(flagamm='S'))
+		/// sortcodes = [ 1030102999, 1030102007, 1030105006, 2020199001, 1030102001 ]
+		/// </summary>
+		/// <param name="esercizio"></param>
+		/// <param name="tipo"></param>
+		/// <param name="idepoperation"></param>
+		/// <param name="sortcodes"></param>
+		/// <returns></returns>
+		private string accMotiveQry(int esercizio, string tipo, string idepoperation, string[] sortcodes) {
+			string qry = $@"
+SELECT 
+	CASE
+		WHEN priority IS null
+		THEN null
+		ELSE ROW_NUMBER() OVER (ORDER BY isnull(priority, 100), codemotive)
+	END as AI,
+accmotive.*
+FROM (
+	SELECT a.*, s.idsor, s.sortcode, s.description
+	FROM accmotiveapplied a
+	JOIN accmotivesorting asor ON a.idaccmotive = asor.idaccmotive
+	JOIN sorting s ON s.idsor = asor.idsor
+	JOIN sortingkind sk ON sk.idsorkind = s.idsorkind
+	JOIN siopekind spk ON spk.codesorkind_siope{tipo} = sk.codesorkind
+	WHERE spk.ayear = {esercizio}
+	and {idepoperation}
+	and in_use = 'S'
+) accmotive";
+
+			if ((sortcodes != null) && (sortcodes.Length > 0)) {
+				string prioritySelect = string.Join("\r\n\t\tunion\r\n\t\t", sortcodes.Select((s, i) => $"select {i} as priority, '{s}' as sortcode"));
+				qry += $@"
+INNER JOIN (
+	SELECT priority, sortcode FROM (
+		{prioritySelect}
+	) sel
+) aipriority ON accmotive.sortcode = aipriority.sortcode";
+			}
+
+			qry += @"
+ORDER BY ISNULL(priority, 100), codemotive";
+
+			return qry;
+		}
+
+
+		/// </summary>
+		/// <param name="esercizio"></param>
+		/// <param name="tipo"></param>
+		/// <param name="idepoperation"></param>
+		/// <param name="sortcodes"></param>
+		/// <returns></returns>
+		/// // filtro i listini, le classificazioni merceologiche e le causali EP che sono compatibili con i codici Siope restituiti dal servizio AI
+		/// // con lo scopo di ottenere un elenco guidato di voci di listino 
+		private string ListAIQuery(int esercizio, string tipo, string idepoperation, string[] sortcodes) {
+			string qry = $@"
+			SELECT 
+				CASE
+					WHEN priority IS null
+					THEN null
+					ELSE ROW_NUMBER() OVER (ORDER BY isnull(priority, 100), codemotive)
+				END as AI,
+			listview.*
+			FROM (
+				SELECT l.*, lc.title, a.idaccmotive, a.codemotive, s.idsor, s.sortcode, s.description as siope
+				FROM list l
+				JOIN listclass lc ON l.idlistclass = lc.idlistclass
+				JOIN accmotiveapplied a ON lc.idaccmotive = a.idaccmotive
+				JOIN accmotivesorting asor ON a.idaccmotive = asor.idaccmotive
+				JOIN sorting s ON s.idsor = asor.idsor
+				JOIN sortingkind sk ON sk.idsorkind = s.idsorkind
+				JOIN siopekind spk ON spk.codesorkind_siope{tipo} = sk.codesorkind
+				WHERE spk.ayear = {esercizio}
+				and {idepoperation}
+				and in_use = 'S'
+			) listview";
+
+			if ((sortcodes != null) && (sortcodes.Length > 0)) {
+				string prioritySelect = string.Join("\r\n\t\tunion\r\n\t\t", sortcodes.Select((s, i) => $"select {i} as priority, '{s}' as sortcode"));
+				qry += $@"
+				INNER JOIN (
+					SELECT priority, sortcode FROM (
+						{prioritySelect}
+					) sel
+				) aipriority ON listview.sortcode = aipriority.sortcode";
+			}
+
+			qry += @"
+				ORDER BY ISNULL(priority, 100)";
+
+			return qry;
+		}
+
+		private void btnCausaleEP_Click(object sender, EventArgs e) {
+			string error = "";
+
+			DataTable T = null;
+			string sql = "";
+
+			// GET DESCRIPTION
+			string sentence = txtDescrizione.Text;
+
+
+			string[] sortcodes = { };
+
+			// CALL API AI
+			if (!string.IsNullOrEmpty(sentence))
+				sortcodes = AI_getSiope(sentence, out error);
+
+			// CHECK API RESULT
+			if (sortcodes != null) {
+				if (string.IsNullOrEmpty(error) && sortcodes.Length > 0) {
+					// CREATE QUERY
+					string siope_ES = (AV.ToString().ToUpper() == "A") ? SPESE : ENTRATE;
+					sql = accMotiveQry(security.GetEsercizio(), siope_ES, filterEpOperation, sortcodes);
+
+					// GET DATATABLE
+					T = Conn.SQLRunner(sql);
+				}
+			}
+
+			if ((T != null) && (T.Rows.Count > 0)) {
+				string lista_idaccmotive = QHS.DistinctVal(T.Select(), "idaccmotive");
+				string FF = qhs.FieldInList("idaccmotive", lista_idaccmotive);
+
+				MetaData Mcausali = MetaData.GetMetaData(this, "accmotiveapplied");
+				Mcausali.FilterLocked = true;
+				Mcausali.DS = DS.Clone();
+				FF = qhs.AppAnd(FF, filterEpOperation);
+
+				DataRow[] Selected = null;
+				Frm_scegliCausaleAI F = new Frm_scegliCausaleAI(Meta, sql);
+				createForm(F, this);
+				if (F.ShowDialog(this) != DialogResult.OK) {
+					//Se non ho selezionato niente, apre il Tree
+					MetaData.DoMainCommand(this, "manage.accmotiveapplied.tree." + filterEpOperation);
+					return;
+				}
+				else {
+					Selected = F.SelectedRows;
+				}
+				if ((Selected != null) && (Selected.Length > 0)) {
+					//Se ho seelzioanto qualcosa, compila gli altri campi
+					DataRow rSelected = Selected[0];
+
+					// =====================================
+					// Causale
+					// =====================================
+					DS.mandatedetail.Rows[0]["detaildescription"] = txtDescrizione.Text;
+					DS.mandatedetail.Rows[0]["idaccmotive"] = rSelected["idaccmotive"];
+					DS.mandatedetail.Rows[0]["idsor_siope"] = rSelected["idsor"];
+
+					Meta.myGetData.GetTemporaryValues(DS.mandatedetail);
+					Meta.FreshForm(true);
+				}
+			}
+			else {
+				//Se la query non restituisce nulla, apre il Tree
+				MetaData.DoMainCommand(this, "manage.accmotiveapplied.tree." + filterEpOperation);
+			}
 		}
 	}
 }

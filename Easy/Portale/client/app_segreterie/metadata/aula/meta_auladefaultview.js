@@ -23,15 +23,14 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
-						this.describeAColumn(table, 'aula_code', 'Codice', null, 20, 128);
-						this.describeAColumn(table, 'edificio_title', 'Edificio', null, 30, 1024);
-						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura didattica di afferenza', null, 40, 1024);
-						this.describeAColumn(table, 'aula_capienza', 'Capienza', null, 50, null);
-						this.describeAColumn(table, 'aula_capienzadis', 'Capienza disabili', null, 60, null);
-						this.describeAColumn(table, 'aulakind_title', 'Tipologia', null, 70, 50);
-						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo', null, 20, 50);
-						this.describeAColumn(table, 'struttura_idstrutturakind', 'Tipo Tipo', null, 20, null);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 1024);
+						this.describeAColumn(table, 'aula_code', 'Codice', null, 2000, 128);
+						this.describeAColumn(table, 'edificio_title', 'Edificio', null, 3100, 1024);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura didattica di afferenza', null, 4100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Struttura didattica di afferenza', null, 4220, 50);
+						this.describeAColumn(table, 'aula_capienza', 'Capienza', null, 5000, null);
+						this.describeAColumn(table, 'aula_capienzadis', 'Capienza disabili', null, 6000, null);
+						this.describeAColumn(table, 'aulakind_title', 'Tipologia', null, 7200, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

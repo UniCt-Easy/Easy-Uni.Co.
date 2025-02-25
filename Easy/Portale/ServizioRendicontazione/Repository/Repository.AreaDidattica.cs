@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+using Microsoft.EntityFrameworkCore;
 using ServizioRendicontazione.Models;
 
 namespace ServizioRendicontazione.Repositories
@@ -26,37 +27,51 @@ namespace ServizioRendicontazione.Repositories
 		// ==============================================================
 		public List<areadidattica> AllAreaDidattica()
 		{
-			return _context.areadidatticas.ToList();
+			return _context.areadidatticas.AsNoTracking().ToList();
 		}
 
 		public areadidattica AddAreaDidattica(string title, int idmacroareadidattica, int idcorsostudiokind)
 		{
-			int idareadidattica = 0;
-			if (_context.areadidatticas.Any())
-				idareadidattica = _context.areadidatticas.Max(m => m.idareadidattica);
-
-			int sortcode = 0;
-			if (_context.areadidatticas.Any())
-				sortcode = _context.areadidatticas.Max(m => m.sortcode);
-
-			idareadidattica++;
-			sortcode++; 
-
-			areadidattica a = new areadidattica()
+			try
 			{
-				idareadidattica = idareadidattica,
-				active = "S",
-				idmacroareadidattica = idmacroareadidattica,
-				idcorsostudiokind = idcorsostudiokind,
-				title = title,
-				sortcode = sortcode,
-				subtitle = null
-			};
+				int idareadidattica = 0;
+				if (_context.areadidatticas.Any())
+					idareadidattica = _context.areadidatticas.AsNoTracking().Max(m => m.idareadidattica);
 
-			_context.Add(a);
-			_context.SaveChanges();
+				int sortcode = 0;
+				if (_context.areadidatticas.Any())
+					sortcode = _context.areadidatticas.AsNoTracking().Max(m => m.sortcode);
 
-			return a;
+				idareadidattica++;
+				sortcode++;
+
+				areadidattica a = new areadidattica()
+				{
+					idareadidattica = idareadidattica,
+					active = "S",
+					idmacroareadidattica = idmacroareadidattica,
+					idcorsostudiokind = idcorsostudiokind,
+					title = title,
+					sortcode = sortcode,
+					subtitle = null,
+
+					Ct = DateTime.Now,
+					Cu = common.cu,
+
+					Lt = DateTime.Now,
+					Lu = common.cu
+				};
+
+				_context.Add(a);
+				_context.SaveChanges();
+
+				return a;
+			}
+			catch (Exception Ex)
+			{
+				common.logInfo($"AddAreaDidattica({idmacroareadidattica}, {idcorsostudiokind}, {title}): \r\n" + Ex.Message + "\r\n" + Ex.InnerException?.Message + "\r\n" + Ex.StackTrace);
+				return null;
+			}
 		}
 	}
 }

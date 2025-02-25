@@ -102,6 +102,9 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
@@ -184,6 +187,12 @@
     <Compile Include="Frm_estimatedetail_single.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Frm_scegliCausaleAI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_scegliCausaleAI.Designer.cs">
+      <DependentUpon>Frm_scegliCausaleAI.cs</DependentUpon>
+    </Compile>
     <Compile Include="vistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -202,6 +211,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>vistaForm.cs</LastGenOutput>
     </Content>
+    <EmbeddedResource Include="Frm_scegliCausaleAI.resx">
+      <DependentUpon>Frm_scegliCausaleAI.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>

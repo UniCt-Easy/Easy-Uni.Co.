@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,8 +30,8 @@ namespace csa_import_default
 {
     public partial class FrmViewError : MetaDataForm
     {
-       DataSet DS;
-       public FrmViewError (DataSet  DS)
+        DataSet DS;
+        public FrmViewError (DataSet  DS)
         {
             InitializeComponent();
             this.DS = DS;
@@ -39,6 +39,12 @@ namespace csa_import_default
             btnSave.Enabled = (T.Rows.Count > 0);
             T.Columns[0].Caption = "Errore";
             HelpForm.SetDataGrid(gridCheck, T);
+
+            if (isBlazor())
+			{
+                txtSave.Visible = false;
+                btnSave.Text = "Scarica";
+			}
         }
      
         private void btnSave_Click (object sender, EventArgs e) {
@@ -55,6 +61,8 @@ namespace csa_import_default
                     sw.WriteLine(R[0].ToString());
                 }
                 sw.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fullname, false);
             }
             catch { }
         }

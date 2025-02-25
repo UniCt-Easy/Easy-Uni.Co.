@@ -47,6 +47,452 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\dsmeta_firenet_communications_courses_default.cs">
+      <DependentUpon>dsmeta_firenet_communications_courses_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_courses_default.cs">
+      <DependentUpon>dsmeta_firenet_courses_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_courses_instruments_default.cs">
+      <DependentUpon>dsmeta_firenet_courses_instruments_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_courses_teachers_default.cs">
+      <DependentUpon>dsmeta_firenet_courses_teachers_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_courses_teachings_default.cs">
+      <DependentUpon>dsmeta_firenet_courses_teachings_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_courses_users_default.cs">
+      <DependentUpon>dsmeta_firenet_courses_users_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_preselection_sessions_courses_default.cs">
+      <DependentUpon>dsmeta_firenet_preselection_sessions_courses_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_ranges_courses_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_ranges_courses_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_exam_booking_applications_default.cs">
+      <DependentUpon>dsmeta_firenet_exam_booking_applications_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_exam_booking_sessions_default.cs">
+      <DependentUpon>dsmeta_firenet_exam_booking_sessions_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_exam_booking_sessions_teachings_default.cs">
+      <DependentUpon>dsmeta_firenet_exam_booking_sessions_teachings_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_exam_groups_default.cs">
+      <DependentUpon>dsmeta_firenet_exam_groups_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_exam_sessions_default.cs">
+      <DependentUpon>dsmeta_firenet_exam_sessions_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_exams_default.cs">
+      <DependentUpon>dsmeta_firenet_exams_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_examstatuses_default.cs">
+      <DependentUpon>dsmeta_firenet_examstatuses_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_preselection_exam_types_default.cs">
+      <DependentUpon>dsmeta_firenet_preselection_exam_types_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_preselection_exams_default.cs">
+      <DependentUpon>dsmeta_firenet_preselection_exams_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_diploma_applications_default.cs">
+      <DependentUpon>dsmeta_firenet_diploma_applications_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_diploma_session_types_default.cs">
+      <DependentUpon>dsmeta_firenet_diploma_session_types_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_diploma_sessions_default.cs">
+      <DependentUpon>dsmeta_firenet_diploma_sessions_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_enrollments_default.cs">
+      <DependentUpon>dsmeta_firenet_enrollments_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_student_enrollments_default.cs">
+      <DependentUpon>dsmeta_firenet_student_enrollments_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_instruments_default.cs">
+      <DependentUpon>dsmeta_firenet_instruments_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_payment_receipts_default.cs">
+      <DependentUpon>dsmeta_firenet_payment_receipts_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_payment_requests_default.cs">
+      <DependentUpon>dsmeta_firenet_payment_requests_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_payment_types_default.cs">
+      <DependentUpon>dsmeta_firenet_payment_types_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_studentstatuses_default.cs">
+      <DependentUpon>dsmeta_firenet_studentstatuses_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teacher_groups_students_default.cs">
+      <DependentUpon>dsmeta_firenet_teacher_groups_students_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_exonerations_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_exonerations_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_flow_codes_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_flow_codes_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_flows_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_flows_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_ranges_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_ranges_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_recipients_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_recipients_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_types_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_types_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_types_attachment_types_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_types_attachment_types_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_types_tax_flows_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_types_tax_flows_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_tax_types_tax_recipients_default.cs">
+      <DependentUpon>dsmeta_firenet_tax_types_tax_recipients_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_taxes_default.cs">
+      <DependentUpon>dsmeta_firenet_taxes_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_groups_teachers_default.cs">
+      <DependentUpon>dsmeta_firenet_groups_teachers_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teacher_attendance_requests_default.cs">
+      <DependentUpon>dsmeta_firenet_teacher_attendance_requests_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teacher_attendance_types_default.cs">
+      <DependentUpon>dsmeta_firenet_teacher_attendance_types_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teacher_groups_default.cs">
+      <DependentUpon>dsmeta_firenet_teacher_groups_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teacher_plannings_default.cs">
+      <DependentUpon>dsmeta_firenet_teacher_plannings_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teachers_default.cs">
+      <DependentUpon>dsmeta_firenet_teachers_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_teachers_areas_default.cs">
+      <DependentUpon>dsmeta_firenet_teachers_areas_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_communications_users_default.cs">
+      <DependentUpon>dsmeta_firenet_communications_users_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_operator_users_default.cs">
+      <DependentUpon>dsmeta_firenet_operator_users_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_users_default.cs">
+      <DependentUpon>dsmeta_firenet_users_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_firenet_years_default.cs">
+      <DependentUpon>dsmeta_firenet_years_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nettuno_matricolaafam_default.cs">
+      <DependentUpon>dsmeta_nettuno_matricolaafam_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nettuno_percorsoafam_default.cs">
+      <DependentUpon>dsmeta_nettuno_percorsoafam_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nettuno_corsoafam_default.cs">
+      <DependentUpon>dsmeta_nettuno_corsoafam_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nettuno_disciplinaafam_default.cs">
+      <DependentUpon>dsmeta_nettuno_disciplinaafam_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nettuno_utente_default.cs">
+      <DependentUpon>dsmeta_nettuno_utente_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_nettuno_offertaformativaafam_default.cs">
+      <DependentUpon>dsmeta_nettuno_offertaformativaafam_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettoora_personalecosto.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoora_personalecosto.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_filtrocapitolocsaposition_default.cs">
+      <DependentUpon>dsmeta_filtrocapitolocsaposition_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_registryattach_default.cs">
+      <DependentUpon>dsmeta_registryattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_qualificationsissues_default.cs">
+      <DependentUpon>dsmeta_qualificationsissues_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_issuesq_default.cs">
+      <DependentUpon>dsmeta_issuesq_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_enrollmentsissues_default.cs">
+      <DependentUpon>dsmeta_enrollmentsissues_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_academicenrollmentchangerequest_default.cs">
+      <DependentUpon>dsmeta_academicenrollmentchangerequest_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_issues_default.cs">
+      <DependentUpon>dsmeta_issues_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_learningagrtrainerkind_default.cs">
+      <DependentUpon>dsmeta_learningagrtrainerkind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_mobilityperiodtype_default.cs">
+      <DependentUpon>dsmeta_mobilityperiodtype_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_eqf_default.cs">
+      <DependentUpon>dsmeta_eqf_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_learningagrkind_default.cs">
+      <DependentUpon>dsmeta_learningagrkind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_convalidatoview_seganagstu.cs">
+      <DependentUpon>dsmeta_convalidatoview_seganagstu.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_perfinterazionireport_default.cs">
+      <DependentUpon>dsmeta_perfinterazionireport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_ects_default.cs">
+      <DependentUpon>dsmeta_ects_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_residuoreport_default.cs">
+      <DependentUpon>dsmeta_residuoreport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_confsegreterie_default.cs">
+      <DependentUpon>dsmeta_confsegreterie_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_dashboardprogettiview_default.cs">
+      <DependentUpon>dsmeta_dashboardprogettiview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="common.cs" />
+    <Compile Include="Data\dsmeta_dichiarazioneserviziattach_default.cs">
+      <DependentUpon>dsmeta_dichiarazioneserviziattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_consolidamento_seg.cs">
+      <DependentUpon>dsmeta_consolidamento_seg.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_confprogetti_default.cs">
+      <DependentUpon>dsmeta_confprogetti_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_consolidamentoora_default.cs">
+      <DependentUpon>dsmeta_consolidamentoora_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_salbloccatiview_default.cs">
+      <DependentUpon>dsmeta_salbloccatiview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_position_obsoleto.cs">
+      <DependentUpon>dsmeta_position_obsoleto.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettoorereport_default.cs">
+      <DependentUpon>dsmeta_progettoorereport_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_dichiarazioneservizi_seg.cs">
+      <DependentUpon>dsmeta_dichiarazioneservizi_seg.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_dichiarazioneservizi_default.cs">
+      <DependentUpon>dsmeta_dichiarazioneservizi_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_tiponomina_default.cs">
+      <DependentUpon>dsmeta_tiponomina_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_progettotimesheet_personalecosto.cs">
+      <DependentUpon>dsmeta_progettotimesheet_personalecosto.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_istanzaafamkind_default.cs">
+      <DependentUpon>dsmeta_istanzaafamkind_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_istanzaafam_default.cs">
+      <DependentUpon>dsmeta_istanzaafam_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_istanzaafam_seg.cs">
+      <DependentUpon>dsmeta_istanzaafam_seg.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_istanzaafamattach_default.cs">
+      <DependentUpon>dsmeta_istanzaafamattach_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Data\dsmeta_rendicontattivitaprogettomesetmview_default.cs">
+      <DependentUpon>dsmeta_rendicontattivitaprogettomesetmview_default.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Data\dsmeta_perfvalutazionepersonalestatuschanges_default.cs">
       <DependentUpon>dsmeta_perfvalutazionepersonalestatuschanges_default.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1455,29 +1901,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Data\dsmeta_cbflussiviewdettaglio_default.cs">
-      <DependentUpon>dsmeta_cbflussiviewdettaglio_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_cbconf_default.cs">
-      <DependentUpon>dsmeta_cbconf_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_cbscadenziariofornitori_default.cs">
-      <DependentUpon>dsmeta_cbscadenziariofornitori_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_cbscadenziario_default.cs">
-      <DependentUpon>dsmeta_cbscadenziario_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_cbflussiview_default.cs">
-      <DependentUpon>dsmeta_cbflussiview_default.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Data\dsmeta_convalidante_segistpass.cs">
       <DependentUpon>dsmeta_convalidante_segistpass.xsd</DependentUpon>
     </Compile>
@@ -1503,11 +1926,6 @@
     </Compile>
     <Compile Include="Data\dsmeta_relatore_default.cs">
       <DependentUpon>dsmeta_relatore_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_cbmese_default.cs">
-      <DependentUpon>dsmeta_cbmese_default.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -1716,16 +2134,6 @@
     </Compile>
     <Compile Include="Data\dsmeta_progettotestokindprogettostatuskind_default.cs">
       <DependentUpon>dsmeta_progettotestokindprogettostatuskind_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_driverupbdetail_default.cs">
-      <DependentUpon>dsmeta_driverupbdetail_default.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Data\dsmeta_driverupb_default.cs">
-      <DependentUpon>dsmeta_driverupb_default.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -4109,6 +4517,985 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\dsmeta_firenet_communications_courses_default.xsc">
+      <DependentUpon>dsmeta_firenet_communications_courses_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_communications_courses_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_communications_courses_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_communications_courses_default.xss">
+      <DependentUpon>dsmeta_firenet_communications_courses_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_courses_default.xsc">
+      <DependentUpon>dsmeta_firenet_courses_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_courses_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_courses_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_courses_default.xss">
+      <DependentUpon>dsmeta_firenet_courses_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_courses_instruments_default.xsc">
+      <DependentUpon>dsmeta_firenet_courses_instruments_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_courses_instruments_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_courses_instruments_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_courses_instruments_default.xss">
+      <DependentUpon>dsmeta_firenet_courses_instruments_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_courses_teachers_default.xsc">
+      <DependentUpon>dsmeta_firenet_courses_teachers_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_courses_teachers_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_courses_teachers_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_courses_teachers_default.xss">
+      <DependentUpon>dsmeta_firenet_courses_teachers_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_courses_teachings_default.xsc">
+      <DependentUpon>dsmeta_firenet_courses_teachings_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_courses_teachings_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_courses_teachings_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_courses_teachings_default.xss">
+      <DependentUpon>dsmeta_firenet_courses_teachings_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_courses_users_default.xsc">
+      <DependentUpon>dsmeta_firenet_courses_users_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_courses_users_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_courses_users_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_courses_users_default.xss">
+      <DependentUpon>dsmeta_firenet_courses_users_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_preselection_sessions_courses_default.xsc">
+      <DependentUpon>dsmeta_firenet_preselection_sessions_courses_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_preselection_sessions_courses_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_preselection_sessions_courses_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_preselection_sessions_courses_default.xss">
+      <DependentUpon>dsmeta_firenet_preselection_sessions_courses_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_ranges_courses_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_ranges_courses_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_ranges_courses_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_ranges_courses_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_ranges_courses_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_ranges_courses_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_exam_booking_applications_default.xsc">
+      <DependentUpon>dsmeta_firenet_exam_booking_applications_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_exam_booking_applications_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_exam_booking_applications_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_exam_booking_applications_default.xss">
+      <DependentUpon>dsmeta_firenet_exam_booking_applications_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_exam_booking_sessions_default.xsc">
+      <DependentUpon>dsmeta_firenet_exam_booking_sessions_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_exam_booking_sessions_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_exam_booking_sessions_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_exam_booking_sessions_default.xss">
+      <DependentUpon>dsmeta_firenet_exam_booking_sessions_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_exam_booking_sessions_teachings_default.xsc">
+      <DependentUpon>dsmeta_firenet_exam_booking_sessions_teachings_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_exam_booking_sessions_teachings_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_exam_booking_sessions_teachings_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_exam_booking_sessions_teachings_default.xss">
+      <DependentUpon>dsmeta_firenet_exam_booking_sessions_teachings_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_exam_groups_default.xsc">
+      <DependentUpon>dsmeta_firenet_exam_groups_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_exam_groups_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_exam_groups_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_exam_groups_default.xss">
+      <DependentUpon>dsmeta_firenet_exam_groups_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_exam_sessions_default.xsc">
+      <DependentUpon>dsmeta_firenet_exam_sessions_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_exam_sessions_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_exam_sessions_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_exam_sessions_default.xss">
+      <DependentUpon>dsmeta_firenet_exam_sessions_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_exams_default.xsc">
+      <DependentUpon>dsmeta_firenet_exams_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_exams_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_exams_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_exams_default.xss">
+      <DependentUpon>dsmeta_firenet_exams_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_examstatuses_default.xsc">
+      <DependentUpon>dsmeta_firenet_examstatuses_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_examstatuses_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_examstatuses_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_examstatuses_default.xss">
+      <DependentUpon>dsmeta_firenet_examstatuses_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_preselection_exam_types_default.xsc">
+      <DependentUpon>dsmeta_firenet_preselection_exam_types_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_preselection_exam_types_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_preselection_exam_types_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_preselection_exam_types_default.xss">
+      <DependentUpon>dsmeta_firenet_preselection_exam_types_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_preselection_exams_default.xsc">
+      <DependentUpon>dsmeta_firenet_preselection_exams_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_preselection_exams_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_preselection_exams_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_preselection_exams_default.xss">
+      <DependentUpon>dsmeta_firenet_preselection_exams_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_diploma_applications_default.xsc">
+      <DependentUpon>dsmeta_firenet_diploma_applications_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_diploma_applications_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_diploma_applications_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_diploma_applications_default.xss">
+      <DependentUpon>dsmeta_firenet_diploma_applications_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_diploma_session_types_default.xsc">
+      <DependentUpon>dsmeta_firenet_diploma_session_types_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_diploma_session_types_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_diploma_session_types_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_diploma_session_types_default.xss">
+      <DependentUpon>dsmeta_firenet_diploma_session_types_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_diploma_sessions_default.xsc">
+      <DependentUpon>dsmeta_firenet_diploma_sessions_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_diploma_sessions_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_diploma_sessions_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_diploma_sessions_default.xss">
+      <DependentUpon>dsmeta_firenet_diploma_sessions_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_enrollments_default.xsc">
+      <DependentUpon>dsmeta_firenet_enrollments_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_enrollments_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_enrollments_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_enrollments_default.xss">
+      <DependentUpon>dsmeta_firenet_enrollments_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_student_enrollments_default.xsc">
+      <DependentUpon>dsmeta_firenet_student_enrollments_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_student_enrollments_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_student_enrollments_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_student_enrollments_default.xss">
+      <DependentUpon>dsmeta_firenet_student_enrollments_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_instruments_default.xsc">
+      <DependentUpon>dsmeta_firenet_instruments_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_instruments_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_instruments_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_instruments_default.xss">
+      <DependentUpon>dsmeta_firenet_instruments_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_payment_receipts_default.xsc">
+      <DependentUpon>dsmeta_firenet_payment_receipts_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_payment_receipts_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_payment_receipts_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_payment_receipts_default.xss">
+      <DependentUpon>dsmeta_firenet_payment_receipts_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_payment_requests_default.xsc">
+      <DependentUpon>dsmeta_firenet_payment_requests_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_payment_requests_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_payment_requests_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_payment_requests_default.xss">
+      <DependentUpon>dsmeta_firenet_payment_requests_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_payment_types_default.xsc">
+      <DependentUpon>dsmeta_firenet_payment_types_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_payment_types_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_payment_types_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_payment_types_default.xss">
+      <DependentUpon>dsmeta_firenet_payment_types_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_studentstatuses_default.xsc">
+      <DependentUpon>dsmeta_firenet_studentstatuses_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_studentstatuses_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_studentstatuses_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_studentstatuses_default.xss">
+      <DependentUpon>dsmeta_firenet_studentstatuses_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teacher_groups_students_default.xsc">
+      <DependentUpon>dsmeta_firenet_teacher_groups_students_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teacher_groups_students_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teacher_groups_students_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teacher_groups_students_default.xss">
+      <DependentUpon>dsmeta_firenet_teacher_groups_students_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_exonerations_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_exonerations_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_exonerations_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_exonerations_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_exonerations_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_exonerations_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_flow_codes_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_flow_codes_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_flow_codes_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_flow_codes_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_flow_codes_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_flow_codes_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_flows_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_flows_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_flows_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_flows_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_flows_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_flows_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_ranges_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_ranges_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_ranges_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_ranges_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_ranges_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_ranges_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_recipients_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_recipients_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_recipients_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_recipients_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_recipients_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_recipients_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_types_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_types_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_types_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_types_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_types_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_types_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_types_attachment_types_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_types_attachment_types_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_types_attachment_types_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_types_attachment_types_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_types_attachment_types_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_types_attachment_types_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_types_tax_flows_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_types_tax_flows_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_types_tax_flows_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_types_tax_flows_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_types_tax_flows_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_types_tax_flows_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_tax_types_tax_recipients_default.xsc">
+      <DependentUpon>dsmeta_firenet_tax_types_tax_recipients_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_tax_types_tax_recipients_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_tax_types_tax_recipients_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_tax_types_tax_recipients_default.xss">
+      <DependentUpon>dsmeta_firenet_tax_types_tax_recipients_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_taxes_default.xsc">
+      <DependentUpon>dsmeta_firenet_taxes_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_taxes_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_taxes_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_taxes_default.xss">
+      <DependentUpon>dsmeta_firenet_taxes_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_groups_teachers_default.xsc">
+      <DependentUpon>dsmeta_firenet_groups_teachers_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_groups_teachers_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_groups_teachers_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_groups_teachers_default.xss">
+      <DependentUpon>dsmeta_firenet_groups_teachers_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teacher_attendance_requests_default.xsc">
+      <DependentUpon>dsmeta_firenet_teacher_attendance_requests_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teacher_attendance_requests_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teacher_attendance_requests_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teacher_attendance_requests_default.xss">
+      <DependentUpon>dsmeta_firenet_teacher_attendance_requests_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teacher_attendance_types_default.xsc">
+      <DependentUpon>dsmeta_firenet_teacher_attendance_types_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teacher_attendance_types_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teacher_attendance_types_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teacher_attendance_types_default.xss">
+      <DependentUpon>dsmeta_firenet_teacher_attendance_types_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teacher_groups_default.xsc">
+      <DependentUpon>dsmeta_firenet_teacher_groups_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teacher_groups_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teacher_groups_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teacher_groups_default.xss">
+      <DependentUpon>dsmeta_firenet_teacher_groups_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teacher_plannings_default.xsc">
+      <DependentUpon>dsmeta_firenet_teacher_plannings_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teacher_plannings_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teacher_plannings_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teacher_plannings_default.xss">
+      <DependentUpon>dsmeta_firenet_teacher_plannings_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teachers_default.xsc">
+      <DependentUpon>dsmeta_firenet_teachers_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teachers_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teachers_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teachers_default.xss">
+      <DependentUpon>dsmeta_firenet_teachers_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_teachers_areas_default.xsc">
+      <DependentUpon>dsmeta_firenet_teachers_areas_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_teachers_areas_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_teachers_areas_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_teachers_areas_default.xss">
+      <DependentUpon>dsmeta_firenet_teachers_areas_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_communications_users_default.xsc">
+      <DependentUpon>dsmeta_firenet_communications_users_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_communications_users_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_communications_users_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_communications_users_default.xss">
+      <DependentUpon>dsmeta_firenet_communications_users_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_operator_users_default.xsc">
+      <DependentUpon>dsmeta_firenet_operator_users_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_operator_users_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_operator_users_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_operator_users_default.xss">
+      <DependentUpon>dsmeta_firenet_operator_users_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_users_default.xsc">
+      <DependentUpon>dsmeta_firenet_users_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_users_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_users_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_users_default.xss">
+      <DependentUpon>dsmeta_firenet_users_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_firenet_years_default.xsc">
+      <DependentUpon>dsmeta_firenet_years_default.xsd</DependentUpon>
+    </Content> 
+    <None Include="Data\dsmeta_firenet_years_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_firenet_years_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_firenet_years_default.xss">
+      <DependentUpon>dsmeta_firenet_years_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nettuno_matricolaafam_default.xsc">
+      <DependentUpon>dsmeta_nettuno_matricolaafam_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nettuno_matricolaafam_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nettuno_matricolaafam_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nettuno_matricolaafam_default.xss">
+      <DependentUpon>dsmeta_nettuno_matricolaafam_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nettuno_percorsoafam_default.xsc">
+      <DependentUpon>dsmeta_nettuno_percorsoafam_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nettuno_percorsoafam_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nettuno_percorsoafam_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nettuno_percorsoafam_default.xss">
+      <DependentUpon>dsmeta_nettuno_percorsoafam_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nettuno_corsoafam_default.xsc">
+      <DependentUpon>dsmeta_nettuno_corsoafam_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nettuno_corsoafam_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nettuno_corsoafam_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nettuno_corsoafam_default.xss">
+      <DependentUpon>dsmeta_nettuno_corsoafam_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nettuno_disciplinaafam_default.xsc">
+      <DependentUpon>dsmeta_nettuno_disciplinaafam_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nettuno_disciplinaafam_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nettuno_disciplinaafam_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nettuno_disciplinaafam_default.xss">
+      <DependentUpon>dsmeta_nettuno_disciplinaafam_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nettuno_utente_default.xsc">
+      <DependentUpon>dsmeta_nettuno_utente_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nettuno_utente_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nettuno_utente_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nettuno_utente_default.xss">
+      <DependentUpon>dsmeta_nettuno_utente_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_nettuno_offertaformativaafam_default.xsc">
+      <DependentUpon>dsmeta_nettuno_offertaformativaafam_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_nettuno_offertaformativaafam_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_nettuno_offertaformativaafam_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_nettuno_offertaformativaafam_default.xss">
+      <DependentUpon>dsmeta_nettuno_offertaformativaafam_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoora_personalecosto.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoora_personalecosto.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettoora_personalecosto.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettoora_personalecosto.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettoora_personalecosto.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettoora_personalecosto.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_filtrocapitolocsaposition_default.xsc">
+      <DependentUpon>dsmeta_filtrocapitolocsaposition_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_filtrocapitolocsaposition_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_filtrocapitolocsaposition_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_filtrocapitolocsaposition_default.xss">
+      <DependentUpon>dsmeta_filtrocapitolocsaposition_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_registryattach_default.xsc">
+      <DependentUpon>dsmeta_registryattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_registryattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_registryattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_registryattach_default.xss">
+      <DependentUpon>dsmeta_registryattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_qualificationsissues_default.xsc">
+      <DependentUpon>dsmeta_qualificationsissues_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_qualificationsissues_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_qualificationsissues_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_qualificationsissues_default.xss">
+      <DependentUpon>dsmeta_qualificationsissues_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_issuesq_default.xsc">
+      <DependentUpon>dsmeta_issuesq_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_issuesq_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_issuesq_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_issuesq_default.xss">
+      <DependentUpon>dsmeta_issuesq_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_enrollmentsissues_default.xsc">
+      <DependentUpon>dsmeta_enrollmentsissues_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_enrollmentsissues_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_enrollmentsissues_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_enrollmentsissues_default.xss">
+      <DependentUpon>dsmeta_enrollmentsissues_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_academicenrollmentchangerequest_default.xsc">
+      <DependentUpon>dsmeta_academicenrollmentchangerequest_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_academicenrollmentchangerequest_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_academicenrollmentchangerequest_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_academicenrollmentchangerequest_default.xss">
+      <DependentUpon>dsmeta_academicenrollmentchangerequest_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_issues_default.xsc">
+      <DependentUpon>dsmeta_issues_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_issues_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_issues_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_issues_default.xss">
+      <DependentUpon>dsmeta_issues_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_learningagrtrainerkind_default.xsc">
+      <DependentUpon>dsmeta_learningagrtrainerkind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_learningagrtrainerkind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_learningagrtrainerkind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_learningagrtrainerkind_default.xss">
+      <DependentUpon>dsmeta_learningagrtrainerkind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_mobilityperiodtype_default.xsc">
+      <DependentUpon>dsmeta_mobilityperiodtype_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_mobilityperiodtype_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_mobilityperiodtype_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_mobilityperiodtype_default.xss">
+      <DependentUpon>dsmeta_mobilityperiodtype_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_eqf_default.xsc">
+      <DependentUpon>dsmeta_eqf_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_eqf_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_eqf_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_eqf_default.xss">
+      <DependentUpon>dsmeta_eqf_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_learningagrkind_default.xsc">
+      <DependentUpon>dsmeta_learningagrkind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_learningagrkind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_learningagrkind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_learningagrkind_default.xss">
+      <DependentUpon>dsmeta_learningagrkind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_convalidatoview_seganagstu.xsc">
+      <DependentUpon>dsmeta_convalidatoview_seganagstu.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_convalidatoview_seganagstu.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_convalidatoview_seganagstu.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_convalidatoview_seganagstu.xss">
+      <DependentUpon>dsmeta_convalidatoview_seganagstu.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_perfinterazionireport_default.xsc">
+      <DependentUpon>dsmeta_perfinterazionireport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_perfinterazionireport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_perfinterazionireport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_perfinterazionireport_default.xss">
+      <DependentUpon>dsmeta_perfinterazionireport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_ects_default.xsc">
+      <DependentUpon>dsmeta_ects_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_ects_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_ects_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_ects_default.xss">
+      <DependentUpon>dsmeta_ects_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_residuoreport_default.xsc">
+      <DependentUpon>dsmeta_residuoreport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_residuoreport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_residuoreport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_residuoreport_default.xss">
+      <DependentUpon>dsmeta_residuoreport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_confsegreterie_default.xsc">
+      <DependentUpon>dsmeta_confsegreterie_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_confsegreterie_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_confsegreterie_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_confsegreterie_default.xss">
+      <DependentUpon>dsmeta_confsegreterie_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_dashboardprogettiview_default.xsc">
+      <DependentUpon>dsmeta_dashboardprogettiview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_dashboardprogettiview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_dashboardprogettiview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_dashboardprogettiview_default.xss">
+      <DependentUpon>dsmeta_dashboardprogettiview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_dichiarazioneserviziattach_default.xsc">
+      <DependentUpon>dsmeta_dichiarazioneserviziattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_dichiarazioneserviziattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_dichiarazioneserviziattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_dichiarazioneserviziattach_default.xss">
+      <DependentUpon>dsmeta_dichiarazioneserviziattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_consolidamento_seg.xsc">
+      <DependentUpon>dsmeta_consolidamento_seg.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_consolidamento_seg.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_consolidamento_seg.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_consolidamento_seg.xss">
+      <DependentUpon>dsmeta_consolidamento_seg.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_confprogetti_default.xsc">
+      <DependentUpon>dsmeta_confprogetti_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_confprogetti_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_confprogetti_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_confprogetti_default.xss">
+      <DependentUpon>dsmeta_confprogetti_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_consolidamentoora_default.xsc">
+      <DependentUpon>dsmeta_consolidamentoora_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_consolidamentoora_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_consolidamentoora_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_consolidamentoora_default.xss">
+      <DependentUpon>dsmeta_consolidamentoora_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_salbloccatiview_default.xsc">
+      <DependentUpon>dsmeta_salbloccatiview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_salbloccatiview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_salbloccatiview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_salbloccatiview_default.xss">
+      <DependentUpon>dsmeta_salbloccatiview_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_position_obsoleto.xsc">
+      <DependentUpon>dsmeta_position_obsoleto.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_position_obsoleto.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_position_obsoleto.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_position_obsoleto.xss">
+      <DependentUpon>dsmeta_position_obsoleto.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettoorereport_default.xsc">
+      <DependentUpon>dsmeta_progettoorereport_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettoorereport_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettoorereport_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettoorereport_default.xss">
+      <DependentUpon>dsmeta_progettoorereport_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_dichiarazioneservizi_seg.xsc">
+      <DependentUpon>dsmeta_dichiarazioneservizi_seg.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_dichiarazioneservizi_seg.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_dichiarazioneservizi_seg.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_dichiarazioneservizi_seg.xss">
+      <DependentUpon>dsmeta_dichiarazioneservizi_seg.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_dichiarazioneservizi_default.xsc">
+      <DependentUpon>dsmeta_dichiarazioneservizi_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_dichiarazioneservizi_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_dichiarazioneservizi_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_dichiarazioneservizi_default.xss">
+      <DependentUpon>dsmeta_dichiarazioneservizi_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_tiponomina_default.xsc">
+      <DependentUpon>dsmeta_tiponomina_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_tiponomina_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_tiponomina_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_tiponomina_default.xss">
+      <DependentUpon>dsmeta_tiponomina_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_progettotimesheet_personalecosto.xsc">
+      <DependentUpon>dsmeta_progettotimesheet_personalecosto.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_progettotimesheet_personalecosto.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_progettotimesheet_personalecosto.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_progettotimesheet_personalecosto.xss">
+      <DependentUpon>dsmeta_progettotimesheet_personalecosto.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_istanzaafamkind_default.xsc">
+      <DependentUpon>dsmeta_istanzaafamkind_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_istanzaafamkind_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_istanzaafamkind_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_istanzaafamkind_default.xss">
+      <DependentUpon>dsmeta_istanzaafamkind_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_istanzaafam_default.xsc">
+      <DependentUpon>dsmeta_istanzaafam_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_istanzaafam_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_istanzaafam_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_istanzaafam_default.xss">
+      <DependentUpon>dsmeta_istanzaafam_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_istanzaafam_seg.xsc">
+      <DependentUpon>dsmeta_istanzaafam_seg.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_istanzaafam_seg.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_istanzaafam_seg.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_istanzaafam_seg.xss">
+      <DependentUpon>dsmeta_istanzaafam_seg.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_istanzaafamattach_default.xsc">
+      <DependentUpon>dsmeta_istanzaafamattach_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_istanzaafamattach_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_istanzaafamattach_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_istanzaafamattach_default.xss">
+      <DependentUpon>dsmeta_istanzaafamattach_default.xsd</DependentUpon>
+    </Content>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettomesetmview_default.xsc">
+      <DependentUpon>dsmeta_rendicontattivitaprogettomesetmview_default.xsd</DependentUpon>
+    </Content>
+    <None Include="Data\dsmeta_rendicontattivitaprogettomesetmview_default.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>dsmeta_rendicontattivitaprogettomesetmview_default.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Data\dsmeta_rendicontattivitaprogettomesetmview_default.xss">
+      <DependentUpon>dsmeta_rendicontattivitaprogettomesetmview_default.xsd</DependentUpon>
+    </Content>
     <Content Include="Data\dsmeta_perfvalutazionepersonalestatuschanges_default.xsc">
       <DependentUpon>dsmeta_perfvalutazionepersonalestatuschanges_default.xsd</DependentUpon>
     </Content>
@@ -7090,72 +8477,6 @@
     <Content Include="Data\dsmeta_convalida_segistabbr.xss">
       <DependentUpon>dsmeta_convalida_segistabbr.xsd</DependentUpon>
     </Content>
-    <Content Include="Data\dsmeta_cbflussiviewdettaglio_default.xsc">
-      <DependentUpon>dsmeta_cbflussiviewdettaglio_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_cbflussiviewdettaglio_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_cbflussiviewdettaglio_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_cbflussiviewdettaglio_default.xss">
-      <DependentUpon>dsmeta_cbflussiviewdettaglio_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_cbconf_default.xsc">
-      <DependentUpon>dsmeta_cbconf_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_cbconf_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_cbconf_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_cbconf_default.xss">
-      <DependentUpon>dsmeta_cbconf_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_cbscadenziariofornitori_default.xsc">
-      <DependentUpon>dsmeta_cbscadenziariofornitori_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_cbscadenziariofornitori_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_cbscadenziariofornitori_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_cbscadenziariofornitori_default.xss">
-      <DependentUpon>dsmeta_cbscadenziariofornitori_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_cbscadenziario_default.xsc">
-      <DependentUpon>dsmeta_cbscadenziario_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_cbscadenziario_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_cbscadenziario_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_cbscadenziario_default.xss">
-      <DependentUpon>dsmeta_cbscadenziario_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_cbflussiview_default.xsc">
-      <DependentUpon>dsmeta_cbflussiview_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_cbflussiview_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_cbflussiview_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_cbflussiview_default.xss">
-      <DependentUpon>dsmeta_cbflussiview_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_cbmese_default.xsc">
-      <DependentUpon>dsmeta_cbmese_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_cbmese_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_cbmese_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_cbmese_default.xss">
-      <DependentUpon>dsmeta_cbmese_default.xsd</DependentUpon>
-    </Content>
     <Content Include="Data\dsmeta_scadenziarioclienti_default.xsc">
       <DependentUpon>dsmeta_scadenziarioclienti_default.xsd</DependentUpon>
     </Content>
@@ -7583,28 +8904,6 @@
     </None>
     <Content Include="Data\dsmeta_progettotestokindprogettostatuskind_default.xss">
       <DependentUpon>dsmeta_progettotestokindprogettostatuskind_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_driverupbdetail_default.xsc">
-      <DependentUpon>dsmeta_driverupbdetail_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_driverupbdetail_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_driverupbdetail_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_driverupbdetail_default.xss">
-      <DependentUpon>dsmeta_driverupbdetail_default.xsd</DependentUpon>
-    </Content>
-    <Content Include="Data\dsmeta_driverupb_default.xsc">
-      <DependentUpon>dsmeta_driverupb_default.xsd</DependentUpon>
-    </Content>
-    <None Include="Data\dsmeta_driverupb_default.xsd">
-      <Generator>HDSGene</Generator>
-      <LastGenOutput>dsmeta_driverupb_default.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Data\dsmeta_driverupb_default.xss">
-      <DependentUpon>dsmeta_driverupb_default.xsd</DependentUpon>
     </Content>
     <Content Include="Data\dsmeta_affidamentokindcostoora_default.xsc">
       <DependentUpon>dsmeta_affidamentokindcostoora_default.xsd</DependentUpon>
@@ -12103,6 +13402,7 @@
     </None>
     <Content Include="saml\cert.pfx" />
     <Content Include="saml\certUPO.pfx" />
+    <Content Include="saml\certUnicampania.pfx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -12113,9 +13413,6 @@
     <Content Include="WebSocket\WSServer.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
     <Reference Include="ComponentSpace.SAML2, Version=2.6.0.18, Culture=neutral, PublicKeyToken=7c51d97b3a0a8ff9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\librariesThidPart\ComponentSpace.SAML2.dll</HintPath>
@@ -12257,6 +13554,10 @@
     <ProjectReference Include="..\FirmaRemotaAruba\FirmaRemotaAruba.csproj">
       <Project>{9c709d4c-729c-4b2e-921c-b7cde1c4028e}</Project>
       <Name>FirmaRemotaAruba</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FirmaRemotaUsign\FirmaRemotaUsign.csproj">
+      <Project>{9e3d877e-c034-4890-bd0a-ea0aae40043f}</Project>
+      <Name>FirmaRemotaUsign</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

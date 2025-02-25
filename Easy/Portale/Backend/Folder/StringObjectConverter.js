@@ -604,7 +604,7 @@ function ConvertDateToDateString(pObject, pStdDateFormat) {
 
         case "g":
             {
-                // dd/mm/yyyy hh:mm:ss -- needs to be implemented NOW
+                // dd/MM/yyyy HH:mm:ss -- needs to be implemented NOW
                 Hours = TmpDate.getHours();
                 Minutes = TmpDate.getMinutes();
                 //			Seconds=TmpDate.getSeconds();

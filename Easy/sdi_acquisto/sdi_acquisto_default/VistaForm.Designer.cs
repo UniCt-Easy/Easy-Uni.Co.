@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,6 +37,9 @@ public partial class VistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable uniconfig 		=> Tables["uniconfig"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable tipodocumento_sdi 		=> Tables["tipodocumento_sdi"];
 
 	#endregion
 
@@ -196,6 +199,21 @@ private void initClass() {
 	tuniconfig.PrimaryKey =  new DataColumn[]{tuniconfig.Columns["dummykey"]};
 
 
+	//////////////////// TIPODOCUMENTO_SDI /////////////////////////////////
+	var ttipodocumento_sdi= new DataTable("tipodocumento_sdi");
+	C= new DataColumn("cod_tipodoc", typeof(string));
+	C.AllowDBNull=false;
+	ttipodocumento_sdi.Columns.Add(C);
+	ttipodocumento_sdi.Columns.Add( new DataColumn("active", typeof(string)));
+	ttipodocumento_sdi.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	ttipodocumento_sdi.Columns.Add( new DataColumn("cu", typeof(string)));
+	ttipodocumento_sdi.Columns.Add( new DataColumn("description", typeof(string)));
+	ttipodocumento_sdi.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	ttipodocumento_sdi.Columns.Add( new DataColumn("lu", typeof(string)));
+	Tables.Add(ttipodocumento_sdi);
+	ttipodocumento_sdi.PrimaryKey =  new DataColumn[]{ttipodocumento_sdi.Columns["cod_tipodoc"]};
+
+
 	#endregion
 
 
@@ -203,6 +221,10 @@ private void initClass() {
 	var cPar = new []{sdi_status.Columns["idsdi_status"]};
 	var cChild = new []{sdi_acquisto.Columns["idsdi_status"]};
 	Relations.Add(new DataRelation("FK_sdi_status_sdi_acquisto",cPar,cChild,false));
+
+	cPar = new []{tipodocumento_sdi.Columns["cod_tipodoc"]};
+	cChild = new []{sdi_acquisto.Columns["tipodocumento"]};
+	Relations.Add(new DataRelation("tipodocumento_sdi_sdi_acquisto",cPar,cChild,false));
 
 	#endregion
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -205,37 +205,6 @@ private void initClass() {
 	Tables.Add(tprogettoreportprogettostatuskind);
 	tprogettoreportprogettostatuskind.defineKey("idprogettoreport", "idprogettostatuskind");
 
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVI_ALIAS2 /////////////////////////////////
-	var tgetregistrydocentiamministrativi_alias2= new MetaTable("getregistrydocentiamministrativi_alias2");
-	tgetregistrydocentiamministrativi_alias2.defineColumn("contratto", typeof(string));
-	tgetregistrydocentiamministrativi_alias2.defineColumn("extmatricula", typeof(string));
-	tgetregistrydocentiamministrativi_alias2.defineColumn("forename", typeof(string));
-	tgetregistrydocentiamministrativi_alias2.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministrativi_alias2.defineColumn("surname", typeof(string));
-	tgetregistrydocentiamministrativi_alias2.ExtendedProperties["TableForReading"]="getregistrydocentiamministrativi";
-	Tables.Add(tgetregistrydocentiamministrativi_alias2);
-	tgetregistrydocentiamministrativi_alias2.defineKey("idreg");
-
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVI_ALIAS1 /////////////////////////////////
-	var tgetregistrydocentiamministrativi_alias1= new MetaTable("getregistrydocentiamministrativi_alias1");
-	tgetregistrydocentiamministrativi_alias1.defineColumn("contratto", typeof(string));
-	tgetregistrydocentiamministrativi_alias1.defineColumn("extmatricula", typeof(string));
-	tgetregistrydocentiamministrativi_alias1.defineColumn("forename", typeof(string));
-	tgetregistrydocentiamministrativi_alias1.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministrativi_alias1.defineColumn("surname", typeof(string));
-	tgetregistrydocentiamministrativi_alias1.ExtendedProperties["TableForReading"]="getregistrydocentiamministrativi";
-	Tables.Add(tgetregistrydocentiamministrativi_alias1);
-	tgetregistrydocentiamministrativi_alias1.defineKey("idreg");
-
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVI /////////////////////////////////
-	var tgetregistrydocentiamministrativi= new MetaTable("getregistrydocentiamministrativi");
-	tgetregistrydocentiamministrativi.defineColumn("contratto", typeof(string));
-	tgetregistrydocentiamministrativi.defineColumn("extmatricula", typeof(string));
-	tgetregistrydocentiamministrativi.defineColumn("forename", typeof(string));
-	tgetregistrydocentiamministrativi.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministrativi.defineColumn("surname", typeof(string));
-	Tables.Add(tgetregistrydocentiamministrativi);
-	tgetregistrydocentiamministrativi.defineKey("idreg");
 
 	//////////////////// STRUTTURA /////////////////////////////////
 	var tstruttura= new MetaTable("struttura");
@@ -248,9 +217,6 @@ private void initClass() {
 	tstruttura.defineColumn("fax", typeof(string));
 	tstruttura.defineColumn("idaoo", typeof(int));
 	tstruttura.defineColumn("idreg", typeof(int));
-	tstruttura.defineColumn("idreg_appr", typeof(int));
-	tstruttura.defineColumn("idreg_resp", typeof(int));
-	tstruttura.defineColumn("idreg_valut", typeof(int));
 	tstruttura.defineColumn("idsede", typeof(int),false);
 	tstruttura.defineColumn("idstruttura", typeof(int),false);
 	tstruttura.defineColumn("idstrutturakind", typeof(int),false);
@@ -265,18 +231,6 @@ private void initClass() {
 	tstruttura.defineColumn("telefono", typeof(string));
 	tstruttura.defineColumn("title", typeof(string));
 	tstruttura.defineColumn("title_en", typeof(string));
-	tstruttura.defineColumn("!idreg_appr_getregistrydocentiamministrativi_surname", typeof(string));
-	tstruttura.defineColumn("!idreg_appr_getregistrydocentiamministrativi_forename", typeof(string));
-	tstruttura.defineColumn("!idreg_appr_getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tstruttura.defineColumn("!idreg_appr_getregistrydocentiamministrativi_contratto", typeof(string));
-	tstruttura.defineColumn("!idreg_resp_getregistrydocentiamministrativi_surname", typeof(string));
-	tstruttura.defineColumn("!idreg_resp_getregistrydocentiamministrativi_forename", typeof(string));
-	tstruttura.defineColumn("!idreg_resp_getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tstruttura.defineColumn("!idreg_resp_getregistrydocentiamministrativi_contratto", typeof(string));
-	tstruttura.defineColumn("!idreg_valut_getregistrydocentiamministrativi_surname", typeof(string));
-	tstruttura.defineColumn("!idreg_valut_getregistrydocentiamministrativi_forename", typeof(string));
-	tstruttura.defineColumn("!idreg_valut_getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tstruttura.defineColumn("!idreg_valut_getregistrydocentiamministrativi_contratto", typeof(string));
 	Tables.Add(tstruttura);
 	tstruttura.defineKey("idstruttura");
 
@@ -424,18 +378,6 @@ private void initClass() {
 	cPar = new []{struttura.Columns["idstruttura"]};
 	cChild = new []{progettoreportstruttura.Columns["idstruttura"]};
 	Relations.Add(new DataRelation("FK_progettoreportstruttura_struttura_idstruttura",cPar,cChild,false));
-
-	cPar = new []{getregistrydocentiamministrativi_alias2.Columns["idreg"]};
-	cChild = new []{struttura.Columns["idreg_valut"]};
-	Relations.Add(new DataRelation("FK_struttura_getregistrydocentiamministrativi_alias2_idreg_valut",cPar,cChild,false));
-
-	cPar = new []{getregistrydocentiamministrativi_alias1.Columns["idreg"]};
-	cChild = new []{struttura.Columns["idreg_resp"]};
-	Relations.Add(new DataRelation("FK_struttura_getregistrydocentiamministrativi_alias1_idreg_resp",cPar,cChild,false));
-
-	cPar = new []{getregistrydocentiamministrativi.Columns["idreg"]};
-	cChild = new []{struttura.Columns["idreg_appr"]};
-	Relations.Add(new DataRelation("FK_struttura_getregistrydocentiamministrativi_idreg_appr",cPar,cChild,false));
 
 	cPar = new []{year.Columns["year"]};
 	cChild = new []{progettoreport.Columns["year"]};

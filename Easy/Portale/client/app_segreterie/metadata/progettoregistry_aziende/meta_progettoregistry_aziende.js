@@ -56,6 +56,8 @@
 						objCalcFieldConfig['!idreg_aziende_geo_nation_title'] = { tableNameLookup:'geo_nation', columnNameLookup:'title', columnNamekey:'idreg_aziende' };
 						objCalcFieldConfig['!idreg_aziende_registry_pic'] = { tableNameLookup:'registry', columnNameLookup:'pic', columnNamekey:'idreg_aziende' };
 						objCalcFieldConfig['!idreg_aziende_registry_flag_pa'] = { tableNameLookup:'registry', columnNameLookup:'flag_pa', columnNamekey:'idreg_aziende' };
+						this.describeAColumn(table, '!idreg_aziende_registry_idanpr', 'Idanpr', null, 541, null);
+						objCalcFieldConfig['!idreg_aziende_registry_idanpr'] = { tableNameLookup:'registry', columnNameLookup:'idanpr', columnNamekey:'idreg_aziende' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

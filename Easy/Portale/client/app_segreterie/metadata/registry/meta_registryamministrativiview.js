@@ -30,6 +30,7 @@
 						this.describeAColumn(table, 'registry_badgecode', 'Codice badge', null, 5000, 20);
 						this.describeAColumn(table, 'registry_active', 'Attivo', null, 10000, null);
 						this.describeAColumn(table, 'XXregistrylegalstatus', 'Servizi di ruolo - Contratti', null, 52000, null);
+						this.describeAColumn(table, 'registry_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 101000, 9);
 //$objCalcFieldConfig_amministrativi$
 						break;
 //$objCalcFieldConfig$
@@ -51,9 +52,6 @@
 
 			getSorting: function (listType) {
 				switch (listType) {
-					case "amministrativi": {
-						return "title asc ";
-					}
 					case "amministrativi": {
 						return "registry_surname asc , registry_forename asc ";
 					}

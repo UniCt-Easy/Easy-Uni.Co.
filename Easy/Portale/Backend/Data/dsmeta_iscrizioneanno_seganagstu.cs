@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_iscrizioneanno_seganagstu"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_iscrizioneanno_seganagstu: DataSet {
+public partial class dsmeta_iscrizioneanno_seganagstu: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -80,7 +80,7 @@ private void initClass() {
 	tdidprogoridefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tdidprogoridefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogoridefaultview);
-	tdidprogoridefaultview.defineKey("iddidprogori");
+	tdidprogoridefaultview.defineKey("idcorsostudio", "iddidprog", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");

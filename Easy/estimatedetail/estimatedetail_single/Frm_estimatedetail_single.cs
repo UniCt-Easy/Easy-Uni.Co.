@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,6 +26,9 @@ using metadatalibrary;
 using q=metadatalibrary.MetaExpression;
 using funzioni_configurazione;//funzioni_configurazione
 using ep_functions;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace estimatedetail_single {
     /// <summary>
@@ -50,9 +53,6 @@ namespace estimatedetail_single {
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -103,8 +103,6 @@ namespace estimatedetail_single {
         public estimatedetail_single.dsmeta DS;
         private System.Windows.Forms.GroupBox grpRegistry;
         private System.Windows.Forms.TextBox txtCredDeb;
-        private System.Windows.Forms.TextBox txtstart;
-        private System.Windows.Forms.TextBox txtstop;
         private TabPage tabEP;
         private GroupBox grpCausaleAnnullamento;
         private TextBox textBox2;
@@ -120,7 +118,6 @@ namespace estimatedetail_single {
         private TextBox txtCodiceCausale;
         private Button btnCausaleEP;
         private TabPage tabAppunti;
-        private TabPage tabMain;
         private TextBox txtQuantita;
         private Label label1;
         private GroupBox grpValoreUnitInValuta;
@@ -182,8 +179,6 @@ namespace estimatedetail_single {
         private Label label25;
         private TextBox txtNumPreimpegno;
         private TextBox txtEsercPreImpegno;
-		private GroupBox gboxIncassato;
-		private TextBox txtIncassato;
 		private GroupBox grpTassonomia;
 		private ComboBox cmbTassonomia;
 		private Button btnTassonomia;
@@ -194,15 +189,21 @@ namespace estimatedetail_single {
 		private Label labelCupCode;
 		private TextBox txtCupCode;
 		MetaData Meta;
-
-        public Frm_estimatedetail_single() {
+		private TabPage tabPrincipale;
+		private GroupBox gboxIncassato;
+		private TextBox txtIncassato;
+		private TextBox txtstart;
+		private Label label5;
+		private TextBox txtstop;
+		private Label label2;
+		object AV; // Acquisto/Vendita (seleziona il contesto dei codici SIOPE, sempr eV in questo caso)
+		public Frm_estimatedetail_single() {
             InitializeComponent();
             cmbTassonomia.DataSource = DS.tassonomia_pagopa;
             cmbTassonomia.ValueMember = "idtassonomia";
             cmbTassonomia.DisplayMember = "title";
-
-
-        }
+			AV = "V"; // vendita
+		}
 
         /// <summary>
         /// Clean up any resources being used.
@@ -234,10 +235,6 @@ namespace estimatedetail_single {
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtAppunti = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.txtstart = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
-			this.txtstop = new System.Windows.Forms.TextBox();
 			this.gboxIVA = new System.Windows.Forms.GroupBox();
 			this.btnRemoveIva = new System.Windows.Forms.Button();
 			this.txtNumeroIva = new System.Windows.Forms.TextBox();
@@ -257,14 +254,16 @@ namespace estimatedetail_single {
 			this.DS = new estimatedetail_single.dsmeta();
 			this.btnUPBCode = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabMain = new System.Windows.Forms.TabPage();
+			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.gboxIncassato = new System.Windows.Forms.GroupBox();
 			this.txtIncassato = new System.Windows.Forms.TextBox();
-			this.gboxListino = new System.Windows.Forms.GroupBox();
-			this.chkListDescription = new System.Windows.Forms.CheckBox();
-			this.btnListino = new System.Windows.Forms.Button();
-			this.txtListino = new System.Windows.Forms.TextBox();
-			this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
+			this.grpValoreUnitInValuta = new System.Windows.Forms.GroupBox();
+			this.txtSconto = new System.Windows.Forms.TextBox();
+			this.txtImponibile = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtQuantita = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.TxtIvaValutaTot = new System.Windows.Forms.TextBox();
@@ -275,15 +274,6 @@ namespace estimatedetail_single {
 			this.cmbTipoIVA = new System.Windows.Forms.ComboBox();
 			this.txtTaxRate = new System.Windows.Forms.TextBox();
 			this.label21 = new System.Windows.Forms.Label();
-			this.grpRegistry = new System.Windows.Forms.GroupBox();
-			this.txtCredDeb = new System.Windows.Forms.TextBox();
-			this.txtQuantita = new System.Windows.Forms.TextBox();
-			this.grpValoreUnitInValuta = new System.Windows.Forms.GroupBox();
-			this.txtSconto = new System.Windows.Forms.TextBox();
-			this.txtImponibile = new System.Windows.Forms.TextBox();
-			this.label16 = new System.Windows.Forms.Label();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
 			this.tabFinanziario = new System.Windows.Forms.TabPage();
 			this.labelCupCode = new System.Windows.Forms.Label();
 			this.txtCupCode = new System.Windows.Forms.TextBox();
@@ -375,19 +365,28 @@ namespace estimatedetail_single {
 			this.label22 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.chkScrittureDifferite = new System.Windows.Forms.CheckBox();
+			this.gboxListino = new System.Windows.Forms.GroupBox();
+			this.chkListDescription = new System.Windows.Forms.CheckBox();
+			this.btnListino = new System.Windows.Forms.Button();
+			this.txtListino = new System.Windows.Forms.TextBox();
+			this.txtDescrizioneListino = new System.Windows.Forms.TextBox();
+			this.grpRegistry = new System.Windows.Forms.GroupBox();
+			this.txtCredDeb = new System.Windows.Forms.TextBox();
 			this.btnCodice = new System.Windows.Forms.Button();
+			this.txtstart = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtstop = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox2.SuspendLayout();
 			this.gboxIVA.SuspendLayout();
 			this.gboxImponibile.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
-			this.tabMain.SuspendLayout();
+			this.tabPrincipale.SuspendLayout();
 			this.gboxIncassato.SuspendLayout();
-			this.gboxListino.SuspendLayout();
+			this.grpValoreUnitInValuta.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
-			this.grpRegistry.SuspendLayout();
-			this.grpValoreUnitInValuta.SuspendLayout();
 			this.tabFinanziario.SuspendLayout();
 			this.gBoxupbIVA.SuspendLayout();
 			this.gboxUPB.SuspendLayout();
@@ -410,22 +409,24 @@ namespace estimatedetail_single {
 			this.gboxCausaleBilancioEntrataIva.SuspendLayout();
 			this.gboxCausaleBilancioEntrata.SuspendLayout();
 			this.grpTassonomia.SuspendLayout();
+			this.gboxListino.SuspendLayout();
+			this.grpRegistry.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// txtDescrizione
 			// 
 			this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrizione.Location = new System.Drawing.Point(17, 68);
+			this.txtDescrizione.Location = new System.Drawing.Point(26, 67);
 			this.txtDescrizione.Multiline = true;
 			this.txtDescrizione.Name = "txtDescrizione";
-			this.txtDescrizione.Size = new System.Drawing.Size(499, 40);
+			this.txtDescrizione.Size = new System.Drawing.Size(460, 51);
 			this.txtDescrizione.TabIndex = 2;
 			this.txtDescrizione.Tag = "estimatedetail.detaildescription";
 			// 
 			// label6
 			// 
-			this.label6.Location = new System.Drawing.Point(14, 49);
+			this.label6.Location = new System.Drawing.Point(23, 49);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(72, 16);
 			this.label6.TabIndex = 12;
@@ -436,7 +437,7 @@ namespace estimatedetail_single {
 			// 
 			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnOK.Location = new System.Drawing.Point(704, 541);
+			this.btnOK.Location = new System.Drawing.Point(712, 529);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(75, 23);
 			this.btnOK.TabIndex = 2;
@@ -448,7 +449,7 @@ namespace estimatedetail_single {
 			// 
 			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnAnnulla.Location = new System.Drawing.Point(785, 541);
+			this.btnAnnulla.Location = new System.Drawing.Point(793, 529);
 			this.btnAnnulla.Name = "btnAnnulla";
 			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
 			this.btnAnnulla.TabIndex = 3;
@@ -461,16 +462,16 @@ namespace estimatedetail_single {
 			this.groupBox2.Controls.Add(this.txtImponibileEUR);
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.label4);
-			this.groupBox2.Location = new System.Drawing.Point(322, 258);
+			this.groupBox2.Location = new System.Drawing.Point(323, 6);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(280, 56);
+			this.groupBox2.Size = new System.Drawing.Size(232, 66);
 			this.groupBox2.TabIndex = 8;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Valore totale in EUR";
 			// 
 			// txtIvaEUR
 			// 
-			this.txtIvaEUR.Location = new System.Drawing.Point(128, 32);
+			this.txtIvaEUR.Location = new System.Drawing.Point(128, 36);
 			this.txtIvaEUR.Name = "txtIvaEUR";
 			this.txtIvaEUR.ReadOnly = true;
 			this.txtIvaEUR.Size = new System.Drawing.Size(72, 20);
@@ -480,7 +481,7 @@ namespace estimatedetail_single {
 			// 
 			// txtImponibileEUR
 			// 
-			this.txtImponibileEUR.Location = new System.Drawing.Point(8, 32);
+			this.txtImponibileEUR.Location = new System.Drawing.Point(8, 36);
 			this.txtImponibileEUR.Name = "txtImponibileEUR";
 			this.txtImponibileEUR.ReadOnly = true;
 			this.txtImponibileEUR.Size = new System.Drawing.Size(88, 20);
@@ -490,7 +491,7 @@ namespace estimatedetail_single {
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(128, 16);
+			this.label3.Location = new System.Drawing.Point(128, 20);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(56, 16);
 			this.label3.TabIndex = 35;
@@ -499,7 +500,7 @@ namespace estimatedetail_single {
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(8, 16);
+			this.label4.Location = new System.Drawing.Point(8, 20);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(64, 16);
 			this.label4.TabIndex = 34;
@@ -512,46 +513,9 @@ namespace estimatedetail_single {
 			this.txtAppunti.Location = new System.Drawing.Point(0, 0);
 			this.txtAppunti.Multiline = true;
 			this.txtAppunti.Name = "txtAppunti";
-			this.txtAppunti.Size = new System.Drawing.Size(849, 506);
+			this.txtAppunti.Size = new System.Drawing.Size(838, 359);
 			this.txtAppunti.TabIndex = 19;
 			this.txtAppunti.Tag = "estimatedetail.annotations";
-			// 
-			// label2
-			// 
-			this.label2.Location = new System.Drawing.Point(11, 237);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(504, 16);
-			this.label2.TabIndex = 17;
-			this.label2.Text = "Data contabile (da inserire se questo dettaglio non era presente nel Contratto or" +
-    "iginale)";
-			// 
-			// txtstart
-			// 
-			this.txtstart.Location = new System.Drawing.Point(11, 254);
-			this.txtstart.Name = "txtstart";
-			this.txtstart.Size = new System.Drawing.Size(128, 20);
-			this.txtstart.TabIndex = 4;
-			this.txtstart.Tag = "estimatedetail.start";
-			this.txtstart.Leave += new System.EventHandler(this.txtstart_Leave);
-			// 
-			// label5
-			// 
-			this.label5.Location = new System.Drawing.Point(10, 279);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(433, 16);
-			this.label5.TabIndex = 19;
-			this.label5.Text = "Data annullamento (inserire se il dettaglio Ë  annullato o sostituito da un altro" +
-    " dettaglio)";
-			// 
-			// txtstop
-			// 
-			this.txtstop.Location = new System.Drawing.Point(11, 296);
-			this.txtstop.Name = "txtstop";
-			this.txtstop.ReadOnly = true;
-			this.txtstop.Size = new System.Drawing.Size(128, 20);
-			this.txtstop.TabIndex = 5;
-			this.txtstop.Tag = "estimatedetail.stop";
-			this.txtstop.Leave += new System.EventHandler(this.txtstop_Leave);
 			// 
 			// gboxIVA
 			// 
@@ -621,7 +585,7 @@ namespace estimatedetail_single {
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(152, 23);
 			this.label9.TabIndex = 21;
-			this.label9.Text = "Quantit‡ inserita in fatture:";
+			this.label9.Text = "Quantit√† inserita in fatture:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtNInvoiced
@@ -670,7 +634,7 @@ namespace estimatedetail_single {
 			// 
 			this.btnRemoveImponibile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnRemoveImponibile.Location = new System.Drawing.Point(136, 24);
+			this.btnRemoveImponibile.Location = new System.Drawing.Point(136, 30);
 			this.btnRemoveImponibile.Name = "btnRemoveImponibile";
 			this.btnRemoveImponibile.Size = new System.Drawing.Size(112, 23);
 			this.btnRemoveImponibile.TabIndex = 4;
@@ -729,127 +693,128 @@ namespace estimatedetail_single {
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl1.Controls.Add(this.tabMain);
+			this.tabControl1.Controls.Add(this.tabPrincipale);
 			this.tabControl1.Controls.Add(this.tabFinanziario);
 			this.tabControl1.Controls.Add(this.tabAnalitico);
 			this.tabControl1.Controls.Add(this.tabFatturazione);
 			this.tabControl1.Controls.Add(this.tabEP);
 			this.tabControl1.Controls.Add(this.tabAppunti);
 			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Location = new System.Drawing.Point(8, 3);
+			this.tabControl1.Location = new System.Drawing.Point(23, 124);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(857, 532);
+			this.tabControl1.Size = new System.Drawing.Size(846, 385);
 			this.tabControl1.TabIndex = 1;
 			this.tabControl1.TabStop = false;
 			// 
-			// tabMain
+			// tabPrincipale
 			// 
-			this.tabMain.Controls.Add(this.gboxIncassato);
-			this.tabMain.Controls.Add(this.gboxListino);
-			this.tabMain.Controls.Add(this.groupBox1);
-			this.tabMain.Controls.Add(this.txtDescrizione);
-			this.tabMain.Controls.Add(this.groupBox6);
-			this.tabMain.Controls.Add(this.grpRegistry);
-			this.tabMain.Controls.Add(this.txtQuantita);
-			this.tabMain.Controls.Add(this.label6);
-			this.tabMain.Controls.Add(this.grpValoreUnitInValuta);
-			this.tabMain.Controls.Add(this.groupBox2);
-			this.tabMain.Controls.Add(this.label1);
-			this.tabMain.Location = new System.Drawing.Point(4, 22);
-			this.tabMain.Name = "tabMain";
-			this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMain.Size = new System.Drawing.Size(849, 506);
-			this.tabMain.TabIndex = 6;
-			this.tabMain.Text = "Principale";
-			this.tabMain.UseVisualStyleBackColor = true;
-			this.tabMain.Click += new System.EventHandler(this.tabMain_Click);
+			this.tabPrincipale.Controls.Add(this.txtstart);
+			this.tabPrincipale.Controls.Add(this.label5);
+			this.tabPrincipale.Controls.Add(this.txtstop);
+			this.tabPrincipale.Controls.Add(this.label2);
+			this.tabPrincipale.Controls.Add(this.gboxIncassato);
+			this.tabPrincipale.Controls.Add(this.grpValoreUnitInValuta);
+			this.tabPrincipale.Controls.Add(this.label1);
+			this.tabPrincipale.Controls.Add(this.txtQuantita);
+			this.tabPrincipale.Controls.Add(this.groupBox1);
+			this.tabPrincipale.Controls.Add(this.groupBox2);
+			this.tabPrincipale.Controls.Add(this.groupBox6);
+			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
+			this.tabPrincipale.Name = "tabPrincipale";
+			this.tabPrincipale.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPrincipale.Size = new System.Drawing.Size(838, 359);
+			this.tabPrincipale.TabIndex = 8;
+			this.tabPrincipale.Text = "Principale";
+			this.tabPrincipale.UseVisualStyleBackColor = true;
 			// 
 			// gboxIncassato
 			// 
 			this.gboxIncassato.Controls.Add(this.txtIncassato);
-			this.gboxIncassato.Location = new System.Drawing.Point(614, 196);
+			this.gboxIncassato.Location = new System.Drawing.Point(561, 6);
 			this.gboxIncassato.Name = "gboxIncassato";
-			this.gboxIncassato.Size = new System.Drawing.Size(225, 56);
-			this.gboxIncassato.TabIndex = 17;
+			this.gboxIncassato.Size = new System.Drawing.Size(271, 66);
+			this.gboxIncassato.TabIndex = 18;
 			this.gboxIncassato.TabStop = false;
 			this.gboxIncassato.Text = "Incassato";
 			// 
 			// txtIncassato
 			// 
-			this.txtIncassato.Location = new System.Drawing.Point(6, 19);
+			this.txtIncassato.Location = new System.Drawing.Point(101, 32);
 			this.txtIncassato.Name = "txtIncassato";
 			this.txtIncassato.ReadOnly = true;
-			this.txtIncassato.Size = new System.Drawing.Size(213, 20);
+			this.txtIncassato.Size = new System.Drawing.Size(164, 20);
 			this.txtIncassato.TabIndex = 0;
 			this.txtIncassato.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// gboxListino
+			// grpValoreUnitInValuta
 			// 
-			this.gboxListino.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.gboxListino.Controls.Add(this.chkListDescription);
-			this.gboxListino.Controls.Add(this.btnListino);
-			this.gboxListino.Controls.Add(this.txtListino);
-			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
-			this.gboxListino.Location = new System.Drawing.Point(538, 68);
-			this.gboxListino.Name = "gboxListino";
-			this.gboxListino.Size = new System.Drawing.Size(301, 117);
-			this.gboxListino.TabIndex = 4;
-			this.gboxListino.TabStop = false;
-			this.gboxListino.Tag = "";
+			this.grpValoreUnitInValuta.Controls.Add(this.txtSconto);
+			this.grpValoreUnitInValuta.Controls.Add(this.txtImponibile);
+			this.grpValoreUnitInValuta.Controls.Add(this.label16);
+			this.grpValoreUnitInValuta.Controls.Add(this.label18);
+			this.grpValoreUnitInValuta.Location = new System.Drawing.Point(119, 76);
+			this.grpValoreUnitInValuta.Name = "grpValoreUnitInValuta";
+			this.grpValoreUnitInValuta.Size = new System.Drawing.Size(198, 63);
+			this.grpValoreUnitInValuta.TabIndex = 6;
+			this.grpValoreUnitInValuta.TabStop = false;
+			this.grpValoreUnitInValuta.Text = "Valore unitario in valuta ";
 			// 
-			// chkListDescription
+			// txtSconto
 			// 
-			this.chkListDescription.Location = new System.Drawing.Point(11, 11);
-			this.chkListDescription.Name = "chkListDescription";
-			this.chkListDescription.Size = new System.Drawing.Size(277, 20);
-			this.chkListDescription.TabIndex = 4;
-			this.chkListDescription.TabStop = false;
-			this.chkListDescription.Text = "Fitra per Descrizione/Class.Merceologica";
+			this.txtSconto.Location = new System.Drawing.Point(115, 32);
+			this.txtSconto.Name = "txtSconto";
+			this.txtSconto.Size = new System.Drawing.Size(64, 20);
+			this.txtSconto.TabIndex = 6;
+			this.txtSconto.Tag = "estimatedetail.discount.fixed.4..%.100";
+			this.txtSconto.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
 			// 
-			// btnListino
+			// txtImponibile
 			// 
-			this.btnListino.BackColor = System.Drawing.SystemColors.Control;
-			this.btnListino.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnListino.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnListino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnListino.ImageIndex = 0;
-			this.btnListino.Location = new System.Drawing.Point(6, 59);
-			this.btnListino.Name = "btnListino";
-			this.btnListino.Size = new System.Drawing.Size(57, 23);
-			this.btnListino.TabIndex = 1;
-			this.btnListino.TabStop = false;
-			this.btnListino.Tag = "";
-			this.btnListino.Text = "Listino";
-			this.btnListino.UseVisualStyleBackColor = false;
-			this.btnListino.Click += new System.EventHandler(this.btnListino_Click);
+			this.txtImponibile.Location = new System.Drawing.Point(8, 32);
+			this.txtImponibile.Name = "txtImponibile";
+			this.txtImponibile.Size = new System.Drawing.Size(101, 20);
+			this.txtImponibile.TabIndex = 5;
+			this.txtImponibile.Tag = "estimatedetail.taxable.fixed.5...1";
+			this.txtImponibile.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
 			// 
-			// txtListino
+			// label16
 			// 
-			this.txtListino.Location = new System.Drawing.Point(6, 88);
-			this.txtListino.Name = "txtListino";
-			this.txtListino.Size = new System.Drawing.Size(289, 20);
-			this.txtListino.TabIndex = 6;
-			this.txtListino.Tag = "";
-			this.txtListino.TextChanged += new System.EventHandler(this.txtListino_TextChanged);
-			this.txtListino.Enter += new System.EventHandler(this.txtListino_Enter);
-			this.txtListino.Leave += new System.EventHandler(this.txtListino_Leave);
+			this.label16.Location = new System.Drawing.Point(115, 16);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(56, 16);
+			this.label16.TabIndex = 36;
+			this.label16.Text = "Sconto:";
+			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// txtDescrizioneListino
+			// label18
 			// 
-			this.txtDescrizioneListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrizioneListino.Location = new System.Drawing.Point(76, 31);
-			this.txtDescrizioneListino.Multiline = true;
-			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
-			this.txtDescrizioneListino.ReadOnly = true;
-			this.txtDescrizioneListino.Size = new System.Drawing.Size(219, 51);
-			this.txtDescrizioneListino.TabIndex = 9;
-			this.txtDescrizioneListino.TabStop = false;
-			this.txtDescrizioneListino.Tag = "";
+			this.label18.Location = new System.Drawing.Point(8, 16);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(64, 16);
+			this.label18.TabIndex = 34;
+			this.label18.Text = "Imponibile:";
+			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(11, 92);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(56, 16);
+			this.label1.TabIndex = 16;
+			this.label1.Text = "Quantit√†:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtQuantita
+			// 
+			this.txtQuantita.Location = new System.Drawing.Point(11, 108);
+			this.txtQuantita.Name = "txtQuantita";
+			this.txtQuantita.Size = new System.Drawing.Size(73, 20);
+			this.txtQuantita.TabIndex = 5;
+			this.txtQuantita.Tag = "estimatedetail.number.N";
+			this.txtQuantita.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
 			// 
 			// groupBox1
 			// 
@@ -857,9 +822,9 @@ namespace estimatedetail_single {
 			this.groupBox1.Controls.Add(this.TxtIvaValutaTot);
 			this.groupBox1.Controls.Add(this.label19);
 			this.groupBox1.Controls.Add(this.TxtImponibileValutaTot);
-			this.groupBox1.Location = new System.Drawing.Point(322, 196);
+			this.groupBox1.Location = new System.Drawing.Point(323, 76);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(280, 56);
+			this.groupBox1.Size = new System.Drawing.Size(232, 63);
 			this.groupBox1.TabIndex = 7;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Valore totale in valuta";
@@ -909,15 +874,15 @@ namespace estimatedetail_single {
 			this.groupBox6.Controls.Add(this.cmbTipoIVA);
 			this.groupBox6.Controls.Add(this.txtTaxRate);
 			this.groupBox6.Controls.Add(this.label21);
-			this.groupBox6.Location = new System.Drawing.Point(9, 114);
+			this.groupBox6.Location = new System.Drawing.Point(6, 6);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(506, 71);
+			this.groupBox6.Size = new System.Drawing.Size(311, 66);
 			this.groupBox6.TabIndex = 3;
 			this.groupBox6.TabStop = false;
 			// 
 			// btnTipo
 			// 
-			this.btnTipo.Location = new System.Drawing.Point(8, 14);
+			this.btnTipo.Location = new System.Drawing.Point(8, 9);
 			this.btnTipo.Name = "btnTipo";
 			this.btnTipo.Size = new System.Drawing.Size(64, 23);
 			this.btnTipo.TabIndex = 7;
@@ -931,9 +896,9 @@ namespace estimatedetail_single {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbTipoIVA.DataSource = this.DS.ivakind;
 			this.cmbTipoIVA.DisplayMember = "description";
-			this.cmbTipoIVA.Location = new System.Drawing.Point(6, 43);
+			this.cmbTipoIVA.Location = new System.Drawing.Point(6, 36);
 			this.cmbTipoIVA.Name = "cmbTipoIVA";
-			this.cmbTipoIVA.Size = new System.Drawing.Size(404, 21);
+			this.cmbTipoIVA.Size = new System.Drawing.Size(221, 21);
 			this.cmbTipoIVA.TabIndex = 2;
 			this.cmbTipoIVA.Tag = "estimatedetail.idivakind";
 			this.cmbTipoIVA.ValueMember = "idivakind";
@@ -941,7 +906,7 @@ namespace estimatedetail_single {
 			// txtTaxRate
 			// 
 			this.txtTaxRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTaxRate.Location = new System.Drawing.Point(428, 43);
+			this.txtTaxRate.Location = new System.Drawing.Point(233, 37);
 			this.txtTaxRate.Name = "txtTaxRate";
 			this.txtTaxRate.ReadOnly = true;
 			this.txtTaxRate.Size = new System.Drawing.Size(72, 20);
@@ -953,98 +918,12 @@ namespace estimatedetail_single {
 			// label21
 			// 
 			this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label21.Location = new System.Drawing.Point(428, 21);
+			this.label21.Location = new System.Drawing.Point(233, 10);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(72, 16);
 			this.label21.TabIndex = 35;
 			this.label21.Text = "Aliquota";
 			this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// grpRegistry
-			// 
-			this.grpRegistry.Controls.Add(this.txtCredDeb);
-			this.grpRegistry.Location = new System.Drawing.Point(17, 6);
-			this.grpRegistry.Name = "grpRegistry";
-			this.grpRegistry.Size = new System.Drawing.Size(392, 40);
-			this.grpRegistry.TabIndex = 1;
-			this.grpRegistry.TabStop = false;
-			this.grpRegistry.Tag = "AutoChoose.txtCredDeb.default.(active=\'S\')";
-			this.grpRegistry.Text = "Cliente";
-			// 
-			// txtCredDeb
-			// 
-			this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
-			this.txtCredDeb.Name = "txtCredDeb";
-			this.txtCredDeb.Size = new System.Drawing.Size(376, 20);
-			this.txtCredDeb.TabIndex = 0;
-			this.txtCredDeb.Tag = "registrymainview.title?estimatedetailview.registry";
-			// 
-			// txtQuantita
-			// 
-			this.txtQuantita.Location = new System.Drawing.Point(14, 230);
-			this.txtQuantita.Name = "txtQuantita";
-			this.txtQuantita.Size = new System.Drawing.Size(88, 20);
-			this.txtQuantita.TabIndex = 5;
-			this.txtQuantita.Tag = "estimatedetail.number.N";
-			this.txtQuantita.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
-			// 
-			// grpValoreUnitInValuta
-			// 
-			this.grpValoreUnitInValuta.Controls.Add(this.txtSconto);
-			this.grpValoreUnitInValuta.Controls.Add(this.txtImponibile);
-			this.grpValoreUnitInValuta.Controls.Add(this.label16);
-			this.grpValoreUnitInValuta.Controls.Add(this.label18);
-			this.grpValoreUnitInValuta.Location = new System.Drawing.Point(108, 196);
-			this.grpValoreUnitInValuta.Name = "grpValoreUnitInValuta";
-			this.grpValoreUnitInValuta.Size = new System.Drawing.Size(208, 56);
-			this.grpValoreUnitInValuta.TabIndex = 6;
-			this.grpValoreUnitInValuta.TabStop = false;
-			this.grpValoreUnitInValuta.Text = "Valore unitario in valuta ";
-			// 
-			// txtSconto
-			// 
-			this.txtSconto.Location = new System.Drawing.Point(128, 32);
-			this.txtSconto.Name = "txtSconto";
-			this.txtSconto.Size = new System.Drawing.Size(64, 20);
-			this.txtSconto.TabIndex = 6;
-			this.txtSconto.Tag = "estimatedetail.discount.fixed.4..%.100";
-			this.txtSconto.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
-			// 
-			// txtImponibile
-			// 
-			this.txtImponibile.Location = new System.Drawing.Point(8, 32);
-			this.txtImponibile.Name = "txtImponibile";
-			this.txtImponibile.Size = new System.Drawing.Size(88, 20);
-			this.txtImponibile.TabIndex = 5;
-			this.txtImponibile.Tag = "estimatedetail.taxable.fixed.5...1";
-			this.txtImponibile.TextChanged += new System.EventHandler(this.txtImponibile_TextChanged);
-			// 
-			// label16
-			// 
-			this.label16.Location = new System.Drawing.Point(128, 16);
-			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(56, 16);
-			this.label16.TabIndex = 36;
-			this.label16.Text = "Sconto:";
-			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label18
-			// 
-			this.label18.Location = new System.Drawing.Point(8, 16);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(64, 16);
-			this.label18.TabIndex = 34;
-			this.label18.Text = "Imponibile:";
-			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(14, 214);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(56, 16);
-			this.label1.TabIndex = 16;
-			this.label1.Text = "Quantit‡:";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// tabFinanziario
 			// 
@@ -1056,13 +935,9 @@ namespace estimatedetail_single {
 			this.tabFinanziario.Controls.Add(this.gboxUPB);
 			this.tabFinanziario.Controls.Add(this.gboxImponibile);
 			this.tabFinanziario.Controls.Add(this.gboxIVA);
-			this.tabFinanziario.Controls.Add(this.txtstart);
-			this.tabFinanziario.Controls.Add(this.label5);
-			this.tabFinanziario.Controls.Add(this.txtstop);
-			this.tabFinanziario.Controls.Add(this.label2);
 			this.tabFinanziario.Location = new System.Drawing.Point(4, 22);
 			this.tabFinanziario.Name = "tabFinanziario";
-			this.tabFinanziario.Size = new System.Drawing.Size(849, 506);
+			this.tabFinanziario.Size = new System.Drawing.Size(838, 359);
 			this.tabFinanziario.TabIndex = 0;
 			this.tabFinanziario.Text = "Finanziario";
 			this.tabFinanziario.UseVisualStyleBackColor = true;
@@ -1070,7 +945,7 @@ namespace estimatedetail_single {
 			// labelCupCode
 			// 
 			this.labelCupCode.AutoSize = true;
-			this.labelCupCode.Location = new System.Drawing.Point(10, 332);
+			this.labelCupCode.Location = new System.Drawing.Point(472, 240);
 			this.labelCupCode.Name = "labelCupCode";
 			this.labelCupCode.Size = new System.Drawing.Size(156, 13);
 			this.labelCupCode.TabIndex = 67;
@@ -1078,16 +953,16 @@ namespace estimatedetail_single {
 			// 
 			// txtCupCode
 			// 
-			this.txtCupCode.Location = new System.Drawing.Point(11, 347);
+			this.txtCupCode.Location = new System.Drawing.Point(473, 255);
 			this.txtCupCode.Name = "txtCupCode";
-			this.txtCupCode.Size = new System.Drawing.Size(128, 20);
+			this.txtCupCode.Size = new System.Drawing.Size(168, 20);
 			this.txtCupCode.TabIndex = 66;
 			this.txtCupCode.Tag = "estimatedetail.cupcode";
 			// 
 			// lblcig
 			// 
 			this.lblcig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblcig.Location = new System.Drawing.Point(229, 327);
+			this.lblcig.Location = new System.Drawing.Point(470, 193);
 			this.lblcig.Name = "lblcig";
 			this.lblcig.Size = new System.Drawing.Size(174, 19);
 			this.lblcig.TabIndex = 65;
@@ -1098,9 +973,9 @@ namespace estimatedetail_single {
 			// txtcig
 			// 
 			this.txtcig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtcig.Location = new System.Drawing.Point(229, 347);
+			this.txtcig.Location = new System.Drawing.Point(473, 213);
 			this.txtcig.Name = "txtcig";
-			this.txtcig.Size = new System.Drawing.Size(128, 20);
+			this.txtcig.Size = new System.Drawing.Size(168, 20);
 			this.txtcig.TabIndex = 64;
 			this.txtcig.Tag = "estimatedetail.cigcode";
 			// 
@@ -1110,9 +985,9 @@ namespace estimatedetail_single {
 			this.gBoxupbIVA.Controls.Add(this.label17);
 			this.gBoxupbIVA.Controls.Add(this.buttonupbIVA);
 			this.gBoxupbIVA.Controls.Add(this.textBox6);
-			this.gBoxupbIVA.Location = new System.Drawing.Point(342, 3);
+			this.gBoxupbIVA.Location = new System.Drawing.Point(457, 3);
 			this.gBoxupbIVA.Name = "gBoxupbIVA";
-			this.gBoxupbIVA.Size = new System.Drawing.Size(315, 126);
+			this.gBoxupbIVA.Size = new System.Drawing.Size(376, 126);
 			this.gBoxupbIVA.TabIndex = 20;
 			this.gBoxupbIVA.TabStop = false;
 			this.gBoxupbIVA.Tag = "AutoChoose.txtUPBiva.default.(active=\'S\')";
@@ -1124,7 +999,7 @@ namespace estimatedetail_single {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtUPBiva.Location = new System.Drawing.Point(9, 100);
 			this.txtUPBiva.Name = "txtUPBiva";
-			this.txtUPBiva.Size = new System.Drawing.Size(300, 20);
+			this.txtUPBiva.Size = new System.Drawing.Size(361, 20);
 			this.txtUPBiva.TabIndex = 7;
 			this.txtUPBiva.Tag = "upb_iva.codeupb?x";
 			// 
@@ -1159,7 +1034,7 @@ namespace estimatedetail_single {
 			this.textBox6.Multiline = true;
 			this.textBox6.Name = "textBox6";
 			this.textBox6.ReadOnly = true;
-			this.textBox6.Size = new System.Drawing.Size(198, 78);
+			this.textBox6.Size = new System.Drawing.Size(259, 78);
 			this.textBox6.TabIndex = 4;
 			this.textBox6.TabStop = false;
 			this.textBox6.Tag = "upb_iva.title";
@@ -1171,7 +1046,7 @@ namespace estimatedetail_single {
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Location = new System.Drawing.Point(11, 3);
 			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(327, 125);
+			this.gboxUPB.Size = new System.Drawing.Size(380, 125);
 			this.gboxUPB.TabIndex = 1;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
@@ -1203,11 +1078,11 @@ namespace estimatedetail_single {
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(108, 8);
+			this.txtDescrUPB.Location = new System.Drawing.Point(108, 16);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(211, 81);
+			this.txtDescrUPB.Size = new System.Drawing.Size(264, 73);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
@@ -1220,7 +1095,7 @@ namespace estimatedetail_single {
 			this.tabAnalitico.Controls.Add(this.gboxclass1);
 			this.tabAnalitico.Location = new System.Drawing.Point(4, 22);
 			this.tabAnalitico.Name = "tabAnalitico";
-			this.tabAnalitico.Size = new System.Drawing.Size(849, 506);
+			this.tabAnalitico.Size = new System.Drawing.Size(838, 359);
 			this.tabAnalitico.TabIndex = 3;
 			this.tabAnalitico.Text = "Analitico";
 			this.tabAnalitico.UseVisualStyleBackColor = true;
@@ -1276,7 +1151,7 @@ namespace estimatedetail_single {
 			this.gboxclass3.Controls.Add(this.btnCodice3);
 			this.gboxclass3.Controls.Add(this.txtDenom3);
 			this.gboxclass3.Controls.Add(this.txtCodice3);
-			this.gboxclass3.Location = new System.Drawing.Point(8, 254);
+			this.gboxclass3.Location = new System.Drawing.Point(8, 231);
 			this.gboxclass3.Name = "gboxclass3";
 			this.gboxclass3.Size = new System.Drawing.Size(336, 118);
 			this.gboxclass3.TabIndex = 3;
@@ -1323,7 +1198,7 @@ namespace estimatedetail_single {
 			this.gboxclass2.Controls.Add(this.btnCodice2);
 			this.gboxclass2.Controls.Add(this.txtDenom2);
 			this.gboxclass2.Controls.Add(this.txtCodice2);
-			this.gboxclass2.Location = new System.Drawing.Point(8, 139);
+			this.gboxclass2.Location = new System.Drawing.Point(8, 123);
 			this.gboxclass2.Name = "gboxclass2";
 			this.gboxclass2.Size = new System.Drawing.Size(336, 109);
 			this.gboxclass2.TabIndex = 2;
@@ -1423,7 +1298,7 @@ namespace estimatedetail_single {
 			this.tabFatturazione.Controls.Add(this.label9);
 			this.tabFatturazione.Location = new System.Drawing.Point(4, 22);
 			this.tabFatturazione.Name = "tabFatturazione";
-			this.tabFatturazione.Size = new System.Drawing.Size(849, 506);
+			this.tabFatturazione.Size = new System.Drawing.Size(838, 359);
 			this.tabFatturazione.TabIndex = 1;
 			this.tabFatturazione.Text = "Fatturazione";
 			this.tabFatturazione.UseVisualStyleBackColor = true;
@@ -1436,7 +1311,7 @@ namespace estimatedetail_single {
 			this.checkBox1.Size = new System.Drawing.Size(345, 24);
 			this.checkBox1.TabIndex = 28;
 			this.checkBox1.Tag = "estimatedetail.toinvoice:N:S";
-			this.checkBox1.Text = "Non proporre pi˘ il dettaglio per l\'inserimento in fatture";
+			this.checkBox1.Text = "Non proporre pi√π il dettaglio per l\'inserimento in fatture";
 			// 
 			// label13
 			// 
@@ -1455,7 +1330,7 @@ namespace estimatedetail_single {
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGrid1.Location = new System.Drawing.Point(8, 72);
 			this.dataGrid1.Name = "dataGrid1";
-			this.dataGrid1.Size = new System.Drawing.Size(833, 428);
+			this.dataGrid1.Size = new System.Drawing.Size(822, 281);
 			this.dataGrid1.TabIndex = 26;
 			this.dataGrid1.Tag = "invoicedetail.dettordine";
 			// 
@@ -1469,7 +1344,7 @@ namespace estimatedetail_single {
 			this.tabEP.Controls.Add(this.grpCausale);
 			this.tabEP.Location = new System.Drawing.Point(4, 22);
 			this.tabEP.Name = "tabEP";
-			this.tabEP.Size = new System.Drawing.Size(849, 506);
+			this.tabEP.Size = new System.Drawing.Size(838, 359);
 			this.tabEP.TabIndex = 4;
 			this.tabEP.Text = "E/P";
 			this.tabEP.UseVisualStyleBackColor = true;
@@ -1482,9 +1357,9 @@ namespace estimatedetail_single {
 			this.groupBox3.Controls.Add(this.label25);
 			this.groupBox3.Controls.Add(this.txtNumPreimpegno);
 			this.groupBox3.Controls.Add(this.txtEsercPreImpegno);
-			this.groupBox3.Location = new System.Drawing.Point(16, 396);
+			this.groupBox3.Location = new System.Drawing.Point(14, 189);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(347, 64);
+			this.groupBox3.Size = new System.Drawing.Size(326, 64);
 			this.groupBox3.TabIndex = 51;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Preaccertamento di Budget selezionato manualmente";
@@ -1555,9 +1430,9 @@ namespace estimatedetail_single {
 			this.grpBoxSiopeEP.Controls.Add(this.btnSiope);
 			this.grpBoxSiopeEP.Controls.Add(this.txtDescSiope);
 			this.grpBoxSiopeEP.Controls.Add(this.txtCodSiope);
-			this.grpBoxSiopeEP.Location = new System.Drawing.Point(377, 12);
+			this.grpBoxSiopeEP.Location = new System.Drawing.Point(304, 12);
 			this.grpBoxSiopeEP.Name = "grpBoxSiopeEP";
-			this.grpBoxSiopeEP.Size = new System.Drawing.Size(247, 144);
+			this.grpBoxSiopeEP.Size = new System.Drawing.Size(247, 112);
 			this.grpBoxSiopeEP.TabIndex = 50;
 			this.grpBoxSiopeEP.TabStop = false;
 			this.grpBoxSiopeEP.Tag = "AutoChoose.txtCodSiope.tree";
@@ -1565,7 +1440,7 @@ namespace estimatedetail_single {
 			// 
 			// btnSiope
 			// 
-			this.btnSiope.Location = new System.Drawing.Point(7, 79);
+			this.btnSiope.Location = new System.Drawing.Point(7, 54);
 			this.btnSiope.Name = "btnSiope";
 			this.btnSiope.Size = new System.Drawing.Size(56, 20);
 			this.btnSiope.TabIndex = 10;
@@ -1576,18 +1451,18 @@ namespace estimatedetail_single {
 			// 
 			this.txtDescSiope.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescSiope.Location = new System.Drawing.Point(69, 30);
+			this.txtDescSiope.Location = new System.Drawing.Point(69, 19);
 			this.txtDescSiope.Multiline = true;
 			this.txtDescSiope.Name = "txtDescSiope";
 			this.txtDescSiope.ReadOnly = true;
 			this.txtDescSiope.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDescSiope.Size = new System.Drawing.Size(172, 69);
+			this.txtDescSiope.Size = new System.Drawing.Size(172, 55);
 			this.txtDescSiope.TabIndex = 2;
 			this.txtDescSiope.Tag = "sorting_siope.description";
 			// 
 			// txtCodSiope
 			// 
-			this.txtCodSiope.Location = new System.Drawing.Point(6, 108);
+			this.txtCodSiope.Location = new System.Drawing.Point(6, 83);
 			this.txtCodSiope.Name = "txtCodSiope";
 			this.txtCodSiope.ReadOnly = true;
 			this.txtCodSiope.Size = new System.Drawing.Size(235, 20);
@@ -1600,9 +1475,9 @@ namespace estimatedetail_single {
 			this.grpBoxImpegniBudget.Controls.Add(this.label33);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtNumIxBudget);
 			this.grpBoxImpegniBudget.Controls.Add(this.txtEsercIxBudget);
-			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(373, 389);
+			this.grpBoxImpegniBudget.Location = new System.Drawing.Point(346, 189);
 			this.grpBoxImpegniBudget.Name = "grpBoxImpegniBudget";
-			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(199, 71);
+			this.grpBoxImpegniBudget.Size = new System.Drawing.Size(165, 64);
 			this.grpBoxImpegniBudget.TabIndex = 48;
 			this.grpBoxImpegniBudget.TabStop = false;
 			this.grpBoxImpegniBudget.Text = "Accertamento di Budget";
@@ -1610,7 +1485,7 @@ namespace estimatedetail_single {
 			// label34
 			// 
 			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(14, 49);
+			this.label34.Location = new System.Drawing.Point(85, 13);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(44, 13);
 			this.label34.TabIndex = 7;
@@ -1619,7 +1494,7 @@ namespace estimatedetail_single {
 			// label33
 			// 
 			this.label33.AutoSize = true;
-			this.label33.Location = new System.Drawing.Point(9, 25);
+			this.label33.Location = new System.Drawing.Point(6, 13);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(49, 13);
 			this.label33.TabIndex = 6;
@@ -1628,7 +1503,7 @@ namespace estimatedetail_single {
 			// 
 			// txtNumIxBudget
 			// 
-			this.txtNumIxBudget.Location = new System.Drawing.Point(78, 45);
+			this.txtNumIxBudget.Location = new System.Drawing.Point(86, 30);
 			this.txtNumIxBudget.Name = "txtNumIxBudget";
 			this.txtNumIxBudget.ReadOnly = true;
 			this.txtNumIxBudget.Size = new System.Drawing.Size(64, 20);
@@ -1638,7 +1513,7 @@ namespace estimatedetail_single {
 			// 
 			// txtEsercIxBudget
 			// 
-			this.txtEsercIxBudget.Location = new System.Drawing.Point(78, 19);
+			this.txtEsercIxBudget.Location = new System.Drawing.Point(9, 30);
 			this.txtEsercIxBudget.Name = "txtEsercIxBudget";
 			this.txtEsercIxBudget.ReadOnly = true;
 			this.txtEsercIxBudget.Size = new System.Drawing.Size(64, 20);
@@ -1651,9 +1526,9 @@ namespace estimatedetail_single {
 			this.grpCausaleAnnullamento.Controls.Add(this.textBox2);
 			this.grpCausaleAnnullamento.Controls.Add(this.txtCodiceCausaleAnnullamento);
 			this.grpCausaleAnnullamento.Controls.Add(this.btnCausaleEPAnnullamento);
-			this.grpCausaleAnnullamento.Location = new System.Drawing.Point(16, 224);
+			this.grpCausaleAnnullamento.Location = new System.Drawing.Point(557, 12);
 			this.grpCausaleAnnullamento.Name = "grpCausaleAnnullamento";
-			this.grpCausaleAnnullamento.Size = new System.Drawing.Size(351, 144);
+			this.grpCausaleAnnullamento.Size = new System.Drawing.Size(275, 112);
 			this.grpCausaleAnnullamento.TabIndex = 3;
 			this.grpCausaleAnnullamento.TabStop = false;
 			this.grpCausaleAnnullamento.Tag = "AutoManage.txtCodiceCausaleAnnullamento.tree.(in_use=\'S\')";
@@ -1661,28 +1536,28 @@ namespace estimatedetail_single {
 			// 
 			// textBox2
 			// 
-			this.textBox2.Location = new System.Drawing.Point(120, 16);
+			this.textBox2.Location = new System.Drawing.Point(93, 18);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ReadOnly = true;
-			this.textBox2.Size = new System.Drawing.Size(225, 86);
+			this.textBox2.Size = new System.Drawing.Size(176, 53);
 			this.textBox2.TabIndex = 2;
 			this.textBox2.TabStop = false;
 			this.textBox2.Tag = "accmotiveappliedannulment.motive";
 			// 
 			// txtCodiceCausaleAnnullamento
 			// 
-			this.txtCodiceCausaleAnnullamento.Location = new System.Drawing.Point(6, 108);
+			this.txtCodiceCausaleAnnullamento.Location = new System.Drawing.Point(6, 83);
 			this.txtCodiceCausaleAnnullamento.Name = "txtCodiceCausaleAnnullamento";
-			this.txtCodiceCausaleAnnullamento.Size = new System.Drawing.Size(339, 20);
+			this.txtCodiceCausaleAnnullamento.Size = new System.Drawing.Size(263, 20);
 			this.txtCodiceCausaleAnnullamento.TabIndex = 1;
 			this.txtCodiceCausaleAnnullamento.Tag = "accmotiveappliedannulment.codemotive?x";
 			// 
 			// btnCausaleEPAnnullamento
 			// 
-			this.btnCausaleEPAnnullamento.Location = new System.Drawing.Point(10, 79);
+			this.btnCausaleEPAnnullamento.Location = new System.Drawing.Point(8, 48);
 			this.btnCausaleEPAnnullamento.Name = "btnCausaleEPAnnullamento";
-			this.btnCausaleEPAnnullamento.Size = new System.Drawing.Size(104, 23);
+			this.btnCausaleEPAnnullamento.Size = new System.Drawing.Size(79, 23);
 			this.btnCausaleEPAnnullamento.TabIndex = 0;
 			this.btnCausaleEPAnnullamento.TabStop = false;
 			this.btnCausaleEPAnnullamento.Tag = "manage.accmotiveappliedannulment.tree";
@@ -1697,9 +1572,9 @@ namespace estimatedetail_single {
 			this.gboxCompetenza.Controls.Add(this.textBox3);
 			this.gboxCompetenza.Controls.Add(this.label15);
 			this.gboxCompetenza.Controls.Add(this.label14);
-			this.gboxCompetenza.Location = new System.Drawing.Point(16, 159);
+			this.gboxCompetenza.Location = new System.Drawing.Point(9, 124);
 			this.gboxCompetenza.Name = "gboxCompetenza";
-			this.gboxCompetenza.Size = new System.Drawing.Size(556, 59);
+			this.gboxCompetenza.Size = new System.Drawing.Size(542, 59);
 			this.gboxCompetenza.TabIndex = 2;
 			this.gboxCompetenza.TabStop = false;
 			this.gboxCompetenza.Text = "Competenza economica";
@@ -1707,7 +1582,7 @@ namespace estimatedetail_single {
 			// rdEPKind_N
 			// 
 			this.rdEPKind_N.AutoSize = true;
-			this.rdEPKind_N.Location = new System.Drawing.Point(241, 16);
+			this.rdEPKind_N.Location = new System.Drawing.Point(242, 16);
 			this.rdEPKind_N.Name = "rdEPKind_N";
 			this.rdEPKind_N.Size = new System.Drawing.Size(279, 17);
 			this.rdEPKind_N.TabIndex = 9;
@@ -1759,7 +1634,7 @@ namespace estimatedetail_single {
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(100, 16);
 			this.label15.TabIndex = 1;
-			this.label15.Text = "Fine";
+			this.label15.Text = "Data Fine";
 			// 
 			// label14
 			// 
@@ -1767,16 +1642,16 @@ namespace estimatedetail_single {
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(100, 16);
 			this.label14.TabIndex = 0;
-			this.label14.Text = "Inizio";
+			this.label14.Text = "Data Inizio";
 			// 
 			// grpCausale
 			// 
 			this.grpCausale.Controls.Add(this.txtDescrizioneCausale);
 			this.grpCausale.Controls.Add(this.txtCodiceCausale);
 			this.grpCausale.Controls.Add(this.btnCausaleEP);
-			this.grpCausale.Location = new System.Drawing.Point(16, 12);
+			this.grpCausale.Location = new System.Drawing.Point(8, 12);
 			this.grpCausale.Name = "grpCausale";
-			this.grpCausale.Size = new System.Drawing.Size(351, 144);
+			this.grpCausale.Size = new System.Drawing.Size(290, 112);
 			this.grpCausale.TabIndex = 1;
 			this.grpCausale.TabStop = false;
 			this.grpCausale.Tag = "AutoManage.txtCodiceCausale.tree.(in_use=\'S\')";
@@ -1784,39 +1659,40 @@ namespace estimatedetail_single {
 			// 
 			// txtDescrizioneCausale
 			// 
-			this.txtDescrizioneCausale.Location = new System.Drawing.Point(120, 16);
+			this.txtDescrizioneCausale.Location = new System.Drawing.Point(88, 22);
 			this.txtDescrizioneCausale.Multiline = true;
 			this.txtDescrizioneCausale.Name = "txtDescrizioneCausale";
 			this.txtDescrizioneCausale.ReadOnly = true;
-			this.txtDescrizioneCausale.Size = new System.Drawing.Size(225, 86);
+			this.txtDescrizioneCausale.Size = new System.Drawing.Size(196, 52);
 			this.txtDescrizioneCausale.TabIndex = 2;
 			this.txtDescrizioneCausale.TabStop = false;
 			this.txtDescrizioneCausale.Tag = "accmotiveapplied.motive";
 			// 
 			// txtCodiceCausale
 			// 
-			this.txtCodiceCausale.Location = new System.Drawing.Point(6, 108);
+			this.txtCodiceCausale.Location = new System.Drawing.Point(6, 82);
 			this.txtCodiceCausale.Name = "txtCodiceCausale";
-			this.txtCodiceCausale.Size = new System.Drawing.Size(339, 20);
+			this.txtCodiceCausale.Size = new System.Drawing.Size(278, 20);
 			this.txtCodiceCausale.TabIndex = 1;
 			this.txtCodiceCausale.Tag = "accmotiveapplied.codemotive?x";
 			// 
 			// btnCausaleEP
 			// 
-			this.btnCausaleEP.Location = new System.Drawing.Point(6, 79);
+			this.btnCausaleEP.Location = new System.Drawing.Point(6, 53);
 			this.btnCausaleEP.Name = "btnCausaleEP";
-			this.btnCausaleEP.Size = new System.Drawing.Size(104, 23);
+			this.btnCausaleEP.Size = new System.Drawing.Size(76, 23);
 			this.btnCausaleEP.TabIndex = 0;
 			this.btnCausaleEP.TabStop = false;
-			this.btnCausaleEP.Tag = "manage.accmotiveapplied.tree";
+			this.btnCausaleEP.Tag = "";
 			this.btnCausaleEP.Text = "Causale";
+			this.btnCausaleEP.Click += new System.EventHandler(this.btnCausaleEP_Click);
 			// 
 			// tabAppunti
 			// 
 			this.tabAppunti.Controls.Add(this.txtAppunti);
 			this.tabAppunti.Location = new System.Drawing.Point(4, 22);
 			this.tabAppunti.Name = "tabAppunti";
-			this.tabAppunti.Size = new System.Drawing.Size(849, 506);
+			this.tabAppunti.Size = new System.Drawing.Size(838, 359);
 			this.tabAppunti.TabIndex = 5;
 			this.tabAppunti.Text = "Appunti";
 			this.tabAppunti.UseVisualStyleBackColor = true;
@@ -1839,7 +1715,7 @@ namespace estimatedetail_single {
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(849, 506);
+			this.tabPage1.Size = new System.Drawing.Size(838, 359);
 			this.tabPage1.TabIndex = 7;
 			this.tabPage1.Text = "PagoPA";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -1849,7 +1725,7 @@ namespace estimatedetail_single {
 			this.gboxCausaleBilancioEntrataIva.Controls.Add(this.TxtDescrCausaleDebIva);
 			this.gboxCausaleBilancioEntrataIva.Controls.Add(this.txtCodiceCausaleEntrataIva);
 			this.gboxCausaleBilancioEntrataIva.Controls.Add(this.button1);
-			this.gboxCausaleBilancioEntrataIva.Location = new System.Drawing.Point(416, 387);
+			this.gboxCausaleBilancioEntrataIva.Location = new System.Drawing.Point(411, 244);
 			this.gboxCausaleBilancioEntrataIva.Name = "gboxCausaleBilancioEntrataIva";
 			this.gboxCausaleBilancioEntrataIva.Size = new System.Drawing.Size(394, 104);
 			this.gboxCausaleBilancioEntrataIva.TabIndex = 69;
@@ -1896,7 +1772,7 @@ namespace estimatedetail_single {
 			this.gboxCausaleBilancioEntrata.Controls.Add(this.TxtDescrCausaleDeb);
 			this.gboxCausaleBilancioEntrata.Controls.Add(this.txtCodiceCausaleEntrata);
 			this.gboxCausaleBilancioEntrata.Controls.Add(this.button6);
-			this.gboxCausaleBilancioEntrata.Location = new System.Drawing.Point(6, 387);
+			this.gboxCausaleBilancioEntrata.Location = new System.Drawing.Point(3, 242);
 			this.gboxCausaleBilancioEntrata.Name = "gboxCausaleBilancioEntrata";
 			this.gboxCausaleBilancioEntrata.Size = new System.Drawing.Size(394, 104);
 			this.gboxCausaleBilancioEntrata.TabIndex = 68;
@@ -1942,9 +1818,9 @@ namespace estimatedetail_single {
 			// 
 			this.grpTassonomia.Controls.Add(this.cmbTassonomia);
 			this.grpTassonomia.Controls.Add(this.btnTassonomia);
-			this.grpTassonomia.Location = new System.Drawing.Point(6, 295);
+			this.grpTassonomia.Location = new System.Drawing.Point(6, 159);
 			this.grpTassonomia.Name = "grpTassonomia";
-			this.grpTassonomia.Size = new System.Drawing.Size(394, 86);
+			this.grpTassonomia.Size = new System.Drawing.Size(317, 83);
 			this.grpTassonomia.TabIndex = 8;
 			this.grpTassonomia.TabStop = false;
 			this.grpTassonomia.Tag = "";
@@ -1955,7 +1831,7 @@ namespace estimatedetail_single {
 			this.cmbTassonomia.FormattingEnabled = true;
 			this.cmbTassonomia.Location = new System.Drawing.Point(6, 48);
 			this.cmbTassonomia.Name = "cmbTassonomia";
-			this.cmbTassonomia.Size = new System.Drawing.Size(382, 21);
+			this.cmbTassonomia.Size = new System.Drawing.Size(305, 21);
 			this.cmbTassonomia.TabIndex = 2;
 			this.cmbTassonomia.Tag = "estimatedetail.idtassonomia";
 			// 
@@ -1973,11 +1849,11 @@ namespace estimatedetail_single {
 			// 
 			this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox9.Location = new System.Drawing.Point(278, 23);
+			this.textBox9.Location = new System.Drawing.Point(329, 12);
 			this.textBox9.Multiline = true;
 			this.textBox9.Name = "textBox9";
 			this.textBox9.ReadOnly = true;
-			this.textBox9.Size = new System.Drawing.Size(550, 34);
+			this.textBox9.Size = new System.Drawing.Size(504, 49);
 			this.textBox9.TabIndex = 2;
 			this.textBox9.Text = "Data oltre la quale potrebbe essere applicata una mora in caso di ritardato pagam" +
     "ento";
@@ -1986,11 +1862,11 @@ namespace estimatedetail_single {
 			// 
 			this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox8.Location = new System.Drawing.Point(278, 79);
+			this.textBox8.Location = new System.Drawing.Point(329, 67);
 			this.textBox8.Multiline = true;
 			this.textBox8.Name = "textBox8";
 			this.textBox8.ReadOnly = true;
-			this.textBox8.Size = new System.Drawing.Size(550, 34);
+			this.textBox8.Size = new System.Drawing.Size(503, 23);
 			this.textBox8.TabIndex = 4;
 			this.textBox8.Text = "E\' il codice usato in ALTRI PROGRAMMI (es. segreterie studenti)  per identificare" +
     " questo credito.";
@@ -1999,17 +1875,17 @@ namespace estimatedetail_single {
 			// 
 			this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox7.Location = new System.Drawing.Point(278, 149);
+			this.textBox7.Location = new System.Drawing.Point(329, 98);
 			this.textBox7.Multiline = true;
 			this.textBox7.Name = "textBox7";
 			this.textBox7.ReadOnly = true;
-			this.textBox7.Size = new System.Drawing.Size(550, 97);
+			this.textBox7.Size = new System.Drawing.Size(503, 92);
 			this.textBox7.TabIndex = 6;
 			this.textBox7.Text = resources.GetString("textBox7.Text");
 			// 
 			// label26
 			// 
-			this.label26.Location = new System.Drawing.Point(16, 71);
+			this.label26.Location = new System.Drawing.Point(14, 49);
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(207, 19);
 			this.label26.TabIndex = 83;
@@ -2019,15 +1895,15 @@ namespace estimatedetail_single {
 			// 
 			// txtBollettino
 			// 
-			this.txtBollettino.Location = new System.Drawing.Point(17, 91);
+			this.txtBollettino.Location = new System.Drawing.Point(17, 71);
 			this.txtBollettino.Name = "txtBollettino";
-			this.txtBollettino.Size = new System.Drawing.Size(234, 20);
+			this.txtBollettino.Size = new System.Drawing.Size(296, 20);
 			this.txtBollettino.TabIndex = 3;
 			this.txtBollettino.Tag = "estimatedetail.nform";
 			// 
 			// label23
 			// 
-			this.label23.Location = new System.Drawing.Point(17, 14);
+			this.label23.Location = new System.Drawing.Point(17, 1);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(104, 23);
 			this.label23.TabIndex = 81;
@@ -2036,7 +1912,7 @@ namespace estimatedetail_single {
 			// 
 			// txtScadenza
 			// 
-			this.txtScadenza.Location = new System.Drawing.Point(17, 37);
+			this.txtScadenza.Location = new System.Drawing.Point(17, 24);
 			this.txtScadenza.Name = "txtScadenza";
 			this.txtScadenza.Size = new System.Drawing.Size(104, 20);
 			this.txtScadenza.TabIndex = 1;
@@ -2044,7 +1920,7 @@ namespace estimatedetail_single {
 			// 
 			// label22
 			// 
-			this.label22.Location = new System.Drawing.Point(13, 127);
+			this.label22.Location = new System.Drawing.Point(15, 98);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(207, 19);
 			this.label22.TabIndex = 79;
@@ -2054,9 +1930,9 @@ namespace estimatedetail_single {
 			// 
 			// textBox5
 			// 
-			this.textBox5.Location = new System.Drawing.Point(14, 149);
+			this.textBox5.Location = new System.Drawing.Point(16, 120);
 			this.textBox5.Name = "textBox5";
-			this.textBox5.Size = new System.Drawing.Size(234, 20);
+			this.textBox5.Size = new System.Drawing.Size(297, 20);
 			this.textBox5.TabIndex = 5;
 			this.textBox5.Tag = "estimatedetail.iduniqueformcode";
 			// 
@@ -2064,13 +1940,96 @@ namespace estimatedetail_single {
 			// 
 			this.chkScrittureDifferite.AutoSize = true;
 			this.chkScrittureDifferite.Enabled = false;
-			this.chkScrittureDifferite.Location = new System.Drawing.Point(15, 260);
+			this.chkScrittureDifferite.Location = new System.Drawing.Point(329, 207);
 			this.chkScrittureDifferite.Name = "chkScrittureDifferite";
 			this.chkScrittureDifferite.Size = new System.Drawing.Size(307, 17);
 			this.chkScrittureDifferite.TabIndex = 7;
 			this.chkScrittureDifferite.Tag = "estimatedetail.flag:0";
 			this.chkScrittureDifferite.Text = "Scritture differite all\'elaborazione del flusso incassi (PagoPA)";
 			this.chkScrittureDifferite.UseVisualStyleBackColor = true;
+			// 
+			// gboxListino
+			// 
+			this.gboxListino.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxListino.Controls.Add(this.chkListDescription);
+			this.gboxListino.Controls.Add(this.btnListino);
+			this.gboxListino.Controls.Add(this.txtListino);
+			this.gboxListino.Controls.Add(this.txtDescrizioneListino);
+			this.gboxListino.Location = new System.Drawing.Point(494, 9);
+			this.gboxListino.Name = "gboxListino";
+			this.gboxListino.Size = new System.Drawing.Size(371, 109);
+			this.gboxListino.TabIndex = 4;
+			this.gboxListino.TabStop = false;
+			this.gboxListino.Tag = "";
+			// 
+			// chkListDescription
+			// 
+			this.chkListDescription.Location = new System.Drawing.Point(19, 9);
+			this.chkListDescription.Name = "chkListDescription";
+			this.chkListDescription.Size = new System.Drawing.Size(277, 20);
+			this.chkListDescription.TabIndex = 4;
+			this.chkListDescription.TabStop = false;
+			this.chkListDescription.Text = "Fitra per Descrizione/Class.Merceologica";
+			// 
+			// btnListino
+			// 
+			this.btnListino.BackColor = System.Drawing.SystemColors.Control;
+			this.btnListino.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnListino.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnListino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnListino.ImageIndex = 0;
+			this.btnListino.Location = new System.Drawing.Point(6, 52);
+			this.btnListino.Name = "btnListino";
+			this.btnListino.Size = new System.Drawing.Size(57, 23);
+			this.btnListino.TabIndex = 1;
+			this.btnListino.TabStop = false;
+			this.btnListino.Tag = "";
+			this.btnListino.Text = "Listino";
+			this.btnListino.UseVisualStyleBackColor = false;
+			this.btnListino.Click += new System.EventHandler(this.btnListino_Click);
+			// 
+			// txtListino
+			// 
+			this.txtListino.Location = new System.Drawing.Point(6, 79);
+			this.txtListino.Name = "txtListino";
+			this.txtListino.Size = new System.Drawing.Size(359, 20);
+			this.txtListino.TabIndex = 6;
+			this.txtListino.Tag = "";
+			this.txtListino.TextChanged += new System.EventHandler(this.txtListino_TextChanged);
+			this.txtListino.Enter += new System.EventHandler(this.txtListino_Enter);
+			this.txtListino.Leave += new System.EventHandler(this.txtListino_Leave);
+			// 
+			// txtDescrizioneListino
+			// 
+			this.txtDescrizioneListino.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDescrizioneListino.Location = new System.Drawing.Point(76, 32);
+			this.txtDescrizioneListino.Multiline = true;
+			this.txtDescrizioneListino.Name = "txtDescrizioneListino";
+			this.txtDescrizioneListino.ReadOnly = true;
+			this.txtDescrizioneListino.Size = new System.Drawing.Size(289, 43);
+			this.txtDescrizioneListino.TabIndex = 9;
+			this.txtDescrizioneListino.TabStop = false;
+			this.txtDescrizioneListino.Tag = "";
+			// 
+			// grpRegistry
+			// 
+			this.grpRegistry.Controls.Add(this.txtCredDeb);
+			this.grpRegistry.Location = new System.Drawing.Point(23, 7);
+			this.grpRegistry.Name = "grpRegistry";
+			this.grpRegistry.Size = new System.Drawing.Size(463, 40);
+			this.grpRegistry.TabIndex = 1;
+			this.grpRegistry.TabStop = false;
+			this.grpRegistry.Tag = "AutoChoose.txtCredDeb.default.(active=\'S\')";
+			this.grpRegistry.Text = "Cliente";
+			// 
+			// txtCredDeb
+			// 
+			this.txtCredDeb.Location = new System.Drawing.Point(8, 16);
+			this.txtCredDeb.Name = "txtCredDeb";
+			this.txtCredDeb.Size = new System.Drawing.Size(449, 20);
+			this.txtCredDeb.TabIndex = 0;
+			this.txtCredDeb.Tag = "registrymainview.title?estimatedetailview.registry";
 			// 
 			// btnCodice
 			// 
@@ -2079,13 +2038,52 @@ namespace estimatedetail_single {
 			this.btnCodice.Size = new System.Drawing.Size(75, 23);
 			this.btnCodice.TabIndex = 0;
 			// 
+			// txtstart
+			// 
+			this.txtstart.Location = new System.Drawing.Point(9, 169);
+			this.txtstart.Name = "txtstart";
+			this.txtstart.Size = new System.Drawing.Size(128, 20);
+			this.txtstart.TabIndex = 20;
+			this.txtstart.Tag = "estimatedetail.start";
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(8, 194);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(433, 16);
+			this.label5.TabIndex = 23;
+			this.label5.Text = "Data annullamento (inserire se il dettaglio √®  annullato o sostituito da un altro" +
+    " dettaglio)";
+			// 
+			// txtstop
+			// 
+			this.txtstop.Location = new System.Drawing.Point(9, 211);
+			this.txtstop.Name = "txtstop";
+			this.txtstop.ReadOnly = true;
+			this.txtstop.Size = new System.Drawing.Size(128, 20);
+			this.txtstop.TabIndex = 21;
+			this.txtstop.Tag = "estimatedetail.stop";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(9, 152);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(504, 16);
+			this.label2.TabIndex = 22;
+			this.label2.Text = "Data contabile (da inserire se questo dettaglio non era presente nel Contratto or" +
+    "iginale)";
+			// 
 			// Frm_estimatedetail_single
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(877, 576);
+			this.ClientSize = new System.Drawing.Size(877, 568);
 			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.gboxListino);
 			this.Controls.Add(this.btnAnnulla);
 			this.Controls.Add(this.btnOK);
+			this.Controls.Add(this.txtDescrizione);
+			this.Controls.Add(this.grpRegistry);
+			this.Controls.Add(this.label6);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.Name = "Frm_estimatedetail_single";
@@ -2099,20 +2097,16 @@ namespace estimatedetail_single {
 			this.gboxImponibile.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.tabControl1.ResumeLayout(false);
-			this.tabMain.ResumeLayout(false);
-			this.tabMain.PerformLayout();
+			this.tabPrincipale.ResumeLayout(false);
+			this.tabPrincipale.PerformLayout();
 			this.gboxIncassato.ResumeLayout(false);
 			this.gboxIncassato.PerformLayout();
-			this.gboxListino.ResumeLayout(false);
-			this.gboxListino.PerformLayout();
+			this.grpValoreUnitInValuta.ResumeLayout(false);
+			this.grpValoreUnitInValuta.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox6.ResumeLayout(false);
 			this.groupBox6.PerformLayout();
-			this.grpRegistry.ResumeLayout(false);
-			this.grpRegistry.PerformLayout();
-			this.grpValoreUnitInValuta.ResumeLayout(false);
-			this.grpValoreUnitInValuta.PerformLayout();
 			this.tabFinanziario.ResumeLayout(false);
 			this.tabFinanziario.PerformLayout();
 			this.gBoxupbIVA.ResumeLayout(false);
@@ -2153,7 +2147,12 @@ namespace estimatedetail_single {
 			this.gboxCausaleBilancioEntrata.ResumeLayout(false);
 			this.gboxCausaleBilancioEntrata.PerformLayout();
 			this.grpTassonomia.ResumeLayout(false);
+			this.gboxListino.ResumeLayout(false);
+			this.gboxListino.PerformLayout();
+			this.grpRegistry.ResumeLayout(false);
+			this.grpRegistry.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
@@ -2231,7 +2230,7 @@ namespace estimatedetail_single {
                 if (drParent.RowState != DataRowState.Added && linktoinvoice == "S") {
                     //Verifica se ci sono ratei o scritture di fatt. a ricevere 
                     string idrelated = EP_functions.GetIdForDocument(drParent);
-                    idrelated  = idrelated + "ß" + DR["rownum"];
+                    idrelated  = idrelated + "¬ß" + DR["rownum"];
                     int nRatei = Conn.RUN_SELECT_COUNT("entrydetail", QHS.CmpEq("idrelated", idrelated), false);
                     if (nRatei > 0) {
                         gboxCompetenza.Enabled = false;
@@ -2679,9 +2678,9 @@ namespace estimatedetail_single {
 
         private void btnRemoveIva_Click(object sender, System.EventArgs e) {
             if (show(this,
-                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ " +
+                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer√† " +
                 "comunque a contabilizzare il contratto attivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione " +
-                "del contratto Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
+                "del contratto √® necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
                 "Procedo a rimuovere la contabilizzazione del dettaglio?", "Avviso", MessageBoxButtons.YesNo) !=
                 DialogResult.Yes) return;
             DataRow Curr = DS.estimatedetail.Rows[0];
@@ -2701,9 +2700,9 @@ namespace estimatedetail_single {
 
         private void btnRemoveImponibile_Click(object sender, System.EventArgs e) {
             if (show(this,
-                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ " +
+                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer√† " +
                 "comunque a contabilizzare il contratto attivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione " +
-                "del contratto Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
+                "del contratto √® necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
                 "Procedo a rimuovere la contabilizzazione del dettaglio?", "Avviso", MessageBoxButtons.YesNo) !=
                 DialogResult.Yes) return;
             DataRow Curr = DS.estimatedetail.Rows[0];
@@ -2764,9 +2763,44 @@ namespace estimatedetail_single {
                 }
             }
 
+			// PARTE RELATIVA AL FILTRO COSTRUITO CON L'AUSILIO DEL MOTORE AI
 
+			string error = "";
+			DataTable T = null;
+			string sql = "";
 
-            DataRow Choosen = Mlistino.SelectOne("default", filter, "listview", null);
+			// GET DESCRIPTION
+			string sentence = txtDescrizione.Text;
+			string[] sortcodes = { };
+
+			// CALL API AI
+			if (!string.IsNullOrEmpty(sentence))
+				sortcodes = AI_getSiope(sentence, out error);
+			string filterAI = "";
+			// CHECK API RESULT FILTERED BY SIOPE  sortcodes 
+			if (sortcodes != null) {
+				if (string.IsNullOrEmpty(error) && sortcodes.Length > 0) {
+					// CREATE QUERY
+					string siope_ES = (AV.ToString().ToUpper() == "A") ? SPESE : ENTRATE;
+					sql = ListAIQuery(security.GetEsercizio(), siope_ES, filterEpOperation, sortcodes);
+
+					// GET DATATABLE
+					T = Conn.SQLRunner(sql);
+					if ((T != null) && (T.Rows.Count > 0)) {
+						string lista_idListing = QHS.DistinctVal(T.Select(), "idlist");
+						string FF = qhs.FieldInList("idlist", lista_idListing);
+						filterAI = qhs.AppAnd(filter, FF);
+					}
+				}
+			}
+			DataRow Choosen = null;
+			if (filterAI != "")
+				Choosen = Mlistino.SelectOne("ailist", filterAI, "listview", null);
+
+			if (Choosen == null)
+				Choosen = Mlistino.SelectOne("default", filter, "listview", null);
+
+		 
             if (Choosen == null)
                 return;
 
@@ -2918,7 +2952,7 @@ namespace estimatedetail_single {
             int nphase = 1; // Preimpegno
             string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), QHS.CmpEq("nphase", nphase));
 
-            //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
+            //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
             //La scelta va fatta solo sugli Accertamenti di Budget imputati a Conti di Ricavi
             Filterbase = QHS.AppAnd(Filterbase,QHS.CmpGt("totavailable",0),QHS.CmpEq("revenue","S")) ;
             if (Curr["idupb"] != null && Curr["idupb"] != DBNull.Value) {
@@ -2933,7 +2967,7 @@ namespace estimatedetail_single {
             var Curr = DS.estimatedetail.First();
             MetaData.GetFormData(this, true);
             if (Curr["idepacc"] != DBNull.Value) {
-                show("Non Ë possibile collegare un preimpegno avendo gi‡ generato l'impegno di budget",
+                show("Non √® possibile collegare un preimpegno avendo gi√† generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -2959,7 +2993,7 @@ namespace estimatedetail_single {
 
             DataRow Curr = DS.estimatedetail.Rows[0];
             if (Curr["idepacc"] != DBNull.Value) {
-                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'accertamento di budget",
+                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'accertamento di budget",
                     "Errore");
                 return;
             }
@@ -2977,13 +3011,13 @@ namespace estimatedetail_single {
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtstop.Text, txtstop.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di fine validit‡ sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di fine validit√† sia dell'esercizio.", "Errore");
                 txtstop.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.estimatedetail[0];
                 if (((DateTime) d).Year < curr.yestim) {
-                    show("E' necessario che la data di fine validit‡ non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di fine validit√† non preceda l'anno di creazione del contratto.", "Errore");
                     txtstop.Text = "";
                 }
             }
@@ -2995,17 +3029,277 @@ namespace estimatedetail_single {
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtstart.Text, txtstart.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di inizio validit‡ sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di inizio validit√† sia dell'esercizio.", "Errore");
                 txtstart.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.estimatedetail[0];
                 if (((DateTime) d).Year < curr.yestim) {
-                    show("E' necessario che la data di inizio validit‡ non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di inizio validit√† non preceda l'anno di creazione del contratto.", "Errore");
                     txtstart.Text = "";
                 }
             }
 
         }
-    }
+
+		private const string ENTRATE = "entrate";
+		private const string SPESE = "spese";
+
+		private string[] AI_getSiope(string sentence, out string error) {
+			error = "";
+			string api_url = "";
+			int nresp = 5;
+			string[] list = null;
+
+			// Acquisto o Vendita
+			string av_type = AV.ToString().ToUpper() == "A" ? "A" : "V";
+
+			// url										param
+			// http://deepblue:4545/siope/acquisti		5|entrate
+			DataTable SIOPE_EndPoint = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code", $"SIOPEURL_{av_type}"), null, true);
+
+			// Se non ci sono righe il servizio di AI non √® configurato
+			if (SIOPE_EndPoint.Rows.Count <= 0)
+				return list;
+
+			// 5|entrate
+			string api_param = SIOPE_EndPoint.Rows[0]["param"].ToString();
+			if (string.IsNullOrEmpty(api_param))
+				return list;
+
+			string[] par = api_param.Split('|');
+			if (par.Length > 2) {
+				// http://deepblue:4545/siope/acquisti
+				// http://10.10.10.183:4545/siope/acquisti;
+				api_url = par[0];
+				// N
+				int nr = 0;
+				int.TryParse(par[1], out nr);
+				if (nr > 0)
+					nresp = nr;
+			}
+
+			if (string.IsNullOrEmpty(api_url))
+				return list;
+
+			string clientUrl = $"{api_url}?sentence={sentence}&nresp={nresp}";
+
+			string token;
+			try {
+				token = par[3];
+			}
+			catch (Exception) {
+				error = $"{"Configurazione errata."}";
+				return list;
+			}
+
+			using (HttpClient client = new HttpClient()) {
+
+				client.DefaultRequestHeaders.Add("psk", token);
+				client.Timeout = new TimeSpan(0, 1, 0);
+				// =========================
+				// GET
+				// =========================
+				HttpResponseMessage response = new HttpResponseMessage();
+				try {
+					var taskResponse = Task.Run(async () => await client.GetAsync(clientUrl));
+					response = taskResponse.GetAwaiter().GetResult();
+				}
+				catch (Exception Ex) {
+					// error = Ex.Message;
+					//Se il servizio per qualche motivo non risponde, esce. Non fornisce alcun messaggio all'utente, ma cosa deve essere trasparente.
+					error = $"{"Il serviziodi Intelligenza Artificiale non √® attivo."}";
+					return list;
+				}
+
+				// Success ?
+				if (response.IsSuccessStatusCode) {
+					// Response
+					var taskResponseBody = Task.Run(async () => await response.Content.ReadAsStringAsync());
+					string responseBody = taskResponseBody.GetAwaiter().GetResult();
+					if (responseBody.Contains("errDetails")) {
+						error = $"{"Failed to call API: " + responseBody}";
+					}
+					else {
+						try {
+							list = responseBody.Replace("[", "").Replace("]", "").Replace("\n", "").Replace("\r", "").Replace(" ", "").Split(',');
+						}
+						catch (Exception Ex) {
+							error = Ex.Message;
+						}
+					}
+				}
+				else {
+					error = $"{"Failed to call API: " + response.ReasonPhrase}";
+				}
+			}
+
+			return list;
+		}
+
+		/// <summary>
+		/// esercizio = 2022
+		/// tipo = entrate, spese
+		/// idepoperation = (idepoperation='fatven')AND((flagamm IS NULL)OR(flagamm='S'))
+		/// sortcodes = [ 1030102999, 1030102007, 1030105006, 2020199001, 1030102001 ]
+		/// </summary>
+		/// <param name="esercizio"></param>
+		/// <param name="tipo"></param>
+		/// <param name="idepoperation"></param>
+		/// <param name="sortcodes"></param>
+		/// <returns></returns>
+		private string accMotiveQry(int esercizio, string tipo, string idepoperation, string[] sortcodes) {
+			string qry = $@"
+SELECT 
+	CASE
+		WHEN priority IS null
+		THEN null
+		ELSE ROW_NUMBER() OVER (ORDER BY isnull(priority, 100), codemotive)
+	END as AI,
+accmotive.*
+FROM (
+	SELECT a.*, s.idsor, s.sortcode, s.description
+	FROM accmotiveapplied a
+	JOIN accmotivesorting asor ON a.idaccmotive = asor.idaccmotive
+	JOIN sorting s ON s.idsor = asor.idsor
+	JOIN sortingkind sk ON sk.idsorkind = s.idsorkind
+	JOIN siopekind spk ON spk.codesorkind_siope{tipo} = sk.codesorkind
+	WHERE spk.ayear = {esercizio}
+	and {idepoperation}
+	and in_use = 'S'
+) accmotive";
+
+			if ((sortcodes != null) && (sortcodes.Length > 0)) {
+				string prioritySelect = string.Join("\r\n\t\tunion\r\n\t\t", sortcodes.Select((s, i) => $"select {i} as priority, '{s}' as sortcode"));
+				qry += $@"
+INNER JOIN (
+	SELECT priority, sortcode FROM (
+		{prioritySelect}
+	) sel
+) aipriority ON accmotive.sortcode = aipriority.sortcode";
+			}
+
+			qry += @"
+ORDER BY ISNULL(priority, 100), codemotive";
+
+			return qry;
+		}
+
+
+		/// </summary>
+		/// <param name="esercizio"></param>
+		/// <param name="tipo"></param>
+		/// <param name="idepoperation"></param>
+		/// <param name="sortcodes"></param>
+		/// <returns></returns>
+		/// // filtro i listini, le classificazioni merceologiche e le causali EP che sono compatibili con i codici Siope restituiti dal servizio AI
+		/// // con lo scopo di ottenere un elenco guidato di voci di listino 
+		private string ListAIQuery(int esercizio, string tipo, string idepoperation, string[] sortcodes) {
+			string qry = $@"
+			SELECT 
+				CASE
+					WHEN priority IS null
+					THEN null
+					ELSE ROW_NUMBER() OVER (ORDER BY isnull(priority, 100), codemotive)
+				END as AI,
+			listview.*
+			FROM (
+				SELECT l.*, lc.title, a.idaccmotive, a.codemotive, s.idsor, s.sortcode, s.description as siope
+				FROM list l
+				JOIN listclass lc ON l.idlistclass = lc.idlistclass
+				JOIN accmotiveapplied a ON lc.idaccmotive = a.idaccmotive
+				JOIN accmotivesorting asor ON a.idaccmotive = asor.idaccmotive
+				JOIN sorting s ON s.idsor = asor.idsor
+				JOIN sortingkind sk ON sk.idsorkind = s.idsorkind
+				JOIN siopekind spk ON spk.codesorkind_siope{tipo} = sk.codesorkind
+				WHERE spk.ayear = {esercizio}
+				and {idepoperation}
+				and in_use = 'S'
+			) listview";
+
+			if ((sortcodes != null) && (sortcodes.Length > 0)) {
+				string prioritySelect = string.Join("\r\n\t\tunion\r\n\t\t", sortcodes.Select((s, i) => $"select {i} as priority, '{s}' as sortcode"));
+				qry += $@"
+				INNER JOIN (
+					SELECT priority, sortcode FROM (
+						{prioritySelect}
+					) sel
+				) aipriority ON listview.sortcode = aipriority.sortcode";
+			}
+
+			qry += @"
+				ORDER BY ISNULL(priority, 100)";
+
+			return qry;
+		}
+
+		private void btnCausaleEP_Click(object sender, EventArgs e) {
+			string error = "";
+
+			DataTable T = null;
+			string sql = "";
+
+			// GET DESCRIPTION
+			string sentence = txtDescrizione.Text;
+
+
+			string[] sortcodes = { };
+
+			// CALL API AI
+			if (!string.IsNullOrEmpty(sentence))
+				sortcodes = AI_getSiope(sentence, out error);
+
+			// CHECK API RESULT
+			if (sortcodes != null) {
+				if (string.IsNullOrEmpty(error) && sortcodes.Length > 0) {
+					// CREATE QUERY
+					string siope_ES = (AV.ToString().ToUpper() == "A") ? SPESE : ENTRATE;
+					sql = accMotiveQry(security.GetEsercizio(), siope_ES, filterEpOperation, sortcodes);
+
+					// GET DATATABLE
+					T = Conn.SQLRunner(sql);
+				}
+			}
+
+			if ((T != null) && (T.Rows.Count > 0)) {
+				string lista_idaccmotive = QHS.DistinctVal(T.Select(), "idaccmotive");
+				string FF = qhs.FieldInList("idaccmotive", lista_idaccmotive);
+
+				MetaData Mcausali = MetaData.GetMetaData(this, "accmotiveapplied");
+				Mcausali.FilterLocked = true;
+				Mcausali.DS = DS.Clone();
+				FF = qhs.AppAnd(FF, filterEpOperation);
+
+				DataRow[] Selected = null;
+				Frm_scegliCausaleAI F = new Frm_scegliCausaleAI(Meta, sql);
+				createForm(F, this);
+				if (F.ShowDialog(this) != DialogResult.OK) {
+					//Se non ho selezionato niente, apre il Tree
+					MetaData.DoMainCommand(this, "manage.accmotiveapplied.tree." + filterEpOperation);
+					return;
+				}
+				else {
+					Selected = F.SelectedRows;
+				}
+				if ((Selected != null) && (Selected.Length > 0)) {
+					//Se ho seelzioanto qualcosa, compila gli altri campi
+					DataRow rSelected = Selected[0];
+
+					// =====================================
+					// Causale
+					// =====================================
+					DS.estimatedetail.Rows[0]["detaildescription"] = txtDescrizione.Text;
+					DS.estimatedetail.Rows[0]["idaccmotive"] = rSelected["idaccmotive"];
+					DS.estimatedetail.Rows[0]["idsor_siope"] = rSelected["idsor"];
+
+					Meta.myGetData.GetTemporaryValues(DS.estimatedetail);
+					Meta.FreshForm(true);
+				}
+			}
+			else {
+				//Se la query non restituisce nulla, apre il Tree
+				MetaData.DoMainCommand(this, "manage.accmotiveapplied.tree." + filterEpOperation);
+			}
+		}
+	}
 }

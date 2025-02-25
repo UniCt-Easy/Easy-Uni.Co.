@@ -1,66 +1,88 @@
 ﻿(function () {
+	
+    var MetaPage = window.appMeta.MetaSegreteriePage;
 
-	var MetaPage = window.appMeta.MetaSegreteriePage;
-
-	function metaPage_sal() {
+    function metaPage_sal() {
 		MetaPage.apply(this, ['sal', 'default', false]);
-		this.name = 'Stato avanzamento lavori';
+        this.name = 'Stato avanzamento lavori';
 		this.defaultListType = 'default';
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
-	}
+    }
 
-	metaPage_sal.prototype = _.extend(
-		new MetaPage(),
-		{
-			constructor: metaPage_sal,
-			superClass: MetaPage.prototype,
+    metaPage_sal.prototype = _.extend(
+        new MetaPage(),
+        {
+            constructor: metaPage_sal,
+            superClass: MetaPage.prototype,
 
-			getName: function () {
-				return this.name;
+            getName: function () {
+               return this.name;
 			},
 
-			//isValidFunction
+			manageValidResult: function (rowToCheck) {
+				var loc = appMeta.localResource;
+				var def = appMeta.Deferred("isValid-sal_default");
+				var firstErrorObj;
+
+				if (rowToCheck.current.datablocco) {
+					if (rowToCheck.current.datablocco > rowToCheck.current.stop || rowToCheck.current.datablocco < rowToCheck.current.start) {
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'Occorre indicare una data di blocco allinterno del periodo del SAL',
+							outCaption: 'Data blocco',
+							errField: 'datablocco',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj);
+					}
+				}
+				def.resolve();
+
+				//$isValid$
+
+				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
 
 			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-
+				
 				this.setFilters();
 				//afterGetFormDataFilter
-
+				
 				//parte asincrona
 				var def = appMeta.Deferred("afterGetFormData-sal_default");
 				var arraydef = [];
-
+				
 				arraydef.push(this.managesal_default_budgetcalcolato());
 				//afterGetFormDataInside
-
+				
 				$.when.apply($, arraydef)
 					.then(function () {
 						return def.resolve();
 					});
 				return def.promise();
 			},
-
+			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-
+				
 				this.setFilters();
 				parentRow.idprogetto = this.state.callerState.currentRow.idprogetto;
 				this.managesal_default_budgetcalcolato();
 				//beforeFillFilter
-
+				
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-sal_default");
 				var arraydef = [];
-
+				
 				//beforeFillInside
-
+				
 				$.when.apply($, arraydef)
 					.then(function () {
 						return self.superClass.beforeFill.call(self)
@@ -76,7 +98,7 @@
 				this.enableControl($('#sal_default_budgetcalcolato'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('salprogettoassetworkpackage'), this.getDataTable('salprogettoassetworkpackagemese'));
 				//afterClearin
-
+				
 				//afterClearInAsyncBase
 			},
 
@@ -89,6 +111,7 @@
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.sal.defaults({ 'autoassociazione': 'S' });
 				$("#btn_add_salassetdiaryora_idassetdiaryora").on("click", _.partial(this.searchAndAssignassetdiaryora, self));
 				$("#btn_add_salassetdiaryora_idassetdiaryora").prop("disabled", true);
 				$("#btn_add_salrendicontattivitaprogettoora_idrendicontattivitaprogettoora").on("click", _.partial(this.searchAndAssignrendicontattivitaprogettoora, self));
@@ -96,8 +119,8 @@
 				$("#btn_add_salprogettocosto_idprogettocosto").on("click", _.partial(this.searchAndAssignprogettocosto, self));
 				$("#btn_add_salprogettocosto_idprogettocosto").prop("disabled", true);
 				var f1 = window.jsDataQuery.eq("idprogetto", this.state.callerState.currentRow.idprogetto);
-				self.firstSearchFilter = f1;
-				self.startFilter = self.firstSearchFilter;
+				self.firstSearchFilter  = f1;
+					self.startFilter = self.firstSearchFilter;
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -133,7 +156,7 @@
 
 			//insertClick
 
-
+			
 			beforePost: function () {
 				var self = this;
 
@@ -276,7 +299,7 @@
 			},
 
 			//buttons
-		});
+        });
 
 	window.appMeta.addMetaPage('sal', 'default', metaPage_sal);
 

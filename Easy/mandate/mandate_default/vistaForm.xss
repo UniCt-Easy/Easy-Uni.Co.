@@ -44,7 +44,7 @@
     <Shape ID="DesignTable:pccview" ZOrder="34" X="876" Y="222" Height="239" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
     <Shape ID="DesignTable:consipkind" ZOrder="41" X="-166" Y="414" Height="257" Width="152" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:consipkind_ext" ZOrder="40" X="842" Y="-35" Height="200" Width="152" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
-    <Shape ID="DesignTable:consipcategory" ZOrder="30" X="1063" Y="-141" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:consipcategory" ZOrder="30" X="1089" Y="-186" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:list" ZOrder="39" X="544" Y="2634" Height="305" Width="162" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:upb" ZOrder="36" X="1293" Y="469" Height="304" Width="162" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="300" />
     <Shape ID="DesignTable:accmotive" ZOrder="19" X="1079" Y="508" Height="257" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
@@ -54,7 +54,7 @@
     <Shape ID="DesignTable:mandateview" ZOrder="14" X="1122" Y="1395" Height="305" Width="222" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:wsaggiudicatario" ZOrder="10" X="72" Y="-248" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:wspartecipante" ZOrder="9" X="111" Y="-387" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
-    <Shape ID="DesignTable:wsgara" ZOrder="8" X="601" Y="-289" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:wsgara" ZOrder="8" X="692" Y="-293" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:wslotto" ZOrder="7" X="373" Y="-367" Height="315" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="311" />
     <Shape ID="DesignTable:garatraspareview" ZOrder="1" X="-118" Y="-327" Height="220" Width="166" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
   </Shapes>
@@ -610,12 +610,12 @@
     <Connector ID="DesignRelation:FK_wsLotto_wsGara_idGara" ZOrder="11" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>601</X>
-          <Y>-244</Y>
+          <X>692</X>
+          <Y>-248</Y>
         </Point>
         <Point>
           <X>531</X>
-          <Y>-244</Y>
+          <Y>-248</Y>
         </Point>
       </RoutePoints>
     </Connector>

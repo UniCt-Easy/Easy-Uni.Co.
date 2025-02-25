@@ -31,6 +31,8 @@
 						this.describeAColumn(table, 'getregistrydocentiamministrativi_ssd', 'SSD', null, 6000, 50);
 						this.describeAColumn(table, 'getregistrydocentiamministrativi_struttura', 'Struttura', null, 7000, 1024);
 						this.describeAColumn(table, 'getregistrydocentiamministrativi_istituto', 'Istituto', null, 8000, 101);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_active', 'Active', null, 11000, null);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_categoria', 'Categoria', null, 12000, 1);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

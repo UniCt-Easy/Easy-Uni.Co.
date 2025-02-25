@@ -1457,6 +1457,7 @@
 		 * @param {DataTable} dtOut
 		 */
 		copyAutoincrementsProperties: function (dtIn, dtOut) {
+			if (Object.keys(dtOut.autoIncrementColumns).length > 0) return;
 			// faccio un semplice clone
 			dtOut.autoIncrementColumns = _.cloneDeep(dtIn.autoIncrementColumns);
 		},

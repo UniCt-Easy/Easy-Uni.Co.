@@ -21,7 +21,145 @@
                return this.name;
 			},
 
-			//isValidFunction
+			manageValidResult: function (rowToCheck) {
+				var loc = appMeta.localResource;
+				var def = appMeta.Deferred("isValid-meta_rendicontattivitaprogetto");
+				var firstErrorObj;
+
+				let wpStop = this.state.callerState.currentRow.stop;
+				let wpStart = this.state.callerState.currentRow.start;
+
+				let progettoStop = this.state.callerState.callerState.currentRow.stop;
+				let progettoStart = this.state.callerState.callerState.currentRow.start;
+
+				let membroStart = null;
+				let membroStop = null;
+				if (this.Membro) {
+					membroStart = this.Membro.start;
+					membroStop = this.Membro.stop;
+				}
+				this.setRealStartStop(wpStart, wpStop, membroStart, membroStop, this.lastProroga, progettoStart, progettoStop);
+
+				let tempStart = this.state.currentRow.datainizioprevista;
+				let tempStop = this.state.currentRow.stop;
+
+				if (this.start) {
+					if (this.start > tempStart) {
+						$("#rendicontattivitaprogetto_seg_datainizioprevista").val(this.stringFromDate_ddmmyyyy(this.start));
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data di inizio dell\'attività deve essere successiva ' + this.startMessage,
+							outCaption: 'Data inizio prevista',
+							errField: 'datainizioprevista',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+					}
+				}
+
+				if (this.stop) {
+					if (this.stop < tempStart) {
+						$("#rendicontattivitaprogetto_seg_datainizioprevista").val(this.stringFromDate_ddmmyyyy(this.stop));
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data di inizio dell\'attività deve essere precedente ' + this.stopMessage,
+							outCaption: 'Data inizio prevista',
+							errField: 'datainizioprevista',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+					}
+				}
+
+				if ($("#rendicontattivitaprogetto_seg_stop").val() && this.getDateTimeFromString($("#rendicontattivitaprogetto_seg_stop").val()) < tempStart) {
+					$("#rendicontattivitaprogetto_seg_datainizioprevista").val($("#rendicontattivitaprogetto_seg_stop").val());
+					firstErrorObj = {
+						warningMsg: "",
+						errMsg: 'La data di inizio dell\'attività deve essere precedente a quella finale',
+						outCaption: 'Data inizio prevista',
+						errField: 'datainizioprevista',
+						row: rowToCheck
+					};
+					return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+
+				}
+
+				if (this.oraStart) {
+					if (this.oraStart < tempStart) {
+						$("#rendicontattivitaprogetto_seg_datainizioprevista").val(this.stringFromDate_ddmmyyyy(this.oraStart));
+
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data di inizio della attività deve essere precedente ' + this.oraStartMessage,
+							outCaption: 'Data inizio prevista',
+							errField: 'datainizioprevista',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+
+					}
+				}
+
+				if (this.start) {
+					if (this.start > tempStop) {
+						$("#rendicontattivitaprogetto_seg_stop").val(this.stringFromDate_ddmmyyyy(this.start));
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data di fine dell\'attività deve essere successiva ' + this.startMessage,
+							outCaption: 'Data fine prevista',
+							errField: 'stop',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+					}
+				}
+
+				if (this.stop) {
+					if (this.stop < tempStop) {
+						$("#rendicontattivitaprogetto_seg_stop").val(this.stringFromDate_ddmmyyyy(this.stop));
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data di fine dell\'attività deve essere precedente ' + this.stopMessage,
+							outCaption: 'Data fine prevista',
+							errField: 'stop',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+					}
+				}
+
+				if ($("#rendicontattivitaprogetto_seg_datainizioprevista").val() && this.getDateTimeFromString($("#rendicontattivitaprogetto_seg_datainizioprevista").val()) > tempStop) {
+					$("#rendicontattivitaprogetto_seg_stop").val($("#rendicontattivitaprogetto_seg_datainizioprevista").val());
+					firstErrorObj = {
+						warningMsg: "",
+						errMsg: 'La data finale dell\'attività deve essere successiva a quella iniziale',
+						outCaption: 'Data fine prevista',
+						errField: 'stop',
+						row: rowToCheck
+					};
+					return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+				}
+
+				if (this.oraStop) {
+					if (this.oraStop > tempStop) {
+						$("#rendicontattivitaprogetto_seg_stop").val(this.stringFromDate_ddmmyyyy(this.oraStop));
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data di fine della attività deve essere successiva ' + this.oraStopMessage,
+							outCaption: 'Data fine prevista',
+							errField: 'stop',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+					}
+				}
+
+
+				def.resolve(true);
+				//$isValid$
+
+				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
 
 			afterGetFormData: function () {
 				//parte sincrona
@@ -52,13 +190,13 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (this.isNull(parentRow.datainizioprevista))
+				if (this.isNullOrMinDate(parentRow.datainizioprevista))
 					parentRow.datainizioprevista = this.state.callerState.currentRow.start;
 				if (self.isNullOrMinDate(parentRow.datainizioprevista))
 					parentRow.datainizioprevista = new Date();
 				if (this.isNull(parentRow.idrendicontattivitaprogettokind))
 					parentRow.idrendicontattivitaprogettokind = 1;
-				if (this.isNull(parentRow.stop))
+				if (this.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = this.state.callerState.currentRow.stop;
 				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = new Date();
@@ -163,7 +301,7 @@
 				this.setFilterRendicontattivitaprogettoItineration();
 				this.setFilterRendicontattivitaprogetto_seg_idreg();
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar18').fullCalendar('rerenderEvents');
+					$('#calendar17').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
@@ -268,7 +406,10 @@
 									columnTitle : '!titleancestor',
 									columnTitleValue : columnTitleValue,
 									calendarTag : "rendicontattivitaprogettoora.seg.seg",
-									maxHoursPerDayTable : maxHoursPerDayTable
+									maxHoursPerDayTable : maxHoursPerDayTable,
+									maxHoursPerYearTable: that.state.DS.tables.rendicontattivitaprogettowpview,
+									maxHoursPerYearTableMaxHourCol: 'oremaxanno',
+									maxHoursPerYearTableWorkedHourCol: 'oreanno'
 								});
 							return scheduler.show();
 						});
@@ -321,7 +462,7 @@
 					membroStart = that.Membro.start;
 					membroStop = that.Membro.stop;
 				}
-				that.setRealStartStop(wpStart, wpStop, membroStart, membroStop, that.lastProroga);
+				that.setRealStartStop(wpStart, wpStop, membroStart, membroStop, that.lastProroga, that.state.callerState.callerState.currentRow.start, that.state.callerState.callerState.currentRow.stop);
 
 				if (that.start) {
 					if (that.start > tempStart) {
@@ -341,9 +482,18 @@
 					$("#rendicontattivitaprogetto_seg_datainizioprevista").val($("#rendicontattivitaprogetto_seg_stop").val());
 					return that.showMessageOk('La data di inizio dell\'attività deve essere precedente a quella finale');
 				}
+
+				if (that.oraStart) {
+					if (that.oraStart < tempStart) {
+						$("#rendicontattivitaprogetto_seg_datainizioprevista").val(that.stringFromDate_ddmmyyyy(that.oraStart));
+						return that.showMessageOk('La data di inizio della attività deve essere precedente ' + that.oraStartMessage);
+					}
+				}
 				//fine controllo intervallo date
 
-				that.setFilterRendicontattivitaprogettoItineration();
+				//mini getFormData
+				that.state.currentRow.datainizioprevista = tempStart;
+				return that.setFilterRendicontattivitaprogettoItineration();
 			},
 
 			manageidreg: function(that) { 
@@ -357,7 +507,15 @@
 						.select(that.q.and(that.q.eq("idprogetto", that.state.currentRow.idprogetto), that.q.eq("idreg", that.state.currentRow.idreg))
 						), 'stop', 'desc')[0] : null;
 
-				return that.setFilterRendicontattivitaprogettoItineration();
+				// carica tutte le attività dell'utente. seve per visualizzarle sul calendario
+				var filter = that.q.and(
+					that.q.eq("idreg", that.state.currentRow.idreg),
+					that.q.ne("idrendicontattivitaprogetto", that.state.currentRow.idrendicontattivitaprogetto)
+				);
+				return that.getExternalEventForCalendar(filter, $("[data-tag='rendicontattivitaprogettoora.seg.seg']"))
+					.then(function () {
+						return that.setFilterRendicontattivitaprogettoItineration();
+					});
 			},
 
 			managestop: function(that) { 
@@ -376,7 +534,7 @@
 					membroStart = that.Membro.start;
 					membroStop = that.Membro.stop;
 				}
-				that.setRealStartStop(wpStart, wpStop, membroStart, membroStop, that.lastProroga);
+				that.setRealStartStop(wpStart, wpStop, membroStart, membroStop, that.lastProroga, that.state.callerState.callerState.currentRow.start, that.state.callerState.callerState.currentRow.stop);
 
 				if (that.start) {
 					if (that.start > tempStop) {
@@ -396,8 +554,18 @@
 					$("#rendicontattivitaprogetto_seg_stop").val($("#rendicontattivitaprogetto_seg_datainizioprevista").val());
 					return that.showMessageOk('La data finale dell\'attività deve essere successiva a quella iniziale');
 				}
+
+				if (that.oraStop) {
+					if (that.oraStop > tempStop) {
+						$("#rendicontattivitaprogetto_seg_stop").val(that.stringFromDate_ddmmyyyy(that.oraStop));
+						return that.showMessageOk('La data di fine della attività deve essere successiva ' + that.oraStopMessage);
+					}
+				}
+
 				//fine controllo intervallo date
-                               
+
+				//mini getFormData
+				that.state.currentRow.stop = tempStop;
 				that.setFilterRendicontattivitaprogettoItineration();
 			},
 

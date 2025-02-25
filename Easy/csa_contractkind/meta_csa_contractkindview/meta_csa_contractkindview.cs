@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,7 +47,7 @@ namespace meta_csa_contractkindview
                 DescribeAColumn(T, "ayear", "Eserc.", nPos++);
                 DescribeAColumn(T, "idcsa_contractkind", "#", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
-                DescribeAColumn(T, "csa_contractkindcode", "Cod. Regola generale CSA", nPos++);
+                DescribeAColumn(T, "contractkindcode", "Cod. Regola generale CSA", nPos++);
                 DescribeAColumn(T, "codeupb", "UPB", nPos++);
                 DescribeAColumn(T, "codeacc_main", "Conto E/P", nPos++);
                 DescribeAColumn(T, "codefin_main", "Bilancio", nPos++);

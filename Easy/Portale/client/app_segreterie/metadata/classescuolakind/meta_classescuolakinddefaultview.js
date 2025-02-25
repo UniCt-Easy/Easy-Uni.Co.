@@ -23,9 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 1024);
-						this.describeAColumn(table, 'corsostudiokind_title', 'Tipologia di corso', null, 30, 50);
-						this.describeAColumn(table, 'corsostudiolivello_title', 'Livello del corso', null, 40, 50);
+						this.describeAColumn(table, 'title', 'Tipologia', null, 2000, 1024);
+						this.describeAColumn(table, 'corsostudiokind_title', 'Tipologia di corso', null, 3200, 50);
+						this.describeAColumn(table, 'corsostudiolivello_title', 'Livello del corso', null, 4200, 50);
+						this.describeAColumn(table, 'eqf_level', 'Livello EQF (European Qualifications Framework)', null, 5100, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

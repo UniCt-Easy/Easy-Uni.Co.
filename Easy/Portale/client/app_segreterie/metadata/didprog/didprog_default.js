@@ -30,8 +30,6 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				$("#XXdidproggrupp").prop("disabled", !this.state.isEditState());
-				$("#XXdidprogcurr").prop("disabled", !this.state.isEditState());
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#didprog_default_idareadidattica'), null);
 				} else {
@@ -61,15 +59,20 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#didprog_default_idareadidattica'), null);
 				this.helpForm.filter($('#didprog_default_idreg_docenti'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
+				this.enableControl($("#XXdidproggrupp"), this.state.isEditState());
+				this.enableControl($("#XXdidprogcurr"), this.state.isEditState());
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
@@ -90,7 +93,7 @@
 				this.state.DS.tables.didprog.defaults({ 'preimmatoltreauth': "S" });
 				$("#btn_add_didprogclassconsorsuale_idclassconsorsuale").on("click", _.partial(this.searchAndAssignclassconsorsuale, self));
 				$("#btn_add_didprogclassconsorsuale_idclassconsorsuale").prop("disabled", true);
-				$("#btn_add_didprograppstud_idreg_studenti").on("click", _.partial(this.searchAndAssignregistry_studenti, self));
+				$("#btn_add_didprograppstud_idreg_studenti").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_didprograppstud_idreg_studenti").prop("disabled", true);
 				$("#XXdidproggrupp").prop("disabled", true);
 				$("#XXdidprogcurr").prop("disabled", true);
@@ -98,9 +101,13 @@
 				$("#GenerateDidProgCurricula").prop("disabled", true);
 				this.setDenyNull("didprog","aa");
 				this.setDenyNull("didprog","iddidprogsuddannokind");
+				appMeta.metaModel.insertFilter(this.getDataTable("didprognumchiusokind"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("didprogsuddannokinddefaultview"), this.q.eq('didprogsuddannokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("titolokinddefaultview"), this.q.eq('titolokind_active', 'Si'));
 				$('#grid_attivform_default').data('mdlconditionallookup', 'tipovalutaz,P,Profitto;tipovalutaz,I,Idoneità;');
-				$('#grid_didprogclassconsorsuale_didprog').data('mdlconditionallookup', '!idclassconsorsuale_classconsorsuale_active,S,Si;!idclassconsorsuale_classconsorsuale_active,N,No;');
-				$('#grid_didprograppstud_default').data('mdlconditionallookup', '!idreg_registry_studenti_authinps,S,Si;!idreg_registry_studenti_authinps,N,No;!idreg_registry_active,S,Si;!idreg_registry_active,N,No;');
+				$('#grid_didprogclassconsorsuale_didprog').data('mdlconditionallookup', '!idclassconsorsuale_classconsorsuale_active,S,Si;!idclassconsorsuale_classconsorsuale_active,N,No;!idclassconsorsuale_classconsorsuale_tipoente,U,Università;!idclassconsorsuale_classconsorsuale_tipoente,A,AFAM;');
+				$('#grid_didprograppstud_default').data('mdlconditionallookup', '!idreg_registry_active,S,Si;!idreg_registry_active,N,No;');
 				var grid_attivform_defaultChildsTables = [
 					{ tablename: 'canale', edittype: 'default', columnlookup: 'title', columncalc: '!canale'},
 					{ tablename: 'attivformcaratteristica', edittype: 'default', columnlookup: 'cf', columncalc: '!attivformcaratteristica'},
@@ -116,8 +123,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-didprog_default");
-				$('#didprog_default_idcorsostudio').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#didprog_default_idcorsostudio').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#didprog_default_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				$('#didprog_default_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -217,12 +224,12 @@
 				});
 			},
 
-			searchAndAssignregistry_studenti: function (that) {
+			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
-					listType: "studenti",
+					listType: "default",
 					idControl: "txt_didprograppstud_idreg_studenti",
-					tagSearch: "registrystudentiview.dropdown_title",
+					tagSearch: "registrydefaultview.dropdown_title",
 					columnNameText: "title",
 					columnSource: "idreg",
 					columnToFill: "idreg_studenti",
@@ -259,7 +266,7 @@
 				});
 			},
 
-			children: ['attivform', 'didprogclassconsorsuale', 'didprogcurr', 'didprogdatepiano', 'didproggrupp', 'didprograppstud', 'iscrizione'],
+			children: ['attivform', 'didprogclassconsorsuale', 'didprogdatepiano', 'didprograppstud', 'iscrizione'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {

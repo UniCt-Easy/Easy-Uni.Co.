@@ -14,35 +14,38 @@
 	<div class="tab-pane fade active show" id="tabsasd_default_0" role="tabpanel">
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="sasd_default_idsasd">Codice Istituto</label>
-					<input id="sasd_default_idsasd" type="text" class="form-control" data-tag="sasd.idsasd?sasddefaultview.idsasd" data-subentity  data-mandatory />
+					<label class="col-form-label col-md-12" for="sasd_default_codice">Codice</label>
+					<input id="sasd_default_codice" type="text" class="form-control" data-tag="sasd.codice?sasddefaultview.codice"  data-mandatory />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="sasd_default_title">Denominazione</label>
-					<input id="sasd_default_title" type="text" class="form-control" data-tag="sasd.title?sasddefaultview.sasd_title" data-subentity  data-mandatory />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="sasd_default_codice">Codice</label>
-					<input id="sasd_default_codice" type="text" class="form-control" data-tag="sasd.codice?sasddefaultview.codice" data-subentity  data-mandatory />
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="sasd_default_codice_old">Codice legge precedente</label>
-					<input id="sasd_default_codice_old" type="text" class="form-control" data-tag="sasd.codice_old?sasddefaultview.sasd_codice_old" data-subentity  />
+					<input id="sasd_default_title" type="text" class="form-control" data-tag="sasd.title?sasddefaultview.sasd_title"  data-mandatory />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="sasd_default_idareadidattica">Area o ambito disciplinare</label>
 					<div>
-						<input id="sasd_default_idareadidattica" name="sasd_default_idareadidattica" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="areadidatticadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="sasd_default_idareadidattica" name="sasd_default_idareadidattica" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="areadidatticadefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sasd_default_codice_old">Codice legge precedente</label>
+					<input id="sasd_default_codice_old" type="text" class="form-control" data-tag="sasd.codice_old?sasddefaultview.sasd_codice_old"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sasd_default_tipoente">Tipologia di ente</label>
+					<div class="custom-control custom-radio">
+						<input id="sasd_default_tipoenteU" type="radio" name="sasd_default_tipoente" class="custom-control-input" data-tag="sasd.tipoente:U?sasddefaultview.sasd_tipoente:Università"  ><label for="sasd_default_tipoenteU"> Università</label>
+						<input id="sasd_default_tipoenteA" type="radio" name="sasd_default_tipoente" class="custom-control-input" data-tag="sasd.tipoente:A?sasddefaultview.sasd_tipoente:AFAM"  ><label for="sasd_default_tipoenteA"> AFAM</label>
 					</div>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabsasd_default_1" role="tabpanel">
-				<div class="gridx" id="grid_sasdistitutokind_default" data-tag="sasdistitutokind.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_sasdistitutokind_default" data-tag="sasdistitutokind.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1311,7 +1311,10 @@ namespace funzioni_configurazione {
             if (idunderwriting != DBNull.Value) filter = QHS.AppAnd(filter, QHS.CmpEq("idunderwriting", idunderwriting));
             if (idupb != DBNull.Value) filter = QHS.AppAnd(filter, upbComp("idupb", idupb));
             if (finpart != "") filter = QHS.AppAnd(filter, QHS.CmpEq("finpart", finpart));
-            filter = QHS.AppAnd(filter, QHS.CmpNe("prevision", 0));
+
+            string fieldname = (VistaScelta == "upbunderwritingyearview") ? "initialprevision" : "prevision";
+
+            filter = QHS.AppAnd(filter, QHS.CmpNe(fieldname, 0));
             return filter;
         }
 
@@ -1323,7 +1326,9 @@ namespace funzioni_configurazione {
             // Previsione corrente (principale)
             string Filter = FilterPrevInizialeCompetenza(vistascelta,finpart);
             Filter = QHS.AppAnd(Filter, Conn.SelectCondition("finyearview", true));
-            string strExpr = "SUM(prevision)";
+
+            string strExpr = (vistascelta == "upbunderwritingyearview") ? "SUM(initialprevision)" : "SUM(prevision)";
+  
             decimal valore = CK(Conn.DO_READ_VALUE(vistascelta, Filter, strExpr));
             return valore;
         }

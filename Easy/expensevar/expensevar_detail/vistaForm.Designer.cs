@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -126,6 +126,7 @@ private void initClass() {
 	texpensevar.Columns.Add( new DataColumn("amount", typeof(decimal)));
 	texpensevar.Columns.Add( new DataColumn("doc", typeof(string)));
 	texpensevar.Columns.Add( new DataColumn("autokind", typeof(byte)));
+	texpensevar.Columns.Add( new DataColumn("autocode", typeof(int)));
 	texpensevar.Columns.Add( new DataColumn("idpayment", typeof(int)));
 	texpensevar.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
 	C= new DataColumn("adate", typeof(DateTime));

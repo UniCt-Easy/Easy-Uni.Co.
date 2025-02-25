@@ -1,0 +1,275 @@
+﻿@page "/costoorario"
+
+<PageTitle>Costo orario</PageTitle>
+
+@using ServizioTimbratura
+@inject NavigationManager Navigation
+@inject ServizioTimbratura.Timbratura costoorarioSrv
+@inject IJSRuntime JS
+
+<h1>Costo orario</h1>
+<p>Possiamo vedere i Costi orari presenti su Visper</p>
+<p>@conn</p>
+<div class="row mb-2">
+    <div class="col-1">idReg: </div>
+    <div class="col-2"><input id="idReg" @bind=@idReg @onclick="() => resetErrorMsg()" /></div>
+</div>
+@if (errorMsg != "")
+{
+    <div class="row mb-2">
+        <div class="col-3">
+            <p class="alert alert-danger">@errorMsg</p>
+        </div>
+    </div>
+}
+<div class="row mb-2 mt-2">
+    <div class="col-3">
+        <button class="btn btn-primary" @onclick="GetCost">Leggi dati da Visper</button>
+    </div>
+</div>
+<hr />
+@if (isLoading)
+{
+    <p>Loading data...</p>
+}
+else if (isDownloading)
+{
+    <p>Loading data...</p>
+}
+else
+{
+    @if (costoOrarioDb != null)
+    {
+        <hr />
+        <h3>Costo Orario</h3>
+        <div class="row">
+            <div class="col-12">
+                <table id="costoorario" class="table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Web Service</th>
+                            <th>Database</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (costoOrarioDb.Any())
+                        {
+                            foreach (var costoOrarioDb in costoOrarioDb.OrderBy(o => o.data))
+                            {
+                                <tr style="@(costoOrarioDb.valws != costoOrarioDb.valdb ? "background-color:orange" : "")">
+                                    <td>@(costoOrarioDb.data.ToString("yyyy/MM/dd"))</td>
+                                    <td>@(costoOrarioDb.valws)</td>
+                                    <td>@(costoOrarioDb.valdb)</td>
+                                    <td><label class="btn btn-danger" @onclick="() => RemoveCostoOrario(costoOrarioDb.id)">x</label></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" align="center">Nessun Costo Orario presente nel servizio</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (costoOrarioDb.FirstOrDefault().data != (new DateTime()))
+        {
+            <div class="row mb-5">
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick="downloadCSV('costoorario')">Download CSV</button>
+                    <button class="btn btn-warning" @onclick="UpdateDbCostoOrario">Aggiorna Database</button>
+                </div>
+            </div>
+        }
+        <div class="row mb-5">
+            <div class="col-12">
+                @msgCostoOrario
+            </div>
+        </div>
+    }
+}
+
+@code {
+    private string idReg = "";
+    private string msgCostoOrario = "";
+    private bool successCostoOrario = true;
+    private string conn = "";
+    private string errorMsg = "";
+
+    List<oradb> costoOrarioDb;
+
+    private bool isLoading = false;
+
+    private bool isDownloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+
+        ParseQueryString();
+    }
+
+    private void OnLocationChanged(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        ParseQueryString();
+
+        StateHasChanged();
+    }
+
+    private void ParseQueryString()
+    {
+        Uri uri = new Uri(Navigation.Uri);
+        string settingsFile = $"AppServizioTimbratura{uri.Query.Replace("?", ".")}.config";
+        conn = costoorarioSrv.DoInit(settingsFile);
+    }
+
+    public void resetErrorMsg()
+    {
+        errorMsg = "";
+    }
+
+    private async Task GetCost()
+    {
+        errorMsg = "";
+
+        if (idReg == "")
+        {
+            errorMsg = "Inserire un idReg!";
+            return;
+        }
+
+        int _idReg = 0;
+        int.TryParse(idReg, out _idReg);
+
+        if (_idReg <= 0)
+        {
+            errorMsg = "Inserire un idReg valido!";
+            return;
+        }
+
+        // Clear the current table data
+        costoOrarioDb = null;
+
+        isLoading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        List<oraws> costiorari = await costoorarioSrv.DoGetCostoOrarioVisper(idReg);
+        costoOrarioDb = await costoorarioSrv.GetCost(idReg);
+
+        foreach (oraws costoorario in costiorari)
+        {
+            if (costoOrarioDb.Any(w => w.data == costoorario.data))
+                costoOrarioDb.FirstOrDefault(w => w.data == costoorario.data).valws = costoorario.valws;
+            else
+                costoOrarioDb.Add(new oradb() { data = costoorario.data, valws = costoorario.valws });
+        }
+
+        isLoading = false;
+
+        StateHasChanged();
+    }
+
+    private async Task UpdateDbCostoOrario()
+    {
+        errorMsg = "";
+
+        if (idReg == "")
+        {
+            errorMsg = "Inserire un idReg!";
+            return;
+        }
+
+        int _idReg = 0;
+        int.TryParse(idReg, out _idReg);
+
+        if (_idReg <= 0)
+        {
+            errorMsg = "Inserire un idReg valido!";
+            return;
+        }
+
+        isDownloading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        ServizioTimbratura.Timbratura costoorarioSrv = new ServizioTimbratura.Timbratura();
+
+        costoorarioSrv.DoUpdateCostoOrario(_idReg);
+
+        // Clear the current table data
+        costoOrarioDb = null;
+
+        isDownloading = false;
+        isLoading = true;
+
+        StateHasChanged();
+
+        await Task.Delay(1);
+
+        List<oraws> costiorari = await costoorarioSrv.DoGetCostoOrarioVisper(idReg);
+        costoOrarioDb = await costoorarioSrv.GetCost(idReg);
+
+        foreach (oraws costoorario in costiorari)
+        {
+            if (costoOrarioDb.Any(w => w.data == costoorario.data))
+                costoOrarioDb.FirstOrDefault(w => w.data == costoorario.data).valws = costoorario.valws;
+            else
+                costoOrarioDb.Add(new oradb() { data = costoorario.data, valws = costoorario.valws });
+        }
+
+        isLoading = false;
+
+        StateHasChanged();
+    }
+
+    private async Task RemoveCostoOrario(int idCostoOrario)
+    {
+        bool confirmed = true; // await JS.InvokeAsync<bool>("confirm", "Cancellare la timbratura ?");
+
+        if (confirmed)
+        {
+            await costoorarioSrv.DelCost(idCostoOrario);
+
+            oradb timb = costoOrarioDb.FirstOrDefault(w => w.id == idCostoOrario);
+            costoOrarioDb.Remove(timb);
+        }
+    }
+}
+
+<script type="text/javascript">
+    function downloadCSV() {
+        let table = document.getElementById("timbrature");
+        let rows = Array.from(table.querySelectorAll("tr"));
+
+        let csvContent = "";
+        rows.forEach(row => {
+            let cols = Array.from(row.querySelectorAll("th, td"))
+                .map(col => col.innerText.replace(/,/g, '')); // Remove commas if needed
+            csvContent += cols.join(";") + "\n";
+        });
+
+        // Create a Blob with the CSV data
+        let csvFile = new Blob([csvContent], { type: "text/csv" });
+
+        // Create a temporary link element to trigger the download
+        let tempLink = document.createElement("a");
+        tempLink.href = URL.createObjectURL(csvFile);
+        tempLink.download = "timbrature_" + document.getElementById("matricola").value + "_" + document.getElementById("timbrature").value + ".csv"; // The downloaded filename
+        tempLink.style.display = "none";
+
+        document.body.appendChild(tempLink);
+        tempLink.click();
+
+        // Clean up
+        document.body.removeChild(tempLink);
+    }
+</script>

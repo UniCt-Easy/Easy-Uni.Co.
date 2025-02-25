@@ -57,8 +57,24 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#affidamento_docente_freqobblSi'), true);
+				this.enableControl($('#affidamento_docente_freqobblNo'), true);
+				this.enableControl($('#affidamento_docente_gratuitoSi'), true);
+				this.enableControl($('#affidamento_docente_gratuitoNo'), true);
+				this.enableControl($('#affidamento_docente_idaffidamentokind'), true);
+				this.enableControl($('#affidamento_docente_iderogazkind'), true);
+				this.enableControl($('#affidamento_docente_riferimentoSi'), true);
+				this.enableControl($('#affidamento_docente_riferimentoNo'), true);
+				this.enableControl($('#affidamento_docente_start'), true);
+				this.enableControl($('#affidamento_docente_stop'), true);
+				this.enableControl($('#affidamento_docente_urlcorso'), true);
+				this.enableControl($('#affidamento_docente_frequenzaminima'), true);
+				this.enableControl($('#affidamento_docente_frequenzaminimadebito'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			
@@ -72,6 +88,8 @@
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("affidamentokinddefaultview"), this.q.eq('affidamentokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
 				$('#grid_affidamentocaratteristica_seg').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
 				var grid_affidamentocaratteristica_segChildsTables = [
 					{ tablename: 'affidamentocaratteristicaora', edittype: 'seg', columnlookup: 'ora', columncalc: '!affidamentocaratteristicaora'},

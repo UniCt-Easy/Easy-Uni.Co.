@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -38,7 +38,12 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 		public /*Rana:posretributivanagrafica.*/vistaForm DS;
 		private System.Windows.Forms.CheckBox checkBox2;
 		private System.Windows.Forms.GroupBox groupBox2;
-		
+		private GroupBox groupBox3;
+		private DataGrid dataGridAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -78,10 +83,17 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 			this.DS = new registrytaxablestatus_anagrafica.vistaForm();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.groupCredDeb.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox2.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupCredDeb
@@ -112,7 +124,6 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 			this.txtCreDeb.Size = new System.Drawing.Size(344, 20);
 			this.txtCreDeb.TabIndex = 0;
 			this.txtCreDeb.Tag = "registry.title?registrytaxablestatusview.registry";
-			this.txtCreDeb.Text = "";
 			// 
 			// label1
 			// 
@@ -127,7 +138,7 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 			// 
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.textBox1);
-			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(16, 128);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(464, 56);
@@ -151,7 +162,6 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 			this.textBox1.Size = new System.Drawing.Size(104, 20);
 			this.textBox1.TabIndex = 1;
 			this.textBox1.Tag = "registrytaxablestatus.supposedincome";
-			this.textBox1.Text = "";
 			// 
 			// txtValidita
 			// 
@@ -160,11 +170,11 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 			this.txtValidita.Size = new System.Drawing.Size(104, 20);
 			this.txtValidita.TabIndex = 2;
 			this.txtValidita.Tag = "registrytaxablestatus.start";
-			this.txtValidita.Text = "";
 			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// checkBox2
@@ -189,19 +199,82 @@ namespace registrytaxablestatus_anagrafica {//posretributivanagrafica//
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Dati Generali";
 			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Controls.Add(this.dataGridAllegati);
+			this.groupBox3.Controls.Add(this.btnDelAtt);
+			this.groupBox3.Controls.Add(this.btnEditAtt);
+			this.groupBox3.Controls.Add(this.btnInsAtt);
+			this.groupBox3.Location = new System.Drawing.Point(16, 190);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(464, 211);
+			this.groupBox3.TabIndex = 121;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Allegati";
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(11, 63);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(441, 134);
+			this.dataGridAllegati.TabIndex = 27;
+			this.dataGridAllegati.Tag = "registrytaxablestatusattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(202, 28);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(106, 28);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(11, 28);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// Frm_registrytaxablestatus_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(488, 190);
+			this.ClientSize = new System.Drawing.Size(496, 413);
+			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupCredDeb);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "Frm_registrytaxablestatus_anagrafica";
 			this.Text = "frmposretributivanagrafica";
 			this.groupCredDeb.ResumeLayout(false);
+			this.groupCredDeb.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}

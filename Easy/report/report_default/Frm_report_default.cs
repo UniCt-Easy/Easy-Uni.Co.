@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -88,6 +88,8 @@ namespace report_default //modulereportparameter//
             // Required for Windows Form Designer support
             //
             InitializeComponent();
+            openFileDialog1 = createOpenFileDialog(this._openFileDialog1);
+            saveFileDialog1 = createSaveFileDialog(this._saveFileDialog1);
             DS.reportparameter.ExtendedProperties["sort_by"] = "number";
             DS.reportparameter.ExtendedProperties["gridmaster"] = "report";
             openFileDialog1.Filter = "File di Crystal Report|*.rpt|Tutti i file|*.*";
@@ -160,11 +162,9 @@ namespace report_default //modulereportparameter//
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbGroupName = new System.Windows.Forms.ComboBox();
-            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.openFileDialog1 = createOpenFileDialog(this._openFileDialog1);            
+            this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();                        
             this.images = new System.Windows.Forms.ImageList(this.components);
-            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.saveFileDialog1 = createSaveFileDialog(this._saveFileDialog1);
+            this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();            
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.DS = new report_default.vistaForm();
             this.MetaDataDetail.SuspendLayout();
@@ -943,8 +943,17 @@ namespace report_default //modulereportparameter//
                     QueryCreator.ShowException(this, "Impossibile caricare il report " + repFileName, ee);
                 }
             }
-            
-            show(this, "File salvato in " + fileName, "Avviso");
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
+
+            string message;
+
+            if (isBlazor())
+                message = "Download del file effettuato";
+            else
+                message = "File salvato in " + fileName;
+
+            show(this, message, "Avviso");
             btnGeneraScript.Enabled = true;
 
         }

@@ -12,6 +12,7 @@
     var q = window.jsDataQuery;
 
     function scheduleConfig(metaPage, objConf) {
+        self = this;
         this.metaPage = metaPage;
         this.rootElement = metaPage.rootElement || document.body;
 
@@ -26,7 +27,7 @@
         this.columnTitle = objConf.columnTitle;
         this.columnTitleValue = objConf.columnTitleValue;
         this.columnStop = objConf.columnStop;
-        this.maxHours = objConf.maxHours;
+        this.maxHours = objConf.maxHours; //ore da schedulare della attività
         this.chooseAula = objConf.chooseAula;
         this.chooseProject = objConf.chooseProject;
         this.dtActivity = objConf.dtActivity;
@@ -39,6 +40,46 @@
         this.maxHoursPerDay = 24;
         this.calendarTag = objConf.calendarTag;
         this.maxHoursPerDayTable = objConf.maxHoursPerDayTable;
+
+        _.forEach(this.maxHoursPerDayTable.rows, function (r) {
+            if (r.oremaxgg > self.maxHoursDay)
+                self.maxHoursDay = r.oremaxgg;
+        });
+
+        //costruisco la tabella del residuo annuo
+        this.maxHoursPerYearTable = objConf.maxHoursPerYearTable;
+        this.maxHoursPerYearTableMaxHourCol = objConf.maxHoursPerYearTableMaxHourCol;
+        this.maxHoursPerYearTableWorkedHourCol = objConf.maxHoursPerYearTableWorkedHourCol;
+        this.maxHoursPerYear = [];
+        if (!!this.maxHoursPerYearTable && !!this.maxHoursPerYearTableMaxHourCol && !!this.maxHoursPerYearTableWorkedHourCol) {
+
+            this.maxHoursPerYearTable.rows.forEach(record => {
+
+                // Trova l'indice del record con l'anno corrispondente nella lista maxHoursPerYear
+                let existingRecord = self.maxHoursPerYear.find(r => r.anno === record.year);
+
+                // Se il record con l'anno corrispondente esiste, se necessario:
+                //1 - abbassa il numero massimo di ore lavorabili
+                //2 - somma le ore lavorate
+                //3 - calcola il residuo
+                if (existingRecord) {
+                    if (record[self.maxHoursPerYearTableMaxHourCol] < existingRecord.maxYearHours) {
+                        existingRecord.maxYearHours = record[self.maxHoursPerYearTableMaxHourCol];
+                    }
+                    existingRecord.workedHours += record[self.maxHoursPerYearTableWorkedHourCol];
+                    existingRecord.residuo = existingRecord.maxYearHours - existingRecord.workedHours
+                } else {
+                    // Altrimenti, aggiungi un nuovo record
+                    self.maxHoursPerYear.push({
+                        anno: record.year,
+                        maxYearHours: record[self.maxHoursPerYearTableMaxHourCol],
+                        workedHours: record[self.maxHoursPerYearTableWorkedHourCol],
+                        residuo: record[self.maxHoursPerYearTableMaxHourCol] - record[self.maxHoursPerYearTableWorkedHourCol]
+                    });
+                }
+            });
+
+        }
 
         // leggo tutti glie eventi attachati al calendario. utile pereffettuare alcuni calcoli logici
         this.allEventsRows = [];
@@ -217,14 +258,41 @@
                 if (selectedActivity.length) {
                     //resetto il numero massimo di ore
                     page.maxHours = selectedActivity[0].orepreventivate;
-                    let oreRimaste = calcHoursRemain(page, selectedActivity[0].idrendicontattivitaprogetto, 'idrendicontattivitaprogetto'); //page.maxHours; //
+                    //se sono qui sono nella pagina del timesheet e quindi le ore rimaste
+                    let oreRimaste = calcHoursRemain(page, selectedActivity[0].idrendicontattivitaprogetto, 'idrendicontattivitaprogetto', selectedActivity[0].year, selectedActivity[0].oretotali);
                     $('#txtTotalHours').val(oreRimaste);
                     $("#txtTotalHours").prop('min', page.minHours);
                     $("#txtTotalHours").prop('max', oreRimaste);
-                    //resetto la data di inizo
-                    page.minDateValue = selectedActivity[0].activitystart;
+                    //se sono qui sono nella pagina del timesheet e quindi comunque NON devo schedulare al di fuori dell'anno del timesheet quindi:
+                    //1 - memorizzo una volta sola l'anno (al primo passaggio qui)
+                    if (!page.yearStart) page.yearStart = page.minDateValue;
+                    if (!page.yearStop) page.yearStop = page.endDate;
+                    //2 - ricao l'inizio e fine dell'attività ma all'interno dell'anno e setto le variabili
+                    page.minDateValue = selectedActivity[0].activitystart > page.yearStart ? selectedActivity[0].activitystart : page.yearStart;
+                    page.endDate = selectedActivity[0].activitystop < page.yearStop ? selectedActivity[0].activitystop : page.yearStop;
+                    if (page.columnStop) {
+                        $('#txtStartDate').datetimepicker('setDate', page.minDateValue);
+                        $('#txtStopDate').datetimepicker('setDate', page.endDate);
+                        // setto min date, cioè oltre quella data indietro non posso andare
+                        $('#txtStartDate').datetimepicker("option", "minDate", page.minDateValue)
+                        $('#txtStartDate').datetimepicker("option", "maxDate", page.endDate)
+                        $('#txtStopDate').datetimepicker("option", "minDate", page.minDateValue)
+                        $('#txtStopDate').datetimepicker("option", "maxDate", page.endDate)
+                    } else {
+                        $('#txtStartDate').datepicker('setDate', page.minDateValue);
+                        $('#txtStopDate').datepicker('setDate', page.endDate);
+                        // setto min date, cioè oltre quella data indietro non posso andare
+                        $('#txtStartDate').datepicker("option", "minDate", page.minDateValue)
+                        $('#txtStartDate').datepicker("option", "maxDate", page.endDate)
+                        $('#txtStopDate').datepicker("option", "minDate", page.minDateValue)
+                        $('#txtStopDate').datepicker("option", "maxDate", page.endDate)
+                    }
+                    //3 - resetto la data di inizo e fine del controllo
                     var startDate = moment(page.minDateValue).format('DD/MM/YYYY');
+                    var stopDate = moment(page.endDate).format('DD/MM/YYYY');
                     $("#txtStartDate").val(startDate);
+                    $("#txtStopDate").val(stopDate);
+
                 }
             }
         },
@@ -233,13 +301,21 @@
          *
          * @returns {number}
          */
-        getRemainingHours: function (page, parentKey, parentKeyName) {
+        getRemainingHours: function (page, parentKey, parentKeyName, year, oretotali) {
+
+            //se ho passato delle oretotali > page.maxHours vuol dire che page.maxHours è il numero di ore specifico per l'annoe quindi lo devo confrontare con le sole ore di quell'anno
+            let isHoursForYear = false;
+            if (!!oretotali && !!year && oretotali > page.maxHours)
+                isHoursForYear = true;
+
             // calcolo le ore rimaneti da schedulare
-            var totHours = page.maxHours;
+            var totHours = page.maxHours; //se ho passato la configurazione "ore per anno" sono solo le ore per quello specifico anno! 
+
             var self = page;
             var dtSchedule = page.metaPage.getDataTable(page.tableNameSchedule);
             var rowsToConsider = _.filter(dtSchedule.rows, function (r) {
-                return r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true);
+                return (r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true))
+                    && (!isHoursForYear || r[self.columnDate].getFullYear() == year);
             });
 
             var calcHoursRemain;
@@ -258,7 +334,8 @@
                     var calendar = page.metaPage.getCustomControl(page.calendarTag);
                     //...devo togliere anche le ore degli eventi esterni
                     let externalRowsToConsider = _.filter(calendar.externalEventsDt.rows, function (r) {
-                        return r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true);
+                        return (r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true))
+                            && (!isHoursForYear || r.start.getFullYear() == year);
                     });
                     calcHoursRemain = calcHoursRemain - _.sumBy(externalRowsToConsider, function (row) {
                         return row.ore;
@@ -266,6 +343,14 @@
 
                 }
             }
+
+            //verifico se il residuo annuo della persona sia sufficiente, a prescindere dalla configurazione per anno della attività, solo se stiamo schedulando nell'anno
+            if (page.maxHoursPerYear.length && year) {
+                let existingRecord = page.maxHoursPerYear.find(r => r.anno === year);
+                if (existingRecord && existingRecord.residuo < calcHoursRemain)
+                    calcHoursRemain = existingRecord.residuo;
+            }
+
             return calcHoursRemain;
         },
 
@@ -275,23 +360,45 @@
          */
         setControls: function (calcHoursRemain) {
             this.calcHoursRemain = calcHoursRemain;
-            var startDate = moment(this.minDateValue).format('DD/MM/YYYY');
-            $("#txtStartDate").val(startDate);
             $('#txtTotalHours').val(calcHoursRemain);
             $("#txtTotalHours").prop('min', this.minHours);
             $("#txtTotalHours").prop('max', calcHoursRemain);
+
+            var startDate = moment(this.minDateValue).format('DD/MM/YYYY');
+            $("#txtStartDate").val(startDate);
 
             if (this.columnStop) {
                 // setto min date, cioè oltre quella data indietro non posso andare
                 $("#txtStartDate").datetimepicker({
                     dateFormat: 'dd/mm/yy',
-                    minDate: this.minDateValue
+                    minDate: this.minDateValue,
+                    maxDate: this.endDate
                 });
             } else {
                 // setto min date, cioè oltre quella data indietro non posso andare
                 $("#txtStartDate").datepicker({
                     dateFormat: 'dd/mm/yy',
-                    minDate: this.minDateValue
+                    minDate: this.minDateValue,
+                    maxDate: this.endDate
+                });
+            }
+
+            var stopDate = moment(this.endDate).format('DD/MM/YYYY');
+            $("#txtStopDate").val(stopDate);
+
+            if (this.columnStop) {
+                // setto min date, cioè oltre quella data indietro non posso andare
+                $("#txtStopDate").datetimepicker({
+                    dateFormat: 'dd/mm/yy',
+                    minDate: this.minDateValue,
+                    maxDate: this.endDate
+                });
+            } else {
+                // setto min date, cioè oltre quella data indietro non posso andare
+                $("#txtStopDate").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    minDate: this.minDateValue,
+                    maxDate: this.endDate
                 });
             }
 
@@ -351,9 +458,11 @@
             var aulaVal = $('#selectAula').val();
             var kindVal = $('#selectKind').val();
             var startDate = $('#txtStartDate').val();
+            var stopDate = $('#txtStopDate').val();
             var progettoVal = $('#selectProject').val();
             var workpackageVal = $('#selectWorkpackage').val();
             var attivitaVal = $('#selectActivity').val();
+            let homogenization = $('#ckHomogenization').is(":checked");
             if (that.writeColumnTitleValue) {
                 that.columnTitleValue = $('#columnTitleValue').val();
             }
@@ -369,24 +478,126 @@
                 return;
             }
 
+            if (moment(startDate, "DD/MM/YYYY hh:mm") < new Date(that.minDateValue) || moment(stopDate, "DD/MM/YYYY hh:mm") > new Date(that.endDate)) {
+                that.metaPage.showMessageOk(localResource.scheduler_out_of_range + ': ' + moment(that.minDateValue).format("DD/MM/YYYY") + ' - ' + moment(that.endDate).format("DD/MM/YYYY"));
+                return;
+            }
+
             that.forceClose();
 
             // creo le righe sulla tabella da schedulare, metto indicatore di attesa
             appMeta.modalLoaderControl.show(localResource.scheduler_running, false);
-            var arrayGetNewRow = that.schedule({
-                hourTot: hourTot,
-                hourPerDay: hourPerDay,
-                days: days,
-                startDate: startDate,
-                aulaVal: aulaVal,
-                // ====================================================================
-                kindVal: kindVal,
-                // ====================================================================
-                progettoVal: progettoVal,
-                workpackageVal: workpackageVal,
-                attivitaVal: attivitaVal
-            });
 
+            let arrayGetNewRow = [];
+
+            //verifico che il periodo da schedulare sia completamente all'interno della configurazione per anno se presente,
+            //se non lo è o lo è solo in modo parziale la configurazione per anno viene ignorata perchè non si può fare un algoritmo decente in un caso misto
+            let periodIsInConfYear = false;
+            if (that.metaPage.state.DS.tables.rendicontattivitaprogettoyear && that.metaPage.state.DS.tables.rendicontattivitaprogettoyear.rows.length) {
+
+                //calcolo il periodo configurato dal 1 gennaio del primo anno al 31 dicembre dell'ultimo
+                let orderedYear = _.orderBy(that.metaPage.state.DS.tables.rendicontattivitaprogettoyear.rows, 'year', 'asc');
+                let firstYear = orderedYear[0];
+                let lastYear = orderedYear[orderedYear.length - 1];
+
+
+                if (moment(startDate, "DD/MM/YYYY hh:mm") >= new Date(firstYear.year, 0, 1) && moment(stopDate, "DD/MM/YYYY hh:mm") <= new Date(lastYear.year, 11, 31)) {
+                    //sta dentro
+                    periodIsInConfYear = true;
+                }
+                else {
+                    //sta fuori
+                    that.logMaxHourPerDay += "E\' stata trovata una configurazione di ore per anno per l'attività ma il periodo indicato non è totalmente compreso negli anni configurati e quindi la configurazione per anno è stata ignorata.<br />";
+                }
+            }
+
+            if (periodIsInConfYear) {
+
+                that.logMaxHourPerDay += "E\' stata trovata una configurazione di ore per anno per l'attività<br />";
+
+
+                _.forEach(that.metaPage.state.DS.tables.rendicontattivitaprogettoyear.rows, function (row) {
+                    //controllo se l'anno fa parte del periodo che devo schedulare
+                    if (moment(stopDate, "DD/MM/YYYY hh:mm") > new Date(row.year, 0, 1) && moment(startDate, "DD/MM/YYYY hh:mm") < new Date(row.year, 11, 31)) {
+
+                        let start = moment(startDate, "DD/MM/YYYY hh:mm") > new Date(row.year, 0, 1) ? startDate : moment(new Date(row.year, 0, 1)).format('DD/MM/YYYY');
+                        let stop = moment(stopDate, "DD/MM/YYYY hh:mm") < new Date(row.year, 11, 31) ? stopDate : moment(new Date(row.year, 11, 31)).format('DD/MM/YYYY');
+
+                        //calcolo le ore da schedulare
+                        //1 - parto con le ore previste per l'anno
+                        let hoursRemain = row.ore;
+                        let hourtToScheduleInferiorHoursYear = false;
+                        //2 - sotraggo le ore già schedulate per questa attività nell'anno
+                        let existingRecordHours = _.filter(that.metaPage.state.DS.tables.rendicontattivitaprogettoora.rows, function (r) {
+                            return r.data >= moment(start, "DD/MM/YYYY hh:mm") && r.data <= moment(stop, "DD/MM/YYYY hh:mm");
+                        });
+
+                        if (existingRecordHours) {
+                            let alreadyScheduled = 0;
+                            _.forEach(existingRecordHours, function (recordHours) {
+                                alreadyScheduled += recordHours.ore;
+                            });
+                            hoursRemain -= alreadyScheduled;
+                            if (hoursRemain < 0) hoursRemain = 0;
+                        }
+                        //3 - controllo quante ore volevo schedulare (hourTot) che se è a sua volta inferiore a quelle configurate per l'anno (hoursRemain) lo sostiuisce
+                        if (hourTot < hoursRemain) {
+                            that.logMaxHourPerDay += "Per l'anno " + row.year + " erano state configurate " + row.ore + " ma restano da schedulare solo " + hourTot + " ore.<br />";
+                            hoursRemain = hourTot;
+                            hourtToScheduleInferiorHoursYear = true;
+                        }
+                        //4 - controllo il residuo della persona che se è inferiore lo sostituisce
+                        let existingRecord = self.maxHoursPerYear.find(r => r.anno === row.year);
+                        if (existingRecord && existingRecord.residuo < hoursRemain) {
+                            if (hourtToScheduleInferiorHoursYear)
+                                that.logMaxHourPerDay += "Per l'anno " + row.year + " restavano da schedulare " + hoursRemain + " ma la persona ha un residuo di " + existingRecord.residuo + " ore.<br />";
+                            else
+                                that.logMaxHourPerDay += "Per l'anno " + row.year + " erano state configurate " + row.ore + " ma la persona ha un residuo di " + existingRecord.residuo + " ore.<br />";
+                            hoursRemain = existingRecord.residuo < 0 ? 0 : existingRecord.residuo;
+                        }
+                        //5 - aggiorno le ore rimaste da schedulare
+                        hourTot = hourTot - hoursRemain;
+
+                        let arrayGetNewRowYear = that.schedule({
+                            hourTot: hoursRemain,
+                            hourPerDay: hourPerDay,
+                            days: days,
+                            startDate: start,
+                            stopDate: stop,
+                            homogenization: homogenization,
+                            aulaVal: aulaVal,
+                            // ====================================================================
+                            kindVal: kindVal,
+                            // ====================================================================
+                            progettoVal: progettoVal,
+                            workpackageVal: workpackageVal,
+                            attivitaVal: attivitaVal
+                        });
+                        _.forEach(arrayGetNewRowYear, function (y) {
+                            arrayGetNewRow.push(y);
+                        });
+                    }
+                });
+
+
+            } else {
+
+                arrayGetNewRow = that.schedule({
+                    hourTot: hourTot,
+                    hourPerDay: hourPerDay,
+                    days: days,
+                    startDate: startDate,
+                    stopDate: stopDate,
+                    homogenization: homogenization,
+                    aulaVal: aulaVal,
+                    // ====================================================================
+                    kindVal: kindVal,
+                    // ====================================================================
+                    progettoVal: progettoVal,
+                    workpackageVal: workpackageVal,
+                    attivitaVal: attivitaVal
+                });
+            }
             // risolvo le getNewRow e rinfreso la pagina
             $.when.apply($, arrayGetNewRow)
                 .then(function () {
@@ -401,6 +612,45 @@
                 });
         },
 
+        createElements: function (startDate, endDate, numElements, daysOfWeek, hourPerDay) {
+            let start = new Date(startDate);
+            let end = new Date(endDate);
+            let numDayToSchedule = numElements / hourPerDay;
+
+            // Calcola il numero totale di giorni tra startDate e endDate
+            let totalDays = (end - start) / (1000 * 60 * 60 * 24);
+
+            // Trova tutti i giorni della settimana desiderati nel periodo
+            let allDaysOfWeek = [];
+            for (let i = 0; i <= totalDays; i++) {
+                let current = new Date(start);
+                current.setDate(start.getDate() + i);
+                let currentMoment = moment(current, "DD/MM/YYYY hh:mm")
+                //se è nei giorni giusti della settimana
+                if (_.includes(daysOfWeek, currentMoment.day().toString())) {
+                    //se quel giorno ha abbastanza ore
+                    if (this.getHoursToSchedule(currentMoment, hourPerDay) > 0)
+                        allDaysOfWeek.push(new Date(current));
+                }
+            }
+
+            // Calcola l'intervallo per distribuire gli elementi omogeneamente
+            let interval = (allDaysOfWeek.length - 1) / (numDayToSchedule - 1);
+
+            // Seleziona gli elementi distribuiti omogeneamente
+            let result = [];
+            for (let i = 0; i < numDayToSchedule; i++) {
+                //result.push(allDaysOfWeek[i * interval]);
+                result.push(allDaysOfWeek[Math.round(i * interval)]);
+            }
+
+            return result;
+        },
+
+        includes: function (array, value) {
+            return !!array.find(item => { return (new Date(item)).getTime() == (new Date(value)).getTime() });
+        },
+
         /**
          * Prende in input i parametri per crear lo scheduling. data inizio, ora totali, ore per giorno e giorni della settimana
          * @param {object} configScheduling {startDate:DateTime, hourTot:number, hourPerDay:number, days:[number]}
@@ -408,6 +658,7 @@
          */
         schedule: function (configScheduling) {
             var startDate = moment(configScheduling.startDate, "DD/MM/YYYY hh:mm");
+            var stopDate = moment(configScheduling.stopDate, "DD/MM/YYYY hh:mm");
             var self = this;
             // prm per inserimento dati sulla tabella
             var dtSchedule = this.metaPage.getDataTable(this.tableNameSchedule);
@@ -418,6 +669,12 @@
             var currDate = startDate.clone();
 
             try {
+
+                //se la distribuzione è omogenea devo calcolare pima le date
+                let homogeneousDates = [];
+                if (configScheduling.homogenization)
+                    homogeneousDates = this.createElements(startDate, stopDate, oreTotali, configScheduling.days, configScheduling.hourPerDay);
+
                 // creo giorni nello scheduler finchè ci sono ore disponibili
                 var end = false;
 
@@ -432,12 +689,24 @@
                         break;
                     }
 
+                    // se esiste una data fine impostata a mano e il giorno è dopo esco dal while e mostro messaggio
+                    if (stopDate && (currDate.isAfter(moment(stopDate)))) {
+                        end = true;
+                        this.logMaxHourPerDay += localResource.getLogSchedulerTooManyHours(
+                            oreTotali,
+                            moment(stopDate).format("DD/MM/YYYY")) + "</br></br>";
+                        break;
+                    }
+
                     // quante ore rimangono? L'ultima giornata potrebbe avere meno ore, metto le rimanenti
                     var hourDurataLezione = parseInt(oreTotali >= configScheduling.hourPerDay ? configScheduling.hourPerDay : oreTotali);
 
 
-                    // se sto nel giorno della settimana corretto: 1=lunedi', 2=martedì, 0=domenica
-                    if (_.includes(configScheduling.days, currDate.day().toString())) {
+                    if (
+                        (!configScheduling.homogenization && _.includes(configScheduling.days, currDate.day().toString())) // se la distribuzione non è omogenea e se sto nel giorno della settimana corretto: 1=lunedi', 2=martedì, 0=domenica
+                        ||
+                        (configScheduling.homogenization && this.includes(homogeneousDates, currDate)) // se la distribuzione è omogenea e se sto nel giorno distribuito in modo omogeneo
+                    ) {
 
                         // e se  ci sono abbastanza ore disponibili per schedulare
                         var hoursToScheduleForCurrDate = self.getHoursToSchedule(currDate, hourDurataLezione);
@@ -483,7 +752,8 @@
                                                 newRow.current.idprogetto = parseInt(configScheduling.progettoVal);
                                                 newRow.current.idworkpackage = parseInt(configScheduling.workpackageVal);
                                                 newRow.current.idrendicontattivitaprogetto = parseInt(configScheduling.attivitaVal);
-                                            }
+                                                newRow.current.idreg = parseInt(self.metaPage.state.currentRow.idreg);
+                                           }
 
                                             return true;
                                         });

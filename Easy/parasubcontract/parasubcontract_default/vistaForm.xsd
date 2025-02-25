@@ -517,24 +517,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="payrolltaxbracket" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idpayroll" type="xs:int" />
-              <xs:element name="idpayrolltax" type="xs:int" />
-              <xs:element name="nbracket" type="xs:short" />
-              <xs:element name="taxable" type="xs:decimal" minOccurs="0" />
-              <xs:element name="employrate" type="xs:decimal" minOccurs="0" />
-              <xs:element name="employtax" type="xs:decimal" minOccurs="0" />
-              <xs:element name="adminrate" type="xs:decimal" minOccurs="0" />
-              <xs:element name="admintax" type="xs:decimal" minOccurs="0" />
-              <xs:element name="cu" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="lu" type="xs:string" minOccurs="0" />
-              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="parasubcontractyear" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -1662,6 +1644,24 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="payrolltaxbracket" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idpayroll" type="xs:int" />
+              <xs:element name="idpayrolltax" type="xs:int" />
+              <xs:element name="nbracket" type="xs:short" />
+              <xs:element name="adminrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="admintax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="employrate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="employtax" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="taxable" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1782,12 +1782,6 @@
       <xs:selector xpath=".//mstns:payrollabatement" />
       <xs:field xpath="mstns:idpayroll" />
       <xs:field xpath="mstns:idabatement" />
-    </xs:unique>
-    <xs:unique name="payrolltaxbracket_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:payrolltaxbracket" />
-      <xs:field xpath="mstns:idpayroll" />
-      <xs:field xpath="mstns:idpayrolltax" />
-      <xs:field xpath="mstns:nbracket" />
     </xs:unique>
     <xs:unique name="parasubcontractyear_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:parasubcontractyear" />
@@ -1942,6 +1936,12 @@
       <xs:selector xpath=".//mstns:costpartition" />
       <xs:field xpath="mstns:idcostpartition" />
     </xs:unique>
+    <xs:unique name="payrolltaxbracket_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:payrolltaxbracket" />
+      <xs:field xpath="mstns:idpayroll" />
+      <xs:field xpath="mstns:idpayrolltax" />
+      <xs:field xpath="mstns:nbracket" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1957,7 +1957,6 @@
       <msdata:Relationship name="otherinsuranceparasubcontractyear" msdata:parent="otherinsurance" msdata:child="parasubcontractyear" msdata:parentkey="idotherinsurance" msdata:childkey="idotherinsurance" />
       <msdata:Relationship name="inpsactivityparasubcontractyear" msdata:parent="inpsactivity" msdata:child="parasubcontractyear" msdata:parentkey="activitycode" msdata:childkey="activitycode" />
       <msdata:Relationship name="emenscontractkindparasubcontractyear" msdata:parent="emenscontractkind" msdata:child="parasubcontractyear" msdata:parentkey="idemenscontractkind" msdata:childkey="idemenscontractkind" />
-      <msdata:Relationship name="payrolltaxpayrolltaxbracket" msdata:parent="payrolltax" msdata:child="payrolltaxbracket" msdata:parentkey="idpayroll idpayrolltax" msdata:childkey="idpayroll idpayrolltax" />
       <msdata:Relationship name="payrollpayrollabatement" msdata:parent="payroll" msdata:child="payrollabatement" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
       <msdata:Relationship name="payrollpayrolldeduction" msdata:parent="payroll" msdata:child="payrolldeduction" msdata:parentkey="idpayroll" msdata:childkey="idpayroll" />
       <msdata:Relationship name="taxpayrolltax" msdata:parent="tax" msdata:child="payrolltax" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
@@ -2011,6 +2010,7 @@
       <msdata:Relationship name="serviceattachmentkind_parasubcontractattachment" msdata:parent="serviceattachmentkind" msdata:child="parasubcontractattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
       <msdata:Relationship name="parasubcontract_parasubcontractattachment" msdata:parent="parasubcontract" msdata:child="parasubcontractattachment" msdata:parentkey="idcon" msdata:childkey="idcon" />
       <msdata:Relationship name="costpartition_parasubcontract" msdata:parent="costpartition" msdata:child="parasubcontract" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
+      <msdata:Relationship name="payrolltax_payrolltaxbracket" msdata:parent="payrolltax" msdata:child="payrolltaxbracket" msdata:parentkey="idpayroll idpayrolltax" msdata:childkey="idpayroll idpayrolltax" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

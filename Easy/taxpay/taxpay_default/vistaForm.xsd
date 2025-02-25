@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaliquidazioneritperiodica.xsd" xmlns:mstns="http://tempuri.org/vistaliquidazioneritperiodica.xsd" xmlns="http://tempuri.org/vistaliquidazioneritperiodica.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -205,6 +205,23 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="taxpayattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ntaxpay" type="xs:int" />
+              <xs:element name="taxcode" type="xs:int" />
+              <xs:element name="ytaxpay" type="xs:short" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -238,6 +255,13 @@
       <xs:field xpath="mstns:idexp" />
       <xs:field xpath="mstns:idexpensetaxcorrige" />
     </xs:unique>
+    <xs:unique name="taxpayattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:taxpayattachment" />
+      <xs:field xpath="mstns:ntaxpay" />
+      <xs:field xpath="mstns:taxcode" />
+      <xs:field xpath="mstns:ytaxpay" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -245,6 +269,7 @@
       <msdata:Relationship name="taxpaytaxpayexpenseview" msdata:parent="taxpay" msdata:child="taxpayexpenseview" msdata:parentkey="taxcode ytaxpay ntaxpay" msdata:childkey="taxcode ytaxpay ntaxpay" />
       <msdata:Relationship name="taxtaxpay" msdata:parent="tax" msdata:child="taxpay" msdata:parentkey="taxcode" msdata:childkey="taxcode" />
       <msdata:Relationship name="taxpay_payedtaxview" msdata:parent="taxpay" msdata:child="payedtaxview" msdata:parentkey="ytaxpay ntaxpay" msdata:childkey="ytaxpay ntaxpay" />
+      <msdata:Relationship name="taxpay_taxpayattachment" msdata:parent="taxpay" msdata:child="taxpayattachment" msdata:parentkey="ntaxpay taxcode ytaxpay" msdata:childkey="ntaxpay taxcode ytaxpay" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

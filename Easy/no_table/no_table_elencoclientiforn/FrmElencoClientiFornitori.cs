@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -35,6 +35,11 @@ namespace no_table_elencoclientiforn {
         public FrmElencoClientiFornitori() {
             InitializeComponent();
             saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+
+            if (isBlazor())
+			{
+                txtFile.Visible = false;
+			}
         }
 
         private void btnScegliFile_Click(object sender, EventArgs e) {
@@ -210,7 +215,13 @@ namespace no_table_elencoclientiforn {
             sw.WriteLine("A".PadLeft(1341));
             scriviRecordDiTestaODiCoda(9, sw, tRecordTestaECoda.Rows[0]);
             sw.Close();
-            show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtFile.Text, false);
+
+            if (isBlazor())
+                show(this, "Elenco clienti/fornitori scaricato");
+            else
+                show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
         }
 
         public void MetaData_AfterLink() {

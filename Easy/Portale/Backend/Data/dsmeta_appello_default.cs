@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_appello_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_appello_default: DataSet {
+public partial class dsmeta_appello_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -376,6 +376,11 @@ private void initClass() {
 	tstudprenotkinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstudprenotkinddefaultview.defineColumn("idstudprenotkind", typeof(int),false);
 	tstudprenotkinddefaultview.defineColumn("studprenotkind_active", typeof(string));
+	tstudprenotkinddefaultview.defineColumn("studprenotkind_description", typeof(string),false);
+	tstudprenotkinddefaultview.defineColumn("studprenotkind_lt", typeof(DateTime));
+	tstudprenotkinddefaultview.defineColumn("studprenotkind_lu", typeof(string));
+	tstudprenotkinddefaultview.defineColumn("studprenotkind_sortorder", typeof(int),false);
+	tstudprenotkinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tstudprenotkinddefaultview);
 	tstudprenotkinddefaultview.defineKey("idstudprenotkind");
 
@@ -389,16 +394,28 @@ private void initClass() {
 	//////////////////// APPELLOAZIONEKINDDEFAULTVIEW /////////////////////////////////
 	var tappelloazionekinddefaultview= new MetaTable("appelloazionekinddefaultview");
 	tappelloazionekinddefaultview.defineColumn("appelloazionekind_active", typeof(string));
+	tappelloazionekinddefaultview.defineColumn("appelloazionekind_ct", typeof(DateTime));
+	tappelloazionekinddefaultview.defineColumn("appelloazionekind_cu", typeof(string));
+	tappelloazionekinddefaultview.defineColumn("appelloazionekind_description", typeof(string),false);
+	tappelloazionekinddefaultview.defineColumn("appelloazionekind_lt", typeof(DateTime),false);
+	tappelloazionekinddefaultview.defineColumn("appelloazionekind_lu", typeof(string),false);
+	tappelloazionekinddefaultview.defineColumn("appelloazionekind_sortcode", typeof(int));
 	tappelloazionekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tappelloazionekinddefaultview.defineColumn("idappelloazionekind", typeof(int),false);
+	tappelloazionekinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tappelloazionekinddefaultview);
 	tappelloazionekinddefaultview.defineKey("idappelloazionekind");
 
 	//////////////////// APPELLOKINDDEFAULTVIEW /////////////////////////////////
 	var tappellokinddefaultview= new MetaTable("appellokinddefaultview");
 	tappellokinddefaultview.defineColumn("appellokind_active", typeof(string));
+	tappellokinddefaultview.defineColumn("appellokind_description", typeof(string));
+	tappellokinddefaultview.defineColumn("appellokind_lt", typeof(DateTime),false);
+	tappellokinddefaultview.defineColumn("appellokind_lu", typeof(string),false);
+	tappellokinddefaultview.defineColumn("appellokind_sortcode", typeof(int),false);
 	tappellokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tappellokinddefaultview.defineColumn("idappellokind", typeof(int),false);
+	tappellokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tappellokinddefaultview);
 	tappellokinddefaultview.defineKey("idappellokind");
 

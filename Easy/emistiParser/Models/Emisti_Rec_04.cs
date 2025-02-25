@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -56,6 +56,9 @@ namespace ServizioPa.Models
         //[Display(Name = "Importo Ritenuta")]
         //[StringLength(10)]
         public int ImportoRitenuta { get; set; }
+
+        //[Display(Name = "Data scadenza ritenuta extra")]
+        public string DataScadRitExtra { get; set; }
 
         //[Display(Name = "Importo Ritenuta Netto")]
         public int ImportoRitNetto { get; set; }

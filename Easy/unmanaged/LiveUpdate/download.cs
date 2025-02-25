@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -183,12 +183,14 @@ namespace LiveUpdate{//LiveUpdate//
 			catch (WebException W) {
                 //MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore leggendo " + web.BaseAddress + swFileName, "WebException in IsValid(WebClient web)");
 				PrintLog(msg+" ::-> "+GetExceptionMsg(W));
-				return false;
+                SetLastError("IsValid() method failed, Web Exception; serviceName:" + (serviceName ?? "null") + "; swFileName:" + (swFileName ?? "null") + "; web.BaseAddress:" + (web != null ? web.BaseAddress ?? "BaseAddress is null" : " web is null") + "", W);
+                return false;
 			}
 			catch (Exception E) {
                 //MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore leggendo " + web.BaseAddress + swFileName, "Exception in IsValid(WebClient web)");
                 PrintLog(msg+" ::->> "+GetExceptionMsg(E,true));
-				return false;
+                SetLastError("IsValid() method failed, Exception; serviceName:" + (serviceName ?? "null") + "; swFileName:" + (swFileName ?? "null") + "; web.BaseAddress:" + (web != null ? web.BaseAddress ?? "BaseAddress is null" : " web is null") + "", E);
+                return false;
 			}
 		}
 
@@ -207,7 +209,10 @@ namespace LiveUpdate{//LiveUpdate//
 			web.Credentials=CredentialCache.DefaultNetworkCredentials;
 
             if (IsValid(web)) return web;
-			return null;
+
+            SetLastError("GetWebInstance(" + remoteAddress + ") method failed calling IsValid(" + remoteAddress + ") ", null);
+
+            return null;
 		}
 		
 		//Memorizza solo i siti validi e che hanno risposoto entro il limite del timeout
@@ -304,8 +309,10 @@ namespace LiveUpdate{//LiveUpdate//
                         Thread T = AllThread[j];
                         //if(T.IsAlive) T.Abort();
                     }
-                    catch { }
-				}
+                    catch (Exception E){
+                        SetLastError(" Indirizzo [" + AllTask[j].m_Address + "] failed", E);
+                    }
+                }
 				//non accade mai, giusto per evitare eventuale eccezzione
                 if (fastwebsite == null) return null;
 
@@ -314,7 +321,8 @@ namespace LiveUpdate{//LiveUpdate//
 			}
 			catch (Exception E) {
 				PrintLog("GetMoreFastWeb() - Errore ["+E.Message+"]");
-				return null;
+                SetLastError("GetMoreFastWeb() failed", E);
+                return null;
 			}
 		}
 
@@ -325,8 +333,12 @@ namespace LiveUpdate{//LiveUpdate//
 		private WebClient GetFastWeb(string remoteAddress) {
             //MetaFactory.factory.getSingleton<IMessageShower>().Show("remoteAddress:" + remoteAddress + " cachePath:" + cachePath);
 
-           WebClient webPilota=GetWebInstance(remoteAddress);   //http://www.temposrl.it/easy2/
-			if (webPilota==null) return null;
+			WebClient webPilota=GetWebInstance(remoteAddress);   //http://www.temposrl.it/easy2/
+			
+            if (webPilota == null)
+                SetLastError("GetFastWeb(" + remoteAddress + ") method failed calling GetWebInstance(" + remoteAddress + ") ", null);
+
+            if (webPilota==null) return null;
 			//scarico il file che contiene gli indirizzi dei siti
 			try {
                 string filename = "";
@@ -404,11 +416,11 @@ namespace LiveUpdate{//LiveUpdate//
 			        }
 			    }
 			    catch (Exception E) {
-			        PrintLog("Updating updateconfig.xml - Errore [" +
-			                 QueryCreator.GetErrorString(E) + "]");
-			    }
+			        PrintLog("Updating updateconfig.xml - Errore [" + QueryCreator.GetErrorString(E) + "]");
+                    SetLastError("Updating updateconfig.xml failed", E);
+                }
 
-			    WebClient fastWeb=GetMoreFastWeb(siti,3000);
+                WebClient fastWeb=GetMoreFastWeb(siti,3000);
 				if (fastWeb!=null) return fastWeb;
 				fastWeb=GetMoreFastWeb(siti,10000);
 				if (fastWeb!=null) return fastWeb;
@@ -418,6 +430,7 @@ namespace LiveUpdate{//LiveUpdate//
 				//se c'è un errore durante il download o il file non esiste
 				//viene restituito il sito pilota
                 PrintLog("GetFastWeb(): Errore [" + QueryCreator.GetErrorString(E) + "]");
+                SetLastError("GetFastWeb() method failed", E);
                 return null; // webPilota;
 			}
 
@@ -547,6 +560,10 @@ namespace LiveUpdate{//LiveUpdate//
 					if (path.StartsWith("http")) {
 								  //Metodo che restituisce il sito più veloce
 						client=GetFastWeb(path);
+
+                        if (client == null)
+                            SetLastError("GetFastWeb(" + path + ") method failed", null);
+
                         if (client==null) continue;
 						WebSite=eTipoSito.WEB;
 						this.RemoteDir=client.BaseAddress;      //http://www.temposrl.it/easy2/
@@ -573,8 +590,9 @@ namespace LiveUpdate{//LiveUpdate//
 			catch (Exception E){
 				QueryCreator.ShowException(E);
 				WebSite = eTipoSito.UNKNOWN;
-			}
-		}
+                SetLastError("Http() constructor failed", E);
+            }
+        }
 
 		public bool IsAvailable() {
 			return WebSite != eTipoSito.UNKNOWN;
@@ -665,8 +683,8 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 		private void SetLastError(string error, Exception E) {
-			m_LastError=error;
-			if (E!=null) m_LastError+="\r\rDettaglio: "+E.Message;
+			m_LastError+= "\r\n" + error;
+			if (E!=null) m_LastError+=$"\r\rDettaglio: {E.Message} - {E.InnerException?.Message}" ;
 		}
 
 		public string GetLastError() {
@@ -677,7 +695,7 @@ namespace LiveUpdate{//LiveUpdate//
 	}
 
 	public class Download {
-		private Http http;
+        private Http http;
 		private string localXMLFileName;
 		private string remoteXMLFileName;
 		private string currdir;
@@ -850,10 +868,14 @@ namespace LiveUpdate{//LiveUpdate//
 
             //WebAddress = http://www.temposrl.it/easy2/,  currdir= D:\\easy\\output\\
 			http = new Http(WebAddress, currdir);
+
+			if (http == null || !http.IsAvailable()) 
+				SetLastErrorDB("Non sono riuscito a inizializzare il client http: " + (http != null ? http.GetLastError() : "") );
+
             //MetaFactory.factory.getSingleton<IMessageShower>().Show(WebAddress.Length.ToString() + "  WebAddress : " + WebAddress[0].ToString() , " currdir : " + currdir.ToString() + " http : " + http.ToString());
         }
 
-		void GetLocalVersions(){
+        void GetLocalVersions(){
 			m_ClientSWVersion= GetLocalDLLVersion(currdir);
 			if (serviceName=="")m_ClientRPTVersion = GetLocalReportVersion(ReportDir);
 		}
@@ -1135,7 +1157,25 @@ namespace LiveUpdate{//LiveUpdate//
 				lasttempt = "Imposto gli attributi a "+filename;
 				File.SetAttributes(destfile, FileAttributes.Normal);
 				lasttempt = "Elimino "+filename;
-				File.Delete(destfile);
+				// =========================================================================================
+				// EasyBlazor non riesce a cancellare direttamente i file ma se li rinomino e cancello, si
+				// =========================================================================================
+				if (Thread.CurrentThread.Name == "BlazorUpdateDll")
+				{
+					try
+					{
+						File.Move(destfile, destfile + $".{guid}.blzdel");
+					}
+					catch (Exception ex)
+					{
+						logInfo($"Errore Move: {ex.Message}");
+					}					
+				}
+				else
+				{
+					File.Delete(destfile);
+				}
+				// =========================================================================================
 			}
 			lasttempt = "Sposto "+fullpathfilename+ " in "+destfile;
 			File.Move(fullpathfilename, destfile);
@@ -1143,6 +1183,32 @@ namespace LiveUpdate{//LiveUpdate//
 			if (deleteoriginal) File.Delete(fullpathzipfilename);
 		}
 
+		private string guid = (Guid.NewGuid()).ToString();
+
+		private void deleteTempBlazorFiles()
+		{
+			// Del Blazor Old Files
+			if (Thread.CurrentThread.Name == "BlazorUpdateDll")
+			{
+				try
+				{
+					string[] files = Directory.GetFiles(currdir, "*.blzdel");
+					foreach (string file in files)
+					{
+						File.Delete(file);
+					}
+				}
+				catch (Exception ex)
+				{
+					logInfo($"Errore Delete: {ex.Message}");
+				}
+			}
+		}
+
+		private void logInfo(string s)
+		{
+			try { System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}__Log.txt", DateTime.Now.ToString("yy-MM-dd HH:mm:ss") + " - " + s + "\r\n"); } catch { }
+		}
 
 		/// <summary>
 		/// svuota la cartella nella quale vengono scaricati i file dal sito web
@@ -1277,6 +1343,8 @@ namespace LiveUpdate{//LiveUpdate//
 		/// </summary>
 		public void GetNewSWVersion() {
 			
+			deleteTempBlazorFiles();
+
 			m_FolderWEB = C_FOLDERDLL;
 
 			if (http == null || !http.IsAvailable()) {
@@ -1314,7 +1382,6 @@ namespace LiveUpdate{//LiveUpdate//
 		/// <param name="IsDLL">True se è download di DLL</param>
 		/// <returns></returns>
 		private bool ScaricaFile(string remoteVersion, bool IsDLL) {
-
 			string dbversion = http.DownloadData(C_DBVERSIONFILENAME);
 			if (dbversion==null) return ScaricaFileNonZippati(remoteVersion, IsDLL);
 
@@ -1506,6 +1573,9 @@ namespace LiveUpdate{//LiveUpdate//
 		/// <param name="IsDLL">True se è download di DLL</param>
 		/// <returns></returns>
 		private bool ScaricaFileNonZippati(string remoteVersion, bool IsDLL) {
+
+			deleteTempBlazorFiles();
+
 			SetStatusSW("Scarico file aggiornati");
 			DsDLLIndex dsloc = new DsDLLIndex();
 			DsDLLIndex dsrem = new DsDLLIndex();

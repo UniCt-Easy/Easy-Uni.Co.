@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,63 +26,36 @@ using System.Runtime.Serialization;
 namespace assetacquire_massive {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("DS"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class DS: DataSet {
+public partial class DS: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Carico dei cespiti da bolla/fattura
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetacquire 		=> Tables["assetacquire"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Causali di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadmotive 		=> Tables["assetloadmotive"];
 
-	///<summary>
-	///Inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventory 		=> Tables["inventory"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
 
-	///<summary>
-	///Cespiti e accessori
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable asset 		=> Tables["asset"];
 
-	///<summary>
-	///Contratto Passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable mandate 		=> Tables["mandate"];
 
-	///<summary>
-	///Dettaglio contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable mandatedetail 		=> Tables["mandatedetail"];
 
-	///<summary>
-	///Tipo contratto passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable mandatekind 		=> Tables["mandatekind"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
@@ -95,63 +68,36 @@ public class DS: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting3 		=> Tables["sorting3"];
 
-	///<summary>
-	///Tipi di buoni di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetloadkind 		=> Tables["assetloadkind"];
 
-	///<summary>
-	///Buono di carico
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetload 		=> Tables["assetload"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Ubicazione cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetlocation 		=> Tables["assetlocation"];
 
-	///<summary>
-	///Responsabile cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetmanager 		=> Tables["assetmanager"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable locationview 		=> Tables["locationview"];
 
-	///<summary>
-	///Campi aggiuntivi per cespiti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable multifieldkind 		=> Tables["multifieldkind"];
 
-	///<summary>
-	///Configurazione multicampo per classificazione inventario
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable inventorytreemultifieldkind 		=> Tables["inventorytreemultifieldkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable managercespiti 		=> Tables["managercespiti"];
 
-	///<summary>
-	///Consegnatario cespite
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable assetsubmanager 		=> Tables["assetsubmanager"];
 
@@ -161,11 +107,11 @@ public class DS: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager1 		=> Tables["manager1"];
 
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable assetacquireattachment 		=> Tables["assetacquireattachment"];
 
 	#endregion
 
@@ -1351,6 +1297,25 @@ private void initClass() {
 	tinvoicekind.PrimaryKey =  new DataColumn[]{tinvoicekind.Columns["idinvkind"]};
 
 
+	//////////////////// ASSETACQUIREATTACHMENT /////////////////////////////////
+	var tassetacquireattachment= new DataTable("assetacquireattachment");
+	C= new DataColumn("nassetacquire", typeof(int));
+	C.AllowDBNull=false;
+	tassetacquireattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tassetacquireattachment.Columns.Add(C);
+	tassetacquireattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	tassetacquireattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tassetacquireattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tassetacquireattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	tassetacquireattachment.Columns.Add( new DataColumn("lu", typeof(string)));
+	tassetacquireattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	tassetacquireattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	Tables.Add(tassetacquireattachment);
+	tassetacquireattachment.PrimaryKey =  new DataColumn[]{tassetacquireattachment.Columns["nassetacquire"], tassetacquireattachment.Columns["idattachment"]};
+
+
 	#endregion
 
 
@@ -1458,6 +1423,10 @@ private void initClass() {
 	cPar = new []{invoicekind.Columns["idinvkind"]};
 	cChild = new []{assetacquire.Columns["idinvkind"]};
 	Relations.Add(new DataRelation("invoicekind_assetacquire",cPar,cChild,false));
+
+	cPar = new []{assetacquire.Columns["nassetacquire"]};
+	cChild = new []{assetacquireattachment.Columns["nassetacquire"]};
+	Relations.Add(new DataRelation("assetacquire_assetacquireattachment",cPar,cChild,false));
 
 	#endregion
 

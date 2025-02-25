@@ -35,6 +35,7 @@
 		scheduler_title: "Scheduler configuration",
 		scheduler_missing_fields: "You have to insert all fields",
 		scheduler_max_hour_to_insert: "Max number of hour inserted",
+		scheduler_out_of_range: "Date out of range",
 		scheduler_running: "Scheduler running..",
 		scheduler_done: "Scheduler configured. Press <strong>Save</strong> on the main page",
 		schedulerLogMaxHourPerDay: "The day <strong>S%currday%S</strong> there wasn't enough available hours. On <strong>S%maxTotPerDay%S</strong> of total hours" +

@@ -67,7 +67,22 @@
 						objCalcFieldConfig['!idistanza_istanza_imm_iddidprog_iddidprog'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'iddidprog', columnNamekey: 'idistanza' };
 						objCalcFieldConfig['!idistanza_istanza_imm_iddidprog_aa'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'aa', columnNamekey: 'idistanza' };
 						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 31, null);
-						//$objCalcFieldConfig_segmitr$
+												objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform', columnNameLookup:'title', columnNamekey:'idattivform' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 80, null);
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_anno'] = { tableNameLookup:'iscrizione', columnNameLookup:'anno', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_aa'] = { tableNameLookup:'iscrizione', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione' };
+						this.describeAColumn(table, '!idpratica_pratica_idreg_title', 'Studente Pratica', null, 150, null);
+						objCalcFieldConfig['!idpratica_pratica_idreg_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idpratica' };
+						objCalcFieldConfig['!idpratica_pratica_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idpratica' };
+						objCalcFieldConfig['!idpratica_pratica_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idpratica' };
+						objCalcFieldConfig['!idpratica_pratica_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idpratica' };
+//$objCalcFieldConfig_segmitr$
 						break;
 					case 'segistrein':
 						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
@@ -89,7 +104,11 @@
 						objCalcFieldConfig['!idchangeskind_changeskind_title'] = { tableNameLookup: 'changeskind', columnNameLookup: 'title', columnNamekey: 'idchangeskind' };
 						//$objCalcFieldConfig_segistpass$
 						break;
-					//$objCalcFieldConfig$
+										case 'segmi':
+						this.describeAColumn(table, 'changesother', 'Changes other', null, 20, -1);
+//$objCalcFieldConfig_segmi$
+						break;
+//$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
 				appMeta.metaModel.computeRowsAs(table, listType, this.superClass.calculateFields);
@@ -97,10 +116,53 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'segmitr':
+						table.columns["changesother"].caption = "Changes other";
+						table.columns["idattivform"].caption = "attività formativa";
+						table.columns["idchanges"].caption = "Changes";
+						table.columns["idchangeskind"].caption = "Changes kind";
+						table.columns["idconvalida"].caption = "Convalida";
+						table.columns["idconvalidato"].caption = "Convalidato";
+						table.columns["iddichiar"].caption = "Dichiarazione convalidata";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione della convalida";
+						table.columns["idiscrizione_from"].caption = "Iscrizione del sostenimento";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idlearningagrstud"].caption = "Learning agreements for studies";
+						table.columns["idlearningagrtrainer"].caption = "Learning agreements for traineersheep";
+						table.columns["idpratica"].caption = "Pratica";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_segmitr$
+						break;
+					case 'segmi':
+						table.columns["changesother"].caption = "Changes other";
+						table.columns["idattivform"].caption = "attività formativa";
+						table.columns["idchanges"].caption = "Changes";
+						table.columns["idchangeskind"].caption = "Changes kind";
+						table.columns["idconvalida"].caption = "Convalida";
+						table.columns["idconvalidato"].caption = "Convalidato";
+						table.columns["iddichiar"].caption = "Dichiarazione convalidata";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione della convalida";
+						table.columns["idiscrizione_from"].caption = "Iscrizione del sostenimento";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idlearningagrstud"].caption = "Learning agreements for studies";
+						table.columns["idlearningagrtrainer"].caption = "Learning agreements for traineersheep";
+						table.columns["idpratica"].caption = "Pratica";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_segmi$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
 
-			getNewRow: function (parentRow, dt, editType) {
-				var def = appMeta.Deferred("getNewRow-meta_convalidato");
+
+			getNewRow: function (parentRow, dt, editType){
+               var def = appMeta.Deferred("getNewRow-meta_convalidato");
 
 				var realParentObjectRow = parentRow;
 				if (editType === "segmitr") {
@@ -131,6 +193,7 @@
 
 
 
+
 			//$isValidFunction$
 
 			//$getStaticFilter$
@@ -141,6 +204,12 @@
 						return "idattivform desc";
 					}
 					case "segistpass": {
+						return "idattivform desc";
+					}
+					case "segmitr": {
+						return "idattivform desc";
+					}
+					case "segmi": {
 						return "idattivform desc";
 					}
 					//$getSortingin$

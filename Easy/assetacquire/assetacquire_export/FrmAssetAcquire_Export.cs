@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +42,12 @@ namespace assetacquire_export {
             InitializeComponent();
             saveFile = createSaveFileDialog(_saveFile);
             folderDlg = createFolderBrowserDialog(_folderDlg);
+
+            if (isBlazor())
+			{
+                txtPath.Visible = false;
+                btnPath.Visible = false;
+			}
         }
 
         int nPassi = 6;
@@ -74,6 +80,10 @@ namespace assetacquire_export {
         object enteScelto;
         object codiceEnteScelto;
         private void btnEsporta_Click(object sender, System.EventArgs e) {
+            if (isBlazor())
+			{
+                SelezionaCartella();
+			}
             progressBar1.Minimum = 0;
             progressBar1.Maximum = nPassi;
             int indiceEnte = cmbEnte.SelectedIndex;
@@ -130,6 +140,8 @@ namespace assetacquire_export {
                 FileStream fs = new FileStream(fileName, FileMode.Create);
                 dsEsporta.WriteXml(fs, XmlWriteMode.WriteSchema);
                 fs.Close();
+
+                MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
             }
             catch (Exception ex) {
                 show(this, "Impossibile generare il file\n" + ex.Message);
@@ -138,7 +150,10 @@ namespace assetacquire_export {
 
             valorizzaFlagTransmitted();
 
-            show(this, "File generato correttamente. Il percorso dove trovare il file è: " + fileName);
+            if (isBlazor())
+                show(this, "File scaricato");
+            else
+                show(this, "File generato correttamente. Il percorso dove trovare il file è: " + fileName);
             azzeraDataSet();
             dsEsporta.Clear();
         }
@@ -577,11 +592,16 @@ namespace assetacquire_export {
         }
 
         private void btnPath_Click(object sender, EventArgs e) {
+            SelezionaCartella();
+        }
+
+        private void SelezionaCartella()
+		{
             DialogResult dr = folderDlg.ShowDialog();
             if (dr != DialogResult.OK) return;
             string path = folderDlg.SelectedPath;
             if (path == "") return;
             txtPath.Text = path;
-        }
+		}
     }
 }

@@ -77,23 +77,20 @@
 
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_pianostudio");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_pianostudio");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idpianostudio', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					idreg : 0,
-					idiscrizione : 0,
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

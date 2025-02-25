@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -116,6 +116,8 @@ namespace exportdata//exportdata//
 				}
 			}
 			sw.Close();
+
+			MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
 		}
 
 /// <summary>
@@ -153,6 +155,8 @@ namespace exportdata//exportdata//
 				sw.WriteLine(r[dt.Columns.Count-1]);
 			}
 			sw.Close();
+
+			MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
 		}
 
 /// <summary>
@@ -281,7 +285,10 @@ namespace exportdata//exportdata//
                                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);     
             m_objExcel.DisplayAlerts=false;
             m_objExcel.Quit();
-            return null;
+
+			MetaFactory.factory.getSingleton<IProcessRunner>()?.start(filename, false);
+
+			return null;
         }
 
 

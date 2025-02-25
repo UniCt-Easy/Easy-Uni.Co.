@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -58,7 +58,15 @@ namespace migradatiroma//istitutocassiere_situazione//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+			openDir = createFolderBrowserDialog(_openDir);
 			openDir.ShowNewFolderButton = false;
+
+			if (isBlazor())
+			{
+				pathDir.Visible = false;
+				btnSelectDir.Visible = false;
+			}
+
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
@@ -94,7 +102,6 @@ namespace migradatiroma//istitutocassiere_situazione//
             this.pathDir = new System.Windows.Forms.TextBox();
             this.btnMigraReversali = new System.Windows.Forms.Button();
             this.btnSelectDir = new System.Windows.Forms.Button();
-			this.openDir = createFolderBrowserDialog(_openDir);
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,6 +183,11 @@ namespace migradatiroma//istitutocassiere_situazione//
 		}
 
 		public void MetaData_AfterFill(){
+			if (isBlazor())
+			{
+				if (string.IsNullOrEmpty(pathDir.Text) && (editMode || insertMode))
+					btnSelectDir.PerformClick();
+			}
 		}
 
 		public void MetaData_AfterClear(){
@@ -893,10 +905,20 @@ namespace migradatiroma//istitutocassiere_situazione//
 		}
 
         private void btnMigraDati_Click(object sender, EventArgs e) {
+			pathDir.Text = Path.Combine(pathDir.Text, "mandati");
+
+			if (!Directory.Exists(pathDir.Text))
+				Directory.CreateDirectory(pathDir.Text);
+
 			ElaboraXml();
 		}
 
         private void btnMigraReversali_Click(object sender, EventArgs e) {
+			pathDir.Text = Path.Combine(pathDir.Text, "reversali");
+
+			if (!Directory.Exists(pathDir.Text))
+				Directory.CreateDirectory(pathDir.Text);
+
 			ElaboraXml();
 		}
     }

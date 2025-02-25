@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -65,14 +65,23 @@ namespace meta_profservicesorting//meta_classtreecontrattoprof//
 		public override void DescribeColumns(DataTable T, string ListingType)
 		{
 			base.DescribeColumns(T, ListingType);
-			DescribeAColumn(T, "idsorkind", "Tipo");
-			DescribeAColumn(T, "idsor", "");
-			DescribeAColumn(T, "ycon", "");
-			DescribeAColumn(T, "ncon", "");
-			DescribeAColumn(T, "!codiceclass", "Codice", "sorting.sortcode");
-			DescribeAColumn(T, "!descrizione", "Descrizione", "sorting.description");
-			DescribeAColumn(T, "quota", "Quota");
+
+			foreach (DataColumn C in T.Columns)
+				DescribeAColumn(T, C.ColumnName, "", -1);
+			int nPos = 0;
+
+			DescribeAColumn(T, "idsorkind", "Tipo", nPos++);
+			DescribeAColumn(T, "idsor", "", nPos++);
+			DescribeAColumn(T, "ycon", "", nPos++);
+			DescribeAColumn(T, "ncon", "", nPos++);
+			DescribeAColumn(T, "!codiceclass", "Codice", "sorting.sortcode", nPos++);
+			DescribeAColumn(T, "!descrizione", "Descrizione", "sorting.description", nPos++);
+			DescribeAColumn(T, "quota", "Quota", nPos++);
 			HelpForm.SetFormatForColumn(T.Columns["quota"],"p");
+
+			for (int i = 1; i <= 5; i++) {
+				DescribeAColumn(T, "valued" + i.ToString(), "Data " + i.ToString(), nPos++);
+			}
 		}   
 	}
 }

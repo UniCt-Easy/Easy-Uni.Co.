@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,59 +23,58 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using metaeasylibrary;
 using metadatalibrary;
+using SortingMatrix;
 
 namespace profservicesorting_default//classtreecontrattoprof//
 {
-	/// <summary>
-	/// Summary description for frmClasstreecontrattoocc.
-	/// </summary>
-	public class Frm_profservicesorting_default : MetaDataForm
-	{
-		private System.Windows.Forms.Button btnOk;
-		private System.Windows.Forms.Button btnAnnulla;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.GroupBox gboxclass;
-		private System.Windows.Forms.Button btnCodice;
-		private System.Windows.Forms.TextBox txtCodice;
-		private System.Windows.Forms.TextBox txtDescrizione;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.ComboBox cmbTipo;
-		private System.Windows.Forms.Label label1;
-		public vistaForm DS;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for frmClasstreecontrattoocc.
+    /// </summary>
+    public class Frm_profservicesorting_default : MetaDataForm {
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnAnnulla;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gboxclass;
+        private System.Windows.Forms.Button btnCodice;
+        private System.Windows.Forms.TextBox txtCodice;
+        private System.Windows.Forms.TextBox txtDescrizione;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbTipo;
+        private System.Windows.Forms.Label label1;
+        public vistaForm DS;
+        private System.Windows.Forms.PictureBox pictureBox1;
 
-		public Frm_profservicesorting_default()
-		{
-			InitializeComponent();
-		}
+        private GroupBox groupBox2;
+        private Manager<TextBox> manager;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        public Frm_profservicesorting_default() {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
+                if (components != null) {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_profservicesorting_default));
             this.btnOk = new System.Windows.Forms.Button();
             this.btnAnnulla = new System.Windows.Forms.Button();
@@ -90,6 +89,7 @@ namespace profservicesorting_default//classtreecontrattoprof//
             this.cmbTipo = new System.Windows.Forms.ComboBox();
             this.DS = new profservicesorting_default.vistaForm();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gboxclass.SuspendLayout();
@@ -100,7 +100,7 @@ namespace profservicesorting_default//classtreecontrattoprof//
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(312, 152);
+            this.btnOk.Location = new System.Drawing.Point(312, 427);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 16;
@@ -111,7 +111,7 @@ namespace profservicesorting_default//classtreecontrattoprof//
             // 
             this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(416, 152);
+            this.btnAnnulla.Location = new System.Drawing.Point(416, 427);
             this.btnAnnulla.Name = "btnAnnulla";
             this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
             this.btnAnnulla.TabIndex = 15;
@@ -119,8 +119,7 @@ namespace profservicesorting_default//classtreecontrattoprof//
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.gboxclass);
@@ -130,7 +129,7 @@ namespace profservicesorting_default//classtreecontrattoprof//
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(8, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(488, 145);
+            this.groupBox1.Size = new System.Drawing.Size(488, 154);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Tag = "";
@@ -147,15 +146,15 @@ namespace profservicesorting_default//classtreecontrattoprof//
             // 
             // gboxclass
             // 
-            this.gboxclass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gboxclass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gboxclass.Controls.Add(this.btnCodice);
             this.gboxclass.Controls.Add(this.txtCodice);
             this.gboxclass.Controls.Add(this.txtDescrizione);
             this.gboxclass.Location = new System.Drawing.Point(184, 56);
             this.gboxclass.Name = "gboxclass";
-            this.gboxclass.Size = new System.Drawing.Size(296, 81);
+            this.gboxclass.Size = new System.Drawing.Size(296, 90);
             this.gboxclass.TabIndex = 3;
             this.gboxclass.TabStop = false;
             this.gboxclass.Tag = "AutoManage.txtCodice.treeclassmovimenti";
@@ -181,14 +180,14 @@ namespace profservicesorting_default//classtreecontrattoprof//
             // 
             // txtDescrizione
             // 
-            this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescrizione.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescrizione.Location = new System.Drawing.Point(112, 16);
             this.txtDescrizione.Multiline = true;
             this.txtDescrizione.Name = "txtDescrizione";
             this.txtDescrizione.ReadOnly = true;
-            this.txtDescrizione.Size = new System.Drawing.Size(174, 57);
+            this.txtDescrizione.Size = new System.Drawing.Size(174, 66);
             this.txtDescrizione.TabIndex = 14;
             this.txtDescrizione.TabStop = false;
             this.txtDescrizione.Tag = "sorting.description";
@@ -212,7 +211,7 @@ namespace profservicesorting_default//classtreecontrattoprof//
             // 
             // cmbTipo
             // 
-            this.cmbTipo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbTipo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTipo.DataSource = this.DS.sortingapplicabilityview;
             this.cmbTipo.DisplayMember = "description";
@@ -238,11 +237,21 @@ namespace profservicesorting_default//classtreecontrattoprof//
             this.label1.Text = "Classificazione:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(8, 161);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(488, 249);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
             // Frm_profservicesorting_default
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(500, 178);
+            this.ClientSize = new System.Drawing.Size(500, 453);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnAnnulla);
@@ -256,55 +265,57 @@ namespace profservicesorting_default//classtreecontrattoprof//
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		public void MetaData_AfterRowSelect(DataTable T, DataRow R)
-		{
-			if (T!= DS.sortingapplicabilityview) return;
+        public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
+            if (T != DS.sortingapplicabilityview) return;
 
-			if (MetaData.GetMetaData(this).DrawState== MetaData.form_drawstates.done) 
-			{
-				if ((!MetaData.Empty(this)))
-				{
-					DS.profservicesorting.Rows[0]["idsor"]=0;
-				}
-				txtCodice.Text="";
-				txtDescrizione.Text="";
-				DS.sorting.Clear();
-			}
-			SetCodice();
-		}
+            if (MetaData.GetMetaData(this).DrawState == MetaData.form_drawstates.done) {
+                if ((!MetaData.Empty(this))) {
+                    DS.profservicesorting.Rows[0]["idsor"] = 0;
+                }
+                txtCodice.Text = "";
+                txtDescrizione.Text = "";
+                DS.sorting.Clear();
+            }
+            SetCodice();
 
+            AggiornaEtichette();
+        }
 
+        public void MetaData_AfterActivation() {
 
-		void SetCodice()
-		{
-			MetaData Meta = MetaData.GetMetaData(this);
-			if (Meta.EditMode) return;
-			btnCodice.Enabled= (cmbTipo.SelectedIndex>0);
-			txtCodice.ReadOnly= (cmbTipo.SelectedIndex<=0);
-			if (cmbTipo.SelectedIndex<=0)
-			{
-				txtCodice.Text="";
-				txtDescrizione.Text="";
-			}
-			else 
-			{
-				string filter = QHS.CmpEq("idsorkind", cmbTipo.SelectedValue);
-				btnCodice.Tag="manage.sorting.tree."+filter;
-				//label per il form di selezione della voce di classificazione +"."+ filtro
-				DS.sorting.ExtendedProperties[MetaData.ExtraParams]=filter;
-				//AutoManage.txtCodiceClass.tree
-				gboxclass.Tag="AutoManage.txtCodice.tree."+filter;
-				MetaData.GetMetaData(this).SetAutoMode(gboxclass);
-			}
-		}
+            AggiornaEtichette();
 
-		public void MetaData_AfterFill()
-		{
-			SetCodice();
-		}
+            if (Meta.EditMode || Meta.InsertMode) {
+                freshForm();
+            }
+        }
+
+        void SetCodice() {
+            MetaData Meta = MetaData.GetMetaData(this);
+            if (Meta.EditMode) return;
+            btnCodice.Enabled = (cmbTipo.SelectedIndex > 0);
+            txtCodice.ReadOnly = (cmbTipo.SelectedIndex <= 0);
+            if (cmbTipo.SelectedIndex <= 0) {
+                txtCodice.Text = "";
+                txtDescrizione.Text = "";
+            }
+            else {
+                string filter = QHS.CmpEq("idsorkind", cmbTipo.SelectedValue);
+                btnCodice.Tag = "manage.sorting.tree." + filter;
+                //label per il form di selezione della voce di classificazione +"."+ filtro
+                DS.sorting.ExtendedProperties[MetaData.ExtraParams] = filter;
+                //AutoManage.txtCodiceClass.tree
+                gboxclass.Tag = "AutoManage.txtCodice.tree." + filter;
+                MetaData.GetMetaData(this).SetAutoMode(gboxclass);
+            }
+        }
+
+        public void MetaData_AfterFill() {
+            SetCodice();
+        }
 
         MetaData Meta;
         CQueryHelper QHC;
@@ -314,7 +325,9 @@ namespace profservicesorting_default//classtreecontrattoprof//
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
             string filterCT = QHS.CmpEq("tablename", "profservice");
+
             GetData.CacheTable(DS.sortingapplicabilityview, filterCT, null, true);
+            GetData.CacheTable(DS.sortingkind, null, null, true);
 
             string filterActive = QHS.DoPar(QHS.AppOr(QHS.NullOrEq("active", 'S'), QHS.CmpEq("active", "")));
             string filterI = QHS.DoPar(QHS.AppOr(QHS.DoPar(QHS.AppAnd(QHS.NullOrLe("start", Meta.GetSys("esercizio")),
@@ -322,5 +335,21 @@ namespace profservicesorting_default//classtreecontrattoprof//
 
             QueryCreator.SetFilterForInsert(DS.sortingapplicabilityview, filterI);
         }
-	}
+
+        void AggiornaEtichette() {
+
+            if (cmbTipo.SelectedIndex <= 0) {
+                manager = new Manager<TextBox>(groupBox2, "profservicesorting", null,
+                    Manager<TextBox>.OptionControlAction(Meta.myHelpForm.AddEvents)
+                );
+                return;
+            }
+            string codtipo = cmbTipo.SelectedValue.ToString();
+            DataRow Rtipo = DS.sortingkind.Select(QHC.CmpEq("idsorkind", codtipo))[0];
+
+            manager = new Manager<TextBox>(groupBox2, "profservicesorting", Rtipo,
+                Manager<TextBox>.OptionControlAction(Meta.myHelpForm.AddEvents)
+            );
+        }
+    }
 }

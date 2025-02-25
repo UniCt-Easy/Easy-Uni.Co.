@@ -129,9 +129,18 @@
     <None Include="vistaForm.xsc">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
     <None Include="vistaForm.xsx">
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\unmanaged\SortingMatrix\SortingMatrix.csproj">
+      <Project>{FF81A1D5-338F-4FCF-9338-0E7C70451253}</Project>
+      <Name>SortingMatrix</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

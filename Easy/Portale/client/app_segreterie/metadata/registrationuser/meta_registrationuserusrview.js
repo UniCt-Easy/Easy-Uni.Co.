@@ -24,12 +24,13 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'usr':
 						this.describeAColumn(table, 'surname', 'Cognome', null, 1000, 50);
-						this.describeAColumn(table, 'forename', 'Nome', null, 2000, 49);
-						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 3000, 16);
-						this.describeAColumn(table, 'email', 'E-Mail', null, 5000, 1024);
-						this.describeAColumn(table, 'login', 'Login', null, 6000, 60);
+						this.describeAColumn(table, 'registrationuser_forename', 'Nome', null, 2000, 49);
+						this.describeAColumn(table, 'registrationuser_cf', 'Codice fiscale', null, 3000, 16);
+						this.describeAColumn(table, 'registrationuser_email', 'E-Mail', null, 5000, 1024);
+						this.describeAColumn(table, 'registrationuser_login', 'Login', null, 6000, 60);
 						this.describeAColumn(table, 'usertype', 'Categoria di utente', null, 7000, 50);
 						this.describeAColumn(table, 'registrationuserstatus_title', 'Stato della richiesta', null, 8200, 64);
+						this.describeAColumn(table, 'registrationuser_requesttimestamp', 'Data della richiesta', 'g', 11000, null);
 //$objCalcFieldConfig_usr$
 						break;
 //$objCalcFieldConfig$

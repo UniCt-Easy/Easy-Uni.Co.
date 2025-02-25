@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -73,6 +73,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epaccview 		=> (MetaTable)Tables["epaccview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epaccattachment 		=> (MetaTable)Tables["epaccattachment"];
 
 	#endregion
 
@@ -351,6 +354,20 @@ private void initClass() {
 	tepaccview.defineColumn("p_iva", typeof(string));
 	Tables.Add(tepaccview);
 
+	//////////////////// EPACCATTACHMENT /////////////////////////////////
+	var tepaccattachment= new MetaTable("epaccattachment");
+	tepaccattachment.defineColumn("idepacc", typeof(int),false);
+	tepaccattachment.defineColumn("idattachment", typeof(int),false);
+	tepaccattachment.defineColumn("attachment", typeof(Byte[]));
+	tepaccattachment.defineColumn("filename", typeof(string));
+	tepaccattachment.defineColumn("cu", typeof(string));
+	tepaccattachment.defineColumn("ct", typeof(DateTime));
+	tepaccattachment.defineColumn("lu", typeof(string));
+	tepaccattachment.defineColumn("lt", typeof(DateTime));
+	tepaccattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tepaccattachment);
+	tepaccattachment.defineKey("idepacc", "idattachment");
+
 	#endregion
 
 
@@ -369,6 +386,7 @@ private void initClass() {
 	this.defineRelation("registry_epacc","registry","epacc","idreg");
 	this.defineRelation("manager_epacc","manager","epacc","idman");
 	this.defineRelation("epacc_epaccview","epacc","epaccview","idepacc");
+	this.defineRelation("epacc_epaccattachment","epacc","epaccattachment","idepacc");
 	#endregion
 
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -66,5 +66,37 @@ namespace ServizioRendicontazione.Models
         [StringLength(1)]
         [Unicode(false)]
         public string visita { get; set; }
+		[StringLength(2048)]
+		public string titolo { get; set; }
+	}
+
+    public class diaws
+    {
+        public DateTime data { get; set; }
+        public int idrendicontaltrokind { get; set; }
+        public string valws { get; set; }
+    }
+
+    public class diadb
+    {
+        public DateTime data { get; set; }
+        public int idrendicontaltrokind { get; set; }
+        public string valws { get; set; }
+        public string valdb { get; set; }
+        public int id { get; set; }
+    }
+
+    public class lezws
+    {
+        public DateTime data { get; set; }
+        public string valws { get; set; }
+    }
+
+    public class lezdb
+    {
+        public DateTime data { get; set; }
+        public string valws { get; set; }
+        public string valdb { get; set; }
+        public int id { get; set; }
     }
 }

@@ -20,13 +20,8 @@
 					<input id="iscrizioneanno_seganagstu_annofc" type="text" class="form-control" data-tag="iscrizioneanno.annofc"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#iscrizioneanno_seganagstu_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="iscrizioneanno_seganagstu_data">Data</label>
-					<input id="iscrizioneanno_seganagstu_data" type="text" class="form-control" data-tag="iscrizioneanno.data.g"  data-mandatory />
+					<input id="iscrizioneanno_seganagstu_data" type="text" class="form-control" data-tag="iscrizioneanno.data.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
@@ -45,9 +40,9 @@
 					<input id="iscrizioneanno_seganagstu_protanno" type="text" class="form-control" data-tag="iscrizioneanno.protanno"  />
 				</div>
 			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
+		<button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-stamp mr-1" ></i>Protocolla
+		</button>
 </form>
 
 </div>

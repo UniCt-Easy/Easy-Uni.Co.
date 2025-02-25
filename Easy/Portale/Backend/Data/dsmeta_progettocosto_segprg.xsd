@@ -59,7 +59,7 @@
               <xs:element name="sal_budget" type="xs:decimal" minOccurs="0" />
               <xs:element name="sal_datablocco" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -87,7 +87,6 @@
               <xs:element name="rendicontattivitaprogetto_ct" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogetto_cu" type="xs:string" />
               <xs:element name="rendicontattivitaprogetto_datainizioprevista" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="rendicontattivitaprogetto_iditineration" type="xs:int" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_lt" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogetto_lu" type="xs:string" />

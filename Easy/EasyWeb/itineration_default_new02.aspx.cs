@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -124,7 +124,7 @@ public partial class itineration_default_new02 : MetaPage {
         chkWeb.Enabled = true;
         txtEsercmissione.Text = Conn.GetSys("esercizio").ToString();
         txtNummissione.ReadOnly = false;
-        btnCambiaRuolo.Visible = false;
+        btnCambiaRuolo.Enabled = false;
         DataColumn C = DS.itineration.Columns["nitineration"];
         RowChange.ClearAutoIncrement(C);
         RowChange.ClearCustomAutoIncrement(C);
@@ -241,7 +241,7 @@ public partial class itineration_default_new02 : MetaPage {
                 DoSendMail = false;
         }
     }
-
+    
     public override void AfterActivation(bool firsttime, bool formToLink) {
         if (formToLink) {
             DirectAuth = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", Conn.GetSys("esercizio")),
@@ -481,7 +481,6 @@ public partial class itineration_default_new02 : MetaPage {
 
 
     void EnableDisableControls(Control C, bool Lock) {
-
         if (typeof(WebControl).IsAssignableFrom(C.GetType())) {
             WebControl CC = C as WebControl;
             if (CC.ClientID == HwTextBox2.ClientID)
@@ -529,7 +528,7 @@ public partial class itineration_default_new02 : MetaPage {
 
     public override void AfterRowSelect(DataTable T, DataRow R) {
         if (T.TableName == "registry") {
-            ImpostaPosGiuridica(false); // ClearPosGiuridica();
+            ImpostaPosGiuridica(false, false); // ClearPosGiuridica();
 		}
 
 		if (T.TableName == "legalstatuscontract") {
@@ -595,7 +594,7 @@ public partial class itineration_default_new02 : MetaPage {
             string filterGE;
             filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                             QHS.CmpEq("idposition", MyCfg.idposition),
-                            QHS.CmpEq("livello", MyCfg.livello),
+                            QHS.NullOrEq("livello", MyCfg.livello),
                             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -887,6 +886,13 @@ public partial class itineration_default_new02 : MetaPage {
         DataAccess.SetTableForReading(DS.sorting2, "sorting");
         DataAccess.SetTableForReading(DS.sorting3, "sorting");
 
+
+        DataAccess.SetTableForReading(DS.itinerationrefund_ref, "itinerationrefund");
+        DataAccess.SetTableForReading(DS.itinerationrefundkind_ref, "itinerationrefundkind");
+        DataAccess.SetTableForReading(DS.itineration_ref, "itineration");
+
+
+
         DataTable tExpSetup = Conn.RUN_SELECT("config", "*", null, filteresercizio, null, null, true);
         if ((tExpSetup != null) && (tExpSetup.Rows.Count > 0)) {
             DataRow R = tExpSetup.Rows[0];
@@ -1009,6 +1015,10 @@ public partial class itineration_default_new02 : MetaPage {
         if (command == "stampamissione"){
             HwButtonStampaMissione_Click();
         }
+        if (command == "cambiaruolo") {
+            btnCambiaRuolo_Click();
+        }
+        
     }
     private string ReportName = "missione_prospetto_calcolo";
 
@@ -1253,7 +1263,7 @@ public partial class itineration_default_new02 : MetaPage {
     }
 
 
-    private void ImpostaPosGiuridica(bool changerole) {
+    private void ImpostaPosGiuridica(bool changerole, bool fromButtonRuolo) {
         if (PState.IsEmpty)
             return;
         DataRow Curr = DS.itineration.Rows[0];
@@ -1282,9 +1292,28 @@ public partial class itineration_default_new02 : MetaPage {
 
         string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
         string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
-
-        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine),QHS.CmpEq("active", "S"));
-
+        //Se clicco sul button devo consentire scegliere qualsiasi cosa, e quindi mostriamo le qualifiche:
+        //valide alla data inizio o valide alla data fine
+        // start <= data inizio oppure start <= data fine
+        if (fromButtonRuolo) {
+            //start <= data inizio e stop >= data inizio, valida a cavallo delle data inizio, deve essere valida prima e dopo la data inizio
+            //OR
+            //start <=data fine e stop >= data fine, valida a cavallo della data fine, deve essere valida prima e dopo la data fine
+            // OR
+            //start >=data inizio e stop null o <= data fine. Con questa condizione mostriamo anche i ruoli che nascono e muoiono durante la missione(è un caso remoto ma è meglio mostrarli)
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
+                QHS.DoPar(QHS.AppOr(
+                    QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
+                    QHS.AppAnd(QHS.CmpLe("start", datafine), QHS.NullOrGe("stop", datafine)),
+                    QHS.AppAnd(QHS.CmpGe("start", datainizio), QHS.NullOrLe("stop", datafine))
+                    ))
+                );
+        }
+        else {
+            //Qualifica valida nel periodo della missione
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.CmpEq("active", "S"),
+                QHS.NullOrGe("stop", datafine));
+        }
         if ((LastFilterPosGiuridica == filter) && (!changerole))
             return;
 
@@ -1296,15 +1325,30 @@ public partial class itineration_default_new02 : MetaPage {
 
         int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
 
+        // usa un filtro meno restrittivo, prende le qualifiche valide alla data inizio o valide alla data fine:
+        // data inizio missione beetwen Start and Stop
+        // OR
+        // data fine missione beetwen Start and Stop
         if (NposGiuridiche == 0) {
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
+            QHS.DoPar(QHS.AppOr(
+                QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
+                QHS.AppAnd(QHS.CmpLe("start", datafine), QHS.NullOrGe("stop", datafine)),
+                QHS.AppAnd(QHS.CmpGe("start", datainizio), QHS.NullOrLe("stop", datafine))
+                    ))
+                );
+            NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
+        }
+        if (NposGiuridiche == 0) {
+            if (LastFilterPosGiuridica != filter) {
+                ShowClientMessage(
+                    "I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
+                //show(
+                //	"Non è stato possibile individuare una Posizione giuridica dell'incaricato. Cliccare ''Seleziona Ruolo'' per sceglierne uno adeguato.", "Avviso");
+            }
             ClearPosGiuridica();
             LastFilterPosGiuridica = filter;
-            //btnCambiaRuolo.Visible = false;
-            btnCambiaRuolo.Visible = false;
-            if (LastFilterPosGiuridica != filter) {
-                //MessageBox.Show("I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
-                ShowClientMessage("I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
-            }
+            ////btnCambiaRuolo.Enabled = false;
             return;
         }
         LastFilterPosGiuridica = filter;
@@ -1314,7 +1358,7 @@ public partial class itineration_default_new02 : MetaPage {
         DataTable SelClass = null;
         if (NposGiuridiche > 1) {
 
-            btnCambiaRuolo.Visible = true;
+            //btnCambiaRuolo.Enabled = true;
             CommFun.DoMainCommand("choose.legalstatuscontract.anagrafica." + filter);
             return;
         }
@@ -1324,7 +1368,11 @@ public partial class itineration_default_new02 : MetaPage {
             SelClass = Conn.RUN_SELECT("legalstatuscontract",
                         "idposition, livello, incomeclass, incomeclassvalidity, maxincomeclass,idregistrylegalstatus,csa_compartment,csa_role, csa_class",
                         null, filter, null, false);
-            btnCambiaRuolo.Visible = false;
+            //btnCambiaRuolo.Visible = false;
+            if (fromButtonRuolo) {
+                ShowClientMessage(
+                    "Posizione giuridica valorizzata.", "Avviso");
+            }
         }
         DataRow RowClass = SelClass.Rows[0];
 
@@ -1382,7 +1430,7 @@ public partial class itineration_default_new02 : MetaPage {
         string filterGE;
         filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                         QHS.CmpEq("idposition", MyCfg.idposition),
-                        QHS.CmpEq("livello", MyCfg.livello),
+                        QHS.NullOrEq("livello", MyCfg.livello),
                         "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 
@@ -1433,8 +1481,8 @@ public partial class itineration_default_new02 : MetaPage {
 
 
 
-    public void btnCambiaRuolo_Click(object sender, EventArgs e) {
-        ImpostaPosGiuridica(true);
+    public void btnCambiaRuolo_Click() {
+        ImpostaPosGiuridica(true, true);
 
     }
 
@@ -1495,14 +1543,14 @@ public partial class itineration_default_new02 : MetaPage {
         CommFun.GetFormData(true);
 
         if (((hwTextBox)sender) == txtIncaricato) {
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
         }
 
         if ((MissFun.CampoDataPerPosGiuridica == "start") && (((hwTextBox)sender) == txtDataInizio)) {
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
         }
         if (((hwTextBox)sender) == txtDataFine) {
-            ImpostaPosGiuridica(false);
+            ImpostaPosGiuridica(false, false);
         }
 
     }
@@ -1522,7 +1570,7 @@ public partial class itineration_default_new02 : MetaPage {
         txtCompartoCSA.Text = "";
         txtInquadrcsa.Text = "";
         txtGruppoEstero.Text = "";
-        //btnCambiaRuolo.Visible = false;
+        btnCambiaRuolo.Enabled = false;
         //			if (PState.IsEmpty) return;
         MyCfg.incomeclass = DBNull.Value;
         resetPosizioneGiuridica();
@@ -2011,7 +2059,7 @@ public partial class itineration_default_new02 : MetaPage {
         filterGE = QHS.AppAnd(
             QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
             QHS.CmpEq("idposition", MyCfg.idposition),
-            QHS.CmpEq("livello", MyCfg.livello),
+            QHS.NullOrEq("livello", MyCfg.livello),
             "(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
         DataTable DettGruppoEstero = Conn.RUN_SELECT("foreigngroupruledetail", "foreigngroupnumber",
@@ -2195,7 +2243,7 @@ public partial class itineration_default_new02 : MetaPage {
         DataRow Curr = DS.itineration.Rows[0];
 
         string filter;
-        btnCambiaRuolo.Visible = false;
+        btnCambiaRuolo.Enabled = true; // new
 
         object datainizio = Curr[MissFun.CampoDataPerPosGiuridica];
         object datafine = Curr["stop"];
@@ -2215,13 +2263,14 @@ public partial class itineration_default_new02 : MetaPage {
         string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
         string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
 
-        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datafine), QHS.CmpEq("active", "S"));
+        filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio),
+           QHS.NullOrGe("stop", datafine));
 
-        int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
-        if (NposGiuridiche > 1)
-            btnCambiaRuolo.Visible = true;
-        else
-            btnCambiaRuolo.Visible = false;
+        //int NposGiuridiche = Conn.RUN_SELECT_COUNT("legalstatuscontract", filter, false);
+        //if (NposGiuridiche > 1)
+            btnCambiaRuolo.Enabled = true;
+        //else
+        //    btnCambiaRuolo.Visible = false;
 
     }
 

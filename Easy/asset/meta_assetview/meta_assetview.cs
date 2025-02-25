@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,7 +47,7 @@ namespace meta_assetview//meta_beneinventariabileview//
 				foreach (DataColumn C in T.Columns)
 					DescribeAColumn(T, C.ColumnName, "",-1);
                 int nPos = 1;
-                DescribeAColumn(T, "idasset", ".idasset", nPos++);
+                DescribeAColumn(T, "idasset", "N.Cespite", nPos++);
                 DescribeAColumn(T, "idpiece", "N.parte", nPos++);
                 DescribeAColumn(T, "inventory", "Inventario", nPos++);
 				DescribeAColumn(T, "ninventory", "Num. inventario", nPos++);

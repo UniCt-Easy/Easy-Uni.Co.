@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -173,6 +173,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable estimatedetail_incassi 		=> (MetaTable)Tables["estimatedetail_incassi"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable incomeattachment 		=> (MetaTable)Tables["incomeattachment"];
 
 	#endregion
 
@@ -865,6 +868,20 @@ private void initClass() {
 	Tables.Add(testimatedetail_incassi);
 	testimatedetail_incassi.defineKey("idestimkind", "yestim", "nestim", "rownum");
 
+	//////////////////// INCOMEATTACHMENT /////////////////////////////////
+	var tincomeattachment= new MetaTable("incomeattachment");
+	tincomeattachment.defineColumn("idinc", typeof(int),false);
+	tincomeattachment.defineColumn("idattachment", typeof(int),false);
+	tincomeattachment.defineColumn("attachment", typeof(Byte[]));
+	tincomeattachment.defineColumn("filename", typeof(string));
+	tincomeattachment.defineColumn("cu", typeof(string));
+	tincomeattachment.defineColumn("ct", typeof(DateTime));
+	tincomeattachment.defineColumn("lu", typeof(string));
+	tincomeattachment.defineColumn("lt", typeof(DateTime));
+	tincomeattachment.defineColumn("idattachmentkind", typeof(int));
+	Tables.Add(tincomeattachment);
+	tincomeattachment.defineKey("idinc", "idattachment");
+
 	#endregion
 
 
@@ -933,6 +950,7 @@ private void initClass() {
 	this.defineRelation("estimatekind_incomelastestimatedetail","estimatekind","incomelastestimatedetail","idestimkind");
 	this.defineRelation("estimatedetail_taxable_incomelastestimatedetail","estimatedetail_taxable","incomelastestimatedetail","idestimkind","yestim","nestim","rownum");
 	this.defineRelation("estimatedetail_incassi_incomelastestimatedetail","estimatedetail_incassi","incomelastestimatedetail","idestimkind","yestim","nestim","rownum");
+	this.defineRelation("income_incomeattachment","income","incomeattachment","idinc");
 	#endregion
 
 }

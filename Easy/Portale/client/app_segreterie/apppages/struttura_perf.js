@@ -67,9 +67,12 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#struttura_perf_idupb'), null);
 				this.helpForm.filter($('#struttura_perf_paridstruttura'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -79,6 +82,7 @@
 				this.state.DS.tables.struttura.defaults({ 'active': 'S' });
 				$("#btn_add_perfstrutturaperfindicatore_idperfindicatore").on("click", _.partial(this.searchAndAssignperfindicatore, self));
 				$("#btn_add_perfstrutturaperfindicatore_idperfindicatore").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("strutturakinddefaultview"), this.q.eq('strutturakind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

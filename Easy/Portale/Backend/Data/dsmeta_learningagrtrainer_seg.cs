@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,44 +27,29 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_learningagrtrainer_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_learningagrtrainer_seg: DataSet {
+public partial class dsmeta_learningagrtrainer_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable geo_nation 		=> (MetaTable)Tables["geo_nation"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cefrdefaultview_alias4 		=> (MetaTable)Tables["cefrdefaultview_alias4"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cefrdefaultview_alias3 		=> (MetaTable)Tables["cefrdefaultview_alias3"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cefrdefaultview_alias2 		=> (MetaTable)Tables["cefrdefaultview_alias2"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cefrdefaultview_alias1 		=> (MetaTable)Tables["cefrdefaultview_alias1"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cefrdefaultview 		=> (MetaTable)Tables["cefrdefaultview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable cefrlanglevel 		=> (MetaTable)Tables["cefrlanglevel"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable pratica_alias2 		=> (MetaTable)Tables["pratica_alias2"];
+	public MetaTable didprog_alias3 		=> (MetaTable)Tables["didprog_alias3"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable pratica_alias2 		=> (MetaTable)Tables["pratica_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable didprog_alias2 		=> (MetaTable)Tables["didprog_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable iscrizione 		=> (MetaTable)Tables["iscrizione"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable didprog 		=> (MetaTable)Tables["didprog"];
+	public MetaTable sede 		=> (MetaTable)Tables["sede"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sede 		=> (MetaTable)Tables["sede"];
+	public MetaTable didprog 		=> (MetaTable)Tables["didprog"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attivform 		=> (MetaTable)Tables["attivform"];
@@ -88,6 +73,27 @@ public class dsmeta_learningagrtrainer_seg: DataSet {
 	public MetaTable convalida 		=> (MetaTable)Tables["convalida"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable geo_nation 		=> (MetaTable)Tables["geo_nation"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefrdefaultview_alias4 		=> (MetaTable)Tables["cefrdefaultview_alias4"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefrdefaultview_alias3 		=> (MetaTable)Tables["cefrdefaultview_alias3"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefrdefaultview_alias2 		=> (MetaTable)Tables["cefrdefaultview_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefrdefaultview_alias1 		=> (MetaTable)Tables["cefrdefaultview_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefrdefaultview 		=> (MetaTable)Tables["cefrdefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefrlanglevel 		=> (MetaTable)Tables["cefrlanglevel"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryaziendeview 		=> (MetaTable)Tables["registryaziendeview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -97,7 +103,7 @@ public class dsmeta_learningagrtrainer_seg: DataSet {
 	public MetaTable learningagrtrainerkind 		=> (MetaTable)Tables["learningagrtrainerkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable learningagrkind 		=> (MetaTable)Tables["learningagrkind"];
+	public MetaTable learningagrkinddefaultview 		=> (MetaTable)Tables["learningagrkinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_city 		=> (MetaTable)Tables["geo_city"];
@@ -130,74 +136,24 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_learningagrtrainer_seg.xsd";
 
 	#region create DataTables
-	//////////////////// GEO_NATION /////////////////////////////////
-	var tgeo_nation= new MetaTable("geo_nation");
-	tgeo_nation.defineColumn("idnation", typeof(int),false);
-	tgeo_nation.defineColumn("lang", typeof(string));
-	Tables.Add(tgeo_nation);
-	tgeo_nation.defineKey("idnation");
+	//////////////////// DIDPROG_ALIAS3 /////////////////////////////////
+	var tdidprog_alias3= new MetaTable("didprog_alias3");
+	tdidprog_alias3.defineColumn("aa", typeof(string),false);
+	tdidprog_alias3.defineColumn("idcorsostudio", typeof(int),false);
+	tdidprog_alias3.defineColumn("iddidprog", typeof(int),false);
+	tdidprog_alias3.defineColumn("idsede", typeof(int));
+	tdidprog_alias3.defineColumn("title", typeof(string));
+	tdidprog_alias3.ExtendedProperties["TableForReading"]="didprog";
+	Tables.Add(tdidprog_alias3);
+	tdidprog_alias3.defineKey("idcorsostudio", "iddidprog");
 
-	//////////////////// CEFRDEFAULTVIEW_ALIAS4 /////////////////////////////////
-	var tcefrdefaultview_alias4= new MetaTable("cefrdefaultview_alias4");
-	tcefrdefaultview_alias4.defineColumn("dropdown_title", typeof(string),false);
-	tcefrdefaultview_alias4.defineColumn("idcefr", typeof(int),false);
-	tcefrdefaultview_alias4.ExtendedProperties["TableForReading"]="cefrdefaultview";
-	Tables.Add(tcefrdefaultview_alias4);
-	tcefrdefaultview_alias4.defineKey("idcefr");
-
-	//////////////////// CEFRDEFAULTVIEW_ALIAS3 /////////////////////////////////
-	var tcefrdefaultview_alias3= new MetaTable("cefrdefaultview_alias3");
-	tcefrdefaultview_alias3.defineColumn("dropdown_title", typeof(string),false);
-	tcefrdefaultview_alias3.defineColumn("idcefr", typeof(int),false);
-	tcefrdefaultview_alias3.ExtendedProperties["TableForReading"]="cefrdefaultview";
-	Tables.Add(tcefrdefaultview_alias3);
-	tcefrdefaultview_alias3.defineKey("idcefr");
-
-	//////////////////// CEFRDEFAULTVIEW_ALIAS2 /////////////////////////////////
-	var tcefrdefaultview_alias2= new MetaTable("cefrdefaultview_alias2");
-	tcefrdefaultview_alias2.defineColumn("dropdown_title", typeof(string),false);
-	tcefrdefaultview_alias2.defineColumn("idcefr", typeof(int),false);
-	tcefrdefaultview_alias2.ExtendedProperties["TableForReading"]="cefrdefaultview";
-	Tables.Add(tcefrdefaultview_alias2);
-	tcefrdefaultview_alias2.defineKey("idcefr");
-
-	//////////////////// CEFRDEFAULTVIEW_ALIAS1 /////////////////////////////////
-	var tcefrdefaultview_alias1= new MetaTable("cefrdefaultview_alias1");
-	tcefrdefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
-	tcefrdefaultview_alias1.defineColumn("idcefr", typeof(int),false);
-	tcefrdefaultview_alias1.ExtendedProperties["TableForReading"]="cefrdefaultview";
-	Tables.Add(tcefrdefaultview_alias1);
-	tcefrdefaultview_alias1.defineKey("idcefr");
-
-	//////////////////// CEFRDEFAULTVIEW /////////////////////////////////
-	var tcefrdefaultview= new MetaTable("cefrdefaultview");
-	tcefrdefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tcefrdefaultview.defineColumn("idcefr", typeof(int),false);
-	Tables.Add(tcefrdefaultview);
-	tcefrdefaultview.defineKey("idcefr");
-
-	//////////////////// CEFRLANGLEVEL /////////////////////////////////
-	var tcefrlanglevel= new MetaTable("cefrlanglevel");
-	tcefrlanglevel.defineColumn("ct", typeof(DateTime),false);
-	tcefrlanglevel.defineColumn("cu", typeof(string),false);
-	tcefrlanglevel.defineColumn("idaccordoscambiomi", typeof(int));
-	tcefrlanglevel.defineColumn("idaccordoscambiomidett", typeof(int));
-	tcefrlanglevel.defineColumn("idaccordoscambiomidettaz", typeof(int));
-	tcefrlanglevel.defineColumn("idaccordoscambiomidettlangkind", typeof(int),false);
-	tcefrlanglevel.defineColumn("idcefr_compasc", typeof(int));
-	tcefrlanglevel.defineColumn("idcefr_complett", typeof(int));
-	tcefrlanglevel.defineColumn("idcefr_parlinter", typeof(int));
-	tcefrlanglevel.defineColumn("idcefr_parlprod", typeof(int));
-	tcefrlanglevel.defineColumn("idcefr_scritto", typeof(int));
-	tcefrlanglevel.defineColumn("idcefrlanglevel", typeof(int),false);
-	tcefrlanglevel.defineColumn("idiscrizionebmi", typeof(int));
-	tcefrlanglevel.defineColumn("idlearningagrstud", typeof(int));
-	tcefrlanglevel.defineColumn("idlearningagrtrainer", typeof(int));
-	tcefrlanglevel.defineColumn("idnation", typeof(int));
-	tcefrlanglevel.defineColumn("lt", typeof(DateTime),false);
-	tcefrlanglevel.defineColumn("lu", typeof(string),false);
-	Tables.Add(tcefrlanglevel);
-	tcefrlanglevel.defineKey("idcefrlanglevel");
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("active", typeof(string),false);
+	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("title", typeof(string),false);
+	Tables.Add(tregistry);
+	tregistry.defineKey("idreg");
 
 	//////////////////// PRATICA_ALIAS2 /////////////////////////////////
 	var tpratica_alias2= new MetaTable("pratica_alias2");
@@ -212,12 +168,16 @@ private void initClass() {
 	Tables.Add(tpratica_alias2);
 	tpratica_alias2.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idistanza", "idistanzakind", "idpratica", "idreg");
 
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
+	//////////////////// DIDPROG_ALIAS2 /////////////////////////////////
+	var tdidprog_alias2= new MetaTable("didprog_alias2");
+	tdidprog_alias2.defineColumn("aa", typeof(string),false);
+	tdidprog_alias2.defineColumn("idcorsostudio", typeof(int),false);
+	tdidprog_alias2.defineColumn("iddidprog", typeof(int),false);
+	tdidprog_alias2.defineColumn("idsede", typeof(int));
+	tdidprog_alias2.defineColumn("title", typeof(string));
+	tdidprog_alias2.ExtendedProperties["TableForReading"]="didprog";
+	Tables.Add(tdidprog_alias2);
+	tdidprog_alias2.defineKey("idcorsostudio", "iddidprog");
 
 	//////////////////// ISCRIZIONE /////////////////////////////////
 	var tiscrizione= new MetaTable("iscrizione");
@@ -230,6 +190,13 @@ private void initClass() {
 	Tables.Add(tiscrizione);
 	tiscrizione.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
 
+	//////////////////// SEDE /////////////////////////////////
+	var tsede= new MetaTable("sede");
+	tsede.defineColumn("idsede", typeof(int),false);
+	tsede.defineColumn("title", typeof(string));
+	Tables.Add(tsede);
+	tsede.defineKey("idsede");
+
 	//////////////////// DIDPROG /////////////////////////////////
 	var tdidprog= new MetaTable("didprog");
 	tdidprog.defineColumn("aa", typeof(string),false);
@@ -239,13 +206,6 @@ private void initClass() {
 	tdidprog.defineColumn("title", typeof(string));
 	Tables.Add(tdidprog);
 	tdidprog.defineKey("idcorsostudio", "iddidprog");
-
-	//////////////////// SEDE /////////////////////////////////
-	var tsede= new MetaTable("sede");
-	tsede.defineColumn("idsede", typeof(int),false);
-	tsede.defineColumn("title", typeof(string));
-	Tables.Add(tsede);
-	tsede.defineKey("idsede");
 
 	//////////////////// ATTIVFORM /////////////////////////////////
 	var tattivform= new MetaTable("attivform");
@@ -276,10 +236,10 @@ private void initClass() {
 	tconvalidato.defineColumn("iddidprog", typeof(int));
 	tconvalidato.defineColumn("idiscrizione", typeof(int));
 	tconvalidato.defineColumn("idiscrizione_from", typeof(int));
-	tconvalidato.defineColumn("idiscrizionebmi", typeof(int));
+	tconvalidato.defineColumn("idiscrizionebmi", typeof(int),false);
 	tconvalidato.defineColumn("idistanza", typeof(int));
 	tconvalidato.defineColumn("idlearningagrstud", typeof(int));
-	tconvalidato.defineColumn("idlearningagrtrainer", typeof(int));
+	tconvalidato.defineColumn("idlearningagrtrainer", typeof(int),false);
 	tconvalidato.defineColumn("idpratica", typeof(int));
 	tconvalidato.defineColumn("idreg", typeof(int),false);
 	tconvalidato.defineColumn("lt", typeof(DateTime),false);
@@ -298,7 +258,7 @@ private void initClass() {
 	tconvalidato.defineColumn("!idpratica_pratica_iddidprog_aa", typeof(string));
 	tconvalidato.defineColumn("!idpratica_pratica_iddidprog_idsede", typeof(int));
 	Tables.Add(tconvalidato);
-	tconvalidato.defineKey("idconvalida", "idconvalidato", "idreg");
+	tconvalidato.defineKey("idconvalida", "idconvalidato", "idiscrizionebmi", "idlearningagrtrainer", "idreg");
 
 	//////////////////// PRATICA /////////////////////////////////
 	var tpratica= new MetaTable("pratica");
@@ -314,31 +274,21 @@ private void initClass() {
 
 	//////////////////// ISCRIZIONEDEFAULTVIEW /////////////////////////////////
 	var tiscrizionedefaultview= new MetaTable("iscrizionedefaultview");
-	tiscrizionedefaultview.defineColumn("aa", typeof(string),false);
 	tiscrizionedefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tiscrizionedefaultview.defineColumn("idcorsostudio", typeof(int));
-	tiscrizionedefaultview.defineColumn("iddidprog", typeof(int));
+	tiscrizionedefaultview.defineColumn("idcorsostudio", typeof(int),false);
+	tiscrizionedefaultview.defineColumn("iddidprog", typeof(int),false);
 	tiscrizionedefaultview.defineColumn("idiscrizione", typeof(int),false);
 	tiscrizionedefaultview.defineColumn("idreg", typeof(int),false);
 	Tables.Add(tiscrizionedefaultview);
-	tiscrizionedefaultview.defineKey("idiscrizione");
+	tiscrizionedefaultview.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
 
 	//////////////////// DIDPROGDEFAULTVIEW /////////////////////////////////
 	var tdidprogdefaultview= new MetaTable("didprogdefaultview");
-	tdidprogdefaultview.defineColumn("aa", typeof(string));
 	tdidprogdefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tdidprogdefaultview.defineColumn("idareadidattica", typeof(int));
-	tdidprogdefaultview.defineColumn("idconvenzione", typeof(int));
 	tdidprogdefaultview.defineColumn("idcorsostudio", typeof(int),false);
 	tdidprogdefaultview.defineColumn("iddidprog", typeof(int),false);
-	tdidprogdefaultview.defineColumn("idgraduatoria", typeof(int));
-	tdidprogdefaultview.defineColumn("idnation_lang", typeof(int));
-	tdidprogdefaultview.defineColumn("idnation_lang2", typeof(int));
-	tdidprogdefaultview.defineColumn("idnation_langvis", typeof(int));
-	tdidprogdefaultview.defineColumn("idreg_docenti", typeof(int));
-	tdidprogdefaultview.defineColumn("idsessione", typeof(int));
 	Tables.Add(tdidprogdefaultview);
-	tdidprogdefaultview.defineKey("iddidprog");
+	tdidprogdefaultview.defineKey("idcorsostudio", "iddidprog");
 
 	//////////////////// DICHIAR /////////////////////////////////
 	var tdichiar= new MetaTable("dichiar");
@@ -363,10 +313,10 @@ private void initClass() {
 	tconvalida.defineColumn("iddidprog", typeof(int));
 	tconvalida.defineColumn("idiscrizione", typeof(int));
 	tconvalida.defineColumn("idiscrizione_from", typeof(int));
-	tconvalida.defineColumn("idiscrizionebmi", typeof(int));
+	tconvalida.defineColumn("idiscrizionebmi", typeof(int),false);
 	tconvalida.defineColumn("idistanza", typeof(int));
 	tconvalida.defineColumn("idlearningagrstud", typeof(int));
-	tconvalida.defineColumn("idlearningagrtrainer", typeof(int));
+	tconvalida.defineColumn("idlearningagrtrainer", typeof(int),false);
 	tconvalida.defineColumn("idpratica", typeof(int));
 	tconvalida.defineColumn("idreg", typeof(int),false);
 	tconvalida.defineColumn("lt", typeof(DateTime),false);
@@ -374,27 +324,105 @@ private void initClass() {
 	tconvalida.defineColumn("voto", typeof(decimal));
 	tconvalida.defineColumn("votolode", typeof(string));
 	tconvalida.defineColumn("votosu", typeof(int));
+	tconvalida.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tconvalida);
-	tconvalida.defineKey("idconvalida", "idreg");
+	tconvalida.defineKey("idconvalida", "idiscrizionebmi", "idlearningagrtrainer", "idreg");
+
+	//////////////////// GEO_NATION /////////////////////////////////
+	var tgeo_nation= new MetaTable("geo_nation");
+	tgeo_nation.defineColumn("idnation", typeof(int),false);
+	tgeo_nation.defineColumn("lang", typeof(string));
+	Tables.Add(tgeo_nation);
+	tgeo_nation.defineKey("idnation");
+
+	//////////////////// CEFRDEFAULTVIEW_ALIAS4 /////////////////////////////////
+	var tcefrdefaultview_alias4= new MetaTable("cefrdefaultview_alias4");
+	tcefrdefaultview_alias4.defineColumn("cefr_active", typeof(string));
+	tcefrdefaultview_alias4.defineColumn("dropdown_title", typeof(string),false);
+	tcefrdefaultview_alias4.defineColumn("idcefr", typeof(int),false);
+	tcefrdefaultview_alias4.ExtendedProperties["TableForReading"]="cefrdefaultview";
+	Tables.Add(tcefrdefaultview_alias4);
+	tcefrdefaultview_alias4.defineKey("idcefr");
+
+	//////////////////// CEFRDEFAULTVIEW_ALIAS3 /////////////////////////////////
+	var tcefrdefaultview_alias3= new MetaTable("cefrdefaultview_alias3");
+	tcefrdefaultview_alias3.defineColumn("cefr_active", typeof(string));
+	tcefrdefaultview_alias3.defineColumn("dropdown_title", typeof(string),false);
+	tcefrdefaultview_alias3.defineColumn("idcefr", typeof(int),false);
+	tcefrdefaultview_alias3.ExtendedProperties["TableForReading"]="cefrdefaultview";
+	Tables.Add(tcefrdefaultview_alias3);
+	tcefrdefaultview_alias3.defineKey("idcefr");
+
+	//////////////////// CEFRDEFAULTVIEW_ALIAS2 /////////////////////////////////
+	var tcefrdefaultview_alias2= new MetaTable("cefrdefaultview_alias2");
+	tcefrdefaultview_alias2.defineColumn("cefr_active", typeof(string));
+	tcefrdefaultview_alias2.defineColumn("dropdown_title", typeof(string),false);
+	tcefrdefaultview_alias2.defineColumn("idcefr", typeof(int),false);
+	tcefrdefaultview_alias2.ExtendedProperties["TableForReading"]="cefrdefaultview";
+	Tables.Add(tcefrdefaultview_alias2);
+	tcefrdefaultview_alias2.defineKey("idcefr");
+
+	//////////////////// CEFRDEFAULTVIEW_ALIAS1 /////////////////////////////////
+	var tcefrdefaultview_alias1= new MetaTable("cefrdefaultview_alias1");
+	tcefrdefaultview_alias1.defineColumn("cefr_active", typeof(string));
+	tcefrdefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	tcefrdefaultview_alias1.defineColumn("idcefr", typeof(int),false);
+	tcefrdefaultview_alias1.ExtendedProperties["TableForReading"]="cefrdefaultview";
+	Tables.Add(tcefrdefaultview_alias1);
+	tcefrdefaultview_alias1.defineKey("idcefr");
+
+	//////////////////// CEFRDEFAULTVIEW /////////////////////////////////
+	var tcefrdefaultview= new MetaTable("cefrdefaultview");
+	tcefrdefaultview.defineColumn("cefr_active", typeof(string));
+	tcefrdefaultview.defineColumn("cefr_descriptioncompasc", typeof(string),false);
+	tcefrdefaultview.defineColumn("cefr_descriptioncomplett", typeof(string),false);
+	tcefrdefaultview.defineColumn("cefr_descriptionparlinter", typeof(string),false);
+	tcefrdefaultview.defineColumn("cefr_descriptionparlprod", typeof(string),false);
+	tcefrdefaultview.defineColumn("cefr_descriptionscritto", typeof(string),false);
+	tcefrdefaultview.defineColumn("cefr_lt", typeof(DateTime),false);
+	tcefrdefaultview.defineColumn("cefr_lu", typeof(string),false);
+	tcefrdefaultview.defineColumn("cefr_sortcode", typeof(int),false);
+	tcefrdefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tcefrdefaultview.defineColumn("idcefr", typeof(int),false);
+	tcefrdefaultview.defineColumn("title", typeof(string),false);
+	Tables.Add(tcefrdefaultview);
+	tcefrdefaultview.defineKey("idcefr");
+
+	//////////////////// CEFRLANGLEVEL /////////////////////////////////
+	var tcefrlanglevel= new MetaTable("cefrlanglevel");
+	tcefrlanglevel.defineColumn("ct", typeof(DateTime),false);
+	tcefrlanglevel.defineColumn("cu", typeof(string),false);
+	tcefrlanglevel.defineColumn("idaccordoscambiomi", typeof(int));
+	tcefrlanglevel.defineColumn("idaccordoscambiomidett", typeof(int));
+	tcefrlanglevel.defineColumn("idaccordoscambiomidettaz", typeof(int));
+	tcefrlanglevel.defineColumn("idaccordoscambiomidettlangkind", typeof(int));
+	tcefrlanglevel.defineColumn("idcefr_compasc", typeof(int));
+	tcefrlanglevel.defineColumn("idcefr_complett", typeof(int));
+	tcefrlanglevel.defineColumn("idcefr_parlinter", typeof(int));
+	tcefrlanglevel.defineColumn("idcefr_parlprod", typeof(int));
+	tcefrlanglevel.defineColumn("idcefr_scritto", typeof(int));
+	tcefrlanglevel.defineColumn("idcefrlanglevel", typeof(int),false);
+	tcefrlanglevel.defineColumn("idiscrizionebmi", typeof(int),false);
+	tcefrlanglevel.defineColumn("idlearningagrstud", typeof(int));
+	tcefrlanglevel.defineColumn("idlearningagrtrainer", typeof(int),false);
+	tcefrlanglevel.defineColumn("idnation", typeof(int));
+	tcefrlanglevel.defineColumn("lt", typeof(DateTime),false);
+	tcefrlanglevel.defineColumn("lu", typeof(string),false);
+	tcefrlanglevel.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tcefrlanglevel);
+	tcefrlanglevel.defineKey("idcefrlanglevel", "idiscrizionebmi", "idlearningagrtrainer");
 
 	//////////////////// REGISTRYAZIENDEVIEW /////////////////////////////////
 	var tregistryaziendeview= new MetaTable("registryaziendeview");
 	tregistryaziendeview.defineColumn("dropdown_title", typeof(string),false);
-	tregistryaziendeview.defineColumn("idateco", typeof(int));
-	tregistryaziendeview.defineColumn("idcategory", typeof(string));
-	tregistryaziendeview.defineColumn("idcity", typeof(int));
-	tregistryaziendeview.defineColumn("idnace", typeof(string));
-	tregistryaziendeview.defineColumn("idnation", typeof(int));
-	tregistryaziendeview.defineColumn("idnaturagiur", typeof(int));
-	tregistryaziendeview.defineColumn("idnumerodip", typeof(int));
 	tregistryaziendeview.defineColumn("idreg", typeof(int),false);
-	tregistryaziendeview.defineColumn("idregistryclass", typeof(string));
-	tregistryaziendeview.defineColumn("residence", typeof(int),false);
+	tregistryaziendeview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistryaziendeview);
 	tregistryaziendeview.defineKey("idreg");
 
 	//////////////////// LEARNINGAGRTRAINERVALUT /////////////////////////////////
 	var tlearningagrtrainervalut= new MetaTable("learningagrtrainervalut");
+	tlearningagrtrainervalut.defineColumn("active", typeof(string),false);
 	tlearningagrtrainervalut.defineColumn("description", typeof(string));
 	tlearningagrtrainervalut.defineColumn("idlearningagrtrainervalut", typeof(int),false);
 	tlearningagrtrainervalut.defineColumn("title", typeof(string),false);
@@ -403,18 +431,27 @@ private void initClass() {
 
 	//////////////////// LEARNINGAGRTRAINERKIND /////////////////////////////////
 	var tlearningagrtrainerkind= new MetaTable("learningagrtrainerkind");
+	tlearningagrtrainerkind.defineColumn("active", typeof(string),false);
 	tlearningagrtrainerkind.defineColumn("idlearningagrtrainerkind", typeof(int),false);
+	tlearningagrtrainerkind.defineColumn("lt", typeof(DateTime),false);
+	tlearningagrtrainerkind.defineColumn("lu", typeof(string),false);
+	tlearningagrtrainerkind.defineColumn("sortcode", typeof(int),false);
 	tlearningagrtrainerkind.defineColumn("title", typeof(string),false);
 	Tables.Add(tlearningagrtrainerkind);
 	tlearningagrtrainerkind.defineKey("idlearningagrtrainerkind");
 
-	//////////////////// LEARNINGAGRKIND /////////////////////////////////
-	var tlearningagrkind= new MetaTable("learningagrkind");
-	tlearningagrkind.defineColumn("description", typeof(string));
-	tlearningagrkind.defineColumn("idlearningagrkind", typeof(int),false);
-	tlearningagrkind.defineColumn("title", typeof(string));
-	Tables.Add(tlearningagrkind);
-	tlearningagrkind.defineKey("idlearningagrkind");
+	//////////////////// LEARNINGAGRKINDDEFAULTVIEW /////////////////////////////////
+	var tlearningagrkinddefaultview= new MetaTable("learningagrkinddefaultview");
+	tlearningagrkinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tlearningagrkinddefaultview.defineColumn("idlearningagrkind", typeof(int),false);
+	tlearningagrkinddefaultview.defineColumn("learningagrkind_active", typeof(string));
+	tlearningagrkinddefaultview.defineColumn("learningagrkind_description", typeof(string));
+	tlearningagrkinddefaultview.defineColumn("learningagrkind_lt", typeof(DateTime),false);
+	tlearningagrkinddefaultview.defineColumn("learningagrkind_lu", typeof(string),false);
+	tlearningagrkinddefaultview.defineColumn("learningagrkind_sortcode", typeof(int),false);
+	tlearningagrkinddefaultview.defineColumn("title", typeof(string));
+	Tables.Add(tlearningagrkinddefaultview);
+	tlearningagrkinddefaultview.defineKey("idlearningagrkind");
 
 	//////////////////// GEO_CITY /////////////////////////////////
 	var tgeo_city= new MetaTable("geo_city");
@@ -472,49 +509,21 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{learningagrtrainer.Columns["idiscrizionebmi"], learningagrtrainer.Columns["idlearningagrtrainer"], learningagrtrainer.Columns["idnation"]};
-	var cChild = new []{cefrlanglevel.Columns["idiscrizionebmi"], cefrlanglevel.Columns["idlearningagrtrainer"], cefrlanglevel.Columns["idnation"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_learningagrtrainer_idiscrizionebmi-idlearningagrtrainer-idnation",cPar,cChild,false));
-
-	cPar = new []{geo_nation.Columns["idnation"]};
-	cChild = new []{cefrlanglevel.Columns["idnation"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_geo_nation_idnation",cPar,cChild,false));
-
-	cPar = new []{cefrdefaultview_alias4.Columns["idcefr"]};
-	cChild = new []{cefrlanglevel.Columns["idcefr_scritto"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias4_idcefr_scritto",cPar,cChild,false));
-
-	cPar = new []{cefrdefaultview_alias3.Columns["idcefr"]};
-	cChild = new []{cefrlanglevel.Columns["idcefr_parlprod"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias3_idcefr_parlprod",cPar,cChild,false));
-
-	cPar = new []{cefrdefaultview_alias2.Columns["idcefr"]};
-	cChild = new []{cefrlanglevel.Columns["idcefr_parlinter"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias2_idcefr_parlinter",cPar,cChild,false));
-
-	cPar = new []{cefrdefaultview_alias1.Columns["idcefr"]};
-	cChild = new []{cefrlanglevel.Columns["idcefr_complett"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias1_idcefr_complett",cPar,cChild,false));
-
-	cPar = new []{cefrdefaultview.Columns["idcefr"]};
-	cChild = new []{cefrlanglevel.Columns["idcefr_compasc"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_idcefr_compasc",cPar,cChild,false));
-
-	cPar = new []{learningagrtrainer.Columns["idiscrizionebmi"], learningagrtrainer.Columns["idlearningagrtrainer"], learningagrtrainer.Columns["idreg"]};
-	cChild = new []{convalida.Columns["idiscrizionebmi"], convalida.Columns["idlearningagrtrainer"], convalida.Columns["idreg"]};
+	var cPar = new []{learningagrtrainer.Columns["idiscrizionebmi"], learningagrtrainer.Columns["idlearningagrtrainer"], learningagrtrainer.Columns["idreg"]};
+	var cChild = new []{convalida.Columns["idiscrizionebmi"], convalida.Columns["idlearningagrtrainer"], convalida.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalida_learningagrtrainer_idiscrizionebmi-idlearningagrtrainer-idreg",cPar,cChild,false));
 
-	cPar = new []{convalida.Columns["idconvalida"], convalida.Columns["idreg"]};
-	cChild = new []{convalidato.Columns["idconvalida"], convalidato.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_convalidato_convalida_idconvalida-idreg",cPar,cChild,false));
+	cPar = new []{convalida.Columns["idconvalida"], convalida.Columns["idiscrizionebmi"], convalida.Columns["idlearningagrtrainer"], convalida.Columns["idreg"]};
+	cChild = new []{convalidato.Columns["idconvalida"], convalidato.Columns["idiscrizionebmi"], convalidato.Columns["idlearningagrtrainer"], convalidato.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_convalidato_convalida_idconvalida-idiscrizionebmi-idlearningagrtrainer-idreg",cPar,cChild,false));
 
 	cPar = new []{pratica_alias2.Columns["idpratica"]};
 	cChild = new []{convalidato.Columns["idpratica"]};
 	Relations.Add(new DataRelation("FK_convalidato_pratica_alias2_idpratica",cPar,cChild,false));
 
-	cPar = new []{didprog.Columns["iddidprog"]};
+	cPar = new []{didprog_alias3.Columns["iddidprog"]};
 	cChild = new []{pratica_alias2.Columns["iddidprog"]};
-	Relations.Add(new DataRelation("FK_pratica_alias2_didprog_iddidprog",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_pratica_alias2_didprog_alias3_iddidprog",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{pratica_alias2.Columns["idreg"]};
@@ -524,9 +533,9 @@ private void initClass() {
 	cChild = new []{convalidato.Columns["idiscrizione"]};
 	Relations.Add(new DataRelation("FK_convalidato_iscrizione_idiscrizione",cPar,cChild,false));
 
-	cPar = new []{didprog.Columns["iddidprog"]};
+	cPar = new []{didprog_alias2.Columns["iddidprog"]};
 	cChild = new []{iscrizione.Columns["iddidprog"]};
-	Relations.Add(new DataRelation("FK_iscrizione_didprog_iddidprog",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_iscrizione_didprog_alias2_iddidprog",cPar,cChild,false));
 
 	cPar = new []{didprog.Columns["iddidprog"]};
 	cChild = new []{convalidato.Columns["iddidprog"]};
@@ -556,6 +565,34 @@ private void initClass() {
 	cChild = new []{convalida.Columns["iddichiar"]};
 	Relations.Add(new DataRelation("FK_convalida_dichiar_iddichiar",cPar,cChild,false));
 
+	cPar = new []{learningagrtrainer.Columns["idiscrizionebmi"], learningagrtrainer.Columns["idlearningagrtrainer"], learningagrtrainer.Columns["idnation"]};
+	cChild = new []{cefrlanglevel.Columns["idiscrizionebmi"], cefrlanglevel.Columns["idlearningagrtrainer"], cefrlanglevel.Columns["idnation"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_learningagrtrainer_idiscrizionebmi-idlearningagrtrainer-idnation",cPar,cChild,false));
+
+	cPar = new []{geo_nation.Columns["idnation"]};
+	cChild = new []{cefrlanglevel.Columns["idnation"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_geo_nation_idnation",cPar,cChild,false));
+
+	cPar = new []{cefrdefaultview_alias4.Columns["idcefr"]};
+	cChild = new []{cefrlanglevel.Columns["idcefr_scritto"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias4_idcefr_scritto",cPar,cChild,false));
+
+	cPar = new []{cefrdefaultview_alias3.Columns["idcefr"]};
+	cChild = new []{cefrlanglevel.Columns["idcefr_parlprod"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias3_idcefr_parlprod",cPar,cChild,false));
+
+	cPar = new []{cefrdefaultview_alias2.Columns["idcefr"]};
+	cChild = new []{cefrlanglevel.Columns["idcefr_parlinter"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias2_idcefr_parlinter",cPar,cChild,false));
+
+	cPar = new []{cefrdefaultview_alias1.Columns["idcefr"]};
+	cChild = new []{cefrlanglevel.Columns["idcefr_complett"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_alias1_idcefr_complett",cPar,cChild,false));
+
+	cPar = new []{cefrdefaultview.Columns["idcefr"]};
+	cChild = new []{cefrlanglevel.Columns["idcefr_compasc"]};
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefrdefaultview_idcefr_compasc",cPar,cChild,false));
+
 	cPar = new []{registryaziendeview.Columns["idreg"]};
 	cChild = new []{learningagrtrainer.Columns["idreg_aziende"]};
 	Relations.Add(new DataRelation("FK_learningagrtrainer_registryaziendeview_idreg_aziende",cPar,cChild,false));
@@ -568,9 +605,9 @@ private void initClass() {
 	cChild = new []{learningagrtrainer.Columns["idlearningagrtrainerkind"]};
 	Relations.Add(new DataRelation("FK_learningagrtrainer_learningagrtrainerkind_idlearningagrtrainerkind",cPar,cChild,false));
 
-	cPar = new []{learningagrkind.Columns["idlearningagrkind"]};
+	cPar = new []{learningagrkinddefaultview.Columns["idlearningagrkind"]};
 	cChild = new []{learningagrtrainer.Columns["idlearningagrkind"]};
-	Relations.Add(new DataRelation("FK_learningagrtrainer_learningagrkind_idlearningagrkind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_learningagrtrainer_learningagrkinddefaultview_idlearningagrkind",cPar,cChild,false));
 
 	cPar = new []{geo_city.Columns["idcity"]};
 	cChild = new []{learningagrtrainer.Columns["idcity"]};

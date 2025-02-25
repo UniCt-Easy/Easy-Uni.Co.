@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -56,6 +56,7 @@ namespace avcptrasmission_default {
 
         public FrmNoTable_AvcpTrasmission() {
             InitializeComponent();
+            folderAsk = createFolderBrowserDialog(_folderAsk);
             folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente già presenti saranno sovrascritti.";
         }
         public void MetaData_AfterLink() {
@@ -162,7 +163,11 @@ namespace avcptrasmission_default {
                 string filename = filedir + getSimpleDataFilename(0);
                 StringBuilder s=getDataFile(header,currDS);
                 writeStringToFile(filename, s.ToString());
-                show("Creato il file " + filename, "Avviso");
+
+                if (isBlazor())
+                    show("File scaricato", "Avviso");
+                else
+                    show("Creato il file " + filename, "Avviso");
                 VisualizzaAvvisi();
                 return;
             }
@@ -179,7 +184,11 @@ namespace avcptrasmission_default {
                 string fdataName = filedir + getSimpleDataFilename(num);
                 writeStringToFile(fdataName, d.ToString());
             }
-            show("Creati i file: " + getSimpleIndexName + " e " + getSimpleDataFilename(1) +
+
+            if (isBlazor())
+                show("File scaricati", "Avviso");
+            else
+                show("Creati i file: " + getSimpleIndexName + " e " + getSimpleDataFilename(1) +
                   " - " + getSimpleDataFilename(allDataSet.Count) + " nella cartella " +
                   filedir, "Avviso");
             VisualizzaAvvisi();
@@ -192,7 +201,7 @@ namespace avcptrasmission_default {
             foreach (string f in new string[] {"titolo","abstract"}) {
                 AddTaggedContent(s, f, format(rAvcp[f]));
             }
-			 AddTaggedContent(s, "dataPubblicazioneIndice", format(rAvcp["datapubblicazionedataset"]));
+			AddTaggedContent(s, "dataPubblicazioneIndice", format(rAvcp["datapubblicazionedataset"]));
 		 
 			AddTaggedContent(s, "entePubblicatore", format(rAvcp["entePubblicatore"]));
             AddTaggedContent(s, "dataUltimoAggiornamentoIndice", format(rAvcp["dataUltimoAggiornamentoDataset"]));
@@ -250,12 +259,12 @@ namespace avcptrasmission_default {
 
 
         const string htmlpref = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
-         const string openmain=   "<legge190:pubblicazione xsi:schemaLocation=\"legge190_1_0 datasetAppaltiL190.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:legge190=\"legge190_1_0\">";
-         const string closemain = "</legge190:pubblicazione>\r\n";
-         const string opendata = "<data>";
-         const string closedata = "</data>\r\n";
-         int envelopeSize;
-         const int maxDsSize = 5 * 1024 * 1024 - 100000;
+        const string openmain=   "<legge190:pubblicazione xsi:schemaLocation=\"legge190_1_0 datasetAppaltiL190.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:legge190=\"legge190_1_0\">";
+        const string closemain = "</legge190:pubblicazione>\r\n";
+        const string opendata = "<data>";
+        const string closedata = "</data>\r\n";
+        int envelopeSize;
+        const int maxDsSize = 5 * 1024 * 1024 - 100000;
 
         string getTaggedContent(string tag, string content) {
             return "<" + tag + ">" +  content + "</" + tag + ">\r\n";
@@ -350,7 +359,8 @@ namespace avcptrasmission_default {
 
 
         void writeStringToFile(string fname, string content) {
-            File.WriteAllText(fname,content);            
+            File.WriteAllText(fname,content);
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fname, false);
         }
 
         

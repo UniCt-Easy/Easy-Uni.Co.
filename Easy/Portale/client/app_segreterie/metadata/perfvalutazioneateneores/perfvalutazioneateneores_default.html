@@ -2,7 +2,7 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabperfvalutazioneateneores_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabperfvalutazioneateneores_default_0"><i class="fa fa-poll mr-1"></i>Principale</a>
+		<a href="#tabperfvalutazioneateneores_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabperfvalutazioneateneores_default_0"><i class="fa fa-dot-circle-o mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
 		<a href="#tabperfvalutazioneateneores_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabperfvalutazioneateneores_default_1"><i class="fa fa-paperclip mr-1"></i>Allegati</a>
@@ -15,26 +15,26 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_idperfmission">Missione istituzionale</label>
-					<select id="perfvalutazioneateneores_default_idperfmission" class="custom-select d-block w-100"  data-source-name="perfmission" data-value-member="idperfmission" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="perfvalutazioneateneores.idperfmission"  data-mandatory  > </select>
+					<select id="perfvalutazioneateneores_default_idperfmission" class="custom-select d-block w-100"  data-source-name="perfmissiondefaultview" data-value-member="idperfmission" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="perfvalutazioneateneores.idperfmission?perfvalutazioneateneoresdefaultview.idperfmission"  data-mandatory  > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneateneores_default_indicatore" >Titolo dell’indicatore come ad esempio “iscritti”, “Tempestività dei pagamenti”, ecc;</div>
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_indicatore">Indicatore</label>
-					<input id="perfvalutazioneateneores_default_indicatore" type="text" class="form-control" data-tag="perfvalutazioneateneores.indicatore"  />
+					<input id="perfvalutazioneateneores_default_indicatore" type="text" class="form-control" data-tag="perfvalutazioneateneores.indicatore?perfvalutazioneateneoresdefaultview.perfvalutazioneateneores_indicatore"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneateneores_default_target" >Descrizione del target come ad esempio “2020/2021 >= 13500”, “2020: -7,4g”, ecc</div>
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_target">Target</label>
-					<input id="perfvalutazioneateneores_default_target" type="text" class="form-control" data-tag="perfvalutazioneateneores.target"  />
+					<input id="perfvalutazioneateneores_default_target" type="text" class="form-control" data-tag="perfvalutazioneateneores.target?perfvalutazioneateneoresdefaultview.perfvalutazioneateneores_target"  />
 				</div>
 				<div class="col-md-6">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneateneores_default_valoreraggiunto" >Descrizione del valore raggiunto come ad esempio “2020/2021 >= 14374”, “2020: -7,83g”, ecc</div>
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_valoreraggiunto">Valore raggiunto</label>
-					<input id="perfvalutazioneateneores_default_valoreraggiunto" type="text" class="form-control" data-tag="perfvalutazioneateneores.valoreraggiunto"  />
+					<input id="perfvalutazioneateneores_default_valoreraggiunto" type="text" class="form-control" data-tag="perfvalutazioneateneores.valoreraggiunto?perfvalutazioneateneoresdefaultview.perfvalutazioneateneores_valoreraggiunto"  />
 				</div>
 			</div>
 			<div class="row">
@@ -42,30 +42,30 @@
 					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneateneores_default_percentualeraggiunta" >Esprime la percentuale tra il target e il valore aggiunto
 </div>
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_percentualeraggiunta">Percentuale raggiunta</label>
-					<input id="perfvalutazioneateneores_default_percentualeraggiunta" type="text" class="form-control" data-tag="perfvalutazioneateneores.percentualeraggiunta.fixed.2"  />
+					<input id="perfvalutazioneateneores_default_percentualeraggiunta" type="text" class="form-control" data-tag="perfvalutazioneateneores.percentualeraggiunta.fixed.2?perfvalutazioneateneoresdefaultview.perfvalutazioneateneores_percentualeraggiunta"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_peso">Peso</label>
-					<input id="perfvalutazioneateneores_default_peso" type="text" class="form-control" data-tag="perfvalutazioneateneores.peso.fixed.2"  />
+					<input id="perfvalutazioneateneores_default_peso" type="text" class="form-control" data-tag="perfvalutazioneateneores.peso.fixed.2?perfvalutazioneateneoresdefaultview.perfvalutazioneateneores_peso"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="custom_lng_div" data-langkey="fieldlabelperfvalutazioneateneores_default_fonte" >Descrizione della fonte del dato come ad esempio “Cruscotto ANS” o “MIUR FFO” , ecc</div>
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_fonte">Fonte</label>
-					<input id="perfvalutazioneateneores_default_fonte" type="text" class="form-control" data-tag="perfvalutazioneateneores.fonte"  />
+					<input id="perfvalutazioneateneores_default_fonte" type="text" class="form-control" data-tag="perfvalutazioneateneores.fonte?perfvalutazioneateneoresdefaultview.fonte"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_idreg">Compilatore</label>
 					<div>
-						<input id="perfvalutazioneateneores_default_idreg" name="perfvalutazioneateneores_default_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getdocentiamministrativiresponsabilidefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="perfvalutazioneateneores_default_idreg" name="perfvalutazioneateneores_default_idreg" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getdocentiamministrativiresponsabilidefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="perfvalutazioneateneores_default_Note">Note</label>
-					<textarea class="textarea form-control" id="perfvalutazioneateneores_default_Note" type="text"  rows="4" data-tag="perfvalutazioneateneores.Note"  ></textarea>
+					<textarea class="textarea form-control" id="perfvalutazioneateneores_default_Note" type="text"  rows="4" data-tag="perfvalutazioneateneores.Note?perfvalutazioneateneoresdefaultview.perfvalutazioneateneores_Note"  ></textarea>
 				</div>
 			</div>
 			<div class="row">

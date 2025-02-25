@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 using funzioni_configurazione;
 using System.IO;
-
+using System.Linq;
 
 namespace no_table_consolidclientiforn {
     public partial class FrmConsolidamentoClientiFornitori : MetaDataForm {
@@ -35,10 +35,22 @@ namespace no_table_consolidclientiforn {
         ISaveFileDialog saveFileDialog1;
         IFolderBrowserDialog folderBrowserDialog1;
 
+        OpenFileDialog _openFileDialogBlazor;
+        IOpenFileDialog openFileDialogBlazor;
+
         public FrmConsolidamentoClientiFornitori() {
             InitializeComponent();
             saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            openFileDialogBlazor = createOpenFileDialog(_openFileDialogBlazor);
+
+            if (isBlazor())
+			{
+                txtCartella.Visible = false;
+                btnScegliCartella.Visible = false;
+                txtFile.Visible = false;
+                openFileDialogBlazor.Multiselect = true;
+			}
         }
 
         private void btnScegliCartella_Click(object sender, EventArgs e) {
@@ -343,9 +355,26 @@ namespace no_table_consolidclientiforn {
             }
             DS.cliente.Clear();
             DS.fornitore.Clear();
-            DirectoryInfo di = new DirectoryInfo(txtCartella.Text);
+
+            FileInfo[] fileNames = null;
+
+            if (isBlazor())
+			{
+                DialogResult dr = openFileDialogBlazor.ShowDialog();
+
+                if (dr == DialogResult.OK)
+                    fileNames = openFileDialogBlazor.FileNames.Select(fn => new FileInfo(fn)).ToArray();
+			}
+            else
+			{
+                DirectoryInfo di = new DirectoryInfo(txtCartella.Text);
+                fileNames = di.GetFiles();
+            }
+
+            if (fileNames == null) return;
+
             char[] record = new char[1800];
-            foreach (FileInfo f in di.GetFiles()) {
+            foreach (FileInfo f in fileNames) {
                 StreamReader sr = new StreamReader(f.FullName, Encoding.Default);
                 Console.WriteLine(f);
                 do {
@@ -382,7 +411,17 @@ namespace no_table_consolidclientiforn {
             scriviRecord3(sw);
             scriviRecordDiTestaODiCoda(9, sw, tRecordTestaECoda.Rows[0]);
             sw.Close();
-            show(this, "Elenco clienti/fornitori salvato in " + txtFile.Text);
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(txtFile.Text, false);
+
+            string message;
+
+            if (isBlazor())
+                message = "Elenco clienti/fornitori scaricato";
+            else
+                message = "Elenco clienti/fornitori salvato in " + txtFile.Text;
+
+            show(this, message);
             DS.cliente.AcceptChanges();
             DS.fornitore.AcceptChanges();
             btnClienti.Enabled = true;
@@ -400,6 +439,15 @@ namespace no_table_consolidclientiforn {
             PostData.MarkAsTemporaryTable(DS.cliente, false);
             PostData.MarkAsTemporaryTable(DS.fornitore, false);
         }
+
+        public void MetaData_AfterFill()
+		{
+            if (isBlazor())
+			{
+                if (string.IsNullOrEmpty(txtCartella.Text) && (editMode || insertMode))
+                    btnScegliCartella.PerformClick();
+			}
+		}
 
         private void btnClienti_Click(object sender, EventArgs e) {
             if (DS.cliente.Rows.Count == 0) {

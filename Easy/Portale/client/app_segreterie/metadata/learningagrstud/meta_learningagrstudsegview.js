@@ -23,12 +23,16 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'learningagrkind_title', 'Tipologia Tipologia di learning agreement', null, 50, 50);
-						this.describeAColumn(table, 'learningagrkind_description', 'Descrizione Tipologia di learning agreement', null, 50, 256);
-						this.describeAColumn(table, 'registryistitutiesteri_title', 'Istituto', null, 70, 101);
-						this.describeAColumn(table, 'learningagrstud_note', 'Note', null, 80, -1);
-						this.describeAColumn(table, 'learningagrstud_start', 'Data di inizio', null, 90, null);
-						this.describeAColumn(table, 'learningagrstud_stop', 'Data di fine', null, 100, null);
+						this.describeAColumn(table, 'learningagrkind_title', 'Tipologia di learning agreement', null, 5200, 50);
+						this.describeAColumn(table, 'registryistitutiesteri_title', 'Istituto', null, 7300, 101);
+						this.describeAColumn(table, 'learningagrstud_note', 'Note', null, 8000, -1);
+						this.describeAColumn(table, 'learningagrstud_start', 'Data di inizio', null, 9000, null);
+						this.describeAColumn(table, 'learningagrstud_stop', 'Data di fine', null, 10000, null);
+						this.describeAColumn(table, 'department', 'Dipartimento estero', null, 15000, 2048);
+						this.describeAColumn(table, 'eqf_level', 'Livello EQF', null, 16100, null);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Dipartimento locale', null, 17100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Dipartimento locale', null, 17220, 50);
+						this.describeAColumn(table, 'mobilityperiodtype_title', 'Periodo', null, 18200, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

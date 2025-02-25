@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +39,8 @@ namespace itinerationrefundattachment_single {
 		}
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
-		}
+            //GetData.CacheTable(DS.itinerationrefundattachmentkind, null, null, true);
+        }
         public void MetaData_AfterFill() {
             DataRow R = DS.itinerationrefundattachment.Rows[0];
             btnVisualizza.Visible = true;

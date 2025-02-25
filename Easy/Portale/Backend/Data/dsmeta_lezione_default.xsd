@@ -43,7 +43,7 @@
               <xs:element name="iddidprogcurr" type="xs:int" />
               <xs:element name="iddidprogori" type="xs:int" />
               <xs:element name="iddidprogporzanno" type="xs:int" />
-              <xs:element name="idreg_docenti" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_docenti" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -260,9 +260,6 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="idcorsostudiolivello" type="xs:int" minOccurs="0" />
-              <xs:element name="idcorsostudionorma" type="xs:int" minOccurs="0" />
-              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -293,6 +290,7 @@
               <xs:element name="stage" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="titolo" type="xs:string" minOccurs="0" />
               <xs:element name="visita" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -301,7 +299,17 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:affidamentosegview" />
+      <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idaffidamento" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idreg_docenti" />
     </xs:unique>
     <xs:unique name="canale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:canale" />
@@ -317,18 +325,40 @@
     </xs:unique>
     <xs:unique name="attivformdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attivformdefaultview" />
+      <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="didprogporzannodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogporzannodefaultview" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
       <xs:field xpath="mstns:iddidprogporzanno" />
     </xs:unique>
     <xs:unique name="didprogannodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogannodefaultview" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
     </xs:unique>
     <xs:unique name="didprogoridefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogoridefaultview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidprogcurr" />
       <xs:field xpath="mstns:iddidprogori" />
     </xs:unique>
     <xs:unique name="didprogcurr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -339,6 +369,7 @@
     </xs:unique>
     <xs:unique name="didprogdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogdefaultview" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
     </xs:unique>
     <xs:unique name="corsostudiodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

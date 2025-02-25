@@ -27,7 +27,10 @@
 						this.describeAColumn(table, 'cf', 'Crediti formativi', 'fixed.2', 20, null);
 						this.describeAColumn(table, 'cfintegrazione', 'Crediti formativi di integrazione', 'fixed.2', 30, null);
 						this.describeAColumn(table, 'data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'idiscrizionebmi', 'Iscrizione al bando di mobilità internazionale', null, 100, null);
+						this.describeAColumn(table, 'iddichiar', 'Dichiarazione da convalidare', null, 60, null);
+						this.describeAColumn(table, 'iddidprog', 'Didattica programmata', null, 70, null);
+						this.describeAColumn(table, 'idiscrizione', 'Iscrizione', null, 80, null);
+						this.describeAColumn(table, 'idpratica', 'pratica di convalida', null, 140, null);
 						this.describeAColumn(table, 'voto', 'Voto', 'fixed.2', 160, null);
 						this.describeAColumn(table, 'votolode', 'Lode', null, 170, null);
 						this.describeAColumn(table, 'votosu', 'Su', null, 180, null);
@@ -148,6 +151,13 @@
 //$objCalcFieldConfig_segistabbr$
 						break;
 					case 'segmi':
+						this.describeAColumn(table, 'cf', 'Crediti formativi', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'cfintegrazione', 'Crediti formativi di integrazione', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'data', 'Data', 'g', 40, null);
+						this.describeAColumn(table, 'idconvalidakind', 'Tipologia', null, 50, null);
+						this.describeAColumn(table, 'voto', 'Voto', 'fixed.2', 160, null);
+						this.describeAColumn(table, 'votolode', 'Lode', null, 170, null);
+						this.describeAColumn(table, 'votosu', 'Su', null, 180, null);
 						this.describeAColumn(table, '!idconvalidakind_convalidakind_title', 'Tipologia', null, 51, null);
 						objCalcFieldConfig['!idconvalidakind_convalidakind_title'] = { tableNameLookup:'convalidakind', columnNameLookup:'title', columnNamekey:'idconvalidakind' };
 //$objCalcFieldConfig_segmi$
@@ -160,7 +170,34 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'segmitr':
+						table.columns["cf"].caption = "Crediti formativi";
+						table.columns["cfintegrazione"].caption = "Crediti formativi di integrazione";
+						table.columns["idconvalidakind"].caption = "Tipologia";
+						table.columns["iddichiar"].caption = "Dichiarazione da convalidare";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idiscrizione_from"].caption = "Iscrizione da cui convalidare i sostenimenti";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idlearningagrstud"].caption = "learning agreement for studies";
+						table.columns["idlearningagrtrainer"].caption = "Learning agreement for traineersheep";
+						table.columns["idpratica"].caption = "pratica di convalida";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["votolode"].caption = "Lode";
+						table.columns["votosu"].caption = "Su";
+//$innerSetCaptionConfig_segmitr$
+						break;
+					case 'segmi':
+						table.columns["cf"].caption = "Crediti formativi";
+//$innerSetCaptionConfig_segmi$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_convalida");
@@ -183,7 +220,15 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "segmitr": {
+						return "idconvalida asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -76,7 +76,7 @@ namespace ServizioRendicontazione
 			if (order != "")
 				method += $"&order={order}";
 
-			msg = method + "<br />";
+			msg = method + "\r\n";
 			string remote = service + method;
 			string clientUrl = common.api_url + service + method;
 
@@ -89,14 +89,16 @@ namespace ServizioRendicontazione
 				// =========================
 				if (common.auth_type_basic)
 				{
-					// =========================
-					// BASIC AUTHENTICATION
-					// =========================
-					// Header
-					//   - Authorization: Token **************************************
-					// =========================
-					client.DefaultRequestHeaders.Add("Authorization", "Token " + common.auth_basic_token);
-				}
+                    // =========================
+                    // BASIC AUTHENTICATION
+                    // =========================
+                    // Header
+                    //   - Authorization: Token **************************************
+                    // =========================
+                    client.DefaultRequestHeaders.Add("accept", "application/json");
+                    client.DefaultRequestHeaders.Add("Authorization", common.auth_basic_token);
+                    client.DefaultRequestHeaders.Add("X-Esse3-permit-invalid-jsessionid", "true");
+                }
 				else if (needAuthorize)
 				{
 					// =========================
@@ -187,7 +189,7 @@ namespace ServizioRendicontazione
 				}
 			}
 
-			msg += (error == "" ? $"Result Count: {cnt}" : error) + "<br/>";
+			msg += (error == "" ? $"Result Count: {cnt}" : error) + "\r\n";
 
 			return api;
 		}
@@ -253,7 +255,7 @@ namespace ServizioRendicontazione
 					if (order != "")
 						method += $"&order={order}";
 
-					msg = method + "<br />";
+					msg = method + "\r\n";
 					string remote = service + method;
 					string clientUrl = common.api_url + service + method;
 
@@ -270,8 +272,10 @@ namespace ServizioRendicontazione
 							// Header
 							//   - Authorization: Token **************************************
 							// =========================
-							client.DefaultRequestHeaders.Add("Authorization", "Token " + common.auth_basic_token);
-						}
+							client.DefaultRequestHeaders.Add("accept", "application/json");
+                            client.DefaultRequestHeaders.Add("Authorization", common.auth_basic_token);
+                            client.DefaultRequestHeaders.Add("X-Esse3-permit-invalid-jsessionid", "true");
+                        }
 						else if (needAuthorize)
 						{
 							// =========================
@@ -386,7 +390,7 @@ namespace ServizioRendicontazione
 				error = Ex.Message + Ex.InnerException?.Message;
 			}
 
-			msg += (error == "" ? $"Result Count: {fullList.Count}" : error) + "<br/>";
+			msg += (error == "" ? $"Result Count: {fullList.Count}" : error) + "\r\n";
 
 			return fullList;
 		}

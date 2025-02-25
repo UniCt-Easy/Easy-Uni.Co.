@@ -32,6 +32,16 @@
 					parentRow.start = new Date();
 				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = new Date();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#learningagrtrainer_seg_idlearningagrtrainervalut'), null);
+				} else {
+					this.helpForm.filter($('#learningagrtrainer_seg_idlearningagrtrainervalut'), this.q.eq('active', 'S'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#learningagrtrainer_seg_idreg_aziende'), null);
+				} else {
+					this.helpForm.filter($('#learningagrtrainer_seg_idreg_aziende'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -65,25 +75,6 @@
 				}
 
 				//beforeFillInside
-
-				//beforeFillInside
-
-				var dtcefrlanglevel = this.state.DS.tables["cefrlanglevel"];
-				if (dtcefrlanglevel.rows.length === 0) {
-					var metacefrlanglevel = appMeta.getMeta("cefrlanglevel");
-					metacefrlanglevel.setDefaults(dtcefrlanglevel);
-					var defcefrlanglevel = metacefrlanglevel.getNewRow(parentRow.getRow(), dtcefrlanglevel, self.editType).then(
-						function (currentRowcefrlanglevel) {
-							//defaultcefrlanglevelObject
-							return true;
-						}
-					);
-					arraydef.push(defcefrlanglevel);
-				}
-
-				//beforeFillInside
-
-				//beforeFillInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
@@ -96,14 +87,19 @@
 			},
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('convalida'));
+				//parte sincrona
+				this.helpForm.filter($('#learningagrtrainer_seg_idlearningagrtrainervalut'), null);
+				this.helpForm.filter($('#learningagrtrainer_seg_idreg_aziende'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('cefrlanglevel'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('convalida'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('convalida'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('cefrlanglevel'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('convalida'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
@@ -114,6 +110,12 @@
 				this.helpForm.addExtraEntity("convalida");
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.cefrlanglevel, "default", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("cefrlanglevel");
+				this.setDenyNull("learningagrtrainer","idlearningagrtrainer");
+				this.setDenyNull("learningagrtrainer","idbandomi");
+				this.setDenyNull("learningagrtrainer","idiscrizionebmi");
+				appMeta.metaModel.insertFilter(this.getDataTable("cefrdefaultview"), this.q.eq('cefr_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("learningagrkinddefaultview"), this.q.eq('learningagrkind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("learningagrtrainerkind"), this.q.eq('active', 'S'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

@@ -47,6 +47,11 @@
 				} else {
 					this.helpForm.filter($('#bandomi_seg_idresidence'), this.q.eq('active', 'S'));
 				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#bandomi_seg_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#bandomi_seg_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -66,13 +71,17 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#bandomi_seg_idresidence'), null);
+				this.helpForm.filter($('#bandomi_seg_idstruttura'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('cefrlanglevel'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('convalida_alias2'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrtrainer'), this.getDataTable('cefrlanglevel_alias1'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizionebmi'), this.getDataTable('cefrlanglevel_alias2'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -106,6 +115,10 @@
 				$("#btn_add_bandomirequisito_idrequisito").on("click", _.partial(this.searchAndAssignrequisito, self));
 				$("#btn_add_bandomirequisito_idrequisito").prop("disabled", true);
 				this.setDenyNull("bandomi","aa");
+				appMeta.metaModel.insertFilter(this.getDataTable("bandomobilitaintkinddefaultview"), this.q.eq('bandomobilitaintkind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("duratakinddefaultview"), this.q.eq('duratakind_active', 'Si'));
+				$('#grid_bandomistrutturefrom_seg').data('mdlconditionallookup', '!idstruttura_struttura_active,S,Si;!idstruttura_struttura_active,N,No;');
+				$('#grid_bandomistruttureto_seg').data('mdlconditionallookup', '!idstruttura_struttura_active,S,Si;!idstruttura_struttura_active,N,No;');
 				$('#grid_bandomiistitutiesteri_seg').data('mdlconditionallookup', '!idreg_registry_active,S,Si;!idreg_registry_active,N,No;');
 				$('#grid_bandomirequisito_seg').data('mdlconditionallookup', '!idrequisito_requisito_active,S,Si;!idrequisito_requisito_active,N,No;');
 				//fireAfterLink

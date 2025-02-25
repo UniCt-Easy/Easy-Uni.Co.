@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -807,7 +807,7 @@ namespace no_table_entry_rettifica {
                 rCommessa["idaccmotive_cost"] = Curr["idaccmotive_cost"];
                 rCommessa["idaccmotive_accruals"] = Curr["idaccmotive_accruals"];
                 rCommessa["idaccmotive_deferredcost"] = Curr["idaccmotive_deferredcost"];
-                rCommessa["accruals"] = CfgFn.GetNoNullDecimal(rCommessa["accruals"])+CfgFn.GetNoNullDecimal( Curr["accruals"]);
+                rCommessa["accruals"] = CfgFn.GetNoNullDecimal( Curr["accruals"]);
                     
                 rCommessa["yearstart"] = Curr["yearstart"];
                 rCommessa["yearstop"] = Curr["yearstop"];
@@ -1136,12 +1136,16 @@ namespace no_table_entry_rettifica {
             txtCurrent.Text = "";
             progBar.Value = 0;
             progBar.Update();
-            if (anyError) {
-	            show(this, "Generazione scritture completata con ERRORI " + lastUpbWithError + ".");
-            }
-            else {
-	            show(this, "Generazione scritture completata.");
-            }
+            //if (anyError) {
+            // show(this, "Generazione scritture completata con ERRORI " + lastUpbWithError + ".");
+            //}
+            //else {
+            // show(this, "Generazione scritture completata.");
+            //}
+            //if (!anyError) {
+            //    show(this, "Generazione scritture completata.");
+            //}
+            show(this, "Generazione scritture completata.");
             return true;
         }       
 

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -371,7 +371,7 @@ namespace service_anagrafica//tipoprestazione_Anagrafica//
 			// 
 			this.cboCausale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.cboCausale.DataSource = this.DS.motive770;
+			this.cboCausale.DataSource = this.DS.motive770service;
 			this.cboCausale.DisplayMember = "description";
 			this.cboCausale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cboCausale.Enabled = false;
@@ -1117,11 +1117,11 @@ namespace service_anagrafica//tipoprestazione_Anagrafica//
 			Meta.CanSave=IsAdmin;
 			Meta.CanInsert=IsAdmin;
 			Meta.CanInsertCopy=IsAdmin;
-			Meta.CanCancel=IsAdmin;			
-
+			Meta.CanCancel=IsAdmin;
+			int esercizio = (int)Meta.Conn.GetEsercizio();
 			int esercizioPrec = (int) Meta.Conn.GetEsercizio()- 1;
 			groupBox3.Text = "Causale 770/"+Meta.GetSys("esercizio")+" (si modifica da Configurazione/Compensi/Imposte/Causali 770 - Tipi di Prestazione)";
-			string filter=QHS.CmpEq("ayear",esercizioPrec);
+			string filter=QHS.CmpEq("ayear", esercizio);
 			GetData.SetStaticFilter(DS.motive770,filter);
 			GetData.SetStaticFilter(DS.motive770service,filter);
  

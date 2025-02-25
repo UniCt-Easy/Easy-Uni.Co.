@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -1006,7 +1006,92 @@ expenseflagseparatemanager 16
 
         }
 
-		void GeneraAutoMandati(DataSet Auto){
+        void GeneraExpenselastmandatedetail(DataSet Auto) {
+            int fasespesamax = getIntSys("maxexpensephase");
+            string filterExpense = QHC.AppAnd(QHS.CmpEq("nphase", fasespesamax), QHS.IsNotNull("autokind"));
+            DataRow[] AutoSpesa = Auto.Tables["expense"].Select(filterExpense);
+            if (AutoSpesa.Length == 0) return;
+            string idList = QueryCreator.ColumnValues(AutoSpesa, "idexp", false);
+            string filterlast =  "(idexp in (" + idList + "))";
+            DataRow[] LastSpesa = Auto.Tables["expenselast"].Select(filterlast);
+            if ((LastSpesa == null) || (LastSpesa.Length == 0)) return;
+
+            //Genera le righe in Incomelastestimatedetai per l'automatismo di entrata/spesa se l'accertamento/impegno collegato al recupero generato contabilizza un CA/CP non collegabile a fattura
+            MetaData Metaexpenselastmandatedetail = Disp.Get("expenselastmandatedetail");
+            Metaexpenselastmandatedetail.SetDefaults(Auto.Tables["expenselastmandatedetail"]);
+            foreach (DataRow S in LastSpesa) {
+                if (S.RowState != DataRowState.Added) continue;
+                string fIdMov = QHC.CmpEq("idexp", S["idexp"]);
+
+                DataRow rExpenseyear = Auto.Tables["expenseyear"].Select(fIdMov)[0];
+                DataRow rExpense = Auto.Tables["expense"].Select(fIdMov)[0];
+
+                int idautokind = CfgFn.GetNoNullInt32(rExpense["autokind"]);
+                if (idautokind >= 130 ) continue; //Sono mov. di Catania marcati con autokind loro: 130,131,132,133,167,233
+
+                DataTable dettMan = Conn.SQLRunner(
+                " select distinct dett.idmankind, dett.yman, dett.nman, dett.rownum from mandatedetailview dett " +
+                " join expenselink EL on dett.idexp_taxable = EL.idparent " +
+                "WHERE " + QHS.AppAnd(QHS.IsNull("stop"), QHS.CmpEq("dett.idexp_taxable", rExpense["parentidexp"]), QHS.CmpEq("dett.rowtotal", rExpenseyear["amount"])), true);
+                if ((dettMan == null) || (dettMan.Rows.Count == 0)) continue;
+                DataRow rdettMan = dettMan.Rows[0];
+
+                //Genera una riga...
+                MetaData.SetDefault(Auto.Tables["expenselastmandatedetail"], "idmankind", rdettMan["idmankind"]);
+                MetaData.SetDefault(Auto.Tables["expenselastmandatedetail"], "yman", rdettMan["yman"]);
+                MetaData.SetDefault(Auto.Tables["expenselastmandatedetail"], "nman", rdettMan["nman"]);
+                MetaData.SetDefault(Auto.Tables["expenselastmandatedetail"], "rownum", rdettMan["rownum"]);
+                MetaData.SetDefault(Auto.Tables["expenselastmandatedetail"], "amount", CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rExpenseyear["amount"])));
+                DataRow NewRow = Metaexpenselastmandatedetail.Get_New_Row(rExpense, Auto.Tables["expenselastmandatedetail"]);
+
+                NewRow["idexp"] = rExpenseyear["idexp"];
+            }
+        }
+        void GeneraIncomelastestimatedetail(DataSet Auto) {
+            int faseentratamax = getIntSys("maxincomephase");
+            string filterincome = QHC.AppAnd(QHS.CmpEq("nphase", faseentratamax), QHS.IsNotNull("autokind"));
+            DataRow[] AutoEntrata = Auto.Tables["income"].Select(filterincome);
+            if (AutoEntrata.Length == 0) return;
+            string idList = QueryCreator.ColumnValues(AutoEntrata, "idinc", false);
+            string filterlast = "(idinc in (" + idList + "))";
+            DataRow[] LastSpesa = Auto.Tables["incomelast"].Select(filterlast);
+            if ((LastSpesa == null) || (LastSpesa.Length == 0)) return;
+
+            //Genera le righe in Incomelastestimatedetai per l'automatismo di entrata/spesa se l'accertamento/impegno collegato al recupero generato contabilizza un CA/CP non collegabile a fattura
+            MetaData Metaincomelastmandatedetail = Disp.Get("incomelastestimatedetail");
+            Metaincomelastmandatedetail.SetDefaults(Auto.Tables["incomelastestimatedetail"]);
+            foreach (DataRow S in LastSpesa) {
+                if (S.RowState != DataRowState.Added) continue;
+                string fIdMov = QHC.CmpEq("idinc", S["idinc"]);
+
+                DataRow rincomeyear = Auto.Tables["incomeyear"].Select(fIdMov)[0];
+                DataRow rincome = Auto.Tables["income"].Select(fIdMov)[0];
+
+                int idautokind = CfgFn.GetNoNullInt32(rincome["autokind"]);
+                if (idautokind == IDAUTOKIND_RECUPERO) continue;
+                if (idautokind >= 130) continue; //Sono mov. di Catania marcati con autokind loro: 130,131,132,133,167,233
+
+                DataTable dettEstim = Conn.SQLRunner(
+                " select distinct dett.idestimkind, dett.yestim, dett.nestim, dett.rownum from estimatedetailview dett " +
+                " join estimatekind K on dett.idestimkind = K.idestimkind " +
+                " join incomelink EL on dett.idinc_taxable = EL.idparent " +
+                "WHERE " + QHS.AppAnd(QHS.IsNull("stop"), QHS.CmpEq("k.linktoinvoice", "N"), QHS.CmpEq("dett.idinc_taxable", rincome["parentidinc"]), QHS.CmpEq("dett.rowtotal", rincomeyear["amount"])), true);
+                if ((dettEstim == null) || (dettEstim.Rows.Count == 0)) continue;
+                DataRow rdettMan = dettEstim.Rows[0];
+
+                //Genera una riga...
+                MetaData.SetDefault(Auto.Tables["incomelastestimatedetail"], "idestimkind", rdettMan["idestimkind"]);
+                MetaData.SetDefault(Auto.Tables["incomelastestimatedetail"], "yestim", rdettMan["yestim"]);
+                MetaData.SetDefault(Auto.Tables["incomelastestimatedetail"], "nestim", rdettMan["nestim"]);
+                MetaData.SetDefault(Auto.Tables["incomelastestimatedetail"], "rownum", rdettMan["rownum"]);
+                MetaData.SetDefault(Auto.Tables["incomelastestimatedetail"], "amount", CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(rincomeyear["amount"])));
+                DataRow NewRow = Metaincomelastmandatedetail.Get_New_Row(rincome, Auto.Tables["incomelastestimatedetail"]);
+
+                NewRow["idinc"] = rincomeyear["idinc"];
+            }
+        }
+
+        void GeneraAutoMandati(DataSet Auto){
 			int fasespesamax = getIntSys("maxexpensephase");
             string filterExpense = QHC.AppAnd(QHS.CmpEq("nphase", fasespesamax), QHS.IsNotNull("autokind"));
             DataRow[] AutoSpesa = Auto.Tables["expense"].Select(filterExpense);
@@ -1255,8 +1340,7 @@ expenseflagseparatemanager 16
 
 		}
 
-
-		void GeneraAutoMandatiReversali(DataSet Auto){
+        void GeneraAutoMandatiReversali(DataSet Auto){
             int esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
             Dictionary<string,object> rconfig = Cache.config.ReadValuesFor(esercizio);
 
@@ -3202,9 +3286,9 @@ expenseflagseparatemanager 16
 			}
 
 		}
-        DataTable AutoRec = null;
+        
         void GeneraClassificazioniRecuperi(DataSet Auto, DataRow CurrMov, object idser) {
-            if (AutoRec==null) AutoRec = Conn.RUN_SELECT("autoclawbacksorting", "*", null,
+            DataTable AutoRec = Conn.RUN_SELECT("autoclawbacksorting", "*", null,
                 QHS.CmpEq("ayear", Conn.GetSys("esercizio")), null, true);
 
             if (AutoRec == null || AutoRec.Rows.Count == 0) {
@@ -3262,6 +3346,61 @@ expenseflagseparatemanager 16
 
         }
 
+
+        void GeneraIncomelastestimatedetail_suRecuperi(DataSet Auto, DataRow CurrMov) {
+            bool monofase = Conn.RUN_SELECT_COUNT("expensephase", null, true) == 1 ? true : false;
+            if (monofase) return;
+
+            //Genera le righe in Incomelastestimatedetai per l'automatismo di entrata/spesa se l'accertamento/impegno collegato al recupero generato contabilizza un CA/CP non collegabile a fattura
+            MetaData Metaincomelastestimatedetail = Disp.Get("incomelastestimatedetail");
+            DataTable Tincomelastestimatedetail = Auto.Tables["incomelastestimatedetail"];
+            Metaincomelastestimatedetail.SetDefaults(Tincomelastestimatedetail);
+
+            string filter_T = QHC.CmpEq("idpayment", CurrMov["idexp"]);
+            DataTable AutoIncCA = null;
+            //Esaminiamo le REVERSALI per i RECUPERI
+            if (Auto.Tables["income"] != null) {
+                DataTable T = Auto.Tables["income"];
+                foreach (DataRow R in T.Select(filter_T)) {
+                    if (R["parentidinc"] == DBNull.Value) continue;
+                    int idautokind = CfgFn.GetNoNullInt32(R["autokind"]);
+                    if (idautokind != IDAUTOKIND_RECUPERO) continue;
+                    object codicerec = CfgFn.GetNoNullInt32(R["autocode"]);
+                    string filterrec = QHC.CmpEq("idclawback", codicerec);
+
+                    AutoIncCA = Conn.SQLRunner(
+                    " select distinct dett.idestimkind, dett.yestim, dett.nestim, dett.rownum from estimatedetail dett " +
+                    " join estimatekind K on dett.idestimkind = K.idestimkind " +
+                    " join incomelink EL on dett.idinc_taxable = EL.idparent " +
+                    "	WHERE " + QHS.AppAnd(QHS.IsNull("dett.stop"),
+                        QHS.CmpEq("k.linktoinvoice", "N"),QHS.CmpEq("dett.idinc_taxable", R["parentidinc"])), true);// se ho scelto di collegare l'incassi ad un accertamento, prendo il parent
+                  
+
+                    if ((AutoIncCA == null) ||(AutoIncCA.Rows.Count==0)) continue;
+                    if (AutoIncCA.Rows.Count > 1) continue;// L'accertamento deve avere solo un dett CA associato.
+
+                    DataRow Rincomeyear = Auto.Tables["incomeyear"].Select(QHC.CmpEq("idinc", R["idinc"]))[0];
+                    object amount = Rincomeyear["amount"];// importo Recupero = importo incasso
+
+                    foreach (DataRow AR in AutoIncCA.Select()) {
+                        //Genera una riga...
+                        object idestimkind = AR["idestimkind"];
+
+                        MetaData.SetDefault(Tincomelastestimatedetail, "idestimkind", idestimkind);
+                        MetaData.SetDefault(Tincomelastestimatedetail, "yestim", AR["yestim"]);
+                        MetaData.SetDefault(Tincomelastestimatedetail, "nestim", AR["nestim"]);
+                        MetaData.SetDefault(Tincomelastestimatedetail, "rownum", AR["rownum"]);
+
+                        DataRow RImp = Metaincomelastestimatedetail.Get_New_Row(R, Tincomelastestimatedetail);
+
+                        RImp["amount"] = amount;
+
+
+                    }
+                }
+            }
+
+        }
 
 
         public static DataRow[] GetRowPhase(DataAccess Conn, DataSet Auto, int nphase, object idmov, object idsorkind) {
@@ -3655,12 +3794,14 @@ expenseflagseparatemanager 16
                         }
 
                         GeneraClassificazioniRecuperi(dsAuto, CurrMov, last["idser"]);
+                        GeneraIncomelastestimatedetail_suRecuperi(dsAuto, CurrMov);
                         GeneraClassificazioniAutomatiche(dsAuto, false);
                     }
                 }
 			}
-			
-			GeneraAutoMandatiReversali(dsAuto);
+            GeneraExpenselastmandatedetail(dsAuto);
+            GeneraIncomelastestimatedetail(dsAuto);
+            GeneraAutoMandatiReversali(dsAuto);
 			GeneraClassificazioniIndirette(dsAuto,ClassifyAll);
 
 			ResetTipoAutomatismo(dsAuto);

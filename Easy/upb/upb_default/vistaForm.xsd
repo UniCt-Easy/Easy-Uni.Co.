@@ -1172,7 +1172,6 @@
       <msdata:Relationship name="upb_autoexpensesorting" msdata:parent="upb" msdata:child="autoexpensesorting" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="sortingkind_autoexpensesorting" msdata:parent="sortingkind" msdata:child="autoexpensesorting" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
       <msdata:Relationship name="sorting_autoexpensesorting" msdata:parent="sorting" msdata:child="autoexpensesorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
-      <msdata:Relationship name="FK_treasurer_upb" msdata:parent="treasurer" msdata:child="upb" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
       <msdata:Relationship name="managerupb" msdata:parent="manager" msdata:child="upb" msdata:parentkey="idman" msdata:childkey="idman" />
       <msdata:Relationship name="underwriterupb" msdata:parent="underwriter" msdata:child="upb" msdata:parentkey="idunderwriter" msdata:childkey="idunderwriter" />
       <msdata:Relationship name="upbupb" msdata:parent="upb" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="paridupb" />
@@ -1186,6 +1185,7 @@
       <msdata:Relationship name="upbupbsorting" msdata:parent="upb" msdata:child="upbsorting" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="FK_upb_upbyear" msdata:parent="upb" msdata:child="upbyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="upb_capofila_upb" msdata:parent="upb_capofila" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="idupb_capofila" />
+      <msdata:Relationship name="FK_treasurer_upb" msdata:parent="treasurer" msdata:child="upb" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

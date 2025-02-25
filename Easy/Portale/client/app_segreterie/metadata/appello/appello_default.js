@@ -42,6 +42,9 @@
 				this.state.DS.tables.appello.defaults({ 'publicato': "N" });
 				$("#btn_add_appelloattivform_idattivform").on("click", _.partial(this.searchAndAssignattivform, self));
 				$("#btn_add_appelloattivform_idattivform").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("appellokinddefaultview"), this.q.eq('appellokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("appelloazionekinddefaultview"), this.q.eq('appelloazionekind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("studprenotkinddefaultview"), this.q.eq('studprenotkind_active', 'Si'));
 				$('#grid_appelloattivform_appello').data('mdlconditionallookup', '!aa_attivform_tipovalutaz,S,Si;!aa_attivform_tipovalutaz,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -84,6 +84,8 @@ namespace mod770_details_certificazioneunica
         private Button btnInputFile;
         private OpenFileDialog _MyOpenFile;
         private IOpenFileDialog MyOpenFile;
+		private OpenFileDialog _openFileDialogBlazor;
+        private IOpenFileDialog openFileDialogBlazor;
 		
 		/// <summary>
 		/// Required designer variable.
@@ -96,9 +98,22 @@ namespace mod770_details_certificazioneunica
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+            MyOpenFile = createOpenFileDialog(_MyOpenFile);
+            saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
+            folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
             MyOpenFile.FileName = "openFileDialog";
             MyOpenFile.Title = "Selezionare il file Excel da importare";
             saveFileDialog1.DefaultExt = "cur";
+
+            openFileDialogBlazor = createOpenFileDialog(_openFileDialogBlazor);
+
+            if (isBlazor())
+			{
+                txtPercorso.Visible = false;
+                btnSalvaIn.Visible = false;
+                openFileDialogBlazor.Multiselect = true;
+			}
+
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
@@ -168,9 +183,7 @@ namespace mod770_details_certificazioneunica
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnInputFile = new System.Windows.Forms.Button();
             this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
-            this.MyOpenFile = createOpenFileDialog(this._MyOpenFile);
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
-            this.folderBrowserDialog1 = createFolderBrowserDialog(_folderBrowserDialog1);
+            this._openFileDialogBlazor = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1024,12 +1037,21 @@ namespace mod770_details_certificazioneunica
 
 			tw.Close();
 
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(saveFileDialog1.FileName, false);
+
+            string message;
+
+            if (isBlazor())
+                message = "Modello Certificazione Unica scaricato";
+            else
+                message = "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName;
+
             if (soloRecordH)
-			show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
+			    show(this, message
 				+ "\nComunicazioni Lavoro Autonomo:   "+rD.Length+"  ("+nRecordH+" record di tipo \"H\")" + 
 				"Creazione dichiarazione terminata");
             else
-                show(this, "Modello Certificazione Unica salvato nel file: " + saveFileDialog1.FileName
+                show(this, message
                 + "\n\nComunicazioni Lavoro Dipendente: " + rD.Length + "  (" + nRecordG + " record di tipo \"G\")" +
                 "Creazione dichiarazione terminata");
 		}
@@ -2376,7 +2398,20 @@ namespace mod770_details_certificazioneunica
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
 
-            string []fname = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory,"CU_2015_mod*.pdf");
+            string []fname = null;
+            
+            if (isBlazor())
+			{
+                DialogResult dr = openFileDialogBlazor.ShowDialog();
+
+                if (dr == DialogResult.OK)
+				{
+                    fname = openFileDialogBlazor.FileNames;
+				}
+			}
+            else                
+                fname = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory,"CU_2015_mod*.pdf");
+
             foreach (string fileDaCopiare in fname) {
                 string simpleFile = Path.GetFileName(fileDaCopiare);
                 string fOrigin = fileDaCopiare;
@@ -2609,6 +2644,8 @@ namespace mod770_details_certificazioneunica
             xdp.AppendChild(pdf);
             string nomeFile = Path.Combine(txtPercorso.Text, denominazione+cf + "-" + progr + ".xdp");
             doc.Save(nomeFile);
+
+            MetaFactory.factory.getSingleton<IProcessRunner>()?.start(nomeFile, false);
         }
         private void riempiNote(SortedList ht, string nota) {
             if (ht["Annotazioni"] != null) {

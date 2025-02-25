@@ -29,14 +29,14 @@
 
 			manageValidResult: function (rowToCheck) {
 				var loc = appMeta.localResource;
-				var def = appMeta.Deferred("isValid-meta_registrationuser");
+				var def = appMeta.Deferred("isValid-registrationuser_usr");
 				var firstErrorObj;
 
 				if (rowToCheck.table.dataset.tables["registrationuserflowchart"] && rowToCheck.table.dataset.tables["registrationuserflowchart"].rows.length < 1) {
 					firstErrorObj = { warningMsg: "", errMsg: loc.getMinNumRowRequired("Autorizzazioni richieste", 1), errField: "XXregistrationuserflowchart", row: rowToCheck };
 					return def.resolve(firstErrorObj);
 				}
-
+//$isValidArray$
 				if (rowToCheck.table.dataset.tables["registrationuser"] &&
 					(!rowToCheck.current.surname ||
 					 !rowToCheck.current.forename ||
@@ -45,7 +45,8 @@
 					firstErrorObj = { warningMsg: "", errMsg: 'Inserisci i dati nome, cognome e codiceFiscale' , errField: "cf", row: rowToCheck };
 					return def.resolve(firstErrorObj);
 				}
-//$isValidArray$
+
+				//$isValid$
 				
 				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
 			},
@@ -56,7 +57,7 @@
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
-
+				
 				if (appMeta.ssoPrms) {
 					_.extend(parentRow, appMeta.ssoPrms);
 					if (!parentRow.userkind) {
@@ -82,29 +83,25 @@
 				return def.promise();
 			},
 
-			//afterClear
-
-			afterFill: function () {
-				this.enableControl($('#registrationuser_usr_surname'), appMeta.appMainConfig.ldapEnabled);
-				this.enableControl($('#registrationuser_usr_forename'), appMeta.appMainConfig.ldapEnabled);
-				this.enableControl($('#registrationuser_usr_email'), false);
-				this.enableControl($('#registrationuser_usr_login'), false);
-				this.enableControl($('#registrationuser_usr_idregistrationuserstatus'), false);
-				//afterFillin
-				return this.superClass.afterFill.call(this);
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#registrationuser_usr_email'), true);
+				this.enableControl($('#registrationuser_usr_login'), true);
+				this.enableControl($('#registrationuser_usr_idregistrationuserstatus'), true);
+				this.enableControl($('#registrationuser_usr_requesttimestamp'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
+			
 			afterLink: function () {
 				var self = this;
-				var registrationuser = this.getDataTable("registrationuser");
-				registrationuser.defaults(
-					{
-						'esercizio': (new Date()).getFullYear(),
-						'idregistrationuserstatus' : 1,
-						// TORNATO DAL SERVER negli ssoPrameters ---> 'userkind': appMeta.appMainConfig.ssoEnable ? 5 : (appMeta.appMainConfig.ldapEnabled ? 4 : 3)
-					});
-
 				this.setFilterRegistrationuser_usr_flowchart();
+				this.state.DS.tables.registrationuser.defaults({ 'esercizio': (new Date()).getFullYear() });
+				this.state.DS.tables.registrationuser.defaults({ 'idregistrationuserstatus': 1 });
+				this.state.DS.tables.registrationuser.defaults({ 'requesttimestamp': new Date() });
+				this.state.DS.tables.registrationuser.defaults({ 'userkind': appMeta.appMainConfig.ssoEnable ? 5 : (appMeta.appMainConfig.ldapEnabled ? 4 : 3) });
 				$("#GiveAccess").on("click", _.partial(this.fireGiveAccess, this));
 				$("#GiveAccess").prop("disabled", true);
 				this.setDenyNull("registrationuser","cf");
@@ -145,6 +142,17 @@
 				var self = this;
 				var filter = self.q.eq('ayear', (new Date()).getFullYear());
 				self.state.DS.tables.flowchart.staticFilter(filter);
+			},
+
+			afterFill: function () {
+				this.enableControl($('#registrationuser_usr_surname'), appMeta.appMainConfig.ldapEnabled);
+				this.enableControl($('#registrationuser_usr_forename'), appMeta.appMainConfig.ldapEnabled);
+				this.enableControl($('#registrationuser_usr_email'), false);
+				this.enableControl($('#registrationuser_usr_login'), false);
+				this.enableControl($('#registrationuser_usr_idregistrationuserstatus'), false);
+				this.enableControl($('#registrationuser_usr_requesttimestamp'), false);
+				//afterFillin
+				return this.superClass.afterFill.call(this);
 			},
 
 			fireGiveAccess: function (that) {

@@ -101,13 +101,20 @@
   <PropertyGroup />
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="Chat, Version=1.1.21.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Chat.dll</HintPath>
+    </Reference>
     <Reference Include="Cronos, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Cronos.0.7.1\lib\net45\Cronos.dll</HintPath>
     </Reference>
-    <Reference Include="metadatalibrary">
-      <Name>metadatalibrary</Name>
+    <Reference Include="LiveUpdate, Version=1.10.72.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\LiveUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="metadatalibrary, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dll\metadatalibrary.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <Name>metaeasylibrary</Name>
@@ -290,12 +297,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\unmanaged\LiveUpdate\LiveUpdate.csproj">
-      <Project>{3401638f-c463-4187-a1f6-2081da19d58d}</Project>
-      <Name>LiveUpdate</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

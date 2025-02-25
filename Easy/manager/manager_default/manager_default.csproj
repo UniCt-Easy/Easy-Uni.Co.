@@ -108,9 +108,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Frm_manager_default.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Frm_manager_default.cs" />
     <Compile Include="responsabilevista.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -48,6 +48,11 @@ namespace EasyBridge {
     [KnownType(typeof(ct0000000028_pdpRichiediAvvisoResult))]
     public class pdpRichiediAvvisoResult :ct0000000028_pdpRichiediAvvisoResult { }
 
+    [DataContract(Name = "pdpRichiediAvvisoResult", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
+    [KnownType(typeof(ct0000000028_pdpRichiediAvvisoResult))]
+    [KnownType(typeof(pdpRichiediAvvisoResult))]
+    public class pdpRichiediAvvisoResult2 :ct0000000028_pdpRichiediAvvisoResult { }
+
     [DataContract(Name = "pdpGeneraIUVResult", Namespace = "http://easybridge.eu/bridge/")]
     [KnownType(typeof(ct0000000002_pdpGeneraIUVResult))]
     public class pdpGeneraIUVResult :ct0000000002_pdpGeneraIUVResult { }
@@ -60,6 +65,11 @@ namespace EasyBridge {
     [KnownType(typeof(ct0000000004_pdpCaricaPagamentoInAttesaResult))]
     [KnownType(typeof(pdpCaricaPagamentoInAttesaResult))]
     public class pdpCaricaPagamentoInAttesaResult :ct0000000004_pdpCaricaPagamentoInAttesaResult { }
+
+    [DataContract(Name = "pdpCaricaPagamentoInAttesaResult", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
+    [KnownType(typeof(ct0000000004_pdpCaricaPagamentoInAttesaResult))]
+    [KnownType(typeof(pdpCaricaPagamentoInAttesaResult))]
+    public class pdpCaricaPagamentoInAttesaResult2 :ct0000000004_pdpCaricaPagamentoInAttesaResult { }
 
     [DataContract(Name = "pdpCancellaPagamentoInAttesa", Namespace = "http://easybridge.eu/bridge/")]
     [KnownType(typeof(ct0000000005_pdpCancellaPagamentoInAttesa))]
@@ -104,6 +114,10 @@ namespace EasyBridge {
     [DataContract(Name = "pdpRecuperaRTResult", Namespace = "http://easybridge.eu/bridge/")]
     [KnownType(typeof(ct0000000016_pdpRecuperaRTResult))]
     public class pdpRecuperaRTResult :ct0000000016_pdpRecuperaRTResult { }
+
+    [DataContract(Name = "pdpRecuperaRTResult", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
+    [KnownType(typeof(ct0000000016_pdpRecuperaRTResult))]
+    public class pdpRecuperaRTResult2 :ct0000000016_pdpRecuperaRTResult { }
 
     [DataContract(Name = "pdpRichiediStornoRT", Namespace = "http://easybridge.eu/bridge/")]
     [KnownType(typeof(ct0000000017_pdpRichiediStornoRT))]
@@ -175,6 +189,11 @@ namespace EasyBridge {
     [KnownType(typeof(listaRicevute))]
     public class pdpEsitiRTResultType :ct0000000007_pdpEsitiRTResultType { }
 
+    [DataContract(Name = "pdpEsitiRTResultType", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
+    [KnownType(typeof(ct0000000007_pdpEsitiRTResultType))]
+    [KnownType(typeof(listaRicevute))]
+    public class pdpEsitiRTResultType2 :ct0000000007_pdpEsitiRTResultType { }
+
     [DataContract(Name = "pdpAttivaRpt", Namespace = "http://easybridge.eu/bridge/")]
     [KnownType(typeof(ct0000000027_pdpAttivaRpt))]
     public class pdpAttivaRpt :ct0000000027_pdpAttivaRpt { }
@@ -183,6 +202,11 @@ namespace EasyBridge {
     [KnownType(typeof(ct0000000027_pdpAttivaRptResult))]
     [KnownType(typeof(pdpAttivaRptResult))]
     public class pdpAttivaRptResult : ct0000000027_pdpAttivaRptResult { }
+
+    [DataContract(Name = "pdpAttivaRptResultType", Namespace = "http://generatedsource.dp.webservice.intermediariopa.infogroup.it/")]
+    [KnownType(typeof(ct0000000027_pdpAttivaRptResult))]
+    [KnownType(typeof(pdpAttivaRptResult))]
+    public class pdpAttivaRptResult2 :ct0000000027_pdpAttivaRptResult { }
 
 }
 

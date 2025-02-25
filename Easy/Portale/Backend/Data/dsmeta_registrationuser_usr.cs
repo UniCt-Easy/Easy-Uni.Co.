@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_registrationuser_usr"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_registrationuser_usr: DataSet {
+public partial class dsmeta_registrationuser_usr: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -118,13 +118,18 @@ private void initClass() {
 	//////////////////// REGISTRATIONUSER /////////////////////////////////
 	var tregistrationuser= new MetaTable("registrationuser");
 	tregistrationuser.defineColumn("cf", typeof(string),false);
+	tregistrationuser.defineColumn("ct", typeof(DateTime));
+	tregistrationuser.defineColumn("cu", typeof(string));
 	tregistrationuser.defineColumn("email", typeof(string));
 	tregistrationuser.defineColumn("esercizio", typeof(int));
 	tregistrationuser.defineColumn("forename", typeof(string));
 	tregistrationuser.defineColumn("idregistrationuser", typeof(int),false);
 	tregistrationuser.defineColumn("idregistrationuserstatus", typeof(int));
 	tregistrationuser.defineColumn("login", typeof(string));
+	tregistrationuser.defineColumn("lt", typeof(DateTime));
+	tregistrationuser.defineColumn("lu", typeof(string));
 	tregistrationuser.defineColumn("matricola", typeof(string));
+	tregistrationuser.defineColumn("requesttimestamp", typeof(DateTime));
 	tregistrationuser.defineColumn("surname", typeof(string));
 	tregistrationuser.defineColumn("userkind", typeof(int));
 	tregistrationuser.defineColumn("usertype", typeof(string));

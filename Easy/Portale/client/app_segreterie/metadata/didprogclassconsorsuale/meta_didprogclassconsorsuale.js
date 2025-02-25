@@ -42,6 +42,13 @@
 						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_ambitodisci', 'Ambito Disciplinare', null, 15, null);
 						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_corr2592017', 'Corrispondenza', null, 16, null);
 						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_normativa', 'Normativa', null, 17, null);
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_title', 'Codice', null, 12, null);
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_description', 'Descrizione', null, 14, null);
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_active', 'Attivo', null, 13, null);
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_ambitodisci', 'Ambito Disciplinare', null, 14, null);
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_normativa', 'Normativa', null, 15, null);
+						this.describeAColumn(table, '!idclassconsorsuale_classconsorsuale_tipoente', 'Tipologia di ente', null, 20, null);
+						objCalcFieldConfig['!idclassconsorsuale_classconsorsuale_tipoente'] = { tableNameLookup:'classconsorsuale', columnNameLookup:'tipoente', columnNamekey:'idclassconsorsuale' };
 //$objCalcFieldConfig_didprog$
 						break;
 					case 'default':

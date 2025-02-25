@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -55,8 +55,6 @@ namespace servicetrasmission_consolida
             this.btnSalvaFile = new System.Windows.Forms.Button();
             this._saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this._openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.openFileDialog1 = createOpenFileDialog(_openFileDialog1);
-            this.saveFileDialog1 = createSaveFileDialog(_saveFileDialog1);
             this.chkyear = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();

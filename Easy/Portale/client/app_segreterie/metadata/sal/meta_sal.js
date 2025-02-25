@@ -24,17 +24,21 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'start', 'Data di inizio', null, 10, null);
+						this.describeAColumn(table, 'numerosal', 'Numero', null, 10, null);
+						this.describeAColumn(table, 'start', 'Data di inizio', null, 20, null);
 						this.describeAColumn(table, 'stop', 'Data di fine', null, 40, null);
 						this.describeAColumn(table, 'budget', 'Budget preventivato', 'fixed.2', 50, null);
 						this.describeAColumn(table, '!budgetcalcolato', 'Budget calcolato', 'fixed.2', 60, null);
 						this.describeAColumn(table, 'datablocco', 'Data di Blocco', null, 70, null);
+						this.describeAColumn(table, 'autoassociazione', 'Associazione automatica dei dati', null, 80, null);
 //$objCalcFieldConfig_default$
 						break;
 					case 'elenchi':
-						this.describeAColumn(table, 'start', 'Data di inizio', null, 10, null);
+						this.describeAColumn(table, 'numerosal', 'Numero', null, 10, null);
+						this.describeAColumn(table, 'start', 'Data di inizio', null, 20, null);
 						this.describeAColumn(table, 'stop', 'Data di fine', null, 40, null);
 						this.describeAColumn(table, 'datablocco', 'Data di Blocco', null, 70, null);
+						this.describeAColumn(table, 'autoassociazione', 'Associazione automatica dei dati', null, 80, null);
 //$objCalcFieldConfig_elenchi$
 						break;
 //$objCalcFieldConfig$
@@ -49,22 +53,17 @@
 				switch (edittype) {
 					case 'default':
 						table.columns["!budgetcalcolato"].caption = "Budget calcolato";
+						table.columns["autoassociazione"].caption = "Associazione automatica dei dati";
 						table.columns["budget"].caption = "Budget preventivato";
 						table.columns["datablocco"].caption = "Data di Blocco";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idsal"].caption = "SAL";
+						table.columns["numerosal"].caption = "Numero";
 						table.columns["start"].caption = "Data di inizio";
 						table.columns["stop"].caption = "Data di fine";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'elenchi':
-						table.columns["budget"].caption = "Budget preventivato";
-						table.columns["datablocco"].caption = "Data di Blocco";
-						table.columns["idprogetto"].caption = "Progetto";
-						table.columns["idsal"].caption = "SAL";
-						table.columns["start"].caption = "Data di inizio";
-						table.columns["stop"].caption = "Data di fine";
-						table.columns["!budgetcalcolato"].caption = "Budget calcolato";
 //$innerSetCaptionConfig_elenchi$
 						break;
 //$innerSetCaptionConfig$

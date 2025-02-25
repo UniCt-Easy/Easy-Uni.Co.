@@ -86,7 +86,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_stipendioannuo_registrylegalstatusprevview_idregistrylegalstatus" msdata:parent="registrylegalstatusprevview" msdata:child="stipendioannuo" msdata:parentkey="idregistrylegalstatus" msdata:childkey="idregistrylegalstatus" />
+      <msdata:Relationship name="FK_stipendioannuo_registrylegalstatusprevview_idregistrylegalstatus" msdata:parent="registrylegalstatusprevview" msdata:child="stipendioannuo" msdata:parentkey="idregistrylegalstatus idreg" msdata:childkey="idregistrylegalstatus idreg" />
       <msdata:Relationship name="FK_registrylegalstatusprevview_registrypersoneview_idreg" msdata:parent="registrypersoneview" msdata:child="registrylegalstatusprevview" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_stipendioannuo_registrypersoneview_idreg" msdata:parent="registrypersoneview" msdata:child="stipendioannuo" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>

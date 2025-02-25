@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -62,6 +62,9 @@ public partial class dsmeta_registry_amministrativi_personale: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sal 		=> (MetaTable)Tables["sal"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable rendicontaltrokind 		=> (MetaTable)Tables["rendicontaltrokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progetto 		=> (MetaTable)Tables["progetto"];
@@ -166,10 +169,10 @@ private void initClass() {
 
 	//////////////////// REGISTRYLEGALSTATUS /////////////////////////////////
 	var tregistrylegalstatus= new MetaTable("registrylegalstatus");
-	tregistrylegalstatus.defineColumn("!anni", typeof(string));
-	tregistrylegalstatus.defineColumn("!giorni", typeof(string));
-	tregistrylegalstatus.defineColumn("!mesi", typeof(string));
 	tregistrylegalstatus.defineColumn("active", typeof(string));
+	tregistrylegalstatus.defineColumn("anni", typeof(int));
+	tregistrylegalstatus.defineColumn("annokind", typeof(string));
+	tregistrylegalstatus.defineColumn("cedolini", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_class", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_compartment", typeof(string));
 	tregistrylegalstatus.defineColumn("csa_role", typeof(string));
@@ -177,16 +180,22 @@ private void initClass() {
 	tregistrylegalstatus.defineColumn("cu", typeof(string));
 	tregistrylegalstatus.defineColumn("datarivalutazione", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("flagdefault", typeof(string));
+	tregistrylegalstatus.defineColumn("giorni", typeof(int));
+	tregistrylegalstatus.defineColumn("idclassconsorsuale", typeof(int));
 	tregistrylegalstatus.defineColumn("iddaliaposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idinquadramento", typeof(int));
 	tregistrylegalstatus.defineColumn("idposition", typeof(int));
 	tregistrylegalstatus.defineColumn("idreg", typeof(int),false);
 	tregistrylegalstatus.defineColumn("idregistrylegalstatus", typeof(int),false);
+	tregistrylegalstatus.defineColumn("idtipologiaruolo", typeof(int));
+	tregistrylegalstatus.defineColumn("idtiponomina", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclass", typeof(int));
 	tregistrylegalstatus.defineColumn("incomeclassvalidity", typeof(DateTime));
+	tregistrylegalstatus.defineColumn("istituzione", typeof(string));
 	tregistrylegalstatus.defineColumn("livello", typeof(int));
 	tregistrylegalstatus.defineColumn("lt", typeof(DateTime));
 	tregistrylegalstatus.defineColumn("lu", typeof(string));
+	tregistrylegalstatus.defineColumn("mesi", typeof(int));
 	tregistrylegalstatus.defineColumn("parttime", typeof(decimal));
 	tregistrylegalstatus.defineColumn("percentualesufondiateneo", typeof(decimal));
 	tregistrylegalstatus.defineColumn("rtf", typeof(Byte[]));
@@ -222,6 +231,7 @@ private void initClass() {
 	var tregistrycongiunto= new MetaTable("registrycongiunto");
 	tregistrycongiunto.defineColumn("ct", typeof(DateTime),false);
 	tregistrycongiunto.defineColumn("cu", typeof(string),false);
+	tregistrycongiunto.defineColumn("have104", typeof(string));
 	tregistrycongiunto.defineColumn("idcongiuntokind", typeof(int));
 	tregistrycongiunto.defineColumn("idreg", typeof(int),false);
 	tregistrycongiunto.defineColumn("idreg_parente", typeof(int),false);
@@ -241,6 +251,7 @@ private void initClass() {
 	tprogettotimesheetprogetto.defineColumn("idprogettotimesheet", typeof(int),false);
 	tprogettotimesheetprogetto.defineColumn("lt", typeof(DateTime));
 	tprogettotimesheetprogetto.defineColumn("lu", typeof(string));
+	tprogettotimesheetprogetto.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tprogettotimesheetprogetto);
 	tprogettotimesheetprogetto.defineKey("idprogetto", "idprogettotimesheet");
 
@@ -261,10 +272,19 @@ private void initClass() {
 	tsal.defineColumn("datablocco", typeof(DateTime));
 	tsal.defineColumn("idprogetto", typeof(int),false);
 	tsal.defineColumn("idsal", typeof(int),false);
+	tsal.defineColumn("numerosal", typeof(int));
 	tsal.defineColumn("start", typeof(DateTime));
 	tsal.defineColumn("stop", typeof(DateTime));
 	Tables.Add(tsal);
 	tsal.defineKey("idprogetto", "idsal");
+
+	//////////////////// RENDICONTALTROKIND /////////////////////////////////
+	var trendicontaltrokind= new MetaTable("rendicontaltrokind");
+	trendicontaltrokind.defineColumn("active", typeof(string),false);
+	trendicontaltrokind.defineColumn("idrendicontaltrokind", typeof(int),false);
+	trendicontaltrokind.defineColumn("title", typeof(string),false);
+	Tables.Add(trendicontaltrokind);
+	trendicontaltrokind.defineKey("idrendicontaltrokind");
 
 	//////////////////// PROGETTO /////////////////////////////////
 	var tprogetto= new MetaTable("progetto");
@@ -291,6 +311,7 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("idprogetto", typeof(int));
 	tprogettotimesheet.defineColumn("idprogettotimesheet", typeof(int),false);
 	tprogettotimesheet.defineColumn("idreg", typeof(int),false);
+	tprogettotimesheet.defineColumn("idrendicontaltrokind", typeof(int));
 	tprogettotimesheet.defineColumn("idsal", typeof(int));
 	tprogettotimesheet.defineColumn("idtimesheettemplate", typeof(string));
 	tprogettotimesheet.defineColumn("intestazioneallsheet", typeof(string));
@@ -299,6 +320,7 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("multilinetype", typeof(string));
 	tprogettotimesheet.defineColumn("output", typeof(string));
 	tprogettotimesheet.defineColumn("riepilogoanno", typeof(string));
+	tprogettotimesheet.defineColumn("sede", typeof(string));
 	tprogettotimesheet.defineColumn("showactivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("showotheractivitiesrow", typeof(string));
 	tprogettotimesheet.defineColumn("title", typeof(string));
@@ -308,6 +330,8 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("!idprogetto_progetto_titolobreve", typeof(string));
 	tprogettotimesheet.defineColumn("!idprogetto_progetto_start", typeof(DateTime));
 	tprogettotimesheet.defineColumn("!idprogetto_progetto_stop", typeof(DateTime));
+	tprogettotimesheet.defineColumn("!idrendicontaltrokind_rendicontaltrokind_title", typeof(string));
+	tprogettotimesheet.defineColumn("!idsal_sal_numerosal", typeof(int));
 	tprogettotimesheet.defineColumn("!idsal_sal_start", typeof(DateTime));
 	tprogettotimesheet.defineColumn("!idsal_sal_stop", typeof(DateTime));
 	tprogettotimesheet.defineColumn("!idsal_sal_datablocco", typeof(DateTime));
@@ -434,11 +458,11 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string));
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idanpr", typeof(string));
 	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
-	tregistry.defineColumn("idclassconsorsuale", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
@@ -529,6 +553,10 @@ private void initClass() {
 	cPar = new []{sal.Columns["idsal"]};
 	cChild = new []{progettotimesheet.Columns["idsal"]};
 	Relations.Add(new DataRelation("FK_progettotimesheet_sal_idsal",cPar,cChild,false));
+
+	cPar = new []{rendicontaltrokind.Columns["idrendicontaltrokind"]};
+	cChild = new []{progettotimesheet.Columns["idrendicontaltrokind"]};
+	Relations.Add(new DataRelation("FK_progettotimesheet_rendicontaltrokind_idrendicontaltrokind",cPar,cChild,false));
 
 	cPar = new []{progetto.Columns["idprogetto"]};
 	cChild = new []{progettotimesheet.Columns["idprogetto"]};

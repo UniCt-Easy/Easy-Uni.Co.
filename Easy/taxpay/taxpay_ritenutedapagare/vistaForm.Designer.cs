@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,178 +15,165 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-namespace taxpay_ritenutedapagare {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable taxpay{get { return this.Tables["taxpay"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable tax{get { return this.Tables["tax"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable taxsetup{get { return this.Tables["taxsetup"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace taxpay_ritenutedapagare {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable taxpay 		=> Tables["taxpay"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable tax 		=> Tables["tax"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable taxsetup 		=> Tables["taxsetup"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("taxpay");
-	C= new DataColumn("taxcode", typeof(System.Int32), "");
+	//////////////////// TAXPAY /////////////////////////////////
+	var ttaxpay= new DataTable("taxpay");
+	C= new DataColumn("taxcode", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ytaxpay", typeof(System.Int16), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("ytaxpay", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ntaxpay", typeof(System.Int32), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("ntaxpay", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("amount", typeof(System.Decimal), ""));
-	C= new DataColumn("adate", typeof(System.DateTime), "");
+	ttaxpay.Columns.Add(C);
+	ttaxpay.Columns.Add( new DataColumn("amount", typeof(decimal)));
+	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	ttaxpay.Columns.Add(C);
+	ttaxpay.Columns.Add( new DataColumn("txt", typeof(string)));
+	ttaxpay.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	ttaxpay.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	ttaxpay.Columns.Add(C);
+	Tables.Add(ttaxpay);
+	ttaxpay.PrimaryKey =  new DataColumn[]{ttaxpay.Columns["taxcode"], ttaxpay.Columns["ytaxpay"], ttaxpay.Columns["ntaxpay"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["taxcode"], 	T.Columns["ytaxpay"], 	T.Columns["ntaxpay"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("tax");
-	C= new DataColumn("taxcode", typeof(System.Int32), "");
+	//////////////////// TAX /////////////////////////////////
+	var ttax= new DataTable("tax");
+	C= new DataColumn("taxcode", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("taxref", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("taxref", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("taxkind", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("fiscaltaxcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagunabatable", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("taxkind", typeof(short)));
+	ttax.Columns.Add( new DataColumn("fiscaltaxcode", typeof(string)));
+	ttax.Columns.Add( new DataColumn("flagunabatable", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("active", typeof(string)));
+	Tables.Add(ttax);
+	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["taxcode"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("taxsetup");
-	C= new DataColumn("taxcode", typeof(System.Int32), "");
+	//////////////////// TAXSETUP /////////////////////////////////
+	var ttaxsetup= new DataTable("taxsetup");
+	C= new DataColumn("taxcode", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ayear", typeof(System.Int16), "");
+	ttaxsetup.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paymentagency", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idfinexpensecontra", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idfinincomecontra", typeof(System.Int32), ""));
-	C= new DataColumn("flagadminfinance", typeof(System.String), "");
+	ttaxsetup.Columns.Add(C);
+	ttaxsetup.Columns.Add( new DataColumn("paymentagency", typeof(int)));
+	ttaxsetup.Columns.Add( new DataColumn("idfinexpensecontra", typeof(int)));
+	ttaxsetup.Columns.Add( new DataColumn("idfinincomecontra", typeof(int)));
+	C= new DataColumn("flagadminfinance", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idfinadmintax", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idexpirationkind", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("expiringday", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	ttaxsetup.Columns.Add(C);
+	ttaxsetup.Columns.Add( new DataColumn("idfinadmintax", typeof(int)));
+	ttaxsetup.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	ttaxsetup.Columns.Add( new DataColumn("expiringday", typeof(short)));
+	ttaxsetup.Columns.Add( new DataColumn("txt", typeof(string)));
+	ttaxsetup.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	ttaxsetup.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	ttaxsetup.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	ttaxsetup.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	ttaxsetup.Columns.Add(C);
+	ttaxsetup.Columns.Add( new DataColumn("flag", typeof(byte)));
+	Tables.Add(ttaxsetup);
+	ttaxsetup.PrimaryKey =  new DataColumn[]{ttaxsetup.Columns["taxcode"], ttaxsetup.Columns["ayear"]};
 
-	T.Columns.Add(new DataColumn("flag", typeof(System.Byte), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["taxcode"], 	T.Columns["ayear"]};
-	T.PrimaryKey = key;
+
+	#endregion
 
 }
 }

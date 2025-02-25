@@ -53,7 +53,12 @@
 						this.describeAColumn(table, 'toredirect', 'E\' stato usato in qualche migrazione', null, 400, null);
 						this.describeAColumn(table, 'txt', 'note testuali', null, 410, null);
 						this.describeAColumn(table, 'ipa_perlapa', 'Ipa_perlapa', null, 460, 100);
-						//$objCalcFieldConfig_istituti_princ$
+						this.describeAColumn(table, 'indicebibliometrico', 'Indicebibliometrico', null, 560, null);
+						this.describeAColumn(table, 'pic', 'Pic', null, 570, 10);
+						this.describeAColumn(table, 'ricevimento', 'Ricevimento', null, 580, -1);
+						this.describeAColumn(table, 'soggiorno', 'Soggiorno', null, 590, 255);
+						this.describeAColumn(table, 'title_en', 'Title_en', null, 600, 150);
+//$objCalcFieldConfig_istituti_princ$
 						break;
 					case 'istituti':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 101);
@@ -63,11 +68,12 @@
 						//$objCalcFieldConfig_istituti$
 						break;
 					case 'studenti':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 101);
+						this.describeAColumn(table, 'surname', 'Cognome', null, 10, 50);
+						this.describeAColumn(table, 'forename', 'Nome', null, 20, 50);
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
-						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
+						this.describeAColumn(table, 'extmatricula', 'Matricola', null, 50, 40);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
-						//$objCalcFieldConfig_studenti$
+//$objCalcFieldConfig_studenti$
 						break;
 					case 'amministrativi_personale':
 						this.describeAColumn(table, 'surname', 'Cognome', null, 20, 50);
@@ -75,6 +81,7 @@
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'badgecode', 'Codice bedge', null, 50, 20);
 						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
+						this.describeAColumn(table, 'idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 540, 9);
 //$objCalcFieldConfig_amministrativi_personale$
 						break;
 					case 'amministrativi':
@@ -83,6 +90,7 @@
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'badgecode', 'Codice badge', null, 50, 20);
 						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
+						this.describeAColumn(table, 'idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 1010, 9);
 //$objCalcFieldConfig_amministrativi$
 						break;
 					case 'docenti_doc':
@@ -98,6 +106,7 @@
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
+						this.describeAColumn(table, 'idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 540, 9);
 //$objCalcFieldConfig_docenti$
 						break;
 					case 'user':
@@ -137,6 +146,7 @@
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
+						this.describeAColumn(table, 'idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 540, 9);
 //$objCalcFieldConfig_docenti_docente$
 						break;
 					case 'aziende_ro':
@@ -170,6 +180,7 @@
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'badgecode', 'Codice badge', null, 50, 20);
 						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
+						this.describeAColumn(table, 'idanpr', 'Idanpr', null, 190, 9);
 //$objCalcFieldConfig_servizi$
 						break;
 					case 'solotitle':
@@ -182,6 +193,7 @@
 						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 40, 16);
 						this.describeAColumn(table, 'p_iva', 'Partita iva', null, 50, 15);
 						this.describeAColumn(table, 'active', 'attivo', null, 60, null);
+						this.describeAColumn(table, 'idanpr', 'Idanpr', null, 220, 9);
 //$objCalcFieldConfig_docenti_docentenoaltro$
 						break;
 										case 'didattica':
@@ -258,44 +270,9 @@
 						table.columns["idreg"].caption = "Identificativo";
 						table.columns["idregistryclass"].caption = "Tipologia fiscale";
 						table.columns["idtitle"].caption = "Titolo";
-						table.columns["residence"].caption = "Residenza";
-						table.columns["active"].caption = "attivo";
-						table.columns["annotation"].caption = "Annotazioni";
-						table.columns["authorization_free"].caption = "Esente ai fini dell'autorizzazione EQUITALIA. (S/N)";
-						table.columns["badgecode"].caption = "Codice badge";
-						table.columns["birthdate"].caption = "Data di nascita";
-						table.columns["ccp"].caption = "Conto corrente postale di Riscossione";
-						table.columns["cf"].caption = "Codice fiscale";
-						table.columns["ct"].caption = "data creazione";
-						table.columns["cu"].caption = "nome utente creazione";
-						table.columns["extension"].caption = "tabella che estende il record";
-						table.columns["extmatricula"].caption = "Matricola";
-						table.columns["flag_pa"].caption = "Applica lo split payment  (per le fatture di vendita)";
-						table.columns["flagbankitaliaproceeds"].caption = "Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia";
-						table.columns["foreigncf"].caption = "Codice fiscale estero";
-						table.columns["forename"].caption = "Nome";
-						table.columns["gender"].caption = "Sesso (M/F)";
-						table.columns["idaccmotivecredit"].caption = "ID Causale per i crediti (tabella accmotive)";
-						table.columns["idaccmotivedebit"].caption = "Id della causale di debito (tabella accmotive) ";
-						table.columns["idcategory"].caption = "ID Categoria (tabella category)";
-						table.columns["idcentralizedcategory"].caption = "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)";
-						table.columns["idexternal"].caption = "Id chiave in altri database, usato in migrazioni o simili";
-						table.columns["idregistrykind"].caption = "ID Classificazione Anagrafica (tabella registrykind)";
-						table.columns["ipa_fe"].caption = "Codice Univoco Ufficio di PCC o Codice Univoco Ufficio di IPA, prelevato dal sito www.indicepa.gov.it.";
 						table.columns["location"].caption = "ubicazione";
-						table.columns["lt"].caption = "data ultima modifica";
-						table.columns["lu"].caption = "nome ultimo utente modifica";
-						table.columns["maritalsurname"].caption = "Cognome acquisito";
-						table.columns["multi_cf"].caption = "Consenti duplicazione CF/P. IVA (S/N)";
-						table.columns["p_iva"].caption = "Partita iva";
-						table.columns["rtf"].caption = "allegati";
-						table.columns["sdi_defrifamm"].caption = "Rif.Amministrazione di default per fattura elettronica";
-						table.columns["sdi_norifamm"].caption = "Consenti al fornitore di non specificare il riferimento amministrativo in fatt.elettronica";
-						table.columns["surname"].caption = "Cognome";
-						table.columns["title"].caption = "Denominazione";
-						table.columns["toredirect"].caption = "E' stato usato in qualche migrazione";
-						table.columns["txt"].caption = "note testuali";
-						//$innerSetCaptionConfig_studenti$
+						table.columns["residence"].caption = "Residenza";
+//$innerSetCaptionConfig_studenti$
 						break;
 					case 'amministrativi_personale':
 						table.columns["active"].caption = "Attivo";
@@ -303,9 +280,9 @@
 						table.columns["badgecode"].caption = "Codice bedge";
 						table.columns["foreigncf"].caption = "Codice Fiscale estero";
 						table.columns["gender"].caption = "Genere";
+						table.columns["idanpr"].caption = "Identificativo dell'Anagrafe Nazionale della Popolazione Residente";
 						table.columns["idateco"].caption = "Classificazione Ateco";
 						table.columns["idcategory"].caption = "Categoria protetta";
-						table.columns["idclassconsorsuale"].caption = "Classe consorsuale";
 						table.columns["idfonteindicebibliometrico"].caption = "Fonte";
 						table.columns["idnace"].caption = "NACE";
 						table.columns["idnaturagiur"].caption = "Natura Giuridica";
@@ -416,34 +393,6 @@
 						table.columns["txt"].caption = "note testuali";
 						table.columns["idaccmotivecredit"].caption = "Causale di credito";
 						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-												table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
-						table.columns["idaccmotivecredit"].caption = "Causale di credito";
-						table.columns["idaccmotivedebit"].caption = "Causale di debito";
 						table.columns["idaccmotivecredit"].caption = "Causale di credito";
 						table.columns["idaccmotivedebit"].caption = "Causale di debito";
 						table.columns["idaccmotivecredit"].caption = "Causale di credito";
@@ -506,13 +455,8 @@
 						//$innerSetCaptionConfig_docenti$
 						break;
 					case 'istituti_princ':
-						table.columns["idcity"].caption = "Comune";
-						table.columns["idmaritalstatus"].caption = "ID Stato civile (tabella maritalstatus)";
-						table.columns["idnation"].caption = "Id nazione (tabella geo_nation)";
 						table.columns["idregistryclass"].caption = "ID Tipologie classificazione (tabella registryclass)";
-						table.columns["idtitle"].caption = "ID Titolo (tabella title)";
-						table.columns["residence"].caption = "Tipo residenza (chiave di tabella residence)";
-						//$innerSetCaptionConfig_istituti_princ$
+//$innerSetCaptionConfig_istituti_princ$
 						break;
 					case 'user':
 						table.columns["idcity"].caption = "Comune di nascita";
@@ -752,6 +696,12 @@
 					}
 					case "docenti": {
 						return "title asc ";
+					}
+					case "studenti": {
+						return "surname asc, forename asc, title asc ";
+					}
+					case "studenti": {
+						return "surname asc , forename asc , title asc ";
 					}
 					//$getSortingin$
 				}

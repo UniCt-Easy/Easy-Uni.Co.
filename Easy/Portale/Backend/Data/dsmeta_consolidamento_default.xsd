@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_consolidamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_consolidamento_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_consolidamento_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -19,6 +19,7 @@
               <xs:element name="datablocco" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
@@ -82,9 +83,25 @@
               <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogetto_description" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogettoora_data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_rendicontattivitaprogettoora_ore" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettoora_sal_datablocco" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="consolidamentoora" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="convalida" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconsolidamentoora" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="minuti" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -147,6 +164,11 @@
       <xs:field xpath="mstns:idconsolidamento" />
       <xs:field xpath="mstns:idrendicontattivitaprogettoora" />
     </xs:unique>
+    <xs:unique name="consolidamentoora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:consolidamentoora" />
+      <xs:field xpath="mstns:idconsolidamentoora" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
     <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registry" />
       <xs:field xpath="mstns:idreg" />
@@ -164,6 +186,7 @@
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_sal_idsal" msdata:parent="sal" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idsal" msdata:childkey="idsal" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto" msdata:childkey="idrendicontattivitaprogetto" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_progetto_idprogetto" msdata:parent="progetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
+      <msdata:Relationship name="FK_consolidamentoora_consolidamento_idreg" msdata:parent="consolidamento" msdata:child="consolidamentoora" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_consolidamento_registry_idreg" msdata:parent="registry" msdata:child="consolidamento" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -29,108 +29,57 @@ namespace paydisposition_default {
 public partial class DSFinancial: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Disposizione di Pagamento - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paydispositiondetail 		=> Tables["paydispositiondetail"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paydispositionview 		=> Tables["paydispositionview"];
 
-	///<summary>
-	///Informazioni annuali su movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseyear 		=> Tables["expenseyear"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
-	///<summary>
-	///Classificazione Movimenti di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensesorted 		=> Tables["expensesorted"];
 
-	///<summary>
-	///Tipo di Rilevanza analitica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sortingkind 		=> Tables["sortingkind"];
 
-	///<summary>
-	///Fasi di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomephase 		=> Tables["incomephase"];
 
-	///<summary>
-	///Informazioni annuali su mov. di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeyear 		=> Tables["incomeyear"];
 
-	///<summary>
-	///Classificazione Movimenti di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomesorted 		=> Tables["incomesorted"];
 
-	///<summary>
-	///Movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expense 		=> Tables["expense"];
 
-	///<summary>
-	///Movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable income 		=> Tables["income"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Movimento di spesa - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenselast 		=> Tables["expenselast"];
 
-	///<summary>
-	///Movimento di entrata - Dettaglio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomelast 		=> Tables["incomelast"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
@@ -140,47 +89,29 @@ public partial class DSFinancial: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomeview 		=> Tables["incomeview"];
 
-	///<summary>
-	///Sospeso passivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensebill 		=> Tables["expensebill"];
 
-	///<summary>
-	///Sospeso attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomebill 		=> Tables["incomebill"];
 
-	///<summary>
-	///Variazione movimento di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensevar 		=> Tables["expensevar"];
 
-	///<summary>
-	///Variazione movimento di entrata
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable incomevar 		=> Tables["incomevar"];
 
-	///<summary>
-	///Responsabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable manager 		=> Tables["manager"];
 
-	///<summary>
-	///Modalit√† di pagamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable paymethod 		=> Tables["paymethod"];
 
-	///<summary>
-	///Trattamento delle spese
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable chargehandling 		=> Tables["chargehandling"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable expenselastmandatedetail 		=> Tables["expenselastmandatedetail"];
 
 	#endregion
 
@@ -1325,6 +1256,43 @@ private void initClass() {
 	tchargehandling.PrimaryKey =  new DataColumn[]{tchargehandling.Columns["idchargehandling"]};
 
 
+	//////////////////// EXPENSELASTMANDATEDETAIL /////////////////////////////////
+	var texpenselastmandatedetail= new DataTable("expenselastmandatedetail");
+	C= new DataColumn("idexp", typeof(int));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("idmankind", typeof(string));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("yman", typeof(short));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("nman", typeof(int));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("rownum", typeof(int));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("amount", typeof(decimal));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	texpenselastmandatedetail.Columns.Add(C);
+	texpenselastmandatedetail.Columns.Add( new DataColumn("originalamount", typeof(decimal)));
+	Tables.Add(texpenselastmandatedetail);
+	texpenselastmandatedetail.PrimaryKey =  new DataColumn[]{texpenselastmandatedetail.Columns["idexp"], texpenselastmandatedetail.Columns["idmankind"], texpenselastmandatedetail.Columns["yman"], texpenselastmandatedetail.Columns["nman"], texpenselastmandatedetail.Columns["rownum"]};
+
+
 	#endregion
 
 
@@ -1408,6 +1376,10 @@ private void initClass() {
 	cPar = new []{chargehandling.Columns["idchargehandling"]};
 	cChild = new []{paydispositiondetail.Columns["idchargehandling"]};
 	Relations.Add(new DataRelation("chargehandling_paydispositiondetail",cPar,cChild,false));
+
+	cPar = new []{expense.Columns["idexp"]};
+	cChild = new []{expenselastmandatedetail.Columns["idexp"]};
+	Relations.Add(new DataRelation("expense_expenselastmandatedetail",cPar,cChild,false));
 
 	#endregion
 

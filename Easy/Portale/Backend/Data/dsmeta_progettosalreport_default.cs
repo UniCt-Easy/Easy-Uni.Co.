@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +37,7 @@ public partial class dsmeta_progettosalreport_default: DataSet {
 	public MetaTable strutturadefaultview 		=> (MetaTable)Tables["strutturadefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministratividefaultview 		=> (MetaTable)Tables["getregistrydocentiamministratividefaultview"];
+	public MetaTable getregistrydocentiamministrativiprjnomcognmatview 		=> (MetaTable)Tables["getregistrydocentiamministrativiprjnomcognmatview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progettoelenchiview 		=> (MetaTable)Tables["progettoelenchiview"];
@@ -117,12 +117,12 @@ private void initClass() {
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
-	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
-	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tgetregistrydocentiamministratividefaultview);
-	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
+	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIPRJNOMCOGNMATVIEW /////////////////////////////////
+	var tgetregistrydocentiamministrativiprjnomcognmatview= new MetaTable("getregistrydocentiamministrativiprjnomcognmatview");
+	tgetregistrydocentiamministrativiprjnomcognmatview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministrativiprjnomcognmatview.defineColumn("idreg", typeof(int),false);
+	Tables.Add(tgetregistrydocentiamministrativiprjnomcognmatview);
+	tgetregistrydocentiamministrativiprjnomcognmatview.defineKey("idreg");
 
 	//////////////////// PROGETTOELENCHIVIEW /////////////////////////////////
 	var tprogettoelenchiview= new MetaTable("progettoelenchiview");
@@ -171,8 +171,10 @@ private void initClass() {
 	tprogettoelenchiview.defineColumn("progetto_lt", typeof(DateTime),false);
 	tprogettoelenchiview.defineColumn("progetto_lu", typeof(string),false);
 	tprogettoelenchiview.defineColumn("progetto_progfinanziamentotxt", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_respamministrativi", typeof(string));
 	tprogettoelenchiview.defineColumn("progetto_responsabiliamministrativi", typeof(string));
 	tprogettoelenchiview.defineColumn("progetto_responsabiliscientifici", typeof(string));
+	tprogettoelenchiview.defineColumn("progetto_respscientifici", typeof(string));
 	tprogettoelenchiview.defineColumn("progetto_start", typeof(DateTime));
 	tprogettoelenchiview.defineColumn("progetto_stop", typeof(DateTime));
 	tprogettoelenchiview.defineColumn("progetto_title", typeof(string));
@@ -219,6 +221,7 @@ private void initClass() {
 	tprogettosalreport.defineColumn("idstruttura", typeof(int));
 	tprogettosalreport.defineColumn("lt", typeof(DateTime),false);
 	tprogettosalreport.defineColumn("lu", typeof(string),false);
+	tprogettosalreport.defineColumn("oreimporto", typeof(string));
 	tprogettosalreport.defineColumn("year", typeof(int));
 	Tables.Add(tprogettosalreport);
 	tprogettosalreport.defineKey("idprogettosalreport");
@@ -235,9 +238,9 @@ private void initClass() {
 	cChild = new []{progettosalreport.Columns["idstruttura"]};
 	Relations.Add(new DataRelation("FK_progettosalreport_strutturadefaultview_idstruttura",cPar,cChild,false));
 
-	cPar = new []{getregistrydocentiamministratividefaultview.Columns["idreg"]};
+	cPar = new []{getregistrydocentiamministrativiprjnomcognmatview.Columns["idreg"]};
 	cChild = new []{progettosalreport.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_progettosalreport_getregistrydocentiamministratividefaultview_idreg",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progettosalreport_getregistrydocentiamministrativiprjnomcognmatview_idreg",cPar,cChild,false));
 
 	cPar = new []{progettoelenchiview.Columns["idprogetto"]};
 	cChild = new []{progettosalreport.Columns["idprogetto"]};

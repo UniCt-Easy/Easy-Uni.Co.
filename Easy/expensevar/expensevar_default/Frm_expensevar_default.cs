@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -94,6 +94,11 @@ namespace expensevar_default{
 		private System.Windows.Forms.RadioButton radAnnullo;
 		private System.Windows.Forms.RadioButton radNormale;
 		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabAllegati;
+		private System.Windows.Forms.DataGrid dataGridAllegati;
+		private System.Windows.Forms.Button btnDelAtt;
+		private System.Windows.Forms.Button btnEditAtt;
+		private System.Windows.Forms.Button btnInsAtt;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.GroupBox groupBox5;
@@ -128,6 +133,7 @@ namespace expensevar_default{
         private TextBox txtUnderwriting;
         private Button btnApplicaSplitPayment;
 		private RadioButton radCsa;
+		private RadioButton radLCsa;
 		MetaData MetaExpSorted;
 
 		public Frm_expensevar_default() {
@@ -230,7 +236,13 @@ namespace expensevar_default{
 			this.btnEditClass = new System.Windows.Forms.Button();
 			this.DGridClassificazioni = new System.Windows.Forms.DataGrid();
 			this.label9 = new System.Windows.Forms.Label();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.radLCsa = new System.Windows.Forms.RadioButton();
 			this.grpImporto.SuspendLayout();
 			this.grpVariazione.SuspendLayout();
 			this.grpMovimento.SuspendLayout();
@@ -249,6 +261,8 @@ namespace expensevar_default{
 			this.groupBox5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// grpImporto
@@ -613,6 +627,7 @@ namespace expensevar_default{
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.radLCsa);
 			this.groupBox2.Controls.Add(this.radCsa);
 			this.groupBox2.Controls.Add(this.radEdit);
 			this.groupBox2.Controls.Add(this.radAnnPar);
@@ -620,7 +635,7 @@ namespace expensevar_default{
 			this.groupBox2.Controls.Add(this.radNormale);
 			this.groupBox2.Location = new System.Drawing.Point(8, 263);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(245, 128);
+			this.groupBox2.Size = new System.Drawing.Size(245, 139);
 			this.groupBox2.TabIndex = 5;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tipo Variazione";
@@ -676,12 +691,13 @@ namespace expensevar_default{
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabDettagli);
 			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.ImageList = this.imageList1;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(993, 473);
+			this.tabControl1.Size = new System.Drawing.Size(993, 486);
 			this.tabControl1.TabIndex = 98;
 			// 
 			// tabPage1
@@ -702,7 +718,7 @@ namespace expensevar_default{
 			this.tabPage1.Controls.Add(this.txtDescrizione);
 			this.tabPage1.Location = new System.Drawing.Point(4, 23);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(985, 446);
+			this.tabPage1.Size = new System.Drawing.Size(985, 459);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Principale";
 			// 
@@ -739,7 +755,7 @@ namespace expensevar_default{
 			// 
 			this.grpUnderWrinting.Controls.Add(this.txtUnderwriting);
 			this.grpUnderWrinting.Controls.Add(this.btnUnderwriting);
-			this.grpUnderWrinting.Location = new System.Drawing.Point(8, 397);
+			this.grpUnderWrinting.Location = new System.Drawing.Point(8, 408);
 			this.grpUnderWrinting.Name = "grpUnderWrinting";
 			this.grpUnderWrinting.Size = new System.Drawing.Size(506, 43);
 			this.grpUnderWrinting.TabIndex = 9;
@@ -772,7 +788,7 @@ namespace expensevar_default{
 			this.groupBox6.Controls.Add(this.textBox2);
 			this.groupBox6.Controls.Add(this.label15);
 			this.groupBox6.Controls.Add(this.textBox3);
-			this.groupBox6.Location = new System.Drawing.Point(533, 397);
+			this.groupBox6.Location = new System.Drawing.Point(533, 408);
 			this.groupBox6.Name = "groupBox6";
 			this.groupBox6.Size = new System.Drawing.Size(425, 41);
 			this.groupBox6.TabIndex = 10;
@@ -994,6 +1010,61 @@ namespace expensevar_default{
 			this.label9.TabIndex = 6;
 			this.label9.Text = "Classificazioni";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(985, 446);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(970, 398);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "expensevarattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// imageList1
 			// 
 			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -1001,10 +1072,19 @@ namespace expensevar_default{
 			this.imageList1.Images.SetKeyName(0, "");
 			this.imageList1.Images.SetKeyName(1, "");
 			// 
+			// radLCsa
+			// 
+			this.radLCsa.Location = new System.Drawing.Point(12, 120);
+			this.radLCsa.Name = "radLCsa";
+			this.radLCsa.Size = new System.Drawing.Size(227, 19);
+			this.radLCsa.TabIndex = 8;
+			this.radLCsa.Text = "Azzeramento Lordi CSA";
+			this.radLCsa.CheckedChanged += new System.EventHandler(this.radLCsa_CheckedChanged);
+			// 
 			// Frm_expensevar_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(993, 473);
+			this.ClientSize = new System.Drawing.Size(993, 486);
 			this.Controls.Add(this.tabControl1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Name = "Frm_expensevar_default";
@@ -1037,6 +1117,8 @@ namespace expensevar_default{
 			this.groupBox5.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.DGridDettagliClassificazioni)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DGridClassificazioni)).EndInit();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1563,19 +1645,23 @@ namespace expensevar_default{
 				 
 			     case 32: //AZZERACSA
 
+				 case 33: //AZZERALCSA
+
 			 }*/
 
-			if ((currauto == 0) || (currauto == 10) || (currauto == 22) || (currauto == 32)) {
+			if ((currauto == 0) || (currauto == 10) || (currauto == 22) || (currauto == 32) || (currauto == 33)) {
 				//ANPAR
 				radNormale.Enabled = true;
 				radAnnPar.Enabled = true;
 				radEdit.Enabled = maxphase;
 				radCsa.Enabled = maxphase;
+				radLCsa.Enabled = maxphase;
 			} else {
 				radNormale.Enabled = false;
 				radAnnPar.Enabled = false;
 				radEdit.Enabled = false;
 				radCsa.Enabled = false;
+				radLCsa.Enabled = false;
 			}
 		}
 
@@ -1598,8 +1684,11 @@ namespace expensevar_default{
             //AZZERACSA
             radCsa.Checked = (currauto == 32);
 
-            //NORMALE
-            radNormale.Checked = (currauto == 0);
+			//AZZERALCSA
+			radLCsa.Checked = (currauto == 33);
+
+			//NORMALE
+			radNormale.Checked = (currauto == 0);
 		}
 
 		private void GetAnnullo(){
@@ -1621,6 +1710,9 @@ namespace expensevar_default{
             }
 			if (radCsa.Checked) {
 				if (currauto != 32) R["autokind"] = 32;  //AZZERACSA
+			}
+			if (radLCsa.Checked) {
+				if (currauto != 33) R["autokind"] = 33;  //AZZERALCSA
 			}
 		}
 
@@ -2891,5 +2983,14 @@ namespace expensevar_default{
 	
             if (Meta!=null) Meta.StartFilter = QHS.CmpEq("autokind",32);
         }
-    }
+
+		private void radLCsa_CheckedChanged(object sender, EventArgs e) {
+			if (!radLCsa.Checked) {
+				Meta.StartFilter = null;
+				return;
+			}
+
+			if (Meta != null) Meta.StartFilter = QHS.CmpEq("autokind", 33);
+		}
+	}
 }

@@ -29,7 +29,7 @@
 						this.describeAColumn(table, '!idprogetto_progettokind_title', 'Tipo di progetto o attività', null, 12, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio', null, 10, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine', null, 10, null);
-						this.describeAColumn(table, '!idprogetto_progetto_datacontabile', 'Data chiusura contablile', null, 10, null);
+						this.describeAColumn(table, '!idprogetto_progetto_datacontabile', 'Data chiusura contabile', null, 10, null);
 						this.describeAColumn(table, '!idprogetto_progettostatuskind_title', 'Stato del progetto o attività', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_registry_title', 'Principal investigator / Responsabile di progetto ', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_registry_title', 'Ente capofila', null, 11, null);

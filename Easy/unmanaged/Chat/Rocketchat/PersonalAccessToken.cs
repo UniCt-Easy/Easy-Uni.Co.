@@ -1,0 +1,38 @@
+
+/*
+Easy
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+using System.Collections.Generic;
+
+namespace Chat.Client.Rocketchat {
+    /// <summary>
+    /// Coppie chiave-valore da utilizzare sugli header delle request all'API.
+    /// </summary>
+    public class PersonalAccessToken : Dictionary<string, string> {
+
+        public PersonalAccessToken() : base() { }
+
+        /// <summary>
+        /// Imposta le coppie chiave-valore per l'ID e il token dell'utente.
+        /// </summary>
+        /// <param name="id">Valore dell'ID dell'utente (chiave "X-Auth-Token").</param>
+        /// <param name="token">Token dell'utente (chiave "X-User-Id").</param>
+        public PersonalAccessToken(string id, string token) {
+            Add("X-Auth-Token", token);
+            Add("X-User-Id", id);
+        }
+    }
+}

@@ -188,6 +188,33 @@
 					return def.resolve(firstErrorObj);
 				}
 
+				//SAL
+				if (rowToCheck.current.idsal) {
+					let sal_start = this.state.DS.tables.saldefaultview.select(this.q.eq('idsal', rowToCheck.current.idsal))[0].sal_start;
+					if (rowToCheck.current.data < sal_start) {
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data impostata è precedente all\'inizio del SAL che è ' + this.stringFromDate_ddmmyyyy(sal_start) + ". Correggere il campo",
+							outCaption: 'Data',
+							errField: 'data',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj);
+					}
+
+					let sal_stop = this.state.DS.tables.saldefaultview.select(this.q.eq('idsal', rowToCheck.current.idsal))[0].sal_stop;
+					if (rowToCheck.current.data > sal_stop) {
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: 'La data impostata è successiva alla fine del SAL che è ' + this.stringFromDate_ddmmyyyy(sal_stop) + ". Correggere il campo",
+							outCaption: 'Data',
+							errField: 'data',
+							row: rowToCheck
+						};
+						return def.resolve(firstErrorObj);
+					}
+				}
+
 				//WARNINGS (dopo gli errori perchè interrompono il flusso delle verifiche)
 
 				let oreRendicontate = _.sumBy(this.state.callerState.DS.tables.rendicontattivitaprogettoora.rows, function (r) {
@@ -198,13 +225,48 @@
 				let orePreventivate = this.state.callerState.currentRow.orepreventivate;
 				if (this.isNullOrNotANumber(orePreventivate)) orePreventivate = 0;
 
-				if (rowToCheck.current.ore + oreRendicontate > orePreventivate) {
+				let oreModificate = 0;
+				//se è modificato devo controllare la modifica
+				if (rowToCheck.myState == 'modified') {
+					oreModificate = rowToCheck.current.ore - rowToCheck.old.ore;
+				}
+				//se è aggiunto si somma e basta
+				if (rowToCheck.myState == 'added') {
+					oreModificate = rowToCheck.current.ore;
+				}
 
-					let wmess = 'Il numero di ore indicato sommato alle ore già rendicontate supera il numero di ore preventivato. Siete sicuri di voler indicare un valore superiore a ' + (orePreventivate - oreRendicontate) + ' ore? ';
-					if ((orePreventivate - oreRendicontate) == 0)
-						wmess = 'Il numero di ore preventivato è già stato raggiunto con le ore già rendicontate. Siete sicuri di voler aggiungere ulteriori ' + rowToCheck.current.ore + ' ore? ';
-					if ((orePreventivate - oreRendicontate) < 0)
-						wmess = 'Il numero di ore preventivato è già stato superato con le ore già rendicontate di ' + Math.abs(orePreventivate - oreRendicontate) + ' ore. Siete sicuri di voler aggiungere ulteriori ' + rowToCheck.current.ore + ' ore? ';
+				if (oreModificate + oreRendicontate > orePreventivate) {
+
+					let wmess = '';
+					//caso in cui eravamo sotto e con le ore imputate si supera il valore
+					if ((orePreventivate - oreRendicontate) > 0) {
+						if (rowToCheck.myState == 'added') {
+							wmess = 'Il numero di ore indicato (' + rowToCheck.current.ore + ') sommato alle ore già rendicontate (' + oreRendicontate + ') supera il numero di ore preventivato (' + orePreventivate + '). ';
+							wmess += 'Siete sicuri di voler aggiungere più di ' + (orePreventivate - oreRendicontate) + ' ore? ';
+						}
+						if (rowToCheck.myState == 'modified') {
+							wmess = 'L\'aumento di ore indicato (' + oreModificate + ') sommato alle ore già rendicontate (' + oreRendicontate + ') supera il numero di ore preventivato (' + orePreventivate + '). ';
+							wmess += 'Siete sicuri di voler aggiungere più di ' + (orePreventivate - oreRendicontate) + ' ore? ';
+						}
+					}
+
+					//caso in cui erano già rendicontate tutte le ore
+					if ((orePreventivate - oreRendicontate) == 0) {
+						wmess = 'Il numero di ore preventivato (' + orePreventivate + ') è già stato raggiunto con le ore già rendicontate (' + oreRendicontate + '). ';
+						if (rowToCheck.myState == 'added')
+							wmess += 'Siete sicuri di voler aggiungere ulteriori ' + rowToCheck.current.ore + ' ore? ';
+						if (rowToCheck.myState == 'modified')
+							wmess += 'Siete sicuri di voler confermare ' + rowToCheck.current.ore + ' ore? ';
+					}
+
+					//caso in cui era già superato
+					if ((orePreventivate - oreRendicontate) < 0) {
+						wmess = 'Il numero di ore preventivato (' + orePreventivate + ') è già stato superato di ' + Math.abs(orePreventivate - oreRendicontate) + ' ore con le ore già rendicontate (' + oreRendicontate + '). ';
+						if (rowToCheck.myState == 'added')
+							wmess += 'Siete sicuri di voler aggiungere ulteriori ' + rowToCheck.current.ore + ' ore? ';
+						if (rowToCheck.myState == 'modified')
+							wmess += 'Siete sicuri di voler confermare ' + rowToCheck.current.ore + ' ore? ';
+					}
 
 					firstErrorObj = {
 						warningMsg: wmess,

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -106,6 +106,9 @@ namespace accountingyear_default//esercizio_creazione//
         private TextBox textBox3;
         private Button btnValorizzaSaldo;
         private Panel panel5;
+		private Panel panel6;
+		private TextBox txtOrganigramma;
+		private Button btnOrganigramma;
 		private string[] Titolo = new string[9];
 
 		public Frm_accountingyear_default()
@@ -124,6 +127,14 @@ namespace accountingyear_default//esercizio_creazione//
 			Titolo[6]="Trasferimento Residui Spesa";
 			Titolo[7]="Chiusura Esercizio Corrente";
             Titolo[8] = "Riapertura Esercizio Corrente";
+
+			if (isBlazor())
+			{
+				txtSave.Visible = false;
+				txtFineSave.Visible = false;
+				btnSave.Text = "Scarica";
+				btnFineSave.Text = "Scarica";
+			}
 		}
 
         CQueryHelper QHC;
@@ -182,6 +193,7 @@ namespace accountingyear_default//esercizio_creazione//
 			AbilitaFunzioni();
             abilitaBottoneTrasfPrev();
             abilitaBottoneStornaPrev();
+			abilitaTrasfOrganigramma();
 		}
 
 		public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
@@ -382,6 +394,9 @@ namespace accountingyear_default//esercizio_creazione//
 		{
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
 			this.tabPageInizio = new Crownwood.Magic.Controls.TabPage();
+			this.txtOrganigramma = new System.Windows.Forms.TextBox();
+			this.btnOrganigramma = new System.Windows.Forms.Button();
+			this.panel6 = new System.Windows.Forms.Panel();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.btnValorizzaSaldo = new System.Windows.Forms.Button();
 			this.panel5 = new System.Windows.Forms.Panel();
@@ -468,6 +483,9 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			// tabPageInizio
 			// 
+			this.tabPageInizio.Controls.Add(this.txtOrganigramma);
+			this.tabPageInizio.Controls.Add(this.btnOrganigramma);
+			this.tabPageInizio.Controls.Add(this.panel6);
 			this.tabPageInizio.Controls.Add(this.textBox3);
 			this.tabPageInizio.Controls.Add(this.btnValorizzaSaldo);
 			this.tabPageInizio.Controls.Add(this.panel5);
@@ -511,6 +529,38 @@ namespace accountingyear_default//esercizio_creazione//
 			this.tabPageInizio.TabIndex = 6;
 			this.tabPageInizio.Title = "Inizio";
 			// 
+			// txtOrganigramma
+			// 
+			this.txtOrganigramma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtOrganigramma.Location = new System.Drawing.Point(326, 254);
+			this.txtOrganigramma.Multiline = true;
+			this.txtOrganigramma.Name = "txtOrganigramma";
+			this.txtOrganigramma.ReadOnly = true;
+			this.txtOrganigramma.Size = new System.Drawing.Size(511, 21);
+			this.txtOrganigramma.TabIndex = 49;
+			this.txtOrganigramma.TabStop = false;
+			this.txtOrganigramma.Text = "Trasferisce l\'organigramma nel nuovo esercizio";
+			// 
+			// btnOrganigramma
+			// 
+			this.btnOrganigramma.Enabled = false;
+			this.btnOrganigramma.Location = new System.Drawing.Point(8, 254);
+			this.btnOrganigramma.Name = "btnOrganigramma";
+			this.btnOrganigramma.Size = new System.Drawing.Size(311, 23);
+			this.btnOrganigramma.TabIndex = 48;
+			this.btnOrganigramma.Text = "Trasferisci Organigramma";
+			this.btnOrganigramma.UseVisualStyleBackColor = true;
+			this.btnOrganigramma.Click += new System.EventHandler(this.btnOrganigramma_Click);
+			// 
+			// panel6
+			// 
+			this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel6.Location = new System.Drawing.Point(7, 245);
+			this.panel6.Name = "panel6";
+			this.panel6.Size = new System.Drawing.Size(670, 2);
+			this.panel6.TabIndex = 47;
+			// 
 			// textBox3
 			// 
 			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -547,11 +597,11 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox2.Location = new System.Drawing.Point(325, 336);
+			this.textBox2.Location = new System.Drawing.Point(325, 357);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ReadOnly = true;
-			this.textBox2.Size = new System.Drawing.Size(511, 56);
+			this.textBox2.Size = new System.Drawing.Size(511, 35);
 			this.textBox2.TabIndex = 41;
 			this.textBox2.TabStop = false;
 			this.textBox2.Text = "La copia si riferisce all\'esercizio corrente, saranno copiate le variazioni inizi" +
@@ -560,9 +610,9 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnCopiavariniziali
 			// 
 			this.btnCopiavariniziali.Enabled = false;
-			this.btnCopiavariniziali.Location = new System.Drawing.Point(7, 341);
+			this.btnCopiavariniziali.Location = new System.Drawing.Point(7, 362);
 			this.btnCopiavariniziali.Name = "btnCopiavariniziali";
-			this.btnCopiavariniziali.Size = new System.Drawing.Size(312, 50);
+			this.btnCopiavariniziali.Size = new System.Drawing.Size(312, 30);
 			this.btnCopiavariniziali.TabIndex = 40;
 			this.btnCopiavariniziali.Text = "Copia variazioni iniziali nella previsione iniziale";
 			this.btnCopiavariniziali.Click += new System.EventHandler(this.btnCopiavariniziali_Click);
@@ -643,7 +693,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// panel1
 			// 
 			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel1.Location = new System.Drawing.Point(8, 332);
+			this.panel1.Location = new System.Drawing.Point(8, 351);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(670, 2);
 			this.panel1.TabIndex = 32;
@@ -652,7 +702,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			this.txtManuale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtManuale.Location = new System.Drawing.Point(325, 274);
+			this.txtManuale.Location = new System.Drawing.Point(325, 293);
 			this.txtManuale.Multiline = true;
 			this.txtManuale.Name = "txtManuale";
 			this.txtManuale.ReadOnly = true;
@@ -664,7 +714,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnManuale
 			// 
 			this.btnManuale.Enabled = false;
-			this.btnManuale.Location = new System.Drawing.Point(7, 273);
+			this.btnManuale.Location = new System.Drawing.Point(7, 292);
 			this.btnManuale.Name = "btnManuale";
 			this.btnManuale.Size = new System.Drawing.Size(312, 50);
 			this.btnManuale.TabIndex = 30;
@@ -675,14 +725,14 @@ namespace accountingyear_default//esercizio_creazione//
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel2.Location = new System.Drawing.Point(7, 265);
+			this.panel2.Location = new System.Drawing.Point(7, 284);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(670, 2);
 			this.panel2.TabIndex = 29;
 			// 
 			// txtFase1
 			// 
-			this.txtFase1.Location = new System.Drawing.Point(325, 19);
+			this.txtFase1.Location = new System.Drawing.Point(325, 6);
 			this.txtFase1.Name = "txtFase1";
 			this.txtFase1.ReadOnly = true;
 			this.txtFase1.Size = new System.Drawing.Size(336, 23);
@@ -693,7 +743,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase1
 			// 
 			this.btnFase1.Enabled = false;
-			this.btnFase1.Location = new System.Drawing.Point(244, 17);
+			this.btnFase1.Location = new System.Drawing.Point(244, 4);
 			this.btnFase1.Name = "btnFase1";
 			this.btnFase1.Size = new System.Drawing.Size(75, 23);
 			this.btnFase1.TabIndex = 21;
@@ -703,7 +753,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase1
 			// 
 			this.lblFase1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase1.Location = new System.Drawing.Point(4, 22);
+			this.lblFase1.Location = new System.Drawing.Point(4, 9);
 			this.lblFase1.Name = "lblFase1";
 			this.lblFase1.Size = new System.Drawing.Size(216, 16);
 			this.lblFase1.TabIndex = 20;
@@ -713,7 +763,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			this.txtFase7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtFase7.Location = new System.Drawing.Point(325, 229);
+			this.txtFase7.Location = new System.Drawing.Point(325, 216);
 			this.txtFase7.Multiline = true;
 			this.txtFase7.Name = "txtFase7";
 			this.txtFase7.ReadOnly = true;
@@ -726,7 +776,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			this.txtFase6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtFase6.Location = new System.Drawing.Point(325, 197);
+			this.txtFase6.Location = new System.Drawing.Point(325, 184);
 			this.txtFase6.Multiline = true;
 			this.txtFase6.Name = "txtFase6";
 			this.txtFase6.ReadOnly = true;
@@ -739,7 +789,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			this.txtFase5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtFase5.Location = new System.Drawing.Point(325, 166);
+			this.txtFase5.Location = new System.Drawing.Point(325, 153);
 			this.txtFase5.Multiline = true;
 			this.txtFase5.Name = "txtFase5";
 			this.txtFase5.ReadOnly = true;
@@ -749,7 +799,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			// txtFase4
 			// 
-			this.txtFase4.Location = new System.Drawing.Point(325, 117);
+			this.txtFase4.Location = new System.Drawing.Point(325, 104);
 			this.txtFase4.Multiline = true;
 			this.txtFase4.Name = "txtFase4";
 			this.txtFase4.ReadOnly = true;
@@ -762,7 +812,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			// txtFase3
 			// 
-			this.txtFase3.Location = new System.Drawing.Point(325, 85);
+			this.txtFase3.Location = new System.Drawing.Point(325, 72);
 			this.txtFase3.Name = "txtFase3";
 			this.txtFase3.ReadOnly = true;
 			this.txtFase3.Size = new System.Drawing.Size(336, 23);
@@ -772,7 +822,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// 
 			// txtFase2
 			// 
-			this.txtFase2.Location = new System.Drawing.Point(325, 53);
+			this.txtFase2.Location = new System.Drawing.Point(325, 40);
 			this.txtFase2.Name = "txtFase2";
 			this.txtFase2.ReadOnly = true;
 			this.txtFase2.Size = new System.Drawing.Size(336, 23);
@@ -783,7 +833,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase7
 			// 
 			this.btnFase7.Enabled = false;
-			this.btnFase7.Location = new System.Drawing.Point(244, 227);
+			this.btnFase7.Location = new System.Drawing.Point(244, 214);
 			this.btnFase7.Name = "btnFase7";
 			this.btnFase7.Size = new System.Drawing.Size(75, 23);
 			this.btnFase7.TabIndex = 11;
@@ -793,7 +843,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase6
 			// 
 			this.btnFase6.Enabled = false;
-			this.btnFase6.Location = new System.Drawing.Point(244, 195);
+			this.btnFase6.Location = new System.Drawing.Point(244, 182);
 			this.btnFase6.Name = "btnFase6";
 			this.btnFase6.Size = new System.Drawing.Size(75, 23);
 			this.btnFase6.TabIndex = 10;
@@ -803,7 +853,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase5
 			// 
 			this.btnFase5.Enabled = false;
-			this.btnFase5.Location = new System.Drawing.Point(244, 164);
+			this.btnFase5.Location = new System.Drawing.Point(244, 151);
 			this.btnFase5.Name = "btnFase5";
 			this.btnFase5.Size = new System.Drawing.Size(75, 23);
 			this.btnFase5.TabIndex = 9;
@@ -813,7 +863,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase4
 			// 
 			this.btnFase4.Enabled = false;
-			this.btnFase4.Location = new System.Drawing.Point(244, 115);
+			this.btnFase4.Location = new System.Drawing.Point(244, 102);
 			this.btnFase4.Name = "btnFase4";
 			this.btnFase4.Size = new System.Drawing.Size(75, 23);
 			this.btnFase4.TabIndex = 8;
@@ -823,7 +873,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase3
 			// 
 			this.btnFase3.Enabled = false;
-			this.btnFase3.Location = new System.Drawing.Point(244, 83);
+			this.btnFase3.Location = new System.Drawing.Point(244, 70);
 			this.btnFase3.Name = "btnFase3";
 			this.btnFase3.Size = new System.Drawing.Size(75, 23);
 			this.btnFase3.TabIndex = 7;
@@ -833,7 +883,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// btnFase2
 			// 
 			this.btnFase2.Enabled = false;
-			this.btnFase2.Location = new System.Drawing.Point(244, 51);
+			this.btnFase2.Location = new System.Drawing.Point(244, 38);
 			this.btnFase2.Name = "btnFase2";
 			this.btnFase2.Size = new System.Drawing.Size(75, 23);
 			this.btnFase2.TabIndex = 6;
@@ -843,7 +893,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase6
 			// 
 			this.lblFase6.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase6.Location = new System.Drawing.Point(4, 196);
+			this.lblFase6.Location = new System.Drawing.Point(4, 183);
 			this.lblFase6.Name = "lblFase6";
 			this.lblFase6.Size = new System.Drawing.Size(216, 16);
 			this.lblFase6.TabIndex = 5;
@@ -852,7 +902,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase7
 			// 
 			this.lblFase7.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase7.Location = new System.Drawing.Point(4, 228);
+			this.lblFase7.Location = new System.Drawing.Point(4, 215);
 			this.lblFase7.Name = "lblFase7";
 			this.lblFase7.Size = new System.Drawing.Size(216, 16);
 			this.lblFase7.TabIndex = 4;
@@ -861,7 +911,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase5
 			// 
 			this.lblFase5.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase5.Location = new System.Drawing.Point(4, 165);
+			this.lblFase5.Location = new System.Drawing.Point(4, 152);
 			this.lblFase5.Name = "lblFase5";
 			this.lblFase5.Size = new System.Drawing.Size(216, 16);
 			this.lblFase5.TabIndex = 3;
@@ -870,7 +920,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase3
 			// 
 			this.lblFase3.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase3.Location = new System.Drawing.Point(4, 84);
+			this.lblFase3.Location = new System.Drawing.Point(4, 71);
 			this.lblFase3.Name = "lblFase3";
 			this.lblFase3.Size = new System.Drawing.Size(216, 16);
 			this.lblFase3.TabIndex = 2;
@@ -879,7 +929,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase4
 			// 
 			this.lblFase4.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase4.Location = new System.Drawing.Point(4, 116);
+			this.lblFase4.Location = new System.Drawing.Point(4, 103);
 			this.lblFase4.Name = "lblFase4";
 			this.lblFase4.Size = new System.Drawing.Size(226, 16);
 			this.lblFase4.TabIndex = 1;
@@ -888,7 +938,7 @@ namespace accountingyear_default//esercizio_creazione//
 			// lblFase2
 			// 
 			this.lblFase2.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.lblFase2.Location = new System.Drawing.Point(4, 52);
+			this.lblFase2.Location = new System.Drawing.Point(4, 39);
 			this.lblFase2.Name = "lblFase2";
 			this.lblFase2.Size = new System.Drawing.Size(216, 16);
 			this.lblFase2.TabIndex = 0;
@@ -1501,6 +1551,9 @@ namespace accountingyear_default//esercizio_creazione//
 					sw.WriteLine(R[0].ToString());
 				}
 				sw.Close();
+
+				MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fullname, false);
+
 			} catch {}
 		}
 
@@ -1520,6 +1573,9 @@ namespace accountingyear_default//esercizio_creazione//
 				StreamWriter sw=new StreamWriter(fullname,false,System.Text.Encoding.Default);
 				sw.WriteLine(txtFine.Text);
 				sw.Close();
+
+				MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fullname, false);
+
 			} catch {}
 		}
 
@@ -1761,8 +1817,27 @@ namespace accountingyear_default//esercizio_creazione//
                 Meta.Conn.DO_SYS_CMD(script, false);
                 show("Copia eseguita per il cassiere: " + R["description"].ToString());
             }
-          
-
         }
+
+		private void abilitaTrasfOrganigramma()
+		{
+			string[] flags = GetFlagForYear(esercizio);
+			if (flags == null) return;
+			btnOrganigramma.Enabled = flags[flagcreazioneesercizio] == "S";
+		}
+
+		private void btnOrganigramma_Click(object sender, EventArgs e)
+		{
+			object startayear = HelpForm.GetObjectFromString(typeof(int),
+				esercizio.ToString(), "x.y.year");
+
+			object stopayear = HelpForm.GetObjectFromString(typeof(int),
+			(esercizio + 1).ToString(), "x.y.year");
+									
+			Meta.Conn.CallSP("closeyear_flowchartcopy_copymissingrow", new object[] {startayear,
+				stopayear}, false, 600);
+			show("Organigramma trasferito, per applicare le restrizioni andare in " +
+				"Opzioni > Gestione sicurezza > Organigramma > Applica sicurezza", "Operazione eseguita");
+		}
 	}
 }

@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -71,7 +71,8 @@ namespace meta_registrymainview
 				DescribeAColumn(T,"extmatricula","Matricola",nPos++);
                 DescribeAColumn(T, "ipa_fe", "Codice IPA", nPos++);
                 DescribeAColumn(T, "flag_pa", "Ente Pubblico", nPos++);
-			}
+                DescribeAColumn(T, "idanpr", "Codice ANPR", nPos++);
+            }
 
             if (ListingType == "default") {
                 foreach (DataColumn C in T.Columns)

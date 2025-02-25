@@ -1,7 +1,7 @@
 
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -449,7 +449,12 @@ namespace expense_procmissione { //spesaproceduramissione//
         private Button button4;
         private DataGrid gridDettPagamenti;
         private Button btnAdd;
-        bool monofase = false;
+		private TabPage tabAllegati;
+		private DataGrid dataGridAllegati;
+		private Button btnDelAtt;
+		private Button btnEditAtt;
+		private Button btnInsAtt;
+		bool monofase = false;
 
 
         public Frm_expense_procmissione() {
@@ -665,6 +670,14 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.tabClassSup = new System.Windows.Forms.TabPage();
 			this.btnGeneraClassAutomatiche = new System.Windows.Forms.Button();
 			this.tabDetails = new System.Windows.Forms.TabPage();
+			this.gboxIncassoDettContratti = new System.Windows.Forms.GroupBox();
+			this.btnCollegaDettagliContratto = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
+			this.txtTotDettPagamenti = new System.Windows.Forms.TextBox();
+			this.label30 = new System.Windows.Forms.Label();
+			this.button4 = new System.Windows.Forms.Button();
+			this.gridDettPagamenti = new System.Windows.Forms.DataGrid();
+			this.btnAdd = new System.Windows.Forms.Button();
 			this.gboxDettmandate = new System.Windows.Forms.GroupBox();
 			this.btnEditMandDet = new System.Windows.Forms.Button();
 			this.txtTotMandateDetail = new System.Windows.Forms.TextBox();
@@ -804,14 +817,11 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.btnRemoveDettInvoice = new System.Windows.Forms.Button();
 			this.btnAddDettInvoice = new System.Windows.Forms.Button();
 			this.dgrDettagliFattura = new System.Windows.Forms.DataGrid();
-			this.gboxIncassoDettContratti = new System.Windows.Forms.GroupBox();
-			this.btnCollegaDettagliContratto = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.txtTotDettPagamenti = new System.Windows.Forms.TextBox();
-			this.label30 = new System.Windows.Forms.Label();
-			this.button4 = new System.Windows.Forms.Button();
-			this.gridDettPagamenti = new System.Windows.Forms.DataGrid();
-			this.btnAdd = new System.Windows.Forms.Button();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.gboxDocumento.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.grpMandatoPagamento.SuspendLayout();
@@ -838,6 +848,8 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.gboxFasePrecedente.SuspendLayout();
 			this.tabClassSup.SuspendLayout();
 			this.tabDetails.SuspendLayout();
+			this.gboxIncassoDettContratti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDettPagamenti)).BeginInit();
 			this.gboxDettmandate.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrDettagliOrdine)).BeginInit();
 			this.tabPrest.SuspendLayout();
@@ -874,8 +886,8 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.tabFatture.SuspendLayout();
 			this.gboxDettInvoice.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrDettagliFattura)).BeginInit();
-			this.gboxIncassoDettContratti.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gridDettPagamenti)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnGerarchia
@@ -1845,6 +1857,7 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.tabControl1.Controls.Add(this.tabFinanziamenti);
 			this.tabControl1.Controls.Add(this.tabPageAltro);
 			this.tabControl1.Controls.Add(this.tabFatture);
+			this.tabControl1.Controls.Add(this.tabAllegati);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.ImageList = this.imageList1;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -2253,6 +2266,96 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.tabDetails.TabIndex = 5;
 			this.tabDetails.Text = "Contratti Passivi";
 			this.tabDetails.UseVisualStyleBackColor = true;
+			// 
+			// gboxIncassoDettContratti
+			// 
+			this.gboxIncassoDettContratti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxIncassoDettContratti.Controls.Add(this.btnCollegaDettagliContratto);
+			this.gboxIncassoDettContratti.Controls.Add(this.button3);
+			this.gboxIncassoDettContratti.Controls.Add(this.txtTotDettPagamenti);
+			this.gboxIncassoDettContratti.Controls.Add(this.label30);
+			this.gboxIncassoDettContratti.Controls.Add(this.button4);
+			this.gboxIncassoDettContratti.Controls.Add(this.gridDettPagamenti);
+			this.gboxIncassoDettContratti.Controls.Add(this.btnAdd);
+			this.gboxIncassoDettContratti.Location = new System.Drawing.Point(8, 211);
+			this.gboxIncassoDettContratti.Name = "gboxIncassoDettContratti";
+			this.gboxIncassoDettContratti.Size = new System.Drawing.Size(793, 265);
+			this.gboxIncassoDettContratti.TabIndex = 73;
+			this.gboxIncassoDettContratti.TabStop = false;
+			this.gboxIncassoDettContratti.Text = "Dettagli Contratto Passivo pagati";
+			// 
+			// btnCollegaDettagliContratto
+			// 
+			this.btnCollegaDettagliContratto.Location = new System.Drawing.Point(8, 157);
+			this.btnCollegaDettagliContratto.Name = "btnCollegaDettagliContratto";
+			this.btnCollegaDettagliContratto.Size = new System.Drawing.Size(75, 54);
+			this.btnCollegaDettagliContratto.TabIndex = 6;
+			this.btnCollegaDettagliContratto.Text = "Riporta dettagli impegnati";
+			this.btnCollegaDettagliContratto.UseVisualStyleBackColor = true;
+			this.btnCollegaDettagliContratto.Click += new System.EventHandler(this.btnCollegaDettagliContratto_Click);
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(8, 80);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 5;
+			this.button3.Tag = "edit.detail";
+			this.button3.Text = "Modifica..";
+			// 
+			// txtTotDettPagamenti
+			// 
+			this.txtTotDettPagamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtTotDettPagamenti.Location = new System.Drawing.Point(6, 237);
+			this.txtTotDettPagamenti.Name = "txtTotDettPagamenti";
+			this.txtTotDettPagamenti.ReadOnly = true;
+			this.txtTotDettPagamenti.Size = new System.Drawing.Size(80, 20);
+			this.txtTotDettPagamenti.TabIndex = 4;
+			this.txtTotDettPagamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label30
+			// 
+			this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label30.Location = new System.Drawing.Point(6, 218);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(48, 16);
+			this.label30.TabIndex = 3;
+			this.label30.Text = "Totale";
+			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(8, 48);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(75, 23);
+			this.button4.TabIndex = 2;
+			this.button4.Tag = "delete";
+			this.button4.Text = "Rimuovi";
+			// 
+			// gridDettPagamenti
+			// 
+			this.gridDettPagamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.gridDettPagamenti.DataMember = "";
+			this.gridDettPagamenti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.gridDettPagamenti.ImeMode = System.Windows.Forms.ImeMode.Disable;
+			this.gridDettPagamenti.Location = new System.Drawing.Point(103, 16);
+			this.gridDettPagamenti.Name = "gridDettPagamenti";
+			this.gridDettPagamenti.Size = new System.Drawing.Size(682, 243);
+			this.gridDettPagamenti.TabIndex = 1;
+			this.gridDettPagamenti.Tag = "expenselastmandatedetail.detail.detail";
+			// 
+			// btnAdd
+			// 
+			this.btnAdd.Location = new System.Drawing.Point(8, 16);
+			this.btnAdd.Name = "btnAdd";
+			this.btnAdd.Size = new System.Drawing.Size(75, 23);
+			this.btnAdd.TabIndex = 0;
+			this.btnAdd.Tag = "insert.detail";
+			this.btnAdd.Text = "Aggiungi";
 			// 
 			// gboxDettmandate
 			// 
@@ -3842,95 +3945,59 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.dgrDettagliFattura.Size = new System.Drawing.Size(700, 240);
 			this.dgrDettagliFattura.TabIndex = 2;
 			// 
-			// gboxIncassoDettContratti
+			// tabAllegati
 			// 
-			this.gboxIncassoDettContratti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Size = new System.Drawing.Size(812, 484);
+			this.tabAllegati.TabIndex = 9;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gboxIncassoDettContratti.Controls.Add(this.btnCollegaDettagliContratto);
-			this.gboxIncassoDettContratti.Controls.Add(this.button3);
-			this.gboxIncassoDettContratti.Controls.Add(this.txtTotDettPagamenti);
-			this.gboxIncassoDettContratti.Controls.Add(this.label30);
-			this.gboxIncassoDettContratti.Controls.Add(this.button4);
-			this.gboxIncassoDettContratti.Controls.Add(this.gridDettPagamenti);
-			this.gboxIncassoDettContratti.Controls.Add(this.btnAdd);
-			this.gboxIncassoDettContratti.Location = new System.Drawing.Point(8, 211);
-			this.gboxIncassoDettContratti.Name = "gboxIncassoDettContratti";
-			this.gboxIncassoDettContratti.Size = new System.Drawing.Size(793, 265);
-			this.gboxIncassoDettContratti.TabIndex = 73;
-			this.gboxIncassoDettContratti.TabStop = false;
-			this.gboxIncassoDettContratti.Text = "Dettagli Contratto Passivo pagati";
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(8, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(797, 436);
+			this.dataGridAllegati.TabIndex = 27;
+			this.dataGridAllegati.Tag = "expenseattachment.lista.detail";
 			// 
-			// btnCollegaDettagliContratto
+			// btnDelAtt
 			// 
-			this.btnCollegaDettagliContratto.Location = new System.Drawing.Point(8, 157);
-			this.btnCollegaDettagliContratto.Name = "btnCollegaDettagliContratto";
-			this.btnCollegaDettagliContratto.Size = new System.Drawing.Size(75, 54);
-			this.btnCollegaDettagliContratto.TabIndex = 6;
-			this.btnCollegaDettagliContratto.Text = "Riporta dettagli impegnati";
-			this.btnCollegaDettagliContratto.UseVisualStyleBackColor = true;
-			this.btnCollegaDettagliContratto.Click += new System.EventHandler(this.btnCollegaDettagliContratto_Click);
+			this.btnDelAtt.Location = new System.Drawing.Point(199, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 26;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
 			// 
-			// button3
+			// btnEditAtt
 			// 
-			this.button3.Location = new System.Drawing.Point(8, 80);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(75, 23);
-			this.button3.TabIndex = 5;
-			this.button3.Tag = "edit.detail";
-			this.button3.Text = "Modifica..";
+			this.btnEditAtt.Location = new System.Drawing.Point(103, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 25;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
 			// 
-			// txtTotDettPagamenti
+			// btnInsAtt
 			// 
-			this.txtTotDettPagamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtTotDettPagamenti.Location = new System.Drawing.Point(6, 237);
-			this.txtTotDettPagamenti.Name = "txtTotDettPagamenti";
-			this.txtTotDettPagamenti.ReadOnly = true;
-			this.txtTotDettPagamenti.Size = new System.Drawing.Size(80, 20);
-			this.txtTotDettPagamenti.TabIndex = 4;
-			this.txtTotDettPagamenti.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label30
-			// 
-			this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label30.Location = new System.Drawing.Point(6, 218);
-			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(48, 16);
-			this.label30.TabIndex = 3;
-			this.label30.Text = "Totale";
-			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// button4
-			// 
-			this.button4.Location = new System.Drawing.Point(8, 48);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(75, 23);
-			this.button4.TabIndex = 2;
-			this.button4.Tag = "delete";
-			this.button4.Text = "Rimuovi";
-			// 
-			// gridDettPagamenti
-			// 
-			this.gridDettPagamenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gridDettPagamenti.DataMember = "";
-			this.gridDettPagamenti.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.gridDettPagamenti.ImeMode = System.Windows.Forms.ImeMode.Disable;
-			this.gridDettPagamenti.Location = new System.Drawing.Point(103, 16);
-			this.gridDettPagamenti.Name = "gridDettPagamenti";
-			this.gridDettPagamenti.Size = new System.Drawing.Size(682, 243);
-			this.gridDettPagamenti.TabIndex = 1;
-			this.gridDettPagamenti.Tag = "expenselastmandatedetail.detail.detail";
-			// 
-			// btnAdd
-			// 
-			this.btnAdd.Location = new System.Drawing.Point(8, 16);
-			this.btnAdd.Name = "btnAdd";
-			this.btnAdd.Size = new System.Drawing.Size(75, 23);
-			this.btnAdd.TabIndex = 0;
-			this.btnAdd.Tag = "insert.detail";
-			this.btnAdd.Text = "Aggiungi";
+			this.btnInsAtt.Location = new System.Drawing.Point(8, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 24;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// Frm_expense_procmissione
 			// 
@@ -3980,6 +4047,9 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.gboxFasePrecedente.PerformLayout();
 			this.tabClassSup.ResumeLayout(false);
 			this.tabDetails.ResumeLayout(false);
+			this.gboxIncassoDettContratti.ResumeLayout(false);
+			this.gboxIncassoDettContratti.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridDettPagamenti)).EndInit();
 			this.gboxDettmandate.ResumeLayout(false);
 			this.gboxDettmandate.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrDettagliOrdine)).EndInit();
@@ -4034,9 +4104,8 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.gboxDettInvoice.ResumeLayout(false);
 			this.gboxDettInvoice.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrDettagliFattura)).EndInit();
-			this.gboxIncassoDettContratti.ResumeLayout(false);
-			this.gboxIncassoDettContratti.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gridDettPagamenti)).EndInit();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 
         }
