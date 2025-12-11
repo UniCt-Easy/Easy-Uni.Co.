@@ -20,28 +20,45 @@ categories:
   - financial-reporting
   - project-management
   - time-management
-softwareVersion: 32.03.901
+softwareVersion: 90.01.368
 usedBy:
-  - Università degli Studi di Catania
-  - Università degli Studi del Piemonte Orientale
   - Università degli Studi della Basilicata
-  - Università degli Studi della Campania Luigi Vanvitelli
-  - Università degli Studi della Tuscia
-  - Università degli Studi di Cassino e del Lazio Meridionale
-  - Università degli Studi di Roma Foro Italico
-  - Università del Salento
-  - Università di Roma Tor Vergata
-  - Università Mediterranea di Reggio Calabria
+  - Università di Cassino e del Lazio Meridionale
   - Università degli Studi di Bari Aldo Moro
+  - Università della Campania Luigi Vanvitelli
+  - Università del Piemonte Orientale Amedeo Avogadro
+  - Università Mediterranea di Reggio Calabria
+  - Università degli Studi di Roma Torvergata
+  - Università del Salento
+  - Università degli Studi di Roma "Foro Italico"
+  - Università degli Studi di Catania
+  - Università della Tuscia
+  - Conservatorio di Cagliari
+  - Consorzio di Bonifica Toscana 1
+  - ARPAL Puglia
+  - CINIGeo
+  - Consorzio Gerard Boulvert
+  - CIRCC
+  - Conservatorio di Musica di Reggio Emilia e Castelnovo ne’ Monti 
+  - Fondazione Scuola Beni e Attività Culturali
+  - Conservatorio di Modena
+  - Conservatorio di Aosta
+  - Conservatorio di Trapani
+  - Centro Nazionale di Ricerca in HPC, Big Data and Quantum Computing
+  - Centro InterUniversitario per la Previsione e Prevenzione Grandi Rischi
+  - Accademia di Belle Arti di Frosinone
+  - Centro Nazionale di Ricerca per le Tecnologie dell’Agricoltura
+  - MOST (Centro Nazionale per la Mobilità Sostenibile)
+
 maintenance:
   type: contract
   contacts:
-    - name: 'Vincenzo Scaccianoce, Sonia Lombardo, Gianni Smaldino'
+    - name: 'Sonia Lombardo, Gianni Smaldino'
       email: easy.github@unict.it
       phone: '+390802460212'
   contractors:
     - name: Tempo srl
-      until: '2023-11-24'
+      until: '2027-07-24'
       website: https://www.temposrl.com
 legal:
   license: GPL-3.0-or-later
