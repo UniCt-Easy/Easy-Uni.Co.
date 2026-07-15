@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -31,7 +29,7 @@ public partial class dsmeta_pianostudioattivform_segstud: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sostenimentodefaultview 		=> (MetaTable)Tables["sostenimentodefaultview"];
+	public MetaTable sostenimentopianoview 		=> (MetaTable)Tables["sostenimentopianoview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attivformdefaultview_alias1 		=> (MetaTable)Tables["attivformdefaultview_alias1"];
@@ -67,18 +65,15 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_pianostudioattivform_segstud.xsd";
 
 	#region create DataTables
-	//////////////////// SOSTENIMENTODEFAULTVIEW /////////////////////////////////
-	var tsostenimentodefaultview= new MetaTable("sostenimentodefaultview");
-	tsostenimentodefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsostenimentodefaultview.defineColumn("idappello", typeof(int));
-	tsostenimentodefaultview.defineColumn("idattivform", typeof(int));
-	tsostenimentodefaultview.defineColumn("idiscrizione", typeof(int));
-	tsostenimentodefaultview.defineColumn("idprova", typeof(int));
-	tsostenimentodefaultview.defineColumn("idreg", typeof(int),false);
-	tsostenimentodefaultview.defineColumn("idsostenimento", typeof(int),false);
-	tsostenimentodefaultview.defineColumn("idtitolostudio", typeof(int));
-	Tables.Add(tsostenimentodefaultview);
-	tsostenimentodefaultview.defineKey("idsostenimento");
+	//////////////////// SOSTENIMENTOPIANOVIEW /////////////////////////////////
+	var tsostenimentopianoview= new MetaTable("sostenimentopianoview");
+	tsostenimentopianoview.defineColumn("dropdown_title", typeof(string),false);
+	tsostenimentopianoview.defineColumn("idappello", typeof(int),false);
+	tsostenimentopianoview.defineColumn("idprova", typeof(int),false);
+	tsostenimentopianoview.defineColumn("idreg", typeof(int),false);
+	tsostenimentopianoview.defineColumn("idsostenimento", typeof(int),false);
+	Tables.Add(tsostenimentopianoview);
+	tsostenimentopianoview.defineKey("idappello", "idprova", "idreg", "idsostenimento");
 
 	//////////////////// ATTIVFORMDEFAULTVIEW_ALIAS1 /////////////////////////////////
 	var tattivformdefaultview_alias1= new MetaTable("attivformdefaultview_alias1");
@@ -91,12 +86,10 @@ private void initClass() {
 	tattivformdefaultview_alias1.defineColumn("iddidprogcurr", typeof(int),false);
 	tattivformdefaultview_alias1.defineColumn("iddidprogori", typeof(int),false);
 	tattivformdefaultview_alias1.defineColumn("iddidprogporzanno", typeof(int),false);
-	tattivformdefaultview_alias1.defineColumn("idinsegn", typeof(int),false);
-	tattivformdefaultview_alias1.defineColumn("idinsegninteg", typeof(int));
 	tattivformdefaultview_alias1.defineColumn("idsede", typeof(int),false);
 	tattivformdefaultview_alias1.ExtendedProperties["TableForReading"]="attivformdefaultview";
 	Tables.Add(tattivformdefaultview_alias1);
-	tattivformdefaultview_alias1.defineKey("idattivform");
+	tattivformdefaultview_alias1.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// ATTIVFORMDEFAULTVIEW /////////////////////////////////
 	var tattivformdefaultview= new MetaTable("attivformdefaultview");
@@ -109,11 +102,9 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("iddidprogcurr", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
-	tattivformdefaultview.defineColumn("idinsegn", typeof(int),false);
-	tattivformdefaultview.defineColumn("idinsegninteg", typeof(int));
 	tattivformdefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tattivformdefaultview);
-	tattivformdefaultview.defineKey("idattivform");
+	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// PIANOSTUDIOATTIVFORM /////////////////////////////////
 	var tpianostudioattivform= new MetaTable("pianostudioattivform");
@@ -133,15 +124,15 @@ private void initClass() {
 	tpianostudioattivform.defineColumn("lt", typeof(DateTime),false);
 	tpianostudioattivform.defineColumn("lu", typeof(string),false);
 	Tables.Add(tpianostudioattivform);
-	tpianostudioattivform.defineKey("idattivform_scelta", "idcorsostudio", "iddidprog", "idiscrizione", "idpianostudio", "idpianostudioattivform", "idreg");
+	tpianostudioattivform.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idpianostudio", "idpianostudioattivform", "idreg");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{sostenimentodefaultview.Columns["idsostenimento"]};
+	var cPar = new []{sostenimentopianoview.Columns["idsostenimento"]};
 	var cChild = new []{pianostudioattivform.Columns["idsostenimento"]};
-	Relations.Add(new DataRelation("FK_pianostudioattivform_sostenimentodefaultview_idsostenimento",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_pianostudioattivform_sostenimentopianoview_idsostenimento",cPar,cChild,false));
 
 	cPar = new []{attivformdefaultview_alias1.Columns["idattivform"]};
 	cChild = new []{pianostudioattivform.Columns["idattivform_scelta"]};

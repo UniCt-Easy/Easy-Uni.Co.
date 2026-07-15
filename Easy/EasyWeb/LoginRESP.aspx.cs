@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections;
@@ -48,7 +46,7 @@ namespace EasyWebReport {
             DataAccess Conn = GetVars.GetSystemDataAccess(this, out error);
 
             if (codice.Trim().Length == 0) {
-                labExtMessage.Text = "Non Ë stato selezionato alcun dipartimento";
+                labExtMessage.Text = "Non √® stato selezionato alcun dipartimento";
                 return;
             }
 
@@ -60,12 +58,12 @@ namespace EasyWebReport {
             if ((CodDip == null) || (CodDip.Rows.Count == 0)) {
                 //Dati non corretti
                 WebLog.Log(this, codice + ": Codice non corretto");
-                labExtMessage.Text = "Il codice inserito non Ë corretto.";
+                labExtMessage.Text = "Il codice inserito non √® corretto.";
                 return;
             }
 
             if (CodDip.Rows.Count > 1) {
-                //Attenzione nel DB non Ë garantita l'unicit‡ dei dati.
+                //Attenzione nel DB non √® garantita l'unicit√† dei dati.
                 labExtMessage.Text = "Chiedere al Responsabile del servizio " +
                                      "l'assegnazione di un nuovo Codice";
                 WebLog.Log(this, "Attenzione !!! Duplicazione di codici per " + codice);
@@ -160,7 +158,7 @@ namespace EasyWebReport {
                 return;
             }
 
-            lblMessaggio.Text = "Il servizio Web Ë attivo";
+            lblMessaggio.Text = "Il servizio Web √® attivo";
             GetVars.ClearUserConn(this);
             string depcode_given = "";
 
@@ -188,15 +186,15 @@ namespace EasyWebReport {
 
             }
             catch {
-                lblMessaggio.Text = "La data contabile Ë un campo obbligatorio.";
+                lblMessaggio.Text = "La data contabile √® un campo obbligatorio.";
                 sysConn.Close();
                 return;
             }
 
 
             if (IsPostBack && (D == null)) {
-                lblMessaggio.Text = "La data contabile Ë un campo obbligatorio.";
-                //MM.ShowClientMessage("La data contabile Ë un campo obbligatorio.", "Errore", 
+                lblMessaggio.Text = "La data contabile √® un campo obbligatorio.";
+                //MM.ShowClientMessage("La data contabile √® un campo obbligatorio.", "Errore", 
                 //            System.Windows.Forms.MessageBoxButtons.OK);
 
                 return;
@@ -204,16 +202,16 @@ namespace EasyWebReport {
 
             if (IsPostBack) {
                 if (txtNomeUtente.Text == "") {
-                    lblMessaggio.Text = "Il nome utente Ë un campo obbligatorio.";
-                    //MM.ShowClientMessage("Il nome utente Ë un campo obbligatorio.", "Errore",
+                    lblMessaggio.Text = "Il nome utente √® un campo obbligatorio.";
+                    //MM.ShowClientMessage("Il nome utente √® un campo obbligatorio.", "Errore",
                     //          System.Windows.Forms.MessageBoxButtons.OK);
 
                     return;
                 }
 
                 if (txtPassword.Text == "") {
-                    lblMessaggio.Text = "La password Ë un campo obbligatorio.";
-                    //MM.ShowClientMessage("La password Ë un campo obbligatorio.", "Errore",
+                    lblMessaggio.Text = "La password √® un campo obbligatorio.";
+                    //MM.ShowClientMessage("La password √® un campo obbligatorio.", "Errore",
                     //        System.Windows.Forms.MessageBoxButtons.OK);
                     sysConn.Close();
                     return;
@@ -235,7 +233,7 @@ namespace EasyWebReport {
 
                 if (UsrConn == null) {
                     sysConn.Close();
-                    return; //Messaggio gi‡ viualizzato da ConnectToDepartment()
+                    return; //Messaggio gi√† viualizzato da ConnectToDepartment()
                 }
 
                 QueryHelper QHS = UsrConn.GetQueryHelper();
@@ -243,7 +241,7 @@ namespace EasyWebReport {
 
                 if (!DatiValidi(D, UsrConn)) {
                     sysConn.Close();
-                    lblMessaggio.Text = "L'esercizio " + D.Year + " non Ë stato creato";
+                    lblMessaggio.Text = "L'esercizio " + D.Year + " non √® stato creato";
                     return;
                 }
 
@@ -256,8 +254,8 @@ namespace EasyWebReport {
                 sysConn.Close();
 
                 if (UsrConn.Open() == false) {
-                    //Il Server del Dipartimento non Ë in rete. 
-                    //Il servizio non Ë disponibile in quanto il computer potrebbe essere spento.
+                    //Il Server del Dipartimento non √® in rete. 
+                    //Il servizio non √® disponibile in quanto il computer potrebbe essere spento.
                     labExtMessage.Text = "Il Server del Dipartimento non risponde.\r" +
                                          "Potrebbe essere spento o momentaneamente fuori rete. \r" +
                                          "Provi in seguito";
@@ -324,7 +322,7 @@ namespace EasyWebReport {
                     cf = virtualuser.Rows[0]["cf"].ToString();
 
                     UsrConn.SetUsr("HasVirtualUser", "S");
-                    // Controllare se Ë anche un responsabile 
+                    // Controllare se √® anche un responsabile 
                     // Vediamo se esiste un manager il cui login="username"
                     // se si, assegnamo le due variabili di responsabile come 
                     // nel caso "2"

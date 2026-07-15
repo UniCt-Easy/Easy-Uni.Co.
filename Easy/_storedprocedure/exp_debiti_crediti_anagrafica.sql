@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_debiti_crediti_anagrafica]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_debiti_crediti_anagrafica]
 GO
@@ -26,7 +24,7 @@ SET ANSI_NULLS ON
 GO
 -- setuser 'amm'
 -- setuser 'amministrazione'
--- exp_debiti_crediti_anagrafica '2023', {d '2023-10-27'}, '5', null, NULL, 'P', NULL,'A','T','S'
+-- exp_debiti_crediti_anagrafica_test 2024,{ts '2024-12-31 00:00:00'}, 6,'D) . 7)',null,T,null,'D','T','N'
  
 CREATE PROCEDURE [exp_debiti_crediti_anagrafica]
 (
@@ -93,7 +91,7 @@ SET @lenfilteracc = DATALENGTH(RTRIM(ISNULL(@filteraccount,''))) --print @lenfil
 	
 	DECLARE @newnlevel integer
 	SET @newnlevel = (CONVERT(int, @nlevel)*4)+2  --print @newnlevel
-
+ 
 	INSERT INTO #bilanciostatopatrimoniale(
 		adate,
 		idpatrimony,
@@ -148,6 +146,7 @@ SET @lenfilteracc = DATALENGTH(RTRIM(ISNULL(@filteraccount,''))) --print @lenfil
 			--  or entrydetail.idrelated like 'foeco%' 
 --
  
+ 
 --Inserisce le voci non associate a Conti EP
 INSERT INTO #bilanciostatopatrimoniale(
 		idpatrimony,
@@ -168,20 +167,20 @@ INSERT INTO #bilanciostatopatrimoniale(
 --select * from #bilanciostatopatrimoniale
 
  --SELECT * FROM @lista_id
-
+ 
  IF (@kind = 'D')
  BEGIN
 		DECLARE	@delimiter_character CHAR(1) = '§'
 		INSERT INTO @lista_id  select distinct idrelated from #bilanciostatopatrimoniale   where idrelated IS NOT NULL   --AND idrelated   like 'csaimport§%'  AND idrelated NOT like '%csaimport%' --  like '%estim%'  OR  idrelated   like '%man%'  OR  idrelated   like '%inv%' OR  idrelated   like '%payroll%' OR  idrelated   like '%cascon%'
 
 		CREATE  TABLE #Tdrel (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),
-		kind varchar(max), rifdoc varchar(max), docdate datetime, daterif datetime )
+		kind varchar(max), rifdoc varchar(max), rifdoccollegato varchar(max), docdate datetime, daterif datetime )
 		--select * from [fn_decode_idrelated_tab] (@lista_id) 
 		--select distinct  from @lista_id  where idrelated is null 
 		--select *  from @lista_id  where  
 		insert into #Tdrel
 		select * from [fn_decode_idrelated_tab] (@lista_id) 
-
+ 
 		--SELECT * FROM #Tdrel
 		SELECT  
 			registry.title as 'Anagrafica',
@@ -236,6 +235,7 @@ INSERT INTO #bilanciostatopatrimoniale(
 			ORDER BY  registry.title, account.codeacc  
  END
 End -- fine sp
+go
  
  
  

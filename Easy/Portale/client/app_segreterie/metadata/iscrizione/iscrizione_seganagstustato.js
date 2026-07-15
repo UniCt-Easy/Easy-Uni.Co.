@@ -44,16 +44,31 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#iscrizione_seganagstustato_iddidprog'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_sostenimento_alias4_seganagstustato').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-iscrizione_seganagstustato");
-				$('#iscrizione_seganagstustato_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_seganagstustato_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#iscrizione_seganagstustato_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#iscrizione_seganagstustato_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -71,6 +86,8 @@
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
 
 			children: ['sostenimento_alias4'],
 			haveChildren: function () {

@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server" >
-
+<div class="container" style="border: 1px solid #ccc;border-radius: 15px;padding: 15px;margin: 20px auto;background-color: #f6f7f9;">
     <div class="row">
         <div class="col-md-6 align-self-end">
             <div class="row">
@@ -99,7 +99,7 @@
             </fieldset>
         </div>
     </div>
-
+</div>
 
 
 </asp:Content>

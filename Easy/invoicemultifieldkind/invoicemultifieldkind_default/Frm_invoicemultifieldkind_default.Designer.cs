@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 namespace invoicemultifieldkind_default {
@@ -75,6 +73,8 @@ namespace invoicemultifieldkind_default {
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.dataGrid1 = new System.Windows.Forms.DataGrid();
+			this.textBox8 = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.MetaDataDetail.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
@@ -201,6 +201,8 @@ namespace invoicemultifieldkind_default {
 			// 
 			this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.MetaDataDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.MetaDataDetail.Controls.Add(this.label9);
+			this.MetaDataDetail.Controls.Add(this.textBox8);
 			this.MetaDataDetail.Controls.Add(this.checkBox1);
 			this.MetaDataDetail.Controls.Add(this.textBox7);
 			this.MetaDataDetail.Controls.Add(this.label8);
@@ -221,7 +223,7 @@ namespace invoicemultifieldkind_default {
 			this.MetaDataDetail.Controls.Add(this.label1);
 			this.MetaDataDetail.Location = new System.Drawing.Point(411, 55);
 			this.MetaDataDetail.Name = "MetaDataDetail";
-			this.MetaDataDetail.Size = new System.Drawing.Size(399, 360);
+			this.MetaDataDetail.Size = new System.Drawing.Size(399, 525);
 			this.MetaDataDetail.TabIndex = 20;
 			// 
 			// checkBox1
@@ -403,6 +405,25 @@ namespace invoicemultifieldkind_default {
 			this.dataGrid1.TabIndex = 19;
 			this.dataGrid1.Tag = "invoicemultifieldkind.default";
 			// 
+			// textBox8
+			// 
+			this.textBox8.Location = new System.Drawing.Point(11, 357);
+			this.textBox8.Multiline = true;
+			this.textBox8.Name = "textBox8";
+			this.textBox8.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.textBox8.Size = new System.Drawing.Size(379, 146);
+			this.textBox8.TabIndex = 13;
+			this.textBox8.Tag = "invoicemultifieldkind.notes";
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(13, 338);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(63, 16);
+			this.label9.TabIndex = 14;
+			this.label9.Text = "Note";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// Frm_invoicemultifieldkind_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -455,5 +476,7 @@ namespace invoicemultifieldkind_default {
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.DataGrid dataGrid1;
 		public vistaForm DS;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.TextBox textBox8;
 	}
 }

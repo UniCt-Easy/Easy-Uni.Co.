@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -130,6 +128,8 @@ namespace epexp_default {
 		private Button btnSpalmaPrevisioni;
 		public TextBox textBox3;
 		private Label label7;
+		private CheckBox chkListTitle;
+		private CheckBox chkListTitleUPB;
 		private Button btnCausale;
 
 		public Frm_epexp_default() {
@@ -157,11 +157,6 @@ namespace epexp_default {
 		/// </summary>
 		private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
@@ -251,10 +246,15 @@ namespace epexp_default {
 			this.btnEditVar = new System.Windows.Forms.Button();
 			this.btnInsertVar = new System.Windows.Forms.Button();
 			this.GridVariazioni = new System.Windows.Forms.DataGrid();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.chkListTitle = new System.Windows.Forms.CheckBox();
+			this.chkListTitleUPB = new System.Windows.Forms.CheckBox();
 			this.DS = new epexp_default.dsmeta();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPrincipale.SuspendLayout();
 			this.gBoxCausale.SuspendLayout();
 			this.gboxResponsabile.SuspendLayout();
@@ -271,6 +271,8 @@ namespace epexp_default {
 			this.tabVariazioni.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.GridVariazioni)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -288,61 +290,6 @@ namespace epexp_default {
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(896, 528);
 			this.tabControl1.TabIndex = 12;
-			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGridAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "epexpattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabPrincipale
 			// 
@@ -411,9 +358,9 @@ namespace epexp_default {
 			this.gBoxCausale.Controls.Add(this.txtDescrCausale);
 			this.gBoxCausale.Controls.Add(this.txtCodiceCausale);
 			this.gBoxCausale.Controls.Add(this.btnCausale);
-			this.gBoxCausale.Location = new System.Drawing.Point(580, 378);
+			this.gBoxCausale.Location = new System.Drawing.Point(580, 374);
 			this.gBoxCausale.Name = "gBoxCausale";
-			this.gBoxCausale.Size = new System.Drawing.Size(297, 118);
+			this.gBoxCausale.Size = new System.Drawing.Size(297, 122);
 			this.gBoxCausale.TabIndex = 34;
 			this.gBoxCausale.TabStop = false;
 			this.gBoxCausale.Tag = "AutoManage.txtCodiceCausale.tree";
@@ -599,12 +546,13 @@ namespace epexp_default {
 			// 
 			// gboxUPB
 			// 
+			this.gboxUPB.Controls.Add(this.chkListTitleUPB);
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(300, 379);
+			this.gboxUPB.Location = new System.Drawing.Point(300, 374);
 			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(274, 117);
+			this.gboxUPB.Size = new System.Drawing.Size(274, 122);
 			this.gboxUPB.TabIndex = 8;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
@@ -613,9 +561,9 @@ namespace epexp_default {
 			// 
 			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(8, 89);
+			this.txtUPB.Location = new System.Drawing.Point(8, 95);
 			this.txtUPB.Name = "txtUPB";
-			this.txtUPB.Size = new System.Drawing.Size(257, 20);
+			this.txtUPB.Size = new System.Drawing.Size(261, 20);
 			this.txtUPB.TabIndex = 5;
 			this.txtUPB.Tag = "upb.codeupb?x";
 			// 
@@ -623,23 +571,23 @@ namespace epexp_default {
 			// 
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(112, 11);
+			this.txtDescrUPB.Location = new System.Drawing.Point(102, 34);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
-			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(153, 72);
+			this.txtDescrUPB.Size = new System.Drawing.Size(167, 57);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
+			this.txtDescrUPB.ReadOnly = true;
 			// 
 			// btnUPBCode
 			// 
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(8, 62);
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 71);
 			this.btnUPBCode.Name = "btnUPBCode";
-			this.btnUPBCode.Size = new System.Drawing.Size(98, 20);
+			this.btnUPBCode.Size = new System.Drawing.Size(88, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
 			this.btnUPBCode.Tag = "";
@@ -1144,6 +1092,7 @@ namespace epexp_default {
 			// 
 			// gboxConto
 			// 
+			this.gboxConto.Controls.Add(this.chkListTitle);
 			this.gboxConto.Controls.Add(this.txtDenominazioneConto);
 			this.gboxConto.Controls.Add(this.txtCodiceConto);
 			this.gboxConto.Controls.Add(this.btnAccount);
@@ -1156,18 +1105,18 @@ namespace epexp_default {
 			// 
 			// txtDenominazioneConto
 			// 
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(103, 14);
+			this.txtDenominazioneConto.Location = new System.Drawing.Point(102, 34);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
-			this.txtDenominazioneConto.ReadOnly = true;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(161, 74);
+			this.txtDenominazioneConto.Size = new System.Drawing.Size(162, 57);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
+			this.txtDenominazioneConto.ReadOnly = true;
 			// 
 			// txtCodiceConto
 			// 
-			this.txtCodiceConto.Location = new System.Drawing.Point(6, 94);
+			this.txtCodiceConto.Location = new System.Drawing.Point(4, 95);
 			this.txtCodiceConto.Name = "txtCodiceConto";
 			this.txtCodiceConto.Size = new System.Drawing.Size(258, 20);
 			this.txtCodiceConto.TabIndex = 1;
@@ -1176,13 +1125,14 @@ namespace epexp_default {
 			// btnAccount
 			// 
 			this.btnAccount.BackColor = System.Drawing.SystemColors.Control;
-			this.btnAccount.Location = new System.Drawing.Point(8, 65);
+			this.btnAccount.Location = new System.Drawing.Point(3, 72);
 			this.btnAccount.Name = "btnAccount";
-			this.btnAccount.Size = new System.Drawing.Size(89, 23);
+			this.btnAccount.Size = new System.Drawing.Size(88, 20);
 			this.btnAccount.TabIndex = 0;
-			this.btnAccount.Tag = "manage.account.tree";
+			this.btnAccount.Tag = "";
 			this.btnAccount.Text = "Conto";
 			this.btnAccount.UseVisualStyleBackColor = false;
+			this.btnAccount.Click += new System.EventHandler(this.btnAccount_Click);
 			// 
 			// tabClassificazioni
 			// 
@@ -1317,6 +1267,79 @@ namespace epexp_default {
 			this.GridVariazioni.TabIndex = 0;
 			this.GridVariazioni.Tag = "epexpvar.default.detail";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(888, 502);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(873, 454);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "epexpattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// chkListTitle
+			// 
+			this.chkListTitle.Location = new System.Drawing.Point(7, 9);
+			this.chkListTitle.Name = "chkListTitle";
+			this.chkListTitle.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitle.TabIndex = 59;
+			this.chkListTitle.TabStop = false;
+			this.chkListTitle.Text = "Cerca per denominazione";
+			// 
+			// chkListTitleUPB
+			// 
+			this.chkListTitleUPB.Location = new System.Drawing.Point(8, 12);
+			this.chkListTitleUPB.Name = "chkListTitleUPB";
+			this.chkListTitleUPB.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitleUPB.TabIndex = 60;
+			this.chkListTitleUPB.TabStop = false;
+			this.chkListTitleUPB.Text = "Cerca per denominazione";
+			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
@@ -1358,9 +1381,9 @@ namespace epexp_default {
 			this.tabVariazioni.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.GridVariazioni)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.tabAllegati.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1371,7 +1394,6 @@ namespace epexp_default {
 		public void metaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
 			bf = new BudgetFunction(this.getInstance<IMetaDataDispatcher>() as MetaDataDispatcher);
-			controller.CanInsertCopy = false;
 			HelpForm.SetDenyNull(DS.epexp.Columns["flagvariation"], true);
 			var filteresercvariazione = toString(eq("yvar", esercizio));
 			setStaticFilter(DS.epexpvar, filteresercvariazione);
@@ -1556,14 +1578,20 @@ namespace epexp_default {
 			txtEsercizio.ReadOnly = !isEmpty;
 			txtNumero.ReadOnly = !isEmpty;
 			abilitaDisabilitaSalvataggio();
+			//abilitaDisabilitaInserisciCopia();
 			chkFlagVariazione.Enabled = true;
 			EnableDisableImporti();
+			chkListTitle.Checked = false;
+			chkListTitleUPB.Checked = false;
 		}
 
 		public void metaData_BeforeFill() {
 			addRemoveTabs(false);
 			if (insertMode) {
 				createEpExpYearRow();
+				if (DS.epexpvar.Rows.Count != 0) {
+					DS.epexpvar.Clear();
+				}
 			}
 			else {
 				if (DS.epexptotal.Rows.Count == 0) {
@@ -1619,7 +1647,8 @@ namespace epexp_default {
 
 
 		public void metaData_AfterFill() {
-			if (firstFillForThisRow)btnAccount.Tag = "manage.account.tree";
+			if (firstFillForThisRow)
+				btnAccount.Tag = "manage.account.tree";
 			btnSpalmaPrevisioni.Visible = true;
 			DataRow curr = DS.epexp.Rows[0];
 			btnEditDocument.Visible = (curr["idrelated"] != DBNull.Value);
@@ -1637,15 +1666,21 @@ namespace epexp_default {
 			labdisponibile.Text = (radPreimpegno.Checked) ? "Disponibile" : "Disponibile per costi";
 			txtTotaleDisp.Visible = true;
 			for (int i = 2; i <= 5; i++) {
-				var T = (TextBox) getCtrlByName("txtImpCorr" + i);
+				var T = (TextBox)getCtrlByName("txtImpCorr" + i);
 				T.Visible = true;
-				T = (TextBox) getCtrlByName("txtCurrDisp" + i);
+				T = (TextBox)getCtrlByName("txtCurrDisp" + i);
 				T.Visible = radPreimpegno.Checked;
 			}
 
 			abilitaDisabilitaSalvataggio();
+			//abilitaDisabilitaInserisciCopia();
 			EnableDisableImporti();
-		}
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.epexpattachment, true);
+        }
 
 		private void abilitaDisabilitaNotaVariazione() {
 			if (isEmpty || editMode) {
@@ -1668,6 +1703,32 @@ namespace epexp_default {
 
 				return;
 			}
+		}
+		private void abilitaDisabilitaInserisciCopia() {
+			// Questa funzione era nata con il task n.20306 per abilitare l'InserisciCopia solo per i Preimpegni. Ma poi abbiamo decico di abilitarlo anche per l'impegno.
+			// La lascio, casomai dove servire.
+			if (isEmpty) {
+				return;
+			}
+
+			if (insertMode) {
+				controller.CanInsertCopy = false;
+				return;
+			}
+
+			if (DS.epexp.Rows.Count == 0) {
+				return;
+			}
+
+			DataRow Curr = DS.epexp.Rows[0];
+			if (CfgFn.GetNoNullInt32(Curr["nphase"]) == 1) {
+				controller.CanInsertCopy = true;
+			}
+			else {
+				controller.CanInsertCopy = false;
+			}
+
+			controller.FreshToolBar();
 		}
 
 		private void abilitaDisabilitaSalvataggio() {
@@ -1775,8 +1836,10 @@ namespace epexp_default {
 				grpFasi.Enabled = true;
 				if (radPreimpegno.Checked) {
 					DS.epexp.Rows[0]["paridepexp"] = DBNull.Value;
+					DS.epexp.Rows[0]["idreg"] = DBNull.Value;
 					txtNprec.Text = "";
 					txtYprec.Text = "";
+					txtClienteFornitore.Text = "";
 				}
 			}
 			else {
@@ -2110,18 +2173,14 @@ namespace epexp_default {
 
 		private void btnUPBCode_Click(object sender, EventArgs e) {
 			object getresp = getResponsabile();
-			if (isEmpty || (editMode && getresp == DBNull.Value)) {
-				Meta.DoMainCommand("manage.upb.tree");
-				return;
-			}
 
 			string filterMan = "";
 			if (getresp != DBNull.Value) {
 				filterMan = qhs.CmpEq("idman", getresp);
 			}
 
-			string filter = qhs.AppAnd(filterMan, qhs.CmpEq("active", 'S'),
-				qhs.CmpEq("ayear", esercizio));
+			string filter = qhs.DoPar(qhs.AppOr(qhs.NullOrEq("active", 'S'), qhs.CmpEq("active", "")));
+			filter = qhs.AppAnd(filter, filterMan);
 			decimal currval = 0;
 			if (isEmpty || insertMode) {
 				if (SubEntity_txtAnno1.Text.Trim() != "") {
@@ -2136,7 +2195,24 @@ namespace epexp_default {
 				}
 			}
 
-			if (insertMode && (currval > 0)) {
+			
+			if (chkListTitleUPB.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+				MetaData.DoMainCommand(this, "choose.upb.default." + filter);
+				return;
+			}
+			if (isEmpty || (editMode && getresp == DBNull.Value)) {
+				Meta.DoMainCommand("manage.upb.tree");
+				return;
+			}
+			if (insertMode && (currval > 0))
+			{
 				filter = qhs.AppAnd(filter, qhs.CmpGe("available", currval));
 			}
 
@@ -2244,6 +2320,29 @@ namespace epexp_default {
 				r[field] = d;
 			}
 			Meta.FreshForm(false);
+		}
+
+		private void btnAccount_Click(object sender, EventArgs e) {
+			string filter = "";
+			int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+
+			string filteroperativo = "(idacc in (SELECT idacc from accountusable where ayear='" +
+				esercizio + "'))";
+
+			if (chkListTitle.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+				filter = GetData.MergeFilters(filter, filteroperativo);
+				btnAccount.Tag = "";
+				MetaData.DoMainCommand(this, "choose.account.default." + filter);
+				return;
+			}
+			btnAccount.Tag = "manage.account.tree";
 		}
 	}
 

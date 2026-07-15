@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,9 +25,12 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_iscrizioneanno_didprog"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_iscrizioneanno_didprog: DataSet {
+public partial class dsmeta_iscrizioneanno_didprog: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable parttimeinfo 		=> (MetaTable)Tables["parttimeinfo"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable didprogoridefaultview 		=> (MetaTable)Tables["didprogoridefaultview"];
 
@@ -64,6 +65,24 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_iscrizioneanno_didprog.xsd";
 
 	#region create DataTables
+	//////////////////// PARTTIMEINFO /////////////////////////////////
+	var tparttimeinfo= new MetaTable("parttimeinfo");
+	tparttimeinfo.defineColumn("anni", typeof(int));
+	tparttimeinfo.defineColumn("annoequiv", typeof(int));
+	tparttimeinfo.defineColumn("cf", typeof(decimal));
+	tparttimeinfo.defineColumn("cfpregressi", typeof(int));
+	tparttimeinfo.defineColumn("ct", typeof(DateTime));
+	tparttimeinfo.defineColumn("cu", typeof(string));
+	tparttimeinfo.defineColumn("idiscrizione", typeof(int),false);
+	tparttimeinfo.defineColumn("idiscrizioneanno", typeof(int),false);
+	tparttimeinfo.defineColumn("idparttimeinfo", typeof(int),false);
+	tparttimeinfo.defineColumn("idreg", typeof(int),false);
+	tparttimeinfo.defineColumn("lt", typeof(DateTime));
+	tparttimeinfo.defineColumn("lu", typeof(string));
+	tparttimeinfo.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tparttimeinfo);
+	tparttimeinfo.defineKey("idiscrizione", "idiscrizioneanno", "idparttimeinfo", "idreg");
+
 	//////////////////// DIDPROGORIDEFAULTVIEW /////////////////////////////////
 	var tdidprogoridefaultview= new MetaTable("didprogoridefaultview");
 	tdidprogoridefaultview.defineColumn("corsostudio_annoistituz", typeof(int));
@@ -80,7 +99,7 @@ private void initClass() {
 	tdidprogoridefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tdidprogoridefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogoridefaultview);
-	tdidprogoridefaultview.defineKey("iddidprogori");
+	tdidprogoridefaultview.defineKey("idcorsostudio", "iddidprog", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");
@@ -93,6 +112,7 @@ private void initClass() {
 	tiscrizioneanno.defineColumn("aa", typeof(string),false);
 	tiscrizioneanno.defineColumn("anno", typeof(int),false);
 	tiscrizioneanno.defineColumn("annofc", typeof(int));
+	tiscrizioneanno.defineColumn("annopt", typeof(int));
 	tiscrizioneanno.defineColumn("ct", typeof(DateTime),false);
 	tiscrizioneanno.defineColumn("cu", typeof(string),false);
 	tiscrizioneanno.defineColumn("data", typeof(DateTime),false);
@@ -113,8 +133,12 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{didprogoridefaultview.Columns["iddidprogori"]};
-	var cChild = new []{iscrizioneanno.Columns["iddidprogori"]};
+	var cPar = new []{iscrizioneanno.Columns["idiscrizione"], iscrizioneanno.Columns["idiscrizioneanno"], iscrizioneanno.Columns["idreg"]};
+	var cChild = new []{parttimeinfo.Columns["idiscrizione"], parttimeinfo.Columns["idiscrizioneanno"], parttimeinfo.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_parttimeinfo_iscrizioneanno_idiscrizione-idiscrizioneanno-idreg",cPar,cChild,false));
+
+	cPar = new []{didprogoridefaultview.Columns["iddidprogori"]};
+	cChild = new []{iscrizioneanno.Columns["iddidprogori"]};
 	Relations.Add(new DataRelation("FK_iscrizioneanno_didprogoridefaultview_iddidprogori",cPar,cChild,false));
 
 	cPar = new []{annoaccademico.Columns["aa"]};

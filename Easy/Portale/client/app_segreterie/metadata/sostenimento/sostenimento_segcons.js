@@ -23,15 +23,44 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+								if (self.isNullOrMinDate(parentRow.data))
+					parentRow.data = new Date();
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-sostenimento_segcons");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#sostenimento_segcons_idreg'), null);
+				} else {
+					this.helpForm.filter($('#sostenimento_segcons_idreg'), this.q.eq('registry_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#sostenimento_segcons_idsostenimentoesito'), null);
+				} else {
+					this.helpForm.filter($('#sostenimento_segcons_idsostenimentoesito'), this.q.eq('sostenimentoesito_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -50,7 +79,17 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#sostenimento_segcons_idreg'), true);
+				this.helpForm.filter($('#sostenimento_segcons_idreg'), null);
+				this.helpForm.filter($('#sostenimento_segcons_idsostenimentoesito'), null);
+				this.enableControl($('#sostenimento_segcons_protnumero'), true);
+				this.enableControl($('#sostenimento_segcons_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#sostenimento_segcons_protnumero'), false);
@@ -71,7 +110,21 @@
 				});
 			},
 
-			//afterRowSelect
+			afterRowSelect: function (t, r) {
+				var def = appMeta.Deferred("afterRowSelect-sostenimento_segcons");
+				$('#sostenimento_segcons_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#sostenimento_segcons_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				if (t.name === "corsostudiodefaultview" && r !== null) {
+					this.state.DS.tables.didprogdefaultview.staticFilter(window.jsDataQuery.eq("idcorsostudio", r.idcorsostudio));
+					if (this.state.DS.tables.didprogdefaultview.rows.length)
+						if (this.state.DS.tables.didprogdefaultview.rows[0].idcorsostudio !== r.idcorsostudio) {
+							this.state.DS.tables.didprogdefaultview.clear();
+							$('#sostenimento_segcons_iddidprog').val('');
+						}
+				}
+				//afterRowSelectin
+				return def.resolve();
+			},
 
 			//afterActivation
 
@@ -92,7 +145,15 @@
 			},
 
 
-			//insertClick
+			insertClick: function (that, grid) {
+				if (!$('#sostenimento_segcons_idreg').val() && this.children.includes(grid.dataSourceName)) {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Studente');
+				}
+				//insertClickin
+				return this.superClass.insertClick(that, grid);
+			},
+
+			//beforePost
 
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.idreg_istituto;
@@ -101,7 +162,19 @@
 				var idprotocollodockind = 5;
 				var arrayTablesToProtocol = ['sostenimento'];
 				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.idsostenimento;
+
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
+			},
+
+			children: [''],
+			haveChildren: function () {
+				var self = this;
+				return _.some(this.children, function (child) {
+					if (child !== '')
+						return !!self.getDataTable(child).rows.length;
+					else
+						return false;
+				});
 			},
 
 			//buttons

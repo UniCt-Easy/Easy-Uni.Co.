@@ -34,8 +34,8 @@
 					case 'seg':
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 30, 9);
 						this.describeAColumn(table, 'data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 60, null);
-						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 70, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 50, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 60, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -55,6 +55,10 @@
 						table.columns["protanno"].caption = "Anno di protocollo";
 						table.columns["protnumero"].caption = "Numero di protocollo";
 //$innerSetCaptionConfig_seganagstu$
+						break;
+					case 'seg':
+						table.columns["aa"].caption = "Anno accademico";
+//$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$
 				}

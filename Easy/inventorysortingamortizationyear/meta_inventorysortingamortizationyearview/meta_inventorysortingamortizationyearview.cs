@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -55,6 +53,7 @@ namespace meta_inventorysortingamortizationyearview
                 DescribeAColumn(T, "amortizationquota", "Quota");
                 DescribeAColumn(T, "official", "Ufficiale");
                 DescribeAColumn(T, "ammort_sval", "Ammortamento/Svalutazione");
+                DescribeAColumn(T, "active", "Attivo");
                 DescribeAColumn(T, "age", "Età min");
                 DescribeAColumn(T, "agemax", "Età max");
                 DescribeAColumn(T, "valuemin", "Valore Min");

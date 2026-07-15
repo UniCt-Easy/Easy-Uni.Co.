@@ -53,6 +53,26 @@
 						this.describeAColumn(table, 'date', 'Data', null, 30, null);
 //$objCalcFieldConfig_seg$
 						break;
+					case 'isee_stu':
+						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
+						this.describeAColumn(table, 'date', 'Data', null, 30, null);
+//$objCalcFieldConfig_isee_stu$
+						break;
+					case 'altrititoli_stu':
+						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
+						this.describeAColumn(table, 'date', 'Data', null, 30, null);
+//$objCalcFieldConfig_altrititoli_stu$
+						break;
+					case 'titolo_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico della dichiarazione', null, 10, 9);
+						this.describeAColumn(table, 'date', 'Data della dichiarazione', null, 20, null);
+//$objCalcFieldConfig_titolo_stu$
+						break;
+					case 'disabil_stu':
+						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
+						this.describeAColumn(table, 'date', 'Data', null, 30, null);
+//$objCalcFieldConfig_disabil_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -76,6 +96,19 @@
 						table.columns["protanno"].caption = "Anno Protocollo";
 						table.columns["protnumero"].caption = "Numero Protocollo";
 //$innerSetCaptionConfig_isee_seg$
+						break;
+					case 'isee_stu':
+//$innerSetCaptionConfig_isee_stu$
+						break;
+					case 'altrititoli_stu':
+//$innerSetCaptionConfig_altrititoli_stu$
+						break;
+					case 'titolo_stu':
+						table.columns["date"].caption = "Data della dichiarazione";
+//$innerSetCaptionConfig_titolo_stu$
+						break;
+					case 'disabil_stu':
+//$innerSetCaptionConfig_disabil_stu$
 						break;
 //$innerSetCaptionConfig$
 				}

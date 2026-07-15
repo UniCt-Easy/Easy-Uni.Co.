@@ -26,7 +26,7 @@
 					case 'default':
 						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
 						this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
-						this.describeAColumn(table, 'sortcode', 'Sortcode', null, 40, null);
+						this.describeAColumn(table, 'sortcode', 'Ordinamento', null, 40, null);
 //$objCalcFieldConfig_default$
 						break;
 					case 'seg':
@@ -73,6 +73,9 @@
 					}
 					case "seg": {
 						return "title asc ";
+					}
+					case "default": {
+						return "title asc , sortcode desc";
 					}
 					//$getSortingin$
 				}

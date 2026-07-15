@@ -92,6 +92,7 @@
               <xs:element name="advancepercentagefood" type="xs:decimal" minOccurs="0" />
               <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
               <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -13,6 +13,7 @@
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsospensione" type="xs:int" />
+              <xs:element name="idsospensionekind" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="motivo" type="xs:string" minOccurs="0" />

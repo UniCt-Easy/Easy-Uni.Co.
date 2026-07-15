@@ -23,16 +23,36 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (self.isNullOrMinDate(parentRow.data))
+				parentRow.data = new Date();
+				parentRow.extension = "conseg";
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-istanza_conseg_conseg_seg");
+				var arraydef = [];
+				
+				arraydef.push(this.manageistanza__conseg_seg_idcorsostudio());
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				parentRow.extension = "conseg";
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#istanza_conseg_seg_idreg_studenti'), null);
 				} else {
@@ -50,6 +70,7 @@
 					meta.setDefaults(dt);
 					var defistanza_conseg = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
 						function (currentRowconseg) {
+							currentRowconseg.current.idistanzakind = 12;
 							//defaultExtendingObject
 							return true;
 						}
@@ -70,17 +91,23 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#istanza_conseg_seg_idreg_studenti'), true);
 				this.helpForm.filter($('#istanza_conseg_seg_idreg_studenti'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanza_conseg'));
+				this.enableControl($('#istanza_conseg_seg_iddidprog'), true);
+				this.enableControl($('#istanza_conseg_seg_protnumero'), true);
+				this.enableControl($('#istanza_conseg_seg_protanno'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('relatore'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('richitesi'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
+				this.enableControl($('#istanza_conseg_seg_iddidprog'), false);
 				this.enableControl($('#istanza_conseg_seg_protnumero'), false);
 				this.enableControl($('#istanza_conseg_seg_protanno'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanza_conseg'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('relatore'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('richitesi'));
 				//afterFillin
@@ -89,12 +116,15 @@
 
 			afterLink: function () {
 				var self = this;
+				this.state.addExtraEntity('istanza_conseg');
+				this.state.DS.tables.istanza.defaults({ 'aa': this.getAAByDate() });
+				this.state.DS.tables.istanza.defaults({ 'data': new Date() });
 				this.state.DS.tables.istanza.defaults({ 'extension': "conseg" });
 				this.state.DS.tables.istanza.defaults({ 'idistanzakind': 12 });
 				this.state.DS.tables.istanza.defaults({ 'idstatuskind': 1 });
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
-				this.state.DS.tables.statuskind.staticFilter(window.jsDataQuery.eq('istanze', 'S'));
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq('statuskind_istanze', 'Si'));
 				$('#grid_richitesi_segistcons').data('mdlconditionallookup', 'accettata,S,Si;accettata,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -106,19 +136,32 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-istanza_conseg_conseg_seg");
-				if (t.name === "annoaccademico" && r !== null) {
-					this.state.DS.tables.didprogdefaultview.staticFilter(window.jsDataQuery.eq("aa", r.aa));
+				$('#istanza_conseg_seg_idreg_studenti').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
+				$('#istanza_conseg_seg_idreg_studenti').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
+				if (t.name === 'registrystudentiview' && r !== null)
+					if (this.state.DS.tables['istanza_conseg'].rows.length)
+						this.state.DS.tables['istanza_conseg'].rows[0].idreg = r.idreg;
+				if (t.name === "registrystudentiview" && r !== null) {
+					this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.eq("idreg", r.idreg));
+					if (this.state.DS.tables.iscrizionedefaultview.rows.length)
+						if (this.state.DS.tables.iscrizionedefaultview.rows[0].idreg !== r.idreg) {
+							this.state.DS.tables.iscrizionedefaultview.clear();
+							$('#istanza_conseg_seg_idiscrizione').val('');
+						}
+				}
+				if (t.name === "iscrizionedefaultview" && r !== null) {
+					this.state.DS.tables.didprogdefaultview.staticFilter(window.jsDataQuery.eq("iddidprog", r.iddidprog));
 					if (this.state.DS.tables.didprogdefaultview.rows.length)
-						if (this.state.DS.tables.didprogdefaultview.rows[0].aa !== r.aa) {
+						if (this.state.DS.tables.didprogdefaultview.rows[0].iddidprog !== r.iddidprog) {
 							this.state.DS.tables.didprogdefaultview.clear();
 							$('#istanza_conseg_seg_iddidprog').val('');
 						}
 				}
-				$('#istanza_conseg_seg_idreg_studenti').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#istanza_conseg_seg_idreg_studenti').prop("readonly", this.state.isEditState() || this.haveChildren());
-				if (t.name === 'registrystudentiview' && r !== null)
-					if (this.state.DS.tables['istanza_conseg'].rows.length)
-						this.state.DS.tables['istanza_conseg'].rows[0].idreg = r.idreg;
+				if (t.name === "iscrizionedefaultview" && r !== null) {
+					return this.manageidiscrizione(this).then(function () {
+						return def.resolve();
+					});
+				}
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -173,6 +216,29 @@
 					else
 						return false;
 				});
+			},
+
+			manageidiscrizione: function(that) { 
+				var def = appMeta.Deferred("manageidiscrizione");
+			if (this.state.DS.tables.iscrizionedefaultview.rows.length) {
+				this.state.currentRow.iddidprog = this.state.DS.tables.iscrizionedefaultview.rows[0].iddidprog;
+				this.state.currentRow.idcorsostudio = this.state.DS.tables.iscrizionedefaultview.rows[0].idcorsostudio;
+			}
+			return def.resolve();
+			},
+
+			manageistanza__conseg_seg_idcorsostudio: function () {
+				var def = appMeta.Deferred("beforeFill-manageistanza__conseg_seg_idcorsostudio");
+				var self = this;
+				var masterRow = _.find(this.state.DS.tables.didprogdefaultview.rows, function (row) {
+					if (self.state.currentRow.iddidprog)
+						return row.iddidprog === self.state.currentRow.iddidprog;
+					else
+						return null;
+				});
+				if (masterRow)
+					this.state.currentRow.idcorsostudio = masterRow.idcorsostudio;
+				return def.resolve();
 			},
 
 			//buttons

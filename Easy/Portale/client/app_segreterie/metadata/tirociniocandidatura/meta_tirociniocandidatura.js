@@ -24,11 +24,14 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
+						this.describeAColumn(table, 'idreg_studenti', 'Studente', null, 10, null);
 						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
-						this.describeAColumn(table, '!idreg_docenti_registry_docenti_title', 'Tutor', null, 31, null);
-						objCalcFieldConfig['!idreg_docenti_registry_docenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
-						this.describeAColumn(table, '!idreg_studenti_registry_studenti_title', 'Studente', null, 11, null);
-						objCalcFieldConfig['!idreg_studenti_registry_studenti_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
+						this.describeAColumn(table, 'idreg_docenti', 'Tutor', null, 30, null);
+						this.describeAColumn(table, 'idtirociniocandidaturakind', 'Tipologia', null, 60, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Tutor', null, 31, null);
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idreg_studenti_registry_title', 'Studente', null, 11, null);
+						objCalcFieldConfig['!idreg_studenti_registry_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
 						this.describeAColumn(table, '!idtirociniocandidaturakind_tirociniocandidaturakind_title', 'Tipologia', null, 61, null);
 						objCalcFieldConfig['!idtirociniocandidaturakind_tirociniocandidaturakind_title'] = { tableNameLookup:'tirociniocandidaturakind', columnNameLookup:'title', columnNamekey:'idtirociniocandidaturakind' };
 //$objCalcFieldConfig_seg$

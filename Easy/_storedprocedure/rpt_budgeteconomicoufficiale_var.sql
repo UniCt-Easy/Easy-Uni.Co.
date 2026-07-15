@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,9 +13,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 --setuser 'amministrazione'
-
+--exec rpt_budgeteconomicoufficiale_var 2024, {d '2024-12-31'}, 27,'%','N',null,null,null,null,null
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_budgeteconomicoufficiale_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_budgeteconomicoufficiale_var]
 GO
@@ -25,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
--- exec rpt_budgeteconomicoufficiale_var 2021, {d '2021-11-11'}, 22,'%','S',null,null,null,null,null
+-- exec rpt_budgeteconomicoufficiale_var 2025, {d '2025-03-12'}, 22,'%','S',null,null,null,null,null
 CREATE PROCEDURE [rpt_budgeteconomicoufficiale_var] (
 	@ayear int,--> anno del bilancio di previsione
 	@data datetime,
@@ -399,7 +397,10 @@ SELECT	@A_IV_ProventiPerGestioneDiretta_var = isnull(sum(bvd.amount), 0)
 		AND (bv.adate <= @data or @data is null)
 		AND (@idsor01 IS NULL OR u.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR u.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR u.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
-		AND s.sortcode LIKE 'EA1401%'
+		--AND s.sortcode LIKE 'EA1401%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+		where L.sortcode_old = 'EA1401' and L.ayear_old = @ayear and @ayear = 2025),'EA1301')+'%'
+		)
 
 SELECT	@A_IV_ProventiPerGestioneDiretta = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
@@ -410,13 +411,16 @@ SELECT	@A_IV_ProventiPerGestioneDiretta = isnull(sum(budgetprevision.prevision),
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1401%'
-
+		--AND S.sortcode LIKE 'EA1401%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+		where L.sortcode_old = 'EA1401' and L.ayear_old = @ayear and @ayear = 2025),'EA1301')+'%'
+		)
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
 -- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilità finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 declare @A_V1_UtilizzoRiservePatrimonioNetto decimal(19,2)
 declare @A_V1_UtilizzoRiservePatrimonioNetto_var decimal(19,2)
+
 SELECT	@A_V1_UtilizzoRiservePatrimonioNetto_var = isnull(sum(bvd.amount), 0)
 	FROM budgetvar bv
 	join budgetvardetail bvd	on bvd.ybudgetvar = bv.ybudgetvar and  bvd.nbudgetvar = bv.nbudgetvar
@@ -429,8 +433,11 @@ SELECT	@A_V1_UtilizzoRiservePatrimonioNetto_var = isnull(sum(bvd.amount), 0)
 		AND (bv.adate <= @data or @data is null)
 		AND (@idsor01 IS NULL OR u.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR u.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR u.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
-		AND s.sortcode LIKE 'EA1501%'
-		
+		--AND s.sortcode LIKE 'EA1501%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+		where L.sortcode_old = 'EA1501' and L.ayear_old = @ayear and @ayear = 2025),'EA1401')+'%'
+		)
+
 SELECT	@A_V1_UtilizzoRiservePatrimonioNetto = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
 	join sorting S		on budgetprevision.idsor = S.idsor
@@ -440,7 +447,14 @@ SELECT	@A_V1_UtilizzoRiservePatrimonioNetto = isnull(sum(budgetprevision.previsi
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1501%'
+		--AND S.sortcode LIKE 'EA1501%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1501' and L.ayear_old = @ayear and @ayear = 2025),'EA1401')+'%'
+				)
+
+--select @A_V1_UtilizzoRiservePatrimonioNetto 
+-- Stampa vecchia, eseguita nel 2024 dopo aver lanciato lo script
+-----------------------sara-------------------------------------------		
 
 declare @A_V2_AltriProventi decimal(19,2)
 declare @A_V2_AltriProventi_var decimal(19,2)
@@ -456,7 +470,10 @@ SELECT	@A_V2_AltriProventi_var = isnull(sum(bvd.amount), 0)
 		AND (bv.adate <= @data or @data is null)
 		AND (@idsor01 IS NULL OR u.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR u.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR u.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
-		AND s.sortcode LIKE 'EA1502%'
+--		AND s.sortcode LIKE 'EA1502%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1502' and L.ayear_old = @ayear and @ayear = 2025),'EA1402')+'%'
+				)
 
 SELECT	@A_V2_AltriProventi = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
@@ -467,7 +484,10 @@ SELECT	@A_V2_AltriProventi = isnull(sum(budgetprevision.prevision), 0)
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1502%'
+		--AND S.sortcode LIKE 'EA1502%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1502' and L.ayear_old = @ayear and @ayear = 2025),'EA1402')+'%'
+				)
 
 declare @A_V_UtilizzoRiservePatrimonioNetto decimal(19,2)
 set @A_V_UtilizzoRiservePatrimonioNetto = isnull(@A_V1_UtilizzoRiservePatrimonioNetto, 0) + isnull(@A_V2_AltriProventi, 0)
@@ -489,7 +509,10 @@ SELECT	@A_VI_VariazioniRimanenze_var = isnull(sum(bvd.amount), 0)
 		AND (bv.adate <= @data or @data is null)
 		AND (@idsor01 IS NULL OR u.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR u.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR u.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
-		AND s.sortcode LIKE 'EA1601%'
+		--AND s.sortcode LIKE 'EA1601%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1601' and L.ayear_old = @ayear and @ayear = 2025),'EA1501')+'%'
+				)
 
 SELECT	@A_VI_VariazioniRimanenze = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
@@ -500,7 +523,10 @@ SELECT	@A_VI_VariazioniRimanenze = isnull(sum(budgetprevision.prevision), 0)
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1601%'
+		--AND S.sortcode LIKE 'EA1601%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1601' and L.ayear_old = @ayear and @ayear = 2025),'EA1501')+'%'
+				)
 
 -- Incremento delle Immobilizzazioni per Lavori Interni
 declare @A_VII_IncrementoImmobilizzazioni decimal(19,2)
@@ -517,7 +543,10 @@ SELECT	@A_VII_IncrementoImmobilizzazioni_var = isnull(sum(bvd.amount), 0)
 		AND (bv.adate <= @data or @data is null)
 		AND (@idsor01 IS NULL OR u.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR u.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR u.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
-		AND s.sortcode LIKE 'EA1701%'
+		--AND s.sortcode LIKE 'EA1701%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1701' and L.ayear_old = @ayear and @ayear = 2025),'EA1601')+'%'
+				)
 
 SELECT	@A_VII_IncrementoImmobilizzazioni = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
@@ -528,7 +557,10 @@ SELECT	@A_VII_IncrementoImmobilizzazioni = isnull(sum(budgetprevision.prevision)
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1701%'
+		--AND S.sortcode LIKE 'EA1701%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1701' and L.ayear_old = @ayear and @ayear = 2025),'EA1601')+'%'
+				)
 
 /*
  B)	COSTI OPERATIVI
@@ -1284,7 +1316,7 @@ SELECT	@C_2Interessi_var = isnull(sum(bvd.amount), 0)
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
 		AND s.sortcode LIKE 'EC1102%'
 
-SELECT	@C_2Interessi_orig = isnull(sum(budgetprevision.prevision), 0)
+SELECT	@C_2Interessi = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
 	join sorting S		on budgetprevision.idsor = S.idsor
 	JOIN upb U			ON budgetprevision.idupb = U.idupb 
@@ -1294,8 +1326,6 @@ SELECT	@C_2Interessi_orig = isnull(sum(budgetprevision.prevision), 0)
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EC1102%'
-
-if (isnull(@C_2Interessi_orig, 0) < 0) set @C_2Interessi = -isnull(@C_2Interessi_orig, 0) else set @C_2Interessi = isnull(@C_2Interessi_orig, 0)
 
 declare @C_3Utili decimal(19,2)
 declare @C_3Utili_var decimal(19,2)
@@ -1353,13 +1383,11 @@ SELECT	@C_3Perdite = isnull(sum(budgetprevision.prevision), 0)
 
 declare @C_ProventiOneri_orig decimal(19,2)
 declare @C_ProventiOneri decimal(19,2)
-set @C_ProventiOneri_orig = isnull(@C_1ProventiFinanziari, 0) - isnull(@C_2Interessi, 0) + isnull(@C_3Utili, 0) + isnull(@C_3Perdite, 0)
-if (@C_ProventiOneri_orig < 0) set @C_ProventiOneri = -@C_ProventiOneri_orig else set @C_ProventiOneri = @C_ProventiOneri_orig
+set @C_ProventiOneri = isnull(@C_1ProventiFinanziari, 0) - isnull(@C_2Interessi, 0) + isnull(@C_3Utili, 0) + isnull(@C_3Perdite, 0)
 
 declare @C_ProventiOneri_var_orig decimal(19,2)
 declare @C_ProventiOneri_var decimal(19,2)
-set @C_ProventiOneri_var_orig = isnull(@C_1ProventiFinanziari_var, 0) - isnull(@C_2Interessi_var, 0) + isnull(@C_3Utili_var, 0) + isnull(@C_3Perdite_var, 0)
-if (@C_ProventiOneri_var_orig < 0) set @C_ProventiOneri_var = -@C_ProventiOneri_var_orig else set @C_ProventiOneri_var = @C_ProventiOneri_var_orig
+set @C_ProventiOneri_var = isnull(@C_1ProventiFinanziari_var, 0) - isnull(@C_2Interessi_var, 0) + isnull(@C_3Utili_var, 0) + isnull(@C_3Perdite_var, 0)
 
 /*
 	D) RETTIFICHE DI VALORE DI ATTIVITA' FINANZIARIE
@@ -1397,7 +1425,7 @@ declare @D_2Svalutazioni_orig decimal(19,2)
 declare @D_2Svalutazioni decimal(19,2)
 declare @D_2Svalutazioni_var_orig decimal(19,2)
 declare @D_2Svalutazioni_var decimal(19,2)
-SELECT	@D_2Svalutazioni_var_orig = isnull(sum(bvd.amount), 0)
+SELECT	@D_2Svalutazioni_var = isnull(sum(bvd.amount), 0)
 	FROM budgetvar bv
 	join budgetvardetail bvd	on bvd.ybudgetvar = bv.ybudgetvar and  bvd.nbudgetvar = bv.nbudgetvar
 	join sorting s				on s.idsor = bvd.idsor
@@ -1411,7 +1439,7 @@ SELECT	@D_2Svalutazioni_var_orig = isnull(sum(bvd.amount), 0)
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
 		AND s.sortcode LIKE 'ED1102%'
 
-SELECT	@D_2Svalutazioni_orig = isnull(sum(budgetprevision.prevision), 0)
+SELECT	@D_2Svalutazioni = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
 	join sorting S		on budgetprevision.idsor = S.idsor
 	JOIN upb U			ON budgetprevision.idupb = U.idupb 
@@ -1422,19 +1450,13 @@ SELECT	@D_2Svalutazioni_orig = isnull(sum(budgetprevision.prevision), 0)
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'ED1102%'
 
-if (isnull(@D_2Svalutazioni_orig, 0) < 0) set @D_2Svalutazioni = -isnull(@D_2Svalutazioni_orig, 0) else set @D_2Svalutazioni = isnull(@D_2Svalutazioni_orig, 0)
-
 declare @D_Rettifiche_orig decimal(19,2)
 declare @D_Rettifiche decimal(19,2)
-set @D_Rettifiche_orig = isnull(@D_1Rivalutazioni, 0) - isnull(@D_2Svalutazioni, 0)
-if (@D_Rettifiche_orig < 0) set @D_Rettifiche = -@D_Rettifiche_orig else set @D_Rettifiche = @D_Rettifiche_orig
-
-if (isnull(@D_2Svalutazioni_var_orig, 0) < 0) set @D_2Svalutazioni_var = -isnull(@D_2Svalutazioni_var_orig, 0) else set @D_2Svalutazioni_var = isnull(@D_2Svalutazioni_var_orig, 0)
+set @D_Rettifiche = isnull(@D_1Rivalutazioni, 0) - isnull(@D_2Svalutazioni, 0)
 
 declare @D_Rettifiche_var_orig decimal(19,2)
 declare @D_Rettifiche_var decimal(19,2)
-set @D_Rettifiche_var_orig = isnull(@D_1Rivalutazioni_var, 0) + isnull(@D_2Svalutazioni_var, 0)
-if (@D_Rettifiche_var_orig < 0) set @D_Rettifiche_var = -@D_Rettifiche_var_orig else set @D_Rettifiche_var = @D_Rettifiche_var_orig
+set @D_Rettifiche_var = isnull(@D_1Rivalutazioni_var, 0) + isnull(@D_2Svalutazioni_var, 0)
 
 /*
 	E)	PROVENTI ED ONERI STRAORDINARI
@@ -1473,7 +1495,7 @@ declare @E_2OneriStraordinari_orig decimal(19,2)
 declare @E_2OneriStraordinari decimal(19,2)
 declare @E_2OneriStraordinari_var_orig decimal(19,2)
 declare @E_2OneriStraordinari_var decimal(19,2)
-SELECT	@E_2OneriStraordinari_var_orig = isnull(sum(bvd.amount), 0)
+SELECT	@E_2OneriStraordinari_var = isnull(sum(bvd.amount), 0)
 	FROM budgetvar bv
 	join budgetvardetail bvd	on bvd.ybudgetvar = bv.ybudgetvar and  bvd.nbudgetvar = bv.nbudgetvar
 	join sorting s				on s.idsor = bvd.idsor
@@ -1487,7 +1509,7 @@ SELECT	@E_2OneriStraordinari_var_orig = isnull(sum(bvd.amount), 0)
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
 		AND s.sortcode LIKE 'EE1102%'
 
-SELECT	@E_2OneriStraordinari_orig = isnull(sum(budgetprevision.prevision), 0)
+SELECT	@E_2OneriStraordinari = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
 	join sorting S		on budgetprevision.idsor = S.idsor
 	JOIN upb U			ON budgetprevision.idupb = U.idupb 
@@ -1498,17 +1520,13 @@ SELECT	@E_2OneriStraordinari_orig = isnull(sum(budgetprevision.prevision), 0)
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EE1102%'
 
-if (isnull(@E_2OneriStraordinari_orig, 0) < 0) set @E_2OneriStraordinari = -isnull(@E_2OneriStraordinari_orig, 0) else set @E_2OneriStraordinari = isnull(@E_2OneriStraordinari_orig, 0)
 declare @E_ProventiOneriStraordinari_orig decimal(19,2)
 declare @E_ProventiOneriStraordinari decimal(19,2)
-set @E_ProventiOneriStraordinari_orig = isnull(@E_1ProventiStraordinari, 0) - isnull(@E_2OneriStraordinari, 0)
-if (@E_ProventiOneriStraordinari_orig < 0) set @E_ProventiOneriStraordinari = -@E_ProventiOneriStraordinari_orig else set @E_ProventiOneriStraordinari = @E_ProventiOneriStraordinari_orig
+set @E_ProventiOneriStraordinari = isnull(@E_1ProventiStraordinari, 0) - isnull(@E_2OneriStraordinari, 0)
 
-if (isnull(@E_2OneriStraordinari_var_orig, 0) < 0) set @E_2OneriStraordinari_var = -isnull(@E_2OneriStraordinari_var_orig, 0) else set @E_2OneriStraordinari_var = isnull(@E_2OneriStraordinari_var_orig, 0)
 declare @E_ProventiOneriStraordinari_var_orig decimal(19,2)
 declare @E_ProventiOneriStraordinari_var decimal(19,2)
-set @E_ProventiOneriStraordinari_var_orig = isnull(@E_1ProventiStraordinari_var, 0) - isnull(@E_2OneriStraordinari_var, 0)
-if(@E_ProventiOneriStraordinari_var_orig < 0) set @E_ProventiOneriStraordinari_var = -@E_ProventiOneriStraordinari_var_orig else set @E_ProventiOneriStraordinari_var = @E_ProventiOneriStraordinari_var_orig
+set @E_ProventiOneriStraordinari_var = isnull(@E_1ProventiStraordinari_var, 0) - isnull(@E_2OneriStraordinari_var, 0)
 
 /*
 	F) Imposte sul reddito dell'esercizio correnti, differite, anticipate
@@ -1517,7 +1535,7 @@ declare @F_Imposte_orig decimal(19,2)
 declare @F_Imposte decimal(19,2)
 declare @F_Imposte_var_orig decimal(19,2)
 declare @F_Imposte_var decimal(19,2)
-SELECT	@F_Imposte_var_orig = isnull(sum(bvd.amount), 0)
+SELECT	@F_Imposte_var = isnull(sum(bvd.amount), 0)
 	FROM budgetvar bv
 	join budgetvardetail bvd	on bvd.ybudgetvar = bv.ybudgetvar and  bvd.nbudgetvar = bv.nbudgetvar
 	join sorting s				on s.idsor = bvd.idsor
@@ -1531,7 +1549,7 @@ SELECT	@F_Imposte_var_orig = isnull(sum(bvd.amount), 0)
 		AND (@idsor04 IS NULL OR u.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR u.idsor05 = @idsor05)
 		AND s.sortcode LIKE 'EF1101%'
 
-SELECT	@F_Imposte_orig = isnull(sum(budgetprevision.prevision), 0)
+SELECT	@F_Imposte = isnull(sum(budgetprevision.prevision), 0)
 	FROM budgetprevision 
 	join sorting S		on budgetprevision.idsor = S.idsor
 	JOIN upb U			ON budgetprevision.idupb = U.idupb 
@@ -1542,8 +1560,6 @@ SELECT	@F_Imposte_orig = isnull(sum(budgetprevision.prevision), 0)
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
 		AND S.sortcode LIKE 'EF1101%'
 
-if (isnull(@F_Imposte_orig, 0) < 0) set @F_Imposte = -isnull(@F_Imposte_orig, 0) else set @F_Imposte = isnull(@F_Imposte_orig, 0)
-if (isnull(@F_Imposte_var_orig, 0) < 0) set @F_Imposte_var = -isnull(@F_Imposte_var_orig, 0) else set @F_Imposte_var = isnull(@F_Imposte_var_orig, 0)
 /*
 	G) Utilizzo di riservedi Patrimonio Netto derivanti dalla contabilità economico-patrimoniale
 */
@@ -1578,15 +1594,15 @@ declare @risultatoEconomicoPresunto decimal(19,2)
 set @risultatoEconomicoPresunto = @A_I_ProventiPropri + @A_II_Contributi + @A_III_ProventiPerAttivitaAssistenziale + @A_IV_ProventiPerGestioneDiretta +
 								@A_V_UtilizzoRiservePatrimonioNetto + @A_VI_VariazioniRimanenze + @A_VII_IncrementoImmobilizzazioni 
 								-(@B_VIII_CostiPersonale + @IX_CostiGestione + @X_AmmortamentiSvalutazioni + @B_XI_AccantonamentiRischiOneri +
-								@B_XII_OneriDversiGestione) + @C_ProventiOneri_orig + @D_Rettifiche_orig + @E_ProventiOneriStraordinari_orig
-								- @F_Imposte_orig
+								@B_XII_OneriDversiGestione) + @C_ProventiOneri + @D_Rettifiche + @E_ProventiOneriStraordinari
+								- @F_Imposte
 
 declare @risultatoEconomicoPresunto_var decimal(19,2)
 set @risultatoEconomicoPresunto_var = @A_I_ProventiPropri_var + @A_II_Contributi_var + @A_III_ProventiPerAttivitaAssistenziale_var + @A_IV_ProventiPerGestioneDiretta_var +
 									@A_V_UtilizzoRiservePatrimonioNetto_var + @A_VI_VariazioniRimanenze_var + @A_VII_IncrementoImmobilizzazioni_var 
 									- (@B_VIII_CostiPersonale_var + @IX_CostiGestione_var + @X_AmmortamentiSvalutazioni_var + @B_XI_AccantonamentiRischiOneri_var + 
-									@B_XII_OneriDversiGestione_var) + @C_ProventiOneri_var_orig + @D_Rettifiche_var_orig + @E_ProventiOneriStraordinari_var_orig
-									- @F_Imposte_var_orig
+									@B_XII_OneriDversiGestione_var) + @C_ProventiOneri_var + @D_Rettifiche_var + @E_ProventiOneriStraordinari_var
+									- @F_Imposte_var
 
 declare @risultatoPareggio decimal(19,2)
 set @risultatoPareggio = @risultatoEconomicoPresunto + @G_UtilizzoDiRiserve
@@ -1736,7 +1752,10 @@ GO
 SET QUOTED_IDENTIFIER OFF 
 GO
 SET ANSI_NULLS ON 
-GO
+--GO
 
---exec rpt_budgeteconomicoufficiale_var 2021, {d '2021-11-11'}, 22,'%','S',null,null,null,null,null
+----exec rpt_budgeteconomicoufficiale_var 2021, {d '2021-11-11'}, 22,'%','S',null,null,null,null,null
 
+--exec rpt_budgeteconomicoufficiale_var 2024, {d '2024-12-31'}, 27,'%','N',null,null,null,null,null
+--go
+--exec rpt_budgeteconomicoufficiale_var 2025, {d '2025-12-31'}, 27,'%','N',null,null,null,null,null

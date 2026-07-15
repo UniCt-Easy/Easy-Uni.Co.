@@ -38,6 +38,8 @@
               <xs:element name="ccdedicato_doc" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
               <xs:element name="ccdedicato_stop" type="xs:dateTime" minOccurs="0" />
+			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+			  <xs:element name="idfilestorage2" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -243,6 +245,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,15 +13,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if OBJECTPROPERTY(object_id('exp_flusso_crediti_incassi'), 'IsProcedure') = 1
 	drop procedure exp_flusso_crediti_incassi
 go
 
 --setuser 'amm'
 --setuser 'amministrazione'
- --sp_help [exp_flusso_crediti_incassi]
- -- exp_flusso_crediti_incassi 2023,null,60689,null,null,null,'C','1/1/2023 00:00:00',null,'T',null,null,null,null,null
+--sp_help [exp_flusso_crediti_incassi]
+-- exp_flusso_crediti_incassi 2017,null,null,null,null,null,'M','1/1/2021 00:00:00',null,null,null,null,null,null,null
 CREATE  PROCEDURE [exp_flusso_crediti_incassi]
 (	
 	@ayear int,
@@ -41,18 +39,114 @@ CREATE  PROCEDURE [exp_flusso_crediti_incassi]
 	@idsor04 int = null,
 	@idsor05 int = null	
 	--- tutti    T
-					--- incassati nel range  mettere data inizio e data fine   R
+					--- incassati nel range  mettere data inizio e data fine R
 					--  non ancora incassati (non specificare alcuna data)   N
 					--- incassati dopo data fine (inserire solo data fine)   D
 					--- incassati prima della data inizio (inserire solo data inizio)  P
 					--  annullati A (non esiste il flusso incassi)
-					-- Dettagli incassi per i quali non è stato ancora elaborato l'incasso E 
-					-- caso in cui esiste il flussoincassi ma non esiste il flussocrediti I
-					-- caso in cui è stato annullato il credito, ma esiste il flusso incassi C
+					--  Dettagli incassi per i quali non è stato ancora elaborato l'incasso E 
+					--  caso in cui esiste il flussoincassi ma non esiste il flussocrediti I
+					--  caso in cui è stato annullato il credito, ma esiste il flusso incassi C
 )
 AS BEGIN
 -- exp_flusso_crediti_incassi null, null,233988, null, null,null,'E',null,null,'T',null,null,null,null,null
 --setuser 'amm'
+
+--- A QUESTO PROSPETTO NON SONO APPLICABILI I FILTRI A MONTE SUI SINGOLI FLUSSI PER OVVIE RAGIONI
+--- COME DATE INCASSO, SICUREZZA..., inoltre rallentano troppo la query
+--- ESEGUIAMO INVECE UN  FILTRO  A VALLE SOLO SU ANNO INCASSO, IUV, CODICE BOLLETTINO UNIVOCO, ANAGRAFICA
+IF (@kind = 'M') --- riepilogo crediti incassati più volte
+BEGIN
+		CREATE TABLE #riepilogo_iuv_crediti
+		(
+					iuv varchar(100),
+					iduniqueformcode varchar(100),
+					anno_incasso int,
+					importo_incassato decimal(19,2),
+					idreg int,
+					importo_crediti decimal(19,2),
+					differenza_incassi_crediti decimal(19,2),
+					rapporto_incassato_su_crediti decimal(19,2),
+					flussi_incassi varchar(max),
+					flussi_crediti varchar(max)
+		);
+
+		WITH IUV_RIEPILOGO AS (
+			SELECT 
+				I.iuv,
+				I.iduniqueformcode,
+				F.ayear AS anno_incasso,
+				SUM(I.importo) AS importo_incassato
+			FROM 
+				FLUSSOINCASSIDETAIL I 
+			JOIN 
+				FLUSSOINCASSI F ON F.idflusso = I.idflusso
+			WHERE 
+				I.iuv IS NOT NULL 	--AND F.ayear = 2024
+			GROUP BY 
+				I.iuv, I.iduniqueformcode,  F.ayear
+		),
+		CREDITI_SUM AS (
+			SELECT 
+				SUM(importoversamento + isnull(tax,0))   AS importo_crediti,
+				C.iuv,
+				C.iduniqueformcode,
+				C.idreg
+			FROM 
+				FLUSSOCREDITIDETAIL C
+			WHERE 
+				C.stop IS NULL AND C.annulment IS NULL
+			GROUP BY 
+				C.iuv, C.iduniqueformcode,C.idreg
+		)
+		INSERT INTO #riepilogo_iuv_crediti
+		SELECT 
+			R.iuv, 
+			R.iduniqueformcode, 
+			R.anno_incasso, 
+			R.importo_incassato, 
+			C.idreg,
+			C.importo_crediti,
+			CASE WHEN C.importo_crediti <> 0 THEN R.importo_incassato  - C.importo_crediti ELSE R.importo_incassato END AS differenza_incassi_crediti,
+			CASE WHEN C.importo_crediti <> 0 THEN R.importo_incassato / C.importo_crediti ELSE NULL END AS rapporto_incassato_su_crediti,
+			SUBSTRING((SELECT DISTINCT 'n.: ' + CONVERT(varchar(20), F.IDFLUSSO) + ' '  
+				   FROM flussoincassidetail F  
+				   WHERE ISNULL(F.iuv, '') = ISNULL(R.iuv, '')  
+				   AND ISNULL(F.iduniqueformcode, '') = ISNULL(R.iduniqueformcode, '')  
+				   FOR XML PATH('')),1,400) AS flussi_incassi,
+				   (SELECT DISTINCT 'n.: ' + CONVERT(varchar(20), F.idflusso) + ' '  
+				   FROM flussocreditidetail F  
+				   WHERE ISNULL(F.iuv, '') = ISNULL(C.iuv, '')  
+				   AND ISNULL(F.iduniqueformcode, '') = ISNULL(C.iduniqueformcode, '')  
+				   FOR XML PATH(''))  AS flussi_crediti
+		FROM 
+			IUV_RIEPILOGO R 
+		JOIN 
+			CREDITI_SUM C ON C.iuv = R.iuv OR C.iduniqueformcode = R.iduniqueformcode
+		WHERE  
+			(C.importo_crediti < R.importo_incassato);
+	
+	 SELECT 
+					D.iuv,
+					D.iduniqueformcode AS 'codice bollettino univoco',
+					R.title AS 'anagrafica credito',
+					D.anno_incasso,
+					D.importo_incassato,
+					D.importo_crediti,
+					D.differenza_incassi_crediti,
+					D.rapporto_incassato_su_crediti,
+					D.flussi_incassi,
+					D.flussi_crediti 
+	FROM     #riepilogo_iuv_crediti D
+	LEFT OUTER JOIN registry R ON R.idreg = D.idreg 
+	WHERE (D.anno_incasso = @ayear  OR	@ayear  IS NULL ) --- ANNO INCASSO
+	AND  (D.iuv = @iuv OR @iuv IS NULL)
+	AND  (D.iduniqueformcode = @iduniqueformcode OR @iduniqueformcode IS NULL)   
+	AND  (R.idreg = @idreg OR @idreg IS NULL)
+    DROP TABLE #riepilogo_iuv_crediti
+END
+ELSE
+BEGIN
 DECLARE @nphase  int
 SELECT @nphase = max(nphase) FROM incomephase  
 select 
@@ -173,14 +267,15 @@ select
 			(@kind = 'C' 
 			AND (I.dataincasso >= @dataincasso_start or @dataincasso_start IS NULL) AND (I.dataincasso <= @dataincasso_stop or @dataincasso_stop IS NULL)
 			and C.annulment is not null) -- Dettagli incassi per i quali è stato annullato il credito
+			
 		 )
 		 AND
 		 (
 			(@filterflusso = 'T')
 			OR 
-			(@filterflusso = 'S' AND ( (C.cu = 'import_flussostudenti' AND  C.filename = 'Importato da webservice')))
+			(@filterflusso = 'S' AND ( (C.cu = 'import_flussostudenti' AND  C.filename in('Flusso Studenti', 'Importato da webservice') )) )
 			OR
-			(@filterflusso = 'N' AND NOT( (C.cu = 'import_flussostudenti' AND   C.filename = 'Importato da webservice')))
+			(@filterflusso = 'N' AND NOT( (C.cu = 'import_flussostudenti' AND   C.filename in('Flusso Studenti','Importato da webservice') )) )
 		 )
 		  
 UNION
@@ -257,8 +352,7 @@ UNION
 			  (C.idflusso IS NULL) AND
 			  @kind in ('T', 'N', 'E', 'I')
 			  AND (I.dataincasso >= @dataincasso_start or @dataincasso_start IS NULL) AND (I.dataincasso <= @dataincasso_stop or @dataincasso_stop IS NULL)
-	
 		ORDER BY  I.dataincasso DESC
-		 
+	END	 
 END
 

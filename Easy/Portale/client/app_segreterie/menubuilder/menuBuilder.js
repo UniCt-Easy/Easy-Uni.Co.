@@ -28,6 +28,17 @@
             this.opened = false;  // serve per gestire il bubbling, non posso stoppare eprchè poi non si chiude da sola la window
             this.menu = $( this.html_menuid );
 
+            // handler da utilizzare per ottenere i parametri da impostare sullo stato della metaPage
+            this._parametersHandlers = {
+                exportviewer: (menuEntry) => ({
+                    idExportDefinition: menuEntry.iddynamicdefinition,
+                    name: menuEntry.label,
+                    kind: menuEntry.kind,
+                }),
+            //    registry: (menuEntry) => menuEntry,
+            };
+
+            this.getParametersHandler = (tableName) => this._parametersHandlers[tableName] ?? (() => undefined);   // ricaviamo l'handler o un default che restituisce undefined
         },
 
         /**
@@ -46,18 +57,16 @@
             return rowsSorted;
         },
 
-        getPrivilegeOk:function(idmenuweb){
+        getPrivilegeOk:function(menuEntry){
 
             //return true; // --> COMMENTARE QUANDO SI ABILITA
-            var menukeyW = "mw_" + idmenuweb;
-            var menukeyR = "mr_" + idmenuweb;
-            var privilegeW = appMeta.security.usrEnv[menukeyW];
-            var privilegeR = appMeta.security.usrEnv[menukeyR];
-            if ((privilegeW && privilegeW === "'S'") ||
-                (privilegeR && privilegeR === "'S'")){
-                return true;
-            }
-            return false;
+            var menukeyW = "mw_" + menuEntry.idmenuweb;
+            var menukeyR = "mr_" + menuEntry.idmenuweb;
+            var privilegeW = appMeta.security.usrEnv[menukeyW] === "'S'";
+            var privilegeR = appMeta.security.usrEnv[menukeyR] === "'S'";
+            var privilegeFlowchart = appMeta.security.sysEnv.idflowchart === menuEntry.idflowchart;
+
+            return privilegeW || privilegeR || privilegeFlowchart;
         },
 
         clearMenu: function() {
@@ -89,7 +98,7 @@
                 // inserisco template del nodo root
                 var menuFirstlevel = appMeta.getData.cachedSyncGetHtml('menubuilder/MainItem_template.html');
                 menuFirstlevel = menuFirstlevel.replace("ID_PLACE_HOLDER", currId); // assegno un id, rimpiazzando il place holder nella stringa html, altrimenti non esiste ancora l'id no  posso recuperarlo con jquery
-                if (self.getPrivilegeOk(rootItem.idmenuweb)) {
+                if (self.getPrivilegeOk(rootItem)) {
                     self.menu.append(menuFirstlevel);
                 }
                 // rimpiazzo elementi necessari nel template
@@ -131,7 +140,7 @@
                             // creo <li> e assegno eventuali eventi
                             var liFirstLev = $('<li class="nav-item"><a id="' + currItemFirstLev.idmenuweb + '" class="nav-link" ><span id="' + idforloc + '">' + currItemFirstLev.label + '</span></a></li>');
                             if (currItemFirstLev.tableName && currItemFirstLev.editType){
-                                liFirstLev.on("click", _.partial(self.openPage, self, currItemFirstLev.tableName, currItemFirstLev.editType ));
+                                liFirstLev.on("click", _.partial(self.openPage, self, currItemFirstLev.tableName, currItemFirstLev.editType));
                             } else if (currItemFirstLev.link){
                                 liFirstLev.on("click", _.partial(self.openWWWPage, self, currItemFirstLev.link ));
                             }
@@ -143,7 +152,7 @@
                             currrow.append(currcol);
                             currcol.append(currul);
 
-                            if (self.getPrivilegeOk(currItemFirstLev.idmenuweb)) {
+                            if (self.getPrivilegeOk(currItemFirstLev)) {
                                 currul.append(liFirstLev);
                             }
 
@@ -159,11 +168,11 @@
                                 var idforloc = (currItemsecondLev.tableName && currItemsecondLev.editType) ? (currItemsecondLev.tableName + "_"  + currItemsecondLev.editType) : "idmenuweb" + currItemsecondLev.idmenuweb;
                                 var liSecondLev = $('<li class="nav-item" style="padding-left: 15px"><a id="' + currItemsecondLev.idmenuweb + '" class="nav-link" ><span id="' + idforloc + '">' + currItemsecondLev.label + '</span></a></li>');
                                 if (currItemsecondLev.tableName && currItemsecondLev.editType) {
-                                    liSecondLev.on("click", _.partial(self.openPage, self, currItemsecondLev.tableName, currItemsecondLev.editType ));
+                                    liSecondLev.on("click", _.partial(self.openPage, self, currItemsecondLev.tableName, currItemsecondLev.editType));
                                 } else if (currItemsecondLev.link){
                                     liSecondLev.on("click", _.partial(self.openWWWPage, self, currItemsecondLev.link ));
                                 }
-                                if (self.getPrivilegeOk(currItemsecondLev.idmenuweb)) {
+                                if (self.getPrivilegeOk(currItemsecondLev)) {
                                     ul.append(liSecondLev);
                                 }
                             });
@@ -214,20 +223,21 @@
          * @param {appMain} that
          * @param {string} tableName
          * @param {string} editType
+         * @param {Object} parameters
          */
-        openPage:function(that, tableName, editType){
+        openPage: function (that, tableName, editType, parameters) {
             // apre la pagina richiamando il metodo del framework "callPage"
             // nella then attende il deferred risolto nella chiusura
             //event.stopPropagation(); // evito ilbubblign delle'evento
-            if (!that.opened){
+            if (!that.opened) {
                 // se uso stopPropagation per evitare il bubbling e quindi poer evitare che scatti 2 volte su item padre
                 // metto boolenao, di cui eseguo reset dopo un secodno
                 that.opened = true; // non esegue l'evento bubblato
-                appMeta.currApp.callPage(tableName, editType, false)
+                appMeta.currApp.callPage(tableName, editType, false, parameters)
                     .then(function (p) {
                         that.afterPageClose(p);
                     });
-                setTimeout(function () {that.opened = false;}, 1000)
+                setTimeout(function () { that.opened = false; }, 1000)
             }
         },
 

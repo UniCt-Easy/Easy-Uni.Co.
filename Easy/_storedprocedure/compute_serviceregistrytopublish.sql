@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_serviceregistrytopublish]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_serviceregistrytopublish]
 GO
@@ -25,8 +23,8 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
--- exec  compute_serviceregistrytopublish 2015,'C'
+-- setuser'amministrazione'
+-- exec  compute_serviceregistrytopublish 2015,'A'
  
 /*
 Aggiunti i campi Annullato e Note per fornire indicazioni circa l'annullamento
@@ -63,7 +61,11 @@ Begin
 	 as 
 	(select V.idreg, V.idregistrycvattachment 
 			from registrycvattachment V	
-		  where V.idreg in (select S.idreg from serviceregistry S where  S.yservreg = @ayear and S.employkind = @employkind)
+		  where V.idreg in (select S.idreg from serviceregistry S where  S.yservreg = @ayear
+		  
+		     and ( @employkind= 'D' and  S.employkind = @employkind	 
+				 OR @employkind	<>'D'  and S.employkind in ('C','A')	)
+			 )
 				and
 				V.referencedate = (select max(V2.referencedate) from registrycvattachment V2
 										where V2.idreg = V.idreg)	
@@ -77,6 +79,7 @@ Begin
 		S.description as 'DescrAttivita',
 		S.start as 'InizioIncarico',
 		S.stop as 'FineIncarico',
+		convert(varchar,S.ct,105) as 'DataDiPubblicazione',
 		S.actreference as 'AttoConferimento',
 		S.otherservice as 'AltriIncarichiInEntiDiDirittoPrivatoFinanziatiDaPA',
 		CV.idregistrycvattachment as idcv,
@@ -91,7 +94,7 @@ Begin
 		S.professionalservice as 'EventualiAttivitaProfessionali',	
 		S.componentsvariable as 'ComponentiVariabiliDelCompenso',
 		S.employtime as 'DurataIncarico',
-		S.certinterestconflicts as 'AttestazioneConflittiDiInteresse',
+		S.certinterestconflicts as 'AttestazioneAssenzaConflittoDiInteresse',
 		S.idreg,
 		CASE 
 		   WHEN S.is_annulled = 'S'  THEN 'S'
@@ -131,6 +134,7 @@ Begin
 		S.description as 'DescrAttivita',
 		S.start as 'InizioIncarico',
 		S.stop as 'FineIncarico',
+		convert(varchar,S.ct,105) as 'DataDiPubblicazione',
 		S.officeduty as 'DoveriUfficio',
 		case when expectedamount = 0 then 'S' else 'N' end as 'TitoloGratuito',
 		S.expectedamount as 'Importo',
@@ -144,7 +148,7 @@ Begin
 		S.professionalservice as 'EventualiAttivitaProfessionali',	
 		S.componentsvariable as 'ComponentiVariabiliDelCompenso',
 		S.employtime as 'DurataIncarico',
-		S.certinterestconflicts as 'AttestazioneConflittiDiInteresse',
+		S.certinterestconflicts as 'AttestazioneAssenzaConflittoDiInteresse',
 		CV.idregistrycvattachment as idcv,
 		S.idreg,
 		CASE 

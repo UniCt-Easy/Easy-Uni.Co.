@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -113,11 +111,11 @@ namespace sdi_vendita_default {
             if (DS.invoice.Rows.Count == 0)
                 return false;
 
-            //se non Ë firmata si puÚ scollegare
+            //se non √® firmata si pu√≤ scollegare
             if (chkIsSigned.CheckState != CheckState.Checked)
                 return true;
 
-            //Scartata da SDI: si puÚ scollegare
+            //Scartata da SDI: si pu√≤ scollegare
             if (chkNS_notificascarto.Checked)
                 return true;
 
@@ -254,7 +252,7 @@ namespace sdi_vendita_default {
         public bool ScriviMessCopiaCortesia() {
             // Per i soggetti privati dotati di partita iva e residenti in italia, va aggiunta la dicitura: copia cortesia....
             //Quindi le condizioni congiunte per la dicitura sono:
-            //1) registry.p_iva non Ë NULL
+            //1) registry.p_iva non √® NULL
             //2) registry.residence = 1
             //3)registry.ipa_fe diverso da 6 caratteri
             bool condizioniverificate = false;
@@ -366,7 +364,7 @@ namespace sdi_vendita_default {
             string signed = openFileDialog1.FileName;
             string simpleName = Path.GetFileName(signed);
             if (simpleName != fName && simpleName != fName + ".p7m") {
-                show("Il nome file caricato non Ë valido. Il nome del file deve essere ESATTAMENTE: " + fName
+                show("Il nome file caricato non √® valido. Il nome del file deve essere ESATTAMENTE: " + fName
                                 + " se firmato con XADES o " + fName + ".p7m se firmato con CADES", "Errore");
                 return;
             }
@@ -391,7 +389,7 @@ namespace sdi_vendita_default {
             // rc (ricevuta di consegna)
             // ne (notifica esito cedente)
             // dt (decorrenza termini)
-            // at (attestazione impossibilit‡ recapito)
+            // at (attestazione impossibilit√† recapito)
             if (DS.sdi_vendita.Rows.Count == 0) {
                 return;
             }
@@ -411,7 +409,7 @@ namespace sdi_vendita_default {
             // rc (ricevuta di consegna)
             // ne (notifica esito cedente)
             // dt (decorrenza termini)
-            // at (attestazione impossibilit‡ recapito)
+            // at (attestazione impossibilit√† recapito)
             if (DS.sdi_vendita.Rows.Count == 0) {
                 return;
             }
@@ -448,7 +446,7 @@ namespace sdi_vendita_default {
 				else {
 					// Per altri messaggi, se solo il namespace del foglio di stile differisce da quello del messaggi,
 					// basta cambiare l'attributo xmlns_ns3 e continuare a usare lo stesso foglio di stile
-					// tutte le altre propriet‡ restano invariate. Bisogna rieffettuare il LoadXML perchË un semplice SetAttribute sul doc non ha effetto
+					// tutte le altre propriet√† restano invariate. Bisogna rieffettuare il LoadXML perch√® un semplice SetAttribute sul doc non ha effetto
 					try {
 							doc.LoadXml(DS.sdi_vendita.Rows[0][tipomessaggio].ToString().Replace(xmlns_ns3, xmlns_a_old));
 						} 
@@ -613,9 +611,9 @@ namespace sdi_vendita_default {
                     if (ipaDestinatario.Length == 6) return; //amm. pubblica con ipa
                 }
 
-            email = getEmailFromXml(Conn, fatt); //"assistenzasoft@gmail.com";
+            email = getEmailFromXml(Conn, fatt); //"your-email@example.com";
                 if (string.IsNullOrEmpty(email)) {
-                    show("Non Ë stata trovata alcuna mail per la fatturain oggetto");
+                    show("Non √® stata trovata alcuna mail per la fatturain oggetto");
                 }
 
                 SendMail sm = new SendMail();
@@ -657,7 +655,7 @@ namespace sdi_vendita_default {
                     sb.AppendLine("Importo fattura:" + importoDocumento);
                     sb.AppendLine();
                     sb.AppendLine(
-                        "Questa Ë una mail generata in automatico dal servizio di invio all'SDI. Non rispondere a questo indirizzo.");
+                        "Questa √® una mail generata in automatico dal servizio di invio all'SDI. Non rispondere a questo indirizzo.");
                     sm.MessageBody = sb.ToString();
 
                     if (!sm.Send()) {
@@ -668,7 +666,7 @@ namespace sdi_vendita_default {
                 }
                 catch (Exception e) {
                     show(
-                        $"Non Ë stato possibile inviare la mail all'indirizzo {email}: {e.ToString()}"
+                        $"Non √® stato possibile inviare la mail all'indirizzo {email}: {e.ToString()}"
                             );
                 }
         

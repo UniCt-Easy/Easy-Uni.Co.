@@ -144,6 +144,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y
+xcopy "D:\Easy\itinerationrefund\meta_itinerationrefund\bin\Debug\meta_itinerationrefund.dll"  "C:\Program Files (x86)\Tempo Srl\Easy\bin\meta_itinerationrefund.dll" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

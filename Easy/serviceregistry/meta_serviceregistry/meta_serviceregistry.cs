@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -48,8 +46,11 @@ namespace meta_serviceregistry {
             if (C.ColumnName == "authorizationdate") return; //task 12786
             if (C.ColumnName == "senderreporting") return;  //task 12786
             if (C.ColumnName == "nservreg") return;         //task 12786
-            
-            base.InsertCopyColumn(C, Source, Dest);
+
+			if (C.ColumnName == "dichiarazione_incarichi") return;  //task 20348
+			if (C.ColumnName == "idfilestorage") return;            //task 20348
+
+			base.InsertCopyColumn(C, Source, Dest);
         }
 
         protected override Form GetForm(string FormName) {
@@ -646,7 +647,7 @@ namespace meta_serviceregistry {
                 byte flagcertinterestconflicts = 0;
                 flagcertinterestconflicts = CfgFn.GetNoNullByte(Tserviceregistrykind.Rows[0]["flagcertinterestconflicts"]);
                 if (((flagcertinterestconflicts & 2) != 0) && (R["certinterestconflicts"] == DBNull.Value)) {
-                    errmess = "E' necessario specificare l' Attestazione conflitti di interesse per la pubblicazione dei dati sul sito Web Istituzionale";
+                    errmess = "E' necessario specificare l' Attestazione assenza conflitto di interesse per la pubblicazione dei dati sul sito Web Istituzionale";
                     errfield = "certinterestconflicts";
                     return false;
                 }

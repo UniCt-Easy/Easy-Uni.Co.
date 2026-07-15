@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -62,8 +60,10 @@ public partial class mandateattachment_default_new02 : MetaPage {
     public override void AfterFill() {
         if (PState.EditMode) {
             btnFileUpload.Visible = false;
-            btnVisualizza.Visible = true;
+            DataRow Curr = DS.mandateattachment.Rows[0];
+            btnVisualizza.Visible = Curr["attachment"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value;
         }
+
         if (PState.InsertMode) {
             btnFileUpload.Visible = true;
             btnVisualizza.Visible = false;
@@ -72,12 +72,26 @@ public partial class mandateattachment_default_new02 : MetaPage {
     protected void btnVisualizza_Click(object sender, EventArgs e) {
         string fkey = QHS.CmpKey(DS.mandateattachment.Rows[0]);
         Session["AttachmentCommand"] = "select attachment from mandateattachment where " + fkey;
+
+        byte[] ByteArray = { };
+
+        if (DS.mandateattachment.Rows[0]["attachment"] != DBNull.Value)
+        {
+            // Attachment
+            ByteArray = (byte[])DS.mandateattachment.Rows[0]["attachment"];
+        }
+        else
+        {
+            // MongoDb
+            ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(Conn, DS.mandateattachment.TableName, DS.mandateattachment.Rows[0]["idfilestorage"].ToString()).GetAwaiter().GetResult();
+        }
+
+        Session["AttachmentFile"] = ByteArray;
         Session["AttachmentFileName"] = DS.mandateattachment.Rows[0]["filename"].ToString();
 
         string F = "window.open('AttachmentView.aspx');";
         if (!Page.ClientScript.IsClientScriptBlockRegistered(typeof(Page), "openwin"))
-            this.Page.ClientScript.RegisterClientScriptBlock(
-                    typeof(Page), "openwin", F, true);
+            Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "openwin", F, true);
 
     }
     public override void DoCommand(string command) {

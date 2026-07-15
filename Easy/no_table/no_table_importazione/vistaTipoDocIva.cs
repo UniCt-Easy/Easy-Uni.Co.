@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -26,24 +24,15 @@ using System.Runtime.Serialization;
 namespace notable_importazione {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaTipoDocIva"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaTipoDocIva: DataSet {
+public partial class vistaTipoDocIva: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipo di documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekind 		=> Tables["invoicekind"];
 
-	///<summary>
-	///Registro IVA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable ivaregisterkind 		=> Tables["ivaregisterkind"];
 
-	///<summary>
-	///informazioni annuali su un tipo documento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable invoicekindyear 		=> Tables["invoicekindyear"];
 
@@ -70,7 +59,6 @@ private void initClass() {
 	DataSetName = "vistaTipoDocIva";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaTipoDocIva.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
 	DataColumn C;
@@ -152,6 +140,7 @@ private void initClass() {
 	tivaregisterkind.Columns.Add(C);
 	tivaregisterkind.Columns.Add( new DataColumn("compensation", typeof(string)));
 	tivaregisterkind.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tivaregisterkind.Columns.Add( new DataColumn("emails", typeof(string)));
 	Tables.Add(tivaregisterkind);
 	tivaregisterkind.PrimaryKey =  new DataColumn[]{tivaregisterkind.Columns["idivaregisterkind"]};
 

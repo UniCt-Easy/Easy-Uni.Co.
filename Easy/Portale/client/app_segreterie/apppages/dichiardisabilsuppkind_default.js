@@ -4,7 +4,7 @@
 
     function metaPage_dichiardisabilsuppkind() {
 		MetaPage.apply(this, ['dichiardisabilsuppkind', 'default', false]);
-        this.name = 'Tipologie dichiarazioni disabilita';
+        this.name = 'Tipologie supporti alla disabilita';
 		this.defaultListType = 'default';
 		//pageHeaderDeclaration
     }
@@ -40,6 +40,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

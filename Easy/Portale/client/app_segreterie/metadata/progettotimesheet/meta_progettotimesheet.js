@@ -25,10 +25,10 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'year', 'Anno', null, 10, null);
-						//this.describeAColumn(table, 'idmese', 'Mese', null, 20, null);
-						//this.describeAColumn(table, 'idsal', 'SAL', null, 30, null);
+						this.describeAColumn(table, 'idmese', 'Mese', null, 20, null);
+						this.describeAColumn(table, 'idsal', 'SAL', null, 30, null);
 						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 40, 60);
-						//this.describeAColumn(table, 'idprogetto', 'Progetto principale', null, 50, null);
+						this.describeAColumn(table, 'idprogetto', 'Progetto principale', null, 50, null);
 						this.describeAColumn(table, 'title', 'Descrizione', null, 60, 2048);
 						this.describeAColumn(table, 'output', 'Formato', null, 70, null);
 						this.describeAColumn(table, 'multilinetype', 'Separa le ore per tipologia', null, 150, null);
@@ -37,24 +37,27 @@
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto principale', null, 51, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto principale', null, 52, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto principale', null, 53, null);
+						this.describeAColumn(table, '!idprogetto_progetto_idprogetto', 'Codice interno Progetto principale', null, 54, null);
 						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'start', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'stop', columnNamekey:'idprogetto' };
-						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
-						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
-						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idprogetto_progetto_idprogetto'] = { tableNameLookup:'progetto_alias1', columnNameLookup:'idprogetto', columnNamekey:'idprogetto' };
 						this.describeAColumn(table, '!idsal_sal_numerosal', 'Numero SAL', null, 31, null);
 						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio SAL', null, 32, null);
 						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine SAL', null, 33, null);
 						this.describeAColumn(table, '!idsal_sal_datablocco', 'Data di Blocco SAL', null, 34, null);
 						objCalcFieldConfig['!idsal_sal_numerosal'] = { tableNameLookup:'sal', columnNameLookup:'numerosal', columnNamekey:'idsal' };
-						this.describeAColumn(table, '!idrendicontaltrokind_rendicontaltrokind_title', 'Idrendicontaltrokind', null, 71, null);
-						objCalcFieldConfig['!idrendicontaltrokind_rendicontaltrokind_title'] = { tableNameLookup:'rendicontaltrokind', columnNameLookup:'title', columnNamekey:'idrendicontaltrokind' };
+						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
+						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
+						this.describeAColumn(table, '!idtimesheettemplate_timesheettemplate_title', 'Template', null, 41, null);
+						this.describeAColumn(table, '!idtimesheettemplate_timesheettemplate_description', 'Descrizione Template', null, 42, null);
+						objCalcFieldConfig['!idtimesheettemplate_timesheettemplate_title'] = { tableNameLookup:'timesheettemplate', columnNameLookup:'title', columnNamekey:'idtimesheettemplate' };
+						objCalcFieldConfig['!idtimesheettemplate_timesheettemplate_description'] = { tableNameLookup:'timesheettemplate', columnNameLookup:'description', columnNamekey:'idtimesheettemplate' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'personale':
 						this.describeAColumn(table, 'year', 'Anno', null, 20, null);
-						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 50, 60);
 						this.describeAColumn(table, 'title', 'Descrizione', null, 70, 2048);
 						this.describeAColumn(table, 'output', 'Formato', null, 150, null);
 						this.describeAColumn(table, 'multilinetype', 'Separa le ore per tipologia', null, 160, null);
@@ -74,9 +77,11 @@
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto principale', null, 51, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto principale', null, 52, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto principale', null, 53, null);
+						this.describeAColumn(table, '!idprogetto_progetto_idprogetto', 'Codice interno Progetto principale', null, 54, null);
 						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto', columnNameLookup:'start', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_idprogetto'] = { tableNameLookup:'progetto', columnNameLookup:'idprogetto', columnNamekey:'idprogetto' };
 						this.describeAColumn(table, '!idsal_sal_numerosal', 'Numero SAL', null, 31, null);
 						this.describeAColumn(table, '!idsal_sal_start', 'Data di inizio SAL', null, 32, null);
 						this.describeAColumn(table, '!idsal_sal_stop', 'Data di fine SAL', null, 33, null);
@@ -85,15 +90,17 @@
 						objCalcFieldConfig['!idsal_sal_start'] = { tableNameLookup:'sal', columnNameLookup:'start', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_stop'] = { tableNameLookup:'sal', columnNameLookup:'stop', columnNamekey:'idsal' };
 						objCalcFieldConfig['!idsal_sal_datablocco'] = { tableNameLookup:'sal', columnNameLookup:'datablocco', columnNamekey:'idsal' };
-						this.describeAColumn(table, '!idrendicontaltrokind_rendicontaltrokind_title', 'Idrendicontaltrokind', null, 71, null);
-						objCalcFieldConfig['!idrendicontaltrokind_rendicontaltrokind_title'] = { tableNameLookup:'rendicontaltrokind', columnNameLookup:'title', columnNamekey:'idrendicontaltrokind' };
+						this.describeAColumn(table, '!idtimesheettemplate_timesheettemplate_title', 'Template', null, 41, null);
+						this.describeAColumn(table, '!idtimesheettemplate_timesheettemplate_description', 'Descrizione Template', null, 42, null);
+						objCalcFieldConfig['!idtimesheettemplate_timesheettemplate_title'] = { tableNameLookup:'timesheettemplate', columnNameLookup:'title', columnNamekey:'idtimesheettemplate' };
+						objCalcFieldConfig['!idtimesheettemplate_timesheettemplate_description'] = { tableNameLookup:'timesheettemplate', columnNameLookup:'description', columnNamekey:'idtimesheettemplate' };
 //$objCalcFieldConfig_datipersonali$
 						break;
 					case 'personalecosto':
-						this.describeAColumn(table, '!importaltreattivita', 'Importa altre attività', null, 0, null);
 						this.describeAColumn(table, '!importattivitadidattica', 'Importa attività didattica', null, 0, null);
+						this.describeAColumn(table, '!importaltreattivita', 'Importa altre attività', null, 0, null);
+						this.describeAColumn(table, '!importasospensioni', 'Importa sospensioni', null, 0, null);
 						this.describeAColumn(table, 'year', 'Anno', null, 20, null);
-						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 50, 60);
 						this.describeAColumn(table, 'title', 'Descrizione', null, 70, 2048);
 						this.describeAColumn(table, 'output', 'Formato', null, 150, null);
 //$objCalcFieldConfig_personalecosto$
@@ -129,7 +136,6 @@
 //$innerSetCaptionConfig_personale$
 						break;
 					case 'default':
-						table.columns["sede"].caption = "Sede di svolgimento delle attività";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'datipersonali':

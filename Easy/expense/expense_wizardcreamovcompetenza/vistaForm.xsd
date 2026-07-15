@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaWizardSpesaCreaMovCompetenza.xsd" xmlns:mstns="http://tempuri.org/VistaWizardSpesaCreaMovCompetenza.xsd" xmlns="http://tempuri.org/VistaWizardSpesaCreaMovCompetenza.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaWizardSpesaCreaMovCompetenza.xsd" xmlns:mstns="http://tempuri.org/VistaWizardSpesaCreaMovCompetenza.xsd" xmlns="http://tempuri.org/VistaWizardSpesaCreaMovCompetenza.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -308,6 +308,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -421,41 +422,18 @@
       <xs:field xpath="mstns:idunderwriting" />
       <xs:field xpath="mstns:idexp" />
     </xs:unique>
-    <xs:keyref name="expense_underwritingappropriation" refer="expense_Constraint1">
-      <xs:selector xpath=".//mstns:underwritingappropriation" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="expense_expensetotal" refer="expense_Constraint1">
-      <xs:selector xpath=".//mstns:expensetotal" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="expense_expenseyear" refer="expense_Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
-    <xs:keyref name="fin_expenseyear" refer="Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idfin" />
-    </xs:keyref>
-    <xs:keyref name="upb_expenseyear" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:expenseyear" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="registry_expense" refer="registry_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:keyref>
-    <xs:keyref name="expensephase_expense" refer="expensephase_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:nphase" />
-    </xs:keyref>
-    <xs:keyref name="manager_expense" refer="manager_Constraint1">
-      <xs:selector xpath=".//mstns:expense" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="expense_expensesorted" refer="expense_Constraint1">
-      <xs:selector xpath=".//mstns:expensesorted" />
-      <xs:field xpath="mstns:idexp" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="expense_underwritingappropriation" msdata:parent="expense" msdata:child="underwritingappropriation" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="expense_expensetotal" msdata:parent="expense" msdata:child="expensetotal" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="upb_expenseyear" msdata:parent="upb" msdata:child="expenseyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="fin_expenseyear" msdata:parent="fin" msdata:child="expenseyear" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="expense_expenseyear" msdata:parent="expense" msdata:child="expenseyear" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="manager_expense" msdata:parent="manager" msdata:child="expense" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="expensephase_expense" msdata:parent="expensephase" msdata:child="expense" msdata:parentkey="nphase" msdata:childkey="nphase" />
+      <msdata:Relationship name="registry_expense" msdata:parent="registry" msdata:child="expense" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="expense_expensesorted" msdata:parent="expense" msdata:child="expensesorted" msdata:parentkey="idexp" msdata:childkey="idexp" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

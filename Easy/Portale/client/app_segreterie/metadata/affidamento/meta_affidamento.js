@@ -36,6 +36,8 @@
 						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Docente', null, 11, null);
 						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						this.describeAColumn(table, '!affidamentocaratteristica', 'Caratteristiche dell\'affidamento', null, 90, null);
+						//objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'seg':
@@ -72,6 +74,15 @@
 						this.describeAColumn(table, 'start', 'Inizio', null, 150, null);
 						this.describeAColumn(table, 'stop', 'Fine', null, 160, null);
 //$objCalcFieldConfig_docente$
+						break;
+					case 'piano':
+						this.describeAColumn(table, '!idaffidamentokind_affidamentokind_title', 'Tipologia', null, 21, null);
+						objCalcFieldConfig['!idaffidamentokind_affidamentokind_title'] = { tableNameLookup:'affidamentokind_alias1', columnNameLookup:'title', columnNamekey:'idaffidamentokind' };
+						this.describeAColumn(table, '!iderogazkind_erogazkind_title', 'Tipo di erogazione', null, 41, null);
+						objCalcFieldConfig['!iderogazkind_erogazkind_title'] = { tableNameLookup:'erogazkind_alias1', columnNameLookup:'title', columnNamekey:'iderogazkind' };
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Docente', null, 11, null);
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry_alias2', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+//$objCalcFieldConfig_piano$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -112,6 +123,8 @@
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'docente':
+						table.columns["idattivform"].caption = "Materia";
+						table.columns["iddidprog"].caption = "Corso";
 //$innerSetCaptionConfig_docente$
 						break;
 //$innerSetCaptionConfig$

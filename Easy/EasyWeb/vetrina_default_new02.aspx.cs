@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -316,7 +314,7 @@ public partial class vetrina_default_new02 : MetaPage {
         outputstr += "<tr><td colspan=\"3\">";
         //background-color:#cccccc; 
         outputstr += "<div style=\"position: relative; bottom:0px;background-color:#transparent;text-align: right;\">";
-        outputstr += "Quantit‡:<input onfocus=\"document.getElementById(this.id).className='focused';\" onblur=\"document.getElementById(this.id).className='';\" id=\"quant" + field_to_match + "\" style=\"text-align:right;\" type=\"text\" size=\"5\" value=\"1\">";
+        outputstr += "Quantit√†:<input onfocus=\"document.getElementById(this.id).className='focused';\" onblur=\"document.getElementById(this.id).className='';\" id=\"quant" + field_to_match + "\" style=\"text-align:right;\" type=\"text\" size=\"5\" value=\"1\">";
 
         outputstr += "<input type=\"button\" onclick=\"javascript:inc('quant" + field_to_match + "');\" value=\"+\"/>";
         outputstr += "<input type=\"button\" onclick=\"javascript:dec('quant" + field_to_match + "');\" value=\"-\"/>";

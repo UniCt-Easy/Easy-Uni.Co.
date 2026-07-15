@@ -60,6 +60,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="orepreventivate" type="xs:int" />
+              <xs:element name="rendicontatutto" type="xs:string" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -127,7 +128,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="getregistrydocentiamministrativinomcognview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="getregistrydocentiamministrativinomcognmatview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
@@ -206,8 +207,8 @@
       <xs:field xpath="mstns:idconsolidamentoora" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="getregistrydocentiamministrativinomcognview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:getregistrydocentiamministrativinomcognview" />
+    <xs:unique name="getregistrydocentiamministrativinomcognmatview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:getregistrydocentiamministrativinomcognmatview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="consolidamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -225,7 +226,7 @@
       <msdata:Relationship name="FK_rendicontattivitaprogettoora_progetto_idprogetto" msdata:parent="progetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_rendicontattivitaprogettokind_idrendicontattivitaprogettokind" msdata:parent="rendicontattivitaprogettokind" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idrendicontattivitaprogettokind" msdata:childkey="idrendicontattivitaprogettokind" />
       <msdata:Relationship name="FK_consolidamentoora_consolidamento_idreg" msdata:parent="consolidamento" msdata:child="consolidamentoora" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_consolidamento_getregistrydocentiamministrativinomcognview_idreg" msdata:parent="getregistrydocentiamministrativinomcognview" msdata:child="consolidamento" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_consolidamento_getregistrydocentiamministrativinomcognmatview_idreg" msdata:parent="getregistrydocentiamministrativinomcognmatview" msdata:child="consolidamento" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

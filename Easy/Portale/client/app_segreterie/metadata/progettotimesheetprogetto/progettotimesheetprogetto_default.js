@@ -25,7 +25,13 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#progettotimesheetprogetto_default_idprogetto'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 

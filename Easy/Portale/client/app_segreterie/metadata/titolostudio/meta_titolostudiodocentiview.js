@@ -24,7 +24,7 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'docenti':
 						this.describeAColumn(table, 'istattitolistudio_titolo', 'Titolo ISTAT', null, 1200, 1024);
-						this.describeAColumn(table, 'registryistituti_title', 'Istituto', null, 2100, 101);
+						this.describeAColumn(table, 'registryistituti_title', 'Istituto', null, 2300, 101);
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 3000, 9);
 						this.describeAColumn(table, 'titolostudio_data', 'Data del conseguimento', null, 5000, null);
 						this.describeAColumn(table, 'titolostudio_giudizio', 'Giudizio', null, 6000, 50);
@@ -50,7 +50,15 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "docenti": {
+						return "aa asc , titolostudio_data asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

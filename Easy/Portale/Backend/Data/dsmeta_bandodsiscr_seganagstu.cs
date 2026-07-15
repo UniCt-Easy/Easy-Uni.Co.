@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_bandodsiscr_seganagstu"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_bandodsiscr_seganagstu: DataSet {
+public partial class dsmeta_bandodsiscr_seganagstu: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -72,6 +70,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// BANDODSISCRESITOKIND /////////////////////////////////
 	var tbandodsiscresitokind= new MetaTable("bandodsiscresitokind");
+	tbandodsiscresitokind.defineColumn("active", typeof(string),false);
 	tbandodsiscresitokind.defineColumn("idbandodsiscresitokind", typeof(int),false);
 	tbandodsiscresitokind.defineColumn("title", typeof(string),false);
 	Tables.Add(tbandodsiscresitokind);
@@ -96,18 +95,21 @@ private void initClass() {
 	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
 	var tregistrystudentiview= new MetaTable("registrystudentiview");
 	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
 	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
+	tregistrystudentiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrystudentiview);
 	tregistrystudentiview.defineKey("idreg");
 
 	//////////////////// ACCREDITOKIND /////////////////////////////////
 	var taccreditokind= new MetaTable("accreditokind");
+	taccreditokind.defineColumn("active", typeof(string),false);
+	taccreditokind.defineColumn("ct", typeof(DateTime),false);
+	taccreditokind.defineColumn("cu", typeof(string),false);
+	taccreditokind.defineColumn("description", typeof(string));
 	taccreditokind.defineColumn("idaccreditokind", typeof(int),false);
+	taccreditokind.defineColumn("lt", typeof(DateTime),false);
+	taccreditokind.defineColumn("lu", typeof(string),false);
+	taccreditokind.defineColumn("sortcode", typeof(int),false);
 	taccreditokind.defineColumn("title", typeof(string),false);
 	Tables.Add(taccreditokind);
 	taccreditokind.defineKey("idaccreditokind");

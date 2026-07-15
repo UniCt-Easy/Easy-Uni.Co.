@@ -98,7 +98,17 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'appello':
+						table.columns["idappello"].caption = "Appello";
+						table.columns["idattivform"].caption = "attività formativa";
+//$innerSetCaptionConfig_appello$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_appelloattivform");

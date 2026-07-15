@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_elenco_registroiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_elenco_registroiva]
 GO
@@ -25,7 +23,7 @@ SET ANSI_NULLS ON
 GO
  
 
-CREATE  PROCEDURE rpt_elenco_registroiva
+CREATE  PROCEDURE [rpt_elenco_registroiva]
 	@idivaregisterkind int,
 	@year int,
 	@month int,
@@ -36,6 +34,7 @@ CREATE  PROCEDURE rpt_elenco_registroiva
 	@idsor04 int = null,
 	@idsor05 int = null
 AS BEGIN
+--  setuser 'amministrazione'
 --	exec rpt_elenco_registroiva 5, 2009, 10, 'N' -- Vendite 
 --	exec rpt_elenco_registroiva 1, 2009, 11, 'N' -- Acquisti
 --	exec rpt_elenco_registroiva 1, 2011, 3, 'N' 
@@ -68,7 +67,8 @@ CREATE TABLE #invoicedet
 	nivaregister int,
 	registry varchar(100),
 	totaldoc decimal(19,2),
-
+	taxabletotal decimal(19,2),
+	ivatotal decimal(19,2),
 	idinvkinddescr varchar(50),
 	doc varchar(50),
 	docdate smalldatetime,
@@ -93,7 +93,8 @@ INSERT INTO #invoicedet
 	nivaregister,
 	registry,
 	totaldoc,
-
+	taxabletotal,
+	ivatotal,
 	idinvkinddescr,
 	doc,
 	docdate,
@@ -114,15 +115,24 @@ INSERT INTO #invoicedet
 		ivaregisterkind.description,
 		ivaregister.nivaregister,
 		case when isnull(invoice.autoinvoice,'N')='S' then @DenominazioneUniversita else registry.title end, 
-			CONVERT(decimal(19,2),
+		CONVERT(decimal(19,2),
+			SUM(
+				ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+					CONVERT(decimal(19,10),invoice.exchangerate) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+					)
+				)
+			) +
+		ISNULL(SUM(invoicedetail.tax),0),
+		CONVERT(decimal(19,2),
 				SUM(
 					ROUND(invoicedetail.taxable * invoicedetail.npackage * 
 					  CONVERT(decimal(19,10),invoice.exchangerate) *
 					  (1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
 					 )
 				   )
-				) +
-			ISNULL(SUM(invoicedetail.tax),0),
+				) ,
+		ISNULL(SUM(invoicedetail.tax),0),
 		invoicekind.description AS idinvkinddescr,
 		invoice.doc,
 		invoice.docdate,
@@ -186,7 +196,8 @@ INSERT INTO #invoicedet
 	nivaregister,
 	registry,
 	totaldoc,
-
+	taxabletotal,
+	ivatotal,
 	idinvkinddescr,
 	doc,
 	docdate,
@@ -204,15 +215,24 @@ INSERT INTO #invoicedet
 		ivaregisterkind.description,
 		ivaregister.nivaregister,
 		case when isnull(M.autoinvoice,'N')='S' then @DenominazioneUniversita else registry.title end,
-			CONVERT(decimal(19,2),
-				SUM(
-					ROUND(invoicedetail.taxable * invoicedetail.npackage * 
-					  CONVERT(decimal(19,10),invoice.exchangerate) *
-					  (1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
-					 )
-				   )
-				) +
-			ISNULL(SUM(invoicedetail.tax),0),
+		CONVERT(decimal(19,2),
+			SUM(
+				ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+					CONVERT(decimal(19,10),invoice.exchangerate) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+					)
+				)
+			) +
+		ISNULL(SUM(invoicedetail.tax),0),
+		CONVERT(decimal(19,2),
+			SUM(
+				ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+					CONVERT(decimal(19,10),invoice.exchangerate) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+					)
+				)
+			) ,
+		ISNULL(SUM(invoicedetail.tax),0),
 		invoicekind.description AS idinvkinddescr,
 		invoice.doc,
 		invoice.docdate,
@@ -279,7 +299,8 @@ INSERT INTO #invoicedet
 	nivaregister,
 	registry,
 	totaldoc,
-
+	taxabletotal,
+	ivatotal,
 	idinvkinddescr,
 	doc,
 	docdate,
@@ -298,15 +319,24 @@ INSERT INTO #invoicedet
 	ivaregisterkind.description,
 	ivaregister.nivaregister,
 	case when isnull(invoice.autoinvoice,'N')='S' then @DenominazioneUniversita else registry.title end,
-			CONVERT(decimal(19,2),
-				SUM(
-				    ROUND(invoicedetail.taxable * invoicedetail.npackage * 
-					  CONVERT(decimal(19,10),invoice.exchangerate) *
-					  (1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
-					 )
-				   )
-				) 
-			+ ISNULL(SUM(invoicedetail.tax),0)	,
+	CONVERT(decimal(19,2),
+		SUM(
+			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+				CONVERT(decimal(19,10),invoice.exchangerate) *
+				(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+				)
+			)
+		) 
+	+ ISNULL(SUM(invoicedetail.tax),0)	,
+	CONVERT(decimal(19,2),
+			SUM(
+				ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+					CONVERT(decimal(19,10),invoice.exchangerate) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+					)
+				)
+			) ,
+	ISNULL(SUM(invoicedetail.tax),0),
 	invoicekind.description,
 	invoice.doc,
 	invoice.docdate,
@@ -371,7 +401,8 @@ INSERT INTO #invoicedet
 	nivaregister,
 	registry,
 	totaldoc,
-
+	taxabletotal,
+	ivatotal,
 	idinvkinddescr,
 	doc,
 	docdate,
@@ -390,15 +421,24 @@ INSERT INTO #invoicedet
 	ivaregisterkind.description,
 	ivaregister.nivaregister,
 	case when isnull(M.autoinvoice,'N')='S' then @DenominazioneUniversita else registry.title end,
-			CONVERT(decimal(19,2),
-				SUM(
-				    ROUND(invoicedetail.taxable * invoicedetail.npackage * 
-					  CONVERT(decimal(19,10),invoice.exchangerate) *
-					  (1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
-					 )
-				   )
-				) 
-			+ ISNULL(SUM(invoicedetail.tax),0)	,
+	CONVERT(decimal(19,2),
+		SUM(
+			ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+				CONVERT(decimal(19,10),invoice.exchangerate) *
+				(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+				)
+			)
+		) 
+	+ ISNULL(SUM(invoicedetail.tax),0)	,
+	CONVERT(decimal(19,2),
+			SUM(
+				ROUND(invoicedetail.taxable * invoicedetail.npackage * 
+					CONVERT(decimal(19,10),invoice.exchangerate) *
+					(1 - CONVERT(decimal(19,6),ISNULL(invoicedetail.discount, 0))),2
+					)
+				)
+			) ,
+	ISNULL(SUM(invoicedetail.tax),0),
 	invoicekind.description,
 	invoice.doc,
 	invoice.docdate,
@@ -463,7 +503,9 @@ INSERT INTO #invoicedet
 -- Se registerclass = P non fa nulla, considera tutto positivio
 
 	update #invoicedet set kind = registerclass,
-						totaldoc = - totaldoc
+						totaldoc = - totaldoc,
+						taxabletotal = - taxabletotal,
+						ivatotal= -ivatotal 
 		 where registerclass<>kind 
 		AND (select count(*) from invoicekindregisterkind  IRK
 				join ivaregisterkind RK on RK.idivaregisterkind=IRK.idivaregisterkind
@@ -473,14 +515,18 @@ INSERT INTO #invoicedet
 			AND @registerclass in ('A','V')
 
 			
-UPDATE #invoicedet Set totaldoc = - totaldoc
+UPDATE #invoicedet Set  totaldoc = - totaldoc,
+						taxabletotal = - taxabletotal,
+						ivatotal= -ivatotal 
 		where flagvariation='S'
 			AND @registerclass in ('A','V')
 
 	--Imposta come "acquisti" e cambia il segno le fatture contabilizzate in entrata ove ci siano due registri collegati. 
 	-- Infatti queste vanno trattate come se fossero note di variazione
 	update #invoicedet set kind = 'A',
-		  totaldoc = - totaldoc
+		  totaldoc = - totaldoc,
+		  taxabletotal = - taxabletotal,
+		  ivatotal= -ivatotal 
 		 where 
 				 (select count(*) from invoicekindregisterkind  IRK
 				join ivaregisterkind RK on RK.idivaregisterkind=IRK.idivaregisterkind
@@ -498,7 +544,8 @@ SELECT
 	nivaregister,
 	registry,
 	totaldoc,
-
+	taxabletotal,
+	ivatotal,
 	idinvkinddescr,
 	doc,
 	docdate,

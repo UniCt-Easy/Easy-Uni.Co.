@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.IO;
 using System.Reflection;
@@ -24,6 +22,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using metadatalibrary;
 
 namespace LiveUpdate//LiveUpdate//
@@ -208,7 +207,7 @@ namespace LiveUpdate//LiveUpdate//
 		                        dr["dllname"] = f5.Name;
 		                        dr["major"] = DateToInt(upd);
 		                        dr["minor"] = TimeToInt(upd);
-		                        dr["build"] = 0;
+		                        dr["build"] = f5.GetSHA256();
 		                    }
 		                }
 		                dt.Rows.Add(dr);
@@ -272,7 +271,7 @@ namespace LiveUpdate//LiveUpdate//
                             dr["dllname"] = f4.Name;
                             dr["major"] = DateToInt(upd);
                             dr["minor"] = TimeToInt(upd);
-                            dr["build"] = 0;
+                            dr["build"] = f4.GetSHA256();
                         }
                         dt.Rows.Add(dr);
                     }
@@ -311,7 +310,7 @@ namespace LiveUpdate//LiveUpdate//
 	        r["dllname"] = relativeName;
 	        r["major"] = DateToInt(upd);
 	        r["minor"] = TimeToInt(upd);
-	        r["build"] = 0;
+			r["build"] = f.GetSHA256();
 	        return;
 	    }
 
@@ -448,7 +447,7 @@ namespace LiveUpdate//LiveUpdate//
 							dr["dllname"]  = f3.Name;
 							dr["major"]  = DateToInt(upd);
 							dr["minor"]  = TimeToInt(upd);
-							dr["build"]  = 0;
+							dr["build"]  = f3.GetSHA256();
 						}
 						dt.Rows.Add(dr);
 					}
@@ -506,7 +505,7 @@ namespace LiveUpdate//LiveUpdate//
 							dr["dllname"]= f2.Name;
 							dr["major"] = DateToInt(upd);
 							dr["minor"] = TimeToInt(upd);
-							dr["build"] = 0;
+							dr["build"] = f2.GetSHA256();
 						}
 						dt.Rows.Add(dr);
 					}

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[sp_mail_limitidispesa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [sp_mail_limitidispesa]
@@ -455,7 +453,7 @@ set @separatore = char(9)
  
 EXEC msdb.dbo.sp_send_dbmail
  @profile_name = 'Notifiche'
-, @recipients = @email -- 'assistenzasw@temposrl.com'--'saradeca@inwind.it'--; carmela.luise@unicampania.it; Giovanni.RUSSO@unicampania.it; francesco.capruzzi@temposrl.com'
+, @recipients = @email -- 'your-email@example.com'--'your-email@example.com'--; your-email@example.com; your-email@example.com; your-email@example.com'
 , @subject = @message_subject
 , @body = @body_contratti
 , @body_format = 'HTML'
@@ -475,4 +473,4 @@ END
 
 go
 
-	-- exec sp_mail_limitidispesa '%','assistenzasw@temposrl.com'
+	-- exec sp_mail_limitidispesa '%','your-email@example.com'

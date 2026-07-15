@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,8 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
- --setuser 'amministrazione' 
+ --setuser 'circc' 
  if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_intesasanpaolo_var]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_intesasanpaolo_var]
 GO
@@ -116,7 +114,7 @@ FROM license
 --(vedere specifiche tracciato ma non la gestiamo)
 
 DECLARE @lenCC_vincolato int
-SET @lenCC_vincolato = 8
+SET @lenCC_vincolato = 7
 
 DECLARE @cc_vincolato varchar(8)
 
@@ -176,7 +174,7 @@ DECLARE @ABI_code varchar(5)
 SELECT  @cod_department = ISNULL(RTRIM(agencycodefortransmission),''),
 	@ABI_code = SUBSTRING(REPLICATE('0',@len_ABI),1,@len_ABI - DATALENGTH(ISNULL(idbank,'')))+ ISNULL(idbank,''),
 	@cc_vincolato = SUBSTRING(REPLICATE('0',@lenCC_vincolato),1,@lenCC_vincolato - 
-					DATALENGTH(CONVERT(varchar(8),ISNULL(trasmcode,'0')))) + CONVERT(varchar(8),ISNULL(trasmcode,'0'))	,
+					DATALENGTH(CONVERT(varchar(7),ISNULL(trasmcode,'0')))) + CONVERT(varchar(7),ISNULL(trasmcode,'0'))	,
 	@CodiceStruttura = ISNULL(billcode,'')  		
 FROM treasurer WHERE idtreasurer = @idtreasurer
 
@@ -210,7 +208,7 @@ BEGIN
 END
 IF (@error = 'S')
 BEGIN
-	SET @message = @message + ' Andare nella maschera CONFIGURAZIONE - CASSIERE - CASSIERE ed inserire i dati'
+	SET @message = @message + ' Andare nella maschera OPZIONI - BANCA - CONTO CORRENTE ed inserire i dati'
 	INSERT INTO #error VALUES(@message)
 END
 
@@ -1907,7 +1905,7 @@ CREATE TABLE #trace
 	impignorabili char(1),
 	frazionabile char(1),
 	gestione_provvisoria char(1),
-	data_esecuzione_pagamento datetime, 
+	data_esecuzione_pagamento varchar(20), 
 	data_scadenza_pagamento varchar(20),
 	destinazione varchar(20),
 	numero_conto_banca_italia_ente_ricevente varchar(10),
@@ -2240,8 +2238,11 @@ SELECT
 				   null,
 				   null,
 				   null,
-				   null,
-				   CASE 
+				   CASE      --- data_esecuzione_pagamento
+						WHEN (idpaymethodTRS = '09') THEN   CONVERT(VARCHAR(10),DATEADD(day, -1, expiration),20)  
+						ELSE null
+				   END, 
+				   CASE   -- data_scadenza
 						WHEN (idpaymethodTRS = '09') THEN    CONVERT(VARCHAR(10),expiration,20)
 						ELSE null
 				   END,

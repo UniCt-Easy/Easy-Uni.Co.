@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -167,7 +165,7 @@ namespace BancaSondrio {
                     };
                     var textEntePosition = new XPoint(xLogoEnte + logoImage.PointWidth, 
                                 yLogoEnte);
-                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //12  Ë il font in point
+                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //12  √® il font in point
                             Brushes.Black, new Rectangle(0, 0, txtEnteImage.Width, txtEnteImage.Height),
                             format);
                     grTextEnte.Flush();
@@ -184,40 +182,44 @@ namespace BancaSondrio {
                     var barcodeImage = BollettiniPdf.GenerateEAN(valoreCodiceBarre, 39);     // Genera l'immagine del codice a barre
 
                     // Verifica che il barCode sia stato generato correttamente
-                    if (barcodeImage == null) {
-                        errore = "Errore nella generazione del bar code.";
-                        return null;
-                    }
+                    //if (barcodeImage == null) {
+                    //    errore = "Errore nella generazione del bar code.";
+                    //    return null;
+                    //}
                     int textHeight = 7;
 
                     //barcodeImage.SetResolution(dpiPDF, dpiPDF);
                     var barcodePosition = new XPoint(marginePollici15Mm, marginePollici15Mm+textHeight);
-                    gfx.DrawImage(barcodeImage, barcodePosition);
-
-                 
+                    if (barcodeImage != null) {
+                        gfx.DrawImage(barcodeImage, barcodePosition);
+                    }
+                
                     int heigthtextBarCode = Convert.ToInt32(textHeight * dpiPdf / 72.0); //pixel
                     int heigthtextBarCodeExternal = Convert.ToInt32(textHeight * 96.0f / 72.0); //pixel
-                    var txtImage = new Bitmap(Convert.ToInt32(barcodeImage.Width * dpiPdf / 96.0), heigthtextBarCode);
-                    txtImage.SetResolution(dpiPdf, dpiPdf);
-                    var grTextBarCode = Graphics.FromImage(txtImage);
-                    grTextBarCode.SmoothingMode = SmoothingMode.AntiAlias;
-                    grTextBarCode.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    grTextBarCode.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    grTextBarCode.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                    var textPosition = new XPoint(marginePollici15Mm, barcodePosition.Y - heigthtextBarCodeExternal);
+                    if (barcodeImage != null) {
+                        var txtImage = new Bitmap(Convert.ToInt32(barcodeImage.Width * dpiPdf / 96.0), heigthtextBarCode);
+                        txtImage.SetResolution(dpiPdf, dpiPdf);
+                        var grTextBarCode = Graphics.FromImage(txtImage);
+
+                        grTextBarCode.SmoothingMode = SmoothingMode.AntiAlias;
+                        grTextBarCode.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        grTextBarCode.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        grTextBarCode.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+
+                        var textPosition = new XPoint(marginePollici15Mm, barcodePosition.Y - heigthtextBarCodeExternal);
+
+                        grTextBarCode.DrawString(BollettiniPdf.GetHintCodiceBarre(valoreCodiceBarre, importo), new Font("Arial", textHeight),
+                            Brushes.Black, new Rectangle(0, 0, txtImage.Width, txtImage.Height), format);
+                        grTextBarCode.Flush();
+
+                        gfx.DrawImage(txtImage, textPosition);
+                    }
+
                     //Create string formatting options(used for alignment)
                     format = new StringFormat() {
                         Alignment = StringAlignment.Center
                         //,LineAlignment = StringAlignment.Center
                     };
-
-                    grTextBarCode.DrawString(BollettiniPdf.GetHintCodiceBarre(valoreCodiceBarre, importo), new Font("Arial", textHeight),
-                            Brushes.Black, new Rectangle(0, 0, txtImage.Width, txtImage.Height), format);
-                    grTextBarCode.Flush();
-
-
-                    gfx.DrawImage(txtImage, textPosition);
-
                     Bitmap qrcodeImage = BollettiniPdf.GenerateQR(valoreCodiceQr);
                   
                     // Verifica che il qrCode sia stato generato correttmente, in quel caso la funzione torna un valore null
@@ -262,7 +264,7 @@ namespace BancaSondrio {
             }
             catch (Exception e) {
                 /* QueryCreator.ShowError(this, "E*/
-                // rrore salvando il file, probabilmente il file Ë gi‡ aperto.", e.ToString());
+                // rrore salvando il file, probabilmente il file √® gi√† aperto.", e.ToString());
             }
 
             //Process p = new Process();

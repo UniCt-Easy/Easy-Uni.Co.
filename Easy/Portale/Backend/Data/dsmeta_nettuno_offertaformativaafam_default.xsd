@@ -6,7 +6,7 @@
         <xs:element name="nettuno_offertaformativaafam" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="annosc" type="xs:string" minOccurs="0" />
+              <xs:element name="annosc" type="xs:int" minOccurs="0" />
               <xs:element name="crediti" type="xs:string" minOccurs="0" />
               <xs:element name="daanno" type="xs:int" />
               <xs:element name="desccorso" type="xs:string" minOccurs="0" />
@@ -29,7 +29,8 @@
       <xs:selector xpath=".//mstns:nettuno_offertaformativaafam" />
       <xs:field xpath="mstns:idcorso" />
       <xs:field xpath="mstns:idmateria" />
-      <xs:field xpath="mstns:idsc" />
-    </xs:unique>
+	  <xs:field xpath="mstns:idsc" />
+	  <xs:field xpath="mstns:annosc" />
+	</xs:unique>
   </xs:element>
 </xs:schema>

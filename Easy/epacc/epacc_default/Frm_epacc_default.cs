@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -130,6 +128,8 @@ namespace epacc_default {
 		private Button btnSpalmaPrevisioni;
 		public TextBox textBox3;
 		private Label label7;
+		private CheckBox chkListTitle;
+		private CheckBox chkListTitleUPB;
 		private Button btnEditDocument;
         public Frm_epacc_default() {
             InitializeComponent();
@@ -154,11 +154,6 @@ namespace epacc_default {
         /// </summary>
         private void InitializeComponent() {
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
@@ -210,6 +205,7 @@ namespace epacc_default {
 			this.radAccertamento = new System.Windows.Forms.RadioButton();
 			this.radPreaccertamento = new System.Windows.Forms.RadioButton();
 			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.chkListTitleUPB = new System.Windows.Forms.CheckBox();
 			this.txtUPB = new System.Windows.Forms.TextBox();
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
 			this.btnUPBCode = new System.Windows.Forms.Button();
@@ -234,6 +230,7 @@ namespace epacc_default {
 			this.gboxClienteFornitore = new System.Windows.Forms.GroupBox();
 			this.txtClienteFornitore = new System.Windows.Forms.TextBox();
 			this.gboxConto = new System.Windows.Forms.GroupBox();
+			this.chkListTitle = new System.Windows.Forms.CheckBox();
 			this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
 			this.txtCodiceConto = new System.Windows.Forms.TextBox();
 			this.btnAccount = new System.Windows.Forms.Button();
@@ -248,10 +245,13 @@ namespace epacc_default {
 			this.btnEditVar = new System.Windows.Forms.Button();
 			this.btnInsertVar = new System.Windows.Forms.Button();
 			this.GridVariazioni = new System.Windows.Forms.DataGrid();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.DS = new epacc_default.dsmeta();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPrincipale.SuspendLayout();
 			this.gBoxCausale.SuspendLayout();
 			this.gBoxImporti.SuspendLayout();
@@ -268,6 +268,8 @@ namespace epacc_default {
 			this.tabVariazioni.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.GridVariazioni)).BeginInit();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -285,61 +287,6 @@ namespace epacc_default {
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(888, 528);
 			this.tabControl1.TabIndex = 12;
-			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGridAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "epaccattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabPrincipale
 			// 
@@ -428,16 +375,16 @@ namespace epacc_default {
 			this.gBoxCausale.Controls.Add(this.txtCausale);
 			this.gBoxCausale.Controls.Add(this.txtCodiceCausale);
 			this.gBoxCausale.Controls.Add(this.btnCausale);
-			this.gBoxCausale.Location = new System.Drawing.Point(568, 391);
+			this.gBoxCausale.Location = new System.Drawing.Point(568, 379);
 			this.gBoxCausale.Name = "gBoxCausale";
-			this.gBoxCausale.Size = new System.Drawing.Size(296, 104);
+			this.gBoxCausale.Size = new System.Drawing.Size(296, 116);
 			this.gBoxCausale.TabIndex = 35;
 			this.gBoxCausale.TabStop = false;
 			this.gBoxCausale.Tag = "AutoManage.txtCodiceCausale.tree";
 			// 
 			// txtCausale
 			// 
-			this.txtCausale.Location = new System.Drawing.Point(120, 12);
+			this.txtCausale.Location = new System.Drawing.Point(120, 24);
 			this.txtCausale.Multiline = true;
 			this.txtCausale.Name = "txtCausale";
 			this.txtCausale.ReadOnly = true;
@@ -448,7 +395,7 @@ namespace epacc_default {
 			// 
 			// txtCodiceCausale
 			// 
-			this.txtCodiceCausale.Location = new System.Drawing.Point(7, 75);
+			this.txtCodiceCausale.Location = new System.Drawing.Point(7, 87);
 			this.txtCodiceCausale.Name = "txtCodiceCausale";
 			this.txtCodiceCausale.Size = new System.Drawing.Size(269, 20);
 			this.txtCodiceCausale.TabIndex = 1;
@@ -456,7 +403,7 @@ namespace epacc_default {
 			// 
 			// btnCausale
 			// 
-			this.btnCausale.Location = new System.Drawing.Point(8, 48);
+			this.btnCausale.Location = new System.Drawing.Point(8, 60);
 			this.btnCausale.Name = "btnCausale";
 			this.btnCausale.Size = new System.Drawing.Size(104, 23);
 			this.btnCausale.TabIndex = 0;
@@ -908,21 +855,31 @@ namespace epacc_default {
 			// 
 			// gboxUPB
 			// 
+			this.gboxUPB.Controls.Add(this.chkListTitleUPB);
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(282, 391);
+			this.gboxUPB.Location = new System.Drawing.Point(282, 379);
 			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(278, 104);
+			this.gboxUPB.Size = new System.Drawing.Size(278, 116);
 			this.gboxUPB.TabIndex = 8;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			// 
+			// chkListTitleUPB
+			// 
+			this.chkListTitleUPB.Location = new System.Drawing.Point(3, 8);
+			this.chkListTitleUPB.Name = "chkListTitleUPB";
+			this.chkListTitleUPB.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitleUPB.TabIndex = 59;
+			this.chkListTitleUPB.TabStop = false;
+			this.chkListTitleUPB.Text = "Cerca per denominazione";
 			// 
 			// txtUPB
 			// 
 			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Location = new System.Drawing.Point(8, 88);
 			this.txtUPB.Name = "txtUPB";
 			this.txtUPB.Size = new System.Drawing.Size(264, 20);
 			this.txtUPB.TabIndex = 5;
@@ -932,13 +889,13 @@ namespace epacc_default {
 			// 
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(126, 9);
+			this.txtDescrUPB.Location = new System.Drawing.Point(107, 25);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
-			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(146, 62);
+			this.txtDescrUPB.Size = new System.Drawing.Size(165, 59);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.ReadOnly = true;
 			this.txtDescrUPB.Tag = "upb.title";
 			// 
 			// btnUPBCode
@@ -946,9 +903,9 @@ namespace epacc_default {
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 63);
 			this.btnUPBCode.Name = "btnUPBCode";
-			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
+			this.btnUPBCode.Size = new System.Drawing.Size(93, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
 			this.btnUPBCode.Tag = "";
@@ -1141,30 +1098,40 @@ namespace epacc_default {
 			// 
 			// gboxConto
 			// 
+			this.gboxConto.Controls.Add(this.chkListTitle);
 			this.gboxConto.Controls.Add(this.txtDenominazioneConto);
 			this.gboxConto.Controls.Add(this.txtCodiceConto);
 			this.gboxConto.Controls.Add(this.btnAccount);
-			this.gboxConto.Location = new System.Drawing.Point(24, 391);
+			this.gboxConto.Location = new System.Drawing.Point(24, 379);
 			this.gboxConto.Name = "gboxConto";
-			this.gboxConto.Size = new System.Drawing.Size(248, 104);
+			this.gboxConto.Size = new System.Drawing.Size(248, 116);
 			this.gboxConto.TabIndex = 7;
 			this.gboxConto.TabStop = false;
 			this.gboxConto.Tag = "AutoManage.txtCodiceConto.tree";
 			// 
+			// chkListTitle
+			// 
+			this.chkListTitle.Location = new System.Drawing.Point(8, 8);
+			this.chkListTitle.Name = "chkListTitle";
+			this.chkListTitle.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitle.TabIndex = 58;
+			this.chkListTitle.TabStop = false;
+			this.chkListTitle.Text = "Cerca per denominazione";
+			// 
 			// txtDenominazioneConto
 			// 
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(103, 17);
+			this.txtDenominazioneConto.Location = new System.Drawing.Point(91, 25);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
-			this.txtDenominazioneConto.ReadOnly = true;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(139, 52);
+			this.txtDenominazioneConto.Size = new System.Drawing.Size(151, 59);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
+			this.txtDenominazioneConto.ReadOnly = true;
 			// 
 			// txtCodiceConto
 			// 
-			this.txtCodiceConto.Location = new System.Drawing.Point(6, 78);
+			this.txtCodiceConto.Location = new System.Drawing.Point(6, 90);
 			this.txtCodiceConto.Name = "txtCodiceConto";
 			this.txtCodiceConto.Size = new System.Drawing.Size(236, 20);
 			this.txtCodiceConto.TabIndex = 1;
@@ -1173,13 +1140,14 @@ namespace epacc_default {
 			// btnAccount
 			// 
 			this.btnAccount.BackColor = System.Drawing.SystemColors.Control;
-			this.btnAccount.Location = new System.Drawing.Point(8, 49);
+			this.btnAccount.Location = new System.Drawing.Point(8, 62);
 			this.btnAccount.Name = "btnAccount";
-			this.btnAccount.Size = new System.Drawing.Size(89, 23);
+			this.btnAccount.Size = new System.Drawing.Size(79, 23);
 			this.btnAccount.TabIndex = 0;
-			this.btnAccount.Tag = "manage.account.tree";
+			this.btnAccount.Tag = "";
 			this.btnAccount.Text = "Conto";
 			this.btnAccount.UseVisualStyleBackColor = false;
+			this.btnAccount.Click += new System.EventHandler(this.btnAccount_Click);
 			// 
 			// tabClassificazioni
 			// 
@@ -1314,6 +1282,61 @@ namespace epacc_default {
 			this.GridVariazioni.TabIndex = 0;
 			this.GridVariazioni.Tag = "epaccvar.default.detail";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(880, 502);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(865, 454);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "epaccattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
@@ -1355,9 +1378,9 @@ namespace epacc_default {
 			this.tabVariazioni.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.GridVariazioni)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.tabAllegati.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -1367,7 +1390,7 @@ namespace epacc_default {
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
             bf = new BudgetFunction(this.getInstance<IMetaDataDispatcher>() as MetaDataDispatcher);
-            controller.CanInsertCopy = false;
+            //controller.CanInsertCopy = false;
             HelpForm.SetDenyNull(DS.epacc.Columns["flagvariation"], true);
             string filteresercvariazione = qhs.CmpEq("yvar", esercizio);
             setStaticFilter(DS.epaccvar, filteresercvariazione);
@@ -1396,6 +1419,11 @@ namespace epacc_default {
             DS.epaccsortingview.Columns["sorting"].ExtendedProperties["ViewSource"] = "sortingview.description";
             setStaticFilter(DS.Tables["account"], toString(eq("ayear", esercizio)));
             SetImportoName();
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.epaccattachment, true);
         }
 
         object GetCtrlByName(string Name) {
@@ -1565,15 +1593,20 @@ namespace epacc_default {
             AddRemoveTabs(true);
             txtEsercizio.ReadOnly =!isEmpty;
             txtNumero.ReadOnly = !isEmpty;
-            chkFlagVariazione.Enabled = true;
+			chkFlagVariazione.Enabled = true;
 			EnableDisableImporti();
+			chkListTitle.Checked = false;
+			chkListTitleUPB.Checked = false;
 		}
 
         public void MetaData_BeforeFill() {
             AddRemoveTabs(false);
             if (insertMode) {
                 CreateepaccYearRow();
-            }
+				if (DS.epaccvar.Rows.Count != 0) {
+					DS.epaccvar.Clear();
+				}
+			}
             else {
                 if (DS.epacctotal.Rows.Count == 0) {
 	                selectIntoTable(DS.epacctotal, eq("idepacc", DS.epacc.Rows[0]["idepacc"]) & eq("ayear", esercizio));
@@ -1624,13 +1657,15 @@ namespace epacc_default {
 
         public void MetaData_AfterFill() {
 	        btnSpalmaPrevisioni.Visible = true;
-	        if (firstFillForThisRow)btnAccount.Tag = "manage.account.tree";
+	        if (firstFillForThisRow)
+				btnAccount.Tag = "manage.account.tree";
 	        abilitaDisabilitaGeneraAccertamento();
             CalcolaTotale(false);
             CalcolaTotaleCorrente(false);
             txtEsercizio.ReadOnly = !isEmpty;
             txtNumero.ReadOnly = !isEmpty;
-            SetFasePrecedente();
+			txtUPB.ReadOnly = true;
+			SetFasePrecedente();
             AbilitaDisabilitaNotaVariazione();
             txtTotaleCorr.Visible = true;
             txtImpCorr.Visible = true;
@@ -1701,9 +1736,11 @@ namespace epacc_default {
                 grpFasi.Enabled = true;
                 if (radPreaccertamento.Checked) {
                     DS.epacc.Rows[0]["paridepacc"] = DBNull.Value;
-                    txtNprec.Text = "";
+					DS.epacc.Rows[0]["idreg"] = DBNull.Value;
+					txtNprec.Text = "";
                     txtYprec.Text = "";
-                }
+					txtClienteFornitore.Text = "";
+				}
             }
             else {
                 btnFasePrec.Enabled = false;
@@ -2085,33 +2122,51 @@ namespace epacc_default {
         
             private void btnUPBCode_Click(object sender, EventArgs e) {
             object getresp = GetResponsabile();
-            if (isEmpty || (editMode && getresp == DBNull.Value)) {
+			string filterMan = "";
+			if (getresp != DBNull.Value) {
+				filterMan = qhs.CmpEq("idman", getresp);
+			}
+			string filter = qhs.DoPar(qhs.AppOr(qhs.NullOrEq("active", 'S'), qhs.CmpEq("active", "")));
+			filter = qhs.AppAnd(filter, filterMan);
+			decimal currval = 0;
+			if (isEmpty || insertMode) {
+				if (SubEntity_txtAnno1.Text.Trim() != "") {
+					currval = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(
+									typeof(decimal), SubEntity_txtAnno1.Text, "x.y.c"));
+				}
+			}
+			else {
+				if (txtImpCorr.Text.Trim() != "") {
+					currval = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(
+						typeof(decimal), txtImpCorr.Text, "x.y.c"));
+				}
+			}
+			
+
+			if (chkListTitleUPB.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+
+				MetaData.DoMainCommand(this, "choose.upb.default." + filter);
+				return;
+			}
+
+			if (isEmpty || (editMode && getresp == DBNull.Value)) {
                 controller.DoMainCommand("manage.upb.tree");
                 return;
             }
-            string filterMan = "";
-            if (getresp != DBNull.Value) {
-                filterMan = qhs.CmpEq("idman", getresp);
-            }
-            string filter = qhs.AppAnd(filterMan,qhs.CmpEq("active",'S'),
-	            qhs.CmpEq("ayear",esercizio) );
-            decimal currval = 0;
-            if(isEmpty || insertMode) {
-                if (SubEntity_txtAnno1.Text.Trim() != "") {
-                    currval = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(
-                                    typeof(decimal), SubEntity_txtAnno1.Text, "x.y.c"));
-                }
-            }
-            else {
-                if (txtImpCorr.Text.Trim() != "") {
-                    currval = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(
-                        typeof(decimal), txtImpCorr.Text, "x.y.c"));
-                }
-            }
-            if((insertMode)&&(currval > 0)) {
-                filter = qhs.AppAnd(filter,qhs.CmpGe("available",currval));
-            }
-            MetaData MetaUpb = MetaData.GetMetaData(this, "upbepaccyearview");
+
+			if ((insertMode) && (currval > 0))
+			{
+				filter = qhs.AppAnd(filter, qhs.CmpGe("available", currval));
+			}
+
+			MetaData MetaUpb = MetaData.GetMetaData(this, "upbepaccyearview");
             MetaUpb.DS = new DataSet();
             MetaUpb.linkedForm = this;
             MetaUpb.FilterLocked = true;
@@ -2215,6 +2270,29 @@ namespace epacc_default {
 				r[field] = d;
 			}
 			Meta.FreshForm(false);
+		}
+
+		private void btnAccount_Click(object sender, EventArgs e) {
+			string filter = "";
+			int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
+
+			string filteroperativo = "(idacc in (SELECT idacc from accountusable where ayear='" +
+				esercizio + "'))";
+
+			if (chkListTitle.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+				filter = GetData.MergeFilters(filter, filteroperativo);
+				btnAccount.Tag = "";
+				MetaData.DoMainCommand(this, "choose.account.default." + filter);
+				return;
+			}
+			btnAccount.Tag = "manage.account.tree";
 		}
 	}
 

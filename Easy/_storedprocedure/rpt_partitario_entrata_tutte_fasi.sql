@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_partitario_entrata_tutte_fasi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_partitario_entrata_tutte_fasi]
@@ -1062,19 +1060,19 @@ UPDATE #income SET description = null
 		AND income.description = #income.description
 
 UPDATE #income
-	SET 	emessiondate = paymentview.adate,
-		printeddate = 	paymentview.printdate,
-		trasmitteddate = paymentview.transmissiondate,	
-		transactiondate = paymentperformed.competencydate,
-		annulmentdate = paymentview.annulmentdate
-	FROM paymentview
+	SET 	emessiondate = proceedsview.adate,
+		printeddate = 	proceedsview.printdate,
+		trasmitteddate = proceedsview.transmissiondate,	
+		transactiondate = proceedsperformed.competencydate,
+		annulmentdate = proceedsview.annulmentdate
+	FROM proceedsview
 	LEFT OUTER JOIN banktransaction
-		ON banktransaction.kpay=paymentview.kpay	
+		ON banktransaction.kpro=proceedsview.kpro	
 		AND (banktransaction.kind='C' OR banktransaction.kind IS NULL)
-	LEFT OUTER JOIN  paymentperformed 
-		ON paymentperformed.npay=paymentview.npay
-		AND paymentperformed.ypay=paymentview.ypay
-	WHERE #income.ndoc = paymentview.npay and paymentview.ypay=@ayear
+	LEFT OUTER JOIN  proceedsperformed 
+		ON proceedsperformed.npro=proceedsview.npro
+		AND proceedsperformed.ypro=proceedsview.ypro
+	WHERE #income.ndoc = proceedsview.npro and proceedsview.ypro=@ayear
 
 
 IF (@suppressifblank = 'N') 

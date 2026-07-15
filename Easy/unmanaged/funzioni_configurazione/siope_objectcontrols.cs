@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -163,7 +161,7 @@ namespace funzioni_configurazione {
         /// <summary>
         /// Data una causale EP imposta la  class. siope associata aggiornando anche i txt relativi e riempiendo/svuotando la tabella sorting_siope.
         /// Qualora non ci siano class.siope associate, restituisce DBNull e non fa nulla.
-        /// Se ve n'è una sola, la seleziona, se ve ne sono di più le fa scegliere a video
+        /// Se ve n'Ã¨ una sola, la seleziona, se ve ne sono di piÃ¹ le fa scegliere a video
         /// </summary>
         /// <param name="curr"></param>
         /// <param name="idaccmotive"></param>

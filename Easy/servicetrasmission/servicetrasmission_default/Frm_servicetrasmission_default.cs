@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -1317,6 +1315,11 @@ namespace servicetrasmission_default {
 
 			model.lockRead(DS.serviceregistry);
 			model.lockRead(DS.servicepayment);
+
+			// ===============================================================================
+			// La InsertCopy non deve copiare le tabelle degli allegati
+			// ===============================================================================
+			QueryCreator.setSkipInsertCopy(DS.servicetrasmissionattachment, true);
 		}
 
 		private Dictionary<string, string> apActivitykind;
@@ -4926,7 +4929,23 @@ namespace servicetrasmission_default {
 			}
 
 			if (rDipendente["codiceaooipa"] != DBNull.Value) {
-				w.amministrazionedichiarante.codiceAooIpa = rDipendente["codiceaooipa"].ToString();
+
+				string codiceAoo = "";
+
+				if (rDipendente["pa_code"] != DBNull.Value)
+				{
+					codiceAoo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rDipendente["pa_code"]), "codiceaooipa"));
+				}
+
+				if (!string.IsNullOrEmpty(codiceAoo))
+				{
+					w.amministrazionedichiarante.codiceAooIpa = codiceAoo;
+					rDipendente["codiceaooipa"] = codiceAoo;
+				}
+				else
+				{
+					w.amministrazionedichiarante.codiceAooIpa = rDipendente["codiceaooipa"].ToString();
+				}
 			}
 			else {
 				w.amministrazionedichiarante.codiceAooIpa = codiceAooIpa; 
@@ -4934,7 +4953,23 @@ namespace servicetrasmission_default {
 
 			if (w.amministrazionedichiarante.codiceAooIpa == null) {
 				if (rDipendente["codiceuoipa"] != DBNull.Value) {
-					w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
+
+					string codiceUo = "";
+
+					if (rDipendente["pa_code"] != DBNull.Value)
+					{
+						codiceUo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rDipendente["pa_code"]), "codiceuoipa"));
+					}
+
+					if (!string.IsNullOrEmpty(codiceUo))
+					{
+						w.amministrazionedichiarante.codiceUoIpa = codiceUo;
+						rDipendente["codiceuoipa"] = codiceUo;
+					}
+					else
+					{
+						w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
+					}
 				}
 				else {
 					w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa; 
@@ -5032,7 +5067,23 @@ namespace servicetrasmission_default {
 			}
 
 			if (rDipendente["codiceaooipa"] != DBNull.Value) {
-				w.amministrazionedichiarante.codiceAooIpa = rDipendente["codiceaooipa"].ToString();
+
+				string codiceAoo = "";
+
+				if (rDipendente["pa_code"] != DBNull.Value)
+				{
+					codiceAoo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rDipendente["pa_code"]), "codiceaooipa"));
+				}
+				
+				if (!string.IsNullOrEmpty(codiceAoo))
+				{
+					w.amministrazionedichiarante.codiceAooIpa = codiceAoo;
+					rDipendente["codiceaooipa"] = codiceAoo;
+				}
+				else
+				{
+					w.amministrazionedichiarante.codiceAooIpa = rDipendente["codiceaooipa"].ToString();
+				}
 			}
 			else {
 				w.amministrazionedichiarante.codiceAooIpa = codiceAooIpa; 
@@ -5050,7 +5101,23 @@ namespace servicetrasmission_default {
 			//}
 
 			if (rDipendente["codiceuoipa"] != DBNull.Value) {
-				w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
+
+				string codiceUo = "";
+
+				if (rDipendente["pa_code"] != DBNull.Value)
+				{
+					codiceUo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rDipendente["pa_code"]), "codiceuoipa"));
+				}
+
+				if (!string.IsNullOrEmpty(codiceUo))
+				{
+					w.amministrazionedichiarante.codiceUoIpa = codiceUo;
+					rDipendente["codiceuoipa"] = codiceUo;
+				}
+				else
+				{
+					w.amministrazionedichiarante.codiceUoIpa = rDipendente["codiceuoipa"].ToString();
+				}
 			}
 			else {
 				w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa;
@@ -5246,11 +5313,29 @@ namespace servicetrasmission_default {
 		}
 
 		System.Byte[] getCurriculum(object idreg) {
-			var curriculum = Conn.readFromTable("registrycvattachment", q.eq("idreg", idreg), "*", "referencedate desc",
-				"1");
-			if ((curriculum.Rows.Count > 0) &&
-			    (curriculum.Rows[0]["attachment"] != DBNull.Value)) {
-				return (System.Byte[]) curriculum.Rows[0]["attachment"];
+			var curriculum = Conn.readFromTable("registrycvattachment", q.eq("idreg", idreg), "*", "referencedate desc", "1");
+			if (curriculum.Rows.Count > 0) {
+
+                if (curriculum.Rows[0]["attachment"] == DBNull.Value && curriculum.Rows[0]["idfilestorage"] == DBNull.Value)
+					return null;
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (curriculum.Rows[0]["attachment"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])curriculum.Rows[0]["attachment"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, curriculum.Rows[0]["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                        return null;
+                }
+
+                return ByteArray;
 			}
 
 			return null;
@@ -5280,6 +5365,16 @@ namespace servicetrasmission_default {
 			if (rService["dichiarazione_incarichi"] != DBNull.Value) {
 				return getAllegato((System.Byte[]) rService["dichiarazione_incarichi"]);
 			}
+			else if (rService["idfilestorage"] != DBNull.Value)
+            {
+                byte[] B = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, rService["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (B == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return null;
+                }
+                return getAllegato(B);
+            }
 
 			if (txtFileAutocertDefault.Text == "") return null;
 			return readAllegatoAutoCertificazione();
@@ -5446,7 +5541,23 @@ namespace servicetrasmission_default {
 			}
 
 			if (rConsulente["codiceaooipa"] != DBNull.Value) {
-				w.amministrazionedichiarante.codiceAooIpa = rConsulente["codiceaooipa"].ToString();
+
+				string codiceAoo = "";
+
+				if (rConsulente["pa_code"] != DBNull.Value)
+				{
+					codiceAoo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rConsulente["pa_code"]), "codiceaooipa"));
+				}
+
+				if (!string.IsNullOrEmpty(codiceAoo))
+				{
+					w.amministrazionedichiarante.codiceAooIpa = codiceAoo;
+					rConsulente["codiceaooipa"] = codiceAoo;
+				}
+				else
+				{
+					w.amministrazionedichiarante.codiceAooIpa = rConsulente["codiceaooipa"].ToString();
+				}
 			}
 			else {
 				w.amministrazionedichiarante.codiceAooIpa = codiceAooIpa; 
@@ -5454,7 +5565,23 @@ namespace servicetrasmission_default {
 
 			if (w.amministrazionedichiarante.codiceAooIpa == null) {
 				if (rConsulente["codiceuoipa"] != DBNull.Value) {
-					w.amministrazionedichiarante.codiceUoIpa = rConsulente["codiceuoipa"].ToString();
+
+					string codiceUo = "";
+
+					if (rConsulente["pa_code"] != DBNull.Value)
+					{
+						codiceUo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rConsulente["pa_code"]), "codiceuoipa"));
+					}
+
+					if (!string.IsNullOrEmpty(codiceUo))
+					{
+						w.amministrazionedichiarante.codiceUoIpa = codiceUo;
+						rConsulente["codiceuoipa"] = codiceUo;
+					}
+					else
+					{
+						w.amministrazionedichiarante.codiceUoIpa = rConsulente["codiceuoipa"].ToString();
+					}
 				}
 				else {
 					w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa;
@@ -5599,7 +5726,23 @@ namespace servicetrasmission_default {
 			}
 
 			if (rConsulente["codiceaooipa"] != DBNull.Value) {
-				w.amministrazionedichiarante.codiceAooIpa = rConsulente["codiceaooipa"].ToString();
+
+				string codiceAoo = "";
+
+				if (rConsulente["pa_code"] != DBNull.Value)
+				{
+					codiceAoo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rConsulente["pa_code"]), "codiceaooipa"));
+				}
+
+				if (!string.IsNullOrEmpty(codiceAoo))
+				{
+					w.amministrazionedichiarante.codiceAooIpa = codiceAoo;
+					rConsulente["codiceaooipa"] = codiceAoo;
+				}
+				else
+				{
+					w.amministrazionedichiarante.codiceAooIpa = rConsulente["codiceaooipa"].ToString();
+				}
 			}
 			else {
 				w.amministrazionedichiarante.codiceAooIpa = codiceAooIpa; 
@@ -5607,7 +5750,23 @@ namespace servicetrasmission_default {
 
 			if (w.amministrazionedichiarante.codiceAooIpa == null) {
 				if (rConsulente["codiceuoipa"] != DBNull.Value) {
-					w.amministrazionedichiarante.codiceUoIpa = rConsulente["codiceuoipa"].ToString();
+
+					string codiceUo = "";
+
+					if (rConsulente["pa_code"] != DBNull.Value)
+					{
+						codiceUo = stringFromObject(Conn.readValue("serviceagency", q.eq("pa_code", rConsulente["pa_code"]), "codiceuoipa"));
+					}
+
+					if (!string.IsNullOrEmpty(codiceUo))
+					{
+						w.amministrazionedichiarante.codiceUoIpa = codiceUo;
+						rConsulente["codiceuoipa"] = codiceUo;
+					}
+					else
+					{
+						w.amministrazionedichiarante.codiceUoIpa = rConsulente["codiceuoipa"].ToString();
+					}
 				}
 				else {
 					w.amministrazionedichiarante.codiceUoIpa = codiceUoIpa;

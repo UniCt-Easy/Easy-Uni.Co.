@@ -2,7 +2,6 @@
 
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" runat="Server">
-
     <div class="row">
         <div class="col-md-12">
             <cc1:hwButton ID="B1" runat="server" Text="Ordina per stato" Tag="maindosearch.webdefaultstatuses" class="btn btn-primary" />
@@ -28,17 +27,9 @@
         </div>
     </div>
 
-    <ul id="mainTabControl" class="nav nav-tabs nav-justified">
-        <li><a data-toggle="tab" href="#tabmain">Principale</a></li>
-        <li><a data-toggle="tab" href="#tabdettagli">Dettagli</a></li>
-        <li><a data-toggle="tab" href="#tabmagazzino">Magazzino</a></li>
-        <li><a data-toggle="tab" href="#taballegati">Allegati</a></li>
-        <li ID="liconsip" runat="server" ClientIDMode="static"><a data-toggle="tab" href="#tabconsip">CONSIP</a></li>
-        <li><a data-toggle="tab" href="#tabpericolosita">Pericolosità</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div id="tabmain" class="tab-pane fade in active">
+    <div class="mb-5">
+        <h3 class="ui-accordion-header active">Principale</h3>
+        <div id="tabmain" class="ui-accordion-content active">
             <div class="row">
                 <div class="col-12">
                     <div class="row">
@@ -284,7 +275,8 @@
             </div>
         </div>
 
-        <div id="tabdettagli" class="tab-pane fade">
+        <h3 class="ui-accordion-header">Dettagli</h3>
+        <div id="tabdettagli" class="ui-accordion-content">
             <div title="Dettagli">
                 <div class="row">
                     <div class="col-md-12">
@@ -308,7 +300,8 @@
             </div>
         </div>
 
-        <div id="tabmagazzino" class="tab-pane fade">
+        <h3 class="ui-accordion-header">Magazzino</h3>
+        <div id="tabmagazzino" class="ui-accordion-content">
             <div title="Magazzino">
                 <div class="row">
                     <div class="col-md-12">
@@ -331,7 +324,8 @@
             </div>
         </div>
 
-        <div id="taballegati" class="tab-pane fade">
+        <h3 class="ui-accordion-header">Allegati</h3>
+        <div id="taballegati" class="ui-accordion-content">
             <div title="Allegati">
                 <div class="row">
                     <div class="col-md-12">
@@ -354,7 +348,8 @@
             </div>
         </div>
 
-        <div id="tabconsip" runat="server" ClientIDMode="static" class="tab-pane fade">
+        <h3 class="ui-accordion-header" ID="liconsip" runat="server" ClientIDMode="static">CONSIP</h3>
+        <div id="tabconsip" runat="server" ClientIDMode="static" class="ui-accordion-content">
             <div title="Consip" id="Tab1Folder3">
                 <div class="row">
                     <div class="col-md-12">
@@ -393,7 +388,8 @@
             </div>
         </div>
 
-        <div id="tabpericolosita" class="tab-pane fade">
+        <h3 class="ui-accordion-header">Pericolosità</h3>
+        <div id="tabpericolosita" class="ui-accordion-content">
             <div title="Pericolosità">
                 <div class="row">
                     <div class="col-md-12">
@@ -407,7 +403,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div id="myModal" class="modal fade">
@@ -430,12 +425,20 @@
             </div>
         </div>
     </div>
+	<%
+		string outval = "accordion";
+		try {
+			outval = this.GetType().Name;
+		}
+		catch {}
+	%>
 
+	<script type="text/javascript" src="js/cookiemgr.js?v=30"></script>
+	<script>var cookiePageName = "<%= outval %>";</script>
+	<script type="text/javascript" src="js/scrollpositionmgr.js?v=40"></script>
 </asp:Content>
 
-
-    <asp:Content ContentPlaceHolderID="JScriptAfterLibs"  runat="server">
-    
+<asp:Content ContentPlaceHolderID="JScriptAfterLibs"  runat="server">
     <script type="text/javascript">
 		var template, consipMotive, ctrlList = [], tokenList, ctrlDynCount = 0;
 
@@ -699,7 +702,16 @@
 			}
 			return R;
 		}
+		document.addEventListener("DOMContentLoaded", function () {
+			const accordionHeaders = document.querySelectorAll(".ui-accordion-header");
+
+			accordionHeaders.forEach(header => {
+				header.addEventListener("click", function () {
+					this.classList.toggle("active");
+					const accordionItem = this.nextElementSibling;
+					accordionItem.classList.toggle("active");
+				});
+			});
+		});
 	</script>
-
-
 </asp:Content>

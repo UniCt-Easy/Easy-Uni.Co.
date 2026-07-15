@@ -46,6 +46,7 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#iscrizione_seganagstu_iddidprog'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
 				//afterClearin
@@ -62,8 +63,12 @@
 
 			afterLink: function () {
 				var self = this;
-				$('#grid_convalidatoview_seganagstu').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
+				$('#grid_convalidatoview_default').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
 				$('#grid_sostenimento_seganagstu').data('mdlconditionallookup', 'livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;');
+				var grid_pianostudio_seganagstuChildsTables = [
+					{ tablename: 'pianostudioattivform', edittype: 'seganagstu', columnlookup: 'anno', columncalc: '!pianostudioattivform'},
+				];
+				$('#grid_pianostudio_seganagstu').data('childtables', grid_pianostudio_seganagstuChildsTables);
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

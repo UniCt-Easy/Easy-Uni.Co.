@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_posizionidebitorieunicredit ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_posizionidebitorieunicredit ]
@@ -43,7 +41,7 @@ select TOP  1 T.agencycodefortransmission from treasurer T
 ) is null
 Begin
 	INSERT INTO #error (message)
-	SELECT 'Manca il Codice Cliente censito sulla Piattaforma Incassi ed attribuito alla PA. Andare nella maschera Opzioni - Tesoriere - Tesoriere, ed inserire Codice Ente'
+	SELECT 'Manca il Codice Cliente censito sulla Piattaforma Incassi ed attribuito alla PA. Andare nella maschera Opzioni - Banca - Conto corrente, ed inserire Codice Ente'
 End
 
 -- Controllo presenza del campo Codice Tipo Flusso censito ed associato al servizio d’incasso sulla Piattaforma Incassi, come comunicato dalla Banca per ogni servizio( flussocrediticode)
@@ -56,7 +54,7 @@ select TOP  1 T.flussocrediticode from treasurer T
 ) is null
 Begin
 	INSERT INTO #error (message)
-	SELECT 'Manca il Codice Tipo Flusso censito ed associato al servizio d’incasso sulla Piattaforma Incassi. Andare nella maschera Opzioni - Tesoriere - Tesoriere, ed inserire Codice Ente'
+	SELECT 'Manca il Codice Tipo Flusso censito ed associato al servizio d’incasso sulla Piattaforma Incassi. Andare nella maschera Opzioni - Banca - Conto corrente, ed inserire Codice Ente'
 End
 
 

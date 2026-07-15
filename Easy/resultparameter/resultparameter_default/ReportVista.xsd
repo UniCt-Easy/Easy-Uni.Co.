@@ -12,7 +12,7 @@
   <xs:element name="ReportVista" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:Generator_DataSetName="ReportVista" msprop:Generator_UserDSName="ReportVista">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="reportparameter" msprop:Generator_TableClassName="reportparameterDataTable" msprop:Generator_TableVarName="tablereportparameter" msprop:Generator_TablePropName="reportparameter" msprop:Generator_RowDeletingName="reportparameterRowDeleting" msprop:Generator_RowChangingName="reportparameterRowChanging" msprop:Generator_RowEvHandlerName="reportparameterRowChangeEventHandler" msprop:Generator_RowDeletedName="reportparameterRowDeleted" msprop:Generator_UserTableName="reportparameter" msprop:Generator_RowChangedName="reportparameterRowChanged" msprop:Generator_RowEvArgName="reportparameterRowChangeEvent" msprop:Generator_RowClassName="reportparameterRow">
+        <xs:element name="reportparameter" msprop:Generator_TableClassName="reportparameterDataTable" msprop:Generator_TableVarName="tablereportparameter" msprop:Generator_RowChangedName="reportparameterRowChanged" msprop:Generator_TablePropName="reportparameter" msprop:Generator_RowDeletingName="reportparameterRowDeleting" msprop:Generator_RowChangingName="reportparameterRowChanging" msprop:Generator_RowEvHandlerName="reportparameterRowChangeEventHandler" msprop:Generator_RowDeletedName="reportparameterRowDeleted" msprop:Generator_RowClassName="reportparameterRow" msprop:Generator_UserTableName="reportparameter" msprop:Generator_RowEvArgName="reportparameterRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="reportname" msprop:Generator_ColumnVarNameInTable="columnreportname" msprop:Generator_ColumnPropNameInRow="reportname" msprop:Generator_ColumnPropNameInTable="reportnameColumn" msprop:Generator_UserColumnName="reportname" type="xs:string" />
@@ -32,10 +32,11 @@
               <xs:element name="help2" msprop:Generator_ColumnVarNameInTable="columnhelp2" msprop:Generator_ColumnPropNameInRow="help2" msprop:Generator_ColumnPropNameInTable="help2Column" msprop:Generator_UserColumnName="help2" type="xs:string" minOccurs="0" />
               <xs:element name="systype" msprop:Generator_ColumnVarNameInTable="columnsystype" msprop:Generator_ColumnPropNameInRow="systype" msprop:Generator_ColumnPropNameInTable="systypeColumn" msprop:Generator_UserColumnName="systype" type="xs:string" minOccurs="0" />
               <xs:element name="tag" msprop:Generator_ColumnVarNameInTable="columntag" msprop:Generator_ColumnPropNameInRow="tag" msprop:Generator_ColumnPropNameInTable="tagColumn" msprop:Generator_UserColumnName="tag" type="xs:string" minOccurs="0" />
+              <xs:element name="master" msprop:Generator_ColumnVarNameInTable="columnmaster" msprop:Generator_ColumnPropNameInRow="master" msprop:Generator_ColumnPropNameInTable="masterColumn" msprop:Generator_UserColumnName="master" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="report" msprop:Generator_TableClassName="reportDataTable" msprop:Generator_TableVarName="tablereport" msprop:Generator_TablePropName="report" msprop:Generator_RowDeletingName="reportRowDeleting" msprop:Generator_RowChangingName="reportRowChanging" msprop:Generator_RowEvHandlerName="reportRowChangeEventHandler" msprop:Generator_RowDeletedName="reportRowDeleted" msprop:Generator_UserTableName="report" msprop:Generator_RowChangedName="reportRowChanged" msprop:Generator_RowEvArgName="reportRowChangeEvent" msprop:Generator_RowClassName="reportRow">
+        <xs:element name="report" msprop:Generator_TableClassName="reportDataTable" msprop:Generator_TableVarName="tablereport" msprop:Generator_RowChangedName="reportRowChanged" msprop:Generator_TablePropName="report" msprop:Generator_RowDeletingName="reportRowDeleting" msprop:Generator_RowChangingName="reportRowChanging" msprop:Generator_RowEvHandlerName="reportRowChangeEventHandler" msprop:Generator_RowDeletedName="reportRowDeleted" msprop:Generator_RowClassName="reportRow" msprop:Generator_UserTableName="report" msprop:Generator_RowEvArgName="reportRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="reportname" msprop:Generator_ColumnVarNameInTable="columnreportname" msprop:Generator_ColumnPropNameInRow="reportname" msprop:Generator_ColumnPropNameInTable="reportnameColumn" msprop:Generator_UserColumnName="reportname" type="xs:string" />
@@ -50,7 +51,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="columntypes" msprop:Generator_TableClassName="columntypesDataTable" msprop:Generator_TableVarName="tablecolumntypes" msprop:Generator_TablePropName="columntypes" msprop:Generator_RowDeletingName="columntypesRowDeleting" msprop:Generator_RowChangingName="columntypesRowChanging" msprop:Generator_RowEvHandlerName="columntypesRowChangeEventHandler" msprop:Generator_RowDeletedName="columntypesRowDeleted" msprop:Generator_UserTableName="columntypes" msprop:Generator_RowChangedName="columntypesRowChanged" msprop:Generator_RowEvArgName="columntypesRowChangeEvent" msprop:Generator_RowClassName="columntypesRow">
+        <xs:element name="columntypes" msprop:Generator_TableClassName="columntypesDataTable" msprop:Generator_TableVarName="tablecolumntypes" msprop:Generator_RowChangedName="columntypesRowChanged" msprop:Generator_TablePropName="columntypes" msprop:Generator_RowDeletingName="columntypesRowDeleting" msprop:Generator_RowChangingName="columntypesRowChanging" msprop:Generator_RowEvHandlerName="columntypesRowChangeEventHandler" msprop:Generator_RowDeletedName="columntypesRowDeleted" msprop:Generator_RowClassName="columntypesRow" msprop:Generator_UserTableName="columntypes" msprop:Generator_RowEvArgName="columntypesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="tablename" msprop:Generator_ColumnVarNameInTable="columntablename" msprop:Generator_ColumnPropNameInRow="tablename" msprop:Generator_ColumnPropNameInTable="tablenameColumn" msprop:Generator_UserColumnName="tablename" type="xs:string" />
@@ -67,7 +68,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="customselection" msprop:Generator_TableClassName="customselectionDataTable" msprop:Generator_TableVarName="tablecustomselection" msprop:Generator_TablePropName="customselection" msprop:Generator_RowDeletingName="customselectionRowDeleting" msprop:Generator_RowChangingName="customselectionRowChanging" msprop:Generator_RowEvHandlerName="customselectionRowChangeEventHandler" msprop:Generator_RowDeletedName="customselectionRowDeleted" msprop:Generator_UserTableName="customselection" msprop:Generator_RowChangedName="customselectionRowChanged" msprop:Generator_RowEvArgName="customselectionRowChangeEvent" msprop:Generator_RowClassName="customselectionRow">
+        <xs:element name="customselection" msprop:Generator_TableClassName="customselectionDataTable" msprop:Generator_TableVarName="tablecustomselection" msprop:Generator_RowChangedName="customselectionRowChanged" msprop:Generator_TablePropName="customselection" msprop:Generator_RowDeletingName="customselectionRowDeleting" msprop:Generator_RowChangingName="customselectionRowChanging" msprop:Generator_RowEvHandlerName="customselectionRowChangeEventHandler" msprop:Generator_RowDeletedName="customselectionRowDeleted" msprop:Generator_RowClassName="customselectionRow" msprop:Generator_UserTableName="customselection" msprop:Generator_RowEvArgName="customselectionRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="selectioncode" msprop:Generator_ColumnVarNameInTable="columnselectioncode" msprop:Generator_ColumnPropNameInRow="selectioncode" msprop:Generator_ColumnPropNameInTable="selectioncodeColumn" msprop:Generator_UserColumnName="selectioncode" type="xs:string" />
@@ -106,13 +107,13 @@
       <xs:selector xpath=".//mstns:customselection" />
       <xs:field xpath="mstns:selectioncode" />
     </xs:unique>
-    <xs:keyref name="reportreportparameter" refer="ReportVistaKey401" msprop:rel_Generator_UserChildTable="reportparameter" msprop:rel_Generator_ChildPropName="GetreportparameterRows" msprop:rel_Generator_UserRelationName="reportreportparameter" msprop:rel_Generator_RelationVarName="relationreportreportparameter" msprop:rel_Generator_UserParentTable="report" msprop:rel_Generator_ParentPropName="reportRow">
-      <xs:selector xpath=".//mstns:reportparameter" />
-      <xs:field xpath="mstns:reportname" />
-    </xs:keyref>
-    <xs:keyref name="ReportVistaKey5" refer="ReportVistaKey10" msprop:rel_Generator_UserChildTable="reportparameter" msprop:rel_Generator_ChildPropName="GetreportparameterRows" msprop:rel_Generator_UserRelationName="columntypesreportparameter" msprop:rel_Generator_RelationVarName="relationcolumntypesreportparameter" msprop:rel_Generator_UserParentTable="columntypes" msprop:rel_Generator_ParentPropName="columntypesRow" msdata:RelationName="columntypesreportparameter">
+    <xs:keyref name="ReportVistaKey5" refer="ReportVistaKey10" msprop:rel_Generator_UserChildTable="reportparameter" msprop:rel_Generator_ChildPropName="GetreportparameterRows" msprop:rel_Generator_UserRelationName="columntypesreportparameter" msprop:rel_Generator_ParentPropName="columntypesRow" msprop:rel_Generator_RelationVarName="relationcolumntypesreportparameter" msprop:rel_Generator_UserParentTable="columntypes" msdata:RelationName="columntypesreportparameter">
       <xs:selector xpath=".//mstns:reportparameter" />
       <xs:field xpath="mstns:datasource" />
+    </xs:keyref>
+    <xs:keyref name="reportreportparameter" refer="ReportVistaKey401" msprop:rel_Generator_UserChildTable="reportparameter" msprop:rel_Generator_ChildPropName="GetreportparameterRows" msprop:rel_Generator_UserRelationName="reportreportparameter" msprop:rel_Generator_ParentPropName="reportRow" msprop:rel_Generator_RelationVarName="relationreportreportparameter" msprop:rel_Generator_UserParentTable="report">
+      <xs:selector xpath=".//mstns:reportparameter" />
+      <xs:field xpath="mstns:reportname" />
     </xs:keyref>
   </xs:element>
 </xs:schema>

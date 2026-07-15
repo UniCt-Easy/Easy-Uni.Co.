@@ -29,6 +29,7 @@
 						this.describeAColumn(table, '!idattach_attach_size', 'Dimensione', null, 15, null);
 						objCalcFieldConfig['!idattach_attach_filename'] = { tableNameLookup:'attach', columnNameLookup:'filename', columnNamekey:'idattach' };
 						objCalcFieldConfig['!idattach_attach_size'] = { tableNameLookup:'attach', columnNameLookup:'size', columnNamekey:'idattach' };
+						this.describeAColumn(table, '!idattach_attach_filename', 'Nome del file', null, 13, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -193,6 +191,26 @@ namespace Backend.Models {
         public string userkind { get; set; }
 
         public string idregistrationuser { get; set; }
+
+        public string start { get; set; }
+        public string stop                  { get; set; }
+        public string title                 { get; set; }
+        public string flagdefault           { get; set; }
+        public string all_sorkind01         { get; set; }
+        public string all_sorkind02         { get; set; }
+        public string all_sorkind03         { get; set; }
+        public string all_sorkind04         { get; set; }
+        public string all_sorkind05         { get; set; }
+        public string idsor01               { get; set; }
+        public string idsor02               { get; set; }
+        public string idsor03               { get; set; }
+        public string idsor04               { get; set; }
+        public string idsor05               { get; set; }
+        public string sorkind01_withchilds  { get; set; }
+        public string sorkind02_withchilds  { get; set; }
+        public string sorkind03_withchilds  { get; set; }
+        public string sorkind04_withchilds  { get; set; }
+        public string sorkind05_withchilds  { get; set; }
     }
 
     /// <summary>

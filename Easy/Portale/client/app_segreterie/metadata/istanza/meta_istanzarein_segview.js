@@ -23,28 +23,26 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'rein_seg':
-						this.describeAColumn(table, 'sede_title', 'Denominazione Sede', null, 190, 1024);
-						this.describeAColumn(table, 'sede_idsede', 'Sede Sede', null, 190, null);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 20, 101);
-						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 30, null);
-						this.describeAColumn(table, 'statuskind_title', 'Status', null, 80, 50);
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 510, 1024);
-						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 510, 9);
-						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 610, null);
-						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 620, null);
-						this.describeAColumn(table, 'istanza_rein_darindec', 'Corso della rinuncia o decadenza ', null, 520, null);
-						this.describeAColumn(table, 'istanza_rein_datarindec', 'Data della rinuncia o decadenza ', null, 530, null);
-						this.describeAColumn(table, 'iscrizione_istanza_rein_anno', 'Anno di corso Iscrizione da cui si vuole farsi reintegrare', null, 560, null);
-						this.describeAColumn(table, 'iscrizione_istanza_rein_iddidprog', 'Didattica programmata Iscrizione da cui si vuole farsi reintegrare', null, 560, null);
-						this.describeAColumn(table, 'iscrizione_istanza_rein_aa', 'Anno accademico Iscrizione da cui si vuole farsi reintegrare', null, 560, 9);
-						this.describeAColumn(table, 'titolostudio_voto', 'Voto Titolo di  studio da cui si vuole farsi reintegrare', null, 600, null);
-						this.describeAColumn(table, 'titolostudio_votosu', 'Su Titolo di  studio da cui si vuole farsi reintegrare', null, 600, null);
-						this.describeAColumn(table, 'titolostudio_votolode', 'Lode Titolo di  studio da cui si vuole farsi reintegrare', null, 600, null);
-						this.describeAColumn(table, 'titolostudio_aa', 'Anno accademco Titolo di  studio da cui si vuole farsi reintegrare', null, 600, 9);
-						this.describeAColumn(table, 'aa_rindec', 'Anno accademico della rinuncia o decadenza', null, 1660, 9);
-						this.describeAColumn(table, 'istattitolistudio_titolo', 'Titolo di studio Titolo ISTAT', null, 10, 1024);
-						this.describeAColumn(table, 'istattitolistudio_idistattitolistudio', 'Titolo ISTAT Titolo ISTAT', null, 10, null);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 2000, null);
+						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 3300, 101);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 5100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 5200, 9);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 5320, 1024);
+						this.describeAColumn(table, 'iscrizionefrom_aa', 'Anno accademico Iscrizione da cui si vuole farsi reintegrare', null, 6100, 9);
+						this.describeAColumn(table, 'iscrizionefrom_anno', 'Anno di corso Iscrizione da cui si vuole farsi reintegrare', null, 6300, null);
+						this.describeAColumn(table, 'iscrizionefrom_iddidprog', 'Didattica programmata Iscrizione da cui si vuole farsi reintegrare', null, 6500, null);
+						this.describeAColumn(table, 'istattitolistudio_titolo', 'Titolo di studio Titolo ISTAT Titolo di  studio da cui si vuole farsi reintegrare', null, 7120, 1024);
+						this.describeAColumn(table, 'titolostudio_aa', 'Anno accademico Titolo di  studio da cui si vuole farsi reintegrare', null, 7300, 9);
+						this.describeAColumn(table, 'titolostudio_voto', 'Voto Titolo di  studio da cui si vuole farsi reintegrare', null, 7700, null);
+						this.describeAColumn(table, 'titolostudio_votosu', 'Su Titolo di  studio da cui si vuole farsi reintegrare', null, 7800, null);
+						this.describeAColumn(table, 'titolostudio_votolode', 'Lode Titolo di  studio da cui si vuole farsi reintegrare', null, 7900, null);
+						this.describeAColumn(table, 'istanza_rein_darindec', 'Corso della rinuncia o decadenza ', null, 8000, null);
+						this.describeAColumn(table, 'istanza_rein_datarindec', 'Data della rinuncia o decadenza ', null, 9000, null);
+						this.describeAColumn(table, 'aa_rindec', 'Anno accademico della rinuncia o decadenza', null, 10000, 9);
+						this.describeAColumn(table, 'statuskind_title', 'Status', null, 11200, 50);
+						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 61000, null);
+						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 62000, null);
 //$objCalcFieldConfig_rein_seg$
 						break;
 //$objCalcFieldConfig$

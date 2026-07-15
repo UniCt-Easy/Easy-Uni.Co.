@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_esiope_riep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_esiope_riep]
@@ -203,7 +201,7 @@ DECLARE @maxphase tinyint
 	SELECT
 		isnull(SLK.idparent, SortSiope.idsor),
 		isnull(@fixedidupb,iy.idupb),
-	    sum(FS.amount)   --- importo classificato alla data corrente, non è possibile storicizzare i passaggi di classificazione
+	    SUM(HPV.amount*ISNULL(FS.quota,0))
 	FROM historyproceedsview HPV
 	JOIN incomeyear IY
 		ON IY.idinc = HPV.idinc
@@ -211,8 +209,8 @@ DECLARE @maxphase tinyint
 		--ON F.idfin = IY.idfin
 	JOIN upb U
 		ON IY.idupb = U.idupb
-	JOIN incomesorted FS
-		ON FS.idinc = HPV.idinc
+	JOIN finsorting FS
+		ON FS.idfin = IY.idfin
 	JOIN sorting SortSiope
 		ON SortSiope.idsor = FS.idsor		
 				

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -26,24 +24,15 @@ using System.Runtime.Serialization;
 namespace stip_decodifica_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///elenco voci prog. esterno segr. studenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stip_voce 		=> Tables["stip_voce"];
 
-	///<summary>
-	///elenco tasse  prog. esterno gestione studenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stip_tassa 		=> Tables["stip_tassa"];
 
-	///<summary>
-	///decodifica vocie e tasse prog. esterno gestione studenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stip_decodifica 		=> Tables["stip_decodifica"];
 
@@ -62,15 +51,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable finmotive_income 		=> Tables["finmotive_income"];
 
-	///<summary>
-	///elenco corsi laurea prog. esterno gestione studenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable stip_corsolaurea 		=> Tables["stip_corsolaurea"];
 
-	///<summary>
-	///Tipo di Contratto attivo
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable estimatekind 		=> Tables["estimatekind"];
 
@@ -164,6 +147,7 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tstip_decodifica.Columns.Add(C);
 	tstip_decodifica.Columns.Add( new DataColumn("idestimkind", typeof(string)));
+	tstip_decodifica.Columns.Add( new DataColumn("flag", typeof(int)));
 	Tables.Add(tstip_decodifica);
 	tstip_decodifica.PrimaryKey =  new DataColumn[]{tstip_decodifica.Columns["idstipdecodifica"]};
 

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace admpay_spt {
     partial class FrmAdmPay_Spt {
@@ -44,7 +42,7 @@ namespace admpay_spt {
             this.btnFileReversali = new System.Windows.Forms.Button();
             this.btnFileContr = new System.Windows.Forms.Button();
             this.btnFileLordi = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            //this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnInputFile = new System.Windows.Forms.Button();
             this.lblTask = new System.Windows.Forms.Label();
@@ -98,12 +96,12 @@ namespace admpay_spt {
             // 
             // progressBar1
             // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(5, 187);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(481, 23);
-            this.progressBar1.TabIndex = 13;
+            //this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            //            | System.Windows.Forms.AnchorStyles.Right)));
+            //this.progressBar1.Location = new System.Drawing.Point(5, 187);
+            //this.progressBar1.Name = "progressBar1";
+            //this.progressBar1.Size = new System.Drawing.Size(481, 23);
+            //this.progressBar1.TabIndex = 13;
             // 
             // txtInputFile
             // 
@@ -145,7 +143,7 @@ namespace admpay_spt {
             this.ClientSize = new System.Drawing.Size(497, 220);
             this.Controls.Add(this.lblTask);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.progressBar1);
+            //this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.txtInputFile);
             this.Controls.Add(this.btnInputFile);
             this.Name = "FrmAdmPay_Spt";
@@ -163,7 +161,8 @@ namespace admpay_spt {
         private System.Windows.Forms.Button btnFileReversali;
         private System.Windows.Forms.Button btnFileContr;
         private System.Windows.Forms.Button btnFileLordi;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TextBox txtInputFile;
         private System.Windows.Forms.Button btnInputFile;
         private System.Windows.Forms.Label lblTask;

@@ -39,12 +39,12 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'seg':
+						table.columns["title"].caption = "Titolo";
 						table.columns["description"].caption = "Descrizione";
 						table.columns["description_en"].caption = "Descrizione in inglese";
 						table.columns["idaoo"].caption = "Area organizzativa omogenea";
 						table.columns["idreg_referente"].caption = "Referente";
 						table.columns["idstruttura"].caption = "Struttura dell'istituto";
-						table.columns["title"].caption = "Titolo";
 						table.columns["title_en"].caption = "Titolo in inglese";
 //$innerSetCaptionConfig_seg$
 						break;

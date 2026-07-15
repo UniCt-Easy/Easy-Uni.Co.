@@ -186,6 +186,23 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="expenselastmandatedetail">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idexp" type="xs:int" />
+              <xs:element name="idmankind" type="xs:string" />
+              <xs:element name="yman" type="xs:short" />
+              <xs:element name="nman" type="xs:int" />
+              <xs:element name="rownum" type="xs:int" />
+              <xs:element name="amount" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="originalamount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -216,6 +233,14 @@
       <xs:selector xpath=".//mstns:payment" />
       <xs:field xpath="mstns:kpay" />
     </xs:unique>
+    <xs:unique name="expenselastmandatedetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:expenselastmandatedetail" />
+      <xs:field xpath="mstns:idexp" />
+      <xs:field xpath="mstns:idmankind" />
+      <xs:field xpath="mstns:yman" />
+      <xs:field xpath="mstns:nman" />
+      <xs:field xpath="mstns:rownum" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -224,6 +249,7 @@
       <msdata:Relationship name="FK_expensesorted_expense" msdata:parent="expense" msdata:child="expensesorted" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="FK_expenseyear_expense" msdata:parent="expense" msdata:child="expenseyear" msdata:parentkey="idexp" msdata:childkey="idexp" />
       <msdata:Relationship name="FK_expensevar_expense" msdata:parent="expense" msdata:child="expensevar" msdata:parentkey="idexp" msdata:childkey="idexp" />
+      <msdata:Relationship name="expense_expenselastmandatedetail" msdata:parent="expense" msdata:child="expenselastmandatedetail" msdata:parentkey="idexp" msdata:childkey="idexp" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

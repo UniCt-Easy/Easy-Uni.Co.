@@ -29,7 +29,18 @@
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("changeskinddefaultview"), this.q.eq('changeskind_active', 'Si'));
+				this.state.DS.tables.sostenimentoseganagstuview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg));
+				this.state.DS.tables.tirocinioprogetto.staticFilter(window.jsDataQuery.eq("idreg_studenti", this.state.callerState.currentRow.idreg));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -40,6 +51,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

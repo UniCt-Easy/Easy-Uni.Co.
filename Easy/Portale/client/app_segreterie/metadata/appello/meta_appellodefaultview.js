@@ -27,9 +27,10 @@
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 2000, 9);
 						this.describeAColumn(table, 'appelloazionekind_title', 'Ordinario/Correttivo/Integrativo', null, 8200, 50);
 						this.describeAColumn(table, 'appellokind_title', 'Tipologia', null, 9200, 50);
+						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 10100, null);
+						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 10200, null);
 						this.describeAColumn(table, 'sessionekind_title', 'Tipologia Tipologia Sessione', null, 10320, 50);
-						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 10400, null);
-						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 10500, null);
+						this.describeAColumn(table, 'appellokind_sessione_title', 'Titolo Tipologia di appello Sessione', null, 10420, 50);
 						this.describeAColumn(table, 'appello_minvoto', 'Voto minimo', null, 14000, null);
 						this.describeAColumn(table, 'appello_basevoto', 'Votazione di base', null, 15000, null);
 						this.describeAColumn(table, 'appello_prointermedia', 'Prova intermedia', null, 16000, null);

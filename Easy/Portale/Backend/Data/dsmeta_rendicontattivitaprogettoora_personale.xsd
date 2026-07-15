@@ -21,7 +21,6 @@
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
-              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_ct" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogetto_cu" type="xs:string" />
               <xs:element name="rendicontattivitaprogetto_datainizioprevista" type="xs:dateTime" minOccurs="0" />

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -79,16 +77,13 @@ public partial class dsmeta_registry_istituti_princ: DataSet {
 	public MetaTable aoo 		=> (MetaTable)Tables["aoo"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable geo_city 		=> (MetaTable)Tables["geo_city"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable istitutokind 		=> (MetaTable)Tables["istitutokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
+	public MetaTable geo_city 		=> (MetaTable)Tables["geo_city"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_istituti 		=> (MetaTable)Tables["registry_istituti"];
+	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	#endregion
 
@@ -133,11 +128,12 @@ private void initClass() {
 
 	//////////////////// SEDE_ALIAS1 /////////////////////////////////
 	var tsede_alias1= new MetaTable("sede_alias1");
+	tsede_alias1.defineColumn("idreg", typeof(int),false);
 	tsede_alias1.defineColumn("idsede", typeof(int),false);
 	tsede_alias1.defineColumn("title", typeof(string));
 	tsede_alias1.ExtendedProperties["TableForReading"]="sede";
 	Tables.Add(tsede_alias1);
-	tsede_alias1.defineKey("idsede");
+	tsede_alias1.defineKey("idreg", "idsede");
 
 	//////////////////// AOO_ALIAS2 /////////////////////////////////
 	var taoo_alias2= new MetaTable("aoo_alias2");
@@ -189,6 +185,7 @@ private void initClass() {
 	tsospensione.defineColumn("idreg", typeof(int),false);
 	tsospensione.defineColumn("idsede", typeof(int));
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
@@ -279,6 +276,7 @@ private void initClass() {
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW_ALIAS1 /////////////////////////////////
 	var tgetregistrydocentiamministratividefaultview_alias1= new MetaTable("getregistrydocentiamministratividefaultview_alias1");
 	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
 	tgetregistrydocentiamministratividefaultview_alias1.defineColumn("idreg", typeof(int),false);
 	tgetregistrydocentiamministratividefaultview_alias1.ExtendedProperties["TableForReading"]="getregistrydocentiamministratividefaultview";
 	Tables.Add(tgetregistrydocentiamministratividefaultview_alias1);
@@ -287,6 +285,7 @@ private void initClass() {
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
 	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
 	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
 	Tables.Add(tgetregistrydocentiamministratividefaultview);
 	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
@@ -298,21 +297,24 @@ private void initClass() {
 	tistitutoprinc.defineColumn("codiceerasmus", typeof(string));
 	tistitutoprinc.defineColumn("ct", typeof(DateTime),false);
 	tistitutoprinc.defineColumn("cu", typeof(string),false);
+	tistitutoprinc.defineColumn("idistitutokind", typeof(int));
 	tistitutoprinc.defineColumn("idreg", typeof(int),false);
 	tistitutoprinc.defineColumn("idreg_dir", typeof(int));
 	tistitutoprinc.defineColumn("idreg_diramm", typeof(int));
 	tistitutoprinc.defineColumn("lt", typeof(DateTime),false);
 	tistitutoprinc.defineColumn("lu", typeof(string),false);
+	tistitutoprinc.defineColumn("subtipoente", typeof(string));
 	tistitutoprinc.defineColumn("tipoente", typeof(string));
 	Tables.Add(tistitutoprinc);
 	tistitutoprinc.defineKey("idreg");
 
 	//////////////////// SEDE /////////////////////////////////
 	var tsede= new MetaTable("sede");
+	tsede.defineColumn("idreg", typeof(int),false);
 	tsede.defineColumn("idsede", typeof(int),false);
 	tsede.defineColumn("title", typeof(string));
 	Tables.Add(tsede);
-	tsede.defineKey("idsede");
+	tsede.defineKey("idreg", "idsede");
 
 	//////////////////// AOO /////////////////////////////////
 	var taoo= new MetaTable("aoo");
@@ -330,13 +332,6 @@ private void initClass() {
 	Tables.Add(taoo);
 	taoo.defineKey("idaoo");
 
-	//////////////////// GEO_CITY /////////////////////////////////
-	var tgeo_city= new MetaTable("geo_city");
-	tgeo_city.defineColumn("idcity", typeof(int),false);
-	tgeo_city.defineColumn("title", typeof(string));
-	Tables.Add(tgeo_city);
-	tgeo_city.defineKey("idcity");
-
 	//////////////////// ISTITUTOKIND /////////////////////////////////
 	var tistitutokind= new MetaTable("istitutokind");
 	tistitutokind.defineColumn("idistitutokind", typeof(int),false);
@@ -344,8 +339,16 @@ private void initClass() {
 	Tables.Add(tistitutokind);
 	tistitutokind.defineKey("idistitutokind");
 
+	//////////////////// GEO_CITY /////////////////////////////////
+	var tgeo_city= new MetaTable("geo_city");
+	tgeo_city.defineColumn("idcity", typeof(int),false);
+	tgeo_city.defineColumn("title", typeof(string));
+	Tables.Add(tgeo_city);
+	tgeo_city.defineKey("idcity");
+
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("acronim", typeof(string));
 	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
@@ -353,6 +356,9 @@ private void initClass() {
 	tregistry.defineColumn("birthdate", typeof(DateTime));
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("code", typeof(string));
+	tregistry.defineColumn("codicemiur", typeof(string));
+	tregistry.defineColumn("codiceustat", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
 	tregistry.defineColumn("cu", typeof(string),false);
 	tregistry.defineColumn("email_fe", typeof(string));
@@ -365,12 +371,14 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string));
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idanpr", typeof(string));
 	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistry.defineColumn("idistitutokind", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
@@ -384,6 +392,7 @@ private void initClass() {
 	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
 	tregistry.defineColumn("indicebibliometrico", typeof(int));
+	tregistry.defineColumn("institutionalcode", typeof(string));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -394,6 +403,7 @@ private void initClass() {
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
 	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("referencenumber", typeof(string));
 	tregistry.defineColumn("residence", typeof(int),false);
 	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
@@ -407,25 +417,6 @@ private void initClass() {
 	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// REGISTRY_ISTITUTI /////////////////////////////////
-	var tregistry_istituti= new MetaTable("registry_istituti");
-	tregistry_istituti.defineColumn("codicemiur", typeof(string));
-	tregistry_istituti.defineColumn("codiceustat", typeof(string));
-	tregistry_istituti.defineColumn("comune", typeof(string));
-	tregistry_istituti.defineColumn("ct", typeof(DateTime));
-	tregistry_istituti.defineColumn("cu", typeof(string),false);
-	tregistry_istituti.defineColumn("idistitutokind", typeof(int),false);
-	tregistry_istituti.defineColumn("idistitutoustat", typeof(int));
-	tregistry_istituti.defineColumn("idreg", typeof(int),false);
-	tregistry_istituti.defineColumn("lt", typeof(DateTime),false);
-	tregistry_istituti.defineColumn("lu", typeof(string),false);
-	tregistry_istituti.defineColumn("nome", typeof(string));
-	tregistry_istituti.defineColumn("sortcode", typeof(int));
-	tregistry_istituti.defineColumn("title", typeof(string));
-	tregistry_istituti.defineColumn("title_en", typeof(string));
-	Tables.Add(tregistry_istituti);
-	tregistry_istituti.defineKey("idreg");
 
 	#endregion
 
@@ -487,6 +478,10 @@ private void initClass() {
 	cChild = new []{istitutoprinc.Columns["idreg_dir"]};
 	Relations.Add(new DataRelation("FK_istitutoprinc_getregistrydocentiamministratividefaultview_idreg_dir",cPar,cChild,false));
 
+	cPar = new []{istitutokind.Columns["idistitutokind"]};
+	cChild = new []{istitutoprinc.Columns["idistitutokind"]};
+	Relations.Add(new DataRelation("FK_istitutoprinc_istitutokind_idistitutokind",cPar,cChild,false));
+
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{aoo.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_aoo_registry_idreg",cPar,cChild,false));
@@ -495,17 +490,13 @@ private void initClass() {
 	cChild = new []{aoo.Columns["idsede"]};
 	Relations.Add(new DataRelation("FK_aoo_sede_idsede",cPar,cChild,false));
 
+	cPar = new []{istitutokind.Columns["idistitutokind"]};
+	cChild = new []{registry.Columns["idistitutokind"]};
+	Relations.Add(new DataRelation("FK_registry_istitutokind_idistitutokind",cPar,cChild,false));
+
 	cPar = new []{geo_city.Columns["idcity"]};
 	cChild = new []{registry.Columns["idcity"]};
 	Relations.Add(new DataRelation("FK_registry_geo_city_idcity",cPar,cChild,false));
-
-	cPar = new []{istitutokind.Columns["idistitutokind"]};
-	cChild = new []{registry_istituti.Columns["idistitutokind"]};
-	Relations.Add(new DataRelation("FK_registry_istituti_istitutokind_idistitutokind",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{registry_istituti.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_istituti_registry_idreg",cPar,cChild,false));
 
 	#endregion
 

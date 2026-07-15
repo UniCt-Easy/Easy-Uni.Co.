@@ -23,17 +23,17 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'disabil':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 50);
-						this.describeAColumn(table, 'esonero_description', 'Descrizione', null, 40, 256);
-						this.describeAColumn(table, 'esonero_applunavolta', 'Applicabile una sola volta', null, 50, null);
-						this.describeAColumn(table, 'costoscontodef_title', 'Sconto', null, 60, 2024);
-						this.describeAColumn(table, 'esoneroanskind_title', 'Tipologia Codice ANS', null, 70, 50);
-						this.describeAColumn(table, 'esoneroanskind_description', 'Descrizione Codice ANS', null, 70, 256);
-						this.describeAColumn(table, 'esonero_retroattivo', 'Retroattivo', null, 80, null);
-						this.describeAColumn(table, 'esonero_soloconisee', 'Applicabile solo con ISEE', null, 90, null);
-						this.describeAColumn(table, 'esonero_disabil_percmax', 'Percentuale massima', 'fixed.2', 20, null);
-						this.describeAColumn(table, 'esonero_disabil_percmin', 'Percentuale minima', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'esonero_disabil_percmax', 'Percentuale massima', 'fixed.2', 2000, null);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 3000, 50);
+						this.describeAColumn(table, 'esonero_disabil_percmin', 'Percentuale minima', 'fixed.2', 3000, null);
+						this.describeAColumn(table, 'esonero_description', 'Descrizione', null, 4000, 256);
+						this.describeAColumn(table, 'esonero_applunavolta', 'Applicabile una sola volta', null, 5000, null);
+						this.describeAColumn(table, 'costoscontodef_title', 'Sconto', null, 6200, 2024);
+						this.describeAColumn(table, 'esoneroanskind_title', 'Tipologia Codice ANS', null, 7200, 50);
+						this.describeAColumn(table, 'esoneroanskind_description', 'Descrizione Codice ANS', null, 7300, 256);
+						this.describeAColumn(table, 'esonero_retroattivo', 'Retroattivo', null, 8000, null);
+						this.describeAColumn(table, 'esonero_soloconisee', 'Applicabile solo con ISEE', null, 9000, null);
 //$objCalcFieldConfig_disabil$
 						break;
 //$objCalcFieldConfig$

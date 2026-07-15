@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +27,7 @@ using System.Collections;
 namespace bankdispositionsetup_importnew {
     
     public abstract class LetturaTracciati {
-        string erroreBloccante = "L'elaborazione del file verrà annullata. Si prega di contattare la banca segnalando i riferimenti succitati";
+        string erroreBloccante = "L'elaborazione del file verrÃ  annullata. Si prega di contattare la banca segnalando i riferimenti succitati";
         char[] buffer = new char[503];
         public vistaForm DS = new vistaForm();
 
@@ -218,7 +216,7 @@ namespace bankdispositionsetup_importnew {
             r["NUMQUI"] = leggiNumerico(tr, 7);//  	Numero progr. quietanza 
             r["NUMDIS"] = leggiNumerico(tr, 7);//	Numero distinta
             r["IMPRIT"] = leggiDecimale(tr, 15);//  	Importo ritenute (gli ultimi due bytes sono da considerarsi decimali)   
-            r["INDREG"] = leggiAlfanumerico(tr, 1);//  	Indicativo regolazione (se contiene il valore “R” trattasi di regolazione)  
+            r["INDREG"] = leggiAlfanumerico(tr, 1);//  	Indicativo regolazione (se contiene il valore â€œRâ€ trattasi di regolazione)  
             r["DVALBE"] = leggiDataGMA(tr, 8);//  	Data valuta beneficiario (nel formato GGMMAAAA)  
             r["NUMPRA"] = leggiAlfanumerico(tr, 16);//  	Numero pratica  
             r["CODVER"] = leggiAlfanumerico(tr, 5);//	Codice versamento
@@ -260,7 +258,7 @@ namespace bankdispositionsetup_importnew {
             r["ANABE"] = leggiAlfanumerico(tr, 300);//	Anagrafica beneficiario
             r["INDIR"] = leggiAlfanumerico(tr, 30);//	Indirizzo beneficiario
             r["CAP"] = leggiAlfanumerico(tr, 5);//	CAP beneficiario
-            r["LOC"] = leggiAlfanumerico(tr, 30);//	Località beneficiario
+            r["LOC"] = leggiAlfanumerico(tr, 30);//	LocalitÃ  beneficiario
             r["CFISC"] = leggiAlfanumerico(tr, 16);//	Codice fiscale beneficiario
             r["FILLER"] = leggiAlfanumerico(tr, 86);//	Campo a disposizione
             if (TIPREC != "03") {
@@ -333,7 +331,7 @@ namespace bankdispositionsetup_importnew {
             long dimensione = fi.Length;
             long modulo = fi.Length % quoziente;
             if (modulo > 0) {
-                QueryCreator.ShowError(null, "La dimensione del file non è un multiplo di " + quoziente, "Errore di dimensione del file");
+                QueryCreator.ShowError(null, "La dimensione del file non Ã¨ un multiplo di " + quoziente, "Errore di dimensione del file");
                 return null;
             }
             else {
@@ -409,7 +407,7 @@ namespace bankdispositionsetup_importnew {
         /// </summary>
         /// <returns></returns>
         private bool eliminaAnnullamentiRegolazione() {
-            // La regolarizzazione è individiata secondo il filtro successivo. Viene riempito un arraylist con
+            // La regolarizzazione Ã¨ individiata secondo il filtro successivo. Viene riempito un arraylist con
             // le coppie TIPDOC, NUMQUI
             //ArrayList list = valoriDistinti(DS.flussobanca, "SEGNO='+' and TIPDOC in ('I','P') and INDREG='R'",
             //    new string[] { "TIPDOC", "NUMQUI" });
@@ -483,7 +481,7 @@ namespace bankdispositionsetup_importnew {
             //list = valoriDistinti(DS.flussobanca, "SEGNO='-' and TIPDOC in ('M','R') and INDREG='R'", 
             //    new string[] {"TIPDOC", "NUMDOC", "NUMQUI"});
             //foreach (string condizione in list) {
-            //    DataRow[] rReg = DS.flussobanca.Select(condizione+" and INDREG='R'", "SEGNO DESC");//+prima il segno più
+            //    DataRow[] rReg = DS.flussobanca.Select(condizione+" and INDREG='R'", "SEGNO DESC");//+prima il segno piÃ¹
             //    for (int i=1; i<rReg.Length; i++) {
             //        rReg[0]["IMPDOC"] = (decimal) rReg[0]["IMPDOC"] + (decimal) rReg[i]["IMPDOC"];
             //        rReg[i].Delete();
@@ -545,12 +543,12 @@ namespace bankdispositionsetup_importnew {
         
 
         private string aggiustaStringa(string stringa) {
-            return stringa.Replace('Ç', 'c').Replace('ç', 'c').Replace('€', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('£', ' ').Replace('§', ' ').Replace('@', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ù', 'u').Replace(
-                'Ö', 'o').Replace('Ü', 'u').Replace('Ñ', 'n').Replace('Ð', 'd').Replace('Ê', 'e').Replace('Ë', 'e').Replace('Î', 'i').Replace('Ï', 'i').Replace('Ô', 'o').Replace('Õ', 'o').Replace('Û', 'u').Replace('Ý', 'y').Replace(
-                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('ü', 'u').Replace('â', 'a').Replace('ä', 'a').Replace('å', 'a').Replace('ê', 'e').Replace('ë', 'e').Replace('ï', 'i').Replace(
-                'î', 'i').Replace('Ä', 'a').Replace('Å', 'a').Replace('ô', 'o').Replace('ö', 'o').Replace('û', 'u').Replace('ÿ', 'y').Replace('ñ', 'n').Replace('Â', 'a').Replace('¥', 'y').Replace('ã', 'a').Replace('Ã', 'a').Replace(
-                'õ', 'o').Replace('ý', 'y').Replace('é', 'e').Replace('à', 'a').Replace('è', 'e').Replace('ì', 'i').Replace('ò', 'o').Replace('ù', 'u').Replace('á', 'a').Replace('í', 'i').Replace('ó', 'o').Replace('É', 'e').Replace(
-                'Á', 'a').Replace('À', 'a').Replace('È', 'e').Replace('Í', 'i').Replace('Ì', 'i').Replace('Ó', 'o').Replace('Ò', 'o').Replace('Ú', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('°', ' ');
+            return stringa.Replace('Ã‡', 'c').Replace('Ã§', 'c').Replace('â‚¬', 'e').Replace('|', ' ').Replace('\\', ' ').Replace('Â£', ' ').Replace('Â§', ' ').Replace('@', ' ').Replace('[', ' ').Replace('#', ' ').Replace('!', ' ').Replace('Ã™', 'u').Replace(
+                'Ã–', 'o').Replace('Ãœ', 'u').Replace('Ã‘', 'n').Replace('Ã', 'd').Replace('ÃŠ', 'e').Replace('Ã‹', 'e').Replace('ÃŽ', 'i').Replace('Ã', 'i').Replace('Ã”', 'o').Replace('Ã•', 'o').Replace('Ã›', 'u').Replace('Ã', 'y').Replace(
+                ']', ' ').Replace('`', ' ').Replace('{', ' ').Replace('}', ' ').Replace('~', ' ').Replace('Ã¼', 'u').Replace('Ã¢', 'a').Replace('Ã¤', 'a').Replace('Ã¥', 'a').Replace('Ãª', 'e').Replace('Ã«', 'e').Replace('Ã¯', 'i').Replace(
+                'Ã®', 'i').Replace('Ã„', 'a').Replace('Ã…', 'a').Replace('Ã´', 'o').Replace('Ã¶', 'o').Replace('Ã»', 'u').Replace('Ã¿', 'y').Replace('Ã±', 'n').Replace('Ã‚', 'a').Replace('Â¥', 'y').Replace('Ã£', 'a').Replace('Ãƒ', 'a').Replace(
+                'Ãµ', 'o').Replace('Ã½', 'y').Replace('Ã©', 'e').Replace('Ã ', 'a').Replace('Ã¨', 'e').Replace('Ã¬', 'i').Replace('Ã²', 'o').Replace('Ã¹', 'u').Replace('Ã¡', 'a').Replace('Ã­', 'i').Replace('Ã³', 'o').Replace('Ã‰', 'e').Replace(
+                'Ã', 'a').Replace('Ã€', 'a').Replace('Ãˆ', 'e').Replace('Ã', 'i').Replace('ÃŒ', 'i').Replace('Ã“', 'o').Replace('Ã’', 'o').Replace('Ãš', 'u').Replace('\t', ' ').Replace('\n', ' ').Replace('\r', ' ').Replace('Â°', ' ');
         }
 
 

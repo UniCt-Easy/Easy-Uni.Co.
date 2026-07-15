@@ -62,12 +62,43 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="exportdefinition" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach_template" type="xs:int" minOccurs="0" />
+              <xs:element name="idexportdefinition" type="xs:int" />
+              <xs:element name="idfileformat" type="xs:string" />
+              <xs:element name="idmenuweb" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="outputfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="procedurename" type="xs:string" minOccurs="0" />
+              <xs:element name="timeoutseconds" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="exportdefinitionflowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idexportdefinition" type="xs:int" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="flowchartsegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idflowchart" type="xs:string" />
-              <xs:element name="paridflowchart" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -118,6 +149,15 @@
       <xs:field xpath="mstns:idflowchart" />
       <xs:field xpath="mstns:idrestrictedfunction" />
     </xs:unique>
+    <xs:unique name="exportdefinition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:exportdefinition" />
+      <xs:field xpath="mstns:idexportdefinition" />
+    </xs:unique>
+    <xs:unique name="exportdefinitionflowchart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:exportdefinitionflowchart" />
+      <xs:field xpath="mstns:idexportdefinition" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
     <xs:unique name="flowchartsegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:flowchartsegview" />
       <xs:field xpath="mstns:idflowchart" />
@@ -133,6 +173,8 @@
       <msdata:Relationship name="FK_flowchartuser_customuser_idcustomuser" msdata:parent="customuser" msdata:child="flowchartuser" msdata:parentkey="idcustomuser" msdata:childkey="idcustomuser" />
       <msdata:Relationship name="FK_flowchartrestrictedfunction_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="flowchartrestrictedfunction" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
       <msdata:Relationship name="FK_flowchartrestrictedfunction_restrictedfunction_idrestrictedfunction" msdata:parent="restrictedfunction" msdata:child="flowchartrestrictedfunction" msdata:parentkey="idrestrictedfunction" msdata:childkey="idrestrictedfunction" />
+      <msdata:Relationship name="FK_exportdefinitionflowchart_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="exportdefinitionflowchart" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
+      <msdata:Relationship name="FK_exportdefinitionflowchart_exportdefinition_idexportdefinition" msdata:parent="exportdefinition" msdata:child="exportdefinitionflowchart" msdata:parentkey="idexportdefinition" msdata:childkey="idexportdefinition" />
       <msdata:Relationship name="FK_flowchart_flowchartsegview_paridflowchart" msdata:parent="flowchartsegview" msdata:child="flowchart" msdata:parentkey="idflowchart" msdata:childkey="paridflowchart" />
       <msdata:Relationship name="FK_flowchart_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="flowchart" msdata:parentkey="idflowchart" msdata:childkey="paridflowchart" />
     </xs:appinfo>

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -124,6 +122,7 @@ private void initClass() {
 	C= new DataColumn("registerclass", typeof(string));
 	C.AllowDBNull=false;
 	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("active", typeof(string)));
 	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
 	tivaregisterkind.Columns.Add(C);
@@ -136,6 +135,7 @@ private void initClass() {
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("emails", typeof(string)));
 	Tables.Add(tivaregisterkind);
 	tivaregisterkind.PrimaryKey =  new DataColumn[]{tivaregisterkind.Columns["idivaregisterkind"]};
 

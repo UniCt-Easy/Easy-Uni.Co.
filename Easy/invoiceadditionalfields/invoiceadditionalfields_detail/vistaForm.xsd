@@ -46,6 +46,7 @@
               <xs:element name="valuefield5int" type="xs:int" minOccurs="0" />
               <xs:element name="valuefield5str" type="xs:string" minOccurs="0" />
               <xs:element name="documentkind" type="xs:string" minOccurs="0" />
+              <xs:element name="tabname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -55,6 +56,7 @@
               <xs:element name="idmultifieldkind" type="xs:int" />
               <xs:element name="active" type="xs:string" />
               <xs:element name="allownull" type="xs:string" />
+              <xs:element name="documentkind" type="xs:string" />
               <xs:element name="fieldcode" type="xs:string" />
               <xs:element name="fieldname" type="xs:string" />
               <xs:element name="len" type="xs:int" minOccurs="0" />
@@ -64,7 +66,7 @@
               <xs:element name="systype" type="xs:string" />
               <xs:element name="tabname" type="xs:string" minOccurs="0" />
               <xs:element name="tag" type="xs:string" minOccurs="0" />
-              <xs:element name="documentkind" type="xs:string" />
+              <xs:element name="notes" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

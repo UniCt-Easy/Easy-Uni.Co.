@@ -30,13 +30,13 @@
               <xs:element name="geo_nation_title" type="xs:string" minOccurs="0" />
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsede" type="xs:int" />
               <xs:element name="sede_address" type="xs:string" minOccurs="0" />
               <xs:element name="sede_annotations" type="xs:string" minOccurs="0" />
               <xs:element name="sede_cap" type="xs:string" minOccurs="0" />
               <xs:element name="sede_ct" type="xs:dateTime" />
               <xs:element name="sede_cu" type="xs:string" />
-              <xs:element name="sede_idreg" type="xs:int" minOccurs="0" />
               <xs:element name="sede_idsedemiur" type="xs:int" minOccurs="0" />
               <xs:element name="sede_latitude" type="xs:decimal" minOccurs="0" />
               <xs:element name="sede_longitude" type="xs:decimal" minOccurs="0" />
@@ -144,6 +144,7 @@
     </xs:unique>
     <xs:unique name="sededefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sededefaultview" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

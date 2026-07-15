@@ -18,67 +18,57 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_aa">Anno accademico</label>
-					<select id="istanza_conseg_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="" data-custom-control="combo" data-tag="istanza.aa?istanzaconseg_segview.aa" data-subentity  data-mandatory  > </select>
+					<select id="istanza_conseg_seg_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzaconseg_segview.aa"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#istanza_conseg_seg_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_data">Data</label>
-					<input id="istanza_conseg_seg_data" type="text" class="form-control" data-tag="istanza.data.g?istanzaconseg_segview.istanza_data.g" data-subentity  data-mandatory />
+					<input id="istanza_conseg_seg_data" type="text" class="form-control" data-tag="istanza.data.g?istanzaconseg_segview.istanza_data.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istanza_conseg_seg_iddidprog">Didattica programmata</label>
-					<div>
-						<input id="istanza_conseg_seg_iddidprog" name="istanza_conseg_seg_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
-					</div>
-				</div>
-				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_idreg_studenti">Studente</label>
 					<div>
-						<input id="istanza_conseg_seg_idreg_studenti" name="istanza_conseg_seg_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="istanza_conseg_seg_idreg_studenti" name="istanza_conseg_seg_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="istanza_conseg_seg_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="istanza_conseg_seg_idiscrizione" name="istanza_conseg_seg_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="istanza_conseg_seg_iddidprog">Didattica programmata</label>
+					<div>
+						<input id="istanza_conseg_seg_iddidprog" name="istanza_conseg_seg_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_idstatuskind">Status</label>
-					<select id="istanza_conseg_seg_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzaconseg_segview.istanza_idstatuskind" data-subentity   > </select>
+					<select id="istanza_conseg_seg_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskinddefaultview" data-value-member="idstatuskind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzaconseg_segview.istanza_idstatuskind"   > </select>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istanza_conseg_seg_protnumero">Numero di protocollo</label>
-					<input id="istanza_conseg_seg_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzaconseg_segview.istanza_protnumero" data-subentity  data-mandatory />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istanza_conseg_seg_protanno">Anno di protocollo</label>
-					<input id="istanza_conseg_seg_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzaconseg_segview.istanza_protanno" data-subentity  data-mandatory />
-				</div>
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#istanza_conseg_seg_datacompalmalaur").datepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_datacompalmalaur">Data di compilazione del questionario su Almalaurea</label>
-					<input id="istanza_conseg_seg_datacompalmalaur" type="text" class="form-control" data-tag="istanza_conseg.datacompalmalaur?istanzaconseg_segview.istanza_conseg_datacompalmalaur" data-subentity  />
+					<input id="istanza_conseg_seg_datacompalmalaur" type="text" class="form-control" data-tag="istanza_conseg.datacompalmalaur?istanzaconseg_segview.istanza_conseg_datacompalmalaur" data-subentity   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istanza_conseg_seg_fascicolo">Fascicolo</label>
-					<input id="istanza_conseg_seg_fascicolo" type="text" class="form-control" data-tag="istanza_conseg.fascicolo?istanzaconseg_segview.istanza_conseg_fascicolo" data-subentity  />
-				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_idappello">Appello</label>
 					<div>
 						<input id="istanza_conseg_seg_idappello" name="istanza_conseg_seg_idappello" type="text" data-listtype="seg"  class="form-control" data-minchar="2" data-tag="appellosegview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_conseg_seg_fascicolo">Fascicolo</label>
+					<input id="istanza_conseg_seg_fascicolo" type="text" class="form-control" data-tag="istanza_conseg.fascicolo?istanzaconseg_segview.istanza_conseg_fascicolo" data-subentity  />
 				</div>
 			</div>
 			<div class="row">
@@ -86,10 +76,20 @@
 					<label class="col-form-label col-md-12" for="istanza_conseg_seg_posizione">Posizione</label>
 					<input id="istanza_conseg_seg_posizione" type="text" class="form-control" data-tag="istanza_conseg.posizione?istanzaconseg_segview.istanza_conseg_posizione" data-subentity  />
 				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_conseg_seg_protnumero">Numero di protocollo</label>
+					<input id="istanza_conseg_seg_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzaconseg_segview.istanza_protnumero"  />
+				</div>
 			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_conseg_seg_protanno">Anno di protocollo</label>
+					<input id="istanza_conseg_seg_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzaconseg_segview.istanza_protanno"  />
+				</div>
+			</div>
+		<button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-stamp mr-1" ></i>Protocolla
+		</button>
 	</div>
 	<div class="tab-pane fade" id="tabistanza_conseg_conseg_seg_1" role="tabpanel">
 				<div class="gridx" id="grid_richitesi_segistcons" data-tag="richitesi.segistcons.segistcons" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>

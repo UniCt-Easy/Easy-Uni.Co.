@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -103,6 +101,9 @@ public partial class dsmeta_ricostruzione_default: DataSet {
 	public MetaTable ricostruzioneperiodonv 		=> (MetaTable)Tables["ricostruzioneperiodonv"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sospensionekind 		=> (MetaTable)Tables["sospensionekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sospensione 		=> (MetaTable)Tables["sospensione"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -149,7 +150,7 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
 
@@ -629,6 +630,14 @@ private void initClass() {
 	Tables.Add(tricostruzioneperiodonv);
 	tricostruzioneperiodonv.defineKey("idreg", "idricostruzione", "idricostruzioneperiodonv");
 
+	//////////////////// SOSPENSIONEKIND /////////////////////////////////
+	var tsospensionekind= new MetaTable("sospensionekind");
+	tsospensionekind.defineColumn("active", typeof(string),false);
+	tsospensionekind.defineColumn("idsospensionekind", typeof(int),false);
+	tsospensionekind.defineColumn("title", typeof(string),false);
+	Tables.Add(tsospensionekind);
+	tsospensionekind.defineKey("idsospensionekind");
+
 	//////////////////// SOSPENSIONE /////////////////////////////////
 	var tsospensione= new MetaTable("sospensione");
 	tsospensione.defineColumn("ct", typeof(DateTime),false);
@@ -638,11 +647,13 @@ private void initClass() {
 	tsospensione.defineColumn("idreg", typeof(int),false);
 	tsospensione.defineColumn("idsede", typeof(int));
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
 	tsospensione.defineColumn("start", typeof(DateTime),false);
 	tsospensione.defineColumn("stop", typeof(DateTime));
+	tsospensione.defineColumn("!idsospensionekind_sospensionekind_title", typeof(string));
 	tsospensione.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tsospensione);
 	tsospensione.defineKey("idreg", "idsospensione");
@@ -661,6 +672,7 @@ private void initClass() {
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
 	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
 	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
 	Tables.Add(tgetregistrydocentiamministratividefaultview);
 	tgetregistrydocentiamministratividefaultview.defineKey("idreg");
@@ -821,6 +833,10 @@ private void initClass() {
 	cPar = new []{ricostruzione.Columns["idreg"]};
 	cChild = new []{sospensione.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_sospensione_ricostruzione_idreg",cPar,cChild,false));
+
+	cPar = new []{sospensionekind.Columns["idsospensionekind"]};
+	cChild = new []{sospensione.Columns["idsospensionekind"]};
+	Relations.Add(new DataRelation("FK_sospensione_sospensionekind_idsospensionekind",cPar,cChild,false));
 
 	cPar = new []{ricostruzionekinddefaultview.Columns["idricostruzionekind"]};
 	cChild = new []{ricostruzione.Columns["idricostruzionekind"]};

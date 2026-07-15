@@ -83,12 +83,12 @@
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="metaeasylibrary">
       <Name>metaeasylibrary</Name>
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="meta_dalia_dipartimento">
       <HintPath>..\..\dalia_dipartimento\meta_dalia_dipartimento\bin\Debug\meta_dalia_dipartimento.dll</HintPath>
@@ -99,6 +99,7 @@
     <Reference Include="meta_itineration, Version=1.0.58.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\meta_itineration\bin\Debug\meta_itineration.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="meta_itinerationrefund, Version=1.0.32.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

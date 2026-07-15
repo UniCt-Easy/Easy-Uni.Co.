@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -57,10 +55,10 @@ public override void SetDefaults(DataTable PrimaryTable) {
 }
 
 public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-            //RowChange.SetMySelector(T.Columns["ncustomindirectrel"], "nphase", 0);  //campo nphase  Ë selettore per calcolo di ncustomindirectrel
-            //RowChange.SetMySelector(T.Columns["ncustomindirectrel"], "ycustomindirectrel", 0);//campo ycustomindirectrel  Ë selettore per calcolo di ncustomindirectrel
-            //RowChange.MarkAsAutoincrement(T.Columns["ncustomindirectrel"], null, null, 0);  //ncustomindirectrel Ë campo ad autoincremento
-            //RowChange.MarkAsAutoincrement(T.Columns["idcustomindirectrel"], null, null, 0);  //idcustomindirectrel Ë campo ad autoincremento
+            //RowChange.SetMySelector(T.Columns["ncustomindirectrel"], "nphase", 0);  //campo nphase  √® selettore per calcolo di ncustomindirectrel
+            //RowChange.SetMySelector(T.Columns["ncustomindirectrel"], "ycustomindirectrel", 0);//campo ycustomindirectrel  √® selettore per calcolo di ncustomindirectrel
+            //RowChange.MarkAsAutoincrement(T.Columns["ncustomindirectrel"], null, null, 0);  //ncustomindirectrel √® campo ad autoincremento
+            //RowChange.MarkAsAutoincrement(T.Columns["idcustomindirectrel"], null, null, 0);  //idcustomindirectrel √® campo ad autoincremento
             T.setAutoincrement("idcustomindirectrel", null, null, 0);
             T.setMinimumTempValue("idcustomindirectrel", 999900000);
             //RowChange.setMinimumTempValue(T.Columns["idcustomindirectrel"], 999900000);     //Da impostare  in caso di pericolo di conflitto

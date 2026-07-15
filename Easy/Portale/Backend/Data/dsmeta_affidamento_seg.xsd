@@ -3,6 +3,36 @@
   <xs:element name="dsmeta_affidamento_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="rendicontlezionestud" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="assente" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idaffidamento" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idaula" type="xs:int" />
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="idedificio" type="xs:int" />
+              <xs:element name="idlezione" type="xs:int" />
+              <xs:element name="idreg_docenti" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="notadisciplinare" type="xs:string" minOccurs="0" />
+              <xs:element name="ritardo" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ritardogiustifica" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="lezione_alias2" msprop:TableForReading="lezione" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -152,7 +182,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -176,15 +206,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="_x0021_idattach_attach_filename" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idattach_attach_size" type="xs:int" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="sede" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idsede" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattach_attach_size" type="xs:long" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -198,6 +220,7 @@
               <xs:element name="erogazkind_lt" type="xs:dateTime" />
               <xs:element name="erogazkind_lu" type="xs:string" />
               <xs:element name="erogazkind_sortcode" type="xs:int" />
+              <xs:element name="erogazkind_title_en" type="xs:string" />
               <xs:element name="iderogazkind" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
@@ -266,6 +289,25 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rendicontlezionestud" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idaffidamento" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idaula" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idedificio" />
+      <xs:field xpath="mstns:idlezione" />
+      <xs:field xpath="mstns:idreg_docenti" />
+      <xs:field xpath="mstns:idreg_studenti" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="lezione_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:lezione_alias2" />
       <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idaffidamento" />
@@ -352,10 +394,6 @@
       <xs:field xpath="mstns:iddidprogporzanno" />
       <xs:field xpath="mstns:idreg_docenti" />
     </xs:unique>
-    <xs:unique name="sede_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:sede" />
-      <xs:field xpath="mstns:idsede" />
-    </xs:unique>
     <xs:unique name="erogazkinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:erogazkinddefaultview" />
       <xs:field xpath="mstns:iderogazkind" />
@@ -382,6 +420,7 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_lezione_alias2_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idreg_docenti" msdata:parent="affidamento" msdata:child="lezione_alias2" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idreg_docenti" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idreg_docenti" />
+      <msdata:Relationship name="FK_rendicontlezionestud_lezione_alias2_aa-idaffidamento-idattivform-idaula-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idedificio-idlezione-idreg_docenti-idsede" msdata:parent="lezione_alias2" msdata:child="rendicontlezionestud" msdata:parentkey="aa idaffidamento idattivform idaula idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idedificio idlezione idreg_docenti idsede" msdata:childkey="aa idaffidamento idattivform idaula idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idedificio idlezione idreg_docenti idsede" />
       <msdata:Relationship name="FK_affidamentocaratteristica_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamento" msdata:child="affidamentocaratteristica" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_affidamentocaratteristicaora_affidamentocaratteristica_aa-idaffidamento-idaffidamentocaratteristica-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="affidamentocaratteristica" msdata:child="affidamentocaratteristicaora" msdata:parentkey="aa idaffidamento idaffidamentocaratteristica idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idaffidamento idaffidamentocaratteristica idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_affidamentocaratteristicaora_orakind_idorakind" msdata:parent="orakind" msdata:child="affidamentocaratteristicaora" msdata:parentkey="idorakind" msdata:childkey="idorakind" />
@@ -391,7 +430,6 @@
       <msdata:Relationship name="FK_affidamentocaratteristica_ambitoareadisc_idambitoareadisc" msdata:parent="ambitoareadisc" msdata:child="affidamentocaratteristica" msdata:parentkey="idambitoareadisc" msdata:childkey="idambitoareadisc" />
       <msdata:Relationship name="FK_affidamentoattach_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idreg_docenti" msdata:parent="affidamento" msdata:child="affidamentoattach" msdata:parentkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idreg_docenti" msdata:childkey="aa idaffidamento idattivform idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idreg_docenti" />
       <msdata:Relationship name="FK_affidamentoattach_attach_idattach" msdata:parent="attach" msdata:child="affidamentoattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
-      <msdata:Relationship name="FK_affidamento_sede_idsede" msdata:parent="sede" msdata:child="affidamento" msdata:parentkey="idsede" msdata:childkey="idsede" />
       <msdata:Relationship name="FK_affidamento_erogazkinddefaultview_iderogazkind" msdata:parent="erogazkinddefaultview" msdata:child="affidamento" msdata:parentkey="iderogazkind" msdata:childkey="iderogazkind" />
       <msdata:Relationship name="FK_affidamento_affidamentokinddefaultview_idaffidamentokind" msdata:parent="affidamentokinddefaultview" msdata:child="affidamento" msdata:parentkey="idaffidamentokind" msdata:childkey="idaffidamentokind" />
     </xs:appinfo>

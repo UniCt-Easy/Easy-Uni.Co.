@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -464,7 +462,7 @@ namespace HDSGeneVSIX {
             if(_compilazioneConMetaData) {
                 var linked = new Dictionary<string, bool>();
                 foreach(DataTable t in d.Tables) {
-                    var tableAlias = t.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
+                    var tableAlias = t.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
                     if(t.ExtendedProperties["TableForReading"] != null &&
                         t.ExtendedProperties["TableForReading"].ToString() != "")
                         tableAlias = t.ExtendedProperties["TableForReading"].ToString();
@@ -514,7 +512,7 @@ namespace HDSGeneVSIX {
                 sb.AppendLine("\t#region Table members declaration");
             }
             foreach(DataTable T in d.Tables) {
-                var tableAlias = T.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
+                var tableAlias = T.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
                 if(T.ExtendedProperties["TableForReading"] != null
                          && T.ExtendedProperties["TableForReading"].ToString() != ""
                     )
@@ -680,7 +678,7 @@ namespace HDSGeneVSIX {
                     var relativeProjFileName = getRelativePath(iniFilePath, Path.GetDirectoryName(projFileName));
 
                     foreach(DataTable t in d.Tables) {
-                        var tableAlias = t.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
+                        var tableAlias = t.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
                         if(t.ExtendedProperties["TableForReading"] != null &&
                             t.ExtendedProperties["TableForReading"].ToString() != "") {
                             tableAlias = t.ExtendedProperties["TableForReading"].ToString();
@@ -741,7 +739,7 @@ namespace HDSGeneVSIX {
             if(!_metaDataList.ContainsKey(metaDataName))
                 return false;
             //if (metaDataList[metaDataName] == "*") return false;
-            var metaDataProjFilePath = _metaDataList[metaDataName]; //si intende gi‡ relativo rispetto ad HDSGene.ini            
+            var metaDataProjFilePath = _metaDataList[metaDataName]; //si intende gi√† relativo rispetto ad HDSGene.ini            
             var relativeMetaDataPath = getRelativePath(relativeProjFilePath, metaDataProjFilePath);
             if(metaDataProjFilePath == "*")
                 relativeMetaDataPath = "dll\\";
@@ -904,7 +902,7 @@ namespace HDSGeneVSIX {
             var toLevel = toComponents.Length;
             if(toComponents[toLevel - 1] == "")
                 toLevel -= 1;
-            //Se la root Ë diversa, restituisci il path assoluto 
+            //Se la root √® diversa, restituisci il path assoluto 
             //if (fromComponents[0].ToLowerInvariant() != toComponents[0].ToLowerInvariant()) return toPath;
 
             //vede a quale livello occorre risalire prima di ridiscendere
@@ -916,7 +914,7 @@ namespace HDSGeneVSIX {
                 }
                 break;
             }
-            var commonLevel = i - 1; //il livello comune Ë i, che Ë -1 se non c'Ë livello comune
+            var commonLevel = i - 1; //il livello comune √® i, che √® -1 se non c'√® livello comune
             var relativePath = "";
             //prima risale n volte da fromLevel a commonLevel
             var currLevel = fromLevel - 1;
@@ -1014,7 +1012,7 @@ namespace HDSGeneVSIX {
                 sb.AppendLine("\tDataColumn C;");
             //if (AnyKey(D))SB.AppendLine("\tDataColumn [] key;");
             foreach(DataTable T in d.Tables) {
-                var tableAlias = T.TableName;      //tableAlias Ë nome della tabella VERA, ossia del meta e del tipo
+                var tableAlias = T.TableName;      //tableAlias √® nome della tabella VERA, ossia del meta e del tipo
                 if(T.ExtendedProperties["TableForReading"] != null
                      && T.ExtendedProperties["TableForReading"].ToString() != ""
                     )
@@ -1205,7 +1203,7 @@ namespace HDSGeneVSIX {
         /// <summary>
         /// Restituisce il nome del metadato a partire dalla cartella in cui si trova  il DataSet oggetto dell'elaborazione
         /// Assume che il dataset da processare, nel caso di metadato, si trovi in una cartella il cui nome inizia con meta_
-        /// Se per esempio il DataSet si trova in una cartella meta_expense, Ë restituita la stringa "expense"
+        /// Se per esempio il DataSet si trova in una cartella meta_expense, √® restituita la stringa "expense"
         /// </summary>
         /// <param name="dataSetFileName"></param>
         /// <returns></returns>
@@ -1221,7 +1219,7 @@ namespace HDSGeneVSIX {
 
 
         /// <summary>
-        /// Calcola un nuovo DataSet  (file XSD) senza i miliardi di propriet‡ che aggiunge MS
+        /// Calcola un nuovo DataSet  (file XSD) senza i miliardi di propriet√† che aggiunge MS
         /// Eventualmente, se diverso dall'originario, lo scrive anche sul disco
         /// </summary>
         /// <param name="filename"></param>
@@ -1360,7 +1358,7 @@ namespace HDSGeneVSIX {
                     }
                 }
 
-                //Elimina i warning ma il dataset non Ë pi˘ leggibile da visual studio
+                //Elimina i warning ma il dataset non √® pi√π leggibile da visual studio
                 //if (x.DocumentElement.ChildNodes.Count > 1) {
                 //    XmlNode elAnnotation = x.DocumentElement.ChildNodes[1];
                 //    XmlNode elAppInfo = elAnnotation.ChildNodes[0];
@@ -1623,7 +1621,7 @@ namespace HDSGeneVSIX {
                     proj.Load(ms);
                 }
                 catch(Exception e) {
-                    throw new Exception($"Errore {e} cercando di leggere l\'xml cosÏ formato:\r\n{prog}", e);
+                    throw new Exception($"Errore {e} cercando di leggere l\'xml cos√¨ formato:\r\n{prog}", e);
                 }
 
             }
@@ -1725,7 +1723,7 @@ namespace HDSGeneVSIX {
         /// <param name="rows">JToken with the data of the rows</param>
         /// <param name="table">DataTable where add the rows</param>
         private static void addRows(JToken rows, DataTable table) {
-            // TODO vedere se Ë stato considerato tutto.
+            // TODO vedere se √® stato considerato tutto.
             var sRows = rows.ToString();
 
             try {
@@ -1753,7 +1751,7 @@ namespace HDSGeneVSIX {
                     table.Rows.Add(currRow);
 
 
-                    currRow.AcceptChanges(); // mette i valori originali, quindi Ë nello stato Unchanged
+                    currRow.AcceptChanges(); // mette i valori originali, quindi √® nello stato Unchanged
 
                     if(currRowState == "deleted") {
                         currRow.Delete();
@@ -1781,7 +1779,7 @@ namespace HDSGeneVSIX {
         /// <param name="objRowCurr">obj of curr field with value</param>
         private static void checkNullInModifiedRow(DataRow row, object objRowOld, object objRowCurr) {
 
-            // tutti i campi che erano in old e non sono in curr e se lo stato Ë modified allora passano  a null
+            // tutti i campi che erano in old e non sono in curr e se lo stato √® modified allora passano  a null
             var dataFieldOLD = objRowOld.ToString();
             var objOLDRow = (JObject)JsonConvert.DeserializeObject(dataFieldOLD);
             var columns = row.Table.Columns;
@@ -1793,7 +1791,7 @@ namespace HDSGeneVSIX {
             foreach(var dataRowValue in objOLDRow) {
                 var field = dataRowValue.Key;
                 var rowValue = dataRowValue.Value;
-                // sulla collection dei curr non trovo pi˘ quel campo, allora lo metto a null
+                // sulla collection dei curr non trovo pi√π quel campo, allora lo metto a null
                 if(objCurrRow[field] == null)
                     row[field] = DBNull.Value;
             }
@@ -1819,7 +1817,7 @@ namespace HDSGeneVSIX {
         private static void addKeys(JToken keys, DataTable t) {
             string[] stringSeparators = { "," };
             var keysArray = keys.ToString().Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
-            // costrusico array di stringhe che poi traformerÚ in array di DataColumn
+            // costrusico array di stringhe che poi traformer√≤ in array di DataColumn
             if(keysArray.Length > 0) {
                 // trasfromo in DataColumn[]
                 t.PrimaryKey = keysArray._Map(c => t.Columns[c]);
@@ -1866,7 +1864,7 @@ namespace HDSGeneVSIX {
                     c.Caption = (string)value;
                     break;
                     case "expression":
-                    // TODO Modificare se sar‡ implementato un  QueryCreator.SetMetaExpression();
+                    // TODO Modificare se sar√† implementato un  QueryCreator.SetMetaExpression();
                     if(value is JValue) {
                         c.ExtendedProperties.Add(IsTempColumn, value.ToString());
                     }
@@ -1917,11 +1915,11 @@ namespace HDSGeneVSIX {
         /// <param name="autoincrements"></param>
         /// <param name="table"></param>
         private static void addAutoIncrementProperties(JToken autoincrements, DataTable table) {
-            // N.B autoincrements lato js viene sempre ser. Quindi c'Ë di solito un un jtoken autoincrement ma sar‡ senza valori,
-            // cioË senza colonne autoincremento
+            // N.B autoincrements lato js viene sempre ser. Quindi c'√® di solito un un jtoken autoincrement ma sar√† senza valori,
+            // cio√® senza colonne autoincremento
             if(autoincrements.HasValues) {
                 var obj = (JObject)JsonConvert.DeserializeObject(autoincrements.ToString());
-                // Per ogni colonna autoIncremento presente nel JToken invoco la funz che ne setta le proproet‡
+                // Per ogni colonna autoIncremento presente nel JToken invoco la funz che ne setta le proproet√†
                 obj.Properties()._forEach(col =>
                     setAutoIncrementColumnProperties(table, table.Columns[col.Name], col.Value));
             }
@@ -1940,7 +1938,7 @@ namespace HDSGeneVSIX {
             var obj = (JObject)JsonConvert.DeserializeObject(sColumn);
 
 
-            // ovviamente se sto qui seignifica che Ë un autoincrement 
+            // ovviamente se sto qui seignifica che √® un autoincrement 
             dc.ExtendedProperties[AutoIncrement] = "s";
 
             // Dichiaro array di selettori e selcetorMask da popolare e succesivamente farne il loop
@@ -1948,8 +1946,8 @@ namespace HDSGeneVSIX {
             var selectorsMask = new List<UInt64>();
 
             // N.B per ora utilizzo le prop ExtProp , non il metodo  RowChange.MarkAsAutoincrement(..),
-            // poichË delle porp potrebbero non esserci e mandare in errore il successivo codice. Ad
-            // esempio middleConst nel caso isNumber non c'Ë di proposito perchË lato js Ë grstito in questo
+            // poich√® delle porp potrebbero non esserci e mandare in errore il successivo codice. Ad
+            // esempio middleConst nel caso isNumber non c'√® di proposito perch√® lato js √® grstito in questo
             // modo e se passo nulla a MarkAsAutoincrement poi ottengo errore. allora faccio il set una per una
             foreach(var p in obj) {
                 var key = p.Key;
@@ -1974,7 +1972,7 @@ namespace HDSGeneVSIX {
                     break;
                     case "selector":
 
-                    // popolo una lista di appoggio , poichË poi devo settare insieme al mask
+                    // popolo una lista di appoggio , poich√® poi devo settare insieme al mask
                     foreach(var cname in value.Children()) {
                         //var cnameString = (JObject)JsonConvert.DeserializeObject(cname.ToString());
                         var cnameString = cname.ToString();
@@ -1985,7 +1983,7 @@ namespace HDSGeneVSIX {
 
                     case "selectorMask":
 
-                    // popolo una lista di appoggio , poichË poi devo settare insieme ai selectors
+                    // popolo una lista di appoggio , poich√® poi devo settare insieme ai selectors
                     foreach(var mask in value.Children()) {
                         var maskUInt64 = (UInt64)mask;
                         selectorsMask.Add(maskUInt64);
@@ -1998,7 +1996,7 @@ namespace HDSGeneVSIX {
 
             // Ciclo sulla lista dei selettori e invoco metodo opportuno per settare selettore e 
             // mask specifico di colonna. Selettori e mask sono ordinati in maniera posizionale.
-            // Non ci sar‡ pi˘ distinzione tra selettori generici e specifici, diventano dopo la ser c# -> js tutti
+            // Non ci sar√† pi√π distinzione tra selettori generici e specifici, diventano dopo la ser c# -> js tutti
             // specifici e quindi in questo caso js->c# ritrovo tutti specifici, ma tutto continua a funzionare nel backend
             /*if (selectors.Count != selectorsMask.Count)
             {
@@ -2047,7 +2045,7 @@ namespace HDSGeneVSIX {
             try {
                 var jObj = (JObject)JsonConvert.DeserializeObject(dataTable.ToString());
 
-                // deserializzo gli oggetti colonna, ogni oggetto colonna  a sua volta (il col.Value) Ë un oggetto con varie propriet‡
+                // deserializzo gli oggetti colonna, ogni oggetto colonna  a sua volta (il col.Value) √® un oggetto con varie propriet√†
                 if(jObj["columns"] != null) {
                     var obj = (JObject)JsonConvert.DeserializeObject(jObj["columns"].ToString());
                     obj.Properties()._forEach(col => table.Columns.Add(getColumn(col.Name, col.Value)));
@@ -2057,8 +2055,8 @@ namespace HDSGeneVSIX {
                 if(jObj["autoIncrementColumns"] != null)
                     addAutoIncrementProperties(jObj["autoIncrementColumns"], table);
 
-                //  Deserializza la propriet‡ di default.
-                //  Per ogni DataColumn del DataTable, nella propriet‡ DefaultValue, mette il valore della propriet‡ 
+                //  Deserializza la propriet√† di default.
+                //  Per ogni DataColumn del DataTable, nella propriet√† DefaultValue, mette il valore della propriet√† 
                 //  di pari nome nell'oggetto default del jsDataTable, saltando quelle null 
                 if(jObj["defaults"] != null)
                     addColumnDefaults(jObj["defaults"], table);
@@ -2098,7 +2096,7 @@ namespace HDSGeneVSIX {
                 QueryCreator.SetTableForPosting(table, tableName);
 
 
-                // isCached. inizializzo propriet‡ tabella
+                // isCached. inizializzo propriet√† tabella
                 GetData.UnCacheTable(table);
                 if(jObj["isCached"] != null) {
                     if(jObj["isCached"].ToString() == "0")
@@ -2119,8 +2117,8 @@ namespace HDSGeneVSIX {
                     }
                 }
 
-                // skypSecurity Ë settato/ritornato dalle funz in setSkipSecurity/isSkipSecurity su metaModel
-                // va bene anche cosÏ, ma capire se si possono utilizzare i emtodi in MetaModel
+                // skypSecurity √® settato/ritornato dalle funz in setSkipSecurity/isSkipSecurity su metaModel
+                // va bene anche cos√¨, ma capire se si possono utilizzare i emtodi in MetaModel
                 if(jObj["skipSecurity"] != null) {
                     if((Boolean)jObj["skipSecurity"]) {
                         table.ExtendedProperties["SkipSecurity"] = true;
@@ -2140,7 +2138,7 @@ namespace HDSGeneVSIX {
                     }
                 }
 
-                // realTable. utilizzo delle ext prop RealTableName perchË poi quelleutili realTable e viewTable saranno tabelle vere e proprie prese dal dataset
+                // realTable. utilizzo delle ext prop RealTableName perch√® poi quelleutili realTable e viewTable saranno tabelle vere e proprie prese dal dataset
                 if(jObj["realTable"] != null) {
                     table.ExtendedProperties["RealTableName"] = (string)jObj["realTable"];
                 }
@@ -2359,8 +2357,8 @@ namespace HDSGeneVSIX {
 
 
             // N.B:
-            // AutoIncrement gi‡ insita nel fatto sia un autoIncrement, quindi IsAutoIncrement della funz chiamante
-            // CustomAutoIncrement non Ë serailizzabile, dovrebbe esser gestita come autoincremento generico
+            // AutoIncrement gi√† insita nel fatto sia un autoIncrement, quindi IsAutoIncrement della funz chiamante
+            // CustomAutoIncrement non √® serailizzabile, dovrebbe esser gestita come autoincremento generico
             // PrefixField, MiddleConst, IDLength : li prendo da ext prop
             // Selector, SelectorMask : costruisco array prendendo i MySelector + MySelectorMask + quelly generici selector + selectorMask
 
@@ -2378,7 +2376,7 @@ namespace HDSGeneVSIX {
                 selectorsMask.Add(genericSelMask);
             }
 
-            // 2. recupero le propriet‡ specifiche dei selettori di colonna
+            // 2. recupero le propriet√† specifiche dei selettori di colonna
             string mySelector = dc.ExtendedProperties[MySelector] != null
                 ? dc.ExtendedProperties[MySelector].ToString()
                 : null;
@@ -2392,8 +2390,8 @@ namespace HDSGeneVSIX {
                 var arrayOfMySelectors = mySelector.Split(',');
                 var arrayOfMySelectorsMask = mySelectorMask.Split(',');
 
-                // ciclo sulle posizioni dei selector e aggiungo nell'array finale solo se gi‡ non esiste
-                // TODO, capire per quelle che esistono gi‡ nei genrici il quale mask va considerato
+                // ciclo sulle posizioni dei selector e aggiungo nell'array finale solo se gi√† non esiste
+                // TODO, capire per quelle che esistono gi√† nei genrici il quale mask va considerato
                 for(int i = 0; i < arrayOfMySelectors.Length; i++) {
                     var mySel = arrayOfMySelectors[i];
                     if(!selectors.Contains(mySel)) {
@@ -2446,7 +2444,7 @@ namespace HDSGeneVSIX {
         /// <param name="rowValue">object that contains the value</param>
         /// <returns>an object that represents the value</returns>
         private static object getRowColumnValue(object rowValue) {
-            // se Ë data applico la formattazione
+            // se √® data applico la formattazione
             if(rowValue is DateTime)
                 return ((DateTime)rowValue).ToString(c_data_format);
 
@@ -2559,17 +2557,17 @@ namespace HDSGeneVSIX {
 
             // *********************************** Popolo struttura per colonne ****************************************
 
-            // Primo ciclo per calcolare array di selector generici, cioË vede se la colonna Ë un selector generico
-            // e l'aggiunge nella lista. poichË poi sar‡ aggiunta nell'array pecifico per colonna nella getColumnDictAutoincrementProperties()
+            // Primo ciclo per calcolare array di selector generici, cio√® vede se la colonna √® un selector generico
+            // e l'aggiunge nella lista. poich√® poi sar√† aggiunta nell'array pecifico per colonna nella getColumnDictAutoincrementProperties()
             List<string> listOfSelector = new List<string>();
             List<string> listOfSelectorMask = new List<string>();
 
             foreach(DataColumn c in dt.Columns) {
-                // TODO l'if Ë == "y" o basta sia !=null ??????
+                // TODO l'if √® == "y" o basta sia !=null ??????
                 if(c.ExtendedProperties[Selector] != null) {
                     listOfSelector.Add(c.ColumnName);
 
-                    // Default Ë 0
+                    // Default √® 0
                     var selectorMask = "0";
                     if(c.ExtendedProperties[SelectorMask] != null) {
                         selectorMask = c.ExtendedProperties[SelectorMask].ToString();
@@ -2583,7 +2581,7 @@ namespace HDSGeneVSIX {
             foreach(DataColumn c in dt.Columns) {
                 myColumns.Add(c.ColumnName, getColumnProperties(c));
 
-                // ******************************* propriet‡ autoincremento *********************************************
+                // ******************************* propriet√† autoincremento *********************************************
                 if(RowChange.IsAutoIncrement(c)) {
                     myAutoIncrementColumns.Add(c.ColumnName,
                         getColumnDictAutoincrementProperties(c, listOfSelector, listOfSelectorMask));
@@ -2686,10 +2684,10 @@ namespace HDSGeneVSIX {
             // se arrivo al value torno il value
             if(jObj["value"] != null) {
                 if(jObj["value"].GetType() == typeof(JValue)) {
-                    return ((JValue)jObj["value"]).Value; //Nino: perchË non semplicemente jObj.value?
+                    return ((JValue)jObj["value"]).Value; //Nino: perch√® non semplicemente jObj.value?
                 }
 
-                // caso mcmp, in cui il 2o prm Ë un JObject altrimenti andrebbe in errore
+                // caso mcmp, in cui il 2o prm √® un JObject altrimenti andrebbe in errore
                 if(jObj["value"].GetType() == typeof(JObject)) {
                     Dictionary<string, object> dictFromJObject = new Dictionary<string, object>();
                     // costrusice la dict con le chiavi valori del JObject
@@ -3129,7 +3127,7 @@ namespace HDSGeneVSIX {
                 throw new ArgumentException("Func mCmp() first parameter must be an array");
             }
 
-            // Ë il caso lato js passi un plain object con coppie "key:val" --> la des mi trasforma quel jObject in un dict
+            // √® il caso lato js passi un plain object con coppie "key:val" --> la des mi trasforma quel jObject in un dict
             if(pars[1] is Dictionary<string, object>) {
                 dict = (Dictionary<string, object>)pars[1];
             }

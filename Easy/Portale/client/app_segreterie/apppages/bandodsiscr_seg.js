@@ -28,6 +28,11 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#bandodsiscr_seg_idreg_studenti'), null);
+				} else {
+					this.helpForm.filter($('#bandodsiscr_seg_idreg_studenti'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -59,7 +64,15 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#bandodsiscr_seg_idreg_studenti'), true);
+				this.helpForm.filter($('#bandodsiscr_seg_idreg_studenti'), null);
+				this.enableControl($('#bandodsiscr_seg_idiscrizione'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -67,6 +80,8 @@
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.bandodsiscresito, "seg", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("bandodsiscresito");
+				appMeta.metaModel.insertFilter(this.getDataTable("accreditokind"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("bandodsiscresitokinddefaultview"), this.q.eq('bandodsiscresitokind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -77,8 +92,18 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-bandodsiscr_seg");
-				$('#bandodsiscr_seg_idreg_studenti').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#bandodsiscr_seg_idreg_studenti').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#bandodsiscr_seg_idreg_studenti').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
+				$('#bandodsiscr_seg_idreg_studenti').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
+				if (t.name === "registrystudentiview" && r !== null) {
+					this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.eq("idreg", r.idreg));
+					if (this.state.DS.tables.iscrizionedefaultview.rows.length)
+						if (this.state.DS.tables.iscrizionedefaultview.rows[0].idreg !== r.idreg) {
+							this.state.DS.tables.iscrizionedefaultview.clear();
+							$('#bandodsiscr_seg_idiscrizione').val('');
+						}
+				}
+				$('#bandodsiscr_seg_idiscrizione').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
+				$('#bandodsiscr_seg_idiscrizione').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -92,6 +117,9 @@
 			insertClick: function (that, grid) {
 				if (!$('#bandodsiscr_seg_idreg_studenti').val() && this.children.includes(grid.dataSourceName)) {
 					return this.showMessageOk('Prima devi selezionare un valore per il campo Studente');
+				}
+				if (!$('#bandodsiscr_seg_idiscrizione').val() && this.children.includes(grid.dataSourceName)) {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Iscrizione al corso di studi');
 				}
 				//insertClickin
 				return this.superClass.insertClick(that, grid);

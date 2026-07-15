@@ -28,6 +28,10 @@
 						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 20, 9);
 //$objCalcFieldConfig_default$
 						break;
+					case 'onlyanno':
+						this.describeAColumn(table, 'anno', 'Anno', null, 10, null);
+//$objCalcFieldConfig_onlyanno$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -36,21 +40,34 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'onlyanno':
+						table.columns["aa"].caption = "Anno Accademico";
+						table.columns["title"].caption = "Anno di corso";
+						table.columns["cf"].caption = "Crediti formativi";
+//$innerSetCaptionConfig_onlyanno$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_didproganno");
+               var def = appMeta.Deferred("getNewRow-meta_didproganno");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('iddidproganno', { minimum: 99990001 });
 
+				// metto i default
 				return this.superClass.getNewRow(parentRow, dt, editType)
 					.then(function (dtRow) {
 						//$getNewRowDefault$
 						return def.resolve(dtRow);
 					});
 			},
+
 
 
 			//$isValidFunction$
@@ -60,6 +77,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "anno desc, aa desc";
+					}
+					case "onlyanno": {
 						return "anno desc, aa desc";
 					}
 					//$getSortingin$

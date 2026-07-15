@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,19 +13,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_fondopsp_registro_no_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_fondopsp_registro_no_upb]
 GO
-
+--select user
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
-
+--select * from pettycash
+-- modificare
 -- setuser 'amm'
 -- setuser 'amministrazione'
--- exec rpt_fondopsp_registro_no_upb 2022, 4, {ts '2022-01-01 00:00:00'}, {ts '2022-12-31 00:00:00'}
+-- exec rpt_fondopsp_registro_no_upb 2024, 1, {ts '2024-07-01 00:00:00'}, {ts '2024-12-31 00:00:00'}
 CREATE PROCEDURE [rpt_fondopsp_registro_no_upb]
 	@ayear	smallint,
 	@idpettycash	int,
@@ -35,7 +34,7 @@ CREATE PROCEDURE [rpt_fondopsp_registro_no_upb]
 
 AS BEGIN 
 
--- exec rpt_fondopsp_registro_no_upb  2022, 9,  {ts '2022-01-01 00:00:00'}, {ts '2022-12-31 00:00:00'}
+-- exec rpt_fondopsp_registro_no_upb  2024, 9,  {ts '2022-01-01 00:00:00'}, {ts '2022-12-31 00:00:00'}
 
 DECLARE @showupb char(1)
 DECLARE @idupb varchar(36)
@@ -76,6 +75,7 @@ CREATE TABLE #pettycashreg
 	proceed_linked_payment varchar(2000) ,
 	proceed_economo varchar(2000),
 	expenseamount_economo decimal(19,2),
+	restore_performed char(1) default  'S'
 )
 IF (DATEPART(yy, @start) <> @ayear OR DATEPART(mm, @start) <> 1	OR DATEPART(dd, @start) <> 1)
 BEGIN
@@ -307,6 +307,52 @@ UPDATE #pettycashreg
 SET detail =' (Op. nn. '
 WHERE operation ='Reintegro' 
 
+--- considero se il reintegro non è stato ancora esitato alla data
+UPDATE #pettycashreg SET restore_performed = 'N'
+WHERE operation ='Reintegro'  AND NOT EXISTS (
+SELECT * FROM banktransaction 
+	JOIN pettycashexpense 
+		ON #pettycashreg.noperation=pettycashexpense.noperation 
+		AND datepart(yy,#pettycashreg.adate)=pettycashexpense.yoperation 
+		AND pettycashexpense.idpettycash=@idpettycash 
+	JOIN banktransaction bt
+		ON pettycashexpense.idexp=bt.idexp
+	WHERE bt.kind = 'D' and bt.transactiondate <= @stop
+ )
+
+ --SELECT * FROM  #pettycashreg
+ --- sono i reintegri non esitati nel periodo della stampa
+ DECLARE @restore_not_performed_amount decimal(19,2)
+ SET @restore_not_performed_amount =  ISNULL((SELECT
+ SUM(incomeamount) FROM #pettycashreg WHERE 
+ operation ='Reintegro'  AND restore_performed = 'N') ,0)
+--- ad essi vanno sommati i reintegri non esitati eventualmente
+--- imputabili alla fascia temporale precedente il periodo della stampa 
+--- (ovviamente dello stesso anno) 
+ DECLARE @restore_not_performed_amount_lastperiod decimal(19,2)
+ SET @restore_not_performed_amount_lastperiod = 
+ ISNULL((SELECT SUM(amount)
+		FROM pettycashoperation
+		WHERE yoperation = @ayear
+			AND pettycashoperation.idpettycash = @idpettycash
+			AND (flag& 2)<>0 --Reintegro
+			AND adate < @start
+				AND NOT EXISTS (
+				SELECT * FROM banktransaction 
+				JOIN pettycashexpense 
+				ON pettycashoperation.noperation=pettycashexpense.noperation 
+				AND datepart(yy,pettycashoperation.adate)=pettycashexpense.yoperation 
+				AND pettycashexpense.idpettycash=@idpettycash 
+				JOIN banktransaction bt
+					ON pettycashexpense.idexp=bt.idexp
+				WHERE bt.kind = 'D' and bt.transactiondate <= @stop
+				)
+			)
+
+	, 0)
+SET @restore_not_performed_amount = @restore_not_performed_amount 
++ @restore_not_performed_amount_lastperiod
+--select @restore_not_performed_amount_lastperiod
 -- Elenca tutte le operazioni collegate al Reintegro
 DECLARE cursore CURSOR FORWARD_ONLY for 
 	SELECT noperation,nrestore,yrestore FROM #pettycashreg
@@ -475,7 +521,8 @@ SELECT
 	end
 		as proceed_economo,
 	expenseamount_economo,
-	idexpIx
+	idexpIx,
+	@restore_not_performed_amount AS restore_not_performed_amount 
 FROM #pettycashreg 
 WHERE (idupb like @idupb OR idupb is null)
 ORDER BY idpettycash, adate, noperation

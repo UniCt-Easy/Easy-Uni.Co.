@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 namespace invoicedetail_single {
@@ -82,7 +80,7 @@ namespace invoicedetail_single {
 			this.gridDettagliCausale.Size = new System.Drawing.Size(934, 352);
 			this.gridDettagliCausale.TabIndex = 27;
 			this.gridDettagliCausale.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDettagliFatturaMadre_Paint);
-			this.gridDettagliCausale.DoubleClick += new System.EventHandler(this.gridDettagliCausale_DoubleClick);
+			this.gridDettagliCausale.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridDettagliCausale_MouseDown);
 			this.gridDettagliCausale.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridDettagliCausale_MouseUp);
 			// 
 			// label1

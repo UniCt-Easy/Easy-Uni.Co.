@@ -1,4 +1,5 @@
-﻿<!--header-->
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader297" >In questa maschera occorre definire quante rate vengono pagate in questa fascia per la mora che stiamo definendo</div>
+
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 		
@@ -6,28 +7,18 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#ratadef_more_decorrenza").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="ratadef_more_decorrenza">Decorrenza</label>
-					<input id="ratadef_more_decorrenza" type="text" class="form-control" data-tag="ratadef.decorrenza.g?ratadefmoreview.ratadef_decorrenza.g" data-subentity  />
+					<input id="ratadef_more_decorrenza" type="text" class="form-control" data-tag="ratadef.decorrenza.g?ratadefmoreview.ratadef_decorrenza.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="ratadef_more_idratakind">Tipologia</label>
-					<select id="ratadef_more_idratakind" class="custom-select d-block w-100"  data-source-name="ratakinddefaultview" data-value-member="idratakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="ratadef.idratakind?ratadefmoreview.idratakind" data-subentity   > </select>
+					<select id="ratadef_more_idratakind" class="custom-select d-block w-100"  data-source-name="ratakinddefaultview" data-value-member="idratakind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="ratadef.idratakind?ratadefmoreview.idratakind"   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#ratadef_more_scadenza").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="ratadef_more_scadenza">Scadenza</label>
-					<input id="ratadef_more_scadenza" type="text" class="form-control" data-tag="ratadef.scadenza.g?ratadefmoreview.ratadef_scadenza.g" data-subentity  />
+					<input id="ratadef_more_scadenza" type="text" class="form-control" data-tag="ratadef.scadenza.g?ratadefmoreview.ratadef_scadenza.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 </form>

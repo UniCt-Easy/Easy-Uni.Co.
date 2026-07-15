@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -28,6 +26,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 using q = metadatalibrary.MetaExpression;
+using System.Linq;
 
 namespace movimentofunctions {
 	
@@ -1110,13 +1109,31 @@ expenseflagseparatemanager 16
              * 17	LPIVA12	    Liquidazione IVA intrastat istituzionale
              * 18	IVAINT12	Liquidazione IVA intrastat consolidata interna
              * 19	IVAEXT12	Liquidazione IVA intrastat consolidata esterna
-            
+             
+             MANDATI AUTOMATICI GESTITI PREVIO MESSAGGIO DI CONFERMA
+             * 23	LPIVASPLIT	Liquidazione IVA istituzionale split 
              */
-            string listaAutokind = QHC.List(1, 2, 3, 12, 13, 15, 16, 17, 18, 19);
+            string listaAutokind = QHC.List(1, 2, 3, 12, 13, 15, 16, 17, 18, 19,23);
             string filterAutoMov = QHC.AppAnd(QHC.CmpEq("nphase", fasespesamax), QHC.FieldInList("autokind", listaAutokind));
             int Nspecial = Auto.Tables["expense"].Select(filterAutoMov).Length;
 
             if ((AutoMainSpesa.Length == 0) && (Nspecial == 0)) return;
+            /*12    LPIVA Liquidazione IVA*/
+            /*17    LPIVA12 Liquidazione IVA intrastat istituzionale*/
+            /*23	LPIVASPLIT	Liquidazione IVA istituzionale split */
+            int NLIvaSplit = Auto.Tables["expense"].Select(QHC.FieldInList("autokind",QHC.List(12, 17,23))).Length; 
+            if (NLIvaSplit != 0) {
+                var shower = MetaFactory.factory.getSingleton<IMessageShower>();
+
+                if (shower.Show(null, "Si desidera Generare i mandati automatici per i Movimenti Generati dalla Liquidazione IVA?",
+                    "AVVISO IMPORTANTE", MessageBoxButtons.YesNo) != DialogResult.Yes) {
+                    listaAutokind = QHC.List(1, 2, 3, 13, 15, 16, 18, 19);
+                    filterAutoMov = QHC.AppAnd(QHC.CmpEq("nphase", fasespesamax), QHC.FieldInList("autokind", listaAutokind));
+                    AutoSpesa = Auto.Tables["expense"].Select(filterAutoMov);
+                    if (AutoSpesa.Length == 0)
+                        return;
+                }
+            }
 
             string idList = QueryCreator.ColumnValues(AutoSpesa, "idexp", false);
             string filterlast = QHC.AppAnd(QHC.IsNull("kpay"), "(idexp in (" + idList + "))");
@@ -1152,7 +1169,7 @@ expenseflagseparatemanager 16
 			MetaData MetaDocPag = Disp.Get("payment");
 			MetaDocPag.SetDefaults(Auto.Tables["payment"]);
 			foreach(DataRow S in LastSpesa){
-                if (S.RowState != DataRowState.Added) continue; 
+                if (S.RowState != DataRowState.Added) continue;
                 string fIdMov = QHC.CmpEq("idexp", S["idexp"]);
 				DataRow ImpuS = Auto.Tables["expenseyear"].Select(fIdMov)[0];
                 DataRow MOV = Auto.Tables["expense"].Select(fIdMov)[0];
@@ -4010,7 +4027,46 @@ expenseflagseparatemanager 16
 			return true;
 		}
 
-		private void creaMovBank(string movTab) {
+        public ProcedureMessageCollection doPostService(MetaDataDispatcher Disp)
+        {
+            MetaData metaSpesa = Disp.Get("expense");
+            metaSpesa.ComputeRowsAs(dsAuto.Tables["expense"], "posting");
+
+            MetaData metaEntrata = Disp.Get("income");
+            metaEntrata.ComputeRowsAs(dsAuto.Tables["income"], "posting");
+
+            Easy_PostData MyPostData = new Easy_PostData();
+            MyPostData.InitClass(dsAuto, Conn);
+
+            MyPostData.autoIgnore = true;
+
+            ProcedureMessageCollection res = MyPostData.DO_POST_SERVICE();
+
+            var hashSet = new HashSet<string>();
+            bool tuttiAvvertimenti = true;
+            if (res.Count > 0)
+            {
+                // Controlla se tutte le regole sono in "avvertimento"
+                var listaMessaggi = res.Cast<EasyProcedureMessage>().ToList();
+                tuttiAvvertimenti = listaMessaggi.All(item => item.ErrorType.Trim().ToLower() == "avvertimento");
+            }
+
+            if (res.Count == 0 || tuttiAvvertimenti)
+            {
+                creaMovBank("payment");
+                creaMovBank("proceeds");
+            }
+            else
+            {
+                dsAuto.Clear();
+                dsAuto.AcceptChanges();
+                //return false;
+            }
+
+            return res;
+        }
+
+        private void creaMovBank(string movTab) {
 			if (dsAuto.Tables[movTab].Rows.Count == 0) return;
 			string kfield = (movTab == "payment") ? "kpay" : "kpro";
 			foreach(DataRow R in dsAuto.Tables[movTab].Rows) {

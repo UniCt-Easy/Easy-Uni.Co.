@@ -1,15 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_protocollo_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_protocollo_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_protocollo_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="notificationqueue" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idnotificationqueue" type="xs:int" />
+              <xs:element name="idrelated" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="senttimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sourceedittype" type="xs:string" />
+              <xs:element name="sourcetablename" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="diniego" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" />
-              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
               <xs:element name="iddiniego" type="xs:int" />
               <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
@@ -136,8 +166,8 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="paridistanza" type="xs:int" minOccurs="0" />
-              <xs:element name="protanno" type="xs:int" />
-              <xs:element name="protnumero" type="xs:int" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -147,6 +177,7 @@
               <xs:element name="aa" type="xs:string" />
               <xs:element name="anno" type="xs:int" />
               <xs:element name="annofc" type="xs:int" minOccurs="0" />
+              <xs:element name="annopt" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" />
@@ -239,7 +270,7 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idprotocollodoc" type="xs:int" />
               <xs:element name="idprotocollodocelement" type="xs:int" />
-              <xs:element name="idprotocollodocelement_primo" type="xs:int" />
+              <xs:element name="idprotocollodocelement_primo" type="xs:int" minOccurs="0" />
               <xs:element name="idprotocollodockind" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
@@ -254,8 +285,18 @@
         <xs:element name="protocollorifkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idprotocollorifkind" type="xs:int" />
               <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mimetype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idmimetype" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -264,8 +305,11 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="datadoc" type="xs:dateTime" minOccurs="0" />
               <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="fincaturamargin" type="xs:int" minOccurs="0" />
               <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idfincaturaposition" type="xs:int" minOccurs="0" />
               <xs:element name="idmimetype" type="xs:int" minOccurs="0" />
               <xs:element name="idprotocollodoc" type="xs:int" />
               <xs:element name="idprotocollorifkind" type="xs:int" />
@@ -273,6 +317,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="protanno" type="xs:int" />
               <xs:element name="protnumero" type="xs:int" />
+              <xs:element name="_x0021_idmimetype_mimetype_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprotocollorifkind_protocollorifkind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -280,6 +325,7 @@
         <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
@@ -303,33 +349,73 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="classificazioneprotocollodefaultview_alias1" msprop:TableForReading="classificazioneprotocollodefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="classificazioneprotocollo_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idclassificazioneprotocollo" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="classificazioneprotocollodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="classificazioneprotocollo_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idclassificazioneprotocollo" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="registrydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="aoodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="aoo_codiceaooipa" type="xs:string" minOccurs="0" />
+              <xs:element name="aoo_ct" type="xs:dateTime" />
+              <xs:element name="aoo_cu" type="xs:string" />
+              <xs:element name="aoo_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="aoo_lt" type="xs:dateTime" />
+              <xs:element name="aoo_lu" type="xs:string" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idaoo" type="xs:int" />
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="protocollokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idprotocollokind" type="xs:int" />
+              <xs:element name="protocollokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="queryregistry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idqueryregistry" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="protocollo" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="_x0021_anteprima" type="xs:string" minOccurs="0" />
               <xs:element name="annullato" type="xs:string" />
               <xs:element name="codiceammipa" type="xs:string" />
               <xs:element name="codiceregistro" type="xs:string" />
@@ -337,24 +423,41 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="dataannullamento" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idclassificazioneprotocollo" type="xs:int" minOccurs="0" />
+              <xs:element name="idclassificazioneprotocollo_2" type="xs:int" minOccurs="0" />
+              <xs:element name="idprotocollokind" type="xs:int" />
+              <xs:element name="idqueryregistry" type="xs:int" minOccurs="0" />
               <xs:element name="idreg_origine" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="motivoann" type="xs:string" minOccurs="0" />
               <xs:element name="oggetto" type="xs:string" />
               <xs:element name="originecodiceaoo" type="xs:string" minOccurs="0" />
               <xs:element name="origineidamm" type="xs:string" minOccurs="0" />
               <xs:element name="originemail" type="xs:string" minOccurs="0" />
               <xs:element name="protanno" type="xs:int" />
+              <xs:element name="protannoregistro" type="xs:int" minOccurs="0" />
               <xs:element name="protdata" type="xs:dateTime" />
               <xs:element name="protnumero" type="xs:int" />
+              <xs:element name="protregistro" type="xs:int" minOccurs="0" />
               <xs:element name="testo" type="xs:string" minOccurs="0" />
+              <xs:element name="testosegnatura" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:notificationqueue" />
+      <xs:field xpath="mstns:idnotificationqueue" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="diniego_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:diniego" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddiniego" />
       <xs:field xpath="mstns:idistanza" />
       <xs:field xpath="mstns:idistanzakind" />
@@ -430,6 +533,10 @@
       <xs:selector xpath=".//mstns:protocollorifkind" />
       <xs:field xpath="mstns:idprotocollorifkind" />
     </xs:unique>
+    <xs:unique name="mimetype_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mimetype" />
+      <xs:field xpath="mstns:idmimetype" />
+    </xs:unique>
     <xs:unique name="protocollodoc_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:protocollodoc" />
       <xs:field xpath="mstns:idprotocollodoc" />
@@ -446,6 +553,14 @@
       <xs:field xpath="mstns:protanno" />
       <xs:field xpath="mstns:protnumero" />
     </xs:unique>
+    <xs:unique name="classificazioneprotocollodefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:classificazioneprotocollodefaultview_alias1" />
+      <xs:field xpath="mstns:idclassificazioneprotocollo" />
+    </xs:unique>
+    <xs:unique name="classificazioneprotocollodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:classificazioneprotocollodefaultview" />
+      <xs:field xpath="mstns:idclassificazioneprotocollo" />
+    </xs:unique>
     <xs:unique name="registrydefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registrydefaultview" />
       <xs:field xpath="mstns:idreg" />
@@ -453,6 +568,14 @@
     <xs:unique name="aoodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:aoodefaultview" />
       <xs:field xpath="mstns:idaoo" />
+    </xs:unique>
+    <xs:unique name="protocollokinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:protocollokinddefaultview" />
+      <xs:field xpath="mstns:idprotocollokind" />
+    </xs:unique>
+    <xs:unique name="queryregistry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:queryregistry" />
+      <xs:field xpath="mstns:idqueryregistry" />
     </xs:unique>
     <xs:unique name="protocollo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:protocollo" />
@@ -465,10 +588,15 @@
       <msdata:Relationship name="FK_protocollodoc_protocollo_protanno-protnumero" msdata:parent="protocollo" msdata:child="protocollodoc" msdata:parentkey="protanno protnumero" msdata:childkey="protanno protnumero" />
       <msdata:Relationship name="FK_protocollodocelement_protocollodoc_idprotocollodoc-protanno-protnumero" msdata:parent="protocollodoc" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodoc protanno protnumero" msdata:childkey="idprotocollodoc protanno protnumero" />
       <msdata:Relationship name="FK_protocollodoc_protocollorifkind_idprotocollorifkind" msdata:parent="protocollorifkind" msdata:child="protocollodoc" msdata:parentkey="idprotocollorifkind" msdata:childkey="idprotocollorifkind" />
+      <msdata:Relationship name="FK_protocollodoc_mimetype_idmimetype" msdata:parent="mimetype" msdata:child="protocollodoc" msdata:parentkey="idmimetype" msdata:childkey="idmimetype" />
       <msdata:Relationship name="FK_protocollodestinatario_protocollo_protanno-protnumero" msdata:parent="protocollo" msdata:child="protocollodestinatario" msdata:parentkey="protanno protnumero" msdata:childkey="protanno protnumero" />
       <msdata:Relationship name="FK_protocollodestinatario_registry_idreg_dest" msdata:parent="registry" msdata:child="protocollodestinatario" msdata:parentkey="idreg" msdata:childkey="idreg_dest" />
+      <msdata:Relationship name="FK_protocollo_classificazioneprotocollodefaultview_alias1_idclassificazioneprotocollo_2" msdata:parent="classificazioneprotocollodefaultview_alias1" msdata:child="protocollo" msdata:parentkey="idclassificazioneprotocollo" msdata:childkey="idclassificazioneprotocollo_2" />
+      <msdata:Relationship name="FK_protocollo_classificazioneprotocollodefaultview_idclassificazioneprotocollo" msdata:parent="classificazioneprotocollodefaultview" msdata:child="protocollo" msdata:parentkey="idclassificazioneprotocollo" msdata:childkey="idclassificazioneprotocollo" />
       <msdata:Relationship name="FK_protocollo_registrydefaultview_idreg_origine" msdata:parent="registrydefaultview" msdata:child="protocollo" msdata:parentkey="idreg" msdata:childkey="idreg_origine" />
       <msdata:Relationship name="FK_protocollo_aoodefaultview_idaoo" msdata:parent="aoodefaultview" msdata:child="protocollo" msdata:parentkey="idaoo" msdata:childkey="idaoo" />
+      <msdata:Relationship name="FK_protocollo_protocollokinddefaultview_idprotocollokind" msdata:parent="protocollokinddefaultview" msdata:child="protocollo" msdata:parentkey="idprotocollokind" msdata:childkey="idprotocollokind" />
+      <msdata:Relationship name="FK_protocollo_queryregistry_idqueryregistry" msdata:parent="queryregistry" msdata:child="protocollo" msdata:parentkey="idqueryregistry" msdata:childkey="idqueryregistry" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

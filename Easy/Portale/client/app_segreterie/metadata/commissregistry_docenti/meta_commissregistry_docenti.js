@@ -34,6 +34,7 @@
 						this.describeAColumn(table, '!idreg_docenti_registry_alias1_title', 'Istituto, Ente o Azienda', null, 35, null);
 						this.describeAColumn(table, '!idreg_docenti_registry_p_iva', 'Partita iva', null, 35, null);
 						this.describeAColumn(table, '!idreg_docenti_registry_active', 'attivo', null, 36, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 84, null);
 						objCalcFieldConfig['!idreg_docenti_sasd_codice'] = { tableNameLookup:'sasd', columnNameLookup:'codice', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
@@ -43,34 +44,62 @@
 						objCalcFieldConfig['!idreg_docenti_registry_alias1_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_registry_p_iva'] = { tableNameLookup:'registry', columnNameLookup:'p_iva', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_registry_active'] = { tableNameLookup:'registry', columnNameLookup:'active', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_idanpr'] = { tableNameLookup:'registry', columnNameLookup:'idanpr', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idcommissmembrokind_commissmembrokind_title', 'Tipo di membro', null, 581, null);
+						objCalcFieldConfig['!idcommissmembrokind_commissmembrokind_title'] = { tableNameLookup:'commissmembrokind', columnNameLookup:'title', columnNamekey:'idcommissmembrokind' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'ingresso':
-						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Denominazione', null, 34, null);
-						this.describeAColumn(table, '!idreg_docenti_registry_cf', 'Codice fiscale', null, 34, null);
-						this.describeAColumn(table, '!idreg_docenti_registry_p_iva', 'Partita iva', null, 35, null);
-						this.describeAColumn(table, '!idreg_docenti_registry_active', 'attivo', null, 36, null);
-						this.describeAColumn(table, '!idreg_docenti_registry_docenti_matricola', 'Matricola', null, 31, null);
+						this.describeAColumn(table, 'idreg_docenti', 'Docente membro', null, 30, null);
 						this.describeAColumn(table, '!idreg_docenti_sasd_codice', 'Codice SASD', null, 33, null);
 						this.describeAColumn(table, '!idreg_docenti_sasd_title', 'Denominazione SASD', null, 34, null);
 						this.describeAColumn(table, '!idreg_docenti_struttura_title', 'Denominazione Struttura di afferenza', null, 34, null);
 						this.describeAColumn(table, '!idreg_docenti_struttura_strutturakind_title', 'Tipologia Tipologia delle strutture', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Denominazione', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_cf', 'Codice fiscale', null, 34, null);
 						this.describeAColumn(table, '!idreg_docenti_registry_alias1_title', 'Istituto, Ente o Azienda', null, 35, null);
-						this.describeAColumn(table, '!idreg_docenti_classconsorsuale_title', 'Classe consorsuale', null, 36, null);
-						this.describeAColumn(table, '!idreg_docenti_contrattokind_title', 'Tipo', null, 82, null);
-						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_registry_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_registry_p_iva'] = { tableNameLookup:'registry', columnNameLookup:'p_iva', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_registry_active'] = { tableNameLookup:'registry', columnNameLookup:'active', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_registry_docenti_matricola'] = { tableNameLookup:'registry_docenti', columnNameLookup:'matricola', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idreg_docenti_registry_p_iva', 'Partita iva', null, 35, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_active', 'attivo', null, 36, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 84, null);
 						objCalcFieldConfig['!idreg_docenti_sasd_codice'] = { tableNameLookup:'sasd', columnNameLookup:'codice', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_struttura_strutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_registry_alias1_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_classconsorsuale_title'] = { tableNameLookup:'classconsorsuale', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_contrattokind_title'] = { tableNameLookup:'contrattokind', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_p_iva'] = { tableNameLookup:'registry', columnNameLookup:'p_iva', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_active'] = { tableNameLookup:'registry', columnNameLookup:'active', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_idanpr'] = { tableNameLookup:'registry', columnNameLookup:'idanpr', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idcommissmembrokind_commissmembrokind_title', 'Tipo di membro', null, 581, null);
+						objCalcFieldConfig['!idcommissmembrokind_commissmembrokind_title'] = { tableNameLookup:'commissmembrokind', columnNameLookup:'title', columnNamekey:'idcommissmembrokind' };
 //$objCalcFieldConfig_ingresso$
+						break;
+					case 'doc':
+						this.describeAColumn(table, 'idreg_docenti', 'Docente membro', null, 30, null);
+						this.describeAColumn(table, '!idreg_docenti_sasd_codice', 'Codice SASD', null, 33, null);
+						this.describeAColumn(table, '!idreg_docenti_sasd_title', 'Denominazione SASD', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_struttura_title', 'Denominazione Struttura di afferenza', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_struttura_strutturakind_title', 'Tipologia Tipologia delle strutture', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Denominazione', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_cf', 'Codice fiscale', null, 34, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_alias1_title', 'Istituto, Ente o Azienda', null, 35, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_p_iva', 'Partita iva', null, 35, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_active', 'attivo', null, 36, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 84, null);
+						objCalcFieldConfig['!idreg_docenti_sasd_codice'] = { tableNameLookup:'sasd', columnNameLookup:'codice', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_struttura_strutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_alias1_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_p_iva'] = { tableNameLookup:'registry', columnNameLookup:'p_iva', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_active'] = { tableNameLookup:'registry', columnNameLookup:'active', columnNamekey:'idreg_docenti' };
+						objCalcFieldConfig['!idreg_docenti_registry_idanpr'] = { tableNameLookup:'registry', columnNameLookup:'idanpr', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idcommissmembrokind_commissmembrokind_title', 'Tipo di membro', null, 581, null);
+						objCalcFieldConfig['!idcommissmembrokind_commissmembrokind_title'] = { tableNameLookup:'commissmembrokind', columnNameLookup:'title', columnNamekey:'idcommissmembrokind' };
+//$objCalcFieldConfig_doc$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -83,11 +112,15 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'ingresso':
+						table.columns["idcommissmembrokind"].caption = "Tipo di membro";
 						table.columns["idreg_docenti"].caption = "Docente membro";
 //$innerSetCaptionConfig_ingresso$
 						break;
 					case 'default':
 //$innerSetCaptionConfig_default$
+						break;
+					case 'doc':
+//$innerSetCaptionConfig_doc$
 						break;
 //$innerSetCaptionConfig$
 				}

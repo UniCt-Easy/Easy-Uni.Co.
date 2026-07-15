@@ -23,16 +23,64 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-pratica_segistpass");
+				var arraydef = [];
+				
+				arraydef.push(this.managepratica_segistpass_idiscrizione_from());
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
-			//beforeFill
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				this.managepratica_segistpass_idiscrizione_from();
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-pratica_segistpass");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pratica_segistpass_idiscrizione_from'), true);
+				this.enableControl($('#pratica_segistpass_protnumero'), true);
+				this.enableControl($('#pratica_segistpass_protanno'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('pratica'), this.getDataTable('convalida'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
+				this.enableControl($('#pratica_segistpass_idiscrizione_from'), false);
 				this.enableControl($('#pratica_segistpass_protnumero'), false);
 				this.enableControl($('#pratica_segistpass_protanno'), false);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('pratica'), this.getDataTable('convalida'));
@@ -44,6 +92,9 @@
 				var self = this;
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
+				this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq("statuskind_pratica",'Si'));
+				$('#grid_convalida_segistpass').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -52,13 +103,7 @@
 				});
 			},
 
-			afterRowSelect: function (t, r) {
-				var def = appMeta.Deferred("afterRowSelect-pratica_segistpass");
-				$('#pratica_segistpass_idiscrizione').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#pratica_segistpass_idiscrizione').prop("readonly", this.state.isEditState() || this.haveChildren());
-				//afterRowSelectin
-				return def.resolve();
-			},
+			//afterRowSelect
 
 			//afterActivation
 
@@ -79,13 +124,7 @@
 			},
 
 
-			insertClick: function (that, grid) {
-				if (!$('#pratica_segistpass_idiscrizione').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Iscrizione');
-				}
-				//insertClickin
-				return this.superClass.insertClick(that, grid);
-			},
+			//insertClick
 
 			//beforePost
 
@@ -101,15 +140,9 @@
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 
-			children: ['convalida'],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
+			managepratica_segistpass_idiscrizione_from: function () {
+				this.state.currentRow.idiscrizione_from = appMeta.currApp.currentMetaPage.state.callerState.DS.tables.istanza_pas.rows[0].idiscrizione_from;
+				$('#InvisibleTxtiscrizionedefaultview_pratica').val(this.state.currentRow.idiscrizione_from);
 			},
 
 			//buttons

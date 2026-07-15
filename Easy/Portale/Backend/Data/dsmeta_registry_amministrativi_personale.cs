@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -30,6 +28,9 @@ namespace Backend.Data {
 public partial class dsmeta_registry_amministrativi_personale: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sospensionekind 		=> (MetaTable)Tables["sospensionekind"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sospensione 		=> (MetaTable)Tables["sospensione"];
 
@@ -62,9 +63,6 @@ public partial class dsmeta_registry_amministrativi_personale: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sal 		=> (MetaTable)Tables["sal"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable rendicontaltrokind 		=> (MetaTable)Tables["rendicontaltrokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progetto 		=> (MetaTable)Tables["progetto"];
@@ -133,6 +131,14 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_registry_amministrativi_personale.xsd";
 
 	#region create DataTables
+	//////////////////// SOSPENSIONEKIND /////////////////////////////////
+	var tsospensionekind= new MetaTable("sospensionekind");
+	tsospensionekind.defineColumn("active", typeof(string),false);
+	tsospensionekind.defineColumn("idsospensionekind", typeof(int),false);
+	tsospensionekind.defineColumn("title", typeof(string),false);
+	Tables.Add(tsospensionekind);
+	tsospensionekind.defineKey("idsospensionekind");
+
 	//////////////////// SOSPENSIONE /////////////////////////////////
 	var tsospensione= new MetaTable("sospensione");
 	tsospensione.defineColumn("ct", typeof(DateTime),false);
@@ -142,11 +148,13 @@ private void initClass() {
 	tsospensione.defineColumn("idreg", typeof(int),false);
 	tsospensione.defineColumn("idsede", typeof(int));
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
 	tsospensione.defineColumn("start", typeof(DateTime),false);
 	tsospensione.defineColumn("stop", typeof(DateTime));
+	tsospensione.defineColumn("!idsospensionekind_sospensionekind_title", typeof(string));
 	Tables.Add(tsospensione);
 	tsospensione.defineKey("idreg", "idsospensione");
 
@@ -263,7 +271,10 @@ private void initClass() {
 
 	//////////////////// TIMESHEETTEMPLATE /////////////////////////////////
 	var ttimesheettemplate= new MetaTable("timesheettemplate");
+	ttimesheettemplate.defineColumn("active", typeof(string));
+	ttimesheettemplate.defineColumn("description", typeof(string));
 	ttimesheettemplate.defineColumn("idtimesheettemplate", typeof(string),false);
+	ttimesheettemplate.defineColumn("title", typeof(string));
 	Tables.Add(ttimesheettemplate);
 	ttimesheettemplate.defineKey("idtimesheettemplate");
 
@@ -277,14 +288,6 @@ private void initClass() {
 	tsal.defineColumn("stop", typeof(DateTime));
 	Tables.Add(tsal);
 	tsal.defineKey("idprogetto", "idsal");
-
-	//////////////////// RENDICONTALTROKIND /////////////////////////////////
-	var trendicontaltrokind= new MetaTable("rendicontaltrokind");
-	trendicontaltrokind.defineColumn("active", typeof(string),false);
-	trendicontaltrokind.defineColumn("idrendicontaltrokind", typeof(int),false);
-	trendicontaltrokind.defineColumn("title", typeof(string),false);
-	Tables.Add(trendicontaltrokind);
-	trendicontaltrokind.defineKey("idrendicontaltrokind");
 
 	//////////////////// PROGETTO /////////////////////////////////
 	var tprogetto= new MetaTable("progetto");
@@ -330,11 +333,13 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("!idprogetto_progetto_titolobreve", typeof(string));
 	tprogettotimesheet.defineColumn("!idprogetto_progetto_start", typeof(DateTime));
 	tprogettotimesheet.defineColumn("!idprogetto_progetto_stop", typeof(DateTime));
-	tprogettotimesheet.defineColumn("!idrendicontaltrokind_rendicontaltrokind_title", typeof(string));
+	tprogettotimesheet.defineColumn("!idprogetto_progetto_idprogetto", typeof(int));
 	tprogettotimesheet.defineColumn("!idsal_sal_numerosal", typeof(int));
 	tprogettotimesheet.defineColumn("!idsal_sal_start", typeof(DateTime));
 	tprogettotimesheet.defineColumn("!idsal_sal_stop", typeof(DateTime));
 	tprogettotimesheet.defineColumn("!idsal_sal_datablocco", typeof(DateTime));
+	tprogettotimesheet.defineColumn("!idtimesheettemplate_timesheettemplate_title", typeof(string));
+	tprogettotimesheet.defineColumn("!idtimesheettemplate_timesheettemplate_description", typeof(string));
 	Tables.Add(tprogettotimesheet);
 	tprogettotimesheet.defineKey("idprogettotimesheet", "idreg");
 
@@ -439,6 +444,7 @@ private void initClass() {
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("acronim", typeof(string));
 	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
@@ -446,6 +452,9 @@ private void initClass() {
 	tregistry.defineColumn("birthdate", typeof(DateTime));
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("code", typeof(string));
+	tregistry.defineColumn("codicemiur", typeof(string));
+	tregistry.defineColumn("codiceustat", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
 	tregistry.defineColumn("cu", typeof(string),false);
 	tregistry.defineColumn("email_fe", typeof(string));
@@ -465,6 +474,7 @@ private void initClass() {
 	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistry.defineColumn("idistitutokind", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
@@ -478,6 +488,7 @@ private void initClass() {
 	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
 	tregistry.defineColumn("indicebibliometrico", typeof(int));
+	tregistry.defineColumn("institutionalcode", typeof(string));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -488,6 +499,7 @@ private void initClass() {
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
 	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("referencenumber", typeof(string));
 	tregistry.defineColumn("residence", typeof(int),false);
 	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
@@ -509,6 +521,10 @@ private void initClass() {
 	var cPar = new []{registry.Columns["idreg"]};
 	var cChild = new []{sospensione.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_sospensione_registry_idreg",cPar,cChild,false));
+
+	cPar = new []{sospensionekind.Columns["idsospensionekind"]};
+	cChild = new []{sospensione.Columns["idsospensionekind"]};
+	Relations.Add(new DataRelation("FK_sospensione_sospensionekind_idsospensionekind",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{registrylegalstatus.Columns["idreg"]};
@@ -553,10 +569,6 @@ private void initClass() {
 	cPar = new []{sal.Columns["idsal"]};
 	cChild = new []{progettotimesheet.Columns["idsal"]};
 	Relations.Add(new DataRelation("FK_progettotimesheet_sal_idsal",cPar,cChild,false));
-
-	cPar = new []{rendicontaltrokind.Columns["idrendicontaltrokind"]};
-	cChild = new []{progettotimesheet.Columns["idrendicontaltrokind"]};
-	Relations.Add(new DataRelation("FK_progettotimesheet_rendicontaltrokind_idrendicontaltrokind",cPar,cChild,false));
 
 	cPar = new []{progetto.Columns["idprogetto"]};
 	cChild = new []{progettotimesheet.Columns["idprogetto"]};

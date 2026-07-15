@@ -77,6 +77,54 @@
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 60, null);
 //$objCalcFieldConfig_imm_seganagstu$
 						break;
+					case 'seganagstupratica':
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 100, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 110, null);
+//$objCalcFieldConfig_seganagstupratica$
+						break;
+					case 'stupass':
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 100, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 110, null);
+//$objCalcFieldConfig_stupass$
+						break;
+					case 'stueq':
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 100, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 110, null);
+//$objCalcFieldConfig_stueq$
+						break;
+					case 'stutru':
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 100, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 110, null);
+//$objCalcFieldConfig_stutru$
+						break;
+					case 'sturin':
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 100, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 110, null);
+//$objCalcFieldConfig_sturin$
+						break;
+					case 'stutri':
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 100, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 110, null);
+//$objCalcFieldConfig_stutri$
+						break;
+					case 'imm_stu':
+						this.describeAColumn(table, 'data', 'Data', 'g', 50, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 60, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 70, null);
+//$objCalcFieldConfig_imm_stu$
+						break;
+					case 'imm_sturin':
+						this.describeAColumn(table, 'data', 'Data', 'g', 50, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 60, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 70, null);
+//$objCalcFieldConfig_imm_sturin$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -85,7 +133,82 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seganagstupratica':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_seganagstupratica$
+						break;
+					case 'segisteq':
+//$innerSetCaptionConfig_segisteq$
+						break;
+					case 'stupass':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_stupass$
+						break;
+					case 'stueq':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_stueq$
+						break;
+					case 'stutru':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_stutru$
+						break;
+					case 'sturin':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_sturin$
+						break;
+					case 'stutri':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["protanno"].caption = "Anno di protocollo";
+						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_stutri$
+						break;
+					case 'imm_stu':
+//$innerSetCaptionConfig_imm_stu$
+						break;
+					case 'imm_sturin':
+//$innerSetCaptionConfig_imm_sturin$
+						break;
+					case 'segisttru':
+//$innerSetCaptionConfig_segisttru$
+						break;
+					case 'segistsosp':
+						table.columns["iddidprog"].caption = "Didattica programmata";
+//$innerSetCaptionConfig_segistsosp$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_nullaosta");

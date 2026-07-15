@@ -28,6 +28,12 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.isNull(parentRow.gratuito) || parentRow.gratuito == '')
+					parentRow.gratuito = "N";
+				if (this.isNull(parentRow.iderogazkind))
+					parentRow.iderogazkind = 1;
+				if (this.isNull(parentRow.riferimento) || parentRow.riferimento == '')
+					parentRow.riferimento = "N";
 				//afterGetFormDataFilter
 				
 				//parte asincrona
@@ -51,12 +57,6 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (this.isNull(parentRow.gratuito) || parentRow.gratuito == '')
-					parentRow.gratuito = "N";
-				if (this.isNull(parentRow.iderogazkind))
-					parentRow.iderogazkind = 1;
-				if (this.isNull(parentRow.riferimento) || parentRow.riferimento == '')
-					parentRow.riferimento = "N";
 				_.forEach(this.getDataTable("lezione").rows, function (r) {
 					r['!title'] = parentRow.title;
 				});

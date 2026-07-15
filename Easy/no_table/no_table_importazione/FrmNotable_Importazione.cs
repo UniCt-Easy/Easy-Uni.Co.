@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -1295,7 +1293,7 @@ namespace notable_importazione {
 
 			if (num > 0) {
 				//Salva i dati
-				SaveData(D, true);
+				SaveData(D, false);
 				D.Tables["registrypaymethod"].Clear();
 				D.Tables["registryaddress"].Clear();
 				D.Tables["registry"].Clear();
@@ -1992,6 +1990,10 @@ namespace notable_importazione {
 			Rm["codetreasurer"] = codice;
 			Rm["description"] = descr;
 			Rm["flagdefault"] = "N";
+			Rm["ct"] = DateTime.Now;
+			Rm["lt"] = DateTime.Now;
+			Rm["cu"] = "importazione";
+			Rm["lu"] = "importazione";
 			hTreasurer[k] = Rm;
 			return Rm["idtreasurer"];
 		}
@@ -3732,11 +3734,23 @@ namespace notable_importazione {
 					D.Tables["assettolink"].Rows.Add(NewAssetToLink);
 				}
 
+				object lifestart = ToSmalldateTime(Reader.getCurrField("inizioesist"));
+
+				if (lifestart == null || lifestart == DBNull.Value) {
+					SpeedSaver.AddError(
+						"E' obbligatorio valorizzare la data inizio esistenza per il cespite/accessorio " +
+						ninventory.ToString() + "-" + idpiece.ToString() + "/" + codeinv +
+						" dell'inventario di codice " + idinventory +
+						" alla riga:" + Reader.GetCurrRowNumber());
+					Reader.GetNext();
+					continue;
+				}
+
 				NewAsset["idasset"] = idasset;
 				NewAsset["idpiece"] = idpiece;
 				NewAsset["idasset_prev"] = idasset_precedente;
 				NewAsset["idpiece_prev"] = idpiece_precedente;
-				NewAsset["lifestart"] = Reader.getCurrField("inizioesist");
+				NewAsset["lifestart"] = lifestart;
 				NewAsset["nassetacquire"] = NewAssetAcquire["nassetacquire"];
 				NewAsset["ninventory"] = ninventory;
 				NewAsset["transmitted"] = "N";
@@ -4812,7 +4826,17 @@ namespace notable_importazione {
 					object descrcass = Reader.getCurrField("descrcass");
 					object codicecass = Reader.getCurrField("codicecass");
 					object idtreasurer = DBNull.Value;
-					if (codicecass != DBNull.Value) idtreasurer = GetTreasurer(Treasurer, codicecass, descrcass);
+					//if (codicecass != DBNull.Value) idtreasurer = GetTreasurer(Treasurer, codicecass, descrcass);
+					if (codicecass != DBNull.Value) {
+						idtreasurer = CheckExistsTreasurer(Treasurer, codicecass);
+
+						if (idtreasurer is null) {
+							SpeedSaver.AddError($"Non è stato trovato il Cassiere con identificativo '{codicecass}' " +
+								$"sul campo '{Reader.getCurrField("codicecass")}' " +
+								$"alla riga '{Reader.GetCurrRowNumber()}'.");
+							break;
+						}
+					}
 
 					RUpb["idtreasurer"] = idtreasurer;
 
@@ -7310,7 +7334,7 @@ namespace notable_importazione {
 				" NA-Non applicabile;" +
 				"Codificato;2;CO|CA|NA",
 				"stato_debito;Stato del debito;" +
-				"Codificato;9;ADEGLIQ|LIQ|LIQdaNL|LIQdaSOSP|NLdaLIQ|NLdaSOSP|NOLIQ|SOSP|SOSPdaLIQ|SOSPdaNL",
+				"Codificato;9;LIQ|NOLIQ|SospCnst|SospContz|SospEsReg",
 				"causale;Codice causale costo o ricavo;Stringa;50",
 
 				//su fattura principale:
@@ -15684,11 +15708,24 @@ namespace notable_importazione {
 					D.Tables["assettolink"].Rows.Add(NewAssetToLink);
 				}
 
+
+				object lifestart = ToSmalldateTime(Reader.getCurrField("inizioesist"));
+
+				if (lifestart == null || lifestart == DBNull.Value) {
+					SpeedSaver.AddError(
+						"E' obbligatorio valorizzare la data inizio esistenza per il cespite/accessorio " +
+						ninventory.ToString() + "-" + idpiece.ToString() + "/" + codeinv +
+						" dell'inventario di codice " + idinventory +
+						" alla riga:" + Reader.GetCurrRowNumber());
+					Reader.GetNext();
+					continue;
+				}
+
 				NewAsset["idasset"] = idasset;
 				NewAsset["idpiece"] = idpiece;
 				NewAsset["idasset_prev"] = idasset_precedente;
 				NewAsset["idpiece_prev"] = idpiece_precedente;
-				NewAsset["lifestart"] = Reader.getCurrField("inizioesist");
+				NewAsset["lifestart"] = lifestart;
 				NewAsset["nassetacquire"] = NewAssetAcquire["nassetacquire"];
 				NewAsset["ninventory"] = ninventory;
 				NewAsset["idinventory"] = idinventory;
@@ -16897,7 +16934,15 @@ namespace notable_importazione {
 			"flaguso_avanzolibero;Avanzo libero;Codificato;1;S|N",
 			"flaguso_avanzovincolato;Avanzo vincolato;Codificato;1;S|N",
 			"flaguso_riserva;Riserva;Codificato;1;S|N",
-			"flaguso_fondoaccantonamento;Fondo accantonamento;Codificato;1;S|N"
+			"flaguso_fondoaccantonamento;Fondo accantonamento;Codificato;1;S|N",
+			"flaguso_displiquide;Disponibilità Liquide;Codificato;1;S|N",
+			"flaguso_altrevociattivo;Altre voci dell'Attivo;Codificato;1;S|N",
+			"flaguso_fondoammortamento;Fondo ammortamento;Codificato;1;S|N",
+			"flaguso_altrevocipassivo;Altre voci del Passivo;Codificato;1;S|N",
+			"flaguso_contoammortamento;Conto ammortamento;Codificato;1;S|N",
+			"flaguso_exriservecofi;Ex Riserve COFI;Codificato;1;S|N",
+			"flaguso_escludicommessacompletata;Escludi da Commessa completata;Codificato;1;S|N"
+
 		};
 
 
@@ -17108,7 +17153,9 @@ namespace notable_importazione {
 				"flaguso_rateiattivi", "flaguso_rateipassivi", "flaguso_riscontiattivi", "flaguso_riscontipassivi",
 				"flaguso_contodebito", "flaguso_contocredito", "flaguso_costo", "flaguso_ricavo",
 				"flaguso_immobilizzazioni",
-				"flaguso_avanzolibero", "flaguso_avanzovincolato", "flaguso_riserva", "flaguso_fondoaccantonamento"
+				"flaguso_avanzolibero", "flaguso_avanzovincolato", "flaguso_riserva", "flaguso_fondoaccantonamento",
+				"flaguso_displiquide", "flaguso_altrevociattivo", "flaguso_fondoammortamento", "flaguso_altrevocipassivo",
+				"flaguso_contoammortamento", "flaguso_exriservecofi", "flaguso_escludicommessacompletata" 
 			};
 
 			DataSet D = new vistaPianoConti();

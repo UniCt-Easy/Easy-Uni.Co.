@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_csa_individuazione_partition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -76,15 +74,15 @@ begin
 	INSERT INTO #errors VALUES('Regola generale o specifica non determinato in righe versamenti', 4,'S')
 end
 
---5) Recupero, Ritenuta o Contributo senza imputazione
+--5) Recupero, Ritenuta o Contributo senza configurazione
  if exists (
   SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import 
   AND idcsa_contracttax is null AND idcsa_incomesetup is null 
   and idcsa_contractkinddata is null
 )
 begin
-	INSERT INTO #errors VALUES('Recupero, Ritenuta o Contributo senza imputazione', 5,'S')
- end
+	INSERT INTO #errors VALUES('Versamento la cui voce CSA non è configurata correttamente come contributo/ritenuta/recupero', 5,'S')
+end
 
 --6) Versamenti con Ente o Anagrafica Ente non valorizzati
  if exists (  SELECT * FROM csa_importver WHERE idcsa_import = @idcsa_import 

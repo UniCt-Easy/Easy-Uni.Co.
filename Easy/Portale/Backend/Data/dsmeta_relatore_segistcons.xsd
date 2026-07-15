@@ -9,6 +9,11 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idrelatorekind" type="xs:int" />
               <xs:element name="relatorekind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="relatorekind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="relatorekind_lt" type="xs:dateTime" />
+              <xs:element name="relatorekind_lu" type="xs:string" />
+              <xs:element name="relatorekind_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

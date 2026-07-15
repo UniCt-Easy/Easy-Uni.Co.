@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -29,6 +27,7 @@ using System.Collections;
 using System.ServiceModel.Description;
 using ep_functions;
 using q = metadatalibrary.MetaExpression;
+using System.Threading.Tasks;
 
 namespace bankimport_default {
     public partial class frmBankImport_Default : MetaDataForm {
@@ -407,7 +406,7 @@ namespace bankimport_default {
 
         }
 
-        private void btnApriFile_Click(object sender, EventArgs e) {
+        private async void btnApriFile_Click(object sender, EventArgs e) {
             if (controller.IsEmpty) return;
             openFileDialog1.FileName = txtFile.Text;
             DialogResult dr = openFileDialog1.ShowDialog(this);
@@ -425,7 +424,7 @@ namespace bankimport_default {
             if (I != null) {
                 if (controller.isClosing) return;
                 if (!I.DatiValidi) {
-                    QueryCreator.ShowError(this, "Poiché i dati importati non sono validi, non sarà possibile salvare.",
+                    QueryCreator.ShowError(this, "PoichÃ© i dati importati non sono validi, non sarÃ  possibile salvare.",
                         I.error);
                     Meta.CanSave = false;
                 }
@@ -433,7 +432,7 @@ namespace bankimport_default {
                     Meta.CanSave = true;
                 }
                 DataRow Curr = DS.bankimport.Rows[0];
-                travasaInDataSet(I, Curr);
+                await travasaInDataSet(I, Curr);
 
 
                 model.MarkTableAsNotEntityChild(DS.bankimport, DS.banktransaction);
@@ -442,31 +441,30 @@ namespace bankimport_default {
                 DisplayGridImportazione(I);                
             }
 
-            btnApriFile.Enabled = true;
-            labelOperazione.Text = null;
-            progressBar.Value = 0;
+            await InvokeAsync(() => {
+                btnApriFile.Enabled = true;
+                labelOperazione.Text = null;
+                progressBar.Value = 0;
+                MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+            });
+
             Application.DoEvents();
             Cursor = null;
 
         }
 
-
-
-
-
-
         /// <summary>
         /// Metodo che fa partire la procedura di esitazione automatica.
         /// </summary>
         /// <returns></returns>
-        public bool travasaInDataSet(DatiImportati M, DataRow Curr) {
+        public async Task<bool> travasaInDataSet(DatiImportati M, DataRow Curr) {
 
 
-            TravasaPartitePendenti(M, Curr);
-            TravasaEsitiPartitePendenti(M, Curr);
+            await TravasaPartitePendenti(M, Curr);
+            await TravasaEsitiPartitePendenti(M, Curr);
 
-            copiaMandati(M, Curr);
-            copiaReversali(M, Curr);
+            await copiaMandati(M, Curr);
+            await copiaReversali(M, Curr);
 
             CalcolaRigaBankImport(M, Curr /*DS.bankimport.Rows[0]*/);
 
@@ -477,61 +475,81 @@ namespace bankimport_default {
 
         /// <summary>
         /// Crea le operazioni sulle bollette in base al file importato dalla banca
-        /// La riga in bill è cercata in base a ybill=ESERC, nbill=NUMQUI e billkind= D/C a seconda del tipo di bolletta (P/I)
-        /// Quando la bolletta è creata, in essa sono valorizzati anche i campi 
+        /// La riga in bill Ã¨ cercata in base a ybill=ESERC, nbill=NUMQUI e billkind= D/C a seconda del tipo di bolletta (P/I)
+        /// Quando la bolletta Ã¨ creata, in essa sono valorizzati anche i campi 
         ///   motive(CAUSALE)   registry(ANABE)   adate(DTPAG) idtreasurer e active='S'
         /// </summary>
-        /// <param name="multibill">Se true ammette bolletta aperta più volte</param>
+        /// <param name="multibill">Se true ammette bolletta aperta piÃ¹ volte</param>
         /// <returns></returns>
-        private bool TravasaPartitePendenti(DatiImportati M, DataRow Curr) {
+        private async Task<bool> TravasaPartitePendenti(DatiImportati M, DataRow Curr)
+        {
             // Si selezionano le partite pendenti mediante il filtro seguente.
 
-            labelOperazione.Text = "Elaborazione Partite pendenti";
-            progressBar.Maximum = M.BolletteEntrata.Count + M.BolletteSpesa.Count;
-            progressBar.Value = 0;
+            await InvokeAsync(() => {
+                labelOperazione.Text = "Elaborazione Partite pendenti";
+                progressBar.Maximum = M.BolletteEntrata.Count + M.BolletteSpesa.Count;
+                progressBar.Value = 0;
+            });
+
             int esercizio = CfgFn.GetNoNullInt32(security.GetEsercizio());
 
-            foreach (ProvvisorioEntrata PE in M.BolletteEntrata) {
-                progressBar.Value++;
-                Application.DoEvents();
+            foreach (ProvvisorioEntrata PE in M.BolletteEntrata)
+            {
+                await InvokeAsync(() => {
+                    progressBar.Value++;
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+                });
+
                 if (PE.y != esercizio) continue;
                 copiaPartitaPendente("C", PE, Curr);
-                //Application.DoEvents();
             }
 
-            foreach (ProvvisorioSpesa PS in M.BolletteSpesa) {
-                progressBar.Value++;
-                Application.DoEvents();
+            foreach (ProvvisorioSpesa PS in M.BolletteSpesa)
+            {
+                await InvokeAsync(() => {
+                    progressBar.Value++;
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+                });
+
                 if (PS.y != esercizio) continue;
                 copiaPartitaPendente("D", PS, Curr);
-                //Application.DoEvents();
             }
 
             return true;
         }
-
-        private bool TravasaEsitiPartitePendenti(DatiImportati M, DataRow Curr) {
+                
+        private async Task<bool> TravasaEsitiPartitePendenti(DatiImportati M, DataRow Curr)
+        {
             // Si selezionano le partite pendenti mediante il filtro seguente.
 
-            labelOperazione.Text = "Elaborazione Esiti Partite pendenti";
-            progressBar.Maximum = M.EsitiBolletteEntrata.Count + M.EsitiBolletteSpesa.Count;
-            progressBar.Value = 0;
+            await InvokeAsync(() => {
+                labelOperazione.Text = "Elaborazione Esiti Partite pendenti";
+                progressBar.Maximum = M.EsitiBolletteEntrata.Count + M.EsitiBolletteSpesa.Count;
+                progressBar.Value = 0;
+            });
+
             int esercizio = CfgFn.GetNoNullInt32(security.GetEsercizio());
 
-            foreach (EsitoProvvisorio PE in M.EsitiBolletteEntrata) {
-                progressBar.Value++;
-                Application.DoEvents();
+            foreach (EsitoProvvisorio PE in M.EsitiBolletteEntrata)
+            {
+                await InvokeAsync(() => {
+                    progressBar.Value++;
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+                });
+
                 if (PE.y != esercizio) continue;
                 copiaEsitoPartitaPendente("C", PE, Curr);
-                //Application.DoEvents();
             }
 
-            foreach (EsitoProvvisorio PS in M.EsitiBolletteSpesa) {
-                progressBar.Value++;
-                Application.DoEvents();
+            foreach (EsitoProvvisorio PS in M.EsitiBolletteSpesa)
+            {
+                await InvokeAsync(() => {
+                    progressBar.Value++;
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+                });
+
                 if (PS.y != esercizio) continue;
                 copiaEsitoPartitaPendente("D", PS, Curr);
-                //Application.DoEvents();
             }
 
             return true;
@@ -549,7 +567,7 @@ namespace bankimport_default {
             pp["billkind"] = billkind;
             pp["ybill"] = P.y;
             pp["nbill"] =
-                P.nbill; //per ora lo valorizziamo, un domani non lo faremo più e lo farà il trigger eventualm.
+                P.nbill; //per ora lo valorizziamo, un domani non lo faremo piÃ¹ e lo farÃ  il trigger eventualm.
             pp["banknum"] = P.nbill; //n. bolletta "banca"
             pp["idbank"] = Curr["idbank"];
             pp["amount"] = P.amount;
@@ -583,7 +601,7 @@ namespace bankimport_default {
             pp["kind"] = billkind;
             pp["ybilltran"] = P.y;
             pp["nbill"] =
-                P.nbill; //per ora lo valorizziamo, un domani non lo faremo più e lo farà il trigger eventualm.
+                P.nbill; //per ora lo valorizziamo, un domani non lo faremo piÃ¹ e lo farÃ  il trigger eventualm.
             pp["amount"] = P.amount;
             pp["adate"] = P.data;
         }
@@ -678,23 +696,31 @@ namespace bankimport_default {
             return idtreasurer;
         }
 
-        private void copiaMandati(DatiImportati M, DataRow Curr) {
+        private async Task copiaMandati(DatiImportati M, DataRow Curr)
+        {
             // Sezione dichiarativa - Si valorizzano le variabili in base al tipo di esitazione
-            // se è sui mandati o sulle reversali
-            labelOperazione.Text = "Esitazione mandati";
+            // se Ã¨ sui mandati o sulle reversali
+            await InvokeAsync(() => {
+                labelOperazione.Text = "Esitazione mandati";
+                progressBar.Maximum = M.Mandati.Count;
+                progressBar.Value = 0;
+            });
+
             int esercizio = CfgFn.GetNoNullInt32(security.GetEsercizio());
 
-            progressBar.Maximum = M.Mandati.Count;
-            progressBar.Value = 0;
-            foreach (RigaMandato r in M.Mandati) {
-                progressBar.Value++;
-                Application.DoEvents();
+            foreach (RigaMandato r in M.Mandati)
+            {
+                await InvokeAsync(() => {
+                    progressBar.Value++;
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+                });
+
                 if (r.y != esercizio) continue;
                 copiaEsitazione(r, r.amount, "D", Curr);
             }
         }
 
-        private void btnImportaDaSiope_Click(object sender, EventArgs e) {
+        private async void btnImportaDaSiope_Click(object sender, EventArgs e) {
             if (!controller.IsEmpty) return;
 
             object dataInizio = HelpForm.GetObjectFromString(typeof(DateTime), txtDataInizioSiope.Text, txtDataInizioSiope.Tag.ToString());
@@ -717,11 +743,11 @@ namespace bankimport_default {
                 controller.Clear();
                 controller.DoMainCommand("maininsert");
                 var Curr = DS.bankimport.Rows[0];
-                travasaInDataSet(E, Curr);
+                await travasaInDataSet(E, Curr);
                 if (controller.isClosing) return;
                 if (!E.DatiValidi) {
                     QueryCreator.ShowError(this,
-                        "Poiché i dati importati non sono validi, non sarà possibile salvare una delle pagine del giornale.",
+                        "PoichÃ© i dati importati non sono validi, non sarÃ  possibile salvare una delle pagine del giornale.",
                         E.error);
                     controller.DontWarnOnInsertCancel = true;
                     controller.Clear();
@@ -733,10 +759,14 @@ namespace bankimport_default {
                 btnApriFile.Visible = false;
                 controller.DoMainCommand("mainsave");
             }
-            btnApriFile.Enabled = true;
-            labelOperazione.Text = null;
-            progressBar.Value = 0;
 
+            await InvokeAsync(() => {
+                btnApriFile.Enabled = true;
+                labelOperazione.Text = null;
+                progressBar.Value = 0;
+                MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+            });
+            
             btnImportaDaSiope.Visible = true;
 
             Application.DoEvents();
@@ -750,7 +780,7 @@ namespace bankimport_default {
         }
       
 
-        private void btnImportManualeSiope_Click(object sender, EventArgs e) {
+        private async void btnImportManualeSiope_Click(object sender, EventArgs e) {
             if (controller.IsEmpty) return;
             if (controller.EditMode) return;
             openFileDialog1.FileName = txtFile.Text;
@@ -768,11 +798,11 @@ namespace bankimport_default {
 
             if (I != null) {
                 DataRow Curr = DS.bankimport.Rows[0];
-                travasaInDataSet(I, Curr);
+                await travasaInDataSet(I, Curr);
                 btnImportManualeSiope.Enabled = false;
                 if (controller.isClosing) return;
                 if (!I.DatiValidi) {
-                    QueryCreator.ShowError(this,"Poiché i dati importati non sono validi, non sarà possibile salvare.",I.error);
+                    QueryCreator.ShowError(this,"PoichÃ© i dati importati non sono validi, non sarÃ  possibile salvare.",I.error);
                     Meta.CanSave = false;
                 }
                 else {
@@ -786,9 +816,13 @@ namespace bankimport_default {
                 btnApriFile.Visible = false;
             }
 
-            btnApriFile.Enabled = true;
-            labelOperazione.Text = null;
-            progressBar.Value = 0;
+            await InvokeAsync(() => {
+                btnApriFile.Enabled = true;
+                labelOperazione.Text = null;
+                progressBar.Value = 0;
+                MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+            });
+            
             Application.DoEvents();
             Cursor = null;
 
@@ -798,16 +832,25 @@ namespace bankimport_default {
 
         }
 
-        private void copiaReversali(DatiImportati M, DataRow Curr) {
+        private async Task copiaReversali(DatiImportati M, DataRow Curr)
+        {
             // Sezione dichiarativa - Si valorizzano le variabili in base al tipo di esitazione
-            // se è sui mandati o sulle reversali
-            labelOperazione.Text = "Esitazione reversali";
+            // se Ã¨ sui mandati o sulle reversali
+            await InvokeAsync(() => {
+                labelOperazione.Text = "Esitazione reversali";
+                progressBar.Maximum = M.Reversali.Count;
+                progressBar.Value = 0;
+            });
+
             int esercizio = CfgFn.GetNoNullInt32(security.GetEsercizio());
-            progressBar.Maximum = M.Reversali.Count;
-            progressBar.Value = 0;
-            foreach (RigaReversale r in M.Reversali) {
-                progressBar.Value++;
-                Application.DoEvents();
+
+            foreach (RigaReversale r in M.Reversali)
+            {
+                await InvokeAsync(() => {
+                    progressBar.Value++;
+                    MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+                });
+
                 if (r.y != esercizio) continue;
                 copiaEsitazione(r, r.amount, "C", Curr);
             }
@@ -868,14 +911,19 @@ namespace bankimport_default {
                 rr["idbank"] = m.idbank;
                 txtBanca.Text = rr["idbank"].ToString();
                 //txtDescrBanca
-
-
             }
-
         }
 
-
-
-
+        private async Task InvokeAsync(Action action)
+        {
+            if (this.InvokeRequired)
+            {
+                await Task.Run(() => this.Invoke(action));
+            }
+            else
+            {
+                action();
+            }
+        }
     }
 }

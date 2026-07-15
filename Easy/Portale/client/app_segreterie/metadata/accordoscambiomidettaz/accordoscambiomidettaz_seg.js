@@ -23,11 +23,42 @@
 
 			//afterGetFormData
 			
-			//beforeFill
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#accordoscambiomidettaz_seg_idreg_aziende'), null);
+				} else {
+					this.helpForm.filter($('#accordoscambiomidettaz_seg_idreg_aziende'), this.q.eq('registry_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-accordoscambiomidettaz_seg");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#accordoscambiomidettaz_seg_idreg_aziende'), true);
+				this.helpForm.filter($('#accordoscambiomidettaz_seg_idreg_aziende'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidettaz'), this.getDataTable('cefrlanglevel'));
-				//afterClear
+				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -40,8 +71,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-accordoscambiomidettaz_seg");
-				$('#accordoscambiomidettaz_seg_idreg_aziende').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#accordoscambiomidettaz_seg_idreg_aziende').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#accordoscambiomidettaz_seg_idreg_aziende').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_aziende);
+				$('#accordoscambiomidettaz_seg_idreg_aziende').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_aziende);
 				//afterRowSelectin
 				return def.resolve();
 			},

@@ -8,25 +8,25 @@
   <Shapes>
     <Shape ID="DesignTable:automatismitable" ZOrder="9" X="70" Y="198" Height="215" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
     <Shape ID="DesignTable:expense" ZOrder="8" X="247" Y="508" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
-    <Shape ID="DesignTable:expenseview" ZOrder="7" X="503" Y="202" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
+    <Shape ID="DesignTable:expenseview" ZOrder="7" X="503" Y="202" Height="257" Width="176" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:expensevarview" ZOrder="1" X="497" Y="542" Height="215" Width="157" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
     <Shape ID="DesignTable:incomeview" ZOrder="6" X="510" Y="880" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
     <Shape ID="DesignTable:incomevarview" ZOrder="2" X="819" Y="345" Height="215" Width="151" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:expense_expenseview" ZOrder="5" LineWidth="11">
+    <Connector ID="DesignRelation:expense_incomeview" ZOrder="3" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>397</X>
-          <Y>508</Y>
+          <Y>723</Y>
         </Point>
         <Point>
           <X>397</X>
-          <Y>287</Y>
+          <Y>880</Y>
         </Point>
         <Point>
-          <X>503</X>
-          <Y>287</Y>
+          <X>510</X>
+          <Y>880</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -42,19 +42,19 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:expense_incomeview" ZOrder="3" LineWidth="11">
+    <Connector ID="DesignRelation:expense_expenseview" ZOrder="5" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>397</X>
-          <Y>723</Y>
+          <Y>508</Y>
         </Point>
         <Point>
           <X>397</X>
-          <Y>880</Y>
+          <Y>287</Y>
         </Point>
         <Point>
-          <X>510</X>
-          <Y>880</Y>
+          <X>503</X>
+          <Y>287</Y>
         </Point>
       </RoutePoints>
     </Connector>

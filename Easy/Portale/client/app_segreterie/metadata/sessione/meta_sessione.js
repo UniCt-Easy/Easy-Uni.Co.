@@ -24,8 +24,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'start', 'Data di inizio', null, 40, null);
-						this.describeAColumn(table, 'stop', 'Data di fine', null, 50, null);
+						this.describeAColumn(table, 'start', 'Data di inizio', null, 10, null);
+						this.describeAColumn(table, 'stop', 'Data di fine', null, 20, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -71,7 +71,15 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "start desc, idsessionekind asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

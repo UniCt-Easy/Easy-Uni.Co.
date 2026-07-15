@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,17 +25,17 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_fasciaiseedef_more"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_fasciaiseedef_more: DataSet {
+public partial class dsmeta_fasciaiseedef_more: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable fasciaiseedefaultview 		=> (MetaTable)Tables["fasciaiseedefaultview"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ratakind 		=> (MetaTable)Tables["ratakind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ratadef 		=> (MetaTable)Tables["ratadef"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable fasciaisee 		=> (MetaTable)Tables["fasciaisee"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fasciaiseedef 		=> (MetaTable)Tables["fasciaiseedef"];
@@ -67,8 +65,17 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_fasciaiseedef_more.xsd";
 
 	#region create DataTables
+	//////////////////// FASCIAISEEDEFAULTVIEW /////////////////////////////////
+	var tfasciaiseedefaultview= new MetaTable("fasciaiseedefaultview");
+	tfasciaiseedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tfasciaiseedefaultview.defineColumn("fasciaisee_active", typeof(string));
+	tfasciaiseedefaultview.defineColumn("idfasciaisee", typeof(string),false);
+	Tables.Add(tfasciaiseedefaultview);
+	tfasciaiseedefaultview.defineKey("idfasciaisee");
+
 	//////////////////// RATAKIND /////////////////////////////////
 	var tratakind= new MetaTable("ratakind");
+	tratakind.defineColumn("active", typeof(string));
 	tratakind.defineColumn("idratakind", typeof(string),false);
 	tratakind.defineColumn("title", typeof(string));
 	Tables.Add(tratakind);
@@ -89,13 +96,6 @@ private void initClass() {
 	Tables.Add(tratadef);
 	tratadef.defineKey("idcostoscontodef", "idfasciaiseedef", "idratadef");
 
-	//////////////////// FASCIAISEE /////////////////////////////////
-	var tfasciaisee= new MetaTable("fasciaisee");
-	tfasciaisee.defineColumn("idfasciaisee", typeof(string),false);
-	tfasciaisee.defineColumn("title", typeof(string));
-	Tables.Add(tfasciaisee);
-	tfasciaisee.defineKey("idfasciaisee");
-
 	//////////////////// FASCIAISEEDEF /////////////////////////////////
 	var tfasciaiseedef= new MetaTable("fasciaiseedef");
 	tfasciaiseedef.defineColumn("ct", typeof(DateTime),false);
@@ -112,17 +112,17 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{fasciaiseedef.Columns["idcostoscontodef"], fasciaiseedef.Columns["idfasciaiseedef"]};
-	var cChild = new []{ratadef.Columns["idcostoscontodef"], ratadef.Columns["idfasciaiseedef"]};
+	var cPar = new []{fasciaiseedefaultview.Columns["idfasciaisee"]};
+	var cChild = new []{fasciaiseedef.Columns["idfasciaisee"]};
+	Relations.Add(new DataRelation("FK_fasciaiseedef_fasciaiseedefaultview_idfasciaisee",cPar,cChild,false));
+
+	cPar = new []{fasciaiseedef.Columns["idcostoscontodef"], fasciaiseedef.Columns["idfasciaiseedef"]};
+	cChild = new []{ratadef.Columns["idcostoscontodef"], ratadef.Columns["idfasciaiseedef"]};
 	Relations.Add(new DataRelation("FK_ratadef_fasciaiseedef_idcostoscontodef-idfasciaiseedef",cPar,cChild,false));
 
 	cPar = new []{ratakind.Columns["idratakind"]};
 	cChild = new []{ratadef.Columns["idratakind"]};
 	Relations.Add(new DataRelation("FK_ratadef_ratakind_idratakind",cPar,cChild,false));
-
-	cPar = new []{fasciaisee.Columns["idfasciaisee"]};
-	cChild = new []{fasciaiseedef.Columns["idfasciaisee"]};
-	Relations.Add(new DataRelation("FK_fasciaiseedef_fasciaisee_idfasciaisee",cPar,cChild,false));
 
 	#endregion
 

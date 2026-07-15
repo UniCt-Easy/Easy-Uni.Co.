@@ -3,9 +3,19 @@
   <xs:element name="dsmeta_fasciaiseedef_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="fasciaiseedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="fasciaisee_active" type="xs:string" minOccurs="0" />
+              <xs:element name="idfasciaisee" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="ratakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idratakind" type="xs:string" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -27,14 +37,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="fasciaisee" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idfasciaisee" type="xs:string" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="fasciaiseedef" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -51,6 +53,10 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fasciaiseedefaultview" />
+      <xs:field xpath="mstns:idfasciaisee" />
+    </xs:unique>
+    <xs:unique name="ratakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:ratakind" />
       <xs:field xpath="mstns:idratakind" />
     </xs:unique>
@@ -60,10 +66,6 @@
       <xs:field xpath="mstns:idfasciaiseedef" />
       <xs:field xpath="mstns:idratadef" />
     </xs:unique>
-    <xs:unique name="fasciaisee_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:fasciaisee" />
-      <xs:field xpath="mstns:idfasciaisee" />
-    </xs:unique>
     <xs:unique name="fasciaiseedef_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:fasciaiseedef" />
       <xs:field xpath="mstns:idcostoscontodef" />
@@ -72,9 +74,9 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_fasciaiseedef_fasciaiseedefaultview_idfasciaisee" msdata:parent="fasciaiseedefaultview" msdata:child="fasciaiseedef" msdata:parentkey="idfasciaisee" msdata:childkey="idfasciaisee" />
       <msdata:Relationship name="FK_ratadef_fasciaiseedef_idcostoscontodef-idfasciaiseedef" msdata:parent="fasciaiseedef" msdata:child="ratadef" msdata:parentkey="idcostoscontodef idfasciaiseedef" msdata:childkey="idcostoscontodef idfasciaiseedef" />
       <msdata:Relationship name="FK_ratadef_ratakind_idratakind" msdata:parent="ratakind" msdata:child="ratadef" msdata:parentkey="idratakind" msdata:childkey="idratakind" />
-      <msdata:Relationship name="FK_fasciaiseedef_fasciaisee_idfasciaisee" msdata:parent="fasciaisee" msdata:child="fasciaiseedef" msdata:parentkey="idfasciaisee" msdata:childkey="idfasciaisee" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

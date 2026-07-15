@@ -28,7 +28,7 @@
               <xs:element name="idcity" type="xs:int" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
               <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />

@@ -29,7 +29,16 @@
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.sostenimentodefaultview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

@@ -23,12 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstuconsmast':
-						this.describeAColumn(table, 'registry_title', 'Studente', null, 10, 101);
-						this.describeAColumn(table, 'sostenimento_data', 'Data', null, 20, null);
-						this.describeAColumn(table, 'sostenimentoesito_title', 'Esito', null, 120, 50);
-						this.describeAColumn(table, 'sostenimento_voto', 'Voto', 'fixed.2', 200, null);
-						this.describeAColumn(table, 'sostenimento_votosu', 'Su', null, 220, null);
-						this.describeAColumn(table, 'sostenimento_votolode', 'Lode', null, 230, null);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 1300, 101);
+						this.describeAColumn(table, 'sostenimento_data', 'Data', null, 2000, null);
+						this.describeAColumn(table, 'sostenimentoesito_title', 'Esito', null, 12200, 50);
+						this.describeAColumn(table, 'sostenimento_voto', 'Voto', 'fixed.2', 20000, null);
+						this.describeAColumn(table, 'sostenimento_votosu', 'Su', null, 22000, null);
+						this.describeAColumn(table, 'sostenimento_votolode', 'Lode', null, 23000, null);
 //$objCalcFieldConfig_seganagstuconsmast$
 						break;
 //$objCalcFieldConfig$

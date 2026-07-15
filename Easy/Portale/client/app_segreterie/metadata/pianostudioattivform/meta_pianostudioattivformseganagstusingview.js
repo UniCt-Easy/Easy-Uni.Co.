@@ -15,6 +15,7 @@
 
 			describeColumns: function (table, listType) {
 				var nPos=1;
+				var objCalcFieldConfig = {};
 				var self = this;
 				_.forEach(table.columns, function (c) {
 					self.describeAColumn(table, c.name, '', null, -1, null);
@@ -23,7 +24,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstusing':
-						this.describeAColumn(table, 'attivform_title', 'Attività formativa del corso', null, 30, -1);
+						this.describeAColumn(table, 'attivform_title', 'Attività formativa del corso', null, 1100, -1);
+						this.describeAColumn(table, 'sostenimento_data', 'Data Sostenimento', null, 2200, null);
+						this.describeAColumn(table, 'sostenimentoesito_title', 'Esito Esito Sostenimento', null, 3220, 50);
+						this.describeAColumn(table, 'sostenimento_voto', 'Voto Sostenimento', 'fixed.2', 4000, null);
+						this.describeAColumn(table, 'sostenimento_votosu', 'Su Sostenimento', null, 4200, null);
+						this.describeAColumn(table, 'sostenimento_votolode', 'Lode Sostenimento', null, 4300, null);
 //$objCalcFieldConfig_seganagstusing$
 						break;
 //$objCalcFieldConfig$
@@ -45,6 +51,7 @@
 
 			//$getSorting$
 
+			//$describeTree$
         });
 
     window.appMeta.addMeta('pianostudioattivformseganagstusingview', new meta_pianostudioattivformseganagstusingview('pianostudioattivformseganagstusingview'));

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -210,11 +208,6 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.label5 = new System.Windows.Forms.Label();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.grpTrasmSiope = new System.Windows.Forms.GroupBox();
 			this.btnControllaFileOPI = new System.Windows.Forms.Button();
@@ -255,6 +248,11 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.txtCodice01 = new System.Windows.Forms.TextBox();
 			this.btnCodice01 = new System.Windows.Forms.Button();
 			this.txtDenom01 = new System.Windows.Forms.TextBox();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.dataGrid1 = new System.Windows.Forms.DataGrid();
 			this.gboxtipo = new System.Windows.Forms.GroupBox();
 			this.chkMisto = new System.Windows.Forms.CheckBox();
@@ -273,8 +271,6 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.groupBox1.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPrincipale.SuspendLayout();
 			this.grpTrasmSiope.SuspendLayout();
 			this.gboxResponsabile.SuspendLayout();
@@ -288,6 +284,8 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.gboxclass03.SuspendLayout();
 			this.gboxclass02.SuspendLayout();
 			this.gboxclass01.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
 			this.gboxtipo.SuspendLayout();
 			this.SuspendLayout();
@@ -516,7 +514,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.btnIstitutoCassiere.TabIndex = 45;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.Text = "Conto Corrente:";
 			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// cmbCodiceIstituto
@@ -724,61 +722,6 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(934, 469);
 			this.tabControl1.TabIndex = 95;
-			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGridAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "proceedsattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabPrincipale
 			// 
@@ -1235,6 +1178,61 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(926, 443);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(911, 395);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "proceedsattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// dataGrid1
 			// 
 			this.dataGrid1.DataMember = "";
@@ -1363,11 +1361,11 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.gboxclass02.PerformLayout();
 			this.gboxclass01.ResumeLayout(false);
 			this.gboxclass01.PerformLayout();
+			this.tabAllegati.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
 			this.gboxtipo.ResumeLayout(false);
 			this.gboxtipo.PerformLayout();
-			this.tabAllegati.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1448,6 +1446,11 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             if (!UsoSiope) {
                 grpTrasmSiope.Visible = false;
             }
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.proceedsattachment, true);
         }
 
         //controlla che si debba usare la trasmissione Siope+ 

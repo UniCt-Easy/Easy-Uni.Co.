@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -72,6 +70,10 @@ namespace accountenactment_default {
                 }
             }
 
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.accountenactmentattachment, true);
         }
 
         public void MetaData_AfterActivation() {
@@ -146,7 +148,7 @@ namespace accountenactment_default {
 
         private void btnWait_Click(object sender, EventArgs e) {
             if (!Meta.GetFormData(false)) return;
-            bool do_update = show("Attenzione, l'atto sar‡ rimesso nello stato di 'In attesa di approvazione' " +
+            bool do_update = show("Attenzione, l'atto sar√† rimesso nello stato di 'In attesa di approvazione' " +
                                 "e tutte le variazioni contenute che attualmente " +
                                 "sono nello stato di 'approvata' retrocederanno nuovamente allo stato " +
                                 " 'Inserita' ", "Conferma", MessageBoxButtons.OKCancel) ==
@@ -307,7 +309,7 @@ namespace accountenactment_default {
 
         private void btnAnnulla_Click(object sender, EventArgs e) {
             if (!Meta.GetFormData(false)) return;
-            bool do_update = show("Attenzione l'atto sar‡ annullato " +
+            bool do_update = show("Attenzione l'atto sar√† annullato " +
                                 "e tutte le variazioni di budget in esso contenute attualmente nello stato di 'Inserita'" +
                                 "passeranno allo stato " +
                                 " 'Annullata' ", "Conferma", MessageBoxButtons.OKCancel) ==

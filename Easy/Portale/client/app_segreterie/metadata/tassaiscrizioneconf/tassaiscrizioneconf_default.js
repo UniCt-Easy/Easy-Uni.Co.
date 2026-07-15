@@ -23,36 +23,29 @@
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.corsisingoli)
-					parentRow.corsisingoli = 'N';
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-tassaiscrizioneconf_default");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			//afterClear
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.tassaiscrizioneconf.defaults({ 'aamax': this.getAAByDate() });
+				this.state.DS.tables.tassaiscrizioneconf.defaults({ 'aamin': this.getAAByDate() });
+				this.state.DS.tables.tassaiscrizioneconf.defaults({ 'corsisingoli': 'N' });
+				this.state.DS.tables.tassaiscrizioneconf.defaults({ 'idcorsostudiokind': 11 });
+				this.state.DS.tables.tassaiscrizioneconf.defaults({ 'title': 'Tassa di iscrizione per ' });
+				this.setDenyNull("tassaiscrizioneconf","idcostoscontodef");
+				appMeta.metaModel.insertFilter(this.getDataTable("corsostudiokinddefaultview"), this.q.eq('corsostudiokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("strutturadefaultview"), this.q.eq('struttura_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -63,6 +56,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

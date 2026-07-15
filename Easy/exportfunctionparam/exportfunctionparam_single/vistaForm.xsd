@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaexpstoredprocedureparam.xsd" xmlns:mstns="http://tempuri.org/Vistaexpstoredprocedureparam.xsd" xmlns="http://tempuri.org/Vistaexpstoredprocedureparam.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistaexpstoredprocedureparam.xsd" xmlns:mstns="http://tempuri.org/Vistaexpstoredprocedureparam.xsd" xmlns="http://tempuri.org/Vistaexpstoredprocedureparam.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -26,6 +26,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="selectioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="master" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -141,35 +142,16 @@
       <xs:selector xpath=".//mstns:customselection" />
       <xs:field xpath="mstns:selectioncode" />
     </xs:unique>
-    <xs:keyref name="customobjectcolumntypescombodescfield" refer="customobject_Constraint1">
-      <xs:selector xpath=".//mstns:columntypescombodescfield" />
-      <xs:field xpath="mstns:tablename" />
-    </xs:keyref>
-    <xs:keyref name="customobjectcolumntypes" refer="customobject_Constraint1">
-      <xs:selector xpath=".//mstns:columntypes" />
-      <xs:field xpath="mstns:tablename" />
-    </xs:keyref>
-    <xs:keyref name="customselection_exportfunctionparam" refer="customselection_Constraint1">
-      <xs:selector xpath=".//mstns:exportfunctionparam" />
-      <xs:field xpath="mstns:selectioncode" />
-    </xs:keyref>
-    <xs:keyref name="tmp_tipo_exportfunctionparam" refer="tmp_tipo_Constraint1">
-      <xs:selector xpath=".//mstns:exportfunctionparam" />
-      <xs:field xpath="mstns:systype" />
-    </xs:keyref>
-    <xs:keyref name="columntypescombodescfieldexportfunctionparam" refer="columntypescombodescfield_Constraint1">
-      <xs:selector xpath=".//mstns:exportfunctionparam" />
-      <xs:field xpath="mstns:datasource" />
-      <xs:field xpath="mstns:displaymember" />
-    </xs:keyref>
-    <xs:keyref name="columntypesexportfunctionparam" refer="columntypes_Constraint1">
-      <xs:selector xpath=".//mstns:exportfunctionparam" />
-      <xs:field xpath="mstns:datasource" />
-      <xs:field xpath="mstns:valuemember" />
-    </xs:keyref>
-    <xs:keyref name="customobjectexportfunctionparam" refer="customobject_Constraint1">
-      <xs:selector xpath=".//mstns:exportfunctionparam" />
-      <xs:field xpath="mstns:datasource" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="customobjectcolumntypescombodescfield" msdata:parent="customobject" msdata:child="columntypescombodescfield" msdata:parentkey="objectname" msdata:childkey="tablename" />
+      <msdata:Relationship name="customobjectcolumntypes" msdata:parent="customobject" msdata:child="columntypes" msdata:parentkey="objectname" msdata:childkey="tablename" />
+      <msdata:Relationship name="customobjectexportfunctionparam" msdata:parent="customobject" msdata:child="exportfunctionparam" msdata:parentkey="objectname" msdata:childkey="datasource" />
+      <msdata:Relationship name="columntypesexportfunctionparam" msdata:parent="columntypes" msdata:child="exportfunctionparam" msdata:parentkey="tablename field" msdata:childkey="datasource valuemember" />
+      <msdata:Relationship name="columntypescombodescfieldexportfunctionparam" msdata:parent="columntypescombodescfield" msdata:child="exportfunctionparam" msdata:parentkey="tablename field" msdata:childkey="datasource displaymember" />
+      <msdata:Relationship name="tmp_tipo_exportfunctionparam" msdata:parent="tmp_tipo" msdata:child="exportfunctionparam" msdata:parentkey="codice" msdata:childkey="systype" />
+      <msdata:Relationship name="customselection_exportfunctionparam" msdata:parent="customselection" msdata:child="exportfunctionparam" msdata:parentkey="selectioncode" msdata:childkey="selectioncode" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

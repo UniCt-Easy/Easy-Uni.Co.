@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -115,9 +113,25 @@ namespace meta_registry
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
 
+			// l'isvalid o cmq il metadato potrebbe contenere un dizionario di edittype associato a una lista di funzioni,
+			// ognuna delle quali controlla un campo. Ancora meglio, si poteva creare una struttura che contenesse errmess, errfield
+			// e la funziona da usare per il controllo, e i valori delle struttura sarebbero i valori del dizionario.
+			// Si eviterebbero errori nella scrittura del codice, il codice diventerebbe più strutturato,
+			// si potrebbe variare a runtime il comportamento, ecc ecc.
+			// Ma metto l'ennesimo if (ripetuto) in questa lista di if così siamo più rapidi (copia e incolla).
+			// Inoltre non si dovrebbe fare riferimento alla posizione del campo sul form sul metadato.
+
+			if (edit_type == "anagrafica") {
+				if (string.IsNullOrEmpty(R["flagbankitaliaproceeds"].ToString())) {
+					errmess = "\"Regolarizzazione Riscossioni presso  T.P.S. - Banca d'Italia\" su \"Altri dati > Fatture\" deve essere valorizzato";
+					errfield = "flagbankitaliaproceeds";
+					return false;
+				}
+			}
+
 			if (edit_type == "anagrafica") {
 				if (string.IsNullOrEmpty(R["authorization_free"].ToString())) {
-					errmess = "\"Esente ai fini dell'autorizzazione dell'Agente di Riscossione\" deve essere valorizzato";
+					errmess = "\"Esente ai fini dell'autorizzazione dell'Agente di Riscossione\" su \"Altri dati > Fatture\" deve essere valorizzato";
 					errfield = "authorization_free";
 					return false;
 				}
@@ -125,7 +139,7 @@ namespace meta_registry
 
 			if (edit_type == "anagrafica" || R["flag_pa"].ToString().ToUpper() == "") {
 				if (R["flag_pa"].ToString().ToUpper() == "") {
-					errmess = "Applica split payment (per le fatture di vendita) presente nella scheda Altri Dati";
+					errmess = "\"Applica split payment (per le fatture di vendita)\" su \"Altri dati > Fatture\" deve essere valorizzato";
 					errfield = "flag_pa";
 					return false;
 				}

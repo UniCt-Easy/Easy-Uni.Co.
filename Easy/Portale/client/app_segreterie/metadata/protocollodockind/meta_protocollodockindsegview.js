@@ -23,11 +23,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
-						this.describeAColumn(table, 'protocollodockind_description', 'Descrizione', null, 30, 256);
-						this.describeAColumn(table, 'protocollodockind_active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'protocollodockind_kind', 'Kind', null, 50, 50);
-						this.describeAColumn(table, 'protocollodockind_sortcode', 'Sortcode', null, 60, null);
+						this.describeAColumn(table, 'title', 'Titolo', null, 2000, 50);
+						this.describeAColumn(table, 'protocollodockind_description', 'Descrizione', null, 3000, 256);
+						this.describeAColumn(table, 'protocollodockind_active', 'Attivo', null, 4000, null);
+						this.describeAColumn(table, 'protocollodockind_kind', 'Tipo', null, 5000, 50);
+						this.describeAColumn(table, 'protocollodockind_sortcode', 'Ordinamento', null, 6000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -51,6 +51,9 @@
 				switch (listType) {
 					case "seg": {
 						return "title desc";
+					}
+					case "seg": {
+						return "title desc, protocollodockind_sortcode desc";
 					}
 					//$getSortingin$
 				}

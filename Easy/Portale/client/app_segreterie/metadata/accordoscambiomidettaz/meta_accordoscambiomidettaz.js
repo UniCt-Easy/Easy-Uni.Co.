@@ -24,11 +24,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
+						this.describeAColumn(table, 'idreg_aziende', 'Azienda', null, 30, null);
 						this.describeAColumn(table, 'numstud', 'Numero di studenti', null, 40, null);
 						this.describeAColumn(table, 'stipula', 'Data di stipula', null, 50, null);
 						this.describeAColumn(table, 'stop', 'Data di termine', null, 60, null);
-						this.describeAColumn(table, '!idreg_aziende_registry_aziende_title', 'Azienda', null, 31, null);
-						objCalcFieldConfig['!idreg_aziende_registry_aziende_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_aziende' };
+						this.describeAColumn(table, '!idreg_aziende_registry_title', 'Azienda', null, 31, null);
+						objCalcFieldConfig['!idreg_aziende_registry_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_aziende' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -39,7 +40,19 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["idreg_aziende"].caption = "Azienda";
+						table.columns["numstud"].caption = "Numero di studenti";
+						table.columns["stipula"].caption = "Data di stipula";
+						table.columns["stop"].caption = "Data di termine";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_accordoscambiomidettaz");

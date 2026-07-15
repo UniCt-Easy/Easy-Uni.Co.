@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fabbisognoresiduo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_fabbisognoresiduo]
@@ -470,7 +468,7 @@ insert into #datiout(
 	fabb_residuo 
 	)
 select  
-	'F',
+	'A',
 	assignedrequirement
 from config
 where ayear = @ayear
@@ -668,8 +666,7 @@ END
 CLOSE fabb_residuo_cursor  
 DEALLOCATE fabb_residuo_cursor 
 
-
-UPDATE #datisum set kind_ES = 'Fabbisogno Assegnato', fabb_residuo = NULL where kind_ES = 'F'
+UPDATE #datisum set kind_ES = 'Fabbisogno Assegnato'  where kind_ES = 'A'
 
 -- ======================================================================
 -- Select finale

@@ -6,6 +6,7 @@
         <xs:element name="sostenimentoesito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idsostenimentoesito" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
@@ -82,8 +83,8 @@
               <xs:element name="didprog_utenzasost" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_website" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="geo_nationlang_title" type="xs:string" minOccurs="0" />
-              <xs:element name="geo_nationlangvis_title" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nationlang_lang" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nationlangvis_lang" type="xs:string" minOccurs="0" />
               <xs:element name="graduatoria_title" type="xs:string" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" />
@@ -138,6 +139,7 @@
     </xs:unique>
     <xs:unique name="didprogdotmasview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogdotmasview" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
     </xs:unique>
     <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

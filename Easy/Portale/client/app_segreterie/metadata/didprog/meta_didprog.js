@@ -26,6 +26,7 @@
 					case 'default':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
+						this.describeAColumn(table, 'codicemiur', 'Codice MIUR', null, 80, 50);
 //$objCalcFieldConfig_default$
 						break;
 					case 'ingresso':
@@ -55,6 +56,8 @@
 				switch (edittype) {
 					case 'default':
 						table.columns["aa"].caption = "Anno accademico";
+						table.columns["iddidprog"].caption = "Identificativo";
+						table.columns["title"].caption = "Denominazione";
 						table.columns["annosolare"].caption = "Anno solare";
 						table.columns["attribdebiti"].caption = "Attribuzione eventuali crediti o debiti formativi";
 						table.columns["codicemiur"].caption = "Codice MIUR";
@@ -63,7 +66,8 @@
 						table.columns["idareadidattica"].caption = "Area didattica";
 						table.columns["idconvenzione"].caption = "Convenzione";
 						table.columns["idcorsostudio"].caption = "Corso di studi";
-						table.columns["iddidprog"].caption = "Identificativo";
+						table.columns["idcorsostudiokind"].caption = "Tipologia";
+						table.columns["idcorsostudiolivello"].caption = "Livello";
 						table.columns["iddidprognumchiusokind"].caption = "Numero chiuso";
 						table.columns["iddidprogsuddannokind"].caption = "Suddivisioni dell'anno";
 						table.columns["iderogazkind"].caption = "Erogazione";
@@ -88,55 +92,15 @@
 						table.columns["regolamentotaxurl"].caption = "Indirizzo WEB del regolamento delle tasse";
 						table.columns["startiscrizioni"].caption = "Data di inizio delle iscrizioni";
 						table.columns["stopiscrizioni"].caption = "Data di fine delle Iscrizioni";
-						table.columns["title"].caption = "Denominazione";
 						table.columns["title_en"].caption = "Denominazione (EN)";
 						table.columns["utenzasost"].caption = "Utenza sostenibile";
 						table.columns["website"].caption = "Sito WEB del corso";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'ingresso':
-						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_ingresso$
 						break;
 					case 'dotmas':
-						table.columns["aa"].caption = "Anno accademico";
-						table.columns["annosolare"].caption = "Anno solare";
-						table.columns["attribdebiti"].caption = "Attribuzione eventuali crediti o debiti formativi";
-						table.columns["codicemiur"].caption = "Codice MIUR";
-						table.columns["dataconsmaxiscr"].caption = "Data del conseguimento massima per il quale è consentito iscriversi";
-						table.columns["freqobbl"].caption = "Frequenza Obbligatoria";
-						table.columns["idareadidattica"].caption = "Area didattica";
-						table.columns["idconvenzione"].caption = "Convenzione";
-						table.columns["idcorsostudio"].caption = "Corso di studi";
-						table.columns["iddidprog"].caption = "Identificativo";
-						table.columns["iddidprognumchiusokind"].caption = "Numero chiuso";
-						table.columns["iddidprogsuddannokind"].caption = "Suddivisioni dell'anno";
-						table.columns["iderogazkind"].caption = "Erogazione";
-						table.columns["idgraduatoria"].caption = "Graduatoria";
-						table.columns["idnation_lang"].caption = "Lingua di erogazione";
-						table.columns["idnation_lang2"].caption = "Seconda lingua di erogazione";
-						table.columns["idnation_langvis"].caption = "Lingua di visualizzazione";
-						table.columns["idreg_docenti"].caption = "Referente";
-						table.columns["idsede"].caption = "Sede";
-						table.columns["idsessione"].caption = "Sessione";
-						table.columns["idtitolokind"].caption = "Titolo di studi";
-						table.columns["immatoltreauth"].caption = "Consenti l'immatricolazione oltre i termini";
-						table.columns["modaccesso"].caption = "Modalità e conoscenze per l'accesso";
-						table.columns["modaccesso_en"].caption = "Modalità e conoscenze per l'accesso (EN)";
-						table.columns["obbformativi"].caption = "Obiettivi formativi";
-						table.columns["obbformativi_en"].caption = "Obiettivi formativi (EN)";
-						table.columns["preimmatoltreauth"].caption = "Consenti la pre-immatricolazione oltre i termini";
-						table.columns["progesamamm"].caption = "Programma dell'esame di ammissione";
-						table.columns["prospoccupaz"].caption = "Prospettive occupazionali";
-						table.columns["provafinaledesc"].caption = "Caratteristiche della prova finale";
-						table.columns["regolamentotax"].caption = "Regolamento delle tasse";
-						table.columns["regolamentotaxurl"].caption = "Indirizzo WEB del regolamento delle tasse";
-						table.columns["startiscrizioni"].caption = "Data di inizio delle iscrizioni";
-						table.columns["stopiscrizioni"].caption = "Data di fine delle Iscrizioni";
-						table.columns["title"].caption = "Denominazione";
-						table.columns["title_en"].caption = "Denominazione (EN)";
-						table.columns["utenzasost"].caption = "Utenza sostenibile";
-						table.columns["website"].caption = "Sito WEB del corso";
 //$innerSetCaptionConfig_dotmas$
 						break;
 					case 'stato':

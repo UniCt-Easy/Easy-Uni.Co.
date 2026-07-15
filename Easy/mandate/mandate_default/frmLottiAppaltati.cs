@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -36,7 +34,7 @@ namespace mandate_default {
         object idavcp = DBNull.Value;
 
         /// <summary>
-        /// Lotti Ë la tabella mandatedetail del chiamante, Partecipante Ë la riga (mandateavcp) del partecipante 
+        /// Lotti √® la tabella mandatedetail del chiamante, Partecipante √® la riga (mandateavcp) del partecipante 
         /// </summary>
         /// <param name="Lotti"></param>
         /// <param name="Partecipante"></param>
@@ -146,13 +144,13 @@ namespace mandate_default {
         /// </summary>
         void AccettaAssociazioni() {
 
-            //Per tutte le righe attive in Associazioni, le scollega se la corrispondente riga non Ë pi˘ selezionata
+            //Per tutte le righe attive in Associazioni, le scollega se la corrispondente riga non √® pi√π selezionata
             foreach (DataRow r in Lotti.Select(QHC.CmpEq("idavcp", idavcp))) {
                 if (isChecked(r["cigcode"])) continue;
                 r["idavcp"] = DBNull.Value;
             }
 
-            //Per tutte le righe selezionate, le aggiunge ad Associazioni se  non sono gi‡ presenti in essa
+            //Per tutte le righe selezionate, le aggiunge ad Associazioni se  non sono gi√† presenti in essa
             foreach (DataRow p in Lotti.Select()) {
                 if (!isChecked(p["cigcode"])) continue;
                 p["idavcp"] = idavcp;

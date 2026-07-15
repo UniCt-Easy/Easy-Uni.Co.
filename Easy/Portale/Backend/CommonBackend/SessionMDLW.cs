@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using metaeasylibrary;
 using System;
@@ -166,7 +164,7 @@ namespace Backend.CommonBackend {
         }
 
         /// <summary>
-        /// Ritorna true se Ë una sessione SSO valida, cioË il token Ë stato generato entro "durationSessionLoginSSO" minuti
+        /// Ritorna true se √® una sessione SSO valida, cio√® il token √® stato generato entro "durationSessionLoginSSO" minuti
         /// Ripulisce la sessione
         /// </summary>
         /// <param name="session"></param>
@@ -229,7 +227,7 @@ namespace Backend.CommonBackend {
         /// </summary>
         private static void cleanSessionInfos() {
             List<Guid> removals = new List<Guid>();
-            // se Ë passato il tempo max, vado a ripulire tutte le sessioni  scadute
+            // se √® passato il tempo max, vado a ripulire tutte le sessioni  scadute
             if (lastCleanDate.AddMinutes(intervalCleaningMinutes) < DateTime.UtcNow) {
                 // nel dict non posso rimuovere durante il ciclo
                 foreach (KeyValuePair<Guid, SessionInfo> sessionInfo in sessionInfos) {
@@ -238,7 +236,7 @@ namespace Backend.CommonBackend {
                     }
                 }
 
-                // loop sulla lista dei sessionInfo a rimovere perchË scaduti
+                // loop sulla lista dei sessionInfo a rimovere perch√® scaduti
                 foreach (Guid skey in removals) {
                     var sys_user = sessionInfos[skey].sys_user;
                     var idreg = sessionInfos[skey].idreg;
@@ -256,7 +254,7 @@ namespace Backend.CommonBackend {
         private static void cleanSessionInfosSSO()
         {
             List<String> removals = new List<String>();
-            // se Ë passato il tempo max, vado a ripulire tutte le sessioni  scadute
+            // se √® passato il tempo max, vado a ripulire tutte le sessioni  scadute
             if (lastCleanDate.AddMinutes(intervalCleaningMinutes) < DateTime.UtcNow)
             {
                 // nel dict non posso rimuovere durante il ciclo
@@ -268,7 +266,7 @@ namespace Backend.CommonBackend {
                     }
                 }
 
-                // loop sulla lista dei sessionInfoSSO da rimovere perchË scaduti
+                // loop sulla lista dei sessionInfoSSO da rimovere perch√® scaduti
                 foreach (String skey in removals)
                 {
                     sessionInfosSSO.Remove(skey);

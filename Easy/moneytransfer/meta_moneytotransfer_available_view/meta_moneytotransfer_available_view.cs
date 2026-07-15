@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -63,8 +61,8 @@ namespace meta_moneytotransfer_available_view
                 DescribeAColumn(T, "codefin", "Bilancio Dest", nPos++);
                 DescribeAColumn(T, "codeupb", "UPB Dest", nPos++);
 
-                DescribeAColumn(T, "treasurerincome", "Cassiere Origine", nPos++);
-                DescribeAColumn(T, "treasurer", "Cassiere Destinazione", nPos++);
+                DescribeAColumn(T, "treasurerincome", "Conto Corrente Origine", nPos++);
+                DescribeAColumn(T, "treasurer", "Conto Corrente Destinazione", nPos++);
                 
                 DescribeAColumn(T, "moneytotransfer", "Importo Disponibile", nPos++);
                 DescribeAColumn(T, "moneytransfered", "Importo Trasferito", nPos++);

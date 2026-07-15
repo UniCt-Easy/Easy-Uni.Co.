@@ -24,8 +24,19 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 10, 60);
+						this.describeAColumn(table, 'title', 'Template', null, 20, 255);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 30, 1024);
 //$objCalcFieldConfig_default$
+						break;
+					case 'configurazione':
+						this.describeAColumn(table, 'idtimesheettemplate', 'Template', null, 10, 60);
+						this.describeAColumn(table, 'leftsignaturelabel', 'Label firma sinistra', null, 20, 255);
+						this.describeAColumn(table, 'middlesignaturelabel', 'Label firma centrale', null, 30, 255);
+						this.describeAColumn(table, 'rightsignaturelabel', 'Label firma destra', null, 40, 255);
+						this.describeAColumn(table, 'title', 'Titolo', null, 50, 255);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 60, 1024);
+						this.describeAColumn(table, 'active', 'Attivo', null, 110, null);
+//$objCalcFieldConfig_configurazione$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -38,8 +49,19 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
+						table.columns["description"].caption = "Descrizione";
 						table.columns["idtimesheettemplate"].caption = "Template";
+						table.columns["title"].caption = "Template";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'configurazione':
+						table.columns["active"].caption = "Attivo";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["leftsignaturelabel"].caption = "Label firma sinistra";
+						table.columns["middlesignaturelabel"].caption = "Label firma centrale";
+						table.columns["rightsignaturelabel"].caption = "Label firma destra";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_configurazione$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -65,7 +87,18 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "configurazione": {
+						return "title desc";
+					}
+					case "default": {
+						return "title desc";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
 			//$describeTree$
         });

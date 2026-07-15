@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -585,7 +583,7 @@ namespace estimatedetail_single {
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(152, 23);
 			this.label9.TabIndex = 21;
-			this.label9.Text = "Quantit√† inserita in fatture:";
+			this.label9.Text = "Quantit‡ inserita in fatture:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtNInvoiced
@@ -804,7 +802,7 @@ namespace estimatedetail_single {
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(56, 16);
 			this.label1.TabIndex = 16;
-			this.label1.Text = "Quantit√†:";
+			this.label1.Text = "Quantit‡:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtQuantita
@@ -1311,7 +1309,7 @@ namespace estimatedetail_single {
 			this.checkBox1.Size = new System.Drawing.Size(345, 24);
 			this.checkBox1.TabIndex = 28;
 			this.checkBox1.Tag = "estimatedetail.toinvoice:N:S";
-			this.checkBox1.Text = "Non proporre pi√π il dettaglio per l\'inserimento in fatture";
+			this.checkBox1.Text = "Non proporre pi˘ il dettaglio per l\'inserimento in fatture";
 			// 
 			// label13
 			// 
@@ -2052,7 +2050,7 @@ namespace estimatedetail_single {
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(433, 16);
 			this.label5.TabIndex = 23;
-			this.label5.Text = "Data annullamento (inserire se il dettaglio √®  annullato o sostituito da un altro" +
+			this.label5.Text = "Data annullamento (inserire se il dettaglio Ë  annullato o sostituito da un altro" +
     " dettaglio)";
 			// 
 			// txtstop
@@ -2230,7 +2228,7 @@ namespace estimatedetail_single {
                 if (drParent.RowState != DataRowState.Added && linktoinvoice == "S") {
                     //Verifica se ci sono ratei o scritture di fatt. a ricevere 
                     string idrelated = EP_functions.GetIdForDocument(drParent);
-                    idrelated  = idrelated + "¬ß" + DR["rownum"];
+                    idrelated  = idrelated + "ß" + DR["rownum"];
                     int nRatei = Conn.RUN_SELECT_COUNT("entrydetail", QHS.CmpEq("idrelated", idrelated), false);
                     if (nRatei > 0) {
                         gboxCompetenza.Enabled = false;
@@ -2678,9 +2676,9 @@ namespace estimatedetail_single {
 
         private void btnRemoveIva_Click(object sender, System.EventArgs e) {
             if (show(this,
-                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer√† " +
+                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ " +
                 "comunque a contabilizzare il contratto attivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione " +
-                "del contratto √® necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
+                "del contratto Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
                 "Procedo a rimuovere la contabilizzazione del dettaglio?", "Avviso", MessageBoxButtons.YesNo) !=
                 DialogResult.Yes) return;
             DataRow Curr = DS.estimatedetail.Rows[0];
@@ -2700,9 +2698,9 @@ namespace estimatedetail_single {
 
         private void btnRemoveImponibile_Click(object sender, System.EventArgs e) {
             if (show(this,
-                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer√† " +
+                "Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ " +
                 "comunque a contabilizzare il contratto attivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione " +
-                "del contratto √® necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
+                "del contratto Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r" +
                 "Procedo a rimuovere la contabilizzazione del dettaglio?", "Avviso", MessageBoxButtons.YesNo) !=
                 DialogResult.Yes) return;
             DataRow Curr = DS.estimatedetail.Rows[0];
@@ -2952,7 +2950,7 @@ namespace estimatedetail_single {
             int nphase = 1; // Preimpegno
             string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), QHS.CmpEq("nphase", nphase));
 
-            //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
+            //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
             //La scelta va fatta solo sugli Accertamenti di Budget imputati a Conti di Ricavi
             Filterbase = QHS.AppAnd(Filterbase,QHS.CmpGt("totavailable",0),QHS.CmpEq("revenue","S")) ;
             if (Curr["idupb"] != null && Curr["idupb"] != DBNull.Value) {
@@ -2967,7 +2965,7 @@ namespace estimatedetail_single {
             var Curr = DS.estimatedetail.First();
             MetaData.GetFormData(this, true);
             if (Curr["idepacc"] != DBNull.Value) {
-                show("Non √® possibile collegare un preimpegno avendo gi√† generato l'impegno di budget",
+                show("Non Ë possibile collegare un preimpegno avendo gi‡ generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -2993,7 +2991,7 @@ namespace estimatedetail_single {
 
             DataRow Curr = DS.estimatedetail.Rows[0];
             if (Curr["idepacc"] != DBNull.Value) {
-                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'accertamento di budget",
+                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'accertamento di budget",
                     "Errore");
                 return;
             }
@@ -3011,13 +3009,13 @@ namespace estimatedetail_single {
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtstop.Text, txtstop.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di fine validit√† sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di fine validit‡ sia dell'esercizio.", "Errore");
                 txtstop.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.estimatedetail[0];
                 if (((DateTime) d).Year < curr.yestim) {
-                    show("E' necessario che la data di fine validit√† non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di fine validit‡ non preceda l'anno di creazione del contratto.", "Errore");
                     txtstop.Text = "";
                 }
             }
@@ -3029,13 +3027,13 @@ namespace estimatedetail_single {
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtstart.Text, txtstart.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di inizio validit√† sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di inizio validit‡ sia dell'esercizio.", "Errore");
                 txtstart.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.estimatedetail[0];
                 if (((DateTime) d).Year < curr.yestim) {
-                    show("E' necessario che la data di inizio validit√† non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di inizio validit‡ non preceda l'anno di creazione del contratto.", "Errore");
                     txtstart.Text = "";
                 }
             }
@@ -3058,7 +3056,7 @@ namespace estimatedetail_single {
 			// http://deepblue:4545/siope/acquisti		5|entrate
 			DataTable SIOPE_EndPoint = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code", $"SIOPEURL_{av_type}"), null, true);
 
-			// Se non ci sono righe il servizio di AI non √® configurato
+			// Se non ci sono righe il servizio di AI non Ë configurato
 			if (SIOPE_EndPoint.Rows.Count <= 0)
 				return list;
 
@@ -3070,7 +3068,7 @@ namespace estimatedetail_single {
 			string[] par = api_param.Split('|');
 			if (par.Length > 2) {
 				// http://deepblue:4545/siope/acquisti
-				// http://10.10.10.183:4545/siope/acquisti;
+				// http://your-db-server:4545/siope/acquisti;
 				api_url = par[0];
 				// N
 				int nr = 0;
@@ -3108,7 +3106,7 @@ namespace estimatedetail_single {
 				catch (Exception Ex) {
 					// error = Ex.Message;
 					//Se il servizio per qualche motivo non risponde, esce. Non fornisce alcun messaggio all'utente, ma cosa deve essere trasparente.
-					error = $"{"Il serviziodi Intelligenza Artificiale non √® attivo."}";
+					error = $"{"Il serviziodi Intelligenza Artificiale non Ë attivo."}";
 					return list;
 				}
 

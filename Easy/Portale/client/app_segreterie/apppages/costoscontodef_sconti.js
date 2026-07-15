@@ -24,38 +24,19 @@
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.idcostoscontodefkind)
-					parentRow.idcostoscontodefkind = 2;
-				$("#XXfasciaiseedef").prop("disabled", !this.state.isEditState());
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-costoscontodef_sconti");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			//afterClear
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($("#XXfasciaiseedef"), this.state.isEditState());
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.costoscontodef.defaults({ 'idcostoscontodefkind': 2 });
 				$("#XXfasciaiseedef").prop("disabled", true);
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -88,7 +69,7 @@
 			
 			insertClick: function (that, grid) {
 				if (this.state.isInsertState() && grid.dataSourceName === "costoscontodefdettaglio") {
-					return this.showMessageOk("Devi prima salvare lo sconto, e creare gli oggetti: fascia isee, rata etc...");
+					return this.showMessageOk("Devi prima salvare il costo, e creare gli oggetti: fascia isee, rata etc...");
 				} else {
 					return this.superClass.insertClick(that, grid);
 				}

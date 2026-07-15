@@ -23,10 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'didprog':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'registry_title', 'Studente', null, 60, 101);
-						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 70, 50);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 4000, null);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 6300, 101);
+						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 7000, 50);
 //$objCalcFieldConfig_didprog$
 						break;
 //$objCalcFieldConfig$

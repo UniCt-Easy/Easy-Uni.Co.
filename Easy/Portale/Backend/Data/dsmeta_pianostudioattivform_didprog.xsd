@@ -7,13 +7,10 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idappello" type="xs:int" minOccurs="0" />
-              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
-              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
-              <xs:element name="idprova" type="xs:int" minOccurs="0" />
+              <xs:element name="idappello" type="xs:int" />
+              <xs:element name="idprova" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsostenimento" type="xs:int" />
-              <xs:element name="idtitolostudio" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -29,8 +26,6 @@
               <xs:element name="iddidprogcurr" type="xs:int" />
               <xs:element name="iddidprogori" type="xs:int" />
               <xs:element name="iddidprogporzanno" type="xs:int" />
-              <xs:element name="idinsegn" type="xs:int" />
-              <xs:element name="idinsegninteg" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -47,8 +42,6 @@
               <xs:element name="iddidprogcurr" type="xs:int" />
               <xs:element name="iddidprogori" type="xs:int" />
               <xs:element name="iddidprogporzanno" type="xs:int" />
-              <xs:element name="idinsegn" type="xs:int" />
-              <xs:element name="idinsegninteg" type="xs:int" minOccurs="0" />
               <xs:element name="idsede" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -78,15 +71,34 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sostenimentodefaultview" />
+      <xs:field xpath="mstns:idappello" />
+      <xs:field xpath="mstns:idprova" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idsostenimento" />
     </xs:unique>
     <xs:unique name="attivformdefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attivformdefaultview_alias1" />
+      <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="attivformdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attivformdefaultview" />
+      <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="pianostudioattivform_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pianostudioattivform" />

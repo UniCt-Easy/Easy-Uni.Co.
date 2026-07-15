@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sessione_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sessione_default: DataSet {
+public partial class dsmeta_sessione_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -69,14 +67,26 @@ private void initClass() {
 	tsessionekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsessionekinddefaultview.defineColumn("idsessionekind", typeof(int),false);
 	tsessionekinddefaultview.defineColumn("sessionekind_active", typeof(string));
+	tsessionekinddefaultview.defineColumn("sessionekind_ct", typeof(DateTime),false);
+	tsessionekinddefaultview.defineColumn("sessionekind_cu", typeof(string),false);
+	tsessionekinddefaultview.defineColumn("sessionekind_description", typeof(string));
+	tsessionekinddefaultview.defineColumn("sessionekind_lt", typeof(DateTime),false);
+	tsessionekinddefaultview.defineColumn("sessionekind_lu", typeof(string),false);
+	tsessionekinddefaultview.defineColumn("sessionekind_sortcode", typeof(int),false);
+	tsessionekinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tsessionekinddefaultview);
 	tsessionekinddefaultview.defineKey("idsessionekind");
 
 	//////////////////// APPELLOKINDDEFAULTVIEW /////////////////////////////////
 	var tappellokinddefaultview= new MetaTable("appellokinddefaultview");
 	tappellokinddefaultview.defineColumn("appellokind_active", typeof(string));
+	tappellokinddefaultview.defineColumn("appellokind_description", typeof(string));
+	tappellokinddefaultview.defineColumn("appellokind_lt", typeof(DateTime),false);
+	tappellokinddefaultview.defineColumn("appellokind_lu", typeof(string),false);
+	tappellokinddefaultview.defineColumn("appellokind_sortcode", typeof(int),false);
 	tappellokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tappellokinddefaultview.defineColumn("idappellokind", typeof(int),false);
+	tappellokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tappellokinddefaultview);
 	tappellokinddefaultview.defineKey("idappellokind");
 

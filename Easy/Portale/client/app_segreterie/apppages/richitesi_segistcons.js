@@ -21,7 +21,27 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.isNull(parentRow.accettata) || parentRow.accettata == '')
+					parentRow.accettata = 'N';
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-richitesi_segistcons");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
@@ -70,9 +90,13 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#richitesi_segistcons_idreg'), true);
 				this.helpForm.filter($('#richitesi_segistcons_idreg'), null);
 				this.helpForm.filter($('#richitesi_segistcons_idreg_docenti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -81,8 +105,7 @@
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.tesi, "segistcons", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("tesi");
-				this.state.DS.tables.richitesi.defaults({ 'accettata': 'N' });
-				$('#grid_tesikeyword_segistcons').data('mdlconditionallookup', 'lang,S,Si;lang,N,No;');
+				appMeta.metaModel.insertFilter(this.getDataTable("tesikinddefaultview"), this.q.eq('tesikind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -101,8 +124,8 @@
 							$('#richitesi_segistcons_idreg').val('');
 						}
 				}
-				$('#richitesi_segistcons_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#richitesi_segistcons_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#richitesi_segistcons_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#richitesi_segistcons_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				//afterRowSelectin
 				return def.resolve();
 			},

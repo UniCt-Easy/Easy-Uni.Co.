@@ -24,13 +24,14 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if ((this.state.isInsertState() /*|| this.state.isEditState()*/) && (!parentRow.cu || this.sec.sysEnv.idcustomuser.toUpperCase() == parentRow.cu.split('{')[0].toUpperCase())) {
+				//if ((this.state.isInsertState() || this.state.isEditState()) && (!parentRow.cu || this.sec.sysEnv.idcustomuser.toUpperCase() == parentRow.cu.split('{')[0].toUpperCase())) {
+				if (this.state.isInsertState()) {
                    parentRow.utente = appMeta.security.usr('forename') + ' ' + appMeta.security.usr('surname');
                    this.enableControl($('#perfinterazioni_default_commenti'), true);
                 }
@@ -87,6 +88,9 @@
 				$("#SendMail").prop("disabled", true);
 				$("#SendMailComp").on("click", _.partial(this.fireSendMailComp, this));
 				$("#SendMailComp").prop("disabled", true);
+				self.enablenterazmailcomp = (appMeta.appMain.dtConfPerf.rows[0].enablenterazmailcomp == 'S');
+				var SendMailCompButton = document.getElementById('SendMailComp');
+				SendMailCompButton.style.display = self.enablenterazmailcomp ? 'inline-block' : 'none';
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -121,6 +125,29 @@
 			//insertClick
 
 			//beforePost
+
+			afterPost: function () {
+				var self = this;
+				if (this.state.currentRow.getRow && this.state.currentRow.getRow().myState != 'unchanged') {
+					let oldRow = this.state.callerState.DS.tables.perfinterazioni.select(this.q.eq("idperfinterazioni", this.state.currentRow.idperfinterazioni));
+					if (oldRow.length > 0) {
+						//modificata
+						oldRow[0].getRow().makeSameAs(this.state.currentRow);
+					} else {
+						//nuova
+						this.state.callerState.DS.tables.perfinterazioni.rows.add(this.state.currentRow);
+					}
+				}
+				if (this.state.currentRow && !this.state.currentRow.getRow) {
+					//cancellata					
+					let oldRow = this.state.callerState.DS.tables.perfinterazioni.select(this.q.eq("idperfinterazioni", this.state.currentRow.idperfinterazioni));
+					if (oldRow.length > 0) {
+						this.state.callerState.DS.tables.perfinterazioni.detach(oldRow[0]);
+					}
+
+				}
+				//innerAfterPost
+			},
 
 			setRights: function () {
 				this.canSave = appMeta.security.usr('idreg') == this.state.callerState.currentRow.idreg_val || appMeta.security.usr('idreg') == this.state.callerState.currentRow.idreg_comp || appMeta.security.usr('idreg') == this.state.callerState.currentRow.idreg || this.state.callerPage.approva || appMeta.security.usrEnv.progetti_performance.includes('S');
@@ -186,7 +213,7 @@
 									that.superClass.stringFromDate_ddmmyyyy(that.state.currentRow.data) + "." + "<br/><br/>" + /*"<br><br>Commenti del valutatore " + valutatore.referencename +  ":<br>" + (that.state.currentRow.commentival ?? "") + "<br><br>" + "Commenti del valutato " + valutato.referencename +":<br>"*/
 									(that.state.currentRow.commenti ?? "") + "<br/><br/>";
 
-								body += "<a href=\"" + document.URL.replace("?tablename=perfvalutazionepersonale&edittype=default","") + "\">Vai al portale<\a>";
+								body += "<a href=\"" + document.URL.split('?')[0] + "\">Vai al portale<\a>";
 								
 								var subject = dsInterazionikind.rows[0].title + subj +  " in data " + that.superClass.stringFromDate_ddmmyyyy(that.state.currentRow.data);
 
@@ -281,7 +308,7 @@
 									that.superClass.stringFromDate_ddmmyyyy(that.state.currentRow.data) + "." + "<br/><br/>"+ /*"<br><br>Commenti del rilevatore " + valutatore.referencename +  ":<br>" + (that.state.currentRow.commentival ?? "") + "<br><br>"+ "Commenti del valutato " + valutato.referencename +":<br>"*/
 									(that.state.currentRow.commenti ?? "") +  "<br/><br/>";
 
- 								body += "<a href=\"" + document.URL.replace("?tablename=perfvalutazionepersonale&edittype=default","") + "\">Vai al portale<\a>";
+								body += "<a href=\"" + document.URL.split('?')[0] + "\">Vai al portale<\a>";
 								
 								var subject = dsInterazionikind.rows[0].title + subj + " in data " + that.superClass.stringFromDate_ddmmyyyy(that.state.currentRow.data);
 

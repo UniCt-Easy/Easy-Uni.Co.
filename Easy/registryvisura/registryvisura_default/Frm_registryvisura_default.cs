@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -65,12 +63,31 @@ namespace registryvisura_default {
             }
             DataRow Curr = DS.registryvisura.Rows[0];
 
-            if (Curr["visuracertification"] != DBNull.Value) {
+            if (Curr["visuracertification"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value) {
                 btnAllegaVisura.Enabled = false;
                 btnVisualizzaVisura.Enabled = true;
                 btnRimuoviVisura.Enabled = true;
-                byte[] B = (byte[])Curr["visuracertification"];
-                labVisuraFileName.Text = GetFileName(B);
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (Curr["visuracertification"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])Curr["visuracertification"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                    {
+                        show("Servizio Download degli Allegati non disponibile");
+                        return;
+                    }
+                }
+
+                labVisuraFileName.Text = GetFileName(ByteArray);
             }
             else {
                 btnAllegaVisura.Enabled = true;
@@ -109,7 +126,9 @@ namespace registryvisura_default {
 
 
         private void VisualizzaAllegato(string certification) {
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            if (Meta.IsEmpty)
+                return;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWMOREVISU";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -120,27 +139,46 @@ namespace registryvisura_default {
                 catch { }
             }
 
-            //sw Ë il nome del file temporaneo che hai creato
+            //sw √® il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
+
             DataRow Curr = DS.registryvisura.Rows[0];
 
-            byte[] ByteArray = (byte[])Curr[certification];
+            // byte[] ByteArray = (byte[])Curr[certification];
+
+            // File preso dall'attachment o dal MongoDb
+            byte[] ByteArray = { };
+
+            if (Curr["visuracertification"] != DBNull.Value) {
+                // Attachment
+                ByteArray = (byte[])Curr["visuracertification"];
+            }
+            else {
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (ByteArray == null) {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+            }
+
             int offset = GetOffsetForData(ByteArray);
             string fname = GetFileName(ByteArray);
-            string estensione = Path.GetExtension(fname).Trim(); ;
+            string estensione = Path.GetExtension(fname).Trim();
+            ;
 
             bool extensionDenied = CfgFn.ExtensionDenied(estensione);
 
-			if (extensionDenied) {
-				show("Impossibile aprire questo tipo di file");
-				return;
-			}
-			if (!CfgFn.ExtensionAllowed(estensione)) {
-				DialogResult dr = show("Si sta aprendo un file con estensione " + estensione +". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
-				if (dr == DialogResult.No) 
-					return;
-			}
+            if (extensionDenied) {
+                show("Impossibile aprire questo tipo di file");
+                return;
+            }
+            if (!CfgFn.ExtensionAllowed(estensione)) {
+                DialogResult dr = show("Si sta aprendo un file con estensione " + estensione + ". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.No)
+                    return;
+            }
 
             string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
             try {
@@ -153,6 +191,8 @@ namespace registryvisura_default {
             }
 
         }
+
+
 
         void ScriviFile(string sw, byte[] documento, int offset) {
             // Legge il documento memorizzato nel DB e lo scrive nel file temp.
@@ -171,39 +211,31 @@ namespace registryvisura_default {
             catch { }
         }
         void SalvaAllegato(string certification) {
-            // Legge il file indicato dall'utente e lo scrive nel DB in 'visuracertification' o in 'selfcertification'
-            if (Meta.IsEmpty) return;
-            if (!Meta.GetFormData(true)) return;
-            DialogResult dialogResult;
-            try {
-                dialogResult = opendlg.ShowDialog(this);
-            }
-            catch (Exception E) {
-                QueryCreator.ShowException("Errore nella selezione  del file", E);
+            // Legge il file indicato dall'utente e lo scrive nel DB in 'durccertification' o in 'selfcertification'
+            if (Meta.IsEmpty)
                 return;
-            }
-            if (dialogResult == DialogResult.Cancel) return;
-            
+            if (!Meta.GetFormData(true))
+                return;
+            DialogResult dialogResult = opendlg.ShowDialog(this);
+            if (dialogResult == DialogResult.Cancel)
+                return;
+
             string estensione = Path.GetExtension(opendlg.FileName);
 
-			if (CfgFn.ExtensionDenied(estensione)) {
-				show("Impossibile caricare questo tipo di file");
-				return;
-			}
-            
-            DataRow Curr = HelpForm.GetLastSelected(DS.registryvisura);
-            if (Curr == null) return;
-            FileStream FS;
-            try {
-                FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
-            }
-            catch (Exception e) {
-                QueryCreator.ShowException("Errore nell'apertura del file", e);
+            if (CfgFn.ExtensionDenied(estensione)) {
+                show("Impossibile caricare questo tipo di file");
                 return;
             }
-            if (FS == null) return;
+
+            DataRow Curr = HelpForm.GetLastSelected(DS.registryvisura);
+            if (Curr == null)
+                return;
+            FileStream FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
+            if (FS == null)
+                return;
             int n = (int)FS.Length;
-            if (n == 0) return;
+            if (n == 0)
+                return;
             int namelen = LengthForFileName(opendlg.FileName);
 
             try {
@@ -220,12 +252,21 @@ namespace registryvisura_default {
             AbilitaDisabilitaAllegati();
         }
 
+
         private void btnAllegaVisura_Click(object sender, EventArgs e) {
             SalvaAllegato("visuracertification");
         }
 
         private void btnRimuoviVisura_Click(object sender, EventArgs e) {
             DS.registryvisura.Rows[0]["visuracertification"] = DBNull.Value;
+            if (DS.registryvisura.Rows[0]["idfilestorage"] != DBNull.Value)
+            {
+                DS.registryvisura.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registryvisura.Rows[0]["visuracertification"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
         }
 

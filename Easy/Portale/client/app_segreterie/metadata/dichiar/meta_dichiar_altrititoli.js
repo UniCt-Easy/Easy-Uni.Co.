@@ -29,6 +29,12 @@
 						this.describeAColumn(table, 'rilasciatoda', 'Rilasciato da', null, 550, 1024);
 //$objCalcFieldConfig_altrititoli_seg$
 						break;
+					case 'altrititoli_stu':
+						this.describeAColumn(table, 'title', 'Titolo', null, 510, 1024);
+						this.describeAColumn(table, 'dataottenimento', 'Data ottenimento', null, 520, null);
+						this.describeAColumn(table, 'rilasciatoda', 'Rilasciato da', null, 550, 1024);
+//$objCalcFieldConfig_altrititoli_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -37,24 +43,33 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'altrititoli_stu':
+						table.columns["dataottenimento"].caption = "Data ottenimento";
+						table.columns["rilasciatoda"].caption = "Rilasciato da";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_altrititoli_stu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_dichiar_altrititoli");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_dichiar_altrititoli");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					idreg : 0,
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$
@@ -64,6 +79,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "altrititoli_seg": {
+						return "title desc";
+					}
+					case "altrititoli_stu": {
 						return "title desc";
 					}
 					//$getSortingin$

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -95,7 +93,7 @@ namespace assetunload_generautoamortization {
         public void MetaData_AfterActivation() {
             codicefase = MetaData.MaxFromColumn(DS.incomephase, "nphase");
             if (DS.config.Rows.Count == 0) {
-                show("La configurazione del PATRIMONIO non Ë stata definita per l'esercizio corrente!", "Attenzione",
+                show("La configurazione del PATRIMONIO non √® stata definita per l'esercizio corrente!", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Warning = true;
                 return;
@@ -103,7 +101,7 @@ namespace assetunload_generautoamortization {
             DataRow r = DS.Tables["config"].Rows[0];
             string flagnumerazione = r["asset_flagnumbering"].ToString().ToUpper();
             if (flagnumerazione == "" || flagnumerazione == "N") {
-                show("Non Ë stato definito il tipo di numerazione per la configurazione " +
+                show("Non √® stato definito il tipo di numerazione per la configurazione " +
                     "del PATRIMONIO per l'esercizio corrente", "Attenzione",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Warning = true;
@@ -113,7 +111,7 @@ namespace assetunload_generautoamortization {
             flagcreddeb = (assetload_flag & 1) == 1;
             flagcausale = (assetload_flag & 2) == 2;
             if (flagcausale == false && flagcreddeb == false) {
-                show("Non Ë stata definita la configurazione dei buoni " +
+                show("Non √® stata definita la configurazione dei buoni " +
                     "di carico / scarico per l'esercizio corrente.\rI buoni eventualmente " +
                     "generati verranno creati senza creditore e causale.\r\r",
                     "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -292,7 +290,7 @@ namespace assetunload_generautoamortization {
                 AbilitaBottoniOperazioni(false); //true
             }
             else {
-                //L'ho aggiunta perchË se non vi sono righe non viene abilitato il btn Successivo, ma solo Termina
+                //L'ho aggiunta perch√® se non vi sono righe non viene abilitato il btn Successivo, ma solo Termina
                 AbilitaBottoniOperazioni(true);  
             }
             CheckBottoniBene();
@@ -307,7 +305,7 @@ namespace assetunload_generautoamortization {
             AbilitaBottoniBene(rows.Length > 0);
         }
         private void CheckBottoneTutto() {
-            //il controllo dei flag si trova gi‡ nell'enabled dei singoli button
+            //il controllo dei flag si trova gi√† nell'enabled dei singoli button
             btnSi.Enabled = (btnAddBene.Enabled);
             btnNo.Enabled = (btnAddBene.Enabled);
             btnGeneraTutto.Enabled = (btnAddBene.Enabled);
@@ -796,6 +794,7 @@ namespace assetunload_generautoamortization {
         private void dgrCaricoBene_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
             int i = contaRigheSelezionate(dgrCaricoBene);
             if (i > 0) AbilitaBottoniCreaBuono(true);
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         private void txtDataRatifica_Leave(object sender, EventArgs e) {
@@ -810,7 +809,7 @@ namespace assetunload_generautoamortization {
             int selectionStart = acComboBox.SelectionStart;
 
             switch (e.KeyCode) {
-                //Se Ë stato premuta la freccia "SINISTRA" faccio cominciare la selezione
+                //Se √® stato premuta la freccia "SINISTRA" faccio cominciare la selezione
                 //un carattere prima rispetto alla selezione attuale
                 case Keys.Left:
                     if (selectionStart > 0) {
@@ -821,7 +820,7 @@ namespace assetunload_generautoamortization {
                     }
                     break;
 
-                //Se Ë stato premuto il tasto "CANC" seleziono la riga vuota del combobox
+                //Se √® stato premuto il tasto "CANC" seleziono la riga vuota del combobox
                 case Keys.Delete:
                     int index = acComboBox.FindString("");
                     if (index != -1) {
@@ -832,7 +831,7 @@ namespace assetunload_generautoamortization {
                     acComboBox.SelectAll();
                     break;
 
-                //Se Ë stato premuta la freccia "DESTRA" faccio cominciare la selezione
+                //Se √® stato premuta la freccia "DESTRA" faccio cominciare la selezione
                 //un carattere dopo rispetto alla selezione attuale
                 case Keys.Right:
                     if (acComboBox.Text.Length > selectionStart) {
@@ -840,7 +839,7 @@ namespace assetunload_generautoamortization {
                     }
                     break;
 
-                //Se Ë stato premuto il tasto "HOME" seleziono tutta la riga attuale.
+                //Se √® stato premuto il tasto "HOME" seleziono tutta la riga attuale.
                 case Keys.Home:
                     acComboBox.SelectAll();
                     break;
@@ -853,7 +852,7 @@ namespace assetunload_generautoamortization {
         }
 
         private void comboBoxEnteInventario_KeyPress(object sender, KeyPressEventArgs e) {
-            //Se Ë stato premuto ESC o INVIO lascio la gestione dell'evento a .NET
+            //Se √® stato premuto ESC o INVIO lascio la gestione dell'evento a .NET
             if ((e.KeyChar == 27) || (e.KeyChar == 13)) {
                 return;
             }
@@ -863,7 +862,7 @@ namespace assetunload_generautoamortization {
             int selectionStart = acComboBox.SelectionStart;
             if (selectionStart > acComboBox.Text.Length) selectionStart = acComboBox.Text.Length;
 
-            //Se il tasto premuto Ë BACKSPACE, faccio cominciare la selezione un carattere prima
+            //Se il tasto premuto √® BACKSPACE, faccio cominciare la selezione un carattere prima
             //dell'inizio della selezione corrente
             if (e.KeyChar == 8) {
                 if (selectionStart > 0) {
@@ -874,7 +873,7 @@ namespace assetunload_generautoamortization {
                 }
             }
             else {
-                //Se Ë un qualunque altro carattere (quindi tale che IsInputKey()=true
+                //Se √® un qualunque altro carattere (quindi tale che IsInputKey()=true
                 //e diverso anche da ESC, INVIO, BACK) allora lo gestisco io.
 
                 //Cerco una riga del ComboBox che cominci per i primi "selectionStart" caratteri
@@ -929,7 +928,7 @@ namespace assetunload_generautoamortization {
                 CodiceTipoBuono = cboTipo.SelectedValue;
             rdoBene.Enabled = true;
             rdoParte.Enabled = true;
-            //abilitato se Ë abilitata almeno una voce
+            //abilitato se √® abilitata almeno una voce
             rdoAll.Enabled = (flag_bene || flag_parte);
               }
         }

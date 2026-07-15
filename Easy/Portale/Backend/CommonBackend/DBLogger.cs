@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,11 +13,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using metadatalibrary;
 using metaeasylibrary;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -73,5 +72,61 @@ namespace Backend.CommonBackend
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo, string metadata)
+        {
+            BEError bEError = new BEError();
+            bEError.conn = conn;
+            bEError.error = "Error: " + error + " " + GetDSErrors(ds);
+            bEError.methodInfo = methodInfo;
+            bEError.metadata = metadata;
+            DBLogger.log(bEError);
+            return bEError.error;
+        }
+
+        public static void LogOperationAndData(DataSet ds, IEasyDataAccess conn, string operation, string methodInfo, string metadata)
+        {
+            BEError bEError = new BEError();
+            bEError.conn = conn;
+            bEError.error = operation;
+            bEError.methodInfo = methodInfo;
+            bEError.metadata = metadata;
+            DBLogger.log(bEError);
+        }
+
+        public static string GetDSErrors(DataSet ds)
+        {
+            if (ds == null) return "";
+
+            var errors = "";
+            foreach (DataTable table in ds.Tables)
+            {
+                errors += GetDTErrors(table) + " - ";
+            }
+
+            return errors;
+        }
+
+        public static string GetDTErrors(DataTable table)
+        {
+            var errors = "";
+            if (table == null) return "";
+            foreach (DataRow dtrow in table.Rows)
+            {
+                // concateno errori presenti sulle righe
+                String tErrors = "";
+                if (dtrow.RowError != null && dtrow.RowError.Length > 0 && !errors.Contains(dtrow.RowError))
+                {
+                    tErrors = " - " + dtrow.RowError;
+                }
+
+                if (tErrors.Length > 0)
+                {
+                    errors = errors + " Table " + table.TableName + ": " + tErrors;
+                }
+            }
+            return errors;
+        }
+
     }
 }

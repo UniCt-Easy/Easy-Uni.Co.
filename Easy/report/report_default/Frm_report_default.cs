@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -28,6 +26,9 @@ using CrystalDecisions.Shared;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Text;
 using generaSQL;
+using System.Threading;
+using ReportGenClient;
+using ReportGen.Models;
 
 namespace report_default //modulereportparameter//
 {
@@ -83,6 +84,8 @@ namespace report_default //modulereportparameter//
         private CheckBox checkBox8;
         private System.ComponentModel.IContainer components;
 
+        bool useHubService;
+
         public Frm_report_default() {
             //
             // Required for Windows Form Designer support
@@ -90,10 +93,17 @@ namespace report_default //modulereportparameter//
             InitializeComponent();
             openFileDialog1 = createOpenFileDialog(this._openFileDialog1);
             saveFileDialog1 = createSaveFileDialog(this._saveFileDialog1);
+            saveFileDialog1.DefaultExt = ".sql";
             DS.reportparameter.ExtendedProperties["sort_by"] = "number";
             DS.reportparameter.ExtendedProperties["gridmaster"] = "report";
             openFileDialog1.Filter = "File di Crystal Report|*.rpt|Tutti i file|*.*";
             openFileDialog1.Title = "Selezione Report";
+
+            bool forceHubService = File.Exists("forceHubService.txt");
+            bool isBlazor = Thread.CurrentThread.Name == "Main Form Blazor Thread";
+
+            useHubService = forceHubService || isBlazor;
+
             //HelpForm.SetDenyNull(DS.modulereport.timeoutColumn,true);
             // verificare il comportamento della ExtProp "gridmaster"
 
@@ -799,57 +809,107 @@ namespace report_default //modulereportparameter//
         }
 
         private void btnReportAnalisys_Click(object sender, EventArgs e) {
-            ReportDocument ReportDoc = new ReportDocument();
             string path = Meta.GetUsr("localreportdir").ToString();
             string fName = txtFile.Text;
             string repFileName = Path.Combine(path, fName);
+            string spName = "";
+            string param = "";
+            string formula = "";
+            string sp = "";
 
-            try {
-                // Open a temporary copy of the report.
-                ReportDoc.Load(repFileName, OpenReportMethod.OpenReportByTempCopy);
-            }
-            catch (Exception ee) {
-                QueryCreator.ShowException(this, "Impossibile caricare il report " + repFileName, ee);
-                return;
-            }
-            //ReportDispatcherClass.setReportLogon(ReportDoc, Conn as Easy_DataAccess);
+            ReportAnalysis reportContents;
 
-            CrystalDecisions.CrystalReports.Engine.Database crDatabase;
-            CrystalDecisions.CrystalReports.Engine.Tables crTables;
-            crDatabase = ReportDoc.Database;
-            crTables = crDatabase.Tables;
+            if (useHubService)
+			{
+                bool done = false;
 
-            //Nome SP = spName;                              
-            StringBuilder sbParam = new StringBuilder();
-            foreach (ParameterFieldDefinition PF in ReportDoc.DataDefinition.ParameterFields) {
-                //solo se appartengono al report in elaborazione
-                if (PF.ReportName != "") continue;
-                if (PF.IsLinked()) continue;
-                //PF.Name @ayear
-                //PF.ValueType Numberfield  StringField
-                sbParam.AppendLine($"{PF.Name} type:{PF.ValueType}");
-            }
-            StringBuilder sbFormula = new StringBuilder();
-            foreach (FormulaFieldDefinition FFD in ReportDoc.DataDefinition.FormulaFields) {
-                sbFormula.AppendLine($"{FFD.FormulaName} kind: {FFD.ValueType}");
+                // Leggo la configurazione del servizio da chiamare da DB reportgenclient
 
-            }
-            StringBuilder sbSP = new StringBuilder();
-            sbSP.AppendLine($"Report principale:  {ReportDoc.FilePath}  Stored Procedure: {getSPName(ReportDoc)}");
-            //mi scorro tutti i subreport (se presenti) del report principale
-            ReportDefinition repDef = ReportDoc.ReportDefinition;
-            foreach (Section sec in repDef.Sections) {
-                foreach (ReportObject repObj in sec.ReportObjects) {
-                    if (repObj.Kind != ReportObjectKind.SubreportObject) continue;
-                    SubreportObject subRep = (SubreportObject) repObj;
-                    ReportDocument SubReport = subRep.OpenSubreport(subRep.SubreportName);
-                    sbSP.AppendLine($"SubReport: {SubReport.Name}  Stored Procedure: {getSPName(SubReport)}");
-                    SubReport.Close();
+                // se web client
+                DataTable dt = conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        string ServiceUrl = dt.Rows[0][0].ToString();
+                        string ServiceParam = dt.Rows[0][1].ToString();
+
+                        reportContents = CallReportAnalysisClient(repFileName, ServiceUrl, ServiceParam);
+
+                        param = reportContents.param;
+                        formula = reportContents.formula;
+                        sp = reportContents.sp;
+
+                        spName = reportContents.spName;
+
+                        done = true;
+                    }
                 }
             }
+            else
+			{
+                ReportDocument ReportDoc = new ReportDocument();
+
+                try
+                {
+                    // Open a temporary copy of the report.
+                    ReportDoc.Load(repFileName, OpenReportMethod.OpenReportByTempCopy);
+                }
+                catch (Exception ee)
+                {
+                    QueryCreator.ShowException(this, "Impossibile caricare il report " + repFileName, ee);
+                    return;
+                }
+                //ReportDispatcherClass.setReportLogon(ReportDoc, Conn as Easy_DataAccess);
+
+                CrystalDecisions.CrystalReports.Engine.Database crDatabase;
+                CrystalDecisions.CrystalReports.Engine.Tables crTables;
+                crDatabase = ReportDoc.Database;
+                crTables = crDatabase.Tables;
+
+                //Nome SP = spName;                              
+                StringBuilder sbParam = new StringBuilder();
+                foreach (ParameterFieldDefinition PF in ReportDoc.DataDefinition.ParameterFields)
+                {
+                    //solo se appartengono al report in elaborazione
+                    if (PF.ReportName != "") continue;
+                    if (PF.IsLinked()) continue;
+                    //PF.Name @ayear
+                    //PF.ValueType Numberfield  StringField
+                    sbParam.AppendLine($"{PF.Name} type:{PF.ValueType}");
+                }
+                StringBuilder sbFormula = new StringBuilder();
+                foreach (FormulaFieldDefinition FFD in ReportDoc.DataDefinition.FormulaFields)
+                {
+                    sbFormula.AppendLine($"{FFD.FormulaName} kind: {FFD.ValueType}");
+                }
+                StringBuilder sbSP = new StringBuilder();
+                sbSP.AppendLine($"Report principale:  {ReportDoc.FilePath}  Stored Procedure: {getSPName(ReportDoc)}");
+                //mi scorro tutti i subreport (se presenti) del report principale
+                ReportDefinition repDef = ReportDoc.ReportDefinition;
+                foreach (Section sec in repDef.Sections)
+                {
+                    foreach (ReportObject repObj in sec.ReportObjects)
+                    {
+                        if (repObj.Kind != ReportObjectKind.SubreportObject) continue;
+                        SubreportObject subRep = (SubreportObject) repObj;
+                        ReportDocument SubReport = subRep.OpenSubreport(subRep.SubreportName);
+                        sbSP.AppendLine($"SubReport: {SubReport.Name}  Stored Procedure: {getSPName(SubReport)}");
+                        SubReport.Close();
+                    }
+                }
+
+                param = sbParam.ToString();
+                formula = sbFormula.ToString();
+                sp = sbSP.ToString();
+
+                spName = getSPName(ReportDoc);
+
+                ReportDoc.Close();
+            }            
             
-            FrmShowParams p = new FrmShowParams(sbParam.ToString(), sbFormula.ToString(), sbSP.ToString(),Conn, getSPName(ReportDoc));
-            ReportDoc.Close();
+            FrmShowParams p = new FrmShowParams(param, formula, sp,Conn, spName);
+            
             createForm(p, this);
             p.Show(this);
             
@@ -869,6 +929,28 @@ namespace report_default //modulereportparameter//
                 spName = pieces[0];
             }
             return spName;
+        }
+
+        private ReportAnalysis CallReportAnalysisClient(string reportFileName, string ServiceUrl, string ServiceParam)
+		{
+            // Timeout di default 120
+            int timeout = 120;
+
+            // Provo a leggerlo dalla configurazione
+            int.TryParse(ServiceParam, out timeout);
+
+            string db = Conn.Security.GetSys("database").ToString();
+
+            try
+            {
+                WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
+                return client.Analysis(db, reportFileName);
+            }
+            catch (Exception ex)
+            {
+                QueryCreator.ShowError(this, string.Join(": ", "errore durante la chiamata al server dei report", ex.Message), null);
+                return null;
+            }
         }
 
         private void btnGeneraScript_Click(object sender, EventArgs e) {
@@ -905,43 +987,75 @@ namespace report_default //modulereportparameter//
 
             Dictionary<string,bool> spAdded = new Dictionary<string, bool>();
             if (chkScriptSP.Checked) {
-                ReportDocument ReportDoc = new ReportDocument();
+                
                 string path = Meta.GetUsr("localreportdir").ToString();
                 string fName = txtFile.Text;
                 string repFileName = Path.Combine(path, fName);
 
-                try {
-                    // Open a temporary copy of the report.
-                    ReportDoc.Load(repFileName, OpenReportMethod.OpenReportByTempCopy);
-                    StreamWriter sw = new StreamWriter(fileName, true);
-                    string spName = getSPName(ReportDoc);
-                    sw.Write(GeneraSQL.scriptOneSP(Conn, spName));
-                    spAdded.Add(spName,true);
+                StreamWriter sw = new StreamWriter(fileName, true);
 
+                if (useHubService)
+                {
+                    // Leggo la configurazione del servizio da chiamare da DB reportgenclient
 
-                    //mi scorro tutti i subreport (se presenti) del report principale
-                    ReportDefinition repDef = ReportDoc.ReportDefinition;
-                    foreach (Section sec in repDef.Sections) {
-                        foreach (ReportObject repObj in sec.ReportObjects) {
-                            if (repObj.Kind != ReportObjectKind.SubreportObject) continue;
-                            SubreportObject subRep = (SubreportObject) repObj;                            
-                            ReportDocument SubReport = subRep.OpenSubreport(subRep.SubreportName);
-                            spName = getSPName(SubReport);
-                            if (!spAdded.ContainsKey(spName) && spName!="stampa_logo") {
-                                spAdded.Add(spName, true);
-                                sw.Write(GeneraSQL.scriptOneSP(Conn, spName));
-                            }
-                            SubReport.Close();
+                    // se web client
+                    DataTable dt = conn.SQLRunner("SELECT TOP 1 url, params FROM reportgenclient where name = 'webclient'");
+                    if (dt != null)
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            string ServiceUrl = dt.Rows[0][0].ToString();
+                            string ServiceParam = dt.Rows[0][1].ToString();
+
+                            string sqlContent = CallGeneraScriptClient(repFileName, ServiceUrl, ServiceParam);
+
+                            sw.Write(sqlContent);
                         }
                     }
-                    ReportDoc.Close();
-                    sw.Flush();
-                    sw.Close();
-                    sw.Dispose();
                 }
-                catch (Exception ee) {
-                    QueryCreator.ShowException(this, "Impossibile caricare il report " + repFileName, ee);
+                else
+                {
+                    ReportDocument ReportDoc = new ReportDocument();
+
+                    try
+                    {
+                        // Open a temporary copy of the report.
+                        ReportDoc.Load(repFileName, OpenReportMethod.OpenReportByTempCopy);
+                        
+                        string spName = getSPName(ReportDoc);
+                        sw.Write(GeneraSQL.scriptOneSP(Conn, spName));
+                        spAdded.Add(spName, true);
+
+                        //mi scorro tutti i subreport (se presenti) del report principale
+                        ReportDefinition repDef = ReportDoc.ReportDefinition;
+                        foreach (Section sec in repDef.Sections)
+                        {
+                            foreach (ReportObject repObj in sec.ReportObjects)
+                            {
+                                if (repObj.Kind != ReportObjectKind.SubreportObject) continue;
+                                SubreportObject subRep = (SubreportObject) repObj;
+                                ReportDocument SubReport = subRep.OpenSubreport(subRep.SubreportName);
+                                spName = getSPName(SubReport);
+                                if (!spAdded.ContainsKey(spName) && spName != "stampa_logo")
+                                {
+                                    spAdded.Add(spName, true);
+                                    sw.Write(GeneraSQL.scriptOneSP(Conn, spName));
+                                }
+                                SubReport.Close();
+                            }
+                        }
+                        ReportDoc.Close();
+                        
+                    }
+                    catch (Exception ee)
+                    {
+                        QueryCreator.ShowException(this, "Impossibile caricare il report " + repFileName, ee);
+                    }
                 }
+
+                sw.Flush();
+                sw.Close();
+                sw.Dispose();
             }
 
             MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
@@ -955,7 +1069,28 @@ namespace report_default //modulereportparameter//
 
             show(this, message, "Avviso");
             btnGeneraScript.Enabled = true;
+        }
 
+        private string CallGeneraScriptClient(string reportName, string ServiceUrl, string ServiceParam)
+		{
+            // Timeout di default 120
+            int timeout = 120;
+
+            // Provo a leggerlo dalla configurazione
+            int.TryParse(ServiceParam, out timeout);
+
+            string db = Conn.Security.GetSys("database").ToString();
+
+            try
+            {
+                WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
+                return client.GeneraScript(db, reportName);
+            }
+            catch (Exception ex)
+            {
+                QueryCreator.ShowError(this, string.Join(": ", "errore durante la chiamata al server dei report", ex.Message), null);
+                return null;
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -148,7 +146,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.btnVisualizzaEP = new System.Windows.Forms.Button();
 			this.labEP = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox3.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -156,10 +154,10 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.tabDocumenti.SuspendLayout();
 			this.tabPageReversali.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize) (this.dataGrid1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
 			this.tabPageVariazioni.SuspendLayout();
 			this.groupBox4.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize) (this.dgrVariazioni)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVariazioni)).BeginInit();
 			this.tabEP.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -183,7 +181,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.txtNumero.Size = new System.Drawing.Size(88, 23);
 			this.txtNumero.TabIndex = 3;
 			this.txtNumero.Tag = "proceedstransmission.nproceedstransmission?proceedstransmissionview.nproceedstran" +
-			                     "smission";
+    "smission";
 			// 
 			// label2
 			// 
@@ -202,9 +200,8 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.txtEsercizio.Size = new System.Drawing.Size(56, 23);
 			this.txtEsercizio.TabIndex = 1;
 			this.txtEsercizio.TabStop = false;
-			this.txtEsercizio.Tag =
-				"proceedstransmission.yproceedstransmission?proceedstransmissionview.yproceedstran" +
-				"smission";
+			this.txtEsercizio.Tag = "proceedstransmission.yproceedstransmission?proceedstransmissionview.yproceedstran" +
+    "smission";
 			// 
 			// label1
 			// 
@@ -240,10 +237,8 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// cmbResponsabile
 			// 
-			this.cmbResponsabile.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbResponsabile.DataSource = this.DS.manager;
 			this.cmbResponsabile.DisplayMember = "title";
 			this.cmbResponsabile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -265,10 +260,8 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// cmbCodiceIstituto
 			// 
-			this.cmbCodiceIstituto.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbCodiceIstituto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
 			this.cmbCodiceIstituto.DisplayMember = "description";
 			this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -281,21 +274,19 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// btnIstitutoCassiere
 			// 
-			this.btnIstitutoCassiere.Location = new System.Drawing.Point(64, 16);
+			this.btnIstitutoCassiere.Location = new System.Drawing.Point(52, 16);
 			this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
-			this.btnIstitutoCassiere.Size = new System.Drawing.Size(88, 24);
+			this.btnIstitutoCassiere.Size = new System.Drawing.Size(100, 24);
 			this.btnIstitutoCassiere.TabIndex = 67;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox3
 			// 
-			this.groupBox3.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox3.Controls.Add(this.label5);
 			this.groupBox3.Controls.Add(this.textBox1);
 			this.groupBox3.Controls.Add(this.cmbCodiceIstituto);
@@ -339,16 +330,13 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.tabControl1.Size = new System.Drawing.Size(650, 518);
 			this.tabControl1.TabIndex = 3;
 			this.tabControl1.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-				this.tabPrincipale,
-				this.tabEP
-			});
+            this.tabPrincipale,
+            this.tabEP});
 			// 
 			// tabPrincipale
 			// 
-			this.tabPrincipale.Anchor =
-				((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-				                                        System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabPrincipale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabPrincipale.Controls.Add(this.checkBox1);
 			this.tabPrincipale.Controls.Add(this.gBoxTransmissionKind);
 			this.tabPrincipale.Controls.Add(this.tabDocumenti);
@@ -365,7 +353,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.checkBox1.AutoSize = true;
 			this.checkBox1.Location = new System.Drawing.Point(422, 168);
 			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(221, 19);
+			this.checkBox1.Size = new System.Drawing.Size(220, 19);
 			this.checkBox1.TabIndex = 88;
 			this.checkBox1.Tag = "proceedstransmission.flagtransmissionenabled:S:N";
 			this.checkBox1.Text = "Verificato, si autorizza la trasmissione";
@@ -386,7 +374,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.chkTransmissionKind.AutoSize = true;
 			this.chkTransmissionKind.Location = new System.Drawing.Point(107, 11);
 			this.chkTransmissionKind.Name = "chkTransmissionKind";
-			this.chkTransmissionKind.Size = new System.Drawing.Size(212, 19);
+			this.chkTransmissionKind.Size = new System.Drawing.Size(211, 19);
 			this.chkTransmissionKind.TabIndex = 82;
 			this.chkTransmissionKind.Tag = "proceedstransmission.transmissionkind:V:I";
 			this.chkTransmissionKind.Text = "Elenco di Variazioni e Annullamenti";
@@ -395,11 +383,9 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// tabDocumenti
 			// 
-			this.tabDocumenti.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabDocumenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabDocumenti.Controls.Add(this.tabPageReversali);
 			this.tabDocumenti.Controls.Add(this.tabPageVariazioni);
 			this.tabDocumenti.Location = new System.Drawing.Point(6, 202);
@@ -421,11 +407,9 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.txtTotale);
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.btnModifica);
@@ -440,9 +424,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// txtTotale
 			// 
-			this.txtTotale.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-				                                       System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtTotale.Location = new System.Drawing.Point(508, 221);
 			this.txtTotale.Name = "txtTotale";
 			this.txtTotale.ReadOnly = true;
@@ -453,9 +435,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// label4
 			// 
-			this.label4.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-				                                       System.Windows.Forms.AnchorStyles.Right)));
+			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label4.Location = new System.Drawing.Point(422, 223);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(80, 16);
@@ -475,11 +455,9 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// dataGrid1
 			// 
-			this.dataGrid1.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGrid1.CaptionVisible = false;
 			this.dataGrid1.DataMember = "";
 			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -522,11 +500,9 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox4.Controls.Add(this.btnModificaVar);
 			this.groupBox4.Controls.Add(this.dgrVariazioni);
 			this.groupBox4.Controls.Add(this.btnCollegaVar);
@@ -549,11 +525,9 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			// 
 			// dgrVariazioni
 			// 
-			this.dgrVariazioni.Anchor =
-				((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-				                                         System.Windows.Forms.AnchorStyles.Bottom)
-				                                        | System.Windows.Forms.AnchorStyles.Left)
-				                                       | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgrVariazioni.CaptionVisible = false;
 			this.dgrVariazioni.DataMember = "";
 			this.dgrVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
@@ -642,7 +616,7 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.Text = "frmtrasmdocincasso";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
@@ -654,10 +628,10 @@ namespace proceedstransmission_default { //trasmdocincasso//
 			this.tabPageReversali.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize) (this.dataGrid1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
 			this.tabPageVariazioni.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize) (this.dgrVariazioni)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVariazioni)).EndInit();
 			this.tabEP.ResumeLayout(false);
 			this.ResumeLayout(false);
 

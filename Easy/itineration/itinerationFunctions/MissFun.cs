@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -233,6 +231,42 @@ namespace itinerationFunctions//FunzioniMissione//
             return indtot;
         }
 
+        public static bool  VisualizzaBtnCambiaRuolo(IDataAccess Conn,IFormController controller, DataRow Curr) {
+            if (controller.IsEmpty) return false;
+
+//            btnCambiaRuolo.Enabled = true; // new
+
+            string filter;
+            QueryHelper QHS = Conn.GetQueryHelper();
+            object datainizio = Curr[MissFun.CampoDataPerPosGiuridica];
+            object datafine = Curr["stop"];
+            object codicecreddeb = Curr["idreg"];
+            DateTime SqlServerSafeDate = QHS.SafeMinDate();
+            if ((datainizio == DBNull.Value)
+                || (((DateTime)datainizio) == QueryCreator.EmptyDate())
+                || ((DateTime)datainizio) < SqlServerSafeDate) {
+                return false;
+            }
+            if (((DateTime)datainizio).Year < 1900) datainizio = new DateTime(1900, 1, 1);
+            if ((datafine == DBNull.Value)
+                || (((DateTime)datafine) == QueryCreator.EmptyDate())
+                || ((DateTime)datafine) < SqlServerSafeDate) {
+                return false;
+            }
+
+            if ((codicecreddeb == DBNull.Value) || (((int)codicecreddeb) <= 0)) {
+                return false;
+            }
+
+            string strdate = QueryCreator.quotedstrvalue((DateTime)datainizio, true);
+            string strdatefine = QueryCreator.quotedstrvalue((DateTime)datafine, true);
+
+            filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpLe("start", datainizio),
+                QHS.NullOrGe("stop", datafine));
+
+            return true;
+        }
+
         /// <summary>
         /// Base EURO per anticipo spesa
         /// </summary>
@@ -413,6 +447,18 @@ namespace itinerationFunctions//FunzioniMissione//
                 return 0;
         }
 
+        public static bool SpesaPrecedente2025(DataRow Spesa) {
+            DateTime Start;
+            if (Spesa["starttime"] != DBNull.Value) {
+                Start = (DateTime)Spesa["starttime"];
+                int esercizionspesa = Start.Year;
+                if (esercizionspesa < 2025) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         /// <summary>
         /// Imponibile NETTO su cui va applicata l'aliquota 
         /// </summary>
@@ -432,6 +478,13 @@ namespace itinerationFunctions//FunzioniMissione//
             // è un rimborso forfettario
             if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) == 5) {
                 eseguicalcolo = true;
+            }
+
+            //Per le spese sostenute prima del 2025 non si applica la gestione dell'obbligo di tracciabilità, ma dobbiamo escludere la gestione  
+            // del rimborso forfettario che resta invariata.
+            if (SpesaPrecedente2025(Spesa) && CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) {
+                eseguicalcolo = false;
+                return 0;
             }
             // Tipo spesa - Tracciabilità richiesta 
             string TracciabilitaRichiesta = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 1 ) != 0 ? "S" : "N";
@@ -457,13 +510,13 @@ namespace itinerationFunctions//FunzioniMissione//
              *  "Assenza pagamento tracciabile(spesa imponibile)" = N.
              * La spesa non è imponibile, perchè la persona ha messo l'allegato
              */
-            if (Assenzapagamentotracciabile_SpesaImponibile == "N"){
+            if ((Assenzapagamentotracciabile_SpesaImponibile == "N") && CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5){
                 eseguicalcolo = false;
                 return 0; 
             }
 
             /* Se Non includere l'importo della spesa imponibile per l'applicazione delle ritenute : itinerationrefundkind.flagtraceability & 8 <> 0 */
-            if(NonIncludereSpesaPerapplicazioneRitenute == "S") {
+            if((NonIncludereSpesaPerapplicazioneRitenute == "S") &&  CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) {
                 eseguicalcolo = false;
                 return 0; 
             }
@@ -517,6 +570,12 @@ namespace itinerationFunctions//FunzioniMissione//
                 if (CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) == 5) {
                     eseguicalcolo = true; //è un rimborso forfettario, deve fare il calcolo
                 }
+                //Per le spese sostenute prima del 2025 non si applica la gestione dell'obbligo di tracciabilità, ma dobbiamo escludere la gestione  
+                // del rimborso forfettario che resta invariata.
+                if (SpesaPrecedente2025(R) && CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) {
+                    eseguicalcolo = false;
+                    return 0;
+                }
                 // Tipo spesa - Tracciabilità richiesta 
                 string TracciabilitaRichiesta = (CfgFn.GetNoNullInt32(r[0]["flagtraceability"]) & 1) != 0 ? "S" : "N";
 
@@ -541,13 +600,13 @@ namespace itinerationFunctions//FunzioniMissione//
                  *  "Assenza pagamento tracciabile(spesa imponibile)" = N.
                  * La spesa non è imponibile, perchè la persona ha messo l'allegato
                  */
-                if (Assenzapagamentotracciabile_SpesaImponibile == "N") {
+                if ((Assenzapagamentotracciabile_SpesaImponibile == "N") && CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) {
                     eseguicalcolo = false;
                     return 0; 
                 }
 
                 /* Se Non includere l'importo della spesa imponibile per l'applicazione delle ritenute : itinerationrefundkind.flagtraceability & 8 <> 0 */
-                if (NonIncludereSpesaPerapplicazioneRitenute == "S") {
+                if ((NonIncludereSpesaPerapplicazioneRitenute == "S") && CfgFn.GetNoNullInt32(r[0]["iditinerationrefundkindgroup"]) != 5) {
                     eseguicalcolo = false;
                     return 0; 
                 }
@@ -1114,13 +1173,32 @@ namespace itinerationFunctions//FunzioniMissione//
                 //Prende gli allegati delle spese, solo quelli attivi.
                 string filterAttac = QHS.AppAnd(QHS.CmpEq("iditineration", R["iditineration"]), QHS.CmpEq("active", "S"));
                 DataTable itinerationrefundattachment = Conn.RUN_SELECT("itinerationrefundattachment", "*", null, filterAttac, null, false);
-                foreach (DataRow Ratt in itinerationrefundattachment.Select()) {
-                    if (Ratt["attachment"] == DBNull.Value) continue;
-                    byte[] ByteArray = (byte[])Ratt["attachment"];
+                foreach (DataRow Curr in itinerationrefundattachment.Select()) {
+                    if (Curr["attachment"] == DBNull.Value && Curr["idfilestorage"] == DBNull.Value) continue;
+
+                    // File preso dall'attachment o dal MongoDb
+                    byte[] ByteArray = { };
+
+                    if (Curr["attachment"] != DBNull.Value)
+                    {
+                        // Attachment
+                        ByteArray = (byte[])Curr["attachment"];
+                    }
+                    else
+                    {
+                        // MongoDb
+                        ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(Conn, itinerationrefundattachment.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                        if (ByteArray == null)
+                        {
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Servizio Download degli Allegati non disponibile");
+                            return;
+                        }
+                    }
+
                     int offset = 0;
-                    string fname = Ratt["filename"].ToString();
+                    string fname = Curr["filename"].ToString();
                     //if (File.Exists(Path.Combine(dstPath, fname))) {
-                        fname = "Spesa"+Ratt["nrefund"].ToString() + "_all"  + Ratt["idattachment"].ToString() + "_" + fname;
+                        fname = "Spesa"+ Curr["nrefund"].ToString() + "_all"  + Curr["idattachment"].ToString() + "_" + fname;
                     //}
                     string sw = Path.Combine(dstPath, fname);
                     try {
@@ -1134,12 +1212,34 @@ namespace itinerationFunctions//FunzioniMissione//
                 string filterAttacMiss = QHS.AppAnd(QHS.CmpEq("iditineration", R["iditineration"]), QHS.CmpEq("active", "S"));
                 DataTable itinerationattachment = Conn.RUN_SELECT("itinerationattachment", "*", null, filterAttacMiss, null, false);
                 foreach (DataRow Ratt in itinerationattachment.Select()) {
-                    if (Ratt["attachment"] == DBNull.Value) continue;
-                    byte[] ByteArray = (byte[])Ratt["attachment"];
+                    if (Ratt["attachment"] == DBNull.Value && Ratt["idfilestorage"] == DBNull.Value) continue;
+
+                    // File preso dall'attachment o dal MongoDb
+                    byte[] ByteArray = { };
+                    string idAttachment = "";
+
+                    if (Ratt["attachment"] != DBNull.Value)
+                    {
+                        // Attachment
+                        ByteArray = (byte[])Ratt["attachment"];
+                        idAttachment = Ratt["idattachment"].ToString();
+                    }
+                    else
+                    {
+                        // MongoDb
+                        ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(Conn, itinerationattachment.TableName, Ratt["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                        if (ByteArray == null)
+                        {
+                            MetaFactory.factory.getSingleton<IMessageShower>().Show("Servizio Download degli Allegati non disponibile");
+                            return;
+                        }
+                        idAttachment = Ratt["idfilestorage"].ToString();
+                    }
+
                     int offset = 0;
                     string fname = Ratt["filename"].ToString();
                     //if (File.Exists(Path.Combine(dstPath, fname))) {
-                        fname = "Miss_all" + Ratt["idattachment"].ToString() + "_" + fname;
+                        fname = "Miss_all" + idAttachment + "_" + fname;
                     //}
                     string sw = Path.Combine(dstPath, fname);
                     try {
@@ -1200,7 +1300,7 @@ namespace itinerationFunctions//FunzioniMissione//
 
         }
 
-        public static bool stampaMissione(DataAccess Conn, string FilePath, string ReportName, int yitineration, int numberbegin, int numberend, out string pdfFileName, out string errmess) {
+        public static bool stampaMissione(DataAccess Conn, string FilePath, string ReportName, int yitineration, int numberbegin, int numberend, out string pdfFileName, out string errmess, string CustomFilename = null) {
             errmess = "";
             pdfFileName = "";
             DataTable myPrymaryTable = createStampaMissioneTable();
@@ -1228,7 +1328,8 @@ namespace itinerationFunctions//FunzioniMissione//
             var par = myPrymaryTable.Rows[0];
 
             string tempfilename = rep["description"] + "_" + yitineration.ToString() + "_" + numberbegin.ToString() + ".pdf";
-
+            if ((CustomFilename !=null) && (CustomFilename.ToString() != ""))
+                tempfilename = CustomFilename;
             bool retExp = false;
 
             if (isBlazor())
@@ -1249,7 +1350,9 @@ namespace itinerationFunctions//FunzioniMissione//
                         string ServiceUrl = dt.Rows[0][0].ToString();
                         string ServiceParam = dt.Rows[0][1].ToString();
 
-                        retExp = CallReportGenClient(par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
+                        string db = Conn.GetSys("database").ToString();
+
+                        retExp = CallReportGenClient(db, par, rep, ServiceUrl, ServiceParam, tempFilePath, out errmess);
 
                         done = true;
                     }
@@ -1282,7 +1385,6 @@ namespace itinerationFunctions//FunzioniMissione//
 
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
 
-            //var tempfilename = "stampamissione-" + Guid.NewGuid() + ".pdf";
             
             //pdfFileName = @"ReportPDF/" + tempfilename;
             string error;
@@ -1294,7 +1396,7 @@ namespace itinerationFunctions//FunzioniMissione//
         // =====================================================================================
         //									 WEB CLIENT
         // =====================================================================================
-        private static bool CallReportGenClient(DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, string filePath, out string errmess)
+        private static bool CallReportGenClient(string db, DataRow Params, DataRow moduleReport, string ServiceUrl, string ServiceParam, string filePath, out string errmess)
         {
             errmess = "";
 
@@ -1309,7 +1411,7 @@ namespace itinerationFunctions//FunzioniMissione//
             try
             {
                 WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
-                reportContents = client.Generate(moduleReport, Params);
+                reportContents = client.Generate(db, moduleReport, Params);
             }
             catch (Exception ex)
             {

@@ -6,35 +6,86 @@
         <xs:element name="tirocinioprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="competenze" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="datafineeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafineprevista" type="xs:dateTime" />
+              <xs:element name="datainizioeffettiva" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainizioprevista" type="xs:dateTime" />
+              <xs:element name="dataverbale" type="xs:dateTime" minOccurs="0" />
               <xs:element name="description" type="xs:string" />
+              <xs:element name="description_en" type="xs:string" minOccurs="0" />
+              <xs:element name="idaoo" type="xs:int" />
+              <xs:element name="idreg_docenti" type="xs:int" />
               <xs:element name="idreg_referente" type="xs:int" />
               <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" />
               <xs:element name="idtirociniocandidatura" type="xs:int" />
               <xs:element name="idtirocinioprogetto" type="xs:int" />
               <xs:element name="idtirocinioproposto" type="xs:int" />
+              <xs:element name="idtirociniostato" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="ore" type="xs:int" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="tempiaccesso" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="sostenimentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idappello" type="xs:int" minOccurs="0" />
-              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
-              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
-              <xs:element name="idprova" type="xs:int" minOccurs="0" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idsostenimento" type="xs:int" />
-              <xs:element name="idtitolostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="changeskinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="changes_title" type="xs:string" minOccurs="0" />
+              <xs:element name="changeskind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="changeskind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="changeskind_idchanges" type="xs:int" minOccurs="0" />
+              <xs:element name="changeskind_lt" type="xs:dateTime" />
+              <xs:element name="changeskind_lu" type="xs:string" />
+              <xs:element name="changeskind_sortcode" type="xs:int" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idchangeskind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sostenimentoseganagstuview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attivform_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idsostenimento" type="xs:int" />
+              <xs:element name="sostenimento_ct" type="xs:dateTime" />
+              <xs:element name="sostenimento_cu" type="xs:string" />
+              <xs:element name="sostenimento_data" type="xs:dateTime" />
+              <xs:element name="sostenimento_domande" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimento_ects" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_giudizio" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimento_idappello" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_idprova" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_idsostenimentoesito" type="xs:int" />
+              <xs:element name="sostenimento_idtitolostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_insecod" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimento_insedesc" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimento_livello" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimento_lt" type="xs:dateTime" />
+              <xs:element name="sostenimento_lu" type="xs:string" />
+              <xs:element name="sostenimento_paridsostenimento" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimento_voto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sostenimento_votolode" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimento_votosu" type="xs:int" minOccurs="0" />
+              <xs:element name="sostenimentoesito_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -75,13 +126,17 @@
       <xs:field xpath="mstns:idtirocinioprogetto" />
       <xs:field xpath="mstns:idtirocinioproposto" />
     </xs:unique>
-    <xs:unique name="sostenimentodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:sostenimentodefaultview" />
-      <xs:field xpath="mstns:idsostenimento" />
-    </xs:unique>
     <xs:unique name="changeskinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:changeskinddefaultview" />
       <xs:field xpath="mstns:idchangeskind" />
+    </xs:unique>
+    <xs:unique name="sostenimentoseganagstuview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sostenimentoseganagstuview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idsostenimento" />
     </xs:unique>
     <xs:unique name="convalidante_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:convalidante" />
@@ -93,8 +148,8 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_convalidante_tirocinioprogetto_idtirocinioprogetto" msdata:parent="tirocinioprogetto" msdata:child="convalidante" msdata:parentkey="idtirocinioprogetto" msdata:childkey="idtirocinioprogetto" />
-      <msdata:Relationship name="FK_convalidante_sostenimentodefaultview_idsostenimento" msdata:parent="sostenimentodefaultview" msdata:child="convalidante" msdata:parentkey="idsostenimento" msdata:childkey="idsostenimento" />
       <msdata:Relationship name="FK_convalidante_changeskinddefaultview_idchangeskind" msdata:parent="changeskinddefaultview" msdata:child="convalidante" msdata:parentkey="idchangeskind" msdata:childkey="idchangeskind" />
+      <msdata:Relationship name="FK_convalidante_sostenimentoseganagstuview_idsostenimento" msdata:parent="sostenimentoseganagstuview" msdata:child="convalidante" msdata:parentkey="idsostenimento" msdata:childkey="idsostenimento" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

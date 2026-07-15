@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_undo_finsetupcopy]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_undo_finsetupcopy]
@@ -317,6 +315,14 @@ INSERT INTO #log VALUES('Annullata associazione causali - conti per esercizio ' 
  DELETE FROM csa_contracttax_partition WHERE ayear = @nextayear
  INSERT INTO #log
  VALUES('Annullate Ripartizioni Contributi Contratti CSA nel nuovo esercizio ' + @nextayearstr)
+
+ DELETE FROM iva_prorata WHERE ayear = @nextayear
+ INSERT INTO #log
+ VALUES('Rimosso Prorata di detraibilità da esercizio ' + @nextayearstr)
+
+ DELETE FROM iva_mixed WHERE ayear = @nextayear
+ INSERT INTO #log
+ VALUES('Rimosso Promiscuo da esercizio da esercizio ' + @nextayearstr)
 
 
 --azzero i bit da 0 a 3 e poi imposto il valore 2 su questi flag

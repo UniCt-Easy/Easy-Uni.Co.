@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -423,6 +421,7 @@ namespace itineration_default { //missione//
 		private Label label65;
 		private TextBox txtPercAnticipoItaliaEstero;
 		private TextBox textBox27;
+		private CheckBox chkExcludeFromCertificate;
 		private EP_Manager EPM;
 
         public Frm_itineration_default() {
@@ -438,7 +437,8 @@ namespace itineration_default { //missione//
             cmbDaliaFunzionale.DataSource = DS.dalia_funzionale;
             cmbDaliaFunzionale.DisplayMember = "title";
             cmbDaliaFunzionale.ValueMember = "iddalia_funzionale";
-        }
+			HelpForm.SetDenyNull(DS.itineration.Columns["flagexcludefromcertificate"], true);
+		}
 
         /// <summary>
         /// Clean up any resources being used.
@@ -622,6 +622,7 @@ namespace itineration_default { //missione//
 			this.btnClassModifica = new System.Windows.Forms.Button();
 			this.btnClassInserisci = new System.Windows.Forms.Button();
 			this.tabCalcolo = new System.Windows.Forms.TabPage();
+			this.textBox27 = new System.Windows.Forms.TextBox();
 			this.textBox16 = new System.Windows.Forms.TextBox();
 			this.txtSpeseSaldo = new System.Windows.Forms.TextBox();
 			this.labelSpeseSaldo = new System.Windows.Forms.Label();
@@ -831,7 +832,7 @@ namespace itineration_default { //missione//
 			this.label61 = new System.Windows.Forms.Label();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.myTip = new System.Windows.Forms.ToolTip(this.components);
-			this.textBox27 = new System.Windows.Forms.TextBox();
+			this.chkExcludeFromCertificate = new System.Windows.Forms.CheckBox();
 			this.tabCtrlMissione.SuspendLayout();
 			this.tabGeneralita.SuspendLayout();
 			this.gboxRif.SuspendLayout();
@@ -939,6 +940,7 @@ namespace itineration_default { //missione//
 			// 
 			// tabGeneralita
 			// 
+			this.tabGeneralita.Controls.Add(this.chkExcludeFromCertificate);
 			this.tabGeneralita.Controls.Add(this.gboxRif);
 			this.tabGeneralita.Controls.Add(this.label9);
 			this.tabGeneralita.Controls.Add(this.txtDateCompleted);
@@ -1159,10 +1161,12 @@ namespace itineration_default { //missione//
 			// 
 			// gboxStato
 			// 
+			this.gboxStato.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.gboxStato.Controls.Add(this.cmbStatus);
 			this.gboxStato.Location = new System.Drawing.Point(510, 56);
 			this.gboxStato.Name = "gboxStato";
-			this.gboxStato.Size = new System.Drawing.Size(263, 49);
+			this.gboxStato.Size = new System.Drawing.Size(264, 49);
 			this.gboxStato.TabIndex = 3;
 			this.gboxStato.TabStop = false;
 			this.gboxStato.Text = "Stato";
@@ -1174,9 +1178,9 @@ namespace itineration_default { //missione//
 			this.cmbStatus.DataSource = this.DS.itinerationstatus;
 			this.cmbStatus.DisplayMember = "description";
 			this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbStatus.Location = new System.Drawing.Point(17, 18);
+			this.cmbStatus.Location = new System.Drawing.Point(10, 18);
 			this.cmbStatus.Name = "cmbStatus";
-			this.cmbStatus.Size = new System.Drawing.Size(244, 21);
+			this.cmbStatus.Size = new System.Drawing.Size(245, 21);
 			this.cmbStatus.TabIndex = 43;
 			this.cmbStatus.Tag = "itineration.iditinerationstatus?itinerationview.iditinerationstatus";
 			this.cmbStatus.ValueMember = "iditinerationstatus";
@@ -1616,6 +1620,7 @@ namespace itineration_default { //missione//
 			// 
 			// checkBox1
 			// 
+			this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.checkBox1.Location = new System.Drawing.Point(779, 71);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(80, 24);
@@ -2669,6 +2674,16 @@ namespace itineration_default { //missione//
 			this.tabCalcolo.TabIndex = 6;
 			this.tabCalcolo.Text = "Riepilogo";
 			this.tabCalcolo.UseVisualStyleBackColor = true;
+			// 
+			// textBox27
+			// 
+			this.textBox27.Location = new System.Drawing.Point(410, 294);
+			this.textBox27.Name = "textBox27";
+			this.textBox27.ReadOnly = true;
+			this.textBox27.Size = new System.Drawing.Size(336, 20);
+			this.textBox27.TabIndex = 30;
+			this.textBox27.TabStop = false;
+			this.textBox27.Text = "Le ritenute mostrate verranno applicate in sede di Rendiconto.";
 			// 
 			// textBox16
 			// 
@@ -4941,15 +4956,16 @@ namespace itineration_default { //missione//
 			this.myTip.InitialDelay = 30;
 			this.myTip.ReshowDelay = 6;
 			// 
-			// textBox27
+			// chkExcludeFromCertificate
 			// 
-			this.textBox27.Location = new System.Drawing.Point(410, 294);
-			this.textBox27.Name = "textBox27";
-			this.textBox27.ReadOnly = true;
-			this.textBox27.Size = new System.Drawing.Size(336, 20);
-			this.textBox27.TabIndex = 30;
-			this.textBox27.TabStop = false;
-			this.textBox27.Text = "Le ritenute mostrate verranno applicate in sede di Rendiconto.";
+			this.chkExcludeFromCertificate.AutoSize = true;
+			this.chkExcludeFromCertificate.Location = new System.Drawing.Point(690, 356);
+			this.chkExcludeFromCertificate.Name = "chkExcludeFromCertificate";
+			this.chkExcludeFromCertificate.Size = new System.Drawing.Size(225, 17);
+			this.chkExcludeFromCertificate.TabIndex = 112;
+			this.chkExcludeFromCertificate.Tag = "itineration.flagexcludefromcertificate:S:N";
+			this.chkExcludeFromCertificate.Text = "Escludi da Certificazione Unica dei Redditi";
+			this.chkExcludeFromCertificate.UseVisualStyleBackColor = true;
 			// 
 			// Frm_itineration_default
 			// 
@@ -5216,7 +5232,9 @@ namespace itineration_default { //missione//
             DataAccess.SetTableForReading(DS.itinerationrefund_balance, "itinerationrefund");
             DataAccess.SetTableForReading(DS.itinerationrefundkind_advance, "itinerationrefundkind");
             DataAccess.SetTableForReading(DS.itinerationrefundkind_balance, "itinerationrefundkind");
-            QueryCreator.SetTableForPosting(DS.itinerationrefund_advance, "itinerationrefund");
+			DataAccess.SetTableForReading(DS.itinerationrefundkindgroup_advance, "itinerationrefundkindgroup");
+			DataAccess.SetTableForReading(DS.itinerationrefundkindgroup_balance, "itinerationrefundkindgroup");
+			QueryCreator.SetTableForPosting(DS.itinerationrefund_advance, "itinerationrefund");
             QueryCreator.SetTableForPosting(DS.itinerationrefund_balance, "itinerationrefund");
             GetData.SetStaticFilter(DS.itinerationrefund_advance, QHS.CmpEq("flagadvancebalance", "A"));
             GetData.SetStaticFilter(DS.itinerationrefund_balance, QHS.CmpEq("flagadvancebalance", "S"));
@@ -5261,7 +5279,20 @@ namespace itineration_default { //missione//
                 btnGeneraEP, btnVisualizzaEP, labEP, null, "itineration");
 
             SiopeObj = new siope_helper(this, txtCodSiope, txtDescSiope, btnSiope, grpBoxSiopeEP, true, DS.sorting_siope);
-        }
+
+			bool IsAdmin = (Meta.GetSys("manage_prestazioni") != null) ? Meta.GetSys("manage_prestazioni").ToString() == "S" : false;
+			object flag_escludidacu = Conn.GetUsr("flag_escludidacu");
+			bool function_enabled = ((flag_escludidacu != null && flag_escludidacu.ToString().ToUpper() == "'S'"));
+			object idflowchart = conn.GetSys("idflowchart");
+			bool fuori_organigramma = (idflowchart == null) || (idflowchart == DBNull.Value) || (idflowchart.ToString() == "");
+
+			chkExcludeFromCertificate.Enabled = IsAdmin || function_enabled || fuori_organigramma;
+
+			// ===============================================================================
+			// La InsertCopy non deve copiare le tabelle degli allegati
+			// ===============================================================================
+			QueryCreator.setSkipInsertCopy(DS.itinerationattachment, true);
+		}
 
         siope_helper SiopeObj;
 
@@ -5676,6 +5707,9 @@ namespace itineration_default { //missione//
 				EnableDisableAll(false);
 			}
 			grpAltro.Enabled = false;
+
+			dgrSpeseTappe.PerformLayout();
+			dataGrid2.PerformLayout();
 		}
 
 		public void EnableDisableAll(bool abilita) {
@@ -5722,7 +5756,7 @@ namespace itineration_default { //missione//
 			return;
 		}
 
-        public void MetaData_BeforePost() {
+		public void MetaData_BeforePost() {
 			if (DS.itineration.Rows.Count == 0) {
 				DS.itinerationattachment.Clear();
 				return; 
@@ -5734,6 +5768,7 @@ namespace itineration_default { //missione//
 						A.Delete();
 				}
 			}
+	
 			string filterAttachment = "";
 			//Se ci sono spese di anticipo cancellato, prende la chiave.
 			if (DS.itinerationrefund_advance.Rows.Count > 0) {
@@ -5758,6 +5793,15 @@ namespace itineration_default { //missione//
 						Ritinerationrefundattachment.Delete();
 				}
 			}
+
+			//Se il filtro non è stato valorizzato vuol dire che alcune spese sono in cancellazione, quindi calcella gli allegati ad esse associati.
+			foreach (var RAtt in DS.itinerationrefundattachment.Select()) {
+				filterAttachment = QHS.AppAnd(QHC.CmpEq("iditineration", RAtt["iditineration"]),QHC.CmpEq("nrefund", RAtt["nrefund"]));
+				if ((DS.itinerationrefund_balance.Select(filterAttachment).Length == 0)&& (DS.itinerationrefund_advance.Select(filterAttachment).Length == 0) )
+				if (RAtt.RowState != DataRowState.Deleted)
+					RAtt.Delete();
+				}
+			 
 
 			EPM.beforePost();
             //non imposto più in automatico quel flag se ci sono spese a saldo, sotto richiesta di Emilia
@@ -6494,9 +6538,9 @@ namespace itineration_default { //missione//
             if (DettGruppoEstero.Rows.Count == 0) {
                 MyCfg.foreigngroupnumber = DBNull.Value;
                 txtGruppoEstero.Text = "";
-                show("I dati relativi al gruppo estero sono incompleti o mancanti", "Avviso");
-            }
-            else {
+				//show("I dati relativi al gruppo estero sono incompleti o mancanti", "Avviso");  richiesta rimozione messaggio task 20444
+			}
+			else {
                 MyCfg.foreigngroupnumber = CfgFn.GetNoNullInt32(DettGruppoEstero.Rows[0]["foreigngroupnumber"]);
                 txtGruppoEstero.Text = MyCfg.foreigngroupnumber.ToString();
             }
@@ -6937,8 +6981,8 @@ namespace itineration_default { //missione//
             if (DettGruppoEstero.Rows.Count == 0) {
                 MyCfg.foreigngroupnumber = DBNull.Value;
                 txtGruppoEstero.Text = "";
-                show("I dati relativi al gruppo estero sono incompleti o mancanti", "Avviso");
-                SetExtraParameterForDetails();
+				// show("I dati relativi al gruppo estero sono incompleti o mancanti", "Avviso"); richiesta rimozione messaggio task 20444
+				SetExtraParameterForDetails();
                 return;
             }
             MyCfg.foreigngroupnumber = CfgFn.GetNoNullInt32(DettGruppoEstero.Rows[0]["foreigngroupnumber"]);
@@ -7714,7 +7758,7 @@ namespace itineration_default { //missione//
                 Curr["totalgross"] = totalgross;
                 decimal total = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Curr["totalgross"]) +
                                                   CfgFn.GetNoNullDecimal(AdminTax()));
-                Curr["total"] = total;
+                Curr["total"] = total; 
 
                 decimal nuovototanticipo = CfgFn.GetNoNullDecimal(Curr["totadvance"]);
                 if (!AnticipoIsReadOnly) {
@@ -7758,11 +7802,49 @@ namespace itineration_default { //missione//
             txtTotIndennKm.Text = kmrefund.ToString("c");
             txtTotLordIt.Text = italiangrossallowance.ToString("c");
             txtTotLordEst.Text = foreigngrossallowance.ToString("c");
-
-            //Meta.myHelpForm.FillControls(tabCalcolo.Controls);
+			
+			GeneraItinerationamountdetail();
+            
+			//Meta.myHelpForm.FillControls(tabCalcolo.Controls);
         }
+		public void GeneraItinerationamountdetail() {
+			if (controller.IsEmpty) return;
+			if (!DS.HasChanges())
+				return;
 
-        void RicalcolaMissione() {
+			DataRow Curr = DS.itineration.Rows[0];
+			//Aggiorna / Crea le righe nella Tabella itinerationamountdetail
+			object esercmissione = Curr["yitineration"];
+			if (CfgFn.GetNoNullInt32(esercmissione) < 2025)
+				return;
+			DataRow R;
+			if (DS.itinerationamountdetail == null || DS.itinerationamountdetail.Rows.Count == 0) {
+				//se non c'è, la crea
+				MetaData Meta_itinerationamountdetail = MetaData.GetMetaData(this, "itinerationamountdetail");
+				Meta_itinerationamountdetail.SetDefaults(DS.itinerationamountdetail);
+				R = Meta_itinerationamountdetail.Get_New_Row(Curr, DS.itinerationamountdetail);
+			}
+			else {
+				//se c'è, l'aggiorna
+				R = DS.itinerationamountdetail.Rows[0];
+			}
+
+			R["totspesepreventivateanticipo"] =  HelpForm.GetObjectFromString(typeof(decimal), txtSpeseAnticipo.Text, txtSpeseAnticipo.Tag.ToString());
+			R["totspesesostenute"] = HelpForm.GetObjectFromString(typeof(decimal), txtSpeseSaldo.Text, txtSpeseSaldo.Tag.ToString());
+			R["totspesedaconsiderare"] = HelpForm.GetObjectFromString(typeof(decimal), txtSpeseSostenute.Text, txtSpeseSostenute.Tag.ToString());
+			R["indennsupplementare"] = HelpForm.GetObjectFromString(typeof(decimal), txtIndSupplementare.Text, txtIndSupplementare.Tag.ToString());
+			R["indennkm"] = HelpForm.GetObjectFromString(typeof(decimal), txtTotIndennKm.Text, txtTotIndennKm.Tag.ToString());
+			R["indennlordatrasfertait"] = HelpForm.GetObjectFromString(typeof(decimal), txtTotLordIt.Text, txtTotLordIt.Tag.ToString());
+			R["indennlordatrasfertaestero"] = HelpForm.GetObjectFromString(typeof(decimal), txtTotLordEst.Text, txtTotLordEst.Tag.ToString());
+			R["importolordo"] = HelpForm.GetObjectFromString(typeof(decimal), txtLordo.Text, txtLordo.Tag.ToString());
+			R["contributiassicurativi"] = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal), txtAssAmministrazione.Text, null));
+			R["contributiprevidenziali"] = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal), txtPrevAmministrazione.Text, null));
+			R["importoanticipo"] = HelpForm.GetObjectFromString(typeof(decimal), txtImportoAnticipo.Text, txtImportoAnticipo.Tag.ToString());
+			R["quotaesente"] = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal), txtQuotaEsenteMissione.Text, null));
+			R["imponibile"] = CfgFn.GetNoNullDecimal(HelpForm.GetObjectFromString(typeof(decimal), txtQuotaImponibileTappa.Text, null));
+
+		}
+		void RicalcolaMissione() {
             checkAnticipiReadOnly();
             lastcalcolaritenuteparams = "!!";
             LastOutCalcolaRitenute = null;

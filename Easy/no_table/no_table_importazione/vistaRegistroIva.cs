@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,302 +13,295 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 namespace notable_importazione {
-[Serializable()][DesignerCategoryAttribute("code")][System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-[System.Xml.Serialization.XmlRootAttribute("vistaRegistroIva")][System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaRegistroIva"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public partial class vistaRegistroIva: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Registro iva
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable ivaregister		{get { return Tables["ivaregister"];}}
-	///<summary>
-	///Fattura
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable invoice		{get { return Tables["invoice"];}}
-	///<summary>
-	///Tipo di documento
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable invoicekind		{get { return Tables["invoicekind"];}}
-	///<summary>
-	///Registro IVA
-	///</summary>
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)][Browsable(false)]
-	public DataTable ivaregisterkind		{get { return Tables["ivaregisterkind"];}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable ivaregister 		=> Tables["ivaregister"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoice 		=> Tables["invoice"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoicekind 		=> Tables["invoicekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable ivaregisterkind 		=> Tables["ivaregisterkind"];
+
 	#endregion
 
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataTableCollection Tables {get {return base.Tables;}}
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
 
-	[DebuggerNonUserCodeAttribute()][DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-	public new DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
 
-[DebuggerNonUserCodeAttribute()]
+[DebuggerNonUserCode]
 public vistaRegistroIva(){
 	BeginInit();
-	InitClass();
+	initClass();
 	EndInit();
 }
-[DebuggerNonUserCodeAttribute()]
-private void InitClass() {
+[DebuggerNonUserCode]
+protected vistaRegistroIva (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
 	DataSetName = "vistaRegistroIva";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaRegistroIva.xsd";
-	SchemaSerializationMode = SchemaSerializationMode.IncludeSchema;
-	EnforceConstraints = false;
 
 	#region create DataTables
-	DataTable T;
 	DataColumn C;
 	//////////////////// IVAREGISTER /////////////////////////////////
-	T= new DataTable("ivaregister");
-	C= new DataColumn("nivaregister", typeof(Int32));
+	var tivaregister= new DataTable("ivaregister");
+	C= new DataColumn("nivaregister", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("yivaregister", typeof(Int16));
+	tivaregister.Columns.Add(C);
+	C= new DataColumn("yivaregister", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tivaregister.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tivaregister.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tivaregister.Columns.Add(C);
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tivaregister.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ninv", typeof(Int32));
+	tivaregister.Columns.Add(C);
+	C= new DataColumn("ninv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("protocolnum", typeof(Int32)));
-	C= new DataColumn("yinv", typeof(Int16));
+	tivaregister.Columns.Add(C);
+	tivaregister.Columns.Add( new DataColumn("protocolnum", typeof(int)));
+	C= new DataColumn("yinv", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idinvkind", typeof(Int32));
+	tivaregister.Columns.Add(C);
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idivaregisterkind", typeof(Int32));
+	tivaregister.Columns.Add(C);
+	C= new DataColumn("idivaregisterkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["nivaregister"], T.Columns["yivaregister"], T.Columns["idivaregisterkind"]};
+	tivaregister.Columns.Add(C);
+	tivaregister.Columns.Add( new DataColumn("emails", typeof(string)));
+	Tables.Add(tivaregister);
+	tivaregister.PrimaryKey =  new DataColumn[]{tivaregister.Columns["nivaregister"], tivaregister.Columns["yivaregister"], tivaregister.Columns["idivaregisterkind"]};
 
 
 	//////////////////// INVOICE /////////////////////////////////
-	T= new DataTable("invoice");
-	C= new DataColumn("idinvkind", typeof(Int32));
+	var tinvoice= new DataTable("invoice");
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("yinv", typeof(Int16));
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("yinv", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("ninv", typeof(Int32));
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("ninv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idreg", typeof(Int32));
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("registryreference", typeof(String)));
-	C= new DataColumn("description", typeof(String));
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("registryreference", typeof(string)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("paymentexpiring", typeof(Int16)));
-	T.Columns.Add( new DataColumn("idexpirationkind", typeof(Int16)));
-	T.Columns.Add( new DataColumn("idcurrency", typeof(Int32)));
-	T.Columns.Add( new DataColumn("exchangerate", typeof(Double)));
-	T.Columns.Add( new DataColumn("doc", typeof(String)));
-	T.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tinvoice.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	tinvoice.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("exchangerate", typeof(double)));
+	tinvoice.Columns.Add( new DataColumn("doc", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
 	C= new DataColumn("adate", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("packinglistnum", typeof(String)));
-	T.Columns.Add( new DataColumn("packinglistdate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("flagdeferred", typeof(String)));
-	C= new DataColumn("officiallyprinted", typeof(String));
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("packinglistnum", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("packinglistdate", typeof(DateTime)));
+	tinvoice.Columns.Add( new DataColumn("flagdeferred", typeof(string)));
+	C= new DataColumn("officiallyprinted", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("txt", typeof(String)));
-	T.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
-	C= new DataColumn("cu", typeof(String));
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("txt", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinvoice.Columns.Add(C);
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tinvoice.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinvoice.Columns.Add(C);
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("active", typeof(String)));
-	T.Columns.Add( new DataColumn("idtreasurer", typeof(Int32)));
-	T.Columns.Add( new DataColumn("flagintracom", typeof(String)));
-	T.Columns.Add( new DataColumn("iso_origin", typeof(String)));
-	T.Columns.Add( new DataColumn("iso_provenance", typeof(String)));
-	T.Columns.Add( new DataColumn("iso_destination", typeof(String)));
-	T.Columns.Add( new DataColumn("idcountry_origin", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idcountry_destination", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idintrastatkind", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccmotivedebit", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(String)));
-	T.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idintrastatpaymethod", typeof(Int32)));
-	T.Columns.Add( new DataColumn("iso_payment", typeof(String)));
-	T.Columns.Add( new DataColumn("flag_ddt", typeof(String)));
-	T.Columns.Add( new DataColumn("flag", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idblacklist", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idinvkind_real", typeof(Int32)));
-	T.Columns.Add( new DataColumn("yinv_real", typeof(Int16)));
-	T.Columns.Add( new DataColumn("ninv_real", typeof(Int32)));
-	T.Columns.Add( new DataColumn("autoinvoice", typeof(String)));
-	T.Columns.Add( new DataColumn("idsor01", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor02", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor03", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor04", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor05", typeof(Int32)));
-	T.Columns.Add( new DataColumn("protocoldate", typeof(DateTime)));
-	T.Columns.Add( new DataColumn("idfepaymethodcondition", typeof(String)));
-	T.Columns.Add( new DataColumn("idfepaymethod", typeof(String)));
-	T.Columns.Add( new DataColumn("nelectronicinvoice", typeof(Int32)));
-	T.Columns.Add( new DataColumn("yelectronicinvoice", typeof(Int16)));
-	T.Columns.Add( new DataColumn("arrivalprotocolnum", typeof(String)));
-	T.Columns.Add( new DataColumn("annotations", typeof(String)));
-	T.Columns.Add( new DataColumn("toincludeinpaymentindicator", typeof(String)));
-	T.Columns.Add( new DataColumn("resendingpcc", typeof(String)));
-	T.Columns.Add( new DataColumn("touniqueregister", typeof(String)));
-	T.Columns.Add( new DataColumn("idstampkind", typeof(String)));
-	T.Columns.Add( new DataColumn("flag_enable_split_payment", typeof(String)));
-	T.Columns.Add( new DataColumn("flag_auto_split_payment", typeof(String)));
-	T.Columns.Add( new DataColumn("idsdi_acquisto", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsdi_vendita", typeof(Int32)));
-	T.Columns.Add( new DataColumn("flag_reverse_charge", typeof(String)));
-	T.Columns.Add( new DataColumn("ipa_acq", typeof(String)));
-	T.Columns.Add( new DataColumn("rifamm_acq", typeof(String)));
-	T.Columns.Add( new DataColumn("ipa_ven_emittente", typeof(String)));
-	T.Columns.Add( new DataColumn("rifamm_ven_emittente", typeof(String)));
-	T.Columns.Add( new DataColumn("ipa_ven_cliente", typeof(String)));
-	T.Columns.Add( new DataColumn("rifamm_ven_cliente", typeof(String)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["ninv"], T.Columns["yinv"], T.Columns["idinvkind"]};
+	tinvoice.Columns.Add(C);
+	tinvoice.Columns.Add( new DataColumn("active", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("flagintracom", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("iso_origin", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("iso_provenance", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("iso_destination", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idcountry_origin", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idcountry_destination", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idintrastatkind", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idaccmotivedebit", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idaccmotivedebit_crg", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idaccmotivedebit_datacrg", typeof(DateTime)));
+	tinvoice.Columns.Add( new DataColumn("idintrastatpaymethod", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("iso_payment", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("flag_ddt", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("flag", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idblacklist", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idinvkind_real", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("yinv_real", typeof(short)));
+	tinvoice.Columns.Add( new DataColumn("ninv_real", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("autoinvoice", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("protocoldate", typeof(DateTime)));
+	tinvoice.Columns.Add( new DataColumn("idfepaymethodcondition", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idfepaymethod", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("nelectronicinvoice", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("yelectronicinvoice", typeof(short)));
+	tinvoice.Columns.Add( new DataColumn("arrivalprotocolnum", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("toincludeinpaymentindicator", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("resendingpcc", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("touniqueregister", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idstampkind", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("flag_enable_split_payment", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("flag_auto_split_payment", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("idsdi_acquisto", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("idsdi_vendita", typeof(int)));
+	tinvoice.Columns.Add( new DataColumn("flag_reverse_charge", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("ipa_acq", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("rifamm_acq", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("ipa_ven_emittente", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("rifamm_ven_emittente", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("ipa_ven_cliente", typeof(string)));
+	tinvoice.Columns.Add( new DataColumn("rifamm_ven_cliente", typeof(string)));
+	Tables.Add(tinvoice);
+	tinvoice.PrimaryKey =  new DataColumn[]{tinvoice.Columns["ninv"], tinvoice.Columns["yinv"], tinvoice.Columns["idinvkind"]};
 
 
 	//////////////////// INVOICEKIND /////////////////////////////////
-	T= new DataTable("invoicekind");
+	var tinvoicekind= new DataTable("invoicekind");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("description", typeof(String));
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinvoicekind.Columns.Add(C);
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("codeinvkind", typeof(String));
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("codeinvkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idinvkind", typeof(Int32));
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("flag", typeof(Byte));
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("flag_autodocnumbering", typeof(String)));
-	T.Columns.Add( new DataColumn("formatstring", typeof(String)));
-	T.Columns.Add( new DataColumn("active", typeof(String)));
-	T.Columns.Add( new DataColumn("idinvkind_auto", typeof(Int32)));
-	T.Columns.Add( new DataColumn("printingcode", typeof(String)));
-	T.Columns.Add( new DataColumn("idsor01", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor02", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor03", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor04", typeof(Int32)));
-	T.Columns.Add( new DataColumn("idsor05", typeof(Int32)));
-	T.Columns.Add( new DataColumn("address", typeof(String)));
-	T.Columns.Add( new DataColumn("header", typeof(String)));
-	T.Columns.Add( new DataColumn("notes1", typeof(String)));
-	T.Columns.Add( new DataColumn("notes2", typeof(String)));
-	T.Columns.Add( new DataColumn("notes3", typeof(String)));
-	T.Columns.Add( new DataColumn("ipa_fe", typeof(String)));
-	T.Columns.Add( new DataColumn("riferimento_amministrazione", typeof(String)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idinvkind"]};
+	tinvoicekind.Columns.Add(C);
+	tinvoicekind.Columns.Add( new DataColumn("flag_autodocnumbering", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("formatstring", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("active", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("idinvkind_auto", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("printingcode", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("address", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("header", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("notes1", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("notes2", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("notes3", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("ipa_fe", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("riferimento_amministrazione", typeof(string)));
+	Tables.Add(tinvoicekind);
+	tinvoicekind.PrimaryKey =  new DataColumn[]{tinvoicekind.Columns["idinvkind"]};
 
 
 	//////////////////// IVAREGISTERKIND /////////////////////////////////
-	T= new DataTable("ivaregisterkind");
+	var tivaregisterkind= new DataTable("ivaregisterkind");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("cu", typeof(String));
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("description", typeof(String));
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tivaregisterkind.Columns.Add(C);
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("lu", typeof(String));
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("registerclass", typeof(String));
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("registerclass", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("idivaregisterkindunified", typeof(String)));
-	T.Columns.Add( new DataColumn("flagactivity", typeof(Int16)));
-	C= new DataColumn("codeivaregisterkind", typeof(String));
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("idivaregisterkindunified", typeof(string)));
+	tivaregisterkind.Columns.Add( new DataColumn("flagactivity", typeof(short)));
+	C= new DataColumn("codeivaregisterkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	C= new DataColumn("idivaregisterkind", typeof(Int32));
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("idivaregisterkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-	T.Columns.Add( new DataColumn("compensation", typeof(String)));
-	T.Columns.Add( new DataColumn("idtreasurer", typeof(Int32)));
-	Tables.Add(T);
-	T.PrimaryKey =  new DataColumn[]{T.Columns["idivaregisterkind"]};
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("compensation", typeof(string)));
+	tivaregisterkind.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	Tables.Add(tivaregisterkind);
+	tivaregisterkind.PrimaryKey =  new DataColumn[]{tivaregisterkind.Columns["idivaregisterkind"]};
 
 
 	#endregion
 
 
 	#region DataRelation creation
-	DataColumn []CPar;
-	DataColumn []CChild;
-	CPar = new DataColumn[1]{invoicekind.Columns["idinvkind"]};
-	CChild = new DataColumn[1]{invoice.Columns["idinvkind"]};
-	Relations.Add(new DataRelation("FK_invoice_invoicekind",CPar,CChild,false));
+	var cPar = new []{invoicekind.Columns["idinvkind"]};
+	var cChild = new []{invoice.Columns["idinvkind"]};
+	Relations.Add(new DataRelation("FK_invoice_invoicekind",cPar,cChild,false));
 
-	CPar = new DataColumn[3]{invoice.Columns["ninv"], invoice.Columns["yinv"], invoice.Columns["idinvkind"]};
-	CChild = new DataColumn[3]{ivaregister.Columns["ninv"], ivaregister.Columns["yinv"], ivaregister.Columns["idinvkind"]};
-	Relations.Add(new DataRelation("FK_ivaregister_invoice",CPar,CChild,false));
+	cPar = new []{invoice.Columns["ninv"], invoice.Columns["yinv"], invoice.Columns["idinvkind"]};
+	cChild = new []{ivaregister.Columns["ninv"], ivaregister.Columns["yinv"], ivaregister.Columns["idinvkind"]};
+	Relations.Add(new DataRelation("FK_ivaregister_invoice",cPar,cChild,false));
 
-	CPar = new DataColumn[1]{invoicekind.Columns["idinvkind"]};
-	CChild = new DataColumn[1]{ivaregister.Columns["idinvkind"]};
-	Relations.Add(new DataRelation("FK_ivaregister_invoicekind",CPar,CChild,false));
+	cPar = new []{invoicekind.Columns["idinvkind"]};
+	cChild = new []{ivaregister.Columns["idinvkind"]};
+	Relations.Add(new DataRelation("FK_ivaregister_invoicekind",cPar,cChild,false));
 
-	CPar = new DataColumn[1]{ivaregisterkind.Columns["idivaregisterkind"]};
-	CChild = new DataColumn[1]{ivaregister.Columns["idivaregisterkind"]};
-	Relations.Add(new DataRelation("FK_ivaregister_ivaregisterkind",CPar,CChild,false));
+	cPar = new []{ivaregisterkind.Columns["idivaregisterkind"]};
+	cChild = new []{ivaregister.Columns["idivaregisterkind"]};
+	Relations.Add(new DataRelation("FK_ivaregister_ivaregisterkind",cPar,cChild,false));
 
 	#endregion
 

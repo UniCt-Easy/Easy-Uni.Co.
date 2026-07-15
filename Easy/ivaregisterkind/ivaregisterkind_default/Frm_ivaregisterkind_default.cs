@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -22,6 +20,8 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ivaregisterkind_default {//tiporegistroiva//
 	/// <summary>
@@ -50,6 +50,9 @@ namespace ivaregisterkind_default {//tiporegistroiva//
         private CheckBox checkBox1;
         private GroupBox grpTesorierePerIncasso;
         private ComboBox cmbCodiceIstituto;
+		private CheckBox chkActive;
+		private TextBox txtEmail;
+		private Label lblEmail;
 		private System.ComponentModel.IContainer components;
 
 		public Frm_ivaregisterkind_default() {
@@ -74,280 +77,316 @@ namespace ivaregisterkind_default {//tiporegistroiva//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_ivaregisterkind_default));
-            this.images = new System.Windows.Forms.ImageList(this.components);
-            this.MetaDataDetail = new System.Windows.Forms.Panel();
-            this.grpTesorierePerIncasso = new System.Windows.Forms.GroupBox();
-            this.cmbCodiceIstituto = new System.Windows.Forms.ComboBox();
-            this.DS = new ivaregisterkind_default.vistaForm();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.btnCopyAll = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.MetaDataDetail.SuspendLayout();
-            this.grpTesorierePerIncasso.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // images
-            // 
-            this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
-            this.images.TransparentColor = System.Drawing.Color.Transparent;
-            this.images.Images.SetKeyName(0, "");
-            this.images.Images.SetKeyName(1, "");
-            this.images.Images.SetKeyName(2, "");
-            this.images.Images.SetKeyName(3, "");
-            this.images.Images.SetKeyName(4, "");
-            this.images.Images.SetKeyName(5, "");
-            this.images.Images.SetKeyName(6, "");
-            this.images.Images.SetKeyName(7, "");
-            this.images.Images.SetKeyName(8, "");
-            this.images.Images.SetKeyName(9, "");
-            this.images.Images.SetKeyName(10, "");
-            this.images.Images.SetKeyName(11, "");
-            this.images.Images.SetKeyName(12, "");
-            this.images.Images.SetKeyName(13, "");
-            // 
-            // MetaDataDetail
-            // 
-            this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_ivaregisterkind_default));
+			this.images = new System.Windows.Forms.ImageList(this.components);
+			this.MetaDataDetail = new System.Windows.Forms.Panel();
+			this.txtEmail = new System.Windows.Forms.TextBox();
+			this.lblEmail = new System.Windows.Forms.Label();
+			this.chkActive = new System.Windows.Forms.CheckBox();
+			this.grpTesorierePerIncasso = new System.Windows.Forms.GroupBox();
+			this.cmbCodiceIstituto = new System.Windows.Forms.ComboBox();
+			this.DS = new ivaregisterkind_default.vistaForm();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.btnCopyAll = new System.Windows.Forms.Button();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.radioButton7 = new System.Windows.Forms.RadioButton();
+			this.radioButton4 = new System.Windows.Forms.RadioButton();
+			this.radioButton5 = new System.Windows.Forms.RadioButton();
+			this.radioButton6 = new System.Windows.Forms.RadioButton();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.radioButton3 = new System.Windows.Forms.RadioButton();
+			this.radioButton2 = new System.Windows.Forms.RadioButton();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.MetaDataDetail.SuspendLayout();
+			this.grpTesorierePerIncasso.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// images
+			// 
+			this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
+			this.images.TransparentColor = System.Drawing.Color.Transparent;
+			this.images.Images.SetKeyName(0, "");
+			this.images.Images.SetKeyName(1, "");
+			this.images.Images.SetKeyName(2, "");
+			this.images.Images.SetKeyName(3, "");
+			this.images.Images.SetKeyName(4, "");
+			this.images.Images.SetKeyName(5, "");
+			this.images.Images.SetKeyName(6, "");
+			this.images.Images.SetKeyName(7, "");
+			this.images.Images.SetKeyName(8, "");
+			this.images.Images.SetKeyName(9, "");
+			this.images.Images.SetKeyName(10, "");
+			this.images.Images.SetKeyName(11, "");
+			this.images.Images.SetKeyName(12, "");
+			this.images.Images.SetKeyName(13, "");
+			// 
+			// MetaDataDetail
+			// 
+			this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MetaDataDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.MetaDataDetail.Controls.Add(this.grpTesorierePerIncasso);
-            this.MetaDataDetail.Controls.Add(this.checkBox1);
-            this.MetaDataDetail.Controls.Add(this.btnCopyAll);
-            this.MetaDataDetail.Controls.Add(this.groupBox2);
-            this.MetaDataDetail.Controls.Add(this.textBox3);
-            this.MetaDataDetail.Controls.Add(this.label3);
-            this.MetaDataDetail.Controls.Add(this.label2);
-            this.MetaDataDetail.Controls.Add(this.textBox1);
-            this.MetaDataDetail.Controls.Add(this.textBox2);
-            this.MetaDataDetail.Controls.Add(this.label1);
-            this.MetaDataDetail.Controls.Add(this.groupBox1);
-            this.MetaDataDetail.Location = new System.Drawing.Point(11, 12);
-            this.MetaDataDetail.Name = "MetaDataDetail";
-            this.MetaDataDetail.Size = new System.Drawing.Size(600, 412);
-            this.MetaDataDetail.TabIndex = 1;
-            // 
-            // grpTesorierePerIncasso
-            // 
-            this.grpTesorierePerIncasso.Controls.Add(this.cmbCodiceIstituto);
-            this.grpTesorierePerIncasso.Location = new System.Drawing.Point(4, 288);
-            this.grpTesorierePerIncasso.Name = "grpTesorierePerIncasso";
-            this.grpTesorierePerIncasso.Size = new System.Drawing.Size(381, 50);
-            this.grpTesorierePerIncasso.TabIndex = 22;
-            this.grpTesorierePerIncasso.TabStop = false;
-            this.grpTesorierePerIncasso.Text = "Tesoriere collegato";
-            // 
-            // cmbCodiceIstituto
-            // 
-            this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
-            this.cmbCodiceIstituto.DisplayMember = "description";
-            this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCodiceIstituto.Location = new System.Drawing.Point(5, 19);
-            this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
-            this.cmbCodiceIstituto.Size = new System.Drawing.Size(353, 21);
-            this.cmbCodiceIstituto.TabIndex = 0;
-            this.cmbCodiceIstituto.Tag = "ivaregisterkind.idtreasurer";
-            this.cmbCodiceIstituto.ValueMember = "idtreasurer";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(250, 262);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(116, 17);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Tag = "ivaregisterkind.compensation:S:N";
-            this.checkBox1.Text = "registro corrispettivi";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // btnCopyAll
-            // 
-            this.btnCopyAll.Location = new System.Drawing.Point(191, 358);
-            this.btnCopyAll.Name = "btnCopyAll";
-            this.btnCopyAll.Size = new System.Drawing.Size(240, 23);
-            this.btnCopyAll.TabIndex = 20;
-            this.btnCopyAll.Text = "Copia il Tipo Registro su tutti gli altri Dipartimenti";
-            this.btnCopyAll.UseVisualStyleBackColor = true;
-            this.btnCopyAll.Click += new System.EventHandler(this.btnCopyAll_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.radioButton7);
-            this.groupBox2.Controls.Add(this.radioButton4);
-            this.groupBox2.Controls.Add(this.radioButton5);
-            this.groupBox2.Controls.Add(this.radioButton6);
-            this.groupBox2.Location = new System.Drawing.Point(190, 117);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(195, 113);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Tipo di Attività";
-            // 
-            // radioButton7
-            // 
-            this.radioButton7.Location = new System.Drawing.Point(9, 86);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(164, 21);
-            this.radioButton7.TabIndex = 3;
-            this.radioButton7.Tag = "ivaregisterkind.flagactivity:4";
-            this.radioButton7.Text = "Qualsiasi/Non specificata";
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.Location = new System.Drawing.Point(9, 64);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(105, 16);
-            this.radioButton4.TabIndex = 2;
-            this.radioButton4.Tag = "ivaregisterkind.flagactivity:3";
-            this.radioButton4.Text = "Promiscua";
-            // 
-            // radioButton5
-            // 
-            this.radioButton5.Location = new System.Drawing.Point(9, 40);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(105, 16);
-            this.radioButton5.TabIndex = 1;
-            this.radioButton5.Tag = "ivaregisterkind.flagactivity:2";
-            this.radioButton5.Text = "Commerciale";
-            // 
-            // radioButton6
-            // 
-            this.radioButton6.Location = new System.Drawing.Point(9, 16);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(120, 16);
-            this.radioButton6.TabIndex = 0;
-            this.radioButton6.Tag = "ivaregisterkind.flagactivity:1";
-            this.radioButton6.Text = "Istituzionale";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(8, 262);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(112, 20);
-            this.textBox3.TabIndex = 4;
-            this.textBox3.Tag = "ivaregisterkind.idivaregisterkindunified";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 246);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(176, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Codice di Consolidamento:";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(7, 46);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 16);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Descrizione:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(8, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Tag = "ivaregisterkind.codeivaregisterkind";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(8, 63);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(377, 48);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.Tag = "ivaregisterkind.description";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 16);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Codice:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(7, 117);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(154, 113);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tipo di Protocollo";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.Location = new System.Drawing.Point(8, 64);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(64, 16);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.Tag = "ivaregisterkind.registerclass:A";
-            this.radioButton3.Text = "Acquisti";
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.Location = new System.Drawing.Point(8, 40);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(64, 16);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Tag = "ivaregisterkind.registerclass:V";
-            this.radioButton2.Text = "Vendite";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.Location = new System.Drawing.Point(8, 16);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(120, 16);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.Tag = "ivaregisterkind.registerclass:P";
-            this.radioButton1.Text = "Protocollo generale";
-            // 
-            // Frm_ivaregisterkind_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(623, 430);
-            this.Controls.Add(this.MetaDataDetail);
-            this.Name = "Frm_ivaregisterkind_default";
-            this.Text = "frmtiporegistroiva";
-            this.MetaDataDetail.ResumeLayout(false);
-            this.MetaDataDetail.PerformLayout();
-            this.grpTesorierePerIncasso.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.MetaDataDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.MetaDataDetail.Controls.Add(this.txtEmail);
+			this.MetaDataDetail.Controls.Add(this.lblEmail);
+			this.MetaDataDetail.Controls.Add(this.chkActive);
+			this.MetaDataDetail.Controls.Add(this.grpTesorierePerIncasso);
+			this.MetaDataDetail.Controls.Add(this.checkBox1);
+			this.MetaDataDetail.Controls.Add(this.btnCopyAll);
+			this.MetaDataDetail.Controls.Add(this.groupBox2);
+			this.MetaDataDetail.Controls.Add(this.textBox3);
+			this.MetaDataDetail.Controls.Add(this.label3);
+			this.MetaDataDetail.Controls.Add(this.label2);
+			this.MetaDataDetail.Controls.Add(this.textBox1);
+			this.MetaDataDetail.Controls.Add(this.textBox2);
+			this.MetaDataDetail.Controls.Add(this.label1);
+			this.MetaDataDetail.Controls.Add(this.groupBox1);
+			this.MetaDataDetail.Location = new System.Drawing.Point(11, 12);
+			this.MetaDataDetail.Name = "MetaDataDetail";
+			this.MetaDataDetail.Size = new System.Drawing.Size(600, 412);
+			this.MetaDataDetail.TabIndex = 1;
+			// 
+			// txtEmail
+			// 
+			this.txtEmail.Location = new System.Drawing.Point(10, 265);
+			this.txtEmail.Multiline = true;
+			this.txtEmail.Name = "txtEmail";
+			this.txtEmail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtEmail.Size = new System.Drawing.Size(375, 67);
+			this.txtEmail.TabIndex = 25;
+			this.txtEmail.Tag = "ivaregisterkind.emails";
+			// 
+			// lblEmail
+			// 
+			this.lblEmail.AutoSize = true;
+			this.lblEmail.Location = new System.Drawing.Point(11, 249);
+			this.lblEmail.Name = "lblEmail";
+			this.lblEmail.Size = new System.Drawing.Size(280, 13);
+			this.lblEmail.TabIndex = 24;
+			this.lblEmail.Text = "Email: (una per riga, o separate da virgola/punto e virgola)";
+			// 
+			// chkActive
+			// 
+			this.chkActive.AutoSize = true;
+			this.chkActive.Location = new System.Drawing.Point(315, 22);
+			this.chkActive.Name = "chkActive";
+			this.chkActive.Size = new System.Drawing.Size(53, 17);
+			this.chkActive.TabIndex = 23;
+			this.chkActive.Tag = "ivaregisterkind.active:S:N";
+			this.chkActive.Text = "Attivo";
+			this.chkActive.UseVisualStyleBackColor = true;
+			// 
+			// grpTesorierePerIncasso
+			// 
+			this.grpTesorierePerIncasso.Controls.Add(this.cmbCodiceIstituto);
+			this.grpTesorierePerIncasso.Location = new System.Drawing.Point(4, 167);
+			this.grpTesorierePerIncasso.Name = "grpTesorierePerIncasso";
+			this.grpTesorierePerIncasso.Size = new System.Drawing.Size(381, 50);
+			this.grpTesorierePerIncasso.TabIndex = 22;
+			this.grpTesorierePerIncasso.TabStop = false;
+			this.grpTesorierePerIncasso.Text = "Tesoriere collegato";
+			// 
+			// cmbCodiceIstituto
+			// 
+			this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
+			this.cmbCodiceIstituto.DisplayMember = "description";
+			this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbCodiceIstituto.Location = new System.Drawing.Point(5, 19);
+			this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
+			this.cmbCodiceIstituto.Size = new System.Drawing.Size(353, 21);
+			this.cmbCodiceIstituto.TabIndex = 0;
+			this.cmbCodiceIstituto.Tag = "ivaregisterkind.idtreasurer";
+			this.cmbCodiceIstituto.ValueMember = "idtreasurer";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(250, 141);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(116, 17);
+			this.checkBox1.TabIndex = 21;
+			this.checkBox1.Tag = "ivaregisterkind.compensation:S:N";
+			this.checkBox1.Text = "registro corrispettivi";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// btnCopyAll
+			// 
+			this.btnCopyAll.Location = new System.Drawing.Point(191, 358);
+			this.btnCopyAll.Name = "btnCopyAll";
+			this.btnCopyAll.Size = new System.Drawing.Size(240, 23);
+			this.btnCopyAll.TabIndex = 20;
+			this.btnCopyAll.Text = "Copia il Tipo Registro su tutti gli altri Dipartimenti";
+			this.btnCopyAll.UseVisualStyleBackColor = true;
+			this.btnCopyAll.Click += new System.EventHandler(this.btnCopyAll_Click);
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.radioButton7);
+			this.groupBox2.Controls.Add(this.radioButton4);
+			this.groupBox2.Controls.Add(this.radioButton5);
+			this.groupBox2.Controls.Add(this.radioButton6);
+			this.groupBox2.Location = new System.Drawing.Point(398, 123);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(195, 113);
+			this.groupBox2.TabIndex = 3;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Tipo di Attività";
+			// 
+			// radioButton7
+			// 
+			this.radioButton7.Location = new System.Drawing.Point(9, 86);
+			this.radioButton7.Name = "radioButton7";
+			this.radioButton7.Size = new System.Drawing.Size(164, 21);
+			this.radioButton7.TabIndex = 3;
+			this.radioButton7.Tag = "ivaregisterkind.flagactivity:4";
+			this.radioButton7.Text = "Qualsiasi/Non specificata";
+			// 
+			// radioButton4
+			// 
+			this.radioButton4.Location = new System.Drawing.Point(9, 64);
+			this.radioButton4.Name = "radioButton4";
+			this.radioButton4.Size = new System.Drawing.Size(105, 16);
+			this.radioButton4.TabIndex = 2;
+			this.radioButton4.Tag = "ivaregisterkind.flagactivity:3";
+			this.radioButton4.Text = "Promiscua";
+			// 
+			// radioButton5
+			// 
+			this.radioButton5.Location = new System.Drawing.Point(9, 40);
+			this.radioButton5.Name = "radioButton5";
+			this.radioButton5.Size = new System.Drawing.Size(105, 16);
+			this.radioButton5.TabIndex = 1;
+			this.radioButton5.Tag = "ivaregisterkind.flagactivity:2";
+			this.radioButton5.Text = "Commerciale";
+			// 
+			// radioButton6
+			// 
+			this.radioButton6.Location = new System.Drawing.Point(9, 16);
+			this.radioButton6.Name = "radioButton6";
+			this.radioButton6.Size = new System.Drawing.Size(120, 16);
+			this.radioButton6.TabIndex = 0;
+			this.radioButton6.Tag = "ivaregisterkind.flagactivity:1";
+			this.radioButton6.Text = "Istituzionale";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(8, 141);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(112, 20);
+			this.textBox3.TabIndex = 4;
+			this.textBox3.Tag = "ivaregisterkind.idivaregisterkindunified";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 125);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(176, 16);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "Codice di Consolidamento:";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(7, 46);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(72, 16);
+			this.label2.TabIndex = 15;
+			this.label2.Text = "Descrizione:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(8, 22);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(280, 20);
+			this.textBox1.TabIndex = 0;
+			this.textBox1.Tag = "ivaregisterkind.codeivaregisterkind";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(8, 63);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(377, 48);
+			this.textBox2.TabIndex = 1;
+			this.textBox2.Tag = "ivaregisterkind.description";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 5);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(72, 16);
+			this.label1.TabIndex = 13;
+			this.label1.Text = "Codice:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.radioButton3);
+			this.groupBox1.Controls.Add(this.radioButton2);
+			this.groupBox1.Controls.Add(this.radioButton1);
+			this.groupBox1.Location = new System.Drawing.Point(421, 4);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(154, 113);
+			this.groupBox1.TabIndex = 2;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Tipo di Protocollo";
+			// 
+			// radioButton3
+			// 
+			this.radioButton3.Location = new System.Drawing.Point(8, 64);
+			this.radioButton3.Name = "radioButton3";
+			this.radioButton3.Size = new System.Drawing.Size(64, 16);
+			this.radioButton3.TabIndex = 2;
+			this.radioButton3.Tag = "ivaregisterkind.registerclass:A";
+			this.radioButton3.Text = "Acquisti";
+			// 
+			// radioButton2
+			// 
+			this.radioButton2.Location = new System.Drawing.Point(8, 40);
+			this.radioButton2.Name = "radioButton2";
+			this.radioButton2.Size = new System.Drawing.Size(64, 16);
+			this.radioButton2.TabIndex = 1;
+			this.radioButton2.Tag = "ivaregisterkind.registerclass:V";
+			this.radioButton2.Text = "Vendite";
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.Location = new System.Drawing.Point(8, 16);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(120, 16);
+			this.radioButton1.TabIndex = 0;
+			this.radioButton1.Tag = "ivaregisterkind.registerclass:P";
+			this.radioButton1.Text = "Protocollo generale";
+			// 
+			// Frm_ivaregisterkind_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(623, 430);
+			this.Controls.Add(this.MetaDataDetail);
+			this.Name = "Frm_ivaregisterkind_default";
+			this.Text = "frmtiporegistroiva";
+			this.MetaDataDetail.ResumeLayout(false);
+			this.MetaDataDetail.PerformLayout();
+			this.grpTesorierePerIncasso.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
+			this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -364,7 +403,8 @@ namespace ivaregisterkind_default {//tiporegistroiva//
 
             if (!IsAdmin) btnCopyAll.Visible = false;
             HelpForm.SetDenyNull(DS.ivaregisterkind.Columns["compensation"],true);
-        }
+			HelpForm.SetDenyNull(DS.ivaregisterkind.Columns["active"], true);
+		}
 
         private void btnCopyAll_Click(object sender, EventArgs e)
         {

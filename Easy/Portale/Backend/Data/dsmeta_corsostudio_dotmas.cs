@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_corsostudio_dotmas"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_corsostudio_dotmas: DataSet {
+public partial class dsmeta_corsostudio_dotmas: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -140,8 +138,6 @@ private void initClass() {
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsededefaultview.defineColumn("idcity", typeof(int));
-	tsededefaultview.defineColumn("idnation", typeof(int));
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
 	tsededefaultview.defineKey("idsede");
@@ -231,8 +227,7 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 

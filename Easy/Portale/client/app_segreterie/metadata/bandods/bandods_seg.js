@@ -26,9 +26,12 @@
 			//beforeFill
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('tipologiastudente'), this.getDataTable('graduatoriaesiti'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('graduatoriaesiti'), this.getDataTable('graduatoriaesitipos'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -38,7 +41,16 @@
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_bandodsservizio_seg').data('mdlconditionallookup', 'alloggio,S,Si;alloggio,N,No;fuoricorso,S,Si;fuoricorso,N,No;maggiorenne,S,Si;maggiorenne,N,No;mensa,S,Si;mensa,N,No;parttime,S,Si;parttime,N,No;primaimmatlivello,S,Si;primaimmatlivello,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

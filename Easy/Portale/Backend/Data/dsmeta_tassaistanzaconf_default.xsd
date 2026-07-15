@@ -8,6 +8,14 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="istanzakind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="istanzakind_ct" type="xs:dateTime" />
+              <xs:element name="istanzakind_cu" type="xs:string" />
+              <xs:element name="istanzakind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="istanzakind_lt" type="xs:dateTime" />
+              <xs:element name="istanzakind_lu" type="xs:string" />
+              <xs:element name="istanzakind_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

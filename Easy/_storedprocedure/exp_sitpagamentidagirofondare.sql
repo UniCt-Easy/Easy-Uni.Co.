@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitpagamentidagirofondare]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitpagamentidagirofondare]
 GO
@@ -23,7 +21,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+--setuser'amministrazione'
 CREATE   PROCEDURE exp_sitpagamentidagirofondare
 	@ayear int,
 	@idtreasurersource   int=null,		 --> Cassiere del Dipartimento
@@ -133,10 +131,11 @@ INSERT INTO @Dettagli(idtreasurersource, idtreasurerdest, girofondi, ytransfer, 
 		and (idtreasurerdest = @idtreasurersource) 
 		and (transferkind = 'G')
 
+
 if (@showdetail = 'S')
 Begin
 	SELECT 
-		isnull(T1.header, T1.description) as 'Cassiere Principale',
+		isnull(T1.header, T1.description) as 'Conto Corrente Principale',
 		D.yexp as 'Eserc.Pagamento',
 		D.nexp as 'Num.Pagamento',
 		case when (D.pagamenti >0) then D.pagamenti else null end as 'Crediti per Pagamenti',
@@ -149,7 +148,7 @@ Begin
 		D.ntransfer as  'Num.Girofondo',
 		case when (D.girofondi>0) then D.girofondi else null end as 'Girofondi effettuati',
 		case when (D.girofondi<0) then -(D.girofondi) else null end as 'Girofondi ricevuti',
-		isnull(T2.header, T2.description) as 'Cassiere di Riferimento'
+		isnull(T2.header, T2.description) as 'Conto Corrente di Riferimento'
 	FROM  @Dettagli D
 	JOIN treasurer T1
 		on D.idtreasurersource = T1.idtreasurer 
@@ -161,7 +160,7 @@ Else
 Begin
 			
 			SELECT 
-				isnull(T1.header, T1.description) as 'Cassiere Principale',
+				isnull(T1.header, T1.description) as 'Conto Corrente Principale',
 				case when (sum(D.pagamenti) >0) then sum(D.pagamenti) else null end as 'Crediti per Pagamenti',
 				case when (sum(D.pagamenti) <0) then -(sum(D.pagamenti)) else null end as 'Debiti per Pagamenti',
 				case when (sum(D.incassi)<0) then -(sum(D.incassi)) else null end as 'Crediti per Incassi',
@@ -170,14 +169,12 @@ Begin
 				--case when (sum(D.girofondi) >0) then sum(D.girofondi)  else null end as 'Girofondi effettuati',
 				(select sum(D1.girofondi) from @Dettagli D1
 				where D1.idtreasurersource = D.idtreasurersource and D1.idtreasurerdest = D.idtreasurerdest
-				group by D1.girofondi
-				having D1.girofondi>0) as  'Girofondi effettuati',
+				and D1.girofondi>0) as  'Girofondi effettuati',
 
 				--case when (sum(D.girofondi) <0) then -(sum(D.girofondi) ) else null end as 'Girofondi ricevuti',				
 				- (select sum(D1.girofondi) from @Dettagli D1
 				where D1.idtreasurersource = D.idtreasurersource and D1.idtreasurerdest = D.idtreasurerdest
-				group by D1.girofondi
-				having D1.girofondi<0) as 'Girofondi ricevuti',
+				and D1.girofondi<0) as 'Girofondi ricevuti',
 
 				case when (	sum(isnull(D.pagamenti,0)-isnull(D.incassi,0)+ isnull(D.girofondi,0))>0) 
 					then sum(isnull(D.pagamenti,0)-isnull(D.incassi,0)+ isnull(D.girofondi,0))
@@ -187,7 +184,7 @@ Begin
 					then -( sum(isnull(D.pagamenti,0)-isnull(D.incassi,0)+ isnull(D.girofondi,0)) )
 					else null end
 					as 'Girofondi da effettuare',
-				isnull(T2.header, T2.description) as 'Cassiere di Riferimento'
+				isnull(T2.header, T2.description) as 'Conto Corrente di Riferimento'
 			FROM  @Dettagli D
 			JOIN treasurer T1
 				on D.idtreasurersource = T1.idtreasurer 

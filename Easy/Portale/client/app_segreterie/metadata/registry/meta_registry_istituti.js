@@ -33,11 +33,6 @@
 						this.describeAColumn(table, 'title_en', 'Denominazione (ENG)', null, 90, 256);
 //$objCalcFieldConfig_istituti_princ$
 						break;
-					case 'istituti':
-						this.describeAColumn(table, 'idreg', 'Codice', null, 10, null);
-						this.describeAColumn(table, 'codicemiur', 'Codice MIUR', null, 40, 50);
-//$objCalcFieldConfig_istituti$
-						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -58,10 +53,6 @@
 						table.columns["nome"].caption = "Denominazione breve";
 						table.columns["title_en"].caption = "Denominazione (ENG)";
 //$innerSetCaptionConfig_istituti_princ$
-						break;
-					case 'istituti':
-						table.columns["codicemiur"].caption = "Codice MIUR";
-//$innerSetCaptionConfig_istituti$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -91,9 +82,6 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "istituti_princ": {
-						return "title asc ";
-					}
-					case "istituti": {
 						return "title asc ";
 					}
 					//$getSortingin$

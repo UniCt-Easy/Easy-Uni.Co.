@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -1675,7 +1673,7 @@ namespace treasurer_default {//istitutocassiere//
             this.checkBox6.Size = new System.Drawing.Size(251, 17);
             this.checkBox6.TabIndex = 36;
             this.checkBox6.Tag = "treasurer.enable_ndoc_treasurer:S:N";
-            this.checkBox6.Text = "Abilita Numerazione dei Documenti per Cassiere";
+            this.checkBox6.Text = "Abilita Numerazione dei Documenti per Conto Corrente";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
             // groupBox12

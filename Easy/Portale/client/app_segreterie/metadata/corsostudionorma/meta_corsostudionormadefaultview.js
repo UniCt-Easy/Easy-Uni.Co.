@@ -23,8 +23,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 50);
-						this.describeAColumn(table, 'istitutokind_tipoistituto', 'Tipologia di corsi', null, 30, 256);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 2000, 50);
+						this.describeAColumn(table, 'istitutokind_tipoistituto', 'Tipologia di corsi', null, 3200, 256);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

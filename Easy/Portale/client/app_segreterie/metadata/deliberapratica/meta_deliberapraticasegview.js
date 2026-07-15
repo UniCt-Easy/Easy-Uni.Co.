@@ -23,12 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'pratica_idreg', 'Studente', null, 10, null);
-						this.describeAColumn(table, 'pratica_idiscrizione', 'Iscrizione', null, 20, null);
-						this.describeAColumn(table, 'pratica_idistanzakind', 'Tipologia di istanza', null, 180, null);
-						this.describeAColumn(table, 'pratica_idstatuskind', 'Stato', null, 190, null);
-						this.describeAColumn(table, 'pratica_protnumero', 'Numero di protocollo', null, 200, null);
-						this.describeAColumn(table, 'pratica_protanno', 'Anno di protocollo', null, 210, null);
+						this.describeAColumn(table, 'pratica_idreg', 'Studente', null, 7100, null);
+						this.describeAColumn(table, 'pratica_idiscrizione', 'Iscrizione', null, 7200, null);
+						this.describeAColumn(table, 'pratica_idistanzakind', 'Tipologia di istanza', null, 8800, null);
+						this.describeAColumn(table, 'pratica_idstatuskind', 'Stato', null, 8900, null);
+						this.describeAColumn(table, 'pratica_protnumero', 'Numero di protocollo', null, 9000, null);
+						this.describeAColumn(table, 'pratica_protanno', 'Anno di protocollo', null, 9100, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

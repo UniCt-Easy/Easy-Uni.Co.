@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.ComponentModel;
@@ -521,7 +519,7 @@ namespace ep_functions {
             string rowfilter;
             int maxfase = GetMaxFaseForSelection(RigheSelezionate, tableEp);
             if (maxfase < 1) {
-                show("Non Ë possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
+                show("Non √® possibile collegare tutte le righe selezionate ad uno stesso movimento.\n" +
                     "Le informazioni di U.P.B., conto, percipiente sono " +
                     "troppo diverse tra loro.", "Errore");
                 return;
@@ -545,8 +543,8 @@ namespace ep_functions {
             string parent = cicloAttivo ? "preaccertamento" : "preimpegno";
             foreach (DataRow R in RigheSelezionate) {
                 if (parentExists(tableEp,R["par"+ idTableEp, DataRowVersion.Original])) {
-                    show("La riga non puÚ essere scollegata dal relativo "+ parent +
-                        " poichÈ gi‡ salvata in precedenza sul database.");
+                    show("La riga non pu√≤ essere scollegata dal relativo "+ parent +
+                        " poich√© gi√† salvata in precedenza sul database.");
                     continue;
                 }
                 R["par"+idTableEp] = Choosen[idTableEp];
@@ -589,7 +587,7 @@ namespace ep_functions {
             var parent = cicloAttivo ? "preaccertamento" : "preimpegno";
             foreach (var r in righeSelezionate) {
                 if (parentExists(tableEp,r["par" + idTableEp, DataRowVersion.Original])) {
-                    show($"La riga n.{r["n" + tableEp]} non puÚ essere scollegata dal relativo {parent} poichÈ gi‡ salvata in precedenza sul database.");
+                    show($"La riga n.{r["n" + tableEp]} non pu√≤ essere scollegata dal relativo {parent} poich√© gi√† salvata in precedenza sul database.");
                     continue;
                 }
                 //r.RejectChanges(); //	CambiaVoceBilancio(R,Automatismi[I]);
@@ -652,6 +650,7 @@ namespace ep_functions {
             }
             btnCollegaS.Enabled = daCollegare && ! vietaCollega;
             btnScollegaS.Enabled = daScollegare && ! vietaScollega;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
     }
 }

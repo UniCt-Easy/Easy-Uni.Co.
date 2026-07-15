@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -42,13 +40,13 @@ namespace meta_treasurer //meta_istitutocassiere//
 
 			if (FormName == "default") {
 				DefaultListType = "lista";
-				Name = "Tesoriere";
+				Name = "Conto Corrente";
 				return GetFormByDllName("treasurer_default");
 			}
 
 			if (FormName == "situazione") {
 				DefaultListType = "lista";
-				Name = "Ricerca Cassiere";
+				Name = "Ricerca Conto corrente";
 				return MetaData.GetFormByDllName("treasurer_situazione");
 			}
 
@@ -70,7 +68,7 @@ namespace meta_treasurer //meta_istitutocassiere//
 					DescribeAColumn(T, C.ColumnName, "", -1);
 
 				int nPos = 1;
-				DescribeAColumn(T, "codetreasurer", "Cod. Cassiere", nPos++);
+				DescribeAColumn(T, "codetreasurer", "Cod. Conto Corrente", nPos++);
 				DescribeAColumn(T, "description", "Banca", nPos++);
 				//DescribeAColumn(T, "flagdefault","");
 				//DescribeAColumn(T, "cin", "");

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using EasyWebReport;
 using funzioni_configurazione;
@@ -75,43 +73,34 @@ public partial class expSiopeTrasparenza : System.Web.UI.Page {
         return "";
     }
 
-    string getHtmlForTable(DataTable T) {
+    string getHtmlForTable(DataTable T, string titolo = "Elenco dati") {
         StringBuilder SB = new StringBuilder();
 
-        SB.Append("\r\n<table id='table-contratti' class='apreg_table'>\r\n");
-        SB.Append("<thead>\r\n");
-        SB.Append("<tr>\r\n");
+        SB.AppendLine("<table id='table-contratti' class='table table-striped table-hover table-bordered'>");
+        SB.AppendLine($"<caption class='table-caption'>{titolo}</caption>");
+        SB.AppendLine("<thead class='table-header'>");
+        SB.AppendLine("<tr>");
+
         foreach (DataColumn C in T.Columns) {
-            SB.Append("<th" + GetAlignForColumn(C) + ">" + C.Caption + "</th>");
+            SB.AppendLine($"<th {GetAlignForColumn(C)}>{C.Caption}</th>");
         }
-        SB.Append("\r\n</tr>\r\n");
 
-        SB.Append("</thead>\r\n");
-        SB.Append("<tbody>\r\n");
-
-        int i = 0;
+        SB.AppendLine("</tr>");
+        SB.AppendLine("</thead>");
+        SB.AppendLine("<tbody>");
 
         foreach (DataRow R in T.Rows) {
-            i++;
-            string odd = "";
-            if (i%2 == 0) {
-                SB.Append("\r\n<tr class='odd'>\r\n");
-            }
-            else {
-                SB.Append("\r\n<tr>\r\n");
-            }
-
-
+            SB.AppendLine("<tr>");
             foreach (DataColumn C in T.Columns) {
-                SB.Append("<td " + GetClassForData(C, "") + GetAlignForColumn(C) + ">" +
-                          HelpForm.StringValue(R[C], null) + "</td>");
+                string value = HelpForm.StringValue(R[C], null);
+                SB.AppendLine($"<td {GetClassForData(C, "")} {GetAlignForColumn(C)}>{value}</td>");
             }
-            SB.Append("\r\n</tr>\r\n");
+            SB.AppendLine("</tr>");
         }
 
-        SB.Append("</tbody>\r\n");
+        SB.AppendLine("</tbody>");
+        SB.AppendLine("</table>");
 
-        SB.Append("</table>\r\n");
         return SB.ToString();
     }
 
@@ -191,7 +180,7 @@ public partial class expSiopeTrasparenza : System.Web.UI.Page {
             return null;
         }
         if (CodDip.Rows.Count > 1) {
-            //Attenzione nel DB non Ë garantita l'unicit‡ dei dati.
+            //Attenzione nel DB non √® garantita l'unicit√† dei dati.
             Error("Attenzione !!! Duplicazione di codici per " + dep);
             return null;
         }

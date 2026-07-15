@@ -3,6 +3,21 @@
   <xs:element name="dsmeta_costoscontodefdettaglio_sconti" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="costoscontodefdettagliokinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="costoscontodefdettagliokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="costoscontodefdettagliokind_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="costoscontodefdettagliokind_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="costoscontodefdettagliokind_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="costoscontodefdettagliokind_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="costoscontodefdettagliokind_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcostoscontodefdettagliokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="ratadefdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -10,13 +25,6 @@
               <xs:element name="idcostoscontodef" type="xs:int" />
               <xs:element name="idfasciaiseedef" type="xs:int" />
               <xs:element name="idratadef" type="xs:int" />
-              <xs:element name="idratakind" type="xs:string" minOccurs="0" />
-              <xs:element name="ratadef_ct" type="xs:dateTime" />
-              <xs:element name="ratadef_cu" type="xs:string" />
-              <xs:element name="ratadef_decorrenza" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="ratadef_lt" type="xs:dateTime" />
-              <xs:element name="ratadef_lu" type="xs:string" />
-              <xs:element name="ratadef_scadenza" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -31,14 +39,6 @@
               <xs:element name="idcostoscontodef" type="xs:int" />
               <xs:element name="idfasciaisee" type="xs:string" />
               <xs:element name="idfasciaiseedef" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="costoscontodefdettagliokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idcostoscontodefdettagliokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -66,16 +66,19 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodefdettagliokinddefaultview" />
+      <xs:field xpath="mstns:idcostoscontodefdettagliokind" />
+    </xs:unique>
+    <xs:unique name="ratadefdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:ratadefdefaultview" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+      <xs:field xpath="mstns:idfasciaiseedef" />
       <xs:field xpath="mstns:idratadef" />
     </xs:unique>
     <xs:unique name="fasciaiseedefdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:fasciaiseedefdefaultview" />
+      <xs:field xpath="mstns:idcostoscontodef" />
       <xs:field xpath="mstns:idfasciaiseedef" />
-    </xs:unique>
-    <xs:unique name="costoscontodefdettagliokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:costoscontodefdettagliokind" />
-      <xs:field xpath="mstns:idcostoscontodefdettagliokind" />
     </xs:unique>
     <xs:unique name="costoscontodefdettaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:costoscontodefdettaglio" />
@@ -87,9 +90,10 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
+      <msdata:Relationship name="FK_costoscontodefdettaglio_costoscontodefdettagliokinddefaultview_idcostoscontodefdettagliokind" msdata:parent="costoscontodefdettagliokinddefaultview" msdata:child="costoscontodefdettaglio" msdata:parentkey="idcostoscontodefdettagliokind" msdata:childkey="idcostoscontodefdettagliokind" />
       <msdata:Relationship name="FK_costoscontodefdettaglio_ratadefdefaultview_idratadef" msdata:parent="ratadefdefaultview" msdata:child="costoscontodefdettaglio" msdata:parentkey="idratadef" msdata:childkey="idratadef" />
+      <msdata:Relationship name="FK_ratadefdefaultview_fasciaiseedefdefaultview_idfasciaiseedef" msdata:parent="fasciaiseedefdefaultview" msdata:child="ratadefdefaultview" msdata:parentkey="idfasciaiseedef" msdata:childkey="idfasciaiseedef" />
       <msdata:Relationship name="FK_costoscontodefdettaglio_fasciaiseedefdefaultview_idfasciaiseedef" msdata:parent="fasciaiseedefdefaultview" msdata:child="costoscontodefdettaglio" msdata:parentkey="idfasciaiseedef" msdata:childkey="idfasciaiseedef" />
-      <msdata:Relationship name="FK_costoscontodefdettaglio_costoscontodefdettagliokind_idcostoscontodefdettagliokind" msdata:parent="costoscontodefdettagliokind" msdata:child="costoscontodefdettaglio" msdata:parentkey="idcostoscontodefdettagliokind" msdata:childkey="idcostoscontodefdettagliokind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

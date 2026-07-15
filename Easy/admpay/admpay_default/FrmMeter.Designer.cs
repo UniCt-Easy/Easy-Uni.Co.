@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace admpay_default {
     partial class FrmMeter {
@@ -40,47 +38,36 @@ namespace admpay_default {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.lblOpCorrente = new System.Windows.Forms.Label();
-            this.pBar = new System.Windows.Forms.ProgressBar();
-            this.SuspendLayout();
-            // 
-            // lblOpCorrente
-            // 
-            this.lblOpCorrente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblOpCorrente.Location = new System.Drawing.Point(4, 35);
-            this.lblOpCorrente.Name = "lblOpCorrente";
-            this.lblOpCorrente.Size = new System.Drawing.Size(528, 23);
-            this.lblOpCorrente.TabIndex = 6;
-            this.lblOpCorrente.Text = "Attendere prego...";
-            // 
-            // pBar
-            // 
-            this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar.Location = new System.Drawing.Point(4, 3);
-            this.pBar.Name = "pBar";
-            this.pBar.Size = new System.Drawing.Size(528, 23);
-            this.pBar.Step = 1;
-            this.pBar.TabIndex = 5;
-            // 
-            // FrmMeter
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 61);
-            this.Controls.Add(this.lblOpCorrente);
-            this.Controls.Add(this.pBar);
-            this.Name = "FrmMeter";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Elaborazione in corso";
-            this.ResumeLayout(false);
+			this.lblOpCorrente = new System.Windows.Forms.Label();
+			this.SuspendLayout();
+			// 
+			// lblOpCorrente
+			// 
+			this.lblOpCorrente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.lblOpCorrente.Location = new System.Drawing.Point(4, 35);
+			this.lblOpCorrente.Name = "lblOpCorrente";
+			this.lblOpCorrente.Size = new System.Drawing.Size(528, 23);
+			this.lblOpCorrente.TabIndex = 6;
+			this.lblOpCorrente.Text = "Attendere prego...";
+			this.lblOpCorrente.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// FrmMeter
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(536, 61);
+			this.Controls.Add(this.lblOpCorrente);
+			this.Name = "FrmMeter";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Elaborazione in corso";
+			this.ResumeLayout(false);
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label lblOpCorrente;
-        public System.Windows.Forms.ProgressBar pBar;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //public System.Windows.Forms.ProgressBar pBar;
     }
 }

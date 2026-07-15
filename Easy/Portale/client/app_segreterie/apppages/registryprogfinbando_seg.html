@@ -15,28 +15,27 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registryprogfinbando_seg_number">Numero</label>
-					<input id="registryprogfinbando_seg_number" type="text" class="form-control" data-tag="registryprogfinbando.number?registryprogfinbandosegview.registryprogfinbando_number" data-subentity  />
+					<input id="registryprogfinbando_seg_number" type="text" class="form-control" data-tag="registryprogfinbando.number?registryprogfinbandosegview.registryprogfinbando_number"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registryprogfinbando_seg_title">Titolo</label>
-					<input id="registryprogfinbando_seg_title" type="text" class="form-control" data-tag="registryprogfinbando.title?registryprogfinbandosegview.title" data-subentity  />
+					<input id="registryprogfinbando_seg_title" type="text" class="form-control" data-tag="registryprogfinbando.title?registryprogfinbandosegview.title"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="registryprogfinbando_seg_description">Descrizione</label>
-					<textarea class="textarea form-control" id="registryprogfinbando_seg_description" type="text"  rows="4" data-tag="registryprogfinbando.description?registryprogfinbandosegview.registryprogfinbando_description" data-subentity  ></textarea>
+					<textarea class="textarea form-control" id="registryprogfinbando_seg_description" type="text"  rows="4" data-tag="registryprogfinbando.description?registryprogfinbandosegview.registryprogfinbando_description"  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#registryprogfinbando_seg_scadenza").datepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
 					<label class="col-form-label col-md-12" for="registryprogfinbando_seg_scadenza">Deadline of submission</label>
-					<input id="registryprogfinbando_seg_scadenza" type="text" class="form-control" data-tag="registryprogfinbando.scadenza?registryprogfinbandosegview.registryprogfinbando_scadenza" data-subentity  />
+					<input id="registryprogfinbando_seg_scadenza" type="text" class="form-control" data-tag="registryprogfinbando.scadenza?registryprogfinbandosegview.registryprogfinbando_scadenza"   data-datePickerFormat="dd/mm/yy"/>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registryprogfinbando_seg_url">Indirizzo web</label>
+					<input id="registryprogfinbando_seg_url" type="text" class="form-control" data-tag="registryprogfinbando.url?registryprogfinbandosegview.registryprogfinbando_url"  />
 				</div>
 			</div>
 	</div>
