@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_isidatacons_tasseammissioni_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_isidatacons_tasseammissioni_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="isidatacons_tasseammissioni" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="anno_solare" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ccp" type="xs:int" minOccurs="0" />
+              <xs:element name="codice_bollettino" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codice_mav" type="xs:decimal" minOccurs="0" />
+              <xs:element name="codicestudente" type="xs:int" minOccurs="0" />
+              <xs:element name="data_flusso_pagopa" type="xs:decimal" minOccurs="0" />
+              <xs:element name="data_generazione_iuv" type="xs:decimal" minOccurs="0" />
+              <xs:element name="data_incasso" type="xs:string" minOccurs="0" />
+              <xs:element name="data_versamento" type="xs:string" minOccurs="0" />
+              <xs:element name="eventuale_esonero" type="xs:string" minOccurs="0" />
+              <xs:element name="foto_bollettino" type="xs:decimal" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="importo" type="xs:string" minOccurs="0" />
+              <xs:element name="isee_importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="marca_da_bollo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max" type="xs:decimal" minOccurs="0" />
+              <xs:element name="note" type="xs:decimal" minOccurs="0" />
+              <xs:element name="numero_versamento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pagabile_al" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pagabile_dal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="perc" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tipo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="isidatacons_tasseammissioni_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:isidatacons_tasseammissioni" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_isidatacons_tasseammissioni_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="isidatacons_tasseammissioni" msdata:parentkey="aa" msdata:childkey="aa" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

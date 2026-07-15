@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="VistaEasyAudits" targetNamespace="http://tempuri.org/VistaEasyAudits.xsd" xmlns:mstns="http://tempuri.org/VistaEasyAudits.xsd" xmlns="http://tempuri.org/VistaEasyAudits.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="VistaEasyAudits" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="audit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idaudit" type="xs:string" />
+              <xs:element name="severity" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="flagsystem" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="auditparameter">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="isprecheck" type="xs:string" />
+              <xs:element name="parameterid" type="xs:short" />
+              <xs:element name="paramtable" type="xs:string" />
+              <xs:element name="paramcolumn" type="xs:string" />
+              <xs:element name="flagoldvalue" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tableop">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="auditcheckview">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="idcheck" type="xs:short" />
+              <xs:element name="idaudit" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="severity" type="xs:string" />
+              <xs:element name="sqlcmd" type="xs:string" minOccurs="0" />
+              <xs:element name="message" type="xs:string" minOccurs="0" />
+              <xs:element name="precheck" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_comp" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_cash" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_both" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_credit" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_proceeds" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:audit" />
+      <xs:field xpath="mstns:idaudit" />
+    </xs:unique>
+    <xs:unique name="auditparameter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:auditparameter" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:isprecheck" />
+      <xs:field xpath="mstns:parameterid" />
+    </xs:unique>
+    <xs:unique name="tableop_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tableop" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+    </xs:unique>
+    <xs:unique name="auditcheckview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:auditcheckview" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:idcheck" />
+      <xs:field xpath="mstns:idaudit" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="tableopauditcheckview" msdata:parent="tableop" msdata:child="auditcheckview" msdata:parentkey="tablename opkind" msdata:childkey="tablename opkind" />
+      <msdata:Relationship name="tableopauditparameter" msdata:parent="tableop" msdata:child="auditparameter" msdata:parentkey="tablename opkind" msdata:childkey="tablename opkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>
