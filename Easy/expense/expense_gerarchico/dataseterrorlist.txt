@@ -1,0 +1,2 @@
+Unknown Table tipomovimento in : D:\easy\expense\expense_gerarchico\vistaForm.xsd
+Wrong Primary key LENGTH in bill in : D:\easy\expense\expense_gerarchico\vistaForm.xsd

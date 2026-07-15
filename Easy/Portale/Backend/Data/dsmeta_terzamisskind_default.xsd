@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_terzamisskind_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_terzamisskind_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="terzamisstematicacampodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idterzamisstematica" type="xs:int" />
+              <xs:element name="idterzamisstematicacampo" type="xs:int" />
+              <xs:element name="terzamisstematica_title" type="xs:string" minOccurs="0" />
+              <xs:element name="terzamisstematicacampo_active" type="xs:string" minOccurs="0" />
+              <xs:element name="terzamisstematicacampo_ct" type="xs:dateTime" />
+              <xs:element name="terzamisstematicacampo_cu" type="xs:string" />
+              <xs:element name="terzamisstematicacampo_lt" type="xs:dateTime" />
+              <xs:element name="terzamisstematicacampo_lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="terzamisstematicadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idterzamisstematica" type="xs:int" />
+              <xs:element name="terzamisstematica_active" type="xs:string" minOccurs="0" />
+              <xs:element name="terzamisstematica_ct" type="xs:dateTime" />
+              <xs:element name="terzamisstematica_cu" type="xs:string" />
+              <xs:element name="terzamisstematica_lt" type="xs:dateTime" />
+              <xs:element name="terzamisstematica_lu" type="xs:string" />
+              <xs:element name="terzamisstematica_riferimento" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="terzamisskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idterzamisskind" type="xs:int" />
+              <xs:element name="idterzamisstematica" type="xs:int" />
+              <xs:element name="idterzamisstematicacampo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:terzamisstematicacampodefaultview" />
+      <xs:field xpath="mstns:idterzamisstematica" />
+      <xs:field xpath="mstns:idterzamisstematicacampo" />
+    </xs:unique>
+    <xs:unique name="terzamisstematicadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:terzamisstematicadefaultview" />
+      <xs:field xpath="mstns:idterzamisstematica" />
+    </xs:unique>
+    <xs:unique name="terzamisskind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:terzamisskind" />
+      <xs:field xpath="mstns:idterzamisskind" />
+      <xs:field xpath="mstns:idterzamisstematica" />
+      <xs:field xpath="mstns:idterzamisstematicacampo" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_terzamisskind_terzamisstematicacampodefaultview_idterzamisstematicacampo" msdata:parent="terzamisstematicacampodefaultview" msdata:child="terzamisskind" msdata:parentkey="idterzamisstematicacampo" msdata:childkey="idterzamisstematicacampo" />
+      <msdata:Relationship name="FK_terzamisstematicacampodefaultview_terzamisstematicadefaultview_idterzamisstematica" msdata:parent="terzamisstematicadefaultview" msdata:child="terzamisstematicacampodefaultview" msdata:parentkey="idterzamisstematica" msdata:childkey="idterzamisstematica" />
+      <msdata:Relationship name="FK_terzamisskind_terzamisstematicadefaultview_idterzamisstematica" msdata:parent="terzamisstematicadefaultview" msdata:child="terzamisskind" msdata:parentkey="idterzamisstematica" msdata:childkey="idterzamisstematica" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

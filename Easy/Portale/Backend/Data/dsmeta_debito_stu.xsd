@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_debito_stu" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_debito_stu" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pagamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idpagamentokind_pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="esonero" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idesonero" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="didprog" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="esonerostudente" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="esito" type="xs:string" minOccurs="0" />
+              <xs:element name="idesonero" type="xs:int" />
+              <xs:element name="idesonerostudente" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debitoesonero" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idesonerostudente" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_esonero_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_annoaccademico_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_esonerostudente_esito" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_iscrizione_anno" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_iscrizione_annoaccademico_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_iscrizione_didprog_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_iscrizione_didprog_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idesonerostudente_iscrizione_didprog_idsede" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costoscontodefdettagliokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostoscontodefdettagliokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costoscontodefdettaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="idcostoscontodefdettaglio" type="xs:int" />
+              <xs:element name="idcostoscontodefdettagliokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfasciaiseedef" type="xs:int" />
+              <xs:element name="idratadef" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="costoscontodef" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debitodettaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="annulment" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="idcostoscontodefdettaglio" type="xs:int" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="iddebitodettaglio" type="xs:int" />
+              <xs:element name="idflussocrediti" type="xs:int" minOccurs="0" />
+              <xs:element name="idflussocreditidetail" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="iduniqueformcode" type="xs:string" minOccurs="0" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iuv" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcostoscontodef_costoscontodef_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcostoscontodefdettaglio_costoscontodefdettaglio_idfasciaiseedef" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idcostoscontodefdettaglio_costoscontodefdettaglio_idratadef" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idcostoscontodefdettaglio_costoscontodefdettaglio_importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idcostoscontodefdettaglio_costoscontodefdettaglio_idcostoscontodefdettagliokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamentokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpagamentokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamento_alias2" msprop:TableForReading="pagamento" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debito_alias2" msprop:TableForReading="debito" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamento_alias1" msprop:TableForReading="pagamento" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debito_alias1" msprop:TableForReading="debito" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="credito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="autorizzato" type="xs:string" minOccurs="0" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="conguaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconguaglio" type="xs:int" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="iddebito_credito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcredito_credito_autorizzato" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcredito_credito_iddebito_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idcredito_credito_iddebito_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idcredito_credito_iddebito_scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idcredito_credito_idpagamento_dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idcredito_credito_idpagamento_idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_iddebito_credito_debito_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idpagamento_pagamento_dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idpagamento_pagamento_idpagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ratadefdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="idfasciaiseedef" type="xs:int" />
+              <xs:element name="idratadef" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fasciaiseedefdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcostoscontodef" type="xs:int" />
+              <xs:element name="idfasciaiseedef" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tassaconfdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idtassaconf" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nullaosta" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="data" type="xs:dateTime" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idnullaosta" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="istanzasegstuelencoview_alias14" msprop:TableForReading="istanzasegstuelencoview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idistanzakind" type="xs:int" />
+              <xs:element name="idreg_studenti" type="xs:int" />
+              <xs:element name="istanza_ct" type="xs:dateTime" />
+              <xs:element name="istanza_cu" type="xs:string" />
+              <xs:element name="istanza_data" type="xs:dateTime" />
+              <xs:element name="istanza_extension" type="xs:string" minOccurs="0" />
+              <xs:element name="istanza_idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="istanza_idstatuskind" type="xs:int" minOccurs="0" />
+              <xs:element name="istanza_lt" type="xs:dateTime" />
+              <xs:element name="istanza_lu" type="xs:string" />
+              <xs:element name="istanza_paridistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="istanza_protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="istanza_protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="istanzakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="registrystudenti_title" type="xs:string" minOccurs="0" />
+              <xs:element name="statuskind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizioneanno" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" />
+              <xs:element name="annofc" type="xs:int" minOccurs="0" />
+              <xs:element name="annopt" type="xs:int" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="data" type="xs:dateTime" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idiscrizioneanno" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="protnumero" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="iscrizionedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="didprog_idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="idiscrizione" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="iscrizione_ct" type="xs:dateTime" />
+              <xs:element name="iscrizione_cu" type="xs:string" />
+              <xs:element name="iscrizione_data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iscrizione_lt" type="xs:dateTime" />
+              <xs:element name="iscrizione_lu" type="xs:string" />
+              <xs:element name="iscrizione_matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idfasciaiseedef" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizione" type="xs:int" minOccurs="0" />
+              <xs:element name="idiscrizioneanno" type="xs:int" minOccurs="0" />
+              <xs:element name="idistanza" type="xs:int" minOccurs="0" />
+              <xs:element name="idnullaosta" type="xs:int" minOccurs="0" />
+              <xs:element name="idratadef" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idtassaconf" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamento" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="esonero_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:esonero" />
+      <xs:field xpath="mstns:idesonero" />
+    </xs:unique>
+    <xs:unique name="didprog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:didprog" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+    </xs:unique>
+    <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="iscrizione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizione" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="esonerostudente_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:esonerostudente" />
+      <xs:field xpath="mstns:idesonero" />
+      <xs:field xpath="mstns:idesonerostudente" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debitoesonero_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debitoesonero" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idesonerostudente" />
+    </xs:unique>
+    <xs:unique name="costoscontodefdettagliokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodefdettagliokind" />
+      <xs:field xpath="mstns:idcostoscontodefdettagliokind" />
+    </xs:unique>
+    <xs:unique name="costoscontodefdettaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodefdettaglio" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+      <xs:field xpath="mstns:idcostoscontodefdettaglio" />
+      <xs:field xpath="mstns:idfasciaiseedef" />
+      <xs:field xpath="mstns:idratadef" />
+    </xs:unique>
+    <xs:unique name="costoscontodef_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:costoscontodef" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+    </xs:unique>
+    <xs:unique name="debitodettaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debitodettaglio" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:iddebitodettaglio" />
+    </xs:unique>
+    <xs:unique name="pagamentokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentokind" />
+      <xs:field xpath="mstns:idpagamentokind" />
+    </xs:unique>
+    <xs:unique name="pagamento_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamento_alias2" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debito_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debito_alias2" />
+      <xs:field xpath="mstns:iddebito" />
+    </xs:unique>
+    <xs:unique name="pagamento_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamento_alias1" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debito_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debito_alias1" />
+      <xs:field xpath="mstns:iddebito" />
+    </xs:unique>
+    <xs:unique name="credito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:credito" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="conguaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:conguaglio" />
+      <xs:field xpath="mstns:idconguaglio" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:iddebito_credito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="ratadefdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ratadefdefaultview" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+      <xs:field xpath="mstns:idfasciaiseedef" />
+      <xs:field xpath="mstns:idratadef" />
+    </xs:unique>
+    <xs:unique name="fasciaiseedefdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fasciaiseedefdefaultview" />
+      <xs:field xpath="mstns:idcostoscontodef" />
+      <xs:field xpath="mstns:idfasciaiseedef" />
+    </xs:unique>
+    <xs:unique name="tassaconfdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tassaconfdefaultview" />
+      <xs:field xpath="mstns:idtassaconf" />
+    </xs:unique>
+    <xs:unique name="nullaosta_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:nullaosta" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idnullaosta" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="istanzasegstuelencoview_alias14_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:istanzasegstuelencoview_alias14" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idistanza" />
+      <xs:field xpath="mstns:idistanzakind" />
+      <xs:field xpath="mstns:idreg_studenti" />
+    </xs:unique>
+    <xs:unique name="iscrizioneanno_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizioneanno" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idiscrizioneanno" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="iscrizionedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:iscrizionedefaultview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debito" />
+      <xs:field xpath="mstns:iddebito" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_pagamento_debito_iddebito" msdata:parent="debito" msdata:child="pagamento" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_pagamento_pagamentokind_idpagamentokind" msdata:parent="pagamentokind" msdata:child="pagamento" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+      <msdata:Relationship name="FK_debitoesonero_debito_iddebito" msdata:parent="debito" msdata:child="debitoesonero" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_debitoesonero_esonerostudente_idesonerostudente" msdata:parent="esonerostudente" msdata:child="debitoesonero" msdata:parentkey="idesonerostudente" msdata:childkey="idesonerostudente" />
+      <msdata:Relationship name="FK_esonerostudente_iscrizione_idiscrizione" msdata:parent="iscrizione" msdata:child="esonerostudente" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione" />
+      <msdata:Relationship name="FK_esonerostudente_esonero_idesonero" msdata:parent="esonero" msdata:child="esonerostudente" msdata:parentkey="idesonero" msdata:childkey="idesonero" />
+      <msdata:Relationship name="FK_esonerostudente_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="esonerostudente" msdata:parentkey="aa" msdata:childkey="aa" />
+      <msdata:Relationship name="FK_iscrizione_didprog_iddidprog" msdata:parent="didprog" msdata:child="iscrizione" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
+      <msdata:Relationship name="FK_iscrizione_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="iscrizione" msdata:parentkey="aa" msdata:childkey="aa" />
+      <msdata:Relationship name="FK_debitodettaglio_debito_iddebito" msdata:parent="debito" msdata:child="debitodettaglio" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_debitodettaglio_costoscontodefdettaglio_idcostoscontodefdettaglio" msdata:parent="costoscontodefdettaglio" msdata:child="debitodettaglio" msdata:parentkey="idcostoscontodefdettaglio" msdata:childkey="idcostoscontodefdettaglio" />
+      <msdata:Relationship name="FK_costoscontodefdettaglio_costoscontodefdettagliokind_idcostoscontodefdettagliokind" msdata:parent="costoscontodefdettagliokind" msdata:child="costoscontodefdettaglio" msdata:parentkey="idcostoscontodefdettagliokind" msdata:childkey="idcostoscontodefdettagliokind" />
+      <msdata:Relationship name="FK_debitodettaglio_costoscontodef_idcostoscontodef" msdata:parent="costoscontodef" msdata:child="debitodettaglio" msdata:parentkey="idcostoscontodef" msdata:childkey="idcostoscontodef" />
+      <msdata:Relationship name="FK_conguaglio_debito_iddebito" msdata:parent="debito" msdata:child="conguaglio" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_conguaglio_pagamento_alias2_idpagamento" msdata:parent="pagamento_alias2" msdata:child="conguaglio" msdata:parentkey="idpagamento" msdata:childkey="idpagamento" />
+      <msdata:Relationship name="FK_pagamento_alias2_pagamentokind_idpagamentokind" msdata:parent="pagamentokind" msdata:child="pagamento_alias2" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+      <msdata:Relationship name="FK_conguaglio_debito_alias2_iddebito_credito" msdata:parent="debito_alias2" msdata:child="conguaglio" msdata:parentkey="iddebito" msdata:childkey="iddebito_credito" />
+      <msdata:Relationship name="FK_conguaglio_credito_idcredito" msdata:parent="credito" msdata:child="conguaglio" msdata:parentkey="idcredito" msdata:childkey="idcredito" />
+      <msdata:Relationship name="FK_credito_pagamento_alias1_idpagamento" msdata:parent="pagamento_alias1" msdata:child="credito" msdata:parentkey="idpagamento" msdata:childkey="idpagamento" />
+      <msdata:Relationship name="FK_credito_debito_alias1_iddebito" msdata:parent="debito_alias1" msdata:child="credito" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_debito_ratadefdefaultview_idratadef" msdata:parent="ratadefdefaultview" msdata:child="debito" msdata:parentkey="idratadef" msdata:childkey="idratadef" />
+      <msdata:Relationship name="FK_debito_fasciaiseedefdefaultview_idfasciaiseedef" msdata:parent="fasciaiseedefdefaultview" msdata:child="debito" msdata:parentkey="idfasciaiseedef" msdata:childkey="idfasciaiseedef" />
+      <msdata:Relationship name="FK_debito_tassaconfdefaultview_idtassaconf" msdata:parent="tassaconfdefaultview" msdata:child="debito" msdata:parentkey="idtassaconf" msdata:childkey="idtassaconf" />
+      <msdata:Relationship name="FK_debito_nullaosta_idnullaosta" msdata:parent="nullaosta" msdata:child="debito" msdata:parentkey="idnullaosta" msdata:childkey="idnullaosta" />
+      <msdata:Relationship name="FK_nullaosta_istanzasegstuelencoview_alias14_idistanza" msdata:parent="istanzasegstuelencoview_alias14" msdata:child="nullaosta" msdata:parentkey="idistanza" msdata:childkey="idistanza" />
+      <msdata:Relationship name="FK_debito_istanzasegstuelencoview_alias14_idistanza" msdata:parent="istanzasegstuelencoview_alias14" msdata:child="debito" msdata:parentkey="idistanza" msdata:childkey="idistanza" />
+      <msdata:Relationship name="FK_debito_iscrizioneanno_idiscrizioneanno" msdata:parent="iscrizioneanno" msdata:child="debito" msdata:parentkey="idiscrizioneanno" msdata:childkey="idiscrizioneanno" />
+      <msdata:Relationship name="FK_debito_iscrizionedefaultview_idiscrizione" msdata:parent="iscrizionedefaultview" msdata:child="debito" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

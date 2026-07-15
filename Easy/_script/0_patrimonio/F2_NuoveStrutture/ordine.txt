@@ -1,0 +1,8 @@
+1. manage_campiflag.sql
+2. change_codelen.sql
+3. asset.sql
+4. inventorytreelink.sql
+5. locationlink.sql
+6. rebuild_inventorytreelink.sql
+7. rebuild_locationlink.sql
+8. go_rebuild_link.sql

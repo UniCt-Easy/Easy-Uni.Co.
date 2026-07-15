@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_isidatacons_anagrafestudentiimmatricolati_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_isidatacons_anagrafestudentiimmatricolati_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="isidatacons_anagrafestudentiimmatricolati" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="altriesamiconseguiti" type="xs:string" minOccurs="0" />
+              <xs:element name="anno_di_scuola_media" type="xs:string" minOccurs="0" />
+              <xs:element name="anno_scolastico" type="xs:string" minOccurs="0" />
+              <xs:element name="annoammiss" type="xs:string" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="cell" type="xs:string" minOccurs="0" />
+              <xs:element name="certb" type="xs:string" minOccurs="0" />
+              <xs:element name="cittadinanza" type="xs:string" minOccurs="0" />
+              <xs:element name="codicestudente" type="xs:int" minOccurs="0" />
+              <xs:element name="cognome" type="xs:string" minOccurs="0" />
+              <xs:element name="corsolaurea" type="xs:string" minOccurs="0" />
+              <xs:element name="data_di_ammissione" type="xs:string" minOccurs="0" />
+              <xs:element name="data_di_nascita" type="xs:string" minOccurs="0" />
+              <xs:element name="debiti" type="xs:string" minOccurs="0" />
+              <xs:element name="dip_sup" type="xs:string" minOccurs="0" />
+              <xs:element name="dispense" type="xs:string" minOccurs="0" />
+              <xs:element name="diversabilitaperc" type="xs:string" minOccurs="0" />
+              <xs:element name="email" type="xs:string" minOccurs="0" />
+              <xs:element name="emailist" type="xs:string" minOccurs="0" />
+              <xs:element name="fascia_reddituale" type="xs:string" minOccurs="0" />
+              <xs:element name="freqla" type="xs:string" minOccurs="0" />
+              <xs:element name="iban" type="xs:string" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="intestatario" type="xs:string" minOccurs="0" />
+              <xs:element name="iscuniv" type="xs:string" minOccurs="0" />
+              <xs:element name="iscunivnew" type="xs:string" minOccurs="0" />
+              <xs:element name="iseeimporto" type="xs:string" minOccurs="0" />
+              <xs:element name="livellocertitaliano" type="xs:string" minOccurs="0" />
+              <xs:element name="livellocertsolfeggio" type="xs:string" minOccurs="0" />
+              <xs:element name="livpreacc" type="xs:string" minOccurs="0" />
+              <xs:element name="localita_di_nascita" type="xs:string" minOccurs="0" />
+              <xs:element name="nazionalita" type="xs:string" minOccurs="0" />
+              <xs:element name="nazita" type="xs:string" minOccurs="0" />
+              <xs:element name="ncf" type="xs:string" minOccurs="0" />
+              <xs:element name="nome" type="xs:string" minOccurs="0" />
+              <xs:element name="nonattivo" type="xs:string" minOccurs="0" />
+              <xs:element name="notaprivata" type="xs:string" minOccurs="0" />
+              <xs:element name="numrichinpsisee" type="xs:string" minOccurs="0" />
+              <xs:element name="osservazioni" type="xs:string" minOccurs="0" />
+              <xs:element name="postitstud" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia_di_nascita" type="xs:string" minOccurs="0" />
+              <xs:element name="provincia_di_residenza" type="xs:string" minOccurs="0" />
+              <xs:element name="punteggio_ammissione" type="xs:string" minOccurs="0" />
+              <xs:element name="regione_di_nascita" type="xs:int" minOccurs="0" />
+              <xs:element name="regione_di_residenza" type="xs:int" minOccurs="0" />
+              <xs:element name="residenza" type="xs:string" minOccurs="0" />
+              <xs:element name="scuola" type="xs:string" minOccurs="0" />
+              <xs:element name="sesso" type="xs:string" minOccurs="0" />
+              <xs:element name="studimusprec" type="xs:string" minOccurs="0" />
+              <xs:element name="telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="titolo_di_studio" type="xs:string" minOccurs="0" />
+              <xs:element name="titstuddatadipl" type="xs:string" minOccurs="0" />
+              <xs:element name="titstudindist" type="xs:string" minOccurs="0" />
+              <xs:element name="titstudnazione" type="xs:string" minOccurs="0" />
+              <xs:element name="titstudnomeist" type="xs:string" minOccurs="0" />
+              <xs:element name="turandot" type="xs:string" minOccurs="0" />
+              <xs:element name="via" type="xs:string" minOccurs="0" />
+              <xs:element name="voto_tit_stud" type="xs:string" minOccurs="0" />
+              <xs:element name="votobieprecpertfa" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:isidatacons_anagrafestudentiimmatricolati" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaMissioneSpesa.xsd" xmlns:mstns="http://tempuri.org/VistaMissioneSpesa.xsd" xmlns="http://tempuri.org/VistaMissioneSpesa.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="currency">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcurrency" type="xs:int" />
+              <xs:element name="codecurrency" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefund">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nrefund" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="exchangerate" type="xs:double" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="extraallowance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="starttime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stoptime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flag_geo" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iditinerationrefundkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="flagitalian" type="xs:string" minOccurs="0" />
+              <xs:element name="flagadvancebalance" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="requiredamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="webwarn" type="xs:string" minOccurs="0" />
+              <xs:element name="idforeigncountry" type="xs:int" minOccurs="0" />
+              <xs:element name="noaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagtaxableexpense" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="codeitinerationrefundkind" type="xs:string" />
+              <xs:element name="iditinerationrefundkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flagadvance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
+			  <xs:element name="flagvisible" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="foreigncountry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="flag_ue" type="xs:string" minOccurs="0" />
+              <xs:element name="codeforeigncountry" type="xs:string" />
+              <xs:element name="idforeigncountry" type="xs:int" />
+              <xs:element name="idmacroarea" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="nrefund" type="xs:short" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_refundattachmentkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundattachmentkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itineration">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="admincarkm" type="xs:double" minOccurs="0" />
+              <xs:element name="admincarkmcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="authorizationdate" type="xs:dateTime" />
+              <xs:element name="completed" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="footkm" type="xs:double" minOccurs="0" />
+              <xs:element name="footkmcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="grossfactor" type="xs:double" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="netfee" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nitineration" type="xs:int" />
+              <xs:element name="owncarkm" type="xs:double" minOccurs="0" />
+              <xs:element name="owncarkmcost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" />
+              <xs:element name="stop" type="xs:dateTime" />
+              <xs:element name="totadvance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalgross" type="xs:decimal" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="yitineration" type="xs:short" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_crg" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit_datacrg" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" minOccurs="0" />
+              <xs:element name="applierannotations" type="xs:string" minOccurs="0" />
+              <xs:element name="flagweb" type="xs:string" minOccurs="0" />
+              <xs:element name="idauthmodel" type="xs:int" minOccurs="0" />
+              <xs:element name="iditinerationstatus" type="xs:short" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="webwarn" type="xs:string" minOccurs="0" />
+              <xs:element name="authdoc" type="xs:string" minOccurs="0" />
+              <xs:element name="authdocdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="authneeded" type="xs:string" minOccurs="0" />
+              <xs:element name="cancelreason" type="xs:string" minOccurs="0" />
+              <xs:element name="noauthreason" type="xs:string" minOccurs="0" />
+              <xs:element name="clause_accepted" type="xs:string" minOccurs="0" />
+              <xs:element name="vehicle_info" type="xs:string" minOccurs="0" />
+              <xs:element name="vehicle_motive" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="datecompleted" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="additionalannotations" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="iditineration_ref" type="xs:int" minOccurs="0" />
+              <xs:element name="advanceapplied" type="xs:string" minOccurs="0" />
+              <xs:element name="idforeigncountry" type="xs:int" minOccurs="0" />
+              <xs:element name="advancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagmove" type="xs:int" minOccurs="0" />
+              <xs:element name="flagoutside" type="xs:string" minOccurs="0" />
+              <xs:element name="flagownfunds" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrypaymethod" type="xs:int" minOccurs="0" />
+              <xs:element name="nfood" type="xs:int" minOccurs="0" />
+              <xs:element name="supposedamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedfood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedliving" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedtravel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iddaliarecruitmentmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="starttime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stoptime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddalia_dipartimento" type="xs:int" minOccurs="0" />
+              <xs:element name="iddalia_funzionale" type="xs:int" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagefood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentageliving" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentagetravel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="position">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idposition" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codeposition" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maxincomeclass" type="xs:short" minOccurs="0" />
+              <xs:element name="foreignclass" type="xs:string" minOccurs="0" />
+              <xs:element name="assegnoaggiuntivo" type="xs:string" minOccurs="0" />
+              <xs:element name="costolordoannuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="costolordoannuooneri" type="xs:decimal" minOccurs="0" />
+              <xs:element name="elementoperequativo" type="xs:string" minOccurs="0" />
+              <xs:element name="indennitadiateneo" type="xs:string" minOccurs="0" />
+              <xs:element name="indennitadiposizione" type="xs:string" minOccurs="0" />
+              <xs:element name="indvacancacontrattuale" type="xs:string" minOccurs="0" />
+              <xs:element name="oremaxcompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxcompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxdidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxdidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxgg" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxtempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremaxtempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremincompitididatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremincompitididatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremindidatempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremindidatempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="oremintempoparziale" type="xs:int" minOccurs="0" />
+              <xs:element name="oremintempopieno" type="xs:int" minOccurs="0" />
+              <xs:element name="orestraordinariemax" type="xs:int" minOccurs="0" />
+              <xs:element name="parttime" type="xs:string" minOccurs="0" />
+              <xs:element name="puntiorganico" type="xs:decimal" minOccurs="0" />
+              <xs:element name="livello" type="xs:string" minOccurs="0" />
+              <xs:element name="siglaesportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="siglaimportazione" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:int" minOccurs="0" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="tipopersonale" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="totaletredicesima" type="xs:string" minOccurs="0" />
+              <xs:element name="tredicesimaindennitaintegrativaspeciale" type="xs:string" minOccurs="0" />
+              <xs:element name="tipoente" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrylegalstatus">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idposition" type="xs:int" minOccurs="0" />
+              <xs:element name="incomeclass" type="xs:short" minOccurs="0" />
+              <xs:element name="incomeclassvalidity" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrylegalstatus" type="xs:int" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="csa_compartment" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_class" type="xs:string" minOccurs="0" />
+              <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
+              <xs:element name="datarivalutazione" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idinquadramento" type="xs:int" minOccurs="0" />
+              <xs:element name="parttime" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percentualesufondiateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="livello" type="xs:int" minOccurs="0" />
+              <xs:element name="tempdef" type="xs:string" minOccurs="0" />
+              <xs:element name="tempindet" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="idclassconsorsuale" type="xs:int" minOccurs="0" />
+              <xs:element name="idtipologiaruolo" type="xs:int" minOccurs="0" />
+              <xs:element name="anni" type="xs:int" minOccurs="0" />
+              <xs:element name="annokind" type="xs:string" minOccurs="0" />
+              <xs:element name="cedolini" type="xs:string" minOccurs="0" />
+              <xs:element name="giorni" type="xs:int" minOccurs="0" />
+              <xs:element name="idtiponomina" type="xs:int" minOccurs="0" />
+              <xs:element name="istituzione" type="xs:string" minOccurs="0" />
+              <xs:element name="mesi" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
+              <xs:element name="badgecode" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="extmatricula" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
+              <xs:element name="idnation" type="xs:int" minOccurs="0" />
+              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrykind" type="xs:int" minOccurs="0" />
+              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalsurname" type="xs:string" minOccurs="0" />
+              <xs:element name="multi_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="toredirect" type="xs:int" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+              <xs:element name="ccp" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbankitaliaproceeds" type="xs:string" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_pa" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_defrifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="sdi_norifamm" type="xs:string" minOccurs="0" />
+              <xs:element name="email_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
+              <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
+              <xs:element name="extension" type="xs:string" minOccurs="0" />
+              <xs:element name="idateco" type="xs:int" minOccurs="0" />
+              <xs:element name="idnace" type="xs:string" minOccurs="0" />
+              <xs:element name="idnaturagiur" type="xs:int" minOccurs="0" />
+              <xs:element name="idnumerodip" type="xs:int" minOccurs="0" />
+              <xs:element name="pic" type="xs:string" minOccurs="0" />
+              <xs:element name="title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg_istituti" type="xs:int" minOccurs="0" />
+              <xs:element name="idsasd" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
+              <xs:element name="soggiorno" type="xs:string" minOccurs="0" />
+              <xs:element name="idanpr" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="service">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idser" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="allowedit" type="xs:string" minOccurs="0" />
+              <xs:element name="certificatekind" type="xs:string" minOccurs="0" />
+              <xs:element name="codeser" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="flagalwaysinfiscalmodels" type="xs:string" minOccurs="0" />
+              <xs:element name="flagapplyabatements" type="xs:string" minOccurs="0" />
+              <xs:element name="flagforeign" type="xs:string" minOccurs="0" />
+              <xs:element name="flagneedbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagonlyfiscalabatement" type="xs:string" />
+              <xs:element name="idmotive" type="xs:int" minOccurs="0" />
+              <xs:element name="itinerationvisible" type="xs:string" minOccurs="0" />
+              <xs:element name="ivaamount" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="module" type="xs:string" minOccurs="0" />
+              <xs:element name="rec770kind" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000" type="xs:string" minOccurs="0" />
+              <xs:element name="webdefault" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdistraint" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcsausability" type="xs:int" minOccurs="0" />
+              <xs:element name="voce8000refund_e" type="xs:string" minOccurs="0" />
+              <xs:element name="voce8000refund_i" type="xs:string" minOccurs="0" />
+              <xs:element name="flagnoexemptionquote" type="xs:string" minOccurs="0" />
+              <xs:element name="flagdalia" type="xs:string" minOccurs="0" />
+              <xs:element name="servicecode770" type="xs:string" minOccurs="0" />
+              <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
+              <xs:element name="flagnoncumula" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationstatus">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationstatus" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="listingorder" type="xs:short" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:currency" />
+      <xs:field xpath="mstns:idcurrency" />
+    </xs:unique>
+    <xs:unique name="itinerationrefund_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefund" />
+      <xs:field xpath="mstns:nrefund" />
+      <xs:field xpath="mstns:iditineration" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkind" />
+      <xs:field xpath="mstns:iditinerationrefundkind" />
+    </xs:unique>
+    <xs:unique name="foreigncountry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreigncountry" />
+      <xs:field xpath="mstns:idforeigncountry" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundattachment" />
+      <xs:field xpath="mstns:idattachment" />
+      <xs:field xpath="mstns:iditineration" />
+      <xs:field xpath="mstns:nrefund" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundattachmentkind" />
+      <xs:field xpath="mstns:iditinerationrefundattachmentkind" />
+    </xs:unique>
+    <xs:unique name="itineration_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itineration" />
+      <xs:field xpath="mstns:iditineration" />
+    </xs:unique>
+    <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:position" />
+      <xs:field xpath="mstns:idposition" />
+    </xs:unique>
+    <xs:unique name="registrylegalstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrylegalstatus" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrylegalstatus" />
+    </xs:unique>
+    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="service_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:service" />
+      <xs:field xpath="mstns:idser" />
+    </xs:unique>
+    <xs:unique name="itinerationstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationstatus" />
+      <xs:field xpath="mstns:iditinerationstatus" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_foreigncountry_itinerationrefund" msdata:parent="foreigncountry" msdata:child="itinerationrefund" msdata:parentkey="idforeigncountry" msdata:childkey="idforeigncountry" />
+      <msdata:Relationship name="itinerationrefundkind_itinerationrefund" msdata:parent="itinerationrefundkind" msdata:child="itinerationrefund" msdata:parentkey="iditinerationrefundkind" msdata:childkey="iditinerationrefundkind" />
+      <msdata:Relationship name="currency_itinerationrefund" msdata:parent="currency" msdata:child="itinerationrefund" msdata:parentkey="idcurrency" msdata:childkey="idcurrency" />
+      <msdata:Relationship name="itinerationrefundattachment_itinerationrefund" msdata:parent="itinerationrefund" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
+      <msdata:Relationship name="itinerationrefundattachmentkind_itinerationrefundattachment" msdata:parent="itinerationrefundattachmentkind" msdata:child="itinerationrefundattachment" msdata:parentkey="iditinerationrefundattachmentkind" msdata:childkey="iditinerationrefundattachmentkind" />
+      <msdata:Relationship name="itineration_itinerationrefund" msdata:parent="itineration" msdata:child="itinerationrefund" msdata:parentkey="iditineration" msdata:childkey="iditineration" />
+      <msdata:Relationship name="registrylegalstatus_itineration" msdata:parent="registrylegalstatus" msdata:child="itineration" msdata:parentkey="idreg idregistrylegalstatus" msdata:childkey="idreg idregistrylegalstatus" />
+      <msdata:Relationship name="registry_itineration" msdata:parent="registry" msdata:child="itineration" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="service_itineration" msdata:parent="service" msdata:child="itineration" msdata:parentkey="idser" msdata:childkey="idser" />
+      <msdata:Relationship name="position_registrylegalstatus" msdata:parent="position" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
+      <msdata:Relationship name="itinerationstatus_itineration" msdata:parent="itinerationstatus" msdata:child="itineration" msdata:parentkey="iditinerationstatus" msdata:childkey="iditinerationstatus" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

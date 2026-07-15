@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_credito_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_credito_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pagamentokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idpagamentokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamento" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idpagamentokind" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idpagamentokind_pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="liquidazione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito_credito" type="xs:int" />
+              <xs:element name="idliquidazione" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="conguaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconguaglio" type="xs:int" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="iddebito_credito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_iddebito_credito_debito_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pagamentodefaultview_alias1" msprop:TableForReading="pagamentodefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="pagamento_cu" type="xs:string" />
+              <xs:element name="pagamento_lu" type="xs:string" />
+              <xs:element name="pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debitosegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="iddebito" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="credito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="autorizzato" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentokind" />
+      <xs:field xpath="mstns:idpagamentokind" />
+    </xs:unique>
+    <xs:unique name="pagamento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamento" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="liquidazione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:liquidazione" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito_credito" />
+      <xs:field xpath="mstns:idliquidazione" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debito" />
+      <xs:field xpath="mstns:iddebito" />
+    </xs:unique>
+    <xs:unique name="conguaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:conguaglio" />
+      <xs:field xpath="mstns:idconguaglio" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:iddebito_credito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="pagamentodefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentodefaultview_alias1" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debitosegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debitosegview" />
+      <xs:field xpath="mstns:iddebito" />
+    </xs:unique>
+    <xs:unique name="credito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:credito" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_pagamento_credito_iddebito-idpagamento-idreg" msdata:parent="credito" msdata:child="pagamento" msdata:parentkey="iddebito idpagamento idreg" msdata:childkey="iddebito idpagamento idreg" />
+      <msdata:Relationship name="FK_pagamento_pagamentokind_idpagamentokind" msdata:parent="pagamentokind" msdata:child="pagamento" msdata:parentkey="idpagamentokind" msdata:childkey="idpagamentokind" />
+      <msdata:Relationship name="FK_liquidazione_credito_idcredito-iddebito_credito-idpagamento-idreg" msdata:parent="credito" msdata:child="liquidazione" msdata:parentkey="idcredito iddebito idpagamento idreg" msdata:childkey="idcredito iddebito_credito idpagamento idreg" />
+      <msdata:Relationship name="FK_conguaglio_credito_idcredito-iddebito-idpagamento-idreg" msdata:parent="credito" msdata:child="conguaglio" msdata:parentkey="idcredito iddebito idpagamento idreg" msdata:childkey="idcredito iddebito idpagamento idreg" />
+      <msdata:Relationship name="FK_conguaglio_debito_iddebito_credito" msdata:parent="debito" msdata:child="conguaglio" msdata:parentkey="iddebito" msdata:childkey="iddebito_credito" />
+      <msdata:Relationship name="FK_credito_pagamentodefaultview_alias1_idpagamento" msdata:parent="pagamentodefaultview_alias1" msdata:child="credito" msdata:parentkey="idpagamento" msdata:childkey="idpagamento" />
+      <msdata:Relationship name="FK_pagamentodefaultview_alias1_debitosegview_iddebito" msdata:parent="debitosegview" msdata:child="pagamentodefaultview_alias1" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+      <msdata:Relationship name="FK_credito_debitosegview_iddebito" msdata:parent="debitosegview" msdata:child="credito" msdata:parentkey="iddebito" msdata:childkey="iddebito" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

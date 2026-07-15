@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_pannellofunzioniperf_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_pannellofunzioniperf_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="strutturadefaultview_alias4" msprop:TableForReading="strutturadefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year_alias4" msprop:TableForReading="year" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview_alias3" msprop:TableForReading="strutturadefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year_alias3" msprop:TableForReading="year" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview_alias2" msprop:TableForReading="strutturadefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year_alias2" msprop:TableForReading="year" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview_alias1" msprop:TableForReading="strutturadefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year_alias1" msprop:TableForReading="year" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strutturadefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aoo_title" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstruttura" type="xs:int" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="paridstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_active" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codice" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_codiceipa" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_ct" type="xs:dateTime" />
+              <xs:element name="struttura_cu" type="xs:string" />
+              <xs:element name="struttura_email" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_fax" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_idaoo" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="struttura_idsede" type="xs:int" />
+              <xs:element name="struttura_idstrutturakind" type="xs:int" />
+              <xs:element name="struttura_lt" type="xs:dateTime" />
+              <xs:element name="struttura_lu" type="xs:string" />
+              <xs:element name="struttura_pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="struttura_telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="struttura_title_en" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_struttura_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturakind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="strutturaparent_idstrutturakind" type="xs:int" minOccurs="0" />
+              <xs:element name="strutturaparent_title" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="upb_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mansionekinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idmansionekind" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="year" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="year" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pannellofunzioniperf" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="eccellenza" type="xs:decimal" minOccurs="0" />
+              <xs:element name="eccellenzadesc" type="xs:string" minOccurs="0" />
+              <xs:element name="idmansionekind" type="xs:int" minOccurs="0" />
+              <xs:element name="idpannellofunzioniperf" type="xs:int" />
+              <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura_impobbind" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura_impobborg" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura_ramoprecedente" type="xs:int" minOccurs="0" />
+              <xs:element name="idstruttura_ramosuccessivo" type="xs:int" minOccurs="0" />
+              <xs:element name="obiettivo" type="xs:string" minOccurs="0" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoindicatori" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoprogaltreuo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesoproguo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="soglia" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sogliadesc" type="xs:string" minOccurs="0" />
+              <xs:element name="target" type="xs:decimal" minOccurs="0" />
+              <xs:element name="targetdesc" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:int" minOccurs="0" />
+              <xs:element name="year_annoprecedente" type="xs:int" minOccurs="0" />
+              <xs:element name="year_annosuccessivo" type="xs:int" minOccurs="0" />
+              <xs:element name="year_impobbind" type="xs:int" minOccurs="0" />
+              <xs:element name="year_impobborg" type="xs:int" minOccurs="0" />
+              <xs:element name="year_obbind" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview_alias4" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="year_alias4_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year_alias4" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview_alias3" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="year_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year_alias3" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview_alias2" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="year_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year_alias2" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview_alias1" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="year_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year_alias1" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="strutturadefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:strutturadefaultview" />
+      <xs:field xpath="mstns:idstruttura" />
+    </xs:unique>
+    <xs:unique name="mansionekinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mansionekinddefaultview" />
+      <xs:field xpath="mstns:idmansionekind" />
+    </xs:unique>
+    <xs:unique name="year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:year" />
+      <xs:field xpath="mstns:year" />
+    </xs:unique>
+    <xs:unique name="pannellofunzioniperf_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pannellofunzioniperf" />
+      <xs:field xpath="mstns:idpannellofunzioniperf" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_pannellofunzioniperf_strutturadefaultview_alias4_idstruttura_ramosuccessivo" msdata:parent="strutturadefaultview_alias4" msdata:child="pannellofunzioniperf" msdata:parentkey="idstruttura" msdata:childkey="idstruttura_ramosuccessivo" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_year_alias4_year_annosuccessivo" msdata:parent="year_alias4" msdata:child="pannellofunzioniperf" msdata:parentkey="year" msdata:childkey="year_annosuccessivo" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_strutturadefaultview_alias3_idstruttura_ramoprecedente" msdata:parent="strutturadefaultview_alias3" msdata:child="pannellofunzioniperf" msdata:parentkey="idstruttura" msdata:childkey="idstruttura_ramoprecedente" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_year_alias3_year_annoprecedente" msdata:parent="year_alias3" msdata:child="pannellofunzioniperf" msdata:parentkey="year" msdata:childkey="year_annoprecedente" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_strutturadefaultview_alias2_idstruttura_impobbind" msdata:parent="strutturadefaultview_alias2" msdata:child="pannellofunzioniperf" msdata:parentkey="idstruttura" msdata:childkey="idstruttura_impobbind" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_year_alias2_year_impobbind" msdata:parent="year_alias2" msdata:child="pannellofunzioniperf" msdata:parentkey="year" msdata:childkey="year_impobbind" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_strutturadefaultview_alias1_idstruttura_impobborg" msdata:parent="strutturadefaultview_alias1" msdata:child="pannellofunzioniperf" msdata:parentkey="idstruttura" msdata:childkey="idstruttura_impobborg" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_year_alias1_year_impobborg" msdata:parent="year_alias1" msdata:child="pannellofunzioniperf" msdata:parentkey="year" msdata:childkey="year_impobborg" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="pannellofunzioniperf" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_mansionekinddefaultview_idmansionekind" msdata:parent="mansionekinddefaultview" msdata:child="pannellofunzioniperf" msdata:parentkey="idmansionekind" msdata:childkey="idmansionekind" />
+      <msdata:Relationship name="FK_pannellofunzioniperf_year_year" msdata:parent="year" msdata:child="pannellofunzioniperf" msdata:parentkey="year" msdata:childkey="year" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

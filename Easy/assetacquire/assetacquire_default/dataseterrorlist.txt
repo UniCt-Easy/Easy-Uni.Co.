@@ -1,0 +1,3 @@
+BAD TYPE(System.String) of assetloadmotive.idmot in : D:\easy\assetacquire\assetacquire_default\vistaForm.xsd
+BAD TYPE(System.String) of mandatedetail.idinv in : D:\easy\assetacquire\assetacquire_default\vistaForm.xsd
+Wrong Primary key NAME (nman instead of yman in : D:\easy\assetacquire\assetacquire_default\vistaForm.xsd

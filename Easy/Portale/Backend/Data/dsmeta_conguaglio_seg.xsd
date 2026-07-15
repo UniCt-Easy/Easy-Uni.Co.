@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_conguaglio_seg" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_conguaglio_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pagamentodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="pagamento_cu" type="xs:string" />
+              <xs:element name="pagamento_lu" type="xs:string" />
+              <xs:element name="pagamentokind_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="debito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="creditosegview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="conguaglio" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="dataora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idconguaglio" type="xs:int" />
+              <xs:element name="idcredito" type="xs:int" />
+              <xs:element name="iddebito" type="xs:int" />
+              <xs:element name="iddebito_credito" type="xs:int" />
+              <xs:element name="idpagamento" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="importo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:pagamentodefaultview" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="debito_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:debito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="creditosegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:creditosegview" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="conguaglio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:conguaglio" />
+      <xs:field xpath="mstns:idconguaglio" />
+      <xs:field xpath="mstns:idcredito" />
+      <xs:field xpath="mstns:iddebito" />
+      <xs:field xpath="mstns:iddebito_credito" />
+      <xs:field xpath="mstns:idpagamento" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_conguaglio_pagamentodefaultview_idpagamento" msdata:parent="pagamentodefaultview" msdata:child="conguaglio" msdata:parentkey="idpagamento" msdata:childkey="idpagamento" />
+      <msdata:Relationship name="FK_pagamentodefaultview_creditosegview_iddebito" msdata:parent="creditosegview" msdata:child="pagamentodefaultview" msdata:parentkey="iddebito idpagamento idreg" msdata:childkey="iddebito idpagamento idreg" />
+      <msdata:Relationship name="FK_conguaglio_debito_iddebito_credito" msdata:parent="debito" msdata:child="conguaglio" msdata:parentkey="iddebito" msdata:childkey="iddebito_credito" />
+      <msdata:Relationship name="FK_debito_creditosegview_iddebito" msdata:parent="creditosegview" msdata:child="debito" msdata:parentkey="iddebito idreg" msdata:childkey="iddebito idreg" />
+      <msdata:Relationship name="FK_conguaglio_creditosegview_idcredito" msdata:parent="creditosegview" msdata:child="conguaglio" msdata:parentkey="idcredito" msdata:childkey="idcredito" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

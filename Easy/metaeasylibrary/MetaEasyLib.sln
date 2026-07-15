@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "metaeasylibrary", "metaeasylibrary\metaeasylibrary.csproj", "{AB70B58E-F70E-4976-8716-00CBA023BB12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{8A31B3AB-A610-4ED1-8078-10DC1E710166}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|Any CPU = All|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB70B58E-F70E-4976-8716-00CBA023BB12}.All|Any CPU.ActiveCfg = All|Any CPU
+		{AB70B58E-F70E-4976-8716-00CBA023BB12}.All|Any CPU.Build.0 = All|Any CPU
+		{AB70B58E-F70E-4976-8716-00CBA023BB12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB70B58E-F70E-4976-8716-00CBA023BB12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB70B58E-F70E-4976-8716-00CBA023BB12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB70B58E-F70E-4976-8716-00CBA023BB12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A31B3AB-A610-4ED1-8078-10DC1E710166}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{8A31B3AB-A610-4ED1-8078-10DC1E710166}.All|Any CPU.Build.0 = Release|Any CPU
+		{8A31B3AB-A610-4ED1-8078-10DC1E710166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A31B3AB-A610-4ED1-8078-10DC1E710166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A31B3AB-A610-4ED1-8078-10DC1E710166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A31B3AB-A610-4ED1-8078-10DC1E710166}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {118A2B11-CBDE-490B-B8B9-E4F87BC79627}
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

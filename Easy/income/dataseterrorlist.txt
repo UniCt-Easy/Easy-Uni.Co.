@@ -1,0 +1,199 @@
+Unknown column sortingkind.flagmultiple in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column sortingkind.flagforced in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown Table bilanciocrediti in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown Table bilancioincassi in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_gerarchico\vistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Wrong Primary key LENGTH in bill in : D:\easy\income\income_gerarchico\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.admintaxkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.asset_numerationkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.clawbackkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.employtaxkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.flagadmintax in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.flagclawback in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.flagtax in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.payments_groupingkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.previsionkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.secprevisionkind in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\income\income_gerarchico\vistaForm.xsd
+Unknown column sortingkind.flagmultiple in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column sortingkind.flagforced in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown Table bilanciocrediti in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown Table bilancioincassi in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Wrong Primary key LENGTH in bill in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.admintaxkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.asset_numerationkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.clawbackkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.employtaxkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.flagadmintax in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.flagclawback in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.flagtax in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.payments_groupingkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.previsionkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.secprevisionkind in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\income\income_levels\entratamovimenti_vista.xsd
+Unknown column sortingkind.flagmultiple in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column sortingkind.flagforced in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column proceeds.yproceedstransmission in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column proceeds.nproceedstransmission in : D:\easy\income\income_procedura\vistaForm.xsd
+Wrong Primary key LENGTH in proceeds in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown Table bilanciocrediti in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown Table bilancioincassi in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_procedura\vistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Wrong Primary key LENGTH in bill in : D:\easy\income\income_procedura\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.admintaxkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.asset_numerationkind in : D:\easy\income\income_procedura\vistaForm.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.clawbackkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.employtaxkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.flagadmintax in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.flagclawback in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.flagtax in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.payments_groupingkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.previsionkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.secprevisionkind in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_procedura\vistaForm.xsd
+Unknown column sortingkind.flagmultiple in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+Unknown column sortingkind.flagforced in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+BAD TYPE(System.String) of tax.taxkind in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+Unknown column expenselast.npay in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_wizardcontabilizza\vistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_wizarddecontabilizza\vistaForm.xsd
+Unknown column expenselast.npay in : D:\easy\income\income_wizarddecontabilizza\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_wizarddecontabilizza\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_wizarddecontabilizza\vistaForm.xsd
+Unknown column sortingkind.flagmultiple in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+Unknown column sortingkind.flagforced in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+BAD TYPE(System.String) of tax.taxkind in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+Unknown column expenselast.npay in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_wizarddelete\vistaForm.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column sortingkind.flagcheckavailability in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column sortingkind.flagforced in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column sortingkind.flagmultiple in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column sortingkind.sortinglevel in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.admintaxkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.asset_numerationkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.clawbackkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.employtaxkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.flagadmintax in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.flagclawback in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.flagtax in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.payments_groupingkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.previsionkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.secprevisionkind in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_wizardestimatedetail\vistaForm.xsd
+BAD TYPE(System.String) of incomeestimate.movkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.admintaxkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.asset_numerationkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.clawbackkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.employtaxkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.flagadmintax in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.flagclawback in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.flagtax in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.payments_groupingkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.previsionkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.secprevisionkind in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_wizardinvoicedetail\VistaForm.xsd
+BAD TYPE(System.String) of incomeinvoice.movkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown Table tipomovimento in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column incomelast.npro in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.admintaxkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.asset_numerationkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+BAD TYPE(System.String) of config.cashvaliditykind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.casualcontract_flagnumbering in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.clawbackkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.employtaxkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.estimate_numerationkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.flagadmintax in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.flagarrearsadmintax in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.flagclawback in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.flagtax in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.flagtaxcompetency in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.invoice_numerationkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.mandate_numerationkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.parasubcontract_numerationkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.payments_groupingkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.previsionkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.proceeds_groupingkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.profservice_flagnumbering in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.secprevisionkind in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd
+Unknown column config.wageaddition_flagnumbering in : D:\easy\income\income_wizardinvoicedetailnoestimate\vistaForm.xsd

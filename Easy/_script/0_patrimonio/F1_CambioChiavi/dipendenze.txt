@@ -1,0 +1,5 @@
+1. inventory deve essere eseguito dopo inventorykind e inventoryagency
+2. assetloadkind deve essere eseguito dopo inventory
+3. assetvar_assetvardetail dopo tutti gli script di cambio chiave
+4. assetload dopo tutti gli script di cambio chiave
+5. assetunload dopo tutti gli script di cambio chiave

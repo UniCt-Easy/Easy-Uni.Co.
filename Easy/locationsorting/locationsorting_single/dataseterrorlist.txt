@@ -1,0 +1,2 @@
+BAD TYPE(System.String) of locationsorting.idlocation in : D:\easy\locationsorting\locationsorting_single\vistaForm.xsd
+Wrong Primary key NAME (idlocation instead of idsorkind in : D:\easy\locationsorting\locationsorting_single\vistaForm.xsd

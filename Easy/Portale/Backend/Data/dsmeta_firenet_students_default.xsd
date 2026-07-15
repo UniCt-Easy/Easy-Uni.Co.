@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_firenet_students_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_firenet_students_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="firenet_students" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="aafinale" type="xs:string" minOccurs="0" />
+              <xs:element name="anni_fuori_corso" type="xs:string" minOccurs="0" />
+              <xs:element name="anno_frequenza" type="xs:string" minOccurs="0" />
+              <xs:element name="anno_frequenza_parziale" type="xs:string" minOccurs="0" />
+              <xs:element name="annotazioni" type="xs:string" minOccurs="0" />
+              <xs:element name="attesa_diploma_primo_livello" type="xs:string" minOccurs="0" />
+              <xs:element name="autorizzazione_riprese" type="xs:string" minOccurs="0" />
+              <xs:element name="autorizzazione_trattamento" type="xs:string" minOccurs="0" />
+              <xs:element name="badge" type="xs:string" minOccurs="0" />
+              <xs:element name="competenze_musicali" type="xs:string" minOccurs="0" />
+              <xs:element name="consigliato" type="xs:string" minOccurs="0" />
+              <xs:element name="consigliatoparity" type="xs:string" minOccurs="0" />
+              <xs:element name="corsi_multipli" type="xs:string" minOccurs="0" />
+              <xs:element name="corso_attuale_conservatorio" type="xs:string" minOccurs="0" />
+              <xs:element name="corso_compatibile" type="xs:string" minOccurs="0" />
+              <xs:element name="corso_compatibile_dettagli" type="xs:string" minOccurs="0" />
+              <xs:element name="corso_scuola_secondaria" type="xs:string" minOccurs="0" />
+              <xs:element name="course_id" type="xs:int" minOccurs="0" />
+              <xs:element name="created" type="xs:string" minOccurs="0" />
+              <xs:element name="creditifinale" type="xs:string" minOccurs="0" />
+              <xs:element name="data_attesa_diploma_primo_livello" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_armonia" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_lettura_partitura" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_lingua_italiana" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_pianistica" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_poesia_musica_drammaturgia_musicale" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_ritmica" type="xs:string" minOccurs="0" />
+              <xs:element name="data_debito_storia_musica" type="xs:string" minOccurs="0" />
+              <xs:element name="datafinale" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_armonia" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_lettura_partitura" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_lingua_italiana" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_pianistica" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_poesia_musica_drammaturgia_musicale" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_ritmica" type="xs:string" minOccurs="0" />
+              <xs:element name="debito_storia_musica" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiarazione_competenze_musicali" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiarazione_sostitutiva" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiarazione_valore" type="xs:string" minOccurs="0" />
+              <xs:element name="domanda_estera" type="xs:string" minOccurs="0" />
+              <xs:element name="edit_operator_user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="enrollment_id" type="xs:int" minOccurs="0" />
+              <xs:element name="esecutivafinale" type="xs:string" minOccurs="0" />
+              <xs:element name="esonero_reddito" type="xs:string" minOccurs="0" />
+              <xs:element name="famiglia_convivente" type="xs:string" minOccurs="0" />
+              <xs:element name="final_teacher_id" type="xs:int" minOccurs="0" />
+              <xs:element name="fratelli_sorelle_iscritti" type="xs:string" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="informazioni_aggiuntive" type="xs:string" minOccurs="0" />
+              <xs:element name="instrument_id" type="xs:int" minOccurs="0" />
+              <xs:element name="invalidita" type="xs:string" minOccurs="0" />
+              <xs:element name="isee" type="xs:string" minOccurs="0" />
+              <xs:element name="isidata" type="xs:string" minOccurs="0" />
+              <xs:element name="manifesto" type="xs:string" minOccurs="0" />
+              <xs:element name="matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="modified" type="xs:string" minOccurs="0" />
+              <xs:element name="motivo_tempo_parziale" type="xs:string" minOccurs="0" />
+              <xs:element name="nessun_debito" type="xs:string" minOccurs="0" />
+              <xs:element name="no_altro_corso_accademico" type="xs:string" minOccurs="0" />
+              <xs:element name="no_altro_corso_universitario" type="xs:string" minOccurs="0" />
+              <xs:element name="noidoneita" type="xs:string" minOccurs="0" />
+              <xs:element name="non_rinnovato" type="xs:string" minOccurs="0" />
+              <xs:element name="note" type="xs:string" minOccurs="0" />
+              <xs:element name="note_private" type="xs:string" minOccurs="0" />
+              <xs:element name="notificato" type="xs:string" minOccurs="0" />
+              <xs:element name="operator_user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="planstatus_id" type="xs:int" minOccurs="0" />
+              <xs:element name="primolivelloestero" type="xs:string" minOccurs="0" />
+              <xs:element name="provenienza_liceo_musicale" type="xs:string" minOccurs="0" />
+              <xs:element name="provenienza_preaccademico" type="xs:string" minOccurs="0" />
+              <xs:element name="puntifinale" type="xs:string" minOccurs="0" />
+              <xs:element name="richiesta_borsa_studio" type="xs:string" minOccurs="0" />
+              <xs:element name="sessionefinale" type="xs:string" minOccurs="0" />
+              <xs:element name="specialistica" type="xs:string" minOccurs="0" />
+              <xs:element name="studente_diplomando" type="xs:string" minOccurs="0" />
+              <xs:element name="studente_straniero" type="xs:string" minOccurs="0" />
+              <xs:element name="studentstatus_id" type="xs:int" minOccurs="0" />
+              <xs:element name="studio_spartito_teacher_id" type="xs:int" minOccurs="0" />
+              <xs:element name="teacher_id" type="xs:int" minOccurs="0" />
+              <xs:element name="titolo_studi2" type="xs:string" minOccurs="0" />
+              <xs:element name="titolo_studi3" type="xs:string" minOccurs="0" />
+              <xs:element name="titolodistudio" type="xs:string" minOccurs="0" />
+              <xs:element name="titolofinale" type="xs:string" minOccurs="0" />
+              <xs:element name="turandot" type="xs:string" minOccurs="0" />
+              <xs:element name="user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="votofinale" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="firenet_students_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:firenet_students" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_firenet_students_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="firenet_students" msdata:parentkey="aa" msdata:childkey="aa" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

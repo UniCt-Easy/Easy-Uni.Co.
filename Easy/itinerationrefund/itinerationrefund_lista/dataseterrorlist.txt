@@ -1,0 +1,3 @@
+Unknown column itinerationrefund.nitineration in : D:\easy\itinerationrefund\itinerationrefund_default\vistaForm.xsd
+Unknown column itinerationrefund.yitineration in : D:\easy\itinerationrefund\itinerationrefund_default\vistaForm.xsd
+Wrong Primary key LENGTH in itinerationrefund in : D:\easy\itinerationrefund\itinerationrefund_default\vistaForm.xsd

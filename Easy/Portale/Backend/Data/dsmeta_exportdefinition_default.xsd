@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_exportdefinition_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="dsmeta_exportdefinition_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="datatype" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iddatatype" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="exportdefinitionparameter" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="customcontrol" type="xs:string" minOccurs="0" />
+              <xs:element name="datasource" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="displaymember" type="xs:string" minOccurs="0" />
+              <xs:element name="filter" type="xs:string" minOccurs="0" />
+              <xs:element name="help" type="xs:string" minOccurs="0" />
+              <xs:element name="iddatatype" type="xs:int" />
+              <xs:element name="idexportdefinition" type="xs:int" />
+              <xs:element name="idexportdefinitionparameter" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="number" type="xs:int" minOccurs="0" />
+              <xs:element name="selectioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="valuemember" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_iddatatype_datatype_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchart_alias1" msprop:TableForReading="flowchart" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codeflowchart" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="cap" type="xs:string" minOccurs="0" />
+              <xs:element name="codeflowchart" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="fax" type="xs:string" minOccurs="0" />
+              <xs:element name="idcity" type="xs:int" minOccurs="0" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="location" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:int" />
+              <xs:element name="paridflowchart" type="xs:string" />
+              <xs:element name="phone" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="exportdefinitionflowchart" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idexportdefinition" type="xs:int" />
+              <xs:element name="idflowchart" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idflowchart_flowchart_ayear" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idflowchart_flowchart_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idflowchart_flowchart_codeflowchart" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idflowchart_flowchart_alias1_codeflowchart" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idflowchart_flowchart_alias1_title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="menuwebtreeview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idmenuweb" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fileformat" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idfileformat" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" />
+              <xs:element name="hash" type="xs:string" />
+              <xs:element name="idattach" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="size" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="exportdefinition" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idattach_template" type="xs:int" minOccurs="0" />
+              <xs:element name="idexportdefinition" type="xs:int" />
+              <xs:element name="idfileformat" type="xs:int" />
+              <xs:element name="idmenuweb" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="outputfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="procedurename" type="xs:string" minOccurs="0" />
+              <xs:element name="timeoutseconds" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:datatype" />
+      <xs:field xpath="mstns:iddatatype" />
+    </xs:unique>
+    <xs:unique name="exportdefinitionparameter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:exportdefinitionparameter" />
+      <xs:field xpath="mstns:idexportdefinition" />
+      <xs:field xpath="mstns:idexportdefinitionparameter" />
+    </xs:unique>
+    <xs:unique name="flowchart_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchart_alias1" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+    <xs:unique name="flowchart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:flowchart" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+    <xs:unique name="exportdefinitionflowchart_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:exportdefinitionflowchart" />
+      <xs:field xpath="mstns:idexportdefinition" />
+      <xs:field xpath="mstns:idflowchart" />
+    </xs:unique>
+    <xs:unique name="menuwebtreeview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:menuwebtreeview" />
+      <xs:field xpath="mstns:idmenuweb" />
+    </xs:unique>
+    <xs:unique name="fileformat_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fileformat" />
+      <xs:field xpath="mstns:idfileformat" />
+    </xs:unique>
+    <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attach" />
+      <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="exportdefinition_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:exportdefinition" />
+      <xs:field xpath="mstns:idexportdefinition" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_exportdefinitionparameter_exportdefinition_idexportdefinition" msdata:parent="exportdefinition" msdata:child="exportdefinitionparameter" msdata:parentkey="idexportdefinition" msdata:childkey="idexportdefinition" />
+      <msdata:Relationship name="FK_exportdefinitionparameter_datatype_iddatatype" msdata:parent="datatype" msdata:child="exportdefinitionparameter" msdata:parentkey="iddatatype" msdata:childkey="iddatatype" />
+      <msdata:Relationship name="FK_exportdefinitionflowchart_exportdefinition_idexportdefinition" msdata:parent="exportdefinition" msdata:child="exportdefinitionflowchart" msdata:parentkey="idexportdefinition" msdata:childkey="idexportdefinition" />
+      <msdata:Relationship name="FK_exportdefinitionflowchart_flowchart_idflowchart" msdata:parent="flowchart" msdata:child="exportdefinitionflowchart" msdata:parentkey="idflowchart" msdata:childkey="idflowchart" />
+      <msdata:Relationship name="FK_flowchart_flowchart_alias1_paridflowchart" msdata:parent="flowchart_alias1" msdata:child="flowchart" msdata:parentkey="idflowchart" msdata:childkey="paridflowchart" />
+      <msdata:Relationship name="FK_exportdefinition_menuwebtreeview_idmenuweb" msdata:parent="menuwebtreeview" msdata:child="exportdefinition" msdata:parentkey="idmenuweb" msdata:childkey="idmenuweb" />
+      <msdata:Relationship name="FK_exportdefinition_fileformat_idfileformat" msdata:parent="fileformat" msdata:child="exportdefinition" msdata:parentkey="idfileformat" msdata:childkey="idfileformat" />
+      <msdata:Relationship name="FK_exportdefinition_attach_idattach_template" msdata:parent="attach" msdata:child="exportdefinition" msdata:parentkey="idattach" msdata:childkey="idattach_template" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>
