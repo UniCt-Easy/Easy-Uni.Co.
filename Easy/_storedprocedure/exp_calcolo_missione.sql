@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_calcolo_missione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_calcolo_missione]
 GO
@@ -24,12 +22,17 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amministrazione'
--- [exp_calcolo_missione] 2021, null, null
+-- [exp_calcolo_missione] 2024, 1, 100
 CREATE PROCEDURE [exp_calcolo_missione]
 (
   @yitineration INT,
   @nitinerationstart INT,
-  @nitinerationstop INT
+  @nitinerationstop INT,
+  @idsor01	int  = null,
+  @idsor02	int  = null,
+  @idsor03	int  = null,
+  @idsor04	int  = null,
+  @idsor05	int  = null 
 )
 AS BEGIN
  
@@ -60,7 +63,12 @@ SET @maxnitineration = (SELECT MAX(nitineration) FROM itineration WHERE yitinera
  INSERT INTO #itinerationrefsummary 
  SELECT iditineration FROM itineration WHERE itineration.yitineration = @yitineration
 	AND itineration.nitineration BETWEEN ISNULL(@nitinerationstart,1) AND ISNULL(@nitinerationstop,@maxnitineration)
-	
+	AND (@idsor01 IS NULL OR itineration.idsor01 = @idsor01)
+	AND (@idsor02 IS NULL OR itineration.idsor02 = @idsor02)
+	AND (@idsor03 IS NULL OR itineration.idsor03 = @idsor03)
+	AND (@idsor04 IS NULL OR itineration.idsor04 = @idsor04)
+	AND (@idsor05 IS NULL OR itineration.idsor05 = @idsor05)
+--SELECT * FROM #itinerationrefsummary
  --DROP TABLE #itinerationrefund
 INSERT INTO #itinerationrefund
 (
@@ -111,8 +119,13 @@ LEFT OUTER JOIN currency
 LEFT OUTER JOIN foreigncountry
 	ON foreigncountry.idforeigncountry  = itinerationrefund.idforeigncountry
 WHERE itineration.yitineration = @yitineration
-  AND itineration.nitineration BETWEEN ISNULL(@nitinerationstart,1) AND ISNULL(@nitinerationstop,@maxnitineration)
-  
+    AND itineration.nitineration BETWEEN ISNULL(@nitinerationstart,1) AND ISNULL(@nitinerationstop,@maxnitineration)
+	AND (@idsor01 IS NULL OR itineration.idsor01 = @idsor01)
+	AND (@idsor02 IS NULL OR itineration.idsor02 = @idsor02)
+	AND (@idsor03 IS NULL OR itineration.idsor03 = @idsor03)
+	AND (@idsor04 IS NULL OR itineration.idsor04 = @idsor04)
+	AND (@idsor05 IS NULL OR itineration.idsor05 = @idsor05)
+
 --SELECT * FROM #itinerationrefund
 --SELECT DISTINCT iditineration, codeitinerationrefundkind FROM #itinerationrefund
 
@@ -174,10 +187,14 @@ END
 DEALLOCATE rowcursor2
 --SELECT * FROM #itinerationrefsummary
 SELECT 
+	--s.sortcode as [Codice Centro di Costo],
+	s.description as [Centro di Costo],
 	itineration.yitineration AS 'Eserc. Missione',
 	itineration.nitineration AS 'Num. Missione',	
 	itineration.start as 'Inizio',
 	itineration.stop as 'Fine',
+	upb.codeupb as 'Cod. UPB',
+	upb.title as 'UPB',
 	registry.title as 'Incaricato',
 	registry.cf as 'Cod. fiscale',
 	registry.birthdate as 'Data Nascita',
@@ -192,10 +209,12 @@ SELECT
 	--ISNULL(itineration.vehicle_info,'') as vehicle_info,
 	--ISNULL(itineration.vehicle_motive,'') as vehicle_motive
 FROM  itineration
-LEFT OUTER JOIN #itinerationrefsummary ON itineration.iditineration = #itinerationrefsummary.iditineration
-join registry 
+JOIN #itinerationrefsummary ON itineration.iditineration = #itinerationrefsummary.iditineration
+JOIN registry 
 	ON registry.idreg = itineration.idreg
-WHERE yitineration = @yitineration
+LEFT OUTER JOIN sorting s on s.idsor = itineration.idsor01
+LEFT OUTER JOIN upb ON itineration.idupb = upb.idupb 
+ORDER BY itineration.yitineration,itineration.nitineration
 
 DROP TABLE #itinerationrefund
 DROP TABLE #itinerationrefsummary

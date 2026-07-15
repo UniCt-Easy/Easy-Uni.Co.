@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -80,10 +78,14 @@ private void initClass() {
 	tstipendiocomplemento.defineColumn("anzianitamax", typeof(int));
 	tstipendiocomplemento.defineColumn("anzianitamin", typeof(int));
 	tstipendiocomplemento.defineColumn("complementomensile", typeof(decimal));
+	tstipendiocomplemento.defineColumn("ct", typeof(DateTime));
+	tstipendiocomplemento.defineColumn("cu", typeof(string));
 	tstipendiocomplemento.defineColumn("idinquadramento", typeof(int),false);
 	tstipendiocomplemento.defineColumn("idposition", typeof(int),false);
 	tstipendiocomplemento.defineColumn("idstipendiocomplemento", typeof(int),false);
 	tstipendiocomplemento.defineColumn("idstipendiocomplementokind", typeof(int));
+	tstipendiocomplemento.defineColumn("lt", typeof(DateTime));
+	tstipendiocomplemento.defineColumn("lu", typeof(string));
 	tstipendiocomplemento.defineColumn("rifnormativo", typeof(string));
 	tstipendiocomplemento.defineColumn("start", typeof(DateTime));
 	tstipendiocomplemento.defineColumn("stop", typeof(DateTime));
@@ -104,6 +106,7 @@ private void initClass() {
 	tstipendio.defineColumn("ct", typeof(DateTime));
 	tstipendio.defineColumn("cu", typeof(string));
 	tstipendio.defineColumn("elementoperequativo", typeof(decimal));
+	tstipendio.defineColumn("idcontrattokind", typeof(int));
 	tstipendio.defineColumn("idinquadramento", typeof(int),false);
 	tstipendio.defineColumn("idposition", typeof(int),false);
 	tstipendio.defineColumn("idstipendio", typeof(int),false);
@@ -131,6 +134,7 @@ private void initClass() {
 	tinquadramento.defineColumn("costolordoannuooneri", typeof(decimal));
 	tinquadramento.defineColumn("ct", typeof(DateTime),false);
 	tinquadramento.defineColumn("cu", typeof(string),false);
+	tinquadramento.defineColumn("idcontrattokind", typeof(int));
 	tinquadramento.defineColumn("idinquadramento", typeof(int),false);
 	tinquadramento.defineColumn("idposition", typeof(int),false);
 	tinquadramento.defineColumn("lt", typeof(DateTime),false);

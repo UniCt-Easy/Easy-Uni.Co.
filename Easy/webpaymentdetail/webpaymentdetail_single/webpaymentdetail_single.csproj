@@ -63,13 +63,13 @@
       <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_ivakind</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="meta_list">
       <HintPath>..\..\list\meta_list\bin\Debug\meta_list.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Name>meta_list</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

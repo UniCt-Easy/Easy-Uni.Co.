@@ -43,6 +43,9 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="meta_expenselastmandatedetail">
+      <HintPath>..\..\expenselastmandatedetail\meta_expenselastmandatedetail\bin\Debug\meta_expenselastmandatedetail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />

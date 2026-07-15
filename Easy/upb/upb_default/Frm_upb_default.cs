@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -455,7 +453,7 @@ namespace upb_default {
 		private TextBox txtAmmortamentiAvere;
 		private TextBox txtAmmortamentiDare;
 		private Label label67;
-		private GroupBox groupBox12;
+		private GroupBox gBoxTreasurer;
 		private Button btnIstitutoCassiere;
 		public TextBox txtTreasurer;
 
@@ -508,8 +506,8 @@ namespace upb_default {
 			this.icons = new System.Windows.Forms.ImageList(this.components);
 			this.MetaDataDetail = new System.Windows.Forms.TabControl();
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
-			this.groupBox12 = new System.Windows.Forms.GroupBox();
-			this.DS = new upb_default.vistaForm();
+			this.gBoxTreasurer = new System.Windows.Forms.GroupBox();
+			this.txtTreasurer = new System.Windows.Forms.TextBox();
 			this.btnIstitutoCassiere = new System.Windows.Forms.Button();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.label15 = new System.Windows.Forms.Label();
@@ -904,6 +902,7 @@ namespace upb_default {
 			this.button5 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
 			this.cmbEPUPBKind = new System.Windows.Forms.ComboBox();
+			this.DS = new upb_default.vistaForm();
 			this.label33 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.dataGrid3 = new System.Windows.Forms.DataGrid();
@@ -922,11 +921,9 @@ namespace upb_default {
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.upbBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.txtTreasurer = new System.Windows.Forms.TextBox();
 			this.MetaDataDetail.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
-			this.groupBox12.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.gBoxTreasurer.SuspendLayout();
 			this.gboxResponsabile.SuspendLayout();
 			this.gboxUnderwriting.SuspendLayout();
 			this.Funzione.SuspendLayout();
@@ -981,6 +978,7 @@ namespace upb_default {
 			this.grpDatiPrevisioneBudget.SuspendLayout();
 			this.groupBox8.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).BeginInit();
 			this.tabFabbisogno.SuspendLayout();
@@ -1036,7 +1034,7 @@ namespace upb_default {
 			// 
 			// tabPrincipale
 			// 
-			this.tabPrincipale.Controls.Add(this.groupBox12);
+			this.tabPrincipale.Controls.Add(this.gBoxTreasurer);
 			this.tabPrincipale.Controls.Add(this.checkBox1);
 			this.tabPrincipale.Controls.Add(this.label15);
 			this.tabPrincipale.Controls.Add(this.textBox6);
@@ -1078,22 +1076,26 @@ namespace upb_default {
 			this.tabPrincipale.Text = "Principale";
 			this.tabPrincipale.UseVisualStyleBackColor = true;
 			// 
-			// groupBox12
+			// gBoxTreasurer
 			// 
-			this.groupBox12.Controls.Add(this.txtTreasurer);
-			this.groupBox12.Controls.Add(this.btnIstitutoCassiere);
-			this.groupBox12.Location = new System.Drawing.Point(8, 230);
-			this.groupBox12.Name = "groupBox12";
-			this.groupBox12.Size = new System.Drawing.Size(662, 43);
-			this.groupBox12.TabIndex = 55;
-			this.groupBox12.TabStop = false;
-			this.groupBox12.Tag = "AutoChoose.txtTreasurer.default";
+			this.gBoxTreasurer.Controls.Add(this.txtTreasurer);
+			this.gBoxTreasurer.Controls.Add(this.btnIstitutoCassiere);
+			this.gBoxTreasurer.Location = new System.Drawing.Point(8, 230);
+			this.gBoxTreasurer.Name = "gBoxTreasurer";
+			this.gBoxTreasurer.Size = new System.Drawing.Size(662, 43);
+			this.gBoxTreasurer.TabIndex = 55;
+			this.gBoxTreasurer.TabStop = false;
+			this.gBoxTreasurer.Tag = "AutoChoose.txtTreasurer.default";
 			// 
-			// DS
+			// txtTreasurer
 			// 
-			this.DS.DataSetName = "vistaForm";
-			this.DS.EnforceConstraints = false;
-			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			this.txtTreasurer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTreasurer.Location = new System.Drawing.Point(114, 15);
+			this.txtTreasurer.Name = "txtTreasurer";
+			this.txtTreasurer.Size = new System.Drawing.Size(542, 20);
+			this.txtTreasurer.TabIndex = 53;
+			this.txtTreasurer.Tag = "treasurer.description?x";
 			// 
 			// btnIstitutoCassiere
 			// 
@@ -1103,7 +1105,7 @@ namespace upb_default {
 			this.btnIstitutoCassiere.TabIndex = 51;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista";
-			this.btnIstitutoCassiere.Text = "Cassiere";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			// 
 			// checkBox1
 			// 
@@ -5220,6 +5222,12 @@ namespace upb_default {
 			this.cmbEPUPBKind.Tag = "upb.idepupbkind";
 			this.cmbEPUPBKind.ValueMember = "idepupbkind";
 			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
 			// label33
 			// 
 			this.label33.AutoSize = true;
@@ -5410,16 +5418,6 @@ namespace upb_default {
 			this.upbBindingSource.DataMember = "upb";
 			this.upbBindingSource.DataSource = this.DS;
 			// 
-			// txtTreasurer
-			// 
-			this.txtTreasurer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTreasurer.Location = new System.Drawing.Point(114, 15);
-			this.txtTreasurer.Name = "txtTreasurer";
-			this.txtTreasurer.Size = new System.Drawing.Size(542, 20);
-			this.txtTreasurer.TabIndex = 53;
-			this.txtTreasurer.Tag = "treasurer.description?x";
-			// 
 			// Frm_upb_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -5432,9 +5430,8 @@ namespace upb_default {
 			this.MetaDataDetail.ResumeLayout(false);
 			this.tabPrincipale.ResumeLayout(false);
 			this.tabPrincipale.PerformLayout();
-			this.groupBox12.ResumeLayout(false);
-			this.groupBox12.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.gBoxTreasurer.ResumeLayout(false);
+			this.gBoxTreasurer.PerformLayout();
 			this.gboxResponsabile.ResumeLayout(false);
 			this.gboxResponsabile.PerformLayout();
 			this.gboxUnderwriting.ResumeLayout(false);
@@ -5513,6 +5510,7 @@ namespace upb_default {
 			this.grpDatiPrevisioneBudget.PerformLayout();
 			this.groupBox8.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.tabPage4.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
 			this.tabFabbisogno.ResumeLayout(false);
@@ -5557,7 +5555,7 @@ namespace upb_default {
 			GetData.SetStaticFilter(DS.finvardetailview, QHS.CmpEq("yvar", Meta.GetSys("esercizio")));
 			GetData.SetSorting(DS.finvardetailview, "nvar,rownum");
 
-			GetData.CacheTable(DS.treasurer, null, null, false);
+			GetData.CacheTable(DS.treasurer, null, null, true);
 
 			GetData.SetStaticFilter(DS.sortingview, filtereserc);
 			//GetData.SetStaticFilter(DS.treasurer, QHS.CmpEq("active", 'S'));
@@ -5622,6 +5620,10 @@ namespace upb_default {
             EnableCodiceCofog("01.4", "Ricerca scientifica e tecnologica di base (COFOG 01.4)");
             EnableCodiceCofog("07.5", "Ricerca scientifica e tecnologica applicata per la sanità (COFOG 07.5)");
 
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.upbattachment, true);
         }
 
 		public void MetaData_AfterGetFormData() {
@@ -6194,6 +6196,7 @@ namespace upb_default {
 			SubEntity_chkLimiteSpesa.Enabled = true;
 			AbilitaDatiPrevisionediBudget();
 			HelpForm.SetComboBoxValue(cmbCofog, DBNull.Value);
+			
 		}
 
 		//void AbilitaBtnPrevisione(bool enable){
@@ -7196,7 +7199,10 @@ namespace upb_default {
 		private decimal DettagliScritture(int bitTipoConto, int? bitTipoContoToExlcude, String dare_o_avere) {
 			decimal valore;
 			DataRow Curr = HelpForm.GetLastSelected(DS.upb);
-			//int esercizioCurr = (int)Meta.GetSys("esercizio"); //TASK 10134 -Alex 
+			if (Curr == null) {
+				return 0;
+			}
+				//int esercizioCurr = (int)Meta.GetSys("esercizio"); //TASK 10134 -Alex 
 
 			string filter = "";
 			filter = QHS.CmpEq("yentry", Meta.GetSys("esercizio"));

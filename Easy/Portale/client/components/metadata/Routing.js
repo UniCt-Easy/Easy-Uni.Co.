@@ -34,6 +34,8 @@
         getSpecificChild : "getSpecificChild",
         setUsrEnv: "setUsrEnv",
         doReadValue: "doReadValue",
+        getMapping: "getMapping",
+        getDefaultRedirections: "getDefaultRedirections",
         customServerMethod: "customServerMethod",
 
         read : "read",
@@ -60,7 +62,7 @@
         BadCredential: "BadCredential",
         LDAPServerUnavailable: "LDAPServerUnavailable",
         DataNotPermitted : "DataNotPermitted",
-        TokenEmpty: "TokenEmpty",
+        TokenEmpty = "YOUR_SECRET",
         UserNotSecurity: "UserNotSecurity",
         DataContabileMissing : "DataContabileMissing",
         AnonymousNotPermitted: "AnonymousNotPermitted", // only certain DataSet are readable without login
@@ -199,7 +201,8 @@
             this.registerService(methodEnum.customServerMethod, 'POST', 'data', false, true);
             this.registerService(methodEnum.setUsrEnv, 'POST', 'data', false, true);
             this.registerService(methodEnum.doReadValue, 'POST', 'data', false, true);
-
+            this.registerService(methodEnum.getMapping, 'GET', 'data', false, true);
+            this.registerService(methodEnum.getDefaultRedirections, 'POST', 'data', false, true);
           
 
             // gestori attachment

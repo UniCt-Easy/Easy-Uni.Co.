@@ -1,6 +1,6 @@
 @import url('PT_Sans_Narrow.css');
 .sm-blue {
-  background: transparent;
+  background: #0049a9;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
@@ -14,12 +14,7 @@
   padding: 10px 20px;
   /* make room for the toggle button (sub indicator) */
   padding-right: 58px;
-  background: #3092c0;
-  background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #3b9fce), color-stop(100%, #2b82ac));
-  background-image: -webkit-linear-gradient(to bottom, #3b9fce, #2b82ac);
-  background-image: -moz-linear-gradient(to bottom, #3b9fce, #2b82ac);
-  background-image: -o-linear-gradient(to bottom, #3b9fce, #2b82ac);
-  background-image: linear-gradient(to bottom, #3b9fce, #2b82ac);
+  background: #0049a9;
   color: white;
   font-family: "PT Sans Narrow", "Arial Narrow", Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -30,11 +25,6 @@
 }
 .sm-blue a.current {
   background: #006892;
-  background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #005678), color-stop(100%, #007aab));
-  background-image: -webkit-linear-gradient(to bottom, #005678, #007aab);
-  background-image: -moz-linear-gradient(to bottom, #005678, #007aab);
-  background-image: -o-linear-gradient(to bottom, #005678, #007aab);
-  background-image: linear-gradient(to bottom, #005678, #007aab);
   color: white;
 }
 .sm-blue a.disabled {
@@ -107,11 +97,6 @@
 }
 .sm-blue ul a.current {
   background: #006892;
-  background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #005678), color-stop(100%, #007aab));
-  background-image: -webkit-linear-gradient(to bottom, #005678, #007aab);
-  background-image: -moz-linear-gradient(to bottom, #005678, #007aab);
-  background-image: -o-linear-gradient(to bottom, #005678, #007aab);
-  background-image: linear-gradient(to bottom, #005678, #007aab);
   color: white;
 }
 .sm-blue ul a.disabled {
@@ -185,12 +170,6 @@
 
   /* ...end */
   .sm-blue {
-    background: #3092c0;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #3b9fce), color-stop(100%, #2b82ac));
-    background-image: -webkit-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -moz-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -o-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: linear-gradient(to bottom, #3b9fce, #2b82ac);
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
@@ -202,38 +181,18 @@
   }
   .sm-blue a, .sm-blue a:hover, .sm-blue a:focus, .sm-blue a:active, .sm-blue a.highlighted {
     padding: 13px 24px;
-    background: #3092c0;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #3b9fce), color-stop(100%, #2b82ac));
-    background-image: -webkit-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -moz-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -o-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: linear-gradient(to bottom, #3b9fce, #2b82ac);
+    background: #0049a9;
     color: white;
   }
   .sm-blue a:hover, .sm-blue a:focus, .sm-blue a:active, .sm-blue a.highlighted {
-    background: #2b82ac;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #3092c0), color-stop(100%, #267397));
-    background-image: -webkit-linear-gradient(to bottom, #3092c0, #267397);
-    background-image: -moz-linear-gradient(to bottom, #3092c0, #267397);
-    background-image: -o-linear-gradient(to bottom, #3092c0, #267397);
-    background-image: linear-gradient(to bottom, #3092c0, #267397);
+    background: #1b6bd3;
   }
   .sm-blue a.current {
     background: #006892;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #005678), color-stop(100%, #007aab));
-    background-image: -webkit-linear-gradient(to bottom, #005678, #007aab);
-    background-image: -moz-linear-gradient(to bottom, #005678, #007aab);
-    background-image: -o-linear-gradient(to bottom, #005678, #007aab);
-    background-image: linear-gradient(to bottom, #005678, #007aab);
     color: white;
   }
   .sm-blue a.disabled {
-    background: #3092c0;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #3b9fce), color-stop(100%, #2b82ac));
-    background-image: -webkit-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -moz-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -o-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: linear-gradient(to bottom, #3b9fce, #2b82ac);
+    background: #0049a9;
     color: #a1d1e8;
   }
   .sm-blue a span.sub-arrow {
@@ -299,21 +258,11 @@
     color: #2b82ac;
   }
   .sm-blue ul a:hover, .sm-blue ul a:focus, .sm-blue ul a:active, .sm-blue ul a.highlighted {
-    background: #3092c0;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #3b9fce), color-stop(100%, #2b82ac));
-    background-image: -webkit-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -moz-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: -o-linear-gradient(to bottom, #3b9fce, #2b82ac);
-    background-image: linear-gradient(to bottom, #3b9fce, #2b82ac);
+    background: #0049a9;
     color: white;
   }
   .sm-blue ul a.current {
     background: #006892;
-    background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #005678), color-stop(100%, #007aab));
-    background-image: -webkit-linear-gradient(to bottom, #005678, #007aab);
-    background-image: -moz-linear-gradient(to bottom, #005678, #007aab);
-    background-image: -o-linear-gradient(to bottom, #005678, #007aab);
-    background-image: linear-gradient(to bottom, #005678, #007aab);
     color: white;
   }
   .sm-blue ul a.disabled {

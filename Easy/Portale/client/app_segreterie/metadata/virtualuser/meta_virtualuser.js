@@ -24,14 +24,14 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'birthdate', 'Birthdate', null, 20, null);
-						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 30, 16);
-						this.describeAColumn(table, 'codicedipartimento', 'Codicedipartimento', null, 40, 50);
-						this.describeAColumn(table, 'email', 'Email', null, 50, 200);
-						this.describeAColumn(table, 'forename', 'Forename', null, 60, 50);
-						this.describeAColumn(table, 'surname', 'Cognome', null, 70, 50);
-						this.describeAColumn(table, 'sys_user', 'Sys_user', null, 80, 30);
-						this.describeAColumn(table, 'username', 'Username', null, 100, 50);
+						this.describeAColumn(table, 'username', 'Username', null, 10, 50);
+						this.describeAColumn(table, 'forename', 'Forename', null, 20, 50);
+						this.describeAColumn(table, 'surname', 'Cognome', null, 30, 50);
+						this.describeAColumn(table, 'email', 'Email', null, 40, 200);
+						this.describeAColumn(table, 'cf', 'Codice fiscale', null, 50, 16);
+						this.describeAColumn(table, 'birthdate', 'Birthdate', null, 60, null);
+						this.describeAColumn(table, 'codicedipartimento', 'Codicedipartimento', null, 80, 50);
+						this.describeAColumn(table, 'sys_user', 'Sys_user', null, 90, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -42,7 +42,21 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["idvirtualuser"].caption = "#";
+						table.columns["cf"].caption = "Codice fiscale";
+						table.columns["email"].caption = "Email";
+						table.columns["surname"].caption = "Cognome";
+						table.columns["lt"].caption = "data ultima modifica";
+						table.columns["lu"].caption = "nome ultimo utente modifica";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                                                var def = appMeta.Deferred("getNewRow-meta_protocollo");

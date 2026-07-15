@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -52,6 +50,12 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable chargehandling 		=> Tables["chargehandling"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrypaymethodattachment 		=> Tables["registrypaymethodattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable attachmentkind 		=> Tables["attachmentkind"];
 
 	#endregion
 
@@ -127,6 +131,8 @@ private void initClass() {
 	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_cf", typeof(Byte[])));
 	tregistrypaymethod.Columns.Add( new DataColumn("requested_doc", typeof(int)));
 	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_stop", typeof(DateTime)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idfilestorage2", typeof(string)));
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.PrimaryKey =  new DataColumn[]{tregistrypaymethod.Columns["idreg"], tregistrypaymethod.Columns["idregistrypaymethod"]};
 
@@ -292,6 +298,60 @@ private void initClass() {
 	tchargehandling.PrimaryKey =  new DataColumn[]{tchargehandling.Columns["idchargehandling"]};
 
 
+	//////////////////// REGISTRYPAYMETHODATTACHMENT /////////////////////////////////
+	var tregistrypaymethodattachment= new DataTable("registrypaymethodattachment");
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	C= new DataColumn("idregistrypaymethod", typeof(int));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	C= new DataColumn("idattachment", typeof(int));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	tregistrypaymethodattachment.Columns.Add( new DataColumn("attachment", typeof(Byte[])));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	tregistrypaymethodattachment.Columns.Add( new DataColumn("filename", typeof(string)));
+	tregistrypaymethodattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tregistrypaymethodattachment.Columns.Add(C);
+	tregistrypaymethodattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
+	Tables.Add(tregistrypaymethodattachment);
+	tregistrypaymethodattachment.PrimaryKey =  new DataColumn[]{tregistrypaymethodattachment.Columns["idreg"], tregistrypaymethodattachment.Columns["idregistrypaymethod"], tregistrypaymethodattachment.Columns["idattachment"]};
+
+
+	//////////////////// ATTACHMENTKIND /////////////////////////////////
+	var tattachmentkind= new DataTable("attachmentkind");
+	C= new DataColumn("idattachmentkind", typeof(int));
+	C.AllowDBNull=false;
+	tattachmentkind.Columns.Add(C);
+	tattachmentkind.Columns.Add( new DataColumn("title", typeof(string)));
+	tattachmentkind.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tattachmentkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tattachmentkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tattachmentkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tattachmentkind.Columns.Add(C);
+	Tables.Add(tattachmentkind);
+	tattachmentkind.PrimaryKey =  new DataColumn[]{tattachmentkind.Columns["idattachmentkind"]};
+
+
 	#endregion
 
 
@@ -327,6 +387,14 @@ private void initClass() {
 	cPar = new []{chargehandling.Columns["idchargehandling"]};
 	cChild = new []{registrypaymethod.Columns["idchargehandling"]};
 	Relations.Add(new DataRelation("chargehandling_registrypaymethod",cPar,cChild,false));
+
+	cPar = new []{attachmentkind.Columns["idattachmentkind"]};
+	cChild = new []{registrypaymethodattachment.Columns["idattachmentkind"]};
+	Relations.Add(new DataRelation("attachmentkind_registrypaymethodattachment",cPar,cChild,false));
+
+	cPar = new []{registrypaymethod.Columns["idreg"], registrypaymethod.Columns["idregistrypaymethod"]};
+	cChild = new []{registrypaymethodattachment.Columns["idreg"], registrypaymethodattachment.Columns["idregistrypaymethod"]};
+	Relations.Add(new DataRelation("registrypaymethod_registrypaymethodattachment",cPar,cChild,false));
 
 	#endregion
 

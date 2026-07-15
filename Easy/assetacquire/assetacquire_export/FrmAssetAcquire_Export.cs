@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +24,7 @@ using System.IO;
 using metadatalibrary;
 using System.Collections;
 using LiveUpdate;
+using System.Threading.Tasks;
 
 namespace assetacquire_export {
     public partial class FrmAssetAcquire_Export : MetaDataForm {
@@ -79,18 +78,43 @@ namespace assetacquire_export {
 
         object enteScelto;
         object codiceEnteScelto;
-        private void btnEsporta_Click(object sender, System.EventArgs e) {
-            if (isBlazor())
-			{
-                SelezionaCartella();
-			}
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = nPassi;
-            int indiceEnte = cmbEnte.SelectedIndex;
-            if (cmbEnte.SelectedIndex <= 0) {
-	            Meta.showClientMsg("Selezionare l'ente", "Errore", MessageBoxButtons.OK);
-	            return;
+
+        private async void btnEsporta_Click(object sender, System.EventArgs e)
+        {
+            // Disabilita il pulsante durante l'elaborazione
+            btnEsporta.Enabled = false;
+
+            try
+            {
+                await EsportaAsync();
             }
+            finally
+            {
+                // Riabilita il pulsante al termine
+                btnEsporta.Enabled = true;
+            }
+        }
+
+        private async Task EsportaAsync()
+        {
+            if (isBlazor())
+            {
+                SelezionaCartella();
+            }
+
+            await InvokeAsync(() =>
+            {
+                progressBar1.Minimum = 0;
+                progressBar1.Maximum = nPassi;
+            });
+
+            int indiceEnte = cmbEnte.SelectedIndex;
+            if (cmbEnte.SelectedIndex <= 0)
+            {
+                await ShowMessageAsync("Selezionare l'ente", "Errore", MessageBoxButtons.OK);
+                return;
+            }
+
             enteScelto = cmbEnte.SelectedValue;
             codiceEnteScelto = DS.inventoryagency.Select(QHC.CmpEq("idinventoryagency", enteScelto))[0]["codeinventoryagency"];
             string path = txtPath.Text;
@@ -98,36 +122,95 @@ namespace assetacquire_export {
             string messaggio = "Mancano i seguenti dati per eseguire l'esportazione:";
             bool visualizzaMessaggio = false;
 
-            if (indiceEnte <= 0) {
+            if (indiceEnte <= 0)
+            {
                 messaggio += "\nEnte Inventariale";
                 visualizzaMessaggio = true;
             }
 
-            if (path == "") {
+            if (path == "")
+            {
                 messaggio += "\nIl percorso del file da salvare";
                 visualizzaMessaggio = true;
             }
 
-            if (visualizzaMessaggio) {
-                show(this, messaggio);
+            if (visualizzaMessaggio)
+            {
+                await ShowMessageAsync(messaggio);
                 return;
             }
-            dsEsporta.Clear();
-            progressBar1.Value = 0;
+
+            await InvokeAsync(() =>
+            {
+                dsEsporta.Clear();
+                progressBar1.Value = 0;
+            });
 
             esportaAnagrafica = chkAnagrafica.Checked;
-            if (!riempiTabelle()) {
-                show(this, "Si è verificato un errore. Processo Interrotto. Il file non verrà generato", "Errore");
+
+            // Esegui riempiTabelle in modo asincrono
+            bool success = await Task.Run(() => riempiTabelle());
+
+            if (!success)
+            {
+                await ShowMessageAsync("Si è verificato un errore. Processo Interrotto. Il file non verrà generato", "Errore");
                 return;
             }
-            salvaFile();
+
+            // Esegui salvaFile in modo asincrono
+            await Task.Run(() => salvaFile());
         }
 
-        private void aggiornaForm(string testo) {
-            lblTabella.Text = testo;
-            if (progressBar1.Value < progressBar1.Maximum) progressBar1.Value++;
-            Application.DoEvents();
+        private async Task AggiornaFormAsync(string testo)
+        {
+            await InvokeAsync(() =>
+            {
+                lblTabella.Text = testo;
+                if (progressBar1.Value < progressBar1.Maximum)
+                    progressBar1.Value++;
+
+                MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+            });
+
+            // Piccola pausa per mantenere l'UI reattiva
+            await Task.Delay(1);
         }
+
+        // Metodi helper per l'UI thread
+        private async Task InvokeAsync(Action action)
+        {
+            if (this.InvokeRequired)
+            {
+                await Task.Run(() => this.Invoke(action));
+            }
+            else
+            {
+                action();
+            }
+        }
+
+        private async Task ShowMessageAsync(string text, string caption = "", MessageBoxButtons buttons = MessageBoxButtons.OK)
+        {
+            await InvokeAsync(() => show(this, text, caption, buttons));
+        }
+
+        // Versione generica per InvokeAsync che restituisce un valore
+        private async Task<T> InvokeAsync<T>(Func<T> func)
+        {
+            if (this.InvokeRequired)
+            {
+                return await Task.Run(() => (T)this.Invoke(func));
+            }
+            else
+            {
+                return func();
+            }
+        }
+
+        private async void aggiornaForm(string testo)
+		{
+            await AggiornaFormAsync(testo);
+		}
 
         private void salvaFile() {
             if ((codiceEnteScelto == null) || (codiceEnteScelto == DBNull.Value)) {

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections;
@@ -72,7 +70,10 @@ namespace Install
 					   "nassetunload", "Num. buono inventario"},
 					  {"yassetunload","Eserc. buono inventario"}};
 
-				new FrmErrore(rBeniNonCaricati, "I seguenti beni non sono stati caricati:", colonne).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(rBeniNonCaricati, "I seguenti beni non sono stati caricati:", colonne);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+
+				fe.ShowDialog(form);
 			}
 
 			return Migrazione.lanciaScript(form, Conn, ds, "Bene inventariabile -> asset");
@@ -129,7 +130,10 @@ namespace Install
 					  "nassetunload", "Num. buono inventario"},
 					  {"yassetunload","Eserc. buono inventario"}};
 
-				new FrmErrore(rPartiNonCaricate, "Le seguenti parti non sono state caricate:", colonne).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(rPartiNonCaricate, "Le seguenti parti non sono state caricate:", colonne);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+
+				fe.ShowDialog(form);
 			}
 
 			tAsset.TableName = "asset";
@@ -441,7 +445,9 @@ namespace Install
 				t.Columns["idparte"].Caption = "Id. parte";
 				t.Columns["idbene"].Caption = "Id. bene";
 				string domanda = "Si intende procedere lo stesso perdendo tali informazioni?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr == DialogResult.No) {
 					return false;
 				}
@@ -463,7 +469,9 @@ namespace Install
 					+ "che non avevano un corrispondente bene?";
 				t.Columns["numaumentovalore"].Caption = "Num. aumento valore";
 				t.Columns["idbene"].Caption = "Id. bene";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr == DialogResult.No) {
 					return false;
 				}
@@ -522,7 +530,9 @@ namespace Install
 				t.Columns["numbuonoinventario"].Caption = "Num. buono inventario";
 				string domanda = "Si intende procedere nella migrazione perdendo tutti gli scarichi dei beni "
 					+ "che non avevano un corrispondente buono di scarico?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr == DialogResult.No) {
 					return false;
 				}
@@ -552,7 +562,9 @@ namespace Install
 				t.Columns["numbuonoinventario"].Caption = "Num. buono inventario";
 				string domanda = "Si intende procedere nella migrazione perdendo tutti gli scarichi delle parti "
 					+ "che non avevano un corrispondente buono di scarico?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr == DialogResult.No) {
 					return false;
 				}
@@ -583,7 +595,10 @@ namespace Install
 				t.Columns["codicetipobuono"].Caption = "Codice tipo buono";
 				t.Columns["esercbuonoinventario"].Caption = "Eserc. buono inventario";
 				t.Columns["numbuonoinventario"].Caption = "Num. buono inventario";
-				new FrmErrore(t, messaggio).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+
+				fe.ShowDialog(form);
 				return false;
 			}
 			return true;
@@ -609,7 +624,9 @@ namespace Install
 				t.Columns["quantita"].Caption = "Quantità";
 				t.Columns["beni"].Caption = "Beni";
 				string domanda = "Si intende procedere nella migrazione anche se ci sono questi carichi senza beni?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr==DialogResult.No) {
 					return false;
 				}
@@ -637,7 +654,9 @@ namespace Install
 				t.Columns["quantita"].Caption = "Quantità";
 				t.Columns["beni"].Caption = "Beni";
 				string domanda = "Si intende procedere comunque?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr == DialogResult.No) {
 					return false;
 				}
@@ -667,7 +686,9 @@ namespace Install
 				t.Columns["numcaricobene"].Caption = "Num. carico bene";
 				t.Columns["idbene"].Caption = "Id. bene";
 				string domanda = "Si intende procedere comunque?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr == DialogResult.No) {
 					return false;
 				}
@@ -694,7 +715,9 @@ namespace Install
 				t.Columns["quantita"].Caption = "Quantità";
 				t.Columns["beni"].Caption = "Beni";
 				string domanda = "Si intende procedere nella migrazione anche se ci sono questi carichi bene?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr==DialogResult.No) {
 					return false;
 				}
@@ -721,7 +744,9 @@ namespace Install
 				t.Columns["quantita"].Caption = "Quantità";
 				t.Columns["parti"].Caption = "Parti";
 				string domanda = "Si intende procedere nella migrazione anche se ci sono questi carichi parte?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr==DialogResult.No) {
 					return false;
 				}
@@ -759,7 +784,9 @@ namespace Install
 				t.Columns["quantita"].Caption = "Quantità";
 				t.Columns["parti"].Caption = "Parti";
 				string domanda = "Si intende procedere nella migrazione anche se ci sono questi scarichi parte?";
-				DialogResult dr = new FrmErrore(t, messaggio, domanda).ShowDialog(form);
+				FrmErrore fe = new FrmErrore(t, messaggio, domanda);
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
 				if (dr==DialogResult.No) {
 					return false;
 				}

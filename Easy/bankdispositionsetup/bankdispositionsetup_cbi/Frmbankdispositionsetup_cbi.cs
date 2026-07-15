@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -108,12 +106,12 @@ namespace bankdispositionsetup_cbi {
             if (D == null || D.Tables.Count == 0) return null;
             DataTable T = D.Tables[0];
             if (T.Rows.Count == 0) {
-                show("L'esportazione Ë stata eseguita ma non ha restituito alcun risultato", "Errore");
+                show("L'esportazione √® stata eseguita ma non ha restituito alcun risultato", "Errore");
                 return null;
             }
 
             if (T.Columns.Count == 1) {
-                show("L'esportazione Ë stata eseguita ma  ha restituito errori bloccanti", "Errore");
+                show("L'esportazione √® stata eseguita ma  ha restituito errori bloccanti", "Errore");
                 FrmViewError View = new FrmViewError(D);
                 MetaFactory.factory.getSingleton<IFormCreationListener>().create(View, null);
                 View.Show();
@@ -129,7 +127,7 @@ namespace bankdispositionsetup_cbi {
             //if ((DScheck != null) && (DScheck.Tables.Count > 0)) {
             //    DataTable Tcheck = DScheck.Tables[0];
             //    if (Tcheck.Rows.Count > 0) {
-            //        show("Vi sono problemi sulla quadratura di alcuni importi. \r\nIl file verr‡ generato ma se trasmesso, verr‡ RIFIUTATO DALLA BANCA", "Errore");
+            //        show("Vi sono problemi sulla quadratura di alcuni importi. \r\nIl file verr√† generato ma se trasmesso, verr√† RIFIUTATO DALLA BANCA", "Errore");
             //        FrmViewError View = new FrmViewError(DScheck);
             //        MetaFactory.factory.getSingleton<IFormCreationListener>().create(View, null);
             //        View.Show();
@@ -260,7 +258,7 @@ namespace bankdispositionsetup_cbi {
             if (cfgflagenabletransmission != DBNull.Value) {
                 string cfg_flag = cfgflagenabletransmission.ToString().ToUpper();
                 if ((cfg_flag == "S") && (flagtransmissionenabled.ToString().ToUpper() != "S")) {
-                    show(this, "La trasmissione della distinta non Ë stata autorizzata");
+                    show(this, "La trasmissione della distinta non √® stata autorizzata");
                     return;
                 }
             }

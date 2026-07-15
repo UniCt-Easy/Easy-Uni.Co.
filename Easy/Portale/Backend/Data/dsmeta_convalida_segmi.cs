@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -30,12 +28,6 @@ namespace Backend.Data {
 public partial class dsmeta_convalida_segmi: DataSet {
 
 	#region Table members declaration
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable didprog 		=> (MetaTable)Tables["didprog"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable dichiar 		=> (MetaTable)Tables["dichiar"];
-
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable changeskinddefaultview_alias1 		=> (MetaTable)Tables["changeskinddefaultview_alias1"];
 
@@ -56,9 +48,6 @@ public partial class dsmeta_convalida_segmi: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidante 		=> (MetaTable)Tables["convalidante"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable convalidakinddefaultview 		=> (MetaTable)Tables["convalidakinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalida 		=> (MetaTable)Tables["convalida"];
@@ -88,26 +77,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_convalida_segmi.xsd";
 
 	#region create DataTables
-	//////////////////// DIDPROG /////////////////////////////////
-	var tdidprog= new MetaTable("didprog");
-	tdidprog.defineColumn("aa", typeof(string),false);
-	tdidprog.defineColumn("idcorsostudio", typeof(int),false);
-	tdidprog.defineColumn("iddidprog", typeof(int),false);
-	tdidprog.defineColumn("idsede", typeof(int));
-	tdidprog.defineColumn("title", typeof(string));
-	Tables.Add(tdidprog);
-	tdidprog.defineKey("idcorsostudio", "iddidprog");
-
-	//////////////////// DICHIAR /////////////////////////////////
-	var tdichiar= new MetaTable("dichiar");
-	tdichiar.defineColumn("aa", typeof(string));
-	tdichiar.defineColumn("date", typeof(DateTime),false);
-	tdichiar.defineColumn("iddichiar", typeof(int),false);
-	tdichiar.defineColumn("iddichiarkind", typeof(int),false);
-	tdichiar.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tdichiar);
-	tdichiar.defineKey("iddichiar", "idreg");
-
 	//////////////////// CHANGESKINDDEFAULTVIEW_ALIAS1 /////////////////////////////////
 	var tchangeskinddefaultview_alias1= new MetaTable("changeskinddefaultview_alias1");
 	tchangeskinddefaultview_alias1.defineColumn("changeskind_active", typeof(string));
@@ -127,6 +96,22 @@ private void initClass() {
 	//////////////////// ATTIVFORMDEFAULTVIEW /////////////////////////////////
 	var tattivformdefaultview= new MetaTable("attivformdefaultview");
 	tattivformdefaultview.defineColumn("aa", typeof(string),false);
+	tattivformdefaultview.defineColumn("attivform_ct", typeof(DateTime),false);
+	tattivformdefaultview.defineColumn("attivform_cu", typeof(string),false);
+	tattivformdefaultview.defineColumn("attivform_iddidproggrupp", typeof(int));
+	tattivformdefaultview.defineColumn("attivform_lt", typeof(DateTime),false);
+	tattivformdefaultview.defineColumn("attivform_lu", typeof(string),false);
+	tattivformdefaultview.defineColumn("attivform_obbform", typeof(string));
+	tattivformdefaultview.defineColumn("attivform_obbform_en", typeof(string));
+	tattivformdefaultview.defineColumn("attivform_sortcode", typeof(int));
+	tattivformdefaultview.defineColumn("attivform_start", typeof(DateTime));
+	tattivformdefaultview.defineColumn("attivform_stop", typeof(DateTime));
+	tattivformdefaultview.defineColumn("attivform_tipovalutaz", typeof(string));
+	tattivformdefaultview.defineColumn("didproganno_title", typeof(string));
+	tattivformdefaultview.defineColumn("didprogcurr_title", typeof(string));
+	tattivformdefaultview.defineColumn("didproggrupp_title", typeof(string));
+	tattivformdefaultview.defineColumn("didprogori_title", typeof(string));
+	tattivformdefaultview.defineColumn("didprogporzanno_title", typeof(string));
 	tattivformdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tattivformdefaultview.defineColumn("idattivform", typeof(int),false);
 	tattivformdefaultview.defineColumn("idcorsostudio", typeof(int),false);
@@ -135,7 +120,14 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("iddidprogcurr", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
+	tattivformdefaultview.defineColumn("idinsegn", typeof(int),false);
+	tattivformdefaultview.defineColumn("idinsegninteg", typeof(int));
 	tattivformdefaultview.defineColumn("idsede", typeof(int),false);
+	tattivformdefaultview.defineColumn("insegn_codice", typeof(string));
+	tattivformdefaultview.defineColumn("insegn_denominazione", typeof(string));
+	tattivformdefaultview.defineColumn("insegninteg_codice", typeof(string));
+	tattivformdefaultview.defineColumn("insegninteg_denominazione", typeof(string));
+	tattivformdefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tattivformdefaultview);
 	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
@@ -166,11 +158,45 @@ private void initClass() {
 
 	//////////////////// SOSTENIMENTODEFAULTVIEW /////////////////////////////////
 	var tsostenimentodefaultview= new MetaTable("sostenimentodefaultview");
+	tsostenimentodefaultview.defineColumn("annoaccademico_aa", typeof(string));
+	tsostenimentodefaultview.defineColumn("annoaccademico_titolostudio_aa", typeof(string));
+	tsostenimentodefaultview.defineColumn("attivform_title", typeof(string));
 	tsostenimentodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsostenimentodefaultview.defineColumn("idappello", typeof(int),false);
+	tsostenimentodefaultview.defineColumn("idattivform", typeof(int));
+	tsostenimentodefaultview.defineColumn("idiscrizione", typeof(int));
 	tsostenimentodefaultview.defineColumn("idprova", typeof(int),false);
 	tsostenimentodefaultview.defineColumn("idreg", typeof(int),false);
 	tsostenimentodefaultview.defineColumn("idsostenimento", typeof(int),false);
+	tsostenimentodefaultview.defineColumn("idtitolostudio", typeof(int));
+	tsostenimentodefaultview.defineColumn("iscrizione_anno", typeof(int));
+	tsostenimentodefaultview.defineColumn("iscrizione_iddidprog", typeof(int));
+	tsostenimentodefaultview.defineColumn("istattitolistudio_titolo", typeof(string));
+	tsostenimentodefaultview.defineColumn("registry_title", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_ct", typeof(DateTime),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_cu", typeof(string),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_data", typeof(DateTime),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_domande", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_ects", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_giudizio", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_idcorsostudio", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_iddidprog", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_idsostenimentoesito", typeof(int),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_insecod", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_insedesc", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_livello", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_lt", typeof(DateTime),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_lu", typeof(string),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_paridsostenimento", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_protanno", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_protnumero", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_voto", typeof(decimal));
+	tsostenimentodefaultview.defineColumn("sostenimento_votolode", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_votosu", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimentoesito_title", typeof(string));
+	tsostenimentodefaultview.defineColumn("titolostudio_voto", typeof(int));
+	tsostenimentodefaultview.defineColumn("titolostudio_votolode", typeof(string));
+	tsostenimentodefaultview.defineColumn("titolostudio_votosu", typeof(int));
 	Tables.Add(tsostenimentodefaultview);
 	tsostenimentodefaultview.defineKey("idappello", "idprova", "idreg", "idsostenimento");
 
@@ -215,21 +241,6 @@ private void initClass() {
 	Tables.Add(tconvalidante);
 	tconvalidante.defineKey("idconvalida", "idconvalidante", "idiscrizionebmi", "idlearningagrstud", "idreg");
 
-	//////////////////// CONVALIDAKINDDEFAULTVIEW /////////////////////////////////
-	var tconvalidakinddefaultview= new MetaTable("convalidakinddefaultview");
-	tconvalidakinddefaultview.defineColumn("convalidakind_active", typeof(string));
-	tconvalidakinddefaultview.defineColumn("convalidakind_ct", typeof(DateTime),false);
-	tconvalidakinddefaultview.defineColumn("convalidakind_cu", typeof(string),false);
-	tconvalidakinddefaultview.defineColumn("convalidakind_description", typeof(string),false);
-	tconvalidakinddefaultview.defineColumn("convalidakind_lt", typeof(DateTime),false);
-	tconvalidakinddefaultview.defineColumn("convalidakind_lu", typeof(string),false);
-	tconvalidakinddefaultview.defineColumn("convalidakind_sortcode", typeof(int),false);
-	tconvalidakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tconvalidakinddefaultview.defineColumn("idconvalidakind", typeof(int),false);
-	tconvalidakinddefaultview.defineColumn("title", typeof(string),false);
-	Tables.Add(tconvalidakinddefaultview);
-	tconvalidakinddefaultview.defineKey("idconvalidakind");
-
 	//////////////////// CONVALIDA /////////////////////////////////
 	var tconvalida= new MetaTable("convalida");
 	tconvalida.defineColumn("cf", typeof(decimal));
@@ -265,14 +276,6 @@ private void initClass() {
 	var cChild = new []{convalidato.Columns["idconvalida"], convalidato.Columns["idiscrizionebmi"], convalidato.Columns["idlearningagrstud"], convalidato.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalidato_convalida_idconvalida-idiscrizionebmi-idlearningagrstud-idreg",cPar,cChild,false));
 
-	cPar = new []{didprog.Columns["iddidprog"]};
-	cChild = new []{convalidato.Columns["iddidprog"]};
-	Relations.Add(new DataRelation("FK_convalidato_didprog_iddidprog",cPar,cChild,false));
-
-	cPar = new []{dichiar.Columns["iddichiar"]};
-	cChild = new []{convalidato.Columns["iddichiar"]};
-	Relations.Add(new DataRelation("FK_convalidato_dichiar_iddichiar",cPar,cChild,false));
-
 	cPar = new []{changeskinddefaultview_alias1.Columns["idchangeskind"]};
 	cChild = new []{convalidato.Columns["idchangeskind"]};
 	Relations.Add(new DataRelation("FK_convalidato_changeskinddefaultview_alias1_idchangeskind",cPar,cChild,false));
@@ -296,10 +299,6 @@ private void initClass() {
 	cPar = new []{changeskinddefaultview.Columns["idchangeskind"]};
 	cChild = new []{convalidante.Columns["idchangeskind"]};
 	Relations.Add(new DataRelation("FK_convalidante_changeskinddefaultview_idchangeskind",cPar,cChild,false));
-
-	cPar = new []{convalidakinddefaultview.Columns["idconvalidakind"]};
-	cChild = new []{convalida.Columns["idconvalidakind"]};
-	Relations.Add(new DataRelation("FK_convalida_convalidakinddefaultview_idconvalidakind",cPar,cChild,false));
 
 	#endregion
 

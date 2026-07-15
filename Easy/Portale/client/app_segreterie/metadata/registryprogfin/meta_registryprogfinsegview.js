@@ -25,6 +25,7 @@
 					case 'seg':
 						this.describeAColumn(table, 'title', 'Titolo', null, 2000, 2048);
 						this.describeAColumn(table, 'registryprogfin_code', 'Codice identificativo', null, 4000, 2048);
+						this.describeAColumn(table, 'registryprogfin_url', 'Indirizzo web', null, 10000, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

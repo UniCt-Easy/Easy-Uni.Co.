@@ -93,8 +93,70 @@
 					if (!bool) appMeta.metaModel.getTemporaryValues(tCurr);
 				});
 
-				// se esiste beforeFill sulla classe base MetaEasyPage lo invoco
-				return MetaEasyPage.prototype.beforeFill.call(self);
+
+				//recupero i campi obbligatori dalla tabella mandatoryfields
+				var def = appMeta.Deferred("beforeFill-MetaSegreteriePage");
+				var arraydef = [];
+
+				arraydef.push(this.getMandatoryFields());
+
+				$.when.apply($, arraydef)
+					.then(function () {
+						return MetaEasyPage.prototype.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+
+			},
+
+			manageValidResult: function (rowToCheck) {
+				var def = appMeta.Deferred("isValid-workpackage_seg");
+				var firstErrorObj;
+				var self = this;
+
+				//controllo i campi obbligatori
+				this.mandatoryFields.rows
+					.sort((a, b) => b.position - a.position) //li ordino dal più grande al più piccolo (l'ultima position per prima) perchè poi firstErrorObj alla fine del forEach è l'ultimo che viene restituito, in questo modo ottengo il primo
+					.forEach(function (field) {
+					var value = rowToCheck.current[field.columnname];
+					if (
+						(value === null || value === undefined || value === '') && !field.mastervalue //se il campo obbligatorio non è stato definito e non dipende da un altro valore
+					) {
+
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: (field.message ? field.message : 'Il campo ' + field.title + ' non puo essere vuoto '),
+							outCaption: field.title,
+							errField: field.columnname,
+							row: rowToCheck
+						};
+						return firstErrorObj;
+					}
+
+					if (
+						(value === null || value === undefined || value === '') && !!field.mastervalue //se il campo obbligatorio non è stato definito e dipende da un altro valore
+						&& rowToCheck.current[field.mastercolumnname] == field.mastervalue //ed è proprio il valore attuale
+					) {
+
+						firstErrorObj = {
+							warningMsg: "",
+							errMsg: (field.message ? field.message : 'Il campo ' + field.title + ' non può essere vuoto con il valore attuale impostato per ' + field.mastertitle + ' '),
+							outCaption: field.title,
+							errField: field.columnname,
+							row: rowToCheck
+						};
+						return firstErrorObj;
+					}
+				});
+
+				if (firstErrorObj) {
+					return def.resolve(firstErrorObj);
+				} else {
+					def.resolve(true);
+					return MetaEasyPage.prototype.manageValidResult.call(this, rowToCheck);
+				}
 			},
 
 			afterLink: function () {
@@ -110,16 +172,18 @@
 				var navtabHeight = $('.nav-tabs').height();
 				var htabContainerVal = screenH - offset - navtabHeight;
 				var htabContainer = (htabContainerVal).toString() + 'px';
-				$(".tab-content").css("height", htabContainer); 
+				$(".tab-content").css("height", htabContainer);
 
 				// calcolo giorni sospensioni
 				return this.getSospensioni()
+					.then(function (result) {
+						//carico la configurazione di performance
+						self.getConfPerformance();
+					})
 					.then(function () {
 						return MetaEasyPage.prototype.afterLink.call(self);
 					});
 			},
-
-
 
 			afterFill: function () {
 				// PARTE SYNC
@@ -130,9 +194,9 @@
 				var screenH = $(window).height();
 				var offset = 175;
 				var navtabHeight = $('.nav-tabs').height();
-				var htabContainerVal = screenH - offset - navtabHeight;
+				var htabContainerVal = screenH - offset - (navtabHeight ?? 0);
 				var htabContainer = (htabContainerVal).toString() + 'px';
-				$(".tab-content").css("height", htabContainer); 
+				$(".tab-content").css("height", htabContainer);
 
 				//pagine di dettaglio
 				var offsetDetail = 230;
@@ -161,10 +225,66 @@
 					$(this).css("overflow-x", "hidden");
 				});
 
+				this.setMandatoryFieldsLabels();
 
 				// ASYNC
 				// se esiste beforeFill sulla classe base MetaEasyPage lo invoco
 				return MetaEasyPage.prototype.afterFill.call(this);
+			},
+
+			/**
+			 * Metodo che aggiunge il grassetto e l'asterisco ai cambi obbligatori
+			 */
+			setMandatoryFieldsLabels: function () {
+				let self = this;
+				//prima recupero quelli definiti manualmente
+				let allMandatoryFileds = [];
+				this.mandatoryFields.rows.forEach(function (field) {
+					if (
+						!field.mastervalue ||
+						(!!field.mastervalue && self.state.currentRow[field.mastercolumnname] == field.mastervalue)
+					) {
+						allMandatoryFileds.push(field);
+					}
+				});
+
+				//poi queli che non sono nullabili sul dataset
+				var pt = this.getDataTable(this.primaryTableName);
+				_.forEach(pt.columns, function (c) {
+					if (c.allowNull == false) {
+						allMandatoryFileds.push({
+							tablename: self.primaryTableName,
+							editlistingtype: self.editType,
+							columnname: c.name,
+							title: c.caption,
+							mastercolumnname: '',
+							mastertitle: '',
+							mastervalue: ''
+						})
+					}
+				}
+				);
+
+				//cancello i grassetti e gli asterischi se ce ne sono (ad es: sto aprendo i risultati di una ricerca cliccando su tutti i risultati in sequenza)
+				$('label').each(function () {
+					$(this).html($(this).html().replace("</b> *", '').replace("<b>", ''));
+				});
+
+				//per ogni campo obbligatorio ...
+				allMandatoryFileds.forEach(function (mf) {
+					let elId = self.primaryTableName + '_' + self.editType + '_' + mf.columnname;
+					//...individuo la label, a meno che non sia relativa a un campo non editabile perchè non avrebbe senso segnalarglielo
+					let el = $('[for = "' + elId + '"]')
+						.not(function () {
+							return $(this).attr('for') && $('input#' + $(this).attr('for')).attr('readonly') !== undefined;
+						});
+					if (el.length)
+						if (el[0].innerHTML.indexOf('*') === -1)
+							//aggiungo all'elemento il grassetto e un asterisco alla fine alla label
+							el[0].innerHTML = "<b>" + el[0].innerHTML + "</b> *";
+				}
+				);
+
 			},
 
 			/**
@@ -442,6 +562,19 @@
 				return d.getDate().toString() + '/' + (d.getMonth() + 1).toString() + '/' + d.getFullYear().toString();
 			},
 
+			stringFromDate_ddmmyyyy_hhmm: function (d) {
+				if (!d) return '';
+
+				var day = d.getDate().toString().padStart(2, '0');
+				var month = (d.getMonth() + 1).toString().padStart(2, '0');
+				var year = d.getFullYear().toString();
+
+				var hours = d.getHours().toString().padStart(2, '0');
+				var minutes = d.getMinutes().toString().padStart(2, '0');
+
+				return day + '/' + month + '/' + year + ' ' + hours + ':' + minutes;
+			},
+
 			/**
 			 *
 			 * @param {Date} d
@@ -451,7 +584,7 @@
 
 				return d.getFullYear().toString() + ((d.getMonth() + 1) > 9 ? '' : '0') + (d.getMonth() + 1).toString() + ((d.getDate()) > 9 ? '' : '0') + d.getDate().toString();
 			},
-			
+
 			/*funzione per il calcolo del json delle colonne nipoti o del titlo calcolato
 			 p[0] : stringa o objectRow
 			 p[1] : colonna della riga
@@ -589,7 +722,7 @@
 				$("a[href^='#tab']").show();
 				$("#tabfake").remove();
 			},
-			
+
 			/**
 			 * @method multichoose
 			 * @public
@@ -624,7 +757,7 @@
 			 */
 			selectMany: function (listingType, filter, searchTableName) {
 				var def = Deferred("selectOne");
-				var isSearchTable = true;  // memorizzo per capire se sedvo forzare la chiusura dell'elenco eventualmente aperto
+				var isSearchTable = true;  // memorizzo per capire se devo forzare la chiusura dell'elenco eventualmente aperto
 				var mergedFilter = filter;
 				var self = this;
 
@@ -764,7 +897,7 @@
 
 				var filter = null;
 				// aggiungo un filtro che esclude dalal tabella collegata gli elementi già selezionati (cioè presenti nella tabella di collegamento)
-				if (!objPrm.columnSource.includes(",")) {
+				if (!objPrm.columnSource.includes(",") && toEsclude.length) {
 					var filterToEsclude = this.q.isNotIn(objPrm.columnSource, toEsclude);
 					filter = self.helpForm.mergeFilters(filterSearchAndParm, filterToEsclude);
 				} else {
@@ -926,13 +1059,15 @@
 				return _.ceil(_.sumBy(elements, filterFunction), decimalDigits);
 			},
 
-			getChildren: function (tableName, parentIdValue, parentIdName, parent) {
+			getChildren: function (tableName, parentIdValue, parentIdName, fromCallerStateDS) {
 
 				var children = [];
-				var rows = appMeta.currApp.currentMetaPage.state.DS.tables[tableName].rows;
+				var rows = [];
 
-				if (parent) {
-					rows = appMeta.currApp.currentMetaPage.state.callerPage.getDataTable("perfprogettoobiettivoattivita_alias3").rows;
+				if (fromCallerStateDS) {
+					rows = appMeta.currApp.currentMetaPage.state.callerPage.getDataTable(tableName).rows;
+				} else {
+					rows = appMeta.currApp.currentMetaPage.getDataTable(tableName).rows;
 				}
 
 				for (var i = 0; i < rows.length; i++) {
@@ -970,8 +1105,8 @@
 
 			determinaSessoDaCodiceFiscale: function (codiceFiscale) {
 				// Verifica se il codice fiscale ha la lunghezza corretta
-				if(codiceFiscale.length !== 16) {
-				return "Codice fiscale non valido";
+				if (codiceFiscale.length !== 16) {
+					return "Codice fiscale non valido";
 				}
 
 				// Estrai i caratteri che rappresentano il sesso
@@ -987,7 +1122,34 @@
 					return "M";
 				}
 			},
-			
+
+			/**
+			 * calcola i campi obbligatori
+			 * @returns {Deferred(dtVal)}
+			 * @constructor
+			 */
+			getMandatoryFields: function () {
+				var self = this;
+				return appMeta.getData.runSelect("appfieldmandatoryview", "*", this.q.and(this.q.eq("editlistingtype", this.editType), this.q.eq("tablename", this.primaryTableName))).
+					then(function (dt) {
+						self.mandatoryFields = dt;
+						return dt;
+					});
+			},
+
+			/**
+			 * Restituisce le righe non cancellate tu una tabella jsDataSet
+			 */
+			getNotDeletedRows: function (table) {
+
+				let notDeletedRows = [];
+				_.forEach(table.rows, function (r) {
+					if (r.getRow().myState != 'deleted')
+						notDeletedRows.push(r);
+				});
+				return notDeletedRows;
+			},
+
 			/*********************************************************************
 			****************  FUNZIONI PER PROTOCOLLO: ***************************
 			*********************************************************************/
@@ -1002,8 +1164,13 @@
 			 */
 			assegnaProtocollo: function (idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol) {
 				if (!this.state.isInsertState()) {
+
+					//le pratiche ad esempio non hanno origine e si intende comunicazione interna
+					if (!idreg_origine) idreg_origine = idreg_destinazione;
+
 					var self = this;
 					var rowToNullify = null;
+					var rowFirstProtocol = null;
 					// salvo prima l'oggetto da protocollare, così se ci sono errori blocco tutto
 					var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
 					return this.getFormData(true)
@@ -1017,7 +1184,6 @@
 								self.q.eq("codiceregistro", codiceregistro)
 							);
 
-							// ha salvato e quindi protocollo
 							return getData.runSelect("protocollo", "*", filterExisting, null)
 								.then(function (dt) {
 									if (dt.rows.length) {
@@ -1030,10 +1196,27 @@
 										}
 										// Devo annullare il doc, infatti passo come primo parametro la riga attuale e fare un nuovo protocollo
 										rowToNullify = dt.rows[0];
+
+										var filterForstProtocol = self.q.and(
+											self.q.eq("protnumero", rowToNullify.protnumero),
+											self.q.eq("protanno", rowToNullify.protanno)
+										);
+
+										return getData.runSelect("protocollodocelement", "idprotocollodocelement", filterForstProtocol, null)
+											.then(function (dt) {
+												if (dt.rows.length) {
+													rowFirstProtocol = dt.rows[0];
+												}
+												self.hideWaitingIndicator(waitingHandler);
+												// procedo con la protocollazione automatica
+												return def.from(self.saveProtocol(rowToNullify, rowFirstProtocol, idreg_origine, idreg_destinazione, oggetto, testo, codiceregistro, idprotocollodockind));
+
+											}); // chiude la runSelect
+
 									}
 									self.hideWaitingIndicator(waitingHandler);
 									// procedo con la protocollazione automatica
-									return def.from(self.saveProtocol(rowToNullify, idreg_origine, idreg_destinazione, oggetto, testo, codiceregistro, idprotocollodockind));
+									return def.from(self.saveProtocol(rowToNullify, rowFirstProtocol, idreg_origine, idreg_destinazione, oggetto, testo, codiceregistro, idprotocollodockind));
 
 								}); // chiude la runSelect
 						});
@@ -1047,8 +1230,7 @@
 				return testoDb === testoClient;
 			},
 
-
-			saveProtocol: function (rowToNullify, idreg_origine, idreg_destinazione, oggetto, testo, codiceregistro, idprotocollodockind) {
+			saveProtocol: function (rowToNullify, rowFirstProtocol, idreg_origine, idreg_destinazione, oggetto, testo, codiceregistro, idprotocollodockind) {
 				var self = this;
 				var def = Deferred('saveProtocol');
 				var metaProtocollo = appMeta.getMeta('protocollo');
@@ -1070,7 +1252,7 @@
 							return def.resolve();
 						}
 						waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
-						return getData.getDataSet('protocollo', 'seg')
+						return getData.getDataSet('protocollo', 'default')
 							.then(function (dsRes) {
 								dataSetProtocolloSeg = dsRes;
 								protocollo = dataSetProtocolloSeg.tables.protocollo;
@@ -1113,13 +1295,10 @@
 
 								rowProtocolloDestinatario.idreg_dest = idreg_destinazione;
 
-								//se istituto origine == destinatario studente
-								//se studente origine == destinatario istituto
-								//se istituto origine == destinatario istituto
-
-								// mittente istituto, destinatario studente
-								utils._if(idreg_origine === self.idreg_istituto && idreg_destinazione === self.idreg_studente)
+								// PROTOCOLLO IN USCITA
+								utils._if(idreg_origine === self.idreg_istituto && idreg_destinazione != self.idreg_istituto)
 									._then(function () {
+										rowProtocollo.originemail = dsRegIstitutiPrinc.tables.registryreference.rows[0].email;
 										// recupero mail dello studente
 										var filter = self.q.and(self.q.eq('idreg', idreg_destinazione), self.q.isNotNull('email'));
 										return getData.runSelect('registryreference', 'email', filter, null).then(function (dt) {
@@ -1131,18 +1310,28 @@
 									})
 									._else(function () {
 
-										if (idreg_origine === self.idreg_studente && idreg_destinazione === self.idreg_istituto) {
+										if (idreg_origine != self.idreg_istituto && idreg_destinazione === self.idreg_istituto) {
 
-											// mittente studente , destinatario istituto
+											// PROTOCOLLO IN INGRESSO
 											if (dsRegIstitutiPrinc.tables.registryreference.rows.length) {
 												rowProtocolloDestinatario.destmail = dsRegIstitutiPrinc.tables.registryreference.rows[0].email;
 											}
+											// recupero mail dello studente
+											var filter = self.q.and(self.q.eq('idreg', idreg_origine), self.q.isNotNull('email'));
+											return getData.runSelect('registryreference', 'email', filter, null).then(function (dt) {
+												if (dt.rows.length) {
+													rowProtocollo.originemail = dt.rows[0].email;
+												}
+												return true;
+											});
+
 										}
 										if (idreg_origine === self.idreg_istituto && idreg_destinazione === self.idreg_istituto) {
 
-											// mittente istituto , destinatario istituto
+											// PROTOCOLLO INTERNO
 											if (dsRegIstitutiPrinc.tables.registryreference.rows.length) {
 												rowProtocolloDestinatario.destmail = dsRegIstitutiPrinc.tables.registryreference.rows[0].email;
+												rowProtocollo.originemail = dsRegIstitutiPrinc.tables.registryreference.rows[0].email;
 											}
 										}
 
@@ -1151,32 +1340,75 @@
 									.then(function () {
 
 										rowProtocolloDoc.idprotocollorifkind = 3;
-										rowProtocolloDoc.idmimetype = 23;
+										rowProtocolloDoc.idmimetype = 35;
+
+										//creo il PDF
+										appMeta.PdfExport.metaPage = self;
+										let pdf = appMeta.PdfExport.doExportPdf(appMeta.PdfExport, null, true);
+
+										var Attachment = appMeta.Attachment;
+										self.attachManger = new Attachment();
+
+										rowProtocolloDoc.fileName = pdf.name;
+										rowProtocolloDoc.datadoc = new Date();
+
+										return self.calculateSHA1(pdf);
+									}).then(function (fileAndHash) {
+										// calcolo sha-1 del pdf per inserirlo nel campo "telematicohash" del protocollo
+										rowProtocolloDocElement.telematicohash = fileAndHash.hash;
+
+										//ne faccio l'upload
+										return self.attachManger.upload(fileAndHash.file, fileAndHash.file.name)
+											.then(function (dsattach) {
+												// merge della tab attach
+												var tableAttach = dataSetProtocolloSeg.tables["attach"];
+												// recupero dt attach del dataset dal qaule prenderò tutte le informazioni persistenti che ho salvato circa l'allegato
+												var dtattach = dsattach.tables["attach"];
+												var idattach = dtattach.rows[0]["idattach"];
+
+												// popolo tab attach, mergiando la riga ricevuta dal nuovo allegato
+												appMeta.getDataUtils.mergeRowsIntoTable(tableAttach, dtattach.rows, true);
+												// valorizzo il campo/i campi necessari per la logica di assegnazione dell'allegato alla riga principale del ds
+												// Qui son sicuro che la riga principale è ok, i controlli di conf esatta li ho fatti all'inizio del emtodo
+												rowProtocolloDoc["idattach"] = idattach;
+
+												return true
+											})
+											.fail(function (err) {
+												alert(JSON.stringify(err));
+												// nascondo indicatore di attesa
+												self.metaPage.hideWaitingIndicator(waitingHandler);
+												return false
+											});
+
+									}).then(function (res) {
 
 										rowProtocolloDocElement.oggetto = oggetto;
 										rowProtocolloDocElement.idprotocollodockind = idprotocollodockind;
-										// ******** ---> calcolare sha-1 del testo e inserirlo nel prox campo "telematicohash"
-										// rowProtocolloDocElement.telematicohash = 'hashtodo'
 
 										// ABBIAMO CREATO la nuova riga protocollo, prima di salvare verifichaimo che la vecchia riga sia da annullare
 										if (rowToNullify) {
 											rowToNullify.annullato = "S";
 											rowToNullify.dataannullamento = new Date();
+											rowToNullify.motivoann = "Annullato in seguito a una nuova protocollazione dello stesso documento";
 											dataSetProtocolloSeg.tables.protocollo.importRow(rowToNullify);
+											rowProtocolloDocElement.idprotocollodocelement_primo = rowFirstProtocol.idprotocollodocelement;
 										}
 
-										// -----> su "protocollo seg" prend e la tabella principale corrente e inietta la riga attuale con i valori modificati.
+										// -----> su "protocollo seg" prende la tabella principale corrente e inietta la riga attuale con i valori modificati.
 										tMain = dataSetProtocolloSeg.tables[self.primaryTableName];
-										if (!self.detailPage) {
-											// forzo un valore di default inventato, coì la riga va in stato modificata, e rimarrà sincronizzata con quella del server
-											self.state.currentRow.protnumero = "99999";
-										}
+										//if (!self.detailPage) {
+										// forzo un valore di default inventato, così la riga va in stato modificata, e rimarrà sincronizzata con quella del server
+										//sia che sia dettaglio o pagina principale lo modifico perchè se resta unchanged poi il merge con il ds restituito dal servizio non funzona
+										self.state.currentRow.protnumero = 99999;
+										//}
 										tMain.importRow(self.state.currentRow);
-										return appMeta.callWebService("protocolla",
-											{
-												dsProtocolloSeg: getDataUtils.getJsonFromJsDataSet(dataSetProtocolloSeg, true),
-												tableName: self.primaryTableName
-											});
+										let params = {
+											dsProtocolloSeg: getDataUtils.getJsonFromJsDataSet(dataSetProtocolloSeg, true),
+											tableName: self.primaryTableName
+										};
+
+										return appMeta.callWebService("protocolla", params);
 									}).then(function (jsonRes) {
 										return self.manageProtocollaResponse(dataSetProtocolloSeg, jsonRes);
 									}).then(function (dsOut, msg, success) {
@@ -1205,6 +1437,36 @@
 			},
 
 			/**
+			 * Calcola l'hash SHA-1 di un oggetto File usando le Promise.
+			 * @param {File} file - L'oggetto File di input.
+			 * @returns {Promise<string>} - Una Promise che risolverà con la stringa dell'hash.
+			 */
+			calculateSHA1: function(file) {
+				// 1. Iniziamo la catena leggendo il file
+				return file.arrayBuffer()
+					.then(function (arrayBuffer) {
+						// 2. Quando il file è letto, calcoliamo l'hash
+						return crypto.subtle.digest('SHA-1', arrayBuffer);
+					})
+					.then(function (hashBuffer) {
+						// 3. Quando l'hash è calcolato, lo convertiamo in stringa esadecimale
+						const byteArray = new Uint8Array(hashBuffer);
+						const hashHex = Array.from(byteArray)
+							.map(function (byte) {
+								return byte.toString(16).padStart(2, '0');
+							})
+							.join('');
+
+						// Il valore ritornato qui sarà il valore di risoluzione della Promise finale
+						return {hash: hashHex, file: file};
+					})
+					.catch(function (error) {
+						console.error("Si è verificato un errore:", error);
+						throw error; // Propaga l'errore a chi chiamerà la funzione
+					});
+	},
+
+			/**
 			 *
 			 * @param dataSetProtocolloSeg
 			 * @param jsonRes
@@ -1228,44 +1490,235 @@
 				return def.resolve(dataSetProtocolloSeg, msg, success);
 			},
 
+			manageProtocollaResponseWithRules: function (dataSetProtocolloSeg, jsonRes) {
+				var def = Deferred("saveDataSet");
+				// recupero oggetto json
+				var obj = getDataUtils.getJsObjectFromJson(jsonRes);
+				// dal json obj recupero i vari pezzi. 1. dataset 2. success 3. canignore 4. messages
+				// messages a sua volta sarà un array di oggetti che metterò in obj js di tipo DbProcedureMessage
+				var dsOut = getDataUtils.getJsDataSetFromJson(obj.dataset);
+				var success = obj.success;
+				// a prescindere se il salvataggio è avvenuto, mergio il ds di output del metodo save con quello di input
+				var changesCommittedToDB = (obj.messages.length === 0); // se non ci sono msg e quindi è andato bene sono effettivamente da calcellare
+				getDataUtils.mergeDataSetChanges(dataSetProtocolloSeg, dsOut, changesCommittedToDB);
+				var msg = obj.messages;
+				return def.resolve(dataSetProtocolloSeg, msg, success);
+			},
+
 			/**
 			 * @private
-			 * funzione di utility utilizzata in assegnaProtocollo()
+			 * funzione di utility utilizzata in assegnaProtocollo() con useLegacyFormat a true restituisce una stringa chiave/valore
+			 * nello stile legacy, altrimenti restituisce una stringa in formato XML con attributi caption per ogni colonna
+			 * @param {string[]} arrayTablesToProtocol - Array di nomi delle tabelle da includere nel testo del protocollo
+			 * @param {boolean} useLegacyFormat - Se true utilizza il formato legacy, altrimenti utilizza il formato XML con attributi caption
+			 * @returns {string} - Testo formattato per il protocollo
 			 */
-			getHashForProtocol: function (arrayTablesToProtocol) {
+			getHashForProtocol: function (arrayTablesToProtocol, useLegacyFormat) {
 				var self = this;
-				var obj = _.reduce(arrayTablesToProtocol, function (result, value, key) {
-					var dt = self.getDataTable(value);
-					var exclude = ["protanno", "protnumero", "lt", "cu", "lu"];
-					result += _.reduce(dt.rows, function (acc, r) {
-						acc += _.join(
-							_.map(Object.keys(r), function (k) {
-								if (!exclude.includes(k)) {
-									return r[k];
-								}
-								return '';
-							}), ",");
-						return acc;
+				var exclude = ["protanno", "protnumero", "lt", "cu", "lu"];
+
+				// 1. Helper per formattare le Date
+				var getValue = function (val) {
+					if (val instanceof Date) {
+						return self.stringFromDate_ddmmyyyy(val);
+					}
+					return val;
+				};
+
+				// 2. Helper per rendere sicure le stringhe negli attributi XML (gestisce " < > &)
+				var escapeXmlAttr = function (str) {
+					if (typeof str !== 'string') return str;
+					return str.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/>/g, '&gt;')
+						.replace(/"/g, '&quot;');
+				};
+
+				// --- RAMO 1: Formato Legacy (Nessuna modifica qui) ---
+				if (useLegacyFormat === true) {
+					return _.reduce(arrayTablesToProtocol, function (result, tableName) {
+						var dt = self.getDataTable(tableName);
+						result += _.reduce(dt.rows, function (acc, r) {
+							acc += _.join(
+								_.map(Object.keys(r), function (k) {
+									if (!exclude.includes(k)) {
+										return tableName + "." + k + ": " + getValue(r[k]);
+									}
+									return '';
+								}), ",");
+							return acc;
+						}, '');
+						return result;
 					}, '');
+				}
+
+				// --- RAMO 2: Formato XML con attributi Caption ---
+				return _.reduce(arrayTablesToProtocol, function (result, tableName) {
+					var dt = self.getDataTable(tableName);
+
+					// Apro tag Tabella
+					result += "<" + tableName + ">";
+
+					result += _.reduce(dt.rows, function (rowAcc, r) {
+						rowAcc += "<row>";
+
+						rowAcc += _.join(
+							_.compact(_.map(Object.keys(r), function (k) {
+								if (!exclude.includes(k)) {
+									var val = getValue(r[k]);
+									val = (val === null || val === undefined) ? '' : val;
+
+									// Recupero la caption dalla definizione delle colonne
+									var captionAttr = "";
+									// Controllo difensivo se dt.columns e la colonna specifica esistono
+									if (dt.columns && dt.columns[k] && dt.columns[k].caption) {
+										// Aggiungo l'attributo caption="Valore Escapato"
+										captionAttr = ' caption="' + escapeXmlAttr(dt.columns[k].caption) + '"';
+									}
+
+									// Costruisco il tag: <nomecolonna caption="...">Valore</nomecolonna>
+									return "<" + k + captionAttr + ">" + val + "</" + k + ">";
+								}
+								return null;
+							})), "");
+
+						rowAcc += "</row>";
+						return rowAcc;
+					}, '');
+
+					// Chiudo tag Tabella
+					result += "</" + tableName + ">";
 					return result;
 				}, '');
-
-				return obj;
 			},
-			
+
+			/**
+			 * converte una stringa xml con dentro delle tabelle in una serie di tabelle html
+			 * @param {any} xmlString
+			 * @returns
+			 */
+			convertXmlToHtmlTable: function (xmlString) {
+				// 1. VERIFICA PRELIMINARE
+				// Se è vuoto, non è una stringa, o non inizia con '<' (escluso whitespace),
+				// assumiamo sia testo semplice o formato legacy -> esco con stringa vuota.
+				if (!xmlString || typeof xmlString !== 'string' || xmlString.trim().indexOf('<') !== 0) {
+					return '';
+				}
+
+				// 2. PARSING
+				var parser = new DOMParser();
+				// Avvolgo in <root> per gestire stringhe con più tabelle affiancate
+				var xmlDoc = parser.parseFromString("<root>" + xmlString + "</root>", "text/xml");
+				var root = xmlDoc.documentElement;
+
+				// 3. VERIFICA VALIDITÀ XML
+				// I browser moderni inseriscono un tag <parsererror> se l'XML è malformato
+				var parseErrors = xmlDoc.getElementsByTagName("parsererror");
+				if (parseErrors.length > 0) {
+					return '';
+				}
+
+				// 4. VERIFICA CONTENUTO (Non deve essere solo testo avvolto in root)
+				// Se root.children.length è 0, significa che non ci sono tag Tabella dentro
+				if (root.children.length === 0) {
+					return '';
+				}
+
+				// --- DA QUI INIZIA LA GENERAZIONE HTML (come prima) ---
+
+				var htmlOutput = '<div class="xml-tables-container">';
+
+				htmlOutput += `
+        <style>
+            .generated-table { 
+                width: 100%; 
+                border-collapse: collapse; 
+                margin-bottom: 20px; 
+                table-layout: fixed; 
+            }
+            .generated-table th, .generated-table td { 
+                border: 1px solid #ddd; 
+                padding: 8px; 
+                text-align: left; 
+                vertical-align: top;
+                word-wrap: break-word;
+                overflow-wrap: break-word; 
+                white-space: normal;
+            }
+            .generated-table th { 
+                background-color: #f2f2f2; 
+                font-weight: bold;
+            }
+            .table-title {
+                font-size: 1.2em;
+                margin-bottom: 5px;
+                margin-top: 15px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+        </style>
+    `;
+
+				for (var i = 0; i < root.children.length; i++) {
+					var tableNode = root.children[i];
+					var tableName = tableNode.nodeName;
+					var rows = tableNode.getElementsByTagName("row");
+
+					if (rows.length === 0) continue;
+
+					htmlOutput += '<div class="table-title">' + tableName + '</div>';
+					htmlOutput += '<table class="generated-table">';
+
+					// Intestazione
+					htmlOutput += '<thead><tr>';
+					var firstRowChildren = rows[0].children;
+					var columnsMap = [];
+
+					for (var j = 0; j < firstRowChildren.length; j++) {
+						var colNode = firstRowChildren[j];
+						var tag = colNode.tagName;
+						var caption = colNode.getAttribute("caption") || tag;
+
+						columnsMap.push(tag);
+						htmlOutput += '<th>' + caption + '</th>';
+					}
+					htmlOutput += '</tr></thead>';
+
+					// Corpo
+					htmlOutput += '<tbody>';
+					for (var r = 0; r < rows.length; r++) {
+						var rowNode = rows[r];
+						htmlOutput += '<tr>';
+
+						for (var c = 0; c < columnsMap.length; c++) {
+							var colTag = columnsMap[c];
+							var cellNode = rowNode.getElementsByTagName(colTag)[0];
+							var cellValue = cellNode ? cellNode.textContent : "";
+
+							htmlOutput += '<td>' + cellValue + '</td>';
+						}
+						htmlOutput += '</tr>';
+					}
+					htmlOutput += '</tbody></table>';
+				}
+
+				htmlOutput += '</div>';
+				return htmlOutput;
+			},
+
 			/*********************************************************************
 			****************  FUNZIONI PER SEGRETERIE: ***************************
 			*********************************************************************/
 
+			/**
+			 * Funzione di recupero delle sospensioni di istituto
+			 * @returns
+			 */
 			getSospensioni: function () {
 				var def = Deferred('getSospensioni');
 				if (!appMeta.appMain.dtSospensioni && this.idreg_istituto) {
-					// salva giorni di sospensione, da utilizzare poi nella funz schedule()
-					var filterSosp =
-						this.q.or(
-							this.q.eq("idreg", this.idreg_istituto),
-							this.q.eq("idreg", appMeta.security.usr('idreg'))
-						);
+					// salva giorni di sospensione dell'isitituto, da utilizzare poi nella funz schedule()
+					var filterSosp = this.q.eq("idreg", this.idreg_istituto);//,
 					return appMeta.getData.runSelect("sospensione", "start,stop", filterSosp)
 						.then(function (dtSosp) {
 							appMeta.appMain.dtSospensioni = dtSosp;
@@ -1275,7 +1728,24 @@
 
 				return def.resolve();
 			},
-			
+
+			/**
+			 * Funzione di recupero delle sospensioni di un soggetto
+			 * @returns
+			 */
+			getSospensioniMembro: function (idreg) {
+				var def = Deferred('getSospensioniMembro');
+					// restituisce giorni di sospensione del soggetto, da utilizzare poi nella funz schedule()
+					var filterSosp = this.q.eq("idreg", idreg);
+					return appMeta.getData.runSelect("sospensione", "start,stop", filterSosp)
+						.then(function (dtSosp) {
+							return def.resolve(dtSosp);
+						});
+
+				return def.resolve();
+			},
+
+
 			/**
 			 * /
 			 * @param {any} i indice della tipologia della porzione d'anno
@@ -1310,6 +1780,7 @@
 			 * @param date
 			 */
 			getAAByDate: function (date) {
+				if (!date) date = new Date();
 				var myDate = moment(date);
 				var year = myDate.year();
 				var watermark = moment("15/08/" + year, "DD/MM/YYYY");
@@ -1319,18 +1790,418 @@
 				return (myDate.year() - 1) + "/" + myDate.year();
 			},
 
+			getAttivformByIscrizione: function (idiscrizione) {
+				var def = Deferred('getAttivformByIscrizione');
+				let self = this;
+				appMeta.getData.runSelect("pianostudio", "*", self.q.and(self.q.eq('idiscrizione', self.state.callerState.currentRow.idiscrizione), self.q.eq('idpianostudiostatus', 3)))
+					.then(function (dt) {
+						if (dt.rows.length === 0) return def.resolve([]);
+						let pianostudio = dt.rows[0];
+						appMeta.getData.runSelect("pianostudioattivform", "*", self.q.eq('idpianostudio', pianostudio.idpianostudio))
+							.then(function (dtt) {
+								let idattivforms = _.map(dtt.rows, 'idattivform');
+								return def.resolve(idattivforms);
+							})
+					})
+
+				return def.promise();
+			},
+
+			sendIstanza: function () {
+				var def = appMeta.Deferred("Invia-istanza_stu");
+				//dico di atendere
+				waitingHandler = this.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+				let self = this;
+				//salvo
+				self.cmdMainSave()
+					.then(function () {
+						//imposto che non è possibile salvare o cancellare
+						self.canSave = false;
+						self.canCancel = false;
+						self.enableControl($("#Invia"), false);
+						//rinfresco la toolbar
+						return self.freshToolBar();
+					}).then(function () {
+						//rinfresco la pagina
+						return self.freshForm(true, false);
+					}).then(function () {
+						//ottengo lo IUV
+
+						let params1 = {
+							idistanza: self.state.currentRow.idistanza,
+							idreg_studenti: self.state.currentRow.idreg_studenti,
+							aa: self.state.currentRow.aa,
+							user: self.state.currentRow.userEnv
+						};
+
+						return appMeta.callWebService("generaCrediti", params1);
+
+					}).then(function (res) {
+						var msg = "OK. L'istanza è stata inviata e i debiti sono stati generati";
+						if (res != "ok") {
+							msg = "L'istanza è stata inviata ma c'è stato un probema nella generazione dei debiti: " + res.err;
+						}
+						else {
+							// L'invio è andato a buon fine, aggiorno lo stato dell'istanza passandolo a Inviata.
+							$('#istanza_imm_stu_idstatuskind').prop('disabled', false)
+								.val('2')
+								.trigger('change')
+								.prop('disabled', true);
+							self.state.currentRow.idstatuskind = 2;
+							self.getDataTable('istanza').acceptChanges();
+						}
+						//riattivo la pagina
+						self.hideWaitingIndicator(waitingHandler);
+						//mostro che è tutto ok
+						return self.showMessageOk(msg);
+					}).then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
+
+			sendPagamento: function () {
+				var def = appMeta.Deferred("sendPagamento-debito_stu");
+				//dico di atendere
+				waitingHandler = this.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+				let self = this;
+
+				let params = {
+					iddebito: this.state.currentRow.iddebito,
+					//ds: this.state.DS,
+					primaryTableName: this.primaryTableName
+				};
+
+				return appMeta.callWebService("ProcediPagamento", params)
+					.then(function (res) {
+					////	var msg = "OK. Pagamento avviato";
+					////	if (res.err) {
+					////		msg = "Errore nel pagamento: " + res.err;
+					////	}
+					////	//riattivo la pagina
+					////	self.hideWaitingIndicator(waitingHandler);
+					////	//mostro che è tutto ok
+					////	return self.showMessageOk(msg);
+					////})
+					////.then(function () {
+					////	def.resolve();
+					////});
+
+						self.hideWaitingIndicator(waitingHandler);
+						//////if (res.err) {
+						//////	return self.showMessageOk("Errore nel pagamento: " + res.err);
+						//////}
+						if (typeof res === "string" && res.startsWith("http")) {
+							window.location.href = res;
+						} else {
+							self.showMessageOk("URL di pagamento non valido");
+						}
+					});
+
+				return def.promise();
+
+			},
+
+			base64ToUint8Array: function (base64) {
+				// rimuove eventuale prefix "data:application/pdf;base64,"
+				const clean = base64.includes("base64,")
+					? base64.split("base64,")[1]
+					: base64;
+
+				const binary = atob(clean);
+				const bytes = new Uint8Array(binary.length);
+
+				for(let i = 0; i<binary.length; i++) {
+					bytes[i] = binary.charCodeAt(i);
+				}
+				return bytes;
+			},
+
+			getFileName: function () {
+				const now = new Date();
+
+				// yyyyMMdd_HHmmss
+				const yyyy = now.getFullYear();
+				const MM = String(now.getMonth() + 1).padStart(2, '0'); // mesi da 0 a 11
+				const dd = String(now.getDate()).padStart(2, '0');
+				const HH = String(now.getHours()).padStart(2, '0');
+				const mm = String(now.getMinutes()).padStart(2, '0');
+				const ss = String(now.getSeconds()).padStart(2, '0');
+
+				return `avviso_pagamento_${yyyy}${MM}${dd}_${HH}${mm}${ss}.pdf`;
+			},
+
+			getAvvisoPagamento: function () {
+				var def = appMeta.Deferred("getAvvisoPagamento-debito_stu");
+				//dico di atendere
+				waitingHandler = this.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+				let self = this;
+
+				let params = {
+							iddebito: this.state.currentRow.iddebito,
+							//ds: this.state.DS,
+							primaryTableName: this.primaryTableName
+						};
+
+						return appMeta.callWebService("scaricaAvvisoPagamento", params)
+
+					.then(function (res) {
+						var msg = "Avviso scaricato correttamente";
+						if (res==null) {
+							msg = "Impossibile scaricare Avviso pagamento";
+						}
+						//riattivo la pagina
+						self.hideWaitingIndicator(waitingHandler);
+						if (res.err) {
+							msg = "Errore scaricato Avviso pagamento: " + res.err;
+						}
+
+						const bytes = self.base64ToUint8Array(res);
+						const blob = new Blob([bytes], { type: "application/pdf" });
+						const url = URL.createObjectURL(blob);
+						const a = document.createElement("a");
+						a.href = url;
+						const filename = self.getFileName();
+						a.download = filename;
+						document.body.appendChild(a);
+						a.click();
+						a.remove();
+						URL.revokeObjectURL(url);
+						//mostro che è tutto ok
+						return self.showMessageOk(msg);
+					}).then(function () {
+						def.resolve();
+					});
+
+				return def.promise();
+			},
+
+			/**
+			 * flusso di immatricolazione/iscrizione
+			 * @param {any} idreg
+			 * @param {any} iddidprog
+			 * @returns un oggetto con tre valori:
+			 * iddidprog : 0 se non può prorcedere, altrimenti la didprog da utilizzare per l'iscrizione, iscrizione al test o nel passaggio
+			 * delay : se è una icrizione fuori dai termini allora è true (sarà attivata la casella delle motivazioni obbligatoria)
+			 * pass : se occorre compilare un passaggio di corso allora è l'idiscrizione_from da inseerire nel passaggio e la iddiprog è quella di arrivo (sarà fatto un redirect)
+			 */
+			flussoIscrizione: function (idreg, iddidprog) {
+				var self = this;
+				var def = appMeta.Deferred("flussoIscrizione");
+				var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+				//recupero tutte le didattiche possibili per l'iscrizione con eventuali riferimenti a quelle già fatte dallo studente nel medesimo anno accademico
+				appMeta.getData.runSelect("didprogiscrizioneview", "*", this.q.and(this.q.eq("idreg", idreg), this.q.eq("iddidprog", iddidprog)))
+					.then(function (dt) {
+						if (dt.rows.length > 0) {
+
+							//esce una riga per ogni combinazione studente/corso, quindi se escono righe ne esce sempre una sola
+							let firstRow = dt.rows[0];
+
+							//GIA' ISCRITTO
+							//////////////////////////////
+
+							if (firstRow.idiscrizione) {
+								self.hideWaitingIndicator(waitingHandler);
+								return self.showMessageOk("Studente già iscritto a questo corso. Non è possibile procedere a una nuova iscrizione per lo stesso corso.")
+									.then(function () {
+										return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+									});
+							}
+
+							//TERMINI DI ISCRIZIONE
+							//////////////////////////////
+
+							//se i termini sono scaduti ...
+							if ((firstRow.startiscrizioni > new Date() || firstRow.stopiscrizioni < new Date())
+								//...e sono bloccanti oppure no ma sei oltre la data massima oltre i termini di iscrizione 
+								&& (firstRow.immatoltreauth == 'N' || (firstRow.immatoltreauth == 'S' && firstRow.dataconsmaxiscr < new Date()))) {
+								self.hideWaitingIndicator(waitingHandler);
+								return self.showMessageOk("Termini di iscrizione scaduti. Non è possibile procedere all'iscrizione al di fuori dei termini di iscrizione.")
+									.then(function () {
+										return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+									});
+							}
+
+							//se sono scaduti mostro un avviso ma lascio procedere
+							if (firstRow.startiscrizioni < new Date() && firstRow.stopiscrizioni > new Date() && firstRow.immatoltreauth == 'S') {
+								self.hideWaitingIndicator(waitingHandler);
+								return self.showMessageOk("Termini di iscrizione scaduti. E' possibile procedere all'iscrizione al di fuori dei termini di iscrizione ma sarà sottoposta ad approvazione.")
+									.then(function () {
+										return def.resolve({ iddidprog: iddidprog, delay: true, pass: 0 });
+									});
+							}
+
+							//ISCRIZIONE A NUMERO CHIUSO
+							//////////////////////////////
+
+							//se il corso è a numero chiuso devo controllare se ci sono posti liberi
+							if (firstRow.iddidprognumchiusokind == 2 || firstRow.iddidprognumchiusokind == 3) {
+								//se i termini sono scaduti ...
+								if ((firstRow.test_startiscrizioni > new Date() || firstRow.test_stopiscrizioni < new Date())
+									//...e sono bloccanti oppure no ma sei oltre la data massima oltre i termini di iscrizione 
+									&& (firstRow.test_immatoltreauth == 'N' || (firstRow.test_immatoltreauth == 'S' && firstRow.test_dataconsmaxiscr < new Date()))) {
+									self.hideWaitingIndicator(waitingHandler);
+									return self.showMessageOk("Termini di iscrizione al test di ingresso scaduti. Non è possibile procedere all'iscrizione al test di ingresso al di fuori dei termini.")
+										.then(function () {
+											return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+										});
+								}
+
+								//se sono scaduti mostroun avviso ma lascio procedere
+								if (firstRow.test_startiscrizioni < new Date() && firstRow.test_stopiscrizioni > new Date() && firstRow.test_immatoltreauth == 'S') {
+									self.hideWaitingIndicator(waitingHandler);
+									return self.showMessageOk("Termini di iscrizione al test di ingresso scaduti. E' possibile procedere all'iscrizione al di fuori dei termini ma sarà assegnato un debito formativo.")
+										.then(function () {
+											return def.resolve({ iddidprog: firstRow.test_iddidprog, delay: true, pass: 0 });
+										});
+								}
+
+								//controllose è già iscritto al test se no ritorno la didprog del test (così la pagina sostituirà quella scelta con il rispettivo test)
+								if (!firstRow.iscr_test_data) {
+									self.hideWaitingIndicator(waitingHandler);
+									return self.showMessageOk("Occorre iscriversi alla prova di ammissione per potersi iscrivere a questo corso. State per essere rendirizzati alla pagina di iscrizione alla prova di amissione.")
+										.then(function () {
+											return def.resolve({ iddidprog: firstRow.test_iddidprog, delay: false, pass: 0 });
+										});
+								} else {
+									//controllo se c'è l'esito altrimenti dico di attendere
+									if (!firstRow.iscr_test_esito) {
+										self.hideWaitingIndicator(waitingHandler);
+										return self.showMessageOk("Occorre attendere l'esito della prova di ammissione per poter porcedere all'iscrizione. Provare più tardi.")
+											.then(function () {
+												return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+											});
+									} else {
+										//controllo se l'esito non è positivo
+										if (firstRow.iscr_test_esito != 7) {
+											self.hideWaitingIndicator(waitingHandler);
+											return self.showMessageOk("La prova di ammissione non è stata superata. Non sarà possibile procedere alla iscrizione.")
+												.then(function () {
+													return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+												});
+										}
+									}
+								}
+
+							}
+
+							//ISCRIZIONE MULTIPLA
+							///////////////////////////////
+
+							//se è già iscritto a un altro corso
+							if (firstRow.iscr_other_iddidprog) {
+								//controllo se c'è un passaggio
+								if (!firstRow.ist_pass_idstatuskind) {
+									//se non c'è lo deve fare
+									self.hideWaitingIndicator(waitingHandler);
+									return self.showMessageOk("Prima occorre effettuare una istanza di passaggio di corso dal corso a cui si è attualmente iscritti a questo corso. Sarete redirezionati alla pagina per effettuare l'istanza di passaggio di corso.")
+										.then(function () {
+											return def.resolve({ iddidprog: iddidprog, delay: false, pass: firstRow.iscr_other_idiscrizione });
+										});
+								} else {
+									//se c'è l'istanza controllo che non sia stata respinta ...
+									if (firstRow.ist_pass_diniego_data) {
+										//se non c'è lo deve fare
+										self.hideWaitingIndicator(waitingHandler);
+										return self.showMessageOk("L'istanza di passaggio di corso è stata rifiutata il " + self.stringFromDate_ddmmyyyy(firstRow.ist_pass_diniego_data) + ". Non é possibile procedere all'iscrizione.")
+											.then(function () {
+												return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+											});
+									}
+									//o se non è stata ancora accettata
+									if (!firstRow.ist_pass_nullaosta_data) {
+										//se non c'è lo deve fare
+										self.hideWaitingIndicator(waitingHandler);
+										return self.showMessageOk("L'istanza di passaggio di corso non è ancora stata perfezionata. Non é possibile procedere all'iscrizione.")
+											.then(function () {
+												return def.resolve({ iddidprog: 0, delay: false, pass: 0 });
+											});
+									}
+
+								}
+							}
+
+							//SE SONO ARRIVATO FINO A QUI SI PUO' PROCEDERE ALL'ISCRIZIONE
+							/////////////////////////////////////
+							self.hideWaitingIndicator(waitingHandler);
+							return def.resolve({ iddidprog: iddidprog, delay: false, pass: 0 });
+
+						} else {
+							self.hideWaitingIndicator(waitingHandler);
+							return def.from(self.showMessageOk("Iscrizione impossibile in questo momento. Riprovare più tardi."));
+						}
+					});
+
+				return def.promise();
+			},
+
 			/*********************************************************************
 			****************  FUNZIONI PER PERFORMANCE: ***************************
 			*********************************************************************/
+
+			thereIsOnlyOneModifedField: function (tableName, fieldName) {
+				// _.some() restituisce true se *almeno una* tabella viola la regola
+				const isViolationFound = _.some(this.state.DS.tables, function (t) {
+					const rowsChanged = t.getChanges();
+
+					if (rowsChanged.length === 0) {
+						return false; // Continua (nessuna violazione)
+					}
+
+					// 1. Violazione: modifica su una tabella diversa da quella cercata
+					if (t.name !== tableName) {
+						return true; // Trovata violazione, interrompe e restituisce true
+					}
+
+					// Se la tabella è quella giusta, controlla le righe
+					// _.some() restituisce true se *almeno una* riga viola la regola
+					return _.some(rowsChanged, function (o) {
+						const rowState = o.getRow().state;
+
+						// 2. Violazione: riga cancellata o aggiunta (nello scenario "solo un campo modificato")
+						if (rowState === dataRowState.deleted || rowState === dataRowState.added) {
+							return true; // Trovata violazione, interrompe e restituisce true
+						}
+
+						if (rowState === dataRowState.modified) {
+							const modifiedFields = o.getRow().getModifiedFields();
+
+							// 3. Violazione: campo modificato diverso da fieldName e non temporaneo ('!')
+							if (_.some(modifiedFields, function (f) {
+								return f !== fieldName && f[0] !== '!';
+							})) {
+								return true; // Trovata violazione, interrompe e restituisce true
+							}
+						}
+
+						return false; // Continua (nessuna violazione in questa riga)
+					});
+				});
+
+				// Se è stata trovata una violazione, la funzione dovrebbe restituire false (non c'è solo un campo modificato).
+				return !isViolationFound;
+			},
+
+			getConfPerformance: function () {
+				var def = Deferred('getConfPerformance');
+				if (!appMeta.appMain.dtConfPerf) {
+					return appMeta.getData.runSelect("confperformance", "*", null)
+						.then(function (dtConfPerf) {
+							appMeta.appMain.dtConfPerf = dtConfPerf;
+							return def.resolve();
+						})
+				}
+				return def.resolve();
+			},
 
 			getComportamentiAndAteneo: function (listType, listTypeComportamenti) {
 				var def = appMeta.Deferred("getCompotamenti");
 				var self = this;
 
 				let idAfferenza = !self.state.currentRow.idafferenza ? $('#perfvalutazionepersonale_' + listType + '_idafferenza').val() : self.state.currentRow.idafferenza;
-				let year = !self.state.currentRow.year ? $('#perfvalutazionepersonale_' + listType + '_year').val() : self.state.currentRow.year;
+				self.state.currentRow.year = /*!self.state.currentRow.year ?*/ $('#perfvalutazionepersonale_' + listType + '_year').val() /*: self.state.currentRow.year*/;
 
-				if (!this.comportamentiGiaCalcolati && idAfferenza && year) {
+				if (!this.comportamentiGiaCalcolati && idAfferenza && self.state.currentRow.year) {
 
 
 					var grid = $('#grid_perfvalutazionepersonalecomportamento_' + listTypeComportamenti).data("customController");
@@ -1344,7 +2215,7 @@
 					appMeta.callWebService("calcolaComportamenti",
 						{
 							idAfferenza: idAfferenza,
-							year: year
+							year: self.state.currentRow.year
 						}).then(function (resDS) {
 
 							//per assicurarsi di farlo una volta sola
@@ -1355,13 +2226,15 @@
 							if (self.state.isInsertState() || self.state.isEditState()) {
 								if (DS.tables.mansionekind) {
 									var mansionekindDt = DS.tables.mansionekind;
-									if (self.state.DS.tables["perfvalutazionepersonaleateneo"].rows.length) {
+									if (self.state.DS.tables["perfvalutazionepersonaleateneo"] && self.state.DS.tables["perfvalutazionepersonaleateneo"].rows.length) {
 										var valAteneo = self.state.DS.tables["perfvalutazionepersonaleateneo"].rows[0];
 										valAteneo.peso = mansionekindDt.rows[0].pesoateneo;
 										valAteneo.punteggiopesato = valAteneo.punteggio * valAteneo.peso / 100;
 										if (!valAteneo.punteggiopesato)
 											valAteneo.punteggiopesato = 0;
 									}
+									self.state.currentRow.pesoateneo = mansionekindDt.rows[0].pesoateneo;
+									$('#perfvalutazionepersonale_' + listType + '_pesoateneo').val(mansionekindDt.rows[0].pesoateneo)
 									self.state.currentRow.pesoperfuo = mansionekindDt.rows[0].pesouo;
 									$('#perfvalutazionepersonale_' + listType + '_pesoperfuo').val(mansionekindDt.rows[0].pesouo)
 									//solo la prima volta perchè il valutatore li può azzerare!!!!!
@@ -1421,7 +2294,7 @@
 
 							chain = $.when();
 							//solo in inserimento e se non le ho già calcolate
-							if (self.getDataTable('perfvalutazionepersonalecomportamentosoglia').rows.length == 0) {
+							if (self.getDataTable('perfvalutazionepersonalecomportamentosoglia') && self.getDataTable('perfvalutazionepersonalecomportamentosoglia').rows.length == 0) {
 
 								var i = 0;
 								_.forEach(self.getDataTable("perfvalutazionepersonalecomportamento").rows, function (comportamentoRows) {
@@ -1451,11 +2324,16 @@
 							if (grid.gridRows.length == 0) {
 								appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazionepersonalecomportamento"));
 							}
-							if (gridAteneo.gridRows.length == 0) {
+							if (gridAteneo && gridAteneo.gridRows.length == 0) {
 								appMeta.metaModel.getTemporaryValues(self.getDataTable("perfvalutazionepersonaleateneo"));
 							}
 							return grid.fillControl().then(function () {
-								return gridAteneo.fillControl();
+								if (gridAteneo)
+									return gridAteneo.fillControl();
+								else {
+									let d = new Deferred('d');
+									return d.resolve();
+								}
 							});
 						}).then(function () {
 
@@ -1472,6 +2350,7 @@
 					return def.resolve();
 				}
 			},
+
 			calculatePercTree: function (parentIdValue, tablename) {
 
 				var days = 0;
@@ -1784,8 +2663,6 @@
 
 			},
 
-
-
 			/**
 			* Recupera i dati amministrativi di uno o più idreg
 			* @param objPrm {
@@ -1822,6 +2699,11 @@
 					});
 			},
 
+			sleep: function (ms) {
+					const end = Date.now() + ms;
+					while(Date.now() < end) { }
+			},
+
 			/**
 			* Invia una mail a uno o più utenti indicati
 			* @param objPrm {
@@ -1843,6 +2725,10 @@
 					viewMessage = true
 				}
 				else viewMessage = objPrm.viewMessage;
+
+				//attendo un piccolo ritardo per non essere bannato dal server SMTP
+				var delayMs = (objPrm && objPrm.delayMs) ? objPrm.delayMs : 0;
+				self.sleep(delayMs);
 
 				var def = appMeta.Deferred("sendMail");
 				var waitingHandler = self.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
@@ -1963,6 +2849,29 @@
 			},
 
 			/**
+			* Calcola il punteggio, inserendo un valore        
+			* @param arraySoglieIndicatori: contenente la lista delle soglie, del tipo {indicatore: punteggio, soglia: percentuale}
+			* @param valorenumerico: valore da cui calcolare il completamento
+			*/
+			calculatePunteggioByPercentuale: function (arraySoglieIndicatori, percentuale) {
+
+				if (!percentuale || percentuale == '') percentuale = '0';
+
+				if (arraySoglieIndicatori.length === 0)
+					return 0;
+
+				//trovo la soglia la cui percentuale è la più alta di tutte ma che sia minore o uguale a quella passata come parametro
+				var soglia = _.maxBy(_.filter(arraySoglieIndicatori, function (x) { return x.soglia <= parseFloat(percentuale.replace(',', '.'))  }), function (x) {
+                    return x.soglia;
+				});
+
+				if (soglia)
+					return soglia.indicatore;
+				else
+                    return 1;
+			},
+
+			/**
 			* Calcola la percentuale di completamento, inserendo un valore        
 			* @param arraySoglieIndicatori: contenente la lista delle soglie, del tipo {indicatore: valore, soglia: percentuale}
 			* @param valorenumerico: valore da cui calcolare il completamento
@@ -2005,7 +2914,7 @@
 					var obj = rowsordinate[1];
 					var soglia = obj.soglia;
 					//se l'estremo non è il massimo (100%) ...
-					if (soglia !== 100) {
+					if (soglia < 0) {
 						//... sono sotto alla soglia minima e torno 0
 						return 0;
 					}
@@ -2016,7 +2925,7 @@
 					index = rowsordinate.length - 1;
 					var obj = rowsordinate[index - 1];
 					var soglia = obj.soglia;
-					if (soglia != 100) {
+					if (soglia < 0) {
 						return 0;
 					}
 					obj1 = rowsordinate[index - 1];
@@ -2028,7 +2937,13 @@
 				}
 
 				var res = (((obj2.soglia - obj1.soglia) / (obj2.indicatore - obj1.indicatore)) * (valorenumerico - obj1.indicatore)) + obj1.soglia;
-				return res > 100 ? 100 : res;
+				//se la percentuale è inferiore a zero torno zero
+				res = res < 0 ? 0 : res;
+				//se la percentuale è più del 100% la ritorno solo se consentito dalla configurazione
+				if ((appMeta.appMain.dtConfPerf.rows[0].denyoverpercent == 'S'))  
+					res = res > 100 ? 100 : res;
+				//in ogni caso TRONCO e non restituisco oltre il terzo decimale perchè in caso di soglie ravvicinate (<=0,1) gli arrotondamenti ti spostano sulla soglia successiva
+				return Math.trunc(res * 100) / 100;
 
 			},
 
@@ -2053,7 +2968,7 @@
 
 
 				if (denominatore > 0) {
-					return _.ceil((numeratore / denominatore), 2);
+					return _.round((numeratore / denominatore), 2);
 
 				}
 
@@ -2065,7 +2980,7 @@
 				var valutatori = dt.select(self.q.and(self.q.eq('escluso', 'N'), self.q.eq(action, 'S'), self.q.eq(objective, 'S')));
 
 				if (valutatori.length > 0) {
-					var valutatoriOrd = _.orderBy(valutatori, ['resplevel', 'start'], ['desc', 'desc'])
+					var valutatoriOrd = _.orderBy(valutatori, ['resplevel', 'stop', 'start'], ['desc', 'desc', 'desc'])
 					self.state.currentRow[colName] = valutatoriOrd[0].idreg;
 					// se più di uno e ho scelto se stesso ...
 					if (valutatori.length > 1 && self.state.currentRow.idreg == self.state.currentRow[colName]) {
@@ -2074,12 +2989,28 @@
 							return o.idreg != self.state.currentRow.idreg;
 						});
 						if (valutatoriFilter.length > 0) {
-							valutatoriOrd = _.orderBy(valutatoriFilter, 'resplevel', 'desc')
+							valutatoriOrd = _.orderBy(valutatoriFilter, ['resplevel', 'stop', 'start'], ['desc', 'desc', 'desc'])
 							self.state.currentRow[colName] = valutatoriOrd[0].idreg;
+							//se è un campo nascosto il tablename non c'è ma il controllo si e va popolato
+							if (!tablename && !!controlId)
+								$('#' + controlId).val(valutatoriOrd[0].idreg);
+						}
+					}
+					// se uno e ho non ho scelto se stesso va bene
+					else if (valutatori.length && self.state.currentRow.idreg != self.state.currentRow[colName]) {
+
+						var valutatoriFilter = _.filter(valutatori, function (o) {
+							return o.idreg != self.state.currentRow.idreg;
+						});
+						if (valutatoriFilter.length > 0) {
+							valutatoriOrd = _.orderBy(valutatoriFilter, ['resplevel', 'stop', 'start'], ['desc', 'desc', 'desc'])
+							self.state.currentRow[colName] = valutatoriOrd[0].idreg;
+							//se è un campo nascosto il tablename non c'è ma il controllo si e va popolato
+							if (!tablename && !!controlId)
+								$('#' + controlId).val(valutatoriOrd[0].idreg);
 						}
 					}
 				}
-
 
 				var filterListValutatori = self.q.isIn("idreg", _.map(valutatori,
 					function (row) {
@@ -2090,15 +3021,17 @@
 					})
 				);
 
-				appMeta.metaModel.cachedTable(self.getDataTable(tablename), false);
-				var perfvalutazionepersonale_default_idreg_valCtrl = $('#' + controlId).data("customController");
-				arraydef.push(perfvalutazionepersonale_default_idreg_valCtrl.filteredPreFillCombo(filterListValutatori, null, true)
-					.then(function (dt) {
-						if (self.state.currentRow && self.state.currentRow[colName])
-							return perfvalutazionepersonale_default_idreg_valCtrl.fillControl(null, self.state.currentRow[colName]);
-						return true;
-					})
-				);
+				if (!!tablename && !!controlId) {
+					appMeta.metaModel.cachedTable(self.getDataTable(tablename), false);
+					var perfvalutazionepersonale_default_idreg_valCtrl = $('#' + controlId).data("customController");
+					arraydef.push(perfvalutazionepersonale_default_idreg_valCtrl.filteredPreFillCombo(filterListValutatori, null, true)
+						.then(function (dt) {
+							if (self.state.currentRow && self.state.currentRow[colName])
+								return perfvalutazionepersonale_default_idreg_valCtrl.fillControl(null, self.state.currentRow[colName]);
+							return true;
+						})
+					);
+				}
 			},
 
 			/**
@@ -2121,10 +3054,10 @@
 								return ur.crea === 'S'
 							}) || self.state.isInsertState();
 							self.aggiorna_ut = userRight.some(function (ur) {
-								return ur.aggiorna === 'S' && ur.obiettivi_unatantum === 'S'
+								return ur.aggiorna === 'S' && (ur.obiettivi_unatantum === 'S' || ur.obiettivi_organizzativi === 'S')
 							});
 							self.valuta_ut = userRight.some(function (ur) {
-								return ur.valuta === 'S' && ur.obiettivi_unatantum === 'S'
+								return ur.valuta === 'S' && (ur.obiettivi_unatantum === 'S' || ur.obiettivi_organizzativi === 'S')
 							});
 							self.aggiorna_ind = userRight.some(function (ur) {
 								return ur.aggiorna === 'S' && ur.obiettivi_individuali === 'S'
@@ -2180,10 +3113,10 @@
 								return ur.valuta === 'S' && ur.obiettivi_organizzativi === 'S'
 							});
 							self.aggiorna_ut = userRight.some(function (ur) {
-								return ur.aggiorna === 'S' && ur.obiettivi_unatantum === 'S'
+								return ur.aggiorna === 'S' && (ur.obiettivi_unatantum === 'S' || ur.obiettivi_organizzativi === 'S')
 							});
 							self.valuta_ut = userRight.some(function (ur) {
-								return ur.valuta === 'S' && ur.obiettivi_unatantum === 'S'
+								return ur.valuta === 'S' && (ur.obiettivi_unatantum === 'S' || ur.obiettivi_organizzativi === 'S')
 							});
 							self.leggi = userRight.some(function (ur) {
 								return ur.leggi === 'S'
@@ -2408,7 +3341,7 @@
 																body += "<br /><a href=\"" + document.URL.split('?')[0] + "\">Vai al portale<\a>";
 
 																sendMail += dsRows[0].email + ";";
-																return self.superClass.sendMail({ emailDest: dsRows[0].email, body: body, subject: subject, viewMessage: false })
+																return self.superClass.sendMail({ emailDest: dsRows[0].email, body: body, subject: subject, viewMessage: false, delayMs:1000 })
 
 															});
 													});
@@ -2452,7 +3385,7 @@
 							var meta = appMeta.getMeta([changesTableName]);
 							var dataSetTable = self.state.DS.tables[changesTableName];
 							meta.setDefaults(dataSetTable);
-
+							dataSetTable.autoIncrement('idperfvalutazionepersonalestatuschanges', { minimum: 99990001 });
 							meta.getNewRow(self.state.currentRow.getRow(), dataSetTable)
 								.then(function (row) {
 									//if (!row) {
@@ -2467,6 +3400,7 @@
 
 								})
 								.then(function (row) {
+									self.secondSave = true;
 									return self.cmdMainSave();
 								});
 						}
@@ -2672,7 +3606,7 @@
 
 								body += "<br /><a href=\"" + document.URL.replace("?tablename=perfvalutazioneuo&edittype=upo", "") + "\">Vai al portale<\a>";
 
-								arrayDef.push(self.superClass.sendMail({ emailDest: row.email, body: body, subject: subject, viewMessage: false }));
+								arrayDef.push(self.superClass.sendMail({ emailDest: row.email, body: body, subject: subject, viewMessage: false, delayMs: 1000 }));
 								sended.push(row.email);
 							}
 						});
@@ -2701,7 +3635,7 @@
 							var meta = appMeta.getMeta([changesTableName]);
 							var dataSetTable = self.state.DS.tables[changesTableName];
 							meta.setDefaults(dataSetTable);
-
+							dataSetTable.autoIncrement('idperfvalutazioneuostatuschanges', { minimum: 99990001 });
 							meta.getNewRow(self.state.currentRow.getRow(), dataSetTable)
 								.then(function (row) {
 									//if (!row) {
@@ -2716,6 +3650,7 @@
 
 								})
 								.then(function (row) {
+									self.secondSave = true;
 									return self.cmdMainSave();
 								});
 						}
@@ -2782,7 +3717,7 @@
 				let self = this;
 				var filterComplete = this.q.or(filter, this.q.eq('idreg', this.idreg_istituto));
 				return appMeta.getData.runSelect("getcalendareventview",
-					"color, title, start, stop, ore, idlezione, idassetdiary, idrendicontattivitaprogetto", filterComplete, null)
+					"color, title, start, stop, ore, idlezione, idassetdiary, idrendicontattivitaprogetto, idprogetto", filterComplete, null)
 					.then(function (dt) {
 						var calendar = calendarCtrl.data("customController");
 						calendar.addExternalEvents([{
@@ -2847,13 +3782,14 @@
 					}
 				}
 
-				if (this.state.DS.tables.rendicontattivitaprogettoora.rows.length) {
-					let oreNonCancellate = this.state.DS.tables.rendicontattivitaprogettoora.rows.filter(function (row) {
+				if (this.state.DS.tables.rendicontattivitaprogettoora) 
+					if (this.state.DS.tables.rendicontattivitaprogettoora.rows.length) {
+					this.oreNonCancellate = this.state.DS.tables.rendicontattivitaprogettoora.rows.filter(function (row) {
 						return row.getRow().state !== jsDataSet.dataRowState.deleted;
 					});
-					if (oreNonCancellate.length) {
-						this.oraStart = _.orderBy(oreNonCancellate, 'data', 'asc')[0].data;
-						this.oraStop = _.orderBy(oreNonCancellate, 'data', 'desc')[0].data;
+					if (this.oreNonCancellate.length) {
+						this.oraStart = _.orderBy(this.oreNonCancellate, 'data', 'asc')[0].data;
+						this.oraStop = _.orderBy(this.oreNonCancellate, 'data', 'desc')[0].data;
 						//La data di inizio della attività deve essere precedente 
 						this.oraStartMessage = 'alla prima ora già rendicontata (' + this.stringFromDate_ddmmyyyy(this.oraStart) + ')';
 						//La data di fine della attività deve essere successiva 
@@ -2893,14 +3829,41 @@
 				return dataInizio;
 			},
 
+
+			// Funzione di utilità per garantire la robustezza delle Date
+			isValidDate: function(d) {
+				// 1. Controlla se è un oggetto Date
+				return d instanceof Date &&
+					// 2. Controlla se il valore numerico non è NaN
+					!isNaN(d);
+			},
+
 			/** 
 			 * imposta e filtra la chekboxlist delle missioni nella maschera delle attività
 			 */
 			setFilterRendicontattivitaprogettoItineration: function () {
 				var self = this;
+
+				// --- Filtro Start ---
+				// Tenta di creare una nuova data, assicurandosi di non lanciare errori e usa null se il campo manca
+				const rowStopDate = self.state.currentRow?.stop ? new Date(self.state.currentRow.stop) : null;
+				// Se la data creata è valida, usala, altrimenti usa new Date()
+				const startCompareDate = self.isValidDate(rowStopDate) ? rowStopDate : new Date();
+
+				var filterstart = self.q.lt('start', startCompareDate);
+
+				// --- Filtro Stop ---
+				// Tenta di creare una nuova data, assicurandosi di non lanciare errori
+				const rowPrevStart = self.state.currentRow?.datainizioprevista ? new Date(self.state.currentRow.datainizioprevista) : null;
+				// Se la data creata è valida, usala, altrimenti usa new Date()
+				const stopCompareDate = self.isValidDate(rowPrevStart) ? rowPrevStart : new Date();
+
+				var filterstop = self.q.gt('stop', stopCompareDate);
+
+				// --- Filtro Membro ---
 				var filtermembro = self.q.eq('idreg', self.state.currentRow ? self.state.currentRow.idreg : 0);
-				var filterstart = self.q.lt('start', self.state.currentRow ? (self.state.currentRow.stop ? self.state.currentRow.stop : new Date()) : new Date());
-				var filterstop = self.q.gt('stop', self.state.currentRow ? (self.state.currentRow.datainizioprevista ? self.state.currentRow.datainizioprevista : new Date()) : new Date());
+				//var filterstart = self.q.lt('start', self.state.currentRow ? (self.state.currentRow.stop ? self.state.currentRow.stop : new Date()) : new Date());
+				//var filterstop = self.q.gt('stop', self.state.currentRow ? (self.state.currentRow.datainizioprevista ? self.state.currentRow.datainizioprevista : new Date()) : new Date());
 				var filter = self.q.and([filtermembro, filterstart, filterstop]);
 				this.state.DS.tables.itineration.staticFilter(filter);
 				this.getDataTable('itineration').clear();
@@ -3138,7 +4101,10 @@
 				return { gg: 0, mm: 0, aa: 0 };
 			},
 
-			getDaysAndMonthByDates: function (start, stop, stops) {
+			getDaysAndMonthByDates: function (start, stop, stops, addAlwaysOneDay) {
+
+				if (this.isNull(addAlwaysOneDay)) addAlwaysOneDay = true; //di default considero il giorno di inizio come appartenente all'intervallo
+
 				if (start && stop && (
 					start.getFullYear() != stop.getFullYear() || start.getMonth() != stop.getMonth() || start.getDate() != stop.getDate()
 				)) {
@@ -3204,7 +4170,7 @@
 						} else {
 							//altrimenti prendo i gg dalla data di inizio alla fine del suo mese
 							var lastDayOfMonth = new Date(start.getFullYear(), start.getMonth() + 1, 0).getDate();
-							daysUntilEndOfMonth = lastDayOfMonth - start.getDate() + 1; //il giorno di start va compreso
+							daysUntilEndOfMonth = lastDayOfMonth - start.getDate() + (addAlwaysOneDay ? 1 : 0); //il giorno di start va compreso
 						}
 
 						var dateDiffDays = daysUntilEndOfMonth;
@@ -3226,7 +4192,7 @@
 						if (start.getDate() == 1 && stop.getDate() == new Date(stop.getFullYear(), stop.getMonth() + 1, 0).getDate()) 
 							return { gg: 0, mm: 1, aa: 0 };
 						else
-							return { gg: stop.getDate() - start.getDate() + 1 - anzianitaDiRitardo.gg, mm: 0 - anzianitaDiRitardo.mm, aa: - anzianitaDiRitardo.aa };
+							return { gg: stop.getDate() - start.getDate() + (addAlwaysOneDay ? 1 : 0) - anzianitaDiRitardo.gg, mm: 0 - anzianitaDiRitardo.mm, aa: - anzianitaDiRitardo.aa };
 					}
 				}
 
@@ -3257,6 +4223,7 @@
 							//per ogni anno accademico coinvolto dal servizio
 							var anniCoinvolti = self.getAcademicYears(start, stop, servizioRow.annokind);
 							_.forEach(anniCoinvolti, function (annoCoinvolto) {
+
 								//vedo se l'aa è già lavorato in parte
 								var anno = _.find(anniAccademici, function (a) { return a.annoAccademico == annoCoinvolto; });
 
@@ -3269,6 +4236,21 @@
 									realStart = start;
 								if (stop < end)
 									realStop = stop;
+
+								let figura = (servizioRow['!idposition_position_title'] ? servizioRow['!idposition_position_title'] : '');
+								let classe = (servizioRow['!idclassconsorsuale_classconsorsuale_description'] ? servizioRow['!idclassconsorsuale_classconsorsuale_title'] + ' ' + servizioRow['!idclassconsorsuale_classconsorsuale_description'] : '');
+								let nomina = (servizioRow['!idtiponomina_tiponomina_title'] ? servizioRow['!idtiponomina_tiponomina_title'] : '');
+
+								let isRuolo = servizioTable == 'registrylegalstatus';
+								if (isRuolo == true && self.state.currentRow) {
+									let ssd = _.find(self.state.DS.tables.sasddefaultview.rows, function (o) {
+										return o.idsasd == self.state.currentRow.idsasd;
+									});
+									if (ssd) {
+										classe = ssd.dropdown_title;
+									}
+									nomina = 'TEMPO INDETERMINATO';
+								}
 
 								if (!anno) {
 									//se non c'è ancora l'anno lo aggiungo con i suoi dati e quelli della riga del servizio corrente e passo al servizio successivo
@@ -3295,7 +4277,9 @@
 										mesi: servizioRow.mesi,
 										giorni: servizioRow.giorni,
 										istituzione: servizioRow.istituzione,
-										figura: (servizioRow['!idposition_position_title'] ? servizioRow['!idposition_position_title'] : '')
+										figura: figura,
+										classe: classe,
+										nomina: nomina
 									});
 									anniAccademici.push(anno);
 								}
@@ -3359,9 +4343,9 @@
 										mesi: servizioRow.mesi,
 										giorni: servizioRow.giorni,
 										istituzione: servizioRow.istituzione,
-										figura: (servizioRow['!idposition_position_title'] ? servizioRow['!idposition_position_title'] : ''),
-										classe: (servizioRow['!idclassconsorsuale_classconsorsuale_description'] ? servizioRow['!idclassconsorsuale_classconsorsuale_title'] + ' ' + servizioRow['!idclassconsorsuale_classconsorsuale_description'] : ''),
-										nomina: (servizioRow['!idtiponomina_tiponomina_title'] ? servizioRow['!idtiponomina_tiponomina_title'] : ''),
+										figura: figura,
+										classe: classe,
+										nomina: nomina
 									});
 
 									//aggiunge al contatore il proprio apporto ai giorni
@@ -3469,7 +4453,6 @@
 
 				return startYear.toString() + '/' + stopYear.toString();
 			},
-
 
 			/**
 			 * restituisce tutti gli anni accademici che si intersecano con un periodo da start a stop
@@ -3716,7 +4699,6 @@
 
 				return dataCorrente;
 			},
-
 			getLineaByFasceServizi: function (stipendioOrd, tipoParagrafo, metaPage, dataPresaServizio, virtualDataPresaServizio, dataConfluimento, anniConfluimento,
 				anzianitaStartA, anzianitaStartM, anzianitaStartG, stops, firstIdposition, services, dataStopDecreto) {
 
@@ -3875,6 +4857,7 @@
 				});
 				return lineaStipendio;
 			},
+
 			getLineaByFasce: function (stipendioOrd, tipoParagrafo, metaPage, dataPresaServizio, virtualDataPresaServizio, dataConfluimento, anniConfluimento,
 				anzianitaStartA, anzianitaStartM, anzianitaStartG, stops) {
 				var lineaStipendio = [];
@@ -4157,7 +5140,62 @@
 					ia = { complementomensile: 0 };
 
 				return { stipendio: stipendio, ivc: ivc, rpd: rpd, cia: cia, ia: ia };
+			},
+
+			eliminaSospensioni: function (services, sospensioni, dataStopDecreto) {
+				let self = this;
+				_.forEach(sospensioni, function (sospensione) {
+
+					const giornoPrima = new Date(sospensione.start);
+					giornoPrima.setDate(giornoPrima.getDate() - 1);
+					const giornoDopo = new Date(sospensione.stop);
+					giornoDopo.setDate(giornoDopo.getDate() + 1);
+
+					for (let i = services.length - 1; i >= 0; i--) {
+						var currServ = services[i];
+						//contiene il triennio
+						if (currServ.start <= giornoPrima && (currServ.stop ? currServ.stop : dataStopDecreto) > sospensione.stop) {
+							//tronco la fine e creo un nuovo servizio che parte dalla fine
+							let clonedService = { ...currServ };
+							clonedService.start = giornoDopo;
+							let clonedServiceanzianita = self.reevaluateDaysAndMonth(self.getDaysAndMonthByDates(clonedService.start, clonedService.stop));
+							clonedService.anni = clonedServiceanzianita.aa;
+							clonedService.mesi = clonedServiceanzianita.mm;
+							clonedService.giorni = clonedServiceanzianita.gg;
+							services.push(clonedService);
+							//accorcio il servizio corrente
+							currServ.stop = giornoPrima;
+							let currServanzianita = self.reevaluateDaysAndMonth(self.getDaysAndMonthByDates(currServ.start, currServ.stop));
+							currServ.anni = currServanzianita.aa;
+							currServ.mesi = currServanzianita.mm;
+							currServ.giorni = currServanzianita.gg;
+
+						} else {
+							//è nel triennio
+							if (currServ.start > giornoPrima && (currServ.stop ? currServ.stop : dataStopDecreto) <= sospensione.stop) {
+								//lo elimino
+								services.splice(i, 1);
+							} else {
+								//finisce nel triennio
+								if ((currServ.stop ? currServ.stop : dataStopDecreto) > giornoPrima && (currServ.stop ? currServ.stop : dataStopDecreto) <= sospensione.stop) {
+									//tronco la fine
+									currServ.stop = giornoPrima;
+								}
+								//inizia nel triennio
+								if (currServ.start > giornoPrima && currServ.start <= sospensione.stop) {
+									//tronco l'inizio
+									currServ.start = giornoDopo;
+								}
+								let currServanzianita = self.reevaluateDaysAndMonth(self.getDaysAndMonthByDates(currServ.start, (currServ.stop ? currServ.stop : dataStopDecreto)));
+								currServ.anni = currServanzianita.aa;
+								currServ.mesi = currServanzianita.mm;
+								currServ.giorni = currServanzianita.gg;
+							}
+						}
+					}
+				})
 			}
+
 		});
 
 	appMeta.MetaSegreteriePage = MetaSegreteriePage;

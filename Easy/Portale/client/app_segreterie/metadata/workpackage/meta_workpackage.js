@@ -64,7 +64,6 @@
 						table.columns["start"].caption = "Data di inizio";
 						table.columns["stop"].caption = "Data di fine";
 						table.columns["title"].caption = "Titolo";
-						table.columns["!titolobreve"].caption = "Progetto";
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'elenchi':

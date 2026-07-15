@@ -83,7 +83,11 @@
 
 			//insertClick
 
-			//beforePost
+			beforePost: function () {
+				var self = this;
+				this.getDataTable('attivform').acceptChanges();
+				//innerBeforePost
+			},
 
 			//buttons
         });

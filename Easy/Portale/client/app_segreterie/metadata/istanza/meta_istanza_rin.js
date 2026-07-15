@@ -27,6 +27,10 @@
 						return this.superClass.describeColumns(table, listType);
 //$objCalcFieldConfig_rin_seg$
 						break;
+					case 'rin_stu':
+						return this.superClass.describeColumns(table, listType);
+//$objCalcFieldConfig_rin_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;

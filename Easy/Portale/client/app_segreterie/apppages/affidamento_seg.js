@@ -24,7 +24,7 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -114,6 +114,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			afterFill: function () {
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));

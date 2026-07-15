@@ -23,19 +23,24 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 10, null);
-						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 20, null);
-						this.describeAColumn(table, 'protocollo_protdata', 'Data di protocollo', null, 30, null);
-						this.describeAColumn(table, 'protocollo_codiceregistro', 'Codice Registro (univoco nell\'Istituto)', null, 40, 1024);
-						this.describeAColumn(table, 'protocollo_codiceammipa', 'Codice IPA dell\'Istituto', null, 50, 50);
-						this.describeAColumn(table, 'aoo_title', 'Area organizzativa omogenea', null, 60, 1024);
-						this.describeAColumn(table, 'registryorigine_title', 'Mittente', null, 70, 101);
-						this.describeAColumn(table, 'protocollo_originemail', 'E-mail mittente', null, 80, 512);
-						this.describeAColumn(table, 'protocollo_originecodiceaoo', 'Amministrazione pubblica mittente - Codice IPA area organizzativa omogenea', null, 90, 50);
-						this.describeAColumn(table, 'protocollo_origineidamm', 'Amministrazione pubblica mittente - Codice IPA', null, 100, 50);
-						this.describeAColumn(table, 'protocollo_oggetto', 'Oggetto del documento', null, 110, 1024);
-						this.describeAColumn(table, 'protocollo_annullato', 'Annullato', null, 120, null);
-						this.describeAColumn(table, 'protocollo_dataannullamento', 'Data di annullamento', 'g', 180, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 1000, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 2000, null);
+						this.describeAColumn(table, 'protocollokind_title', 'Ingresso - Uscita - Interno', null, 3200, 255);
+						this.describeAColumn(table, 'protocollo_protdata', 'Data di protocollo', null, 4000, null);
+						this.describeAColumn(table, 'protocollo_codiceammipa', 'Codice IPA dell\'Istituto', null, 6000, 50);
+						this.describeAColumn(table, 'aoo_title', 'Area organizzativa omogenea', null, 7200, 1024);
+						this.describeAColumn(table, 'registryorigine_title', 'Mittente', null, 8300, 101);
+						this.describeAColumn(table, 'protocollo_originemail', 'E-mail mittente', null, 9000, 512);
+						this.describeAColumn(table, 'protocollo_originecodiceaoo', 'Amministrazione pubblica mittente - Codice IPA area organizzativa omogenea', null, 10000, 50);
+						this.describeAColumn(table, 'protocollo_origineidamm', 'Amministrazione pubblica mittente - Codice IPA', null, 11000, 1024);
+						this.describeAColumn(table, 'protocollo_oggetto', 'Oggetto del documento', null, 12000, 1024);
+						this.describeAColumn(table, 'classificazioneprotocollo_title', 'Sottoclassificazione 1', null, 13200, 1024);
+						this.describeAColumn(table, 'classificazioneprotocollo2_title', 'Sottoclassificazione 2', null, 14200, 1024);
+						this.describeAColumn(table, 'protocollo_annullato', 'Annullato', null, 20000, null);
+						this.describeAColumn(table, 'protocollo_dataannullamento', 'Data di annullamento', 'g', 21000, null);
+						this.describeAColumn(table, 'protocollo_motivoann', 'Motivo annullamento', null, 22000, -1);
+						this.describeAColumn(table, 'protocollo_protannoregistro', 'Anno di protocollo del registro', null, 27000, null);
+						this.describeAColumn(table, 'protocollo_protregistro', 'Numero di protocollo del registro', null, 28000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -55,7 +60,15 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "seg": {
+						return "protnumero desc, protanno desc";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

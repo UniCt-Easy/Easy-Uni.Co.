@@ -72,6 +72,20 @@
 						this.describeAColumn(table, 'budgetcalcolato', 'Costo totale effettivo per l\'ateneo', 'fixed.2', 490, null);
 						this.describeAColumn(table, 'budgetcalcolatodate', 'Calcolato il', 'g', 500, null);
 						this.describeAColumn(table, 'unitaorganizzativa', 'Unità Organizzative', null, 720, 4000);
+						this.describeAColumn(table, 'dataproposta', 'Data di sottomissione della proposta di progetto', null, 750, null);
+						this.describeAColumn(table, 'durataproposta', 'Durata del progetto proposto', null, 760, null);
+						this.describeAColumn(table, 'startproposta', 'Data presunta di inizio del progetto', null, 780, null);
+						this.describeAColumn(table, 'stopproposta', 'Data presunta di fine del progetto', null, 790, null);
+						this.describeAColumn(table, 'urldocfinanziamento', 'URL della documentazione del finanziamento', null, 800, 2048);
+						this.describeAColumn(table, 'description', 'Descrizione / Abstract', null, 890, -1);
+						this.describeAColumn(table, 'terzamisskindother', 'Altro', null, 930, 2048);
+						this.describeAColumn(table, 'terzamissdett', 'Dettaglio della attività', null, 940, null);
+						this.describeAColumn(table, 'terzamissdettother', 'Altro', null, 950, 2048);
+						this.describeAColumn(table, 'patentcode', 'Identificativo del brevetto', null, 960, 64);
+						this.describeAColumn(table, 'patentdate', 'Data di deposto del brevetto', null, 970, null);
+						this.describeAColumn(table, 'resultsqualitativedesc', 'Descrizione qualitativa dell\'impatto dell\'attività', null, 980, 2000);
+						this.describeAColumn(table, 'resultsquantitativedesc', 'Indicatori quantitativi attestanti l\'impatto dell\'attività', null, 990, 500);
+						this.describeAColumn(table, 'url', 'URL del sito del progetto', null, 1040, 1024);
 //$objCalcFieldConfig_catania$
 						break;
 					case 'elenchi':
@@ -136,6 +150,15 @@
 						objCalcFieldConfig['!idreg_aziende_fin_registry_title'] = { tableNameLookup:'registry_alias4', columnNameLookup:'title', columnNamekey:'idreg_aziende_fin' };
 						this.describeAColumn(table, '!idstrumentofin_strumentofin_title', 'Strumento di finanziamento', null, 161, null);
 						objCalcFieldConfig['!idstrumentofin_strumentofin_title'] = { tableNameLookup:'strumentofin', columnNameLookup:'title', columnNamekey:'idstrumentofin' };
+						this.describeAColumn(table, '!idattach_logot_attach_filename', 'Idattach_logot', null, 240, null);
+						objCalcFieldConfig['!idattach_logot_attach_filename'] = { tableNameLookup:'attach', columnNameLookup:'filename', columnNamekey:'idattach_logot' };
+						this.describeAColumn(table, '!idattach_logot_attach_filename', 'Idattach_logot', null, 260, null);
+						this.describeAColumn(table, '!idduratakind_proposta_duratakind_title', 'Idduratakind_proposta', null, 301, null);
+						objCalcFieldConfig['!idduratakind_proposta_duratakind_title'] = { tableNameLookup:'duratakind', columnNameLookup:'title', columnNamekey:'idduratakind_proposta' };
+						this.describeAColumn(table, '!idterzamisstematica_terzamisstematica_title', 'Idterzamisstematica', null, 411, null);
+						objCalcFieldConfig['!idterzamisstematica_terzamisstematica_title'] = { tableNameLookup:'terzamisstematica', columnNameLookup:'title', columnNamekey:'idterzamisstematica' };
+						this.describeAColumn(table, '!idterzamisstematicacampo_terzamisstematicacampo_title', 'Idterzamisstematicacampo', null, 421, null);
+						objCalcFieldConfig['!idterzamisstematicacampo_terzamisstematicacampo_title'] = { tableNameLookup:'terzamisstematicacampo', columnNameLookup:'title', columnNamekey:'idterzamisstematicacampo' };
 //$objCalcFieldConfig_griglie$
 						break;
 //$objCalcFieldConfig$
@@ -205,17 +228,35 @@
 						table.columns["contributorichiesto"].caption = "Di cui cofinanziamento proposto";
 						table.columns["costoapprovatoateneo"].caption = "Costo/budget dell'ateneo approvato";
 						table.columns["costoapprovatoateneocalcolato"].caption = "Costo/budget dell'ateneo approvato calcolato";
+						table.columns["dataproposta"].caption = "Data di sottomissione della proposta di progetto";
+						table.columns["durataproposta"].caption = "Durata del progetto proposto";
 						table.columns["idattach"].caption = "Logo del progetto";
+						table.columns["idattach_logot"].caption = "Banner per i timesheet";
+						table.columns["idduratakind_proposta"].caption = "Espressa in";
 						table.columns["idreg"].caption = "Principal investigator / Referente scientifico";
 						table.columns["idreg_amm"].caption = "Referente amministrativo";
+						table.columns["idterzamisstematica"].caption = "Tematica";
+						table.columns["idterzamisstematicacampo"].caption = "Campo d'azione";
+						table.columns["patentcode"].caption = "Identificativo del brevetto";
+						table.columns["patentdate"].caption = "Data di deposto del brevetto";
 						table.columns["respamministrativi"].caption = "Responsabili amministrativi";
 						table.columns["responsabiliamministrativi"].caption = "Referenti amministrativi";
 						table.columns["responsabiliscientifici"].caption = "Referenti scientifici";
 						table.columns["respscientifici"].caption = "Responsabili scientifici";
+						table.columns["resultsqualitativedesc"].caption = "Descrizione qualitativa dell'impatto dell'attività";
+						table.columns["resultsquantitativedesc"].caption = "Indicatori quantitativi attestanti l'impatto dell'attività";
+						table.columns["startproposta"].caption = "Data presunta di inizio del progetto";
+						table.columns["stopproposta"].caption = "Data presunta di fine del progetto";
+						table.columns["terzamissclassification"].caption = "Trasferimento tecnologico e valorizzazione della ricerca";
+						table.columns["terzamissdett"].caption = "Dettaglio della attività";
+						table.columns["terzamissdettother"].caption = "Altro";
+						table.columns["terzamisskindother"].caption = "Altro";
+						table.columns["terzamissthematicarea"].caption = "Area tematica principale";
 						table.columns["totalbudget"].caption = "Preventivato";
 						table.columns["totalcontributo"].caption = "Approvato";
 						table.columns["ulteriorecup"].caption = "Ulteriore CUP";
 						table.columns["unitaorganizzativa"].caption = "Unità Organizzative";
+						table.columns["urldocfinanziamento"].caption = "URL della documentazione del finanziamento";
 //$innerSetCaptionConfig_catania$
 						break;
 					case 'elenchi':

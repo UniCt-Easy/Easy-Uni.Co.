@@ -14,7 +14,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -503,6 +503,15 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="sospensionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idsospensionekind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="sospensione" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -513,11 +522,13 @@
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsospensione" type="xs:int" />
+              <xs:element name="idsospensionekind" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="motivo" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idsospensionekind_sospensionekind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -537,6 +548,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_active" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -703,6 +715,10 @@
       <xs:field xpath="mstns:idricostruzione" />
       <xs:field xpath="mstns:idricostruzioneperiodonv" />
     </xs:unique>
+    <xs:unique name="sospensionekind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sospensionekind" />
+      <xs:field xpath="mstns:idsospensionekind" />
+    </xs:unique>
     <xs:unique name="sospensione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sospensione" />
       <xs:field xpath="mstns:idreg" />
@@ -750,6 +766,7 @@
       <msdata:Relationship name="FK_ricostruzioneperiodonv_annoaccademico_alias1_aa_stop" msdata:parent="annoaccademico_alias1" msdata:child="ricostruzioneperiodonv" msdata:parentkey="aa" msdata:childkey="aa_stop" />
       <msdata:Relationship name="FK_ricostruzioneperiodonv_annoaccademico_aa_start" msdata:parent="annoaccademico" msdata:child="ricostruzioneperiodonv" msdata:parentkey="aa" msdata:childkey="aa_start" />
       <msdata:Relationship name="FK_sospensione_ricostruzione_idreg" msdata:parent="ricostruzione" msdata:child="sospensione" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_sospensione_sospensionekind_idsospensionekind" msdata:parent="sospensionekind" msdata:child="sospensione" msdata:parentkey="idsospensionekind" msdata:childkey="idsospensionekind" />
       <msdata:Relationship name="FK_ricostruzione_ricostruzionekinddefaultview_idricostruzionekind" msdata:parent="ricostruzionekinddefaultview" msdata:child="ricostruzione" msdata:parentkey="idricostruzionekind" msdata:childkey="idricostruzionekind" />
       <msdata:Relationship name="FK_ricostruzione_getregistrydocentiamministratividefaultview_idreg" msdata:parent="getregistrydocentiamministratividefaultview" msdata:child="ricostruzione" msdata:parentkey="idreg" msdata:childkey="idreg" />
     </xs:appinfo>

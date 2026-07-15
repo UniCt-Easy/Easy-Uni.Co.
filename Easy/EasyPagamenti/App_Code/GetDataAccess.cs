@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 UniversitÃ  degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit� degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using metadatalibrary;
@@ -61,16 +59,16 @@ namespace EasyPagamenti {
           
             DataSet DS = GetAppConfigDataSet();
             if (DS.Tables[0].Rows.Count == 0) {
-                error = "Il file di config. Ã¨ errato";
+                error = "Il file di config. � errato";
                 return null;
             }
 			//////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////
 			//Da ripristinare al termine dello sviluppo:
-			//string _Server = "10.10.1.72";
+			//string _Server = "your-db-server";
 			//string _Database = "webreport";
 			//string _User = "sa";
-			//string _Password = "**********";
+			//string _Password = "YOUR_SECRET";
 			//string _Password = GetVars.CryptPassword("afrofite");
 
 			DataAccess Conn = new DataAccess("myDsn",
@@ -117,16 +115,16 @@ namespace EasyPagamenti {
             }
             DataSet DS = GetConfigDataSet(P);
             if (DS.Tables[0].Rows.Count == 0) {
-                error = "Il file di config. Ã¨ errato";
+                error = "Il file di config. � errato";
                 return null;
             }
             //////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////
             //Da ripristinare al termine dello sviluppo:
-            //string _Server = "10.10.1.72";
+            //string _Server = "your-db-server";
             //string _Database = "webreport";
             //string _User = "sa";
-            //string _Password = "**********";
+            //string _Password = "YOUR_SECRET";
             //string _Password = GetVars.CryptPassword("afrofite");
 
             DataAccess Conn = new DataAccess("myDsn",

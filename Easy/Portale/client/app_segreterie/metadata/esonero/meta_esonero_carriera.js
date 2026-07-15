@@ -42,23 +42,38 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'carriera':
+						table.columns["annofcmax"].caption = "Anno fuori corso massimo";
+						table.columns["annofcmin"].caption = "Anno fuori corso minimo";
+						table.columns["annoiscrmax"].caption = "Anno iscrizione massimo";
+						table.columns["annoiscrmin"].caption = "Anno iscrizione minimo";
+						table.columns["cfaaprecmax"].caption = "Crediti massimi anno precedente";
+						table.columns["cfaaprecmin"].caption = "Crediti minimi anno precedente";
+						table.columns["parttime"].caption = "Part-time";
+						table.columns["tutticfaaprec"].caption = "Conseguiti tutti i crediti dell'anno precedente";
+//$innerSetCaptionConfig_carriera$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_esonero_carriera");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_esonero_carriera");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

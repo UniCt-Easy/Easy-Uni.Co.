@@ -24,59 +24,51 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_title', 'Denominazione', null, 21, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_cf', 'Codice fiscale', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_p_iva', 'Partita iva', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_active', 'attivo', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_geo_city_title', 'Città', null, 21, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_geo_nation_title', 'Nazione', null, 21, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_name', 'Name', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_city', 'City', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_code', 'Code', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_institutionalcode', 'Institutional code', null, 20, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_referencenumber', 'Reference number', null, 20, null);
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_p_iva'] = { tableNameLookup:'registry', columnNameLookup:'p_iva', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_active'] = { tableNameLookup:'registry', columnNameLookup:'active', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_geo_city_title'] = { tableNameLookup:'geo_city', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_geo_nation_title'] = { tableNameLookup:'geo_nation', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_istitutiesteri_name'] = { tableNameLookup:'registry_istitutiesteri', columnNameLookup:'name', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_istitutiesteri_city'] = { tableNameLookup:'registry_istitutiesteri', columnNameLookup:'city', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_istitutiesteri_code'] = { tableNameLookup:'registry_istitutiesteri', columnNameLookup:'code', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_istitutiesteri_institutionalcode'] = { tableNameLookup:'registry_istitutiesteri', columnNameLookup:'institutionalcode', columnNamekey:'idreg_istitutiesteri' };
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_istitutiesteri_referencenumber'] = { tableNameLookup:'registry_istitutiesteri', columnNameLookup:'referencenumber', columnNamekey:'idreg_istitutiesteri' };
+						this.describeAColumn(table, 'idreg_istitutiesteri', 'Istituto', null, 20, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registryclass_description', 'Tipologia', null, 23, null);
 						this.describeAColumn(table, '!idreg_istitutiesteri_registry_title', 'Denominazione', null, 24, null);
 						this.describeAColumn(table, '!idreg_istitutiesteri_registry_cf', 'Codice fiscale', null, 24, null);
 						this.describeAColumn(table, '!idreg_istitutiesteri_registry_p_iva', 'Partita iva', null, 25, null);
 						this.describeAColumn(table, '!idreg_istitutiesteri_registry_active', 'attivo', null, 26, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_geo_city_title', 'Città', null, 28, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_geo_nation_title', 'Nazione', null, 29, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_name', 'Name', null, 22, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_city', 'City', null, 23, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_code', 'Code', null, 24, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_institutionalcode', 'Institutional code', null, 25, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_referencenumber', 'Reference number', null, 26, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_ateco_codice', 'Codice Idateco', null, 40, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_ateco_title', 'Titolo Idateco', null, 41, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_fonteindicebibliometrico_title', 'Idfonteindicebibliometrico', null, 45, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_nace_idnace', 'Identificativo Idnace', null, 47, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_nace_activity', 'Activity Idnace', null, 48, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_naturagiur_title', 'Idnaturagiur', null, 49, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_numerodip_title', 'Idnumerodip', null, 50, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_alias1_title', 'Idreg_istituti', null, 52, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_sasd_codice', 'Codice Idsasd', null, 55, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_sasd_title', 'Denominazione Idsasd', null, 56, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_struttura_title', 'Denominazione Idstruttura', null, 56, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_struttura_strutturakind_title', 'Tipologia Tipologia delle strutture', null, 56, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_indicebibliometrico', 'Indicebibliometrico', null, 57, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_pic', 'Pic', null, 65, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_ricevimento', 'Ricevimento', null, 67, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_soggiorno', 'Soggiorno', null, 71, null);
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_title_en', 'Title_en', null, 73, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_acronim', 'Acronim', null, 28, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_code', 'Code', null, 29, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_codicemiur', 'Codicemiur', null, 30, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_codiceustat', 'Codiceustat', null, 31, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_idanpr', 'Idanpr', null, 32, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_ateco_codice', 'Codice Idateco', null, 34, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_ateco_title', 'Titolo Idateco', null, 35, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_fonteindicebibliometrico_title', 'Idfonteindicebibliometrico', null, 35, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_istitutokind_tipoistituto', 'Idistitutokind', null, 36, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_nace_idnace', 'Identificativo Idnace', null, 37, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_nace_activity', 'Activity Idnace', null, 38, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_naturagiur_title', 'Idnaturagiur', null, 38, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_numerodip_title', 'Idnumerodip', null, 39, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_alias1_title', 'Idreg_istituti', null, 40, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_sasd_codice', 'Codice Idsasd', null, 41, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_sasd_title', 'Denominazione Idsasd', null, 42, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_struttura_title', 'Denominazione Idstruttura', null, 42, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_struttura_strutturakind_title', 'Tipologia Tipologia delle strutture', null, 42, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_indicebibliometrico', 'Indicebibliometrico', null, 42, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_institutionalcode', 'Institutionalcode', null, 43, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_pic', 'Pic', null, 44, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_referencenumber', 'Referencenumber', null, 45, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_ricevimento', 'Ricevimento', null, 46, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_soggiorno', 'Soggiorno', null, 47, null);
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_title_en', 'Title_en', null, 48, null);
+						objCalcFieldConfig['!idreg_istitutiesteri_registryclass_description'] = { tableNameLookup:'registryclass', columnNameLookup:'description', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_cf'] = { tableNameLookup:'registry', columnNameLookup:'cf', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_p_iva'] = { tableNameLookup:'registry', columnNameLookup:'p_iva', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_active'] = { tableNameLookup:'registry', columnNameLookup:'active', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_acronim'] = { tableNameLookup:'registry', columnNameLookup:'acronim', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_code'] = { tableNameLookup:'registry', columnNameLookup:'code', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_codicemiur'] = { tableNameLookup:'registry', columnNameLookup:'codicemiur', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_codiceustat'] = { tableNameLookup:'registry', columnNameLookup:'codiceustat', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_idanpr'] = { tableNameLookup:'registry', columnNameLookup:'idanpr', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_ateco_codice'] = { tableNameLookup:'ateco', columnNameLookup:'codice', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_ateco_title'] = { tableNameLookup:'ateco', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_fonteindicebibliometrico_title'] = { tableNameLookup:'fonteindicebibliometrico', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_istitutokind_tipoistituto'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistituto', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_nace_idnace'] = { tableNameLookup:'nace', columnNameLookup:'idnace', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_nace_activity'] = { tableNameLookup:'nace', columnNameLookup:'activity', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_naturagiur_title'] = { tableNameLookup:'naturagiur', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
@@ -87,7 +79,9 @@
 						objCalcFieldConfig['!idreg_istitutiesteri_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_struttura_strutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_registry_indicebibliometrico'] = { tableNameLookup:'registry', columnNameLookup:'indicebibliometrico', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_institutionalcode'] = { tableNameLookup:'registry', columnNameLookup:'institutionalcode', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_registry_pic'] = { tableNameLookup:'registry', columnNameLookup:'pic', columnNamekey:'idreg_istitutiesteri' };
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_referencenumber'] = { tableNameLookup:'registry', columnNameLookup:'referencenumber', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_registry_ricevimento'] = { tableNameLookup:'registry', columnNameLookup:'ricevimento', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_registry_soggiorno'] = { tableNameLookup:'registry', columnNameLookup:'soggiorno', columnNamekey:'idreg_istitutiesteri' };
 						objCalcFieldConfig['!idreg_istitutiesteri_registry_title_en'] = { tableNameLookup:'registry', columnNameLookup:'title_en', columnNamekey:'idreg_istitutiesteri' };
@@ -101,7 +95,16 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["idreg_istitutiesteri"].caption = "Istituto";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_bandomiistitutiesteri");

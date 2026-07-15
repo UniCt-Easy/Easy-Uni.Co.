@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -323,7 +321,7 @@ namespace GeneraLiveUpdateForServices {
 
          
             
-            ///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il pi˘ veloce
+            ///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il pi√π veloce
             int K2 = metaprofiler.StartTimer("new Download");
             Download download = new Download(null, rempath, currConfig.xmlFile, getLocalDirectory(), serviceName);//localDir diventa la TargetDir per la creazione dei file differenze
             metaprofiler.StopTimer(K2);
@@ -392,7 +390,7 @@ namespace GeneraLiveUpdateForServices {
 
             foreach (FileInfo f in d.GetFiles("*.*", SearchOption.AllDirectories)) {
                 if (f.Name == currConfig.xmlFile + ".zip") continue;//salta l'indice
-                //f.Name Ë il nome semplice ma a noi serve il folder relativo almeno
+                //f.Name √® il nome semplice ma a noi serve il folder relativo almeno
                 //Dobbiamo sottrarre da f.FullName la parte relativa alla cartella folderDifferenzeTemporaneo
                 string relativeFileName = f.FullName.Substring(dirdiff.Length);
                 string diffPath= relativeFileName.Substring(0,relativeFileName.Length-Path.GetFileName(relativeFileName).Length);
@@ -493,20 +491,20 @@ namespace GeneraLiveUpdateForServices {
                 for (int i = 0; i < checkList.Items.Count; i++) {
                     string[] item = checkList.Items[i].ToString().Split('\t');
                     string fname = Path.Combine(dirdiff,item[0]) + ".zip";    //percorso in cui copiare i file  D:\\software\\tempLuServices\\zip\\_SessionTimeOut.aspx.zip
-                    string fnametmp = Path.Combine(dirtemp, item[0]) + ".zip";//percorso origine da cui prendere i file, che devono gi‡ essere presenti
+                    string fnametmp = Path.Combine(dirtemp, item[0]) + ".zip";//percorso origine da cui prendere i file, che devono gi√† essere presenti
                                                                     //es. D:\\software\\tempLuServices\\zip\\tmp\\_SessionTimeOut.aspx.zip
                     if (checkList.GetItemChecked(i)) {
-                        //se Ë selezionato copio il file da tmp in diff
+                        //se √® selezionato copio il file da tmp in diff
                         lasttemp = "Copio " + fname + " in " + dirtemp;
                         File.Copy(fnametmp, fname, true);
                     }
                     else {
                         //altrimenti lo rimuovo dalla cartella diff
                         lasttemp = "Sposto " + fname + " in " + fnametmp;
-                        //se il sorgente non esiste vuol dire che Ë stato
+                        //se il sorgente non esiste vuol dire che √® stato
                         //deselezionato in precedenza
                         if (!File.Exists(fname)) continue;
-                        //Ë stato deselezionato, lo elimino da diff
+                        //√® stato deselezionato, lo elimino da diff
                         if (File.Exists(fnametmp)) File.Delete(fnametmp);
                         //e lo sposto in tmp (non vedo lo scopo di questo spostamento, chi se ne importa di cosa rimane in diff/temp?)
                         File.Move(fname, fnametmp);
@@ -635,7 +633,7 @@ namespace GeneraLiveUpdateForServices {
                 }
             }
             //else {
-            //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione "+tipoversione+" verr‡ aggiornata. Continuare?",
+            //    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione "+tipoversione+" verr√† aggiornata. Continuare?",
             //        "Attenzione",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) {
             //        txtNew.Text="";
             //        return;
@@ -706,6 +704,27 @@ namespace GeneraLiveUpdateForServices {
             btnCalcolaNuova.Visible = false;
         }
 
+        private void btnToClipBoard_Click(object sender, EventArgs e) {
+            StringBuilder sb = new StringBuilder();
+            Button B = (Button)sender;
+            Clipboard.Clear();
+
+            CheckedListBox chkList = new CheckedListBox();
+            if (B.Name == btnNonAggiornati.Name)
+                chkList = nonaggiornati;
+            else
+                chkList = checkList;
+
+            for (int i = 0; i < chkList.Items.Count; i++) {
+                bool isChecked = chkList.GetItemChecked(i);
+                string stato = isChecked ? "[X]" : "[ ]";
+                sb.AppendLine($"{stato} {chkList.Items[i]}");
+            }
+
+            if (sb.Length > 0)
+                Clipboard.SetText(sb.ToString());
+
+        }
         /// <summary>
         /// Copia i file generati
         /// </summary>
@@ -754,7 +773,7 @@ namespace GeneraLiveUpdateForServices {
 
             string dllFileIndex = "servicefileindex.xml.zip";
             
-            //di regola nella cartella c'Ë l'indice  e nelle sottocartelle zip ci sono i file zippati
+            //di regola nella cartella c'√® l'indice  e nelle sottocartelle zip ci sono i file zippati
             string sourcedir = txtDirDiff.Text;//XDir.Concat(txtDirDiff.Text, (radioDLL_sdi.Checked ? dllDir : reportDir)); D:\\software\\tempLuServices\\
             string destdir = getDirUff();//XDir.Concat(txtDirUff_RS.Text, (radioDLL_sdi.Checked ? dllDir : reportDir));     Y:\\services\\easyweb
             string index = dllFileIndex;// (radioDLL_sdi.Checked ? dllFileIndex : reportFileIndex);                         servicefileindex.xml.zip
@@ -883,7 +902,9 @@ namespace GeneraLiveUpdateForServices {
 		//}
 	}
 
-	public class JsonConfigLiveUpdate {
+  
+
+    public class JsonConfigLiveUpdate {
 	    public string[] allowedExtensions= new string[0];
 	    public string[] subDirectories= new string[0];
 	    public string[] filesToSkip= new string[0];

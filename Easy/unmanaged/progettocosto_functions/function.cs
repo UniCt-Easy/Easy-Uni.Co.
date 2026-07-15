@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -72,7 +70,7 @@ namespace progettocosto_functions {
             errore = string.Empty;
 
             //Costruisce il filtro di questi asset per poi fare la RUN_SELECT_INTO solo delle righe interessate
-            //cioË tutti i mesi e anni precedenti
+            //cio√® tutti i mesi e anni precedenti
             string filterAssetDiary =
                 QHC.AppOr(
                     QHC.AppAnd(
@@ -83,10 +81,10 @@ namespace progettocosto_functions {
                 );
             Conn.RUN_SELECT_INTO_TABLE(ds.assetdiaryora, null, filterAssetDiary, null, true);
 
-            //se trovo che il mese precedente Ë stato gi‡ valorizzato mi fermo
+            //se trovo che il mese precedente √® stato gi√† valorizzato mi fermo
             int n_amountvalorizzato = ds.assetdiaryora.Select(QHC.AppAnd(QHC.CmpLe("start", new DateTime(esercizio, idmese,28)), QHC.CmpGe("start", new DateTime(esercizio, idmese, 1)), QHC.IsNotNull("amount"))).Length;
             if (n_amountvalorizzato > 1) {
-                errore = "Esistono righe con importo gi‡ valorizzato in AssetDiaryOra per il mese richiesto( "+idmese.ToString()+" )";
+                errore = "Esistono righe con importo gi√† valorizzato in AssetDiaryOra per il mese richiesto( "+idmese.ToString()+" )";
                 return false;
             }
 
@@ -104,7 +102,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Diario Uso da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Diario Uso da elaborare"; //Non √® un errore...
             }
             return true;
         }
@@ -167,7 +165,7 @@ namespace progettocosto_functions {
         public bool ElaboraRendicontattivitaprogetto(vistaForm ds, object idprogetto, out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string query = @"select ( ore * 
 	            CASE 
@@ -209,7 +207,7 @@ namespace progettocosto_functions {
                     rProgettoCosto["idprogettocosto"] = idprogettocosto;
                     rProgettoCosto["idprogetto"] = R["idprogetto"];
                     rProgettoCosto["idprogettotipocosto"] = R["idprogettotipocosto"];// Letto da progettotipocostocontrattokind
-                    //Valorizzati a null per il Rendiconto Attivit‡
+                    //Valorizzati a null per il Rendiconto Attivit√†
                     rProgettoCosto["idexp"] =  DBNull.Value;
                     rProgettoCosto["idpettycash"] = DBNull.Value;
                     rProgettoCosto["yoperation"] =  DBNull.Value;
@@ -230,7 +228,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Rendiconto attivita progetto da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Rendiconto attivita progetto da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -240,7 +238,7 @@ namespace progettocosto_functions {
         {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string query = @"select * from ammortamentoworkpackageview V 
             where idprogettocosto is null and idprogetto =" + (string)idprogetto ;
@@ -258,7 +256,7 @@ namespace progettocosto_functions {
                     rProgettoCosto["idprogettocosto"] = idprogettocosto;
                     rProgettoCosto["idprogetto"] = R["idprogetto"];
                     rProgettoCosto["idprogettotipocosto"] = R["idprogettotipocosto"];// Letto da progettotipocostocontrattokind
-                    //Valorizzati a null per il Rendiconto Attivit‡
+                    //Valorizzati a null per il Rendiconto Attivit√†
                     rProgettoCosto["idexp"] = DBNull.Value;
                     rProgettoCosto["idpettycash"] = DBNull.Value;
                     rProgettoCosto["yoperation"] = DBNull.Value;
@@ -282,7 +280,7 @@ namespace progettocosto_functions {
             }
             else
             {
-                errore = "Non vi sono ammortamenti da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono ammortamenti da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -292,7 +290,7 @@ namespace progettocosto_functions {
         public bool ElaboraCedolini(vistaForm ds, object idprogetto, out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string filterCedolino = filterForCedolini(idprogetto);
 
@@ -325,7 +323,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Cedolino da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Cedolino da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -333,7 +331,7 @@ namespace progettocosto_functions {
         public bool ElaboraCompensiOccasionali(vistaForm ds, object idprogetto, out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string filterOcc = filterForOccassionali(idprogetto);
             
@@ -367,7 +365,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Compensi Occasionali da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Compensi Occasionali da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -376,7 +374,7 @@ namespace progettocosto_functions {
         public bool ElaboraMissioni(vistaForm ds, object idprogetto,   out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string filterOcc = filterForMissioni(idprogetto);
 
@@ -409,7 +407,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Missioni da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Missioni da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -424,7 +422,7 @@ namespace progettocosto_functions {
         }
         public bool ElaboraContrattiPassivi(vistaForm ds, object idprogetto, out string errore) {
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
             errore = string.Empty;
             string filterInv = filterForMandatedetail(idprogetto);
 
@@ -454,13 +452,13 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Contratti Attivi da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Contratti Attivi da elaborare"; //Non √® un errore...
             }
             return true;
         }
         public bool ElaboraFattureAcquisto(vistaForm ds, object idprogetto,  out string errore) {
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
 
             errore = string.Empty;
@@ -495,14 +493,14 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Fatture di Acquisto da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Fatture di Acquisto da elaborare"; //Non √® un errore...
             }
             return true;
         }
         public bool ElaboraContributi(vistaForm ds, object idprogetto,  out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string filterOcc = filterForContributi(idprogetto);
             DataTable WageadditionWorkview = Conn.RUN_SELECT("taxworkpackageview", "*", null, filterOcc, null, null, true);
@@ -534,7 +532,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Contributi da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Contributi da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -542,7 +540,7 @@ namespace progettocosto_functions {
         public bool ElaboraCompensiDipendenti(vistaForm ds, object idprogetto, out string errore) {
             errore = string.Empty;
             var idprogettocosto = MetaData.MaxFromColumn(ds.progettocosto, "idprogettocosto");// + 1;
-            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettocosto < 990000000) idprogettocosto = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string filterOcc = filterForDipendenti(idprogetto);
 
@@ -575,7 +573,7 @@ namespace progettocosto_functions {
                 }
             }
             else {
-                errore = "Non vi sono Compesi a Dipendente da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Compesi a Dipendente da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -584,7 +582,7 @@ namespace progettocosto_functions {
         public object PagatoOccasionale(DataRow R) {
             object importoPagato = DBNull.Value;
             if (R["idpettycash"] != DBNull.Value) {
-                //Vuol dire che Ë stato pagato col fondo economale
+                //Vuol dire che √® stato pagato col fondo economale
                 importoPagato = R["pettycashpayedamount"];
             }
             else {
@@ -595,7 +593,7 @@ namespace progettocosto_functions {
         public object PagatoMissione(DataRow R) {
             object importoPagato = DBNull.Value;
             if (R["idpettycash"] != DBNull.Value) {
-                //Vuol dire che Ë stato pagato col fondo economale
+                //Vuol dire che √® stato pagato col fondo economale
                 importoPagato = R["pettycashpayedamount"];
             }
             else {
@@ -607,7 +605,7 @@ namespace progettocosto_functions {
         public object idexpPagamentoDettFatt(DataRow RinvDetWorkview) {
             object idexp = DBNull.Value;
             if(RinvDetWorkview["idpettycash"] != DBNull.Value) {
-                //Vuol dire che la fattura Ë stata pagata col fondo economale
+                //Vuol dire che la fattura √® stata pagata col fondo economale
                 return idexp;
             }
             if (RinvDetWorkview["idexp_taxable"] == RinvDetWorkview["idexp_iva"]) {
@@ -639,7 +637,7 @@ namespace progettocosto_functions {
         }
         public string filterForOccassionali(object idprogetto) {
             //se il compenso occasionale viene pagato su due impegni, devo scrivere due idexp. La prima volta che ho scritto in progettocosto, ho valorizzato l'idrelated, quindi 
-            //quel compenso non lo prendo pi˘ filtrando per idrelated is null, per cui serve filtrare anche per idexp/idpettycash
+            //quel compenso non lo prendo pi√π filtrando per idrelated is null, per cui serve filtrare anche per idexp/idpettycash
             string filter = QHS.AppAnd(/*QHS.CmpEq("ycon", esercizio),*/
                 QHS.CmpEq("idprogetto", idprogetto), QHS.IsNull("idprogettocosto"),
                 QHS.AppOr(QHS.IsNotNull("idexppayed"), QHS.IsNotNull("idpettycash"))
@@ -648,7 +646,7 @@ namespace progettocosto_functions {
         }
         public string filterForMissioni(object idprogetto) {
             //se la misisone viene pagata su due impegni, devo scrivere due idexp. La prima volta che ho scritto in progettocosto, ho valorizzato l'idrelated, quindi 
-            //quel compenso non lo prendo pi˘ filtrando per idrelated is null, per cui serve filtrare anche per idexp/idpettycash
+            //quel compenso non lo prendo pi√π filtrando per idrelated is null, per cui serve filtrare anche per idexp/idpettycash
             string filter = QHS.AppAnd(/*QHS.CmpEq("yitineration", esercizio),*/
                 QHS.CmpEq("idprogetto", idprogetto), QHS.IsNull("idprogettocosto"),
                 QHS.AppOr(QHS.IsNotNull("idexppayed"), QHS.IsNotNull("idpettycash"))

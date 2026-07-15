@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_relatore_segistcons"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_relatore_segistcons: DataSet {
+public partial class dsmeta_relatore_segistcons: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -69,6 +67,11 @@ private void initClass() {
 	trelatorekinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	trelatorekinddefaultview.defineColumn("idrelatorekind", typeof(int),false);
 	trelatorekinddefaultview.defineColumn("relatorekind_active", typeof(string));
+	trelatorekinddefaultview.defineColumn("relatorekind_description", typeof(string));
+	trelatorekinddefaultview.defineColumn("relatorekind_lt", typeof(DateTime),false);
+	trelatorekinddefaultview.defineColumn("relatorekind_lu", typeof(string),false);
+	trelatorekinddefaultview.defineColumn("relatorekind_sortcode", typeof(int),false);
+	trelatorekinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(trelatorekinddefaultview);
 	trelatorekinddefaultview.defineKey("idrelatorekind");
 

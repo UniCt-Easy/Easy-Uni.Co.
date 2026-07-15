@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 --setuser'amministrazione' 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riconciliazione_patrimonio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -29,7 +27,6 @@ GO
 create PROCEDURE [exp_riconciliazione_patrimonio]
 (
 	@yentry int -- esercizio delle scritture da verificare
-
 )
 AS BEGIN
 
@@ -59,8 +56,7 @@ where assetload.ratificationdate between dateadd(yy, @yentry-2000, {d '2000-01-0
 
 group by assetacquire.idinvkind, assetacquire.yinv, assetacquire.ninv, assetacquire.invrownum
 
- 
-
+ --select '#carichi ci sono',* from #carichi
 select 
 	--dati da scrittura in partita doppia
 	ed.yentry [Esercizio scrittura], 
@@ -205,7 +201,8 @@ select
 from entrydetail ed   (NOLOCK)
 JOIN entry e   (NOLOCK)
 		ON ed.yentry = e.yentry AND ed.nentry = e.nentry  and   e.yentry = @yentry 
-JOIN account ac on ac.idacc = ed.idacc  AND ac.idaccountkind = '0005'
+JOIN account ac on ac.idacc = ed.idacc 
+JOIN accountkind akn on ac.idaccountkind = akn.idaccountkind 
 left outer join invoicedetail dd    (NOLOCK) on ed.idrelated = ('inv§'+ convert(varchar(10),dd.idinvkind) + '§'+ convert(varchar(10),dd.yinv) + '§'+ convert(varchar(10),dd.ninv) + '§'+ convert(varchar(10),dd.rownum))
 JOIN invoice 	   (NOLOCK)	ON invoice.ninv = dd.ninv	AND invoice.yinv = dd.yinv	AND invoice.idinvkind = dd.idinvkind
 JOIN ivakind 		ON ivakind.idivakind = dd.idivakind
@@ -233,17 +230,19 @@ LEFT OUTER JOIN sorting S01				ON mandate.idsor01 = S01.idsor
 
 where
  ed.idrelated like 'inv%'
- and 
---ed.yentry = @yentry
---and ed.idepexp is not null 
---AND ac.idaccountkind = '0005'
---AND 
-not exists (select * from invoicedetail 
-	where invoicedetail.ninv_main = dd.ninv
-	and invoicedetail.yinv_main = dd.yinv
-	and invoicedetail.idinvkind_main = dd.idinvkind
-	--and invoicedetail.rownum_main = dd.rownum -- non è necessario interrogare il numero righe se dobbiamo escludere le fatture associate a NC
-	)
+ AND (ac.idaccountkind = '0005' or akn.description like 'Immobilizzazion%')
+
+-- and 
+----ed.yentry = @yentry
+----and ed.idepexp is not null 
+----AND ac.idaccountkind = '0005'
+----AND 
+--not exists (select * from invoicedetail 
+--	where invoicedetail.ninv_main = dd.ninv
+--	and invoicedetail.yinv_main = dd.yinv
+--	and invoicedetail.idinvkind_main = dd.idinvkind
+--	--and invoicedetail.rownum_main = dd.rownum -- non è necessario interrogare il numero righe se dobbiamo escludere le fatture associate a NC
+--	)
 
 ORDER BY 1 ,2 ,3
 

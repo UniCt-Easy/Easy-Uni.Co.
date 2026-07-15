@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,17 +25,17 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_costoscontodefdettaglio_riepilogo"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_costoscontodefdettaglio_riepilogo: DataSet {
+public partial class dsmeta_costoscontodefdettaglio_riepilogo: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable costoscontodefdettagliokinddefaultview 		=> (MetaTable)Tables["costoscontodefdettagliokinddefaultview"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ratadefdefaultview 		=> (MetaTable)Tables["ratadefdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fasciaiseedefdefaultview 		=> (MetaTable)Tables["fasciaiseedefdefaultview"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable costoscontodefdettagliokind 		=> (MetaTable)Tables["costoscontodefdettagliokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costoscontodefdettaglio 		=> (MetaTable)Tables["costoscontodefdettaglio"];
@@ -67,21 +65,47 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_costoscontodefdettaglio_riepilogo.xsd";
 
 	#region create DataTables
+	//////////////////// COSTOSCONTODEFDETTAGLIOKINDDEFAULTVIEW /////////////////////////////////
+	var tcostoscontodefdettagliokinddefaultview= new MetaTable("costoscontodefdettagliokinddefaultview");
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotive_codemotive", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotive_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotiveaccmotiveundotaxpost_costoscontodefdettagliokind_codemotive", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotiveaccmotiveundotaxpost_costoscontodefdettagliokind_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotiverevenue_costoscontodefdettagliokind_codemotive", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotiverevenue_costoscontodefdettagliokind_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotiveundotax_costoscontodefdettagliokind_codemotive", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("accmotiveundotax_costoscontodefdettagliokind_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("costoscontodefdettagliokind_active", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("costoscontodefdettagliokind_codice", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("costoscontodefdettagliokind_ct", typeof(DateTime));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("costoscontodefdettagliokind_cu", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("costoscontodefdettagliokind_lt", typeof(DateTime));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("costoscontodefdettagliokind_lu", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tcostoscontodefdettagliokinddefaultview.defineColumn("finmotive_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("finmotiveiva_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idaccmotivecredit", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idaccmotiverevenue", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idaccmotiveundotax", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idaccmotiveundotaxpost", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idcostoscontodefdettagliokind", typeof(int),false);
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idfinmotive", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idfinmotive_iva", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("idtassonomia", typeof(int));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("tassonomia_pagopa_causale", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("tassonomia_pagopa_title", typeof(string));
+	tcostoscontodefdettagliokinddefaultview.defineColumn("title", typeof(string));
+	Tables.Add(tcostoscontodefdettagliokinddefaultview);
+	tcostoscontodefdettagliokinddefaultview.defineKey("idcostoscontodefdettagliokind");
+
 	//////////////////// RATADEFDEFAULTVIEW /////////////////////////////////
 	var tratadefdefaultview= new MetaTable("ratadefdefaultview");
 	tratadefdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tratadefdefaultview.defineColumn("idcostoscontodef", typeof(int),false);
 	tratadefdefaultview.defineColumn("idfasciaiseedef", typeof(int),false);
 	tratadefdefaultview.defineColumn("idratadef", typeof(int),false);
-	tratadefdefaultview.defineColumn("idratakind", typeof(string));
-	tratadefdefaultview.defineColumn("ratadef_ct", typeof(DateTime),false);
-	tratadefdefaultview.defineColumn("ratadef_cu", typeof(string),false);
-	tratadefdefaultview.defineColumn("ratadef_decorrenza", typeof(DateTime));
-	tratadefdefaultview.defineColumn("ratadef_lt", typeof(DateTime),false);
-	tratadefdefaultview.defineColumn("ratadef_lu", typeof(string),false);
-	tratadefdefaultview.defineColumn("ratadef_scadenza", typeof(DateTime));
 	Tables.Add(tratadefdefaultview);
-	tratadefdefaultview.defineKey("idratadef");
+	tratadefdefaultview.defineKey("idcostoscontodef", "idfasciaiseedef", "idratadef");
 
 	//////////////////// FASCIAISEEDEFDEFAULTVIEW /////////////////////////////////
 	var tfasciaiseedefdefaultview= new MetaTable("fasciaiseedefdefaultview");
@@ -94,14 +118,7 @@ private void initClass() {
 	tfasciaiseedefdefaultview.defineColumn("idfasciaisee", typeof(string),false);
 	tfasciaiseedefdefaultview.defineColumn("idfasciaiseedef", typeof(int),false);
 	Tables.Add(tfasciaiseedefdefaultview);
-	tfasciaiseedefdefaultview.defineKey("idfasciaiseedef");
-
-	//////////////////// COSTOSCONTODEFDETTAGLIOKIND /////////////////////////////////
-	var tcostoscontodefdettagliokind= new MetaTable("costoscontodefdettagliokind");
-	tcostoscontodefdettagliokind.defineColumn("idcostoscontodefdettagliokind", typeof(int),false);
-	tcostoscontodefdettagliokind.defineColumn("title", typeof(string));
-	Tables.Add(tcostoscontodefdettagliokind);
-	tcostoscontodefdettagliokind.defineKey("idcostoscontodefdettagliokind");
+	tfasciaiseedefdefaultview.defineKey("idcostoscontodef", "idfasciaiseedef");
 
 	//////////////////// COSTOSCONTODEFDETTAGLIO /////////////////////////////////
 	var tcostoscontodefdettaglio= new MetaTable("costoscontodefdettaglio");
@@ -127,17 +144,21 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{ratadefdefaultview.Columns["idratadef"]};
-	var cChild = new []{costoscontodefdettaglio.Columns["idratadef"]};
+	var cPar = new []{costoscontodefdettagliokinddefaultview.Columns["idcostoscontodefdettagliokind"]};
+	var cChild = new []{costoscontodefdettaglio.Columns["idcostoscontodefdettagliokind"]};
+	Relations.Add(new DataRelation("FK_costoscontodefdettaglio_costoscontodefdettagliokinddefaultview_idcostoscontodefdettagliokind",cPar,cChild,false));
+
+	cPar = new []{ratadefdefaultview.Columns["idratadef"]};
+	cChild = new []{costoscontodefdettaglio.Columns["idratadef"]};
 	Relations.Add(new DataRelation("FK_costoscontodefdettaglio_ratadefdefaultview_idratadef",cPar,cChild,false));
+
+	cPar = new []{fasciaiseedefdefaultview.Columns["idfasciaiseedef"]};
+	cChild = new []{ratadefdefaultview.Columns["idfasciaiseedef"]};
+	Relations.Add(new DataRelation("FK_ratadefdefaultview_fasciaiseedefdefaultview_idfasciaiseedef",cPar,cChild,false));
 
 	cPar = new []{fasciaiseedefdefaultview.Columns["idfasciaiseedef"]};
 	cChild = new []{costoscontodefdettaglio.Columns["idfasciaiseedef"]};
 	Relations.Add(new DataRelation("FK_costoscontodefdettaglio_fasciaiseedefdefaultview_idfasciaiseedef",cPar,cChild,false));
-
-	cPar = new []{costoscontodefdettagliokind.Columns["idcostoscontodefdettagliokind"]};
-	cChild = new []{costoscontodefdettaglio.Columns["idcostoscontodefdettagliokind"]};
-	Relations.Add(new DataRelation("FK_costoscontodefdettaglio_costoscontodefdettagliokind_idcostoscontodefdettagliokind",cPar,cChild,false));
 
 	#endregion
 

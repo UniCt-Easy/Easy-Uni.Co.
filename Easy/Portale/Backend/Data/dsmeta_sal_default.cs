@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -606,9 +604,13 @@ private void initClass() {
 	tsal.defineColumn("!budgetcalcolato", typeof(decimal));
 	tsal.defineColumn("autoassociazione", typeof(string));
 	tsal.defineColumn("budget", typeof(decimal));
+	tsal.defineColumn("ct", typeof(DateTime));
+	tsal.defineColumn("cu", typeof(string));
 	tsal.defineColumn("datablocco", typeof(DateTime));
 	tsal.defineColumn("idprogetto", typeof(int),false);
 	tsal.defineColumn("idsal", typeof(int),false);
+	tsal.defineColumn("lt", typeof(DateTime));
+	tsal.defineColumn("lu", typeof(string));
 	tsal.defineColumn("numerosal", typeof(int));
 	tsal.defineColumn("start", typeof(DateTime));
 	tsal.defineColumn("stop", typeof(DateTime));

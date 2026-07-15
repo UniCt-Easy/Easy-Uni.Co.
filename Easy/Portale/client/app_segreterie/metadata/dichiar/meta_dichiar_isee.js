@@ -33,6 +33,16 @@
 						this.describeAColumn(table, 'numeroprot', 'Numero protocollo dell\'ente di rilascio', null, 590, 50);
 //$objCalcFieldConfig_isee_seg$
 						break;
+					case 'isee_stu':
+						this.describeAColumn(table, 'anno', 'Anno', null, 510, null);
+						this.describeAColumn(table, 'conforme', 'Conformità', null, 520, null);
+						this.describeAColumn(table, 'dataauthdiff', 'Data autorizzazione', null, 530, null);
+						this.describeAColumn(table, 'datasottoscriz', 'Data di sottoscrizione', null, 540, null);
+						this.describeAColumn(table, 'enterilascio', 'Ente del rilascio', null, 550, 50);
+						this.describeAColumn(table, 'isee', 'Valore ISEE', 'fixed.2', 580, null);
+						this.describeAColumn(table, 'numeroprot', 'Numero protocollo dell\'ente di rilascio', null, 590, 50);
+//$objCalcFieldConfig_isee_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -52,6 +62,9 @@
 						table.columns["isee"].caption = "Valore ISEE";
 						table.columns["numeroprot"].caption = "Numero protocollo dell'ente di rilascio";
 //$innerSetCaptionConfig_isee_seg$
+						break;
+					case 'isee_stu':
+//$innerSetCaptionConfig_isee_stu$
 						break;
 //$innerSetCaptionConfig$
 				}

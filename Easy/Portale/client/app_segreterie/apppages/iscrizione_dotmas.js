@@ -52,8 +52,12 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#iscrizione_dotmas_idreg'), true);
 				this.helpForm.filter($('#iscrizione_dotmas_idreg'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -62,8 +66,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-iscrizione_dotmas");
-				$('#iscrizione_dotmas_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_dotmas_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#iscrizione_dotmas_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#iscrizione_dotmas_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				//afterRowSelectin
 				return def.resolve();
 			},

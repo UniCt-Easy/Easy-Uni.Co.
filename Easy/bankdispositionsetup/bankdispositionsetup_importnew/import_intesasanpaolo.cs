@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -94,10 +92,10 @@ namespace bankdispositionsetup_importnew {
 						if (tipo_documento == "SOSPESO ENTRATA" && (tipo_operazione == "ESEGUITO" || tipo_operazione == "STORNATO")) {
 							M.BolletteEntrata.Add(CreaSospesoEntrata(Xmovimento_conto_evidenza, conto_evidenza, esercizio, CodiciCassiere));
 						}
-						/* Parte nuova solo ARPAL / Banca Popolare di Bari: dal momento che non c'Ë <numero_sospeso> 
+						/* Parte nuova solo ARPAL / Banca Popolare di Bari: dal momento che non c'√® <numero_sospeso> 
                          * nella sezione di regolarizzazione del mandato o della reversale
                          * crea qua l'esito del sospeso leggendo <numero_documento>
-                         * se <numero_sospeso> Ë valorizzato l'esito del sospeso verr‡ creato contestualmente col tipo_documento == "REVERSALE"
+                         * se <numero_sospeso> √® valorizzato l'esito del sospeso verr√† creato contestualmente col tipo_documento == "REVERSALE"
                          * Idem per la parte spesa.
                          */
 						/* Parte nuova solo per 05424  Banca Popolare di Bari, che non mette il numero sospeso 

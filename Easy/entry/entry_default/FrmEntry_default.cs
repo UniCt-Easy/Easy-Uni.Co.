@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -204,11 +202,6 @@ namespace entry_default {
 			this.txtTotAvere = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -242,14 +235,17 @@ namespace entry_default {
 			this.txtCodice01 = new System.Windows.Forms.TextBox();
 			this.btnCodice01 = new System.Windows.Forms.Button();
 			this.txtDenom01 = new System.Windows.Forms.TextBox();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.chkOfficial = new System.Windows.Forms.CheckBox();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox19.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid2)).BeginInit();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPrincipale.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -261,6 +257,8 @@ namespace entry_default {
 			this.gboxclass03.SuspendLayout();
 			this.gboxclass02.SuspendLayout();
 			this.gboxclass01.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox3
@@ -559,61 +557,6 @@ namespace entry_default {
 			this.tabControl1.Size = new System.Drawing.Size(779, 304);
 			this.tabControl1.TabIndex = 345;
 			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGridAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "entryattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
-			// 
 			// tabPrincipale
 			// 
 			this.tabPrincipale.Controls.Add(this.groupBox2);
@@ -636,9 +579,9 @@ namespace entry_default {
 			this.groupBox2.Controls.Add(this.btnModifica);
 			this.groupBox2.Controls.Add(this.btnInserisci);
 			this.groupBox2.Controls.Add(this.lblRateo);
-			this.groupBox2.Location = new System.Drawing.Point(-3, -8);
+			this.groupBox2.Location = new System.Drawing.Point(4, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(777, 294);
+			this.groupBox2.Size = new System.Drawing.Size(763, 274);
 			this.groupBox2.TabIndex = 7;
 			this.groupBox2.TabStop = false;
 			// 
@@ -650,9 +593,9 @@ namespace entry_default {
 			this.groupBox1.Controls.Add(this.dataGridRatei);
 			this.groupBox1.Controls.Add(this.btnRatei);
 			this.groupBox1.Controls.Add(this.btnDelRatei);
-			this.groupBox1.Location = new System.Drawing.Point(6, 170);
+			this.groupBox1.Location = new System.Drawing.Point(5, 161);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(766, 111);
+			this.groupBox1.Size = new System.Drawing.Size(755, 110);
 			this.groupBox1.TabIndex = 41;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Ratei Associati";
@@ -676,7 +619,7 @@ namespace entry_default {
 			this.dataGridRatei.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dataGridRatei.Location = new System.Drawing.Point(89, 19);
 			this.dataGridRatei.Name = "dataGridRatei";
-			this.dataGridRatei.Size = new System.Drawing.Size(671, 86);
+			this.dataGridRatei.Size = new System.Drawing.Size(663, 88);
 			this.dataGridRatei.TabIndex = 40;
 			this.dataGridRatei.Tag = "entrydetailaccrual.default.default";
 			// 
@@ -701,7 +644,7 @@ namespace entry_default {
 			// 
 			// btnElimina
 			// 
-			this.btnElimina.Location = new System.Drawing.Point(14, 95);
+			this.btnElimina.Location = new System.Drawing.Point(13, 90);
 			this.btnElimina.Name = "btnElimina";
 			this.btnElimina.Size = new System.Drawing.Size(72, 24);
 			this.btnElimina.TabIndex = 3;
@@ -716,15 +659,15 @@ namespace entry_default {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.detailgrid.DataMember = "";
 			this.detailgrid.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.detailgrid.Location = new System.Drawing.Point(95, 35);
+			this.detailgrid.Location = new System.Drawing.Point(94, 30);
 			this.detailgrid.Name = "detailgrid";
-			this.detailgrid.Size = new System.Drawing.Size(672, 136);
+			this.detailgrid.Size = new System.Drawing.Size(663, 132);
 			this.detailgrid.TabIndex = 29;
 			this.detailgrid.Tag = "entrydetail.default.single";
 			// 
 			// btnModifica
 			// 
-			this.btnModifica.Location = new System.Drawing.Point(14, 65);
+			this.btnModifica.Location = new System.Drawing.Point(13, 60);
 			this.btnModifica.Name = "btnModifica";
 			this.btnModifica.Size = new System.Drawing.Size(72, 24);
 			this.btnModifica.TabIndex = 2;
@@ -733,7 +676,7 @@ namespace entry_default {
 			// 
 			// btnInserisci
 			// 
-			this.btnInserisci.Location = new System.Drawing.Point(14, 35);
+			this.btnInserisci.Location = new System.Drawing.Point(13, 30);
 			this.btnInserisci.Name = "btnInserisci";
 			this.btnInserisci.Size = new System.Drawing.Size(72, 24);
 			this.btnInserisci.TabIndex = 1;
@@ -745,7 +688,7 @@ namespace entry_default {
 			this.lblRateo.AutoSize = true;
 			this.lblRateo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblRateo.ForeColor = System.Drawing.Color.Red;
-			this.lblRateo.Location = new System.Drawing.Point(10, 16);
+			this.lblRateo.Location = new System.Drawing.Point(9, 11);
 			this.lblRateo.Name = "lblRateo";
 			this.lblRateo.Size = new System.Drawing.Size(353, 13);
 			this.lblRateo.TabIndex = 34;
@@ -991,6 +934,61 @@ namespace entry_default {
 			this.txtDenom01.TabStop = false;
 			this.txtDenom01.Tag = "sorting01.description";
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(771, 278);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(756, 230);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "entryattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
 			// chkOfficial
 			// 
 			this.chkOfficial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1004,7 +1002,6 @@ namespace entry_default {
 			this.chkOfficial.Tag = "entry.official:S:N";
 			this.chkOfficial.Text = "Ufficiale";
 			this.chkOfficial.UseVisualStyleBackColor = true;
-			this.chkOfficial.Visible = true;
 			// 
 			// FrmEntry_default
 			// 
@@ -1212,7 +1209,11 @@ namespace entry_default {
 
             }
 
-		}
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.entryattachment, true);
+        }
 
         //Verifica se ci sono scritture passibili di scelta del rateo 
         private bool VerificaRatei()
@@ -1567,13 +1568,13 @@ namespace entry_default {
                                         );
                     }
                     else {
-                        filterrateo = QHC.AppAnd(filterrateo, QHC.CmpEq("idepacc", Rsource["idepacc"]));
+                        filterrateo = QHC.AppAnd(filterrateo, QHC.CmpEq("idepacc", Rsource["idepacc"]), QHC.CmpEq("idupb", Rsource["idupb"]));
                     }
 
 
 
-                    //Non consideriamo UPB, idreg, idsor etc. che non hanno senso (credo) in questa circostanza
-                    DataRow[] ArrRateoEsistente = DS.entrydetail.Select(filterrateo);
+                    //Non consideriamo idreg, idsor etc. che non hanno senso (credo) in questa circostanza
+                    DataRow[] ArrRateoEsistente = DS.entrydetail.Select(filterrateo);// Consideriamo anche l'idupb
                     DataRow CurrRateo;
                     //Vede se esiste la scrittura sul rateo 
                     if (ArrRateoEsistente.Length > 0) {

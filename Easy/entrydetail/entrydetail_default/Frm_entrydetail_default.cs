@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -45,7 +43,7 @@ namespace entrydetail_default {
 		private System.Windows.Forms.GroupBox gboxConto;
 		private System.Windows.Forms.TextBox txtDenominazioneConto;
 		private System.Windows.Forms.TextBox txtCodiceConto;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnConto;
         private System.Windows.Forms.GroupBox gboxUPB;
 		private System.Windows.Forms.TextBox txtDescrUPB;
 		private System.Windows.Forms.Button btnUPBCode;
@@ -110,6 +108,8 @@ namespace entrydetail_default {
         private Label label26;
 		private Label label14;
 		private TextBox txtIdrelated;
+		private CheckBox chkListTitle;
+		private CheckBox chkListTitleUPB;
 
 		/// <summary>
 		/// Required designer variable.
@@ -142,7 +142,9 @@ namespace entrydetail_default {
             VisualizzaControlliImpegnoBudget();
             VisualizzaControlliAccertamentoBudget();
             txtNumero.ReadOnly = false;
-        }
+			chkListTitle.Checked = false;
+			chkListTitleUPB.Checked = false;
+		}
 
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
@@ -351,7 +353,7 @@ namespace entrydetail_default {
 			this.gboxConto = new System.Windows.Forms.GroupBox();
 			this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
 			this.txtCodiceConto = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.btnConto = new System.Windows.Forms.Button();
 			this.gboxUPB = new System.Windows.Forms.GroupBox();
 			this.txtUPB = new System.Windows.Forms.TextBox();
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
@@ -401,6 +403,8 @@ namespace entrydetail_default {
 			this.txtEsercizioAccertamento = new System.Windows.Forms.TextBox();
 			this.label14 = new System.Windows.Forms.Label();
 			this.txtIdrelated = new System.Windows.Forms.TextBox();
+			this.chkListTitle = new System.Windows.Forms.CheckBox();
+			this.chkListTitleUPB = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox4.SuspendLayout();
@@ -640,9 +644,10 @@ namespace entrydetail_default {
 			// 
 			// gboxConto
 			// 
+			this.gboxConto.Controls.Add(this.chkListTitle);
 			this.gboxConto.Controls.Add(this.txtDenominazioneConto);
 			this.gboxConto.Controls.Add(this.txtCodiceConto);
-			this.gboxConto.Controls.Add(this.button1);
+			this.gboxConto.Controls.Add(this.btnConto);
 			this.gboxConto.Location = new System.Drawing.Point(8, 298);
 			this.gboxConto.Name = "gboxConto";
 			this.gboxConto.Size = new System.Drawing.Size(370, 108);
@@ -652,11 +657,11 @@ namespace entrydetail_default {
 			// 
 			// txtDenominazioneConto
 			// 
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(139, 16);
+			this.txtDenominazioneConto.Location = new System.Drawing.Point(156, 16);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
 			this.txtDenominazioneConto.ReadOnly = true;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(223, 52);
+			this.txtDenominazioneConto.Size = new System.Drawing.Size(206, 52);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
@@ -669,20 +674,22 @@ namespace entrydetail_default {
 			this.txtCodiceConto.TabIndex = 1;
 			this.txtCodiceConto.Tag = "account.codeacc?entrydetailview.codeacc";
 			// 
-			// button1
+			// btnConto
 			// 
-			this.button1.Location = new System.Drawing.Point(8, 47);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(80, 23);
-			this.button1.TabIndex = 0;
-			this.button1.TabStop = false;
-			this.button1.Tag = "manage.account.tree";
-			this.button1.Text = "Conto";
+			this.btnConto.Location = new System.Drawing.Point(8, 47);
+			this.btnConto.Name = "btnConto";
+			this.btnConto.Size = new System.Drawing.Size(80, 23);
+			this.btnConto.TabIndex = 0;
+			this.btnConto.TabStop = false;
+			this.btnConto.Tag = "";
+			this.btnConto.Text = "Conto";
+			this.btnConto.Click += new System.EventHandler(this.btnConto_Click);
 			// 
 			// gboxUPB
 			// 
 			this.gboxUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxUPB.Controls.Add(this.chkListTitleUPB);
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
@@ -705,11 +712,11 @@ namespace entrydetail_default {
 			// 
 			// txtDescrUPB
 			// 
-			this.txtDescrUPB.Location = new System.Drawing.Point(109, 16);
+			this.txtDescrUPB.Location = new System.Drawing.Point(167, 16);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(258, 54);
+			this.txtDescrUPB.Size = new System.Drawing.Size(235, 54);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
@@ -724,9 +731,10 @@ namespace entrydetail_default {
 			this.btnUPBCode.Size = new System.Drawing.Size(97, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
-			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Tag = "";
 			this.btnUPBCode.Text = "U.P.B.";
 			this.btnUPBCode.UseVisualStyleBackColor = false;
+			this.btnUPBCode.Click += new System.EventHandler(this.btnUPBCode_Click);
 			// 
 			// groupBox2
 			// 
@@ -1211,6 +1219,24 @@ namespace entrydetail_default {
 			this.txtIdrelated.Tag = "entrydetail.idrelated?entrydetailview.idrelateddetail";
 			this.txtIdrelated.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
+			// chkListTitle
+			// 
+			this.chkListTitle.Location = new System.Drawing.Point(4, 9);
+			this.chkListTitle.Name = "chkListTitle";
+			this.chkListTitle.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitle.TabIndex = 59;
+			this.chkListTitle.TabStop = false;
+			this.chkListTitle.Text = "Cerca per denominazione";
+			// 
+			// chkListTitleUPB
+			// 
+			this.chkListTitleUPB.Location = new System.Drawing.Point(6, 14);
+			this.chkListTitleUPB.Name = "chkListTitleUPB";
+			this.chkListTitleUPB.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitleUPB.TabIndex = 60;
+			this.chkListTitleUPB.TabStop = false;
+			this.chkListTitleUPB.Text = "Cerca per denominazione";
+			// 
 			// Frm_entrydetail_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -1469,5 +1495,47 @@ namespace entrydetail_default {
             txtNumAccertamento.Text = "";
             Meta.FreshForm();
         }
+
+		private void btnConto_Click(object sender, EventArgs e) {
+			string filter = "";
+			int esercizio = (int)Meta.GetSys("esercizio");
+
+			string filteroperativo = "(idacc in (SELECT idacc from accountusable where ayear='" +
+				esercizio + "'))";
+
+			if (chkListTitle.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+				filter = GetData.MergeFilters(filter, filteroperativo);
+				MetaData.DoMainCommand(this, "choose.account.default." + filter);
+				return;
+			}
+			btnConto.Tag = "manage.account.tree";
+		}
+
+		private void btnUPBCode_Click(object sender, EventArgs e) {
+			string filter = qhs.DoPar(qhs.AppOr(qhs.NullOrEq("active", 'S'), qhs.CmpEq("active", "")));
+
+			if (chkListTitleUPB.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+
+				MetaData.DoMainCommand(this, "choose.upb.default." + filter);
+				return;
+			}
+
+			DS.upb.ExtendedProperties[MetaData.ExtraParams] = filter;
+			MetaData.DoMainCommand(this, "manage.upb.tree");
+		}
 	}
 }

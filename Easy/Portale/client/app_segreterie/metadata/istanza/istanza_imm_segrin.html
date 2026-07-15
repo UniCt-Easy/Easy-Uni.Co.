@@ -7,49 +7,42 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_aa">Anno accademico</label>
-					<select id="istanza_imm_segrin_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzaimm_segrinview.aa" data-subentity  data-mandatory  > </select>
+					<select id="istanza_imm_segrin_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="aa" data-custom-control="combo" data-tag="istanza.aa?istanzaimm_segrinview.aa"  data-mandatory  > </select>
 				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_segrin_data">Data</label>
+					<input id="istanza_imm_segrin_data" type="text" class="form-control" data-tag="istanza.data.g?istanzaimm_segrinview.istanza_data.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_idreg_studenti">Studente</label>
 					<div>
-						<input id="istanza_imm_segrin_idreg_studenti" name="istanza_imm_segrin_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="istanza_imm_segrin_idreg_studenti" name="istanza_imm_segrin_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_segrin_idiscrizione">Iscrizione</label>
+					<div>
+						<input id="istanza_imm_segrin_idiscrizione" name="istanza_imm_segrin_idiscrizione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#istanza_imm_segrin_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="istanza_imm_segrin_data">Data</label>
-					<input id="istanza_imm_segrin_data" type="text" class="form-control" data-tag="istanza.data.g?istanzaimm_segrinview.istanza_data.g" data-subentity  data-mandatory />
-				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_idstatuskind">Status</label>
-					<select id="istanza_imm_segrin_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskind" data-value-member="idstatuskind" data-display-member="title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzaimm_segrinview.istanza_idstatuskind" data-subentity   > </select>
+					<select id="istanza_imm_segrin_idstatuskind" class="custom-select d-block w-100"  data-source-name="statuskinddefaultview" data-value-member="idstatuskind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="istanza.idstatuskind?istanzaimm_segrinview.istanza_idstatuskind"   > </select>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="istanza_imm_segrin_iddidprog">Didattica programmata</label>
-					<div>
-						<input id="istanza_imm_segrin_iddidprog" name="istanza_imm_segrin_iddidprog" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="didprogdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
-					</div>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_iddidprogcurr">Curriculum</label>
-					<select id="istanza_imm_segrin_iddidprogcurr" class="custom-select d-block w-100"  data-source-name="didprogcurr" data-value-member="iddidprogcurr" data-display-member="title" data-custom-control="combo" data-tag="istanza_imm.iddidprogcurr?istanzaimm_segrinview.istanza_imm_iddidprogcurr" data-subentity   > </select>
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istanza_imm_segrin_iddidprogori">Corso e orientamento</label>
-					<select id="istanza_imm_segrin_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-custom-control="combo" data-tag="istanza_imm.iddidprogori?istanzaimm_segrinview.istanza_imm_iddidprogori" data-subentity   data-master="didprogcurr"> </select>
+					<select id="istanza_imm_segrin_iddidprogcurr" class="custom-select d-block w-100"  data-source-name="didprogcurr" data-value-member="iddidprogcurr" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="istanza_imm.iddidprogcurr?istanzaimm_segrinview.istanza_imm_iddidprogcurr" data-subentity   data-master="iscrizionedefaultview"> </select>
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="istanza_imm_segrin_iddidprogori">Corso e orientamento</label>
+					<select id="istanza_imm_segrin_iddidprogori" class="custom-select d-block w-100"  data-source-name="didprogoridefaultview" data-value-member="iddidprogori" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="istanza_imm.iddidprogori?istanzaimm_segrinview.istanza_imm_iddidprogori" data-subentity   data-master="didprogcurr"> </select>
+				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_parttime">Iscrizione Part-Time</label>
 					<div class="custom-control custom-radio">
@@ -61,19 +54,19 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_motivrit">Motivazioni del ritardo nel richiedere l'istanza</label>
-					<textarea class="textarea form-control" id="istanza_imm_segrin_motivrit" type="text"  rows="4" data-tag="istanza_imm.motivrit?istanzaimm_segrinview.istanza_imm_motivrit" data-subentity></textarea>
+					<textarea class="textarea form-control" id="istanza_imm_segrin_motivrit" type="text"  rows="4" data-tag="istanza_imm.motivrit?istanzaimm_segrinview.istanza_imm_motivrit" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seganagstupre_XXnullaosta_imm" >Nullaosta</div>
-				<div class="gridx" id="grid_nullaosta_imm_seganagstupre" data-tag="nullaosta.imm_seganagstupre.imm_seganagstupre" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="parttime,S,Si;parttime,N,No;" ></div>
+				<div class="gridx" id="grid_nullaosta_imm_seganagstupre" data-tag="nullaosta.imm_seganagstupre.imm_seganagstupre" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seganagstusonpre_XXistanza" >Istanze collegate</div>
-				<div class="gridx" id="grid_istanza_alias14_seganagstusonpre" data-tag="istanza_alias14.seganagstusonpre.seganagstusonpre" data-custom-control="gridx" data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_istanza_alias1_seganagstusonpre" data-tag="istanza_alias1.seganagstusonpre.seganagstusonpre" data-custom-control="gridx" data-mdlbuttonedit data-mdlbuttondelete ></div>
 				</div>
 			</div>
 			<div class="row">
@@ -90,28 +83,28 @@
 				</div>
 			</div>
 			<hr>
-				<div class="gridx" id="grid_istanzadichiar_seg" data-tag="istanzadichiar.seg.seg" data-custom-control="gridx" data-mdlbuttondelete   ></div>
+				<div class="gridx" id="grid_istanzadichiar_seg" data-tag="istanzadichiar.seg.seg" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_protnumero">Numero di protocollo</label>
-					<input id="istanza_imm_segrin_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzaimm_segrinview.istanza_protnumero" data-subentity  data-mandatory />
+					<input id="istanza_imm_segrin_protnumero" type="text" class="form-control" data-tag="istanza.protnumero?istanzaimm_segrinview.istanza_protnumero"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istanza_imm_segrin_protanno">Anno di protocollo</label>
-					<input id="istanza_imm_segrin_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzaimm_segrinview.istanza_protanno" data-subentity  data-mandatory />
+					<input id="istanza_imm_segrin_protanno" type="text" class="form-control" data-tag="istanza.protanno?istanzaimm_segrinview.istanza_protanno"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="custom_lng_div" data-langkey="fieldlabelistanza_seganagstupre_XXdiniego" >Diniego</div>
-				<div class="gridx" id="grid_diniego_alias2_seganagstupre" data-tag="diniego_alias2.seganagstupre.seganagstupre" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_diniego_alias2_seganagstupre" data-tag="diniego_alias2.seganagstupre.seganagstupre" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 				</div>
 			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
+		<button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-stamp mr-1" ></i>Protocolla
+		</button>
 </form>
 
 </div>

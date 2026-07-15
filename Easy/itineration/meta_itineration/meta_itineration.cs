@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -28,8 +26,7 @@ namespace meta_itineration//meta_missione//
 	/// <summary>
 	/// Summary description for Class1.
 	/// </summary>
-	public class Meta_itineration : Meta_easydata
-	{
+	public class Meta_itineration : Meta_easydata {
 		public Meta_itineration(DataAccess Conn, MetaDataDispatcher Dispatcher) :
 			base(Conn, Dispatcher, "itineration") {
 			EditTypes.Add("default");
@@ -40,6 +37,14 @@ namespace meta_itineration//meta_missione//
 			ListingTypes.Add("seg");
 			//$EditTypes$
 			//----------------------------------segreterie-------------------------------end
+			EditTypes.Add("web");
+			ListingTypes.Add("web");
+			//----------------------------------missioni web easy-------------------------------end
+			EditTypes.Add("webdefault");
+			EditTypes.Add("webunict");
+			EditTypes.Add("myteamnew02");
+			ListingTypes.Add("webunict");
+			ListingTypes.Add("webdefault");
 		}
 		protected override Form GetForm(string FormName) {
 			if (FormName == "default") {
@@ -47,7 +52,42 @@ namespace meta_itineration//meta_missione//
 				Name = "Missione";
 				return MetaData.GetFormByDllName("itineration_default");
 			}
+			if ((FormName == "webdefault") || ((FormName == "myteamnew02"))) {
+				DefaultListType = "lista";
+				Name = "Missione Web";
+				return MetaData.GetFormByDllName("itineration_webdefault");
+			}
+
 			return null;
+		}
+
+		public override void SetMandatoryFields(DataTable PrimaryTable, string edittype) {
+			if (edittype == "webdefault" || edittype == "webunict" || edittype == "default") {
+				SetMandatoryField(PrimaryTable, "idreg");
+				SetMandatoryField(PrimaryTable, "description");
+				if ((PrimaryTable != null) && (PrimaryTable.Rows != null) && (PrimaryTable.Rows[0] != null)) {
+					bool DirectAuth = false;
+					DataRow R = PrimaryTable.Rows[0];
+					DirectAuth = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", Conn.GetSys("esercizio")),
+					   "itineration_directauth").ToString().ToUpper() == "S";
+
+					if ((DirectAuth) && R["flagweb"].ToString().ToUpper() == "S" &&
+							(CfgFn.GetNoNullInt32(R["iditinerationstatus"]) == 1) &&
+							CfgFn.GetNoNullInt32(R["idauthmodel"]) <= 0) {
+						SetMandatoryField(PrimaryTable, "idauthmodel");
+					}
+
+
+					if (R["flagweb"].ToString().ToUpper() == "S" &&
+							(CfgFn.GetNoNullInt32(R["iditinerationstatus"]) >= 2) && (CfgFn.GetNoNullInt32(R["iditinerationstatus"]) < 6) &&
+							CfgFn.GetNoNullInt32(R["idauthmodel"]) <= 0) {
+						SetMandatoryField(PrimaryTable, "idauthmodel");
+					}
+				}
+			}
+
+			if (edittype == "webunict") {
+			}
 		}
 
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
@@ -68,6 +108,7 @@ namespace meta_itineration//meta_missione//
 			SetDefault(PrimaryTable, "flagmove", 0);
 			SetDefault(PrimaryTable, "flagoutside", "S");
 			SetDefault(PrimaryTable, "advanceapplied", "N");
+			SetDefault(PrimaryTable, "flagexcludefromcertificate", "N");
 		}
 
 		public override bool IsValid(DataRow R, out string errmess, out string errfield) {
@@ -134,14 +175,14 @@ namespace meta_itineration//meta_missione//
 					)
 					&& R["datecompleted"] != DBNull.Value
 					) {
-					DateTime dateCompleted = (DateTime) R["datecompleted"];
+					DateTime dateCompleted = (DateTime)R["datecompleted"];
 
 					if (R["stop"] == DBNull.Value) {
 						errmess = "Non è possibile pagare una missione senza data fine";
 						errfield = "stop";
 						return false;
 					}
-					DateTime stop = (DateTime) R["stop"];
+					DateTime stop = (DateTime)R["stop"];
 					if (dateCompleted < stop) {
 						errmess = "La data di acquisizione documentazione definitiva non può precedere la data fine missione";
 						errfield = "datecompleted";
@@ -164,7 +205,7 @@ namespace meta_itineration//meta_missione//
 				}
 			}
 
-			DataTable Tserviceregistry = Conn.RUN_SELECT("serviceregistry","*",null,filter_idrelated,null,null,true);
+			DataTable Tserviceregistry = Conn.RUN_SELECT("serviceregistry", "*", null, filter_idrelated, null, null, true);
 			if ((Tserviceregistry.Rows.Count > 0) && (R.RowState == DataRowState.Modified)) {
 				bool error = false;
 				string message = "";
@@ -193,8 +234,9 @@ namespace meta_itineration//meta_missione//
 						errmess = "L'Anagrafe delle Prestazioni è stata già generata, e risultano modificati i seguenti dati: \n\r"
 							+ message + "Adeguare anche i dati dell'Incarico.";
 						if (showClientMsg == null) return false;
-						if (showClientMsg(errmess, "Avviso", MessageBoxButtons.OKCancel))return false;
-					} else {
+						if (showClientMsg(errmess, "Avviso", MessageBoxButtons.OKCancel)) return false;
+					}
+					else {
 						errmess = "Risultano modificati i seguenti dati: \n\r"
 							+ message + "La modifica non è consentita perché l'Anagrafe delle Prestazioni è stata già generata.\r\n" +
 							"Contattare il servizio assistenza o un utente con ruolo 'manage_prestazioni' ";
@@ -213,7 +255,8 @@ namespace meta_itineration//meta_missione//
 					errfield = "start";
 					return false;
 				}
-			} else {
+			}
+			else {
 				errmess = "Attenzione! Specificare inizio e termine della missione";
 				return false;
 			}
@@ -318,9 +361,21 @@ namespace meta_itineration//meta_missione//
 						if (T.Columns.Contains("stoptime")) T.Columns["stoptime"].ExtendedProperties["format"] = "g";
 						break;
 					}
-					//$DescribeAColumn$
+				case "weblista": {
+						DescribeAColumn(T, "yitineration", "Eserc. miss.", nPos++);
+						DescribeAColumn(T, "nitineration", "Num. miss.", nPos++);
+						DescribeAColumn(T, "description", "Descrizione", nPos++);
+						DescribeAColumn(T, "location", "Località di destinazione", nPos++);
+						DescribeAColumn(T, "starttime", "Inizio", nPos++);
+						if (T.Columns.Contains("starttime")) T.Columns["starttime"].ExtendedProperties["format"] = "g";
+						DescribeAColumn(T, "stoptime", "Fine", nPos++);
+						if (T.Columns.Contains("stoptime")) T.Columns["stoptime"].ExtendedProperties["format"] = "g";
+						break;
+					}
 			}
+			//$DescribeAColumn$
 		}
+
 
 		//$GetSortings$
 

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,20 +25,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_convalida_segisttri"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_convalida_segisttri: DataSet {
+public partial class dsmeta_convalida_segisttri: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable changes 		=> (MetaTable)Tables["changes"];
+	public MetaTable attivform_alias1 		=> (MetaTable)Tables["attivform_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidato 		=> (MetaTable)Tables["convalidato"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable tirocinioprogetto 		=> (MetaTable)Tables["tirocinioprogetto"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
@@ -49,19 +41,10 @@ public class dsmeta_convalida_segisttri: DataSet {
 	public MetaTable attivform 		=> (MetaTable)Tables["attivform"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable changeskind 		=> (MetaTable)Tables["changeskind"];
+	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidante 		=> (MetaTable)Tables["convalidante"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable learningagrtrainer 		=> (MetaTable)Tables["learningagrtrainer"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable learningagrstud 		=> (MetaTable)Tables["learningagrstud"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable iscrizionebmi 		=> (MetaTable)Tables["iscrizionebmi"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalida 		=> (MetaTable)Tables["convalida"];
@@ -91,12 +74,21 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_convalida_segisttri.xsd";
 
 	#region create DataTables
-	//////////////////// CHANGES /////////////////////////////////
-	var tchanges= new MetaTable("changes");
-	tchanges.defineColumn("idchanges", typeof(int),false);
-	tchanges.defineColumn("title", typeof(string),false);
-	Tables.Add(tchanges);
-	tchanges.defineKey("idchanges");
+	//////////////////// ATTIVFORM_ALIAS1 /////////////////////////////////
+	var tattivform_alias1= new MetaTable("attivform_alias1");
+	tattivform_alias1.defineColumn("aa", typeof(string),false);
+	tattivform_alias1.defineColumn("idattivform", typeof(int),false);
+	tattivform_alias1.defineColumn("idcorsostudio", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprog", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidproganno", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprogcurr", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprogori", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprogporzanno", typeof(int),false);
+	tattivform_alias1.defineColumn("idsede", typeof(int),false);
+	tattivform_alias1.defineColumn("title", typeof(string));
+	tattivform_alias1.ExtendedProperties["TableForReading"]="attivform";
+	Tables.Add(tattivform_alias1);
+	tattivform_alias1.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// CONVALIDATO /////////////////////////////////
 	var tconvalidato= new MetaTable("convalidato");
@@ -121,38 +113,12 @@ private void initClass() {
 	tconvalidato.defineColumn("lt", typeof(DateTime),false);
 	tconvalidato.defineColumn("lu", typeof(string),false);
 	tconvalidato.defineColumn("!idattivform_attivform_title", typeof(string));
-	tconvalidato.defineColumn("!idchanges_changes_title", typeof(string));
-	tconvalidato.defineColumn("!idchangeskind_changeskind_title", typeof(string));
 	Tables.Add(tconvalidato);
 	tconvalidato.defineKey("idconvalida", "idconvalidato", "idreg");
 
-	//////////////////// TIROCINIOPROGETTO /////////////////////////////////
-	var ttirocinioprogetto= new MetaTable("tirocinioprogetto");
-	ttirocinioprogetto.defineColumn("description", typeof(string),false);
-	ttirocinioprogetto.defineColumn("idreg_referente", typeof(int),false);
-	ttirocinioprogetto.defineColumn("idreg_studenti", typeof(int),false);
-	ttirocinioprogetto.defineColumn("idtirociniocandidatura", typeof(int),false);
-	ttirocinioprogetto.defineColumn("idtirocinioprogetto", typeof(int),false);
-	ttirocinioprogetto.defineColumn("idtirocinioproposto", typeof(int),false);
-	ttirocinioprogetto.defineColumn("title", typeof(string),false);
-	Tables.Add(ttirocinioprogetto);
-	ttirocinioprogetto.defineKey("idreg_referente", "idreg_studenti", "idtirociniocandidatura", "idtirocinioprogetto", "idtirocinioproposto");
-
-	//////////////////// SOSTENIMENTO /////////////////////////////////
-	var tsostenimento= new MetaTable("sostenimento");
-	tsostenimento.defineColumn("idappello", typeof(int),false);
-	tsostenimento.defineColumn("idattivform", typeof(int));
-	tsostenimento.defineColumn("idprova", typeof(int),false);
-	tsostenimento.defineColumn("idreg", typeof(int),false);
-	tsostenimento.defineColumn("idsostenimento", typeof(int),false);
-	tsostenimento.defineColumn("voto", typeof(decimal));
-	tsostenimento.defineColumn("votolode", typeof(string));
-	tsostenimento.defineColumn("votosu", typeof(int));
-	Tables.Add(tsostenimento);
-	tsostenimento.defineKey("idappello", "idprova", "idreg", "idsostenimento");
-
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("idreg", typeof(int),false);
 	tregistry.defineColumn("title", typeof(string),false);
 	Tables.Add(tregistry);
@@ -173,12 +139,18 @@ private void initClass() {
 	Tables.Add(tattivform);
 	tattivform.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
-	//////////////////// CHANGESKIND /////////////////////////////////
-	var tchangeskind= new MetaTable("changeskind");
-	tchangeskind.defineColumn("idchangeskind", typeof(int),false);
-	tchangeskind.defineColumn("title", typeof(string),false);
-	Tables.Add(tchangeskind);
-	tchangeskind.defineKey("idchangeskind");
+	//////////////////// SOSTENIMENTO /////////////////////////////////
+	var tsostenimento= new MetaTable("sostenimento");
+	tsostenimento.defineColumn("idappello", typeof(int),false);
+	tsostenimento.defineColumn("idattivform", typeof(int));
+	tsostenimento.defineColumn("idprova", typeof(int),false);
+	tsostenimento.defineColumn("idreg", typeof(int),false);
+	tsostenimento.defineColumn("idsostenimento", typeof(int),false);
+	tsostenimento.defineColumn("voto", typeof(decimal));
+	tsostenimento.defineColumn("votolode", typeof(string));
+	tsostenimento.defineColumn("votosu", typeof(int));
+	Tables.Add(tsostenimento);
+	tsostenimento.defineKey("idappello", "idprova", "idreg", "idsostenimento");
 
 	//////////////////// CONVALIDANTE /////////////////////////////////
 	var tconvalidante= new MetaTable("convalidante");
@@ -203,45 +175,13 @@ private void initClass() {
 	tconvalidante.defineColumn("idtirocinioprogetto", typeof(int));
 	tconvalidante.defineColumn("lt", typeof(DateTime),false);
 	tconvalidante.defineColumn("lu", typeof(string),false);
-	tconvalidante.defineColumn("!idchangeskind_changeskind_title", typeof(string));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_voto", typeof(decimal));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_votosu", typeof(int));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_votolode", typeof(string));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_idattivform_title", typeof(string));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_idreg_title", typeof(string));
-	tconvalidante.defineColumn("!idtirocinioprogetto_tirocinioprogetto_title", typeof(string));
-	tconvalidante.defineColumn("!idtirocinioprogetto_tirocinioprogetto_description", typeof(string));
 	Tables.Add(tconvalidante);
 	tconvalidante.defineKey("idconvalida", "idconvalidante", "idreg");
-
-	//////////////////// LEARNINGAGRTRAINER /////////////////////////////////
-	var tlearningagrtrainer= new MetaTable("learningagrtrainer");
-	tlearningagrtrainer.defineColumn("idbandomi", typeof(int),false);
-	tlearningagrtrainer.defineColumn("idiscrizionebmi", typeof(int),false);
-	tlearningagrtrainer.defineColumn("idlearningagrtrainer", typeof(int),false);
-	tlearningagrtrainer.defineColumn("idreg", typeof(int),false);
-	tlearningagrtrainer.defineColumn("title", typeof(string),false);
-	Tables.Add(tlearningagrtrainer);
-	tlearningagrtrainer.defineKey("idbandomi", "idiscrizionebmi", "idlearningagrtrainer", "idreg");
-
-	//////////////////// LEARNINGAGRSTUD /////////////////////////////////
-	var tlearningagrstud= new MetaTable("learningagrstud");
-	tlearningagrstud.defineColumn("idbandomi", typeof(int),false);
-	tlearningagrstud.defineColumn("idiscrizionebmi", typeof(int),false);
-	tlearningagrstud.defineColumn("idlearningagrstud", typeof(int),false);
-	tlearningagrstud.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tlearningagrstud);
-	tlearningagrstud.defineKey("idbandomi", "idiscrizionebmi", "idlearningagrstud", "idreg");
-
-	//////////////////// ISCRIZIONEBMI /////////////////////////////////
-	var tiscrizionebmi= new MetaTable("iscrizionebmi");
-	tiscrizionebmi.defineColumn("data", typeof(DateTime));
-	tiscrizionebmi.defineColumn("idbandomi", typeof(int),false);
-	tiscrizionebmi.defineColumn("idiscrizione", typeof(int),false);
-	tiscrizionebmi.defineColumn("idiscrizionebmi", typeof(int),false);
-	tiscrizionebmi.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tiscrizionebmi);
-	tiscrizionebmi.defineKey("idbandomi", "idiscrizionebmi", "idreg");
 
 	//////////////////// CONVALIDA /////////////////////////////////
 	var tconvalida= new MetaTable("convalida");
@@ -278,25 +218,13 @@ private void initClass() {
 	var cChild = new []{convalidato.Columns["idconvalida"], convalidato.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalidato_convalida_idconvalida-idreg",cPar,cChild,false));
 
-	cPar = new []{changeskind.Columns["idchangeskind"]};
-	cChild = new []{convalidato.Columns["idchangeskind"]};
-	Relations.Add(new DataRelation("FK_convalidato_changeskind_idchangeskind",cPar,cChild,false));
-
-	cPar = new []{changes.Columns["idchanges"]};
-	cChild = new []{convalidato.Columns["idchanges"]};
-	Relations.Add(new DataRelation("FK_convalidato_changes_idchanges",cPar,cChild,false));
-
-	cPar = new []{attivform.Columns["idattivform"]};
+	cPar = new []{attivform_alias1.Columns["idattivform"]};
 	cChild = new []{convalidato.Columns["idattivform"]};
-	Relations.Add(new DataRelation("FK_convalidato_attivform_idattivform",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_convalidato_attivform_alias1_idattivform",cPar,cChild,false));
 
 	cPar = new []{convalida.Columns["idconvalida"], convalida.Columns["idreg"]};
 	cChild = new []{convalidante.Columns["idconvalida"], convalidante.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalidante_convalida_idconvalida-idreg",cPar,cChild,false));
-
-	cPar = new []{tirocinioprogetto.Columns["idtirocinioprogetto"]};
-	cChild = new []{convalidante.Columns["idtirocinioprogetto"]};
-	Relations.Add(new DataRelation("FK_convalidante_tirocinioprogetto_idtirocinioprogetto",cPar,cChild,false));
 
 	cPar = new []{sostenimento.Columns["idsostenimento"]};
 	cChild = new []{convalidante.Columns["idsostenimento"]};
@@ -309,22 +237,6 @@ private void initClass() {
 	cPar = new []{attivform.Columns["idattivform"]};
 	cChild = new []{sostenimento.Columns["idattivform"]};
 	Relations.Add(new DataRelation("FK_sostenimento_attivform_idattivform",cPar,cChild,false));
-
-	cPar = new []{changeskind.Columns["idchangeskind"]};
-	cChild = new []{convalidante.Columns["idchangeskind"]};
-	Relations.Add(new DataRelation("FK_convalidante_changeskind_idchangeskind",cPar,cChild,false));
-
-	cPar = new []{learningagrtrainer.Columns["idlearningagrtrainer"]};
-	cChild = new []{convalida.Columns["idlearningagrtrainer"]};
-	Relations.Add(new DataRelation("FK_convalida_learningagrtrainer_idlearningagrtrainer",cPar,cChild,false));
-
-	cPar = new []{learningagrstud.Columns["idlearningagrstud"]};
-	cChild = new []{convalida.Columns["idlearningagrstud"]};
-	Relations.Add(new DataRelation("FK_convalida_learningagrstud_idlearningagrstud",cPar,cChild,false));
-
-	cPar = new []{iscrizionebmi.Columns["idiscrizionebmi"]};
-	cChild = new []{convalida.Columns["idiscrizionebmi"]};
-	Relations.Add(new DataRelation("FK_convalida_iscrizionebmi_idiscrizionebmi",cPar,cChild,false));
 
 	#endregion
 

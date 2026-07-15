@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -84,11 +82,12 @@ private void initClass() {
 	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
 	titinerationrefundattachment.Columns.Add(C);
-	C= new DataColumn("lt", typeof(string));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	titinerationrefundattachment.Columns.Add(C);
 	titinerationrefundattachment.Columns.Add( new DataColumn("active", typeof(string)));
 	titinerationrefundattachment.Columns.Add( new DataColumn("iditinerationrefundattachmentkind", typeof(int)));
+	titinerationrefundattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(titinerationrefundattachment);
 	titinerationrefundattachment.PrimaryKey =  new DataColumn[]{titinerationrefundattachment.Columns["idattachment"], titinerationrefundattachment.Columns["iditineration"], titinerationrefundattachment.Columns["nrefund"]};
 
@@ -105,6 +104,7 @@ private void initClass() {
 	titinerationrefundattachmentkind.Columns.Add( new DataColumn("lu", typeof(string)));
 	titinerationrefundattachmentkind.Columns.Add( new DataColumn("title", typeof(string)));
 	titinerationrefundattachmentkind.Columns.Add( new DataColumn("flag", typeof(int)));
+	titinerationrefundattachmentkind.Columns.Add( new DataColumn("code", typeof(string)));
 	Tables.Add(titinerationrefundattachmentkind);
 	titinerationrefundattachmentkind.PrimaryKey =  new DataColumn[]{titinerationrefundattachmentkind.Columns["iditinerationrefundattachmentkind"]};
 

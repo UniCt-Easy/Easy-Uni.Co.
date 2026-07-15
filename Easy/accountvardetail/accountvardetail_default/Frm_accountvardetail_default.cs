@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -122,6 +120,7 @@ namespace accountvardetail_default {
         private RadioButton rdbVarNonOperativa;
 		private Label labelNumDett;
 		private TextBox txtRownum;
+		private CheckBox chkListTitleUPB;
 
 		/// <summary>
 		/// Required designer variable.
@@ -192,6 +191,7 @@ namespace accountvardetail_default {
 			this.rdbAumento = new System.Windows.Forms.RadioButton();
 			this.txtImporto1 = new System.Windows.Forms.TextBox();
 			this.gboxUPB = new System.Windows.Forms.GroupBox();
+			this.chkListTitleUPB = new System.Windows.Forms.CheckBox();
 			this.txtUPB = new System.Windows.Forms.TextBox();
 			this.txtDescrUPB = new System.Windows.Forms.TextBox();
 			this.btnUPBCode = new System.Windows.Forms.Button();
@@ -677,21 +677,31 @@ namespace accountvardetail_default {
 			// 
 			// gboxUPB
 			// 
+			this.gboxUPB.Controls.Add(this.chkListTitleUPB);
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(287, 409);
+			this.gboxUPB.Location = new System.Drawing.Point(287, 400);
 			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(265, 104);
+			this.gboxUPB.Size = new System.Drawing.Size(265, 113);
 			this.gboxUPB.TabIndex = 9;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
+			// 
+			// chkListTitleUPB
+			// 
+			this.chkListTitleUPB.Location = new System.Drawing.Point(6, 10);
+			this.chkListTitleUPB.Name = "chkListTitleUPB";
+			this.chkListTitleUPB.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitleUPB.TabIndex = 58;
+			this.chkListTitleUPB.TabStop = false;
+			this.chkListTitleUPB.Text = "Cerca per denominazione";
 			// 
 			// txtUPB
 			// 
 			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Location = new System.Drawing.Point(8, 84);
 			this.txtUPB.Name = "txtUPB";
 			this.txtUPB.Size = new System.Drawing.Size(248, 20);
 			this.txtUPB.TabIndex = 5;
@@ -701,11 +711,11 @@ namespace accountvardetail_default {
 			// 
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(128, 9);
+			this.txtDescrUPB.Location = new System.Drawing.Point(128, 32);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(128, 62);
+			this.txtDescrUPB.Size = new System.Drawing.Size(128, 46);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
@@ -715,14 +725,15 @@ namespace accountvardetail_default {
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 55);
 			this.btnUPBCode.Name = "btnUPBCode";
 			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
-			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Tag = "";
 			this.btnUPBCode.Text = "UPB:";
 			this.btnUPBCode.UseVisualStyleBackColor = false;
+			this.btnUPBCode.Click += new System.EventHandler(this.btnUPBCode_Click);
 			// 
 			// label4
 			// 
@@ -1155,7 +1166,7 @@ namespace accountvardetail_default {
 			this.btnScegliAtto.Size = new System.Drawing.Size(133, 23);
 			this.btnScegliAtto.TabIndex = 13;
 			this.btnScegliAtto.TabStop = false;
-			this.btnScegliAtto.Tag = "choose.enactment.default";
+			this.btnScegliAtto.Tag = "choose.accountenactment.default";
 			this.btnScegliAtto.Text = "Atto Amministrativo";
 			this.btnScegliAtto.UseVisualStyleBackColor = true;
 			// 
@@ -1429,7 +1440,9 @@ namespace accountvardetail_default {
 			grpInventario.Enabled = true;
 			lblPrevCassaDI.Visible = true;
             txtPrevCassaDI.Visible = true;
-        }
+			chkListTitle.Checked = false;
+			chkListTitleUPB.Checked = false;
+		}
 
         public void MetaData_AfterFill(){
             //if (!Meta.InsertMode)
@@ -1449,7 +1462,7 @@ namespace accountvardetail_default {
             SetEditFonteFinanziamento();
             lblPrevCassaDI.Visible = false;
             txtPrevCassaDI.Visible = false;
-            if (DS.accountvar.Rows.Count > 0) {
+			if (DS.accountvar.Rows.Count > 0) {
                 DataRow rAccvar = DS.accountvar.Rows[0];
                 int varkind = CfgFn.GetNoNullInt32(rAccvar["variationkind"]);
                 if (isprev_iniziale(varkind)) {
@@ -1545,5 +1558,29 @@ namespace accountvardetail_default {
         private void radioButton9_CheckedChanged(object sender, EventArgs e) {
 
         }
-    }
+
+		private void btnUPBCode_Click(object sender, EventArgs e) {
+			string filter = "";
+			if (!Meta.IsEmpty) Meta.GetFormData(true);
+			string filterActive = QHS.DoPar(QHS.AppOr(QHS.NullOrEq("active", 'S'), QHS.CmpEq("active", "")));
+
+			if (chkListTitleUPB.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+
+				filter = GetData.MergeFilters(filter, filterActive);
+				MetaData.DoMainCommand(this, "choose.upb.default." + filter);
+				return;
+			}
+
+			DS.upb.ExtendedProperties[MetaData.ExtraParams] = filterActive;
+			MetaData.DoMainCommand(this, "manage.upb.tree"); 
+
+		}
+	}
 }

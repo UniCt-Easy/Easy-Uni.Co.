@@ -3,40 +3,6 @@
   <xs:element name="dsmeta_rendicontattivitaprogetto_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sal" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idprogetto" type="xs:int" />
-              <xs:element name="idsal" type="xs:int" />
-              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
-              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="rendicontattivitaprogettoora" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="_x0021_titleancestor" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
-              <xs:element name="data" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="idconsolidamento" type="xs:int" minOccurs="0" />
-              <xs:element name="idprogetto" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
-              <xs:element name="idrendicontattivitaprogettoora" type="xs:int" />
-              <xs:element name="idsal" type="xs:int" minOccurs="0" />
-              <xs:element name="idworkpackage" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="ore" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_idsal_sal_numerosal" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_idsal_sal_start" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="_x0021_idsal_sal_stop" type="xs:dateTime" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="rendicontattivitaprogettowpview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -94,11 +60,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_active" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_areadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_categoria" type="xs:string" />
               <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_macroareadidattica" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
@@ -218,7 +188,6 @@
         <xs:element name="rendicontattivitaprogetto" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="_x0021_orerendicont" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_raggruppamento" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_wp" type="xs:string" minOccurs="0" />
@@ -234,6 +203,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="orepreventivate" type="xs:int" />
+              <xs:element name="rendicontatutto" type="xs:string" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>
@@ -241,19 +211,6 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:sal" />
-      <xs:field xpath="mstns:idprogetto" />
-      <xs:field xpath="mstns:idsal" />
-    </xs:unique>
-    <xs:unique name="rendicontattivitaprogettoora_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontattivitaprogettoora" />
-      <xs:field xpath="mstns:idprogetto" />
-      <xs:field xpath="mstns:idreg" />
-      <xs:field xpath="mstns:idrendicontattivitaprogetto" />
-      <xs:field xpath="mstns:idrendicontattivitaprogettoora" />
-      <xs:field xpath="mstns:idworkpackage" />
-    </xs:unique>
-    <xs:unique name="rendicontattivitaprogettowpview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rendicontattivitaprogettowpview" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idreg" />
@@ -306,8 +263,6 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idrendicontattivitaprogetto-idworkpackage-idprogetto-idreg" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto idworkpackage idprogetto idreg" msdata:childkey="idrendicontattivitaprogetto idworkpackage idprogetto idreg" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_sal_idsal" msdata:parent="sal" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idsal" msdata:childkey="idsal" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_rendicontattivitaprogettowpview_idprogetto-idreg-idrendicontattivitaprogetto-idworkpackage" msdata:parent="rendicontattivitaprogettowpview" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idprogetto idreg idrendicontattivitaprogetto idworkpackage" msdata:childkey="idprogetto idreg idrendicontattivitaprogetto idworkpackage" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoyear_rendicontattivitaprogetto_idprogetto-idrendicontattivitaprogetto-idworkpackage" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoyear" msdata:parentkey="idprogetto idrendicontattivitaprogetto idworkpackage" msdata:childkey="idprogetto idrendicontattivitaprogetto idworkpackage" />
       <msdata:Relationship name="FK_rendicontattivitaprogettoyear_year_year" msdata:parent="year" msdata:child="rendicontattivitaprogettoyear" msdata:parentkey="year" msdata:childkey="year" />

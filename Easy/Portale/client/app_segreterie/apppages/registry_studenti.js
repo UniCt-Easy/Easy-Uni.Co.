@@ -19,120 +19,29 @@
                return this.name;
 			},
 
-			//isValidFunction
+			manageValidResult: function (rowToCheck) {
+				var loc = appMeta.localResource;
+				var def = appMeta.Deferred("isValid-registry_studenti");
+				var firstErrorObj;
+
+				if (rowToCheck.table.dataset.tables["registrymultikindregistry"] && this.getNotDeletedRows(rowToCheck.table.dataset.tables["registrymultikindregistry"]).length < 1) {
+					firstErrorObj = { warningMsg: "", errMsg: loc.getMinNumRowRequired("", 1), errField: "XXregistrymultikindregistry", row: rowToCheck, outCaption: "Tipo anagrafica" };
+					return def.resolve(firstErrorObj);
+				}
+				//$isValid$
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				var gridParentRelsiscrizione62 = self.state.DS.getParentChildRelation("registry", "iscrizione");
-				var fatherfilteriscrizione62 = gridParentRelsiscrizione62[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio62 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows,  					function (row) {  						if (row.idcorsostudiokind !== 12 && row.idcorsostudiokind !== 13 && row.idcorsostudiokind !== 2  /*Corsi di studio*/) {  							return row.idcorsostudio;  						}  					}));
-				var iscrizione = this.getDataTable("iscrizione");
-				var finalfilteriscrizione62 = window.jsDataQuery.and([fatherfilteriscrizione62, filterGrididcorsostudio62]);
-				iscrizione.rows =  _.filter(iscrizione.rows, function(r) {return finalfilteriscrizione62(r)});
-				$("#grid_iscrizione_seganagstu").data("customParentRelation", finalfilteriscrizione62);
-				var gridParentRelsiscrizione_alias163 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias1");
-				var fatherfilteriscrizione_alias163 = gridParentRelsiscrizione_alias163[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio63 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 12 /*test di ingresso*/) { 							return row.idcorsostudio; 						} 					}));
-				var iscrizione_alias1 = this.getDataTable("iscrizione_alias1");
-				var finalfilteriscrizione_alias163 = window.jsDataQuery.and([fatherfilteriscrizione_alias163, filterGrididcorsostudio63]);
-				iscrizione_alias1.rows =  _.filter(iscrizione_alias1.rows, function(r) {return finalfilteriscrizione_alias163(r)});
-				$("#grid_iscrizione_alias1_seganagstuacc").data("customParentRelation", finalfilteriscrizione_alias163);
-				var gridParentRelsiscrizione_alias264 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias2");
-				var fatherfilteriscrizione_alias264 = gridParentRelsiscrizione_alias264[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio64 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 2 /*master*/) { 							return row.idcorsostudio; 						} 					}));
-				var iscrizione_alias2 = this.getDataTable("iscrizione_alias2");
-				var finalfilteriscrizione_alias264 = window.jsDataQuery.and([fatherfilteriscrizione_alias264, filterGrididcorsostudio64]);
-				iscrizione_alias2.rows =  _.filter(iscrizione_alias2.rows, function(r) {return finalfilteriscrizione_alias264(r)});
-				$("#grid_iscrizione_alias2_seganagstumast").data("customParentRelation", finalfilteriscrizione_alias264);
-				var gridParentRelsiscrizione_alias365 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias3");
-				var fatherfilteriscrizione_alias365 = gridParentRelsiscrizione_alias365[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio65 = window.jsDataQuery.isIn("idcorsostudio", _.map(this.getDataTable("corsostudio").rows, 					function (row) { 						if (row.idcorsostudiokind === 13 /*esami di stato*/) { 							return row.idcorsostudio; 						} 					}));
-				var iscrizione_alias3 = this.getDataTable("iscrizione_alias3");
-				var finalfilteriscrizione_alias365 = window.jsDataQuery.and([fatherfilteriscrizione_alias365, filterGrididcorsostudio65]);
-				iscrizione_alias3.rows =  _.filter(iscrizione_alias3.rows, function(r) {return finalfilteriscrizione_alias365(r)});
-				$("#grid_iscrizione_alias3_seganagstustato").data("customParentRelation", finalfilteriscrizione_alias365);
-				var gridParentRelsiscrizione_alias466 = self.state.DS.getParentChildRelation("registry", "iscrizione_alias4");
-				var fatherfilteriscrizione_alias466 = gridParentRelsiscrizione_alias466[0].getChildFilter(parentRow);
-				var filterGrididcorsostudio66 = window.jsDataQuery.isNull("idcorsostudio");
-				var iscrizione_alias4 = this.getDataTable("iscrizione_alias4");
-				var finalfilteriscrizione_alias466 = window.jsDataQuery.and([fatherfilteriscrizione_alias466, filterGrididcorsostudio66]);
-				iscrizione_alias4.rows =  _.filter(iscrizione_alias4.rows, function(r) {return finalfilteriscrizione_alias466(r)});
-				$("#grid_iscrizione_alias4_seganagstusing").data("customParentRelation", finalfilteriscrizione_alias466);
-				var gridParentRelsistanza67 = self.state.DS.getParentChildRelation("registry", "istanza");
-				var fatherfilteristanza67 = gridParentRelsistanza67[0].getChildFilter(parentRow);
-				var filterGrididistanzakind67 = window.jsDataQuery.eq("idistanzakind", 13);
-				var filterGrididstatuskind67 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
-				var istanza = this.getDataTable("istanza");
-				var finalfilteristanza67 = window.jsDataQuery.and([fatherfilteristanza67, filterGrididistanzakind67,filterGrididstatuskind67]);
-				istanza.rows =  _.filter(istanza.rows, function(r) {return finalfilteristanza67(r)});
-				$("#grid_istanza_seganagstupre").data("customParentRelation", finalfilteristanza67);
-				var gridParentRelsistanza_alias168 = self.state.DS.getParentChildRelation("registry", "istanza_alias1");
-				var fatherfilteristanza_alias168 = gridParentRelsistanza_alias168[0].getChildFilter(parentRow);
-				var filterGrididistanzakind68 = window.jsDataQuery.eq("idistanzakind", 14);
-				var filterGrididstatuskind68 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
-				var istanza_alias1 = this.getDataTable("istanza_alias1");
-				var finalfilteristanza_alias168 = window.jsDataQuery.and([fatherfilteristanza_alias168, filterGrididistanzakind68,filterGrididstatuskind68]);
-				istanza_alias1.rows =  _.filter(istanza_alias1.rows, function(r) {return finalfilteristanza_alias168(r)});
-				$("#grid_istanza_alias1_seganagstu").data("customParentRelation", finalfilteristanza_alias168);
-				var gridParentRelsistanza_alias269 = self.state.DS.getParentChildRelation("registry", "istanza_alias2");
-				var fatherfilteristanza_alias269 = gridParentRelsistanza_alias269[0].getChildFilter(parentRow);
-				var filterGrididistanzakind69 = window.jsDataQuery.eq("idistanzakind", 15);
-				var filterGrididstatuskind69 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanze === 'S') {  							return row.idstatuskind;  						}  					}));
-				var istanza_alias2 = this.getDataTable("istanza_alias2");
-				var finalfilteristanza_alias269 = window.jsDataQuery.and([fatherfilteristanza_alias269, filterGrididistanzakind69,filterGrididstatuskind69]);
-				istanza_alias2.rows =  _.filter(istanza_alias2.rows, function(r) {return finalfilteristanza_alias269(r)});
-				$("#grid_istanza_alias2_seganagsturin").data("customParentRelation", finalfilteristanza_alias269);
-				var gridParentRelsistanza_alias370 = self.state.DS.getParentChildRelation("registry", "istanza_alias3");
-				var fatherfilteristanza_alias370 = gridParentRelsistanza_alias370[0].getChildFilter(parentRow);
-				var filterGrididistanzakind70 = window.jsDataQuery.eq("idistanzakind", 3);
-				var filterGrididstatuskind70 = window.jsDataQuery.isIn("idstatuskind", _.map(this.getDataTable("statuskind").rows,  					function (row) {  						if (row.istanzedelibera === 'S') {  							return row.idstatuskind;  						}  					}));
-				var istanza_alias3 = this.getDataTable("istanza_alias3");
-				var finalfilteristanza_alias370 = window.jsDataQuery.and([fatherfilteristanza_alias370, filterGrididistanzakind70,filterGrididstatuskind70]);
-				istanza_alias3.rows =  _.filter(istanza_alias3.rows, function(r) {return finalfilteristanza_alias370(r)});
-				$("#grid_istanza_alias3_seganagstu").data("customParentRelation", finalfilteristanza_alias370);
-				if (self.isNullOrMinDate(parentRow.birthdate))
-					parentRow.birthdate = new Date();
-				
-				////tolgo i sostenimenti che non sono figli di iscrizione a corsi normali
-				//this.deleteNotDescendants('sostenimento', 0, 'iscrizione', 0);
-				////tolgo i piano studio alias 1 che non sono figli di iscrizione corsi singoli
-				//this.deleteNotDescendants('pianostudio', 1, 'iscrizione', 4);
-				////tolgo le attività formative che non sono figlie dei piano studio figli di iscrizione corsi singoli
-				//this.deleteNotDescendants('pianostudioattivform', 1, 'iscrizione', 4);
-				////tolgo i sostenimenti che non sono figli di iscrizione corsi singoli
-				//this.deleteNotDescendants('sostenimento', 1, 'iscrizione', 4);
-				////tolgo i sostenimenti che non sono figli di iscrizione accesso
-				//this.deleteNotDescendants('sostenimento', 2, 'iscrizione', 1);
-				////tolgo i sostenimenti che non sono figli di iscrizione a master
-				//this.deleteNotDescendants('sostenimento', 3, 'iscrizione', 2);
-				////tolgo i sostenimenti che non sono figli di iscrizione a esami di stato
-				//this.deleteNotDescendants('sostenimento', 4, 'iscrizione', 3);
-
-				////tolgo i nullaosta e diniego che non sono figli di istanze di preimmatricolazione
-				//this.deleteNotDescendants('istanza_imm', 0, 'istanza', 0);
-				//this.deleteNotDescendants('nullaosta', 0, 'istanza', 0);
-				//this.deleteNotDescendants('nullaosta_imm', 0, 'istanza', 0);
-				//this.deleteNotDescendants('diniego', 0, 'istanza', 0);
-				////tolgo i nullaosta e diniego che non sono figli di istanze di immatricolazione
-				//this.deleteNotDescendants('istanza_imm', 1, 'istanza', 1);
-				//this.deleteNotDescendants('nullaosta', 1, 'istanza', 1);
-				//this.deleteNotDescendants('nullaosta_imm', 1, 'istanza', 1);
-				//this.deleteNotDescendants('diniego', 1, 'istanza', 1);
-				////tolgo i nullaosta e diniego che non sono figli di istanze di rinnovo di iscrizione
-				//this.deleteNotDescendants('istanza_imm', 2, 'istanza', 2);
-				//this.deleteNotDescendants('nullaosta', 3, 'istanza', 2);
-				//this.deleteNotDescendants('nullaosta_imm', 3, 'istanza', 2);
-				//this.deleteNotDescendants('diniego', 2, 'istanza', 2);
-				////tolgo i nipoti che non sono nipoti di istanze di passaggio
-				//this.deleteNotDescendants('nullaosta', 4, 'istanza', 3);
-				//this.deleteNotDescendants('diniego', 3, 'istanza', 3);
-				//this.deleteNotDescendants('pratica', 0, 'istanza', 3);
-
+			if (self.isNullOrMinDate(parentRow.birthdate))
+				parentRow.birthdate = new Date();
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_studenti_idregistryclass'), null);
 				} else {
@@ -171,49 +80,37 @@
 				this.helpForm.filter($('#registry_studenti_idregistryclass'), null);
 				this.helpForm.filter($('#registry_studenti_idtitle'), null);
 				this.helpForm.filter($('#registry_studenti_residence'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm'), this.getDataTable('diniego_alias2'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias1'), this.getDataTable('diniego_alias1'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias2'), this.getDataTable('diniego_alias3'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias4'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('nullaosta_alias3'));
+				this.enableControl($('#registry_studenti_idreg'), true);
 				//afterClearin
 				
 				//afterClearInAsyncBase
 			},
 
-			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('pianostudio'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizione'), this.getDataTable('decadenza'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm'), this.getDataTable('diniego_alias2'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias1'), this.getDataTable('diniego_alias1'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_imm_alias2'), this.getDataTable('diniego_alias3'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('diniego_alias4'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza_pas'), this.getDataTable('nullaosta_alias3'));
-				//afterFillin
-				return this.superClass.afterFill.call(this);
-			},
+			//afterFill
 
 			afterLink: function () {
 				var self = this;
 				this.configureDependencies();
+				this.state.DS.tables.registry.defaults({ 'extension': 'studenti' });
 				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': '01' });
+				this.state.DS.tables.registry.defaults({ 'idnation': 1 });
 				this.state.DS.tables.registry.defaults({ 'idregistryclass': '22' });
 				this.state.DS.tables.registry.defaults({ 'idregistrykind': '21' });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
+				this.state.DS.tables.registry.defaults({ 'active': 'S' });
+				this.state.DS.tables.registry.defaults({ 'authorization_free': 'N' });
+				this.state.DS.tables.registry.defaults({ 'multi_cf': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flagbankitaliaproceeds': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flag_pa': 'N' });
+				this.state.DS.tables.registry.defaults({ 'sdi_norifamm': 'N' });
 				this.setDenyNull("registry","surname");
 				this.setDenyNull("registry","forename");
 				this.setDenyNull("registry","gender");
-				this.setDenyNull("registry","idnation");
 				this.setDenyNull("registry","birthdate");
-				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatusdefaultview"), this.q.eq('maritalstatus_active', 'Si'));
 				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
 				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
 				$('#grid_titolostudio_docenti').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
-				$('#grid_istanza_imm_seganagstupre').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
-				$('#grid_istanza_imm_alias1_seganagstu').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
-				$('#grid_istanza_imm_alias2_seganagsturin').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
 				//indico al framework che la tabella corsostudio è cached
 				var corsostudioTable = this.getDataTable("corsostudio");
 				appMeta.metaModel.cachedTable(corsostudioTable, true);
@@ -238,10 +135,12 @@
 
 			//beforePost
 
+			//afterPost
+
 			configureDependencies:function () {
 				var p1 = $("input[data-tag='registry.surname?registrystudentiview.registry_surname']");
 				var p2 = $("input[data-tag='registry.forename?registrystudentiview.registry_forename']");
-				var f1 = $("input[data-tag='registry.title']");
+				var f1 = $("input[data-tag='registry.title?registrystudentiview.title']");
                 // funz di trasformazione
                 var modifiesDenominazione = function (row) {
                     if (!row) return;

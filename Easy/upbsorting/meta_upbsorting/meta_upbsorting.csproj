@@ -82,6 +82,7 @@
   <ItemGroup>
     <Reference Include="funzioni_configurazione">
       <HintPath>..\..\unmanaged\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>

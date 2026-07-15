@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections;
@@ -27,11 +25,11 @@ namespace EasyPagamenti.Extra {
 
         private static string[] errore = {
             "OK",
-            "L'ultimo carattere non Ë coerente con gli altri caratteri",
+            "L'ultimo carattere non √® coerente con gli altri caratteri",
             "La partita IVA deve essere composta da 11 caratteri numerici",
-            "Si Ë verificata una eccezione generica",
+            "Si √® verificata una eccezione generica",
 			// "Il primo carattere della partita IVA deve essere diverso da 8 e 9",
-			// "Il codice della provincia non Ë valido (caratteri in posizione 10, 11 e 12)"
+			// "Il codice della provincia non √® valido (caratteri in posizione 10, 11 e 12)"
 		};
 
         static PartitaIVA() {
@@ -69,7 +67,7 @@ namespace EasyPagamenti.Extra {
 
         public static string ControllaPartitaIva(string piva) {
             if (piva.Length < 3) {
-                return "La partita IVA italiana Ë composta da 11 numeri; la partita IVA straniera deve cominciare con la sigla della nazione";
+                return "La partita IVA italiana √® composta da 11 numeri; la partita IVA straniera deve cominciare con la sigla della nazione";
             }
 
             if ((piva[0] >= '0') && (piva[0] <= '9') && (piva[1] >= '0') && (piva[1] <= '9')) {
@@ -104,7 +102,7 @@ namespace EasyPagamenti.Extra {
             }
 
             if (!isok) {
-                return string.Format("La partita IVA che comincia con {0} deve contenere una quantit‡ di numeri pari a {1}",
+                return string.Format("La partita IVA che comincia con {0} deve contenere una quantit√† di numeri pari a {1}",
                     piva.Substring(0, 2).ToUpper(), ll);
             }
 

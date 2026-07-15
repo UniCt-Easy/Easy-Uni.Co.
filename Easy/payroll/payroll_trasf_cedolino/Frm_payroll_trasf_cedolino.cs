@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -172,364 +170,365 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.DS = new payroll_trasf_cedolino.vistaForm();
-            this.tabController = new System.Windows.Forms.TabControl();
-            this.tabIntro = new System.Windows.Forms.TabPage();
-            this.lblErrore = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabCedNonTrasferibili = new System.Windows.Forms.TabPage();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.dgCedoliniNonTrasferibili = new System.Windows.Forms.DataGrid();
-            this.tabCedTrasferibili = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.chkConguaglioRiepilogativo = new System.Windows.Forms.CheckBox();
-            this.txtCedoliniSelezionati = new System.Windows.Forms.TextBox();
-            this.txtSelezionaCedolini = new System.Windows.Forms.TextBox();
-            this.btnSelezionaCedolini = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.dgCedoliniTrasferibili = new System.Windows.Forms.DataGrid();
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.btnIndietro = new System.Windows.Forms.Button();
-            this.btnAvanti = new System.Windows.Forms.Button();
-            this.dsCedolino = new payroll_trasf_cedolino.dsCedolino();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.tabController.SuspendLayout();
-            this.tabIntro.SuspendLayout();
-            this.tabCedNonTrasferibili.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedoliniNonTrasferibili)).BeginInit();
-            this.tabCedTrasferibili.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedoliniTrasferibili)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsCedolino)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // tabController
-            // 
-            this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.DS = new payroll_trasf_cedolino.vistaForm();
+			this.tabController = new System.Windows.Forms.TabControl();
+			this.tabIntro = new System.Windows.Forms.TabPage();
+			this.lblErrore = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.tabCedNonTrasferibili = new System.Windows.Forms.TabPage();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label24 = new System.Windows.Forms.Label();
+			this.dgCedoliniNonTrasferibili = new System.Windows.Forms.DataGrid();
+			this.tabCedTrasferibili = new System.Windows.Forms.TabPage();
+			this.label2 = new System.Windows.Forms.Label();
+			this.chkConguaglioRiepilogativo = new System.Windows.Forms.CheckBox();
+			this.txtCedoliniSelezionati = new System.Windows.Forms.TextBox();
+			this.txtSelezionaCedolini = new System.Windows.Forms.TextBox();
+			this.btnSelezionaCedolini = new System.Windows.Forms.Button();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.dgCedoliniTrasferibili = new System.Windows.Forms.DataGrid();
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.btnIndietro = new System.Windows.Forms.Button();
+			this.btnAvanti = new System.Windows.Forms.Button();
+			this.dsCedolino = new payroll_trasf_cedolino.dsCedolino();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.tabController.SuspendLayout();
+			this.tabIntro.SuspendLayout();
+			this.tabCedNonTrasferibili.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniNonTrasferibili)).BeginInit();
+			this.tabCedTrasferibili.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniTrasferibili)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dsCedolino)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// tabController
+			// 
+			this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabController.Controls.Add(this.tabIntro);
-            this.tabController.Controls.Add(this.tabCedNonTrasferibili);
-            this.tabController.Controls.Add(this.tabCedTrasferibili);
-            this.tabController.Location = new System.Drawing.Point(8, 8);
-            this.tabController.Name = "tabController";
-            this.tabController.SelectedIndex = 0;
-            this.tabController.Size = new System.Drawing.Size(766, 477);
-            this.tabController.TabIndex = 0;
-            // 
-            // tabIntro
-            // 
-            this.tabIntro.Controls.Add(this.lblErrore);
-            this.tabIntro.Controls.Add(this.label16);
-            this.tabIntro.Controls.Add(this.label6);
-            this.tabIntro.Controls.Add(this.label5);
-            this.tabIntro.Controls.Add(this.label4);
-            this.tabIntro.Controls.Add(this.label1);
-            this.tabIntro.Location = new System.Drawing.Point(4, 22);
-            this.tabIntro.Name = "tabIntro";
-            this.tabIntro.Size = new System.Drawing.Size(758, 451);
-            this.tabIntro.TabIndex = 0;
-            this.tabIntro.Text = "Pagina 1 di 3";
-            // 
-            // lblErrore
-            // 
-            this.lblErrore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblErrore.Location = new System.Drawing.Point(16, 245);
-            this.lblErrore.Name = "lblErrore";
-            this.lblErrore.Size = new System.Drawing.Size(712, 88);
-            this.lblErrore.TabIndex = 20;
-            this.lblErrore.Text = "Visualizza Errore";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabController.Controls.Add(this.tabIntro);
+			this.tabController.Controls.Add(this.tabCedNonTrasferibili);
+			this.tabController.Controls.Add(this.tabCedTrasferibili);
+			this.tabController.Location = new System.Drawing.Point(8, 8);
+			this.tabController.Name = "tabController";
+			this.tabController.SelectedIndex = 0;
+			this.tabController.Size = new System.Drawing.Size(766, 477);
+			this.tabController.TabIndex = 0;
+			// 
+			// tabIntro
+			// 
+			this.tabIntro.Controls.Add(this.lblErrore);
+			this.tabIntro.Controls.Add(this.label16);
+			this.tabIntro.Controls.Add(this.label6);
+			this.tabIntro.Controls.Add(this.label5);
+			this.tabIntro.Controls.Add(this.label4);
+			this.tabIntro.Controls.Add(this.label1);
+			this.tabIntro.Location = new System.Drawing.Point(4, 22);
+			this.tabIntro.Name = "tabIntro";
+			this.tabIntro.Size = new System.Drawing.Size(758, 451);
+			this.tabIntro.TabIndex = 0;
+			this.tabIntro.Text = "Pagina 1 di 3";
+			// 
+			// lblErrore
+			// 
+			this.lblErrore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.lblErrore.Location = new System.Drawing.Point(16, 245);
+			this.lblErrore.Name = "lblErrore";
+			this.lblErrore.Size = new System.Drawing.Size(712, 88);
+			this.lblErrore.TabIndex = 20;
+			this.lblErrore.Text = "Visualizza Errore";
+			// 
+			// label16
+			// 
+			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.Location = new System.Drawing.Point(24, 80);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(702, 23);
-            this.label16.TabIndex = 19;
-            this.label16.Text = "Vengono mostrati tutti i cedolini non trasferibili con la causa della loro non tra" +
-    "sferibilità";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label16.Location = new System.Drawing.Point(24, 80);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(702, 23);
+			this.label16.TabIndex = 19;
+			this.label16.Text = "Vengono mostrati tutti i cedolini non trasferibili con la causa della loro non tr" +
+    "asferibilità";
+			// 
+			// label6
+			// 
+			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.Location = new System.Drawing.Point(24, 144);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(702, 24);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Vengono mostrati tutti i cedolini trasferibili. L\'utente sceglierà quali trasferi" +
+			this.label6.Location = new System.Drawing.Point(24, 144);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(702, 24);
+			this.label6.TabIndex = 17;
+			this.label6.Text = "Vengono mostrati tutti i cedolini trasferibili. L\'utente sceglierà quali trasferi" +
     "re nell\'esercizio successivo";
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(8, 56);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(264, 16);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "FASE 1: Griglia dei Cedolini Non Trasferibili";
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(8, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(264, 16);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "FASE 2: Griglia dei cedolini trasferibili";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// label5
+			// 
+			this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(8, 56);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(264, 16);
+			this.label5.TabIndex = 16;
+			this.label5.Text = "FASE 1: Griglia dei Cedolini Non Trasferibili";
+			// 
+			// label4
+			// 
+			this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(8, 112);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(264, 16);
+			this.label4.TabIndex = 15;
+			this.label4.Text = "FASE 2: Griglia dei cedolini trasferibili";
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(8, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(743, 24);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "La procedura di trasferimento dei cedolini consente di trasferire i cedolini dall" +
+			this.label1.Location = new System.Drawing.Point(8, 8);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(743, 24);
+			this.label1.TabIndex = 14;
+			this.label1.Text = "La procedura di trasferimento dei cedolini consente di trasferire i cedolini dall" +
     "\'anno fiscale corrente all\'anno fiscale successivo.";
-            // 
-            // tabCedNonTrasferibili
-            // 
-            this.tabCedNonTrasferibili.Controls.Add(this.label17);
-            this.tabCedNonTrasferibili.Controls.Add(this.label24);
-            this.tabCedNonTrasferibili.Controls.Add(this.dgCedoliniNonTrasferibili);
-            this.tabCedNonTrasferibili.Location = new System.Drawing.Point(4, 22);
-            this.tabCedNonTrasferibili.Name = "tabCedNonTrasferibili";
-            this.tabCedNonTrasferibili.Size = new System.Drawing.Size(758, 451);
-            this.tabCedNonTrasferibili.TabIndex = 1;
-            this.tabCedNonTrasferibili.Text = "Pagina 2 di 3";
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// tabCedNonTrasferibili
+			// 
+			this.tabCedNonTrasferibili.Controls.Add(this.label17);
+			this.tabCedNonTrasferibili.Controls.Add(this.label24);
+			this.tabCedNonTrasferibili.Controls.Add(this.dgCedoliniNonTrasferibili);
+			this.tabCedNonTrasferibili.Location = new System.Drawing.Point(4, 22);
+			this.tabCedNonTrasferibili.Name = "tabCedNonTrasferibili";
+			this.tabCedNonTrasferibili.Size = new System.Drawing.Size(758, 451);
+			this.tabCedNonTrasferibili.TabIndex = 1;
+			this.tabCedNonTrasferibili.Text = "Pagina 2 di 3";
+			// 
+			// label17
+			// 
+			this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.Location = new System.Drawing.Point(8, 32);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(742, 16);
-            this.label17.TabIndex = 18;
-            this.label17.Text = "TUTTI I CEDOLINI ELENCATI DEVONO ESSERE EROGATI IN QUESTO ANNO";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label24
-            // 
-            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label17.Location = new System.Drawing.Point(8, 32);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(742, 16);
+			this.label17.TabIndex = 18;
+			this.label17.Text = "TUTTI I CEDOLINI ELENCATI DEVONO ESSERE EROGATI IN QUESTO ANNO";
+			this.label17.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// label24
+			// 
+			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label24.Location = new System.Drawing.Point(8, 8);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(742, 23);
-            this.label24.TabIndex = 19;
-            this.label24.Text = "FASE 1: viene mostrato l\'elenco dei cedolini non trasferibili";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // dgCedoliniNonTrasferibili
-            // 
-            this.dgCedoliniNonTrasferibili.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.label24.Location = new System.Drawing.Point(8, 8);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(742, 23);
+			this.label24.TabIndex = 19;
+			this.label24.Text = "FASE 1: viene mostrato l\'elenco dei cedolini non trasferibili";
+			this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// dgCedoliniNonTrasferibili
+			// 
+			this.dgCedoliniNonTrasferibili.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgCedoliniNonTrasferibili.DataMember = "";
-            this.dgCedoliniNonTrasferibili.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgCedoliniNonTrasferibili.Location = new System.Drawing.Point(8, 48);
-            this.dgCedoliniNonTrasferibili.Name = "dgCedoliniNonTrasferibili";
-            this.dgCedoliniNonTrasferibili.Size = new System.Drawing.Size(742, 389);
-            this.dgCedoliniNonTrasferibili.TabIndex = 0;
-            // 
-            // tabCedTrasferibili
-            // 
-            this.tabCedTrasferibili.Controls.Add(this.label2);
-            this.tabCedTrasferibili.Controls.Add(this.chkConguaglioRiepilogativo);
-            this.tabCedTrasferibili.Controls.Add(this.txtCedoliniSelezionati);
-            this.tabCedTrasferibili.Controls.Add(this.txtSelezionaCedolini);
-            this.tabCedTrasferibili.Controls.Add(this.btnSelezionaCedolini);
-            this.tabCedTrasferibili.Controls.Add(this.label19);
-            this.tabCedTrasferibili.Controls.Add(this.label20);
-            this.tabCedTrasferibili.Controls.Add(this.label23);
-            this.tabCedTrasferibili.Controls.Add(this.label18);
-            this.tabCedTrasferibili.Controls.Add(this.dgCedoliniTrasferibili);
-            this.tabCedTrasferibili.Location = new System.Drawing.Point(4, 22);
-            this.tabCedTrasferibili.Name = "tabCedTrasferibili";
-            this.tabCedTrasferibili.Size = new System.Drawing.Size(758, 451);
-            this.tabCedTrasferibili.TabIndex = 2;
-            this.tabCedTrasferibili.Text = "Pagina 3 di 3";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 428);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(653, 13);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "N.B.:Si sconsiglia di effettuare tale operazione in quanto il conguaglio fiscale " +
+			this.dgCedoliniNonTrasferibili.DataMember = "";
+			this.dgCedoliniNonTrasferibili.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgCedoliniNonTrasferibili.Location = new System.Drawing.Point(8, 48);
+			this.dgCedoliniNonTrasferibili.Name = "dgCedoliniNonTrasferibili";
+			this.dgCedoliniNonTrasferibili.Size = new System.Drawing.Size(742, 389);
+			this.dgCedoliniNonTrasferibili.TabIndex = 0;
+			// 
+			// tabCedTrasferibili
+			// 
+			this.tabCedTrasferibili.Controls.Add(this.label2);
+			this.tabCedTrasferibili.Controls.Add(this.chkConguaglioRiepilogativo);
+			this.tabCedTrasferibili.Controls.Add(this.txtCedoliniSelezionati);
+			this.tabCedTrasferibili.Controls.Add(this.txtSelezionaCedolini);
+			this.tabCedTrasferibili.Controls.Add(this.btnSelezionaCedolini);
+			this.tabCedTrasferibili.Controls.Add(this.label19);
+			this.tabCedTrasferibili.Controls.Add(this.label20);
+			this.tabCedTrasferibili.Controls.Add(this.label23);
+			this.tabCedTrasferibili.Controls.Add(this.label18);
+			this.tabCedTrasferibili.Controls.Add(this.dgCedoliniTrasferibili);
+			this.tabCedTrasferibili.Location = new System.Drawing.Point(4, 22);
+			this.tabCedTrasferibili.Name = "tabCedTrasferibili";
+			this.tabCedTrasferibili.Size = new System.Drawing.Size(758, 451);
+			this.tabCedTrasferibili.TabIndex = 2;
+			this.tabCedTrasferibili.Text = "Pagina 3 di 3";
+			// 
+			// label2
+			// 
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(8, 428);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(653, 13);
+			this.label2.TabIndex = 18;
+			this.label2.Text = "N.B.:Si sconsiglia di effettuare tale operazione in quanto il conguaglio fiscale " +
     "è un obbligo del sostituto d\'imposta.";
-            // 
-            // chkConguaglioRiepilogativo
-            // 
-            this.chkConguaglioRiepilogativo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkConguaglioRiepilogativo.AutoSize = true;
-            this.chkConguaglioRiepilogativo.Location = new System.Drawing.Point(11, 406);
-            this.chkConguaglioRiepilogativo.Name = "chkConguaglioRiepilogativo";
-            this.chkConguaglioRiepilogativo.Size = new System.Drawing.Size(676, 17);
-            this.chkConguaglioRiepilogativo.TabIndex = 17;
-            this.chkConguaglioRiepilogativo.Text = "Per i cedolini selezionati, NON calcolare un CONGUAGLIO  FISCALE ma solo un Cedol" +
+			// 
+			// chkConguaglioRiepilogativo
+			// 
+			this.chkConguaglioRiepilogativo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.chkConguaglioRiepilogativo.AutoSize = true;
+			this.chkConguaglioRiepilogativo.Location = new System.Drawing.Point(11, 406);
+			this.chkConguaglioRiepilogativo.Name = "chkConguaglioRiepilogativo";
+			this.chkConguaglioRiepilogativo.Size = new System.Drawing.Size(676, 17);
+			this.chkConguaglioRiepilogativo.TabIndex = 17;
+			this.chkConguaglioRiepilogativo.Text = "Per i cedolini selezionati, NON calcolare un CONGUAGLIO  FISCALE ma solo un Cedol" +
     "ino di Riepilogo di quanto già erogato nell\'esercizio.";
-            this.chkConguaglioRiepilogativo.UseVisualStyleBackColor = true;
-            // 
-            // txtCedoliniSelezionati
-            // 
-            this.txtCedoliniSelezionati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.chkConguaglioRiepilogativo.UseVisualStyleBackColor = true;
+			// 
+			// txtCedoliniSelezionati
+			// 
+			this.txtCedoliniSelezionati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCedoliniSelezionati.Location = new System.Drawing.Point(112, 372);
-            this.txtCedoliniSelezionati.Name = "txtCedoliniSelezionati";
-            this.txtCedoliniSelezionati.ReadOnly = true;
-            this.txtCedoliniSelezionati.Size = new System.Drawing.Size(638, 20);
-            this.txtCedoliniSelezionati.TabIndex = 16;
-            // 
-            // txtSelezionaCedolini
-            // 
-            this.txtSelezionaCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.txtCedoliniSelezionati.Location = new System.Drawing.Point(112, 372);
+			this.txtCedoliniSelezionati.Name = "txtCedoliniSelezionati";
+			this.txtCedoliniSelezionati.ReadOnly = true;
+			this.txtCedoliniSelezionati.Size = new System.Drawing.Size(638, 20);
+			this.txtCedoliniSelezionati.TabIndex = 16;
+			// 
+			// txtSelezionaCedolini
+			// 
+			this.txtSelezionaCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSelezionaCedolini.Location = new System.Drawing.Point(88, 340);
-            this.txtSelezionaCedolini.Name = "txtSelezionaCedolini";
-            this.txtSelezionaCedolini.Size = new System.Drawing.Size(662, 20);
-            this.txtSelezionaCedolini.TabIndex = 15;
-            // 
-            // btnSelezionaCedolini
-            // 
-            this.btnSelezionaCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSelezionaCedolini.Location = new System.Drawing.Point(8, 340);
-            this.btnSelezionaCedolini.Name = "btnSelezionaCedolini";
-            this.btnSelezionaCedolini.Size = new System.Drawing.Size(75, 23);
-            this.btnSelezionaCedolini.TabIndex = 13;
-            this.btnSelezionaCedolini.Text = "Seleziona";
-            this.btnSelezionaCedolini.Click += new System.EventHandler(this.btnSelezionaCedolini_Click);
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label19.Location = new System.Drawing.Point(8, 316);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(744, 23);
-            this.label19.TabIndex = 12;
-            this.label19.Text = "Immettere i numeri e/o gli intervalli di cedolini separati da virgole. Es.: per s" +
+			this.txtSelezionaCedolini.Location = new System.Drawing.Point(88, 340);
+			this.txtSelezionaCedolini.Name = "txtSelezionaCedolini";
+			this.txtSelezionaCedolini.Size = new System.Drawing.Size(662, 20);
+			this.txtSelezionaCedolini.TabIndex = 15;
+			// 
+			// btnSelezionaCedolini
+			// 
+			this.btnSelezionaCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnSelezionaCedolini.Location = new System.Drawing.Point(8, 340);
+			this.btnSelezionaCedolini.Name = "btnSelezionaCedolini";
+			this.btnSelezionaCedolini.Size = new System.Drawing.Size(75, 23);
+			this.btnSelezionaCedolini.TabIndex = 13;
+			this.btnSelezionaCedolini.Text = "Seleziona";
+			this.btnSelezionaCedolini.Click += new System.EventHandler(this.btnSelezionaCedolini_Click);
+			// 
+			// label19
+			// 
+			this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label19.Location = new System.Drawing.Point(8, 316);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(744, 23);
+			this.label19.TabIndex = 12;
+			this.label19.Text = "Immettere i numeri e/o gli intervalli di cedolini separati da virgole. Es.: per s" +
     "elezionare i cedolini 1,4,6,7,8 scrivere 1,4,6-8 e premi Seleziona.";
-            // 
-            // label20
-            // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label20.Location = new System.Drawing.Point(8, 372);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(104, 24);
-            this.label20.TabIndex = 14;
-            this.label20.Text = "Cedolini Selezionati";
-            // 
-            // label23
-            // 
-            this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			// 
+			// label20
+			// 
+			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label20.Location = new System.Drawing.Point(8, 372);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(104, 24);
+			this.label20.TabIndex = 14;
+			this.label20.Text = "Cedolini Selezionati";
+			// 
+			// label23
+			// 
+			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label23.Location = new System.Drawing.Point(8, 8);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(742, 16);
-            this.label23.TabIndex = 10;
-            this.label23.Text = "FASE 2: Scelta dei cedolini da trasferire nell\'esercizio successivo";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(8, 32);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(744, 16);
-            this.label18.TabIndex = 9;
-            this.label18.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
+			this.label23.Location = new System.Drawing.Point(8, 8);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(742, 16);
+			this.label23.TabIndex = 10;
+			this.label23.Text = "FASE 2: Scelta dei cedolini da trasferire nell\'esercizio successivo";
+			this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// label18
+			// 
+			this.label18.Location = new System.Drawing.Point(8, 32);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(744, 16);
+			this.label18.TabIndex = 9;
+			this.label18.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
     "per selezionare più cedolini";
-            // 
-            // dgCedoliniTrasferibili
-            // 
-            this.dgCedoliniTrasferibili.AllowNavigation = false;
-            this.dgCedoliniTrasferibili.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// dgCedoliniTrasferibili
+			// 
+			this.dgCedoliniTrasferibili.AllowNavigation = false;
+			this.dgCedoliniTrasferibili.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgCedoliniTrasferibili.DataMember = "";
-            this.dgCedoliniTrasferibili.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgCedoliniTrasferibili.Location = new System.Drawing.Point(8, 48);
-            this.dgCedoliniTrasferibili.Name = "dgCedoliniTrasferibili";
-            this.dgCedoliniTrasferibili.Size = new System.Drawing.Size(742, 265);
-            this.dgCedoliniTrasferibili.TabIndex = 2;
-            this.dgCedoliniTrasferibili.Paint += new System.Windows.Forms.PaintEventHandler(this.dgCedoliniTrasferibili_Paint);
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(694, 493);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
-            this.btnAnnulla.TabIndex = 7;
-            this.btnAnnulla.Text = "Annulla";
-            // 
-            // btnIndietro
-            // 
-            this.btnIndietro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnIndietro.Location = new System.Drawing.Point(496, 493);
-            this.btnIndietro.Name = "btnIndietro";
-            this.btnIndietro.Size = new System.Drawing.Size(75, 23);
-            this.btnIndietro.TabIndex = 5;
-            this.btnIndietro.Text = "< Indietro";
-            this.btnIndietro.Click += new System.EventHandler(this.btnIndietro_Click);
-            // 
-            // btnAvanti
-            // 
-            this.btnAvanti.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnAvanti.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnAvanti.Location = new System.Drawing.Point(587, 493);
-            this.btnAvanti.Name = "btnAvanti";
-            this.btnAvanti.Size = new System.Drawing.Size(75, 23);
-            this.btnAvanti.TabIndex = 6;
-            this.btnAvanti.Text = "Avanti >";
-            this.btnAvanti.Click += new System.EventHandler(this.btnAvanti_Click);
-            // 
-            // dsCedolino
-            // 
-            this.dsCedolino.DataSetName = "dsCedolino";
-            this.dsCedolino.EnforceConstraints = false;
-            this.dsCedolino.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // frmcedolino_trasferimento
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(782, 523);
-            this.Controls.Add(this.btnAnnulla);
-            this.Controls.Add(this.btnIndietro);
-            this.Controls.Add(this.btnAvanti);
-            this.Controls.Add(this.tabController);
-            this.Name = "frmcedolino_trasferimento";
-            this.Text = "frmcedolino_trasferimento";
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.tabController.ResumeLayout(false);
-            this.tabIntro.ResumeLayout(false);
-            this.tabCedNonTrasferibili.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedoliniNonTrasferibili)).EndInit();
-            this.tabCedTrasferibili.ResumeLayout(false);
-            this.tabCedTrasferibili.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgCedoliniTrasferibili)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsCedolino)).EndInit();
-            this.ResumeLayout(false);
+			this.dgCedoliniTrasferibili.DataMember = "";
+			this.dgCedoliniTrasferibili.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgCedoliniTrasferibili.Location = new System.Drawing.Point(8, 48);
+			this.dgCedoliniTrasferibili.Name = "dgCedoliniTrasferibili";
+			this.dgCedoliniTrasferibili.Size = new System.Drawing.Size(742, 265);
+			this.dgCedoliniTrasferibili.TabIndex = 2;
+			this.dgCedoliniTrasferibili.CurrentCellChanged += new System.EventHandler(this.dgCedoliniTrasferibili_CurrentCellChanged);
+			this.dgCedoliniTrasferibili.Paint += new System.Windows.Forms.PaintEventHandler(this.dgCedoliniTrasferibili_Paint);
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(694, 493);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
+			this.btnAnnulla.TabIndex = 7;
+			this.btnAnnulla.Text = "Annulla";
+			// 
+			// btnIndietro
+			// 
+			this.btnIndietro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnIndietro.Location = new System.Drawing.Point(496, 493);
+			this.btnIndietro.Name = "btnIndietro";
+			this.btnIndietro.Size = new System.Drawing.Size(75, 23);
+			this.btnIndietro.TabIndex = 5;
+			this.btnIndietro.Text = "< Indietro";
+			this.btnIndietro.Click += new System.EventHandler(this.btnIndietro_Click);
+			// 
+			// btnAvanti
+			// 
+			this.btnAvanti.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.btnAvanti.Cursor = System.Windows.Forms.Cursors.Default;
+			this.btnAvanti.Location = new System.Drawing.Point(587, 493);
+			this.btnAvanti.Name = "btnAvanti";
+			this.btnAvanti.Size = new System.Drawing.Size(75, 23);
+			this.btnAvanti.TabIndex = 6;
+			this.btnAvanti.Text = "Avanti >";
+			this.btnAvanti.Click += new System.EventHandler(this.btnAvanti_Click);
+			// 
+			// dsCedolino
+			// 
+			this.dsCedolino.DataSetName = "dsCedolino";
+			this.dsCedolino.EnforceConstraints = false;
+			this.dsCedolino.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// frmcedolino_trasferimento
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(782, 523);
+			this.Controls.Add(this.btnAnnulla);
+			this.Controls.Add(this.btnIndietro);
+			this.Controls.Add(this.btnAvanti);
+			this.Controls.Add(this.tabController);
+			this.Name = "frmcedolino_trasferimento";
+			this.Text = "frmcedolino_trasferimento";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.tabController.ResumeLayout(false);
+			this.tabIntro.ResumeLayout(false);
+			this.tabCedNonTrasferibili.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniNonTrasferibili)).EndInit();
+			this.tabCedTrasferibili.ResumeLayout(false);
+			this.tabCedTrasferibili.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniTrasferibili)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dsCedolino)).EndInit();
+			this.ResumeLayout(false);
 
         }
         #endregion
@@ -971,6 +970,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                     }
                 case 2: {
                         riempidgCedoliniTrasferibili();
+
+                        // Quando si arriva alla pagina 3, gestisci il checkbox in base ai cedolini selezionati
+                        GestisciCheckboxRiepilogo();
                         break;
                     }
             }
@@ -1017,6 +1019,20 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         }
 
         private void btnTrasferisciCedolini() {
+            // Validazione per contratti non conguagliati senza flag di riepilogo
+            if (VerificaContrattiNonConguagliati() && !chkConguaglioRiepilogativo.Checked)
+            {
+                string messaggio = "Operazione non consentita!\n\n" +
+                    "Sono stati selezionati cedolini di contratti non conguagliati.\n" +
+                    "Per questi contratti è OBBLIGATORIO il flag 'NON calcolare un CONGUAGLIO FISCALE " +
+                    "ma solo un Cedolino di Riepilogo'.\n\n" +
+                    "Se si desidera escludere questi cedolini dalla CU, utilizzare l'apposito flag di esclusione, " +
+                    "non la mancanza del cedolino di riepilogo.";
+
+                show(messaggio, "Trasferimento non consentito", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Controllo che sia presente almeno un cedolino nel grid
             string dataMember = dgCedoliniTrasferibili.DataMember;
             CurrencyManager cm = dgCedoliniTrasferibili.BindingContext[dsCedolino, dataMember] as CurrencyManager;
@@ -1222,6 +1238,118 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
             if (occorreAggiornare) {
                 aggiornaDataGrid();
+            }
+        }
+
+        /// <summary>
+        /// Verifica se tra i cedolini selezionati ci sono contratti non conguagliati
+        /// </summary>
+        /// <returns>True se ci sono contratti non conguagliati, False altrimenti</returns>
+        private bool VerificaContrattiNonConguagliati()
+        {
+            if (dgCedoliniTrasferibili == null || dgCedoliniTrasferibili.DataSource == null)
+                return false;
+
+            string dataMember = dgCedoliniTrasferibili.DataMember;
+            if (string.IsNullOrEmpty(dataMember))
+                return false;
+
+            CurrencyManager cm = null;
+            try
+            {
+                if (this.BindingContext != null && dsCedolino != null)
+                {
+                    cm = this.BindingContext[dsCedolino, dataMember] as CurrencyManager;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            if (cm == null)
+                return false;
+
+            DataView view = cm.List as DataView;
+            if (view == null || view.Count == 0)
+                return false;
+
+            ArrayList contrattiVerificati = new ArrayList();
+
+            for (int i = 0; i < view.Count; i++)
+            {
+                try
+                {
+                    if (dgCedoliniTrasferibili.IsSelected(i))
+                    {
+                        object idContratto = view[i]["idcon"];
+
+                        if (idContratto == null || idContratto == DBNull.Value)
+                            continue;
+
+                        if (contrattiVerificati.Contains(idContratto))
+                            continue;
+
+                        contrattiVerificati.Add(idContratto);
+
+                        if (ContrattoNonConguagliato(idContratto))
+                            return true;
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Verifica se un contratto è non conguagliato
+        /// </summary>
+        private bool ContrattoNonConguagliato(object idContratto)
+        {
+            string filtroCedolino = QHS.AppAnd(
+                QHS.CmpEq("idcon", idContratto),
+                QHS.CmpEq("fiscalyear", esercizio),
+                QHS.CmpEq("flagbalance", "N"));
+
+            string filtroCedoliniNonErogati = QHS.AppAnd(
+                filtroCedolino,
+                QHS.IsNull("disbursementdate"));
+
+            string filtroCedoliniErogati = QHS.AppAnd(
+                filtroCedolino, 
+                QHS.IsNotNull("disbursementdate"));
+
+            int countCedolinoErogato = Meta.Conn.RUN_SELECT_COUNT("payroll", filtroCedoliniErogati, true);
+
+            int countCedolinoNonErogato = Meta.Conn.RUN_SELECT_COUNT("payroll", filtroCedoliniNonErogati, true);
+
+            return (countCedolinoErogato > 0 && countCedolinoNonErogato > 0);
+        }
+
+        /// <summary>
+        /// Gestisce lo stato del checkbox di riepilogo in base ai cedolini selezionati
+        /// </summary>
+        private void GestisciCheckboxRiepilogo()
+        {
+            // Verifica se ci sono contratti non conguagliati tra i selezionati
+            bool hasContrattiNonConguagliati = VerificaContrattiNonConguagliati();
+
+            if (hasContrattiNonConguagliati)
+            {
+                // Se ci sono contratti non conguagliati, forza il checkbox a true e grigialo
+                chkConguaglioRiepilogativo.Checked = true;
+                chkConguaglioRiepilogativo.Enabled = false;
+
+            }
+            else
+            {
+                // Se non ci sono contratti non conguagliati, riabilita il checkbox (mantieni lo stato precedente)
+                chkConguaglioRiepilogativo.Enabled = true;
+                chkConguaglioRiepilogativo.Checked = false;
             }
         }
 
@@ -1636,6 +1764,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         // con quello del nuovo cedolino
                         object idResidence = rowConguaglio["idresidence"];
                         DataRow nuovoCedolinoRata = creaUnCedolino(idContratto, meseRiferimento, dataNuovoCedolino, idResidence);
+                        nuovoCedolinoRata["idupb"] = rowConguaglio["idupb"];
                         rowConguaglio["npayroll"] = meseRiferimento + 1;
 
                         //IL nuovo cedolino deve essere ricalcolato perchè i dati di conguaglio sono cambiati
@@ -1879,6 +2008,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             for (int i = 0; i < cedTrasferitiRow.Length; i++) {
                 aggiungiCedolinoInTabellaCedolinoAnniSuccessivi(cedTrasferitiRow[i]);
                 cedTrasferitiRow[i].Delete();
+            } 
+            string filtraCedoliniRataZero = QHC.AppAnd(QHC.CmpEq("feegross", 0),QHC.CmpEq("fiscalyear", esercizio), 
+                   QHC.CmpEq("flagbalance", "N"), QHC.CmpEq("flagcomputed", "N"));
+            DataRow[] cedNuoviCedoliniRata = dsCedolino.payroll.Select(filtraCedoliniRataZero);
+            for (int i = 0; i < cedNuoviCedoliniRata.Length; i++) {
+                cedNuoviCedoliniRata[i].Delete();
             }
             dsCedolino.payroll.AcceptChanges();
         }
@@ -2055,6 +2190,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
         private void dgCedoliniTrasferibili_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
             selezioneRigheCambiata();
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         /// <summary>
@@ -2080,6 +2216,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                     }
                 }
             }
+
+            // Ogni volta che cambia la selezione, rivaluta lo stato del checkbox
+            GestisciCheckboxRiepilogo();
         }
 
         /// <summary>
@@ -2095,7 +2234,11 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
             return -1;
         }
-        #endregion Gestione selezione CEDOLINI DA TRASFERIRE
+		#endregion Gestione selezione CEDOLINI DA TRASFERIRE
 
-    }
+		private void dgCedoliniTrasferibili_CurrentCellChanged(object sender, EventArgs e)
+		{
+            dgCedoliniTrasferibili.Select(dgCedoliniTrasferibili.CurrentCell.RowNumber);
+		}
+	}
 }

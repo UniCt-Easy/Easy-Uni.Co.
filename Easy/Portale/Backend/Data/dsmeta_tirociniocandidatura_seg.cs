@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_tirociniocandidatura_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_tirociniocandidatura_seg: DataSet {
+public partial class dsmeta_tirociniocandidatura_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -56,9 +54,6 @@ public class dsmeta_tirociniocandidatura_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_docenti 		=> (MetaTable)Tables["registry_docenti"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable aoo 		=> (MetaTable)Tables["aoo"];
@@ -196,6 +191,7 @@ private void initClass() {
 
 	//////////////////// STRUTTURA /////////////////////////////////
 	var tstruttura= new MetaTable("struttura");
+	tstruttura.defineColumn("active", typeof(string));
 	tstruttura.defineColumn("idstruttura", typeof(int),false);
 	tstruttura.defineColumn("idstrutturakind", typeof(int),false);
 	tstruttura.defineColumn("title", typeof(string));
@@ -204,82 +200,19 @@ private void initClass() {
 
 	//////////////////// SEDE /////////////////////////////////
 	var tsede= new MetaTable("sede");
+	tsede.defineColumn("idreg", typeof(int),false);
 	tsede.defineColumn("idsede", typeof(int),false);
 	tsede.defineColumn("title", typeof(string));
 	Tables.Add(tsede);
-	tsede.defineKey("idsede");
+	tsede.defineKey("idreg", "idsede");
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
 	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("annotation", typeof(string));
-	tregistry.defineColumn("authorization_free", typeof(string));
-	tregistry.defineColumn("badgecode", typeof(string));
-	tregistry.defineColumn("birthdate", typeof(DateTime),false);
-	tregistry.defineColumn("ccp", typeof(string));
-	tregistry.defineColumn("cf", typeof(string));
-	tregistry.defineColumn("ct", typeof(DateTime),false);
-	tregistry.defineColumn("cu", typeof(string),false);
-	tregistry.defineColumn("email_fe", typeof(string));
-	tregistry.defineColumn("extension", typeof(string));
-	tregistry.defineColumn("extmatricula", typeof(string));
-	tregistry.defineColumn("flag_pa", typeof(string));
-	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
-	tregistry.defineColumn("foreigncf", typeof(string));
-	tregistry.defineColumn("forename", typeof(string),false);
-	tregistry.defineColumn("gender", typeof(string),false);
-	tregistry.defineColumn("idaccmotivecredit", typeof(string));
-	tregistry.defineColumn("idaccmotivedebit", typeof(string));
-	tregistry.defineColumn("idcategory", typeof(string));
-	tregistry.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry.defineColumn("idcity", typeof(int),false);
-	tregistry.defineColumn("idexternal", typeof(int));
-	tregistry.defineColumn("idmaritalstatus", typeof(string));
-	tregistry.defineColumn("idnation", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("idregistryclass", typeof(string));
-	tregistry.defineColumn("idregistrykind", typeof(int));
-	tregistry.defineColumn("idtitle", typeof(string));
-	tregistry.defineColumn("ipa_fe", typeof(string));
-	tregistry.defineColumn("ipa_perlapa", typeof(string));
-	tregistry.defineColumn("location", typeof(string));
-	tregistry.defineColumn("lt", typeof(DateTime),false);
-	tregistry.defineColumn("lu", typeof(string),false);
-	tregistry.defineColumn("maritalsurname", typeof(string));
-	tregistry.defineColumn("multi_cf", typeof(string));
-	tregistry.defineColumn("p_iva", typeof(string));
-	tregistry.defineColumn("pec_fe", typeof(string));
-	tregistry.defineColumn("residence", typeof(int),false);
-	tregistry.defineColumn("rtf", typeof(Byte[]));
-	tregistry.defineColumn("sdi_defrifamm", typeof(string));
-	tregistry.defineColumn("sdi_norifamm", typeof(string));
-	tregistry.defineColumn("surname", typeof(string),false);
 	tregistry.defineColumn("title", typeof(string),false);
-	tregistry.defineColumn("toredirect", typeof(int));
-	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// REGISTRY_DOCENTI /////////////////////////////////
-	var tregistry_docenti= new MetaTable("registry_docenti");
-	tregistry_docenti.defineColumn("ct", typeof(DateTime),false);
-	tregistry_docenti.defineColumn("cu", typeof(string),false);
-	tregistry_docenti.defineColumn("cv", typeof(string));
-	tregistry_docenti.defineColumn("idclassconsorsuale", typeof(int));
-	tregistry_docenti.defineColumn("idcontrattokind", typeof(int));
-	tregistry_docenti.defineColumn("idfonteindicebibliometrico", typeof(int));
-	tregistry_docenti.defineColumn("idreg", typeof(int),false);
-	tregistry_docenti.defineColumn("idreg_istituti", typeof(int));
-	tregistry_docenti.defineColumn("idsasd", typeof(int));
-	tregistry_docenti.defineColumn("idstruttura", typeof(int));
-	tregistry_docenti.defineColumn("indicebibliometrico", typeof(int));
-	tregistry_docenti.defineColumn("lt", typeof(DateTime),false);
-	tregistry_docenti.defineColumn("lu", typeof(string),false);
-	tregistry_docenti.defineColumn("matricola", typeof(string));
-	tregistry_docenti.defineColumn("ricevimento", typeof(string));
-	tregistry_docenti.defineColumn("soggiorno", typeof(string));
-	Tables.Add(tregistry_docenti);
-	tregistry_docenti.defineKey("idreg");
 
 	//////////////////// AOO /////////////////////////////////
 	var taoo= new MetaTable("aoo");
@@ -319,7 +252,7 @@ private void initClass() {
 	ttirocinioprogetto.defineColumn("title", typeof(string),false);
 	ttirocinioprogetto.defineColumn("title_en", typeof(string));
 	ttirocinioprogetto.defineColumn("!idaoo_aoo_title", typeof(string));
-	ttirocinioprogetto.defineColumn("!idreg_docenti_registry_docenti_title", typeof(string));
+	ttirocinioprogetto.defineColumn("!idreg_docenti_registry_title", typeof(string));
 	ttirocinioprogetto.defineColumn("!idsede_sede_title", typeof(string));
 	ttirocinioprogetto.defineColumn("!idstruttura_struttura_title", typeof(string));
 	ttirocinioprogetto.defineColumn("!idstruttura_struttura_idstrutturakind_title", typeof(string));
@@ -332,6 +265,12 @@ private void initClass() {
 	ttirociniocandidaturakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	ttirociniocandidaturakinddefaultview.defineColumn("idtirociniocandidaturakind", typeof(int),false);
 	ttirociniocandidaturakinddefaultview.defineColumn("tirociniocandidaturakind_active", typeof(string));
+	ttirociniocandidaturakinddefaultview.defineColumn("tirociniocandidaturakind_ct", typeof(DateTime),false);
+	ttirociniocandidaturakinddefaultview.defineColumn("tirociniocandidaturakind_cu", typeof(string),false);
+	ttirociniocandidaturakinddefaultview.defineColumn("tirociniocandidaturakind_lt", typeof(DateTime),false);
+	ttirociniocandidaturakinddefaultview.defineColumn("tirociniocandidaturakind_lu", typeof(string),false);
+	ttirociniocandidaturakinddefaultview.defineColumn("tirociniocandidaturakind_sortcode", typeof(int),false);
+	ttirociniocandidaturakinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(ttirociniocandidaturakinddefaultview);
 	ttirociniocandidaturakinddefaultview.defineKey("idtirociniocandidaturakind");
 
@@ -410,10 +349,6 @@ private void initClass() {
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{tirocinioprogetto.Columns["idreg_docenti"]};
 	Relations.Add(new DataRelation("FK_tirocinioprogetto_registry_idreg_docenti",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{registry_docenti.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_docenti_registry_idreg",cPar,cChild,false));
 
 	cPar = new []{aoo.Columns["idaoo"]};
 	cChild = new []{tirocinioprogetto.Columns["idaoo"]};

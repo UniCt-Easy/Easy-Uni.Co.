@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -30,27 +28,6 @@ namespace Backend.Data {
 public partial class dsmeta_learningagrtrainer_seg: DataSet {
 
 	#region Table members declaration
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable didprog_alias3 		=> (MetaTable)Tables["didprog_alias3"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable pratica_alias2 		=> (MetaTable)Tables["pratica_alias2"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable didprog_alias2 		=> (MetaTable)Tables["didprog_alias2"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable iscrizione 		=> (MetaTable)Tables["iscrizione"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sede 		=> (MetaTable)Tables["sede"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable didprog 		=> (MetaTable)Tables["didprog"];
-
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attivform 		=> (MetaTable)Tables["attivform"];
 
@@ -100,7 +77,7 @@ public partial class dsmeta_learningagrtrainer_seg: DataSet {
 	public MetaTable learningagrtrainervalut 		=> (MetaTable)Tables["learningagrtrainervalut"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable learningagrtrainerkind 		=> (MetaTable)Tables["learningagrtrainerkind"];
+	public MetaTable learningagrtrainerkinddefaultview 		=> (MetaTable)Tables["learningagrtrainerkinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable learningagrkinddefaultview 		=> (MetaTable)Tables["learningagrkinddefaultview"];
@@ -136,77 +113,6 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_learningagrtrainer_seg.xsd";
 
 	#region create DataTables
-	//////////////////// DIDPROG_ALIAS3 /////////////////////////////////
-	var tdidprog_alias3= new MetaTable("didprog_alias3");
-	tdidprog_alias3.defineColumn("aa", typeof(string),false);
-	tdidprog_alias3.defineColumn("idcorsostudio", typeof(int),false);
-	tdidprog_alias3.defineColumn("iddidprog", typeof(int),false);
-	tdidprog_alias3.defineColumn("idsede", typeof(int));
-	tdidprog_alias3.defineColumn("title", typeof(string));
-	tdidprog_alias3.ExtendedProperties["TableForReading"]="didprog";
-	Tables.Add(tdidprog_alias3);
-	tdidprog_alias3.defineKey("idcorsostudio", "iddidprog");
-
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
-
-	//////////////////// PRATICA_ALIAS2 /////////////////////////////////
-	var tpratica_alias2= new MetaTable("pratica_alias2");
-	tpratica_alias2.defineColumn("idcorsostudio", typeof(int),false);
-	tpratica_alias2.defineColumn("iddidprog", typeof(int),false);
-	tpratica_alias2.defineColumn("idiscrizione", typeof(int),false);
-	tpratica_alias2.defineColumn("idistanza", typeof(int),false);
-	tpratica_alias2.defineColumn("idistanzakind", typeof(int),false);
-	tpratica_alias2.defineColumn("idpratica", typeof(int),false);
-	tpratica_alias2.defineColumn("idreg", typeof(int),false);
-	tpratica_alias2.ExtendedProperties["TableForReading"]="pratica";
-	Tables.Add(tpratica_alias2);
-	tpratica_alias2.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idistanza", "idistanzakind", "idpratica", "idreg");
-
-	//////////////////// DIDPROG_ALIAS2 /////////////////////////////////
-	var tdidprog_alias2= new MetaTable("didprog_alias2");
-	tdidprog_alias2.defineColumn("aa", typeof(string),false);
-	tdidprog_alias2.defineColumn("idcorsostudio", typeof(int),false);
-	tdidprog_alias2.defineColumn("iddidprog", typeof(int),false);
-	tdidprog_alias2.defineColumn("idsede", typeof(int));
-	tdidprog_alias2.defineColumn("title", typeof(string));
-	tdidprog_alias2.ExtendedProperties["TableForReading"]="didprog";
-	Tables.Add(tdidprog_alias2);
-	tdidprog_alias2.defineKey("idcorsostudio", "iddidprog");
-
-	//////////////////// ISCRIZIONE /////////////////////////////////
-	var tiscrizione= new MetaTable("iscrizione");
-	tiscrizione.defineColumn("aa", typeof(string),false);
-	tiscrizione.defineColumn("anno", typeof(int));
-	tiscrizione.defineColumn("idcorsostudio", typeof(int),false);
-	tiscrizione.defineColumn("iddidprog", typeof(int),false);
-	tiscrizione.defineColumn("idiscrizione", typeof(int),false);
-	tiscrizione.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tiscrizione);
-	tiscrizione.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
-
-	//////////////////// SEDE /////////////////////////////////
-	var tsede= new MetaTable("sede");
-	tsede.defineColumn("idsede", typeof(int),false);
-	tsede.defineColumn("title", typeof(string));
-	Tables.Add(tsede);
-	tsede.defineKey("idsede");
-
-	//////////////////// DIDPROG /////////////////////////////////
-	var tdidprog= new MetaTable("didprog");
-	tdidprog.defineColumn("aa", typeof(string),false);
-	tdidprog.defineColumn("idcorsostudio", typeof(int),false);
-	tdidprog.defineColumn("iddidprog", typeof(int),false);
-	tdidprog.defineColumn("idsede", typeof(int));
-	tdidprog.defineColumn("title", typeof(string));
-	Tables.Add(tdidprog);
-	tdidprog.defineKey("idcorsostudio", "iddidprog");
-
 	//////////////////// ATTIVFORM /////////////////////////////////
 	var tattivform= new MetaTable("attivform");
 	tattivform.defineColumn("aa", typeof(string),false);
@@ -245,18 +151,6 @@ private void initClass() {
 	tconvalidato.defineColumn("lt", typeof(DateTime),false);
 	tconvalidato.defineColumn("lu", typeof(string),false);
 	tconvalidato.defineColumn("!idattivform_attivform_title", typeof(string));
-	tconvalidato.defineColumn("!iddidprog_didprog_title", typeof(string));
-	tconvalidato.defineColumn("!iddidprog_didprog_aa", typeof(string));
-	tconvalidato.defineColumn("!iddidprog_didprog_idsede_title", typeof(string));
-	tconvalidato.defineColumn("!idiscrizione_iscrizione_anno", typeof(int));
-	tconvalidato.defineColumn("!idiscrizione_iscrizione_aa", typeof(string));
-	tconvalidato.defineColumn("!idiscrizione_iscrizione_iddidprog_title", typeof(string));
-	tconvalidato.defineColumn("!idiscrizione_iscrizione_iddidprog_aa", typeof(string));
-	tconvalidato.defineColumn("!idiscrizione_iscrizione_iddidprog_idsede", typeof(int));
-	tconvalidato.defineColumn("!idpratica_pratica_idreg_title", typeof(string));
-	tconvalidato.defineColumn("!idpratica_pratica_iddidprog_title", typeof(string));
-	tconvalidato.defineColumn("!idpratica_pratica_iddidprog_aa", typeof(string));
-	tconvalidato.defineColumn("!idpratica_pratica_iddidprog_idsede", typeof(int));
 	Tables.Add(tconvalidato);
 	tconvalidato.defineKey("idconvalida", "idconvalidato", "idiscrizionebmi", "idlearningagrtrainer", "idreg");
 
@@ -429,16 +323,17 @@ private void initClass() {
 	Tables.Add(tlearningagrtrainervalut);
 	tlearningagrtrainervalut.defineKey("idlearningagrtrainervalut");
 
-	//////////////////// LEARNINGAGRTRAINERKIND /////////////////////////////////
-	var tlearningagrtrainerkind= new MetaTable("learningagrtrainerkind");
-	tlearningagrtrainerkind.defineColumn("active", typeof(string),false);
-	tlearningagrtrainerkind.defineColumn("idlearningagrtrainerkind", typeof(int),false);
-	tlearningagrtrainerkind.defineColumn("lt", typeof(DateTime),false);
-	tlearningagrtrainerkind.defineColumn("lu", typeof(string),false);
-	tlearningagrtrainerkind.defineColumn("sortcode", typeof(int),false);
-	tlearningagrtrainerkind.defineColumn("title", typeof(string),false);
-	Tables.Add(tlearningagrtrainerkind);
-	tlearningagrtrainerkind.defineKey("idlearningagrtrainerkind");
+	//////////////////// LEARNINGAGRTRAINERKINDDEFAULTVIEW /////////////////////////////////
+	var tlearningagrtrainerkinddefaultview= new MetaTable("learningagrtrainerkinddefaultview");
+	tlearningagrtrainerkinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tlearningagrtrainerkinddefaultview.defineColumn("idlearningagrtrainerkind", typeof(int),false);
+	tlearningagrtrainerkinddefaultview.defineColumn("learningagrtrainerkind_active", typeof(string));
+	tlearningagrtrainerkinddefaultview.defineColumn("learningagrtrainerkind_lt", typeof(DateTime),false);
+	tlearningagrtrainerkinddefaultview.defineColumn("learningagrtrainerkind_lu", typeof(string),false);
+	tlearningagrtrainerkinddefaultview.defineColumn("learningagrtrainerkind_sortcode", typeof(int),false);
+	tlearningagrtrainerkinddefaultview.defineColumn("title", typeof(string),false);
+	Tables.Add(tlearningagrtrainerkinddefaultview);
+	tlearningagrtrainerkinddefaultview.defineKey("idlearningagrtrainerkind");
 
 	//////////////////// LEARNINGAGRKINDDEFAULTVIEW /////////////////////////////////
 	var tlearningagrkinddefaultview= new MetaTable("learningagrkinddefaultview");
@@ -517,34 +412,6 @@ private void initClass() {
 	cChild = new []{convalidato.Columns["idconvalida"], convalidato.Columns["idiscrizionebmi"], convalidato.Columns["idlearningagrtrainer"], convalidato.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalidato_convalida_idconvalida-idiscrizionebmi-idlearningagrtrainer-idreg",cPar,cChild,false));
 
-	cPar = new []{pratica_alias2.Columns["idpratica"]};
-	cChild = new []{convalidato.Columns["idpratica"]};
-	Relations.Add(new DataRelation("FK_convalidato_pratica_alias2_idpratica",cPar,cChild,false));
-
-	cPar = new []{didprog_alias3.Columns["iddidprog"]};
-	cChild = new []{pratica_alias2.Columns["iddidprog"]};
-	Relations.Add(new DataRelation("FK_pratica_alias2_didprog_alias3_iddidprog",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{pratica_alias2.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_pratica_alias2_registry_idreg",cPar,cChild,false));
-
-	cPar = new []{iscrizione.Columns["idiscrizione"]};
-	cChild = new []{convalidato.Columns["idiscrizione"]};
-	Relations.Add(new DataRelation("FK_convalidato_iscrizione_idiscrizione",cPar,cChild,false));
-
-	cPar = new []{didprog_alias2.Columns["iddidprog"]};
-	cChild = new []{iscrizione.Columns["iddidprog"]};
-	Relations.Add(new DataRelation("FK_iscrizione_didprog_alias2_iddidprog",cPar,cChild,false));
-
-	cPar = new []{didprog.Columns["iddidprog"]};
-	cChild = new []{convalidato.Columns["iddidprog"]};
-	Relations.Add(new DataRelation("FK_convalidato_didprog_iddidprog",cPar,cChild,false));
-
-	cPar = new []{sede.Columns["idsede"]};
-	cChild = new []{didprog.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_didprog_sede_idsede",cPar,cChild,false));
-
 	cPar = new []{attivform.Columns["idattivform"]};
 	cChild = new []{convalidato.Columns["idattivform"]};
 	Relations.Add(new DataRelation("FK_convalidato_attivform_idattivform",cPar,cChild,false));
@@ -601,9 +468,9 @@ private void initClass() {
 	cChild = new []{learningagrtrainer.Columns["idlearningagrtrainervalut"]};
 	Relations.Add(new DataRelation("FK_learningagrtrainer_learningagrtrainervalut_idlearningagrtrainervalut",cPar,cChild,false));
 
-	cPar = new []{learningagrtrainerkind.Columns["idlearningagrtrainerkind"]};
+	cPar = new []{learningagrtrainerkinddefaultview.Columns["idlearningagrtrainerkind"]};
 	cChild = new []{learningagrtrainer.Columns["idlearningagrtrainerkind"]};
-	Relations.Add(new DataRelation("FK_learningagrtrainer_learningagrtrainerkind_idlearningagrtrainerkind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_learningagrtrainer_learningagrtrainerkinddefaultview_idlearningagrtrainerkind",cPar,cChild,false));
 
 	cPar = new []{learningagrkinddefaultview.Columns["idlearningagrkind"]};
 	cChild = new []{learningagrtrainer.Columns["idlearningagrkind"]};

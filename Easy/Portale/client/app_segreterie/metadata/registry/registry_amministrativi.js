@@ -19,10 +19,22 @@
                return this.name;
 			},
 
-			//isValidFunction
+			manageValidResult: function (rowToCheck) {
+				var loc = appMeta.localResource;
+				var def = appMeta.Deferred("isValid-registry_amministrativi");
+				var firstErrorObj;
+
+				if (rowToCheck.table.dataset.tables["registrymultikindregistry"] && this.getNotDeletedRows(rowToCheck.table.dataset.tables["registrymultikindregistry"]).length < 1) {
+					firstErrorObj = { warningMsg: "", errMsg: loc.getMinNumRowRequired("", 1), errField: "XXregistrymultikindregistry", row: rowToCheck, outCaption: "Tipo anagrafica" };
+					return def.resolve(firstErrorObj);
+				}
+				//$isValid$
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -58,6 +70,7 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#registry_amministrativi_idreg'), true);
 				this.helpForm.filter($('#registry_amministrativi_idaccmotivedebit'), null);
 				this.helpForm.filter($('#registry_amministrativi_idaccmotivecredit'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('assetdiary'));
@@ -78,14 +91,20 @@
 				this.state.DS.tables.registry.defaults({ 'idregistryclass': '22' });
 				this.state.DS.tables.registry.defaults({ 'idregistrykind': 5 });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
+				this.state.DS.tables.registry.defaults({ 'authorization_free': 'N' });
+				this.state.DS.tables.registry.defaults({ 'multi_cf': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flagbankitaliaproceeds': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flag_pa': 'N' });
+				this.state.DS.tables.registry.defaults({ 'sdi_norifamm': 'N' });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar64').fullCalendar('rerenderEvents');
+					$('#calendar71').fullCalendar('rerenderEvents');
 				});
 				appMeta.metaModel.insertFilter(this.getDataTable("title"), this.q.eq('active', 'S'));
-				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatusdefaultview"), this.q.eq('maritalstatus_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("registryclassdefaultview"), this.q.eq('registryclass_active', 'Si'));
-				appMeta.metaModel.insertFilter(this.getDataTable("category"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("categorydefaultview"), this.q.eq('category_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
+				$('#grid_rendicontattivitaprogetto_anagamm').data('mdlconditionallookup', 'rendicontatutto,S,Si;rendicontatutto,N,No;');
 				$('#grid_progettotimesheet_default').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
 				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
 				$('#grid_registrylegalstatus_amm').data('mdlconditionallookup', 'tempindet,S,Si;tempindet,N,No;');
@@ -110,13 +129,8 @@
 
 			//insertClick
 
-			beforePost: function () {
-				var self = this;
-				this.getDataTable('contrattostipendioannuoview').acceptChanges();
-				this.getDataTable('contrattostipendioview').acceptChanges();
-				//innerBeforePost
-			},
-
+			
+			
 			configureDependencies:function () {
 				var p1 = $("input[data-tag='registry.surname?registryamministrativiview.registry_surname']");
 				var p2 = $("input[data-tag='registry.forename?registryamministrativiview.registry_forename']");
@@ -153,6 +167,31 @@
 					});
 				}
 				return MetaPage.prototype.afterFill.call(this);
+			},
+
+			beforePost: function () {
+				var self = this;
+				const rowsChanged = this.state.DS.tables.costoorario.getChanges();
+				if (rowsChanged.length > 0) this.haveToRefreshCosts = true;
+				this.getDataTable('contrattostipendioannuoview').acceptChanges();
+				this.getDataTable('contrattostipendioview').acceptChanges();
+				//innerBeforePost
+			},
+
+			afterPost: function () {
+				if (this.haveToRefreshCosts == true) {
+					var self = this;
+					var waitingHandler = this.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+					appMeta.getData.launchCustomServerMethod("callSP", {
+						spname: "sp_calcola_costi_periodi_persona_progetto",
+						prm1: this.state.currentRow.idreg,
+						prm2: '',
+						prm3: ''
+					}).then(function (res) {
+						self.haveToRefreshCosts = false
+						self.hideWaitingIndicator(waitingHandler);
+					});
+				}
 			},
 
 			manageimporttimbratura: function(that) { 

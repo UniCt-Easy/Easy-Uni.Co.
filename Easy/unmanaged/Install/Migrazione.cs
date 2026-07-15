@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Windows.Forms;
@@ -79,12 +77,12 @@ namespace Install
 
 				FM.StartPosition= FormStartPosition.CenterScreen;
 				FM.Text=title; //"Copia della tabella "+TT.TableName;
-				FM.pBar.Maximum= TT.Rows.Count;
+				//FM.pBar.Maximum= TT.Rows.Count;
                 MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
                 FM.Show();
 
 				foreach (DataRow row in TT.Rows) {
-					FM.pBar.Increment(1);
+					//FM.pBar.Increment(1);
 					count++;
 					string values = GetSQLDataValues(row,Cols);
 					s += 	insert		+ values;
@@ -2179,7 +2177,9 @@ namespace Install
             DataTable tMovBancariconflagP = SourceConn.SQLRunner(query,false,0);
             if (tMovBancariconflagP.Rows.Count > 0)
             {
-                DialogResult dr = new FrmErrore(tMovBancariconflagP, "I seguenti movimenti bancari sono esitati come Parziali ma NON esiste il dettaglio", "Si vuole proseguire?").ShowDialog(form);
+				FrmErrore fe = new FrmErrore(tMovBancariconflagP, "I seguenti movimenti bancari sono esitati come Parziali ma NON esiste il dettaglio", "Si vuole proseguire?");
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
                 if (dr != DialogResult.Yes) return false;
             }
 
@@ -2189,7 +2189,9 @@ namespace Install
                 + " and movimentobancario.nummovbancario = dettmovimentobancario.nummovbancario) >0";
             DataTable tMovBancarisenzaflagP = SourceConn.SQLRunner(query, false, 0);
             if(tMovBancarisenzaflagP.Rows.Count > 0) {
-                DialogResult dr = new FrmErrore(tMovBancarisenzaflagP, "I seguenti movimenti bancari sono esitati come Parziali ma con un flag errato e NON saranno migrati!", "Si vuole proseguire?").ShowDialog(form);
+				FrmErrore fe = new FrmErrore(tMovBancarisenzaflagP, "I seguenti movimenti bancari sono esitati come Parziali ma con un flag errato e NON saranno migrati!", "Si vuole proseguire?");
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
                 if(dr != DialogResult.Yes) return false;
             }
 
@@ -2201,8 +2203,9 @@ namespace Install
                     " where M.nummovbancario <> M1.nummovbancario ";
             DataTable tMovBancariNumOp = SourceConn.SQLRunner(query,false,0);
             if(tMovBancariNumOp.Rows.Count > 0) {
-                DialogResult dr = new FrmErrore(tMovBancariNumOp, 
-                    "I seguenti movimenti bancari hanno conflitti di numoperazione", "Si vuole procedere e correggere la situazione?").ShowDialog(form);
+				FrmErrore fe = new FrmErrore(tMovBancariNumOp, "I seguenti movimenti bancari hanno conflitti di numoperazione", "Si vuole procedere e correggere la situazione?");
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
                 if(dr != DialogResult.Yes) return false;
             }
 
@@ -2220,8 +2223,9 @@ namespace Install
                     "   AND M4.flagesito='P'";
             tMovBancariNumOp = SourceConn.SQLRunner(query, false, 0);
             if(tMovBancariNumOp.Rows.Count > 0) {
-                DialogResult dr = new FrmErrore(tMovBancariNumOp,
-                    "I seguenti movimenti bancari hanno conflitti di numoperazione", "Si vuole procedere e correggere la situazione?").ShowDialog(form);
+				FrmErrore fe = new FrmErrore(tMovBancariNumOp, "I seguenti movimenti bancari hanno conflitti di numoperazione", "Si vuole procedere e correggere la situazione?");
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
                 if(dr != DialogResult.Yes) return false;
             }
 
@@ -2245,8 +2249,9 @@ namespace Install
                     "   AND M2.flagesito='P' ";
             DataTable tMovBancariNumOp2 = SourceConn.SQLRunner(query,false,0);
             if(tMovBancariNumOp2.Rows.Count > 0) {
-                DialogResult dr = new FrmErrore(tMovBancariNumOp2,
-                    "I seguenti dettagli di mov. bancari hanno conflitti di numoperazione", "Si vuole procedere e correggere la situazione?").ShowDialog(form);
+				FrmErrore fe = new FrmErrore(tMovBancariNumOp2, "I seguenti dettagli di mov. bancari hanno conflitti di numoperazione", "Si vuole procedere e correggere la situazione?");
+				MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+				DialogResult dr = fe.ShowDialog(form);
                 if(dr != DialogResult.Yes) return false;
             }
 

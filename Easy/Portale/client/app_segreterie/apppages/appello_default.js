@@ -6,8 +6,6 @@
 		MetaPage.apply(this, ['appello', 'default', false]);
         this.name = 'Appelli';
 		this.defaultListType = 'default';
-		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
-		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -24,15 +22,15 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			//beforeFill
 
-			//afterClear
-
+			
 			//afterFill
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.appello.defaults({ 'aa': this.getAAByDate(new Date()) });
 				this.state.DS.tables.appello.defaults({ 'idappelloazionekind': 1 });
 				this.state.DS.tables.appello.defaults({ 'idappellokind': 1 });
 				this.state.DS.tables.appello.defaults({ 'idstudprenotkind': 1 });
@@ -40,12 +38,9 @@
 				this.state.DS.tables.appello.defaults({ 'passaggio': "N" });
 				this.state.DS.tables.appello.defaults({ 'prointermedia': "N" });
 				this.state.DS.tables.appello.defaults({ 'publicato': "N" });
-				$("#btn_add_appelloattivform_idattivform").on("click", _.partial(this.searchAndAssignattivform, self));
-				$("#btn_add_appelloattivform_idattivform").prop("disabled", true);
 				appMeta.metaModel.insertFilter(this.getDataTable("appellokinddefaultview"), this.q.eq('appellokind_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("appelloazionekinddefaultview"), this.q.eq('appelloazionekind_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("studprenotkinddefaultview"), this.q.eq('studprenotkind_active', 'Si'));
-				$('#grid_appelloattivform_appello').data('mdlconditionallookup', '!aa_attivform_tipovalutaz,S,Si;!aa_attivform_tipovalutaz,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -58,38 +53,24 @@
 
 			//afterActivation
 
-			rowSelected: function (dataRow) {
-				$("#btn_add_appelloattivform_idattivform").prop("disabled", false);
-				//firerowSelected
-			},
+			//rowSelected
 
-
-			buttonClickEnd: function (currMetaPage, cmd) {
-				//fireRelButtonClickEnd
-				cmd = cmd.toLowerCase();
-				if (cmd === "mainsetsearch") {
-					$("#btn_add_appelloattivform_idattivform").prop("disabled", true);
-					//firebuttonClickEnd
-				}
-				return this.superClass.buttonClickEnd(currMetaPage, cmd);
-			},
-
+			//buttonClickEnd
 
 			//insertClick
 
 			//beforePost
 
-			searchAndAssignattivform: function (that) {
-				return that.searchAndAssign({
-					tableName: "attivform",
-					listType: "appello",
-					idControl: "txt_appelloattivform_idattivform",
-					tagSearch: "attivformappelloview.dropdown_title",
-					columnNameText: "title",
-					columnSource: "idattivform",
-					columnToFill: "idattivform",
-					tableToFill: "appelloattivform"
-				});
+			//afterPost
+
+			afterClear: function () {
+				//parte sincrona
+				const annoCorrente = this.getAAByDate(new Date());
+				$('#appello_default_aa').val(annoCorrente).trigger('change');
+
+				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//buttons

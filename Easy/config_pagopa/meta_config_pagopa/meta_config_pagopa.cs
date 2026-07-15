@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -58,10 +56,10 @@ public override void SetDefaults(DataTable PrimaryTable) {
 }
 
 public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-            //RowChange.SetMySelector(T.Columns["nconfig_pagopa"], "nphase", 0);  //campo nphase  Ë selettore per calcolo di nconfig_pagopa
-            //RowChange.SetMySelector(T.Columns["nconfig_pagopa"], "yconfig_pagopa", 0);//campo yconfig_pagopa  Ë selettore per calcolo di nconfig_pagopa
-            //RowChange.MarkAsAutoincrement(T.Columns["nconfig_pagopa"], null, null, 0);  //nconfig_pagopa Ë campo ad autoincremento
-            //RowChange.MarkAsAutoincrement(T.Columns["idconfig_pagopa"], null, null, 0);  //idconfig_pagopa Ë campo ad autoincremento
+            //RowChange.SetMySelector(T.Columns["nconfig_pagopa"], "nphase", 0);  //campo nphase  √® selettore per calcolo di nconfig_pagopa
+            //RowChange.SetMySelector(T.Columns["nconfig_pagopa"], "yconfig_pagopa", 0);//campo yconfig_pagopa  √® selettore per calcolo di nconfig_pagopa
+            //RowChange.MarkAsAutoincrement(T.Columns["nconfig_pagopa"], null, null, 0);  //nconfig_pagopa √® campo ad autoincremento
+            //RowChange.MarkAsAutoincrement(T.Columns["idconfig_pagopa"], null, null, 0);  //idconfig_pagopa √® campo ad autoincremento
 
             //RowChange.setMinimumTempValue(T.Columns["dummykey"], 1);     //Da impostare  in caso di pericolo di conflitto
             DataRow R = base.Get_New_Row(ParentRow, T);

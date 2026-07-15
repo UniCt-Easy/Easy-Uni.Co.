@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_consuntivo_riclassificato]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_consuntivo_riclassificato]
 GO
@@ -24,9 +22,8 @@ GO
 SET ANSI_NULLS ON 
 GO
 
---setuser 'amministrazione'
---setuser 'amm'
--- exec exp_consuntivo_riclassificato 2022, {ts '2023-03-08 00:00:00'}, 'S', 13, '%', 'N', 'N'
+
+--exp_consuntivo_riclassificato '2024', {d '2024-12-31'}, 'S', '32', '0001', 'S', 'S','N'
 CREATE   PROCEDURE [exp_consuntivo_riclassificato]
 (
 	@ayear int,
@@ -35,6 +32,7 @@ CREATE   PROCEDURE [exp_consuntivo_riclassificato]
 	@idsorkindfin int,
 	@idupb varchar(36),
 	@showchildupb char(1),
+	@hierarchy		char(1),
 	@officialvar varchar(1)
 )
 AS BEGIN
@@ -1103,69 +1101,130 @@ BEGIN
 			@var_aa_red)
 	END
 	
-	SELECT
-		SorFin.sortcode as 'Codice Classificazione',
-		SorFin.description as 'Descrizione Classificazione',
-		--fin.codefin AS 'Codice Bilancio',
-		--fin.title AS 'Denominazione',
-		ISNULL(SUM(initialprevision),0) AS 'Prev. di competenza iniziale', 
-		ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. Competenza',
-		- ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. Competenza',
-		sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. Competenza Definitiva',
-		sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Accertamenti riscossi',
-		sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Accertamenti da riscuotere',
-		sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme accertate',
-		sum(CASE #balance.idsor
-			WHEN @idavanzoamm  THEN 0
-			ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0) - isnull(var_finphase_C,0))
-		END) AS 'Differenza rispetto alle previsioni',
-		ISNULL(SUM(mov_finphase_R),0) AS 'Residui Attivi Iniziali' ,
-		sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Attivi Riscossi',
-		sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Attivi da riscuotere',
-		sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Attivi',
-		ISNULL(SUM(var_finphase_acc_R),0) AS 'Var. aumento residui attivi',
-		- ISNULL(SUM(var_finphase_red_R),0) AS 'Var. diminuzione residui attivi' ,
-		sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Attivi',
-		sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)  - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. attivi a fine esercizio'
-	FROM #balance
-	--LEFT OUTER JOIN fin
-	--	ON fin.idfin = fs.idfin
-	LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
-	GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder--, fin.codefin, fin.title
-	ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+			if(@hierarchy = 'N')
+			Begin
+				SELECT
+					SorFin.sortcode as 'Codice Classificazione',
+					SorFin.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. di competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. Competenza',
+					- ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. Competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. Competenza Definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Accertamenti riscossi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Accertamenti da riscuotere',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme accertate',
+					sum(CASE #balance.idsor
+						WHEN @idavanzoamm  THEN 0
+						ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0) - isnull(var_finphase_C,0))
+					END) AS 'Differenza rispetto alle previsioni',
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui Attivi Iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Attivi Riscossi',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Attivi da riscuotere',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Attivi',
+					ISNULL(SUM(var_finphase_acc_R),0) AS 'Var. aumento residui attivi',
+					- ISNULL(SUM(var_finphase_red_R),0) AS 'Var. diminuzione residui attivi' ,
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Attivi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)  - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. attivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder
+				ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+			End
+			if(@hierarchy = 'S')
+			Begin
+					SELECT
+					S_ALL.sortcode as 'Codice Classificazione',
+					S_ALL.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. di competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. Competenza',
+					- ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. Competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. Competenza Definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Accertamenti riscossi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Accertamenti da riscuotere',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme accertate',
+					sum(CASE #balance.idsor
+						WHEN @idavanzoamm  THEN 0
+						ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0) - isnull(var_finphase_C,0))
+					END) AS 'Differenza rispetto alle previsioni',
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui Attivi Iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Attivi Riscossi',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Attivi da riscuotere',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Attivi',
+					ISNULL(SUM(var_finphase_acc_R),0) AS 'Var. aumento residui attivi',
+					- ISNULL(SUM(var_finphase_red_R),0) AS 'Var. diminuzione residui attivi' ,
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Attivi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)  - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. attivi a fine esercizio'
+					FROM #balance
+					LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+					join sortinglink SL on SL.idchild = sorFin.idsor
+					join sorting S_ALL on SL.idparent= S_ALL.idsor
+					GROUP BY S_ALL.sortcode, S_ALL.description, S_ALL.printingorder
+					ORDER BY S_ALL.printingorder ASC
+			End
 END
-	IF (@finpart = 'S')
+
+IF (@finpart = 'S')
 	BEGIN
-		SELECT
-			SorFin.sortcode as 'Codice Classificazione',
-			SorFin.description as 'Descrizione Classificazione',
-			--fin.codefin AS 'Codice Bilancio',
-			--fin.title AS 'Denominazione',
-			ISNULL(SUM(initialprevision),0) AS 'Prev. di competenza iniziale', 
-			ISNULL(SUM(var_prev_M_acc),0)  AS 'Var. aumento prev. competenza',
-			- ISNULL(SUM(var_prev_M_red),0)  AS 'Var. dimin. prev. competenza',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
-			sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Somme impegnate pagate',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Somme impegnate da pagare',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme impegnate',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0) - isnull(var_finphase_C,0)) AS 'Differenza rispetto alle previsioni',
-			ISNULL(SUM(mov_finphase_R),0) AS 'Residui passivi iniziali' ,
-			sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui passivi riscossi',
-			sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Passivi da riscuotere',
-			sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale residui passivi',
-			ISNULL(SUM(var_finphase_acc_R),0)  AS 'Var. residui passivi in aumento',
-			-ISNULL(SUM(var_finphase_red_R),0)  AS 'Var. residui passivi in diminuzione',
-			sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale variazioni residui passivi',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. passivi a fine esercizio'
-		FROM #balance
-		--LEFT OUTER JOIN fin
-		--	ON fin.idfin = fs.idfin		
-		LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
-		GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder--, fin.codefin, fin.title
-		ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+			if(@hierarchy = 'N')
+			Begin
+				SELECT
+					SorFin.sortcode as 'Codice Classificazione',
+					SorFin.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. di competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0)  AS 'Var. aumento prev. competenza',
+					- ISNULL(SUM(var_prev_M_red),0)  AS 'Var. dimin. prev. competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Somme impegnate pagate',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Somme impegnate da pagare',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme impegnate',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0) - isnull(var_finphase_C,0)) AS 'Differenza rispetto alle previsioni',
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui passivi iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui passivi riscossi',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Passivi da riscuotere',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale residui passivi',
+					ISNULL(SUM(var_finphase_acc_R),0)  AS 'Var. residui passivi in aumento',
+					-ISNULL(SUM(var_finphase_red_R),0)  AS 'Var. residui passivi in diminuzione',
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale variazioni residui passivi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. passivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder
+				ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+			End
+			if(@hierarchy = 'S')
+			Begin
+				SELECT
+					S_ALL.sortcode as 'Codice Classificazione',
+					S_ALL.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. di competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0)  AS 'Var. aumento prev. competenza',
+					- ISNULL(SUM(var_prev_M_red),0)  AS 'Var. dimin. prev. competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Somme impegnate pagate',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Somme impegnate da pagare',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme impegnate',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0) - isnull(var_finphase_C,0)) AS 'Differenza rispetto alle previsioni',
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui passivi iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui passivi riscossi',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Passivi da riscuotere',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale residui passivi',
+					ISNULL(SUM(var_finphase_acc_R),0)  AS 'Var. residui passivi in aumento',
+					-ISNULL(SUM(var_finphase_red_R),0)  AS 'Var. residui passivi in diminuzione',
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale variazioni residui passivi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. passivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				join sortinglink SL on SL.idchild = sorFin.idsor
+				join sorting S_ALL on SL.idparent= S_ALL.idsor
+				GROUP BY S_ALL.sortcode, S_ALL.description, S_ALL.printingorder
+				ORDER BY S_ALL.printingorder ASC
+			End
 	END
+
 END 
--- Cassa Pura
+
+
+-- Cassa Pura	-------------------------------------------------
 IF @fin_kind = 2
 BEGIN 
 	IF @finpart = 'E'
@@ -1206,53 +1265,96 @@ BEGIN
 				@supposed_cash_jan01, @var_ff_acc, @var_ff_red, @cash_jan01
 			)
 		END
-		SELECT 
-			SorFin.sortcode as 'Codice Classificazione',
-			SorFin.description as 'Descrizione Classificazione',
-			--fin.codefin AS 'Codice Bilancio',
-			--fin.title AS 'Denominazione',
-			ISNULL(SUM(initialprevision),0) AS 'Prev. di cassa iniziale', 
-			ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. cassa',
-			-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. cassa',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) AS 'Prev. cassa definitiva',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale Somme Accertate',
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa   THEN isnull(mov_maxphase_C,0)
-				ELSE (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
-			END) AS 'Totale Riscossioni',
-			sum(CASE #balance.idsor 
-				WHEN @idavanzocassa   THEN 0
-				ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) -  (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
-			END) AS 'Differenza rispetto alle previsioni'
-		FROM #balance
-		--LEFT OUTER JOIN fin
-		--	ON fin.idfin = fs.idfin		
-		LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
-		GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder--, fin.codefin, fin.title
-		ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+		if(@hierarchy = 'N')
+		Begin
+				SELECT 
+					SorFin.sortcode as 'Codice Classificazione',
+					SorFin.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. di cassa iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. cassa',
+					-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. cassa',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) AS 'Prev. cassa definitiva',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale Somme Accertate',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN isnull(mov_maxphase_C,0)
+						ELSE (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Totale Riscossioni',
+					sum(CASE #balance.idsor 
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) -  (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Differenza rispetto alle previsioni'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder
+				ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+		End
+		if(@hierarchy = 'S')
+		Begin
+				SELECT 
+					S_ALL.sortcode as 'Codice Classificazione',
+					S_ALL.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. di cassa iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. cassa',
+					-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. cassa',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) AS 'Prev. cassa definitiva',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale Somme Accertate',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN isnull(mov_maxphase_C,0)
+						ELSE (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Totale Riscossioni',
+					sum(CASE #balance.idsor 
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) -  (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Differenza rispetto alle previsioni'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				join sortinglink SL on SL.idchild = sorFin.idsor
+				join sorting S_ALL on SL.idparent= S_ALL.idsor
+				GROUP BY S_ALL.sortcode, S_ALL.description, S_ALL.printingorder
+				ORDER BY S_ALL.printingorder ASC
+		End
 	END
 	IF (@finpart = 'S')
 	BEGIN
-		SELECT
-			SorFin.sortcode as 'Codice Classificazione',
-			SorFin.description as 'Descrizione Classificazione',
-			--fin.codefin AS 'Codice Bilancio',
-			--fin.title AS 'Denominazione',
-			ISNULL(SUM(initialprevision),0) AS 'Prev. di cassa iniziale', 
-			ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. cassa',
-			-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. cassa',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) AS 'Prev. cassa definitiva',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale Somme Impegnate',
-			sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Totale Pagamenti',
-			sum((isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) - (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))) AS 'Differ. rispetto alle previsioni'	 
-		FROM #balance
-		--LEFT OUTER JOIN fin
-		--	ON fin.idfin = fs.idfin
-		LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
-		GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder--, fin.codefin, fin.title
-		ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+		if(@hierarchy = 'N')
+		Begin
+			SELECT
+				SorFin.sortcode as 'Codice Classificazione',
+				SorFin.description as 'Descrizione Classificazione',
+				ISNULL(SUM(initialprevision),0) AS 'Prev. di cassa iniziale', 
+				ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. cassa',
+				-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. cassa',
+				sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) AS 'Prev. cassa definitiva',
+				sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale Somme Impegnate',
+				sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Totale Pagamenti',
+				sum((isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) - (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))) AS 'Differ. rispetto alle previsioni'	 
+			FROM #balance
+			LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+			GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder
+			ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+		End
+		if(@hierarchy = 'S')
+		Begin
+			SELECT
+				S_ALL.sortcode as 'Codice Classificazione',
+				S_ALL.description as 'Descrizione Classificazione',
+				ISNULL(SUM(initialprevision),0) AS 'Prev. di cassa iniziale', 
+				ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. cassa',
+				-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. cassa',
+				sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) AS 'Prev. cassa definitiva',
+				sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale Somme Impegnate',
+				sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Totale Pagamenti',
+				sum((isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0)) - (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))) AS 'Differ. rispetto alle previsioni'	 
+			FROM #balance
+			LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+			join sortinglink SL on SL.idchild = sorFin.idsor
+			join sorting S_ALL on SL.idparent= S_ALL.idsor
+			GROUP BY S_ALL.sortcode, S_ALL.description, S_ALL.printingorder
+			ORDER BY S_ALL.printingorder ASC
+		End
 	END
 END
+
 -- Compentenza e Cassa
 IF (@fin_kind = 3)
 BEGIN 
@@ -1323,93 +1425,177 @@ BEGIN
 				@supposed_cash_jan01, @var_ff_acc, @var_ff_red, @cash_jan01
 			)
 		END
-		SELECT
-			SorFin.sortcode as 'Codice Classificazione',
-			SorFin.description as 'Descrizione Classificazione',
-			--fin.codefin AS 'Codice Bilancio',
-			--fin.title AS 'Denominazione',
-			ISNULL(SUM(initialprevision),0) AS 'Prev. competenza iniziale', 
-			ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. competenza',
-			-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. competenza',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa  THEN 0
-				ELSE (isnull(mov_maxphase_C,0)+isnull(var_maxphase_C,0))
-			END) AS 'Accertamenti riscossi',
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa   THEN 0
-				ELSE (isnull(mov_finphase_C,0)+isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0))
-			END) AS 'Accertamenti da riscuotere',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme accertate',
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa   THEN 0
-				ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0)-isnull(var_finphase_C,0))
-			END) AS 'Differenza rispetto alle previsioni (comp.)',
-			ISNULL(SUM(secondaryprev),0) AS 'Prev. cassa iniziale', 
-			ISNULL(SUM(var_prev_S_acc),0) AS 'Var. aumento prev. cassa',
-			-ISNULL(SUM(var_prev_S_red),0) AS 'Var. dimin. prev. cassa',
-			sum(isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0)) AS 'Prev. cassa definitiva' ,
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa   THEN isnull(mov_maxphase_C,0)
-				ELSE (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
-			END) AS 'Totale Riscossioni',
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa   THEN 0
-				ELSE (isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))- (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
-			END) AS 'Differenza rispetto alle previsioni (cassa)',
-			ISNULL(SUM(mov_finphase_R),0) AS 'Residui Attivi Iniziali' ,
-			sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Attivi Riscossi',
-			sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Attivi da riscuotere',
-			sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Attivi',
-			ISNULL(SUM(var_finphase_acc_R),0)  AS 'Var. residui attivi in aumento',
-			-ISNULL(SUM(var_finphase_red_R),0)  AS 'Var. residui attivi in diminuzione',
-			sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Attivi',
-			sum(CASE #balance.idsor
-				WHEN @idavanzocassa  THEN 0
-				ELSE (isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0))
-			END) AS 'Tot. res. attivi a fine esercizio'
-		FROM #balance
-		--LEFT OUTER JOIN fin
-		--	ON fin.idfin = fs.idfin
-		LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
-		GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder--, fin.codefin, fin.title
-		ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+		if(@hierarchy = 'N')
+		Begin
+				SELECT
+					SorFin.sortcode as 'Codice Classificazione',
+					SorFin.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. competenza',
+					-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa  THEN 0
+						ELSE (isnull(mov_maxphase_C,0)+isnull(var_maxphase_C,0))
+					END) AS 'Accertamenti riscossi',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(mov_finphase_C,0)+isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0))
+					END) AS 'Accertamenti da riscuotere',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme accertate',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0)-isnull(var_finphase_C,0))
+					END) AS 'Differenza rispetto alle previsioni (comp.)',
+					ISNULL(SUM(secondaryprev),0) AS 'Prev. cassa iniziale', 
+					ISNULL(SUM(var_prev_S_acc),0) AS 'Var. aumento prev. cassa',
+					-ISNULL(SUM(var_prev_S_red),0) AS 'Var. dimin. prev. cassa',
+					sum(isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0)) AS 'Prev. cassa definitiva' ,
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN isnull(mov_maxphase_C,0)
+						ELSE (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Totale Riscossioni',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))- (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Differenza rispetto alle previsioni (cassa)',
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui Attivi Iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Attivi Riscossi',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Attivi da riscuotere',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Attivi',
+					ISNULL(SUM(var_finphase_acc_R),0)  AS 'Var. residui attivi in aumento',
+					-ISNULL(SUM(var_finphase_red_R),0)  AS 'Var. residui attivi in diminuzione',
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Attivi',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa  THEN 0
+						ELSE (isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0))
+					END) AS 'Tot. res. attivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder
+				ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+		End
+		if(@hierarchy = 'S')
+		Begin
+				SELECT
+					S_ALL.sortcode as 'Codice Classificazione',
+					S_ALL.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. competenza',
+					-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa  THEN 0
+						ELSE (isnull(mov_maxphase_C,0)+isnull(var_maxphase_C,0))
+					END) AS 'Accertamenti riscossi',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(mov_finphase_C,0)+isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0))
+					END) AS 'Accertamenti da riscuotere',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme accertate',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0)-isnull(var_finphase_C,0))
+					END) AS 'Differenza rispetto alle previsioni (comp.)',
+					ISNULL(SUM(secondaryprev),0) AS 'Prev. cassa iniziale', 
+					ISNULL(SUM(var_prev_S_acc),0) AS 'Var. aumento prev. cassa',
+					-ISNULL(SUM(var_prev_S_red),0) AS 'Var. dimin. prev. cassa',
+					sum(isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0)) AS 'Prev. cassa definitiva' ,
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN isnull(mov_maxphase_C,0)
+						ELSE (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Totale Riscossioni',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa   THEN 0
+						ELSE (isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))- (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))
+					END) AS 'Differenza rispetto alle previsioni (cassa)',
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui Attivi Iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Attivi Riscossi',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Attivi da riscuotere',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Attivi',
+					ISNULL(SUM(var_finphase_acc_R),0)  AS 'Var. residui attivi in aumento',
+					-ISNULL(SUM(var_finphase_red_R),0)  AS 'Var. residui attivi in diminuzione',
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Attivi',
+					sum(CASE #balance.idsor
+						WHEN @idavanzocassa  THEN 0
+						ELSE (isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0))
+					END) AS 'Tot. res. attivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				join sortinglink SL on SL.idchild = sorFin.idsor
+				join sorting S_ALL on SL.idparent= S_ALL.idsor
+				GROUP BY S_ALL.sortcode, S_ALL.description, S_ALL.printingorder
+				ORDER BY S_ALL.printingorder ASC
+		End
 	END
 	IF(@finpart = 'S')
 	BEGIN
-		SELECT
-			SorFin.sortcode as 'Codice Classificazione',
-			SorFin.description as 'Descrizione Classificazione',
-			--fin.codefin AS 'Codice Bilancio',
-			--fin.title AS 'Denominazione',
-			ISNULL(SUM(initialprevision),0) AS 'Prev. competenza iniziale', 
-			ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. competenza',
-			-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. competenza',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
-			sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Somme impegnate pagate',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Somme impegnate da pagare',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme impegnate',
-			sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0)-isnull(var_finphase_C,0)) AS 'Differenza rispetto alle previsioni (comp.)',	 
-			ISNULL(SUM(secondaryprev),0) AS 'Prev. cassa iniziale', 
-			ISNULL(SUM(var_prev_S_acc),0) AS 'Var. aumento prev. cassa',
-			-ISNULL(SUM(var_prev_S_red),0) AS 'Var. dimin. prev. cassa',
-			sum(isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))  AS 'Prev. cassa definitiva',
-			sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Totale Pagamenti',
-			sum((isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))- (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))) AS 'Differenza rispetto alle previsioni (cassa)',   	
-			ISNULL(SUM(mov_finphase_R),0) AS 'Residui Passivi Iniziali' ,
-			sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Passivi Pagati',
-			sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Passivi da pagare',
-			sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Passivi',
-			ISNULL(SUM(var_finphase_acc_R),0) AS 'Var. residui passivi in aumento',
-			-ISNULL(SUM(var_finphase_red_R),0) AS 'Var. residui passivi in diminuzione',
-			sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Passivi',
-			sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. passivi a fine esercizio'
-		FROM #balance
-		--LEFT OUTER JOIN fin
-		--	ON fin.idfin = fs.idfin		
-		LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
-		GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder--, fin.codefin, fin.title
-		ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+			if(@hierarchy = 'N')
+			Begin
+				SELECT
+					SorFin.sortcode as 'Codice Classificazione',
+					SorFin.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. competenza',
+					-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Somme impegnate pagate',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Somme impegnate da pagare',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme impegnate',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0)-isnull(var_finphase_C,0)) AS 'Differenza rispetto alle previsioni (comp.)',	 
+					ISNULL(SUM(secondaryprev),0) AS 'Prev. cassa iniziale', 
+					ISNULL(SUM(var_prev_S_acc),0) AS 'Var. aumento prev. cassa',
+					-ISNULL(SUM(var_prev_S_red),0) AS 'Var. dimin. prev. cassa',
+					sum(isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))  AS 'Prev. cassa definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Totale Pagamenti',
+					sum((isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))- (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))) AS 'Differenza rispetto alle previsioni (cassa)',   	
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui Passivi Iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Passivi Pagati',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Passivi da pagare',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Passivi',
+					ISNULL(SUM(var_finphase_acc_R),0) AS 'Var. residui passivi in aumento',
+					-ISNULL(SUM(var_finphase_red_R),0) AS 'Var. residui passivi in diminuzione',
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Passivi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. passivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				GROUP BY SorFin.sortcode, SorFin.description, #balance.idsor, SorFin.printingorder
+				ORDER BY len(SorFin.printingorder), SorFin.printingorder ASC
+			End
+			if(@hierarchy = 'S')
+			Begin
+				SELECT
+					S_ALL.sortcode as 'Codice Classificazione',
+					S_ALL.description as 'Descrizione Classificazione',
+					ISNULL(SUM(initialprevision),0) AS 'Prev. competenza iniziale', 
+					ISNULL(SUM(var_prev_M_acc),0) AS 'Var. aumento prev. competenza',
+					-ISNULL(SUM(var_prev_M_red),0) AS 'Var. dimin. prev. competenza',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0))  AS 'Prev. competenza definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0)) AS 'Somme impegnate pagate',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0)) AS 'Somme impegnate da pagare',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0)) AS 'Totale somme impegnate',
+					sum(isnull(initialprevision,0) + isnull(var_prev_M_acc,0) + isnull(var_prev_M_red,0) - isnull(mov_finphase_C,0)-isnull(var_finphase_C,0)) AS 'Differenza rispetto alle previsioni (comp.)',	 
+					ISNULL(SUM(secondaryprev),0) AS 'Prev. cassa iniziale', 
+					ISNULL(SUM(var_prev_S_acc),0) AS 'Var. aumento prev. cassa',
+					-ISNULL(SUM(var_prev_S_red),0) AS 'Var. dimin. prev. cassa',
+					sum(isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))  AS 'Prev. cassa definitiva',
+					sum(isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Totale Pagamenti',
+					sum((isnull(secondaryprev,0) + isnull(var_prev_S_acc,0) + isnull(var_prev_S_red,0))- (isnull(mov_maxphase_C,0) + isnull(var_maxphase_C,0) + isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0))) AS 'Differenza rispetto alle previsioni (cassa)',   	
+					ISNULL(SUM(mov_finphase_R),0) AS 'Residui Passivi Iniziali' ,
+					sum(isnull(mov_maxphase_R,0) + isnull(var_maxphase_R,0)) AS 'Residui Passivi Pagati',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Residui Passivi da pagare',
+					sum(isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Residui Passivi',
+					ISNULL(SUM(var_finphase_acc_R),0) AS 'Var. residui passivi in aumento',
+					-ISNULL(SUM(var_finphase_red_R),0) AS 'Var. residui passivi in diminuzione',
+					sum(isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0)) AS 'Totale Variazioni Residui Passivi',
+					sum(isnull(mov_finphase_C,0) + isnull(var_finphase_C,0) - isnull(mov_maxphase_C,0) - isnull(var_maxphase_C,0) + isnull(mov_finphase_R,0) + isnull(var_finphase_acc_R,0) + isnull(var_finphase_red_R,0) - isnull(mov_maxphase_R,0) - isnull(var_maxphase_R,0)) AS 'Tot. res. passivi a fine esercizio'
+				FROM #balance
+				LEFT OUTER JOIN sorting SorFin on SorFin.idsor = #balance.idsor
+				join sortinglink SL on SL.idchild = sorFin.idsor
+				join sorting S_ALL on SL.idparent= S_ALL.idsor
+				GROUP BY S_ALL.sortcode, S_ALL.description, S_ALL.printingorder
+				ORDER BY S_ALL.printingorder ASC
+		End
 	END
 END
 END

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 UniversitÃ  degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,11 +13,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 /* 
 IMPORTANTE!!!!
 update  CARICO_SCARICO_INVENT_DETT
-set ubicazione = replace(ubicazione,'?','Â°' )
+set ubicazione = replace(ubicazione,'?','°' )
 where ubicazione like '%?%'
 */
 IF  EXISTS(select * from sysobjects where id = object_id(N'[lookup_scarico]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -89,7 +87,7 @@ I.codiceente as codeinvagency,--> Codice Ente Inventariale
 substring(I.descrizioneente,1,150) as descrinvagency ,--> Descrizione Ente Inventariale
 
 CAR.N_INVENTARIO_DA AS 'numinv', --> Numero di inventario
-LSCAR.progressivo_easy+1 AS 'nprogr', --> Numero progressivo. 1 per i cespiti, 2 o piÃ¹ per gli accessori
+LSCAR.progressivo_easy+1 AS 'nprogr', --> Numero progressivo. 1 per i cespiti, 2 o più per gli accessori
 
 NULL AS 'codiceinv_prec',
 NULL AS 'descrinv_prec',
@@ -187,3 +185,4 @@ GO
 
 --	amministrazione;10;exec [GIOVE2-PC\SQL2008,1435].[TEST].[DBO].exp_cespiti null
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
+

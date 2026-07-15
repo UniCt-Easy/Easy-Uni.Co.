@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System.Data;
 using metadatalibrary;
@@ -60,16 +58,16 @@ namespace meta_geo_country
 					
 			switch (ListingType) {
 				case "default": {
-						DescribeAColumn(T, "start", "Inizio validit‡", nPos++);
-						DescribeAColumn(T, "stop", "Fine validit‡", nPos++);
+						DescribeAColumn(T, "start", "Inizio validit√†", nPos++);
+						DescribeAColumn(T, "stop", "Fine validit√†", nPos++);
 						DescribeAColumn(T, "title", "Provincia", nPos++);
 						break;
 					}
 				case "seg": {
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
 						DescribeAColumn(T, "!idregion_geo_region_title", "Regione", nPos++);
-						DescribeAColumn(T, "!newcountry_geo_country_title", "id nuova provincia in cui questa Ë confluita", nPos++);
-						DescribeAColumn(T, "!oldcountry_geo_country_title", "id provincia da cui questa Ë confluita", nPos++);
+						DescribeAColumn(T, "!newcountry_geo_country_title", "id nuova provincia in cui questa √® confluita", nPos++);
+						DescribeAColumn(T, "!oldcountry_geo_country_title", "id provincia da cui questa √® confluita", nPos++);
 						DescribeAColumn(T, "province", "sigla provincia", nPos++);
 						DescribeAColumn(T, "start", "data inizio", nPos++);
 						DescribeAColumn(T, "stop", "data fine", nPos++);
@@ -77,8 +75,8 @@ namespace meta_geo_country
 					}
 				case "segchild": {
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
-						DescribeAColumn(T, "!newcountry_geo_country_title", "id nuova provincia in cui questa Ë confluita", nPos++);
-						DescribeAColumn(T, "!oldcountry_geo_country_title", "id provincia da cui questa Ë confluita", nPos++);
+						DescribeAColumn(T, "!newcountry_geo_country_title", "id nuova provincia in cui questa √® confluita", nPos++);
+						DescribeAColumn(T, "!oldcountry_geo_country_title", "id provincia da cui questa √® confluita", nPos++);
 						DescribeAColumn(T, "province", "sigla provincia", nPos++);
 						DescribeAColumn(T, "start", "data inizio", nPos++);
 						DescribeAColumn(T, "stop", "data fine", nPos++);

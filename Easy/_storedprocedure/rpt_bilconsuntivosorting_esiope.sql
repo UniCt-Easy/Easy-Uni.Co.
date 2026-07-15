@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_bilconsuntivosorting_esiope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_bilconsuntivosorting_esiope]
@@ -295,18 +293,17 @@ END
 		SELECT
 			isnull(SLK.idparent, SortSiope.idsor),
 			isnull(@fixedidupb,HPV.idupb),
-		    sum(SorInc.amount)   --- importo classificato alla data corrente, non è possibile storicizzare i passaggi di classificazione
-					 
+			 SUM(HPV.amount*ISNULL(FS.quota,0))
 		FROM historyproceedsview HPV
 		JOIN upb U						ON HPV.idupb = U.idupb
 		JOIN fin F						ON HPV.idfin = F.idfin		
 		JOIN incomelast ILAST
 			on ILAST.idinc = HPV.idinc
-		JOIN incomesorted SorInc
-				ON SorInc.idinc = ILAST.idinc
-		JOIN sorting SortSiope				ON SortSiope.idsor = SorInc.idsor				
-		JOIN sortinglevel sl			ON SortSiope.nlevel = sl.nlevel 
+		JOIN finsorting FS		ON FS.idfin = F.idfin	
+		JOIN sorting SortSiope		ON SortSiope.idsor = FS.idsor				
+		JOIN sortinglevel sl	ON SortSiope.nlevel = sl.nlevel 
 		LEFT OUTER JOIN sortinglink SLK on SLK.idchild = SortSiope.idsor and SLK.nlevel = @levelusable_original
+
 		WHERE HPV.competencydate <= @date AND HPV.amount<> 0
 			AND HPV.ymov = @ayear
 			AND (HPV.idupb LIKE @idupb)

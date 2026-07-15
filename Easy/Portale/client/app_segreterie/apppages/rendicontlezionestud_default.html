@@ -8,7 +8,7 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_idreg_studenti">Studente</label>
 					<div>
-						<input id="rendicontlezionestud_default_idreg_studenti" name="rendicontlezionestud_default_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="rendicontlezionestud_default_idreg_studenti" name="rendicontlezionestud_default_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -21,13 +21,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#rendicontlezionestud_default_ritardo").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_ritardo">Ritardo</label>
-					<input id="rendicontlezionestud_default_ritardo" type="text" class="form-control" data-tag="rendicontlezionestud.ritardo.g"  />
+					<input id="rendicontlezionestud_default_ritardo" type="text" class="form-control" data-tag="rendicontlezionestud.ritardo.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="rendicontlezionestud_default_ritardogiustifica">Giustificazione del ritardo</label>

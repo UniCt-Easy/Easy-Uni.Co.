@@ -22,10 +22,42 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
-			//beforeFill
 
-			//afterClear
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#protocollodestinatario_seg_idreg_dest'), null);
+				} else {
+					this.helpForm.filter($('#protocollodestinatario_seg_idreg_dest'), this.q.eq('registry_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-protocollodestinatario_seg");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
+
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#protocollodestinatario_seg_idreg_dest'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -42,6 +74,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			//buttons
         });

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace registryottemperanzalegge68_99_default {
     partial class Frm_registryottemperanzalegge68_99_default {
@@ -132,7 +130,7 @@ namespace registryottemperanzalegge68_99_default {
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 30);
             this.label4.TabIndex = 189;
-            this.label4.Text = "Data inizio validit‡";
+            this.label4.Text = "Data inizio validit√†";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBox4

@@ -207,6 +207,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="areadidattica_title" type="xs:string" minOccurs="0" />
               <xs:element name="convenzione_title" type="xs:string" minOccurs="0" />
               <xs:element name="corsostudio_annoistituz" type="xs:int" minOccurs="0" />
@@ -259,6 +260,7 @@
               <xs:element name="idsessione" type="xs:int" minOccurs="0" />
               <xs:element name="registrydocenti_title" type="xs:string" minOccurs="0" />
               <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="sessione_idappellokind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_idsessionekind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessione_stop" type="xs:dateTime" minOccurs="0" />
@@ -396,11 +398,13 @@
               <xs:element name="appello_surmanestop" type="xs:string" minOccurs="0" />
               <xs:element name="appello_surnamestart" type="xs:string" minOccurs="0" />
               <xs:element name="appelloazionekind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_sessione_title" type="xs:string" minOccurs="0" />
               <xs:element name="appellokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idappello" type="xs:int" />
               <xs:element name="idsessione" type="xs:int" minOccurs="0" />
+              <xs:element name="sessione_idappellokind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_idsessionekind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessione_stop" type="xs:dateTime" minOccurs="0" />

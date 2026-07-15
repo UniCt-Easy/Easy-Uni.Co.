@@ -21,32 +21,30 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idconvalidakind)
+				if (this.isNull(parentRow.idconvalidakind))
 					parentRow.idconvalidakind = 2;
-				//beforeFillFilter
+;
+				//afterGetFormDataFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-convalida_segistrein");
+				var def = appMeta.Deferred("afterGetFormData-convalida_segistrein");
 				var arraydef = [];
 				
-				//beforeFillInside
+				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
+						return def.resolve();
 					});
 				return def.promise();
 			},
+			
+			//beforeFill
 
 			//afterClear
 

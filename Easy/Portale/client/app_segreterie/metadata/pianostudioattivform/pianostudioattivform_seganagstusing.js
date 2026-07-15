@@ -41,10 +41,16 @@
 					});
 				return def.promise();
 			},
-			
+
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pianostudioattivform_seganagstusing_idsostenimento'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#pianostudioattivform_seganagstusing_idsostenimento'), false);
@@ -75,6 +81,10 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
+
+			//afterPost
 
 			managepianostudioattivform__seganagstusing_idcorsostudio: function () {
 				var def = appMeta.Deferred("beforeFill-managepianostudioattivform__seganagstusing_idcorsostudio");

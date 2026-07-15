@@ -24,17 +24,19 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione', null, 21, null);
-						this.describeAColumn(table, '!iddidprog_annoaccademico_alias1_aa', 'Anno accademico', null, 20, null);
-						this.describeAColumn(table, '!iddidprog_sede_title', 'Sede', null, 21, null);
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, 'iddidprog', 'Identificativo', null, 20, null);
+						this.describeAColumn(table, '!iddidprog_didprog_alias1_title', 'Denominazione', null, 22, null);
+						this.describeAColumn(table, '!iddidprog_annoaccademico_alias1_aa', 'Anno accademico', null, 22, null);
+						this.describeAColumn(table, '!iddidprog_sede_title', 'Sede', null, 24, null);
+						this.describeAColumn(table, '!iddidprog_didprog_alias1_codicemiur', 'Codice MIUR', null, 28, null);
+						this.describeAColumn(table, '!iddidprog_corsostudiokind_title', 'Tipologia', null, 63, null);
+						this.describeAColumn(table, '!iddidprog_corsostudiolivello_title', 'Livello', null, 64, null);
+						objCalcFieldConfig['!iddidprog_didprog_alias1_title'] = { tableNameLookup:'didprog_alias1', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_annoaccademico_alias1_aa'] = { tableNameLookup:'annoaccademico_alias1', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_sede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione', null, 22, null);
-						this.describeAColumn(table, '!iddidprog_annoaccademico_alias1_aa', 'Anno accademico', null, 22, null);
-						this.describeAColumn(table, '!iddidprog_sede_title', 'Sede', null, 40, null);
-						this.describeAColumn(table, '!iddidprog_didprog_alias1_title', 'Denominazione', null, 22, null);
-						objCalcFieldConfig['!iddidprog_didprog_alias1_title'] = { tableNameLookup:'didprog_alias1', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_alias1_codicemiur'] = { tableNameLookup:'didprog_alias1', columnNameLookup:'codicemiur', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_corsostudiokind_title'] = { tableNameLookup:'corsostudiokind', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_corsostudiolivello_title'] = { tableNameLookup:'corsostudiolivello', columnNameLookup:'title', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

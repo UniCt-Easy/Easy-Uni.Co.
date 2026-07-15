@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Windows.Forms;
@@ -28,7 +26,7 @@ namespace meta_registryregolaritafiscale {
     public class Meta_registryregolaritafiscale :Meta_easydata {
         public Meta_registryregolaritafiscale(DataAccess Conn, MetaDataDispatcher Dispatcher) :
             base(Conn, Dispatcher, "registryregolaritafiscale") {
-            Name = "Regolarit‡ Fiscale";
+            Name = "Regolarit√† Fiscale";
             EditTypes.Add("default");
             ListingTypes.Add("default");
             EditTypes.Add("anagraficadetail");
@@ -38,11 +36,11 @@ namespace meta_registryregolaritafiscale {
         protected override Form GetForm(string FormName) {
             if (FormName == "default") {
                 DefaultListType = "default";
-                Name = "regolarit‡ fiscale";
+                Name = "regolarit√† fiscale";
                 return MetaData.GetFormByDllName("registryregolaritafiscale_default");
             }
             if (FormName == "anagraficadetail") {
-                Name = "regolarit‡ fiscale";
+                Name = "regolarit√† fiscale";
                 DefaultListType = "anagraficadetail";
                 return MetaData.GetFormByDllName("registryregolaritafiscale_anagraficadetail");
             }
@@ -77,7 +75,7 @@ namespace meta_registryregolaritafiscale {
                     DescribeAColumn(T, C.ColumnName, "", -1);
                 int nPos = 1;
                 DescribeAColumn(T, "idregistryregolaritafiscale", "#", nPos++);
-                DescribeAColumn(T, "start", "Inizio validit‡", nPos++);
+                DescribeAColumn(T, "start", "Inizio validit√†", nPos++);
                 DescribeAColumn(T, "stop", "Scadenza", nPos++);
             }
         }
@@ -89,7 +87,7 @@ namespace meta_registryregolaritafiscale {
                 DateTime start = (DateTime)R["start"];
                 DateTime stop = (DateTime)R["stop"];
                 if (start > stop) {
-                    errmess = "Attenzione! Non puÚ essere immessa una data inizio successiva alla data scadenza";
+                    errmess = "Attenzione! Non pu√≤ essere immessa una data inizio successiva alla data scadenza";
                     errfield = "start";
                     return false;
                 }

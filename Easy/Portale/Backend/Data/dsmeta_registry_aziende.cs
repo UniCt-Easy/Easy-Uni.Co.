@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -65,6 +63,9 @@ public partial class dsmeta_registry_aziende: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ccnlregistry_aziende 		=> (MetaTable)Tables["ccnlregistry_aziende"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable istitutokind 		=> (MetaTable)Tables["istitutokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable numerodip 		=> (MetaTable)Tables["numerodip"];
@@ -216,6 +217,7 @@ private void initClass() {
 	tregistryprogfinbando.defineColumn("number", typeof(string));
 	tregistryprogfinbando.defineColumn("scadenza", typeof(DateTime));
 	tregistryprogfinbando.defineColumn("title", typeof(string));
+	tregistryprogfinbando.defineColumn("url", typeof(string));
 	Tables.Add(tregistryprogfinbando);
 	tregistryprogfinbando.defineKey("idreg", "idregistryprogfin", "idregistryprogfinbando");
 
@@ -230,6 +232,7 @@ private void initClass() {
 	tregistryprogfin.defineColumn("lt", typeof(DateTime),false);
 	tregistryprogfin.defineColumn("lu", typeof(string),false);
 	tregistryprogfin.defineColumn("title", typeof(string));
+	tregistryprogfin.defineColumn("url", typeof(string));
 	Tables.Add(tregistryprogfin);
 	tregistryprogfin.defineKey("idreg", "idregistryprogfin");
 
@@ -320,6 +323,13 @@ private void initClass() {
 	tccnlregistry_aziende.defineColumn("!idccnl_ccnl_stipula", typeof(DateTime));
 	Tables.Add(tccnlregistry_aziende);
 	tccnlregistry_aziende.defineKey("idccnl", "idreg_aziende");
+
+	//////////////////// ISTITUTOKIND /////////////////////////////////
+	var tistitutokind= new MetaTable("istitutokind");
+	tistitutokind.defineColumn("idistitutokind", typeof(int),false);
+	tistitutokind.defineColumn("tipoistituto", typeof(string),false);
+	Tables.Add(tistitutokind);
+	tistitutokind.defineKey("idistitutokind");
 
 	//////////////////// NUMERODIP /////////////////////////////////
 	var tnumerodip= new MetaTable("numerodip");
@@ -453,6 +463,7 @@ private void initClass() {
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("acronim", typeof(string));
 	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
@@ -460,6 +471,9 @@ private void initClass() {
 	tregistry.defineColumn("birthdate", typeof(DateTime));
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("code", typeof(string));
+	tregistry.defineColumn("codicemiur", typeof(string));
+	tregistry.defineColumn("codiceustat", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
 	tregistry.defineColumn("cu", typeof(string),false);
 	tregistry.defineColumn("email_fe", typeof(string));
@@ -472,12 +486,14 @@ private void initClass() {
 	tregistry.defineColumn("gender", typeof(string));
 	tregistry.defineColumn("idaccmotivecredit", typeof(string));
 	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idanpr", typeof(string));
 	tregistry.defineColumn("idateco", typeof(int));
 	tregistry.defineColumn("idcategory", typeof(string));
 	tregistry.defineColumn("idcentralizedcategory", typeof(string));
 	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistry.defineColumn("idistitutokind", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
@@ -491,6 +507,7 @@ private void initClass() {
 	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
 	tregistry.defineColumn("indicebibliometrico", typeof(int));
+	tregistry.defineColumn("institutionalcode", typeof(string));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -501,6 +518,7 @@ private void initClass() {
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
 	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("referencenumber", typeof(string));
 	tregistry.defineColumn("residence", typeof(int));
 	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
@@ -566,6 +584,10 @@ private void initClass() {
 	cPar = new []{ccnl.Columns["idccnl"]};
 	cChild = new []{ccnlregistry_aziende.Columns["idccnl"]};
 	Relations.Add(new DataRelation("FK_ccnlregistry_aziende_ccnl_idccnl",cPar,cChild,false));
+
+	cPar = new []{istitutokind.Columns["idistitutokind"]};
+	cChild = new []{registry.Columns["idistitutokind"]};
+	Relations.Add(new DataRelation("FK_registry_istitutokind_idistitutokind",cPar,cChild,false));
 
 	cPar = new []{numerodip.Columns["idnumerodip"]};
 	cChild = new []{registry.Columns["idnumerodip"]};

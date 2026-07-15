@@ -10,8 +10,8 @@
     <Shape ID="DesignTable:itinerationrefund" ZOrder="10" X="67" Y="-34" Height="619" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="615" />
     <Shape ID="DesignTable:itinerationrefundkind" ZOrder="3" X="388" Y="-11" Height="296" Width="191" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="292" />
     <Shape ID="DesignTable:foreigncountry" ZOrder="7" X="66" Y="785" Height="180" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="176" />
-    <Shape ID="DesignTable:itinerationrefundattachment" ZOrder="5" X="596" Y="286" Height="257" Width="232" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="253" />
-    <Shape ID="DesignTable:itinerationrefundattachmentkind" ZOrder="2" X="1118" Y="331" Height="181" Width="257" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
+    <Shape ID="DesignTable:itinerationrefundattachment" ZOrder="5" X="596" Y="286" Height="353" Width="232" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="349" />
+    <Shape ID="DesignTable:itinerationrefundattachmentkind" ZOrder="2" X="1118" Y="331" Height="200" Width="257" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:FK_foreigncountry_itinerationrefund" ZOrder="6" LineWidth="11">

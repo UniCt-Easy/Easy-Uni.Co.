@@ -23,42 +23,48 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.anno)
+				if (this.isNull(parentRow.anno))
 					parentRow.anno = 1;
-				if (!parentRow.annofc)
+				if (this.isNull(parentRow.annofc))
 					parentRow.annofc = 0;
 				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				//beforeFillFilter
+				parentRow.data = new Date();
+				//afterGetFormDataFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-iscrizioneanno_didprog");
+				var def = appMeta.Deferred("afterGetFormData-iscrizioneanno_didprog");
 				var arraydef = [];
 				
-				//beforeFillInside
+				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
+						return def.resolve();
 					});
 				return def.promise();
 			},
+			
+			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#iscrizioneanno_didprog_protnumero'), true);
+				this.enableControl($('#iscrizioneanno_didprog_protanno'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizioneanno'), this.getDataTable('parttimeinfo'));
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#iscrizioneanno_didprog_protnumero'), false);
 				this.enableControl($('#iscrizioneanno_didprog_protanno'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizioneanno'), this.getDataTable('parttimeinfo'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
@@ -98,6 +104,8 @@
 
 
 			//insertClick
+
+			//beforePost
 
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.idreg_istituto;

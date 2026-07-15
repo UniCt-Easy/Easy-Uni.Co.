@@ -26,7 +26,7 @@
 						this.describeAColumn(table, 'codice', 'Codice', null, 2000, 50);
 						this.describeAColumn(table, 'sasd_title', 'Denominazione', null, 3000, 255);
 						this.describeAColumn(table, 'areadidattica_title', 'Area o ambito disciplinare', null, 4200, 100);
-						this.describeAColumn(table, 'sasd_codice_old', 'Codice legge precedente', null, 5000, 4);
+						this.describeAColumn(table, 'sasd_codice_old', 'Codice legge precedente', null, 5000, 255);
 						this.describeAColumn(table, 'sasd_tipoente', 'Tipologia di ente', null, 6000, null);
 //$objCalcFieldConfig_default$
 						break;

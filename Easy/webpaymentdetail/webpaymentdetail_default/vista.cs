@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -64,9 +62,6 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
 
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable webpaymentdetailview 		=> (MetaTable)Tables["webpaymentdetailview"];
-
 	#endregion
 
 
@@ -94,7 +89,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// WEBPAYMENTDETAIL /////////////////////////////////
 	var twebpaymentdetail= new webpaymentdetailTable();
-	twebpaymentdetail.addBaseColumns("idwebpayment","idlist","idstore","ct","cu","idsor1","idsor2","idsor3","lt","lu","number","price","iddetail","idupb","idestimkind","paymentexpiring","idivakind","tax","annotations","idinvkind","competencystart","competencystop","idupb_iva","description");
+	twebpaymentdetail.addBaseColumns("idwebpayment","idlist","idstore","ct","cu","idsor1","idsor2","idsor3","lt","lu","number","price","iddetail","idupb","idestimkind","paymentexpiring","idivakind","tax","annotations","idinvkind","competencystart","competencystop","idupb_iva","description","idshowcase");
 	twebpaymentdetail.defineColumn("!list", typeof(string));
 	twebpaymentdetail.defineColumn("!store", typeof(string));
 	twebpaymentdetail.defineColumn("!totale", typeof(decimal));
@@ -285,58 +280,6 @@ private void initClass() {
 	tregistry.addBaseColumns("idreg","active","annotation","badgecode","birthdate","cf","ct","cu","extmatricula","foreigncf","forename","gender","idcategory","idcentralizedcategory","idcity","idmaritalstatus","idnation","idregistryclass","idtitle","location","lt","lu","maritalsurname","p_iva","rtf","surname","title","txt","residence","idregistrykind","authorization_free","multi_cf","toredirect","idaccmotivedebit","idaccmotivecredit","ccp","flagbankitaliaproceeds","idexternal","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","extension","ipa_perlapa");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// WEBPAYMENTDETAILVIEW /////////////////////////////////
-	var twebpaymentdetailview= new MetaTable("webpaymentdetailview");
-	twebpaymentdetailview.defineColumn("idstore", typeof(int),false);
-	twebpaymentdetailview.defineColumn("store", typeof(string),false);
-	twebpaymentdetailview.defineColumn("idwebpayment", typeof(int),false);
-	twebpaymentdetailview.defineColumn("iddetail", typeof(int),false);
-	twebpaymentdetailview.defineColumn("ywebpayment", typeof(short),false);
-	twebpaymentdetailview.defineColumn("nwebpayment", typeof(int));
-	twebpaymentdetailview.defineColumn("idlist", typeof(int),false);
-	twebpaymentdetailview.defineColumn("list", typeof(string),false);
-	twebpaymentdetailview.defineColumn("intcode", typeof(string),false);
-	twebpaymentdetailview.defineColumn("idlistclass", typeof(string),false);
-	twebpaymentdetailview.defineColumn("codelistclass", typeof(string));
-	twebpaymentdetailview.defineColumn("listclass", typeof(string));
-	twebpaymentdetailview.defineColumn("number", typeof(decimal),false);
-	twebpaymentdetailview.defineColumn("price", typeof(decimal));
-	twebpaymentdetailview.defineColumn("tax", typeof(decimal));
-	twebpaymentdetailview.defineColumn("idsor01", typeof(int));
-	twebpaymentdetailview.defineColumn("idsor02", typeof(int));
-	twebpaymentdetailview.defineColumn("idsor03", typeof(int));
-	twebpaymentdetailview.defineColumn("idsor04", typeof(int));
-	twebpaymentdetailview.defineColumn("idsor05", typeof(int));
-	twebpaymentdetailview.defineColumn("cu", typeof(string),false);
-	twebpaymentdetailview.defineColumn("ct", typeof(DateTime),false);
-	twebpaymentdetailview.defineColumn("lu", typeof(string),false);
-	twebpaymentdetailview.defineColumn("lt", typeof(DateTime),false);
-	twebpaymentdetailview.defineColumn("idsor1", typeof(int));
-	twebpaymentdetailview.defineColumn("idsor2", typeof(int));
-	twebpaymentdetailview.defineColumn("idsor3", typeof(int));
-	twebpaymentdetailview.defineColumn("sortcode1", typeof(string));
-	twebpaymentdetailview.defineColumn("sortcode2", typeof(string));
-	twebpaymentdetailview.defineColumn("sortcode3", typeof(string));
-	twebpaymentdetailview.defineColumn("annotations", typeof(string));
-	twebpaymentdetailview.defineColumn("idinvkind", typeof(int));
-	twebpaymentdetailview.defineColumn("competencystart", typeof(DateTime));
-	twebpaymentdetailview.defineColumn("competencystop", typeof(DateTime));
-	twebpaymentdetailview.defineColumn("idupb_iva", typeof(string));
-	twebpaymentdetailview.defineColumn("flag_showcase", typeof(int));
-	twebpaymentdetailview.defineColumn("idreg", typeof(int),false);
-	twebpaymentdetailview.defineColumn("registry", typeof(string),false);
-	twebpaymentdetailview.defineColumn("forename", typeof(string));
-	twebpaymentdetailview.defineColumn("surname", typeof(string));
-	twebpaymentdetailview.defineColumn("cf", typeof(string));
-	twebpaymentdetailview.defineColumn("p_iva", typeof(string));
-	twebpaymentdetailview.defineColumn("email", typeof(string));
-	twebpaymentdetailview.defineColumn("adate", typeof(DateTime));
-	twebpaymentdetailview.defineColumn("idwebpaymentstatus", typeof(short),false);
-	twebpaymentdetailview.defineColumn("webpaymentstatus", typeof(string),false);
-	twebpaymentdetailview.defineColumn("iuv", typeof(string));
-	twebpaymentdetailview.defineColumn("idflussocrediti", typeof(int));
-	Tables.Add(twebpaymentdetailview);
 
 	#endregion
 

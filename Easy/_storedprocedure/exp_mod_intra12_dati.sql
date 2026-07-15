@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,14 +13,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_intra12_dati]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_mod_intra12_dati]
 GO
  
  /*
 
-EXEC exp_mod_intra12_dati 2010, 10, {d '2010-10-10'},'XX','99rerwe9'
+EXEC exp_mod_intra12_dati 2025, 6, {d '2025-07-31'}
 
 */
 SET QUOTED_IDENTIFIER OFF 
@@ -248,6 +246,7 @@ SET @TR012001 = isnull((
 			AND isnull(InvDet.tax,0) >0 -- vanno dichiarate sole le fatture per cui l'imposta è maggio di zero
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012002 decimal(19,2) -- Acquisti Intra - Imposta
@@ -272,6 +271,7 @@ SET @TR012002 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 ),0)
 
 DECLARE @TR012003 decimal(19,5) -- Acquisti da soggetti UE non residenti- Imponibile Beni
@@ -305,6 +305,7 @@ SET @TR012003 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012004 decimal(19,2) -- Acquisti da soggetti UE non residenti- Imposta Beni
@@ -329,6 +330,7 @@ SET @TR012004 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012005 decimal(19,5) -- Acquisti - Imponibile Servizi
@@ -358,11 +360,12 @@ SET @TR012005 =  isnull((
 			AND YEAR(I.adate) = @ayear
 			AND InvDet.intra12operationkind = 'S'--> Servizi
 			AND MONTH(I.adate) = @mese
-			--AND ISNULL(InvDet.exception12, 'N') = 'N'
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
+
 
 DECLARE @TR012006 decimal(19,5) -- Acquisti - Imponibile Servizi art.7
 SET @TR012006 =  isnull(( 
@@ -395,6 +398,7 @@ SET @TR012006 =  isnull((
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND isnull(InvDet.tax,0) >0
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012007 decimal(19,2) -- Acquisti - Imposta Servizi
@@ -418,6 +422,7 @@ SET @TR012007 =  isnull((
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND isnull(InvDet.tax,0) >0
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012008 decimal(19,5) -- Acquisti Entra-UE - Imponibile Beni
@@ -450,6 +455,7 @@ SET @TR012008 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012009 decimal(19,2) -- Acquisti Entra-UE - Imposta Beni
@@ -473,6 +479,7 @@ SET @TR012009 =  isnull((
 			AND MONTH(I.adate) = @mese
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012010 decimal(19,5) -- Acquisti Entra-UE - Imponibile Servizi
@@ -506,6 +513,7 @@ SET @TR012010 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012011 decimal(19,5) -- Acquisti Entra-UE - Imponibile Servizi art.7
@@ -539,6 +547,7 @@ SET @TR012011 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012012 decimal(19,2) -- Acquisti Entra-UE - Imposta Servizi
@@ -562,6 +571,7 @@ SET @TR012012 =  isnull((
 			AND isnull(InvDet.tax,0) >0
 			AND (IK.flag & 1)= 0 --> Acquisti
 			AND IRK.flagactivity = 1 -- prende le fattura associate a registri Istituzionali
+			and IRK.registerclass<>'P' -- esclude i Registri IVA di tipo "Protocollo generale"
 			),0)
 
 DECLARE @TR012013 decimal(19,2) -- Totale Imposta  
@@ -572,6 +582,7 @@ SET @TR012014 = @dataversamento
 
 DECLARE @len_amount int
 SET @len_amount = 15 -- con la virgola fa 16
+
 
 
 SELECT 
@@ -654,6 +665,10 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
+
+
+
+
 
 
 

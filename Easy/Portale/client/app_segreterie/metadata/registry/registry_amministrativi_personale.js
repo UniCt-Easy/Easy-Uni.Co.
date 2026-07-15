@@ -108,7 +108,7 @@
 				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': "01" });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar60').fullCalendar('rerenderEvents');
+					$('#calendar67').fullCalendar('rerenderEvents');
 				});
 				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
 				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));

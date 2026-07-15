@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_pratica_segistrein" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_pratica_segistrein" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_pratica_segistrein" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -56,7 +56,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="convalida" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="convalida" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="cf" type="xs:decimal" minOccurs="0" />
@@ -84,24 +84,47 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="statuskinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idstatuskind" type="xs:int" />
+              <xs:element name="statuskind_ct" type="xs:dateTime" />
+              <xs:element name="statuskind_cu" type="xs:string" />
+              <xs:element name="statuskind_delibera" type="xs:string" minOccurs="0" />
+              <xs:element name="statuskind_istanze" type="xs:string" minOccurs="0" />
+              <xs:element name="statuskind_istanzedelibera" type="xs:string" minOccurs="0" />
+              <xs:element name="statuskind_lt" type="xs:dateTime" />
+              <xs:element name="statuskind_lu" type="xs:string" />
+              <xs:element name="statuskind_pratica" type="xs:string" minOccurs="0" />
+              <xs:element name="statuskind_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="titolostudiodocentiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" />
+              <xs:element name="attach_filename" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idattach" type="xs:int" minOccurs="0" />
               <xs:element name="idistattitolistudio" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idreg_istituti" type="xs:int" />
               <xs:element name="idtitolostudio" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="statuskind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idstatuskind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="istattitolistudio_titolo" type="xs:string" minOccurs="0" />
+              <xs:element name="registryistituti_title" type="xs:string" minOccurs="0" />
+              <xs:element name="titolostudio_conseguito" type="xs:string" minOccurs="0" />
+              <xs:element name="titolostudio_ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="titolostudio_cu" type="xs:string" minOccurs="0" />
+              <xs:element name="titolostudio_data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="titolostudio_giudizio" type="xs:string" minOccurs="0" />
+              <xs:element name="titolostudio_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="titolostudio_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="titolostudio_voto" type="xs:int" minOccurs="0" />
+              <xs:element name="titolostudio_votolode" type="xs:string" minOccurs="0" />
+              <xs:element name="titolostudio_votosu" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -109,11 +132,23 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" />
+              <xs:element name="anno" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_aa" type="xs:string" minOccurs="0" />
+              <xs:element name="didprog_idsede" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
-              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
               <xs:element name="idiscrizione" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
+              <xs:element name="iscrizione_ct" type="xs:dateTime" />
+              <xs:element name="iscrizione_cu" type="xs:string" />
+              <xs:element name="iscrizione_data" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iscrizione_lt" type="xs:dateTime" />
+              <xs:element name="iscrizione_lu" type="xs:string" />
+              <xs:element name="iscrizione_matricola" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
+              <xs:element name="sede_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -121,6 +156,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiar_ct" type="xs:dateTime" />
+              <xs:element name="dichiar_cu" type="xs:string" />
+              <xs:element name="dichiar_date" type="xs:dateTime" />
+              <xs:element name="dichiar_extension" type="xs:string" minOccurs="0" />
+              <xs:element name="dichiar_lt" type="xs:dateTime" />
+              <xs:element name="dichiar_lu" type="xs:string" />
+              <xs:element name="dichiar_protanno" type="xs:int" minOccurs="0" />
+              <xs:element name="dichiar_protnumero" type="xs:int" minOccurs="0" />
+              <xs:element name="dichiarkind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="iddichiar" type="xs:int" />
               <xs:element name="iddichiarkind" type="xs:int" />
@@ -170,21 +214,26 @@
       <xs:field xpath="mstns:idconvalida" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="statuskinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:statuskinddefaultview" />
+      <xs:field xpath="mstns:idstatuskind" />
+    </xs:unique>
     <xs:unique name="titolostudiodocentiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:titolostudiodocentiview" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idtitolostudio" />
-    </xs:unique>
-    <xs:unique name="statuskind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:statuskind" />
-      <xs:field xpath="mstns:idstatuskind" />
     </xs:unique>
     <xs:unique name="iscrizionedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:iscrizionedefaultview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:idiscrizione" />
+      <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="dichiarsegview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:dichiarsegview" />
       <xs:field xpath="mstns:iddichiar" />
+      <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="pratica_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pratica" />
@@ -199,11 +248,11 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_convalida_pratica_iddidprog-idiscrizione-idistanza-idpratica-idreg-iddichiar-idiscrizione_from-" msdata:parent="pratica" msdata:child="convalida" msdata:parentkey="iddidprog idiscrizione idistanza idpratica idreg iddichiar idiscrizione_from" msdata:childkey="iddidprog idiscrizione idistanza idpratica idreg iddichiar idiscrizione_from" />
+      <msdata:Relationship name="FK_convalida_pratica_iddidprog-idiscrizione-idistanza-idpratica-idreg-iddichiar-idiscrizione_from" msdata:parent="pratica" msdata:child="convalida" msdata:parentkey="iddidprog idiscrizione idistanza idpratica idreg iddichiar idiscrizione_from" msdata:childkey="iddidprog idiscrizione idistanza idpratica idreg iddichiar idiscrizione_from" />
       <msdata:Relationship name="FK_convalidato_convalida_idconvalida-idreg" msdata:parent="convalida" msdata:child="convalidato" msdata:parentkey="idconvalida idreg" msdata:childkey="idconvalida idreg" />
       <msdata:Relationship name="FK_convalidante_convalida_idconvalida-idreg" msdata:parent="convalida" msdata:child="convalidante" msdata:parentkey="idconvalida idreg" msdata:childkey="idconvalida idreg" />
+      <msdata:Relationship name="FK_pratica_statuskinddefaultview_idstatuskind" msdata:parent="statuskinddefaultview" msdata:child="pratica" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
       <msdata:Relationship name="FK_pratica_titolostudiodocentiview_idtitolostudio" msdata:parent="titolostudiodocentiview" msdata:child="pratica" msdata:parentkey="idtitolostudio" msdata:childkey="idtitolostudio" />
-      <msdata:Relationship name="FK_pratica_statuskind_idstatuskind" msdata:parent="statuskind" msdata:child="pratica" msdata:parentkey="idstatuskind" msdata:childkey="idstatuskind" />
       <msdata:Relationship name="FK_pratica_iscrizionedefaultview_idiscrizione_from" msdata:parent="iscrizionedefaultview" msdata:child="pratica" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione_from" />
       <msdata:Relationship name="FK_pratica_dichiarsegview_iddichiar" msdata:parent="dichiarsegview" msdata:child="pratica" msdata:parentkey="iddichiar" msdata:childkey="iddichiar" />
     </xs:appinfo>

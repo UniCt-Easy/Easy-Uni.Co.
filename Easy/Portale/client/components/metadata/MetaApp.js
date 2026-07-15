@@ -135,7 +135,7 @@
                         return res.resolve(page.html).promise();
                     }
 
-                    let htmlFileName = this.getMetaPagePath(tableName) + "/" + tableName + "_" + editType + ".html";
+                    let htmlFileName = this.getHtmlFilePath(tableName, editType);
                     $.get(htmlFileName)
                     .done(
                         function (data) {
@@ -172,6 +172,25 @@
                     this.metaPages.push({ tableName: tableName, editType: editType, MetaPage: metaPage });
                 },
 
+                /**
+                 * Returns the default path where to find the js file of a metaPage
+                 * @param {any} tableName
+                 * @param {any} editType
+                 * @returns
+                 */
+                getJsFilePath: function (tableName, editType) {
+                    return appMeta.getMetaPagePath(tableName) + "/" + tableName + "_" + editType + ".js";
+                },
+
+                /**
+                 * Returns the default path where to find the html file of a metaPage
+                 * @param {any} tableName
+                 * @param {any} editType
+                 * @returns
+                 */
+                getHtmlFilePath: function (tableName, editType) {
+                    return appMeta.getMetaPagePath(tableName) + "/" + tableName + "_" + editType + ".html";
+                },
 
                 /**
                  * @method getMetaPage
@@ -192,7 +211,7 @@
                         return res.resolve(new found.MetaPage(tableName, editType, isDetail)); //non aggiunge due volte la metaPage
                     }
 
-                    let jsFileName = this.getMetaPagePath(tableName) + "/" + tableName + "_" + editType + ".js";
+                    let jsFileName = this.getJsFilePath(tableName, editType);
                     //console.log("to get file"+jsFileName);
                     $.getScript(jsFileName) // questo esegue il js caricato
                     .done(

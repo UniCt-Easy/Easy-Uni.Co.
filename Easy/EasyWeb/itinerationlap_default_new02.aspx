@@ -7,14 +7,14 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="txtDataOraInizio">Data/ora inizio  (GG/MM/AA hh:mm):</label>
-                        <cc1:hwTextBox runat="server" ID="txtDataOraInizio" Tag="itinerationlap.starttime.g" CssClass="form-control" TabIndex="1"></cc1:hwTextBox>
+                        <label for="txtOraInizio">Data/ora inizio  (GG/MM/AA hh:mm):</label>
+                        <cc1:hwTextBox runat="server" ID="txtOraInizio" type="datetime-local" Tag="itinerationlap.starttime.g" CssClass="form-control" TabIndex="1"></cc1:hwTextBox>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="txtDataOraTermine">Data/ora termine (GG/MM/AA hh:mm):</label>
-                        <cc1:hwTextBox runat="server" ID="txtDataOraTermine" Tag="itinerationlap.stoptime.g" CssClass="form-control" TabIndex="2"></cc1:hwTextBox>
+                        <label for="txtOraTermine">Data/ora termine (GG/MM/AA hh:mm):</label>
+                        <cc1:hwTextBox runat="server" ID="txtOraTermine" type="datetime-local" Tag="itinerationlap.stoptime.g" CssClass="form-control" TabIndex="2"></cc1:hwTextBox>
                     </div>
                 </div>
             </div>
@@ -66,3 +66,10 @@
 
     </div>
 </asp:Content>
+<asp:Content  ContentPlaceHolderID="JScriptAfterLibs"  runat="server">
+<script>
+    $("form").on("submit", function (e) {
+        e.preventDefault(); // stops page reload
+    });
+</script>
+    </asp:Content>

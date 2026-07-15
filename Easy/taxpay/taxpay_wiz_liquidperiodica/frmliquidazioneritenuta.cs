@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -28,6 +26,7 @@ using funzioni_configurazione;
 using gestioneclassificazioni;
 using movimentofunctions;
 using ep_functions;
+using System.Linq;
 //using spesa_automatismi;
 
 namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
@@ -143,13 +142,13 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			this.btnCollegaS = new System.Windows.Forms.Button();
 			this.dgDettaglioRitenute = new System.Windows.Forms.DataGrid();
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
-			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
-			this.txtIniziale = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new Crownwood.Magic.Controls.TabPage();
 			this.btnSelezionaTutto = new System.Windows.Forms.Button();
 			this.label8 = new System.Windows.Forms.Label();
 			this.txtImporto1 = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
+			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.txtIniziale = new System.Windows.Forms.TextBox();
 			this.tabPage3 = new Crownwood.Magic.Controls.TabPage();
 			this.btnCambiaBilancio = new System.Windows.Forms.Button();
 			this.btnBack = new System.Windows.Forms.Button();
@@ -159,8 +158,8 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			((System.ComponentModel.ISupportInitialize)(this.gridMovSpesa)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgDettaglioRitenute)).BeginInit();
 			this.tabController.SuspendLayout();
-			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.tabPage1.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -348,32 +347,6 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
             this.tabPage2,
             this.tabPage3});
 			// 
-			// tabPage1
-			// 
-			this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabPage1.Controls.Add(this.txtIniziale);
-			this.tabPage1.Location = new System.Drawing.Point(0, 0);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(1119, 483);
-			this.tabPage1.TabIndex = 3;
-			this.tabPage1.Title = "Presentazione";
-			// 
-			// txtIniziale
-			// 
-			this.txtIniziale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtIniziale.Location = new System.Drawing.Point(8, 8);
-			this.txtIniziale.Multiline = true;
-			this.txtIniziale.Name = "txtIniziale";
-			this.txtIniziale.ReadOnly = true;
-			this.txtIniziale.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtIniziale.Size = new System.Drawing.Size(1099, 464);
-			this.txtIniziale.TabIndex = 0;
-			this.txtIniziale.Text = resources.GetString("txtIniziale.Text");
-			// 
 			// tabPage2
 			// 
 			this.tabPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -432,6 +405,32 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			this.label7.TabIndex = 21;
 			this.label7.Text = "Importo:";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabPage1.Controls.Add(this.txtIniziale);
+			this.tabPage1.Location = new System.Drawing.Point(0, 0);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Size = new System.Drawing.Size(1119, 483);
+			this.tabPage1.TabIndex = 3;
+			this.tabPage1.Title = "Presentazione";
+			// 
+			// txtIniziale
+			// 
+			this.txtIniziale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtIniziale.Location = new System.Drawing.Point(8, 8);
+			this.txtIniziale.Multiline = true;
+			this.txtIniziale.Name = "txtIniziale";
+			this.txtIniziale.ReadOnly = true;
+			this.txtIniziale.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.txtIniziale.Size = new System.Drawing.Size(1099, 464);
+			this.txtIniziale.TabIndex = 0;
+			this.txtIniziale.Text = resources.GetString("txtIniziale.Text");
 			// 
 			// tabPage3
 			// 
@@ -509,10 +508,10 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 			((System.ComponentModel.ISupportInitialize)(this.gridMovSpesa)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgDettaglioRitenute)).EndInit();
 			this.tabController.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			this.tabPage1.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.panel1.ResumeLayout(false);
@@ -529,7 +528,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
             this.Conn = Meta.Conn;
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
-
+            
             esercizio = Meta.GetSys("esercizio").ToString();
             DS.tax.ExtendedProperties["sort_by"] = "description";
             string filter = QHS.AppAnd(QHS.NullOrEq("active", 'S'), QHS.IsNull("maintaxcode"));
@@ -584,6 +583,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 
 
         }
+
         public string GetRitenutedapagare(string filter) {
             DataTable MyTax = Conn.RUN_SELECT("tax", "*", null, filter, null, false);
             DataTable MyTaxsetup = Conn.RUN_SELECT("taxsetup", "*", null, QHS.CmpEq("ayear", esercizio), null, false);
@@ -599,17 +599,30 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                 Datainizio = new DateTime(1, 1, 1);
                 Datafine = new DateTime(1, 1, 1);
                 CalcolaDateDaPeriodo(Rauto[0], out Datainizio, out Datafine);
-                if (!CallStoredProcedure(R["taxcode"], Datafine)) continue;
+                if (
+                    (!CallStoredProcedure("compute_taxpay", esercizio, R["taxcode"], Datafine)) 
+                    &&
+                 (!CallStoredProcedure("compute_taxpayprec", esercizio, R["taxcode"], Datafine)) 
+                 )continue;
                 if (myList != "") myList += ",";
                 myList += QHS.quote(R["taxcode"]);
             }
             string filterTax = QHS.FieldInList("taxcode", myList);
             return filterTax;
+
+
         }
 
-        private bool CallStoredProcedure(object codiceritenuta, DateTime datafine) {
-            DataSet Out = Conn.CallSP("compute_taxpay",
-                new object[] { esercizio, codiceritenuta, datafine }, true, -1);
+        private bool CallStoredProcedure(string spname, object esercizio, object codiceritenuta, DateTime datafine) {
+            DataSet Out;
+            if (spname == "compute_taxpayprec") {
+                Out = Conn.CallSP(spname,
+               new object[] { esercizio, codiceritenuta}, true, -1);
+            }
+            else {
+              Out = Conn.CallSP(spname,
+                    new object[] { esercizio, codiceritenuta, datafine }, true, -1);
+            }
             if (Out == null) return false;
             if (Out.Tables.Count == 0) return false; //no answer from sp
             return (Out.Tables[0].Rows.Count > 0);
@@ -826,8 +839,52 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
             int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
             DataSet Out = Conn.CallSP("compute_taxpay",
                 new object[] {esercizio, codiceritenuta, datafine});
-            if (Out == null) return false;
-            if (Out.Tables.Count == 0) return false; //no answer from sp
+            DataSet OutPrec = Conn.CallSP("compute_taxpayprec",
+                new object[] { esercizio, codiceritenuta});
+            //Se NON CI SONO Rit. da liquidare ne di quest'anno ne dell'anno precedente, esce.
+            if ((Out == null) && (OutPrec == null)) return false;
+            if ((Out.Tables.Count == 0) && (OutPrec.Tables.Count == 0)) return false; //no answer from sp
+
+            DataTable outTable = Out.Tables[0];
+            DataTable precTable = OutPrec.Tables[0];
+
+            // Nomi delle colonne che definiscono il "duplicato" nell'output delle due sp, aggiungo anche importo perchè
+            // su alcune ritenute applcate allo stesso pagamento  ci sono da distinguere le due componenti C/Ente e C/Dip che differisocno per l'importo
+            string[] keyCols = { "idexp", "taxcode", "amount", "ayear" , "idreg" };
+
+            // 1) costruisco l'insieme delle chiavi già presenti in outTable
+            var existingKeys = new HashSet<string>();
+
+            foreach (DataRow row in outTable.Rows) {
+                string key = BuildKey(row, keyCols);
+                if (!existingKeys.Contains(key)) {
+                    existingKeys.Add(key);
+                }
+            }
+
+
+            bool existsTax = false;
+            existsTax = ((Out != null) && outTable != null);
+            
+            bool existsTaxPrec = false;
+            existsTaxPrec = ((OutPrec != null) && precTable != null);
+
+            //Se CI SONO Rit. da liquidare sia di quest'anno che dell'anno precedente, riversa tutto in un DataSet.
+            if (existsTax && existsTaxPrec) {
+                foreach (DataRow R in precTable.Rows) {
+                    string key = BuildKey(R, keyCols);
+                    if (existingKeys.Add(key)) // Add ritorna false se già presente
+                    {
+                        Out.Tables[0].ImportRow(R);
+                    }
+                }
+            }
+
+            //Se NON CI SONO Rit. da liquidare sia di quest'anno ma CI SONO Rit. dell'anno precedente, riversa tutto in un DataSet.
+            if (!existsTax && existsTaxPrec) {
+                Out = OutPrec;
+			}
+            
 
             //DataRow TipoRiten= DS.tax.Select("(taxcode="+
             //QueryCreator.quotedstrvalue(codiceritenuta,false)+")")[0];
@@ -895,7 +952,16 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
 
             return true;
         }
+        static string BuildKey(DataRow row, string[] cols) {
+            const char sep = '\u001F'; // separatore rarissimo
 
+            return string.Join(sep.ToString(),
+                cols.Select(c => {
+                    var v = row[c];
+                    return v == DBNull.Value ? "<NULL>" : v.ToString().Trim();
+                })
+            );
+        }
         bool selezioneCambiata(DataTable t) {
             //string esercizio = Conn.sys["esercizio"].ToString();
 //			DataSet Out=  Conn.CallSP("sp_calc_liquidritenuta", 
@@ -2237,6 +2303,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                     elencoSpeseDaLiquidareCor = elencoSpeseSelezionateCor;
                 }
             }
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         private void gridMovSpesa_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
@@ -2259,6 +2326,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
                             btnCollegaS.Enabled = false;
                             btnCambiaBilancio.Enabled = false;
                             btnScollegaS.Enabled = true;
+                            MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
                             return;
                         }
                     }
@@ -2267,6 +2335,7 @@ namespace taxpay_wiz_liquidperiodica //liquidazioneritenuta//
             btnCollegaS.Enabled = esisteSelezione;
             btnCambiaBilancio.Enabled = esisteSelezione;
             btnScollegaS.Enabled = false;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         #region gestione tabcontrol

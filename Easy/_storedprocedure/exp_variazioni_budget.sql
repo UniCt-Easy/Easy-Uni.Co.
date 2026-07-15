@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_variazioni_budget]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_variazioni_budget]
 GO
@@ -24,12 +22,12 @@ GO
 SET ANSI_NULLS ON 
 GO
 
- 
+--setuser 'amministrazione'
 --exec exp_variazioni_budget 2017, {d'2017-12-31'},'%','S',null,null,null,null,null
 --go
 --exec exp_variazioni_budget  2019, {d'2019-12-31'},'%','S',null,null,null,null,null
 --go
--- exec exp_variazioni_budget 2018, {d'2018-12-31'},1 ,null,null,null,null,null
+-- exec exp_variazioni_budget 2025, {d'2025-12-31'},1 ,null,null,null,null,null
 CREATE      PROCEDURE  [exp_variazioni_budget](
 	@ayear int,--> anno del bilancio di previsione
 	@adate datetime, 
@@ -112,19 +110,19 @@ INSERT INTO #dati  SELECT 1,'6) Contributi da altri enti (pubblici)', 'EA1206%',
 INSERT INTO #dati  SELECT 1,'7) Contributi da altri enti (privati)', 'EA1207%', 0,0,0,0,0,0,0,0, 'R' ,'II. CONTRIBUTI',1 
 
 -------------- PROVENTI PER ATTIVITA' ASSISTENZIALE ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITA’ ASSISTENZIALE', 'EA1301%',  0,0,0,0,0,0,0,0, 'R',  null,1 
+INSERT INTO #dati  SELECT 2,'III. PROVENTI PER ATTIVITA’ ASSISTENZIALE', null,  0,0,0,0,0,0,0,0, 'R',  null,1 
 -------------- PROVENTI PER GESTIONE DIRETTA ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'IV. PROVENTI PER LA GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO', 'EA1401%',  0,0,0,0,0,0,0,0, 'R', null,1
+INSERT INTO #dati  SELECT 2,'IV. PROVENTI PER LA GESTIONE DIRETTA INTERVENTI PER IL DIRITTO ALLO STUDIO', 'EA1301%',  0,0,0,0,0,0,0,0, 'R', null,1
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
 -- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilità finanziaria
 -- 2) Altri Proventi e Ricavi Diversi
 INSERT INTO #dati  SELECT 2,'V. ALTRI PROVENTI  E RICAVI DIVERSI',null,  0,0,0,0,0,0,0,0, 'R' ,  null,1
-INSERT INTO #dati  SELECT 1,'1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilità finanziaria', 'EA1501%', 0,0,0,0,0,0,0,0, 'R' ,  'V. ALTRI PROVENTI  E RICAVI DIVERSI',1
-INSERT INTO #dati  SELECT 1,'2) Altri Proventi e Ricavi Diversi', 'EA1502%', 0,0,0,0,0,0,0,0, 'R' ,'V. ALTRI PROVENTI  E RICAVI DIVERSI',1 
+INSERT INTO #dati  SELECT 1,'1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilità finanziaria', 'EA1401%', 0,0,0,0,0,0,0,0, 'R' ,  'V. ALTRI PROVENTI  E RICAVI DIVERSI',1
+INSERT INTO #dati  SELECT 1,'2) Altri Proventi e Ricavi Diversi', 'EA1402%', 0,0,0,0,0,0,0,0, 'R' ,'V. ALTRI PROVENTI  E RICAVI DIVERSI',1 
 -------------- Variazioni Rimanenze  ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'VI. VARIAZIONE RIMANENZE', 'EA1601%', 0,0,0,0,0,0,0,0, 'R',  null,1 
+INSERT INTO #dati  SELECT 2,'VI. VARIAZIONE RIMANENZE', 'EA1501%', 0,0,0,0,0,0,0,0, 'R',  null,1 
 ---------- Incremento Immobilizzazioni per lavoro interni ---------------------------------- 
-INSERT INTO #dati  SELECT 2,'VII. INCREMENTO IMMOBILIZZAZIONI PER LAVORI INTERNI', 'EA1701%',0,0,0,0,0,0,0,0, 'R' , null,1
+INSERT INTO #dati  SELECT 2,'VII. INCREMENTO IMMOBILIZZAZIONI PER LAVORI INTERNI', 'EA1601%',0,0,0,0,0,0,0,0, 'R' , null,1
 ----------- TOTALE PROVENTI (A)-----------------------------------------------------------------
 INSERT INTO #dati  SELECT 0,'TOTALE PROVENTI  (A)', null, 0,0,0,0,0,0,0,0, 'R' ,null,null 
 ------------------------------------------------------------------------------------------------
@@ -168,7 +166,7 @@ INSERT INTO #dati  SELECT 1,'4) Svalutazioni dei crediti compresi nell’attivo ci
 INSERT INTO #dati  SELECT 2,'XI. ACCANTONAMENTI PER RISCHI E ONERI', 'EB4101%', 0,0,0,0,0,0,0,0, 'C', null, 1 
 INSERT INTO #dati  SELECT 2,'XII. ONERI DIVERSI DI GESTIONE','EB5101%',0,0,0,0,0,0,0,0, 'C' , null, 1
 INSERT INTO #dati  SELECT 0,'TOTALE COSTI  (B)', null, 0,0,0,0,0,0,0,0, 'C' ,null,null 
-INSERT INTO #dati  SELECT 0,'DIFFERENZA TRA PROVENTI E COSTI OPERATIVI (A-B)', null, 0,0,0,0,0,0,0,0, 'A' ,null,null 
+INSERT INTO #dati  SELECT 0,'DIFFERENZA TRA PROVENTI E COSTI OPERATIVI (A-B)', null, 0,0,0,0,0,0,0,0, 'A' ,null,1 
 
 INSERT INTO #dati  SELECT 3,'C) PROVENTI E ONERI FINANZIARI', null, 0,0,0,0,0,0,0,0, 'A', null,1  --,'S' 
 INSERT INTO #dati  SELECT 1,'1) Proventi finanziari', 'EC1101%', 0,0,0,0,0,0,0,0, 'R', 'C) PROVENTI E ONERI FINANZIARI',1
@@ -579,8 +577,16 @@ where  child.KIND = 'C' and sortcode is not null ) 	,0) where  #dati.label = 'To
 --where  child.KIND = 'C' and sortcode is not null) 	,0)	where  #dati.label = 'TotCosti'
 
 --- Risultato economico  
-UPDATE #dati SET _initprev =  (select sum(_initprev * segno) FROM #dati child
-where child.parent_label = #dati.label)		where  #dati.label = 'RISULTATO ECONOMICO'
+
+--UPDATE #dati SET _initprev =  (select sum(_initprev * segno) FROM #dati child
+--where child.parent_label = #dati.label)		where  #dati.label = 'RISULTATO ECONOMICO'
+
+UPDATE #dati SET _initprev = 
+isnull((select sum(_initprev * segno) FROM #dati  where #dati.label = ('DIFFERENZA TRA PROVENTI E COSTI OPERATIVI (A-B)')) ,0)	+
+isnull((select sum(_initprev * segno) FROM #dati  where #dati.label = 'C) PROVENTI E ONERI FINANZIARI') ,0)	+
+isnull((select sum(_initprev * segno) FROM #dati  where #dati.label = 'E) PROVENTI E ONERI STRAORDINARI') ,0) +
+isnull((select sum(_initprev * segno) FROM #dati  where #dati.label = 'F) IMPOSTE SUL REDDITO DELL''ESERCIZIO CORRENTI, DIFFERITE, ANTICIPATE') ,0)
+where  #dati.label = 'RISULTATO ECONOMICO'
 
 --UPDATE #dati SET _entry = (select sum(_entry * segno) FROM #dati child
 --where child.parent_label = #dati.label)		where  #dati.label = 'RISULTATO ECONOMICO'

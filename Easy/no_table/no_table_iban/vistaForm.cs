@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,101 +13,116 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace no_table_iban {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registrypaymethod{get { return this.Tables["registrypaymethod"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable no_table{get { return this.Tables["no_table"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace no_table_iban {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable no_table 		=> Tables["no_table"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrypaymethod 		=> Tables["registrypaymethod"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("registrypaymethod");
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	//////////////////// NO_TABLE /////////////////////////////////
+	var tno_table= new DataTable("no_table");
+	C= new DataColumn("idnotable", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tno_table.Columns.Add(C);
+	Tables.Add(tno_table);
+	tno_table.PrimaryKey =  new DataColumn[]{tno_table.Columns["idnotable"]};
 
-	C= new DataColumn("idregistrypaymethod", typeof(System.Int32), "");
+
+	//////////////////// REGISTRYPAYMETHOD /////////////////////////////////
+	var tregistrypaymethod= new DataTable("registrypaymethod");
+	C= new DataColumn("regmodcode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("regmodcode", typeof(System.String), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cin", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistrypaymethod.Columns.Add(C);
+	tregistrypaymethod.Columns.Add( new DataColumn("idpaymethod", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("cin", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idbank", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idcab", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("cc", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("paymentdescr", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("paymentexpiring", typeof(short)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idexpirationkind", typeof(short)));
+	tregistrypaymethod.Columns.Add( new DataColumn("flagstandard", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("flagstandard", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iban", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idbank", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcab", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iddeputy", typeof(System.Int32), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistrypaymethod.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paymentdescr", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("paymentexpiring", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("refexternaldoc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcurrency", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idpaymethod", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idexpirationkind", typeof(System.Int16), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idreg"], 	T.Columns["idregistrypaymethod"]};
-	T.PrimaryKey = key;
-
-	T= new DataTable("no_table");
-	C= new DataColumn("idnotable", typeof(System.Int32), "");
+	tregistrypaymethod.Columns.Add(C);
+	tregistrypaymethod.Columns.Add( new DataColumn("active", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("iddeputy", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("refexternaldoc", typeof(string)));
+	C= new DataColumn("idregistrypaymethod", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistrypaymethod.Columns.Add(C);
+	tregistrypaymethod.Columns.Add( new DataColumn("idcurrency", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("iban", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("extracode", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("biccode", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("flag", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idchargehandling", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("notes", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_doc", typeof(Byte[])));
+	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_cf", typeof(Byte[])));
+	tregistrypaymethod.Columns.Add( new DataColumn("requested_doc", typeof(int)));
+	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_stop", typeof(DateTime)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idfilestorage2", typeof(string)));
+	Tables.Add(tregistrypaymethod);
+	tregistrypaymethod.PrimaryKey =  new DataColumn[]{tregistrypaymethod.Columns["idreg"], tregistrypaymethod.Columns["idregistrypaymethod"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idnotable"]};
-	T.PrimaryKey = key;
+
+	#endregion
 
 }
 }

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -76,13 +74,22 @@ public partial class dsmeta_progettotimesheet_personalecosto: DataSet {
 	public MetaTable rendicontattivitaprogettoora 		=> (MetaTable)Tables["rendicontattivitaprogettoora"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable timesheettemplate 		=> (MetaTable)Tables["timesheettemplate"];
+	public MetaTable timesheettemplatedefaultview 		=> (MetaTable)Tables["timesheettemplatedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable year 		=> (MetaTable)Tables["year"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sospensionekind 		=> (MetaTable)Tables["sospensionekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sospensione 		=> (MetaTable)Tables["sospensione"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable terzamisstematicacampo 		=> (MetaTable)Tables["terzamisstematicacampo"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable terzamisstematica 		=> (MetaTable)Tables["terzamisstematica"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable strumentofin 		=> (MetaTable)Tables["strumentofin"];
@@ -112,7 +119,13 @@ public partial class dsmeta_progettotimesheet_personalecosto: DataSet {
 	public MetaTable partnerkind 		=> (MetaTable)Tables["partnerkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable duratakind 		=> (MetaTable)Tables["duratakind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable corsostudio 		=> (MetaTable)Tables["corsostudio"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attach 		=> (MetaTable)Tables["attach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable progetto 		=> (MetaTable)Tables["progetto"];
@@ -293,6 +306,7 @@ private void initClass() {
 	//////////////////// RENDICONTATTIVITAPROGETTOMESETMVIEW /////////////////////////////////
 	var trendicontattivitaprogettomesetmview= new MetaTable("rendicontattivitaprogettomesetmview");
 	trendicontattivitaprogettomesetmview.defineColumn("anno", typeof(int));
+	trendicontattivitaprogettomesetmview.defineColumn("idprogetto", typeof(int),false);
 	trendicontattivitaprogettomesetmview.defineColumn("idreg", typeof(int),false);
 	trendicontattivitaprogettomesetmview.defineColumn("mese", typeof(int),false);
 	trendicontattivitaprogettomesetmview.defineColumn("mesetitle", typeof(string));
@@ -419,9 +433,13 @@ private void initClass() {
 	tsal.defineColumn("!budgetcalcolato", typeof(decimal));
 	tsal.defineColumn("autoassociazione", typeof(string));
 	tsal.defineColumn("budget", typeof(decimal));
+	tsal.defineColumn("ct", typeof(DateTime));
+	tsal.defineColumn("cu", typeof(string));
 	tsal.defineColumn("datablocco", typeof(DateTime));
 	tsal.defineColumn("idprogetto", typeof(int),false);
 	tsal.defineColumn("idsal", typeof(int),false);
+	tsal.defineColumn("lt", typeof(DateTime));
+	tsal.defineColumn("lu", typeof(string));
 	tsal.defineColumn("numerosal", typeof(int));
 	tsal.defineColumn("start", typeof(DateTime));
 	tsal.defineColumn("stop", typeof(DateTime));
@@ -451,6 +469,7 @@ private void initClass() {
 	trendicontattivitaprogetto.defineColumn("lt", typeof(DateTime),false);
 	trendicontattivitaprogetto.defineColumn("lu", typeof(string),false);
 	trendicontattivitaprogetto.defineColumn("orepreventivate", typeof(int),false);
+	trendicontattivitaprogetto.defineColumn("rendicontatutto", typeof(string));
 	trendicontattivitaprogetto.defineColumn("stop", typeof(DateTime));
 	Tables.Add(trendicontattivitaprogetto);
 	trendicontattivitaprogetto.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage");
@@ -477,14 +496,18 @@ private void initClass() {
 	tprogetto_alias2.defineColumn("data", typeof(DateTime));
 	tprogetto_alias2.defineColumn("datacontabile", typeof(DateTime));
 	tprogetto_alias2.defineColumn("dataesito", typeof(DateTime));
+	tprogetto_alias2.defineColumn("dataproposta", typeof(DateTime));
 	tprogetto_alias2.defineColumn("description", typeof(string));
 	tprogetto_alias2.defineColumn("durata", typeof(int));
+	tprogetto_alias2.defineColumn("durataproposta", typeof(int));
 	tprogetto_alias2.defineColumn("finanziamento", typeof(string));
 	tprogetto_alias2.defineColumn("finanziatoretxt", typeof(string));
 	tprogetto_alias2.defineColumn("idattach", typeof(int));
+	tprogetto_alias2.defineColumn("idattach_logot", typeof(int));
 	tprogetto_alias2.defineColumn("idcorsostudio", typeof(int));
 	tprogetto_alias2.defineColumn("idcurrency", typeof(int));
 	tprogetto_alias2.defineColumn("idduratakind", typeof(int));
+	tprogetto_alias2.defineColumn("idduratakind_proposta", typeof(int));
 	tprogetto_alias2.defineColumn("idpartnerkind", typeof(int));
 	tprogetto_alias2.defineColumn("idprogetto", typeof(int),false);
 	tprogetto_alias2.defineColumn("idprogettokind", typeof(int));
@@ -496,15 +519,28 @@ private void initClass() {
 	tprogetto_alias2.defineColumn("idregistryprogfin", typeof(int));
 	tprogetto_alias2.defineColumn("idregistryprogfinbando", typeof(int));
 	tprogetto_alias2.defineColumn("idstrumentofin", typeof(int));
+	tprogetto_alias2.defineColumn("idterzamisstematica", typeof(int));
+	tprogetto_alias2.defineColumn("idterzamisstematicacampo", typeof(int));
 	tprogetto_alias2.defineColumn("lt", typeof(DateTime),false);
 	tprogetto_alias2.defineColumn("lu", typeof(string),false);
+	tprogetto_alias2.defineColumn("patentcode", typeof(string));
+	tprogetto_alias2.defineColumn("patentdate", typeof(DateTime));
 	tprogetto_alias2.defineColumn("progfinanziamentotxt", typeof(string));
 	tprogetto_alias2.defineColumn("respamministrativi", typeof(string));
 	tprogetto_alias2.defineColumn("responsabiliamministrativi", typeof(string));
 	tprogetto_alias2.defineColumn("responsabiliscientifici", typeof(string));
 	tprogetto_alias2.defineColumn("respscientifici", typeof(string));
+	tprogetto_alias2.defineColumn("resultsqualitativedesc", typeof(string));
+	tprogetto_alias2.defineColumn("resultsquantitativedesc", typeof(string));
 	tprogetto_alias2.defineColumn("start", typeof(DateTime));
+	tprogetto_alias2.defineColumn("startproposta", typeof(DateTime));
 	tprogetto_alias2.defineColumn("stop", typeof(DateTime));
+	tprogetto_alias2.defineColumn("stopproposta", typeof(DateTime));
+	tprogetto_alias2.defineColumn("terzamissclassification", typeof(string));
+	tprogetto_alias2.defineColumn("terzamissdett", typeof(string));
+	tprogetto_alias2.defineColumn("terzamissdettother", typeof(string));
+	tprogetto_alias2.defineColumn("terzamisskindother", typeof(string));
+	tprogetto_alias2.defineColumn("terzamissthematicarea", typeof(string));
 	tprogetto_alias2.defineColumn("title", typeof(string));
 	tprogetto_alias2.defineColumn("title_en", typeof(string));
 	tprogetto_alias2.defineColumn("titolobreve", typeof(string));
@@ -513,6 +549,7 @@ private void initClass() {
 	tprogetto_alias2.defineColumn("ulteriorecup", typeof(string));
 	tprogetto_alias2.defineColumn("unitaorganizzativa", typeof(string));
 	tprogetto_alias2.defineColumn("url", typeof(string));
+	tprogetto_alias2.defineColumn("urldocfinanziamento", typeof(string));
 	tprogetto_alias2.ExtendedProperties["TableForReading"]="progetto";
 	Tables.Add(tprogetto_alias2);
 	tprogetto_alias2.defineKey("idprogetto");
@@ -536,6 +573,7 @@ private void initClass() {
 	trendicontattivitaprogettoora.defineColumn("!idprogetto_progetto_titolobreve", typeof(string));
 	trendicontattivitaprogettoora.defineColumn("!idprogetto_progetto_start", typeof(DateTime));
 	trendicontattivitaprogettoora.defineColumn("!idprogetto_progetto_stop", typeof(DateTime));
+	trendicontattivitaprogettoora.defineColumn("!idprogetto_progetto_idprogetto", typeof(int));
 	trendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogetto_rendicontattivitaprogetto_description", typeof(string));
 	trendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogetto_rendicontattivitaprogetto_orepreventivate", typeof(int));
 	trendicontattivitaprogettoora.defineColumn("!idrendicontattivitaprogetto_rendicontattivitaprogetto_datainizioprevista", typeof(DateTime));
@@ -551,17 +589,36 @@ private void initClass() {
 	Tables.Add(trendicontattivitaprogettoora);
 	trendicontattivitaprogettoora.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idrendicontattivitaprogettoora", "idworkpackage");
 
-	//////////////////// TIMESHEETTEMPLATE /////////////////////////////////
-	var ttimesheettemplate= new MetaTable("timesheettemplate");
-	ttimesheettemplate.defineColumn("idtimesheettemplate", typeof(string),false);
-	Tables.Add(ttimesheettemplate);
-	ttimesheettemplate.defineKey("idtimesheettemplate");
+	//////////////////// TIMESHEETTEMPLATEDEFAULTVIEW /////////////////////////////////
+	var ttimesheettemplatedefaultview= new MetaTable("timesheettemplatedefaultview");
+	ttimesheettemplatedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	ttimesheettemplatedefaultview.defineColumn("idtimesheettemplate", typeof(string),false);
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_active", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_ct", typeof(DateTime));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_cu", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_description", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_leftsignaturelabel", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_lt", typeof(DateTime));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_lu", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_middlesignaturelabel", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_rightsignaturelabel", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("title", typeof(string));
+	Tables.Add(ttimesheettemplatedefaultview);
+	ttimesheettemplatedefaultview.defineKey("idtimesheettemplate");
 
 	//////////////////// YEAR /////////////////////////////////
 	var tyear= new MetaTable("year");
 	tyear.defineColumn("year", typeof(int),false);
 	Tables.Add(tyear);
 	tyear.defineKey("year");
+
+	//////////////////// SOSPENSIONEKIND /////////////////////////////////
+	var tsospensionekind= new MetaTable("sospensionekind");
+	tsospensionekind.defineColumn("active", typeof(string),false);
+	tsospensionekind.defineColumn("idsospensionekind", typeof(int),false);
+	tsospensionekind.defineColumn("title", typeof(string),false);
+	Tables.Add(tsospensionekind);
+	tsospensionekind.defineKey("idsospensionekind");
 
 	//////////////////// SOSPENSIONE /////////////////////////////////
 	var tsospensione= new MetaTable("sospensione");
@@ -572,14 +629,33 @@ private void initClass() {
 	tsospensione.defineColumn("idreg", typeof(int),false);
 	tsospensione.defineColumn("idsede", typeof(int));
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
 	tsospensione.defineColumn("start", typeof(DateTime),false);
 	tsospensione.defineColumn("stop", typeof(DateTime));
+	tsospensione.defineColumn("!idsospensionekind_sospensionekind_title", typeof(string));
 	tsospensione.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tsospensione);
 	tsospensione.defineKey("idreg", "idsospensione");
+
+	//////////////////// TERZAMISSTEMATICACAMPO /////////////////////////////////
+	var tterzamisstematicacampo= new MetaTable("terzamisstematicacampo");
+	tterzamisstematicacampo.defineColumn("active", typeof(string));
+	tterzamisstematicacampo.defineColumn("idterzamisstematica", typeof(int),false);
+	tterzamisstematicacampo.defineColumn("idterzamisstematicacampo", typeof(int),false);
+	tterzamisstematicacampo.defineColumn("title", typeof(string));
+	Tables.Add(tterzamisstematicacampo);
+	tterzamisstematicacampo.defineKey("idterzamisstematica", "idterzamisstematicacampo");
+
+	//////////////////// TERZAMISSTEMATICA /////////////////////////////////
+	var tterzamisstematica= new MetaTable("terzamisstematica");
+	tterzamisstematica.defineColumn("active", typeof(string));
+	tterzamisstematica.defineColumn("idterzamisstematica", typeof(int),false);
+	tterzamisstematica.defineColumn("title", typeof(string));
+	Tables.Add(tterzamisstematica);
+	tterzamisstematica.defineKey("idterzamisstematica");
 
 	//////////////////// STRUMENTOFIN /////////////////////////////////
 	var tstrumentofin= new MetaTable("strumentofin");
@@ -658,6 +734,14 @@ private void initClass() {
 	Tables.Add(tpartnerkind);
 	tpartnerkind.defineKey("idpartnerkind");
 
+	//////////////////// DURATAKIND /////////////////////////////////
+	var tduratakind= new MetaTable("duratakind");
+	tduratakind.defineColumn("active", typeof(string),false);
+	tduratakind.defineColumn("idduratakind", typeof(int),false);
+	tduratakind.defineColumn("title", typeof(string),false);
+	Tables.Add(tduratakind);
+	tduratakind.defineKey("idduratakind");
+
 	//////////////////// CORSOSTUDIO /////////////////////////////////
 	var tcorsostudio= new MetaTable("corsostudio");
 	tcorsostudio.defineColumn("annoistituz", typeof(int));
@@ -665,6 +749,20 @@ private void initClass() {
 	tcorsostudio.defineColumn("title", typeof(string));
 	Tables.Add(tcorsostudio);
 	tcorsostudio.defineKey("idcorsostudio");
+
+	//////////////////// ATTACH /////////////////////////////////
+	var tattach= new MetaTable("attach");
+	tattach.defineColumn("attachment", typeof(Byte[]));
+	tattach.defineColumn("ct", typeof(DateTime),false);
+	tattach.defineColumn("cu", typeof(string),false);
+	tattach.defineColumn("filename", typeof(string),false);
+	tattach.defineColumn("hash", typeof(string),false);
+	tattach.defineColumn("idattach", typeof(int),false);
+	tattach.defineColumn("lt", typeof(DateTime),false);
+	tattach.defineColumn("lu", typeof(string),false);
+	tattach.defineColumn("size", typeof(long),false);
+	Tables.Add(tattach);
+	tattach.defineKey("idattach");
 
 	//////////////////// PROGETTO /////////////////////////////////
 	var tprogetto= new MetaTable("progetto");
@@ -688,14 +786,18 @@ private void initClass() {
 	tprogetto.defineColumn("data", typeof(DateTime));
 	tprogetto.defineColumn("datacontabile", typeof(DateTime));
 	tprogetto.defineColumn("dataesito", typeof(DateTime));
+	tprogetto.defineColumn("dataproposta", typeof(DateTime));
 	tprogetto.defineColumn("description", typeof(string));
 	tprogetto.defineColumn("durata", typeof(int));
+	tprogetto.defineColumn("durataproposta", typeof(int));
 	tprogetto.defineColumn("finanziamento", typeof(string));
 	tprogetto.defineColumn("finanziatoretxt", typeof(string));
 	tprogetto.defineColumn("idattach", typeof(int));
+	tprogetto.defineColumn("idattach_logot", typeof(int));
 	tprogetto.defineColumn("idcorsostudio", typeof(int));
 	tprogetto.defineColumn("idcurrency", typeof(int));
 	tprogetto.defineColumn("idduratakind", typeof(int));
+	tprogetto.defineColumn("idduratakind_proposta", typeof(int));
 	tprogetto.defineColumn("idpartnerkind", typeof(int));
 	tprogetto.defineColumn("idprogetto", typeof(int),false);
 	tprogetto.defineColumn("idprogettokind", typeof(int));
@@ -707,15 +809,28 @@ private void initClass() {
 	tprogetto.defineColumn("idregistryprogfin", typeof(int));
 	tprogetto.defineColumn("idregistryprogfinbando", typeof(int));
 	tprogetto.defineColumn("idstrumentofin", typeof(int));
+	tprogetto.defineColumn("idterzamisstematica", typeof(int));
+	tprogetto.defineColumn("idterzamisstematicacampo", typeof(int));
 	tprogetto.defineColumn("lt", typeof(DateTime),false);
 	tprogetto.defineColumn("lu", typeof(string),false);
+	tprogetto.defineColumn("patentcode", typeof(string));
+	tprogetto.defineColumn("patentdate", typeof(DateTime));
 	tprogetto.defineColumn("progfinanziamentotxt", typeof(string));
 	tprogetto.defineColumn("respamministrativi", typeof(string));
 	tprogetto.defineColumn("responsabiliamministrativi", typeof(string));
 	tprogetto.defineColumn("responsabiliscientifici", typeof(string));
 	tprogetto.defineColumn("respscientifici", typeof(string));
+	tprogetto.defineColumn("resultsqualitativedesc", typeof(string));
+	tprogetto.defineColumn("resultsquantitativedesc", typeof(string));
 	tprogetto.defineColumn("start", typeof(DateTime));
+	tprogetto.defineColumn("startproposta", typeof(DateTime));
 	tprogetto.defineColumn("stop", typeof(DateTime));
+	tprogetto.defineColumn("stopproposta", typeof(DateTime));
+	tprogetto.defineColumn("terzamissclassification", typeof(string));
+	tprogetto.defineColumn("terzamissdett", typeof(string));
+	tprogetto.defineColumn("terzamissdettother", typeof(string));
+	tprogetto.defineColumn("terzamisskindother", typeof(string));
+	tprogetto.defineColumn("terzamissthematicarea", typeof(string));
 	tprogetto.defineColumn("title", typeof(string));
 	tprogetto.defineColumn("title_en", typeof(string));
 	tprogetto.defineColumn("titolobreve", typeof(string));
@@ -724,8 +839,11 @@ private void initClass() {
 	tprogetto.defineColumn("ulteriorecup", typeof(string));
 	tprogetto.defineColumn("unitaorganizzativa", typeof(string));
 	tprogetto.defineColumn("url", typeof(string));
+	tprogetto.defineColumn("urldocfinanziamento", typeof(string));
+	tprogetto.defineColumn("!idattach_logot_attach_filename", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_title", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_annoistituz", typeof(int));
+	tprogetto.defineColumn("!idduratakind_proposta_duratakind_title", typeof(string));
 	tprogetto.defineColumn("!idpartnerkind_partnerkind_title", typeof(string));
 	tprogetto.defineColumn("!idprogettokind_progettokind_title", typeof(string));
 	tprogetto.defineColumn("!idprogettostatuskind_progettostatuskind_title", typeof(string));
@@ -737,6 +855,8 @@ private void initClass() {
 	tprogetto.defineColumn("!idreg_aziende_registry_title", typeof(string));
 	tprogetto.defineColumn("!idreg_aziende_fin_registry_title", typeof(string));
 	tprogetto.defineColumn("!idstrumentofin_strumentofin_title", typeof(string));
+	tprogetto.defineColumn("!idterzamisstematica_terzamisstematica_title", typeof(string));
+	tprogetto.defineColumn("!idterzamisstematicacampo_terzamisstematicacampo_title", typeof(string));
 	Tables.Add(tprogetto);
 	tprogetto.defineKey("idprogetto");
 
@@ -831,9 +951,9 @@ private void initClass() {
 	cChild = new []{progettotimesheet.Columns["idmese"]};
 	Relations.Add(new DataRelation("FK_progettotimesheet_mese_idmese",cPar,cChild,false));
 
-	cPar = new []{salbloccatiview.Columns["year"], salbloccatiview.Columns["idreg"]};
-	cChild = new []{progettotimesheet.Columns["year"], progettotimesheet.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_progettotimesheet_salbloccatiview_year-idreg",cPar,cChild,false));
+	cPar = new []{salbloccatiview.Columns["idreg"], salbloccatiview.Columns["year"]};
+	cChild = new []{progettotimesheet.Columns["idreg"], progettotimesheet.Columns["year"]};
+	Relations.Add(new DataRelation("FK_progettotimesheet_salbloccatiview_idreg-year",cPar,cChild,false));
 
 	cPar = new []{progettotimesheet.Columns["idreg"]};
 	cChild = new []{costoorario.Columns["idreg"]};
@@ -875,9 +995,9 @@ private void initClass() {
 	cChild = new []{rendicontattivitaprogettoora.Columns["idprogetto"]};
 	Relations.Add(new DataRelation("FK_rendicontattivitaprogettoora_progetto_alias2_idprogetto",cPar,cChild,false));
 
-	cPar = new []{timesheettemplate.Columns["idtimesheettemplate"]};
+	cPar = new []{timesheettemplatedefaultview.Columns["idtimesheettemplate"]};
 	cChild = new []{progettotimesheet.Columns["idtimesheettemplate"]};
-	Relations.Add(new DataRelation("FK_progettotimesheet_timesheettemplate_idtimesheettemplate",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progettotimesheet_timesheettemplatedefaultview_idtimesheettemplate",cPar,cChild,false));
 
 	cPar = new []{year.Columns["year"]};
 	cChild = new []{progettotimesheet.Columns["year"]};
@@ -887,6 +1007,10 @@ private void initClass() {
 	cChild = new []{sospensione.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_sospensione_progettotimesheet_idreg",cPar,cChild,false));
 
+	cPar = new []{sospensionekind.Columns["idsospensionekind"]};
+	cChild = new []{sospensione.Columns["idsospensionekind"]};
+	Relations.Add(new DataRelation("FK_sospensione_sospensionekind_idsospensionekind",cPar,cChild,false));
+
 	cPar = new []{progettotimesheet.Columns["idprogettotimesheet"]};
 	cChild = new []{progettotimesheetprogetto.Columns["idprogettotimesheet"]};
 	Relations.Add(new DataRelation("FK_progettotimesheetprogetto_progettotimesheet_idprogettotimesheet",cPar,cChild,false));
@@ -894,6 +1018,14 @@ private void initClass() {
 	cPar = new []{progetto.Columns["idprogetto"]};
 	cChild = new []{progettotimesheetprogetto.Columns["idprogetto"]};
 	Relations.Add(new DataRelation("FK_progettotimesheetprogetto_progetto_idprogetto",cPar,cChild,false));
+
+	cPar = new []{terzamisstematicacampo.Columns["idterzamisstematicacampo"]};
+	cChild = new []{progetto.Columns["idterzamisstematicacampo"]};
+	Relations.Add(new DataRelation("FK_progetto_terzamisstematicacampo_idterzamisstematicacampo",cPar,cChild,false));
+
+	cPar = new []{terzamisstematica.Columns["idterzamisstematica"]};
+	cChild = new []{progetto.Columns["idterzamisstematica"]};
+	Relations.Add(new DataRelation("FK_progetto_terzamisstematica_idterzamisstematica",cPar,cChild,false));
 
 	cPar = new []{strumentofin.Columns["idstrumentofin"]};
 	cChild = new []{progetto.Columns["idstrumentofin"]};
@@ -931,9 +1063,17 @@ private void initClass() {
 	cChild = new []{progetto.Columns["idpartnerkind"]};
 	Relations.Add(new DataRelation("FK_progetto_partnerkind_idpartnerkind",cPar,cChild,false));
 
+	cPar = new []{duratakind.Columns["idduratakind"]};
+	cChild = new []{progetto.Columns["idduratakind_proposta"]};
+	Relations.Add(new DataRelation("FK_progetto_duratakind_idduratakind_proposta",cPar,cChild,false));
+
 	cPar = new []{corsostudio.Columns["idcorsostudio"]};
 	cChild = new []{progetto.Columns["idcorsostudio"]};
 	Relations.Add(new DataRelation("FK_progetto_corsostudio_idcorsostudio",cPar,cChild,false));
+
+	cPar = new []{attach.Columns["idattach"]};
+	cChild = new []{progetto.Columns["idattach_logot"]};
+	Relations.Add(new DataRelation("FK_progetto_attach_idattach_logot",cPar,cChild,false));
 
 	cPar = new []{rendicontaltrokinddefaultview.Columns["idrendicontaltrokind"]};
 	cChild = new []{progettotimesheet.Columns["idrendicontaltrokind"]};

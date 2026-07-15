@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,11 +25,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_graduatoriaesitipos_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_graduatoriaesitipos_seg: DataSet {
+public partial class dsmeta_graduatoriaesitipos_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_studenti 		=> (MetaTable)Tables["registry_studenti"];
+	public MetaTable registrystudentiview 		=> (MetaTable)Tables["registrystudentiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable graduatoriaesitipos 		=> (MetaTable)Tables["graduatoriaesitipos"];
@@ -61,18 +59,13 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_graduatoriaesitipos_seg.xsd";
 
 	#region create DataTables
-	//////////////////// REGISTRY_STUDENTI /////////////////////////////////
-	var tregistry_studenti= new MetaTable("registry_studenti");
-	tregistry_studenti.defineColumn("authinps", typeof(string),false);
-	tregistry_studenti.defineColumn("ct", typeof(DateTime),false);
-	tregistry_studenti.defineColumn("cu", typeof(string),false);
-	tregistry_studenti.defineColumn("idreg", typeof(int),false);
-	tregistry_studenti.defineColumn("idstuddirittokind", typeof(int));
-	tregistry_studenti.defineColumn("idstudprenotkind", typeof(int),false);
-	tregistry_studenti.defineColumn("lt", typeof(DateTime),false);
-	tregistry_studenti.defineColumn("lu", typeof(string),false);
-	Tables.Add(tregistry_studenti);
-	tregistry_studenti.defineKey("idreg");
+	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
+	var tregistrystudentiview= new MetaTable("registrystudentiview");
+	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
+	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
+	tregistrystudentiview.defineColumn("registry_active", typeof(string));
+	Tables.Add(tregistrystudentiview);
+	tregistrystudentiview.defineKey("idreg");
 
 	//////////////////// GRADUATORIAESITIPOS /////////////////////////////////
 	var tgraduatoriaesitipos= new MetaTable("graduatoriaesitipos");
@@ -94,9 +87,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{registry_studenti.Columns["idreg"]};
+	var cPar = new []{registrystudentiview.Columns["idreg"]};
 	var cChild = new []{graduatoriaesitipos.Columns["idreg_studenti"]};
-	Relations.Add(new DataRelation("FK_graduatoriaesitipos_registry_studenti_idreg_studenti",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_graduatoriaesitipos_registrystudentiview_idreg_studenti",cPar,cChild,false));
 
 	#endregion
 

@@ -6,28 +6,22 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sospensione_default_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="sospensione_default_start">Inizio</label>
-					<input id="sospensione_default_start" type="text" class="form-control" data-tag="sospensione.start.g"  data-mandatory />
+					<input id="sospensione_default_start" type="text" class="form-control" data-tag="sospensione.start.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sospensione_default_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="sospensione_default_stop">Fine</label>
-					<input id="sospensione_default_stop" type="text" class="form-control" data-tag="sospensione.stop.g"  />
+					<input id="sospensione_default_stop" type="text" class="form-control" data-tag="sospensione.stop.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="sospensione_default_motivo">Motivo</label>
 					<input id="sospensione_default_motivo" type="text" class="form-control" data-tag="sospensione.motivo"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="sospensione_default_idsospensionekind">Tipo</label>
+					<select id="sospensione_default_idsospensionekind" class="custom-select d-block w-100"  data-source-name="sospensionekind" data-value-member="idsospensionekind" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="sospensione.idsospensionekind"   > </select>
 				</div>
 			</div>
 </form>

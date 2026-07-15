@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -128,6 +126,37 @@ namespace no_table_entry_rateo {
                 return r;
             }           
             return null;
+        }
+
+        // Se è stato valorizzato il campo idcostpartition, per prendermi la riga di entrydetail dalla cache,
+        // devo controllare i campi idsor dalla riga di ripartizione e non dal template
+        DataRow getCacheDetailRip(object idacc, EP_functions.ripTable rip, DataRow template, string[] fields)
+        {
+            foreach (DataRow row in currDetails)
+            {
+                if (row["idacc"].ToString() != idacc.ToString())
+                    continue;
+
+                bool equal = true;
+                foreach (string f in fields)
+                {
+                    if (row[f].ToString() != template[f].ToString())
+                    {
+                        equal = false;
+                        break;
+                    }
+                }
+                if (!equal) continue;
+
+                if (row["idsor1"].ToString() == rip.idsor1.ToString() &&
+                    row["idsor2"].ToString() == rip.idsor2.ToString() &&
+                    row["idsor3"].ToString() == rip.idsor3.ToString())
+                {
+                    return row;
+                }
+            }
+
+            return null;//getCachedDetail(idacc, template, fields);
         }
 
         private void btnGenera_Click(object sender, EventArgs e) {
@@ -253,6 +282,13 @@ namespace no_table_entry_rateo {
                 "idreg", "idupb", "idsor1", "idsor2", "idsor3", "idaccmotive",
                 "idepexp", "competencystart", "competencystop","idrelated"
 			};
+
+            // se è stato valorizzato l'idcostpartition, non devo controllare i campi idsor
+            var relevantFieldsPassivoRip = new[] {
+                "idreg", "idupb", "idaccmotive",
+                "idepexp", "competencystart", "competencystop","idrelated"
+			};
+
             var relevantFieldsParcella = new[] {
                 "idreg", "idupb", "idsor1", "idsor2", "idsor3", "idaccmotive",
                 "idepexp", "competencystart", "competencystop","idrelated"
@@ -341,22 +377,71 @@ namespace no_table_entry_rateo {
                     rDet["amount"] = CfgFn.GetNoNullDecimal(rDet["amount"]) + importoRateo;
 					//è da vedere se il segno sia giusto o meno
 					rDet["description"] = descrDett;
-					R["competencystart"] = DataInizioRateoDaConsiderare(inizioCompetenza, currAyear);
+					
+                    R["competencystart"] = DataInizioRateoDaConsiderare(inizioCompetenza, currAyear);
                     R["competencystop"] = DataFineRateoDaConsiderare(fineCompetenza, currAyear);
-                    rDet = getCachedDetail(R["idacc"], R, relevantFieldsPassivo);
-                    if (rDet == null) {
-                        rDet = MEntryDetail.Get_New_Row(CurrEntry, tEntryDetail);
-                        rDet["idacc"] = R["idacc"];
-                        foreach (var field in relevantFieldsPassivo) {
-                            rDet[field] = R[field];
-                        }
-                        cacheDetail(rDet);
+
+                    EP_functions.ripTable[] listRip = null;
+
+                    decimal amount = -importoRateo;
+                    //è da vedere se il segno sia giusto o meno
+
+                    // se nel contratto passivo è valorizzato il costo di ripartizione, creo la tabella di ripartizione
+                    if (R["idcostpartition"] != DBNull.Value)
+                    {
+                        listRip = getTabellaRipartizione(R["idcostpartition"], amount);
                     }
+
+                    if (listRip != null)
+                    {
+                        // per ogni riga di ripartizione prendo dalla cache, se esiste, la riga di entrydetail corrispondente,
+                        // ovvero con i valori della riga del contratto passivo e con gli idsor della riga di ripartizione,
+                        // altrimenti creo una nuova riga di entrydetail
+                        foreach (EP_functions.ripTable rip in listRip)
+                        {
+                            rDet = getCacheDetailRip(R["idacc"], rip, R, relevantFieldsPassivoRip);
+                            if (rDet == null)
+                            {
+                                rDet = MEntryDetail.Get_New_Row(CurrEntry, tEntryDetail);
+                                rDet["idacc"] = R["idacc"];
+                                foreach (var field in relevantFieldsPassivoRip)
+                                {
+                                    rDet[field] = R[field];
+                                }
+                                rDet["idsor1"] = rip.idsor1;
+                                rDet["idsor2"] = rip.idsor2;
+                                rDet["idsor3"] = rip.idsor3;
+                                cacheDetail(rDet);
+                            }
+                            rDet["idrelated"] = idrelated + "§" + R["rownum"];
+                            rDet["description"] = descrDett;
+                            rDet["amount"] = rip.amount;
+                        }
+                    }
+                    else
+                    {
+                        // altrimenti, se non è valorizzato l'idcostpartition, prendo dalla cache, se esiste,
+                        // la riga di entrydetail corrispondente, ovvero con i valori della riga del contratto passivo
+                        // altrimenti creo una nuova riga di entrydetail
+                        rDet = getCachedDetail(R["idacc"], R, relevantFieldsPassivo);
+
+                        if (rDet == null)
+                        {
+                            rDet = MEntryDetail.Get_New_Row(CurrEntry, tEntryDetail);
+                            rDet["idacc"] = R["idacc"];
+                            foreach (var field in relevantFieldsPassivo)
+                            {
+                                rDet[field] = R[field];
+                            }
+                            cacheDetail(rDet);
+                        }
+
+                        rDet["idrelated"] = idrelated + "§" + R["rownum"];
+                        rDet["description"] = descrDett;
+                        rDet["amount"] = amount;
+                    }
+
                     R.RejectChanges();
-                    rDet["idrelated"] = idrelated + "§" + R["rownum"];
-					rDet["description"] = descrDett;
-					rDet["amount"] = CfgFn.GetNoNullDecimal(rDet["amount"]) - importoRateo;
-                        //è da vedere se il segno sia giusto o meno
                 }
                 #endregion
 
@@ -522,19 +607,66 @@ namespace no_table_entry_rateo {
                     rDet["amount"] = CfgFn.GetNoNullDecimal(rDet["amount"]) + importoFattRic;
                     rDet["idepexp"] = r["idepexp"];
 					rDet["description"] = descrDett;
-					rDet = getCachedDetail(idAcc, r, relevantFieldsPassivo);
-					if (rDet == null) {
-                        rDet = MEntryDetail.Get_New_Row(CurrEntry, tEntryDetail);
-                        rDet["idacc"] = idAcc;
-                        foreach (var field in relevantFieldsPassivo) {
-                            rDet[field] = r[field];
-                        }
-                        cacheDetail(rDet);
+
+                    EP_functions.ripTable[] listRip = null;
+
+                    decimal amount = -importoFattRic;
+                    //è da vedere se il segno sia giusto o meno
+
+                    // se nel contratto passivo è valorizzato il costo di ripartizione, creo la tabella di ripartizione
+                    if (r["idcostpartition"] != DBNull.Value)
+                    {
+                        listRip = getTabellaRipartizione(r["idcostpartition"], amount);
                     }
-					rDet["description"] = descrDett;
-					rDet["idepexp"] = r["idepexp"];
-                    rDet["idrelated"] = idrelated + "§" + r["rownum"];
-                    rDet["amount"] = CfgFn.GetNoNullDecimal(rDet["amount"]) - importoFattRic;
+
+                    if (listRip != null)
+                    {
+                        // per ogni riga di ripartizione prendo dalla cache, se esiste, la riga di entrydetail corrispondente,
+                        // ovvero con i valori della riga del contratto passivo e con gli idsor della riga di ripartizione,
+                        // altrimenti creo una nuova riga di entrydetail
+                        foreach (EP_functions.ripTable rip in listRip)
+                        {
+                            rDet = getCacheDetailRip(idAcc, rip, r, relevantFieldsPassivoRip);
+                            if (rDet == null)
+                            {
+                                rDet = MEntryDetail.Get_New_Row(CurrEntry, tEntryDetail);
+                                rDet["idacc"] = idAcc;
+                                foreach (var field in relevantFieldsPassivoRip)
+                                {
+                                    rDet[field] = r[field];
+                                }
+                                rDet["idsor1"] = rip.idsor1;
+                                rDet["idsor2"] = rip.idsor2;
+                                rDet["idsor3"] = rip.idsor3;
+                                cacheDetail(rDet);
+                            }                            
+                            rDet["description"] = descrDett;
+                            rDet["idepexp"] = r["idepexp"];
+                            rDet["idrelated"] = idrelated + "§" + r["rownum"];
+                            rDet["amount"] = rip.amount;
+                        }
+                    }
+                    else
+                    {
+                        // altrimenti, se non è valorizzato l'idcostpartition, prendo dalla cache, se esiste,
+                        // la riga di entrydetail corrispondente, ovvero con i valori della riga del contratto passivo
+                        // altrimenti creo una nuova riga di entrydetail
+                        rDet = getCachedDetail(idAcc, r, relevantFieldsPassivo);
+                        if (rDet == null)
+                        {
+                            rDet = MEntryDetail.Get_New_Row(CurrEntry, tEntryDetail);
+                            rDet["idacc"] = idAcc;
+                            foreach (var field in relevantFieldsPassivo)
+                            {
+                                rDet[field] = r[field];
+                            }
+                            cacheDetail(rDet);
+                        }
+                        rDet["description"] = descrDett;
+                        rDet["idepexp"] = r["idepexp"];
+                        rDet["idrelated"] = idrelated + "§" + r["rownum"];
+                        rDet["amount"] = amount;
+                    }
                 }
                 #endregion
 
@@ -1192,7 +1324,7 @@ namespace no_table_entry_rateo {
                              "d.exchangerate,d.residual,d.ordered,d.discount,d.tax,d.taxable,d.unabatable,d.flagactivity,d.flagmixed" +
                 //"ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable,2)-  ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable*isnull(d.discount,0),2) + " +
                 //"  ROUND(isnull(d.unabatable*d.residual/d.ordered,0),2) as amount " +
-                ", AC.idacc, D.idaccmotive, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3,d.idepexp,"
+                ", AC.idacc, D.idaccmotive, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3, d.idcostpartition, d.idepexp,"
             + " d.competencystart, d.competencystop, d.idaccmotive,d.mandatekind,d.rownum FROM mandatedetailtoinvoiceyear d "
             + " join accmotivedetail AC on AC.idaccmotive=D.idaccmotive "
             + " WHERE "+QHS.AppAnd( QHS.CmpEq("d.ayear",currAyear),
@@ -1251,7 +1383,7 @@ namespace no_table_entry_rateo {
                         "d.exchangerate,d.residual,d.ordered,d.discount,d.tax,d.taxable,d.unabatable,d.flagactivity,d.flagmixed" +
                              //"ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable,2)- ROUND(d.residual*isnull(d.exchangerate,1)*d.taxable*isnull(d.discount,0),2) + " +
                              //"  ROUND(isnull(d.unabatable*d.residual/d.ordered,0),2) as amount " +
-            ", AC.idacc, D.idaccmotive, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3,d.idepexp,"
+            ", AC.idacc, D.idaccmotive, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3, d.idcostpartition, d.idepexp,"
             + " d.competencystart, d.competencystop, d.idaccmotive,d.mandatekind,d.rownum "+
                              "FROM mandatedetailtoinvoiceyear d "
             + " join accmotivedetail AC on AC.idaccmotive=D.idaccmotive "
@@ -1603,6 +1735,98 @@ namespace no_table_entry_rateo {
             string listtype = ToMeta.DefaultListType;
             DataRow R = ToMeta.SelectOne(listtype, checkfilter, null, null);
             if (R != null) ToMeta.SelectRow(R, listtype);
+        }
+
+        // creazione della tabella di ripartizione
+        public EP_functions.ripTable[] getTabellaRipartizione(object idcostpartition, decimal amount)
+        {
+            if (idcostpartition == DBNull.Value || idcostpartition == null) return null;
+            DataTable tMain = Conn.RUN_SELECT("costpartition", "*", null, QHS.CmpEq("idcostpartition", idcostpartition),
+                null, false);
+            DataTable tDetail = Conn.RUN_SELECT("costpartitiondetail", "*", null,
+                QHS.CmpEq("idcostpartition", idcostpartition), null, false);
+            if (tMain == null || tMain.Rows.Count == 0 || tDetail == null || tDetail.Rows.Count == 0) return null;
+            bool useQuote = false;
+            if (tMain.Rows[0]["kind"].ToString().ToUpper() == "P")
+            {
+                useQuote = true;
+            }
+
+            EP_functions.ripTable[] rip = new EP_functions.ripTable[tDetail.Rows.Count];
+            if (!useQuote)
+            {
+                //verifica che l'importo sommato sia amount
+                decimal sum = 0;
+                foreach (DataRow r in tDetail.Select())
+                {
+                    sum += CfgFn.GetNoNullDecimal(r["amount"]);
+                }
+
+                if (sum != amount)
+                {
+                    //ricalcola la tabella come percentuale
+                    decimal sumperc = 0;
+                    for (int i = 0; i < tDetail.Rows.Count; i++)
+                    {
+                        decimal importo_tabella = CfgFn.GetNoNullDecimal(tDetail.Rows[i]["amount"]);
+                        decimal perc = sum == 0 ? 1 : CfgFn.Round(importo_tabella / sum, 6);
+                        if (i == tDetail.Rows.Count - 1)
+                        {
+                            //va  a tappo per l'ultima percentuale
+                            perc = 1 - sumperc;
+                        }
+                        else
+                        {
+                            sumperc += perc;
+                        }
+
+                        tDetail.Rows[i]["rate"] = perc;
+                    }
+
+                    useQuote = true;
+                }
+            }
+
+            if (useQuote)
+            {
+                decimal amount_ripartito = 0;
+                for (int i = 0; i < tDetail.Rows.Count; i++)
+                {
+                    decimal perc_tabella = CfgFn.GetNoNullDecimal(tDetail.Rows[i]["rate"]);
+                    decimal importo_calcolato = CfgFn.Round(perc_tabella * amount, 2);
+                    if (i == tDetail.Rows.Count - 1)
+                    {
+                        //va  a tappo per l'ultimo importo
+                        importo_calcolato = amount - amount_ripartito;
+                    }
+                    else
+                    {
+                        amount_ripartito += importo_calcolato;
+                    }
+
+                    EP_functions.ripTable rt = new EP_functions.ripTable();
+                    rt.amount = importo_calcolato;
+                    rt.idsor1 = tDetail.Rows[i]["idsor1"];
+                    rt.idsor2 = tDetail.Rows[i]["idsor2"];
+                    rt.idsor3 = tDetail.Rows[i]["idsor3"];
+                    rip[i] = rt;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < tDetail.Rows.Count; i++)
+                {
+                    decimal importo_assegnato = CfgFn.GetNoNullDecimal(tDetail.Rows[i]["amount"]);
+                    EP_functions.ripTable rt = new EP_functions.ripTable();
+                    rt.amount = importo_assegnato;
+                    rt.idsor1 = tDetail.Rows[i]["idsor1"];
+                    rt.idsor2 = tDetail.Rows[i]["idsor2"];
+                    rt.idsor3 = tDetail.Rows[i]["idsor3"];
+                    rip[i] = rt;
+                }
+            }
+
+            return rip;
         }
     }
 }

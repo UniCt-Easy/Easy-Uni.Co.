@@ -41,7 +41,7 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -93,6 +93,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			configureDependencies: function () {
 				var valorenumericoCtrl = $('#perfobiettiviuo_default_valorenumerico');

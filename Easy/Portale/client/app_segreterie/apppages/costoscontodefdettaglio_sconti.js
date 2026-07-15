@@ -25,13 +25,21 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#costoscontodefdettaglio_sconti_idfasciaiseedef'), true);
+				this.enableControl($('#costoscontodefdettaglio_sconti_idratadef'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
 			afterLink: function () {
 				var self = this;
-				this.state.DS.tables.fasciaiseedefdefaultview.staticFilter(window.jsDataQuery.eq("idcostoscontodef", self.idcostoscontodef));
+				this.state.DS.tables.fasciaiseedefdefaultview.staticFilter(window.jsDataQuery.eq("idcostoscontodef", this.state.callerState.currentRow.idcostoscontodef));
+				appMeta.metaModel.insertFilter(this.getDataTable("costoscontodefdettagliokinddefaultview"), this.q.eq('costoscontodefdettagliokind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -42,18 +50,12 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-costoscontodefdettaglio_sconti");
-				$('#costoscontodefdettaglio_sconti_idfasciaiseedef').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#costoscontodefdettaglio_sconti_idfasciaiseedef').prop("readonly", this.state.isEditState() || this.haveChildren());
-				if (t.name === "fasciaiseedefdefaultview" && r !== null) {
-					this.state.DS.tables.ratadefdefaultview.staticFilter(window.jsDataQuery.eq("idfasciaiseedef", r.idfasciaiseedef));
-					if (this.state.DS.tables.ratadefdefaultview.rows.length)
-						if (this.state.DS.tables.ratadefdefaultview.rows[0].idfasciaiseedef !== r.idfasciaiseedef) {
-							this.state.DS.tables.ratadefdefaultview.clear();
-							$('#costoscontodefdettaglio_sconti_idratadef').val('');
-						}
-				}
-				$('#costoscontodefdettaglio_sconti_idratadef').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#costoscontodefdettaglio_sconti_idratadef').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#costoscontodefdettaglio_sconti_idfasciaiseedef').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idfasciaiseedef);
+				$('#costoscontodefdettaglio_sconti_idfasciaiseedef').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idfasciaiseedef);
+				$('#costoscontodefdettaglio_sconti_idratadef').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idratadef);
+				$('#costoscontodefdettaglio_sconti_idratadef').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idratadef);
+				$('#costoscontodefdettaglio_sconti_idfasciaiseedef').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idratadef);
+				$('#costoscontodefdettaglio_sconti_idfasciaiseedef').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idratadef);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -74,6 +76,8 @@
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
 
 			children: [''],
 			haveChildren: function () {

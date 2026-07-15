@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 UniversitÃ  degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -33,14 +31,14 @@ namespace mainform//CompEc//
 		public System.Windows.Forms.TextBox txtPwd;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnAnnulla;
-        public bool ********** = false;
+        public bool YOUR_PASSWORD = false;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
-		private const string C_PASSWORD = "**********";
+		private const string C_PASSWORD = "YOUR_PASSWORD";
         private PictureBox pictureBox1;
-        private const string L_PASSWORD = "**********";
+        private const string L_PASSWORD = "littleadmin";
 
         public FrmAdmin()
 		{
@@ -153,7 +151,7 @@ namespace mainform//CompEc//
 
 		private void btnOK_Click(object sender, System.EventArgs e) {
             if (txtPwd.Text == L_PASSWORD) {
-                ********** = true;
+                YOUR_PASSWORD = true;
                 this.DialogResult = DialogResult.OK;
                 return;
             }

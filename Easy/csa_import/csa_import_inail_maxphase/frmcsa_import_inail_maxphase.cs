@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -363,7 +361,7 @@ namespace csa_import_inail_maxphase {
 			bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
 				show(this,
-					"Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+					"Si Ã¨ verificato un errore o si Ã¨ deciso di non salvare! L'operazione sarÃ  terminata");
 				return false;
 			} else {
 				res = ga.doPost(Meta.Dispatcher);
@@ -372,7 +370,7 @@ namespace csa_import_inail_maxphase {
 					return true;
 				} else {
 					show(this,
-						"Si è verificato un errore o si è deciso di non salvare! L'operazione sarà terminata");
+						"Si Ã¨ verificato un errore o si Ã¨ deciso di non salvare! L'operazione sarÃ  terminata");
 					return false;
 				}
 			}
@@ -404,7 +402,7 @@ namespace csa_import_inail_maxphase {
         Dictionary<int, Dictionary<int, decimal>> listaSospesi = new Dictionary<int, Dictionary<int, decimal>>();
 		private void ValorizzaSospeso(DataTable T) {
 			// Solo per i Versamenti posticipati valorizziamo i sospesi importanti
-			// Mentre per i Lordi posticipati è stato fatto già nella fase azzeramento
+			// Mentre per i Lordi posticipati Ã¨ stato fatto giÃ  nella fase azzeramento
 			// andando a selezionare i sospesi dell'esercizio successivo 
 			object nBill = getSospeso();
             //if (nBill == null || nBill == DBNull.Value || CfgFn.GetNoNullInt32(nBill) == 0) return;
@@ -678,12 +676,12 @@ namespace csa_import_inail_maxphase {
                 bool regolarizzazioneEffettuata = false;
 
 				//  Versamenti Posticipati. Il Pagamento rientra in uno dei seguenti casi
-				//  ° a regolarizzazione su singolo sospeso anno corrente
-				//  ° a regolarizzazione ma importo ripartito tra più sospesi -->,
+				//  Â° a regolarizzazione su singolo sospeso anno corrente
+				//  Â° a regolarizzazione ma importo ripartito tra piÃ¹ sospesi -->,
 				//  -->in base a una tabella di ripartizione importata riferita all'anno corrente
-				//  ° non a regolarizzazione
+				//  Â° non a regolarizzazione
 				if (L_Or_V == "V") {
-					// Se il movimento è a regolarizzazione mette la bolletta
+					// Se il movimento Ã¨ a regolarizzazione mette la bolletta
 					// Verifico l'esistenza di sospesi multipli
 					decimal netto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["netto"]));
 						// Singolo sospeso
@@ -697,7 +695,7 @@ namespace csa_import_inail_maxphase {
 								listaSospesiMov[Bill.Key] -= Bill.Value;
 							}
 						}
-						// Ripartizione tra più sospesi
+						// Ripartizione tra piÃ¹ sospesi
 						if ((bill.Keys.Count > 1) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
 							foreach (int nBill in bill.Keys) {
 								if (netto == 0) continue;
@@ -707,7 +705,7 @@ namespace csa_import_inail_maxphase {
 								newBill["nbill"] = nBill;
 								newBill["ybill"] = esercizio;
 								if (netto >= bill[nBill]) {
-									//svuota questo sospeso nel dictionary, non sarà più considerato
+									//svuota questo sospeso nel dictionary, non sarÃ  piÃ¹ considerato
 									newBill["amount"] = bill[nBill];
 									netto -= bill[nBill];
 								}
@@ -735,25 +733,25 @@ namespace csa_import_inail_maxphase {
 				}
 
 				// Lordi Posticipati. Il Pagamento rientra in uno dei seguenti casi
-				//  ° a regolarizzazione su singolo sospeso aperto nell'anno corrente, ma già impostato nel pagamento originale nella fase precedente di azzeramento dei Lordi
-				//  ° a regolarizzazione con importo ripartito tra più sospesi dell'anno corrente, già selezionati nella fase precedente di azzeramento dei Lordi
-				//  ° non a regolarizzazione 
+				//  Â° a regolarizzazione su singolo sospeso aperto nell'anno corrente, ma giÃ  impostato nel pagamento originale nella fase precedente di azzeramento dei Lordi
+				//  Â° a regolarizzazione con importo ripartito tra piÃ¹ sospesi dell'anno corrente, giÃ  selezionati nella fase precedente di azzeramento dei Lordi
+				//  Â° non a regolarizzazione 
 				//  In tutti questi casi, nei Lordi Posticipti, a differenza dei Versamenti posticipati,
-				//  si tratta di replicare o il numero di sospeso o la ripartizione o la modalità di pagamento
+				//  si tratta di replicare o il numero di sospeso o la ripartizione o la modalitÃ  di pagamento
 				//  clonandola dal pagamento originale. 
 
 				else {
-					// Se il movimento è a netto diverso da zero e a regolarizzazione
+					// Se il movimento Ã¨ a netto diverso da zero e a regolarizzazione
 					// copia il numero bolletta singola dal pagamento originale
 		
 					decimal netto = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(R["netto"]));
-					// ° Singolo sospeso
+					// Â° Singolo sospeso
 					if ((R["nbill"] != DBNull.Value) && (CfgFn.GetNoNullDecimal(R["netto"]) != 0)) {
 						NewLastMov["nbill"] = R["nbill"];
 						regolarizzazioneEffettuata = true;
 					}
 
-					// ° Ripartizione tra sospesi multipli, li clono esattamente dal movimento originale perchè i sospesi erano stati scelti
+					// Â° Ripartizione tra sospesi multipli, li clono esattamente dal movimento originale perchÃ¨ i sospesi erano stati scelti
 					// tra quelli dell'esercizio corrente
 					var bill = DataAccess.RUN_SELECT(Meta.Conn, tMainBill, "*", null, QHS.CmpEq("idexp", R["idexp"]), null, true); ;
 
@@ -779,7 +777,7 @@ namespace csa_import_inail_maxphase {
 				}
 				else {
 					// PAGAMENTI Sia per Lordi Posticipati che per Versamenti Posticipati
-					// ° Se non è a regolarizzazione, copia la modalità di pagamento dalla riga vecchia
+					// Â° Se non Ã¨ a regolarizzazione, copia la modalitÃ  di pagamento dalla riga vecchia
 					string[] fields_to_copy = new string[] {
 						"cc", "cin", "flag","iban","idbank","idcab","iddeputy","idregistrypaymethod",
 						"paymentdescr","refexternaldoc","idpaymethod","biccode","extracode","paymethod_allowdeputy",
@@ -989,7 +987,7 @@ namespace csa_import_inail_maxphase {
 					DataRow RExp;
 					if (!RigheSpesaPerIdExp.TryGetValue(idexp, out RExp)) continue;
 					RExp["netto"] = CfgFn.GetNoNullDecimal(RExp["netto"]) +
-					                // l'importo è negativo perchè quello della variazione di azzeramento
+					                // l'importo Ã¨ negativo perchÃ¨ quello della variazione di azzeramento
 					                CfgFn.GetNoNullDecimal(r["amount"]);
 				}
 			}
@@ -1001,7 +999,7 @@ namespace csa_import_inail_maxphase {
 			getEnteVersamento(OriginalVerPartition);
 			
 			// Solo per i Versamenti posticipati valorizziamo i sospesi sugli automatismi da trasformare in movimenti finanziari
-			// Mentre per i Lordi posticipati è stato fatto già nella fase azzeramento e gli automatsmi già contengono l'eventuale
+			// Mentre per i Lordi posticipati Ã¨ stato fatto giÃ  nella fase azzeramento e gli automatsmi giÃ  contengono l'eventuale
 			// indicazione del sospeso
 			// andando a selezionare i sospesi dell'esercizio successivo 
 			if (L_Or_V == "V") ValorizzaSospeso(SP_Result);
@@ -1016,7 +1014,7 @@ namespace csa_import_inail_maxphase {
 				int faseCorrente = fasemax;
 				Mov.Columns["nphase"].DefaultValue = faseCorrente;
 				DataRow NewMovRow = MetaM.Get_New_Row(ParentR, Mov);
-				//Imposta il movimento parent tramite il livsupid. Il movimento parent è del movimento finanziario che stiamo ri-creando
+				//Imposta il movimento parent tramite il livsupid. Il movimento parent Ã¨ del movimento finanziario che stiamo ri-creando
 				NewMovRow[idParMovField] = parentidmov;
 
 				fillMovimento(NewMovRow, R);
@@ -1037,7 +1035,7 @@ namespace csa_import_inail_maxphase {
 					NewMovRow["idpayment"] = NewIdPayment[oldIdPayment];
 					// Devo propagare ala modifica alle fasi precedenti se ci sono
                     DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn,dsFinancial.Tables[tMain],null, 
-                            //non rilegge le ultime fasi in memoria, perchè di quelle NON va aggiornato l'idpayment, visto che non sono residue e sono incassi 
+                            //non rilegge le ultime fasi in memoria, perchÃ¨ di quelle NON va aggiornato l'idpayment, visto che non sono residue e sono incassi 
                             QHS.AppAnd( QHS.CmpEq("idpayment", R["idpayment"]), QHS.CmpLt("nphase",fasemax))
                             ,null,true);
 				}
@@ -1079,9 +1077,9 @@ namespace csa_import_inail_maxphase {
             //Meta.GetFormData(true);
             string fEsercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
             if (show(
-                    " Attenzione: é necessario verificare preventivamente le singole importazioni dell'anno "+ "\r\n" +
+                    " Attenzione: Ã© necessario verificare preventivamente le singole importazioni dell'anno "+ "\r\n" +
                     " per rilevare e correggere possibili errori nell'individuazione di Anagrafiche, Contratti, Enti. " + "\r\n" +
-                    " Premere OK per continuare lo stesso, in caso si sia già provveduto, oppure " + "\r\n" + 
+                    " Premere OK per continuare lo stesso, in caso si sia giÃ  provveduto, oppure " + "\r\n" + 
                     " premere ANNULLA per interrompere l'elaborazione.", "Avviso", MessageBoxButtons.OKCancel)==DialogResult.Cancel) return;
 
             dsFinancial.Clear();
@@ -1504,7 +1502,7 @@ namespace csa_import_inail_maxphase {
 		private void btnInputSospesi_Click(object sender, EventArgs e) {
 			DialogResult dr = openInputFileDlg.ShowDialog();
 			if (dr != DialogResult.OK) {
-				show("Non è stato scelto alcun file");
+				show("Non Ã¨ stato scelto alcun file");
 				return;
 			}
 
@@ -1576,7 +1574,7 @@ namespace csa_import_inail_maxphase {
 			if (errorcode <= 0) return;
 			if (errorcode > AllList.Length) {
 				show(
-					"Aggiornare il programma, la DLL di importazione CSA non è allineata con i check del db.",
+					"Aggiornare il programma, la DLL di importazione CSA non Ã¨ allineata con i check del db.",
 					"Errore");
 				return;
 			}
@@ -1632,7 +1630,7 @@ namespace csa_import_inail_maxphase {
 			}
 
 			if (Tab.TabPages.Count == 0) Tab.Visible = false;
-			// ho impostato la proprietà autosize a true sul form, per permettere il ridimensionamento automatico
+			// ho impostato la proprietÃ  autosize a true sul form, per permettere il ridimensionamento automatico
 		}
 
 		void removeTab(Crownwood.Magic.Controls.TabControl Tab, Crownwood.Magic.Controls.TabPage TPage) {
@@ -1640,11 +1638,11 @@ namespace csa_import_inail_maxphase {
 			if(Tab.TabPages.Contains(TPage))  Tab.TabPages.Remove(TPage);
 
 			if (Tab.TabPages.Count == 0) Tab.Visible = false;
-			// ho impostato la proprietà autosize a true sul form, per permettere il ridimensionamento automatico
+			// ho impostato la proprietÃ  autosize a true sul form, per permettere il ridimensionamento automatico
 		}
 
 		public string txtHelpLordiPosticipati = "Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei Lordi CSA. ";
-		public string txtHelpVersamentiPosticipati = "Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei versamenti annuali delle voci CSA che sono escluse dai versamenti mensili (come ad esempio la ritenuta INAIL). Per contrassegnare queste voci, è necessario inserire una spunta Versamenti Annuali," +
+		public string txtHelpVersamentiPosticipati = "Questo wizard serve ad effettuare i pagamenti e gli incassi posticipati dei versamenti annuali delle voci CSA che sono escluse dai versamenti mensili (come ad esempio la ritenuta INAIL). Per contrassegnare queste voci, Ã¨ necessario inserire una spunta Versamenti Annuali," +
 		" in corrispondenza del relativo Ente di Versamento CSA.";
 
 		void GestisciEditType() {
@@ -1683,7 +1681,7 @@ namespace csa_import_inail_maxphase {
 
 		public override ProcedureMessageCollection DO_POST_SERVICE() {
 			//effettua tutte le operazioni che avrebbe fatto
-			// Il beforePost è già stato invocato correttamente
+			// Il beforePost Ã¨ giÃ  stato invocato correttamente
 			epm.silent = true;
 			epm.silentBlocked = true;
 			epm.clearMessages();

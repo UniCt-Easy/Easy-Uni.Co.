@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_surname">Cognome</label>
-					<input id="registrationuser_usr_surname" type="text" class="form-control" data-tag="registrationuser.surname?registrationuserusrview.surname"  />
+					<input id="registrationuser_usr_surname" type="text" class="form-control" data-tag="registrationuser.surname?registrationuserusrview.registrationuser_surname"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_forename">Nome</label>
@@ -46,14 +46,64 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_usertype">Categoria di utente</label>
-					<select id="registrationuser_usr_usertype" class="custom-select d-block w-100"  data-source-name="usertype" data-value-member="usertype" data-display-member="usertype" data-sort-member="" data-custom-control="combo" data-tag="registrationuser.usertype?registrationuserusrview.usertype"   > </select>
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registrationuser_usr_idregistrationuserstatus">Stato della richiesta</label>
-					<select id="registrationuser_usr_idregistrationuserstatus" class="custom-select d-block w-100"  data-source-name="registrationuserstatus" data-value-member="idregistrationuserstatus" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="registrationuser.idregistrationuserstatus?registrationuserusrview.registrationuser_idregistrationuserstatus"   > </select>
+					<select id="registrationuser_usr_usertype" class="custom-select d-block w-100"  data-source-name="usertype" data-value-member="usertype" data-display-member="usertype" data-sort-member="usertype" data-custom-control="combo" data-tag="registrationuser.usertype?registrationuserusrview.usertype"   > </select>
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_idsor01">Classificazione 1</label>
+					<div>
+						<input id="registrationuser_usr_idsor01" name="registrationuser_usr_idsor01" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_idsor02">Classificazione 2</label>
+					<div>
+						<input id="registrationuser_usr_idsor02" name="registrationuser_usr_idsor02" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias1.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_idsor03">Classificazione 3</label>
+					<div>
+						<input id="registrationuser_usr_idsor03" name="registrationuser_usr_idsor03" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias2.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_idsor04">Classificazione 4</label>
+					<div>
+						<input id="registrationuser_usr_idsor04" name="registrationuser_usr_idsor04" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias3.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_idsor05">Classificazione 5</label>
+					<div>
+						<input id="registrationuser_usr_idsor05" name="registrationuser_usr_idsor05" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias4.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_start">Data inizio</label>
+					<input id="registrationuser_usr_start" type="text" class="form-control" data-tag="registrationuser.start?registrationuserusrview.registrationuser_start"   data-datePickerFormat="dd/mm/yy"/>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_stop">Data fine</label>
+					<input id="registrationuser_usr_stop" type="text" class="form-control" data-tag="registrationuser.stop?registrationuserusrview.registrationuser_stop"   data-datePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_usr_idregistrationuserstatus">Stato della richiesta</label>
+					<select id="registrationuser_usr_idregistrationuserstatus" class="custom-select d-block w-100"  data-source-name="registrationuserstatus" data-value-member="idregistrationuserstatus" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="registrationuser.idregistrationuserstatus?registrationuserusrview.registrationuser_idregistrationuserstatus"   > </select>
+				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_usr_requesttimestamp">Data della richiesta</label>
 					<input id="registrationuser_usr_requesttimestamp" type="text" class="form-control" data-tag="registrationuser.requesttimestamp.g?registrationuserusrview.registrationuser_requesttimestamp.g"   data-dateTimePickerFormat="dd/mm/yy"/>

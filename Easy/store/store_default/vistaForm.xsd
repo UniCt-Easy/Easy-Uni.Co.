@@ -23,6 +23,8 @@
               <xs:element name="email" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="idestimkind" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_upb" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_estimatekind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--9UYMO2JK280FO527585Q37O2"
+  boundary="---------blocknote.net--1W7EEI2L34CBO17UKLV61JH6R8F"
 
 
------------blocknote.net--9UYMO2JK280FO527585Q37O2
+-----------blocknote.net--1W7EEI2L34CBO17UKLV61JH6R8F
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -26,7 +26,29 @@ DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
-<BODY>
+<BODY><DIV align=3D"left">
+<TABLE border=3D"1" cellspacing=3D"1" width=3D"15%">
+  <TR>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">v. 1.0</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">28/10=
+/2021</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Creazione</FONT></STRO=
+NG></TD>
+  </TR>
+  <TR>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">v. 1.1</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">08/05=
+/2024</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Correzione link</FONT>=
+</STRONG></TD>
+  </TR>
+</TABLE>
+</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
 <P align=3D"center"><STRONG><FONT face=3D"Tahoma" size=3D"5">MODULO ORGAN=
 IGRAMMA</FONT></STRONG></P>
 <DIV><FONT face=3D"Tahoma">Questa guida ha lo scopo di illustrare le funz=
@@ -46,9 +68,9 @@ o per intervalli temporali.</FONT></DIV>
 <P>&nbsp;</P>
 <P><A href=3D"flowchartlevel_default.mht"><STRONG><FONT face=3D"Tahoma">O=
 rganizzazione dei livelli</FONT></STRONG></A></FONT></STRONG></P>
-<P><A href=3D"flowchar_default.mht"><STRONG><FONT face=3D"Tahoma">Funzion=
-amento della gerarchia dei livell</STRONG>i <STRONG>e impostazione dei pr=
-ofili</FONT></STRONG></A></FONT></STRONG></P>
+<P><A href=3D"flowchart_default.mht"><STRONG><FONT face=3D"Tahoma">Funzio=
+namento della gerarchia dei livell</STRONG>i <STRONG>e impostazione dei p=
+rofili</FONT></STRONG></A></FONT></STRONG></P>
 <P><A href=3D"flowchartuser_single.mht"><STRONG><FONT face=3D"Tahoma">Ass=
 ociazione degli utenti ai profili di organigramma e relative funzioni</FO=
 NT></STRONG></A></FONT></STRONG></P>
@@ -58,4 +80,4 @@ urazione degli attributi per la gestione della sicurezza</FONT></STRONG><=
 </BODY>
 </HTML>
 
------------blocknote.net--9UYMO2JK280FO527585Q37O2--
+-----------blocknote.net--1W7EEI2L34CBO17UKLV61JH6R8F--

@@ -42,7 +42,7 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -69,16 +69,25 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#attivform_default_iddidprogcurr'), true);
+				this.enableControl($('#attivform_default_iddidprogori'), true);
+				this.enableControl($('#attivform_default_iddidproganno'), true);
+				this.enableControl($('#attivform_default_iddidprogporzanno'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('canale'), this.getDataTable('canaleregistry'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('canale'), this.getDataTable('canaleregistry'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
@@ -86,6 +95,8 @@
 			afterLink: function () {
 				var self = this;
 				this.state.DS.tables.didprogcurr.staticFilter(window.jsDataQuery.eq("iddidprog", this.state.callerState.currentRow.iddidprog));
+				$('#grid_canale_default').data('mdlconditionallookup', '!filtrostud,T,Tutti;!filtrostud,I,Solo studenti iscritti alla didattica programmata;');
+				$('#grid_attivformcaratteristica_default').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
 				var grid_attivformcaratteristica_defaultChildsTables = [
 					{ tablename: 'attivformcaratteristicaora', edittype: 'default', columnlookup: 'idorakind', columncalc: '!attivformcaratteristicaora'},
 				];
@@ -108,14 +119,20 @@
 							$('#attivform_default_idinsegninteg').val('');
 						}
 				}
-				$('#attivform_default_iddidprogcurr').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidprogcurr').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidprogori').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidprogori').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidproganno').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidproganno').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidprogporzanno').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#attivform_default_iddidprogporzanno').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#attivform_default_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#attivform_default_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogcurr);
+				$('#attivform_default_iddidprogori').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#attivform_default_iddidprogori').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#attivform_default_iddidprogcurr').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#attivform_default_iddidprogcurr').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogori);
+				$('#attivform_default_iddidproganno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#attivform_default_iddidproganno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#attivform_default_iddidprogori').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#attivform_default_iddidprogori').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidproganno);
+				$('#attivform_default_iddidprogporzanno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#attivform_default_iddidprogporzanno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#attivform_default_iddidproganno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
+				$('#attivform_default_iddidproganno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprogporzanno);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -144,6 +161,8 @@
 			},
 
 			//beforePost
+
+			//afterPost
 
 			manageattivform_default_title: function () {
 				var def = appMeta.Deferred("beforeFill-manageattivform_title");

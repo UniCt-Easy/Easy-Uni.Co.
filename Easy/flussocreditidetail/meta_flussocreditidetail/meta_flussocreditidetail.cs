@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Windows.Forms;
@@ -37,6 +35,7 @@ namespace meta_flussocreditidetail {
             ListingTypes.Add("default_annullati");
             ListingTypes.Add("default_da_annullare");
             ListingTypes.Add("posting");
+            ListingTypes.Add("easysegr");
         }
 
         protected override Form GetForm(string FormName) {
@@ -78,7 +77,7 @@ namespace meta_flussocreditidetail {
                 DescribeAColumn(T, "ninv", "Num. Fattura", nPos++);
                 DescribeAColumn(T, "invrownum", "Num.Riga Fatt.", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit‡", nPos++);
+                DescribeAColumn(T, "number", "quantit√†", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
@@ -101,7 +100,7 @@ namespace meta_flussocreditidetail {
                 DescribeAColumn(T, "nestim", "Num.Contratto", nPos++);
                 DescribeAColumn(T, "rownum", "Num.Riga", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit‡", nPos++);
+                DescribeAColumn(T, "number", "quantit√†", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
@@ -120,7 +119,7 @@ namespace meta_flussocreditidetail {
                 int nPos = 1;
                 DescribeAColumn(T, "iddetail", "Num.Dettaglio", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit‡", nPos++);
+                DescribeAColumn(T, "number", "quantit√†", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
@@ -139,14 +138,14 @@ namespace meta_flussocreditidetail {
                 DescribeAColumn(T, "iddetail", "Num.Dettaglio", nPos++);
                 DescribeAColumn(T, "iduniqueformcode", "Codice Bollettino Univoco", nPos++);
                 DescribeAColumn(T, "importoversamento", "Importo", nPos++);
-                DescribeAColumn(T, "number", "quantit‡", nPos++);
+                DescribeAColumn(T, "number", "quantit√†", nPos++);
                 DescribeAColumn(T, "tax", "Iva", nPos++);
                 DescribeAColumn(T, "cf", "CF", nPos++);
                 DescribeAColumn(T, "p_iva", "P.Iva", nPos++);
                 DescribeAColumn(T, "codicetassonomia", "Tassonomia PagoPA", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
 			    DescribeAColumn(T, "annulment", "Data annullamento", nPos++);
-                DescribeAColumn(T, "stop", "Data fine validit‡", nPos++);
+                DescribeAColumn(T, "stop", "Data fine validit√†", nPos++);
 				DescribeAColumn(T, "annotations", "Annotazioni", nPos++);
                 FilterRows(T);
 			}
@@ -180,6 +179,19 @@ namespace meta_flussocreditidetail {
                 //potrebbe essere stato chiamato altre volte ma prima del calcolo definitivo dei campi ad autoincremento
                 if (R.RowState==DataRowState.Added && (R["iduniqueformcode"].ToString().StartsWith("easyfcred"))) {
                     R["iduniqueformcode"] = $"easyfcred{R["idflusso"]:D14}{R["idreg"]:D10}";
+                    return;
+                }
+            }
+            //Segreterie
+            if (list_type.Equals("easysegr")) {
+                // Calcola il numero di bollettino nel caso in cui non sia stato valorizzato
+                if (DBNull.Value.Equals(R["iduniqueformcode"])) {
+                    R["iduniqueformcode"] = $"easysegr{R["idflusso"]:D14}{R["iddetail"]:D10}";
+                    return;
+                }
+                //potrebbe essere stato chiamato altre volte ma prima del calcolo definitivo dei campi ad autoincremento
+                if (R.RowState == DataRowState.Added && (R["iduniqueformcode"].ToString().StartsWith("easysegr"))) {
+                    R["iduniqueformcode"] = $"easysegr{R["idflusso"]:D14}{R["iddetail"]:D10}";
                     return;
                 }
             }

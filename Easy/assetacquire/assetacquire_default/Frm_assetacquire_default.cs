@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -1420,7 +1418,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.tabPageUtilizzo.Controls.Add(this.gridQuota);
 			this.tabPageUtilizzo.Location = new System.Drawing.Point(4, 22);
 			this.tabPageUtilizzo.Name = "tabPageUtilizzo";
-			this.tabPageUtilizzo.Size = new System.Drawing.Size(192, 74);
+			this.tabPageUtilizzo.Size = new System.Drawing.Size(891, 528);
 			this.tabPageUtilizzo.TabIndex = 5;
 			this.tabPageUtilizzo.Text = "Utilizzo";
 			// 
@@ -1460,7 +1458,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.gridQuota.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.gridQuota.Location = new System.Drawing.Point(88, 16);
 			this.gridQuota.Name = "gridQuota";
-			this.gridQuota.Size = new System.Drawing.Size(788, 46);
+			this.gridQuota.Size = new System.Drawing.Size(788, 500);
 			this.gridQuota.TabIndex = 3;
 			this.gridQuota.Tag = "assetusage.dettaglioquota.dettaglioquota";
 			// 
@@ -1470,7 +1468,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.tabPageEP.Controls.Add(this.grpAnalitico);
 			this.tabPageEP.Location = new System.Drawing.Point(4, 22);
 			this.tabPageEP.Name = "tabPageEP";
-			this.tabPageEP.Size = new System.Drawing.Size(192, 74);
+			this.tabPageEP.Size = new System.Drawing.Size(891, 528);
 			this.tabPageEP.TabIndex = 6;
 			this.tabPageEP.Text = "   E/P   ";
 			// 
@@ -1742,7 +1740,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
 			this.tabAllegati.Name = "tabAllegati";
 			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(192, 74);
+			this.tabAllegati.Size = new System.Drawing.Size(891, 528);
 			this.tabAllegati.TabIndex = 15;
 			this.tabAllegati.Text = "Allegati";
 			this.tabAllegati.UseVisualStyleBackColor = true;
@@ -1757,7 +1755,7 @@ namespace assetacquire_default { //caricobeneinventario//
 			this.dataGridAllegati.Location = new System.Drawing.Point(8, 51);
 			this.dataGridAllegati.Name = "dataGridAllegati";
 			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(178, 2);
+			this.dataGridAllegati.Size = new System.Drawing.Size(877, 456);
 			this.dataGridAllegati.TabIndex = 23;
 			this.dataGridAllegati.Tag = "assetacquireattachment.lista.detail";
 			// 
@@ -2500,6 +2498,10 @@ namespace assetacquire_default { //caricobeneinventario//
                 }
             }
 
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.assetacquireattachment, true);
         }
 
         

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -319,7 +317,7 @@ public partial class accountvardetail_default_new02 : MetaPage {
         //}
 
         //string filtro = QHS.AppAnd(filteresercizio, filterUpb);
-        //DA RIVEDERE, SARA, perchË c'Ë accountpart.
+        //DA RIVEDERE, SARA, perch√® c'√® accountpart.
         //CommFun.Manage("manage.account.tree", "codeaccount", txtCodiceConto.Text.Trim(), null);
         //CommFun.DoMainCommand("manage.accountview.tree"+accountpart.ToLower()+"upb."+filtro);
         return;
@@ -361,7 +359,7 @@ public partial class accountvardetail_default_new02 : MetaPage {
     //    int esercizio = CfgFn.GetNoNullInt32(Meta.GetSys("esercizio"));
     //    string filteridaccount = "";
 
-    //    //Il filtro sull'UPB c'Ë sempre
+    //    //Il filtro sull'UPB c'√® sempre
     //    if (idupb.SelectedIndex > 0) {
     //        filter = QHS.CmpEq("idupb", idupb.SelectedValue);
     //    }

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,14 +13,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[CHARINDEX_BIN]') and OBJECTPROPERTY(id, N'IsScalarFunction') = 1)
     DROP FUNCTION CHARINDEX_BIN;
 GO
 
 -- Is similar to the built-in function Transact-SQL charindex, but regardless of collation settings,  
 -- executes case-sensitive search  
--- Author:  Igor Nikiforov,  Montreal,  EMail: udfs@sympatico.ca   
+-- Author:  Igor Nikiforov,  Montreal,  EMail: your-email@example.com   
 CREATE function CHARINDEX_BIN(@expression1 nvarchar(4000), @expression2  nvarchar(4000), @start_location  smallint = 1)
 returns nvarchar(4000)
 as

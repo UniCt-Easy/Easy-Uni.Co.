@@ -9,6 +9,12 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="numerosal" type="xs:int" minOccurs="0" />
+              <xs:element name="sal_autoassociazione" type="xs:string" minOccurs="0" />
+              <xs:element name="sal_budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sal_datablocco" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sal_stop" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -21,7 +27,6 @@
               <xs:element name="idrendicontattivitaprogetto" type="xs:int" />
               <xs:element name="idrendicontattivitaprogettokind" type="xs:int" minOccurs="0" />
               <xs:element name="idworkpackage" type="xs:int" />
-              <xs:element name="registry_title" type="xs:string" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_ct" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogetto_cu" type="xs:string" />
               <xs:element name="rendicontattivitaprogetto_datainizioprevista" type="xs:dateTime" minOccurs="0" />
@@ -29,6 +34,7 @@
               <xs:element name="rendicontattivitaprogetto_lt" type="xs:dateTime" />
               <xs:element name="rendicontattivitaprogetto_lu" type="xs:string" />
               <xs:element name="rendicontattivitaprogetto_orepreventivate" type="xs:int" minOccurs="0" />
+              <xs:element name="rendicontattivitaprogetto_rendicontatutto" type="xs:string" minOccurs="0" />
               <xs:element name="rendicontattivitaprogetto_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="rendicontattivitaprogettokind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>

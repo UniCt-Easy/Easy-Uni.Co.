@@ -52,13 +52,27 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'segamm':
+						table.columns["address"].caption = "n. operazione";
 						table.columns["ayear"].caption = "Anno esercizio";
+						table.columns["cap"].caption = "Codice avv. postale";
 						table.columns["codeflowchart"].caption = "Codice";
+						table.columns["ct"].caption = "data creazione";
+						table.columns["cu"].caption = "nome utente creazione";
+						table.columns["fax"].caption = "Fax";
+						table.columns["idcity"].caption = "id città (tabella geo_city)";
 						table.columns["idflowchart"].caption = "Identificativo";
+						table.columns["idsor1"].caption = "id voce analitica 1(tabella sorting)";
+						table.columns["idsor2"].caption = "id voce analitica 2(tabella sorting)";
+						table.columns["idsor3"].caption = "id voce analitica 3(tabella sorting)";
+						table.columns["location"].caption = "ubicazione";
+						table.columns["lt"].caption = "data ultima modifica";
+						table.columns["lu"].caption = "nome ultimo utente modifica";
 						table.columns["nlevel"].caption = "Livello del nodo";
 						table.columns["paridflowchart"].caption = "Nodo padre";
+						table.columns["phone"].caption = "Tel.";
+						table.columns["printingorder"].caption = "Ordine di stampa";
 						table.columns["title"].caption = "Titolo";
-						//$innerSetCaptionConfig_segamm$
+//$innerSetCaptionConfig_segamm$
 						break;
 					//$innerSetCaptionConfig$
 				}

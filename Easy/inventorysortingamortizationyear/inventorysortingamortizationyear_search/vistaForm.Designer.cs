@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,277 +13,245 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace inventorysortingamortizationyear_search {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable inventorysortingamortizationyear{get { return Tables["inventorysortingamortizationyear"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable inventoryamortization{get { return Tables["inventoryamortization"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable accmotiveapplied_load{get { return Tables["accmotiveapplied_load"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable accmotiveapplied_unload{get { return Tables["accmotiveapplied_unload"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable inventorytreeview{get { return Tables["inventorytreeview"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace inventorysortingamortizationyear_search {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventorysortingamortizationyear 		=> Tables["inventorysortingamortizationyear"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable accmotiveapplied_load 		=> Tables["accmotiveapplied_load"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable accmotiveapplied_unload 		=> Tables["accmotiveapplied_unload"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventorytreeview 		=> Tables["inventorytreeview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable inventoryamortization 		=> Tables["inventoryamortization"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("inventorysortingamortizationyear");
-	C= new DataColumn("idinv", typeof(System.Int32), "");
+	//////////////////// INVENTORYSORTINGAMORTIZATIONYEAR /////////////////////////////////
+	var tinventorysortingamortizationyear= new DataTable("inventorysortingamortizationyear");
+	C= new DataColumn("idinv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinventoryamortization", typeof(System.Int32), "");
+	tinventorysortingamortizationyear.Columns.Add(C);
+	C= new DataColumn("idinventoryamortization", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ayear", typeof(System.Int32), "");
+	tinventorysortingamortizationyear.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("amortizationquota", typeof(System.Double), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinventorysortingamortizationyear.Columns.Add(C);
+	tinventorysortingamortizationyear.Columns.Add( new DataColumn("amortizationquota", typeof(double)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinventorysortingamortizationyear.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinventorysortingamortizationyear.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinventorysortingamortizationyear.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinventorysortingamortizationyear.Columns.Add(C);
+	tinventorysortingamortizationyear.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	tinventorysortingamortizationyear.Columns.Add( new DataColumn("idaccmotiveunload", typeof(string)));
+	Tables.Add(tinventorysortingamortizationyear);
+	tinventorysortingamortizationyear.PrimaryKey =  new DataColumn[]{tinventorysortingamortizationyear.Columns["idinv"], tinventorysortingamortizationyear.Columns["idinventoryamortization"], tinventorysortingamortizationyear.Columns["ayear"]};
 
-	T.Columns.Add(new DataColumn("idaccmotive", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idaccmotiveunload", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["idinv"], 	T.Columns["idinventoryamortization"], 	T.Columns["ayear"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("inventoryamortization");
-	C= new DataColumn("idinventoryamortization", typeof(System.Int32), "");
+	//////////////////// ACCMOTIVEAPPLIED_LOAD /////////////////////////////////
+	var taccmotiveapplied_load= new DataTable("accmotiveapplied_load");
+	C= new DataColumn("idaccmotive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	taccmotiveapplied_load.Columns.Add(C);
+	taccmotiveapplied_load.Columns.Add( new DataColumn("paridaccmotive", typeof(string)));
+	C= new DataColumn("codemotive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("age", typeof(System.Int32), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	taccmotiveapplied_load.Columns.Add(C);
+	C= new DataColumn("motive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	taccmotiveapplied_load.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	taccmotiveapplied_load.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	taccmotiveapplied_load.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("codeinventoryamortization", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinventoryamortization"]};
-	T.PrimaryKey = key;
-
-	T= new DataTable("accmotiveapplied_load");
-	C= new DataColumn("idaccmotive", typeof(System.String), "");
+	taccmotiveapplied_load.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	taccmotiveapplied_load.Columns.Add(C);
+	taccmotiveapplied_load.Columns.Add( new DataColumn("active", typeof(string)));
+	taccmotiveapplied_load.Columns.Add( new DataColumn("idepoperation", typeof(string)));
+	taccmotiveapplied_load.Columns.Add( new DataColumn("epoperation", typeof(string)));
+	taccmotiveapplied_load.Columns.Add( new DataColumn("in_use", typeof(string)));
+	Tables.Add(taccmotiveapplied_load);
+	taccmotiveapplied_load.PrimaryKey =  new DataColumn[]{taccmotiveapplied_load.Columns["idaccmotive"]};
 
-	T.Columns.Add(new DataColumn("paridaccmotive", typeof(System.String), ""));
-	C= new DataColumn("codemotive", typeof(System.String), "");
+
+	//////////////////// ACCMOTIVEAPPLIED_UNLOAD /////////////////////////////////
+	var taccmotiveapplied_unload= new DataTable("accmotiveapplied_unload");
+	C= new DataColumn("idaccmotive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("motive", typeof(System.String), "");
+	taccmotiveapplied_unload.Columns.Add(C);
+	taccmotiveapplied_unload.Columns.Add( new DataColumn("paridaccmotive", typeof(string)));
+	C= new DataColumn("codemotive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	taccmotiveapplied_unload.Columns.Add(C);
+	C= new DataColumn("motive", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	taccmotiveapplied_unload.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	taccmotiveapplied_unload.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	taccmotiveapplied_unload.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idepoperation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("epoperation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("in_use", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idaccmotive"]};
-	T.PrimaryKey = key;
-
-	T= new DataTable("accmotiveapplied_unload");
-	C= new DataColumn("idaccmotive", typeof(System.String), "");
+	taccmotiveapplied_unload.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	taccmotiveapplied_unload.Columns.Add(C);
+	taccmotiveapplied_unload.Columns.Add( new DataColumn("active", typeof(string)));
+	taccmotiveapplied_unload.Columns.Add( new DataColumn("idepoperation", typeof(string)));
+	taccmotiveapplied_unload.Columns.Add( new DataColumn("epoperation", typeof(string)));
+	taccmotiveapplied_unload.Columns.Add( new DataColumn("in_use", typeof(string)));
+	Tables.Add(taccmotiveapplied_unload);
+	taccmotiveapplied_unload.PrimaryKey =  new DataColumn[]{taccmotiveapplied_unload.Columns["idaccmotive"]};
 
-	T.Columns.Add(new DataColumn("paridaccmotive", typeof(System.String), ""));
-	C= new DataColumn("codemotive", typeof(System.String), "");
+
+	//////////////////// INVENTORYTREEVIEW /////////////////////////////////
+	var tinventorytreeview= new DataTable("inventorytreeview");
+	C= new DataColumn("idinv", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("motive", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("codeinv", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("leveldescr", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	tinventorytreeview.Columns.Add( new DataColumn("paridinv", typeof(int)));
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idepoperation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("epoperation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("in_use", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idaccmotive"]};
-	T.PrimaryKey = key;
-
-	T= new DataTable("inventorytreeview");
-	C= new DataColumn("idinv", typeof(System.Int32), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codeinv", typeof(System.String), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nlevel", typeof(System.Byte), "");
+	tinventorytreeview.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinventorytreeview.Columns.Add(C);
+	Tables.Add(tinventorytreeview);
+	tinventorytreeview.PrimaryKey =  new DataColumn[]{tinventorytreeview.Columns["idinv"]};
 
-	C= new DataColumn("leveldescr", typeof(System.String), "");
+
+	//////////////////// INVENTORYAMORTIZATION /////////////////////////////////
+	var tinventoryamortization= new DataTable("inventoryamortization");
+	C= new DataColumn("idinventoryamortization", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paridinv", typeof(System.Int32), ""));
-	C= new DataColumn("description", typeof(System.String), "");
+	tinventoryamortization.Columns.Add(C);
+	C= new DataColumn("codeinventoryamortization", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinventoryamortization.Columns.Add(C);
+	tinventoryamortization.Columns.Add( new DataColumn("age", typeof(int)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tinventoryamortization.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinventoryamortization.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinventoryamortization.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinventoryamortization.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tinventoryamortization.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
+	C.AllowDBNull=false;
+	tinventoryamortization.Columns.Add(C);
+	tinventoryamortization.Columns.Add( new DataColumn("active", typeof(string)));
+	tinventoryamortization.Columns.Add( new DataColumn("agemax", typeof(int)));
+	tinventoryamortization.Columns.Add( new DataColumn("valuemin", typeof(decimal)));
+	tinventoryamortization.Columns.Add( new DataColumn("valuemax", typeof(decimal)));
+	Tables.Add(tinventoryamortization);
+	tinventoryamortization.PrimaryKey =  new DataColumn[]{tinventoryamortization.Columns["idinventoryamortization"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinv"]};
-	T.PrimaryKey = key;
+
+	#endregion
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["inventorytreeview"];
-TChild= Tables["inventorysortingamortizationyear"];
-CPar = new DataColumn[1]{TPar.Columns["idinv"]};
-CChild = new DataColumn[1]{TChild.Columns["idinv"]};
-Relations.Add(new DataRelation("inventorytreeview_inventorysortingamortizationyear",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{accmotiveapplied_load.Columns["idaccmotive"]};
+	var cChild = new []{inventorysortingamortizationyear.Columns["idaccmotive"]};
+	Relations.Add(new DataRelation("inventorysortingamortizationyear_accmotiveapplied_load",cPar,cChild,false));
 
-TPar= Tables["accmotiveapplied_unload"];
-TChild= Tables["inventorysortingamortizationyear"];
-CPar = new DataColumn[1]{TPar.Columns["idaccmotive"]};
-CChild = new DataColumn[1]{TChild.Columns["idaccmotiveunload"]};
-Relations.Add(new DataRelation("inventorysortingamortizationyear_accmotiveapplied_unload",CPar,CChild));
+	cPar = new []{accmotiveapplied_unload.Columns["idaccmotive"]};
+	cChild = new []{inventorysortingamortizationyear.Columns["idaccmotiveunload"]};
+	Relations.Add(new DataRelation("inventorysortingamortizationyear_accmotiveapplied_unload",cPar,cChild,false));
 
-TPar= Tables["accmotiveapplied_load"];
-TChild= Tables["inventorysortingamortizationyear"];
-CPar = new DataColumn[1]{TPar.Columns["idaccmotive"]};
-CChild = new DataColumn[1]{TChild.Columns["idaccmotive"]};
-Relations.Add(new DataRelation("inventorysortingamortizationyear_accmotiveapplied_load",CPar,CChild));
+	cPar = new []{inventorytreeview.Columns["idinv"]};
+	cChild = new []{inventorysortingamortizationyear.Columns["idinv"]};
+	Relations.Add(new DataRelation("inventorytreeview_inventorysortingamortizationyear",cPar,cChild,false));
 
-TPar= Tables["inventoryamortization"];
-TChild= Tables["inventorysortingamortizationyear"];
-CPar = new DataColumn[1]{TPar.Columns["idinventoryamortization"]};
-CChild = new DataColumn[1]{TChild.Columns["idinventoryamortization"]};
-Relations.Add(new DataRelation("inventoryamortizationinventorysortingamortizationyear",CPar,CChild));
+	cPar = new []{inventoryamortization.Columns["idinventoryamortization"]};
+	cChild = new []{inventorysortingamortizationyear.Columns["idinventoryamortization"]};
+	Relations.Add(new DataRelation("inventoryamortization_inventorysortingamortizationyear",cPar,cChild,false));
+
+	#endregion
 
 }
 }

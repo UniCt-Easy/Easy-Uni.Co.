@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -30,6 +28,9 @@ namespace Backend.Data {
 public partial class dsmeta_affidamento_seg: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable rendicontlezionestud 		=> (MetaTable)Tables["rendicontlezionestud"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable lezione_alias2 		=> (MetaTable)Tables["lezione_alias2"];
 
@@ -59,9 +60,6 @@ public partial class dsmeta_affidamento_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable affidamentoattach 		=> (MetaTable)Tables["affidamentoattach"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sede 		=> (MetaTable)Tables["sede"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable erogazkinddefaultview 		=> (MetaTable)Tables["erogazkinddefaultview"];
@@ -97,6 +95,35 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_affidamento_seg.xsd";
 
 	#region create DataTables
+	//////////////////// RENDICONTLEZIONESTUD /////////////////////////////////
+	var trendicontlezionestud= new MetaTable("rendicontlezionestud");
+	trendicontlezionestud.defineColumn("aa", typeof(string),false);
+	trendicontlezionestud.defineColumn("assente", typeof(string),false);
+	trendicontlezionestud.defineColumn("ct", typeof(DateTime),false);
+	trendicontlezionestud.defineColumn("cu", typeof(string),false);
+	trendicontlezionestud.defineColumn("idaffidamento", typeof(int),false);
+	trendicontlezionestud.defineColumn("idattivform", typeof(int),false);
+	trendicontlezionestud.defineColumn("idaula", typeof(int),false);
+	trendicontlezionestud.defineColumn("idcanale", typeof(int),false);
+	trendicontlezionestud.defineColumn("idcorsostudio", typeof(int),false);
+	trendicontlezionestud.defineColumn("iddidprog", typeof(int),false);
+	trendicontlezionestud.defineColumn("iddidproganno", typeof(int),false);
+	trendicontlezionestud.defineColumn("iddidprogcurr", typeof(int),false);
+	trendicontlezionestud.defineColumn("iddidprogori", typeof(int),false);
+	trendicontlezionestud.defineColumn("iddidprogporzanno", typeof(int),false);
+	trendicontlezionestud.defineColumn("idedificio", typeof(int),false);
+	trendicontlezionestud.defineColumn("idlezione", typeof(int),false);
+	trendicontlezionestud.defineColumn("idreg_docenti", typeof(int),false);
+	trendicontlezionestud.defineColumn("idreg_studenti", typeof(int),false);
+	trendicontlezionestud.defineColumn("idsede", typeof(int),false);
+	trendicontlezionestud.defineColumn("lt", typeof(DateTime),false);
+	trendicontlezionestud.defineColumn("lu", typeof(string),false);
+	trendicontlezionestud.defineColumn("notadisciplinare", typeof(string));
+	trendicontlezionestud.defineColumn("ritardo", typeof(DateTime));
+	trendicontlezionestud.defineColumn("ritardogiustifica", typeof(string));
+	Tables.Add(trendicontlezionestud);
+	trendicontlezionestud.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idreg_studenti", "idsede");
+
 	//////////////////// LEZIONE_ALIAS2 /////////////////////////////////
 	var tlezione_alias2= new MetaTable("lezione_alias2");
 	tlezione_alias2.defineColumn("!title", typeof(string));
@@ -239,7 +266,7 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
 
@@ -262,16 +289,9 @@ private void initClass() {
 	taffidamentoattach.defineColumn("lt", typeof(DateTime),false);
 	taffidamentoattach.defineColumn("lu", typeof(string),false);
 	taffidamentoattach.defineColumn("!idattach_attach_filename", typeof(string));
-	taffidamentoattach.defineColumn("!idattach_attach_size", typeof(int));
+	taffidamentoattach.defineColumn("!idattach_attach_size", typeof(long));
 	Tables.Add(taffidamentoattach);
 	taffidamentoattach.defineKey("aa", "idaffidamento", "idattach", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idreg_docenti");
-
-	//////////////////// SEDE /////////////////////////////////
-	var tsede= new MetaTable("sede");
-	tsede.defineColumn("idsede", typeof(int),false);
-	tsede.defineColumn("title", typeof(string));
-	Tables.Add(tsede);
-	tsede.defineKey("idsede");
 
 	//////////////////// EROGAZKINDDEFAULTVIEW /////////////////////////////////
 	var terogazkinddefaultview= new MetaTable("erogazkinddefaultview");
@@ -282,6 +302,7 @@ private void initClass() {
 	terogazkinddefaultview.defineColumn("erogazkind_lt", typeof(DateTime),false);
 	terogazkinddefaultview.defineColumn("erogazkind_lu", typeof(string),false);
 	terogazkinddefaultview.defineColumn("erogazkind_sortcode", typeof(int),false);
+	terogazkinddefaultview.defineColumn("erogazkind_title_en", typeof(string),false);
 	terogazkinddefaultview.defineColumn("iderogazkind", typeof(int),false);
 	terogazkinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(terogazkinddefaultview);
@@ -353,6 +374,10 @@ private void initClass() {
 	var cChild = new []{lezione_alias2.Columns["aa"], lezione_alias2.Columns["idaffidamento"], lezione_alias2.Columns["idattivform"], lezione_alias2.Columns["idcanale"], lezione_alias2.Columns["idcorsostudio"], lezione_alias2.Columns["iddidprog"], lezione_alias2.Columns["iddidproganno"], lezione_alias2.Columns["iddidprogcurr"], lezione_alias2.Columns["iddidprogori"], lezione_alias2.Columns["iddidprogporzanno"], lezione_alias2.Columns["idreg_docenti"]};
 	Relations.Add(new DataRelation("FK_lezione_alias2_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idreg_docenti",cPar,cChild,false));
 
+	cPar = new []{lezione_alias2.Columns["aa"], lezione_alias2.Columns["idaffidamento"], lezione_alias2.Columns["idattivform"], lezione_alias2.Columns["idaula"], lezione_alias2.Columns["idcanale"], lezione_alias2.Columns["idcorsostudio"], lezione_alias2.Columns["iddidprog"], lezione_alias2.Columns["iddidproganno"], lezione_alias2.Columns["iddidprogcurr"], lezione_alias2.Columns["iddidprogori"], lezione_alias2.Columns["iddidprogporzanno"], lezione_alias2.Columns["idedificio"], lezione_alias2.Columns["idlezione"], lezione_alias2.Columns["idreg_docenti"], lezione_alias2.Columns["idsede"]};
+	cChild = new []{rendicontlezionestud.Columns["aa"], rendicontlezionestud.Columns["idaffidamento"], rendicontlezionestud.Columns["idattivform"], rendicontlezionestud.Columns["idaula"], rendicontlezionestud.Columns["idcanale"], rendicontlezionestud.Columns["idcorsostudio"], rendicontlezionestud.Columns["iddidprog"], rendicontlezionestud.Columns["iddidproganno"], rendicontlezionestud.Columns["iddidprogcurr"], rendicontlezionestud.Columns["iddidprogori"], rendicontlezionestud.Columns["iddidprogporzanno"], rendicontlezionestud.Columns["idedificio"], rendicontlezionestud.Columns["idlezione"], rendicontlezionestud.Columns["idreg_docenti"], rendicontlezionestud.Columns["idsede"]};
+	Relations.Add(new DataRelation("FK_rendicontlezionestud_lezione_alias2_aa-idaffidamento-idattivform-idaula-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idedificio-idlezione-idreg_docenti-idsede",cPar,cChild,false));
+
 	cPar = new []{affidamento.Columns["aa"], affidamento.Columns["idaffidamento"], affidamento.Columns["idattivform"], affidamento.Columns["idcanale"], affidamento.Columns["idcorsostudio"], affidamento.Columns["iddidprog"], affidamento.Columns["iddidproganno"], affidamento.Columns["iddidprogcurr"], affidamento.Columns["iddidprogori"], affidamento.Columns["iddidprogporzanno"]};
 	cChild = new []{affidamentocaratteristica.Columns["aa"], affidamentocaratteristica.Columns["idaffidamento"], affidamentocaratteristica.Columns["idattivform"], affidamentocaratteristica.Columns["idcanale"], affidamentocaratteristica.Columns["idcorsostudio"], affidamentocaratteristica.Columns["iddidprog"], affidamentocaratteristica.Columns["iddidproganno"], affidamentocaratteristica.Columns["iddidprogcurr"], affidamentocaratteristica.Columns["iddidprogori"], affidamentocaratteristica.Columns["iddidprogporzanno"]};
 	Relations.Add(new DataRelation("FK_affidamentocaratteristica_affidamento_aa-idaffidamento-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno",cPar,cChild,false));
@@ -388,10 +413,6 @@ private void initClass() {
 	cPar = new []{attach.Columns["idattach"]};
 	cChild = new []{affidamentoattach.Columns["idattach"]};
 	Relations.Add(new DataRelation("FK_affidamentoattach_attach_idattach",cPar,cChild,false));
-
-	cPar = new []{sede.Columns["idsede"]};
-	cChild = new []{affidamento.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_affidamento_sede_idsede",cPar,cChild,false));
 
 	cPar = new []{erogazkinddefaultview.Columns["iderogazkind"]};
 	cChild = new []{affidamento.Columns["iderogazkind"]};

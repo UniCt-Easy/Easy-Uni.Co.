@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using funzioni_configurazione;
 using metadatalibrary;
@@ -312,7 +310,7 @@ namespace flussocrediti_default {
 	            object scadenza = CalcolaDataScadenza(filterInv, "I");
 	            if (scadenza == DBNull.Value || scadenza==null) {
 		            show(
-			            $"La riga avente descrizione {RigaSelezionata["detaildescription"]} non ha scadenza e non puÚ essere inviata.",
+			            $"La riga avente descrizione {RigaSelezionata["detaildescription"]} non ha scadenza e non pu√≤ essere inviata.",
 			            "Errore");
 		            return;
 	            }
@@ -371,7 +369,7 @@ namespace flussocrediti_default {
                 }
                 if (scadenza == DBNull.Value ) {
 	                show(
-		                $"La riga avente descrizione {RigaSelezionata["detaildescription"]} non ha scadenza e non puÚ essere inviata.",
+		                $"La riga avente descrizione {RigaSelezionata["detaildescription"]} non ha scadenza e non pu√≤ essere inviata.",
 		                "Errore");
 	                return;
                 }
@@ -556,7 +554,7 @@ namespace flussocrediti_default {
             foreach (DataRow R in DS.flussocreditidetail_ca.Select()) {
                 rowsCount++;
                 if (R.RowState != DataRowState.Added) continue;
-                if (R["idestimkind"] == DBNull.Value) continue; //Non Ë una riga collegata a dettagli contratto attivo, non dovrebbe accadere
+                if (R["idestimkind"] == DBNull.Value) continue; //Non √® una riga collegata a dettagli contratto attivo, non dovrebbe accadere
                 if (rowsCount == 1)
                   filterestimate = QHS.DoPar(QHS.CmpMulti(R, "idestimkind", "yestim", "nestim", "rownum"));
                 else
@@ -833,7 +831,7 @@ namespace flussocrediti_default {
                 btnEsportaFlussoCrediti.Enabled = true;
                 return;
             }
-            //Se l'invio Ë andato a buon fine aggiorna il DS originale
+            //Se l'invio √® andato a buon fine aggiorna il DS originale
             AggiornaDSdiOrigine(newDs);
             listaErrori = new List<string>();
 
@@ -870,7 +868,7 @@ namespace flussocrediti_default {
 
             string cc = config.Rows[0]["email_cc"].ToString();
             //if (cc.Trim() == "") {
-            //    show("Non Ë stato configurato un indirizzo email in copia conoscenza");
+            //    show("Non √® stato configurato un indirizzo email in copia conoscenza");
             //    return;
             //}
 
@@ -921,7 +919,7 @@ namespace flussocrediti_default {
             foreach (DataRow R in DS.flussocreditidetail_fatt.Select()) {
                 rowsCount++;
                 if (R.RowState != DataRowState.Added) continue;
-                if (R["idinvkind"] == DBNull.Value) continue; //Non Ë una riga collegata a dettagli fattura, non dovrebbe accadere
+                if (R["idinvkind"] == DBNull.Value) continue; //Non √® una riga collegata a dettagli fattura, non dovrebbe accadere
                 if (rowsCount == 1)
                     filterinvoice = QHS.DoPar(QHS.AppAnd(QHS.CmpMulti(R, "idinvkind", "yinv", "ninv"),QHS.CmpEq("rownum", R["invrownum"])));
                 else
@@ -1050,7 +1048,7 @@ namespace flussocrediti_default {
         }
 
         private void btnAnnullaInvio_Click(object sender, EventArgs e) {
-            //Solo per scopi di debug, non Ë da attivare in produzione
+            //Solo per scopi di debug, non √® da attivare in produzione
             Meta.GetFormData(true);
             DS.flussocrediti._forEach(r => r.istransmitted = "N");
             int idunivoco =   CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("flussocreditidetail",null, "MAX(idunivoco)"));

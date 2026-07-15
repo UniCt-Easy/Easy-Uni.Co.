@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG"
+  boundary="---------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG"
 
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -24,6 +24,8 @@ c">
     <META name=3D"source">
     <META name=3D"source">
     <META name=3D"source">
+    <META name=3D"source" content=3D"mhtml:file://C:\Program Files (x86)\=
+Tempo Srl\Easy\bin\MODULO_ORGANIGRAMMA.mht">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -32,196 +34,230 @@ DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
-<BODY>
-<P align=3D"center"><STRONG><FONT face=3D"Tahoma" size=3D"4">Menu di conf=
-igurazione Gestione Sicurezza</FONT></STRONG></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Le funzioni principali per la =
-gestione della sicurezza e per l=E2=80=99utilizzo del <A href=3D"MODULO_O=
-RGANIGRAMMA.mht">modulo Organigramma </A>sono raggruppate sotto la voce d=
-i menu di Easy <STRONG>Opzioni &gt; Gestione Sicurezza &gt; Organigramma =
-&gt; Organigramma</FONT></STRONG></P>
+<BODY><DIV align=3D"left">
+<TABLE border=3D"1" cellspacing=3D"1" width=3D"20%">
+  <TR>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">v. 1.0</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">07/05=
+/2014</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Creazione</FONT></STRO=
+NG></TD>
+  </TR>
+  <TR>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">v. 1.1</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">08/05=
+/2024</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Inserimento link</FONT=
+></STRONG></TD>
+  </TR>
+</TABLE>
+</DIV>
+<DIV align=3D"left">&nbsp;</DIV><HR>
+<P align=3D"justify"><FONT size=3D"4">Link guide correlate:</FONT></FONT>=
+</P>
+<DIV align=3D"justify"><A href=3D"flowchartlevel_default.mht"><FONT size=3D=
+"4">Organizzazione dei livelli</A></FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV><A href=3D"flowchart_default.mht"><FONT size=3D"4">Funzionamento del=
+la gerarchia dei livelli e impostazione dei profili</A></FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><A href=3D"flowchartuser_single.mht"><FONT size=3D"4">Associazione d=
+egli utenti ai profili di organigramma e relative funzioni</A></FONT></DI=
+V>
+<DIV>&nbsp;</DIV>
+<DIV><A href=3D"uniconfig_default.mht"><FONT size=3D"4">Configurazione de=
+gli attributi per la gestione della sicurezza</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV><HR>
+<P align=3D"center">&nbsp;</P>
+<P align=3D"center"><STRONG><FONT size=3D"5">Menu di configurazione Gesti=
+one Sicurezza</FONT></STRONG></P>
+<P align=3D"justify"><FONT size=3D"4">Le funzioni principali per la gesti=
+one della sicurezza e per l=E2=80=99utilizzo del <A href=3D"MODULO_ORGANI=
+GRAMMA.mht">modulo Organigramma </A>sono raggruppate sotto la voce di men=
+u di Easy <STRONG>Opzioni &gt; Gestione Sicurezza &gt; Organigramma &gt; =
+Organigramma</FONT></STRONG></P>
 <P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1K83JP3K27RTU11NN3W18GHC5M" align=3D"=
-middle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 1 Voci di menu per la ge=
-stione della sicurezza</FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1W3YTTQLERQ3I1L3J6AQ=
+1EX0P9B" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 1 Voci di menu per la gestion=
+e della sicurezza</FONT></P>
 <DIV>&nbsp;</DIV>
 <P>&nbsp;</P>
-<P><STRONG><FONT face=3D"Tahoma">Funzionamento della gerarchia dei livell=
-i</FONT></STRONG></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Sebbene i profili per la gesti=
-one della sicurezza possano organizzati in maniera gerarchica in modo tal=
-e che un profilo ne possa contenere altri, questa impostazione non influi=
-sce sulle impostazioni assegnate ad ognuno di essi. Un profilo =E2=80=9Cp=
-adre=E2=80=9D pu=C3=B2 avere un set di impostazioni complemente different=
-e rispetto a quello dei profili =E2=80=9Cfigli=E2=80=9D. Questa caratteri=
-stica consente di implementare un profilo tipo ed di inserire in esso cas=
-i particolari che possono essere pi=C3=B9 o meno restrittivi, le modifich=
-e successive apportate al padre o ai figli non inficeranno sugli altri.</=
-FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Una caratteristica utile in fa=
-se di inserimento di una gerarchia =C3=A8 quella per cui i figli ereditan=
-o inizialmente le impostazioni assegnate al padre, le stesse possono esse=
-re modificate a piacimento.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:VG13Y9LJID203DOL8ITGCPW2" align=3D"mi=
-ddle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 14 Esempio di Organigram=
-ma Gerarchico</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">Impostazioni dei profili</FONT></STRONG>=
-</P>
-<P align=3D"justify"><FONT face=3D"Tahoma">La figura precedente mostra un=
- esempio di Organigramma dal quale si evince l=E2=80=99aspetto della <STR=
-ONG>schermata principale</STRONG> associata a ciascun profilo. &nbsp;La s=
-chermata principale mostra il livello del profilo, il codice assegnato da=
-ll=E2=80=99utente in fase di inserimento, un ordine di stampa per la visu=
-alizzazione nell=E2=80=99albero dell=E2=80=99Organigramma, ed una descriz=
-ione, particolarmente utile per riportarne l=E2=80=99uso ed il significat=
-o.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:1SRKJ4SHRBG7K11LVQ2MAW3KSA" align=3D"=
-middle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 15 Dati identificativi d=
-el profilo</FONT></P>
-<P>&nbsp;</P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Per quei casi in cui si deside=
-ra implementare tramite un profilo di organigramma un ufficio o una sede =
-esterna =C3=A8 possibile anche inserire nella <STRONG>scheda principale</=
-STRONG> del profilo alcune informazioni aggiuntive quali l=E2=80=99indiri=
-zzo il numero di telefono e di fax.</FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Queste informazioni tuttavia n=
-on influenzano il funzionamento del profilo in alcun modo.</FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Oltre alla scheda principale s=
-ono presenti altre schede che consentono di impostare le caratteristiche =
-del profilo selezionando o deselezionando le opzioni in esse contenute.</=
-FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">La <STRONG>scheda Finanziario<=
-/STRONG> nella figura successiva permette di limitare l=E2=80=99accesso a=
- determinate UPB e voci di bilancio. Questo sistema =C3=A8 particolarment=
-e utile quando si desidera limitare l=E2=80=99accesso a pochi capitoli o =
-poche UPB, ma se il numero delle UPB =C3=A8 nell=E2=80=99ordine delle dec=
-ine l=E2=80=99organigramma fornisce degli strumenti molto pi=C3=B9 adatti=
-=2E</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:1DFJ22NJQO75W15UUR9N1UBX5MU" align=3D=
-"middle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 16 Scheda finanziario</F=
+<P><STRONG><FONT size=3D"4">Funzionamento della gerarchia dei livelli</FO=
+NT></STRONG></P>
+<P align=3D"justify"><FONT size=3D"4">Sebbene i profili per la gestione d=
+ella sicurezza possano organizzati in maniera gerarchica in modo tale che=
+ un profilo ne possa contenere altri, questa impostazione non influisce s=
+ulle impostazioni assegnate ad ognuno di essi. Un profilo =E2=80=9Cpadre=E2=
+=80=9D pu=C3=B2 avere un set di impostazioni complemente differente rispe=
+tto a quello dei profili =E2=80=9Cfigli=E2=80=9D. Questa caratteristica c=
+onsente di implementare un profilo tipo ed di inserire in esso casi parti=
+colari che possono essere pi=C3=B9 o meno restrittivi, le modifiche succe=
+ssive apportate al padre o ai figli non inficeranno sugli altri.</FONT></=
+P>
+<P align=3D"justify"><FONT size=3D"4">Una caratteristica utile in fase di=
+ inserimento di una gerarchia =C3=A8 quella per cui i figli ereditano ini=
+zialmente le impostazioni assegnate al padre, le stesse possono essere mo=
+dificate a piacimento.</FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:NHFLPIM4IKOPDLVS1KJ4=
+NH9H" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 14 Esempio di Organigramma Ge=
+rarchico</FONT></P>
+<P><STRONG><FONT size=3D"4">Impostazioni dei profili</FONT></STRONG></P>
+<P align=3D"justify"><FONT size=3D"4">La figura precedente mostra un esem=
+pio di Organigramma dal quale si evince l=E2=80=99aspetto della <STRONG>s=
+chermata principale</STRONG> associata a ciascun profilo. &nbsp;La scherm=
+ata principale mostra il livello del profilo, il codice assegnato dall=E2=
+=80=99utente in fase di inserimento, un ordine di stampa per la visualizz=
+azione nell=E2=80=99albero dell=E2=80=99Organigramma, ed una descrizione,=
+ particolarmente utile per riportarne l=E2=80=99uso ed il significato.</F=
 ONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:9QPK5OJYYX9APGJCFQ1C=
+HBSCN" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 15 Dati identificativi del pr=
+ofilo</FONT></P>
 <P>&nbsp;</P>
-<P align=3D"justify"><FONT face=3D"Tahoma">La scheda <STRONG>Responsabili=
-</STRONG> permette di indicare quali responsabili =C3=A8 possibile =E2=80=
-=9Cutilizzare=E2=80=9D nel programma. L=E2=80=99informazione del responsa=
-bile costituisce una sorta di filtro e quindi, salvo la presenza di condi=
-zioni contrarie, concedere l=E2=80=99utilizzo di un responsabile signific=
-a concedere l=E2=80=99accesso ai dati dei quali egli =C3=A8 responsabile,=
- tipicamente le UPB che rappresentano i fondi di cui =C3=A8 titolare. Tut=
-tavia =C3=A8 bene dire che lo stesso filtro sui responsabili pu=C3=B2 ess=
-ere impostato in maniera molto pi=C3=B9 efficacie dal punto di vista prat=
-ico tramite la gestione degli attributi di sicurezza che vedremo pi=C3=B9=
- avanti.</FONT></P>
-<P align=3D"center">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:9UECHGIM2TZ11KS48TAL5AS5L" align=3D"m=
-iddle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 17 Scheda Responsabili</=
-FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Lasciando per ultime le schede=
- Utenti e Funzioni che richiedono pi=C3=B9 spazio, troviamo la scheda <ST=
-RONG>Report </STRONG>che permette di indicare a quali gruppi di stampe po=
-ssono accedere gli appartenenti al profilo di organigramma.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:VVNSMRKH1PL498VSMB1K3ZRW4" align=3D"m=
-iddle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 18 Scheda Report di Stam=
-pa</FONT></P>
-<P align=3D"center">&nbsp;</P>
-<P align=3D"justify"><FONT face=3D"Tahoma">La scheda dei report nella fig=
-ura precedente, mostra due colonne per facilitare l=E2=80=99individuazion=
-e delle stampe. Tutte le stampe sono suddivise in moduli sulla base dei d=
-ati che sono destinate a produrre e in maniera pi=C3=B9 dettagliata in gr=
-uppi. La suddivisione in moduli e in gruppi rispecchia l=E2=80=99organizz=
-azione del menu delle stampe in Easy. Tramite segni di spunta =C3=A8 poss=
-ibile concedere agli utenti del profilo il diritto di fruire di interi gr=
-uppi di stampe. Esistono centinaia di stampe e questo sistema si rivela i=
-l pi=C3=B9 semplice per delineare gli accessi.</FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">In maniera analoga =C3=A8 poss=
-ibile concedere l=E2=80=99accesso anche alle esportazioni. Dalla figura s=
-uccessiva si evince la suddivisione delle esportazioni in moduli, suddivi=
-sione pi=C3=B9 semplice rispetto quelle delle stampe numericamente superi=
-ori. Il funzionamento della scheda =C3=A8 analogo, la spunta concede il d=
-iritto di fruire dell=E2=80=99intero modulo selezionato.</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:QNMMNCLL9RENM8RD7S1YUQNSK" align=3D"m=
-iddle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 19 Scheda Esportazioni</=
-FONT></P>
+<P align=3D"justify"><FONT size=3D"4">Per quei casi in cui si desidera im=
+plementare tramite un profilo di organigramma un ufficio o una sede ester=
+na =C3=A8 possibile anche inserire nella <STRONG>scheda principale</STRON=
+G> del profilo alcune informazioni aggiuntive quali l=E2=80=99indirizzo i=
+l numero di telefono e di fax.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">Queste informazioni tuttavia non in=
+fluenzano il funzionamento del profilo in alcun modo.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">Oltre alla scheda principale sono p=
+resenti altre schede che consentono di impostare le caratteristiche del p=
+rofilo selezionando o deselezionando le opzioni in esse contenute.</FONT>=
+</P>
+<P align=3D"justify"><FONT size=3D"4">La <STRONG>scheda Finanziario</STRO=
+NG> nella figura successiva permette di limitare l=E2=80=99accesso a dete=
+rminate UPB e voci di bilancio. Questo sistema =C3=A8 particolarmente uti=
+le quando si desidera limitare l=E2=80=99accesso a pochi capitoli o poche=
+ UPB, ma se il numero delle UPB =C3=A8 nell=E2=80=99ordine delle decine l=
+=E2=80=99organigramma fornisce degli strumenti molto pi=C3=B9 adatti.</FO=
+NT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:1JIBB43K6TL501S3FXXR=
+26740D" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 16 Scheda finanziario</FONT><=
+/P>
 <P>&nbsp;</P>
-<P align=3D"justify"><FONT face=3D"Tahoma">Le schede <STRONG>Contr. Att.<=
-/STRONG>, <STRONG>Contr. Pass.</STRONG> e <STRONG>Doc. IVA </STRONG>perme=
-ttono di impostare l=E2=80=99accesso a determinati tipi di contratti atti=
-vi, passivi e di fatture. Questa funzionalit=C3=A0 =C3=A8 molto utile per=
- la suddivisione di uno stesso dipartimento in pi=C3=B9 uffici. Tuttavia =
-=C3=A8 bene dire che lo stesso filtro sui tipi di documento pu=C3=B2 esse=
-re impostato in maniera molto pi=C3=B9 efficacie dal punto di vista prati=
-co tramite la gestione degli attributi di sicurezza che vedremo pi=C3=B9 =
-avanti. Anche per la scheda <STRONG>Fondo Economale</STRONG> vale lo stes=
-so discorso, questa scheda consente di impostare l=E2=80=99accesso ai div=
-ersi fondi economali che =C3=A8 possibile attivare, lo stesso filtro pu=C3=
-=B2 essere impostato mediante la gestione degli attributi di sicurezza.</=
-FONT></P>
-<P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:1590SOSLJB9AH1YOW9ZI11OSX3S" align=3D=
-"middle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 20 Schede Contratto atti=
-vo, Passivo, Fondo economale e Documento IVA</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">La scheda <STRONG>Responsabili</STR=
+ONG> permette di indicare quali responsabili =C3=A8 possibile =E2=80=9Cut=
+ilizzare=E2=80=9D nel programma. L=E2=80=99informazione del responsabile =
+costituisce una sorta di filtro e quindi, salvo la presenza di condizioni=
+ contrarie, concedere l=E2=80=99utilizzo di un responsabile significa con=
+cedere l=E2=80=99accesso ai dati dei quali egli =C3=A8 responsabile, tipi=
+camente le UPB che rappresentano i fondi di cui =C3=A8 titolare. Tuttavia=
+ =C3=A8 bene dire che lo stesso filtro sui responsabili pu=C3=B2 essere i=
+mpostato in maniera molto pi=C3=B9 efficacie dal punto di vista pratico t=
+ramite la gestione degli attributi di sicurezza che vedremo pi=C3=B9 avan=
+ti.</FONT></P>
 <P align=3D"center">&nbsp;</P>
-<P align=3D"justify"><FONT face=3D"Tahoma">La scheda <STRONG>EP</STRONG> =
-consente di inserire le coordinate analitche. Queste possono essere sfrut=
-tate per caratterizzare le operazioni svolte dagli appartenenti al profil=
-o di organigramma. Nell=E2=80=99esempio in figura la coordinata analitica=
- viene utilizzata per identificare un centro di costo per le richieste di=
- Magazzino, la coordinata consentir=C3=A0 di individuare i consumi.</FONT=
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:3F41U8KHQVD1UIEV0GLC=
+2T6B" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 17 Scheda Responsabili</FONT>=
+</P>
+<P align=3D"justify"><FONT size=3D"4">Lasciando per ultime le schede Uten=
+ti e Funzioni che richiedono pi=C3=B9 spazio, troviamo la scheda <STRONG>=
+Report </STRONG>che permette di indicare a quali gruppi di stampe possono=
+ accedere gli appartenenti al profilo di organigramma.</FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:LOU28MJT9A731O99Y1X1=
+T4ED0X" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 18 Scheda Report di Stampa</F=
+ONT></P>
+<P align=3D"center">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">La scheda dei report nella figura p=
+recedente, mostra due colonne per facilitare l=E2=80=99individuazione del=
+le stampe. Tutte le stampe sono suddivise in moduli sulla base dei dati c=
+he sono destinate a produrre e in maniera pi=C3=B9 dettagliata in gruppi.=
+ La suddivisione in moduli e in gruppi rispecchia l=E2=80=99organizzazion=
+e del menu delle stampe in Easy. Tramite segni di spunta =C3=A8 possibile=
+ concedere agli utenti del profilo il diritto di fruire di interi gruppi =
+di stampe. Esistono centinaia di stampe e questo sistema si rivela il pi=C3=
+=B9 semplice per delineare gli accessi.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">In maniera analoga =C3=A8 possibile=
+ concedere l=E2=80=99accesso anche alle esportazioni. Dalla figura succes=
+siva si evince la suddivisione delle esportazioni in moduli, suddivisione=
+ pi=C3=B9 semplice rispetto quelle delle stampe numericamente superiori. =
+Il funzionamento della scheda =C3=A8 analogo, la spunta concede il diritt=
+o di fruire dell=E2=80=99intero modulo selezionato.</FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:XGEPP3J5DNX31SWNCSTA=
+9FUEJ" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 19 Scheda Esportazioni</FONT>=
+</P>
+<P>&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">Le schede <STRONG>Contr. Att.</STRO=
+NG>, <STRONG>Contr. Pass.</STRONG> e <STRONG>Doc. IVA </STRONG>permettono=
+ di impostare l=E2=80=99accesso a determinati tipi di contratti attivi, p=
+assivi e di fatture. Questa funzionalit=C3=A0 =C3=A8 molto utile per la s=
+uddivisione di uno stesso dipartimento in pi=C3=B9 uffici. Tuttavia =C3=A8=
+ bene dire che lo stesso filtro sui tipi di documento pu=C3=B2 essere imp=
+ostato in maniera molto pi=C3=B9 efficacie dal punto di vista pratico tra=
+mite la gestione degli attributi di sicurezza che vedremo pi=C3=B9 avanti=
+=2E Anche per la scheda <STRONG>Fondo Economale</STRONG> vale lo stesso d=
+iscorso, questa scheda consente di impostare l=E2=80=99accesso ai diversi=
+ fondi economali che =C3=A8 possibile attivare, lo stesso filtro pu=C3=B2=
+ essere impostato mediante la gestione degli attributi di sicurezza.</FON=
+T></P>
+<P>&nbsp;</P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:P7APEZK03GPCP2BWCZ1W=
+JFJ76" align=3D"middle"></FONT></P>
+<P align=3D"center"><FONT size=3D"4">Figura 20 Schede Contratto attivo, P=
+assivo, Fondo economale e Documento IVA</FONT></P>
+<P align=3D"center">&nbsp;</P>
+<P align=3D"justify"><FONT size=3D"4">La scheda <STRONG>EP</STRONG> conse=
+nte di inserire le coordinate analitche. Queste possono essere sfruttate =
+per caratterizzare le operazioni svolte dagli appartenenti al profilo di =
+organigramma. Nell=E2=80=99esempio in figura la coordinata analitica vien=
+e utilizzata per identificare un centro di costo per le richieste di Maga=
+zzino, la coordinata consentir=C3=A0 di individuare i consumi.</FONT></P>
+<DIV align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:7BUUN3LZSNJNLB4AYZ=
+B7TNRD" align=3D"middle"></FONT></DIV>
+<P align=3D"center"><FONT size=3D"4">Figura 21 Scheda EP</FONT></P>
+<P>&nbsp;</P>
+<P align=3D"center">&nbsp;</P>
+<P align=3D"center"><IMG src=3D"cid:1L77G13LI9XC53YPFHQ1ROR65B" align=3D"=
+middle"></P>
+<P align=3D"center"><FONT size=3D"4">Figura 22 Agenti autorizzatori</FONT=
 ></P>
-<DIV align=3D"center"><IMG src=3D"cid:1WZLNP2HRJ19KF89O6X15P0LUJ" align=3D=
-"middle"></DIV>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 21 Scheda EP</FONT></P>
-<P>&nbsp;</P>
 <P align=3D"center">&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:90ZE7RJ4FHOU8QISOK1MDRAZB" align=3D"m=
-iddle"></P>
-<P align=3D"center"><FONT face=3D"Tahoma">Figura 22 Agenti autorizzatori<=
-/FONT></P>
-<P align=3D"center">&nbsp;</P>
-<P><FONT face=3D"Tahoma">Le schede <STRONG>Autorizzazioni</STRONG> e <STR=
-ONG>Modelli Autorizzativi</STRONG> rivestono un ruolo importante per quei=
- profili destinati alle richieste di missione tramite web.</FONT></P>
-<P align=3D"justify"><FONT face=3D"Tahoma">In particolare considerando un=
- ciclo di autorizzazioni tale per cui una richiesta di missione debba ess=
-ere autorizzata da determinati agenti a seconda della tipologia, la sched=
-a Autorizzazioni della Figura 22, indentifica gli utenti appartenenti al =
-profilo come uno di questi agenti. Alle diverse tipologie di missioni ind=
-ividuate da regolamento =C3=A8 possibile applicare diversi modelli di aut=
-orizzazione. La scheda Modelli autorizzativi della scheda successiva abil=
-ita gli utenti appartenenti al profilo all=E2=80=99utilizzo di questo mod=
-elli e quindi alla richieste delle tipologie di missione ad esse riconduc=
-ibili (Figura 23).</FONT></P>
-<DIV align=3D"center"><IMG src=3D"cid:1648E61IEV04IWZHQBUQEPOKL" align=3D=
-"middle"></DIV>
+<P><FONT size=3D"4">Le schede <STRONG>Autorizzazioni</STRONG> e <STRONG>M=
+odelli Autorizzativi</STRONG> rivestono un ruolo importante per quei prof=
+ili destinati alle richieste di missione tramite web.</FONT></P>
+<P align=3D"justify"><FONT size=3D"4">In particolare considerando un cicl=
+o di autorizzazioni tale per cui una richiesta di missione debba essere a=
+utorizzata da determinati agenti a seconda della tipologia, la scheda Aut=
+orizzazioni della Figura 22, indentifica gli utenti appartenenti al profi=
+lo come uno di questi agenti. Alle diverse tipologie di missioni individu=
+ate da regolamento =C3=A8 possibile applicare diversi modelli di autorizz=
+azione. La scheda Modelli autorizzativi della scheda successiva abilita g=
+li utenti appartenenti al profilo all=E2=80=99utilizzo di questo modelli =
+e quindi alla richieste delle tipologie di missione ad esse riconducibili=
+ (Figura 23).</FONT></P>
+<DIV align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:44TOFIKOQGBE234F46=
+1JJ8YMK" align=3D"middle"></FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV><HR><HR>
 <DIV>&nbsp;</DIV>
-<DIV><FONT face=3D"Tahoma">Una volta inserito l'utente nella gestione del=
-l'organigramma occorre effettuare un <A href=3D"flowchart_applica.mht">Ap=
-plica Sicurezza</A> affinch=C3=A8 si possa attribuire quelle determinate =
-restrizioni all'utente aggiunto in organigramma.</FONT></DIV>
+<DIV><FONT size=3D"4">Una volta inserito l'utente nella gestione dell'org=
+anigramma occorre effettuare un <A href=3D"flowchart_applica.mht">Applica=
+ Sicurezza</A> affinch=C3=A8 si possa attribuire quelle determinate restr=
+izioni all'utente aggiunto in organigramma.</FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV><FONT face=3D"Tahoma">Argomenti correlati:</FONT></DIV>
-<DIV><A href=3D"GESTIONE_SICUREZZA.mht"><FONT face=3D"Tahoma">Gestione de=
-lla sicurezza</FONT></A></FONT></DIV>
+<DIV><FONT size=3D"4">Argomenti correlati:</FONT></DIV>
+<DIV><A href=3D"GESTIONE_SICUREZZA.mht"><FONT size=3D"4">Gestione della s=
+icurezza</A></FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <1K83JP3K27RTU11NN3W18GHC5M>
+Content-Id: <1W3YTTQLERQ3I1L3J6AQ1EX0P9B>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine14.png
 
@@ -462,9 +498,9 @@ O026CoX/TkGaGTru6aMKw1C6brqUMOxUd4lRl+PDp/tuDLYJaQkRcSOu99rSLOMI
 hIi4EUlLAAtBWkJE3IikJYCFIC0hIm7E5dISwC2HtISIuBFJSwALQVpCRNyI5gkd
 ABZC0tLfvPm/KK7MEr1Qn3UAAAAASUVORK5CYII==
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <VG13Y9LJID203DOL8ITGCPW2>
+Content-Id: <NHFLPIM4IKOPDLVS1KJ4NH9H>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine11.png
 
@@ -1033,9 +1069,9 @@ sqLaEnKMMRehXLuEEEIIIVFGqy3AsSNXLSGEEEJINp1qKxsAAAAAAGbN93zsIdQW
 AAAAAEoAtQUAAACAQkBtAQAAAKAQUFsAAAAAKATUFgAAAAAKQantiRP/P4FkvO8e
 6PqOAAAAAElFTkSuQmCC=
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <1SRKJ4SHRBG7K11LVQ2MAW3KSA>
+Content-Id: <9QPK5OJYYX9APGJCFQ1CHBSCN>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine10.png
 
@@ -1217,9 +1253,9 @@ oiiKompUhIlqkd8HAAC1E7Wz5nQRJgAAQFm6CBMAAKAsXYQJAABQli7CBAAAKEsX
 YQIAAJSlizABAADK0kWYAAAAZelqEiY2vvb/fjXA3Y0yTvwAAAAASUVORK5CYII=
 =
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <1DFJ22NJQO75W15UUR9N1UBX5MU>
+Content-Id: <1JIBB43K6TL501S3FXXR26740D>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine12.png
 
@@ -1450,9 +1486,9 @@ exzCGwBwdIT3OIQ3AODoCO9xCG8AwNER3uMQ3gCAoyO8xyG8AQBHNyK8VSsIbwDA
 DOENAMDCEN4AACwM4Q0AwMIQ3gAALMzmN4qiKIqiFlWEN0VRFEUtrDYPKYqiKIpa
 UD18+P9Snjx95ZmXVQAAAABJRU5ErkJggg===
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <9UECHGIM2TZ11KS48TAL5AS5L>
+Content-Id: <3F41U8KHQVD1UIEV0GLC2T6B>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine13.png
 
@@ -1876,9 +1912,9 @@ DgAAAEFBLAcAAGhsiOUAAACNDbEcAACgsSGWAwAANDbEcgAAgMaGWA4AANDYEMsB
 AAAaG2I5AABAY0MsBwAAaGxvff755zwJAAAADQjtcgAAgMb21t/+7d/yJAAAADQc
 Tfv/AVGQ8qMwLM+ZAAAAAElFTkSuQmCC=
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <VVNSMRKH1PL498VSMB1K3ZRW4>
+Content-Id: <LOU28MJT9A731O99Y1X1T4ED0X>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine15.png
 
@@ -2230,9 +2266,9 @@ AiHAAwAAJNAH33//vXwJAAAAcfb111//8Y9//HWhQF8jgwcAAEigD/7xH/9RvgQA
 AICY0zP4D+bm5kQRAAAAJIAM8N//+KNYBgAAgIQg5P8D0p1yEoWRsusAAAAASUVO
 RK5CYII==
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <QNMMNCLL9RENM8RD7S1YUQNSK>
+Content-Id: <XGEPP3J5DNX31SWNCSTA9FUEJ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine16.png
 
@@ -2503,9 +2539,9 @@ ANwdUXg8AADA3RGFxwMAANwdUXg8AADA3RGFxwMAANwdUXg8AADA3RG18niEEEII
 3YXweIQQQug+tXi8lBBCCCF0TzKPl38QQgghdGf6r1+//j9f5ZK5dHz6tgAAAABJ
 RU5ErkJggg===
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <1590SOSLJB9AH1YOW9ZI11OSX3S>
+Content-Id: <P7APEZK03GPCP2BWCZ1WJFJ76>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine19.png
 
@@ -2705,9 +2741,9 @@ AQCwExkPAICdyHgAAOxExgMAYCcyHgAAO5HxAADYiYwHAMBOZDwAAHa6686dO+Yh
 AABocqdPn758+fLBoSHxmH48AAB2uuv11183DwEAQPPz+vF39ff360kAAMAOMuMd
 5/8DJwMVlrafHiIAAAAASUVORK5CYII==
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <1WZLNP2HRJ19KF89O6X15P0LUJ>
+Content-Id: <7BUUN3LZSNJNLB4AYZB7TNRD>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine17.png
 
@@ -2885,9 +2921,9 @@ AMlIegAAJCPpAQCQjKQHAEAykh4AAMlIegAAJBvR09MzcuRIMwcAAIa+lpaWjo6O
 Nc3NappregAAJBuxZcsWMwkAAKQw1/SW9f/uimlEhFprNgAAAABJRU5ErkJggg==
 =
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <90ZE7RJ4FHOU8QISOK1MDRAZB>
+Content-Id: <1L77G13LI9XC53YPFHQ1ROR65B>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine20.png
 
@@ -3060,9 +3096,9 @@ zSKvR0PtCngA4NUYSsADwGMZSsADwGMZSsADwGMZSsADwGMZSsADwGMZSsADwGMZ
 SsADwGMZSsADwGMZSsADwGMZSsADwGMZSsADwGMZah7wSimllHqIEvBKKaXUA9Yp
 4LstpZRSSj1M9QH/+fP/BxtQnleYFh5iAAAAAElFTkSuQmCC=
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG
 Content-Type: image/x-png
-Content-Id: <1648E61IEV04IWZHQBUQEPOKL>
+Content-Id: <44TOFIKOQGBE234F461JJ8YMK>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine21.png
 
@@ -3249,4 +3285,4 @@ lwAAQNdo6ptoAQDAgsE30QIAIBXRHQAAaYjuAABIQ3QHAEAaojsAANIQ3QEAkIbo
 DgCANER3AACkIboDACAN0R0AAGmI7gAASON9zzwAABCB75kHAECgu37yk5+4iwAA
 QIS7RkZG3EUAACCA4/x/0RW0utISbycAAAAASUVORK5CYII==
 
------------blocknote.net--OU45I2KT6CYKLHSNM311XJXSG--
+-----------blocknote.net--14STH7LJ7WDJQVO077NLPWCJG--

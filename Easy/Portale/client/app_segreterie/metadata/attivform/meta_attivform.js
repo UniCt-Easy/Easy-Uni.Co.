@@ -46,25 +46,26 @@
 //$objCalcFieldConfig_gruppo$
 						break;
 					case 'default':
-						this.describeAColumn(table, 'start', 'Dal', null, 80, null);
-						this.describeAColumn(table, 'stop', 'Al', null, 90, null);
-						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneità', null, 100, null);
+						this.describeAColumn(table, 'aa', 'Identificativo', null, 50, 9);
+						this.describeAColumn(table, 'start', 'Dal', null, 90, null);
+						this.describeAColumn(table, 'stop', 'Al', null, 100, null);
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneità', null, 110, null);
 						this.describeAColumn(table, '!iddidproganno_didproganno_title', 'Anno di corso', null, 31, null);
 						objCalcFieldConfig['!iddidproganno_didproganno_title'] = { tableNameLookup:'didproganno', columnNameLookup:'title', columnNamekey:'iddidproganno' };
 						this.describeAColumn(table, '!iddidprogcurr_didprogcurr_title', 'Curriculum', null, 11, null);
 						objCalcFieldConfig['!iddidprogcurr_didprogcurr_title'] = { tableNameLookup:'didprogcurr', columnNameLookup:'title', columnNamekey:'iddidprogcurr' };
-						this.describeAColumn(table, '!iddidproggrupp_didproggrupp_title', 'Gruppo opzionale', null, 51, null);
+						this.describeAColumn(table, '!iddidproggrupp_didproggrupp_title', 'Gruppo opzionale', null, 61, null);
 						objCalcFieldConfig['!iddidproggrupp_didproggrupp_title'] = { tableNameLookup:'didproggrupp', columnNameLookup:'title', columnNamekey:'iddidproggrupp' };
 						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 21, null);
 						objCalcFieldConfig['!iddidprogori_didprogori_title'] = { tableNameLookup:'didprogori', columnNameLookup:'title', columnNamekey:'iddidprogori' };
 						this.describeAColumn(table, '!iddidprogporzanno_didprogporzanno_title', 'Porzione d\'anno', null, 41, null);
 						objCalcFieldConfig['!iddidprogporzanno_didprogporzanno_title'] = { tableNameLookup:'didprogporzanno', columnNameLookup:'title', columnNamekey:'iddidprogporzanno' };
-						this.describeAColumn(table, '!idinsegn_insegn_denominazione', 'Denominazione Insegnamento', null, 61, null);
-						this.describeAColumn(table, '!idinsegn_insegn_codice', 'Codice Insegnamento', null, 62, null);
+						this.describeAColumn(table, '!idinsegn_insegn_denominazione', 'Denominazione Insegnamento', null, 71, null);
+						this.describeAColumn(table, '!idinsegn_insegn_codice', 'Codice Insegnamento', null, 72, null);
 						objCalcFieldConfig['!idinsegn_insegn_denominazione'] = { tableNameLookup:'insegn', columnNameLookup:'denominazione', columnNamekey:'idinsegn' };
 						objCalcFieldConfig['!idinsegn_insegn_codice'] = { tableNameLookup:'insegn', columnNameLookup:'codice', columnNamekey:'idinsegn' };
-						this.describeAColumn(table, '!idinsegninteg_insegninteg_denominazione', 'Denominazione Integrando', null, 71, null);
-						this.describeAColumn(table, '!idinsegninteg_insegninteg_codice', 'Codice Integrando', null, 72, null);
+						this.describeAColumn(table, '!idinsegninteg_insegninteg_denominazione', 'Denominazione Integrando', null, 81, null);
+						this.describeAColumn(table, '!idinsegninteg_insegninteg_codice', 'Codice Integrando', null, 82, null);
 						objCalcFieldConfig['!idinsegninteg_insegninteg_denominazione'] = { tableNameLookup:'insegninteg', columnNameLookup:'denominazione', columnNamekey:'idinsegninteg' };
 						objCalcFieldConfig['!idinsegninteg_insegninteg_codice'] = { tableNameLookup:'insegninteg', columnNameLookup:'codice', columnNamekey:'idinsegninteg' };
 						this.describeAColumn(table, '!canale', 'Canali', null, 140, null);
@@ -72,6 +73,8 @@
 //$objCalcFieldConfig_default$
 						break;
 					case 'appello':
+						this.describeAColumn(table, 'title', 'Attività formativa', null, 10, -1);
+						this.describeAColumn(table, 'aa', 'Identificativo', null, 20, 9);
 						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneità', null, 180, null);
 //$objCalcFieldConfig_appello$
 						break;
@@ -106,6 +109,10 @@
 						this.describeAColumn(table, '!attivformcaratteristica', 'Caratteristiche dell\'attività formativa', null, 150, null);
 //$objCalcFieldConfig_erogata$
 						break;
+					case 'prenot':
+						this.describeAColumn(table, 'tipovalutaz', 'Profitto o Idoneità', null, 180, null);
+//$objCalcFieldConfig_prenot$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -137,7 +144,6 @@
 //$innerSetCaptionConfig_erogata$
 						break;
 					case 'default':
-						table.columns["idcorsostudio"].caption = "Corso di studi";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'gruppo':
@@ -147,6 +153,29 @@
 					case 'proped':
 						table.columns["idcorsostudio"].caption = "Corso di studi";
 //$innerSetCaptionConfig_proped$
+						break;
+					case 'prenot':
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["iddidproganno"].caption = "Anno di corso";
+						table.columns["iddidprogcurr"].caption = "Curriculum";
+						table.columns["iddidproggrupp"].caption = "Gruppo opzionale";
+						table.columns["iddidprogori"].caption = "Orientamento";
+						table.columns["iddidprogporzanno"].caption = "Porzione d'anno";
+						table.columns["idinsegn"].caption = "Insegnamento";
+						table.columns["idinsegninteg"].caption = "Integrando";
+						table.columns["idsede"].caption = "Sede";
+						table.columns["obbform"].caption = "Obiettivi formativi";
+						table.columns["obbform_en"].caption = "Obiettivi formativi (ENG)";
+						table.columns["sortcode"].caption = "Ordine";
+						table.columns["start"].caption = "Dal";
+						table.columns["stop"].caption = "Al";
+						table.columns["tipovalutaz"].caption = "Profitto o Idoneità";
+						table.columns["title"].caption = "Attività formativa";
+//$innerSetCaptionConfig_prenot$
+						break;
+					case 'appello':
+//$innerSetCaptionConfig_appello$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -190,6 +219,12 @@
 					}
 					case "erogata": {
 						return "iddidprogcurr asc , title asc , iddidprogori asc , iddidproganno asc , iddidprogporzanno asc , iddidproggrupp asc , sortcode asc ";
+					}
+					case "prenot": {
+						return "title asc ";
+					}
+					case "default": {
+						return "title asc , iddidprogcurr asc , iddidprogori asc , iddidproganno asc , iddidprogporzanno asc , iddidproggrupp asc , sortcode asc ";
 					}
 					//$getSortingin$
 				}

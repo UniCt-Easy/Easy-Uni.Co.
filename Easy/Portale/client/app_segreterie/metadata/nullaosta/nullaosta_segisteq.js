@@ -23,38 +23,42 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
 				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				if (!parentRow.extension)
+				parentRow.data = new Date();
+				if (this.isNull(parentRow.extension))
 					parentRow.extension = "eq";
-				if (!parentRow.idistanzakind)
+				if (this.isNull(parentRow.idistanzakind) || parentRow.idistanzakind == 0)
 					parentRow.idistanzakind = 1;
-				//beforeFillFilter
+				//afterGetFormDataFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-nullaosta_segisteq");
+				var def = appMeta.Deferred("afterGetFormData-nullaosta_segisteq");
 				var arraydef = [];
 				
-				//beforeFillInside
+				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
+						return def.resolve();
 					});
 				return def.promise();
 			},
+			
+			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#nullaosta_segisteq_protnumero'), true);
+				this.enableControl($('#nullaosta_segisteq_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#nullaosta_segisteq_protnumero'), false);

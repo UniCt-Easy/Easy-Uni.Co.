@@ -24,10 +24,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
+						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 128);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 30, 256);
 						this.describeAColumn(table, 'active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'sortcode', 'Sortcode', null, 50, null);
+						this.describeAColumn(table, 'sortcode', 'Ordinamento', null, 50, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -41,21 +41,20 @@
 			//$setCaptions$
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_convalidakind");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_convalidakind");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idconvalidakind', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$
@@ -66,6 +65,9 @@
 				switch (listType) {
 					case "default": {
 						return "sortcode";
+					}
+					case "default": {
+						return "title desc, sortcode desc";
 					}
 					//$getSortingin$
 				}

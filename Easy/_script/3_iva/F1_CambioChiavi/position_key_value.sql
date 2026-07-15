@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 -- Script che aggiorna le chiavi primarie delle tabelle di configurazione e le chiavi esterne delle tabelle
 IF NOT EXISTS(SELECT * FROM position WHERE codeposition IN ('07_SW_AORD', '07_SW_ND02', '07_SW_ND03', '07_SW_ND04', '07_SW_ND05', '07_SW_ND06', '07_SW_ND07',

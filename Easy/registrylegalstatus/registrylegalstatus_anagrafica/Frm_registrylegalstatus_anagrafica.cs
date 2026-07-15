@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -71,6 +69,8 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 		private TextBox txtDescrConcorsuale;
 		private Label label9;
 		private ComboBox cmbTipologiaRuolo;
+		private Label label10;
+		private TextBox txtExtMatricula;
 		MetaData Meta;
 
 		public Frm_registrylegalstatus_anagrafica() {
@@ -137,6 +137,8 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.txtDescrConcorsuale = new System.Windows.Forms.TextBox();
 			this.label9 = new System.Windows.Forms.Label();
 			this.cmbTipologiaRuolo = new System.Windows.Forms.ComboBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtExtMatricula = new System.Windows.Forms.TextBox();
 			this.groupCredDeb.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox6.SuspendLayout();
@@ -264,7 +266,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			// 
 			// checkBox1
 			// 
-			this.checkBox1.Location = new System.Drawing.Point(389, 62);
+			this.checkBox1.Location = new System.Drawing.Point(570, 137);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(64, 16);
 			this.checkBox1.TabIndex = 3;
@@ -432,7 +434,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(439, 103);
+			this.label8.Location = new System.Drawing.Point(439, 99);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(84, 13);
 			this.label8.TabIndex = 118;
@@ -440,7 +442,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			// 
 			// textBox5
 			// 
-			this.textBox5.Location = new System.Drawing.Point(529, 99);
+			this.textBox5.Location = new System.Drawing.Point(529, 95);
 			this.textBox5.Name = "textBox5";
 			this.textBox5.Size = new System.Drawing.Size(105, 20);
 			this.textBox5.TabIndex = 117;
@@ -568,7 +570,7 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			// 
 			this.cmbTipologiaRuolo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbTipologiaRuolo.DataSource = DS.tipologiaruolo;
+			this.cmbTipologiaRuolo.DataSource = this.DS.tipologiaruolo;
 			this.cmbTipologiaRuolo.DisplayMember = "description";
 			this.cmbTipologiaRuolo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbTipologiaRuolo.Location = new System.Drawing.Point(429, 270);
@@ -578,11 +580,30 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			this.cmbTipologiaRuolo.Tag = "registrylegalstatus.idtipologiaruolo";
 			this.cmbTipologiaRuolo.ValueMember = "idtipologiaruolo";
 			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(473, 65);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(50, 13);
+			this.label10.TabIndex = 125;
+			this.label10.Text = "Matricola";
+			// 
+			// txtExtMatricula
+			// 
+			this.txtExtMatricula.Location = new System.Drawing.Point(529, 62);
+			this.txtExtMatricula.Name = "txtExtMatricula";
+			this.txtExtMatricula.Size = new System.Drawing.Size(105, 20);
+			this.txtExtMatricula.TabIndex = 124;
+			this.txtExtMatricula.Tag = "registry.extmatricula?registrylegalstatusregview.extmatricula";
+			// 
 			// Frm_registrylegalstatus_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(646, 665);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.txtExtMatricula);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.cmbTipologiaRuolo);
 			this.Controls.Add(this.gboxConcorsuale);
@@ -630,6 +651,11 @@ namespace registrylegalstatus_anagrafica {//posgiuridica_anagrafica//
 			Meta = MetaData.GetMetaData(this);
 			QHC = new CQueryHelper();
 			QHS = Meta.Conn.GetQueryHelper();
+
+			// ===============================================================================
+			// La InsertCopy non deve copiare le tabelle degli allegati
+			// ===============================================================================
+			QueryCreator.setSkipInsertCopy(DS.registrylegalstatusattachment, true);
 		}
 		public void MetaData_AfterFill() {
 			ValorizzaComboInquadramento();

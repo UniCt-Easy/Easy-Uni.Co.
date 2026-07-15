@@ -3,81 +3,6 @@
   <xs:element name="dsmeta_learningagrtrainer_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="didprog_alias3" msprop:TableForReading="didprog" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idsede" type="xs:int" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="pratica_alias2" msprop:TableForReading="pratica" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idiscrizione" type="xs:int" />
-              <xs:element name="idistanza" type="xs:int" />
-              <xs:element name="idistanzakind" type="xs:int" />
-              <xs:element name="idpratica" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="didprog_alias2" msprop:TableForReading="didprog" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idsede" type="xs:int" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="iscrizione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="anno" type="xs:int" minOccurs="0" />
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idiscrizione" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="sede" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idsede" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="didprog" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" />
-              <xs:element name="iddidprog" type="xs:int" />
-              <xs:element name="idsede" type="xs:int" minOccurs="0" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="attivform" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -118,18 +43,6 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="_x0021_idattivform_attivform_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_iddidprog_didprog_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_iddidprog_didprog_aa" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_iddidprog_didprog_idsede_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_iscrizione_anno" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_iscrizione_aa" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_iscrizione_iddidprog_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_iscrizione_iddidprog_aa" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idiscrizione_iscrizione_iddidprog_idsede" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_idpratica_pratica_idreg_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idpratica_pratica_iddidprog_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idpratica_pratica_iddidprog_aa" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idpratica_pratica_iddidprog_idsede" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -310,14 +223,15 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="learningagrtrainerkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="learningagrtrainerkinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idlearningagrtrainerkind" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
-              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="learningagrtrainerkind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="learningagrtrainerkind_lt" type="xs:dateTime" />
+              <xs:element name="learningagrtrainerkind_lu" type="xs:string" />
+              <xs:element name="learningagrtrainerkind_sortcode" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
@@ -393,46 +307,6 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:didprog_alias3" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-    </xs:unique>
-    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="pratica_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:pratica_alias2" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-      <xs:field xpath="mstns:idiscrizione" />
-      <xs:field xpath="mstns:idistanza" />
-      <xs:field xpath="mstns:idistanzakind" />
-      <xs:field xpath="mstns:idpratica" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="didprog_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:didprog_alias2" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-    </xs:unique>
-    <xs:unique name="iscrizione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:iscrizione" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-      <xs:field xpath="mstns:idiscrizione" />
-      <xs:field xpath="mstns:idreg" />
-    </xs:unique>
-    <xs:unique name="sede_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:sede" />
-      <xs:field xpath="mstns:idsede" />
-    </xs:unique>
-    <xs:unique name="didprog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:didprog" />
-      <xs:field xpath="mstns:idcorsostudio" />
-      <xs:field xpath="mstns:iddidprog" />
-    </xs:unique>
-    <xs:unique name="attivform_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attivform" />
       <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
@@ -524,8 +398,8 @@
       <xs:selector xpath=".//mstns:learningagrtrainervalut" />
       <xs:field xpath="mstns:idlearningagrtrainervalut" />
     </xs:unique>
-    <xs:unique name="learningagrtrainerkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:learningagrtrainerkind" />
+    <xs:unique name="learningagrtrainerkinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:learningagrtrainerkinddefaultview" />
       <xs:field xpath="mstns:idlearningagrtrainerkind" />
     </xs:unique>
     <xs:unique name="learningagrkinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -548,13 +422,6 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_convalida_learningagrtrainer_idiscrizionebmi-idlearningagrtrainer-idreg" msdata:parent="learningagrtrainer" msdata:child="convalida" msdata:parentkey="idiscrizionebmi idlearningagrtrainer idreg" msdata:childkey="idiscrizionebmi idlearningagrtrainer idreg" />
       <msdata:Relationship name="FK_convalidato_convalida_idconvalida-idiscrizionebmi-idlearningagrtrainer-idreg" msdata:parent="convalida" msdata:child="convalidato" msdata:parentkey="idconvalida idiscrizionebmi idlearningagrtrainer idreg" msdata:childkey="idconvalida idiscrizionebmi idlearningagrtrainer idreg" />
-      <msdata:Relationship name="FK_convalidato_pratica_alias2_idpratica" msdata:parent="pratica_alias2" msdata:child="convalidato" msdata:parentkey="idpratica" msdata:childkey="idpratica" />
-      <msdata:Relationship name="FK_pratica_alias2_didprog_alias3_iddidprog" msdata:parent="didprog_alias3" msdata:child="pratica_alias2" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
-      <msdata:Relationship name="FK_pratica_alias2_registry_idreg" msdata:parent="registry" msdata:child="pratica_alias2" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_convalidato_iscrizione_idiscrizione" msdata:parent="iscrizione" msdata:child="convalidato" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione" />
-      <msdata:Relationship name="FK_iscrizione_didprog_alias2_iddidprog" msdata:parent="didprog_alias2" msdata:child="iscrizione" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
-      <msdata:Relationship name="FK_convalidato_didprog_iddidprog" msdata:parent="didprog" msdata:child="convalidato" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />
-      <msdata:Relationship name="FK_didprog_sede_idsede" msdata:parent="sede" msdata:child="didprog" msdata:parentkey="idsede" msdata:childkey="idsede" />
       <msdata:Relationship name="FK_convalidato_attivform_idattivform" msdata:parent="attivform" msdata:child="convalidato" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
       <msdata:Relationship name="FK_convalida_pratica_idpratica" msdata:parent="pratica" msdata:child="convalida" msdata:parentkey="idpratica" msdata:childkey="idpratica" />
       <msdata:Relationship name="FK_convalida_iscrizionedefaultview_idiscrizione" msdata:parent="iscrizionedefaultview" msdata:child="convalida" msdata:parentkey="idiscrizione" msdata:childkey="idiscrizione" />
@@ -569,7 +436,7 @@
       <msdata:Relationship name="FK_cefrlanglevel_cefrdefaultview_idcefr_compasc" msdata:parent="cefrdefaultview" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_compasc" />
       <msdata:Relationship name="FK_learningagrtrainer_registryaziendeview_idreg_aziende" msdata:parent="registryaziendeview" msdata:child="learningagrtrainer" msdata:parentkey="idreg" msdata:childkey="idreg_aziende" />
       <msdata:Relationship name="FK_learningagrtrainer_learningagrtrainervalut_idlearningagrtrainervalut" msdata:parent="learningagrtrainervalut" msdata:child="learningagrtrainer" msdata:parentkey="idlearningagrtrainervalut" msdata:childkey="idlearningagrtrainervalut" />
-      <msdata:Relationship name="FK_learningagrtrainer_learningagrtrainerkind_idlearningagrtrainerkind" msdata:parent="learningagrtrainerkind" msdata:child="learningagrtrainer" msdata:parentkey="idlearningagrtrainerkind" msdata:childkey="idlearningagrtrainerkind" />
+      <msdata:Relationship name="FK_learningagrtrainer_learningagrtrainerkinddefaultview_idlearningagrtrainerkind" msdata:parent="learningagrtrainerkinddefaultview" msdata:child="learningagrtrainer" msdata:parentkey="idlearningagrtrainerkind" msdata:childkey="idlearningagrtrainerkind" />
       <msdata:Relationship name="FK_learningagrtrainer_learningagrkinddefaultview_idlearningagrkind" msdata:parent="learningagrkinddefaultview" msdata:child="learningagrtrainer" msdata:parentkey="idlearningagrkind" msdata:childkey="idlearningagrkind" />
       <msdata:Relationship name="FK_learningagrtrainer_geo_city_idcity" msdata:parent="geo_city" msdata:child="learningagrtrainer" msdata:parentkey="idcity" msdata:childkey="idcity" />
     </xs:appinfo>

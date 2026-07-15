@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace EasyInstall {
     partial class FrmMatchAnagrafica {
@@ -63,7 +61,7 @@ namespace EasyInstall {
             this.txtPresentiTotali = new System.Windows.Forms.TextBox();
             this.txtPresentiPersone = new System.Windows.Forms.TextBox();
             this.txtPresentiEnti = new System.Windows.Forms.TextBox();
-            this.pBar = new System.Windows.Forms.ProgressBar();
+            //this.pBar = new System.Windows.Forms.ProgressBar();
             this.btnStop = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -235,7 +233,7 @@ namespace EasyInstall {
             this.groupBox3.Size = new System.Drawing.Size(734, 54);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Anagrafiche che erano gi‡ presenti nel db di destinazione";
+            this.groupBox3.Text = "Anagrafiche che erano gi√† presenti nel db di destinazione";
             // 
             // txtPresentiComm
             // 
@@ -279,12 +277,12 @@ namespace EasyInstall {
             // 
             // pBar
             // 
-            this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar.Location = new System.Drawing.Point(22, 280);
-            this.pBar.Name = "pBar";
-            this.pBar.Size = new System.Drawing.Size(876, 23);
-            this.pBar.TabIndex = 13;
+            //this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            //            | System.Windows.Forms.AnchorStyles.Right)));
+            //this.pBar.Location = new System.Drawing.Point(22, 280);
+            //this.pBar.Name = "pBar";
+            //this.pBar.Size = new System.Drawing.Size(876, 23);
+            //this.pBar.TabIndex = 13;
             // 
             // btnStop
             // 
@@ -302,7 +300,7 @@ namespace EasyInstall {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 370);
             this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.pBar);
+            //this.Controls.Add(this.pBar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -349,7 +347,8 @@ namespace EasyInstall {
         private System.Windows.Forms.TextBox txtPresentiTotali;
         private System.Windows.Forms.TextBox txtPresentiPersone;
         private System.Windows.Forms.TextBox txtPresentiEnti;
-        private System.Windows.Forms.ProgressBar pBar;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //private System.Windows.Forms.ProgressBar pBar;
         private System.Windows.Forms.Button btnStop;
     }
 }

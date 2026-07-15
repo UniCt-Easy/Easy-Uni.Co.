@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_iscrizione_seganagstumast"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_iscrizione_seganagstumast: DataSet {
+public partial class dsmeta_iscrizione_seganagstumast: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -72,6 +70,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// SOSTENIMENTOESITO /////////////////////////////////
 	var tsostenimentoesito= new MetaTable("sostenimentoesito");
+	tsostenimentoesito.defineColumn("active", typeof(string),false);
 	tsostenimentoesito.defineColumn("idsostenimentoesito", typeof(int),false);
 	tsostenimentoesito.defineColumn("title", typeof(string),false);
 	Tables.Add(tsostenimentoesito);
@@ -147,8 +146,8 @@ private void initClass() {
 	tdidprogdotmasview.defineColumn("didprog_utenzasost", typeof(int));
 	tdidprogdotmasview.defineColumn("didprog_website", typeof(string));
 	tdidprogdotmasview.defineColumn("dropdown_title", typeof(string),false);
-	tdidprogdotmasview.defineColumn("geo_nationlang_title", typeof(string));
-	tdidprogdotmasview.defineColumn("geo_nationlangvis_title", typeof(string));
+	tdidprogdotmasview.defineColumn("geo_nationlang_lang", typeof(string));
+	tdidprogdotmasview.defineColumn("geo_nationlangvis_lang", typeof(string));
 	tdidprogdotmasview.defineColumn("graduatoria_title", typeof(string));
 	tdidprogdotmasview.defineColumn("idcorsostudio", typeof(int),false);
 	tdidprogdotmasview.defineColumn("iddidprog", typeof(int),false);
@@ -159,7 +158,7 @@ private void initClass() {
 	tdidprogdotmasview.defineColumn("sede_title", typeof(string));
 	tdidprogdotmasview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogdotmasview);
-	tdidprogdotmasview.defineKey("iddidprog");
+	tdidprogdotmasview.defineKey("idcorsostudio", "iddidprog");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");

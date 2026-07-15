@@ -23,9 +23,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstusing':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 70, 50);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 4000, null);
+						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 7000, 50);
 //$objCalcFieldConfig_seganagstusing$
 						break;
 //$objCalcFieldConfig$

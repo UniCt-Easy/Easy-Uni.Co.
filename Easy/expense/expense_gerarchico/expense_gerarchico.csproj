@@ -88,11 +88,6 @@
       <Project>{0027e37f-afa2-4973-aae5-98f9bc1a242e}</Project>
       <Name>meta_expense</Name>
     </ProjectReference>
-    <Reference Include="MagicLibrary">
-      <Name>MagicLibrary</Name>
-      <HintPath>..\..\dll\MagicLibrary.DLL</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System.Net;
 using System.Web.Http;
@@ -59,10 +57,6 @@ namespace Backend.Controllers
     [RoutePrefix("admin"), Authorize, EnableCors("*", "*", "*")]
     public class AdminController : ApiController
     {
-
-        private const int RegistryClassCompany = 21;
-        private const int RegistryClassPrivate = 22;
-
         [HttpPost, Route("adminregisteruser")]
         public IHttpActionResult adminregister([FromBody] AdminRegistrationFormData data)
         {
@@ -71,22 +65,7 @@ namespace Backend.Controllers
                 return base.Content(HttpStatusCode.BadRequest, "Dati non specificati.");
             }
 
-            // legge i prm in input    
-            String login = data.login;
-            String password = data.password;
-            String passwordweb = data.passwordweb;
-            String surname = data.surname;
-            String forename = data.forename;
-            String cf = data.cf;
-            String codesflowchart = data.codeflowchart;
-            String esercizio = data.esercizio;
-            String email = data.email;
-            String usertype = data.usertype;
-            String matricola = data.matricola;
-            String userkind = data.userkind;
-            String idregistrationuser = data.idregistrationuser;
-
-            if (userkind == "3" && String.IsNullOrEmpty(passwordweb))
+            if (data.userkind == "3" && String.IsNullOrEmpty(data.password))
             {
                 var resultErr = new JObject {
                     {"err", 1},
@@ -95,11 +74,33 @@ namespace Backend.Controllers
                 return Content(HttpStatusCode.OK, resultErr);
             }
 
-            List<string> listCodeflowChart = codesflowchart.Split(';').ToList();
+            List<string> listCodeflowChart = data.codeflowchart.Split(';').ToList();
+
+            //se sono pi√π nodi
+            //1 - solo il primo pu√≤ essere il nodo di default
+            var isFirst = true;
+            //2 - viene concatenato il codeflochart al title altrimenti poi nella tendina non si distinguono
+            var isMultipleFlowchart = listCodeflowChart.Count > 1;
+            var originaltitle = data.title;
+
             int error = 0;
             List<string> messages = new List<string>();
             foreach (String codeflowchart in listCodeflowChart)
             {
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    data.flagdefault = "N";
+                }
+
+                if(isMultipleFlowchart && !String.IsNullOrEmpty(originaltitle))
+                {
+                    data.title = originaltitle + " (" + codeflowchart + ")";
+                }
+
                 AdminRegistrationFormData dataSingleFlowChart = data;
                 dataSingleFlowChart.codeflowchart = codeflowchart;
                 JObject message = adminregisterSingleCodeflowchart(dataSingleFlowChart);
@@ -122,26 +123,11 @@ namespace Backend.Controllers
         private JObject adminregisterSingleCodeflowchart(AdminRegistrationFormData data)
         {
 
-            String login = data.login;
-            String password = data.password;
-            String passwordweb = data.passwordweb;
-            String surname = data.surname;
-            String forename = data.forename;
-            String cf = data.cf.ToUpper();
-            String codeflowchart = data.codeflowchart;
-            String esercizio = data.esercizio;
-            String email = data.email;
-            String usertype = data.usertype;
-            String matricola = data.matricola;
-            String userkind = data.userkind;
-            String idregistrationuser = data.idregistrationuser;
-
-
             // 1. genera password web criptata
             Random rnd = new Random();
             var iterations = rnd.Next(20, 100);
             var salt = KeyChain.generateSalt();
-            var hash = Password.generateHash(passwordweb, salt, iterations);
+            var hash = Password.generateHash(data.passwordweb, salt, iterations);
             int iterweb = iterations;
             String saltweb = salt.toHexString();
             String passwordwebHash = hash.toHexString();
@@ -154,14 +140,14 @@ namespace Backend.Controllers
             String executor = (String)dispatcher.conn.Security.GetUsr("userweb");
             String dipartimento = WebConfigurationManager.AppSettings.Get("DBDipartimento");
             String passwordalpha = "";
-            if (password != null)
+            if (data.password != null)
             {
-                passwordalpha = DA.getAlfaFromPassword(password).toHexString();
+                passwordalpha = DA.getAlfaFromPassword(data.password).toHexString();
             }
 
             object[] list = new object[] {
-                login,
-                password,
+                data.login,
+                data.password,
                 db,
                 executor,
                 dipartimento,
@@ -169,19 +155,38 @@ namespace Backend.Controllers
                 passwordwebHash,
                 iterweb,
                 saltweb,
-                surname,
-                forename,
-                cf,
-                email,
-                codeflowchart,
-                esercizio,
-                usertype,
-                matricola,
-                userkind
-            };
-            string spName = "GenerateUser";
+                data.surname,
+                data.forename,
+                data.cf.ToUpper(),
+                data.email,
+                data.codeflowchart,
+                data.esercizio,
+                data.usertype,
+                data.matricola,
+                data.userkind,
 
-            DataSet DSout = dispatcher.conn.CallSP(spName, list, true, -1);
+                data.start,
+                data.stop,
+                data.title,
+                data.flagdefault,
+                data.all_sorkind01,
+                data.all_sorkind02,
+                data.all_sorkind03,
+                data.all_sorkind04,
+                data.all_sorkind05,
+                data.idsor01,
+                data.idsor02,
+                data.idsor03,
+                data.idsor04,
+                data.idsor05,
+                data.sorkind01_withchilds,
+                data.sorkind02_withchilds,
+                data.sorkind03_withchilds,
+                data.sorkind04_withchilds,
+                data.sorkind05_withchilds
+            };
+
+            DataSet DSout = dispatcher.conn.CallSP("GenerateUserWithAttributes", list, true, -1);
             string lastError = dispatcher.conn.LastError;
             if (!String.IsNullOrEmpty(lastError))
             {
@@ -194,7 +199,7 @@ namespace Backend.Controllers
             {
 
                 // check su registry e registryReference
-                string query = "select r.idreg from registry r, registryreference rr where r.cf = '" + cf +
+                string query = "select r.idreg from registry r, registryreference rr where r.cf = '" + data.cf.ToUpper() +
                                "' and rr.idreg = r.idreg";
                 DataTable dtReg = dispatcher.conn.SQLRunner(query);
 
@@ -202,7 +207,7 @@ namespace Backend.Controllers
                 {
                     return new JObject {
                         {"err", 1},
-                        {"msg", "c'Ë stato un problema nella registrazione"}
+                        {"msg", "c'√® stato un problema nella registrazione"}
                     };
                 }
 
@@ -210,16 +215,16 @@ namespace Backend.Controllers
                 {
                     return new JObject {
                         {"err", 1},
-                        {"msg", "c'Ë stato un problema nella registrazione"}
+                        {"msg", "c'√® stato un problema nella registrazione"}
                     };
                 }
 
-                if (idregistrationuser != null)
+                if (data.idregistrationuser != null)
                 {
                     // update dello stato
                     String[] columns = { "idregistrationuserstatus" };
                     String[] values = { "2" };
-                    dispatcher.conn.DO_UPDATE("registrationuser", "idregistrationuser=" + idregistrationuser, columns,
+                    dispatcher.conn.DO_UPDATE("registrationuser", "idregistrationuser=" + data.idregistrationuser, columns,
                         values, 1);
                 }
 
@@ -234,7 +239,7 @@ namespace Backend.Controllers
                 {
 
                     string error = "";
-                    ((Easy_DataAccess)dispatcher.conn).linkUserToDepartment(login, out error);
+                    ((Easy_DataAccess)dispatcher.conn).linkUserToDepartment(data.login, out error);
 
                     if (!String.IsNullOrEmpty(error))
                     {
@@ -460,7 +465,7 @@ namespace Backend.Controllers
         [HttpPost, Route("getTimbrature")]
         public string getTimbrature([FromBody] InserisciTimbraturePrm prms)
         {
-            // Tls12 Ë necessario per il WebService chiamato
+            // Tls12 √® necessario per il WebService chiamato
             // Se si omette questa chiamata ritorna non riesce a fare l'hand-shake
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
@@ -550,7 +555,7 @@ namespace Backend.Controllers
                         getData.GET_PRIMARY_TABLE(filter);
                         var registryRow = ds.registry.ToList();
 
-                        // Check timbratura per data e matricola gi‡ presente
+                        // Check timbratura per data e matricola gi√† presente
 
                         // ================================================================================
                         // Elenco matricole non presenti in anagrafica
@@ -592,7 +597,7 @@ namespace Backend.Controllers
                         var giaTimbrati = ds.timbratura.getFromDb(dispatcher.conn, filterGiaTimbrato).ToList();
                         List<int> matricoleGiaTimbrate = new List<int>();
 
-                        // Cerca timbrature gi‡ presenti (data - idreg) ed invia eventualmente e-mail
+                        // Cerca timbrature gi√† presenti (data - idreg) ed invia eventualmente e-mail
                         foreach (var tim in giaTimbrati)
                         {
                             int idreg = int.Parse(tim["idreg"].ToString());
@@ -609,9 +614,9 @@ namespace Backend.Controllers
                         }
                         filterMatricolaGiaTimbrato = filterMatricolaGiaTimbrato.Replace("'", "");
 
-                        // Invio Email Log lavoratori gi‡ timbrati
+                        // Invio Email Log lavoratori gi√† timbrati
                         if (matricoleGiaTimbrate.Count() > 0)
-                            mailBody += (mailBody == "" ? "" : "<br /><br />") + $"Le timbrature (matricola in data) {filterMatricolaGiaTimbrato} sono gi‡ state effettuate";
+                            mailBody += (mailBody == "" ? "" : "<br /><br />") + $"Le timbrature (matricola in data) {filterMatricolaGiaTimbrato} sono gi√† state effettuate";
 
                         // Mail eventuali errori
                         if (!string.IsNullOrEmpty(mailBody))
@@ -699,7 +704,7 @@ namespace Backend.Controllers
             bool isConsecutiveCall = false;
             prms.dataElab = dataRicCorrente.Day + "/" + dataRicCorrente.Month + "/" + dataRicCorrente.Year; //Parto dalla data di fine del periodo
 
-            while (prms.matricola.Length > 0 && dataRicCorrente >= dataStart) { // Cerco finchÈ ho delle matricole in anagrafica && la data di ricerca Ë >= di quella di inizio
+            while (prms.matricola.Length > 0 && dataRicCorrente >= dataStart) { // Cerco finch√© ho delle matricole in anagrafica && la data di ricerca √® >= di quella di inizio
                 result = this._getCostoOrario(prms, isConsecutiveCall);
 
                 mailBody += (mailBody == "" ? "" : "<br /><br />") + result.mailBody;
@@ -771,7 +776,7 @@ namespace Backend.Controllers
             return result.esitoMsg;
         }
 
-        // isConsecutiveCall: indica che Ë una chiamata successiva al ws per estrarre l'intero periodo (start-stop) richiesto
+        // isConsecutiveCall: indica che √® una chiamata successiva al ws per estrarre l'intero periodo (start-stop) richiesto
         private resultCostoOrario _getCostoOrario(InserisciCostoOrarioPrm prms, bool isConsecutiveCall)
         {
             resultCostoOrario result = new resultCostoOrario();
@@ -803,7 +808,7 @@ namespace Backend.Controllers
                 {
                     if (string.IsNullOrEmpty(riga)) continue;
                     string[] campi = riga.Split(','); //Separo le celle
-                    if (campi.Length == 6) //Se la riga Ë malformattata (o vuota) viene ignorata
+                    if (campi.Length == 6) //Se la riga √® malformattata (o vuota) viene ignorata
                     {
                         int _matricola = 0;
                         int.TryParse(campi[0], out _matricola);
@@ -860,13 +865,13 @@ namespace Backend.Controllers
                     getData.GET_PRIMARY_TABLE(filter);
                     var registryRow = ds.registry.ToList();
 
-                    // Check timbratura per data e matricola gi‡ presente
+                    // Check timbratura per data e matricola gi√† presente
 
                     // ================================================================================
                     // Elenco matricole non presenti in anagrafica
                     // ================================================================================
                     result.mailBody = "";
-                    if(!isConsecutiveCall){ // Non controllo se le matricole esistono se Ë il secondo giro, ho gi‡ controllato e preparato e-mail da inviare
+                    if(!isConsecutiveCall){ // Non controllo se le matricole esistono se √® il secondo giro, ho gi√† controllato e preparato e-mail da inviare
                         List<int> matricoleNonInAnagrafica = new List<int>();
 
                         // Cerca matricole non presenti in anagrafica
@@ -912,7 +917,7 @@ namespace Backend.Controllers
                         var giaInseriti = ds.costoorario.getFromDb(dispatcher.conn, filterGiaInserito).ToList();
                         List<int> matricoleGiaInserite = new List<int>();
 
-                        // Cerca costi orari gi‡ inseriti
+                        // Cerca costi orari gi√† inseriti
                         foreach (var tim in giaInseriti)
                         {
                             int idreg = int.Parse(tim["idreg"].ToString());
@@ -932,11 +937,11 @@ namespace Backend.Controllers
                         }
                         filterMatricolaGiaInserito = filterMatricolaGiaInserito.Replace("'", "");
 
-                        // Inserisco messaggio su Email Log per costi orari gi‡ inseriti
+                        // Inserisco messaggio su Email Log per costi orari gi√† inseriti
                         if (matricoleGiaInserite.Count() > 0)
-                            result.mailBody += (result.mailBody == "" ? "" : "<br /><br />") + $"I costi orari per (matricola in data) <br />{filterMatricolaGiaInseritoForMail} sono gi‡ stati inseriti.<br />";
+                            result.mailBody += (result.mailBody == "" ? "" : "<br /><br />") + $"I costi orari per (matricola in data) <br />{filterMatricolaGiaInseritoForMail} sono gi√† stati inseriti.<br />";
 
-                        ds.costoorario.Clear(); // Pulisco il dataset perchÈ non accetta duplicati
+                        ds.costoorario.Clear(); // Pulisco il dataset perch√© non accetta duplicati
 
                         if (lavoratori.Count() > 0)
                         {
@@ -963,7 +968,7 @@ namespace Backend.Controllers
                         }
                     } else
                     {
-                        result.esitoMsg = "Nessuna delle matricoli richieste Ë presente nell'anagrafica (vedere e-mail di avviso).";
+                        result.esitoMsg = "Nessuna delle matricoli richieste √® presente nell'anagrafica (vedere e-mail di avviso).";
                     }
                 }
                 else

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -163,7 +161,7 @@ namespace SortingMatrix {
             var TFieldValues = Enum.GetValues(typeof(TTField)).Cast<TTField>();
 
             try {
-                TypesMap = TFieldValues.ToDictionary(fieldType => ((char)(int)(object)fieldType).ToString(), fieldType => fieldType);  // castiamo prima a object, poi a int, questo perchË Ë un tipo generico di Enum come da constraint, e finalmente a char
+                TypesMap = TFieldValues.ToDictionary(fieldType => ((char)(int)(object)fieldType).ToString(), fieldType => fieldType);  // castiamo prima a object, poi a int, questo perch√® √® un tipo generico di Enum come da constraint, e finalmente a char
             }
             catch (Exception e) {
                 throw new FormatException($"{typeof(TTField).FullName} cannot initialize {GetType().Name}: {e.Message}", e);

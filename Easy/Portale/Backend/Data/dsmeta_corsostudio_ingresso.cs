@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_corsostudio_ingresso"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_corsostudio_ingresso: DataSet {
+public partial class dsmeta_corsostudio_ingresso: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -59,6 +57,12 @@ public class dsmeta_corsostudio_ingresso: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sede 		=> (MetaTable)Tables["sede"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable corsostudiolivello 		=> (MetaTable)Tables["corsostudiolivello"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable corsostudiokind 		=> (MetaTable)Tables["corsostudiokind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable annoaccademico_alias2 		=> (MetaTable)Tables["annoaccademico_alias2"];
@@ -187,6 +191,7 @@ private void initClass() {
 	tiscrizione.defineColumn("lu", typeof(string),false);
 	tiscrizione.defineColumn("matricola", typeof(string));
 	tiscrizione.defineColumn("!idreg_registry_title", typeof(string));
+	tiscrizione.ExtendedProperties["filter"]="iddidprog in (select dp.iddidprog from didprog dp where dp.idcorsostudio in (select cs.idcorsostudio from corsostudio cs where cs.idcorsostudiokind = 12))";
 	Tables.Add(tiscrizione);
 	tiscrizione.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
 
@@ -228,6 +233,7 @@ private void initClass() {
 	tcommissregistry_docenti.defineColumn("cu", typeof(string),false);
 	tcommissregistry_docenti.defineColumn("idappello", typeof(int),false);
 	tcommissregistry_docenti.defineColumn("idcommiss", typeof(int),false);
+	tcommissregistry_docenti.defineColumn("idcommissmembrokind", typeof(int));
 	tcommissregistry_docenti.defineColumn("idcorsostudio", typeof(int),false);
 	tcommissregistry_docenti.defineColumn("iddidprog", typeof(int),false);
 	tcommissregistry_docenti.defineColumn("idprova", typeof(int),false);
@@ -290,10 +296,26 @@ private void initClass() {
 
 	//////////////////// SEDE /////////////////////////////////
 	var tsede= new MetaTable("sede");
+	tsede.defineColumn("idreg", typeof(int),false);
 	tsede.defineColumn("idsede", typeof(int),false);
 	tsede.defineColumn("title", typeof(string));
 	Tables.Add(tsede);
-	tsede.defineKey("idsede");
+	tsede.defineKey("idreg", "idsede");
+
+	//////////////////// CORSOSTUDIOLIVELLO /////////////////////////////////
+	var tcorsostudiolivello= new MetaTable("corsostudiolivello");
+	tcorsostudiolivello.defineColumn("idcorsostudiolivello", typeof(int),false);
+	tcorsostudiolivello.defineColumn("title", typeof(string));
+	Tables.Add(tcorsostudiolivello);
+	tcorsostudiolivello.defineKey("idcorsostudiolivello");
+
+	//////////////////// CORSOSTUDIOKIND /////////////////////////////////
+	var tcorsostudiokind= new MetaTable("corsostudiokind");
+	tcorsostudiokind.defineColumn("active", typeof(string),false);
+	tcorsostudiokind.defineColumn("idcorsostudiokind", typeof(int),false);
+	tcorsostudiokind.defineColumn("title", typeof(string),false);
+	Tables.Add(tcorsostudiokind);
+	tcorsostudiokind.defineKey("idcorsostudiokind");
 
 	//////////////////// ANNOACCADEMICO_ALIAS2 /////////////////////////////////
 	var tannoaccademico_alias2= new MetaTable("annoaccademico_alias2");
@@ -315,6 +337,8 @@ private void initClass() {
 	tdidprog_alias2.defineColumn("idareadidattica", typeof(int));
 	tdidprog_alias2.defineColumn("idconvenzione", typeof(int));
 	tdidprog_alias2.defineColumn("idcorsostudio", typeof(int),false);
+	tdidprog_alias2.defineColumn("idcorsostudiokind", typeof(int));
+	tdidprog_alias2.defineColumn("idcorsostudiolivello", typeof(int));
 	tdidprog_alias2.defineColumn("iddidprog", typeof(int),false);
 	tdidprog_alias2.defineColumn("iddidprognumchiusokind", typeof(int));
 	tdidprog_alias2.defineColumn("iddidprogsuddannokind", typeof(int),false);
@@ -324,7 +348,7 @@ private void initClass() {
 	tdidprog_alias2.defineColumn("idnation_lang2", typeof(int));
 	tdidprog_alias2.defineColumn("idnation_langvis", typeof(int));
 	tdidprog_alias2.defineColumn("idreg_docenti", typeof(int));
-	tdidprog_alias2.defineColumn("idsede", typeof(int));
+	tdidprog_alias2.defineColumn("idsede", typeof(int),false);
 	tdidprog_alias2.defineColumn("idsessione", typeof(int));
 	tdidprog_alias2.defineColumn("idtitolokind", typeof(int));
 	tdidprog_alias2.defineColumn("immatoltreauth", typeof(string));
@@ -360,6 +384,9 @@ private void initClass() {
 	tdidprogaccesso.defineColumn("!iddidprog_acc_didprog_alias2_title", typeof(string));
 	tdidprogaccesso.defineColumn("!iddidprog_acc_annoaccademico_alias2_aa", typeof(string));
 	tdidprogaccesso.defineColumn("!iddidprog_acc_sede_title", typeof(string));
+	tdidprogaccesso.defineColumn("!iddidprog_acc_didprog_alias2_codicemiur", typeof(string));
+	tdidprogaccesso.defineColumn("!iddidprog_acc_corsostudiokind_title", typeof(string));
+	tdidprogaccesso.defineColumn("!iddidprog_acc_corsostudiolivello_title", typeof(string));
 	Tables.Add(tdidprogaccesso);
 	tdidprogaccesso.defineKey("idcorsostudio", "iddidprog", "iddidprog_acc");
 
@@ -367,7 +394,11 @@ private void initClass() {
 	var ttitolokinddefaultview= new MetaTable("titolokinddefaultview");
 	ttitolokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	ttitolokinddefaultview.defineColumn("idtitolokind", typeof(int),false);
+	ttitolokinddefaultview.defineColumn("title", typeof(string),false);
 	ttitolokinddefaultview.defineColumn("titolokind_active", typeof(string));
+	ttitolokinddefaultview.defineColumn("titolokind_lt", typeof(DateTime),false);
+	ttitolokinddefaultview.defineColumn("titolokind_lu", typeof(string),false);
+	ttitolokinddefaultview.defineColumn("titolokind_sortcode", typeof(int),false);
 	Tables.Add(ttitolokinddefaultview);
 	ttitolokinddefaultview.defineKey("idtitolokind");
 
@@ -381,9 +412,10 @@ private void initClass() {
 	//////////////////// SEDEDEFAULTVIEW /////////////////////////////////
 	var tsededefaultview= new MetaTable("sededefaultview");
 	tsededefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tsededefaultview.defineColumn("idreg", typeof(int),false);
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tsededefaultview);
-	tsededefaultview.defineKey("idsede");
+	tsededefaultview.defineKey("idreg", "idsede");
 
 	//////////////////// GEO_NATION_ALIAS2 /////////////////////////////////
 	var tgeo_nation_alias2= new MetaTable("geo_nation_alias2");
@@ -427,6 +459,9 @@ private void initClass() {
 	var tdidprognumchiusokind= new MetaTable("didprognumchiusokind");
 	tdidprognumchiusokind.defineColumn("active", typeof(string),false);
 	tdidprognumchiusokind.defineColumn("iddidprognumchiusokind", typeof(int),false);
+	tdidprognumchiusokind.defineColumn("lt", typeof(DateTime),false);
+	tdidprognumchiusokind.defineColumn("lu", typeof(string),false);
+	tdidprognumchiusokind.defineColumn("sortcode", typeof(int),false);
 	tdidprognumchiusokind.defineColumn("title", typeof(string),false);
 	Tables.Add(tdidprognumchiusokind);
 	tdidprognumchiusokind.defineKey("iddidprognumchiusokind");
@@ -450,6 +485,8 @@ private void initClass() {
 	tdidprog.defineColumn("idareadidattica", typeof(int));
 	tdidprog.defineColumn("idconvenzione", typeof(int));
 	tdidprog.defineColumn("idcorsostudio", typeof(int),false);
+	tdidprog.defineColumn("idcorsostudiokind", typeof(int));
+	tdidprog.defineColumn("idcorsostudiolivello", typeof(int));
 	tdidprog.defineColumn("iddidprog", typeof(int),false);
 	tdidprog.defineColumn("iddidprognumchiusokind", typeof(int));
 	tdidprog.defineColumn("iddidprogsuddannokind", typeof(int));
@@ -479,6 +516,7 @@ private void initClass() {
 	tdidprog.defineColumn("title_en", typeof(string));
 	tdidprog.defineColumn("utenzasost", typeof(int));
 	tdidprog.defineColumn("website", typeof(string));
+	tdidprog.ExtendedProperties["filter"]="(idcorsostudio in (select cs.idcorsostudio from corsostudio cs where cs.idcorsostudiokind = 12))";
 	Tables.Add(tdidprog);
 	tdidprog.defineKey("idcorsostudio", "iddidprog");
 
@@ -486,6 +524,7 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
@@ -571,6 +610,14 @@ private void initClass() {
 	cPar = new []{sede.Columns["idsede"]};
 	cChild = new []{didprog_alias2.Columns["idsede"]};
 	Relations.Add(new DataRelation("FK_didprog_alias2_sede_idsede",cPar,cChild,false));
+
+	cPar = new []{corsostudiolivello.Columns["idcorsostudiolivello"]};
+	cChild = new []{didprog_alias2.Columns["idcorsostudiolivello"]};
+	Relations.Add(new DataRelation("FK_didprog_alias2_corsostudiolivello_idcorsostudiolivello",cPar,cChild,false));
+
+	cPar = new []{corsostudiokind.Columns["idcorsostudiokind"]};
+	cChild = new []{didprog_alias2.Columns["idcorsostudiokind"]};
+	Relations.Add(new DataRelation("FK_didprog_alias2_corsostudiokind_idcorsostudiokind",cPar,cChild,false));
 
 	cPar = new []{annoaccademico_alias2.Columns["aa"]};
 	cChild = new []{didprog_alias2.Columns["aa"]};

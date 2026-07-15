@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 namespace itinerationrefundattachmentkind_default {
@@ -41,19 +39,17 @@ namespace itinerationrefundattachmentkind_default {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.DS = new itinerationrefundattachmentkind_default.vistaForm();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtCodice = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.DS = new itinerationrefundattachmentkind_default.vistaForm();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
-			this.DS.DataSetName = "vistaForm";
 			// 
 			// checkBox1
 			// 
@@ -68,7 +64,7 @@ namespace itinerationrefundattachmentkind_default {
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(20, 63);
+			this.label2.Location = new System.Drawing.Point(20, 122);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(72, 16);
 			this.label2.TabIndex = 50;
@@ -85,7 +81,9 @@ namespace itinerationrefundattachmentkind_default {
 			// 
 			// textBox2
 			// 
-			this.textBox2.Location = new System.Drawing.Point(21, 79);
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox2.Location = new System.Drawing.Point(21, 138);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(324, 43);
@@ -98,7 +96,7 @@ namespace itinerationrefundattachmentkind_default {
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(64, 16);
 			this.label1.TabIndex = 49;
-			this.label1.Text = "Codice";
+			this.label1.Text = "#";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// checkBox2
@@ -112,11 +110,34 @@ namespace itinerationrefundattachmentkind_default {
 			this.checkBox2.Text = "Doc. pagamento tracciabile";
 			this.checkBox2.UseVisualStyleBackColor = true;
 			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(21, 82);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(238, 20);
+			this.textBox1.TabIndex = 52;
+			this.textBox1.Tag = "itinerationrefundattachmentkind.code";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(20, 65);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(64, 16);
+			this.label3.TabIndex = 53;
+			this.label3.Text = "Codice";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// Frm_itinerationrefundattachmentkind_default
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(368, 150);
+			this.ClientSize = new System.Drawing.Size(368, 192);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.checkBox2);
 			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.label2);
@@ -140,5 +161,7 @@ namespace itinerationrefundattachmentkind_default {
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.CheckBox checkBox2;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Label label3;
 	}
 }

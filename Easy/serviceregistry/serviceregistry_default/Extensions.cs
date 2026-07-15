@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -80,13 +78,13 @@ namespace serviceregistry_default {
 
         /// <summary>
         /// Valorizza un campo destFieldName della tabella definitions in base ai valori di altre colonne della stessa tabella definitions.
-        /// La scelta del modo in cui valorizzare destFieldName viene fatta in base al valore di kind, che rappresenta il tipo di entit‡ per la quale
+        /// La scelta del modo in cui valorizzare destFieldName viene fatta in base al valore di kind, che rappresenta il tipo di entit√† per la quale
         /// filtrare ed elaborare le righe di definitions, e in base all'ordine degli elementi di mergeKinds.
         /// </summary>
         /// <param name="definitions">Tabella delle definizioni da elaborare.</param>
-        /// <param name="kind">Tipo dell'entit‡ per la quale elaborare la tabella delle definizioni.</param>
+        /// <param name="kind">Tipo dell'entit√† per la quale elaborare la tabella delle definizioni.</param>
         /// <param name="destFieldName">Nome del campo destinazione dell'elaborazione.</param>
-        /// <param name="mergeKinds">Tipi delle entit‡ da utilizzare per la valorizzazione del campo destinazione qualora non sia conosciuto il tipo dell'entit‡.</param>
+        /// <param name="mergeKinds">Tipi delle entit√† da utilizzare per la valorizzazione del campo destinazione qualora non sia conosciuto il tipo dell'entit√†.</param>
         /// <returns></returns>
         private static IEnumerable<DataRow> MergeFields(this DataTable definitions, EmployKind? kind, string destFieldName, params EmployKind[] mergeKinds) {
 
@@ -102,10 +100,10 @@ namespace serviceregistry_default {
 
                 var merged = definitions.NewRowAs(dr); // riga destinazione con lo stesso schema di dr
 
-                if (ek != null) { // se l'EmployKind dell'entit‡ corrente non Ë sconosciuto
+                if (ek != null) { // se l'EmployKind dell'entit√† corrente non √® sconosciuto
                     merged[destFieldName] = dr[string.Join("_", destFieldName, kind.ToString())]; // mettiamo nel campo destinazione della riga destinazione il valore scelto in base all'EmployKind
 
-                } else { // se l'EmployKind Ë sconosciuto
+                } else { // se l'EmployKind √® sconosciuto
 
                     var oldValues = new[] { dr[destFieldName].ToString() }  // vecchi valori della riga di definizione
                         .Where(value => !string.IsNullOrEmpty(value))       // non vuoti
@@ -139,7 +137,7 @@ namespace serviceregistry_default {
         /// Indica se il DataSet che contiene la tabella dt contiene anche una backup di dt.
         /// </summary>
         /// <param name="dt">DataTable della quale verificare la presenza del backup</param>
-        /// <returns>true se il backup Ë presente, false altrimenti</returns>
+        /// <returns>true se il backup √® presente, false altrimenti</returns>
         private static bool HasBackup(this DataTable dt) {
 
             if (string.IsNullOrEmpty(dt.TableName))
@@ -188,7 +186,7 @@ namespace serviceregistry_default {
         /// al quale il ComboBox appartiene.
         /// </summary>
         /// <param name="cmb">ComboBox del quale aggiornare il DataSource, DisplayMember e ValueMember</param>
-        /// <param name="forcedKind">Parametro opzionale per guidare il modo in cui sar‡ filtrato il DataSource</param>
+        /// <param name="forcedKind">Parametro opzionale per guidare il modo in cui sar√† filtrato il DataSource</param>
         public static void UpdateADP(this ComboBox cmb, EmployKind? forcedKind = null) {
 
             if (cmb == null)
@@ -209,7 +207,7 @@ namespace serviceregistry_default {
 
                 source = meta.DS.Tables[((DataTable)cmb.DataSource).TableName];
 
-                source.Backup();                    // creiamo una copia di backup della tabella sorgente del controllo (se il backup esiste non sar‡ sovrascritto)
+                source.Backup();                    // creiamo una copia di backup della tabella sorgente del controllo (se il backup esiste non sar√† sovrascritto)
                 source.Clear();                     // svuotiamo la tabella sorgente del controllo
                 GetData.Add_Blank_Row(source);      // aggiungiamo la riga vuota
 

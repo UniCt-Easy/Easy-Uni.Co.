@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -563,6 +561,7 @@ private void initClass() {
 	C= new DataColumn("iditineration", typeof(int));
 	C.AllowDBNull=false;
 	titineration.Columns.Add(C);
+	titineration.Columns.Add( new DataColumn("flagexcludefromcertificate", typeof(string)));
 	Tables.Add(titineration);
 	titineration.PrimaryKey =  new DataColumn[]{titineration.Columns["iditineration"]};
 
@@ -1980,6 +1979,7 @@ private void initClass() {
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	texpenseview.Columns.Add(C);
+	texpenseview.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
 	Tables.Add(texpenseview);
 
 	//////////////////// INCOMEVIEW /////////////////////////////////

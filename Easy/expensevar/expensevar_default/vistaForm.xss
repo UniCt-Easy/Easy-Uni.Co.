@@ -19,10 +19,10 @@
     <Shape ID="DesignTable:invoicedetail_taxable" ZOrder="25" X="276" Y="2062" Height="257" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:invoice" ZOrder="24" X="531" Y="1065" Height="215" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
     <Shape ID="DesignTable:config" ZOrder="15" X="788" Y="827" Height="215" Width="178" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="211" />
-    <Shape ID="DesignTable:expenseview" ZOrder="3" X="318" Y="204" Height="256" Width="155" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="252" />
+    <Shape ID="DesignTable:expenseview" ZOrder="1" X="318" Y="204" Height="257" Width="176" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:paymenttransmission" ZOrder="8" X="141" Y="-36" Height="231" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
     <Shape ID="DesignTable:underwriting" ZOrder="6" X="866" Y="33" Height="304" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="300" />
-    <Shape ID="DesignTable:expensevarattachment" ZOrder="2" X="591" Y="-10" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
+    <Shape ID="DesignTable:expensevarattachment" ZOrder="3" X="591" Y="-10" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:expensephase_expenseview" ZOrder="13" LineWidth="11">
@@ -32,7 +32,7 @@
           <Y>228</Y>
         </Point>
         <Point>
-          <X>473</X>
+          <X>494</X>
           <Y>228</Y>
         </Point>
       </RoutePoints>
@@ -249,7 +249,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:expensevar_expensevarattachment" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:expensevar_expensevarattachment" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>218</X>

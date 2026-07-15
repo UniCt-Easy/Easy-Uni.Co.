@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections;
@@ -113,7 +111,7 @@ namespace funzioni_configurazione {
             //GetSchemaTable(ConnectionString,T);
 
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true /* impostare a false se non Ë readonly */ ,
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true /* impostare a false se non √® readonly */ ,
                     5,
                     "", "", true,
                     Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, //Microsoft.Office.Interop.XlPlatform.xlWindows,
@@ -427,7 +425,7 @@ namespace funzioni_configurazione {
             if (filename.EndsWith("xls") || filename.EndsWith("xlsx")) {
                 try {
                     xlApp = new Microsoft.Office.Interop.Excel.Application();
-                    xlWorkBook = xlApp.Workbooks.Open(filename, 0, true /* impostare a false se non Ë readonly */,
+                    xlWorkBook = xlApp.Workbooks.Open(filename, 0, true /* impostare a false se non √® readonly */,
                         5,
                         "", "", true,
                         Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, //Microsoft.Office.Interop.Excel.XlPlatform.xlWindows,
@@ -517,19 +515,19 @@ namespace funzioni_configurazione {
 
         decimal getImportoFromStringa(string importo) {
             if (importo.EndsWith(".") || importo.EndsWith(",")) importo = importo.Substring(0, importo.Length - 1);
-            importo = importo.Replace("Ä", "");
+            importo = importo.Replace("‚Ç¨", "");
             importo = importo.Trim();
             int dotPos = importo.IndexOf('.');
             int lastDotPos = importo.LastIndexOf('.');
             if (lastDotPos != dotPos) {
-                //rimuove la prima occorrenza del punto  se ce ne sono due o pi˘
+                //rimuove la prima occorrenza del punto  se ce ne sono due o pi√π
                 return getImportoFromStringa(importo.Remove(dotPos, 1));
             }
 
             int commaPos = importo.IndexOf(',');
             int lastCommaPos = importo.LastIndexOf(',');
             if (lastCommaPos != commaPos) {
-                //rimuove la prima occorrenza della virgola  se ce ne sono due o pi˘
+                //rimuove la prima occorrenza della virgola  se ce ne sono due o pi√π
                 return getImportoFromStringa(importo.Remove(commaPos, 1));
             }
 
@@ -543,13 +541,13 @@ namespace funzioni_configurazione {
                 return getImportoFromStringa(importo.Replace(",", ""));
             }
 
-            //c'Ë uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
+            //c'√® uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
             if (commaPos >= 0) return getImportoFromStringa(importo.Replace(',', '.'));
 
-            //A questo punto c'Ë solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
+            //A questo punto c'√® solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
             //Lo consideriamo un punto decimale se seguito da 1 o due cifre numeriche
             if (dotPos < importo.Length - 3) {
-                //Altrimenti Ë un punto/virgola delle migliaia e lo togliamo
+                //Altrimenti √® un punto/virgola delle migliaia e lo togliamo
                 importo = importo.Replace(".", "");
             }
 
@@ -797,7 +795,7 @@ namespace funzioni_configurazione {
                     throw new Exception("Errore alla riga:" + nrigacorrente.ToString() +
                                         " nell'interpretazione del campo " +
                                         fieldname + " il cui tipo dovrebbe essere " + ftype +
-                                        " ed il cui valore Ë " + O.ToString() + "\r\nMessaggio:\r\n" + e.Message +
+                                        " ed il cui valore √® " + O.ToString() + "\r\nMessaggio:\r\n" + e.Message +
                                         "\r\n" + e.StackTrace);
                 }
             }
@@ -874,7 +872,7 @@ namespace funzioni_configurazione {
             * (object[,])range.get_Value(XL.XlRangeValueDataType.xlRangeValueDefault)
             * produce questo errore  :Cannot convert type 'string' to 'object[*,*]'
             * quando range.Count == 1.
-            * perchË restituir‡ una stringa quando range.Count == 1, che significa che non puÚ essere convertito in object[,]
+            * perch√® restituir√† una stringa quando range.Count == 1, che significa che non pu√≤ essere convertito in object[,]
             * Questo si verifica quando l'intervallo si riferisce a una cella specifica e get_Value restituisce il valore di tale cella.
             */
             if (testCell.Count == 1) {

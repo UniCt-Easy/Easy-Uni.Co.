@@ -33,6 +33,7 @@
               <xs:element name="idperfprogetto" type="xs:int" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="peso" type="xs:int" />
               <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
               <xs:element name="risultato" type="xs:decimal" minOccurs="0" />
               <xs:element name="year" type="xs:int" />

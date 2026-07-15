@@ -32,6 +32,7 @@
 			afterLink: function () {
 				var self = this;
 				this.setDenyNull("pianostudio","idiscrizione");
+				appMeta.metaModel.insertFilter(this.getDataTable("pianostudiostatusdefaultview"), this.q.eq('pianostudiostatus_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -49,6 +50,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -540,7 +538,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.lblidunit.Name = "lblidunit";
 			this.lblidunit.Size = new System.Drawing.Size(145, 16);
 			this.lblidunit.TabIndex = 16;
-			this.lblidunit.Text = "Totale Quantit√† Ordinata:";
+			this.lblidunit.Text = "Totale Quantit‡ Ordinata:";
 			this.lblidunit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtQuantita
@@ -847,7 +845,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(152, 17);
 			this.label9.TabIndex = 21;
-			this.label9.Text = "Quantit√† inserita in fatture:";
+			this.label9.Text = "Quantit‡ inserita in fatture:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtNInvoiced
@@ -1033,7 +1031,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(483, 16);
 			this.label5.TabIndex = 64;
-			this.label5.Text = "Data annullamento (da inserire se il dettaglio √® stato annullato o sostituito da " +
+			this.label5.Text = "Data annullamento (da inserire se il dettaglio Ë stato annullato o sostituito da " +
     "un altro dettaglio)";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1091,7 +1089,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.lblidpackage.Name = "lblidpackage";
 			this.lblidpackage.Size = new System.Drawing.Size(114, 16);
 			this.lblidpackage.TabIndex = 27;
-			this.lblidpackage.Text = "Quantit√†";
+			this.lblidpackage.Text = "Quantit‡";
 			this.lblidpackage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// btnSuggerimento
@@ -1188,7 +1186,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(83, 16);
 			this.label22.TabIndex = 39;
-			this.label22.Text = "% Indetraibilit√†";
+			this.label22.Text = "% Indetraibilit‡";
 			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// txtPercIndeduc
@@ -1214,7 +1212,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.grpAttivita.Size = new System.Drawing.Size(167, 93);
 			this.grpAttivita.TabIndex = 9;
 			this.grpAttivita.TabStop = false;
-			this.grpAttivita.Text = "Attivit√†";
+			this.grpAttivita.Text = "Attivit‡";
 			// 
 			// rdbPromiscua
 			// 
@@ -1679,7 +1677,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.checkBox1.Size = new System.Drawing.Size(290, 24);
 			this.checkBox1.TabIndex = 2;
 			this.checkBox1.Tag = "mandatedetail.toinvoice:N:S";
-			this.checkBox1.Text = "Non proporre pi√π il dettaglio per l\'inserimento in fatture";
+			this.checkBox1.Text = "Non proporre pi˘ il dettaglio per l\'inserimento in fatture";
 			// 
 			// label13
 			// 
@@ -2439,7 +2437,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.lblIcmbdpackage.Name = "lblIcmbdpackage";
 			this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
 			this.lblIcmbdpackage.TabIndex = 21;
-			this.lblIcmbdpackage.Text = "U.t√† di misura imballo";
+			this.lblIcmbdpackage.Text = "U.t‡ di misura imballo";
 			// 
 			// label25
 			// 
@@ -2449,7 +2447,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(71, 13);
 			this.label25.TabIndex = 23;
-			this.label25.Text = "U.t√† di misura";
+			this.label25.Text = "U.t‡ di misura";
 			// 
 			// cmbUnitaMisuraCS
 			// 
@@ -2693,7 +2691,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             int nphase = 2; // Accertamento
             string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), QHS.CmpEq("nphase", nphase));
 
-            //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
+            //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
             //La scelta va fatta solo sugli Accertamenti di Budget imputati a Conti di Ricavi
             Filterbase = QHS.AppAnd(Filterbase, QHS.CmpEq("revenue", "S"));
             if (Curr["idupb"] != null && Curr["idupb"] != DBNull.Value) {
@@ -2706,7 +2704,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        int nphase = 1; // Preimpegno
 	        string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), QHS.CmpEq("nphase", nphase));
 
-	        //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
+	        //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.            
 	        //La scelta va fatta solo sugli Accertamenti di Budget imputati a Conti di Ricavi
 	        Filterbase = QHS.AppAnd(Filterbase,QHS.CmpGt("totavailable",0),
 	                QHS.DoPar(QHS.AppOr(QHS.CmpEq("fixedassets","S"),QHS.CmpEq("cost", "S")))) ;
@@ -2851,7 +2849,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        if (drParent.RowState != DataRowState.Added && linktoinvoice=="S") {
                 //Verifica se ci sono ratei o scritture di fatt. a ricevere 
 	            string idrelated = EP_functions.GetIdForDocument(drParent);
-	            idrelated = idrelated + "¬ß" + DR["rownum"];
+	            idrelated = idrelated + "ß" + DR["rownum"];
 	            int nRatei = Conn.RUN_SELECT_COUNT("entrydetail", QHS.CmpEq("idrelated", idrelated), false);
 	            if (nRatei > 0) {
 	                gboxCompetenzaEconomica.Enabled = false;
@@ -2874,8 +2872,8 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	        //}
 
 
-	        //Filtriamo gli upb con lo stesso tipo attivit√† del Tipo contratto passivo.
-	        //Le upb con tipoattivit√† 'qualsiasi' verranno sempre mostrate
+	        //Filtriamo gli upb con lo stesso tipo attivit‡ del Tipo contratto passivo.
+	        //Le upb con tipoattivit‡ 'qualsiasi' verranno sempre mostrate
 	        int flagactivity = 0;
 
 	        flagactivity = CfgFn.GetNoNullInt32(MandateKind.Rows[0]["flagactivity"]);
@@ -2978,7 +2976,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 	            tabControl1.TabPages.Remove(tabFatturazione);
 	        }
 
-            //MODIFICHE TASK 10565 (commentato codice sottostante poich√© inutile)
+            //MODIFICHE TASK 10565 (commentato codice sottostante poichÈ inutile)
             //DataTable DetailsMandate = DR.Table.DataSet.Tables["mandatedetail"];
             //string filter = QHC.CmpEq("idgroup", DR["idgroup"]);
             //DataRow[] Selected = DetailsMandate.Select(filter);
@@ -2986,9 +2984,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
             //decimal detailsGroup = Selected.Length;
             //if (detailsGroup > 1) {
             //    DisableEditGroup();
-            //DisableIfBrother(Selected);//Disabilita i text se un fratello √® stato contabilizzato
+            //DisableIfBrother(Selected);//Disabilita i text se un fratello Ë stato contabilizzato
             //if ((DR["idexp_iva"] != DBNull.Value) || (DR["idexp_taxable"] != DBNull.Value)) {
-            //DisablePostLinked();  // Anche se il dett.√® contabilizzato tutte le info saranno editabili
+            //DisablePostLinked();  // Anche se il dett.Ë contabilizzato tutte le info saranno editabili
             //    }
             //}
 
@@ -3124,7 +3122,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			return Ctrl.GetValue(this);
 		}
 
-        //MODIFICHE TASK 10565 (commentato codice sottostante poich√© inutile)
+        //MODIFICHE TASK 10565 (commentato codice sottostante poichÈ inutile)
         //void DisablePostLinked()
         //{
         //    txtImponibile.Enabled = false;
@@ -3170,7 +3168,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
 
 
-        //MODIFICHE TASK 10565 (commentato codice sottostante poich√© inutile)
+        //MODIFICHE TASK 10565 (commentato codice sottostante poichÈ inutile)
 
         //void DisableEditGroup(){
         //          grpCausale.Enabled = false;
@@ -3282,7 +3280,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             ImpostaFiltroAliqIva();
             ImpostaTageFiltriUPB(getActivitySelection(), Curr["idupb"]);
 
-            // Se √® un C.P.  documento equivalente di pagamento, allora vanno indicati tutti i campi per la PCC
+            // Se Ë un C.P.  documento equivalente di pagamento, allora vanno indicati tutti i campi per la PCC
             if (abilitaPCC(curr["idmankind"])) {
                 btnCasuale.Enabled = true;
                 cmbStatodelDebito.Enabled = true;
@@ -3291,7 +3289,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 }
                 EnableDisableNaturadispesa();
             }
-            // Se √® un C.P. collegabile a fattura, va indicara solo la natura di spesa, perch√® sar√† ereditata dai dettagli fattura con la funzione Aggiungi da Ordine
+            // Se Ë un C.P. collegabile a fattura, va indicara solo la natura di spesa, perchË sar‡ ereditata dai dettagli fattura con la funzione Aggiungi da Ordine
             else {
                 rdbSpesaCorrente.Enabled = true;
                 rdbContoCapitale.Enabled = true;
@@ -3299,7 +3297,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 btnCasuale.Enabled = false;
                 if (cmbStatodelDebito.SelectedIndex > 0) {
                     cmbStatodelDebito.SelectedIndex = -1;
-                    show(this, "Lo stato del debito √® stato azzerato poich√® il contratto √® collegabile a fattura.");
+                    show(this, "Lo stato del debito Ë stato azzerato poichË il contratto Ë collegabile a fattura.");
                 }
                 cmbStatodelDebito.Enabled = false;
             }
@@ -3443,7 +3441,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             object idunit = Curr["idunit"];
 
             if (idpackage == null || idpackage == DBNull.Value || CfgFn.GetNoNullInt32(idpackage)==0){
-                lblidpackage.Text = "Q.t√†";
+                lblidpackage.Text = "Q.t‡";
                 //lblImportoUnitario.Text = "Importo unitario";
             }
             else{
@@ -3453,7 +3451,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             }
 
             if (idunit == null || idunit == DBNull.Value || CfgFn.GetNoNullInt32(idunit) == 0) {
-                lblidunit.Text = "Totale quantit√† Ordinata";
+                lblidunit.Text = "Totale quantit‡ Ordinata";
             }
             else{
                 string UnitaCarico = Conn.DO_READ_VALUE("unit", QHS.CmpEq("idunit", idunit), "description").ToString();
@@ -3529,7 +3527,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (R == null) return;
                 if (R.RowState == DataRowState.Detached) return;
                 if (R["cupcode"].ToString() != "") txtCupCode.Text = R["cupcode"].ToString();
-				// L'UPB scelto non ha CUP, ma il campo CUP √® valorizzato perch√® magari associato all'UPB precedente.
+				// L'UPB scelto non ha CUP, ma il campo CUP Ë valorizzato perchË magari associato all'UPB precedente.
 				if ((R["cupcode"].ToString() == "") && (txtCupCode.Text != "")){
 					if (show("L'UPB selezionato non ha un CUP associato. Cancello il CUP dal dettaglio?", "Conferma",
 						MessageBoxButtons.OKCancel) == DialogResult.OK){
@@ -3613,7 +3611,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (!Meta.DrawStateIsDone) return;
                 if (Meta.IsEmpty) return;
                 if (R == null){
-                    lblidpackage.Text = "Q.t√†";
+                    lblidpackage.Text = "Q.t‡";
                     //lblImportoUnitario.Text = "Importo unitario";
                     return;
                 }
@@ -3627,7 +3625,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
                 if (Meta.IsEmpty) return;
                 if (R == null)
                 {
-                    lblidunit.Text = "Totale quantit√† Ordinata";
+                    lblidunit.Text = "Totale quantit‡ Ordinata";
                     return;
                 }
                 string UnitaCarico = R["description"].ToString();
@@ -3642,7 +3640,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if ((Curr["flagactivity"].ToString() != upb_flagactivity.ToString()) 
                 && (upb_flagactivity.ToString() == "1" || upb_flagactivity.ToString() == "2"))
             {
-               if (show("Cambio il Tipo attivit√† in base all'UPB selezionato?",
+               if (show("Cambio il Tipo attivit‡ in base all'UPB selezionato?",
 							"Conferma",MessageBoxButtons.OKCancel)==DialogResult.OK) {
                                 Curr["flagactivity"]=upb_flagactivity;
                                 if (upb_flagactivity.ToString() == "1") {
@@ -3838,9 +3836,9 @@ namespace mandatedetail_single//dettordinegenericosingle//
 		}
 
 		private void btnRemoveImponibile_Click(object sender, System.EventArgs e) {
-			if (show(this,"Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer√† "+
+			if (show(this,"Rimuovendo la contabilizzazione del DETTAGLIO il movimento finanziario continuer‡ "+
 				"comunque a contabilizzare il contratto passivo, tuttavia in forma 'generica'. Per rimuovere la contabilizzazione "+
-				"del il contratto passivo √® necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r"+
+				"del il contratto passivo Ë necessario eseguire la procedura guidata 'Rimuovi contabilizzazione'.\r"+
 				"Procedo a rimuovere la contabilizzazione del dettaglio?","Avviso",MessageBoxButtons.YesNo)!=
 				DialogResult.Yes) return;
 			DataRow Curr = DS.mandatedetail.Rows[0];			
@@ -4034,7 +4032,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
         private void AdeguaQuantitaTotale(){
             if (txtCoeffConversione.Text == "")
             {
-                // Se cancello il Coeff. di Conversione, la q.t√† totale sar√† uguale alla q.t√† per l'imballo.
+                // Se cancello il Coeff. di Conversione, la q.t‡ totale sar‡ uguale alla q.t‡ per l'imballo.
                 double npackage = CfgFn.GetNoNullDouble(txtQuantitaConfezioni.Text);
                 txtQuantita.Text = HelpForm.StringValue(npackage, "x.y");
                 return;
@@ -4227,11 +4225,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if (rdbQualsiasi.Checked)
                 return 4; //nessun filtro
             if (rdbCommerciale.Checked)
-                return 2;  //tipo attivit√† commerciale 
+                return 2;  //tipo attivit‡ commerciale 
             if (rdbIstituzionale.Checked)
-                return 1;  //tipo attivit√† istituzionale
+                return 1;  //tipo attivit‡ istituzionale
             if (rdbPromiscua.Checked)
-                return 3;  //tipo attivit√† promiscua/altro
+                return 3;  //tipo attivit‡ promiscua/altro
             return 4;
         }
 
@@ -4242,11 +4240,11 @@ namespace mandatedetail_single//dettordinegenericosingle//
             string flagintracom = DRP["flagintracom"].ToString();
             
 	        if (rdbCommerciale.Checked)
-                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit√† commerciale 
+                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 1));  //tipo attivit‡ commerciale 
             if (rdbIstituzionale.Checked)
-                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit√† istituzionale
+                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 0));  //tipo attivit‡ istituzionale
             if (rdbPromiscua.Checked)
-                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit√† promiscua/altro
+                filteriva = QHS.AppAnd(basefilteriva, QHS.BitSet("flag", 2));  //tipo attivit‡ promiscua/altro
 
             if (flagintracom=="N")
                 filteriva = QHS.AppAnd(filteriva, QHS.BitSet("flag", 6));  //Italia
@@ -4354,13 +4352,14 @@ namespace mandatedetail_single//dettordinegenericosingle//
             if (Meta.IsEmpty)return;
             var Curr = DS.mandatedetail.First();
             if (Curr.rownum_originValue != DBNull.Value) {
-                show("Non √® possibile collegare un preimpegno ad un contratto passivo collegato ad una richiesta d'ordine",
+                show("Non Ë possibile collegare un preimpegno ad un contratto passivo collegato ad una richiesta d'ordine. " +
+					"Il Preimpegno di budget deve essere collegato al dettaglio della richiesta d'ordine prima di creare il contratto passivo.",
                     "Errore");
                 return;
             }
             MetaData.GetFormData(this, true);
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non √® possibile collegare un preimpegno avendo gi√† generato l'impegno di budget",
+                show("Non Ë possibile collegare un preimpegno avendo gi‡ generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -4386,7 +4385,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 
             DataRow Curr = DS.mandatedetail.Rows[0];
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'impegno di budget",
+                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -4404,13 +4403,13 @@ namespace mandatedetail_single//dettordinegenericosingle//
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtStop.Text, txtStop.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di fine validit√† sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di fine validit‡ sia dell'esercizio.", "Errore");
                 txtStop.Text = "";
             }
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.mandatedetail[0];
                 if (((DateTime) d).Year < curr.yman) {
-                    show("E' necessario che la data di fine validit√† non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di fine validit‡ non preceda l'anno di creazione del contratto.", "Errore");
                     txtStop.Text = "";
                 }
             }
@@ -4422,14 +4421,14 @@ namespace mandatedetail_single//dettordinegenericosingle//
             object d = HelpForm.GetObjectFromString(typeof(DateTime), txtStart.Text, txtStart.Tag.ToString());
             if (d==null)return;
             if (((DateTime) d).Year != Conn.GetEsercizio()) {
-                show("E' necessario che la data di inizio validit√† sia dell'esercizio.", "Errore");
+                show("E' necessario che la data di inizio validit‡ sia dell'esercizio.", "Errore");
                 txtStart.Text = "";
             }
 
             if (Meta.DrawStateIsDone &&!Meta.IsEmpty) {
                 var curr = DS.mandatedetail[0];
                 if (((DateTime) d).Year < curr.yman) {
-                    show("E' necessario che la data di inizio validit√† non preceda l'anno di creazione del contratto.", "Errore");
+                    show("E' necessario che la data di inizio validit‡ non preceda l'anno di creazione del contratto.", "Errore");
                     txtStart.Text = "";
                 }
             }
@@ -4470,7 +4469,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			// http://deepblue:4545/siope/acquisti		5|entrate
 			DataTable SIOPE_EndPoint = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code", $"SIOPEURL_{av_type}"), null, true);
 
-			// Se non ci sono righe il servizio di AI non √® configurato
+			// Se non ci sono righe il servizio di AI non Ë configurato
 			if (SIOPE_EndPoint.Rows.Count <= 0)
 				return list;
 
@@ -4482,7 +4481,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 			string[] par = api_param.Split('|');
 			if (par.Length > 2) {
 				// http://deepblue:4545/siope/acquisti
-				// http://10.10.10.183:4545/siope/acquisti;
+				// http://your-db-server:4545/siope/acquisti;
 				api_url = par[0];
 				// N
 				int nr = 0;
@@ -4520,7 +4519,7 @@ namespace mandatedetail_single//dettordinegenericosingle//
 				catch (Exception Ex) {
 					// error = Ex.Message;
 					//Se il servizio per qualche motivo non risponde, esce. Non fornisce alcun messaggio all'utente, ma cosa deve essere trasparente.
-					error = $"{"Il serviziodi Intelligenza Artificiale non √® attivo."}";
+					error = $"{"Il serviziodi Intelligenza Artificiale non Ë attivo."}";
 					return list;
 				}
 

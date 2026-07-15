@@ -23,8 +23,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 1);
-						this.describeAColumn(table, 'tipoattform_description', 'Descrizione', null, 30, 256);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 2000, 1);
+						this.describeAColumn(table, 'tipoattform_description', 'Descrizione', null, 3000, 256);
+						this.describeAColumn(table, 'tipoattform_tipoente', 'Tipologia di ente', null, 6000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

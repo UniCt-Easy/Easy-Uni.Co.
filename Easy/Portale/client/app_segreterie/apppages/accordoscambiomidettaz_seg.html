@@ -16,37 +16,27 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="accordoscambiomidettaz_seg_idreg_aziende">Azienda</label>
 					<div>
-						<input id="accordoscambiomidettaz_seg_idreg_aziende" name="accordoscambiomidettaz_seg_idreg_aziende" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryaziendeview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="accordoscambiomidettaz_seg_idreg_aziende" name="accordoscambiomidettaz_seg_idreg_aziende" type="text" data-listtype="aziende"  class="form-control" data-minchar="2" data-tag="registryaziendeview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="accordoscambiomidettaz_seg_numstud">Numero di studenti</label>
-					<input id="accordoscambiomidettaz_seg_numstud" type="text" class="form-control" data-tag="accordoscambiomidettaz.numstud?accordoscambiomidettazsegview.accordoscambiomidettaz_numstud" data-subentity  />
+					<input id="accordoscambiomidettaz_seg_numstud" type="text" class="form-control" data-tag="accordoscambiomidettaz.numstud"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#accordoscambiomidettaz_seg_stipula").datepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="accordoscambiomidettaz_seg_stipula">Data di stipula</label>
-					<input id="accordoscambiomidettaz_seg_stipula" type="text" class="form-control" data-tag="accordoscambiomidettaz.stipula?accordoscambiomidettazsegview.accordoscambiomidettaz_stipula" data-subentity  />
+					<input id="accordoscambiomidettaz_seg_stipula" type="text" class="form-control" data-tag="accordoscambiomidettaz.stipula"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#accordoscambiomidettaz_seg_stop").datepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="accordoscambiomidettaz_seg_stop">Data di termine</label>
-					<input id="accordoscambiomidettaz_seg_stop" type="text" class="form-control" data-tag="accordoscambiomidettaz.stop?accordoscambiomidettazsegview.accordoscambiomidettaz_stop" data-subentity  />
+					<input id="accordoscambiomidettaz_seg_stop" type="text" class="form-control" data-tag="accordoscambiomidettaz.stop"   data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabaccordoscambiomidettaz_seg_1" role="tabpanel">
-				<div class="gridx" id="grid_cefrlanglevel_default" data-tag="cefrlanglevel.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_cefrlanglevel_dettaz" data-tag="cefrlanglevel.dettaz.dettaz" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,9 +25,12 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_attivform_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_attivform_default: DataSet {
+public partial class dsmeta_attivform_default: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable canaleregistry 		=> (MetaTable)Tables["canaleregistry"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable canale 		=> (MetaTable)Tables["canale"];
 
@@ -82,9 +83,6 @@ public class dsmeta_attivform_default: DataSet {
 	public MetaTable attivformcaratteristica 		=> (MetaTable)Tables["attivformcaratteristica"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sede 		=> (MetaTable)Tables["sede"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable didproggrupp 		=> (MetaTable)Tables["didproggrupp"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -133,8 +131,21 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_attivform_default.xsd";
 
 	#region create DataTables
+	//////////////////// CANALEREGISTRY /////////////////////////////////
+	var tcanaleregistry= new MetaTable("canaleregistry");
+	tcanaleregistry.defineColumn("ct", typeof(DateTime),false);
+	tcanaleregistry.defineColumn("cu", typeof(string),false);
+	tcanaleregistry.defineColumn("idcanale", typeof(int),false);
+	tcanaleregistry.defineColumn("idreg", typeof(int),false);
+	tcanaleregistry.defineColumn("lt", typeof(DateTime),false);
+	tcanaleregistry.defineColumn("lu", typeof(string),false);
+	tcanaleregistry.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tcanaleregistry);
+	tcanaleregistry.defineKey("idcanale", "idreg");
+
 	//////////////////// CANALE /////////////////////////////////
 	var tcanale= new MetaTable("canale");
+	tcanale.defineColumn("!filtrostud", typeof(string));
 	tcanale.defineColumn("aa", typeof(string),false);
 	tcanale.defineColumn("ct", typeof(DateTime),false);
 	tcanale.defineColumn("cu", typeof(string),false);
@@ -388,13 +399,6 @@ private void initClass() {
 	Tables.Add(tattivformcaratteristica);
 	tattivformcaratteristica.defineKey("aa", "idattivform", "idattivformcaratteristica", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
 
-	//////////////////// SEDE /////////////////////////////////
-	var tsede= new MetaTable("sede");
-	tsede.defineColumn("idsede", typeof(int),false);
-	tsede.defineColumn("title", typeof(string));
-	Tables.Add(tsede);
-	tsede.defineKey("idsede");
-
 	//////////////////// DIDPROGGRUPP /////////////////////////////////
 	var tdidproggrupp= new MetaTable("didproggrupp");
 	tdidproggrupp.defineColumn("idcorsostudio", typeof(int),false);
@@ -415,7 +419,7 @@ private void initClass() {
 	tdidprogporzannodefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tdidprogporzannodefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
 	Tables.Add(tdidprogporzannodefaultview);
-	tdidprogporzannodefaultview.defineKey("iddidprogporzanno");
+	tdidprogporzannodefaultview.defineKey("aa", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
 
 	//////////////////// DIDPROGANNODEFAULTVIEW /////////////////////////////////
 	var tdidprogannodefaultview= new MetaTable("didprogannodefaultview");
@@ -434,7 +438,7 @@ private void initClass() {
 	tdidprogannodefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tdidprogannodefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogannodefaultview);
-	tdidprogannodefaultview.defineKey("iddidproganno");
+	tdidprogannodefaultview.defineKey("aa", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// DIDPROGORIDEFAULTVIEW /////////////////////////////////
 	var tdidprogoridefaultview= new MetaTable("didprogoridefaultview");
@@ -444,7 +448,7 @@ private void initClass() {
 	tdidprogoridefaultview.defineColumn("iddidprogcurr", typeof(int),false);
 	tdidprogoridefaultview.defineColumn("iddidprogori", typeof(int),false);
 	Tables.Add(tdidprogoridefaultview);
-	tdidprogoridefaultview.defineKey("iddidprogori");
+	tdidprogoridefaultview.defineKey("idcorsostudio", "iddidprog", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// DIDPROGCURR /////////////////////////////////
 	var tdidprogcurr= new MetaTable("didprogcurr");
@@ -474,7 +478,7 @@ private void initClass() {
 	tinsegnintegdefaultview.defineColumn("insegninteg_lt", typeof(DateTime),false);
 	tinsegnintegdefaultview.defineColumn("insegninteg_lu", typeof(string),false);
 	Tables.Add(tinsegnintegdefaultview);
-	tinsegnintegdefaultview.defineKey("idinsegninteg");
+	tinsegnintegdefaultview.defineKey("idinsegn", "idinsegninteg");
 
 	//////////////////// INSEGNDEFAULTVIEW /////////////////////////////////
 	var tinsegndefaultview= new MetaTable("insegndefaultview");
@@ -534,6 +538,10 @@ private void initClass() {
 	var cPar = new []{attivform.Columns["aa"], attivform.Columns["idattivform"], attivform.Columns["idcorsostudio"], attivform.Columns["iddidprog"], attivform.Columns["iddidproganno"], attivform.Columns["iddidprogcurr"], attivform.Columns["iddidprogori"], attivform.Columns["iddidprogporzanno"], attivform.Columns["idsede"]};
 	var cChild = new []{canale.Columns["aa"], canale.Columns["idattivform"], canale.Columns["idcorsostudio"], canale.Columns["iddidprog"], canale.Columns["iddidproganno"], canale.Columns["iddidprogcurr"], canale.Columns["iddidprogori"], canale.Columns["iddidprogporzanno"], canale.Columns["idsede"]};
 	Relations.Add(new DataRelation("FK_canale_attivform_aa-idattivform-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idsede",cPar,cChild,false));
+
+	cPar = new []{canale.Columns["idcanale"]};
+	cChild = new []{canaleregistry.Columns["idcanale"]};
+	Relations.Add(new DataRelation("FK_canaleregistry_canale_idcanale",cPar,cChild,false));
 
 	cPar = new []{attivform.Columns["aa"], attivform.Columns["idattivform"], attivform.Columns["idcorsostudio"], attivform.Columns["iddidprog"], attivform.Columns["iddidproganno"], attivform.Columns["iddidprogcurr"], attivform.Columns["iddidprogori"], attivform.Columns["iddidprogporzanno"]};
 	cChild = new []{attivformproped.Columns["aa"], attivformproped.Columns["idattivform"], attivformproped.Columns["idcorsostudio"], attivformproped.Columns["iddidprog"], attivformproped.Columns["iddidproganno"], attivformproped.Columns["iddidprogcurr"], attivformproped.Columns["iddidprogori"], attivformproped.Columns["iddidprogporzanno"]};
@@ -598,10 +606,6 @@ private void initClass() {
 	cPar = new []{ambitoareadisc.Columns["idambitoareadisc"]};
 	cChild = new []{attivformcaratteristica.Columns["idambitoareadisc"]};
 	Relations.Add(new DataRelation("FK_attivformcaratteristica_ambitoareadisc_idambitoareadisc",cPar,cChild,false));
-
-	cPar = new []{sede.Columns["idsede"]};
-	cChild = new []{attivform.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_attivform_sede_idsede",cPar,cChild,false));
 
 	cPar = new []{didproggrupp.Columns["iddidproggrupp"]};
 	cChild = new []{attivform.Columns["iddidproggrupp"]};

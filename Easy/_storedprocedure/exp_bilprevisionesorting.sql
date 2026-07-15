@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_bilprevisionesorting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_bilprevisionesorting]
 GO
@@ -23,7 +21,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
---setuser 'amm'
+--setuser 'amministrazione'
 
 CREATE      PROCEDURE [exp_bilprevisionesorting]
 (
@@ -31,12 +29,13 @@ CREATE      PROCEDURE [exp_bilprevisionesorting]
 	@finpart char(1),
 	@idsorkindfin int,
 	@useupb char(1),
-    @idsorkindupb int
+    @idsorkindupb int,
+	@hierarchy char(1)
 
 )
 AS BEGIN
 
--- exec exp_bilprevisionesorting 2012,'S', 23, 'S', 6
+-- exec exp_bilprevisionesorting 2025,'S', 25, 'N', null, 'N'
 -- exec exp_bilprevisionesorting 2012,'S', 23, 'N', null
 --  exec exp_bilprevisionesorting 2012,'S', 23, 6
 
@@ -68,67 +67,142 @@ CREATE TABLE #data
 
 if (@useupb = 'S')
 Begin
-	insert into #data (
-		codeupb,
-		upb,
-		codefin,
-		fin,
+
+	if (@hierarchy = 'N')
+	begin
+		insert into #data (
+			codeupb,
+			upb,
+			codefin,
+			fin,
 	
-		initialprevision,
-		previousprevision,
-		secondaryprevision,
-		currentarrears)
-	SELECT 
-		isnull(sorUpb.sortcode,	upb.codeupb),
-		isnull(sorUpb.description,	upb.title),
-		isnull(sorFin.sortcode,	fin.codefin),
-		isnull(sorFin.description, fin.title),
-		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.prevision),0),
-		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.previousprevision),0), 
-		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.secondaryprev),0) ,
-		ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.currentarrears),0)
-	FROM finyear 
-	JOIN fin  ON finyear.idfin = fin.idfin
-	JOIN upb  ON finyear.idupb = upb.idupb
-	JOIN finlast ON fin.idfin = finlast.idfin
-	LEFT OUTER JOIN finsorting FS ON FS.idfin = fin.idfin	 AND FS.idsor in (select idsor from sorting where idsorkind = @idsorkindfin)
-	LEFT OUTER JOIN sorting sorFin 	ON sorFin.idsor = FS.idsor				
-	LEFT OUTER JOIN upbsorting US ON US.idupb = upb.idupb	AND US.idsor in (select idsor from sorting where idsorkind = @idsorkindupb)
-	LEFT OUTER JOIN sorting sorUpb	ON sorUpb.idsor = US.idsor				
-	WHERE fin.ayear = @ayear
-			AND ((fin.flag & 1)= @finpart_bit) 
-			AND ( sorFin.idsorkind = @idsorkindfin	OR @idsorkindfin is null)
-			AND ( sorUpb.idsorkind = @idsorkindupb	OR @idsorkindupb is null)
-	group by  isnull(sorUpb.sortcode,	upb.codeupb), isnull(sorUpb.description,	upb.title),
-		isnull(sorFin.sortcode,	fin.codefin), isnull(sorFin.description, fin.title)
+			initialprevision,
+			previousprevision,
+			secondaryprevision,
+			currentarrears)
+		SELECT 
+			isnull(sorUpb.sortcode,	upb.codeupb),
+			isnull(sorUpb.description,	upb.title),
+			isnull(sorFin.sortcode,	fin.codefin),
+			isnull(sorFin.description, fin.title),
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.prevision),0),
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.previousprevision),0), 
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.secondaryprev),0) ,
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.currentarrears),0)
+		FROM finyear 
+		JOIN fin  ON finyear.idfin = fin.idfin
+		JOIN upb  ON finyear.idupb = upb.idupb
+		JOIN finlast ON fin.idfin = finlast.idfin
+		LEFT OUTER JOIN finsorting FS ON FS.idfin = fin.idfin	 AND FS.idsor in (select idsor from sorting where idsorkind = @idsorkindfin)
+		LEFT OUTER JOIN sorting sorFin 	ON sorFin.idsor = FS.idsor				
+		LEFT OUTER JOIN upbsorting US ON US.idupb = upb.idupb	AND US.idsor in (select idsor from sorting where idsorkind = @idsorkindupb)
+		LEFT OUTER JOIN sorting sorUpb	ON sorUpb.idsor = US.idsor				
+		WHERE fin.ayear = @ayear
+				AND ((fin.flag & 1)= @finpart_bit) 
+				AND ( sorFin.idsorkind = @idsorkindfin	OR @idsorkindfin is null)
+				AND ( sorUpb.idsorkind = @idsorkindupb	OR @idsorkindupb is null)
+		group by  isnull(sorUpb.sortcode,	upb.codeupb), isnull(sorUpb.description,	upb.title),
+			isnull(sorFin.sortcode,	fin.codefin), isnull(sorFin.description, fin.title)
+	end
+
+	if (@hierarchy = 'S')
+	begin
+		insert into #data (
+			codeupb,
+			upb,
+			codefin,
+			fin,
+	
+			initialprevision,
+			previousprevision,
+			secondaryprevision,
+			currentarrears)
+		SELECT 
+			isnull(sorUpb.sortcode,	upb.codeupb),
+			isnull(sorUpb.description,	upb.title),
+			isnull(sFin_ALL.sortcode,	fin.codefin),
+			isnull(sFin_ALL.description, fin.title),
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.prevision),0),
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.previousprevision),0), 
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.secondaryprev),0) ,
+			ISNULL(SUM(isnull(US.quota,1)*isnull(FS.quota,1)*finyear.currentarrears),0)
+		FROM finyear 
+		JOIN fin  ON finyear.idfin = fin.idfin
+		JOIN upb  ON finyear.idupb = upb.idupb
+		JOIN finlast ON fin.idfin = finlast.idfin
+		LEFT OUTER JOIN finsorting FS ON FS.idfin = fin.idfin	 AND FS.idsor in (select idsor from sorting where idsorkind = @idsorkindfin)
+		LEFT OUTER JOIN sorting sorFin 	ON sorFin.idsor = FS.idsor				
+		LEFT OUTER JOIN sortinglink slFin ON slFin.idchild = sorFin.idsor
+		LEFT OUTER JOIN sorting sFin_ALL ON slFin.idparent = sFin_ALL.idsor
+		LEFT OUTER JOIN upbsorting US ON US.idupb = upb.idupb	AND US.idsor in (select idsor from sorting where idsorkind = @idsorkindupb)
+		LEFT OUTER JOIN sorting sorUpb	ON sorUpb.idsor = US.idsor				
+		WHERE fin.ayear = @ayear
+				AND ((fin.flag & 1)= @finpart_bit) 
+				AND ( sorFin.idsorkind = @idsorkindfin	OR @idsorkindfin is null)
+				AND ( sorUpb.idsorkind = @idsorkindupb	OR @idsorkindupb is null)
+		group by  isnull(sorUpb.sortcode,	upb.codeupb), isnull(sorUpb.description,	upb.title),
+			isnull(sFin_ALL.sortcode,	fin.codefin), isnull(sFin_ALL.description, fin.title)
+	end
+
 end
 else
 begin
-	insert into #data (
-		codefin,
-		fin,
+
+	if (@hierarchy = 'N')
+	begin
+		insert into #data (
+			codefin,
+			fin,
 	
-		initialprevision,
-		previousprevision,
-		secondaryprevision,
-		currentarrears)
-	SELECT 
-		S_ALL.sortcode,	
-		S_ALL.description, 
-		ISNULL(SUM(isnull(FS.quota,1)*finyear.prevision),0),
-		ISNULL(SUM(isnull(FS.quota,1)*finyear.previousprevision),0), 
-		ISNULL(SUM(isnull(FS.quota,1)*finyear.secondaryprev),0) ,
-		ISNULL(SUM(isnull(FS.quota,1)*finyear.currentarrears),0)
-	FROM sorting S_ALL
-		join sortinglink SL on SL.idparent= S_ALL.idsor
-		JOIN sorting sorFin	on SL.idchild = sorFin.idsor
-		left outer JOIN finsorting FS ON sorFin.idsor = FS.idsor	
-		left outer JOIN fin	ON FS.idfin = fin.idfin	 AND fin.ayear = @ayear AND ((fin.flag & 1)= @finpart_bit) 	
-		LEFT OUTER JOIN finlast	 ON fin.idfin = finlast.idfin
-		left outer join  finyear ON finyear.idfin = fin.idfin
-		WHERE 			
-			S_ALL.idsorkind= @idsorkindfin
-	group by  S_ALL.sortcode, S_ALL.description
+			initialprevision,
+			previousprevision,
+			secondaryprevision,
+			currentarrears)
+		SELECT 
+			sorFin.sortcode,	
+			sorFin.description, 
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.prevision),0),
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.previousprevision),0), 
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.secondaryprev),0),
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.currentarrears),0)
+		FROM sorting sorFin	
+			left outer JOIN finsorting FS ON sorFin.idsor = FS.idsor	
+			left outer JOIN fin	ON FS.idfin = fin.idfin	 AND fin.ayear = @ayear AND ((fin.flag & 1)= @finpart_bit) 	
+			LEFT OUTER JOIN finlast	 ON fin.idfin = finlast.idfin
+			left outer join  finyear ON finyear.idfin = fin.idfin
+			WHERE sorFin.idsorkind= @idsorkindfin
+			and sorFin.nlevel = (select max(nlevel) from sortinglevel where idsorkind = @idsorkindfin)
+		group by  sorFin.sortcode, sorFin.description
+	end
+
+	if (@hierarchy = 'S')
+	begin
+		insert into #data (
+			codefin,
+			fin,
+	
+			initialprevision,
+			previousprevision,
+			secondaryprevision,
+			currentarrears)
+		SELECT 
+			S_ALL.sortcode,	
+			S_ALL.description, 
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.prevision),0),
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.previousprevision),0), 
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.secondaryprev),0),
+			ISNULL(SUM(isnull(FS.quota,1)*finyear.currentarrears),0)
+		FROM sorting S_ALL
+			join sortinglink SL on SL.idparent= S_ALL.idsor
+			JOIN sorting sorFin	on SL.idchild = sorFin.idsor
+			left outer JOIN finsorting FS ON sorFin.idsor = FS.idsor	
+			left outer JOIN fin	ON FS.idfin = fin.idfin	 AND fin.ayear = @ayear AND ((fin.flag & 1)= @finpart_bit) 	
+			LEFT OUTER JOIN finlast	 ON fin.idfin = finlast.idfin
+			left outer join  finyear ON finyear.idfin = fin.idfin
+			WHERE 			
+				S_ALL.idsorkind= @idsorkindfin
+		group by  S_ALL.sortcode, S_ALL.description
+	end
 end
 
 

@@ -25,8 +25,10 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'segistcons':
 						this.describeAColumn(table, 'keyword', 'Keyword', null, 40, null);
-						this.describeAColumn(table, 'lang', 'Lingua', null, 50, null);
-						//$objCalcFieldConfig_segistcons$
+						this.describeAColumn(table, 'idnation_lang', 'Lingua', null, 120, null);
+						this.describeAColumn(table, '!idnation_lang_geo_nation_lang', 'Lingua', null, 121, null);
+						objCalcFieldConfig['!idnation_lang_geo_nation_lang'] = { tableNameLookup:'geo_nation', columnNameLookup:'lang', columnNamekey:'idnation_lang' };
+//$objCalcFieldConfig_segistcons$
 						break;
 					//$objCalcFieldConfig$
 				}
@@ -36,7 +38,19 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'segistcons':
+						table.columns["idnation_lang"].caption = "Lingua";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idtesi"].caption = "Tesi";
+						table.columns["lang"].caption = "Lingua";
+//$innerSetCaptionConfig_segistcons$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_tesikeyword");
@@ -66,6 +80,10 @@
 						return def.resolve(dtRow);
 					});
 			},
+
+
+
+
 
 
 

@@ -29,6 +29,11 @@
 				var parentRow = self.state.currentRow;
 				
 				parentRow.idcostoscontodef = this.state.callerState.currentRow.idcostoscontodef;
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#fasciaiseedef_more_idfasciaisee'), null);
+				} else {
+					this.helpForm.filter($('#fasciaiseedef_more_idfasciaisee'), this.q.eq('fasciaisee_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -47,7 +52,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#fasciaiseedef_more_idfasciaisee'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 

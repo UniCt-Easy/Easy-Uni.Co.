@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -235,7 +233,7 @@ namespace calcolocedolino { //calcolocedolino//
             Cud.codicefiscalealtrosostituto = Conn.DO_READ_VALUE("license", null, "cf");
 
             decimal imponibilePrevContratto = CfgFn.GetNoNullDecimal(rContratto["taxablepension"]);
-            // Si calcola l'imponibile previdenziale totale (ossia quello del contratto corrente pi˘ quello degli altri
+            // Si calcola l'imponibile previdenziale totale (ossia quello del contratto corrente pi√π quello degli altri
             // contratti associati per via dei CUD
             Cud.imponibilePrevidenziale =
                 calcolaImponibilePrevidenziale(Conn, idContratto, imponibilePrevContratto, idDbDepartment);
@@ -331,7 +329,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="idContratto">ID del contratto di partenza</param>
         /// <param name="imponibilePrevContratto">Imponibile Previdenziale del Contratto</param>
         /// <param name="fieldToConsider">Campo del cud da considerare per la somma</param>
-        /// <param name="iterate">Se true, prende il dato dai contratti collegati anzichÈ dal cud se questo non Ë cartaceo</param>
+        /// <param name="iterate">Se true, prende il dato dai contratti collegati anzich√© dal cud se questo non √® cartaceo</param>
         /// <returns></returns>
         private static decimal calcolaTotaleRicorsivoCud(DataAccess Conn,
             object idContratto, object idDbDepartment, string fieldToConsiderCud, string fieldToConsiderSummaryView,
@@ -354,7 +352,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             DataTable LinkedCud = getCudLinkedToContract(Conn, idContratto, idDbDepartment);
 
-            // Se il CUD Ë cartaceo il dato viene preso dal CUD
+            // Se il CUD √® cartaceo il dato viene preso dal CUD
             // Altrimenti viene eseguita la ricorsione del metodo corrente in modo da ottenere il dato
             // direttamente dal contratto collegato al CUD
             foreach (DataRow ExC in LinkedCud.Rows) {
@@ -380,7 +378,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <returns>Totale dei contributi dovuti (sia c/dip sia c/amm)</returns>
         private static decimal sommaContributiDovuti(DataAccess Conn, object idContratto, object idDbDepartment,
             out decimal contributiTrattenuti) {
-            // Elenco dei cedolini rata del contratto (sono rata perchÈ l'ultimo parametro Ë false;
+            // Elenco dei cedolini rata del contratto (sono rata perch√© l'ultimo parametro √® false;
             // si usa true per ottenere il conguaglio)
             DataRow[] rCedolini = ottieniCedoliniErogatiPerContratto(Conn, idContratto, idDbDepartment, false);
             if (rCedolini.Length == 0) {
@@ -479,7 +477,7 @@ namespace calcolocedolino { //calcolocedolino//
                     continue;
                 }
                 else {
-                    //altrimenti prende i dati dal conguaglio, che includono gi‡ tutti i cud precedenti in annualpayedemploytax
+                    //altrimenti prende i dati dal conguaglio, che includono gi√† tutti i cud precedenti in annualpayedemploytax
                     foreach (DataRow rCedRit in tCedRit.Rows) {
                         ritenutaFiscale += (CfgFn.GetNoNullDecimal(rCedRit["annualpayedemploytax"]) +
                                             CfgFn.GetNoNullDecimal(rCedRit["employtax"]));
@@ -649,8 +647,8 @@ namespace calcolocedolino { //calcolocedolino//
             string filtro = QHS.AppAnd(filtroContratto, filtroEsercizio);
             string query = "";
             // Si ottiene la tabella dell'imputazione contratto relativa all'anno in corso e si calcola
-            // la somma dell'acconto applicato (il ciclo foreach Ë una generalizzazione andava anche bene
-            // prendere solamente la prima riga di tContratto, giacchÈ il filtro Ë sulla chiave ayear, idcon)
+            // la somma dell'acconto applicato (il ciclo foreach √® una generalizzazione andava anche bene
+            // prendere solamente la prima riga di tContratto, giacch√© il filtro √® sulla chiave ayear, idcon)
 
             query = "SELECT citytax_account FROM " + idDbDepartment + ".parasubcontractyear" +
                     " WHERE " + filtro;
@@ -702,9 +700,9 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         /// <summary>
-        /// L'imponibile fiscale lordo Ë calcolato come somma dell'imponibile "proprio" pi˘ quello dei propri contratti
-        ///  inseriti come cud in modo diretto o indiretto, pi˘ i contratti cartacei inseriti direttamente o indirettamente
-        /// L'importo "proprio" di un contratto Ë quello presente nel campo fiscaltaxablegross nella vista parasubcontractsummaryview
+        /// L'imponibile fiscale lordo √® calcolato come somma dell'imponibile "proprio" pi√π quello dei propri contratti
+        ///  inseriti come cud in modo diretto o indiretto, pi√π i contratti cartacei inseriti direttamente o indirettamente
+        /// L'importo "proprio" di un contratto √® quello presente nel campo fiscaltaxablegross nella vista parasubcontractsummaryview
         /// </summary>
         /// <param name="Conn"></param>
         /// <param name="idContratto"></param>
@@ -722,7 +720,7 @@ namespace calcolocedolino { //calcolocedolino//
 
         //TODO: Fare il conguaglio oltre che delle ritenute fiscali, anche dell'INAIL
 
-        //TODO: L'id. pat non puÚ essere unico, potrebbe cambiare al 1∞ luglio!
+        //TODO: L'id. pat non pu√≤ essere unico, potrebbe cambiare al 1¬∞ luglio!
         //TODO: Nel calcolo del costo totale si deve calcolare il compenso medio mensile
 
         /// <summary>
@@ -758,7 +756,7 @@ namespace calcolocedolino { //calcolocedolino//
             DataRow rContratto = rCedolino.GetParentRow("parasubcontractpayroll");
 
             // I rami del case sono i valori presenti nella tabella taxablekind. Se un domani dovesse nascere l'esigenza
-            // di creare un nuovo imponibile il valore posto nel campo evaluatesp dovr‡ diventare un nuovo ramo di questo case
+            // di creare un nuovo imponibile il valore posto nel campo evaluatesp dovr√† diventare un nuovo ramo di questo case
             // in modo da richiamare un nuovo metodo
             switch (spcalcoloimponibileriferimento) {
                 case "calcola_imponibile_addirpef":
@@ -804,9 +802,9 @@ namespace calcolocedolino { //calcolocedolino//
         /// <returns></returns>
         static public decimal calcolaImpFiscalePerAccontoAddizCom(DataAccess Conn, int esercizio, int idreg) {
             QueryHelper QHS = Conn.GetQueryHelper();
-            // L'imponibile Ë calcolato sommando gli imponibili lordi presenti nel riepilogo storico delle ritenute
+            // L'imponibile √® calcolato sommando gli imponibili lordi presenti nel riepilogo storico delle ritenute
             // con data di fine a NULL, filtrato sullo scaglione massimo della ritenuta in quanto 
-            // per ritenute scaglionati l'imponibile lordo Ë ricopiato identico su tutti gli scaglioni
+            // per ritenute scaglionati l'imponibile lordo √® ricopiato identico su tutti gli scaglioni
 
             string subQuery = "(SELECT MAX(C.nbracket) FROM expensetaxofficial C "
                               + " WHERE (C.idexp = P.idexp) AND (C.taxcode = P.taxcode) "
@@ -826,7 +824,7 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         /// <summary>
-        /// Metodo che calcola la regione fiscale di una data citt‡
+        /// Metodo che calcola la regione fiscale di una data citt√†
         /// </summary>
         /// <param name="Conn"></param>
         /// <param name="idCityForRegion"></param>
@@ -834,7 +832,7 @@ namespace calcolocedolino { //calcolocedolino//
         static public object calcolaRegioneFiscale(DataAccess Conn, object idCityForRegion) {
             QueryHelper QHS;
             QHS = Conn.GetQueryHelper();
-            // Nella vista sottostante ad ogni citt‡ Ë associata la regione fiscale di appartenenza
+            // Nella vista sottostante ad ogni citt√† √® associata la regione fiscale di appartenenza
             return Conn.DO_READ_VALUE("geo_cityfiscalview", QHS.CmpEq("idcity", idCityForRegion), "idfiscaltaxregion");
         }
 
@@ -877,14 +875,14 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         /// <summary>
-        /// Metodo che ottiene l'ID del comune attuale partendo da un ID di un comune che puÚ essere "antico"
+        /// Metodo che ottiene l'ID del comune attuale partendo da un ID di un comune che pu√≤ essere "antico"
         /// </summary>
         /// <param name="Conn"></param>
         /// <param name="idcomune"></param>
         /// <returns></returns>
         static public object trovaComuneAttuale(DataAccess Conn, object idcomune) {
             QueryHelper QHS = Conn.GetQueryHelper();
-            // Se il comune passato Ë associato ad un nuovo comune (campo newcity) viene preso il newcity altrimenti
+            // Se il comune passato √® associato ad un nuovo comune (campo newcity) viene preso il newcity altrimenti
             // resta l'idcomune ricevuto in input
             if (idcomune != null && idcomune != DBNull.Value) {
                 object newcomune = idcomune;
@@ -935,7 +933,7 @@ namespace calcolocedolino { //calcolocedolino//
             decimal taxable, out string errMess) {
             errMess = null;
             if ((idser == null) || (idser == DBNull.Value)) {
-                errMess = "Non Ë stata selezionata la prestazione";
+                errMess = "Non √® stata selezionata la prestazione";
                 return -1;
             }
             QueryHelper QHS = Conn.GetQueryHelper();
@@ -968,7 +966,7 @@ namespace calcolocedolino { //calcolocedolino//
             object idtaxratecitystart = Conn.DO_READ_VALUE("taxratecitystart", f1, "MAX(idtaxratecitystart)");
 
             if (idtaxratecitystart == null || idtaxratecitystart == DBNull.Value) {
-                //errMess = "Non esiste alcuna data di validit‡";
+                //errMess = "Non esiste alcuna data di validit√†";
                 //return - 1;
                 return 0; //Non ci sono scaglioni
             }
@@ -976,7 +974,7 @@ namespace calcolocedolino { //calcolocedolino//
                 QHS.AppAnd(QHS.CmpEq("idtaxratecitystart", idtaxratecitystart), QHS.CmpEq("idcity", idcity)),
                 "taxablemin"));
             if (esente >= taxable) return 0;
-            // Viene preso lo scaglione dove l'imponibile Ë compreso tra il limite minimo e massimo dello scaglione
+            // Viene preso lo scaglione dove l'imponibile √® compreso tra il limite minimo e massimo dello scaglione
             string f2 = QHS.AppAnd(QHS.CmpEq("taxcode", taxcode),
                 QHS.CmpEq("idcity", idcity), QHS.CmpEq("idtaxratecitystart", idtaxratecitystart),
                 QHS.CmpLe("ISNULL(minamount,0)", taxable),
@@ -997,7 +995,7 @@ namespace calcolocedolino { //calcolocedolino//
                 errMess = "Non esiste alcuna aliquota per l'addizionale comunale";
                 return -1;
             }
-            // L'acconto dell'addizionale comunale Ë fissato per legge al 30% dell'addizionale dovuta
+            // L'acconto dell'addizionale comunale √® fissato per legge al 30% dell'addizionale dovuta
             decimal percAcconto = 0.30M;
             return CfgFn.RoundValuta((taxable * CfgFn.GetNoNullDecimal(rate) * percAcconto));
         }
@@ -1032,7 +1030,7 @@ namespace calcolocedolino { //calcolocedolino//
         public decimal calcola_imponibile_erariale(
             decimal compensoLordo
         ) {
-            // L'imponibile previdenziale Ë sempre assunto pari al compenso lordo passato in input
+            // L'imponibile previdenziale √® sempre assunto pari al compenso lordo passato in input
             return compensoLordo;
         }
 
@@ -1098,7 +1096,7 @@ namespace calcolocedolino { //calcolocedolino//
                     bonus_teorico_annuo = maxAnnuoConsiderato;
                 }
                 else {
-                    bonus_teorico_annuo = maxAnnuoConsiderato * (maxAnnualTaxable - redditoAnnuoComplessivo) / 2000;// perchË divide per 2000????
+                    bonus_teorico_annuo = maxAnnuoConsiderato * (maxAnnualTaxable - redditoAnnuoComplessivo) / 2000;// perch√® divide per 2000????
                 }
             }
             return bonus_teorico_annuo;
@@ -1109,7 +1107,7 @@ namespace calcolocedolino { //calcolocedolino//
             int annoFiscale,
             int ggLavoroInAnno // Stima dei giorni di lavoro che si effettueranno nell' anno, include sia CUD di precedenti Rapporti di lavoro che una previsione della durata fino a fine anno
         ) {
-            // Una volta calcolato il bonus teorico annuo lo si deve rapportare al periodo di lavoro dellíanno quindi:
+            // Una volta calcolato il bonus teorico annuo lo si deve rapportare al periodo di lavoro dell‚Äôanno quindi:
             // bonus effettivo spettante = [bonus annuo/365 (366)] * n. giorni lavorati  
             int giorniAnnoSolare = DateTime.IsLeapYear(annoFiscale) ? 366 : 365;
             if (ggLavoroInAnno > giorniAnnoSolare) ggLavoroInAnno = giorniAnnoSolare;
@@ -1148,7 +1146,7 @@ namespace calcolocedolino { //calcolocedolino//
         public decimal calcola_imponibile_bonus_fiscale_2014(
             object idCedolino, string natura, object idContratto, int annoFiscale
         ) {
-            // Condizione applicabilita' 1 Reddito annuo complessivo - Ritenute previdenziali c/dipendente ñ Ritenute assistenziali c/dipendente 
+            // Condizione applicabilita' 1 Reddito annuo complessivo - Ritenute previdenziali c/dipendente ‚Äì Ritenute assistenziali c/dipendente 
             //- deduzioni rendita catastale abitazione  < 26.0000 euro
             string filtro = QHC.AppAnd(QHC.CmpEq("idcon", idContratto),
                 QHC.CmpEq("ayear", annoFiscale));
@@ -1177,7 +1175,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             decimal deduzione_annua_per_ritenute = 0;
             // Dall'imponibile di riferimento devo sottrarre le ritenute assistenziali e previdenziali carico lavoratore del presente contratto,
-            // Non Ë possibile fare un calcolo delle ritenute globale a livello di contratto, perciÚ effettueremo una perequazione sul cedolino rata
+            // Non √® possibile fare un calcolo delle ritenute globale a livello di contratto, perci√≤ effettueremo una perequazione sul cedolino rata
             // natura vale C (cedolino Conguaglio), R (cedolino Rata)
             if (natura == "R") { // Cedolino Rata: somma delle ritenute previdenziali * numero giorni cedolino / totale giorni contratto
 
@@ -1265,9 +1263,9 @@ namespace calcolocedolino { //calcolocedolino//
             decimal imponibile = 0;
             //calcola l'imponibile lordo per tutte le altre collaborazioni in essere nel mese considerato
 
-            // Si definisce un ciclo che va dal primo mese dove puÚ essere applicata l'INAIL sino all'ultimo mese del cedolino
-            // Determinare il primo mese di applicazione dell'INAIL Ë importante in quanto per come Ë strutturata la logica dei cedolini
-            // si rischierebbe di far pagare l'INAIL pi˘ volte nello stesso mese.
+            // Si definisce un ciclo che va dal primo mese dove pu√≤ essere applicata l'INAIL sino all'ultimo mese del cedolino
+            // Determinare il primo mese di applicazione dell'INAIL √® importante in quanto per come √® strutturata la logica dei cedolini
+            // si rischierebbe di far pagare l'INAIL pi√π volte nello stesso mese.
             // Difatti se ho un cedolino con date 01.01 - 15.01 e uno con date 16.01 - 28.02
             // Sul primo cedolino applico tutta l'INAIL di gennaio e sul secondo la sola INAIL di febbraio
             for (DateTime datariferimentomin =
@@ -1280,7 +1278,7 @@ namespace calcolocedolino { //calcolocedolino//
                     QHS.CmpLe("startmonth", datariferimentomin.Month),
                     QHS.CmpEq("taxablecode", "ASSICUR"));
 
-                // Il minimale e massinale Ë diviso per 12 in quanto nella tabella sono memorizzati quelli annuali
+                // Il minimale e massinale √® diviso per 12 in quanto nella tabella sono memorizzati quelli annuali
                 // mentre a noi serve il mensile
                 DataTable tMinMasImp = DataAccess.RUN_SELECT(Conn, "taxableminmax",
                     "minimum=minimum/12, maximal=maximal/12", "ayear desc, startmonth desc",
@@ -1323,7 +1321,7 @@ namespace calcolocedolino { //calcolocedolino//
                         }
                     }
                 }
-                // Si sommano l'imponibile medio del contratto pi˘ quello delle altre collaborazioni pi˘ quello dei CUD
+                // Si sommano l'imponibile medio del contratto pi√π quello delle altre collaborazioni pi√π quello dei CUD
                 decimal importoTotale = altriImponibili + altriImponibiliCud + imponibilelordomensile;
 
                 decimal perc = (importoTotale == 0) ? 0 : imponibilelordomensile / importoTotale;
@@ -1334,7 +1332,7 @@ namespace calcolocedolino { //calcolocedolino//
                     ? CfgFn.GetNoNullDecimal(tMinMasImp.Rows[0]["maximal"])
                     : decimal.MaxValue;
                 //Se la somma di tutti gli imponibili
-                //non Ë compresa tra minimale e massimale allora va presa la proporzione
+                //non √® compresa tra minimale e massimale allora va presa la proporzione
                 //tra l'imponibile del cedolino e la somma di tutti gli imponibili
                 if (importoTotale < minimale) {
                     imponibile += minimale * perc;
@@ -1370,8 +1368,8 @@ namespace calcolocedolino { //calcolocedolino//
         ) {
             CQueryHelper QHC = new CQueryHelper();
             decimal imponibile = 0;
-            // Il principio di funzionamento Ë medesimo a quello del metodo calcola_imponibile_assicurativo
-            // l'unica differenza Ë che questo Ë un metodo statico adoperato nel calcolo del costo totale
+            // Il principio di funzionamento √® medesimo a quello del metodo calcola_imponibile_assicurativo
+            // l'unica differenza √® che questo √® un metodo statico adoperato nel calcolo del costo totale
             //calcola l'imponibile lordo per tutte le altre collaborazioni in essere nel mese considerato
             for (DateTime datariferimentomin = new DateTime(dataInizioCompetenza.Year, dataInizioCompetenza.Month, 1);
                 datariferimentomin <= dataFineCompetenza;
@@ -1457,27 +1455,27 @@ namespace calcolocedolino { //calcolocedolino//
 
         /// <summary>
         /// Calcola l'imponibile assistenziale a partire dal compenso lordo del cedolino; 
-        /// In realt‡ input ed output coincidono.
+        /// In realt√† input ed output coincidono.
         /// </summary>
         /// <param name="imponibilePrevidenziale">imponibile previdenziale</param>
         /// <returns>imponibile assistenziale (= previdenziale)</returns>
         public decimal calcola_imponibile_assistenziale(
             decimal imponibilePrevidenziale
         ) {
-            // L'imponibile assistenziale Ë sempre uguale al previdenziale (passato in input)
+            // L'imponibile assistenziale √® sempre uguale al previdenziale (passato in input)
             return imponibilePrevidenziale;
         }
 
         /// <summary>
         /// Calcola l'imponibile fiscale lordo del cedolino a partire dall'imponibile per le addizionali.
-        /// In realt‡ input ed output coincidono.
+        /// In realt√† input ed output coincidono.
         /// </summary>
         /// <param name="imponibilePrevidenziale">imponibile previdenziale</param>
         /// <returns>imponibile fiscale non dedotto</returns>
         public decimal calcola_imponibile_irpef(
             decimal imponibileDiRiferimento
         ) {
-            // L'imponibile IRPEF Ë sempre pari all'imponibile di riferimento passato in input
+            // L'imponibile IRPEF √® sempre pari all'imponibile di riferimento passato in input
             return CfgFn.RoundValuta(imponibileDiRiferimento);
         }
 
@@ -1497,7 +1495,7 @@ namespace calcolocedolino { //calcolocedolino//
             int annoFiscale,
             object idContratto
         ) {
-            // Siamo in un cedolino rata l'imponibile sar‡ pari a quello di riferimento
+            // Siamo in un cedolino rata l'imponibile sar√† pari a quello di riferimento
             if (natura == "R") {
                 return imponibileDiRiferimento;
             }
@@ -1509,10 +1507,10 @@ namespace calcolocedolino { //calcolocedolino//
             decimal altriImponibili = 0;
             // Per ogni CUD bisogna applicare tale strategia
             // Se l'utente ha specificato l'imponibile fiscale lordo, prendiamo questo valore,
-            // altrimenti verr‡ considerato l'imponibile previdenziale meno tutti gli oneri deducibili
+            // altrimenti verr√† considerato l'imponibile previdenziale meno tutti gli oneri deducibili
             foreach (DataRow r in rCud) {
                 decimal imponibileCud = 0;
-                // Se Ë definito l'imponibile fiscale lordo, ad esso si sommano le deduzioni per oneri definite nel CUD
+                // Se √® definito l'imponibile fiscale lordo, ad esso si sommano le deduzioni per oneri definite nel CUD
                 if (r["taxablegross"] != DBNull.Value) {
                     imponibileCud = (decimal)r["taxablegross"];
                     imponibileCud += calcolaDeduzionePerOneriDiCud(r);
@@ -1520,7 +1518,7 @@ namespace calcolocedolino { //calcolocedolino//
                 // Atrimenti si considera l'imponibile previdenziale al netto dell'INPS trattenuta
                 else {
                     imponibileCud = (decimal)r["taxablepension"];
-                    //La logica di exhibitedcuddeduction Ë cambiata, ossia li troviamo il LORDO e non il netto
+                    //La logica di exhibitedcuddeduction √® cambiata, ossia li troviamo il LORDO e non il netto
                     MetaFactory.factory.getSingleton<IMessageShower>().Show("E' necessario specificare l'imponibile fiscale lordo per tutti i CUD presentati",
                         "Errore");
                     //foreach(DataRow rDed in r.GetChildRows("exhibitedcudexhibitedcuddeduction")) {
@@ -1689,7 +1687,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             int gglavorati = 0;
-            // Per contare i giorni lavorati baster‡ contare i bit accesi nell'array
+            // Per contare i giorni lavorati baster√† contare i bit accesi nell'array
             foreach (bool b in lav) {
                 if (b) {
                     gglavorati++;
@@ -1725,7 +1723,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             int gglavorati = 0;
-            // Per contare i giorni lavorati baster‡ contare i bit accesi nell'array
+            // Per contare i giorni lavorati baster√† contare i bit accesi nell'array
             foreach (bool b in lav) {
                 if (b) {
                     gglavorati++;
@@ -1838,7 +1836,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="rCedolino">riga della tabella cedolino</param>
         /// <param name="codiceimponibile">id. del tipo imponibile</param>
         /// <param name="imponibileriferimento">imponibile sul quale applicare le deduzioni</param>
-        /// <param name="ritenuteApplicate">ritenute non fiscali versate sugli imponibili con ordine di valutazione pi˘ alto</param>
+        /// <param name="ritenuteApplicate">ritenute non fiscali versate sugli imponibili con ordine di valutazione pi√π alto</param>
         /// <returns>somma delle deduzioni per questo imponibile</returns>
         private decimal calcolaDeduzioniPerUnImponibile(
             DataRow rCedolino,
@@ -1889,7 +1887,7 @@ namespace calcolocedolino { //calcolocedolino//
                     deduzione = imponibileriferimento - deduzionicorrenti;
                 }
 
-                // Se la deduzione Ë positiva si crea una riga nella tabella delle deduzioni associate al cedolino (PAYROLLDEDUCTION)
+                // Se la deduzione √® positiva si crea una riga nella tabella delle deduzioni associate al cedolino (PAYROLLDEDUCTION)
                 if (deduzione > 0) {
                     MetaData.SetDefault(DS.Tables["payrolldeduction"], "iddeduction", iddeduzione);
                     DataRow NewDeduzione = MetaDettaglioDeduzioneCedolino.Get_New_Row(rCedolino,
@@ -1904,7 +1902,7 @@ namespace calcolocedolino { //calcolocedolino//
                 }
             }
 
-            // Sezione riferita al solo conguaglio e se l'imponibile corrente Ë quello per ADDIZIONALI
+            // Sezione riferita al solo conguaglio e se l'imponibile corrente √® quello per ADDIZIONALI
             if ((isConguaglio) && (codiceimponibile.ToString() == "ADDIRPEF")) {
                 // Si considerano di tutti i cedolini rata la somma delle ritenute previdenziali ed assicurative
                 // (INPS e INAIL) che saranno delle deduzioni per l'imponibile ADDIRPEF
@@ -1938,7 +1936,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="franchigia">tipodeduzione.franchigia</param>
         /// <param name="massimale">tipodeduzione.massimale</param>
         /// <param name="tipocalcolo">tipodeduzione.tipocalcolo</param>
-        /// <param name="ritenuteApplicate">ritenute gi‡ versate sugli imponibili gi‡ valutati</param>
+        /// <param name="ritenuteApplicate">ritenute gi√† versate sugli imponibili gi√† valutati</param>
         /// <param name="deduzioneannua">importo annuale della deduzione</param>
         /// <returns>importo mensile della deduzione</returns>
         public decimal calcola_deduzione(
@@ -1979,7 +1977,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             // Fine Sezione dichiarativa
 
-            // Parte commentata attualmente inutile, serviva per le deduzioni ai familiari, non pi˘ usate
+            // Parte commentata attualmente inutile, serviva per le deduzioni ai familiari, non pi√π usate
             // Si ottiene l'elenco degli oneri deducibili di un contratto
             //DataRow[] rOnerDeduc = DS.deductibleexpense.Select(QHC.CmpEq("idcon", idcontratto));
             //decimal totonerideducibili = 0;
@@ -1988,7 +1986,7 @@ namespace calcolocedolino { //calcolocedolino//
             //}
 
             switch (spdeduzione) {
-                // J.T.R. 2007 - Commentato! Non esiste pi˘ la no tax area.
+                // J.T.R. 2007 - Commentato! Non esiste pi√π la no tax area.
                 //case "calcola_deduzione_art11_2004": 
                 //    // Commentata x velocizzare il processo
                 //    //					stampaChiamataDeduzioni(spdeduzione, natura, iddeduzione, idcedolino, idcontratto,
@@ -2027,7 +2025,7 @@ namespace calcolocedolino { //calcolocedolino//
                         out deduzioneannua
                     );
 
-                // J.T.R. 2007 - Commentato! Non esistono pi˘ le deduzioni per carichi familiari.
+                // J.T.R. 2007 - Commentato! Non esistono pi√π le deduzioni per carichi familiari.
                 // Sono state sostituite dalle detrazioni.
                 //case "calcola_deduzione_familiariacarico":
                 //    return calcola_deduzione_familiariacarico(
@@ -2098,7 +2096,7 @@ namespace calcolocedolino { //calcolocedolino//
             out decimal deduzioneannua
         ) {
 
-            //Se il Cedolino Ë rata, restituisce la quota parte della deduzione annuale in base ai mesi del cedolino
+            //Se il Cedolino √® rata, restituisce la quota parte della deduzione annuale in base ai mesi del cedolino
             DataRow[] rOnerDed = DS.deductibleexpense.Select(QHC.AppAnd(QHC.CmpEq("idcon", idcontratto),
                 QHC.CmpEq("iddeduction", iddeduzione)));
 
@@ -2109,7 +2107,7 @@ namespace calcolocedolino { //calcolocedolino//
                 return 0;
             }
 
-            // Se siamo in un conguaglio e ci sono oneri verr‡ preso il valore degli oneri, altrimenti si parte da zero
+            // Se siamo in un conguaglio e ci sono oneri verr√† preso il valore degli oneri, altrimenti si parte da zero
             if (rOnerDed.Length != 0) {
                 deduzioneannua = CfgFn.GetNoNullDecimal(rOnerDed[0]["totalamount"]);
             }
@@ -2119,7 +2117,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             // Sezione che determina la frazione per rapportare la deduzione annuale rispetto alla durata del cedolino
 
-            // Se un cedolino Ë giornaliero la frazione Ë espressa in termini di giorni altrimenti in termini mensili
+            // Se un cedolino √® giornaliero la frazione √® espressa in termini di giorni altrimenti in termini mensili
             int gglavorati = 1 + (dataFineCompetenza - dataInizioCompetenza).Days;
             int giornicedolino = 1 + (dataFineCedolino - dataInizioCedolino).Days;
             int numAnno = 1, denAnno = 1;
@@ -2155,7 +2153,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
 
-            //Se Ë un cedolino di conguaglio, restituisce la deduzione annua  sommata anche a quella dei CUD
+            //Se √® un cedolino di conguaglio, restituisce la deduzione annua  sommata anche a quella dei CUD
 
             string filtroCud =
                 QHC.DistinctVal(DS.exhibitedcud.Select(QHC.CmpEq("idcon", idcontratto)), "idexhibitedcud");
@@ -2180,7 +2178,7 @@ namespace calcolocedolino { //calcolocedolino//
             decimal totalededuzioneannuale = deduzioneannua + deduzionialtricud;
 
             // Si confronta il dato col massimale, si sottrae la franchigia e si applica l'aliquota.
-            // GiacchÈ siamo in un conguaglio non viene applicata la quota parte come x i cedolini rata (la frazione sarebbe sempre 1/1)
+            // Giacch√© siamo in un conguaglio non viene applicata la quota parte come x i cedolini rata (la frazione sarebbe sempre 1/1)
             if ((massimale != 0) && (totalededuzioneannuale > massimale)) {
                 totalededuzioneannuale = massimale;
             }
@@ -2194,7 +2192,7 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         /// <summary>
-        /// Se Ë un cedolino di conguaglio allora restituisce i contributi versati;
+        /// Se √® un cedolino di conguaglio allora restituisce i contributi versati;
         /// altrimenti restituisce una proiezione dei contributi versati sul contratto, stile calcolo della deduzione
         /// no tax area. (Rapporta i contributi versati del cedolino con il periodo di competenza del contratto)
         /// </summary>
@@ -2279,11 +2277,11 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="datafinecompetenza">ultimo giorno di competenza del cedolino</param>
         /// <param name="datainiziocontratto">primo giorno del contratto</param>
         /// <param name="datafinecontratto">ultimo giorno del contratto</param>
-        /// Specifica se il primo mese di un contratto che comincia il 1/1/5 in realt‡ deve cominciare
+        /// Specifica se il primo mese di un contratto che comincia il 1/1/5 in realt√† deve cominciare
         /// esattamente un mese prima del primo giorno del secondo cedolino
         /// </param>
         /// <param name="tipocalcolo">Se 'M' allora la proporzione tra anno e duratacedolino 
-        /// varr‡ numeroMesiDiQuestAnno; altrimento se 'G' varr‡ gglavorati / giornicedolino</param>
+        /// varr√† numeroMesiDiQuestAnno; altrimento se 'G' varr√† gglavorati / giornicedolino</param>
         /// <param name="deduzioneannua">importo annuale della deduzione</param>
         /// <returns>importo mensile della deduzione</returns>
         public decimal calcola_deduzione_art11_2004(
@@ -2318,8 +2316,8 @@ namespace calcolocedolino { //calcolocedolino//
                 return 0;
             }
 
-            // calcolo la deduzione potenziale in base al numero di gg gi‡ lavorati nell'anno
-            // questo numero Ë calcolato sulla base sia degli altri cud che del periodo di rif. del cedolino corrente, pregressi e successivi!!!!!
+            // calcolo la deduzione potenziale in base al numero di gg gi√† lavorati nell'anno
+            // questo numero √® calcolato sulla base sia degli altri cud che del periodo di rif. del cedolino corrente, pregressi e successivi!!!!!
             // incomincio (per questioni anche di ottimizzazione)  a calcolare i gg lav. per questo contratto
 
             int gglavorati = calcolaGiorniLavorati(idcontratto, dataInizioCedolino, dataFineCedolino, natura);
@@ -2335,7 +2333,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             DateTime primoGennaio = new DateTime(annofiscale, 1, 1);
             int giorniAnnoSolare = DateTime.IsLeapYear(annofiscale) ? 366 : 365;
-            // L'imponibile che passiamo a questo metodo Ë gi‡ comprensivo degli imponibili derivanti da atri CUD
+            // L'imponibile che passiamo a questo metodo √® gi√† comprensivo degli imponibili derivanti da atri CUD
             //			decimal imponibileFiscaleLordoAltriCud = decimal.Zero;
             //
             //			if ((natura=="C") && (numeroaltricud>0)) {
@@ -2542,7 +2540,7 @@ namespace calcolocedolino { //calcolocedolino//
                         string filtroConiuge =
                             QHC.AppAnd(QHC.CmpEq("idcon", idcontratto), QHC.CmpEq("idaffinity", "C"));
                         DataRow[] tempFamConiuge = DS.parasubcontractfamily.Select(filtroConiuge);
-                        // Se non esiste un coniuge viene considerata, qualora sia pi˘ vantaggiosa la deduzione di primo figlio senza coniuge
+                        // Se non esiste un coniuge viene considerata, qualora sia pi√π vantaggiosa la deduzione di primo figlio senza coniuge
                         if ((tempFamConiuge.Length == 0) &&
                             (DEDUZIONE_PRIMO_FIGLIO_SENZA_CONIUGE > deduzioneCorrente)) {
                             deduzioneCorrente = DEDUZIONE_PRIMO_FIGLIO_SENZA_CONIUGE;
@@ -2702,7 +2700,7 @@ namespace calcolocedolino { //calcolocedolino//
         #region ritenute
 
         //TODO: Eliminare principioapplicazione, datacontabile, dataprestazione; le addizionali si applicano sempre al 31/12/annofiscale
-        //TODO: Eliminare idcedolino; mi serviva per calcolare l'imponibile pregresso, ma questo ce l'ho gi‡ come input
+        //TODO: Eliminare idcedolino; mi serviva per calcolare l'imponibile pregresso, ma questo ce l'ho gi√† come input
 
         /// <summary>
         /// Calcola una qualsiasi ritenuta chiamando il metodo di calcolo opportuno.
@@ -2882,7 +2880,7 @@ namespace calcolocedolino { //calcolocedolino//
                                         taxableNumerator, taxableDenominator);
                                 }
                                 else
-                                    // Caso in cui Ë stata determinata l'applicaizone di una ritenuta a scaglioni
+                                    // Caso in cui √® stata determinata l'applicaizone di una ritenuta a scaglioni
                                     return calcola_ritenuta_generica(idCedolino, codiceRitenuta, imponibilenetto,
                                         dataFineCedolino, numeratoreAnno, denominatoreAnno);
                             }
@@ -2894,14 +2892,14 @@ namespace calcolocedolino { //calcolocedolino//
                     return calcola_ritenuta_generica(idCedolino, codiceRitenuta, imponibilenetto,
                         dataFineCedolino, numeratoreAnno, denominatoreAnno);
                 // Nel caso delle ritenute da CAF se non viene prodotta alcuna ritenuta viene ritornato NULL
-                // anche perchÈ queste ritenute sono presenti sono nei cedolini rata e non anche in quello di conguaglio
+                // anche perch√© queste ritenute sono presenti sono nei cedolini rata e non anche in quello di conguaglio
 
                 // Ritenute Arretrate
                 case 5: {
                         switch (taxref) {
                             // Addizionale Regionale Rateizzata (Quella inserita dalla scheda Addizionali nel
                             // riquadro inerente le addizionali regionali derivanti da contratti al 31.12 anno 
-                            // precedente della stessa universit‡)
+                            // precedente della stessa universit√†)
                             case "08_ADDREGRATA":
                                 if (controllaSePrimoCedolinoDelMese(idCedolino)) {
                                     return calcolaRataAddizionaleRegionale(
@@ -2913,7 +2911,7 @@ namespace calcolocedolino { //calcolocedolino//
                                 return null;
                             // Addizionale Comunale Rateizzata (Quella inserita dalla scheda Addizionali nel
                             // riquadro inerente le addizionali regionali derivanti da contratti al 31.12 anno 
-                            // precedente della stessa univerist‡
+                            // precedente della stessa univerist√†
                             case "08_ADDCOMRATA":
                                 if (controllaSePrimoCedolinoDelMese(idCedolino)) {
                                     return calcolaRataAddizionaleComunale(
@@ -2970,7 +2968,7 @@ namespace calcolocedolino { //calcolocedolino//
             DataRow rCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino))[0];
             DataRow rRit = MetaCedolinoRitenuta.Get_New_Row(rCedolino, DS.payrolltax);
             // L'aliquota diventa costante quindi si crea una sola riga in PAYROLLTAX e PAYROLLTAXBRACKET
-            // La ritenuta Ë il prodotto tra imponibile e aliquota
+            // La ritenuta √® il prodotto tra imponibile e aliquota
             decimal rapporto = getRapporto(taxablenumerator, taxabledenominator);
             rRit["taxcode"] = codiceRitenuta;
             rRit["employrate"] = maggioreritenuta;
@@ -3029,9 +3027,9 @@ namespace calcolocedolino { //calcolocedolino//
 
         /// <summary>
         /// Metodo che sceglie in quale giorno deve essere applicata la deduzione seguendo la seguente strategia:
-        /// Caso 1: Data di Inizio del Cedolino - Se l'inizio dell'applicazione Ë compresa tra data inizio e fine del cedolino
-        /// Caso 2: Data di Inizio del Cedolino - Se l'applicazione Ë iniziata prima e termina dopo la data di inizio del cedolino
-        /// Caso 3: Data di Inizio del Cedolino - Se l'applicazione inizia nello stesso mese della data di inizio del cedolino ma Ë successiva in termini di giorni
+        /// Caso 1: Data di Inizio del Cedolino - Se l'inizio dell'applicazione √® compresa tra data inizio e fine del cedolino
+        /// Caso 2: Data di Inizio del Cedolino - Se l'applicazione √® iniziata prima e termina dopo la data di inizio del cedolino
+        /// Caso 3: Data di Inizio del Cedolino - Se l'applicazione inizia nello stesso mese della data di inizio del cedolino ma √® successiva in termini di giorni
         /// Caso 4: Primo Giorno del Mese successivo alla Data di Inizio del Cedolino - In tutti gli altri casi
         /// </summary>
         /// <param name="dataInizioCedolino">Data Inizio del Cedolino</param>
@@ -3042,7 +3040,7 @@ namespace calcolocedolino { //calcolocedolino//
         private DateTime getGiornoPrimoPagamentoFamiliare(DateTime dataInizioCedolino, DateTime dataFineCedolino,
             DateTime inizioApplicazione, DateTime fineApplicazione) {
             // Se l'applicazione ricade nel periodo di competenza del cedolino
-            // allora il pagamento cadr‡ nel cedolino
+            // allora il pagamento cadr√† nel cedolino
             if ((inizioApplicazione >= dataInizioCedolino) && (inizioApplicazione <= dataFineCedolino)) {
                 if ((inizioApplicazione.Month == dataInizioCedolino.Month) &&
                     (inizioApplicazione.Year == dataInizioCedolino.Year)) {
@@ -3051,7 +3049,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             // Se l'applicazione inizia prima del cedolino considerato e termina dopo di esso
-            // allora il pagamento cadr‡ nel cedolino
+            // allora il pagamento cadr√† nel cedolino
             if ((inizioApplicazione < dataInizioCedolino) && (fineApplicazione >= dataInizioCedolino)) {
                 return dataInizioCedolino;
             }
@@ -3072,10 +3070,10 @@ namespace calcolocedolino { //calcolocedolino//
 
         /// <summary>
         /// Restituisce:
-        /// la data di inizio del cedolino se il giorno di tale data Ë 1 ed il mese Ë diverso da quello della prima rata;
-        /// l'1 del mese successivo alla data di inizio del cedolino se il giorno di tale data Ë diverso da 1 ed il mese Ë diverso da quello della prima rata; 
+        /// la data di inizio del cedolino se il giorno di tale data √® 1 ed il mese √® diverso da quello della prima rata;
+        /// l'1 del mese successivo alla data di inizio del cedolino se il giorno di tale data √® diverso da 1 ed il mese √® diverso da quello della prima rata; 
         /// oppure se non esistono altri cedolini con datainizio minore o uguale all'ultimo del mese della prima rata
-        /// l'1 del mese della prima rata se esiste gi‡ un altro cedolino con datainizio minore o uguale all'ultimo del mese della prima rata
+        /// l'1 del mese della prima rata se esiste gi√† un altro cedolino con datainizio minore o uguale all'ultimo del mese della prima rata
         /// </summary>
         /// <param name="idcontratto">id. del contratto</param>
         /// <param name="dataInizioCedolino">primo giorno di competenza del cedolino</param>
@@ -3087,7 +3085,7 @@ namespace calcolocedolino { //calcolocedolino//
                 new DateTime(dataInizioCedolino.Year, dataInizioCedolino.Month, 1);
 
             if (primoGiornoDelMeseInizioCedolino > primoGiornoPrimaRata) {
-                //Il mese della data di inizio del cedolino Ë maggiore del mese della prima rata da pagare
+                //Il mese della data di inizio del cedolino √® maggiore del mese della prima rata da pagare
 
                 //primoPagamento = arrotondamento per eccesso di datainiziocedolino
                 DateTime primoPagamento = (dataInizioCedolino.Day == 1)
@@ -3100,8 +3098,8 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             DateTime ultimoGiornoPrimaRata = primoGiornoPrimaRata.AddMonths(1).AddDays(-1);
-            //Il mese della data di inizio del cedolino Ë minore o uguale al mese della prima rata da pagare
-            //Mi chiedo: Prima rata gi‡ pagata?
+            //Il mese della data di inizio del cedolino √® minore o uguale al mese della prima rata da pagare
+            //Mi chiedo: Prima rata gi√† pagata?
             string filtro = QHC.AppAnd(QHC.CmpEq("idcon", idcontratto),
                 QHC.CmpLe("start", ultimoGiornoPrimaRata),
                 QHC.CmpLt("start", dataInizioCedolino),
@@ -3109,10 +3107,10 @@ namespace calcolocedolino { //calcolocedolino//
                 QHC.CmpEq("flagbalance", "N"));
             int count = DS.payroll.Select(filtro).Length;
             if (count == 0) {
-                //No, la prima rata la dovrÚ pagare ora
+                //No, la prima rata la dovr√≤ pagare ora
                 return primoGiornoPrimaRata;
             }
-            //Si, ho gi‡ pagato la prima rata, comincio a pagare dal mese successivo a quello di inizio del cedolino
+            //Si, ho gi√† pagato la prima rata, comincio a pagare dal mese successivo a quello di inizio del cedolino
             return primoGiornoDelMeseInizioCedolino.AddMonths(1);
         }
 
@@ -3121,12 +3119,12 @@ namespace calcolocedolino { //calcolocedolino//
         /// </summary>
         /// <param name="idcontratto">ID del contratto sul quale controllare l'esistenza di altri cedolini</param>
         /// <param name="dataInizioCedolino">Data inizio del cedolino</param>
-        /// <param name="primoCedolinoAnnoFiscale">Flag che indica se il cedolino Ë il primo dell'anno fiscale</param>
+        /// <param name="primoCedolinoAnnoFiscale">Flag che indica se il cedolino √® il primo dell'anno fiscale</param>
         /// <returns>Primo giorno di pagamento dell'INAIL</returns>
         private DateTime getGiornoPrimoPagamentoInail(object idcontratto,
             DateTime dataInizioCedolino, bool primoCedolinoAnnoFiscale) {
-            // JTR - Se il cedolino che sto esaminando Ë il primo dell'anno fiscale devo verificare che
-            // nell'anno precedente non abbia gi‡ pagato l'INAIL nel mese di inizio del cedolino corrente
+            // JTR - Se il cedolino che sto esaminando √® il primo dell'anno fiscale devo verificare che
+            // nell'anno precedente non abbia gi√† pagato l'INAIL nel mese di inizio del cedolino corrente
             // Se invece non mi trovo sul primo cedolino dell'anno fiscale funziona tutto come prima.
             if (primoCedolinoAnnoFiscale) {
                 int esercizioprec = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio")) - 1;
@@ -3149,7 +3147,7 @@ namespace calcolocedolino { //calcolocedolino//
                 // Ultimo cedolino anno precedente con data di fine il 10 ottobre
                 // Primo cedolino anno nuovo con data di inizio l'11 ottobre
                 // I due cedolini hanno il mese in comune, quindi il primo giorno valido per il 
-                // calcolo dell'INAIL Ë l'1 novembre
+                // calcolo dell'INAIL √® l'1 novembre
                 if ((datafineUltimoCedolinoPrecedenteAnnoPrec.Month == dataInizioCedolino.Month) &&
                     (datafineUltimoCedolinoPrecedenteAnnoPrec.Year == dataInizioCedolino.Year)) {
                     return new DateTime(dataInizioCedolino.Year, dataInizioCedolino.Month, 1).AddMonths(1);
@@ -3214,7 +3212,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// Controlla che il cedolino sia il primo del mese
         /// </summary>
         /// <param name="idCedolino">ID del cedolino da controllare</param>
-        /// <returns>TRUE: se il cedolino Ë il primo del mese; FALSE: altrimenti</returns>
+        /// <returns>TRUE: se il cedolino √® il primo del mese; FALSE: altrimenti</returns>
         private bool controllaSePrimoCedolinoDelMese(object idCedolino) {
             string filtro = QHC.CmpEq("idpayroll", idCedolino);
             DataRow rCed = DS.payroll.Select(filtro)[0];
@@ -3300,7 +3298,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <returns></returns>
         private DataRow conguaglioAccontoAddCom(object idCedolino, object codiceRitenuta, object idCity) {
             // Viene creata una riga in payrolltax / payrolltaxbracket per restituire i soldi dell'acconto
-            // all'addizionale comunale. Ricordiamo che il nostro modo di operare Ë quello che
+            // all'addizionale comunale. Ricordiamo che il nostro modo di operare √® quello che
             // tratteniamo per ogni cedolino rata una quota dell'acconto all'addizionale (in base al numero di rate 
             // applicate) e in conguaglio restituiamo la somma in quanto la legge dice che l'acconto all'addizionale
             // comunale deve essere portato in compensazione con l'addizionale comunale da versare
@@ -3340,7 +3338,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// Restituisce la tabella degli scaglioni da applicare per la ritenuta data.
         /// </summary>
         /// <param name="codiceritenuta">id. del tipo di ritenuta</param>
-        /// <param name="imponibilePregresso">imponibile di partenza (sul quale si Ë gi‡ versata la ritenuta);
+        /// <param name="imponibilePregresso">imponibile di partenza (sul quale si √® gi√† versata la ritenuta);
         /// 0 se gli scaglioni vanno applicati tutti ad ogni nuovo calcolo</param>
         /// <param name="compensoDaTassare">imponibile sul quale applicare la ritenuta</param>
         /// <param name="dataprestazione">data di competenza della ritenuta</param>
@@ -3372,7 +3370,7 @@ namespace calcolocedolino { //calcolocedolino//
             // Si calcola il rapporto tra numeratore e denominatore
             decimal rapporto = getRapporto(taxableNumerator, taxableDenominator);
 
-            // Imponibile Raportato Ë l'imponibile non rapportato moltiplicato per il rapporto
+            // Imponibile Raportato √® l'imponibile non rapportato moltiplicato per il rapporto
             decimal imponibileAnnuoRapportato = imponibileAnnuoNonRapportato * rapporto;
             decimal imponibilePregressoRapportato = imponibilePregressoNonRapportato * rapporto;
 
@@ -3433,8 +3431,8 @@ namespace calcolocedolino { //calcolocedolino//
             object codiceritenuta, decimal imponibileAnnuo, DateTime dataPrestazione,
             string prefissoTabella, string nomeCampoGeo, object valoreCampoGeo, out DateTime inizioValidita) {
 
-            // Il principio di funzionamento di questo metodo Ë il medesimo del metodo getTabellaScaglioni.
-            // E' stato definito un metodo a parte giacchÈ le tabelle adoperate sono differenti e sono quelle
+            // Il principio di funzionamento di questo metodo √® il medesimo del metodo getTabellaScaglioni.
+            // E' stato definito un metodo a parte giacch√© le tabelle adoperate sono differenti e sono quelle
             // delle strutture delle ritenute locali (siano esse comunali o regionali)
             string tabellaScaglioni = prefissoTabella + "start";
             string tabellaAliquote = prefissoTabella + "bracket";
@@ -3451,7 +3449,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
             DataRow rStart = tStrutture.Rows[0];
 
-            //Vede se Ë previsto un importo esente
+            //Vede se √® previsto un importo esente
             if (tStrutture.Columns.Contains("taxablemin")) {
                 decimal esente = CfgFn.GetNoNullDecimal(rStart["taxablemin"]);
                 if (esente >= imponibileAnnuo) {
@@ -3578,7 +3576,7 @@ namespace calcolocedolino { //calcolocedolino//
                                      (CfgFn.GetNoNullDecimal(rBracket["maxamount"]) -
                                       CfgFn.GetNoNullDecimal(rBracket["minamount"]));
 
-                // La ritenuta dipendente Ë calcolata come prodotto tra imponibile ed aliquota
+                // La ritenuta dipendente √® calcolata come prodotto tra imponibile ed aliquota
                 decimal ritDipendente = imponibile * CfgFn.GetNoNullDecimal(rBracket["employrate"]);
                 // idem x la ritenuta c/amministrazione
                 decimal ritAmministrazione = imponibile * CfgFn.GetNoNullDecimal(rBracket["adminrate"]);
@@ -3717,7 +3715,7 @@ namespace calcolocedolino { //calcolocedolino//
             object codiceRitenuta, DataRow[] scaglioni, bool isConguaglio,
             object idCity, object idFiscalTaxRegion) {
 
-            // Questo metodo adotta i principi gi‡ visti nel metodo calcolaRitenutaScaglionata
+            // Questo metodo adotta i principi gi√† visti nel metodo calcolaRitenutaScaglionata
             if (scaglioni.Length == 0) {
                 return null;
             }
@@ -3770,7 +3768,7 @@ namespace calcolocedolino { //calcolocedolino//
         //        aggiungiScaglioneRitenuta(rCedolinoRitenuta, importo);
         //    }
         //    else {
-        //        // J.T.R. 28.05.2008 - Metto NULL come parametro dell'idCity perchÈ ci dobbiamo pensare!!
+        //        // J.T.R. 28.05.2008 - Metto NULL come parametro dell'idCity perch√© ci dobbiamo pensare!!
         //        creaRigaCedolinoRitenuta(idCedolino, importo, codiceRitenuta, null, null);
         //    }
         //}
@@ -3803,7 +3801,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// </summary>
         /// <param name="idCedolino">id. del cedolino</param>
         /// <param name="codiceRitenuta">id. del tipo di ritenuta</param>
-        /// <param name="isConguaglio">true se Ë un cedolino di conguaglio</param>
+        /// <param name="isConguaglio">true se √® un cedolino di conguaglio</param>
         /// <param name="imponibileAnnuo">imponibile netto sul quale applicare la ritenuta</param>
         /// <param name="idcomune">id. del comune</param>
         /// <param name="dataprestazione">data di competenza della ritenuta</param>
@@ -3825,7 +3823,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             DataRow rCedRitenuta = calcolaRitenuteScaglionateGeografiche(idCedolino, codiceRitenuta,
                 scaglioni, isConguaglio, idcomune, null);
-            // J.T.R. 28.05.2008 - Non devo pi˘ sommare le addizionali da rateizzare, ora hanno un loro codice ritenuta
+            // J.T.R. 28.05.2008 - Non devo pi√π sommare le addizionali da rateizzare, ora hanno un loro codice ritenuta
             //if ((isConguaglio) && (importoAddizionaleRateizzata != 0)) {
             //    aggiungiAddizionaleRateizzata(idCedolino, rCedRitenuta, importoAddizionaleRateizzata, codiceRitenuta);
             //}
@@ -3887,8 +3885,8 @@ namespace calcolocedolino { //calcolocedolino//
 
             string currIdG = currIdGeo.ToString().ToUpper();
 
-            // Per ogni CUD si valuta l'ente al quale Ë stato effettuato il versametno e se differente da quello
-            // individuato in sede di conguaglio bisogner‡ effettuare degli storni, creando delle coppie
+            // Per ogni CUD si valuta l'ente al quale √® stato effettuato il versametno e se differente da quello
+            // individuato in sede di conguaglio bisogner√† effettuare degli storni, creando delle coppie
             // di righe nella tabella PAYROLLTAXCORRIGE
             foreach (DataRow rCud in DS.exhibitedcud.Select(filtroCud)) {
                 string idGeoCud = rCud[fieldGeo].ToString().ToUpper();
@@ -3944,7 +3942,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// </summary>
         /// <param name="idCedolino">id. del cedolino</param>
         /// <param name="codiceRitenuta">id. del tipo di ritenuta</param>
-        /// <param name="isConguaglio">true se Ë un cedolino di conguaglio</param>
+        /// <param name="isConguaglio">true se √® un cedolino di conguaglio</param>
         /// <param name="imponibileAnnuo">imponibile netto annuo sul quale applicare l'addizionale</param>
         /// <param name="codiceritenuta">id. del tipo di ritenuta</param>
         /// <param name="idcomune">id. del comune</param>
@@ -3964,7 +3962,7 @@ namespace calcolocedolino { //calcolocedolino//
             // Si determinano gli scaglioni di applicazione della ritenuta e successivamente si scrive
             // nel dataset il risultato del calcolo
             // Prima di operare con la tabella delle ritenute regionali, si valuta se ci sono delle eccezioni
-            // su alcuni comuni la quale aliquota regionale Ë stata impostata in modo differente
+            // su alcuni comuni la quale aliquota regionale √® stata impostata in modo differente
             DateTime pubblPC, pubbl;
             DataRow[] rScaglPerComune = getTabellaScaglioniGeo(codiceRitenuta, imponibileAnnuo, dataprestazione,
                 "taxrateregioncity", "idcity", idcomune, out pubblPC);
@@ -3979,7 +3977,7 @@ namespace calcolocedolino { //calcolocedolino//
                 if (pubblPC < pubbl) {
                     DataRow rCedRitenuta = calcolaRitenuteScaglionateGeografiche(idCedolino, codiceRitenuta,
                         rScagl, isConguaglio, null, idFiscalTaxRegion);
-                    // J.T.R. 28.05.2008 - Non devo pi˘ sommare le addizionali da rateizzare, ora hanno un loro codice ritenuta
+                    // J.T.R. 28.05.2008 - Non devo pi√π sommare le addizionali da rateizzare, ora hanno un loro codice ritenuta
                     //if ((isConguaglio) && (importoAddizionaleRateizzata != 0)) {
                     //    aggiungiAddizionaleRateizzata(idCedolino, rCedRitenuta, importoAddizionaleRateizzata, codiceRitenuta);
                     //}
@@ -3989,7 +3987,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
             DataRow rCedRitenuta2 = calcolaRitenuteScaglionateGeografiche(idCedolino, codiceRitenuta,
                 rScaglPerComune, isConguaglio, null, idFiscalTaxRegion);
-            // J.T.R. 28.05.2008 - Non devo pi˘ sommare le addizionali da rateizzare, ora hanno un loro codice ritenuta
+            // J.T.R. 28.05.2008 - Non devo pi√π sommare le addizionali da rateizzare, ora hanno un loro codice ritenuta
             //if ((isConguaglio) && (importoAddizionaleRateizzata != 0)) {
             //    aggiungiAddizionaleRateizzata(idCedolino, rCedRitenuta2, importoAddizionaleRateizzata, codiceRitenuta);
             //}
@@ -4004,10 +4002,10 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="idCedolino">id. del cedolino</param>
         /// <param name="ritDipendente">ritenuta c/dip</param>
         /// <param name="codiceRitenuta">id. del tipo di ritenuta</param>
-        /// <param name="idCity">ID della citt‡ dalla quale si otterr‡ l'ente locale.
+        /// <param name="idCity">ID della citt√† dalla quale si otterr√† l'ente locale.
         /// I possibili valori sono: NULL per ritenute a carattere Nazionale
-        /// NOT NULL: sia per indiciare un ente locale citt‡, sia per indicare un ente locale Regione.
-        /// Nel caso si voglia indicare una regione, bisogna sempre indicare la citt‡</param>
+        /// NOT NULL: sia per indiciare un ente locale citt√†, sia per indicare un ente locale Regione.
+        /// Nel caso si voglia indicare una regione, bisogna sempre indicare la citt√†</param>
         /// <returns></returns>
         private DataRow creaRigaCedolinoRitenuta(object idCedolino, decimal ritDipendente, object codiceRitenuta,
             object idCity, object idFiscalTaxRegion) {
@@ -4036,7 +4034,7 @@ namespace calcolocedolino { //calcolocedolino//
             return rRit;
         }
 
-        // Calcola il numero di rate gi‡ pagate per una ritenuta.
+        // Calcola il numero di rate gi√† pagate per una ritenuta.
         private int calcolaNumRateCafPagate(object idContratto, object codiceRitenuta, int annoFiscale,
             DateTime dataInizioCedolino) {
             string filtroCedolino = QHC.AppAnd(QHC.CmpEq("idcon", idContratto),
@@ -4050,7 +4048,7 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         /// <summary>
-        /// Metodo che calcola il totale delle rate gi‡ pagate per una ritenuta
+        /// Metodo che calcola il totale delle rate gi√† pagate per una ritenuta
         /// </summary>
         /// <param name="idContratto"></param>
         /// <param name="codiceRitenuta"></param>
@@ -4105,7 +4103,7 @@ namespace calcolocedolino { //calcolocedolino//
                 string tipoComunicazione = rCom["cafdocumentkind"].ToString().ToUpper();
                 int numRateCorrente = CfgFn.GetNoNullInt32(rCom[campo]);
                 // In base al tipo di comunicazione si determina una ulteriore formula
-                // se la comunicazione Ë integrativa si somma se rettificativa si riparte da zero
+                // se la comunicazione √® integrativa si somma se rettificativa si riparte da zero
                 switch (tipoComunicazione) {
                     case "I": {
                             // Integrativa
@@ -4133,11 +4131,11 @@ namespace calcolocedolino { //calcolocedolino//
         /// <returns></returns>
         private int calcolaNumeroRateINAIL(object idContratto, DateTime inizioCompetenza, DateTime fineCompetenza) {
             // Le rate INAIL sono calcolate tenendo conto dell'inizio e della fine competenza del contratto nell'anno corrente.
-            // GiacchÈ l'INAIL viene pagata per ogni mese lavorato, la decisione presa Ë quella di farla pagare tutta insieme
+            // Giacch√© l'INAIL viene pagata per ogni mese lavorato, la decisione presa √® quella di farla pagare tutta insieme
             // sul primo cedolino che abbraccia un mese.
             // Quando ci si trova a valutare contratti che hanno una data di inizio di competenza precedente
-            // all'inizio dell'anno in corso, bisogna verificare che l'INAIL non sia stata gi‡ pagata nell'ultimo cedolino
-            // dell'anno precedente. In tal caso, il numero di rate deve essere decrementato di una unit‡, perchÈ il mese "in comune"
+            // all'inizio dell'anno in corso, bisogna verificare che l'INAIL non sia stata gi√† pagata nell'ultimo cedolino
+            // dell'anno precedente. In tal caso, il numero di rate deve essere decrementato di una unit√†, perch√© il mese "in comune"
             // viene assegnato alla competenza dell'anno precedente e non a quella dell'anno in corso.
             int numeroRateINAIL = 1 + 12 * (fineCompetenza.Year - inizioCompetenza.Year) + fineCompetenza.Month -
                                   inizioCompetenza.Month;
@@ -4159,7 +4157,7 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             // Se la coppia mese/anno del cedolino di conguaglio dell'anno precedente coincide con la
-            // coppia mese/anno della competenza corrente, decrementiamo di una unit‡ il numero di rate INAIL.
+            // coppia mese/anno della competenza corrente, decrementiamo di una unit√† il numero di rate INAIL.
             if ((ultimoGiornoCompetenzaAnnoPrec.Year == inizioCompetenza.Year)
                 && (ultimoGiornoCompetenzaAnnoPrec.Month == inizioCompetenza.Month)) {
                 numeroRateINAIL--;
@@ -4198,7 +4196,7 @@ namespace calcolocedolino { //calcolocedolino//
                 string tipoComunicazione = rCom["cafdocumentkind"].ToString().ToUpper();
                 int meseInizioCorrente = CfgFn.GetNoNullInt32(rCom[campo]);
                 // In base al tipo di comunicazione si determina una ulteriore formula
-                // se la comunicazione Ë integrativa si somma se rettificativa si riparte da zero
+                // se la comunicazione √® integrativa si somma se rettificativa si riparte da zero
                 switch (tipoComunicazione) {
                     case "I": {
                             // Integrativa
@@ -4283,7 +4281,7 @@ namespace calcolocedolino { //calcolocedolino//
                         }
                 }
                 // In base al tipo di comunicazione si determina una ulteriore formula
-                // se la comunicazione Ë integrativa si somma se rettificativa si riparte da zero
+                // se la comunicazione √® integrativa si somma se rettificativa si riparte da zero
                 switch (tipoComunicazione) {
                     case "I": {
                             importo += formula;
@@ -4352,11 +4350,11 @@ namespace calcolocedolino { //calcolocedolino//
             int nRateSecondaRataIrpefInCedolino = getNumeroRateDaPagare(dataInizioCedolino, dataFineCedolino,
                 annofiscale, meseInizioSecondaRataIrpef, numeroRateSecondaRataIrpef, idcontratto);
 
-            // Calcola le rate gi‡ pagate per effettuare un conguaglio ad ogni cedolino
+            // Calcola le rate gi√† pagate per effettuare un conguaglio ad ogni cedolino
             decimal rateGiaPagate =
                 calcolaRateCafGiaPagate(idcontratto, codiceritenuta, annofiscale, dataInizioCedolino);
 
-            //Calcola il numero di rate gi‡ pagate
+            //Calcola il numero di rate gi√† pagate
             int nRateCafPagate = calcolaNumRateCafPagate(idcontratto, codiceritenuta, annofiscale, dataInizioCedolino);
             int nRateDaPagare = numeroRateCaf - nRateCafPagate;
 
@@ -4364,8 +4362,8 @@ namespace calcolocedolino { //calcolocedolino//
             if (nRateCafInCedolino > nRateDaPagare) {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Per il cedolino corrente risultano " + nRateCafInCedolino +
-                    " rate da pagare, che Ë inferiore al numero totale rate da pagare (" +
-                    nRateDaPagare + ") pertanto si assumer‡ che per il cedolino corrente ci sono " + nRateDaPagare +
+                    " rate da pagare, che √® inferiore al numero totale rate da pagare (" +
+                    nRateDaPagare + ") pertanto si assumer√† che per il cedolino corrente ci sono " + nRateDaPagare +
                     " rate da pagare.", "Avviso");
                 nRateCafInCedolino = nRateDaPagare;
             }
@@ -4390,8 +4388,8 @@ namespace calcolocedolino { //calcolocedolino//
             if (nRatePrimaRataIrpefInCedolino > numeroRatePrimaRataIrpef) {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Per il la prima rata irpef cedolino corrente risultano " + nRatePrimaRataIrpefInCedolino +
-                    " rate irpef da pagare, che Ë inferiore al numero totale rate da pagare (" +
-                    nRateDaPagare + ") pertanto si assumer‡ che per il cedolino corrente ci sono " +
+                    " rate irpef da pagare, che √® inferiore al numero totale rate da pagare (" +
+                    nRateDaPagare + ") pertanto si assumer√† che per il cedolino corrente ci sono " +
                     numeroRatePrimaRataIrpef +
                     " rate da pagare.", "Avviso");
                 nRatePrimaRataIrpefInCedolino = numeroRatePrimaRataIrpef;
@@ -4408,8 +4406,8 @@ namespace calcolocedolino { //calcolocedolino//
             if (nRateSecondaRataIrpefInCedolino > numeroRateSecondaRataIrpef) {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show(
                     "Per il la seconda rata irpef cedolino corrente risultano " + nRateSecondaRataIrpefInCedolino +
-                    " rate irpef da pagare, che Ë inferiore al numero totale rate da pagare (" +
-                    nRateDaPagare + ") pertanto si assumer‡ che per il cedolino corrente ci sono " +
+                    " rate irpef da pagare, che √® inferiore al numero totale rate da pagare (" +
+                    nRateDaPagare + ") pertanto si assumer√† che per il cedolino corrente ci sono " +
                     numeroRateSecondaRataIrpef +
                     " rate da pagare.", "Avviso");
                 nRateSecondaRataIrpefInCedolino = numeroRateSecondaRataIrpef;
@@ -4447,8 +4445,8 @@ namespace calcolocedolino { //calcolocedolino//
         }
 
         /// <summary>
-        /// Restituisce il primo parametro se Ë diverso da DBNull.Value
-        /// Restituisce il secondo parametro se il primo Ë uguale a DBNull.Value
+        /// Restituisce il primo parametro se √® diverso da DBNull.Value
+        /// Restituisce il secondo parametro se il primo √® uguale a DBNull.Value
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -4520,7 +4518,7 @@ namespace calcolocedolino { //calcolocedolino//
         ) {
             // Se il cedolino ha importo pari a zero non calcolo l'INAIL
             if (compensoLordoCedolino == 0) return null;
-            // Caso in cui ho gi‡ pagato l'INAIL del mese in corso nel cedolino precedente
+            // Caso in cui ho gi√† pagato l'INAIL del mese in corso nel cedolino precedente
             if (imponibilelordomensile == 0) return null;
             DataRow rCedolino = DS.payroll.Select(QHC.CmpEq("idpayroll", idCedolino))[0];
             DataRow rRit = MetaCedolinoRitenuta.Get_New_Row(rCedolino, DS.payrolltax);
@@ -4528,7 +4526,7 @@ namespace calcolocedolino { //calcolocedolino//
             // 27.09.2005 Il ciclo sottostante viene cambiato in quanto non ha senso calcolare il rateo dell'INAIL
             // mese per mese. Una volta conosciuto l'imponibile assistenziale viene applicata l'aliquota determinata
             // dalla PAT.
-            // Se il cedolino non ricade nel periodo di validit‡ della PAT non avviene il calcolo dello stesso.
+            // Se il cedolino non ricade nel periodo di validit√† della PAT non avviene il calcolo dello stesso.
             string filtroPat = QHC.CmpEq("idpat", idpat);
             DataRow[] pat = DS.pat.Select(filtroPat);
             if (pat.Length == 0) return null;
@@ -4571,7 +4569,7 @@ namespace calcolocedolino { //calcolocedolino//
 
         /// <summary>
         /// Calcola la ritenuta INPS.
-        /// La ritenuta INPS tiene conto dei compensi lordi degli altri cedolini gi‡ pagati,
+        /// La ritenuta INPS tiene conto dei compensi lordi degli altri cedolini gi√† pagati,
         /// dell'imponibile previdenziale di eventuali CUD presentati e, se quest'ultimi non sono stati 
         /// presentati, tiene conto della stima dell'imponibile inserita nel contratto
         /// </summary>
@@ -4613,7 +4611,7 @@ namespace calcolocedolino { //calcolocedolino//
                     imponibileCud += CfgFn.GetNoNullDecimal(rCud["taxablepension"]);
                 }
             }
-            // L'imponibile pregresso sar‡ quindi la somma tra quello detreminato dai cedolini e quello del CUD
+            // L'imponibile pregresso sar√† quindi la somma tra quello detreminato dai cedolini e quello del CUD
             imponibileOLD += imponibileCud;
 
             // Si chiama il metodo che determina la ritenuta scaglionata passando come parametro l'imponibile pregresso
@@ -4642,7 +4640,7 @@ namespace calcolocedolino { //calcolocedolino//
             if (dataFineCedolino.CompareTo(fineApplicazione) > 0) dataFineCedolino = fineApplicazione;
             if (dataInizioCedolino.CompareTo(dataFineCedolino) > 0) return null;
 
-            // Valutiamo se si Ë deciso di non applicare il Bonus al Contratto nell'anno fiscale in corso
+            // Valutiamo se si √® deciso di non applicare il Bonus al Contratto nell'anno fiscale in corso
             DataRow rImputContr = DS.parasubcontractyear.Select(QHC.CmpEq("idcon", idContratto))[0];
             string applicazioneBonus = rImputContr["flagbonusappliance"].ToString();
 
@@ -4650,22 +4648,22 @@ namespace calcolocedolino { //calcolocedolino//
 
             DataRow rContr = DS.parasubcontract.Select(QHC.CmpEq("idcon", idContratto))[0];
             object idSer = rContr["idser"];
-            // Condizione applicabilit‡  1): Reddito complessivo annuo al netto delle ritenute previdenziali e assistenziali < maxAnnualTaxable
+            // Condizione applicabilit√†  1): Reddito complessivo annuo al netto delle ritenute previdenziali e assistenziali < maxAnnualTaxable
             // Al fine del calcolo del Reddito complessivo annuo non consideriamo le deduzioni inerenti la rendita catastale dell'abitazione principale, 
             // sebbene previsto dal decreto, in quanto in Easy non gestiamo
             // redditi di natura diversa  dai redditi da lavoro  
             decimal RedditoComplessivo;
             //non mi pare che nel calcolo dell'imponibile ci siano differenze col nuovo bonus
             RedditoComplessivo = calcola_imponibile_bonus_fiscale_2014(idCedolino, natura, idContratto, annoFiscale);
-            // Vado avanti onde gestire eventuali restituzioni di bonus gi‡ erogati, nonostante il requisito di applicabilit‡
+            // Vado avanti onde gestire eventuali restituzioni di bonus gi√† erogati, nonostante il requisito di applicabilit√†
             // del reddito non sia rispettato
             // if (RedditoComplessivo > maxAnnualTaxable) return null;   
 
-            // Condizione applicabilit‡  2): Ritenuta IRPEF al netto delle sole detrazioni per reddito da lavoro dipendente  > 0
+            // Condizione applicabilit√†  2): Ritenuta IRPEF al netto delle sole detrazioni per reddito da lavoro dipendente  > 0
 
             //questo metodo considera tutte le detrazioni per reddito (sia nuove che vecchie) e mi sembra giusto ai fini della determinazione della capienza
             bool applicaIrpef = verifica_capienza_bonus_fiscale(idSer, idCedolino, idContratto, natura, annoFiscale);
-            // Vado avanti onde gestire eventuali restituzioni di bonus gi‡ erogati, nonostante il requisito di applicabilit‡
+            // Vado avanti onde gestire eventuali restituzioni di bonus gi√† erogati, nonostante il requisito di applicabilit√†
             // del reddito non sia rispettato
 
             // if (!applicaIrpef) return null;commento
@@ -4709,18 +4707,18 @@ namespace calcolocedolino { //calcolocedolino//
             if (datafineUltimoCedolinoPrecedente > datainiziocompetenza)
                 ggLavoratiContratto = 1 + (datafineUltimoCedolinoPrecedente - datainiziocompetenza).Days;
 
-            // Si calcolano i giorni del Cedolino, su di essi andr‡ ripartito il Bonus Residuo
+            // Si calcolano i giorni del Cedolino, su di essi andr√† ripartito il Bonus Residuo
             int ggCedolino = 0;
             ggCedolino = 1 + (dataFineCedolino - dataInizioCedolino).Days;
 
             // Bonus effettivo spettante, proporzionato alla stima dei giorni di lavoro nell'anno sui 365, inclusi eventuali CUD inseriti
             decimal bonus_effettivo_spettante = calcola_bonus_effettivo_annuo(bonus_teorico_annuo, annoFiscale, ggLavoratiAnno);
 
-            // A questo punto calcoliamo il Bonus da applicare al presente cedolino. Si deve tenere conto dei Bonus gi‡
+            // A questo punto calcoliamo il Bonus da applicare al presente cedolino. Si deve tenere conto dei Bonus gi√†
             // erogati nel corso dell'anno fiscale, il residuo va ripartito tra i cedolini ancora da erogare.
             // Nota: a tale scopo il periodo del presente cedolino in elaborazione deve essere computato tra i giorni ancora da lavorare
 
-            // Calcoliamo il Bonus gi‡ erogato nei precedenti cedolini calcolati cosÏ come nei CUD precedenti presentati dal lavoratore
+            // Calcoliamo il Bonus gi√† erogato nei precedenti cedolini calcolati cos√¨ come nei CUD precedenti presentati dal lavoratore
             decimal bonus_erogati_in_cedolini_2020 = calcola_bonus_erogato_annuo(idContratto, annoFiscale, dataInizioCedolino, "20_BONUS_FISCALE");
             decimal bonus_erogati_in_cud2020 = somma_bonus_erogati_cud(annoFiscale, idContratto, "fiscalbonusapplied2020"); // credito applicato
 
@@ -4760,7 +4758,7 @@ namespace calcolocedolino { //calcolocedolino//
             if (dataFineCedolino.CompareTo(fineApplicazione) > 0 && dataFineCedolino.CompareTo(ripristinoApplicazione) <= 0) dataFineCedolino = fineApplicazione;
             if (dataInizioCedolino.CompareTo(dataFineCedolino) > 0) return null;
 
-            // Valutiamo se si Ë deciso di non applicare il Bonus al Contratto nell'anno fiscale in corso
+            // Valutiamo se si √® deciso di non applicare il Bonus al Contratto nell'anno fiscale in corso
             DataRow rImputContr = DS.parasubcontractyear.Select(QHC.CmpEq("idcon", idContratto))[0];
             string applicazioneBonus = rImputContr["flagbonusappliance"].ToString();
 
@@ -4768,20 +4766,20 @@ namespace calcolocedolino { //calcolocedolino//
 
             DataRow rContr = DS.parasubcontract.Select(QHC.CmpEq("idcon", idContratto))[0];
             object idSer = rContr["idser"];
-            // Condizione applicabilit‡  1): Reddito complessivo annuo al netto delle ritenute previdenziali e assistenziali < maxAnnualTaxable
+            // Condizione applicabilit√†  1): Reddito complessivo annuo al netto delle ritenute previdenziali e assistenziali < maxAnnualTaxable
             // Al fine del calcolo del Reddito complessivo annuo non consideriamo le deduzioni inerenti la rendita catastale dell'abitazione principale, 
             // sebbene previsto dal decreto, in quanto in Easy non gestiamo
             // redditi di natura diversa  dai redditi da lavoro  
             decimal RedditoComplessivo;
             RedditoComplessivo = calcola_imponibile_bonus_fiscale_2014(idCedolino, natura, idContratto, annoFiscale);
-            // Vado avanti onde gestire eventuali restituzioni di bonus gi‡ erogati, nonostante il requisito di applicabilit‡
+            // Vado avanti onde gestire eventuali restituzioni di bonus gi√† erogati, nonostante il requisito di applicabilit√†
             // del reddito non sia rispettato
             // if (RedditoComplessivo > maxAnnualTaxable) return null;   
 
-            // Condizione applicabilit‡  2): Ritenuta IRPEF al netto delle sole detrazioni per reddito da lavoro dipendente  > 0
+            // Condizione applicabilit√†  2): Ritenuta IRPEF al netto delle sole detrazioni per reddito da lavoro dipendente  > 0
 
             bool applicaIrpef = verifica_capienza_bonus_fiscale(idSer, idCedolino, idContratto, natura, annoFiscale);
-            // Vado avanti onde gestire eventuali restituzioni di bonus gi‡ erogati, nonostante il requisito di applicabilit‡
+            // Vado avanti onde gestire eventuali restituzioni di bonus gi√† erogati, nonostante il requisito di applicabilit√†
             // del reddito non sia rispettato
 
             // if (!applicaIrpef) return null;commento
@@ -4827,7 +4825,7 @@ namespace calcolocedolino { //calcolocedolino//
             if (datafineUltimoCedolinoPrecedente > datainiziocompetenza)
                 ggLavoratiContratto = 1 + (datafineUltimoCedolinoPrecedente - datainiziocompetenza).Days;
 
-            // Si calcolano i giorni del Cedolino, su di essi andr‡ ripartito il Bonus Residuo
+            // Si calcolano i giorni del Cedolino, su di essi andr√† ripartito il Bonus Residuo
             int ggCedolino = 0;
             ggCedolino = 1 + (dataFineCedolino - dataInizioCedolino).Days;
 
@@ -4835,11 +4833,11 @@ namespace calcolocedolino { //calcolocedolino//
             decimal bonus_effettivo_spettante = calcola_bonus_effettivo_annuo(bonus_teorico_annuo, annoFiscale, ggLavoratiAnno);
 
 
-            // A questo punto calcoliamo il Bonus da applicare al presente cedolino. Si deve tenere conto dei Bonus gi‡
+            // A questo punto calcoliamo il Bonus da applicare al presente cedolino. Si deve tenere conto dei Bonus gi√†
             // erogati nel corso dell'anno fiscale, il residuo va ripartito tra i cedolini ancora da erogare.
             // Nota: a tale scopo il periodo del presente cedolino in elaborazione deve essere computato tra i giorni ancora da lavorare
 
-            // Calcoliamo il Bonus gi‡ erogato nei precedenti cedolini calcolati cosÏ come nei CUD precedenti presentati dal lavoratore
+            // Calcoliamo il Bonus gi√† erogato nei precedenti cedolini calcolati cos√¨ come nei CUD precedenti presentati dal lavoratore
             decimal bonus_erogati_in_cedolini = calcola_bonus_erogato_annuo(idContratto, annoFiscale, dataInizioCedolino, "14_BONUS_FISCALE");
             decimal bonus_erogati_in_cud = somma_bonus_erogati_cud(annoFiscale, idContratto, "fiscalbonusapplied"); // credito applicato
 
@@ -4921,7 +4919,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="idContratto">ID del Contratto</param>
         /// <param name="annoFiscale">Anno di cui si vuole fare il conguaglio IRPEF</param>
         /// <param name="codiceRitenuta">Codice della Ritenuta</param>
-        /// <param name="imponibileAnnuo">Imponibile IRPEF gi‡ dedotto</param>
+        /// <param name="imponibileAnnuo">Imponibile IRPEF gi√† dedotto</param>
         /// <param name="dataFineCedolino">ultimo giorno di competenza del cedolino</param>
         /// <returns>ritenuta irpef di conguaglio</returns>
         public DataRow conguaglioFiscale(object idCedolino, object progrCedolino, object idContratto, int annoFiscale,
@@ -4982,11 +4980,11 @@ namespace calcolocedolino { //calcolocedolino//
 
         /// <summary>
         /// Calcola una ritenuta non INPS, non INAIL e non ADDIZ.
-        /// (a scaglioni e senza storico della ritenuta gi‡ versata)
+        /// (a scaglioni e senza storico della ritenuta gi√† versata)
         /// </summary>
         /// <param name="idCedolino">id. del cedolino</param>
         /// <param name="codiceRitenuta">id. del tipo di ritenuta</param>
-        /// <param name="imponibileNetto">imponibile gi‡ dedotto sul quale applicare la ritenuta</param>
+        /// <param name="imponibileNetto">imponibile gi√† dedotto sul quale applicare la ritenuta</param>
         /// <param name="frazioneDiAnno">rapporto tra periodo di competenza e durata dell'anno</param>
         /// <param name="dataFineCedolino">ultimo giorno di competenza del cedolino</param>
         /// <returns></returns>
@@ -5052,7 +5050,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             DataRow[] Detrazioni = DS.abatement.Select(filterdetrazioni);
             decimal totaledetrazioni = 0;
-            // Per ogni tipo detrazione viene chiamato il metodo corrispondente che effettuer‡ il calcolo
+            // Per ogni tipo detrazione viene chiamato il metodo corrispondente che effettuer√† il calcolo
             foreach (DataRow TempDetraz in Detrazioni) {
                 string spcalcolo = TempDetraz["evaluatesp"].ToString();
                 object iddetrazione = TempDetraz["idabatement"];
@@ -5095,7 +5093,7 @@ namespace calcolocedolino { //calcolocedolino//
                 if ((totaledetrazioni + detrazionecorr) > importoritenuta) {
                     detrazionecorr = importoritenuta - totaledetrazioni;
                 }
-                // Se la detrazione Ë positiva si scrive una riga in payrollabatement
+                // Se la detrazione √® positiva si scrive una riga in payrollabatement
                 if (detrazionecorr > 0) {
                     MetaData.SetDefault(DS.Tables["payrollabatement"], "idabatement", iddetrazione);
                     DataRow Detraz =
@@ -5212,7 +5210,7 @@ namespace calcolocedolino { //calcolocedolino//
                 ? CfgFn.GetNoNullDecimal(rOnereDetr[0]["totalamount"])
                 : 0;
 
-            // se siamo in un cedolino rata l'importo Ë confrontato con massimale, si sottrae la franchigia e si applica l'aliquota
+            // se siamo in un cedolino rata l'importo √® confrontato con massimale, si sottrae la franchigia e si applica l'aliquota
             if (natura == "R") {
                 if ((massimale != DBNull.Value) && (onere_contratto > (decimal)massimale)) {
                     onere_contratto = (decimal)massimale;
@@ -5226,7 +5224,7 @@ namespace calcolocedolino { //calcolocedolino//
                 return importo_corrente;
             }
             if (onere_contratto == 0) {
-                // Non Ë prevista questa detrazione per il percipiente
+                // Non √® prevista questa detrazione per il percipiente
                 return 0;
             }
 
@@ -5322,7 +5320,7 @@ namespace calcolocedolino { //calcolocedolino//
             decimal max_fascia2 = 40000;
 
 
-            // La detrazione verr‡ calcolata in base alla fascia di reddito come richiede la Legge
+            // La detrazione verr√† calcolata in base alla fascia di reddito come richiede la Legge
             // Fascia 1:
             if (redditoComplessivo <= max_fascia1) {
                 detrazioneannua = detrazione_reddito_fascia1_3_2020(redditoComplessivo, gglavorati);
@@ -5390,7 +5388,7 @@ namespace calcolocedolino { //calcolocedolino//
             decimal max_fascia3 = 50000;
 
 
-            // La detrazione verr‡ calcolata in base alla fascia di reddito come richiede la Legge
+            // La detrazione verr√† calcolata in base alla fascia di reddito come richiede la Legge
             // Fascia 1:
             if (redditoComplessivo <= max_fascia1) {
                 detrazioneannua = detrazione_reddito_fascia1(redditoComplessivo, gglavorati);
@@ -5407,6 +5405,12 @@ namespace calcolocedolino { //calcolocedolino//
             }
 
             // Fascia 4: Nessuna Detrazione
+
+            // ‚úÖ Detrazione aggiuntiva 2026: +65‚Ç¨ se 25.000 < reddito <= 35.000
+            // (da non riproporzionare ai giorni: aggiunta dopo i metodi fascia)
+            if (redditoComplessivo > 25000 && redditoComplessivo <= 35000) {
+                detrazioneannua += 65;
+            }
 
             detrazioneannua = CfgFn.RoundValuta(detrazioneannua);
             return CfgFn.RoundValuta(detrazioneannua * quotaCedolinoContratto);
@@ -5425,7 +5429,7 @@ namespace calcolocedolino { //calcolocedolino//
         private decimal detrazione_reddito_fascia1_3_2020(decimal reddito, int giorniCompetenza) {
 
 
-            // La minima detrazione non Ë 690 ma 1380 perchÈ sono lavoratori a tempo determinato
+            // La minima detrazione non √® 690 ma 1380 perch√© sono lavoratori a tempo determinato
 
             DateTime dec_31 = new DateTime(CfgFn.GetNoNullInt32(Conn.GetSys("esercizio")), 12, 31);
             int giorniAnno = dec_31.DayOfYear;
@@ -5454,7 +5458,7 @@ namespace calcolocedolino { //calcolocedolino//
         private decimal detrazione_reddito_fascia2_3_2020(decimal reddito, int giorniCompetenza) {
 
 
-            // La minima detrazione non Ë 690 ma 1380 perchÈ sono lavoratori a tempo determinato
+            // La minima detrazione non √® 690 ma 1380 perch√© sono lavoratori a tempo determinato
 
             DateTime dec_31 = new DateTime(CfgFn.GetNoNullInt32(Conn.GetSys("esercizio")), 12, 31);
             int giorniAnno = dec_31.DayOfYear;
@@ -5482,9 +5486,9 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="detrazioneannua"></param>
         /// <returns></returns>
         private decimal detrazione_reddito_fascia1(decimal reddito, int giorniCompetenza) {
-            decimal MD = 1880;
-
-            // La minima detrazione non Ë 690 ma 1380 perchÈ sono lavoratori a tempo determinato
+            // 2026 (dichiarazione 2026 / anno imposta 2025): detrazione base fino a 15.000 ‚Ç¨
+            decimal MD = 1995;
+            // La minima detrazione non √® 690 ma 1380 perch√© sono lavoratori a tempo determinato
             decimal min_detrazione = 1380;
 
             DateTime dec_31 = new DateTime(CfgFn.GetNoNullInt32(Conn.GetSys("esercizio")), 12, 31);
@@ -5516,6 +5520,8 @@ namespace calcolocedolino { //calcolocedolino//
         /// <param name="detrazioneannua"></param>
         /// <returns></returns>
         private decimal detrazione_reddito_fascia2(decimal reddito, int giorniCompetenza) {
+
+            // Parametri 2026 (detrazione lavoro dipendente)
             decimal DB = 1910;
             decimal K = 1190;
             decimal M = 28000;
@@ -5593,7 +5599,7 @@ namespace calcolocedolino { //calcolocedolino//
             object idCedolino,
             out decimal detrazioneannua
         ) {
-            //Questo Ë un metodo contenitore che richiama gli altri metodi a seconda del familiare al quale bisogna
+            //Questo √® un metodo contenitore che richiama gli altri metodi a seconda del familiare al quale bisogna
             //applicare la detrazione
             int gglavorati = calcolaGiorniLavorati(idcontratto, dataInizioCedolino, dataFineCedolino, natura);
 
@@ -5692,8 +5698,8 @@ namespace calcolocedolino { //calcolocedolino//
 
             int nFigliACarico = 0;
 
-            // La legge, quando conta i figli a carico, ne tiene conto anche se un figlio Ë stato per un solo giorno
-            // a carico. Si Ë trovato un esempio su una circolare dell'Agenzia delle Entrate.
+            // La legge, quando conta i figli a carico, ne tiene conto anche se un figlio √® stato per un solo giorno
+            // a carico. Si √® trovato un esempio su una circolare dell'Agenzia delle Entrate.
             foreach (DataRow son in tempFamFigli) {
                 DateTime inizioApplicazione = (DateTime) isnull(son["startapplication"], inizioAnno);
                 DateTime fineApplicazione = (DateTime) isnull(son["stopapplication"], fineAnno);
@@ -5754,7 +5760,7 @@ namespace calcolocedolino { //calcolocedolino//
 
 
                 int indice = dataRiferimento.Month - 1;
-                //Percentuale che gi‡ include la quota di ripartizione tra coniugi
+                //Percentuale che gi√† include la quota di ripartizione tra coniugi
                 detrazionePerQuestoFiglio = scegliDetrazionePerFiglio(dataRiferimento, figlioRow, nFigliACarico,
                     inizioApplicazioneFiglio, fineApplicazioneFiglio, perc);
                 
@@ -5847,14 +5853,14 @@ namespace calcolocedolino { //calcolocedolino//
 
                 MD = D_BASE;
 
-                // Se ci sono almeno 4 figli viene aggiunta una detrazione di 200 Ä
+                // Se ci sono almeno 4 figli viene aggiunta una detrazione di 200 ‚Ç¨
                 if (nFigliAnno > 3) {
                     MD += PLUS_4FIGLI;
                 }
 
                 DateTime inizioAnno = new DateTime(dataRiferimento.Year, 1, 1);
 
-                // Se il figlio Ë handicappato viene aggiunta una detrazione di 220 Ä
+                // Se il figlio √® handicappato viene aggiunta una detrazione di 220 ‚Ç¨
                 if (rSon["starthandicap"] != DBNull.Value) {
                     DateTime handicap = (DateTime) rSon["starthandicap"];
                     if (handicap <= inizioAnno) {
@@ -5865,7 +5871,7 @@ namespace calcolocedolino { //calcolocedolino//
                     }
                 }
 
-                // Se il figlio ha meno di 3 anni viene aggiunta una detrazione di 100 Ä
+                // Se il figlio ha meno di 3 anni viene aggiunta una detrazione di 100 ‚Ç¨
                 if (rSon["birthdate"] != DBNull.Value) {
                     DateTime dataNascita = (DateTime) rSon["birthdate"];
                     int etaInMesi = 12 * (dataRiferimento.Year - dataNascita.Year) + progMese - dataNascita.Month;
@@ -6151,7 +6157,8 @@ namespace calcolocedolino { //calcolocedolino//
 
             decimal quotaMesi = calcolaQuotaMesi(dataInizioCedolino, dataFineCedolino, idcontratto, natura);
 
-
+            DateTime dataContabile = (DateTime) Conn.GetSys("datacontabile");
+            int esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
 
             //Stima del reddito complessivo annuo partendo da quello del cedolino
             decimal redditoComplessivo = reddito / quotaMesi;
@@ -6159,18 +6166,18 @@ namespace calcolocedolino { //calcolocedolino//
             detrazioneAnnua = 0;
 
             // Filtro per estrarre i familiari a carico
-            string filtroFamiliare = QHC.AppAnd(QHC.CmpEq("idcon", idcontratto), QHC.CmpEq("idaffinity", "A"),
-                QHC.CmpEq("flagdependent", "S"));
+            string filtroFamiliare = "";
 
+            if (esercizio < 2026)
+                filtroFamiliare = QHC.AppAnd(QHC.CmpEq("idcon", idcontratto), QHC.CmpEq("idaffinity", "A"),
+                QHC.CmpEq("flagdependent", "S"));
+            else
+                filtroFamiliare = QHC.AppAnd(QHC.CmpEq("idcon", idcontratto), QHC.CmpEq("idaffinity", "G"),
+                QHC.CmpEq("flagdependent", "S"));
 
             DataRow[] tempFamiliare = DS.parasubcontractfamily.Select(filtroFamiliare, "birthdate");
 
-
-
             decimal detrazione = 0;
-
-            DateTime dataContabile = (DateTime) Conn.GetSys("datacontabile");
-            int esercizio = CfgFn.GetNoNullInt32(Conn.GetSys("esercizio"));
 
             DateTime inizioAnno = new DateTime(esercizio, 1, 1);
             DateTime fineAnno = new DateTime(esercizio, 12, 31);
@@ -6293,7 +6300,7 @@ namespace calcolocedolino { //calcolocedolino//
                 return tData;
             }
 
-            // Se il CUD Ë cartaceo si prende il dato da se stesso
+            // Se il CUD √® cartaceo si prende il dato da se stesso
             // altrimenti viene chiamata la ricorsione per risalire al contratto
 
             foreach (DataRow ExC in LinkedCud.Rows) {
@@ -6328,7 +6335,7 @@ namespace calcolocedolino { //calcolocedolino//
             string query = QHC.AppAnd(QHC.CmpEq("idcon", idContract), QHC.CmpEq("fiscalyear", annoFiscale));
 
             DataRow[] rCud = DS.exhibitedcud.Select(query, "idexhibitedcud");
-            // Per ogni CUD associato al contratto si somma il numero dei giorni lavorati, in caso di contemporaneit‡
+            // Per ogni CUD associato al contratto si somma il numero dei giorni lavorati, in caso di contemporaneit√†
             // deve essere contato solo un giorno
 
             foreach (DataRow r in rCud) {
@@ -6426,7 +6433,7 @@ namespace calcolocedolino { //calcolocedolino//
                         object taxR = DS.tax.Select(QHC.CmpEq("taxref", "08_ADDREGRATA"))[0]["taxcode"];
                         taxlocalcode_included = QHS.quote(taxR);
                     }
-                    // Attualmente non esiste una addizionale provinciale ma per sviluppi futuri Ë inserita nel codice
+                    // Attualmente non esiste una addizionale provinciale ma per sviluppi futuri √® inserita nel codice
                     // J.T.R. 28.05.2008 - Non ho creato una ritenuta per addizionale provinciale in quanto
                     // non esiste ad oggi, eventualmente si procede alla sua creazione e alla modifica di questo metodo
                     if (RowImputazioneContratto["countrytax"] == DBNull.Value) {
@@ -6477,7 +6484,7 @@ namespace calcolocedolino { //calcolocedolino//
                         object taxR = DS.tax.Select(QHC.CmpEq("taxref", "08_ADDREGRATA"))[0]["taxcode"];
                         taxlocalcode_included = QHS.quote(taxR);
                     }
-                    // Attualmente non esiste una addizionale provinciale ma per sviluppi futuri Ë inserita nel codice
+                    // Attualmente non esiste una addizionale provinciale ma per sviluppi futuri √® inserita nel codice
                     // J.T.R. 28.05.2008 - Non ho creato una ritenuta per addizionale provinciale in quanto
                     // non esiste ad oggi, eventualmente si procede alla sua creazione e alla modifica di questo metodo
                     if (RowImputazioneContratto["countrytax"] == DBNull.Value) {
@@ -6490,7 +6497,7 @@ namespace calcolocedolino { //calcolocedolino//
 
                     }
                     else {
-                        // Se sono qui vuol dire che almeno uno dei due campi Ë valorizzato, quindi devo escludere
+                        // Se sono qui vuol dire che almeno uno dei due campi √® valorizzato, quindi devo escludere
                         // la ritenuta che non serve
                         object taxC = DS.tax.Select(QHC.CmpEq("taxref", "08_ADDCOMRATA"))[0]["taxcode"];
                         if (RowImputazioneContratto["citytax"] == DBNull.Value) {
@@ -6897,13 +6904,13 @@ namespace calcolocedolino { //calcolocedolino//
             }
             object idser = rContratto[0]["idser"];
             if ((idser == null) || (idser == DBNull.Value)) {
-                return "Non Ë stata selezionata la prestazione";
+                return "Non √® stata selezionata la prestazione";
             }
             if (rContratto[0]["start"] == DBNull.Value) {
-                return "Non Ë stata inserita la data inizio nel contratto.";
+                return "Non √® stata inserita la data inizio nel contratto.";
             }
             if (rContratto[0]["stop"] == DBNull.Value) {
-                return "Non Ë stata inserita la data fine nel contratto.";
+                return "Non √® stata inserita la data fine nel contratto.";
             }
             if (rCedolino[0]["start"] == DBNull.Value) {
                 return "Manca la data inizio nel cedolino.";
@@ -6946,7 +6953,7 @@ namespace calcolocedolino { //calcolocedolino//
 
             if (rCedolino[0]["flagbalance"].ToString().ToUpper() == "S") return null;
 
-            // Controllo 1. Validit‡ della PAT
+            // Controllo 1. Validit√† della PAT
             string filtroPat = QHC.CmpEq("idpat", rContratto[0]["idpat"]);
             DataRow[] rPat = DS.pat.Select(filtroPat);
 
@@ -6971,15 +6978,15 @@ namespace calcolocedolino { //calcolocedolino//
             bool patValida = (dataInizioPat <= dataInizioCedolino) && (dataFinePat >= dataInizioCedolino);
             if (!patValida) {
                 string errMess = "Impossibile calcolare il cedolino n. " + idCedolino
-                                 + "\nIl periodo di validit‡ della Pos. Assic. Terr. non Ë compreso nel cedolino";
+                                 + "\nIl periodo di validit√† della Pos. Assic. Terr. non √® compreso nel cedolino";
                 if (dataInizioPat > dataInizioCedolino) {
-                    errMess += "\nLa data di inizio validit‡ della P.A.T. (" + dataInizioPat.ToShortDateString()
-                               + ") Ë successiva alla data di inizio del Cedolino (" +
+                    errMess += "\nLa data di inizio validit√† della P.A.T. (" + dataInizioPat.ToShortDateString()
+                               + ") √® successiva alla data di inizio del Cedolino (" +
                                dataInizioCedolino.ToShortDateString() + ")";
                 }
                 if (dataFinePat < dataInizioCedolino) {
-                    errMess += "\nLa data di fine validit‡ della P.A.T. (" + dataFinePat.ToShortDateString()
-                               + ") Ë antecedente alla data di inizio del Cedolino (" +
+                    errMess += "\nLa data di fine validit√† della P.A.T. (" + dataFinePat.ToShortDateString()
+                               + ") √® antecedente alla data di inizio del Cedolino (" +
                                dataInizioCedolino.ToShortDateString() + ")";
                 }
                 return errMess;
@@ -7039,7 +7046,7 @@ namespace calcolocedolino { //calcolocedolino//
                     filtroCedRit = GetData.MergeFilters(filtroCedRit, filtroCedolinoCong);
                     DataRow[] rCedRitConguaglio = DS.payrolltax.Select(filtroCedRit);
                     DataRow newCedRitConguaglio;
-                    // Se Ë presente aggiorna il dato sommando il contributo del cedolino rata corrente
+                    // Se √® presente aggiorna il dato sommando il contributo del cedolino rata corrente
                     if (rCedRitConguaglio.Length > 0) {
                         // Aggiorna riga in payrolltax
                         newCedRitConguaglio = rCedRitConguaglio[0];
@@ -7118,7 +7125,7 @@ namespace calcolocedolino { //calcolocedolino//
                 QHC.MCmp(cedolinoRitenutaRata, "idpayrolltax"));
             // Si ottiene l'elenco degli scaglioni associati ad una fissata ritenuta e cedolino rata
             DataRow[] rPayRollTaxBracket = DS.payrolltaxbracket.Select(filtroScagl);
-            // Per ogni scaglione si verifica se Ë presente nel cedolino di conguaglio
+            // Per ogni scaglione si verifica se √® presente nel cedolino di conguaglio
             foreach (DataRow rScagl in rPayRollTaxBracket) {
                 string filtroCedRitScagl = QHC.AppAnd(filtroCedolinoCong,
                     QHC.CmpEq("idpayrolltax", parentConguaglio["idpayrolltax"]));
@@ -7166,7 +7173,7 @@ namespace calcolocedolino { //calcolocedolino//
             string filtroCedolinoRata = QHC.CmpEq("idpayroll", idCedolinoRata);
             // Si ottiene l'elenco delle deduzioni del cedolino rata
             DataRow[] rDeduzioneRata = DS.payrolldeduction.Select(filtroCedolinoRata);
-            // Per ogni deduzione se Ë associata all'imponibile fiscale o per addizionale si esce
+            // Per ogni deduzione se √® associata all'imponibile fiscale o per addizionale si esce
             // altrimenti si procede
             foreach (DataRow rDedRata in rDeduzioneRata) {
                 string filtroDeduzione = QHC.CmpEq("iddeduction", rDedRata["iddeduction"]);
@@ -7204,7 +7211,7 @@ namespace calcolocedolino { //calcolocedolino//
             string filtroCedolinoRata = QHC.CmpEq("idpayroll", idCedolinoRata);
             // Si ottiene l'elenco delle detrazioni del cedolino rata
             DataRow[] rDetrazioneRata = DS.payrollabatement.Select(filtroCedolinoRata);
-            // Per ogni detrazione se Ë associata ad una ritenuta fiscale si esce altrimenti si procede
+            // Per ogni detrazione se √® associata ad una ritenuta fiscale si esce altrimenti si procede
             foreach (DataRow rDetRata in rDetrazioneRata) {
                 string filtroDetrazione = QHC.CmpMulti(rDetRata, "idabatement");
                 DataRow detrazione = DS.abatement.Select(filtroDetrazione)[0];
@@ -7271,13 +7278,13 @@ namespace calcolocedolino { //calcolocedolino//
                 QHC.CmpEq("flagbalance", "N"), QHC.CmpEq("fiscalyear", rCedolinoConguaglio["fiscalyear"]));
 
             // Si ottiene l'elenco dei cedolini rata e per ognuno di essi
-            // si estraggono le ritenute fiscali e si verifica se la ritenuta Ë presente nel conguaglio
-            // se Ë presente si sommano i dati altrimenti si crea una nuova riga ricopiando i dati dal cedolino rata
+            // si estraggono le ritenute fiscali e si verifica se la ritenuta √® presente nel conguaglio
+            // se √® presente si sommano i dati altrimenti si crea una nuova riga ricopiando i dati dal cedolino rata
             foreach (DataRow rCedolinoRata in DS.payroll.Select(filtroCedoliniRata)) {
                 string filtroCedolino = QHC.CmpEq("idpayroll", rCedolinoRata["idpayroll"]);
                 // Si ottiene l'elenco delle ritenute del cedolino rata corrente
                 DataRow[] rRitenuteCedolino = DS.payrolltax.Select(filtroCedolino);
-                // Per ogni ritenuta se essa non Ë fiscale si esce altrimenti si procede
+                // Per ogni ritenuta se essa non √® fiscale si esce altrimenti si procede
                 foreach (DataRow rRitenuta in rRitenuteCedolino) {
                     int tipoRitenuta = ottieniTipoRitenuta(rRitenuta["taxcode"]);
                     if (tipoRitenuta != 1) continue;
@@ -7349,7 +7356,7 @@ namespace calcolocedolino { //calcolocedolino//
             // Si ottiene l'elenco delle ritenute presenti nel conguaglio
             DataRow[] ritenuteConguaglio = DS.payrolltax.Select(filtroConguaglio);
             // Per ogni ritenuta presente nel conguaglio
-            // se non Ë fiscale si esce altrimenti si procede
+            // se non √® fiscale si esce altrimenti si procede
             // In tal caso si estrae il taxcode (chiave della ritenuta) e si verifica se la stessa
             // sia presente nell' ultimo cedolino rata, se presente si seleziona la riga, altrimenti se ne crea una nuova.
             // Sulla riga selezionata (o creata) si ricopiano i dati del cedolino di conguaglio e successivamente si sottraggono
@@ -7439,12 +7446,12 @@ namespace calcolocedolino { //calcolocedolino//
 
             decimal rapporto = getRapporto(CfgFn.GetNoNullDecimal(rCedolinoRitenuta["taxablenumerator"]),
                 CfgFn.GetNoNullDecimal(rCedolinoRitenuta["taxabledenominator"]));
-            // L'aliquota media c/dipendente Ë data dal rapporto tra l'imponibile netto e la ritenuta lorda c/dipendente
+            // L'aliquota media c/dipendente √® data dal rapporto tra l'imponibile netto e la ritenuta lorda c/dipendente
             if ((ritDip > 0) && (imponibileNetto != 0)) {
                 rCedolinoRitenuta["employrate"] = CfgFn.GetNoNullDecimal(ritDip / (imponibileNetto));
             }
 
-            // L'aliquota media c/amministrazione Ë data dal rapporto tra l'imponibile netto e la ritenuta lorda c/dipendente
+            // L'aliquota media c/amministrazione √® data dal rapporto tra l'imponibile netto e la ritenuta lorda c/dipendente
             if ((ritAmm > 0) && (imponibileNetto != 0)) {
                 rCedolinoRitenuta["adminrate"] = CfgFn.GetNoNullDecimal(ritAmm / (imponibileNetto));
             }
@@ -7466,7 +7473,7 @@ namespace calcolocedolino { //calcolocedolino//
             // Si ottiene l'elenco degli scaglioni del cedolino di conguaglio
             DataRow[] scaglioniConguaglio = DS.payrolltaxbracket.Select(filtroScaglioneConguaglio);
             // Per ogni scaglione si verifica la presenza di uno analogo nel cedolino rata
-            // se Ë presente vengono sovrascritti i dati altrimenti si crea una nuova riga inserendo i dati
+            // se √® presente vengono sovrascritti i dati altrimenti si crea una nuova riga inserendo i dati
             // del cedolino di conguaglio.
             // Successivamente si sottraggono i dati presenti negli altri cedolini rata
             foreach (DataRow rScaglioneConguaglio in scaglioniConguaglio) {
@@ -7517,7 +7524,7 @@ namespace calcolocedolino { //calcolocedolino//
                         QHC.CmpEq("employrate", rScaglioneAltriCedoliniRata["employrate"]));
                     DataRow[] scaglioniUltimoCedolinoRata =
                         DS.payrolltaxbracket.Select(filtroScaglioneUltimoCedolinoRata);
-                    // Se lo scaglione Ë presente si sottraggono gli importi
+                    // Se lo scaglione √® presente si sottraggono gli importi
                     if (scaglioniUltimoCedolinoRata.Length > 0) {
                         foreach (string colname in new string[] {"taxable", "employtax", "admintax"}) {
                             scaglioniUltimoCedolinoRata[0][colname] =
@@ -7558,7 +7565,7 @@ namespace calcolocedolino { //calcolocedolino//
             string filtroConguaglio = QHC.CmpEq("idpayroll", idCedolinoConguaglio);
             // Si ottiene l'elenco delle deduzioni del cedolino di conguaglio
             DataRow[] deduzioniConguaglio = DS.payrolldeduction.Select(filtroConguaglio);
-            // Per ogni deduzione se essa Ë associata all'imponibile fiscale o per addizionale si procede
+            // Per ogni deduzione se essa √® associata all'imponibile fiscale o per addizionale si procede
             foreach (DataRow rDeduzioneConguaglio in deduzioniConguaglio) {
                 string filtroDeduzione = QHC.CmpEq("iddeduction", rDeduzioneConguaglio["iddeduction"]);
                 string filtroDeduzionesql = QHS.CmpEq("iddeduction", rDeduzioneConguaglio["iddeduction"]);
@@ -7606,7 +7613,7 @@ namespace calcolocedolino { //calcolocedolino//
             string filtroConguaglio = QHC.CmpEq("idpayroll", idCedolinoConguaglio);
             // Si ottiene l'elenco delle detrazioni del cedolino di conguaglio
             DataRow[] detrazioniConguaglio = DS.payrollabatement.Select(filtroConguaglio);
-            // Per ogni detrazione se essa Ë associata ad una ritenuta fiscale si procede
+            // Per ogni detrazione se essa √® associata ad una ritenuta fiscale si procede
             foreach (DataRow rDetrazioneConguaglio in detrazioniConguaglio) {
                 string filtroDetrazione = QHC.CmpEq("idabatement", rDetrazioneConguaglio["idabatement"]);
                 DataRow tipoDetrazione = DS.abatement.Select(filtroDetrazione)[0];
@@ -7650,7 +7657,7 @@ namespace calcolocedolino { //calcolocedolino//
             // si crea uno storno nell'ultimo cedolino rata e vengono ricopiati i valori
             // del cedolino di conguaglio.
 
-            // N.B. Questo metodo Ë pi˘ "semplice" dei suoi simili in quanto gli storni si hanno solamente in sede
+            // N.B. Questo metodo √® pi√π "semplice" dei suoi simili in quanto gli storni si hanno solamente in sede
             // di conguaglio e non nei pagamenti delle varie rate
             foreach (DataRow rStornoConguaglio in DS.payrolltaxcorrige.Select(filtroCong)) {
                 MetaStorno.SetDefaults(DS.payrolltaxcorrige);
@@ -7703,7 +7710,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <returns>DataSet aggiornato</returns>
         public string calcolaCedolino(object idCedolino, bool copiaNelDataSetDiPartenza,
             string tipoRitenutaDaCalcolare) {
-            // Vengono eseguiti controlli preventivi per definire se puÚ essere effettuato o meno il calcolo del cedolino
+            // Vengono eseguiti controlli preventivi per definire se pu√≤ essere effettuato o meno il calcolo del cedolino
             string errMess = eseguiControlliPreventivi(idCedolino);
             if (errMess != null) return errMess;
 
@@ -7864,7 +7871,7 @@ namespace calcolocedolino { //calcolocedolino//
                         (CfgFn.GetNoNullInt32(rRitenuta["taxkind"]) == 1) &&
                         (rCedolino["flagbalance"].ToString().ToUpper() == "S") &&
                         (rRitenuta["geoappliance"] == DBNull.Value)) {
-                        // La legge dice che se non Ë dovuta l'IRPEF tutte le addizionali non sono dovute
+                        // La legge dice che se non √® dovuta l'IRPEF tutte le addizionali non sono dovute
                         azzeraAddizionali =
                             ((CfgFn.GetNoNullDecimal(rCedRit["annualpayedemploytax"]) == 0) &&
                              (CfgFn.GetNoNullDecimal(rCedRit["employtax"]) <= 0)) ||
@@ -7955,7 +7962,7 @@ namespace calcolocedolino { //calcolocedolino//
             // Le addizionali da azzerare sono solo quella comunale e regionale MA NON l'acconto
             // infatti per come concepiamo noi l'acconto esso viene trattenuto su tutti i cedolini
             // rata e viene restituito al percipiente a conguaglio (a mo di compensazione con la ritenuta 
-            // principale che Ë l'addizionale comunale)
+            // principale che √® l'addizionale comunale)
             string filtro = QHS.AppAnd(QHS.CmpEq("taxkind", 1), QHS.CmpEq("idser", codPrestazione),
                 QHS.IsNotNull("geoappliance"), QHS.CmpNe("taxref", "07_ACCADDCOM"));
             DataTable ritenuteGeografiche = Conn.RUN_SELECT("servicetaxview",

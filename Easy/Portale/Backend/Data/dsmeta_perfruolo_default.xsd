@@ -13,7 +13,9 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="pesoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesocapacitatp" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesocomp" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesodiff" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoindividuale" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesouo" type="xs:decimal" minOccurs="0" />
               <xs:element name="title" type="xs:string" />

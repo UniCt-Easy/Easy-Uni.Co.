@@ -6,3 +6,42 @@ textarea:read-only {
 .table > tr > td, th {
     white-space: normal!important;
 }
+
+.custom-control.custom-radio {
+    /* Rimuove qualsiasi vincolo di altezza fissa */
+    height: auto !important;
+    /* Assicura che l'elemento si adatti al contenuto */
+    overflow: visible !important;
+    /* A volte è necessario per 'ripulire' eventuali float interni */
+    display: block;
+}
+
+/* 1. Stile per il Contenitore di Ciascuna Opzione */
+.radio-option-wrapper {
+    /* CAMBIA: Permette ai wrapper di stare affiancati */
+    display: inline-flex !important; /* Usiamo inline-flex per mantenere l'allineamento pallino/label */
+
+    float: none !important;
+    margin-right: 20px; /* Aggiunge spazio tra le colonne di opzioni */
+    margin-bottom: 8px;
+    /* Rimuovi l'impostazione di larghezza al 100% se l'hai aggiunta altrove */
+    width: auto !important;
+}
+    /* 2. Stile per gli Elementi Interni (Input e Label) */
+    .radio-option-wrapper input[type="radio"],
+    .radio-option-wrapper label {
+        /* Permette a input e label di stare affiancati all'interno del flexbox wrapper */
+        display: inline !important;
+        /* Rimuove vincoli di larghezza forzata dalla label */
+        width: auto !important;
+        /* Rimuove margini/padding che potrebbero separare troppo pallino e testo */
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 3. Aggiusta la posizione del pallino */
+    .radio-option-wrapper input[type="radio"] {
+        /* Aggiunge spazio tra il pallino e il testo della label */
+        margin-right: 5px !important;
+        /* Se stai usando flexbox (punto 1), l'allineamento è gestito dal parent */
+    }

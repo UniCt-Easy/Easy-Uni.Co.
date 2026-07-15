@@ -23,32 +23,33 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segstud':
-						this.describeAColumn(table, 'annoaccademico_didprog_aa', 'Anno accademico', null, 20, 9);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 190, 1024);
-						this.describeAColumn(table, 'annoaccademico_iscrizione_aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'annoaccademico_iscrizione_1_aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'registry_title', 'Studente', null, 10, 101);
-						this.describeAColumn(table, 'iscrizione_anno', 'Anno di corso Iscrizione', null, 20, null);
-						this.describeAColumn(table, 'iscrizione_iddidprog', 'Didattica programmata Iscrizione', null, 20, null);
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 30, 1024);
-						this.describeAColumn(table, 'istanza_idistanzakind', 'Istanza', null, 50, null);
-						this.describeAColumn(table, 'istanza_idreg_studenti', 'Istanza', null, 50, null);
-						this.describeAColumn(table, 'istanza_aa', 'Istanza', null, 50, 9);
-						this.describeAColumn(table, 'istanza_data', 'Istanza', 'g', 50, null);
-						this.describeAColumn(table, 'istanza_iddidprog', 'Istanza', null, 50, null);
-						this.describeAColumn(table, 'istanza_idstatuskind', 'Istanza', null, 50, null);
-						this.describeAColumn(table, 'istanza_idiscrizione', 'Istanza', null, 50, null);
-						this.describeAColumn(table, 'dichiar_idreg', 'Studente Dichiarazione da convalidare', null, 100, null);
-						this.describeAColumn(table, 'dichiar_date', 'Data Dichiarazione da convalidare', null, 100, null);
-						this.describeAColumn(table, 'iscrizione_pratica_anno', 'Anno di corso Iscrizione da cui si vogliono convalidare i sostenimenti', null, 110, null);
-						this.describeAColumn(table, 'iscrizione_pratica_iddidprog', 'Didattica programmata Iscrizione da cui si vogliono convalidare i sostenimenti', null, 110, null);
-						this.describeAColumn(table, 'titolostudio_voto', 'Voto Titolo studio da cui si vogliono convalidare i sostenimenti', null, 120, null);
-						this.describeAColumn(table, 'titolostudio_votosu', 'Su Titolo studio da cui si vogliono convalidare i sostenimenti', null, 120, null);
-						this.describeAColumn(table, 'titolostudio_votolode', 'Lode Titolo studio da cui si vogliono convalidare i sostenimenti', null, 120, null);
-						this.describeAColumn(table, 'istanzakind_title', 'Tipologia di istanza', null, 180, 50);
-						this.describeAColumn(table, 'statuskind_title', 'Stato', null, 190, 50);
-						this.describeAColumn(table, 'pratica_protnumero', 'Numero di protocollo', null, 200, null);
-						this.describeAColumn(table, 'pratica_protanno', 'Anno di protocollo', null, 210, null);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 1300, 101);
+						this.describeAColumn(table, 'iscrizione_aa', 'Anno accademico Iscrizione', null, 2100, 9);
+						this.describeAColumn(table, 'iscrizione_iddidprog', 'Didattica programmata Iscrizione', null, 2500, null);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 3100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 3200, 9);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 3320, 1024);
+						this.describeAColumn(table, 'istanza_aa', 'Istanza', null, 5100, 9);
+						this.describeAColumn(table, 'istanza_data', 'Istanza', 'g', 5300, null);
+						this.describeAColumn(table, 'istanza_iddidprog', 'Istanza', null, 5600, null);
+						this.describeAColumn(table, 'istanza_idiscrizione', 'Istanza', null, 5700, null);
+						this.describeAColumn(table, 'istanza_idistanzakind', 'Istanza', null, 5800, null);
+						this.describeAColumn(table, 'istanza_idreg_studenti', 'Istanza', null, 5900, null);
+						this.describeAColumn(table, 'istanza_idstatuskind', 'Istanza', null, 6000, null);
+						this.describeAColumn(table, 'dichiar_aa', 'Anno Accademico Dichiarazione da convalidare', null, 10100, 9);
+						this.describeAColumn(table, 'dichiarkind_title', 'Tipologia Tipologia Dichiarazione da convalidare', null, 10120, 50);
+						this.describeAColumn(table, 'dichiar_date', 'Data Dichiarazione da convalidare', null, 10300, null);
+						this.describeAColumn(table, 'iscrizionefrom_aa', 'Anno accademico Iscrizione da cui si vogliono convalidare i sostenimenti', null, 11100, 9);
+						this.describeAColumn(table, 'iscrizionefrom_iddidprog', 'Didattica programmata Iscrizione da cui si vogliono convalidare i sostenimenti', null, 11500, null);
+						this.describeAColumn(table, 'istattitolistudio_titolo', 'Titolo di studio Titolo ISTAT Titolo studio da cui si vogliono convalidare i sostenimenti', null, 12120, 1024);
+						this.describeAColumn(table, 'titolostudio_aa', 'Anno accademico Titolo studio da cui si vogliono convalidare i sostenimenti', null, 12300, 9);
+						this.describeAColumn(table, 'titolostudio_voto', 'Voto Titolo studio da cui si vogliono convalidare i sostenimenti', null, 12700, null);
+						this.describeAColumn(table, 'titolostudio_votosu', 'Su Titolo studio da cui si vogliono convalidare i sostenimenti', null, 12800, null);
+						this.describeAColumn(table, 'titolostudio_votolode', 'Lode Titolo studio da cui si vogliono convalidare i sostenimenti', null, 12900, null);
+						this.describeAColumn(table, 'istanzakind_title', 'Tipologia di istanza', null, 18200, 50);
+						this.describeAColumn(table, 'statuskind_title', 'Stato', null, 19200, 50);
+						this.describeAColumn(table, 'pratica_protnumero', 'Numero di protocollo', null, 20000, null);
+						this.describeAColumn(table, 'pratica_protanno', 'Anno di protocollo', null, 21000, null);
 //$objCalcFieldConfig_segstud$
 						break;
 //$objCalcFieldConfig$
@@ -72,6 +73,9 @@
 				switch (listType) {
 					case "segstud": {
 						return "registry_title desc, didprog_title desc";
+					}
+					case "segstud": {
+						return "registry_title desc, didprog_title desc, didprog_aa desc";
 					}
 					//$getSortingin$
 				}

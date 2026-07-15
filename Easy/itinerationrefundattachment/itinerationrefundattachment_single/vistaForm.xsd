@@ -15,9 +15,10 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="iditinerationrefundattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -32,6 +33,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

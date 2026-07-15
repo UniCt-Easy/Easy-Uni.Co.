@@ -23,21 +23,19 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idcostoscontodefkind)
-					parentRow.idcostoscontodefkind = 1;
-				$("#XXfasciaiseedef").prop("disabled", !this.state.isEditState());
 				//beforeFillFilter
 				
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-costoscontodef_default");
 				var arraydef = [];
 				
+				arraydef.push(appMeta.getData.runSelectIntoTable(self.getDataTable("fasciaiseedef"), window.jsDataQuery.eq("idcostoscontodef", self.state.currentRow.idcostoscontodef), null));
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -52,11 +50,18 @@
 
 			//afterClear
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($("#XXfasciaiseedef"), this.state.isEditState());
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.DS.tables.costoscontodef.defaults({ 'idcostoscontodefkind': 1 });
 				$("#XXfasciaiseedef").prop("disabled", true);
+				appMeta.metaModel.cachedTable(this.getDataTable("fasciaiseedef"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("fasciaiseedef"));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -86,6 +91,8 @@
 
 			
 			
+			//afterPost
+
 			insertClick: function (that, grid) {
 				if (this.state.isInsertState() && grid.dataSourceName === "costoscontodefdettaglio") {
 					return this.showMessageOk("Devi prima salvare il costo, e creare gli oggetti: fascia isee, rata etc...");

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,11 +25,23 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_accordoscambiomidettaz_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_accordoscambiomidettaz_seg: DataSet {
+public partial class dsmeta_accordoscambiomidettaz_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_nation 		=> (MetaTable)Tables["geo_nation"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefr_alias4 		=> (MetaTable)Tables["cefr_alias4"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefr_alias3 		=> (MetaTable)Tables["cefr_alias3"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefr_alias2 		=> (MetaTable)Tables["cefr_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable cefr_alias1 		=> (MetaTable)Tables["cefr_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable cefr 		=> (MetaTable)Tables["cefr"];
@@ -77,8 +87,45 @@ private void initClass() {
 	Tables.Add(tgeo_nation);
 	tgeo_nation.defineKey("idnation");
 
+	//////////////////// CEFR_ALIAS4 /////////////////////////////////
+	var tcefr_alias4= new MetaTable("cefr_alias4");
+	tcefr_alias4.defineColumn("active", typeof(string),false);
+	tcefr_alias4.defineColumn("idcefr", typeof(int),false);
+	tcefr_alias4.defineColumn("title", typeof(string),false);
+	tcefr_alias4.ExtendedProperties["TableForReading"]="cefr";
+	Tables.Add(tcefr_alias4);
+	tcefr_alias4.defineKey("idcefr");
+
+	//////////////////// CEFR_ALIAS3 /////////////////////////////////
+	var tcefr_alias3= new MetaTable("cefr_alias3");
+	tcefr_alias3.defineColumn("active", typeof(string),false);
+	tcefr_alias3.defineColumn("idcefr", typeof(int),false);
+	tcefr_alias3.defineColumn("title", typeof(string),false);
+	tcefr_alias3.ExtendedProperties["TableForReading"]="cefr";
+	Tables.Add(tcefr_alias3);
+	tcefr_alias3.defineKey("idcefr");
+
+	//////////////////// CEFR_ALIAS2 /////////////////////////////////
+	var tcefr_alias2= new MetaTable("cefr_alias2");
+	tcefr_alias2.defineColumn("active", typeof(string),false);
+	tcefr_alias2.defineColumn("idcefr", typeof(int),false);
+	tcefr_alias2.defineColumn("title", typeof(string),false);
+	tcefr_alias2.ExtendedProperties["TableForReading"]="cefr";
+	Tables.Add(tcefr_alias2);
+	tcefr_alias2.defineKey("idcefr");
+
+	//////////////////// CEFR_ALIAS1 /////////////////////////////////
+	var tcefr_alias1= new MetaTable("cefr_alias1");
+	tcefr_alias1.defineColumn("active", typeof(string),false);
+	tcefr_alias1.defineColumn("idcefr", typeof(int),false);
+	tcefr_alias1.defineColumn("title", typeof(string),false);
+	tcefr_alias1.ExtendedProperties["TableForReading"]="cefr";
+	Tables.Add(tcefr_alias1);
+	tcefr_alias1.defineKey("idcefr");
+
 	//////////////////// CEFR /////////////////////////////////
 	var tcefr= new MetaTable("cefr");
+	tcefr.defineColumn("active", typeof(string),false);
 	tcefr.defineColumn("idcefr", typeof(int),false);
 	tcefr.defineColumn("title", typeof(string),false);
 	Tables.Add(tcefr);
@@ -91,7 +138,7 @@ private void initClass() {
 	tcefrlanglevel.defineColumn("idaccordoscambiomi", typeof(int));
 	tcefrlanglevel.defineColumn("idaccordoscambiomidett", typeof(int));
 	tcefrlanglevel.defineColumn("idaccordoscambiomidettaz", typeof(int));
-	tcefrlanglevel.defineColumn("idaccordoscambiomidettlangkind", typeof(int),false);
+	tcefrlanglevel.defineColumn("idaccordoscambiomidettlangkind", typeof(int));
 	tcefrlanglevel.defineColumn("idcefr_compasc", typeof(int));
 	tcefrlanglevel.defineColumn("idcefr_complett", typeof(int));
 	tcefrlanglevel.defineColumn("idcefr_parlinter", typeof(int));
@@ -110,22 +157,15 @@ private void initClass() {
 	tcefrlanglevel.defineColumn("!idcefr_parlprod_cefr_title", typeof(string));
 	tcefrlanglevel.defineColumn("!idcefr_scritto_cefr_title", typeof(string));
 	tcefrlanglevel.defineColumn("!idnation_geo_nation_lang", typeof(string));
+	tcefrlanglevel.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tcefrlanglevel);
 	tcefrlanglevel.defineKey("idcefrlanglevel");
 
 	//////////////////// REGISTRYAZIENDEVIEW /////////////////////////////////
 	var tregistryaziendeview= new MetaTable("registryaziendeview");
 	tregistryaziendeview.defineColumn("dropdown_title", typeof(string),false);
-	tregistryaziendeview.defineColumn("idateco", typeof(int));
-	tregistryaziendeview.defineColumn("idcategory", typeof(string));
-	tregistryaziendeview.defineColumn("idcity", typeof(int));
-	tregistryaziendeview.defineColumn("idnace", typeof(string));
-	tregistryaziendeview.defineColumn("idnation", typeof(int));
-	tregistryaziendeview.defineColumn("idnaturagiur", typeof(int));
-	tregistryaziendeview.defineColumn("idnumerodip", typeof(int));
 	tregistryaziendeview.defineColumn("idreg", typeof(int),false);
-	tregistryaziendeview.defineColumn("idregistryclass", typeof(string));
-	tregistryaziendeview.defineColumn("residence", typeof(int),false);
+	tregistryaziendeview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistryaziendeview);
 	tregistryaziendeview.defineKey("idreg");
 
@@ -156,21 +196,21 @@ private void initClass() {
 	cChild = new []{cefrlanglevel.Columns["idnation"]};
 	Relations.Add(new DataRelation("FK_cefrlanglevel_geo_nation_idnation",cPar,cChild,false));
 
-	cPar = new []{cefr.Columns["idcefr"]};
+	cPar = new []{cefr_alias4.Columns["idcefr"]};
 	cChild = new []{cefrlanglevel.Columns["idcefr_scritto"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_idcefr_scritto",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_alias4_idcefr_scritto",cPar,cChild,false));
 
-	cPar = new []{cefr.Columns["idcefr"]};
+	cPar = new []{cefr_alias3.Columns["idcefr"]};
 	cChild = new []{cefrlanglevel.Columns["idcefr_parlprod"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_idcefr_parlprod",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_alias3_idcefr_parlprod",cPar,cChild,false));
 
-	cPar = new []{cefr.Columns["idcefr"]};
+	cPar = new []{cefr_alias2.Columns["idcefr"]};
 	cChild = new []{cefrlanglevel.Columns["idcefr_parlinter"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_idcefr_parlinter",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_alias2_idcefr_parlinter",cPar,cChild,false));
 
-	cPar = new []{cefr.Columns["idcefr"]};
+	cPar = new []{cefr_alias1.Columns["idcefr"]};
 	cChild = new []{cefrlanglevel.Columns["idcefr_complett"]};
-	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_idcefr_complett",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_cefrlanglevel_cefr_alias1_idcefr_complett",cPar,cChild,false));
 
 	cPar = new []{cefr.Columns["idcefr"]};
 	cChild = new []{cefrlanglevel.Columns["idcefr_compasc"]};

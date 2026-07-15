@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_convalidante_segistabbr"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_convalidante_segistabbr: DataSet {
+public partial class dsmeta_convalidante_segistabbr: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -37,7 +35,7 @@ public class dsmeta_convalidante_segistabbr: DataSet {
 	public MetaTable sostenimentodefaultview 		=> (MetaTable)Tables["sostenimentodefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable changeskinddefaultview 		=> (MetaTable)Tables["changeskinddefaultview"];
+	public MetaTable dichiar 		=> (MetaTable)Tables["dichiar"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidante 		=> (MetaTable)Tables["convalidante"];
@@ -69,35 +67,97 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// TIROCINIOPROGETTO /////////////////////////////////
 	var ttirocinioprogetto= new MetaTable("tirocinioprogetto");
+	ttirocinioprogetto.defineColumn("competenze", typeof(string));
+	ttirocinioprogetto.defineColumn("ct", typeof(DateTime),false);
+	ttirocinioprogetto.defineColumn("cu", typeof(string),false);
+	ttirocinioprogetto.defineColumn("datafineeffettiva", typeof(DateTime));
+	ttirocinioprogetto.defineColumn("datafineprevista", typeof(DateTime),false);
+	ttirocinioprogetto.defineColumn("datainizioeffettiva", typeof(DateTime));
+	ttirocinioprogetto.defineColumn("datainizioprevista", typeof(DateTime),false);
+	ttirocinioprogetto.defineColumn("dataverbale", typeof(DateTime));
 	ttirocinioprogetto.defineColumn("description", typeof(string),false);
+	ttirocinioprogetto.defineColumn("description_en", typeof(string));
+	ttirocinioprogetto.defineColumn("idaoo", typeof(int),false);
+	ttirocinioprogetto.defineColumn("idreg_docenti", typeof(int),false);
 	ttirocinioprogetto.defineColumn("idreg_referente", typeof(int),false);
 	ttirocinioprogetto.defineColumn("idreg_studenti", typeof(int),false);
+	ttirocinioprogetto.defineColumn("idsede", typeof(int));
+	ttirocinioprogetto.defineColumn("idstruttura", typeof(int),false);
 	ttirocinioprogetto.defineColumn("idtirociniocandidatura", typeof(int),false);
 	ttirocinioprogetto.defineColumn("idtirocinioprogetto", typeof(int),false);
 	ttirocinioprogetto.defineColumn("idtirocinioproposto", typeof(int),false);
+	ttirocinioprogetto.defineColumn("idtirociniostato", typeof(int),false);
+	ttirocinioprogetto.defineColumn("lt", typeof(DateTime),false);
+	ttirocinioprogetto.defineColumn("lu", typeof(string),false);
+	ttirocinioprogetto.defineColumn("ore", typeof(int),false);
+	ttirocinioprogetto.defineColumn("protanno", typeof(int));
+	ttirocinioprogetto.defineColumn("protnumero", typeof(int));
+	ttirocinioprogetto.defineColumn("tempiaccesso", typeof(string));
 	ttirocinioprogetto.defineColumn("title", typeof(string),false);
+	ttirocinioprogetto.defineColumn("title_en", typeof(string));
 	Tables.Add(ttirocinioprogetto);
 	ttirocinioprogetto.defineKey("idreg_referente", "idreg_studenti", "idtirociniocandidatura", "idtirocinioprogetto", "idtirocinioproposto");
 
 	//////////////////// SOSTENIMENTODEFAULTVIEW /////////////////////////////////
 	var tsostenimentodefaultview= new MetaTable("sostenimentodefaultview");
+	tsostenimentodefaultview.defineColumn("annoaccademico_aa", typeof(string));
+	tsostenimentodefaultview.defineColumn("annoaccademico_titolostudio_aa", typeof(string));
+	tsostenimentodefaultview.defineColumn("attivform_title", typeof(string));
 	tsostenimentodefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tsostenimentodefaultview.defineColumn("idappello", typeof(int));
+	tsostenimentodefaultview.defineColumn("idappello", typeof(int),false);
 	tsostenimentodefaultview.defineColumn("idattivform", typeof(int));
 	tsostenimentodefaultview.defineColumn("idiscrizione", typeof(int));
-	tsostenimentodefaultview.defineColumn("idprova", typeof(int));
+	tsostenimentodefaultview.defineColumn("idprova", typeof(int),false);
 	tsostenimentodefaultview.defineColumn("idreg", typeof(int),false);
 	tsostenimentodefaultview.defineColumn("idsostenimento", typeof(int),false);
 	tsostenimentodefaultview.defineColumn("idtitolostudio", typeof(int));
+	tsostenimentodefaultview.defineColumn("iscrizione_anno", typeof(int));
+	tsostenimentodefaultview.defineColumn("iscrizione_iddidprog", typeof(int));
+	tsostenimentodefaultview.defineColumn("istattitolistudio_titolo", typeof(string));
+	tsostenimentodefaultview.defineColumn("registry_title", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_ct", typeof(DateTime),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_cu", typeof(string),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_data", typeof(DateTime),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_domande", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_ects", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_giudizio", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_idcorsostudio", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_iddidprog", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_idsostenimentoesito", typeof(int),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_insecod", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_insedesc", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_livello", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_lt", typeof(DateTime),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_lu", typeof(string),false);
+	tsostenimentodefaultview.defineColumn("sostenimento_paridsostenimento", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_protanno", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_protnumero", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimento_voto", typeof(decimal));
+	tsostenimentodefaultview.defineColumn("sostenimento_votolode", typeof(string));
+	tsostenimentodefaultview.defineColumn("sostenimento_votosu", typeof(int));
+	tsostenimentodefaultview.defineColumn("sostenimentoesito_title", typeof(string));
+	tsostenimentodefaultview.defineColumn("titolostudio_voto", typeof(int));
+	tsostenimentodefaultview.defineColumn("titolostudio_votolode", typeof(string));
+	tsostenimentodefaultview.defineColumn("titolostudio_votosu", typeof(int));
 	Tables.Add(tsostenimentodefaultview);
-	tsostenimentodefaultview.defineKey("idsostenimento");
+	tsostenimentodefaultview.defineKey("idappello", "idprova", "idreg", "idsostenimento");
 
-	//////////////////// CHANGESKINDDEFAULTVIEW /////////////////////////////////
-	var tchangeskinddefaultview= new MetaTable("changeskinddefaultview");
-	tchangeskinddefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tchangeskinddefaultview.defineColumn("idchangeskind", typeof(int),false);
-	Tables.Add(tchangeskinddefaultview);
-	tchangeskinddefaultview.defineKey("idchangeskind");
+	//////////////////// DICHIAR /////////////////////////////////
+	var tdichiar= new MetaTable("dichiar");
+	tdichiar.defineColumn("aa", typeof(string));
+	tdichiar.defineColumn("ct", typeof(DateTime),false);
+	tdichiar.defineColumn("cu", typeof(string),false);
+	tdichiar.defineColumn("date", typeof(DateTime),false);
+	tdichiar.defineColumn("extension", typeof(string));
+	tdichiar.defineColumn("iddichiar", typeof(int),false);
+	tdichiar.defineColumn("iddichiarkind", typeof(int),false);
+	tdichiar.defineColumn("idreg", typeof(int),false);
+	tdichiar.defineColumn("lt", typeof(DateTime),false);
+	tdichiar.defineColumn("lu", typeof(string),false);
+	tdichiar.defineColumn("protanno", typeof(int));
+	tdichiar.defineColumn("protnumero", typeof(int));
+	Tables.Add(tdichiar);
+	tdichiar.defineKey("iddichiar", "idreg");
 
 	//////////////////// CONVALIDANTE /////////////////////////////////
 	var tconvalidante= new MetaTable("convalidante");
@@ -137,9 +197,9 @@ private void initClass() {
 	cChild = new []{convalidante.Columns["idsostenimento"]};
 	Relations.Add(new DataRelation("FK_convalidante_sostenimentodefaultview_idsostenimento",cPar,cChild,false));
 
-	cPar = new []{changeskinddefaultview.Columns["idchangeskind"]};
-	cChild = new []{convalidante.Columns["idchangeskind"]};
-	Relations.Add(new DataRelation("FK_convalidante_changeskinddefaultview_idchangeskind",cPar,cChild,false));
+	cPar = new []{dichiar.Columns["iddichiar"]};
+	cChild = new []{convalidante.Columns["iddichiar"]};
+	Relations.Add(new DataRelation("FK_convalidante_dichiar_iddichiar",cPar,cChild,false));
 
 	#endregion
 

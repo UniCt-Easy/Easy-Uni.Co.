@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,12 +13,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
@@ -224,7 +223,8 @@ namespace no_table_wiz_cfpiva_duplicata {
                 ParteWhere = QHS.AppAnd(ParteWhere, QHS.CmpEq("idregistryclass", cmbRegistryClass.SelectedValue));
             if (txtCF.Text.Trim() != "") {
                 if (rdoCF.Checked) {
-                    ParteWhere = QHS.AppAnd(ParteWhere, QHS.Like("cf", txtCF.Text));
+                    //ParteWhere = QHS.AppAnd(ParteWhere, QHS.Like("cf", txtCF.Text));
+                    ParteWhere = QHS.AppAnd(ParteWhere, QHS.AppOr(QHS.Like("cf", txtCF.Text), QHS.Like("foreigncf", txtCF.Text)));
                 }
                 else {
                     ParteWhere = QHS.AppAnd(ParteWhere, QHS.Like("p_iva", txtCF.Text));
@@ -242,11 +242,16 @@ namespace no_table_wiz_cfpiva_duplicata {
             ParteGroupBy = "idregistryclass";
 
             if (rdoCF.Checked) {
-                ParteSelect = MyAppend(ParteSelect, "cf");
-                ParteGroupBy = MyAppend(ParteGroupBy, "cf");
-                ParteWhere = QHS.AppAnd(ParteWhere, QHS.IsNotNull("cf"));
-                ParteHaving = "COUNT(cf) > 1";
-                ParteOrderBy = "cf ASC";
+                //ParteSelect = MyAppend(ParteSelect, "cf");
+                ParteSelect = MyAppend(ParteSelect, "COALESCE(cf, foreigncf) as cf");
+                //ParteGroupBy = MyAppend(ParteGroupBy, "cf");
+                ParteGroupBy = MyAppend(ParteGroupBy, "COALESCE(cf, foreigncf)");
+                //ParteWhere = QHS.AppAnd(ParteWhere, QHS.IsNotNull("cf"));
+                ParteWhere = QHS.AppAnd(ParteWhere, "(cf IS NOT NULL OR foreigncf IS NOT NULL)");
+                //ParteHaving = "COUNT(cf) > 1";
+                ParteHaving = "COUNT(COALESCE(cf, foreigncf)) > 1";
+                //ParteOrderBy = "cf ASC";
+                ParteOrderBy = "COALESCE(cf, foreigncf) ASC";
             }
             else {
                 ParteSelect = MyAppend(ParteSelect, "p_iva");
@@ -278,6 +283,9 @@ namespace no_table_wiz_cfpiva_duplicata {
                 TempTable.Columns.Add("UnicaAnagrafica");
                 TempTable.Rows.Add(new object[] { "" });
             }
+
+            TempTable.Columns.Add("foreigncf");
+
             pBar.Maximum = TempTable.Rows.Count;
             pBar.Value = 0;
         }
@@ -298,15 +306,17 @@ namespace no_table_wiz_cfpiva_duplicata {
             DS.registrymainview.Clear();
             ctrl.GetFormData(true);
 
-            string field = (rdoCF.Checked) ? "cf" : "p_iva";
-            string filter = QHS.AppAnd(QHS.MCmp(CurrRow, new string [] {"idregistryclass", field}),
-                           QHS.CmpNe("multi_cf", 'S'));
+            string[] fields = (rdoCF.Checked) ? new string[] { "cf", "foreigncf" } : new string[] { "p_iva" };
+
+            string orFilter = QHS.AppOr(fields.Select(f => QHS.CmpEq(f, CurrRow["cf"])).ToArray()); // simuliamo coalesce
+
+            string filter = QHS.AppAnd(QHS.MCmp(CurrRow, new[] { "idregistryclass" }), orFilter, QHS.CmpNe("multi_cf", 'S'));
             if (!chkNonAttive.Checked) filter = QHS.AppAnd(filter, QHS.NullOrEq("active", 'S'));
             if (cmbRegistryClass.SelectedIndex > 0)
                 filter = QHS.AppAnd(filter, QHS.CmpEq("idregistryclass", cmbRegistryClass.SelectedValue));
 
             DataAccess.RUN_SELECT_INTO_TABLE(conn as DataAccess, DS.registrymainview,
-                "title ASC," + field + " ASC", 
+                "title ASC," + string.Join(", ", fields.Select(f => f + " ASC")),// + " ASC", 
                 filter,
                 null, false);
 

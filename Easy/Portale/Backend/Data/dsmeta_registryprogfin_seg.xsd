@@ -32,6 +32,7 @@
               <xs:element name="number" type="xs:string" minOccurs="0" />
               <xs:element name="scadenza" type="xs:dateTime" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="url" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -47,6 +48,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="url" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

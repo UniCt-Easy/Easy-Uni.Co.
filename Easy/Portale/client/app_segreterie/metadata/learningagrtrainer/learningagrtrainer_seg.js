@@ -21,17 +21,37 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (self.isNullOrMinDate(parentRow.start))
+				parentRow.start = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.stop))
+				parentRow.stop = new Date();
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-learningagrtrainer_seg");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#learningagrtrainer_seg_idlearningagrtrainervalut'), null);
 				} else {
@@ -115,7 +135,7 @@
 				this.setDenyNull("learningagrtrainer","idiscrizionebmi");
 				appMeta.metaModel.insertFilter(this.getDataTable("cefrdefaultview"), this.q.eq('cefr_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("learningagrkinddefaultview"), this.q.eq('learningagrkind_active', 'Si'));
-				appMeta.metaModel.insertFilter(this.getDataTable("learningagrtrainerkind"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("learningagrtrainerkinddefaultview"), this.q.eq('learningagrtrainerkind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

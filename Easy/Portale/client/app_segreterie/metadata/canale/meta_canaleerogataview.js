@@ -27,10 +27,11 @@
 						this.describeAColumn(table, 'didprogori_title', 'Orientamento', null, 2200, 256);
 						this.describeAColumn(table, 'didproganno_title', 'Anno', null, 3100, 2048);
 						this.describeAColumn(table, 'didprogporzanno_title', 'Porzione d\'anno', null, 4100, 2048);
-						this.describeAColumn(table, 'attivform_title', 'Attività formativa', null, 5100, -1);
+						this.describeAColumn(table, 'attivform_title', 'Attività formativa Attività formativa', null, 5100, -1);
+						this.describeAColumn(table, 'attivform_aa', 'Identificativo Attività formativa', null, 5500, 9);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 6000, 256);
 						this.describeAColumn(table, 'canale_CUIN', 'CUIN', null, 7000, 9);
-						this.describeAColumn(table, 'XXaffidamento', 'Affidamento', null, 15000, null);
+						this.describeAColumn(table, 'XXaffidamento', 'Affidamenti ai docenti', null, 15000, null);
 						this.describeAColumn(table, 'XXmutuazione', 'Mutuazione o fruizione', null, 16000, null);
 //$objCalcFieldConfig_erogata$
 						break;
@@ -55,6 +56,9 @@
 				switch (listType) {
 					case "erogata": {
 						return "didprogcurr_title asc , didprogori_title asc , didproganno_title asc , didprogporzanno_title asc , attivform_title asc ";
+					}
+					case "erogata": {
+						return "didprogcurr_title asc , didprogori_title asc , didproganno_title asc , didprogporzanno_title asc , attivform_title asc , attivform_aa asc ";
 					}
 					//$getSortingin$
 				}

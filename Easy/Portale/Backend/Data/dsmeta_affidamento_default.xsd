@@ -185,7 +185,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -216,6 +216,7 @@
         <xs:element name="sede" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsede" type="xs:int" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -241,6 +242,7 @@
               <xs:element name="idsasd" type="xs:int" minOccurs="0" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="maritalstatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_acronim" type="xs:string" minOccurs="0" />
               <xs:element name="registry_active" type="xs:string" minOccurs="0" />
               <xs:element name="registry_annotation" type="xs:string" minOccurs="0" />
               <xs:element name="registry_authorization_free" type="xs:string" minOccurs="0" />
@@ -248,6 +250,9 @@
               <xs:element name="registry_birthdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="registry_ccp" type="xs:string" minOccurs="0" />
               <xs:element name="registry_cf" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_code" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_codicemiur" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_codiceustat" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ct" type="xs:dateTime" />
               <xs:element name="registry_cu" type="xs:string" />
               <xs:element name="registry_email_fe" type="xs:string" minOccurs="0" />
@@ -264,6 +269,7 @@
               <xs:element name="registry_idcentralizedcategory" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idexternal" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_idistitutokind" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idmaritalstatus" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idnace" type="xs:string" minOccurs="0" />
               <xs:element name="registry_idnaturagiur" type="xs:int" minOccurs="0" />
@@ -272,6 +278,7 @@
               <xs:element name="registry_idregistrykind" type="xs:int" minOccurs="0" />
               <xs:element name="registry_idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="registry_indicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="registry_institutionalcode" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="registry_location" type="xs:string" minOccurs="0" />
@@ -282,6 +289,7 @@
               <xs:element name="registry_p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="registry_pec_fe" type="xs:string" minOccurs="0" />
               <xs:element name="registry_pic" type="xs:string" minOccurs="0" />
+              <xs:element name="registry_referencenumber" type="xs:string" minOccurs="0" />
               <xs:element name="registry_residence" type="xs:int" />
               <xs:element name="registry_ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="registry_rtf" type="xs:base64Binary" minOccurs="0" />
@@ -480,6 +488,7 @@
     </xs:unique>
     <xs:unique name="sede_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sede" />
+      <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="registrydocentiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

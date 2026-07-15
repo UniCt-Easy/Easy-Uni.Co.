@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace accountvarattachment_detail {
 using System;
@@ -64,6 +62,7 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
 	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
+	T.Columns.Add(new DataColumn("idfilestorage", typeof(System.String)));
 	Tables.Add(T);
 //Primary Key
 	key = new DataColumn[3]{

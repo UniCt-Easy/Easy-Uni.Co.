@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -81,6 +79,11 @@ namespace csa_contracttax_partition_detail {
         public void MetaData_AfterFill() {
             VisualizzaMovimentoSpesa();
             VisualizzaImpegnoBudget();
+            var idexp = DS.Tables["csa_contracttax_partition"].Rows[0]["idexp"];
+            var idepexp = DS.Tables["csa_contracttax_partition"].Rows[0]["idepexp"];
+            gboxUPB.Enabled = (idexp == DBNull.Value && idepexp == DBNull.Value);
+            gboxConto.Enabled = (idepexp == DBNull.Value);
+            grpBilancioVersamento.Enabled = (idexp == DBNull.Value);
         }
         void EnableFaseImpegnoBudget(int nphase, string descrizione) {
             DataRow R = DS.fase_epexp.NewRow();

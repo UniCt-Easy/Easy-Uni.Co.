@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -974,6 +972,17 @@ public class itinerationRow: MetaRow  {
 	public Decimal? advancepercentagecourseOriginal { 
 		get {if (this["advancepercentagecourse",DataRowVersion.Original]==DBNull.Value)return null; return  (Decimal?)this["advancepercentagecourse",DataRowVersion.Original];}
 	}
+	public String flagexcludefromcertificate{ 
+		get {if (this["flagexcludefromcertificate"]==DBNull.Value)return null; return  (String)this["flagexcludefromcertificate"];}
+		set {if (value==null) this["flagexcludefromcertificate"]= DBNull.Value; else this["flagexcludefromcertificate"]= value;}
+	}
+	public object flagexcludefromcertificateValue { 
+		get{ return this["flagexcludefromcertificate"];}
+		set {if (value==null|| value==DBNull.Value) this["flagexcludefromcertificate"]= DBNull.Value; else this["flagexcludefromcertificate"]= value;}
+	}
+	public String flagexcludefromcertificateOriginal { 
+		get {if (this["flagexcludefromcertificate",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagexcludefromcertificate",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -1066,6 +1075,7 @@ public class itinerationTable : MetaTableBase<itinerationRow> {
 			{"advancepercentagefood",createColumn("advancepercentagefood",typeof(decimal),true,false)},
 			{"supposedcourse",createColumn("supposedcourse",typeof(decimal),true,false)},
 			{"advancepercentagecourse",createColumn("advancepercentagecourse",typeof(decimal),true,false)},
+			{"flagexcludefromcertificate",createColumn("flagexcludefromcertificate",typeof(string),true,false)},
 		};
 	}
 }

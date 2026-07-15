@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -163,7 +161,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
 			return false;
 		}
 		string errormsg = "";
-        bool ChangeGlobalItinerationStatus = false; //se true Ë necessario cambiare lo stato della missione (itineration)
+        bool ChangeGlobalItinerationStatus = false; //se true √® necessario cambiare lo stato della missione (itineration)
         int iditineration = CfgFn.GetNoNullInt32(rItinerationauthview["iditineration"]);
         string filter = "";
         filter = QHS.AppAnd(QHS.CmpEq("iditineration", iditineration), QHS.CmpNe("idauthagency", idauthagency),
@@ -259,7 +257,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         string errormsg = "";
         // Determinare anche se sono l'ultimo ad approvare. Se si, 
         // Tutta la missione passa nello stato di approvato
-        // CioË se questa select count d‡ come risultato 0
+        // Cio√® se questa select count d√† come risultato 0
         //select count(*) from itinerationauthagency where iditineration=159 
         // and idauthagency<>9 and (flagstatus='D' or flagstatus='N')
         // Modificare inoltre la data di autorizzazione oltre a quello globale
@@ -404,7 +402,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         }
 
         if (flagownfunds == "N") {
-            //Fondi di altri Ë l'agente che deve indicare l'UPB
+            //Fondi di altri √® l'agente che deve indicare l'UPB
             PanelUpb.Enabled = true;
         }
         else {
@@ -569,7 +567,7 @@ public partial class itinerationauth_default_new02 : MetaPage {
         DT.Columns["giorni"].Caption = "Giorni";
         DT.Columns["ore"].Caption = "Ore";
         DT.Columns["description"].Caption = "Descrizione";
-        DT.Columns["foreigncountrydes"].Caption = "Localit‡ Estera";
+        DT.Columns["foreigncountrydes"].Caption = "Localit√† Estera";
         ShowFormattedResults(DT, "Tappe Missione");
         return;
 

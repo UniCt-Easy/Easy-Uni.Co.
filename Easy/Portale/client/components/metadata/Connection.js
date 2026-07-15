@@ -110,7 +110,7 @@
                                 // ripulisco errore
                                 var serr = null;
                                 if (err.text) {
-                                    if (err.text.Message)
+                                    if (err.text.Message !== undefined)
                                         serr = err.text.Message.replace(/"/g, '');
                                     else
                                         serr = err.text.replace(/"/g, '');
@@ -188,7 +188,8 @@
                             objConn.prm.password = '************'
                         }
 
-                        if (self.testMode) {
+                        //whether it is in test mode or whether it is the same logError method that failed (it is an error loop)
+                        if (self.testMode || objConn.method == "logError") {
                             console.log(err);
                             def.reject(err);
                         }
@@ -300,7 +301,7 @@
             // ripulisce token
            this.unsetToken();
             // setta token anonimo, che stabilirà una connessione anonima
-            var anonymousToken = "AnonymousToken123456789";
+            var anonymousToken = "YOUR_SECRET";
             // set data scadenza a now + xxx minuti
             var now = new Date(),
             d2expire = new Date(now);

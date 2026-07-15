@@ -31,7 +31,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -216,7 +216,13 @@
         <xs:element name="perfcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -319,11 +325,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_active" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_areadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_categoria" type="xs:string" />
               <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_macroareadidattica" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
@@ -359,6 +369,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idperfgiudizio_captec" type="xs:int" minOccurs="0" />
               <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
@@ -373,10 +384,13 @@
               <xs:element name="motivazione" type="xs:string" minOccurs="0" />
               <xs:element name="percateneo" type="xs:decimal" minOccurs="0" />
               <xs:element name="perccomportamenti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percgradodiff" type="xs:decimal" minOccurs="0" />
               <xs:element name="percobiettivi" type="xs:decimal" minOccurs="0" />
               <xs:element name="percperfuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesocaptec" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesocomportamenti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesogradodiff" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoperfuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="risultato" type="xs:decimal" minOccurs="0" />
@@ -522,6 +536,7 @@
       <msdata:Relationship name="FK_perfvalutazionepersonaleattach_perfvalutazionepersonale_idperfvalutazionepersonale" msdata:parent="perfvalutazionepersonale" msdata:child="perfvalutazionepersonaleattach" msdata:parentkey="idperfvalutazionepersonale" msdata:childkey="idperfvalutazionepersonale" />
       <msdata:Relationship name="FK_perfvalutazionepersonaleattach_attach_idattach" msdata:parent="attach" msdata:child="perfvalutazionepersonaleattach" msdata:parentkey="idattach" msdata:childkey="idattach" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilidefaultview_alias5_idreg_appr" msdata:parent="getdocentiamministrativiresponsabilidefaultview_alias5" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_appr" />
+      <msdata:Relationship name="FK_perfvalutazionepersonale_perfgiudiziodefaultview_idperfgiudizio_captec" msdata:parent="perfgiudiziodefaultview" msdata:child="perfvalutazionepersonale" msdata:parentkey="idperfgiudizio" msdata:childkey="idperfgiudizio_captec" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilidefaultview_alias4_idreg_val" msdata:parent="getdocentiamministrativiresponsabilidefaultview_alias4" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_val" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilidefaultview_alias3_idreg_comp" msdata:parent="getdocentiamministrativiresponsabilidefaultview_alias3" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_comp" />
       <msdata:Relationship name="FK_perfvalutazionepersonale_getdocentiamministrativiresponsabilidefaultview_alias2_idreg_create" msdata:parent="getdocentiamministrativiresponsabilidefaultview_alias2" msdata:child="perfvalutazionepersonale" msdata:parentkey="idreg" msdata:childkey="idreg_create" />

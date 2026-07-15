@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -42,7 +40,7 @@ namespace banktransaction_recuperadati {
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label lblFaseCorrente;
-		private System.Windows.Forms.ProgressBar progressBar1;
+		//private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.TextBox txtDipDestinazione;
 		private System.Windows.Forms.Label label4;
 		/// <summary>
@@ -52,7 +50,7 @@ namespace banktransaction_recuperadati {
 
 		public FrmBankTransaction_RecuperaDati() {
 			InitializeComponent();
-			progressBar1.Minimum = 0;
+			//progressBar1.Minimum = 0;
 		}
 
 		/// <summary>
@@ -82,7 +80,7 @@ namespace banktransaction_recuperadati {
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.lblFaseCorrente = new System.Windows.Forms.Label();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			//this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.txtDipDestinazione = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -165,12 +163,12 @@ namespace banktransaction_recuperadati {
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(8, 224);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(432, 23);
-			this.progressBar1.TabIndex = 8;
+			//this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//	| System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBar1.Location = new System.Drawing.Point(8, 224);
+			//this.progressBar1.Name = "progressBar1";
+			//this.progressBar1.Size = new System.Drawing.Size(432, 23);
+			//this.progressBar1.TabIndex = 8;
 			// 
 			// txtDipDestinazione
 			// 
@@ -196,7 +194,7 @@ namespace banktransaction_recuperadati {
 			this.ClientSize = new System.Drawing.Size(448, 254);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.txtDipDestinazione);
-			this.Controls.Add(this.progressBar1);
+			//this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.lblFaseCorrente);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
@@ -351,7 +349,7 @@ namespace banktransaction_recuperadati {
 
 		
 		private void aggiornaForm(string fase) {
-			progressBar1.Value = 0;
+			//progressBar1.Value = 0;
 			lblFaseCorrente.Text = fase;
 		}
 
@@ -465,10 +463,10 @@ namespace banktransaction_recuperadati {
 			DataTable tMovBancario_src = sourceConn.SQLRunner(q1);
 			if (tMovBancario_src == null) return false;
 
-			progressBar1.Maximum = tMovBancario_src.Rows.Count;
+			//progressBar1.Maximum = tMovBancario_src.Rows.Count;
 			foreach(DataRow rMovBancario in tMovBancario_src.Rows) {
 				fillPBank(rMovBancario, tPXXX_Bank, IoE);
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				Application.DoEvents();
 			}
 
@@ -517,7 +515,7 @@ namespace banktransaction_recuperadati {
 				, null, null, true);
 			if (tMovFin_src == null) return false;
 
-			progressBar1.Maximum = tMovBancario_src.Rows.Count;
+			//progressBar1.Maximum = tMovBancario_src.Rows.Count;
 			foreach(DataRow rMovBancario in tMovBancario_src.Rows) {
 				string filter = "(esercmovbancario = '" + rMovBancario["esercmovbancario"]
 					+ "') AND (nummovbancario = '" + rMovBancario["nummovbancario"] + "')";
@@ -528,7 +526,7 @@ namespace banktransaction_recuperadati {
 					decimal importo = CfgFn.GetNoNullDecimal(rMov["importocorrente"]); 
 					fillBankTransaction(rMovBancario, rMov[idfieldmov_src], bankTransaction, IoE, importo);
 				}
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				Application.DoEvents();
 			}
 			
@@ -619,7 +617,7 @@ namespace banktransaction_recuperadati {
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			progressBar1.Maximum = tDettMovBanc.Rows.Count;
+			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
 					+ "') AND (nummovbancario = '" + rEsito["nummovbancario"] + "')";
@@ -634,7 +632,7 @@ namespace banktransaction_recuperadati {
 					decimal importo = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 					// Creazione dell'esito (BANKTRANSACTION)
 					fillBankTransaction(rEsito, rMov[idfieldmov_src], bankTransaction, IoE, importo);
-					progressBar1.Value++;
+					//progressBar1.Value++;
 					Application.DoEvents();
 				}
 				rEsito.Delete();
@@ -651,7 +649,7 @@ namespace banktransaction_recuperadati {
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			progressBar1.Maximum = tDettMovBanc.Rows.Count;
+			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
@@ -686,7 +684,7 @@ namespace banktransaction_recuperadati {
 						found = true;
 					}
 				}
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -702,7 +700,7 @@ namespace banktransaction_recuperadati {
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 			
-			progressBar1.Maximum = tDettMovBanc.Rows.Count;
+			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
@@ -747,7 +745,7 @@ namespace banktransaction_recuperadati {
 						found = true;
 					}
 				}
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -765,7 +763,7 @@ namespace banktransaction_recuperadati {
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			progressBar1.Maximum = tDettMovBanc.Rows.Count;
+			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
@@ -810,7 +808,7 @@ namespace banktransaction_recuperadati {
 						found = true;
 					}
 				}
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -827,7 +825,7 @@ namespace banktransaction_recuperadati {
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			progressBar1.Maximum = tDettMovBanc.Rows.Count;
+			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
@@ -869,7 +867,7 @@ namespace banktransaction_recuperadati {
 					}
 					residuoEsito -= importodaEsitare;
 				}
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -1025,12 +1023,12 @@ namespace banktransaction_recuperadati {
 
 				FM.StartPosition= FormStartPosition.CenterScreen;
 				FM.Text=title; //"Copia della tabella "+TT.TableName;
-				FM.pBar.Maximum= TT.Rows.Count;
+				//FM.pBar.Maximum= TT.Rows.Count;
                 MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
                 FM.Show();
 
 				foreach (DataRow row in TT.Rows) {
-					FM.pBar.Increment(1);
+					//FM.pBar.Increment(1);
 					count++;
 
 					string values = GetSQLDataValues(row,Cols);

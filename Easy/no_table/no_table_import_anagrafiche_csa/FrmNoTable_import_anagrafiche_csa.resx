@@ -120,7 +120,7 @@
   <metadata name="DS.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label3.Text" xml:space="preserve">
+  <data name="lblAnagrafica.Text" xml:space="preserve">
     <value>Questa operazione consente di importare nuove anagrafiche in Easy. Laddove l'anagrafica fosse già
 
  presente verranno aggiornate le informazioni relative a:

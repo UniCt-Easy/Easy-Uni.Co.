@@ -25,25 +25,50 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstusing':
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 51, null);
+						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 21, null);
 						objCalcFieldConfig['!idpianostudiostatus_pianostudiostatus_title'] = { tableNameLookup:'pianostudiostatus', columnNameLookup:'title', columnNamekey:'idpianostudiostatus' };
+						this.describeAColumn(table, '!pianostudioattivform_alias1', 'Attività formative pianificate', null, 30, null);
 //$objCalcFieldConfig_seganagstusing$
 						break;
 					case 'seganagstu':
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 51, null);
+						this.describeAColumn(table, 'idpianostudiostatus', 'Status', null, 20, null);
+						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 21, null);
 						objCalcFieldConfig['!idpianostudiostatus_pianostudiostatus_title'] = { tableNameLookup:'pianostudiostatus', columnNameLookup:'title', columnNamekey:'idpianostudiostatus' };
+						this.describeAColumn(table, '!pianostudioattivform', 'Attività formative pianificate', null, 30, null);
 //$objCalcFieldConfig_seganagstu$
 						break;
 					case 'segstud':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
 //$objCalcFieldConfig_segstud$
 						break;
 					case 'didprog':
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 51, null);
+						this.describeAColumn(table, 'idpianostudiostatus', 'Status', null, 20, null);
+						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 21, null);
 						objCalcFieldConfig['!idpianostudiostatus_pianostudiostatus_title'] = { tableNameLookup:'pianostudiostatus', columnNameLookup:'title', columnNamekey:'idpianostudiostatus' };
+						this.describeAColumn(table, '!pianostudioattivform', 'Attività formative pianificate', null, 30, null);
 //$objCalcFieldConfig_didprog$
+						break;
+					case 'stupiano':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
+						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 41, null);
+						objCalcFieldConfig['!idpianostudiostatus_pianostudiostatus_title'] = { tableNameLookup:'pianostudiostatus', columnNameLookup:'title', columnNamekey:'idpianostudiostatus' };
+						this.describeAColumn(table, '!pianostudioattivform', 'Attività formative pianificate', null, 50, null);
+//$objCalcFieldConfig_stupiano$
+						break;
+					case 'stusing':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
+						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 11, null);
+						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 12, null);
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 10, null);
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, '!idpianostudiostatus_pianostudiostatus_title', 'Status', null, 41, null);
+						objCalcFieldConfig['!idpianostudiostatus_pianostudiostatus_title'] = { tableNameLookup:'pianostudiostatus', columnNameLookup:'title', columnNamekey:'idpianostudiostatus' };
+						this.describeAColumn(table, '!pianostudioattivform', 'Attività formative pianificate', null, 60, null);
+//$objCalcFieldConfig_stusing$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -57,6 +82,13 @@
 				switch (edittype) {
 					case 'seganagstusing':
 						table.columns["aa"].caption = "Anno accademico";
+						table.columns["idpianostudio"].caption = "Identificativo";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idpianostudiostatus"].caption = "Status";
+						table.columns["idreg"].caption = "Studente";
 //$innerSetCaptionConfig_seganagstusing$
 						break;
 					case 'seganagstu':
@@ -64,12 +96,16 @@
 //$innerSetCaptionConfig_seganagstu$
 						break;
 					case 'segstud':
-						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_segstud$
 						break;
 					case 'didprog':
-						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_didprog$
+						break;
+					case 'stupiano':
+//$innerSetCaptionConfig_stupiano$
+						break;
+					case 'stusing':
+//$innerSetCaptionConfig_stusing$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -109,6 +145,12 @@
 						return "aa desc";
 					}
 					case "didprog": {
+						return "aa desc";
+					}
+					case "stupiano": {
+						return "aa desc";
+					}
+					case "stusing": {
 						return "aa desc";
 					}
 					//$getSortingin$

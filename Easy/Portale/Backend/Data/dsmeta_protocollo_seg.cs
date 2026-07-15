@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,9 +25,15 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_protocollo_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_protocollo_seg: DataSet {
+public partial class dsmeta_protocollo_seg: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable notificationqueue 		=> (MetaTable)Tables["notificationqueue"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attach 		=> (MetaTable)Tables["attach"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable diniego 		=> (MetaTable)Tables["diniego"];
 
@@ -67,6 +71,9 @@ public class dsmeta_protocollo_seg: DataSet {
 	public MetaTable protocollorifkind 		=> (MetaTable)Tables["protocollorifkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mimetype 		=> (MetaTable)Tables["mimetype"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable protocollodoc 		=> (MetaTable)Tables["protocollodoc"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -76,10 +83,22 @@ public class dsmeta_protocollo_seg: DataSet {
 	public MetaTable protocollodestinatario 		=> (MetaTable)Tables["protocollodestinatario"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable classificazioneprotocollodefaultview_alias1 		=> (MetaTable)Tables["classificazioneprotocollodefaultview_alias1"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable classificazioneprotocollodefaultview 		=> (MetaTable)Tables["classificazioneprotocollodefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrydefaultview 		=> (MetaTable)Tables["registrydefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable aoodefaultview 		=> (MetaTable)Tables["aoodefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable protocollokinddefaultview 		=> (MetaTable)Tables["protocollokinddefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable queryregistry 		=> (MetaTable)Tables["queryregistry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable protocollo 		=> (MetaTable)Tables["protocollo"];
@@ -109,12 +128,40 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_protocollo_seg.xsd";
 
 	#region create DataTables
+	//////////////////// NOTIFICATIONQUEUE /////////////////////////////////
+	var tnotificationqueue= new MetaTable("notificationqueue");
+	tnotificationqueue.defineColumn("ct", typeof(DateTime),false);
+	tnotificationqueue.defineColumn("cu", typeof(string),false);
+	tnotificationqueue.defineColumn("idnotificationqueue", typeof(int),false);
+	tnotificationqueue.defineColumn("idrelated", typeof(string),false);
+	tnotificationqueue.defineColumn("lt", typeof(DateTime),false);
+	tnotificationqueue.defineColumn("lu", typeof(string),false);
+	tnotificationqueue.defineColumn("senttimestamp", typeof(DateTime));
+	tnotificationqueue.defineColumn("sourceedittype", typeof(string),false);
+	tnotificationqueue.defineColumn("sourcetablename", typeof(string),false);
+	Tables.Add(tnotificationqueue);
+	tnotificationqueue.defineKey("idnotificationqueue");
+
+	//////////////////// ATTACH /////////////////////////////////
+	var tattach= new MetaTable("attach");
+	tattach.defineColumn("attachment", typeof(Byte[]));
+	tattach.defineColumn("ct", typeof(DateTime),false);
+	tattach.defineColumn("cu", typeof(string),false);
+	tattach.defineColumn("filename", typeof(string),false);
+	tattach.defineColumn("hash", typeof(string),false);
+	tattach.defineColumn("idattach", typeof(int),false);
+	tattach.defineColumn("lt", typeof(DateTime),false);
+	tattach.defineColumn("lu", typeof(string),false);
+	tattach.defineColumn("size", typeof(long),false);
+	Tables.Add(tattach);
+	tattach.defineKey("idattach");
+
 	//////////////////// DINIEGO /////////////////////////////////
 	var tdiniego= new MetaTable("diniego");
 	tdiniego.defineColumn("ct", typeof(DateTime),false);
 	tdiniego.defineColumn("cu", typeof(string),false);
 	tdiniego.defineColumn("data", typeof(DateTime),false);
-	tdiniego.defineColumn("idcorsostudio", typeof(int));
+	tdiniego.defineColumn("idcorsostudio", typeof(int),false);
 	tdiniego.defineColumn("iddidprog", typeof(int));
 	tdiniego.defineColumn("iddiniego", typeof(int),false);
 	tdiniego.defineColumn("idiscrizione", typeof(int));
@@ -126,7 +173,7 @@ private void initClass() {
 	tdiniego.defineColumn("protanno", typeof(int));
 	tdiniego.defineColumn("protnumero", typeof(int));
 	Tables.Add(tdiniego);
-	tdiniego.defineKey("iddiniego", "idistanza", "idistanzakind", "idreg");
+	tdiniego.defineKey("idcorsostudio", "iddiniego", "idistanza", "idistanzakind", "idreg");
 
 	//////////////////// PRATICA /////////////////////////////////
 	var tpratica= new MetaTable("pratica");
@@ -236,8 +283,8 @@ private void initClass() {
 	tistanza.defineColumn("lt", typeof(DateTime),false);
 	tistanza.defineColumn("lu", typeof(string),false);
 	tistanza.defineColumn("paridistanza", typeof(int));
-	tistanza.defineColumn("protanno", typeof(int),false);
-	tistanza.defineColumn("protnumero", typeof(int),false);
+	tistanza.defineColumn("protanno", typeof(int));
+	tistanza.defineColumn("protnumero", typeof(int));
 	Tables.Add(tistanza);
 	tistanza.defineKey("idistanza", "idistanzakind", "idreg_studenti");
 
@@ -246,6 +293,7 @@ private void initClass() {
 	tiscrizioneanno.defineColumn("aa", typeof(string),false);
 	tiscrizioneanno.defineColumn("anno", typeof(int),false);
 	tiscrizioneanno.defineColumn("annofc", typeof(int));
+	tiscrizioneanno.defineColumn("annopt", typeof(int));
 	tiscrizioneanno.defineColumn("ct", typeof(DateTime),false);
 	tiscrizioneanno.defineColumn("cu", typeof(string),false);
 	tiscrizioneanno.defineColumn("data", typeof(DateTime),false);
@@ -334,7 +382,7 @@ private void initClass() {
 	tprotocollodocelement.defineColumn("cu", typeof(string));
 	tprotocollodocelement.defineColumn("idprotocollodoc", typeof(int),false);
 	tprotocollodocelement.defineColumn("idprotocollodocelement", typeof(int),false);
-	tprotocollodocelement.defineColumn("idprotocollodocelement_primo", typeof(int),false);
+	tprotocollodocelement.defineColumn("idprotocollodocelement_primo", typeof(int));
 	tprotocollodocelement.defineColumn("idprotocollodockind", typeof(int),false);
 	tprotocollodocelement.defineColumn("lt", typeof(DateTime));
 	tprotocollodocelement.defineColumn("lu", typeof(string));
@@ -348,17 +396,29 @@ private void initClass() {
 
 	//////////////////// PROTOCOLLORIFKIND /////////////////////////////////
 	var tprotocollorifkind= new MetaTable("protocollorifkind");
+	tprotocollorifkind.defineColumn("active", typeof(string),false);
 	tprotocollorifkind.defineColumn("idprotocollorifkind", typeof(int),false);
 	tprotocollorifkind.defineColumn("title", typeof(string),false);
 	Tables.Add(tprotocollorifkind);
 	tprotocollorifkind.defineKey("idprotocollorifkind");
 
+	//////////////////// MIMETYPE /////////////////////////////////
+	var tmimetype= new MetaTable("mimetype");
+	tmimetype.defineColumn("active", typeof(string));
+	tmimetype.defineColumn("idmimetype", typeof(int),false);
+	tmimetype.defineColumn("title", typeof(string));
+	Tables.Add(tmimetype);
+	tmimetype.defineKey("idmimetype");
+
 	//////////////////// PROTOCOLLODOC /////////////////////////////////
 	var tprotocollodoc= new MetaTable("protocollodoc");
 	tprotocollodoc.defineColumn("ct", typeof(DateTime));
 	tprotocollodoc.defineColumn("cu", typeof(string));
+	tprotocollodoc.defineColumn("datadoc", typeof(DateTime));
 	tprotocollodoc.defineColumn("filename", typeof(string));
+	tprotocollodoc.defineColumn("fincaturamargin", typeof(int));
 	tprotocollodoc.defineColumn("idattach", typeof(int));
+	tprotocollodoc.defineColumn("idfincaturaposition", typeof(int));
 	tprotocollodoc.defineColumn("idmimetype", typeof(int));
 	tprotocollodoc.defineColumn("idprotocollodoc", typeof(int),false);
 	tprotocollodoc.defineColumn("idprotocollorifkind", typeof(int),false);
@@ -366,12 +426,14 @@ private void initClass() {
 	tprotocollodoc.defineColumn("lu", typeof(string));
 	tprotocollodoc.defineColumn("protanno", typeof(int),false);
 	tprotocollodoc.defineColumn("protnumero", typeof(int),false);
+	tprotocollodoc.defineColumn("!idmimetype_mimetype_title", typeof(string));
 	tprotocollodoc.defineColumn("!idprotocollorifkind_protocollorifkind_title", typeof(string));
 	Tables.Add(tprotocollodoc);
 	tprotocollodoc.defineKey("idprotocollodoc", "protanno", "protnumero");
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("idreg", typeof(int),false);
 	tregistry.defineColumn("title", typeof(string),false);
 	Tables.Add(tregistry);
@@ -394,30 +456,67 @@ private void initClass() {
 	Tables.Add(tprotocollodestinatario);
 	tprotocollodestinatario.defineKey("idprotocollodestinatario", "protanno", "protnumero");
 
+	//////////////////// CLASSIFICAZIONEPROTOCOLLODEFAULTVIEW_ALIAS1 /////////////////////////////////
+	var tclassificazioneprotocollodefaultview_alias1= new MetaTable("classificazioneprotocollodefaultview_alias1");
+	tclassificazioneprotocollodefaultview_alias1.defineColumn("classificazioneprotocollo_active", typeof(string));
+	tclassificazioneprotocollodefaultview_alias1.defineColumn("dropdown_title", typeof(string),false);
+	tclassificazioneprotocollodefaultview_alias1.defineColumn("idclassificazioneprotocollo", typeof(int),false);
+	tclassificazioneprotocollodefaultview_alias1.ExtendedProperties["TableForReading"]="classificazioneprotocollodefaultview";
+	Tables.Add(tclassificazioneprotocollodefaultview_alias1);
+	tclassificazioneprotocollodefaultview_alias1.defineKey("idclassificazioneprotocollo");
+
+	//////////////////// CLASSIFICAZIONEPROTOCOLLODEFAULTVIEW /////////////////////////////////
+	var tclassificazioneprotocollodefaultview= new MetaTable("classificazioneprotocollodefaultview");
+	tclassificazioneprotocollodefaultview.defineColumn("classificazioneprotocollo_active", typeof(string));
+	tclassificazioneprotocollodefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tclassificazioneprotocollodefaultview.defineColumn("idclassificazioneprotocollo", typeof(int),false);
+	tclassificazioneprotocollodefaultview.defineColumn("title", typeof(string),false);
+	Tables.Add(tclassificazioneprotocollodefaultview);
+	tclassificazioneprotocollodefaultview.defineKey("idclassificazioneprotocollo");
+
 	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
 	var tregistrydefaultview= new MetaTable("registrydefaultview");
 	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydefaultview.defineColumn("idcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcity", typeof(int));
-	tregistrydefaultview.defineColumn("idnation", typeof(int));
 	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
-	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
-	tregistrydefaultview.defineColumn("idtitle", typeof(string));
-	tregistrydefaultview.defineColumn("residence", typeof(int),false);
+	tregistrydefaultview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrydefaultview);
 	tregistrydefaultview.defineKey("idreg");
 
 	//////////////////// AOODEFAULTVIEW /////////////////////////////////
 	var taoodefaultview= new MetaTable("aoodefaultview");
+	taoodefaultview.defineColumn("aoo_codiceaooipa", typeof(string));
+	taoodefaultview.defineColumn("aoo_ct", typeof(DateTime),false);
+	taoodefaultview.defineColumn("aoo_cu", typeof(string),false);
+	taoodefaultview.defineColumn("aoo_idreg", typeof(int));
+	taoodefaultview.defineColumn("aoo_lt", typeof(DateTime),false);
+	taoodefaultview.defineColumn("aoo_lu", typeof(string),false);
 	taoodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	taoodefaultview.defineColumn("idaoo", typeof(int),false);
 	taoodefaultview.defineColumn("idsede", typeof(int));
+	taoodefaultview.defineColumn("sede_title", typeof(string));
+	taoodefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(taoodefaultview);
 	taoodefaultview.defineKey("idaoo");
 
+	//////////////////// PROTOCOLLOKINDDEFAULTVIEW /////////////////////////////////
+	var tprotocollokinddefaultview= new MetaTable("protocollokinddefaultview");
+	tprotocollokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tprotocollokinddefaultview.defineColumn("idprotocollokind", typeof(int),false);
+	tprotocollokinddefaultview.defineColumn("protocollokind_active", typeof(string));
+	tprotocollokinddefaultview.defineColumn("title", typeof(string));
+	Tables.Add(tprotocollokinddefaultview);
+	tprotocollokinddefaultview.defineKey("idprotocollokind");
+
+	//////////////////// QUERYREGISTRY /////////////////////////////////
+	var tqueryregistry= new MetaTable("queryregistry");
+	tqueryregistry.defineColumn("idqueryregistry", typeof(int),false);
+	tqueryregistry.defineColumn("title", typeof(string),false);
+	Tables.Add(tqueryregistry);
+	tqueryregistry.defineKey("idqueryregistry");
+
 	//////////////////// PROTOCOLLO /////////////////////////////////
 	var tprotocollo= new MetaTable("protocollo");
+	tprotocollo.defineColumn("!anteprima", typeof(string));
 	tprotocollo.defineColumn("annullato", typeof(string),false);
 	tprotocollo.defineColumn("codiceammipa", typeof(string),false);
 	tprotocollo.defineColumn("codiceregistro", typeof(string),false);
@@ -425,17 +524,25 @@ private void initClass() {
 	tprotocollo.defineColumn("cu", typeof(string));
 	tprotocollo.defineColumn("dataannullamento", typeof(DateTime));
 	tprotocollo.defineColumn("idaoo", typeof(int),false);
+	tprotocollo.defineColumn("idclassificazioneprotocollo", typeof(int));
+	tprotocollo.defineColumn("idclassificazioneprotocollo_2", typeof(int));
+	tprotocollo.defineColumn("idprotocollokind", typeof(int),false);
+	tprotocollo.defineColumn("idqueryregistry", typeof(int));
 	tprotocollo.defineColumn("idreg_origine", typeof(int));
 	tprotocollo.defineColumn("lt", typeof(DateTime));
 	tprotocollo.defineColumn("lu", typeof(string));
+	tprotocollo.defineColumn("motivoann", typeof(string));
 	tprotocollo.defineColumn("oggetto", typeof(string),false);
 	tprotocollo.defineColumn("originecodiceaoo", typeof(string));
 	tprotocollo.defineColumn("origineidamm", typeof(string));
 	tprotocollo.defineColumn("originemail", typeof(string));
 	tprotocollo.defineColumn("protanno", typeof(int),false);
+	tprotocollo.defineColumn("protannoregistro", typeof(int));
 	tprotocollo.defineColumn("protdata", typeof(DateTime),false);
 	tprotocollo.defineColumn("protnumero", typeof(int),false);
+	tprotocollo.defineColumn("protregistro", typeof(int));
 	tprotocollo.defineColumn("testo", typeof(string));
+	tprotocollo.defineColumn("testosegnatura", typeof(string));
 	Tables.Add(tprotocollo);
 	tprotocollo.defineKey("protanno", "protnumero");
 
@@ -455,6 +562,10 @@ private void initClass() {
 	cChild = new []{protocollodoc.Columns["idprotocollorifkind"]};
 	Relations.Add(new DataRelation("FK_protocollodoc_protocollorifkind_idprotocollorifkind",cPar,cChild,false));
 
+	cPar = new []{mimetype.Columns["idmimetype"]};
+	cChild = new []{protocollodoc.Columns["idmimetype"]};
+	Relations.Add(new DataRelation("FK_protocollodoc_mimetype_idmimetype",cPar,cChild,false));
+
 	cPar = new []{protocollo.Columns["protanno"], protocollo.Columns["protnumero"]};
 	cChild = new []{protocollodestinatario.Columns["protanno"], protocollodestinatario.Columns["protnumero"]};
 	Relations.Add(new DataRelation("FK_protocollodestinatario_protocollo_protanno-protnumero",cPar,cChild,false));
@@ -463,6 +574,14 @@ private void initClass() {
 	cChild = new []{protocollodestinatario.Columns["idreg_dest"]};
 	Relations.Add(new DataRelation("FK_protocollodestinatario_registry_idreg_dest",cPar,cChild,false));
 
+	cPar = new []{classificazioneprotocollodefaultview_alias1.Columns["idclassificazioneprotocollo"]};
+	cChild = new []{protocollo.Columns["idclassificazioneprotocollo_2"]};
+	Relations.Add(new DataRelation("FK_protocollo_classificazioneprotocollodefaultview_alias1_idclassificazioneprotocollo_2",cPar,cChild,false));
+
+	cPar = new []{classificazioneprotocollodefaultview.Columns["idclassificazioneprotocollo"]};
+	cChild = new []{protocollo.Columns["idclassificazioneprotocollo"]};
+	Relations.Add(new DataRelation("FK_protocollo_classificazioneprotocollodefaultview_idclassificazioneprotocollo",cPar,cChild,false));
+
 	cPar = new []{registrydefaultview.Columns["idreg"]};
 	cChild = new []{protocollo.Columns["idreg_origine"]};
 	Relations.Add(new DataRelation("FK_protocollo_registrydefaultview_idreg_origine",cPar,cChild,false));
@@ -470,6 +589,14 @@ private void initClass() {
 	cPar = new []{aoodefaultview.Columns["idaoo"]};
 	cChild = new []{protocollo.Columns["idaoo"]};
 	Relations.Add(new DataRelation("FK_protocollo_aoodefaultview_idaoo",cPar,cChild,false));
+
+	cPar = new []{protocollokinddefaultview.Columns["idprotocollokind"]};
+	cChild = new []{protocollo.Columns["idprotocollokind"]};
+	Relations.Add(new DataRelation("FK_protocollo_protocollokinddefaultview_idprotocollokind",cPar,cChild,false));
+
+	cPar = new []{queryregistry.Columns["idqueryregistry"]};
+	cChild = new []{protocollo.Columns["idqueryregistry"]};
+	Relations.Add(new DataRelation("FK_protocollo_queryregistry_idqueryregistry",cPar,cChild,false));
 
 	#endregion
 

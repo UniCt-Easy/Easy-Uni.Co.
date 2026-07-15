@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Net;
@@ -149,7 +147,7 @@ namespace LiveUpdate{//LiveUpdate//
         }
 
         /// <summary>
-        /// Restituisce True se per l'istanza WebClient il sito Ë accessibile e ha una versione
+        /// Restituisce True se per l'istanza WebClient il sito √® accessibile e ha una versione
         /// non inferiore a quella Max
         /// </summary>
         /// <param name="web">istanza WebClient</param>
@@ -174,7 +172,7 @@ namespace LiveUpdate{//LiveUpdate//
                 }
 				byte[] bytes=web.DownloadData(swFileName);
 				string download=Encoding.ASCII.GetString(bytes);
-				//se la versione appena scaricata Ë inferiore a quella impostata dal sito di riferimento
+				//se la versione appena scaricata √® inferiore a quella impostata dal sito di riferimento
 				//l'indirizzo viene scartato a priori
 				if (download.CompareTo(MaxVersion)<0) return false;
 				MaxVersion=download;
@@ -226,7 +224,7 @@ namespace LiveUpdate{//LiveUpdate//
 			if (state==null) return;
 			try {
 				TaskTimer s =(TaskTimer)state;
-				//se il thread Ë ancora attivo lo fermo
+				//se il thread √® ancora attivo lo fermo
 				if (s.threadHandle.IsAlive) s.threadHandle.Abort();
 				//rilascio risorse Timer
 				if (s.timer!=null) s.timer.Dispose();
@@ -257,7 +255,7 @@ namespace LiveUpdate{//LiveUpdate//
 
 		/// <summary>
 		/// Data una lista di indirizzi web avvia una serie di thread paralleli e restituisce quello che ha risponde
-		/// pi˘ velocemente
+		/// pi√π velocemente
 		/// </summary>
 		/// <param name="addresses">collection di indirizzi web</param>
 		/// <param name="timeout">timeout (in millisecondi) scaduto il quale il server web viene scartato</param>
@@ -294,7 +292,7 @@ namespace LiveUpdate{//LiveUpdate//
                 //QueryCreator.MarkEvent("SLEEPING" + timeout.ToString() + "....");
                 Thread.Sleep(timeout);
 				//QueryCreator.MarkEvent("START QUERYING THREADS");
-				//scelgo il sito che ha risposto pi˘ velocemente
+				//scelgo il sito che ha risposto pi√π velocemente
 				long mindiff=long.MaxValue;
                 WebClient fastwebsite = null;
                 for (int j = 0; j < addresses.Length; j++) {
@@ -362,7 +360,7 @@ namespace LiveUpdate{//LiveUpdate//
 
 
                 // Aggiorna l'elenco dei siti di liveupdate (updateconfig.xml) ponendo l'indirizzo da cui il file siti.txt
-                //   Ë stato scaricato uguale al primo della lista siti.txt stessa!
+                //   √® stato scaricato uguale al primo della lista siti.txt stessa!
 			
 
 				string[] siti=testo.Split('|');
@@ -427,7 +425,7 @@ namespace LiveUpdate{//LiveUpdate//
                 return null; // webPilota;
 			}
 			catch (Exception E) {
-				//se c'Ë un errore durante il download o il file non esiste
+				//se c'√® un errore durante il download o il file non esiste
 				//viene restituito il sito pilota
                 PrintLog("GetFastWeb(): Errore [" + QueryCreator.GetErrorString(E) + "]");
                 SetLastError("GetFastWeb() method failed", E);
@@ -482,7 +480,7 @@ namespace LiveUpdate{//LiveUpdate//
 
 				r.Table.Columns._forEach(c => {
 					if (lista.Count == 0) return; //gli endpoints sono finiti
-					if (r[c].ToString() != "") return; //non Ë vuota
+					if (r[c].ToString() != "") return; //non √® vuota
 
 					//prende un elemento dalla lista degli endpoints
 					r[c] = lista[0];
@@ -507,7 +505,7 @@ namespace LiveUpdate{//LiveUpdate//
 	                WebSite = eTipoSito.UNKNOWN;
 	                //MetaFactory.factory.getSingleton<IMessageShower>().Show("path:" + path.ToString());//TODELETE
 	                if (path.StartsWith("http")) {
-	                    //Metodo che restituisce il sito pi˘ veloce
+	                    //Metodo che restituisce il sito pi√π veloce
 	                    client=GetFastWeb(path);
 	                    if (client==null) continue;
 	                    WebSite=eTipoSito.WEB;
@@ -516,7 +514,7 @@ namespace LiveUpdate{//LiveUpdate//
 	                    return;
 	                }
 	                else {
-	                    //controllo accessibilit‡ folder
+	                    //controllo accessibilit√† folder
 	                    try {
 	                        DirectoryInfo d = new DirectoryInfo(path);
 	                        if (!d.Exists) continue;
@@ -558,7 +556,7 @@ namespace LiveUpdate{//LiveUpdate//
 					WebSite = eTipoSito.UNKNOWN;
                     //MetaFactory.factory.getSingleton<IMessageShower>().Show("path:" + path.ToString());//TODELETE
 					if (path.StartsWith("http")) {
-								  //Metodo che restituisce il sito pi˘ veloce
+								  //Metodo che restituisce il sito pi√π veloce
 						client=GetFastWeb(path);
 
                         if (client == null)
@@ -571,7 +569,7 @@ namespace LiveUpdate{//LiveUpdate//
 						return;
 					}
 					else {
-						//controllo accessibilit‡ folder
+						//controllo accessibilit√† folder
 						try {
 							DirectoryInfo d = new DirectoryInfo(path);
 							if (!d.Exists) continue;
@@ -643,9 +641,9 @@ namespace LiveUpdate{//LiveUpdate//
 		/// Esegue il download del file webfilename e lo memorizza in localfilename
 		/// </summary>
 		/// <param name="webfilename">Nome file con percorso relativo del file da scaricare es sdi/servicefileindex.xml.zip</param>
-		/// <param name="localfilename">Nome file con percorso relativo dove verr‡ memorizzato il file da scaricare es. zip\\servicefileindex.xml.zip</param>
+		/// <param name="localfilename">Nome file con percorso relativo dove verr√† memorizzato il file da scaricare es. zip\\servicefileindex.xml.zip</param>
 		public void DownloadFile(string webfilename, string localfilename) {
-			//volutamente non viene implementato il try-catch, la gestione Ë fatta
+			//volutamente non viene implementato il try-catch, la gestione √® fatta
 			//nei chiamanti del metodo
             //cachepath  = D:\\progetti\\sdiftp\\ 
 		    string destFileName = cachepath + localfilename;    //      zip\\servicefileindex.xml.zip
@@ -729,7 +727,7 @@ namespace LiveUpdate{//LiveUpdate//
 		private bool m_IsDBUpdated = false;
 		private static string m_UpdateDBInCorso;
 		private bool m_Connected = false;
-		//di default Ë quella delle dll
+		//di default √® quella delle dll
 		private string m_FolderWEB = null;
 		//utilizzata solo per i report
 		private string m_ReportDir = null;
@@ -802,9 +800,9 @@ namespace LiveUpdate{//LiveUpdate//
 	    /// <param name="WebAddress">indirizzi web dal quale scaricare i file</param>
 	    /// <param name="XMLFileName">nome del file xml</param>
 	    /// <param name="TargetDir">directory di destinazione dei file</param>
-	    /// <param name="E">Dispatcher, usato solo in caso di live update del db per segnalare la necessit‡ di ricompilare le regole!</param>
+	    /// <param name="E">Dispatcher, usato solo in caso di live update del db per segnalare la necessit√† di ricompilare le regole!</param>
 	    public Download(EntityDispatcher E,
-	        string[] WebAddress,    //Ë sbagliato che sia Y:\\services\\, deve essere indirizzo web, es.  http://www.temposrl.it/services/sdi
+	        string[] WebAddress,    //√® sbagliato che sia Y:\\services\\, deve essere indirizzo web, es.  http://www.temposrl.it/services/sdi
 	        string XMLFileName, 
 	        string TargetDir,string serviceName) {
 	        // Controlla che il .NET Framework 4.5.2 o successivi sia installato
@@ -820,7 +818,7 @@ namespace LiveUpdate{//LiveUpdate//
 	        this.E=E;
 	        SetStatusSW("");
 
-	        //controllo se Ë stato passato un path con \ finale
+	        //controllo se √® stato passato un path con \ finale
 	        if (!currdir.EndsWith("\\")) currdir += "\\";
 	        if (!Directory.Exists(currdir)) Directory.CreateDirectory(currdir);
 	        if (!Directory.Exists(Path.Combine(currdir , "zip"))) Directory.CreateDirectory(Path.Combine(currdir , "zip"));
@@ -839,7 +837,7 @@ namespace LiveUpdate{//LiveUpdate//
 		/// <param name="WebAddress">indirizzi web dal quale scaricare i file</param>
 		/// <param name="XMLFileName">nome del file xml</param>
 		/// <param name="TargetDir">directory di destinazione dei file</param>
-		/// <param name="E">Dispatcher, usato solo in caso di live update del db per segnalare la necessit‡ di ricompilare le regole!</param>
+		/// <param name="E">Dispatcher, usato solo in caso di live update del db per segnalare la necessit√† di ricompilare le regole!</param>
 		public Download(EntityDispatcher E,
 			string[] WebAddress, 
 			string XMLFileName, 
@@ -856,7 +854,7 @@ namespace LiveUpdate{//LiveUpdate//
 			this.E=E;
 			SetStatusSW("");
 
-			//controllo se Ë stato passato un path con \ finale
+			//controllo se √® stato passato un path con \ finale
 			if (!currdir.EndsWith("\\")) currdir += "\\";
 			if (!Directory.Exists(currdir)) Directory.CreateDirectory(currdir);
             if (!Directory.Exists(currdir + "zip\\")) Directory.CreateDirectory(currdir + "zip\\");
@@ -898,7 +896,7 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 		/// <summary>
-		/// Genera il file delle differenze e copia in DiffDirFolder i file pi˘ recenti zippati e l'indice aggiornato
+		/// Genera il file delle differenze e copia in DiffDirFolder i file pi√π recenti zippati e l'indice aggiornato
 		/// restituisce la lista dei file aggiornati
 		/// </summary>
 		/// <param name="unusedParameter">parametro inutilizzato</param>
@@ -951,7 +949,7 @@ namespace LiveUpdate{//LiveUpdate//
 			    //http.DownloadFile(remoteXMLFileName + ".zip", ZIP + "/" + remoteXMLFileName + ".zip");
                 // http.DownloadFile("reportingservices/servicefileindex.xml.zip","zip\\servicefileindex.xml.zip)
                 //in produzione\zip mette l'indice cosi come scaricato dal sito remoto   (es. zip\\fileindex4.xml.zip)
-			    http.DownloadFile(indexZipFileName, relativeTempIndexName); //Dowload gi‡ di suo accoda il path relativo a quello di destinazione (d:\easy\output\
+			    http.DownloadFile(indexZipFileName, relativeTempIndexName); //Dowload gi√† di suo accoda il path relativo a quello di destinazione (d:\easy\output\
 
 			    //XZip.ExtractFiles("D:\\progetti\\EasyWebReport_2009\\zip\\servicefileindex.xml.zip"
 			            //,     "D:\progetti\EasyWebReport_2009\zip" ,  "servicefileindex.xml", true, false);            
@@ -998,7 +996,7 @@ namespace LiveUpdate{//LiveUpdate//
                     string fName = drloc["dllname"].ToString();
                     if (lookupRemote.ContainsKey(fName)) drrem = lookupRemote[fName];                   
                     
-					//se la dll locale Ë + aggiornata la copio in diff
+					//se la dll locale √® + aggiornata la copio in diff
 					if (DLLAggiornata(drloc, drrem)) {
                         DataRow NewR = DiffTable.NewRow();
                         NewR["dllname"] = drloc["dllname"];
@@ -1012,7 +1010,7 @@ namespace LiveUpdate{//LiveUpdate//
 						diff=true;
 						//memorizzo filename / vecchia versione \t nuova versione
 						if (drrem==null) {
-							//il file Ë nuovo, non esiste una vecchia versione
+							//il file √® nuovo, non esiste una vecchia versione
 							Lista.Add(fname, "NUOVO"+"\t"+
 								drloc["major"].ToString()+"."+drloc["minor"].ToString()+"."+
                                         drloc["build"].ToString());
@@ -1033,13 +1031,13 @@ namespace LiveUpdate{//LiveUpdate//
                     DataRow drloc = null;
                     if (lookupLocal.ContainsKey(fName)) drloc = lookupLocal[fName];                    
                     if (drloc == null) {
-                        //il file c'Ë in remoto ma non in locale, strano
+                        //il file c'√® in remoto ma non in locale, strano
                         Lista.Add(drrem["dllname"], "!MANCA\t\t" +
                             drrem["major"].ToString() + "." + drrem["minor"].ToString() + "." +
                                     drrem["build"].ToString());
                         continue;
                     }
-                    //se la dll locale Ë + aggiornata la copio in diff
+                    //se la dll locale √® + aggiornata la copio in diff
                     if (DLLAggiornata(drrem, drloc)) {
                         DataRow NewR = DiffTable.NewRow();
                         NewR["dllname"] = drrem["dllname"];
@@ -1068,7 +1066,7 @@ namespace LiveUpdate{//LiveUpdate//
                     string fdifname2 = Path.Combine(DiffDirFolder , localXMLFileName);// "D:\\software\\tempLuServices\\zip\\ +  servicefileindex.xml"
 
                     //copia l'indice locale nella cartella delle differenze
-                    //File.Copy(flocname2, fdifname2, true); ERA INUTILE visto che il file lo preleva da currdirr (boh Ë da verificare)
+                    //File.Copy(flocname2, fdifname2, true); ERA INUTILE visto che il file lo preleva da currdirr (boh √® da verificare)
 
                     //zippa l'indice locale nella cartella delle differenze
                     //Easy: fdifname2= D:\\software\\tempLU\\zip4\\fileindex4.xml, currdir=D:\\easy\\output\\
@@ -1092,7 +1090,7 @@ namespace LiveUpdate{//LiveUpdate//
 		
 		/// <summary>
 		/// Restituisce true se la dllNuova risulta aggiornata rispetto a dllVecchia
-		/// Il criterio Ë per major, minor e build number
+		/// Il criterio √® per major, minor e build number
 		/// </summary>
 		private bool DLLAggiornata(DataRow dllNuova,
             DataRow dllVecchia) {
@@ -1306,7 +1304,7 @@ namespace LiveUpdate{//LiveUpdate//
 			return mess;
 		}
 		/// <summary>
-		/// Restituisce True se il sw locale Ë da aggiornare
+		/// Restituisce True se il sw locale √® da aggiornare
 		/// </summary>
 		private bool ControllaVersioneSW(out string remoteVersion) {
 			string lasttempt = "Controllo Versione SW";
@@ -1379,7 +1377,7 @@ namespace LiveUpdate{//LiveUpdate//
 		/// li copia nella cartella di destinazione
 		/// </summary>
 		/// <param name="remoteVersion">Versione presente sul sito</param>
-		/// <param name="IsDLL">True se Ë download di DLL</param>
+		/// <param name="IsDLL">True se √® download di DLL</param>
 		/// <returns></returns>
 		private bool ScaricaFile(string remoteVersion, bool IsDLL) {
 			string dbversion = http.DownloadData(C_DBVERSIONFILENAME);
@@ -1515,7 +1513,7 @@ namespace LiveUpdate{//LiveUpdate//
               
 
                 //La scrittura della nuova versione solo a processo ultimato e
-                //se non Ë stato interrotto
+                //se non √® stato interrotto
                 if (!signaled) {
 					lasttempt = "Scrittura della nuova versione";
 					SetStatusSW(lasttempt);
@@ -1570,7 +1568,7 @@ namespace LiveUpdate{//LiveUpdate//
 		/// Funzione che scarica i file non zippati e li copia nella cartella di destinazione
 		/// </summary>
 		/// <param name="remoteVersion">Versione presente sul sito</param>
-		/// <param name="IsDLL">True se Ë download di DLL</param>
+		/// <param name="IsDLL">True se √® download di DLL</param>
 		/// <returns></returns>
 		private bool ScaricaFileNonZippati(string remoteVersion, bool IsDLL) {
 
@@ -1678,7 +1676,7 @@ namespace LiveUpdate{//LiveUpdate//
 				}	//fine foreach (DsDLLIndex.DLLRow drrem in dtrem.Rows)
 
 				//La scrittura della nuova versione solo a processo ultimato e
-				//se non Ë stato interrotto
+				//se non √® stato interrotto
 				if (!signaled) {
 					lasttempt = "Scrittura della nuova versione";
 					SetStatusSW(lasttempt);
@@ -1764,13 +1762,16 @@ namespace LiveUpdate{//LiveUpdate//
 				if (remoteVersion==null){
 					SetLastErrorSW(//GetLastErrorSW() + "\r\r"+
 						"Report : indice dei report non trovato.\r"+
-						"Questo Ë normale se Ë stata impostata una directory locale per il live update.\r",false);
+						"Questo √® normale se √® stata impostata una directory locale per il live update.\r",false);
 					return false;
 				}
 				localVersion = GetLocalReportVersion(ReportDir);
+				var remoteVersion1 = ParseVersionSafe(remoteVersion);
+				var localVersion1 =  ParseVersionSafe(localVersion);
+				//if ((remoteversion1).CompareTo(localVersion1)) > 0) return true;
+				if (remoteVersion1 > localVersion1) return true;
 
-				if (remoteVersion.CompareTo(localVersion) > 0) return true;
-				SetLastErrorSW("Report: Aggiornamento OK",false);
+					SetLastErrorSW("Report: Aggiornamento OK",false);
 			}
 			catch (Exception e) {
 				SetLastErrorSW("Report: " + e.Message, false);
@@ -1779,6 +1780,14 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 
+		Version ParseVersionSafe(string v) {
+			var parts = v.Split('.').ToList();
+
+			while (parts.Count < 4)
+				parts.Add("0");
+
+			return new Version(string.Join(".", parts));
+		}
 		/// <summary>
 		/// Restituisce la cartella in cui risiedono i report
 		/// </summary>
@@ -1860,7 +1869,7 @@ namespace LiveUpdate{//LiveUpdate//
 			m_Connected = true;
 
 
-			//Controllo se la cartella dei report Ë in scrittura x l'utente
+			//Controllo se la cartella dei report √® in scrittura x l'utente
 			if (!CheckReportDir(ReportDir)) {
 				SetLastErrorSW("Report: cartella \""+ReportDir+"\"\rdi sola lettura o inesistente",false);
 				is_alive=false;
@@ -2026,7 +2035,7 @@ namespace LiveUpdate{//LiveUpdate//
 					//il file xml degli script non ha righe
 					SetStatusDB(C_CANTDBUPDATE);
 					SetLastErrorDB("Il file " + C_SCRIPTFILENAME + " non contiene righe"+
-						"La versione del DB attuale Ë "+localVersion);
+						"La versione del DB attuale √® "+localVersion);
 					MainConn.Destroy();
 					return false;
 				}
@@ -2051,14 +2060,14 @@ namespace LiveUpdate{//LiveUpdate//
 					//segnale di stop thread ricevuto dal mainform
 					if (signaled) break;
 				    
-					//Eseguo gli script solo se la versione letta dal file xml Ë
+					//Eseguo gli script solo se la versione letta dal file xml √®
 					//maggiore della versione locale e minore o uguale di quella
 					//generale presente sul sito http
 					if (!((versionRow["versionname"].ToString().CompareTo(localVersion) > 0) &&
                         (versionRow["versionname"].ToString().CompareTo(remoteVersion) <= 0))) continue;
 
                     string versioneInElaborazione = versionRow["versionname"].ToString();
-                    //Se la versione letta Ë inferiore a quella DBO, non esegue gli script DBO
+                    //Se la versione letta √® inferiore a quella DBO, non esegue gli script DBO
                     bool skipDBO = versionRow["versionname"].ToString().CompareTo(DBOversion) <= 0;
 					//controllo grant
                     if (versionRow["flagadmin"].ToString() == "1" && !isadmin) {
@@ -2115,14 +2124,14 @@ namespace LiveUpdate{//LiveUpdate//
                                             ScriptConn.RollBack();
                                             MainConn.RollBack();
                                             SetStatusDB(C_CANTDBUPDATE+" alla versione "+versioneInElaborazione);
-                                            SetLastErrorDB(lasttempt + "\r" + "La versione del DB attuale Ë " + localVersion);
+                                            SetLastErrorDB(lasttempt + "\r" + "La versione del DB attuale √® " + localVersion);
                                             ScriptConn.Destroy();
                                             MainConn.Destroy();
                                             return false; //ESCE 
                                         }
 
                                     }
-                                    else {	//errore nell'esecuzione dello script  >>Ë qui che ha avuto problemi
+                                    else {	//errore nell'esecuzione dello script  >>√® qui che ha avuto problemi
                                         string error = QueryCreator.GetPrintable(ScriptConn.LastError)+"-"+
                                                 QueryCreator.GetPrintable(resultAddScript);
                                         if (error.Length > 1000) {
@@ -2130,7 +2139,7 @@ namespace LiveUpdate{//LiveUpdate//
                                             scripttext.Insert(0,"Errore:\r\n");
                                             error = "Errore accodato al testo dello script";
                                         }
-                                        ScriptConn.RollBack(); //Inutile in realt‡ lavorando con SET XACT_ABORTH
+                                        ScriptConn.RollBack(); //Inutile in realt√† lavorando con SET XACT_ABORTH
                                         
                                         try {
                                             resultAddScript = AggiungiRigaScript(MainConn, versioneInElaborazione, realname, scripttext, error);
@@ -2154,7 +2163,7 @@ namespace LiveUpdate{//LiveUpdate//
                                                 MainConn.Commit();
                                             }
                                             catch (Exception e) {
-                                                MainConn.RollBack(); //Inutile in realt‡ lavorando con SET XACT_ABORTH
+                                                MainConn.RollBack(); //Inutile in realt√† lavorando con SET XACT_ABORTH
                                                 lasttempt += " - " + e.Message;
                                             }
                                         }
@@ -2162,7 +2171,7 @@ namespace LiveUpdate{//LiveUpdate//
                                             MainConn.RollBack();
                                         }
                                         SetStatusDB(C_CANTDBUPDATE + " alla versione " + versioneInElaborazione);
-                                        SetLastErrorDB(lasttempt + "\r" +"La versione del DB attuale Ë " + localVersion);
+                                        SetLastErrorDB(lasttempt + "\r" +"La versione del DB attuale √® " + localVersion);
                                         ScriptConn.Destroy();
                                         MainConn.Destroy();
                                         return false;
@@ -2171,13 +2180,13 @@ namespace LiveUpdate{//LiveUpdate//
                                 m_IsDBUpdated = true;
                             }
                             catch (Exception e) {	//try-catch per il ciclo degli script
-                                //Rollback di entrambe perchÈ qui l'errore puÚ dipendere da 
+                                //Rollback di entrambe perch√© qui l'errore pu√≤ dipendere da 
                                 //eventi come il download, in generale non legati all'esecuzione 
                                 //del particolare script
                                 MainConn.RollBack();
                                 ScriptConn.RollBack();
                                 SetStatusDB(C_CANTDBUPDATE + " alla versione " + versioneInElaborazione);
-                                SetLastErrorDB(lasttempt + " - " + e.Message + "\n" +"La versione del DB attuale Ë " + localVersion);
+                                SetLastErrorDB(lasttempt + " - " + e.Message + "\n" +"La versione del DB attuale √® " + localVersion);
                                 ScriptConn.Destroy();
                                 MainConn.Destroy();
                                 return false;
@@ -2189,7 +2198,7 @@ namespace LiveUpdate{//LiveUpdate//
                             MainConn.Commit();
 
                             localVersion = versioneInElaborazione;
-                            //Fuori dal meccanismo di commit/rollback perchË potrebbe non esistere la tabella
+                            //Fuori dal meccanismo di commit/rollback perch√® potrebbe non esistere la tabella
                             if (esisteTabellaDBODBVersion && !skipDBO) {
                                 MainConn.DO_UPDATE("dbodbversion", QHS.CmpLt("versionname", versioneInElaborazione),
                                     new string[] {"versionname"}, new string[] {QHS.quote(versioneInElaborazione)}, 1);
@@ -2205,7 +2214,7 @@ namespace LiveUpdate{//LiveUpdate//
 						//try-catch per il foreach delle version (scrittura in version)
 						SetStatusDB(C_CANTDBUPDATE + " alla versione " + versioneInElaborazione);
                         SetLastErrorDB(e.Message + " - " + lasttempt+"\n"+
-							"La versione del DB attuale Ë "+localVersion);
+							"La versione del DB attuale √® "+localVersion);
 						MainConn.RollBack();
 						ScriptConn.Destroy();
 						MainConn.Destroy();
@@ -2234,7 +2243,7 @@ namespace LiveUpdate{//LiveUpdate//
 					}
 				}
 				SetStatusDB(C_CANTDBUPDATE);
-				SetLastErrorDB(e.Message+"\n"+"La versione del DB attuale Ë "+localVersion);
+				SetLastErrorDB(e.Message+"\n"+"La versione del DB attuale √® "+localVersion);
 				return false;
 			}
 			SetStatusDB(C_DBUPDATEOK);
@@ -2246,7 +2255,7 @@ namespace LiveUpdate{//LiveUpdate//
 		private void AdminMsg(string localversion) {
 			SetStatusDB(C_CANTDBUPDATE);
 			SetLastErrorDB("Connettersi come utente amministratore\n"+
-				"La versione del DB attuale Ë "+localversion
+				"La versione del DB attuale √® "+localversion
 				);
 			MetaFactory.factory.getSingleton<IMessageShower>().Show("Connettersi come utente amministratore per poter " +
 				"effettuare l'aggiornamento del Database", "Attenzione",
@@ -2274,7 +2283,7 @@ namespace LiveUpdate{//LiveUpdate//
 		/// <param name="Conn">Connessione</param>
 		/// <param name="DBS">Struttura dell'oggetto</param>
 		/// <param name="objectname">nome tabella</param>
-		/// <param name="force">True per forzare la generazione (in caso di oggetti gi‡ presenti)</param>
+		/// <param name="force">True per forzare la generazione (in caso di oggetti gi√† presenti)</param>
 		/// <remarks>Da spostare in DataAccess e adattarla</remarks>
 		private static void GenerateCustomObject(DataAccess Conn, 
 			dbstructure DBS, 
@@ -2290,7 +2299,7 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 		/// <summary>
-		/// True se il software Ë allineato con la versione del database
+		/// True se il software √® allineato con la versione del database
 		/// </summary>
 		public bool IsSoftwareSupported() {
 			DataTable Ver=GetVersionTable(Connessione);
@@ -2304,9 +2313,9 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 		/// <summary>
-		/// Restituisce True se la versione flaggata come errata Ë ancora valida, cioË Ë
+		/// Restituisce True se la versione flaggata come errata √® ancora valida, cio√® √®
 		/// presente nel file indice degli script sql da eseguire. False se la versione
-		/// deve essere ignorata (non Ë pi˘ utilizzata, presente nel file indice).
+		/// deve essere ignorata (non √® pi√π utilizzata, presente nel file indice).
 		/// </summary>
 		private bool VersioneValida(string versione) {
 			string zipindexfile = C_SCRIPTFILENAME + ".zip";
@@ -2326,7 +2335,7 @@ namespace LiveUpdate{//LiveUpdate//
 
 		/// <summary>
 		/// Confronta la versione dell'applicativo presente sul sito rispetto
-		/// a quella locale, restituisce true se sul sito Ë aggiornata
+		/// a quella locale, restituisce true se sul sito √® aggiornata
 		/// </summary>
 		/// <param name="localfile">Nome completo...</param>
 		/// <param name="Conn">Connessione</param>
@@ -2349,15 +2358,15 @@ namespace LiveUpdate{//LiveUpdate//
 				remoteVersion = http.DownloadData(C_DBVERSIONFILENAME);
 				if (remoteVersion==null){
 					SetStatusDB(C_CANTDBUPDATELOCAL);
-					SetLastErrorDB("Nella modalit‡ di aggiornamento locale, il DB Ë aggiornato dalla macchina connessa ad internet.\n"+
-						"La macchina attualmente impostata Ë quella ove risiede la cartella (impostata in 'configurazione locale') "+http.RemoteDir+
-						"\nLa versione del DB attuale Ë "+localVersion+"\n"+http.GetLastError());
+					SetLastErrorDB("Nella modalit√† di aggiornamento locale, il DB √® aggiornato dalla macchina connessa ad internet.\n"+
+						"La macchina attualmente impostata √® quella ove risiede la cartella (impostata in 'configurazione locale') "+http.RemoteDir+
+						"\nLa versione del DB attuale √® "+localVersion+"\n"+http.GetLastError());
 					return false;
 				}
 
 				if (tabVersion.Rows.Count > 0) {
 					if (tabVersion.Rows[0]["flagerror"].ToString() == "1") {
-						SetStatusDB("Controllo validit‡ versione errata");
+						SetStatusDB("Controllo validit√† versione errata");
 						if (VersioneValida(localVersion)) {
 							SetStatusDB(C_CANTDBUPDATE);
 							SetLastErrorDB("Impossibile eseguire l'aggiornamento " + 
@@ -2381,7 +2390,7 @@ namespace LiveUpdate{//LiveUpdate//
 						if (!RUN_SCRIPT(Conn, GetCustomTablesScriptSQL(),false,out error)) {
 							SetStatusDB(C_CANTDBUPDATE);
 							SetLastErrorDB("Errore nell'esecuzione dello script di creazione tabelle custom.\n"+
-								"La versione del DB attuale Ë "+localVersion
+								"La versione del DB attuale √® "+localVersion
 								);
 							return false;
 						}
@@ -2391,7 +2400,7 @@ namespace LiveUpdate{//LiveUpdate//
 						if (!RUN_SCRIPT(Conn, GetVersionScriptSQL(), false, out error)) {
 							SetStatusDB(C_CANTDBUPDATE);
 							SetLastErrorDB("Errore nell'esecuzione dello script SQL di sistema"+
-								"La versione del DB attuale Ë "+localVersion);
+								"La versione del DB attuale √® "+localVersion);
 							Conn.RollBack();
 							return false;
 						}
@@ -2411,7 +2420,7 @@ namespace LiveUpdate{//LiveUpdate//
 						if (!SaveStructureObject(Conn, DBS)) {
 							SetStatusDB(C_CANTDBUPDATE);
 							SetLastErrorDB("Errore metodo SaveStructureObject("+C_TABVERSION+") failed"+
-								"La versione del DB attuale Ë "+localVersion);
+								"La versione del DB attuale √® "+localVersion);
 							//Conn.RollBack();
 							return false;
 						}
@@ -2420,7 +2429,7 @@ namespace LiveUpdate{//LiveUpdate//
 						if (!SaveStructureObject(Conn, DBS)) {
 							SetStatusDB(C_CANTDBUPDATE);
 							SetLastErrorDB("Errore metodo SaveStructureObject("+C_TABSCRIPT+") failed"+
-								"La versione del DB attuale Ë "+localVersion);
+								"La versione del DB attuale √® "+localVersion);
 							//Conn.RollBack();
 							return false;
 						}
@@ -2429,7 +2438,7 @@ namespace LiveUpdate{//LiveUpdate//
 						if (!SaveStructureObject(Conn, DBS)) {
 							SetStatusDB(C_CANTDBUPDATE);
 							SetLastErrorDB("Errore metodo SaveStructureObject("+C_TABMENU+") failed"+
-								"La versione del DB attuale Ë "+localVersion);
+								"La versione del DB attuale √® "+localVersion);
 							//Conn.RollBack();
 							return false;
 						}
@@ -2437,7 +2446,7 @@ namespace LiveUpdate{//LiveUpdate//
 					catch (Exception e) {
 						SetStatusDB(C_CANTDBUPDATE);
 						SetLastErrorDB("Errore nell'esecuzione dello script SQL di sistema - " + e.Message +
-							"La versione del DB attuale Ë "+localVersion);
+							"La versione del DB attuale √® "+localVersion);
 						//Conn.RollBack();
 						return false;
 					}
@@ -2536,7 +2545,7 @@ namespace LiveUpdate{//LiveUpdate//
 		}
 
 		/// <summary>
-		/// Scarica ed esegue eventuali script sql se la versione Ë da aggiornare
+		/// Scarica ed esegue eventuali script sql se la versione √® da aggiornare
 		/// </summary>
 		/// <param name="Conn">Parametro per la connessione al DB</param>
 		public void GetNewDBVersion() {
@@ -2569,7 +2578,7 @@ namespace LiveUpdate{//LiveUpdate//
 			SetLastErrorDB("Versione " + localVersion);
 
 			SetUpdateDbInCorso("0");
-			//Se non Ë da aggiornare non faccio nulla
+			//Se non √® da aggiornare non faccio nulla
 			if (ControllaVersioneDB(Connessione, isadmin, tabVersion, out remoteVersion, localVersion)) {
 				//Eseguo eventuali script sql
 				GetScriptSQL(E, isadmin, remoteVersion, localVersion);
@@ -3348,7 +3357,7 @@ namespace LiveUpdate{//LiveUpdate//
 		/// <param name="zipFilename">Name of the zip file. The file must exist.</param>
 		/// <param name="destFolder">Folder into which the files should be extracted.</param>
 		/// <param name="fileMask">Wildcard for filtering the files to be extracted.</param>
-		/// <param name="replaceFiles">True per sostituire i file gi‡ presenti</param>
+		/// <param name="replaceFiles">True per sostituire i file gi√† presenti</param>
 		/// <param name="recursive">true per abilitare la ricorsione di sottocartelle</param>
 		/// <remarks>Volutamente non sono gestite le eccezioni</remarks>
 		public static void ExtractFiles(string zipFilename,

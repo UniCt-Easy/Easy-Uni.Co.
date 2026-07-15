@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -23,6 +21,8 @@ using System.Windows.Forms;
 using metadatalibrary;
 using System.Data;
 using funzioni_configurazione;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace invoice_default
 {
@@ -51,6 +51,7 @@ namespace invoice_default
 		private Crownwood.Magic.Controls.TabControl tabController;
 		ContextMenu ExcelMenu;
 		DataTable InvoiceDetail;
+		DataTable MandateKind;
 		DataAccess Conn;
 		private System.Windows.Forms.Label labelMsg;
 		public DataRow []SelectedRows=null;
@@ -61,7 +62,22 @@ namespace invoice_default
         QueryHelper QHS;
         CQueryHelper QHC;
         private Label labDDT;
-        bool HasDDT;
+		private ComboBox cmbTipoOrdine;
+		private Button btnDocumento;
+		private Label label7;
+		private TextBox txtNumDoc;
+		private Label label10;
+		private TextBox txtEsercDoc;
+		private GroupBox groupBox1;
+		bool HasDDT;
+
+		bool InsidePaint=false;
+		bool DoPaint = false;
+		private Button btnAzzeraFiltro;
+		// dizionario che contiene le posizioni delle righe per gruppo
+		Dictionary<string, List<int>> groupDictionary = new Dictionary<string, List<int>>();
+		Timer timer = new Timer();
+
 		public FrmWizardScegliDettagli(MetaData Meta, string filterregistry,string filterflagmixed,
                     object idcurrency, DataTable invoiceDetail,bool hasDdt)
 		{
@@ -82,12 +98,24 @@ namespace invoice_default
             ExcelMenu = new ContextMenu();
 			ExcelMenu.MenuItems.Add("Excel", Excel_Click);
 			gridDettagli.ContextMenu= ExcelMenu;
+
+			string filterMandateKind = QHS.AppAnd(QHS.CmpEq("linktoinvoice",'S'), QHS.NullOrEq("isrequest", "N"));
+
+			MandateKind = Conn.CreateTableByName("mandatekind", "*");
+
+			GetData.MarkToAddBlankRow(MandateKind);
+			GetData.Add_Blank_Row(MandateKind);
+
+			Conn.RUN_SELECT_INTO_TABLE(MandateKind, "description", filterMandateKind, null, false);
+			cmbTipoOrdine.DataSource = MandateKind;
+
+			timer.Interval = 50;
+			timer.Tick += TimerFillGroupDictionary_Tick;
+
 			riempiGrid();
 
 			FormInit();
 		}
-
-
 
 		private static void Excel_Click(object menusender, EventArgs e) {
 		    object sender  = (menusender as MenuItem)?.Parent.GetContextMenu()?.SourceControl;
@@ -181,6 +209,13 @@ namespace invoice_default
 		{
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
 			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cmbTipoOrdine = new System.Windows.Forms.ComboBox();
+			this.btnDocumento = new System.Windows.Forms.Button();
+			this.txtEsercDoc = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtNumDoc = new System.Windows.Forms.TextBox();
 			this.labDDT = new System.Windows.Forms.Label();
 			this.lblValuta = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
@@ -194,8 +229,10 @@ namespace invoice_default
 			this.btnNext = new System.Windows.Forms.Button();
 			this.btnBack = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.btnAzzeraFiltro = new System.Windows.Forms.Button();
 			this.tabController.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridDettagli)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
@@ -210,7 +247,7 @@ namespace invoice_default
 			this.tabController.Name = "tabController";
 			this.tabController.SelectedIndex = 0;
 			this.tabController.SelectedTab = this.tabPage1;
-			this.tabController.Size = new System.Drawing.Size(779, 479);
+			this.tabController.Size = new System.Drawing.Size(779, 511);
 			this.tabController.TabIndex = 14;
 			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
             this.tabPage1,
@@ -219,6 +256,7 @@ namespace invoice_default
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.groupBox1);
 			this.tabPage1.Controls.Add(this.labDDT);
 			this.tabPage1.Controls.Add(this.lblValuta);
 			this.tabPage1.Controls.Add(this.label1);
@@ -229,15 +267,89 @@ namespace invoice_default
 			this.tabPage1.Controls.Add(this.gridDettagli);
 			this.tabPage1.Location = new System.Drawing.Point(0, 0);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(779, 454);
+			this.tabPage1.Size = new System.Drawing.Size(779, 486);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Title = "Pagina 1 di 2";
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.btnAzzeraFiltro);
+			this.groupBox1.Controls.Add(this.cmbTipoOrdine);
+			this.groupBox1.Controls.Add(this.btnDocumento);
+			this.groupBox1.Controls.Add(this.txtEsercDoc);
+			this.groupBox1.Controls.Add(this.label10);
+			this.groupBox1.Controls.Add(this.label7);
+			this.groupBox1.Controls.Add(this.txtNumDoc);
+			this.groupBox1.Location = new System.Drawing.Point(11, 3);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(760, 46);
+			this.groupBox1.TabIndex = 129;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Contratto Passivo";
+			// 
+			// cmbTipoOrdine
+			// 
+			this.cmbTipoOrdine.DisplayMember = "description";
+			this.cmbTipoOrdine.Location = new System.Drawing.Point(6, 18);
+			this.cmbTipoOrdine.Name = "cmbTipoOrdine";
+			this.cmbTipoOrdine.Size = new System.Drawing.Size(344, 23);
+			this.cmbTipoOrdine.TabIndex = 128;
+			this.cmbTipoOrdine.ValueMember = "idmankind";
+			// 
+			// btnDocumento
+			// 
+			this.btnDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDocumento.Location = new System.Drawing.Point(580, 19);
+			this.btnDocumento.Name = "btnDocumento";
+			this.btnDocumento.Size = new System.Drawing.Size(85, 20);
+			this.btnDocumento.TabIndex = 127;
+			this.btnDocumento.Text = "Applica Filtro";
+			this.btnDocumento.Click += new System.EventHandler(this.btnDocumento_Click);
+			// 
+			// txtEsercDoc
+			// 
+			this.txtEsercDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtEsercDoc.Location = new System.Drawing.Point(411, 20);
+			this.txtEsercDoc.Name = "txtEsercDoc";
+			this.txtEsercDoc.Size = new System.Drawing.Size(56, 20);
+			this.txtEsercDoc.TabIndex = 124;
+			this.txtEsercDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.txtEsercDoc.Leave += new System.EventHandler(this.txtEsercDoc_Leave);
+			// 
+			// label10
+			// 
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.Location = new System.Drawing.Point(474, 20);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(32, 16);
+			this.label10.TabIndex = 125;
+			this.label10.Text = "Num.";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label7
+			// 
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Location = new System.Drawing.Point(354, 20);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(55, 16);
+			this.label7.TabIndex = 123;
+			this.label7.Text = "Esercizio";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNumDoc
+			// 
+			this.txtNumDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtNumDoc.Location = new System.Drawing.Point(507, 20);
+			this.txtNumDoc.Name = "txtNumDoc";
+			this.txtNumDoc.Size = new System.Drawing.Size(64, 20);
+			this.txtNumDoc.TabIndex = 126;
+			this.txtNumDoc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// labDDT
 			// 
 			this.labDDT.AutoSize = true;
 			this.labDDT.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
-			this.labDDT.Location = new System.Drawing.Point(8, 104);
+			this.labDDT.Location = new System.Drawing.Point(8, 140);
 			this.labDDT.Name = "labDDT";
 			this.labDDT.Size = new System.Drawing.Size(616, 13);
 			this.labDDT.TabIndex = 35;
@@ -247,7 +359,7 @@ namespace invoice_default
 			// lblValuta
 			// 
 			this.lblValuta.AutoSize = true;
-			this.lblValuta.Location = new System.Drawing.Point(341, 72);
+			this.lblValuta.Location = new System.Drawing.Point(341, 118);
 			this.lblValuta.Name = "lblValuta";
 			this.lblValuta.Size = new System.Drawing.Size(217, 15);
 			this.lblValuta.TabIndex = 34;
@@ -255,7 +367,7 @@ namespace invoice_default
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(8, 72);
+			this.label1.Location = new System.Drawing.Point(8, 118);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(315, 16);
 			this.label1.TabIndex = 33;
@@ -263,7 +375,7 @@ namespace invoice_default
 			// 
 			// lblselezautomaticamente
 			// 
-			this.lblselezautomaticamente.Location = new System.Drawing.Point(8, 40);
+			this.lblselezautomaticamente.Location = new System.Drawing.Point(8, 86);
 			this.lblselezautomaticamente.Name = "lblselezautomaticamente";
 			this.lblselezautomaticamente.Size = new System.Drawing.Size(568, 16);
 			this.lblselezautomaticamente.TabIndex = 31;
@@ -272,7 +384,7 @@ namespace invoice_default
 			// 
 			// btnSelezionaTutto
 			// 
-			this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 8);
+			this.btnSelezionaTutto.Location = new System.Drawing.Point(8, 54);
 			this.btnSelezionaTutto.Name = "btnSelezionaTutto";
 			this.btnSelezionaTutto.Size = new System.Drawing.Size(88, 23);
 			this.btnSelezionaTutto.TabIndex = 30;
@@ -281,7 +393,7 @@ namespace invoice_default
 			// 
 			// label16
 			// 
-			this.label16.Location = new System.Drawing.Point(112, 8);
+			this.label16.Location = new System.Drawing.Point(112, 54);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(464, 32);
 			this.label16.TabIndex = 29;
@@ -290,7 +402,7 @@ namespace invoice_default
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(8, 56);
+			this.label14.Location = new System.Drawing.Point(8, 102);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(192, 16);
 			this.label14.TabIndex = 28;
@@ -301,14 +413,15 @@ namespace invoice_default
 			this.gridDettagli.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.gridDettagli.CaptionVisible = false;
 			this.gridDettagli.DataMember = "";
 			this.gridDettagli.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.gridDettagli.Location = new System.Drawing.Point(8, 120);
+			this.gridDettagli.Location = new System.Drawing.Point(8, 157);
 			this.gridDettagli.Name = "gridDettagli";
-			this.gridDettagli.Size = new System.Drawing.Size(763, 319);
+			this.gridDettagli.Size = new System.Drawing.Size(763, 323);
 			this.gridDettagli.TabIndex = 27;
+			this.gridDettagli.CurrentCellChanged += new System.EventHandler(this.gridDettagli_CurrentCellChanged);
 			this.gridDettagli.Paint += new System.Windows.Forms.PaintEventHandler(this.gridDettagli_Paint);
+			this.gridDettagli.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridDettagli_MouseClick);
 			// 
 			// tabPage2
 			// 
@@ -316,7 +429,7 @@ namespace invoice_default
 			this.tabPage2.Location = new System.Drawing.Point(0, 0);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Selected = false;
-			this.tabPage2.Size = new System.Drawing.Size(779, 454);
+			this.tabPage2.Size = new System.Drawing.Size(779, 486);
 			this.tabPage2.TabIndex = 0;
 			this.tabPage2.Title = "Pagina 2 di 2";
 			// 
@@ -331,7 +444,7 @@ namespace invoice_default
 			// btnNext
 			// 
 			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnNext.Location = new System.Drawing.Point(611, 495);
+			this.btnNext.Location = new System.Drawing.Point(611, 527);
 			this.btnNext.Name = "btnNext";
 			this.btnNext.Size = new System.Drawing.Size(72, 23);
 			this.btnNext.TabIndex = 12;
@@ -341,7 +454,7 @@ namespace invoice_default
 			// btnBack
 			// 
 			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnBack.Location = new System.Drawing.Point(531, 495);
+			this.btnBack.Location = new System.Drawing.Point(531, 527);
 			this.btnBack.Name = "btnBack";
 			this.btnBack.Size = new System.Drawing.Size(72, 23);
 			this.btnBack.TabIndex = 11;
@@ -352,17 +465,27 @@ namespace invoice_default
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(715, 495);
+			this.btnCancel.Location = new System.Drawing.Point(715, 527);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 13;
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
+			// btnAzzeraFiltro
+			// 
+			this.btnAzzeraFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnAzzeraFiltro.Location = new System.Drawing.Point(675, 19);
+			this.btnAzzeraFiltro.Name = "btnAzzeraFiltro";
+			this.btnAzzeraFiltro.Size = new System.Drawing.Size(75, 20);
+			this.btnAzzeraFiltro.TabIndex = 129;
+			this.btnAzzeraFiltro.Text = "Azzera Filtro";
+			this.btnAzzeraFiltro.Click += new System.EventHandler(this.btnAzzeraFiltro_Click);
+			// 
 			// FrmWizardScegliDettagli
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(795, 532);
+			this.ClientSize = new System.Drawing.Size(795, 564);
 			this.Controls.Add(this.btnNext);
 			this.Controls.Add(this.btnBack);
 			this.Controls.Add(this.btnCancel);
@@ -373,6 +496,8 @@ namespace invoice_default
 			this.tabController.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridDettagli)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -414,7 +539,21 @@ namespace invoice_default
             filter = QHS.AppAnd(filter, QHS.CmpNe("toinvoice",'N'),QHS.CmpEq("linktoinvoice",'S'));
             filter = QHS.AppAnd(filter, QHS.CmpEq("idmandatestatus", 5)); // stato approvato
 
-            object currency = Conn.DO_READ_VALUE("currency", filtercurrency, "description");
+			if (cmbTipoOrdine.SelectedIndex > 0)
+				filter = QHS.AppAnd(filter, QHS.CmpEq("idmankind", cmbTipoOrdine.SelectedValue));
+
+			int esercizio = 0;
+
+			if (!string.IsNullOrEmpty(txtEsercDoc.Text.ToString()))
+				esercizio = (int)HelpForm.GetObjectFromString(typeof(int), txtEsercDoc.Text.ToString(), "x.y.year");
+
+			if (esercizio > 0)
+				filter = QHS.AppAnd(filter, QHS.CmpEq("yman", esercizio));
+
+			if (!string.IsNullOrEmpty(txtNumDoc.Text.ToString()))
+				filter = QHS.AppAnd(filter, QHS.CmpEq("nman", txtNumDoc.Text.ToString()));
+			
+			object currency = Conn.DO_READ_VALUE("currency", filtercurrency, "description");
             if (currency != null)
             {
                 lblValuta.Text = currency.ToString().ToUpper();
@@ -509,8 +648,10 @@ namespace invoice_default
 				}
 
 				mandateDetail.AcceptChanges();
-				if (mandateDetail.Select().Length>0){
-                    MetaData MAP;
+								
+				if (mandateDetail.Select().Length > 0)
+				{					
+					MetaData MAP;
                     if (HasDDT) {
                         MAP = Meta.Dispatcher.Get("mandatedetailstockedtoinvoice");
                     }
@@ -526,6 +667,9 @@ namespace invoice_default
 					formatgrids format= new formatgrids(gridDettagli);
 					format.AutosizeColumnWidth();
 					HelpForm.SetAllowMultiSelection(mandateDetail,true);
+
+					groupDictionary.Clear();
+
 					SelezionaTutto();
 				}
 			}
@@ -544,22 +688,21 @@ namespace invoice_default
 			return true;
 		}
 
-
-		DataRow GetGridRow(DataGrid G, int index){
+		DataRow GetGridRow(DataGrid G, int index)
+		{
 			string TableName = G.DataMember;
 			DataSet MyDS =(DataSet)G.DataSource;
 			DataTable MyTable = MyDS.Tables[TableName];
 			string filter;
-            filter = QHC.AppAnd(QHC.CmpEq("idmankind", G[index, 0]),
-                            QHC.CmpEq("yman", G[index, 2]),
-                            QHC.CmpEq("nman", G[index, 3]),
-                            QHC.CmpEq("rownum", G[index, 4]));
+			filter = QHC.AppAnd(QHC.CmpEq("idmankind", G[index, 0]),
+							QHC.CmpEq("yman", G[index, 2]),
+							QHC.CmpEq("nman", G[index, 3]),
+							QHC.CmpEq("rownum", G[index, 4]));
 
 			DataRow[] selectresult = MyTable.Select(filter);
-            if (selectresult.Length == 0) return null;
-			return selectresult[0];		
+			if (selectresult.Length == 0) return null;
+			return selectresult[0];
 		}
-
 
 		private DataRow[] GetGridSelectedRows(DataGrid G){
 			if (G.DataMember==null) return null;
@@ -567,94 +710,151 @@ namespace invoice_default
 			string TableName = G.DataMember;
 			DataSet MyDS =(DataSet)G.DataSource;
 			DataTable MyTable = MyDS.Tables[TableName];
-			int numrighetemp=MyTable.Rows.Count;
-			int numrighe=0;
-			int i;
-			for (i=0; i<numrighetemp; i++){
-				if(G.IsSelected(i)){
-					numrighe++;
+			int numrighe=MyTable.Rows.Count;
+
+			List<DataRow> selectedRow = new List<DataRow>();
+
+			for (int i = 0; i < numrighe; i++)
+			{
+				if (G.IsSelected(i))
+				{
+					selectedRow.Add(GetGridRow(G, i));
 				}
 			}
 
-			DataRow[] Res=new DataRow[numrighe]; 			
-			int count=0;
-			for (i=0; i<numrighetemp; i++){
-				if(G.IsSelected(i)){
-					Res[count++]= GetGridRow(G,i);
-				}
-			}
-			return Res;
+			return selectedRow.ToArray();
 		}
 
-        void SelectGridRowsIdemGroup(DataRow R, DataGrid G, bool select) {
-            string TableName = G.DataMember;
-            DataSet MyDS = (DataSet)G.DataSource;
-            DataTable MyTable = MyDS.Tables[TableName];
-
-            for (int i = 0; i < MyTable.Rows.Count; i++) {
-                if (G[i, 0].ToString() == R["idmankind"].ToString()
-                    && G[i, 2].ToString() == R["yman"].ToString()
-                    && G[i, 3].ToString() == R["nman"].ToString()
-                    && G[i, 4].ToString() != R["rownum"].ToString()
-                    && G[i, 5].ToString() == R["idgroup"].ToString()) {
-                    if (select) G.Select(i);
-                    if (!select) G.UnSelect(i);
-                }
-            }
-        }
-
-		
-		private bool alreadyselected(DataRow currRowgrid, DataRow[] rrowSelected)
-		{
-			foreach (DataRow R in rrowSelected)
-				if (R==currRowgrid) return true;
-			return false;
-
-		}
-	
-		bool InsidePaint=false;
 		private void gridDettagli_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			if (string.IsNullOrEmpty(gridDettagli.DataMember)) return;
 			if (InsidePaint) return;
-			InsidePaint=true;
-			int i;
-	
+						
+			if (!DoPaint) return;
+
+			InsidePaint = true;
+
 			string TableName = gridDettagli.DataMember;
 			DataSet MyDS =(DataSet)gridDettagli.DataSource;
 			DataTable MyTable = MyDS.Tables[TableName];
 
-			int numrighetemp=MyTable.Rows.Count;
-			DataRow gridrow=null;
+			int numrighe=MyTable.Rows.Count;
 
-			// Contiene le righe selezionate RowSelectedbk, lo fa solo una volta
-			if (SelectedRowsbk==null)
-				SelectedRowsbk = new DataRow[numrighetemp];
-			
-			for (i=0; i<numrighetemp; i++)
+			if (groupDictionary.Count() == 0)
 			{
-				if(gridDettagli.IsSelected(i))
+				for (int i = 0; i < numrighe; i++)
 				{
-					gridrow = GetGridRow(gridDettagli,i);
-					if (alreadyselected(gridrow,SelectedRowsbk)) continue;
-					SelectGridRowsIdemGroup(gridrow,gridDettagli,true);
+					DataRow row = MyTable.Rows[i];
+
+					string groupKey = $"{row["idmankind"]}_{row["yman"]}_{row["nman"]}_{row["idgroup"]}";
+
+					if (!groupDictionary.ContainsKey(groupKey))
+					{
+						groupDictionary[groupKey] = new List<int>();
+					}
+					groupDictionary[groupKey].Add(i);
 				}
-				if(!(gridDettagli.IsSelected(i)))
+			}
+
+			foreach(KeyValuePair<string, List<int>> group in groupDictionary)
+			{
+				if (group.Value.Count() > 1 && group.Value.Contains(gridDettagli.CurrentRowIndex))
 				{
-					gridrow = GetGridRow(gridDettagli,i);
-					if (!(alreadyselected(gridrow,SelectedRowsbk))) continue;
-					//deve de-selezionare ciò che era selezionato
-					SelectGridRowsIdemGroup(gridrow,gridDettagli,false);
+					foreach (int rowIndex in group.Value)
+					{
+						if (gridDettagli.IsSelected(rowIndex) || gridDettagli.IsSelected(gridDettagli.CurrentRowIndex))
+						{
+							gridDettagli.Select(rowIndex);
+						}						
+						else if ((!gridDettagli.IsSelected(rowIndex) && rowIndex == gridDettagli.CurrentRowIndex) || !gridDettagli.IsSelected(gridDettagli.CurrentRowIndex))
+						{
+							gridDettagli.UnSelect(rowIndex);
+						}
+					}
 				}
 			}
 			
-			SelectedRowsbk =GetGridSelectedRows(gridDettagli);
-			InsidePaint=false;
+			gridDettagli.Refresh();
+
+			DoPaint = false;
+			InsidePaint = false;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+		}
+
+		private void gridDettagli_CurrentCellChanged(object sender, System.EventArgs e)
+		{
+			if (string.IsNullOrEmpty(gridDettagli.DataMember)) return;
+			if (InsidePaint) return;
+			
+			DoPaint = true;
+		}
 		
+		private void TimerFillGroupDictionary_Tick(object sender, EventArgs e)
+		{
+			timer.Stop();
+
+			string TableName = gridDettagli.DataMember;
+			DataSet MyDS =(DataSet)gridDettagli.DataSource;
+			DataTable MyTable = MyDS.Tables[TableName];
+
+			int numrighe=MyTable.Rows.Count;
+
+			for (int i = 0; i < numrighe; i++)
+			{
+				DataRow row = GetGridRow(gridDettagli, i);
+
+				string groupKey = $"{row["idmankind"]}_{row["yman"]}_{row["nman"]}_{row["idgroup"]}";
+
+				if (!groupDictionary.ContainsKey(groupKey))
+				{
+					groupDictionary[groupKey] = new List<int>();
+				}
+				groupDictionary[groupKey].Add(i);
+			}
+		}
+
+		private void gridDettagli_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			if (string.IsNullOrEmpty(gridDettagli.DataMember)) return;
+			if (InsidePaint) return;
+
+			if (e.Y < gridDettagli.GetCellBounds(0, 0).Height + 4 && e.X > 36)
+			{
+				groupDictionary.Clear();
+				
+				timer.Start();				
+			}
 		}
 
 		private void btnCancel_Click(object sender, EventArgs e) {
 
+		}
+
+		private void txtEsercDoc_Leave(object sender, System.EventArgs e)
+		{
+			HelpForm.FormatLikeYear(txtEsercDoc);
+		}
+
+		private void btnDocumento_Click(object sender, System.EventArgs e)
+		{			
+			gridDettagli.DataSource = null;
+
+			riempiGrid();
+		}
+
+		private void btnAzzeraFiltro_Click(object sender, EventArgs e)
+		{
+			cmbTipoOrdine.SelectedIndex = -1;
+			txtEsercDoc.Text = string.Empty;
+			txtNumDoc.Text = string.Empty;
+
+			cmbTipoOrdine.Refresh();
+			txtEsercDoc.Refresh();
+			txtNumDoc.Refresh();
+
+			gridDettagli.DataSource = null;
+
+			riempiGrid();
 		}
 	}
 }

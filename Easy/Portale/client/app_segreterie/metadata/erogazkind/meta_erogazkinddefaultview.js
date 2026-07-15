@@ -23,11 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
-						this.describeAColumn(table, 'erogazkind_description', 'Descrizione', null, 30, 255);
-						this.describeAColumn(table, 'erogazkind_active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'erogazkind_ans', 'Ans', null, 50, 10);
-						this.describeAColumn(table, 'erogazkind_sortcode', 'Ordinamento', null, 60, null);
+						this.describeAColumn(table, 'title', 'Tipologia', null, 2000, 50);
+						this.describeAColumn(table, 'erogazkind_description', 'Descrizione', null, 3000, 255);
+						this.describeAColumn(table, 'erogazkind_active', 'Attivo', null, 4000, null);
+						this.describeAColumn(table, 'erogazkind_ans', 'Ans', null, 5000, 10);
+						this.describeAColumn(table, 'erogazkind_sortcode', 'Ordinamento', null, 6000, null);
+						this.describeAColumn(table, 'erogazkind_title_en', 'Descrizione inglese', null, 9000, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

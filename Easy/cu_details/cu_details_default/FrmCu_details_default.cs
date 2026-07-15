@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -94,8 +92,9 @@ namespace cu_details_default {
         private RadioButton radPrint;
         private RadioButton radSave;
         private Button btnGenera;
-        private Label labelAvanzamento;
-        private ProgressBar pBarAvanzamento;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //private Label labelAvanzamento;
+        //private ProgressBar pBarAvanzamento;
         string EsercStr = null;
         private TextBox txtInputFileSetCF;
         private Button btnCUperSetdiCF;
@@ -193,8 +192,8 @@ namespace cu_details_default {
             this.radPrint = new System.Windows.Forms.RadioButton();
             this.radSave = new System.Windows.Forms.RadioButton();
             this.btnGenera = new System.Windows.Forms.Button();
-            this.labelAvanzamento = new System.Windows.Forms.Label();
-            this.pBarAvanzamento = new System.Windows.Forms.ProgressBar();
+            //this.labelAvanzamento = new System.Windows.Forms.Label();
+            //this.pBarAvanzamento = new System.Windows.Forms.ProgressBar();
             this.txtInputFileSetCF = new System.Windows.Forms.TextBox();
             this.btnCUperSetdiCF = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -673,22 +672,22 @@ namespace cu_details_default {
             // 
             // labelAvanzamento
             // 
-            this.labelAvanzamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelAvanzamento.AutoSize = true;
-            this.labelAvanzamento.Location = new System.Drawing.Point(15, 742);
-            this.labelAvanzamento.Name = "labelAvanzamento";
-            this.labelAvanzamento.Size = new System.Drawing.Size(124, 13);
-            this.labelAvanzamento.TabIndex = 30;
-            this.labelAvanzamento.Text = "Stato avanzamento invio";
+            //this.labelAvanzamento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            //this.labelAvanzamento.AutoSize = true;
+            //this.labelAvanzamento.Location = new System.Drawing.Point(15, 742);
+            //this.labelAvanzamento.Name = "labelAvanzamento";
+            //this.labelAvanzamento.Size = new System.Drawing.Size(124, 13);
+            //this.labelAvanzamento.TabIndex = 30;
+            //this.labelAvanzamento.Text = "Stato avanzamento invio";
             // 
             // pBarAvanzamento
             // 
-            this.pBarAvanzamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBarAvanzamento.Location = new System.Drawing.Point(18, 758);
-            this.pBarAvanzamento.Name = "pBarAvanzamento";
-            this.pBarAvanzamento.Size = new System.Drawing.Size(886, 23);
-            this.pBarAvanzamento.TabIndex = 29;
+            //this.pBarAvanzamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            //| System.Windows.Forms.AnchorStyles.Right)));
+            //this.pBarAvanzamento.Location = new System.Drawing.Point(18, 758);
+            //this.pBarAvanzamento.Name = "pBarAvanzamento";
+            //this.pBarAvanzamento.Size = new System.Drawing.Size(886, 23);
+            //this.pBarAvanzamento.TabIndex = 29;
             // 
             // txtInputFileSetCF
             // 
@@ -716,8 +715,8 @@ namespace cu_details_default {
             this.ClientSize = new System.Drawing.Size(916, 793);
             this.Controls.Add(this.txtInputFileSetCF);
             this.Controls.Add(this.btnCUperSetdiCF);
-            this.Controls.Add(this.labelAvanzamento);
-            this.Controls.Add(this.pBarAvanzamento);
+            //this.Controls.Add(this.labelAvanzamento);
+            //this.Controls.Add(this.pBarAvanzamento);
             this.Controls.Add(this.btnGenera);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
@@ -2346,11 +2345,11 @@ namespace cu_details_default {
 
                 //Esportazione del set di CF importato
                 if (ListaCF.Count > 0 && (progressiviHRD06.Count == 0)) {
-                    pBarAvanzamento.Maximum = ListaCF.Count;
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Maximum = ListaCF.Count;
+                    //pBarAvanzamento.Value = 0;
                     foreach (object s in ListaCF) {
                         progrComCF += 1;
-                        pBarAvanzamento.Increment(1);
+                        //pBarAvanzamento.Increment(1);
                         DataSet ds1 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_h_" + esercizio,
                             new object[] { s }, 60 * 60,
                             out errMsg);
@@ -2374,16 +2373,16 @@ namespace cu_details_default {
                         tPercipientiRecordH.Rows.Add(row1);
 
                     }
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Value = 0;
                 }
 
                 // solo comunicazioni correttive o di annullamento, non possono essere mischiate con le altre 
                 if (progressiviHRD06.Count > 0) {
-                    pBarAvanzamento.Maximum = progressiviHRD06.Keys.Count;
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Maximum = progressiviHRD06.Keys.Count;
+                    //pBarAvanzamento.Value = 0;
                     foreach (object s in progressiviHRD06.Keys) {
                         progrComCorrettive += 1;
-                        pBarAvanzamento.Increment(1);
+                        //pBarAvanzamento.Increment(1);
                         DataSet ds1 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_h_" + esercizio,
                             new object[] { s }, 60 * 60,
                             out errMsg);
@@ -2407,17 +2406,17 @@ namespace cu_details_default {
                         tPercipientiRecordH.Rows.Add(row);
 
                     }
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Value = 0;
                 }
 
 
                 int newProgrCom = 1;
                 int progrCom;
-                pBarAvanzamento.Maximum = tPercipientiRecordH.Rows.Count;
-                pBarAvanzamento.Value = 0;
+                //pBarAvanzamento.Maximum = tPercipientiRecordH.Rows.Count;
+                //pBarAvanzamento.Value = 0;
                 foreach (DataRow r in tPercipientiRecordH.Select()) {
                     progrCom = newProgrCom;
-                    pBarAvanzamento.Increment(1);
+                    //pBarAvanzamento.Increment(1);
                     // CallSPParameterDataSet(string sp_name, string[] ParamName, SqlDbType[] ParamType, 
                     //int[] ParamTypeLength, ParameterDirection[] ParamDirection, ref object[] ParamValues,
                     //int timeout, out string ErrMsg){
@@ -2478,7 +2477,7 @@ namespace cu_details_default {
                     //ds.Merge(tPercipienteRecordD);
                     ds.Merge(tPercipienteRecordH);
                 }
-                pBarAvanzamento.Value = 0;
+                //pBarAvanzamento.Value = 0;
             }
 
             else {
@@ -2506,10 +2505,10 @@ namespace cu_details_default {
 
                 //Esportazione del set di CF importato
                 if (ListaCF.Count > 0) {
-                    pBarAvanzamento.Maximum = ListaCF.Count;
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Maximum = ListaCF.Count;
+                    //pBarAvanzamento.Value = 0;
                     foreach (object s in ListaCF) {
-                        pBarAvanzamento.Increment(1);
+                        //pBarAvanzamento.Increment(1);
                         progrComCF += 1;
                         DataSet ds3 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_g_" + esercizio,
                             new object[] { s }, 60 * 60,
@@ -2534,14 +2533,14 @@ namespace cu_details_default {
                         row1["progrCom"] = progrComCF;
                         tPercipientiRecordG.Rows.Add(row1);
                     }
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Value = 0;
                 }
                 // solo comunicazioni correttive o di annullamento, non possono essere mischiate con le altre 
                 if (progressiviHRD06.Count > 0) {
-                    pBarAvanzamento.Maximum = progressiviHRD06.Keys.Count;
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Maximum = progressiviHRD06.Keys.Count;
+                    //pBarAvanzamento.Value = 0;
                     foreach (object s in progressiviHRD06.Keys) {
-                        pBarAvanzamento.Increment(1);
+                        //pBarAvanzamento.Increment(1);
                         progrComCorrettive += 1;
                         DataSet ds3 = Meta.Conn.CallSP("exp_certificazioneunica_percipienti_g_" + esercizio,
                             new object[] { s }, 60 * 60,
@@ -2567,13 +2566,13 @@ namespace cu_details_default {
                         row1["progrCom"] = progrComCorrettive;
                         tPercipientiRecordG.Rows.Add(row1);
                     }
-                    pBarAvanzamento.Value = 0;
+                    //pBarAvanzamento.Value = 0;
                 }
 
-                pBarAvanzamento.Maximum = tPercipientiRecordG.Rows.Count;
-                pBarAvanzamento.Value = 0;
+                //pBarAvanzamento.Maximum = tPercipientiRecordG.Rows.Count;
+                //pBarAvanzamento.Value = 0;
                 foreach (DataRow r in tPercipientiRecordG.Select()) {
-                    pBarAvanzamento.Increment(1);
+                    //pBarAvanzamento.Increment(1);
                     object[] paramvalues = new object[] { r["idreg"], r["progrCom"], print };
                     DataSet ds2 = Meta.Conn.CallSP("exp_certificazioneunica_g_" + esercizio, paramvalues, 60 * 60,
                         out errMsg);
@@ -2585,9 +2584,7 @@ namespace cu_details_default {
                         return null;
                     }
                     DataTable tPercipienteRecordG = ds2.Tables[0];
-                    DataRow rCf =
-                        tPercipienteRecordG.Select(QHC.AppAnd(QHC.CmpEq("quadro", "HRG"), QHC.CmpEq("colonna", "04")))[0
-                            ];
+                    DataRow rCf = tPercipienteRecordG.Select(QHC.AppAnd(QHC.CmpEq("quadro", "HRG"), QHC.CmpEq("colonna", "04")))[0];
                     string currentCF = rCf["stringa"].ToString();
 
                     if (progressiviHRD06.ContainsKey(currentCF)) {
@@ -2612,7 +2609,7 @@ namespace cu_details_default {
                     //ds.Merge(tPercipienteRecordD);
                     ds.Merge(tPercipienteRecordG);
                 }
-                pBarAvanzamento.Value = 0;
+                //pBarAvanzamento.Value = 0;
             }
 
             // Calcolo il numero delle comunicaizoni G o H inviate da inserire in record B
@@ -3130,9 +3127,9 @@ namespace cu_details_default {
 
             List<Collaboratore> collaboratori = getListaCollaboratoriDaMod770(tMod770, recordH);
 
-            pBarAvanzamento.Minimum = 0;
-            pBarAvanzamento.Maximum = collaboratori.Count;
-            pBarAvanzamento.Value = 0;
+            //pBarAvanzamento.Minimum = 0;
+            //pBarAvanzamento.Maximum = collaboratori.Count;
+            //pBarAvanzamento.Value = 0;
             foreach (Collaboratore co in collaboratori) {
                 Application.DoEvents();
                 SortedList ht = new SortedList(campiPresiDallaLicenza);
@@ -3251,10 +3248,10 @@ namespace cu_details_default {
 
                 }
 
-                pBarAvanzamento.Value += 1;
+                //pBarAvanzamento.Value += 1;
             }
             Cursor.Current = Cursors.Default;
-            pBarAvanzamento.Value = 0;
+            //pBarAvanzamento.Value = 0;
 
             if (isBlazor())
                 show(this, "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica (.pdf)",
@@ -3306,7 +3303,7 @@ namespace cu_details_default {
 
             List<Collaboratore> collaboratori = getListaCollaboratoriDaMod770(tMod770, recordH);
             List<Collaboratore> listaProblemi = new List<Collaboratore>();
-            
+            List<Collaboratore> listaInviati = new List<Collaboratore>();
             // commento momentaneamente l'assenza dell'email come errore bloccante
             // dovremo creare una gestione per memorizzare gli invii non effettuati  
             //foreach (Collaboratore co in collaboratori) {
@@ -3314,27 +3311,27 @@ namespace cu_details_default {
             //        listaProblemi.Add(co);
             //    }
             //}
-            if (listaProblemi.Count > 0) {
-                string s = "";
-                foreach (Collaboratore co in listaProblemi) {
-                    string title = conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", co.idreg), "title").ToString();
-                    s += title + " (id " + co.idreg + ")\n";
-                }
-                frmListaProblemi f = new frmListaProblemi(0);
-                f.txtProblemi.Text = s;
-                createForm(f, null);
-                f.Show();
-                return false;
-            }
+            //if (listaProblemi.Count > 0) {
+            //    string s = "";
+            //    foreach (Collaboratore co in listaProblemi) {
+            //        string title = conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", co.idreg), "title").ToString();
+            //        s += title + " (id " + co.idreg + ")\n";
+            //    }
+            //    frmListaProblemi f = new frmListaProblemi(0);
+            //    f.txtProblemi.Text = s;
+            //    createForm(f, null);
+            //    f.Show();
+            //    return false;
+            //}
 
             frmAskMailData fM = new frmAskMailData(1);
             createForm(fM, null);
             DialogResult r = fM.ShowDialog(this);
             if (r != DialogResult.OK) return false;
 
-            pBarAvanzamento.Minimum = 0;
-            pBarAvanzamento.Maximum = collaboratori.Count;
-            pBarAvanzamento.Value = 0;
+            //pBarAvanzamento.Minimum = 0;
+            //pBarAvanzamento.Maximum = collaboratori.Count;
+            //pBarAvanzamento.Value = 0;
             foreach (Collaboratore co in collaboratori) {
                 Application.DoEvents();
                 Application.DoEvents();
@@ -3466,11 +3463,15 @@ namespace cu_details_default {
                         sm.Subject = fM.txtOggetto.Text;
                         sm.MessageBody = fM.txtContenuto.Text;
                         sm.UseSMTPLoginAsFromField = true;
-                  
+
                         //sm.Send();
                         if (!sm.Send()) {
                             if (sm.ErrorMessage.Trim() != "")
                                 show(sm.ErrorMessage.Trim());
+                            listaProblemi.Add(co);
+                        }
+                        else {
+                            listaInviati.Add(co);
                         }
                         Thread.Sleep(5000);
                     }
@@ -3480,27 +3481,28 @@ namespace cu_details_default {
 
                 }
 
-                pBarAvanzamento.Value += 1;
+                //pBarAvanzamento.Value += 1;
             }             
 
-            if (listaProblemi.Count > 0) {
-                string s = "";
-                foreach (Collaboratore co in listaProblemi) {
-                    string title = conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", co.idreg), "title").ToString();
-                    s += title + " (id " + co.idreg + "), email:" + co.email + "\n";
-                }
-                frmListaProblemi f = new frmListaProblemi(0);
-                f.txtProblemi.Text = s;
-                f.labelMsg.Text = "Invio email fallito per i seguenti collaboratori:";
-                //f.Show();
-            }
-            else {
+            //if (listaProblemi.Count > 0) {
+            //    string s = "";
+            //    foreach (Collaboratore co in listaProblemi) {
+            //        string title = conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", co.idreg), "title").ToString();
+            //        s += title + " (id " + co.idreg + "), email:" + co.email + "\n";
+            //    }
+            //    frmListaProblemi f = new frmListaProblemi(0);
+            //    f.txtProblemi.Text = s;
+            //    f.labelMsg.Text = "Invio email fallito per i seguenti collaboratori:";
+            //    //f.Show();
+            //}
+
+            if (listaInviati.Count > 0) {
                 show(this,
                "Sono stati generati " + collaboratori.Count + " modelli Certificazione Unica",
-               "Invio effettuato");
+               "Invio effettuato con successo per " + listaInviati.Count + " collaboratori");
             }
             Cursor.Current = Cursors.Default;
-            pBarAvanzamento.Value = 0;
+            //pBarAvanzamento.Value = 0;
 
             DataTable emailNonInviate = new DataTable();            
             emailNonInviate.Columns.Add("idreg", typeof(System.Int32));
@@ -3511,6 +3513,17 @@ namespace cu_details_default {
             emailNonInviate.Columns.Add("modulo", typeof(System.Int16));
             emailNonInviate.Columns.Add("nome", typeof(System.String));
             emailNonInviate.Columns.Add("cognome", typeof(System.String));
+
+            DataTable emailnviateConErrori = new DataTable();
+            emailnviateConErrori.Columns.Add("idreg", typeof(System.Int32));
+            emailnviateConErrori.Columns.Add("cf", typeof(System.String));
+            emailnviateConErrori.Columns.Add("email", typeof(System.String));
+            emailnviateConErrori.Columns.Add("commento", typeof(System.String));
+            emailnviateConErrori.Columns.Add("progr", typeof(System.String));
+            emailnviateConErrori.Columns.Add("modulo", typeof(System.Int16));
+            emailnviateConErrori.Columns.Add("nome", typeof(System.String));
+            emailnviateConErrori.Columns.Add("cognome", typeof(System.String));
+
 
             DataTable emailInviate = new DataTable();
             emailInviate.Columns.Add("idreg", typeof(System.Int32));
@@ -3534,8 +3547,23 @@ namespace cu_details_default {
                     dr["nome"] = c.name;
                     dr["cognome"] = c.surname;
                     emailNonInviate.Rows.Add(dr);
-				}
-                else {
+                }
+            }
+
+            foreach (Collaboratore c in listaProblemi) {
+                    DataRow dr = emailnviateConErrori.NewRow();
+                    dr["idreg"] = c.idreg;
+                    dr["cf"] = c.cf;
+                    dr["email"] = c.email;
+                    dr["commento"] = c.commento;
+                    dr["progr"] = c.progr;
+                    dr["modulo"] = c.modulo;
+                    dr["nome"] = c.name;
+                    dr["cognome"] = c.surname;
+                    emailnviateConErrori.Rows.Add(dr);
+            }
+
+            foreach (Collaboratore c in listaInviati) {
                     DataRow dr = emailInviate.NewRow();
                     dr["idreg"] = c.idreg;
                     dr["cf"] = c.cf;
@@ -3546,7 +3574,6 @@ namespace cu_details_default {
                     dr["nome"] = c.name;
                     dr["cognome"] = c.surname;
                     emailInviate.Rows.Add(dr);
-				}
 			}
 
             string[] intestazione = nomeModello.Split('.');
@@ -3568,47 +3595,90 @@ namespace cu_details_default {
             head2["amount"] = DBNull.Value;
             head2["kind"] = "H";
             dt.Rows.Add(head2);
+ 
+            object agencyname = conn.DO_READ_VALUE("license", null, "agencyname");
+            DataRow head3 = dt.NewRow();
+            head3["value"] = agencyname;
+            head3["amount"] = DBNull.Value;
+            head3["kind"] = "H";
+            dt.Rows.Add(head3);
+ 
             /*-----------------------------------------------------*/
             //lista delle email inviate e non
-            DataRow brh = dt.NewRow();
-            brh["value"] = "";
-            brh["amount"] = DBNull.Value;
-            brh["kind"] = "N";
-            dt.Rows.Add(brh);
 
-            DataRow notsend = dt.NewRow();
-            notsend["value"] = "EMAIL  NON  INVIATE";
-            notsend["amount"] = DBNull.Value;
-            notsend["kind"] = "N";
-            dt.Rows.Add(notsend);
+            if (emailNonInviate.Rows.Count > 0) {
+                DataRow brh1 = dt.NewRow();
+                brh1["value"] = "";
+                brh1["amount"] = DBNull.Value;
+                brh1["kind"] = "N";
+                dt.Rows.Add(brh1);
 
-            foreach (DataRow row in emailNonInviate.Rows) {
-                DataRow body = dt.NewRow();            
-                body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + "  Email: mancante " + $"  Data: {DateTime.Now}";  
-                body["amount"] = DBNull.Value;
-                body["kind"] = "N";
-                dt.Rows.Add(body);
- 			}
+                DataRow notsend = dt.NewRow();
+                notsend["value"] = "EMAIL  NON  INVIATE";
+                notsend["amount"] = DBNull.Value;
+                notsend["kind"] = "N";
+                dt.Rows.Add(notsend);
 
-            DataRow brn = dt.NewRow();
-            brn["value"] = "";
-            brn["amount"] = DBNull.Value;
-            brn["kind"] = "N";
-            dt.Rows.Add(brn);
+                foreach (DataRow row in emailNonInviate.Rows) {
+                    DataRow body = dt.NewRow();
+                    body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + " - Manca Email " + $"  Data: {DateTime.Now}";
+                    body["amount"] = DBNull.Value;
+                    body["kind"] = "N";
+                    dt.Rows.Add(body);
+                }
+            }
 
-            DataRow send = dt.NewRow();
-            send["value"] = "EMAIL  INVIATE";
-            send["amount"] = DBNull.Value;
-            send["kind"] = "N";
-            dt.Rows.Add(send);
+          
 
-            foreach (DataRow row in emailInviate.Rows) {
-                DataRow body = dt.NewRow();
-                body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + $"  Email: {row["email"]} " + $"  Data: {DateTime.Now}";
-                body["amount"] = DBNull.Value;
-                body["kind"] = "N";
-                dt.Rows.Add(body);
- 			}
+            if (emailnviateConErrori.Rows.Count > 0) {
+
+                DataRow brh2 = dt.NewRow();
+                brh2["value"] = "";
+                brh2["amount"] = DBNull.Value;
+                brh2["kind"] = "N";
+                dt.Rows.Add(brh2);
+
+                DataRow sendWithProblems = dt.NewRow();
+                sendWithProblems["value"] = "INVIO EMAIL FALLITO";
+                sendWithProblems["amount"] = DBNull.Value;
+                sendWithProblems["kind"] = "N";
+                dt.Rows.Add(sendWithProblems);
+
+                foreach (DataRow row in emailnviateConErrori.Rows) {
+                    DataRow body = dt.NewRow();
+                    body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + " (id " + row["idreg"] + "), email:" + row["email"] + " - Email non inviata " + $"  Data: {DateTime.Now}";
+                    body["amount"] = DBNull.Value;
+                    body["kind"] = "N";
+                    dt.Rows.Add(body);
+                }
+
+            }
+
+
+
+            if (emailInviate.Rows.Count > 0) {
+                DataRow brh3 = dt.NewRow();
+                brh3["value"] = "";
+                brh3["amount"] = DBNull.Value;
+                brh3["kind"] = "N";
+                dt.Rows.Add(brh3);
+
+                DataRow send = dt.NewRow();
+                send["value"] = "EMAIL INVIATE";
+                send["amount"] = DBNull.Value;
+                send["kind"] = "N";
+                dt.Rows.Add(send);
+
+                foreach (DataRow row in emailInviate.Rows) {
+                    DataRow body = dt.NewRow();
+                    body["value"] = $"CF: {row["cf"]} " + $"  Nome: {row["nome"]} " + $"  Cognome: {row["cognome"]} " + " (id " + row["idreg"] + ")" + $"Email: {row["email"]} " + $"  Data: {DateTime.Now}";
+                    body["amount"] = DBNull.Value;
+                    body["kind"] = "N";
+                    dt.Rows.Add(body);
+                }
+            }
+
+          
 
             DataSet inviati = new DataSet();
             inviati.Tables.Add(dt);
@@ -3625,23 +3695,23 @@ namespace cu_details_default {
             createForm(View, null);
             View.Show();
 
-            SendMail responsabile = new SendMail();
-            responsabile.Conn = Meta.Conn;
-            DataTable T = conn.RUN_SELECT("configsmtp", "responsabile_cu", null, null, null, false);
-            if (T != null && T.Rows.Count != 0 && T.Rows[0]["responsabile_cu"] != DBNull.Value) {
-                responsabile.To = T.Rows[0]["responsabile_cu"].ToString();
-                responsabile.UseSMTPLoginAsFromField = true;
-                responsabile.Subject = "Resoconto Email Inviate/Non Inviate";
-                responsabile.MessageBody = "CU " + Meta.GetSys("esercizio");
-                responsabile.addAttachment(datatableBytes, fileName);
-                if (!responsabile.Send()) {
-                    if (responsabile.ErrorMessage.Trim() != "")
-                        show(responsabile.ErrorMessage.Trim());
-                }
-            }
-           
+			SendMail responsabile = new SendMail();
+			responsabile.Conn = Meta.Conn;
+			DataTable T = conn.RUN_SELECT("configsmtp", "responsabile_cu", null, null, null, false);
+			if (T != null && T.Rows.Count != 0 && T.Rows[0]["responsabile_cu"] != DBNull.Value) {
+				responsabile.To = T.Rows[0]["responsabile_cu"].ToString();
+				responsabile.UseSMTPLoginAsFromField = true;
+				responsabile.Subject = "Resoconto Email Inviate/Non Inviate";
+				responsabile.MessageBody = "CU " + Meta.GetSys("esercizio");
+				responsabile.addAttachment(datatableBytes, fileName);
+				if (!responsabile.Send()) {
+					if (responsabile.ErrorMessage.Trim() != "")
+						show(responsabile.ErrorMessage.Trim());
+				}
+			}
 
-            return true;
+
+			return true;
         }
 
         private static byte[] dataTableToOfficeXML(System.Data.DataTable DT, /*bool Header,*/ string filename) {
@@ -3970,6 +4040,14 @@ namespace cu_details_default {
             }
             if (DB60xxx == "A") {
                 ht[colname + "002"] = 'X';
+            }
+            if (DB60xxx == "G")
+            {
+                ht[colname + "002"] = 'X';
+            }
+            if (DB60xxx == "P")
+            {
+                ht[colname + "004"] = 'X';
             }
         }
 

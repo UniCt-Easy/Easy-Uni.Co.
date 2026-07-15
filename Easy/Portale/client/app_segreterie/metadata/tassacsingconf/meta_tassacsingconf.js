@@ -37,24 +37,37 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["aa"].caption = "Anno accademico";
+						table.columns["costomax"].caption = "Costo massimo";
+						table.columns["idcostoscontodef"].caption = "Costo";
+						table.columns["idcostoscontodef_2"].caption = "Costo corsi speciali";
+						table.columns["idcostoscontodef_sconto"].caption = "Sconto";
+						table.columns["numerosconto"].caption = "Numero di insegnamenti per cui si applica lo sconto";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_tassacsingconf");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_tassacsingconf");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idtassacsingconf', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

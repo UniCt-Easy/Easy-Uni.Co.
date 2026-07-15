@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_importflow_errors]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_importflow_errors]
@@ -344,7 +342,7 @@ SET @ayearstr = CONVERT(varchar(4), @ayear)
 --            and cod_cassiere  is not null and idtreasurer is null)
 --BEGIN
 	INSERT INTO #errors 
-	SELECT idimportflow,'cassiere non trovato  '
+	SELECT idimportflow,'conto corrente non trovato  '
 	FROM import_flowview WHERE esercizio = @ayear AND id_liq is null and  id_inc is null 
     and cod_cassiere  is not null and idtreasurer is null
 --END

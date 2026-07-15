@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace no_table_entry_rettifica {
     partial class Frmno_table_entry_rettifica {
@@ -44,7 +42,7 @@ namespace no_table_entry_rettifica {
 			this.btnOperazione = new System.Windows.Forms.Button();
 			this.labelDescrizione = new System.Windows.Forms.Label();
 			this.chkCommerciale = new System.Windows.Forms.CheckBox();
-			this.progBar = new System.Windows.Forms.ProgressBar();
+			//this.progBar = new System.Windows.Forms.ProgressBar();
 			this.txtCurrent = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.labelFase = new System.Windows.Forms.Label();
@@ -93,12 +91,12 @@ namespace no_table_entry_rettifica {
 			// 
 			// progBar
 			// 
-			this.progBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.progBar.Location = new System.Drawing.Point(12, 182);
-			this.progBar.Name = "progBar";
-			this.progBar.Size = new System.Drawing.Size(842, 23);
-			this.progBar.TabIndex = 6;
+			//this.progBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progBar.Location = new System.Drawing.Point(12, 182);
+			//this.progBar.Name = "progBar";
+			//this.progBar.Size = new System.Drawing.Size(842, 23);
+			//this.progBar.TabIndex = 6;
 			// 
 			// txtCurrent
 			// 
@@ -148,7 +146,7 @@ namespace no_table_entry_rettifica {
 			this.Controls.Add(this.labelFase);
 			this.Controls.Add(this.txtCurrent);
 			this.Controls.Add(this.label3);
-			this.Controls.Add(this.progBar);
+			//this.Controls.Add(this.progBar);
 			this.Controls.Add(this.chkCommerciale);
 			this.Controls.Add(this.btnOperazione);
 			this.Controls.Add(this.labelDescrizione);
@@ -166,7 +164,7 @@ namespace no_table_entry_rettifica {
         private System.Windows.Forms.Button btnOperazione;
         private System.Windows.Forms.Label labelDescrizione;
         private System.Windows.Forms.CheckBox chkCommerciale;
-        private System.Windows.Forms.ProgressBar progBar;
+        //private System.Windows.Forms.ProgressBar progBar;
         private System.Windows.Forms.TextBox txtCurrent;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelFase;

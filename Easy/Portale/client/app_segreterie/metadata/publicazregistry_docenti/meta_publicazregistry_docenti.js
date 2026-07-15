@@ -43,6 +43,8 @@
 						objCalcFieldConfig['!idreg_docenti_registry_alias3_title'] = { tableNameLookup:'registry_alias3', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_registry_alias1_p_iva'] = { tableNameLookup:'registry_alias1', columnNameLookup:'p_iva', columnNamekey:'idreg_docenti' };
 						objCalcFieldConfig['!idreg_docenti_registry_alias1_active'] = { tableNameLookup:'registry_alias1', columnNameLookup:'active', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idreg_docenti_registry_alias1_idanpr', 'Identificativo dell\'Anagrafe Nazionale della Popolazione Residente', null, 64, null);
+						objCalcFieldConfig['!idreg_docenti_registry_alias1_idanpr'] = { tableNameLookup:'registry_alias1', columnNameLookup:'idanpr', columnNamekey:'idreg_docenti' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'docenti':

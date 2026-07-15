@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,261 +13,227 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace unifiedivapay_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable unifiedivapay{get { return this.Tables["unifiedivapay"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable department{get { return this.Tables["department"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable ivaregisterkind{get { return this.Tables["ivaregisterkind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable unifiedivapaydetail{get { return this.Tables["unifiedivapaydetail"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace unifiedivapay_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable unifiedivapay 		=> Tables["unifiedivapay"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable department 		=> Tables["department"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable ivaregisterkind 		=> Tables["ivaregisterkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable unifiedivapaydetail 		=> Tables["unifiedivapaydetail"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("unifiedivapay");
-	C= new DataColumn("yunifiedivapay", typeof(System.Int32), "");
+	//////////////////// UNIFIEDIVAPAY /////////////////////////////////
+	var tunifiedivapay= new DataTable("unifiedivapay");
+	C= new DataColumn("yunifiedivapay", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nunifiedivapay", typeof(System.Int32), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("nunifiedivapay", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iddepartment", typeof(System.Int32), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("iddepartment", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("assesmentdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("creditamount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("creditamountdeferred", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("debitamount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("debitamountdeferred", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("paymentamount", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("refundamount", typeof(System.Decimal), ""));
-	C= new DataColumn("paymentkind", typeof(System.String), "");
+	tunifiedivapay.Columns.Add(C);
+	tunifiedivapay.Columns.Add( new DataColumn("assesmentdate", typeof(DateTime)));
+	tunifiedivapay.Columns.Add( new DataColumn("creditamount", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("creditamountdeferred", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("debitamount", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("debitamountdeferred", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("paymentamount", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("refundamount", typeof(decimal)));
+	C= new DataColumn("paymentkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("start", typeof(System.DateTime), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("start", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("stop", typeof(System.DateTime), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("stop", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("paymentdetails", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("mixed", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("prorata", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("dateivapay", typeof(System.DateTime), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tunifiedivapay.Columns.Add(C);
+	tunifiedivapay.Columns.Add( new DataColumn("paymentdetails", typeof(string)));
+	tunifiedivapay.Columns.Add( new DataColumn("mixed", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("prorata", typeof(decimal)));
+	tunifiedivapay.Columns.Add( new DataColumn("dateivapay", typeof(DateTime)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tunifiedivapay.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tunifiedivapay.Columns.Add(C);
+	Tables.Add(tunifiedivapay);
+	tunifiedivapay.PrimaryKey =  new DataColumn[]{tunifiedivapay.Columns["yunifiedivapay"], tunifiedivapay.Columns["nunifiedivapay"], tunifiedivapay.Columns["iddepartment"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[3]{
-	T.Columns["yunifiedivapay"], 	T.Columns["nunifiedivapay"], 	T.Columns["iddepartment"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("department");
-	C= new DataColumn("iddepartment", typeof(System.Int32), "");
+	//////////////////// DEPARTMENT /////////////////////////////////
+	var tdepartment= new DataTable("department");
+	C= new DataColumn("iddepartment", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tdepartment.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("server", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("db", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("userdep", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tdepartment.Columns.Add(C);
+	tdepartment.Columns.Add( new DataColumn("server", typeof(string)));
+	tdepartment.Columns.Add( new DataColumn("db", typeof(string)));
+	tdepartment.Columns.Add( new DataColumn("userdep", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tdepartment.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tdepartment.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tdepartment.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tdepartment.Columns.Add(C);
+	Tables.Add(tdepartment);
+	tdepartment.PrimaryKey =  new DataColumn[]{tdepartment.Columns["iddepartment"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["iddepartment"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("ivaregisterkind");
-	C= new DataColumn("idivaregisterkind", typeof(System.Int32), "");
+	//////////////////// IVAREGISTERKIND /////////////////////////////////
+	var tivaregisterkind= new DataTable("ivaregisterkind");
+	C= new DataColumn("idivaregisterkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("active", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("registerclass", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("registerclass", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idivaregisterkindunified", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("idivaregisterkindunified", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("emails", typeof(string)));
+	Tables.Add(tivaregisterkind);
+	tivaregisterkind.PrimaryKey =  new DataColumn[]{tivaregisterkind.Columns["idivaregisterkind"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idivaregisterkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("unifiedivapaydetail");
-	C= new DataColumn("yunifiedivapay", typeof(System.Int32), "");
+	//////////////////// UNIFIEDIVAPAYDETAIL /////////////////////////////////
+	var tunifiedivapaydetail= new DataTable("unifiedivapaydetail");
+	C= new DataColumn("yunifiedivapay", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("nunifiedivapay", typeof(System.Int32), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	C= new DataColumn("nunifiedivapay", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idivaregisterkindunified", typeof(System.String), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	C= new DataColumn("idivaregisterkindunified", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iddepartment", typeof(System.Int32), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	C= new DataColumn("iddepartment", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("iva", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("ivadeferred", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("unabatable", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("unabatabledeferred", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("ivanet", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("ivanetdeferred", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("prorata", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("mixed", typeof(System.Decimal), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	tunifiedivapaydetail.Columns.Add( new DataColumn("iva", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("ivadeferred", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("unabatable", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("unabatabledeferred", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("ivanet", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("ivanetdeferred", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("prorata", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("mixed", typeof(decimal)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tunifiedivapaydetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("!ivacredit", typeof(System.Decimal), ""));
-	T.Columns.Add(new DataColumn("!department", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("!registerkindunified", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("!registerclass", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[4]{
-	T.Columns["yunifiedivapay"], 	T.Columns["nunifiedivapay"], 	T.Columns["idivaregisterkindunified"], 	T.Columns["iddepartment"]};
-	T.PrimaryKey = key;
+	tunifiedivapaydetail.Columns.Add(C);
+	tunifiedivapaydetail.Columns.Add( new DataColumn("!ivacredit", typeof(decimal)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("!department", typeof(string)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("!registerkindunified", typeof(string)));
+	tunifiedivapaydetail.Columns.Add( new DataColumn("!registerclass", typeof(string)));
+	Tables.Add(tunifiedivapaydetail);
+	tunifiedivapaydetail.PrimaryKey =  new DataColumn[]{tunifiedivapaydetail.Columns["yunifiedivapay"], tunifiedivapaydetail.Columns["nunifiedivapay"], tunifiedivapaydetail.Columns["idivaregisterkindunified"], tunifiedivapaydetail.Columns["iddepartment"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["ivaregisterkind"];
-TChild= Tables["unifiedivapaydetail"];
-CPar = new DataColumn[1]{TPar.Columns["idivaregisterkindunified"]};
-CChild = new DataColumn[1]{TChild.Columns["idivaregisterkindunified"]};
-Relations.Add(new DataRelation("ivaregisterkindunifiedivapaydetail",CPar,CChild));
+	#endregion
 
-TPar= Tables["unifiedivapay"];
-TChild= Tables["unifiedivapaydetail"];
-CPar = new DataColumn[3]{TPar.Columns["yunifiedivapay"], TPar.Columns["nunifiedivapay"], TPar.Columns["iddepartment"]};
-CChild = new DataColumn[3]{TChild.Columns["yunifiedivapay"], TChild.Columns["nunifiedivapay"], TChild.Columns["iddepartment"]};
-Relations.Add(new DataRelation("unifiedivapayunifiedivapaydetail",CPar,CChild));
 
-TPar= Tables["department"];
-TChild= Tables["unifiedivapaydetail"];
-CPar = new DataColumn[1]{TPar.Columns["iddepartment"]};
-CChild = new DataColumn[1]{TChild.Columns["iddepartment"]};
-Relations.Add(new DataRelation("departmentunifiedivapaydetail",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{ivaregisterkind.Columns["idivaregisterkindunified"]};
+	var cChild = new []{unifiedivapaydetail.Columns["idivaregisterkindunified"]};
+	Relations.Add(new DataRelation("ivaregisterkindunifiedivapaydetail",cPar,cChild,false));
 
-TPar= Tables["department"];
-TChild= Tables["unifiedivapay"];
-CPar = new DataColumn[1]{TPar.Columns["iddepartment"]};
-CChild = new DataColumn[1]{TChild.Columns["iddepartment"]};
-Relations.Add(new DataRelation("departmentunifiedivapay",CPar,CChild));
+	cPar = new []{unifiedivapay.Columns["yunifiedivapay"], unifiedivapay.Columns["nunifiedivapay"], unifiedivapay.Columns["iddepartment"]};
+	cChild = new []{unifiedivapaydetail.Columns["yunifiedivapay"], unifiedivapaydetail.Columns["nunifiedivapay"], unifiedivapaydetail.Columns["iddepartment"]};
+	Relations.Add(new DataRelation("unifiedivapayunifiedivapaydetail",cPar,cChild,false));
+
+	cPar = new []{department.Columns["iddepartment"]};
+	cChild = new []{unifiedivapaydetail.Columns["iddepartment"]};
+	Relations.Add(new DataRelation("departmentunifiedivapaydetail",cPar,cChild,false));
+
+	cPar = new []{department.Columns["iddepartment"]};
+	cChild = new []{unifiedivapay.Columns["iddepartment"]};
+	Relations.Add(new DataRelation("departmentunifiedivapay",cPar,cChild,false));
+
+	#endregion
 
 }
 }

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -34,6 +32,7 @@ using ep_functions;
 using System.Collections.Generic;
 using System.Linq;
 using emistiParser;
+using System.Threading.Tasks;
 
 namespace csa_import_default {
 	/// <summary>
@@ -65,7 +64,8 @@ namespace csa_import_default {
 		//private string ConnectionString;
 		private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
 		private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
-		private ProgressBar progressBarImport;
+		// Rimuovo la progress bar, se dovesse servire bisogna farla async
+		//private ProgressBar progressBarImport;
 		private Button btnInputVersamenti;
 		private Button btnDelete;
 		private GroupBox groupBox2;
@@ -226,7 +226,7 @@ namespace csa_import_default {
 			InitializeAllListEP();
 			if (TS == null) {
 				TS = new MyListener();
-				Debug.Listeners.Add(TS);
+				Trace.Listeners.Add(TS);
 			}
 
 			btnSimulaEPGenera.Visible = UsaBudget();
@@ -539,7 +539,7 @@ namespace csa_import_default {
 			this.btnInputSospesi = new System.Windows.Forms.Button();
 			this.lblRigheVer = new System.Windows.Forms.Label();
 			this.lblRigheRiep = new System.Windows.Forms.Label();
-			this.progressBarImport = new System.Windows.Forms.ProgressBar();
+			//this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
 			this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -886,13 +886,13 @@ namespace csa_import_default {
 			// 
 			// progressBarImport
 			// 
-			this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBarImport.Location = new System.Drawing.Point(10, 720);
-			this.progressBarImport.Name = "progressBarImport";
-			this.progressBarImport.Size = new System.Drawing.Size(993, 22);
-			this.progressBarImport.TabIndex = 10;
-			this.progressBarImport.Visible = false;
+			//this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBarImport.Location = new System.Drawing.Point(10, 720);
+			//this.progressBarImport.Name = "progressBarImport";
+			//this.progressBarImport.Size = new System.Drawing.Size(993, 22);
+			//this.progressBarImport.TabIndex = 10;
+			//this.progressBarImport.Visible = false;
 			// 
 			// groupBox2
 			// 
@@ -1579,7 +1579,7 @@ namespace csa_import_default {
 			this.Controls.Add(this.lblRigheRiep);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.progressBarImport);
+			//this.Controls.Add(this.progressBarImport);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.grpImportazione);
 			this.Controls.Add(this.label2);
@@ -1855,8 +1855,9 @@ namespace csa_import_default {
 				dgr.DataBindings.Clear();
 				dgr.DataSource = null;
 				dgr.TableStyles.Clear();
-				HelpForm.SetDataGrid(dgr, tResult);
 				FormatDataGrid(dgr, tResult);
+				HelpForm.SetDataGrid(dgr, tResult);
+				
 
 				if (tResult.Select(QHC.CmpEq("blockingerror", "S")).Length > 0)
 					return false;
@@ -2474,6 +2475,18 @@ namespace csa_import_default {
 			CalcolaRighe();
 		}
 
+		private async Task InvokeAsync(Action action)
+		{
+			if (this.InvokeRequired)
+			{
+				await Task.Run(() => this.Invoke(action));
+			}
+			else
+			{
+				action();
+			}
+		}
+
 		/// <summary>
 		/// Riempie la tabella dei RIEPILOGHI a partire dalla tabella mData (che rappresenta il foglio di excel importato)
 		///  e salva i dati su db
@@ -2482,9 +2495,9 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			int step = t.Rows.Count / 100;
 			if (step < 100) step = 100;
-			progressBarImport.Visible = true;
-			progressBarImport.Value = 0;
-			progressBarImport.Maximum = t.Rows.Count;
+			//progressBarImport.Visible = true;
+			//progressBarImport.Value = 0;
+			//progressBarImport.Maximum = t.Rows.Count;
 			// riempie il Dataset con le righe dei dettagli 
 			// a partire dalla tabella temporanea mData
 			lblTask.Text = "Riempimento della tabella dei riepiloghi. Attendere...";
@@ -2520,7 +2533,7 @@ namespace csa_import_default {
 					//Salva i dati
 					if (!SaveData()) return;
 					numparz = 0;
-					progressBarImport.Value = progressBarImport.Value + step;
+					//progressBarImport.Value = progressBarImport.Value + step;
 					//Application.DoEvents();
 					DS.csa_importriep.Clear();
 
@@ -2531,13 +2544,13 @@ namespace csa_import_default {
 			if (numparz > 0) {
 				//Salva i dati
 				if (!SaveData()) return;
-				progressBarImport.Value = progressBarImport.Value + numparz;
+				//progressBarImport.Value = progressBarImport.Value + numparz;
 				//Application.DoEvents();
 				DS.csa_importriep.Clear();
 				RowChange.ClearMaxCache(DS.csa_importriep);
 			}
 
-			progressBarImport.Visible = false;
+			//progressBarImport.Visible = false;
 			lblTask.Text = "";
 
 		}
@@ -2648,9 +2661,9 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			int step = t.Rows.Count / 100;
 			if (step < 100) step = 100;
-			progressBarImport.Visible = true;
-			progressBarImport.Value = 0;
-			progressBarImport.Maximum = t.Rows.Count;
+			//progressBarImport.Visible = true;
+			//progressBarImport.Value = 0;
+			//progressBarImport.Maximum = t.Rows.Count;
 			// riempie il Dataset con le righe dei dettagli 
 			// a partire dalla tabella temporanea mData
 			if (DS.csa_import.Rows.Count == 0) return;
@@ -2698,7 +2711,7 @@ namespace csa_import_default {
 					//Salva i dati
 					if (!SaveData()) return;
 					numparz = 0;
-					progressBarImport.Value = progressBarImport.Value + step;
+					//progressBarImport.Value = progressBarImport.Value + step;
 					//Application.DoEvents();
 					DS.csa_importver.Clear();
 
@@ -2709,14 +2722,14 @@ namespace csa_import_default {
 			if (numparz > 0) {
 				//Salva i dati
 				if (!SaveData()) return;
-				progressBarImport.Value = progressBarImport.Value + numparz;
+				//progressBarImport.Value = progressBarImport.Value + numparz;
 				//Application.DoEvents();
 				DS.csa_importver.Clear();
 				RowChange.ClearMaxCache(DS.csa_importver);
 			}
 
 			lblTask.Text = "";
-			progressBarImport.Visible = false;
+			//progressBarImport.Visible = false;
 		}
 
 
@@ -2725,9 +2738,9 @@ namespace csa_import_default {
 			if (!VerificaFileSospesi(t)) return;
 			int step = t.Rows.Count / 100;
 			if (step < 100) step = 100;
-			progressBarImport.Visible = true;
-			progressBarImport.Value = 0;
-			progressBarImport.Maximum = t.Rows.Count;
+			//progressBarImport.Visible = true;
+			//progressBarImport.Value = 0;
+			//progressBarImport.Maximum = t.Rows.Count;
 			// riempie il Dataset con le righe dei dettagli 
 			// a partire dalla tabella temporanea mData
 			if (DS.csa_import.Rows.Count == 0) return;
@@ -2768,14 +2781,14 @@ namespace csa_import_default {
 			if (numparz > 0) {
 				//Salva i dati
 				if (!SaveData()) return;
-				progressBarImport.Value = progressBarImport.Value + numparz;
+				//progressBarImport.Value = progressBarImport.Value + numparz;
 				//Application.DoEvents();
 				//DS.csa_bill.Clear();
 				RowChange.ClearMaxCache(DS.csa_bill);
 			}
 
 			lblTask.Text = "";
-			progressBarImport.Visible = false;
+			//progressBarImport.Visible = false;
 		}
 
 		private bool VerificaFileSospesi(DataTable mData) {

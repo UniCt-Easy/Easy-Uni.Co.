@@ -30,7 +30,7 @@
 						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura di afferenza', null, 3100, 1024);
 						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Struttura di afferenza', null, 3220, 50);
 						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 4000, 16);
-						this.describeAColumn(table, 'registryistituti_title', 'Istituto, Ente o Azienda', null, 4100, 101);
+						this.describeAColumn(table, 'registryistituti_title', 'Istituto, Ente o Azienda', null, 4300, 101);
 						this.describeAColumn(table, 'registry_p_iva', 'Partita iva', null, 5000, 15);
 						this.describeAColumn(table, 'registry_active', 'attivo', null, 6000, null);
 						this.describeAColumn(table, 'XXregistrylegalstatus', 'Servizi di ruolo - Contratti', null, 51000, null);

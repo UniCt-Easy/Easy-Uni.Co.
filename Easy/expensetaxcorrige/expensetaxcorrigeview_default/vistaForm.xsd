@@ -42,6 +42,7 @@
               <xs:element name="descriptionrenumeration" type="xs:string" minOccurs="0" />
               <xs:element name="idtreasurer" type="xs:int" minOccurs="0" />
               <xs:element name="department" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

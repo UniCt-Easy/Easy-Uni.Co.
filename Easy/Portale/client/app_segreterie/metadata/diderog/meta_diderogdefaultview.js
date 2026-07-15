@@ -24,10 +24,14 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'corsostudio_title', 'Denominazione Corso di studio', null, 1100, 1024);
-						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studio', null, 1600, null);
+						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studio', null, 1300, null);
+						this.describeAColumn(table, 'corsostudiokind_title', 'Tipologia Tipologia Corso di studio', null, 1420, 50);
+						this.describeAColumn(table, 'corsostudiolivello_title', 'Livello Livello Corso di studio', null, 1520, 50);
 						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 2000, 9);
-						this.describeAColumn(table, 'sede_title', 'Identificativo', null, 3200, 1024);
-						this.describeAColumn(table, 'diderog_inesaurimento', 'Inesaurimento', null, 4000, null);
+						this.describeAColumn(table, 'sede_title', 'Sede', null, 3200, 1024);
+						this.describeAColumn(table, 'diderog_inesaurimento', 'In esaurimento', null, 4000, null);
+						this.describeAColumn(table, 'corsostudiokind_diderog_title', 'Tipologia', null, 5200, 50);
+						this.describeAColumn(table, 'corsostudiolivello_diderog_title', 'Livello', null, 6200, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

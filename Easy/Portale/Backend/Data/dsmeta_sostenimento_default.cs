@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sostenimento_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sostenimento_default: DataSet {
+public partial class dsmeta_sostenimento_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -37,13 +35,13 @@ public class dsmeta_sostenimento_default: DataSet {
 	public MetaTable sostenimentoesitodefaultview 		=> (MetaTable)Tables["sostenimentoesitodefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registrydefaultview 		=> (MetaTable)Tables["registrydefaultview"];
+	public MetaTable attivformdefaultview 		=> (MetaTable)Tables["attivformdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable iscrizioneseganagstuview 		=> (MetaTable)Tables["iscrizioneseganagstuview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable attivformdefaultview 		=> (MetaTable)Tables["attivformdefaultview"];
+	public MetaTable registrydefaultview 		=> (MetaTable)Tables["registrydefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
@@ -89,33 +87,14 @@ private void initClass() {
 	var tsostenimentoesitodefaultview= new MetaTable("sostenimentoesitodefaultview");
 	tsostenimentoesitodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsostenimentoesitodefaultview.defineColumn("idsostenimentoesito", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_active", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_description", typeof(string),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lt", typeof(DateTime));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lu", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_sortcode", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tsostenimentoesitodefaultview);
 	tsostenimentoesitodefaultview.defineKey("idsostenimentoesito");
-
-	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
-	var tregistrydefaultview= new MetaTable("registrydefaultview");
-	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydefaultview.defineColumn("idcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcity", typeof(int));
-	tregistrydefaultview.defineColumn("idnation", typeof(int));
-	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
-	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
-	tregistrydefaultview.defineColumn("idtitle", typeof(string));
-	tregistrydefaultview.defineColumn("residence", typeof(int),false);
-	Tables.Add(tregistrydefaultview);
-	tregistrydefaultview.defineKey("idreg");
-
-	//////////////////// ISCRIZIONESEGANAGSTUVIEW /////////////////////////////////
-	var tiscrizioneseganagstuview= new MetaTable("iscrizioneseganagstuview");
-	tiscrizioneseganagstuview.defineColumn("aa", typeof(string),false);
-	tiscrizioneseganagstuview.defineColumn("dropdown_title", typeof(string),false);
-	tiscrizioneseganagstuview.defineColumn("idcorsostudio", typeof(int));
-	tiscrizioneseganagstuview.defineColumn("iddidprog", typeof(int));
-	tiscrizioneseganagstuview.defineColumn("idiscrizione", typeof(int),false);
-	tiscrizioneseganagstuview.defineColumn("idreg", typeof(int),false);
-	Tables.Add(tiscrizioneseganagstuview);
-	tiscrizioneseganagstuview.defineKey("idiscrizione");
 
 	//////////////////// ATTIVFORMDEFAULTVIEW /////////////////////////////////
 	var tattivformdefaultview= new MetaTable("attivformdefaultview");
@@ -128,11 +107,84 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("iddidprogcurr", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogori", typeof(int),false);
 	tattivformdefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
-	tattivformdefaultview.defineColumn("idinsegn", typeof(int),false);
-	tattivformdefaultview.defineColumn("idinsegninteg", typeof(int));
 	tattivformdefaultview.defineColumn("idsede", typeof(int),false);
 	Tables.Add(tattivformdefaultview);
-	tattivformdefaultview.defineKey("idattivform");
+	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
+
+	//////////////////// ISCRIZIONESEGANAGSTUVIEW /////////////////////////////////
+	var tiscrizioneseganagstuview= new MetaTable("iscrizioneseganagstuview");
+	tiscrizioneseganagstuview.defineColumn("dropdown_title", typeof(string),false);
+	tiscrizioneseganagstuview.defineColumn("idcorsostudio", typeof(int),false);
+	tiscrizioneseganagstuview.defineColumn("iddidprog", typeof(int),false);
+	tiscrizioneseganagstuview.defineColumn("idiscrizione", typeof(int),false);
+	tiscrizioneseganagstuview.defineColumn("idreg", typeof(int),false);
+	Tables.Add(tiscrizioneseganagstuview);
+	tiscrizioneseganagstuview.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
+
+	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
+	var tregistrydefaultview= new MetaTable("registrydefaultview");
+	tregistrydefaultview.defineColumn("accmotive_codemotive", typeof(string));
+	tregistrydefaultview.defineColumn("accmotive_registry_codemotive", typeof(string));
+	tregistrydefaultview.defineColumn("accmotive_registry_title", typeof(string));
+	tregistrydefaultview.defineColumn("accmotive_title", typeof(string));
+	tregistrydefaultview.defineColumn("category_description", typeof(string));
+	tregistrydefaultview.defineColumn("centralizedcategory_description", typeof(string));
+	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tregistrydefaultview.defineColumn("geo_city_title", typeof(string));
+	tregistrydefaultview.defineColumn("geo_nation_title", typeof(string));
+	tregistrydefaultview.defineColumn("idaccmotivecredit", typeof(string));
+	tregistrydefaultview.defineColumn("idaccmotivedebit", typeof(string));
+	tregistrydefaultview.defineColumn("idcategory", typeof(string));
+	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
+	tregistrydefaultview.defineColumn("idcity", typeof(int));
+	tregistrydefaultview.defineColumn("idnation", typeof(int));
+	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
+	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
+	tregistrydefaultview.defineColumn("idtitle", typeof(string));
+	tregistrydefaultview.defineColumn("maritalstatus_description", typeof(string));
+	tregistrydefaultview.defineColumn("registry_active", typeof(string));
+	tregistrydefaultview.defineColumn("registry_annotation", typeof(string));
+	tregistrydefaultview.defineColumn("registry_authorization_free", typeof(string));
+	tregistrydefaultview.defineColumn("registry_badgecode", typeof(string));
+	tregistrydefaultview.defineColumn("registry_birthdate", typeof(DateTime));
+	tregistrydefaultview.defineColumn("registry_ccp", typeof(string));
+	tregistrydefaultview.defineColumn("registry_cf", typeof(string));
+	tregistrydefaultview.defineColumn("registry_ct", typeof(DateTime),false);
+	tregistrydefaultview.defineColumn("registry_cu", typeof(string),false);
+	tregistrydefaultview.defineColumn("registry_email_fe", typeof(string));
+	tregistrydefaultview.defineColumn("registry_extension", typeof(string));
+	tregistrydefaultview.defineColumn("registry_extmatricula", typeof(string));
+	tregistrydefaultview.defineColumn("registry_flag_pa", typeof(string));
+	tregistrydefaultview.defineColumn("registry_flagbankitaliaproceeds", typeof(string));
+	tregistrydefaultview.defineColumn("registry_foreigncf", typeof(string));
+	tregistrydefaultview.defineColumn("registry_forename", typeof(string));
+	tregistrydefaultview.defineColumn("registry_gender", typeof(string));
+	tregistrydefaultview.defineColumn("registry_idexternal", typeof(int));
+	tregistrydefaultview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistrydefaultview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistrydefaultview.defineColumn("registry_ipa_fe", typeof(string));
+	tregistrydefaultview.defineColumn("registry_ipa_perlapa", typeof(string));
+	tregistrydefaultview.defineColumn("registry_location", typeof(string));
+	tregistrydefaultview.defineColumn("registry_lt", typeof(DateTime),false);
+	tregistrydefaultview.defineColumn("registry_lu", typeof(string),false);
+	tregistrydefaultview.defineColumn("registry_maritalsurname", typeof(string));
+	tregistrydefaultview.defineColumn("registry_multi_cf", typeof(string));
+	tregistrydefaultview.defineColumn("registry_p_iva", typeof(string));
+	tregistrydefaultview.defineColumn("registry_pec_fe", typeof(string));
+	tregistrydefaultview.defineColumn("registry_rtf", typeof(Byte[]));
+	tregistrydefaultview.defineColumn("registry_sdi_defrifamm", typeof(string));
+	tregistrydefaultview.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistrydefaultview.defineColumn("registry_surname", typeof(string));
+	tregistrydefaultview.defineColumn("registry_toredirect", typeof(int));
+	tregistrydefaultview.defineColumn("registry_txt", typeof(string));
+	tregistrydefaultview.defineColumn("registryclass_description", typeof(string));
+	tregistrydefaultview.defineColumn("registrykind_description", typeof(string));
+	tregistrydefaultview.defineColumn("residence", typeof(int),false);
+	tregistrydefaultview.defineColumn("residence_description", typeof(string));
+	tregistrydefaultview.defineColumn("title", typeof(string),false);
+	tregistrydefaultview.defineColumn("title_description", typeof(string));
+	Tables.Add(tregistrydefaultview);
+	tregistrydefaultview.defineKey("idreg");
 
 	//////////////////// SOSTENIMENTO /////////////////////////////////
 	var tsostenimento= new MetaTable("sostenimento");
@@ -178,17 +230,17 @@ private void initClass() {
 	cChild = new []{sostenimento.Columns["idsostenimentoesito"]};
 	Relations.Add(new DataRelation("FK_sostenimento_sostenimentoesitodefaultview_idsostenimentoesito",cPar,cChild,false));
 
-	cPar = new []{registrydefaultview.Columns["idreg"]};
-	cChild = new []{sostenimento.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_sostenimento_registrydefaultview_idreg",cPar,cChild,false));
+	cPar = new []{attivformdefaultview.Columns["idattivform"]};
+	cChild = new []{sostenimento.Columns["idattivform"]};
+	Relations.Add(new DataRelation("FK_sostenimento_attivformdefaultview_idattivform",cPar,cChild,false));
 
 	cPar = new []{iscrizioneseganagstuview.Columns["idiscrizione"]};
 	cChild = new []{sostenimento.Columns["idiscrizione"]};
 	Relations.Add(new DataRelation("FK_sostenimento_iscrizioneseganagstuview_idiscrizione",cPar,cChild,false));
 
-	cPar = new []{attivformdefaultview.Columns["idattivform"]};
-	cChild = new []{sostenimento.Columns["idattivform"]};
-	Relations.Add(new DataRelation("FK_sostenimento_attivformdefaultview_idattivform",cPar,cChild,false));
+	cPar = new []{registrydefaultview.Columns["idreg"]};
+	cChild = new []{sostenimento.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_sostenimento_registrydefaultview_idreg",cPar,cChild,false));
 
 	#endregion
 

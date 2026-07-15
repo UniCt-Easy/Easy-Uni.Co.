@@ -50,9 +50,82 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="meta_itineration">
+      <HintPath>..\..\itineration\meta_itineration\bin\Debug\meta_itineration.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_itineration</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_service">
+      <HintPath>..\..\service\meta_service\bin\Debug\meta_service.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_service</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_registry">
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registry</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_itinerationrefund">
+      <HintPath>..\..\itinerationrefund\meta_itinerationrefund\bin\Debug\meta_itinerationrefund.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_itinerationrefund</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_itinerationlap">
+      <HintPath>..\..\itinerationlap\meta_itinerationlap\bin\Debug\meta_itinerationlap.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_itinerationlap</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_sorting">
+      <HintPath>..\..\sorting\meta_sorting\bin\Debug\meta_sorting.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_sorting</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_upb">
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_accmotiveapplied">
+      <HintPath>..\..\accmotive\meta_accmotiveapplied\bin\Debug\meta_accmotiveapplied.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_accmotiveapplied</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_config">
+      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_config</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_manager">
+      <HintPath>..\..\manager\meta_manager\bin\Debug\meta_manager.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_manager</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_dalia_funzionale">
+      <HintPath>..\..\dalia_funzionale\meta_dalia_funzionale\bin\Debug\meta_dalia_funzionale.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_dalia_funzionale</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_dalia_dipartimento">
+      <HintPath>..\..\dalia_dipartimento\meta_dalia_dipartimento\bin\Debug\meta_dalia_dipartimento.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_dalia_dipartimento</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -61,6 +134,11 @@
     </Compile>
     <Compile Include="Frm_itinerationauthview_default.Designer.cs">
       <DependentUpon>Frm_itinerationauthview_default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vistaForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +149,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

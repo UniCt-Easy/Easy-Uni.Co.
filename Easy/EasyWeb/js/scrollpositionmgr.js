@@ -11,9 +11,20 @@ $(document).click(function (event) {
 		var a = $("#" + id).offset().top;
 		var b = $(window).scrollTop();
 		var st = parseInt(a) - parseInt(b);
-		setCookie("scrollsave", id);
-		setCookie("scrolletop", st);
+		setCookie(cookiePageName + "scrollsave", id);
+		setCookie(cookiePageName + "scrolletop", st);
     }
+
+	
+});
+
+window.addEventListener('beforeunload', function (e) {
+	var activeHeaders = document.querySelectorAll('.ui-accordion-header.active');
+	var texts = Array.from(activeHeaders).map(el => el.textContent.trim());
+	var accordions = texts.join(',');
+	if (accordions != "") {
+		setCookie(cookiePageName + "accordions", accordions);
+	}
 });
 
 function getParentId(ele, i)
@@ -31,12 +42,27 @@ function getParentId(ele, i)
 }
 
 $(document).ready(function() {
-    var id = getCookie("scrollsave");
-    var st = getCookie("scrolletop");
-    if (id != "") {
-        var eTop = $("#" + id).offset().top;
-        var curr = parseInt(eTop) - parseInt(st);
-        $(window).scrollTop(curr);
-		document.getElementById('__SCROLLPOSITIONY').value = curr;
-    }
+	var accordions = getCookie(cookiePageName + "accordions");
+	if (accordions != "") {
+		var targetTexts = accordions.split(',').map(text => text.trim());
+		document.querySelectorAll('.ui-accordion-header').forEach(header => {
+		  if (targetTexts.includes(header.textContent.trim())) {
+			header.classList.add('active');
+			var next = header.nextElementSibling;
+			if (next) {
+			  next.classList.add('active');
+			}
+		  }
+		});
+	}
+	requestAnimationFrame(() => {
+		var id = getCookie(cookiePageName + "scrollsave");
+		var st = getCookie(cookiePageName + "scrolletop");
+		if (id != "") {
+			var eTop = $("#" + id).offset().top;
+			var curr = parseInt(eTop) - parseInt(st);
+			$(window).scrollTop(curr);
+			document.getElementById('__SCROLLPOSITIONY').value = curr;
+		}
+	});
 });

@@ -39,6 +39,9 @@
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
     </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

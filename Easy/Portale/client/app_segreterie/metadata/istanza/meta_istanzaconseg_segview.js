@@ -27,7 +27,7 @@
 						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 3000, null);
 						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 6100, 1024);
 						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 6200, 9);
-						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 7920, 1024);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 6320, 1024);
 						this.describeAColumn(table, 'statuskind_title', 'Status', null, 10200, 50);
 						this.describeAColumn(table, 'istanza_conseg_datacompalmalaur', 'Data di compilazione del questionario su Almalaurea', null, 51000, null);
 						this.describeAColumn(table, 'istanza_conseg_fascicolo', 'Fascicolo', null, 52000, 50);

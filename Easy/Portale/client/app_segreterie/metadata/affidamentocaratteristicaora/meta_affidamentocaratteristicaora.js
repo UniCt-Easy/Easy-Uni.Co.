@@ -37,6 +37,13 @@
 						objCalcFieldConfig['!idorakind_orakind_title'] = { tableNameLookup:'orakind', columnNameLookup:'title', columnNamekey:'idorakind' };
 //$objCalcFieldConfig_default$
 						break;
+					case 'doc':
+						this.describeAColumn(table, 'ora', 'Ore', null, 120, null);
+						this.describeAColumn(table, 'ripetizioni', 'Ripetizioni', null, 130, null);
+						this.describeAColumn(table, '!idorakind_orakind_title', 'Tipo', null, 111, null);
+						objCalcFieldConfig['!idorakind_orakind_title'] = { tableNameLookup:'orakind', columnNameLookup:'title', columnNamekey:'idorakind' };
+//$objCalcFieldConfig_doc$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -55,6 +62,9 @@
 					case 'default':
 						table.columns["idorakind"].caption = "Tipo";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'doc':
+//$innerSetCaptionConfig_doc$
 						break;
 //$innerSetCaptionConfig$
 				}

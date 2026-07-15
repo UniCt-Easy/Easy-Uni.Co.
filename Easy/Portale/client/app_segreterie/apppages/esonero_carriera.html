@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_aa">Anno accademico</label>
-					<select id="esonero_carriera_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="esonero.aa?esonerocarrieraview.aa" data-subentity  data-mandatory  > </select>
+					<select id="esonero_carriera_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="aa" data-custom-control="combo" data-tag="esonero.aa?esonerocarrieraview.aa"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_default_annofcmax">Anno fuori corso massimo</label>
@@ -21,7 +21,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_title">Denominazione</label>
-					<input id="esonero_carriera_title" type="text" class="form-control" data-tag="esonero.title?esonerocarrieraview.title" data-subentity  data-mandatory />
+					<input id="esonero_carriera_title" type="text" class="form-control" data-tag="esonero.title?esonerocarrieraview.title"  data-mandatory />
 				</div>
 			</div>
 			<div class="row">
@@ -31,7 +31,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_description">Descrizione</label>
-					<input id="esonero_carriera_description" type="text" class="form-control" data-tag="esonero.description?esonerocarrieraview.esonero_description" data-subentity  />
+					<input id="esonero_carriera_description" type="text" class="form-control" data-tag="esonero.description?esonerocarrieraview.esonero_description"  />
 				</div>
 			</div>
 			<div class="row">
@@ -42,8 +42,8 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_applunavolta">Applicabile una sola volta</label>
 					<div class="custom-control custom-radio">
-						<input id="esonero_carriera_applunavoltaSi" type="radio" name="esonero_carriera_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:S?esonerocarrieraview.esonero_applunavolta:Si" data-subentity  ><label for="esonero_carriera_applunavoltaSi"> Si</label>
-						<input id="esonero_carriera_applunavoltaNo" type="radio" name="esonero_carriera_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:N?esonerocarrieraview.esonero_applunavolta:No" data-subentity  ><label for="esonero_carriera_applunavoltaNo"> No</label>
+						<input id="esonero_carriera_applunavoltaSi" type="radio" name="esonero_carriera_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:S?esonerocarrieraview.esonero_applunavolta:Si"  ><label for="esonero_carriera_applunavoltaSi"> Si</label>
+						<input id="esonero_carriera_applunavoltaNo" type="radio" name="esonero_carriera_applunavolta" class="custom-control-input" data-tag="esonero.applunavolta:N?esonerocarrieraview.esonero_applunavolta:No"  ><label for="esonero_carriera_applunavoltaNo"> No</label>
 					</div>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_idcostoscontodef">Sconto</label>
 					<div>
-						<input id="esonero_carriera_idcostoscontodef" name="esonero_carriera_idcostoscontodef" type="text" data-listtype="sconti"  class="form-control" data-minchar="2" data-tag="costoscontodefscontiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="esonero_carriera_idcostoscontodef" name="esonero_carriera_idcostoscontodef" type="text" data-listtype="sconti"  class="form-control" data-minchar="2" data-tag="costoscontodefscontiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 			</div>
@@ -66,15 +66,15 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_idesoneroanskind">Codice ANS</label>
-					<select id="esonero_carriera_idesoneroanskind" class="custom-select d-block w-100"  data-source-name="esoneroanskind" data-value-member="idesoneroanskind" data-display-member="title" data-custom-control="combo" data-tag="esonero.idesoneroanskind?esonerocarrieraview.esonero_idesoneroanskind" data-subentity   > </select>
+					<select id="esonero_carriera_idesoneroanskind" class="custom-select d-block w-100"  data-source-name="esoneroanskind" data-value-member="idesoneroanskind" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="esonero.idesoneroanskind?esonerocarrieraview.esonero_idesoneroanskind"   > </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_retroattivo">Retroattivo</label>
 					<div class="custom-control custom-radio">
-						<input id="esonero_carriera_retroattivoSi" type="radio" name="esonero_carriera_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:S?esonerocarrieraview.esonero_retroattivo:Si" data-subentity  ><label for="esonero_carriera_retroattivoSi"> Si</label>
-						<input id="esonero_carriera_retroattivoNo" type="radio" name="esonero_carriera_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:N?esonerocarrieraview.esonero_retroattivo:No" data-subentity  ><label for="esonero_carriera_retroattivoNo"> No</label>
+						<input id="esonero_carriera_retroattivoSi" type="radio" name="esonero_carriera_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:S?esonerocarrieraview.esonero_retroattivo:Si"  ><label for="esonero_carriera_retroattivoSi"> Si</label>
+						<input id="esonero_carriera_retroattivoNo" type="radio" name="esonero_carriera_retroattivo" class="custom-control-input" data-tag="esonero.retroattivo:N?esonerocarrieraview.esonero_retroattivo:No"  ><label for="esonero_carriera_retroattivoNo"> No</label>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -89,8 +89,8 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="esonero_carriera_soloconisee">Applicabile solo con ISEE</label>
 					<div class="custom-control custom-radio">
-						<input id="esonero_carriera_soloconiseeSi" type="radio" name="esonero_carriera_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:S?esonerocarrieraview.esonero_soloconisee:Si" data-subentity  ><label for="esonero_carriera_soloconiseeSi"> Si</label>
-						<input id="esonero_carriera_soloconiseeNo" type="radio" name="esonero_carriera_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:N?esonerocarrieraview.esonero_soloconisee:No" data-subentity  ><label for="esonero_carriera_soloconiseeNo"> No</label>
+						<input id="esonero_carriera_soloconiseeSi" type="radio" name="esonero_carriera_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:S?esonerocarrieraview.esonero_soloconisee:Si"  ><label for="esonero_carriera_soloconiseeSi"> Si</label>
+						<input id="esonero_carriera_soloconiseeNo" type="radio" name="esonero_carriera_soloconisee" class="custom-control-input" data-tag="esonero.soloconisee:N?esonerocarrieraview.esonero_soloconisee:No"  ><label for="esonero_carriera_soloconiseeNo"> No</label>
 					</div>
 				</div>
 				<div class="col-md-6">

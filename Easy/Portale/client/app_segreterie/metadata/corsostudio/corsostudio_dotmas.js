@@ -48,8 +48,11 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idcorsostudiokind)
-					parentRow.idcorsostudiokind = 2;
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#corsostudio_dotmas_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#corsostudio_dotmas_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -87,7 +90,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#corsostudio_dotmas_idstruttura'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -95,6 +104,7 @@
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.didprog, "dotmas", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("didprog");
+				this.state.DS.tables.corsostudio.defaults({ 'idcorsostudiokind': 2 });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar37').fullCalendar('rerenderEvents');
 				});

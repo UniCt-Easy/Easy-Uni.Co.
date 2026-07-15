@@ -50,6 +50,12 @@
 						this.describeAColumn(table, 'annoistituz', 'Anno accademico di istituzione', null, 60, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'elenchiprogerog':
+						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
+						this.describeAColumn(table, 'codicemiur', 'Codice MIUR', null, 20, 10);
+						this.describeAColumn(table, 'annoistituz', 'Anno accademico di istituzione', null, 30, null);
+//$objCalcFieldConfig_elenchiprogerog$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -82,12 +88,13 @@
 //$innerSetCaptionConfig_stato$
 						break;
 					case 'dotmas':
-						table.columns["almalaureasurvey"].caption = "Questionario Almalaurea";
 //$innerSetCaptionConfig_dotmas$
 						break;
 					case 'ingresso':
-						table.columns["almalaureasurvey"].caption = "Questionario Almalaurea";
 //$innerSetCaptionConfig_ingresso$
+						break;
+					case 'elenchiprogerog':
+//$innerSetCaptionConfig_elenchiprogerog$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -127,6 +134,9 @@
 						return "title asc ";
 					}
 					case "default": {
+						return "title asc , annoistituz asc ";
+					}
+					case "elenchiprogerog": {
 						return "title asc , annoistituz asc ";
 					}
 					//$getSortingin$

@@ -1,121 +1,184 @@
 ﻿<!--header-->
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
-			<li class="nav-item">
-		<a href="#tabprotocollo_seg_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_0"><i class="fa fa-stamp mr-1"></i>Principale</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabprotocollo_seg_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_1"><i class="fa fa-sign-in-alt mr-1"></i>Destinatari</a>
-	</li>
-	<li class="nav-item">
-		<a href="#tabprotocollo_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_2"><i class="fa fa-file-alt mr-1"></i>Descrittore del documento</a>
-	</li>
+		<li class="nav-item">
+			<a href="#tabprotocollo_seg_1" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_1"><i class="fa fa-stamp mr-1"></i>Principale</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabprotocollo_seg_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_2"><i class="fa fa-sign-in-alt mr-1"></i>Destinatari</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabprotocollo_seg_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_3"><i class="fa fa-file-alt mr-1"></i>Documento</a>
+		</li>
+		<li class="nav-item">
+			<a href="#tabprotocollo_seg_0" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprotocollo_seg_0"><i class="fa fa-search mr-1"></i>Segnatura</a>
+		</li>
 
 	</ul>
 	<form>
-<div class="tab-content mt-2">
-	<div class="tab-pane fade active show" id="tabprotocollo_seg_0" role="tabpanel">
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_protnumero">Numero di protocollo</label>
-					<input id="protocollo_seg_protnumero" type="text" class="form-control" data-tag="protocollo.protnumero?protocollosegview.protnumero" data-subentity  data-mandatory />
+		<div class="tab-content mt-2">
+			<div class="tab-pane fade active show" id="tabprotocollo_seg_1" role="tabpanel">
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_protnumero">Numero di protocollo</label>
+						<input id="protocollo_seg_protnumero" type="text" class="form-control" data-tag="protocollo.protnumero?protocollosegview.protnumero" data-mandatory />
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_protanno">Anno di protocollo</label>
+						<input id="protocollo_seg_protanno" type="text" class="form-control" data-tag="protocollo.protanno?protocollosegview.protanno" data-mandatory />
+					</div>
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_protanno">Anno di protocollo</label>
-					<input id="protocollo_seg_protanno" type="text" class="form-control" data-tag="protocollo.protanno?protocollosegview.protanno" data-subentity  data-mandatory />
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_idprotocollokind">Ingresso - Uscita - Interno</label>
+						<select id="protocollo_seg_idprotocollokind" class="custom-select d-block w-100" data-source-name="protocollokinddefaultview" data-value-member="idprotocollokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="protocollo.idprotocollokind?protocollosegview.protocollo_idprotocollokind" data-mandatory> </select>
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_protdata">Data di protocollo</label>
+						<input id="protocollo_seg_protdata" type="text" class="form-control" data-tag="protocollo.protdata?protocollosegview.protocollo_protdata" data-mandatory data-datePickerFormat="dd/mm/yy" />
+					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_codiceammipa">Codice IPA dell'Istituto</label>
+						<input id="protocollo_seg_codiceammipa" type="text" class="form-control" data-tag="protocollo.codiceammipa?protocollosegview.protocollo_codiceammipa" data-mandatory />
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_idaoo">Area organizzativa omogenea</label>
+						<div>
+							<input id="protocollo_seg_idaoo" name="protocollo_seg_idaoo" type="text" data-listtype="default" class="form-control" data-minchar="2" data-tag="aoodefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_idreg_origine">Mittente</label>
+						<div>
+							<input id="protocollo_seg_idreg_origine" name="protocollo_seg_idreg_origine" type="text" data-listtype="default" class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_originemail">E-mail mittente</label>
+						<input id="protocollo_seg_originemail" type="text" class="form-control" data-tag="protocollo.originemail?protocollosegview.protocollo_originemail" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_originecodiceaoo">Amministrazione pubblica mittente - Codice IPA area organizzativa omogenea</label>
+						<input id="protocollo_seg_originecodiceaoo" type="text" class="form-control" data-tag="protocollo.originecodiceaoo?protocollosegview.protocollo_originecodiceaoo" />
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_origineidamm">Amministrazione pubblica mittente - Codice IPA</label>
+						<input id="protocollo_seg_origineidamm" type="text" class="form-control" data-tag="protocollo.origineidamm?protocollosegview.protocollo_origineidamm" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label col-md-12" for="protocollo_seg_oggetto">Oggetto del documento</label>
+						<textarea class="textarea form-control" id="protocollo_seg_oggetto" type="text" rows="4" data-tag="protocollo.oggetto?protocollosegview.protocollo_oggetto" data-mandatory></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label col-md-12" for="protocollo_seg_testo">Testo del documento (alternativamente al descrittore del documento)</label>
+						<textarea class="textarea form-control" id="protocollo_seg_testo" type="text" rows="4" data-tag="protocollo.testo?protocollosegview.protocollo_testo"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_idclassificazioneprotocollo">Sottoclassificazione 1</label>
+						<select id="protocollo_seg_idclassificazioneprotocollo" class="custom-select d-block w-100" data-source-name="classificazioneprotocollodefaultview" data-value-member="idclassificazioneprotocollo" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="protocollo.idclassificazioneprotocollo?protocollosegview.protocollo_idclassificazioneprotocollo"> </select>
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_idclassificazioneprotocollo_2">Sottoclassificazione 2</label>
+						<select id="protocollo_seg_idclassificazioneprotocollo_2" class="custom-select d-block w-100" data-source-name="classificazioneprotocollodefaultview_alias1" data-value-member="idclassificazioneprotocollo" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="protocollo.idclassificazioneprotocollo_2?protocollosegview.protocollo_idclassificazioneprotocollo_2"> </select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_annullato">Annullato</label>
+						<div class="custom-control custom-radio">
+							<input id="protocollo_seg_annullatoSi" type="radio" name="protocollo_seg_annullato" class="custom-control-input" data-tag="protocollo.annullato:S?protocollosegview.protocollo_annullato:Si" data-mandatory><label for="protocollo_seg_annullatoSi"> Si</label>
+							<input id="protocollo_seg_annullatoNo" type="radio" name="protocollo_seg_annullato" class="custom-control-input" data-tag="protocollo.annullato:N?protocollosegview.protocollo_annullato:No" data-mandatory><label for="protocollo_seg_annullatoNo"> No</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_dataannullamento">Data di annullamento</label>
+						<input id="protocollo_seg_dataannullamento" type="text" class="form-control" data-tag="protocollo.dataannullamento.g?protocollosegview.protocollo_dataannullamento.g" data-dateTimePickerFormat="dd/mm/yy" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label col-md-12" for="protocollo_seg_motivoann">Motivo annullamento</label>
+						<textarea class="textarea form-control" id="protocollo_seg_motivoann" type="text" rows="4" data-tag="protocollo.motivoann?protocollosegview.protocollo_motivoann"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label col-md-12" for="protocollo_seg_testosegnatura">Segnatura</label>
+						<textarea class="textarea form-control" id="protocollo_seg_testosegnatura" type="text" rows="4" data-tag="protocollo.testosegnatura?protocollosegview.protocollo_testosegnatura"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_protannoregistro">Anno di protocollo del registro</label>
+						<input id="protocollo_seg_protannoregistro" type="text" class="form-control" data-tag="protocollo.protannoregistro?protocollosegview.protocollo_protannoregistro" />
+					</div>
+					<div class="col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_protregistro">Numero di protocollo del registro</label>
+						<input id="protocollo_seg_protregistro" type="text" class="form-control" data-tag="protocollo.protregistro?protocollosegview.protocollo_protregistro" />
+					</div>
+				</div>
+				<button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2">
+					<i class="fa fa-stamp mr-1"></i>Protocolla
+				</button>
+				<button id="Salva" type="button" class="btn btn-primary p-2 mt-2">
+					<i class="fa fa-stamp mr-1"></i>Salva
+				</button>
+				<button id="Annulla" type="button" class="btn btn-primary p-2 mt-2">
+					<i class="fa fa-times-circle mr-1"></i>Annulla protocollo
+				</button>
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#protocollo_seg_protdata").datepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="protocollo_seg_protdata">Data di protocollo</label>
-					<input id="protocollo_seg_protdata" type="text" class="form-control" data-tag="protocollo.protdata?protocollosegview.protocollo_protdata" data-subentity  data-mandatory />
+			<div class="tab-pane fade" id="tabprotocollo_seg_2" role="tabpanel">
+				<div class="custom_lng_div font-italic mb-2" data-langkey="tablabelprotocollo_seg_2">Aggiungere i destinatari con il tasto + o selezionando una tipologia di destinatari e premendo il tasto carica</div>
+
+				<div class="row">
+					<div class="col-12 col-md-6">
+						<label class="col-form-label col-md-12" for="protocollo_seg_idqueryregistry">Tipologia di destinatari</label>
+						<select id="protocollo_seg_idqueryregistry" class="custom-select d-block w-100" data-source-name="queryregistry" data-value-member="idqueryregistry" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="protocollo.idqueryregistry?protocollosegview.protocollo_idqueryregistry"> </select>
+					</div>
+					<div class="col-4 col-md-2 text-center">
+						<button id="Carica" type="button" class="btn btn-primary p-2 mt-4">
+							<i class="fa fa-sign-in-alt mr-1"></i>Carica
+						</button>
+					</div>
+					<div class="col-8 col-md-4">
+						<label class="col-form-label col-md-12"></label>
+						<input id="sendmail" type="checkbox" class="custom-control-input big-checkbox mt-3" />
+						<label id="notificationstatus" class="col-form-label pl-1 mt-3">Invia Mail</label>
+					</div>
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_codiceregistro">Codice Registro (univoco nell'Istituto)</label>
-					<input id="protocollo_seg_codiceregistro" type="text" class="form-control" data-tag="protocollo.codiceregistro?protocollosegview.protocollo_codiceregistro" data-subentity  data-mandatory />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_codiceammipa">Codice IPA dell'Istituto</label>
-					<input id="protocollo_seg_codiceammipa" type="text" class="form-control" data-tag="protocollo.codiceammipa?protocollosegview.protocollo_codiceammipa" data-subentity  data-mandatory />
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_idaoo">Area organizzativa omogenea</label>
-					<div>
-						<input id="protocollo_seg_idaoo" name="protocollo_seg_idaoo" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="aoodefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+				<div class="row">
+					<div class="col-md-12">
+						<div class="custom_lng_div" data-langkey="fieldlabelprotocollo_seg_XXprotocollodestinatario">Destinatari</div>
+						<div class="gridx" id="grid_protocollodestinatario_seg" data-tag="protocollodestinatario.seg.seg" data-custom-control="gridx" data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete></div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_idreg_origine">Mittente</label>
-					<div>
-						<input id="protocollo_seg_idreg_origine" name="protocollo_seg_idreg_origine" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+			<div class="tab-pane fade" id="tabprotocollo_seg_3" role="tabpanel">
+				<div class="gridx" id="grid_protocollodoc_seg" data-tag="protocollodoc.seg.seg" data-custom-control="gridx" data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete></div>
+			</div>
+			<div class="tab-pane fade" id="tabprotocollo_seg_0" role="tabpanel">
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-form-label col-md-12" for="protocollo_seg_anteprima">Anteprima Segnatura</label>
+						<label id="protocollo_seg_anteprima"></label>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_originemail">E-mail mittente</label>
-					<input id="protocollo_seg_originemail" type="text" class="form-control" data-tag="protocollo.originemail?protocollosegview.protocollo_originemail" data-subentity  />
-				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_originecodiceaoo">Amministrazione pubblica mittente - Codice IPA area organizzativa omogenea</label>
-					<input id="protocollo_seg_originecodiceaoo" type="text" class="form-control" data-tag="protocollo.originecodiceaoo?protocollosegview.protocollo_originecodiceaoo" data-subentity  />
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_origineidamm">Amministrazione pubblica mittente - Codice IPA</label>
-					<input id="protocollo_seg_origineidamm" type="text" class="form-control" data-tag="protocollo.origineidamm?protocollosegview.protocollo_origineidamm" data-subentity  />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_oggetto">Oggetto del documento</label>
-					<input id="protocollo_seg_oggetto" type="text" class="form-control" data-tag="protocollo.oggetto?protocollosegview.protocollo_oggetto" data-subentity  data-mandatory />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="protocollo_seg_testo">Testo del documento (alternativamente al descrittore del documento)</label>
-					<textarea class="textarea form-control" id="protocollo_seg_testo" type="text"  rows="4" data-tag="protocollo.testo?protocollosegview.protocollo_testo" data-subentity  />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="protocollo_seg_annullato">Annullato</label>
-					<div class="custom-control custom-radio">
-						<input id="protocollo_seg_annullatoSi" type="radio" name="protocollo_seg_annullato" class="custom-control-input" data-tag="protocollo.annullato:S?protocollosegview.protocollo_annullato:Si" data-subentity  data-mandatory ><label for="protocollo_seg_annullatoSi"> Si</label>
-						<input id="protocollo_seg_annullatoNo" type="radio" name="protocollo_seg_annullato" class="custom-control-input" data-tag="protocollo.annullato:N?protocollosegview.protocollo_annullato:No" data-subentity  data-mandatory ><label for="protocollo_seg_annullatoNo"> No</label>
-					</div>
-				</div>
-				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#protocollo_seg_dataannullamento").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
-					<label class="col-form-label col-md-12" for="protocollo_seg_dataannullamento">Data di annullamento</label>
-					<input id="protocollo_seg_dataannullamento" type="text" class="form-control" data-tag="protocollo.dataannullamento.g?protocollosegview.protocollo_dataannullamento.g" data-subentity  />
-				</div>
-			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
-	</div>
-	<div class="tab-pane fade" id="tabprotocollo_seg_1" role="tabpanel">
-				<div class="gridx" id="grid_protocollodestinatario_seg" data-tag="protocollodestinatario.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
-	</div>
-	<div class="tab-pane fade" id="tabprotocollo_seg_2" role="tabpanel">
-				<div class="gridx" id="grid_protocollodoc_seg" data-tag="protocollodoc.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
-	</div>
-</div>
-</form>
+		</div>
+	</form>
 
 </div>
 <!--footer-->
+	

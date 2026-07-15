@@ -33,6 +33,13 @@
 						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione', null, 22, null);
 						this.describeAColumn(table, '!iddidprog_annoaccademico_alias1_aa', 'Anno accademico', null, 22, null);
 						this.describeAColumn(table, '!iddidprog_sede_title', 'Sede', null, 40, null);
+						this.describeAColumn(table, '!iddidprog_sede_title', 'Sede', null, 24, null);
+						this.describeAColumn(table, '!iddidprog_didprog_codicemiur', 'Codice MIUR', null, 28, null);
+						this.describeAColumn(table, '!iddidprog_corsostudiokind_title', 'Tipologia', null, 63, null);
+						this.describeAColumn(table, '!iddidprog_corsostudiolivello_title', 'Livello', null, 64, null);
+						objCalcFieldConfig['!iddidprog_didprog_codicemiur'] = { tableNameLookup:'didprog', columnNameLookup:'codicemiur', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_corsostudiokind_title'] = { tableNameLookup:'corsostudiokind', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_corsostudiolivello_title'] = { tableNameLookup:'corsostudiolivello', columnNameLookup:'title', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

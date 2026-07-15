@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -243,7 +241,8 @@ namespace mandate_default { //ordinegenerico//
 
         private System.Windows.Forms.OpenFileDialog _MyOpenFile;
         private IOpenFileDialog MyOpenFile;
-        private System.Windows.Forms.ProgressBar progressBarImport;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //private System.Windows.Forms.ProgressBar progressBarImport;
         private System.Windows.Forms.ContextMenu CMenu;
         private System.Windows.Forms.MenuItem MenuEnterPwd;
         private GroupBox grpEsitoGara;
@@ -603,6 +602,11 @@ namespace mandate_default { //ordinegenerico//
                 MakeSpaceFrom(gboxAction);
                 GetData.SetStaticFilter(DS.mandateview, QHS.CmpEq("isrequest", "N"));
                 GetData.SetStaticFilter(DS.mandatekind, QHS.CmpEq("isrequest", "N"));
+
+                // ===============================================================================
+                // La InsertCopy non deve copiare le tabelle degli allegati
+                // ===============================================================================
+                QueryCreator.setSkipInsertCopy(DS.mandateattachment, true);
             }
             else {
                 //Meta.CanInsert = false;
@@ -650,7 +654,6 @@ namespace mandate_default { //ordinegenerico//
             Meta.MarkTableAsNotEntityChild(DS.invoicedetail);
             //object O = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", Conn.GetSys("esercizio")), "flagepexp");
             //if (O != null && O.ToString().ToUpper() == "S") GeneraImpegniBudget = true;
-
         }
 
         private object idcurrencyEURO;
@@ -977,7 +980,7 @@ namespace mandate_default { //ordinegenerico//
 			this.consipkindBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mandatedetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
-			this.progressBarImport = new System.Windows.Forms.ProgressBar();
+			//this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this.CMenu = new System.Windows.Forms.ContextMenu();
 			this.MenuEnterPwd = new System.Windows.Forms.MenuItem();
 			this.button1 = new System.Windows.Forms.Button();
@@ -3601,10 +3604,10 @@ namespace mandate_default { //ordinegenerico//
 			// 
 			// progressBarImport
 			// 
-			this.progressBarImport.Location = new System.Drawing.Point(0, 0);
-			this.progressBarImport.Name = "progressBarImport";
-			this.progressBarImport.Size = new System.Drawing.Size(100, 23);
-			this.progressBarImport.TabIndex = 0;
+			//this.progressBarImport.Location = new System.Drawing.Point(0, 0);
+			//this.progressBarImport.Name = "progressBarImport";
+			//this.progressBarImport.Size = new System.Drawing.Size(100, 23);
+			//this.progressBarImport.TabIndex = 0;
 			// 
 			// CMenu
 			// 
@@ -5248,7 +5251,7 @@ namespace mandate_default { //ordinegenerico//
             string token = "";
             string responseBody = string.Empty;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            string urlAuth = ""; //"https://demo.traspare-test.com/api/v1/auth?email=api@temposrl.com&password=Aa123456";
+            string urlAuth = ""; //"https://demo.traspare-test.com/api/v1/auth?email=your-email@example.com&password=Aa123456";
 
             string filterWS = QHS.CmpEq("code", "TRASPARE_Token");
             DataTable app_config = Conn.RUN_SELECT("app_config", "param", null, filterWS, null, true);
@@ -5264,7 +5267,7 @@ namespace mandate_default { //ordinegenerico//
             string[] par = api_param.Split('|');
             if (par.Length > 0) {
                 // https://demo.traspare-test.com/api/v1/tempo_tender_pending_creations
-                // https://demo.traspare-test.com/api/v1/auth?email=api@temposrl.com&password=Aa123456
+                // https://demo.traspare-test.com/api/v1/auth?email=your-email@example.com&password=Aa123456
                 urlAuth = par[0];
             }
 
@@ -5316,7 +5319,7 @@ namespace mandate_default { //ordinegenerico//
             string[] par = api_param.Split('|');
             if (par.Length > 0) {
                 // https://demo.traspare-test.com/api/v1/tempo_tender_pending_creations
-                // https://demo.traspare-test.com/api/v1/auth?email=api@temposrl.com&password=Aa123456
+                // https://demo.traspare-test.com/api/v1/auth?email=your-email@example.com&password=Aa123456
                 urlAuth = par[0];
             }
 
@@ -5448,8 +5451,8 @@ namespace mandate_default { //ordinegenerico//
             //Making Web Request    
             HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(@"https://webservices.smartedu.unict.it/service2/didattica/didatticaservice2.asmx");
             //SOAPAction    
-            Req.Headers.Add("email:api@temposrl.com");
-            Req.Headers.Add("password:api@temposrl.com");
+            Req.Headers.Add("email:your-email@example.com");
+            Req.Headers.Add("password:your-email@example.com");
             //Content_type    
             Req.ContentType = "text /xml;charset=\"utf-8\"";
             Req.Accept = "text/xml";
@@ -7169,6 +7172,7 @@ namespace mandate_default { //ordinegenerico//
                 detc["rownum_origin"] = det["rownum"];
             }
 
+            
             MetaData mandateatt = M.Dispatcher.Get("mandateattachment");
             foreach (DataRow det in DS.mandateattachment.Select()) {
                 DataRow detc = mandateatt.Get_New_Row(RMain, M.DS.Tables["mandateattachment"]);
@@ -7178,6 +7182,12 @@ namespace mandate_default { //ordinegenerico//
                     detc[field] = det[field];
                 }
 
+                // =======================================================================
+                // Task 20339 - Allegati, se l'allegato è in mongo db lo scarico e creo
+                //              la copia nell'allegato del nuovo mandateattachment
+                // =======================================================================
+                if (det["idfilestorage"] != DBNull.Value)
+                    detc["attachment"] = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, DS.mandateattachment.TableName, det["idfilestorage"].ToString()).GetAwaiter().GetResult();
             }
 
             MetaData mandatesor = M.Dispatcher.Get("mandatesorting");
@@ -8107,9 +8117,9 @@ namespace mandate_default { //ordinegenerico//
 
 
         private void fillDetails(DataTable mData) {
-            progressBarImport.Value = 0;
-            progressBarImport.Maximum = mData.Rows.Count;
-            progressBarImport.Visible = true;
+            //progressBarImport.Value = 0;
+            //progressBarImport.Maximum = mData.Rows.Count;
+            //progressBarImport.Visible = true;
             // riempie il Dataset con le righe dei dettagli delle disposizioni di pagamento
             // a partire dalla tabella temporanea mData
             if (DS.mandate.Rows.Count == 0) return;
@@ -8227,10 +8237,10 @@ namespace mandate_default { //ordinegenerico//
                 rNew["cu"] = "Import";
                 rNew["lt"] = DateTime.Now;
                 rNew["lu"] = "Import";
-                progressBarImport.Value++;
+                //progressBarImport.Value++;
             }
 
-            progressBarImport.Visible = false;
+            //progressBarImport.Visible = false;
 
         }
 

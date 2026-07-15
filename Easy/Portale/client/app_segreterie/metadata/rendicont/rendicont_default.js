@@ -44,7 +44,7 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -79,7 +79,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#rendicont_default_aa'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			
 			afterLink: function () {
@@ -137,6 +143,8 @@
 
 			//beforePost
 
+			//afterPost
+
 			afterFill: function () {
 				//afterFillin
 
@@ -152,7 +160,7 @@
 							self.q.eq("idreg", self.state.currentRow.idreg_docenti),
 							self.q.eq("idlezione", 0)
 						);
-						return self.getExternalEventForCalendar(filterLez, $("[data-tag='lezione.rendicont.rendicont']")).then(function () {
+						return self.getExternalEventForCalendar(filterLez, $("[data-tag='lezione_alias1.rendicont.rendicont']")).then(function () {
 							return MetaPage.prototype.afterFill.call(self);
 						});
 
@@ -170,7 +178,7 @@
 					"color, title, start, stop, ore, idlezione, idassetdiary, idrendicontattivitaprogetto", filter, null)
 					.then(function (dt) {
 
-						_.forEach(self.getDataTable("lezione").rows, function (r) {
+						_.forEach(self.getDataTable("lezione_alias1").rows, function (r) {
 
 							var currLezioneEvent = _.find(dt.rows, function (row) {
 								return row.idlezione === r.idlezione;
@@ -232,7 +240,7 @@
 
 			},
 
-			children: ['lezione', 'rendicontaltro'],
+			children: ['lezione_alias1', 'rendicontaltro'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {

@@ -52,6 +52,18 @@
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
 //$objCalcFieldConfig_seg$
 						break;
+					case 'doc':
+						this.describeAColumn(table, 'description', 'Descrizione', null, 10, 1024);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
+						this.describeAColumn(table, 'minvoto', 'Voto minimo', null, 140, null);
+						this.describeAColumn(table, 'basevoto', 'Votazione di base', null, 150, null);
+						this.describeAColumn(table, 'prointermedia', 'Prova intermedia', null, 160, null);
+						this.describeAColumn(table, 'posti', 'Numero massimo di posti', null, 170, null);
+						this.describeAColumn(table, 'prenotstart', 'Data di inizio prenotazioni', 'g', 180, null);
+						this.describeAColumn(table, 'penotend', 'Data fine delle prenotazioni', 'g', 190, null);
+						this.describeAColumn(table, 'publicato', 'Publicato', null, 200, null);
+//$objCalcFieldConfig_doc$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -64,9 +76,9 @@
 				switch (edittype) {
 					case 'default':
 						table.columns["aa"].caption = "Anno accademico";
+						table.columns["description"].caption = "Descrizione";
 						table.columns["basevoto"].caption = "Votazione di base";
 						table.columns["cftoend"].caption = "Numero di crediti mancanti alla conclusione della carriera";
-						table.columns["description"].caption = "Descrizione";
 						table.columns["esteroend"].caption = "Data fine di permanenza dello studente all'estero ";
 						table.columns["esterostart"].caption = "Data inizio di permanenza dello studente all'estero ";
 						table.columns["idappelloazionekind"].caption = "Ordinario/Correttivo/Integrativo";
@@ -84,6 +96,13 @@
 						table.columns["surmanestop"].caption = "Iniziali cognome fine";
 						table.columns["surnamestart"].caption = "Iniziali cognome inizio";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'doc':
+//$innerSetCaptionConfig_doc$
+						break;
+					case 'seg':
+						table.columns["aa"].caption = "Anno accademico";
+//$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$
 				}

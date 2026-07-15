@@ -23,26 +23,28 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'sosp_seg':
-						this.describeAColumn(table, 'sede_title', 'Denominazione Sede', null, 190, 1024);
-						this.describeAColumn(table, 'sede_idsede', 'Sede Sede', null, 190, null);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 30, null);
-						this.describeAColumn(table, 'corsostudio_title', 'Denominazione Corso di studi', null, 50, 1024);
-						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studi', null, 50, null);
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 60, 1024);
-						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 60, 9);
-						this.describeAColumn(table, 'iscrizione_anno', 'Anno di corso Iscrizione', null, 70, null);
-						this.describeAColumn(table, 'iscrizione_iddidprog', 'Didattica programmata Iscrizione', null, 70, null);
-						this.describeAColumn(table, 'iscrizione_aa', 'Anno accademico Iscrizione', null, 70, 9);
-						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 90, 101);
-						this.describeAColumn(table, 'statuskind_title', 'Status', null, 100, 50);
-						this.describeAColumn(table, 'istanzaparent_idistanzakind', 'Tipologia Istanza collegata', null, 110, null);
-						this.describeAColumn(table, 'istanzaparent_idreg_studenti', 'Studente Istanza collegata', null, 110, null);
-						this.describeAColumn(table, 'istanzaparent_aa', 'Anno accademico Istanza collegata', null, 110, 9);
-						this.describeAColumn(table, 'istanzaparent_data', 'Data Istanza collegata', 'g', 110, null);
-						this.describeAColumn(table, 'istanza_sosp_motivo', 'Motivo', null, 540, -1);
-						this.describeAColumn(table, 'istanza_sosp_start', 'Data di Inizio', null, 550, null);
-						this.describeAColumn(table, 'istanza_sosp_stop', 'Data di fine', null, 560, null);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 3000, null);
+						this.describeAColumn(table, 'corsostudio_title', 'Denominazione Corso di studi', null, 5100, 1024);
+						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studi', null, 5600, null);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 6100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 6200, 9);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 6320, 1024);
+						this.describeAColumn(table, 'iscrizioneattiveview_didprog_title', 'Corso Iscrizione', null, 7800, 1024);
+						this.describeAColumn(table, 'iscrizioneattiveview_last_renew_aa', 'AA Iscrizione', null, 9100, 9);
+						this.describeAColumn(table, 'iscrizioneattiveview_last_renew_anno', 'Anno Iscrizione', null, 9200, null);
+						this.describeAColumn(table, 'iscrizioneattiveview_last_renew_annofc', 'Anno F.C. Iscrizione', null, 9300, null);
+						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 9300, 101);
+						this.describeAColumn(table, 'iscrizioneattiveview_last_renew_annopt', 'Anno P.T. Iscrizione', null, 9400, null);
+						this.describeAColumn(table, 'iscrizioneattiveview_status', 'Stato Iscrizione', null, 10200, 10);
+						this.describeAColumn(table, 'statuskind_title', 'Status', null, 10200, 50);
+						this.describeAColumn(table, 'istanzaparent_aa', 'Anno accademico Istanza collegata', null, 11100, 9);
+						this.describeAColumn(table, 'istanzaparent_data', 'Data Istanza collegata', 'g', 11300, null);
+						this.describeAColumn(table, 'istanzaparent_idistanzakind', 'Tipologia Istanza collegata', null, 11800, null);
+						this.describeAColumn(table, 'istanzaparent_idreg_studenti', 'Studente Istanza collegata', null, 11900, null);
+						this.describeAColumn(table, 'istanza_sosp_motivo', 'Motivo', null, 54000, -1);
+						this.describeAColumn(table, 'istanza_sosp_start', 'Data di Inizio', null, 55000, null);
+						this.describeAColumn(table, 'istanza_sosp_stop', 'Data di fine', null, 56000, null);
 //$objCalcFieldConfig_sosp_seg$
 						break;
 //$objCalcFieldConfig$

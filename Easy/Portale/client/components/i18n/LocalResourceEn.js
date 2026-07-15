@@ -217,7 +217,7 @@
         serverErrorExpiredSession  : "Session expired, please retry to login!",
         serverErrorBadCredential: "Username or password not correct, please retry!",
         serverErrorLDAPServerUnavailable: "The LDAP server is unavailable, please retry later.",
-        serverErrorTokenEmpty : "Logout should be done in another window, or token should be removed from browser cache",
+        serverErrorTokenEmpty = "YOUR_SECRET",
         serverErrorUserNotSecurity: "User out of security management." +
             "1. Contact the administrators for inserting the user, and inserting it in the organization chart (Organigramma ->  profilo -> tab utenti). " +
             "2. You may need to close the previous year and generate the new org chart for the new year.",

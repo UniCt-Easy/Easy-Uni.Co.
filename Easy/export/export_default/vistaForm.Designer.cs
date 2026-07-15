@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,200 +13,184 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace export_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable exportfunction{get { return this.Tables["exportfunction"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable exportfunctionparam{get { return this.Tables["exportfunctionparam"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable columntypes{get { return this.Tables["columntypes"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable customselection{get { return this.Tables["customselection"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace export_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable exportfunction 		=> Tables["exportfunction"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable exportfunctionparam 		=> Tables["exportfunctionparam"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable columntypes 		=> Tables["columntypes"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable customselection 		=> Tables["customselection"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-this.BeginInit();
-this.InitClass();
-this.EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-this.DataSetName = "vistaForm";
-this.Prefix = "";
-this.Namespace = "http://tempuri.org/vistaForm.xsd";
-this.EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("exportfunction");
-	C= new DataColumn("procedurename", typeof(System.String), "");
+	//////////////////// EXPORTFUNCTION /////////////////////////////////
+	var texportfunction= new DataTable("exportfunction");
+	C= new DataColumn("procedurename", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	texportfunction.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("modulename", typeof(System.String), "");
+	texportfunction.Columns.Add(C);
+	C= new DataColumn("modulename", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texportfunction.Columns.Add(C);
+	texportfunction.Columns.Add( new DataColumn("fileformat", typeof(string)));
+	texportfunction.Columns.Add( new DataColumn("timeout", typeof(int)));
+	texportfunction.Columns.Add( new DataColumn("fileextension", typeof(string)));
+	Tables.Add(texportfunction);
+	texportfunction.PrimaryKey =  new DataColumn[]{texportfunction.Columns["procedurename"]};
 
-	T.Columns.Add(new DataColumn("fileformat", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("timeout", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("fileextension", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["procedurename"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("exportfunctionparam");
-	C= new DataColumn("procedurename", typeof(System.String), "");
+	//////////////////// EXPORTFUNCTIONPARAM /////////////////////////////////
+	var texportfunctionparam= new DataTable("exportfunctionparam");
+	C= new DataColumn("procedurename", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("paramname", typeof(System.String), "");
+	texportfunctionparam.Columns.Add(C);
+	C= new DataColumn("paramname", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	texportfunctionparam.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("systype", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("tag", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("hintkind", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("hint", typeof(System.String), ""));
-	C= new DataColumn("number", typeof(System.Int16), "");
+	texportfunctionparam.Columns.Add(C);
+	texportfunctionparam.Columns.Add( new DataColumn("systype", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("tag", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("hintkind", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("hint", typeof(string)));
+	C= new DataColumn("number", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iscombobox", typeof(System.String), "");
+	texportfunctionparam.Columns.Add(C);
+	C= new DataColumn("iscombobox", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("datasource", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("valuemember", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("displaymember", typeof(System.String), ""));
-	C= new DataColumn("noselectionforall", typeof(System.String), "");
+	texportfunctionparam.Columns.Add(C);
+	texportfunctionparam.Columns.Add( new DataColumn("datasource", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("valuemember", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("displaymember", typeof(string)));
+	C= new DataColumn("noselectionforall", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	texportfunctionparam.Columns.Add(C);
+	texportfunctionparam.Columns.Add( new DataColumn("help", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("filter", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("cu", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("ct", typeof(DateTime)));
+	texportfunctionparam.Columns.Add( new DataColumn("lu", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("lt", typeof(DateTime)));
+	texportfunctionparam.Columns.Add( new DataColumn("selectioncode", typeof(string)));
+	texportfunctionparam.Columns.Add( new DataColumn("master", typeof(string)));
+	Tables.Add(texportfunctionparam);
+	texportfunctionparam.PrimaryKey =  new DataColumn[]{texportfunctionparam.Columns["procedurename"], texportfunctionparam.Columns["paramname"]};
 
-	T.Columns.Add(new DataColumn("help", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("filter", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ct", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("selectioncode", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["procedurename"], 	T.Columns["paramname"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("columntypes");
-	C= new DataColumn("tablename", typeof(System.String), "");
+	//////////////////// COLUMNTYPES /////////////////////////////////
+	var tcolumntypes= new DataTable("columntypes");
+	C= new DataColumn("tablename", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("field", typeof(System.String), "");
+	tcolumntypes.Columns.Add(C);
+	C= new DataColumn("field", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("iskey", typeof(System.String), "");
+	tcolumntypes.Columns.Add(C);
+	C= new DataColumn("iskey", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("sqltype", typeof(System.String), "");
+	tcolumntypes.Columns.Add(C);
+	C= new DataColumn("sqltype", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("col_len", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("col_precision", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("col_scale", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("systemtype", typeof(System.String), ""));
-	C= new DataColumn("sqldeclaration", typeof(System.String), "");
+	tcolumntypes.Columns.Add(C);
+	tcolumntypes.Columns.Add( new DataColumn("col_len", typeof(int)));
+	tcolumntypes.Columns.Add( new DataColumn("col_precision", typeof(int)));
+	tcolumntypes.Columns.Add( new DataColumn("col_scale", typeof(int)));
+	tcolumntypes.Columns.Add( new DataColumn("systemtype", typeof(string)));
+	C= new DataColumn("sqldeclaration", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("allownull", typeof(System.String), "");
+	tcolumntypes.Columns.Add(C);
+	C= new DataColumn("allownull", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("defaultvalue", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("format", typeof(System.String), ""));
-	C= new DataColumn("denynull", typeof(System.String), "");
+	tcolumntypes.Columns.Add(C);
+	tcolumntypes.Columns.Add( new DataColumn("defaultvalue", typeof(string)));
+	tcolumntypes.Columns.Add( new DataColumn("format", typeof(string)));
+	C= new DataColumn("denynull", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tcolumntypes.Columns.Add(C);
+	tcolumntypes.Columns.Add( new DataColumn("lastmoduser", typeof(string)));
+	tcolumntypes.Columns.Add( new DataColumn("lastmodtimestamp", typeof(DateTime)));
+	tcolumntypes.Columns.Add( new DataColumn("createuser", typeof(string)));
+	tcolumntypes.Columns.Add( new DataColumn("createtimestamp", typeof(DateTime)));
+	Tables.Add(tcolumntypes);
+	tcolumntypes.PrimaryKey =  new DataColumn[]{tcolumntypes.Columns["tablename"], tcolumntypes.Columns["field"]};
 
-	T.Columns.Add(new DataColumn("lastmoduser", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lastmodtimestamp", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("createuser", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("createtimestamp", typeof(System.DateTime), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["tablename"], 	T.Columns["field"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("customselection");
-	C= new DataColumn("selectioncode", typeof(System.String), "");
+	//////////////////// CUSTOMSELECTION /////////////////////////////////
+	var tcustomselection= new DataTable("customselection");
+	C= new DataColumn("selectioncode", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("editlisttype", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("extraparameter", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("fieldname", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("filter", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("lastmodtimestamp", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("lastmoduser", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("relationfield", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("selectionname", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("selectiontype", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("tablename", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["selectioncode"]};
-	T.PrimaryKey = key;
+	tcustomselection.Columns.Add(C);
+	tcustomselection.Columns.Add( new DataColumn("editlisttype", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("extraparameter", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("fieldname", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("filter", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("lastmodtimestamp", typeof(DateTime)));
+	tcustomselection.Columns.Add( new DataColumn("lastmoduser", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("relationfield", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("selectionname", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("selectiontype", typeof(string)));
+	tcustomselection.Columns.Add( new DataColumn("tablename", typeof(string)));
+	Tables.Add(tcustomselection);
+	tcustomselection.PrimaryKey =  new DataColumn[]{tcustomselection.Columns["selectioncode"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["exportfunction"];
-TChild= Tables["exportfunctionparam"];
-CPar = new DataColumn[1]{TPar.Columns["procedurename"]};
-CChild = new DataColumn[1]{TChild.Columns["procedurename"]};
-Relations.Add(new DataRelation("exportfunctionexportfunctionparam",CPar,CChild));
+	#endregion
 
-TPar= Tables["columntypes"];
-TChild= Tables["exportfunctionparam"];
-CPar = new DataColumn[1]{TPar.Columns["tablename"]};
-CChild = new DataColumn[1]{TChild.Columns["datasource"]};
-Relations.Add(new DataRelation("columntypesexportfunctionparam",CPar,CChild));
+
+	#region DataRelation creation
+	var cPar = new []{columntypes.Columns["tablename"]};
+	var cChild = new []{exportfunctionparam.Columns["datasource"]};
+	Relations.Add(new DataRelation("columntypesexportfunctionparam",cPar,cChild,false));
+
+	cPar = new []{exportfunction.Columns["procedurename"]};
+	cChild = new []{exportfunctionparam.Columns["procedurename"]};
+	Relations.Add(new DataRelation("exportfunctionexportfunctionparam",cPar,cChild,false));
+
+	#endregion
 
 }
 }

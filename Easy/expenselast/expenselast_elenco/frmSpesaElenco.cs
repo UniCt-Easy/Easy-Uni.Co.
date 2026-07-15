@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -168,8 +166,8 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.groupCredDeb = new System.Windows.Forms.GroupBox();
 			this.txtCredDeb = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.txtCodeTreasurer = new System.Windows.Forms.TextBox();
 			this.txtTreasurer = new System.Windows.Forms.TextBox();
+			this.txtCodeTreasurer = new System.Windows.Forms.TextBox();
 			this.grpDescrizione.SuspendLayout();
 			this.grpImporti.SuspendLayout();
 			this.gboxBolletta.SuspendLayout();
@@ -702,15 +700,7 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.groupBox1.Size = new System.Drawing.Size(262, 46);
 			this.groupBox1.TabIndex = 103;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Cassiere del Sospeso";
-			// 
-			// txtCodeTreasurer
-			// 
-			this.txtCodeTreasurer.Location = new System.Drawing.Point(7, 19);
-			this.txtCodeTreasurer.Name = "txtCodeTreasurer";
-			this.txtCodeTreasurer.Size = new System.Drawing.Size(45, 20);
-			this.txtCodeTreasurer.TabIndex = 0;
-			this.txtCodeTreasurer.Tag = "expenselastview.codetreasurer?x";
+			this.groupBox1.Text = "Conto Corrente del Sospeso";
 			// 
 			// txtTreasurer
 			// 
@@ -719,6 +709,14 @@ namespace expenselast_elenco//spesamodcreddebi//
 			this.txtTreasurer.Size = new System.Drawing.Size(189, 20);
 			this.txtTreasurer.TabIndex = 1;
 			this.txtTreasurer.Tag = "expenselastview.treasurer?x";
+			// 
+			// txtCodeTreasurer
+			// 
+			this.txtCodeTreasurer.Location = new System.Drawing.Point(7, 19);
+			this.txtCodeTreasurer.Name = "txtCodeTreasurer";
+			this.txtCodeTreasurer.Size = new System.Drawing.Size(45, 20);
+			this.txtCodeTreasurer.TabIndex = 0;
+			this.txtCodeTreasurer.Tag = "expenselastview.codetreasurer?x";
 			// 
 			// Frm_expenselast_elenco
 			// 

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -44,9 +42,9 @@ namespace meta_proceedstransmissionview{//meta_trasmdocincassoview//
                 DescribeAColumn(T, "yproceedstransmission", "Eserc. distinta", nPos++);
 				DescribeAColumn(T, "nproceedstransmission", "Num. distinta", nPos++);
 				DescribeAColumn(T, "manager", "Responsabile", nPos++);
-				DescribeAColumn(T, "idtreasurer", ".#Cassiere", nPos++);
-                DescribeAColumn(T, "codetreasurer", "Cod. Cassiere", nPos++);
-                DescribeAColumn(T, "treasurer", "Cassiere", nPos++);
+				DescribeAColumn(T, "idtreasurer", ".#Conto Corrente", nPos++);
+                DescribeAColumn(T, "codetreasurer", "Cod. Conto Corrente", nPos++);
+                DescribeAColumn(T, "treasurer", "Conto Corrente", nPos++);
                 DescribeAColumn(T, "transmissiondate", "Data trasm.", nPos++);
 				DescribeAColumn(T, "total", "Totale distinta", nPos++);
 			}

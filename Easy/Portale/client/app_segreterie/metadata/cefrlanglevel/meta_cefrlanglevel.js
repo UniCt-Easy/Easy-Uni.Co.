@@ -55,6 +55,27 @@
 						objCalcFieldConfig['!idnation_geo_nation_lang'] = { tableNameLookup:'geo_nation', columnNameLookup:'lang', columnNamekey:'idnation' };
 //$objCalcFieldConfig_default$			
 						break;
+					case 'dettaz':
+						this.describeAColumn(table, 'idnation', 'Lingua', null, 10, null);
+						this.describeAColumn(table, 'idcefr_compasc', 'Comprensione ascolto', null, 20, null);
+						this.describeAColumn(table, 'idcefr_complett', 'Comprensione lettura', null, 30, null);
+						this.describeAColumn(table, 'idcefr_parlinter', 'Parlato interazione', null, 40, null);
+						this.describeAColumn(table, 'idcefr_parlprod', 'Parlato produzione', null, 50, null);
+						this.describeAColumn(table, 'idcefr_scritto', 'Scritto', null, 60, null);
+						this.describeAColumn(table, '!idcefr_compasc_cefr_title', 'Comprensione ascolto', null, 21, null);
+						objCalcFieldConfig['!idcefr_compasc_cefr_title'] = { tableNameLookup:'cefr', columnNameLookup:'title', columnNamekey:'idcefr_compasc' };
+						this.describeAColumn(table, '!idcefr_complett_cefr_title', 'Comprensione lettura', null, 31, null);
+						objCalcFieldConfig['!idcefr_complett_cefr_title'] = { tableNameLookup:'cefr_alias1', columnNameLookup:'title', columnNamekey:'idcefr_complett' };
+						this.describeAColumn(table, '!idcefr_parlinter_cefr_title', 'Parlato interazione', null, 41, null);
+						objCalcFieldConfig['!idcefr_parlinter_cefr_title'] = { tableNameLookup:'cefr_alias2', columnNameLookup:'title', columnNamekey:'idcefr_parlinter' };
+						this.describeAColumn(table, '!idcefr_parlprod_cefr_title', 'Parlato produzione', null, 51, null);
+						objCalcFieldConfig['!idcefr_parlprod_cefr_title'] = { tableNameLookup:'cefr_alias3', columnNameLookup:'title', columnNamekey:'idcefr_parlprod' };
+						this.describeAColumn(table, '!idcefr_scritto_cefr_title', 'Scritto', null, 61, null);
+						objCalcFieldConfig['!idcefr_scritto_cefr_title'] = { tableNameLookup:'cefr_alias4', columnNameLookup:'title', columnNamekey:'idcefr_scritto' };
+						this.describeAColumn(table, '!idnation_geo_nation_lang', 'Lingua', null, 11, null);
+						objCalcFieldConfig['!idnation_geo_nation_lang'] = { tableNameLookup:'geo_nation', columnNameLookup:'lang', columnNamekey:'idnation' };
+//$objCalcFieldConfig_dettaz$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -63,7 +84,22 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'dettaz':
+						table.columns["idaccordoscambiomidettlangkind"].caption = "Tipologia";
+						table.columns["idcefr_compasc"].caption = "Comprensione ascolto";
+						table.columns["idcefr_complett"].caption = "Comprensione lettura";
+						table.columns["idcefr_parlinter"].caption = "Parlato interazione";
+						table.columns["idcefr_parlprod"].caption = "Parlato produzione";
+						table.columns["idcefr_scritto"].caption = "Scritto";
+						table.columns["idnation"].caption = "Lingua";
+//$innerSetCaptionConfig_dettaz$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_cefrlanglevel");
@@ -93,6 +129,9 @@
 					}
 					case "accordoscambiomidettlang": {
 						return "idaccordoscambiomidettlangkind desc, idnation desc";
+					}
+					case "dettaz": {
+						return "idnation desc";
 					}
 					//$getSortingin$
 				}

@@ -24,13 +24,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'riepilogo':
-						this.describeAColumn(table, 'idfasciaiseedef', 'Fascia ISEE', null, 40, null);
-						this.describeAColumn(table, 'idratadef', 'Rata', null, 50, null);
 						this.describeAColumn(table, 'importo', 'Importo', 'fixed.2', 60, null);
-						this.describeAColumn(table, 'parama', 'Parametro A', 'fixed.2', 70, null);
+						this.describeAColumn(table, 'parama', 'Parametro A', 'fixed.9', 70, null);
 						this.describeAColumn(table, 'paramb', 'Parametro B', 'fixed.2', 80, null);
 						this.describeAColumn(table, 'paramc', 'Parametro C', 'fixed.2', 90, null);
-						this.describeAColumn(table, 'paramd', 'Parametro D', 'fixed.2', 100, null);
+						this.describeAColumn(table, 'paramd', 'Parametro D', 'fixed.9', 100, null);
 						this.describeAColumn(table, 'percentuale', 'Percentuale', 'fixed.2', 110, null);
 						this.describeAColumn(table, '!idcostoscontodefdettagliokind_costoscontodefdettagliokind_title', 'Voce di dettaglio', null, 31, null);
 						objCalcFieldConfig['!idcostoscontodefdettagliokind_costoscontodefdettagliokind_title'] = { tableNameLookup:'costoscontodefdettagliokind', columnNameLookup:'title', columnNamekey:'idcostoscontodefdettagliokind' };
@@ -41,6 +39,7 @@
 //$objCalcFieldConfig_riepilogo$
 						break;
 					case 'more':
+						this.describeAColumn(table, 'idcostoscontodefdettagliokind', 'Voce di dettaglio', null, 30, null);
 						this.describeAColumn(table, 'idfasciaiseedef', 'Fascia ISEE', null, 40, null);
 						this.describeAColumn(table, 'idratadef', 'Rata', null, 50, null);
 						this.describeAColumn(table, 'importo', 'Importo', 'fixed.2', 60, null);
@@ -58,6 +57,7 @@
 //$objCalcFieldConfig_more$
 						break;
 					case 'sconti':
+						this.describeAColumn(table, 'idcostoscontodefdettagliokind', 'Voce di dettaglio', null, 30, null);
 						this.describeAColumn(table, 'idfasciaiseedef', 'Fascia ISEE', null, 40, null);
 						this.describeAColumn(table, 'idratadef', 'Rata', null, 50, null);
 						this.describeAColumn(table, 'importo', 'Importo', 'fixed.2', 60, null);
@@ -88,18 +88,16 @@
 						table.columns["idcostoscontodefdettagliokind"].caption = "Voce di dettaglio";
 						table.columns["idfasciaiseedef"].caption = "Fascia ISEE";
 						table.columns["idratadef"].caption = "Rata";
+						table.columns["parama"].caption = "Parametro A";
+						table.columns["paramb"].caption = "Parametro B";
+						table.columns["paramc"].caption = "Parametro C";
+						table.columns["paramd"].caption = "Parametro D";
 //$innerSetCaptionConfig_riepilogo$
 						break;
 					case 'more':
-						table.columns["idcostoscontodefdettagliokind"].caption = "Voce di dettaglio";
-						table.columns["idfasciaiseedef"].caption = "Fascia ISEE";
-						table.columns["idratadef"].caption = "Rata";
 //$innerSetCaptionConfig_more$
 						break;
 					case 'sconti':
-						table.columns["idcostoscontodefdettagliokind"].caption = "Voce di dettaglio";
-						table.columns["idfasciaiseedef"].caption = "Fascia ISEE";
-						table.columns["idratadef"].caption = "Rata";
 //$innerSetCaptionConfig_sconti$
 						break;
 //$innerSetCaptionConfig$

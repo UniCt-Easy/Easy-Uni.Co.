@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_nullaosta_segisteq"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_nullaosta_segisteq: DataSet {
+public partial class dsmeta_nullaosta_segisteq: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -64,8 +62,8 @@ private void initClass() {
 	tnullaosta.defineColumn("cu", typeof(string),false);
 	tnullaosta.defineColumn("data", typeof(DateTime),false);
 	tnullaosta.defineColumn("extension", typeof(string));
-	tnullaosta.defineColumn("idcorsostudio", typeof(int));
-	tnullaosta.defineColumn("iddidprog", typeof(int));
+	tnullaosta.defineColumn("idcorsostudio", typeof(int),false);
+	tnullaosta.defineColumn("iddidprog", typeof(int),false);
 	tnullaosta.defineColumn("idiscrizione", typeof(int));
 	tnullaosta.defineColumn("idistanza", typeof(int),false);
 	tnullaosta.defineColumn("idistanzakind", typeof(int),false);
@@ -76,7 +74,7 @@ private void initClass() {
 	tnullaosta.defineColumn("protanno", typeof(int));
 	tnullaosta.defineColumn("protnumero", typeof(int));
 	Tables.Add(tnullaosta);
-	tnullaosta.defineKey("idistanza", "idistanzakind", "idnullaosta", "idreg");
+	tnullaosta.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idnullaosta", "idreg");
 
 	#endregion
 

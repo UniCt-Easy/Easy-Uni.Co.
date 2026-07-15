@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_auth_surname">Cognome</label>
-					<input id="registrationuser_auth_surname" type="text" class="form-control" data-tag="registrationuser.surname?registrationuserauthview.surname"  />
+					<input id="registrationuser_auth_surname" type="text" class="form-control" data-tag="registrationuser.surname?registrationuserauthview.registrationuser_surname"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_auth_forename">Nome</label>
@@ -46,22 +46,160 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_auth_usertype">Categoria di utente</label>
-					<select id="registrationuser_auth_usertype" class="custom-select d-block w-100"  data-source-name="usertype" data-value-member="usertype" data-display-member="usertype" data-sort-member="" data-custom-control="combo" data-tag="registrationuser.usertype?registrationuserauthview.usertype"   > </select>
+					<select id="registrationuser_auth_usertype" class="custom-select d-block w-100"  data-source-name="usertype" data-value-member="usertype" data-display-member="usertype" data-sort-member="usertype" data-custom-control="combo" data-tag="registrationuser.usertype?registrationuserauthview.usertype"   > </select>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registrationuser_auth_idregistrationuserstatus">Stato della richiesta</label>
-					<select id="registrationuser_auth_idregistrationuserstatus" class="custom-select d-block w-100"  data-source-name="registrationuserstatus" data-value-member="idregistrationuserstatus" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="registrationuser.idregistrationuserstatus?registrationuserauthview.registrationuser_idregistrationuserstatus"   > </select>
+					<label class="col-form-label col-md-12" for="registrationuser_auth_flagdefault">Flagdefault</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_flagdefaultSi" type="radio" name="registrationuser_auth_flagdefault" class="custom-control-input" data-tag="registrationuser.flagdefault:S?registrationuserauthview.registrationuser_flagdefault:Si"  ><label for="registrationuser_auth_flagdefaultSi"> Si</label>
+						<input id="registrationuser_auth_flagdefaultNo" type="radio" name="registrationuser_auth_flagdefault" class="custom-control-input" data-tag="registrationuser.flagdefault:N?registrationuserauthview.registrationuser_flagdefault:No"  ><label for="registrationuser_auth_flagdefaultNo"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_title">Descrizione ruolo</label>
+					<input id="registrationuser_auth_title" type="text" class="form-control" data-tag="registrationuser.title?registrationuserauthview.title"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<script>
-						$( function () {
-						$("#registrationuser_auth_requesttimestamp").datetimepicker({ dateFormat: 'dd/mm/yy' });
-						} );
-					</script>
+					<label class="col-form-label col-md-12" for="registrationuser_auth_start">Data inizio</label>
+					<input id="registrationuser_auth_start" type="text" class="form-control" data-tag="registrationuser.start?registrationuserauthview.registrationuser_start"   data-datePickerFormat="dd/mm/yy"/>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_stop">Data fine</label>
+					<input id="registrationuser_auth_stop" type="text" class="form-control" data-tag="registrationuser.stop?registrationuserauthview.registrationuser_stop"   data-datePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_idsor01">Classificazione 1</label>
+					<div>
+						<input id="registrationuser_auth_idsor01" name="registrationuser_auth_idsor01" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_sorkind01_withchilds">Con gerarchia sottostante</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_sorkind01_withchildsSi" type="radio" name="registrationuser_auth_sorkind01_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind01_withchilds:S?registrationuserauthview.registrationuser_sorkind01_withchilds:Si"  ><label for="registrationuser_auth_sorkind01_withchildsSi"> Si</label>
+						<input id="registrationuser_auth_sorkind01_withchildsNo" type="radio" name="registrationuser_auth_sorkind01_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind01_withchilds:N?registrationuserauthview.registrationuser_sorkind01_withchilds:No"  ><label for="registrationuser_auth_sorkind01_withchildsNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_all_sorkind01">Vedi tutto</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_all_sorkind01Si" type="radio" name="registrationuser_auth_all_sorkind01" class="custom-control-input" data-tag="registrationuser.all_sorkind01:S?registrationuserauthview.registrationuser_all_sorkind01:Si"  ><label for="registrationuser_auth_all_sorkind01Si"> Si</label>
+						<input id="registrationuser_auth_all_sorkind01No" type="radio" name="registrationuser_auth_all_sorkind01" class="custom-control-input" data-tag="registrationuser.all_sorkind01:N?registrationuserauthview.registrationuser_all_sorkind01:No"  ><label for="registrationuser_auth_all_sorkind01No"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_idsor02">Classificazione 2</label>
+					<div>
+						<input id="registrationuser_auth_idsor02" name="registrationuser_auth_idsor02" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias1.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_sorkind02_withchilds">Con gerarchia sottostante</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_sorkind02_withchildsSi" type="radio" name="registrationuser_auth_sorkind02_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind02_withchilds:S?registrationuserauthview.registrationuser_sorkind02_withchilds:Si"  ><label for="registrationuser_auth_sorkind02_withchildsSi"> Si</label>
+						<input id="registrationuser_auth_sorkind02_withchildsNo" type="radio" name="registrationuser_auth_sorkind02_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind02_withchilds:N?registrationuserauthview.registrationuser_sorkind02_withchilds:No"  ><label for="registrationuser_auth_sorkind02_withchildsNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_all_sorkind02">Vedi tutto</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_all_sorkind02Si" type="radio" name="registrationuser_auth_all_sorkind02" class="custom-control-input" data-tag="registrationuser.all_sorkind02:S?registrationuserauthview.registrationuser_all_sorkind02:Si"  ><label for="registrationuser_auth_all_sorkind02Si"> Si</label>
+						<input id="registrationuser_auth_all_sorkind02No" type="radio" name="registrationuser_auth_all_sorkind02" class="custom-control-input" data-tag="registrationuser.all_sorkind02:N?registrationuserauthview.registrationuser_all_sorkind02:No"  ><label for="registrationuser_auth_all_sorkind02No"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_idsor03">Classificazione 3</label>
+					<div>
+						<input id="registrationuser_auth_idsor03" name="registrationuser_auth_idsor03" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias2.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_sorkind03_withchilds">Con gerarchia sottostante</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_sorkind03_withchildsSi" type="radio" name="registrationuser_auth_sorkind03_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind03_withchilds:S?registrationuserauthview.registrationuser_sorkind03_withchilds:Si"  ><label for="registrationuser_auth_sorkind03_withchildsSi"> Si</label>
+						<input id="registrationuser_auth_sorkind03_withchildsNo" type="radio" name="registrationuser_auth_sorkind03_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind03_withchilds:N?registrationuserauthview.registrationuser_sorkind03_withchilds:No"  ><label for="registrationuser_auth_sorkind03_withchildsNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_all_sorkind03">Vedi tutto</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_all_sorkind03Si" type="radio" name="registrationuser_auth_all_sorkind03" class="custom-control-input" data-tag="registrationuser.all_sorkind03:S?registrationuserauthview.registrationuser_all_sorkind03:Si"  ><label for="registrationuser_auth_all_sorkind03Si"> Si</label>
+						<input id="registrationuser_auth_all_sorkind03No" type="radio" name="registrationuser_auth_all_sorkind03" class="custom-control-input" data-tag="registrationuser.all_sorkind03:N?registrationuserauthview.registrationuser_all_sorkind03:No"  ><label for="registrationuser_auth_all_sorkind03No"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_idsor04">Classificazione 4</label>
+					<div>
+						<input id="registrationuser_auth_idsor04" name="registrationuser_auth_idsor04" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias3.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_sorkind04_withchilds">Con gerarchia sottostante</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_sorkind04_withchildsSi" type="radio" name="registrationuser_auth_sorkind04_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind04_withchilds:S?registrationuserauthview.registrationuser_sorkind04_withchilds:Si"  ><label for="registrationuser_auth_sorkind04_withchildsSi"> Si</label>
+						<input id="registrationuser_auth_sorkind04_withchildsNo" type="radio" name="registrationuser_auth_sorkind04_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind04_withchilds:N?registrationuserauthview.registrationuser_sorkind04_withchilds:No"  ><label for="registrationuser_auth_sorkind04_withchildsNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_all_sorkind04">Vedi tutto</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_all_sorkind04Si" type="radio" name="registrationuser_auth_all_sorkind04" class="custom-control-input" data-tag="registrationuser.all_sorkind04:S?registrationuserauthview.registrationuser_all_sorkind04:Si"  ><label for="registrationuser_auth_all_sorkind04Si"> Si</label>
+						<input id="registrationuser_auth_all_sorkind04No" type="radio" name="registrationuser_auth_all_sorkind04" class="custom-control-input" data-tag="registrationuser.all_sorkind04:N?registrationuserauthview.registrationuser_all_sorkind04:No"  ><label for="registrationuser_auth_all_sorkind04No"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_idsor05">Classificazione 5</label>
+					<div>
+						<input id="registrationuser_auth_idsor05" name="registrationuser_auth_idsor05" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sortingusabledefaultview_alias4.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_sorkind05_withchilds">Con gerarchia sottostante</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_sorkind05_withchildsSi" type="radio" name="registrationuser_auth_sorkind05_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind05_withchilds:S?registrationuserauthview.registrationuser_sorkind05_withchilds:Si"  ><label for="registrationuser_auth_sorkind05_withchildsSi"> Si</label>
+						<input id="registrationuser_auth_sorkind05_withchildsNo" type="radio" name="registrationuser_auth_sorkind05_withchilds" class="custom-control-input" data-tag="registrationuser.sorkind05_withchilds:N?registrationuserauthview.registrationuser_sorkind05_withchilds:No"  ><label for="registrationuser_auth_sorkind05_withchildsNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_all_sorkind05">Vedi tutto</label>
+					<div class="custom-control custom-radio">
+						<input id="registrationuser_auth_all_sorkind05Si" type="radio" name="registrationuser_auth_all_sorkind05" class="custom-control-input" data-tag="registrationuser.all_sorkind05:S?registrationuserauthview.registrationuser_all_sorkind05:Si"  ><label for="registrationuser_auth_all_sorkind05Si"> Si</label>
+						<input id="registrationuser_auth_all_sorkind05No" type="radio" name="registrationuser_auth_all_sorkind05" class="custom-control-input" data-tag="registrationuser.all_sorkind05:N?registrationuserauthview.registrationuser_all_sorkind05:No"  ><label for="registrationuser_auth_all_sorkind05No"> No</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registrationuser_auth_requesttimestamp">Data della richiesta</label>
-					<input id="registrationuser_auth_requesttimestamp" type="text" class="form-control" data-tag="registrationuser.requesttimestamp.g?registrationuserauthview.registrationuser_requesttimestamp.g"  />
+					<input id="registrationuser_auth_requesttimestamp" type="text" class="form-control" data-tag="registrationuser.requesttimestamp.g?registrationuserauthview.registrationuser_requesttimestamp.g"   data-dateTimePickerFormat="dd/mm/yy"/>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registrationuser_auth_idregistrationuserstatus">Stato della richiesta</label>
+					<select id="registrationuser_auth_idregistrationuserstatus" class="custom-select d-block w-100"  data-source-name="registrationuserstatus" data-value-member="idregistrationuserstatus" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="registrationuser.idregistrationuserstatus?registrationuserauthview.registrationuser_idregistrationuserstatus"   > </select>
 				</div>
 			</div>
 		<button id="GiveAccess" type="button" class="btn btn-primary p-2 mt-2" >

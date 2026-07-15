@@ -3,23 +3,6 @@
   <xs:element name="dsmeta_convalidato_segisttri" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="changeskinddefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="changeskind_idchanges" type="xs:int" minOccurs="0" />
-              <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idchangeskind" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="changes" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idchanges" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="attivformdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -88,16 +71,16 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:changeskinddefaultview" />
-      <xs:field xpath="mstns:idchangeskind" />
-    </xs:unique>
-    <xs:unique name="changes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:changes" />
-      <xs:field xpath="mstns:idchanges" />
-    </xs:unique>
-    <xs:unique name="attivformdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attivformdefaultview" />
+      <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
     </xs:unique>
     <xs:unique name="convalidato_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:convalidato" />
@@ -108,9 +91,6 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_convalidato_changeskinddefaultview_idchangeskind" msdata:parent="changeskinddefaultview" msdata:child="convalidato" msdata:parentkey="idchangeskind" msdata:childkey="idchangeskind" />
-      <msdata:Relationship name="FK_changeskinddefaultview_changes_idchanges" msdata:parent="changes" msdata:child="changeskinddefaultview" msdata:parentkey="idchanges" msdata:childkey="changeskind_idchanges" />
-      <msdata:Relationship name="FK_convalidato_changes_idchanges" msdata:parent="changes" msdata:child="convalidato" msdata:parentkey="idchanges" msdata:childkey="idchanges" />
       <msdata:Relationship name="FK_convalidato_attivformdefaultview_idattivform" msdata:parent="attivformdefaultview" msdata:child="convalidato" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
     </xs:appinfo>
   </xs:annotation>

@@ -23,12 +23,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'dotmas':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
-						this.describeAColumn(table, 'corsostudio_title_en', 'Denominazione (EN)', null, 20, 1024);
-						this.describeAColumn(table, 'corsostudio_codice', 'Codice', null, 30, 50);
-						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura di riferimento', null, 70, 1024);
-						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo', null, 20, 50);
-						this.describeAColumn(table, 'struttura_idstrutturakind', 'Tipo Tipo', null, 20, null);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 1024);
+						this.describeAColumn(table, 'corsostudio_title_en', 'Denominazione (EN)', null, 2000, 1024);
+						this.describeAColumn(table, 'corsostudio_codice', 'Codice', null, 3000, 50);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Struttura di riferimento', null, 7100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Struttura di riferimento', null, 7220, 50);
 //$objCalcFieldConfig_dotmas$
 						break;
 //$objCalcFieldConfig$

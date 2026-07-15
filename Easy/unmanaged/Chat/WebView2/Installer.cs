@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Diagnostics;
@@ -36,12 +34,12 @@ namespace Chat.WebView2 {
         };
 
         /// <summary>
-        /// Indica se WebView2 Ë installato sul sistema.
+        /// Indica se WebView2 √® installato sul sistema.
         /// </summary>
         public static bool IsWebView2Installed => regKeysExist.Any(keyExists => keyExists == true); // ci basta una qualsiasi delle chiavi
 
         /// <summary>
-        /// Avvia l'eseguibile indicato se WebView2 non Ë installato e l'eseguibile esiste.
+        /// Avvia l'eseguibile indicato se WebView2 non √® installato e l'eseguibile esiste.
         /// </summary>
         /// <param name="executablePath">Percorso dell'eseguibile da avviare.</param>
         /// <param name="expectedHash">Hash previsto.</param>

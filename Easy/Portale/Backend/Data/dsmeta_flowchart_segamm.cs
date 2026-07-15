@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_flowchart_segamm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_flowchart_segamm: DataSet {
+public partial class dsmeta_flowchart_segamm: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -41,6 +39,12 @@ public class dsmeta_flowchart_segamm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable flowchartrestrictedfunction 		=> (MetaTable)Tables["flowchartrestrictedfunction"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable exportdefinition 		=> (MetaTable)Tables["exportdefinition"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable exportdefinitionflowchart 		=> (MetaTable)Tables["exportdefinitionflowchart"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable flowchartsegview 		=> (MetaTable)Tables["flowchartsegview"];
@@ -128,11 +132,40 @@ private void initClass() {
 	Tables.Add(tflowchartrestrictedfunction);
 	tflowchartrestrictedfunction.defineKey("idflowchart", "idrestrictedfunction");
 
+	//////////////////// EXPORTDEFINITION /////////////////////////////////
+	var texportdefinition= new MetaTable("exportdefinition");
+	texportdefinition.defineColumn("active", typeof(string));
+	texportdefinition.defineColumn("ct", typeof(DateTime),false);
+	texportdefinition.defineColumn("cu", typeof(string),false);
+	texportdefinition.defineColumn("description", typeof(string));
+	texportdefinition.defineColumn("idattach_template", typeof(int));
+	texportdefinition.defineColumn("idexportdefinition", typeof(int),false);
+	texportdefinition.defineColumn("idfileformat", typeof(string),false);
+	texportdefinition.defineColumn("idmenuweb", typeof(int),false);
+	texportdefinition.defineColumn("lt", typeof(DateTime),false);
+	texportdefinition.defineColumn("lu", typeof(string),false);
+	texportdefinition.defineColumn("outputfilename", typeof(string));
+	texportdefinition.defineColumn("procedurename", typeof(string));
+	texportdefinition.defineColumn("timeoutseconds", typeof(int));
+	texportdefinition.defineColumn("title", typeof(string));
+	Tables.Add(texportdefinition);
+	texportdefinition.defineKey("idexportdefinition");
+
+	//////////////////// EXPORTDEFINITIONFLOWCHART /////////////////////////////////
+	var texportdefinitionflowchart= new MetaTable("exportdefinitionflowchart");
+	texportdefinitionflowchart.defineColumn("ct", typeof(DateTime),false);
+	texportdefinitionflowchart.defineColumn("cu", typeof(string),false);
+	texportdefinitionflowchart.defineColumn("idexportdefinition", typeof(int),false);
+	texportdefinitionflowchart.defineColumn("idflowchart", typeof(string),false);
+	texportdefinitionflowchart.defineColumn("lt", typeof(DateTime),false);
+	texportdefinitionflowchart.defineColumn("lu", typeof(string),false);
+	Tables.Add(texportdefinitionflowchart);
+	texportdefinitionflowchart.defineKey("idexportdefinition", "idflowchart");
+
 	//////////////////// FLOWCHARTSEGVIEW /////////////////////////////////
 	var tflowchartsegview= new MetaTable("flowchartsegview");
 	tflowchartsegview.defineColumn("dropdown_title", typeof(string),false);
 	tflowchartsegview.defineColumn("idflowchart", typeof(string),false);
-	tflowchartsegview.defineColumn("paridflowchart", typeof(string),false);
 	Tables.Add(tflowchartsegview);
 	tflowchartsegview.defineKey("idflowchart");
 
@@ -180,6 +213,14 @@ private void initClass() {
 	cPar = new []{restrictedfunction.Columns["idrestrictedfunction"]};
 	cChild = new []{flowchartrestrictedfunction.Columns["idrestrictedfunction"]};
 	Relations.Add(new DataRelation("FK_flowchartrestrictedfunction_restrictedfunction_idrestrictedfunction",cPar,cChild,false));
+
+	cPar = new []{flowchart.Columns["idflowchart"]};
+	cChild = new []{exportdefinitionflowchart.Columns["idflowchart"]};
+	Relations.Add(new DataRelation("FK_exportdefinitionflowchart_flowchart_idflowchart",cPar,cChild,false));
+
+	cPar = new []{exportdefinition.Columns["idexportdefinition"]};
+	cChild = new []{exportdefinitionflowchart.Columns["idexportdefinition"]};
+	Relations.Add(new DataRelation("FK_exportdefinitionflowchart_exportdefinition_idexportdefinition",cPar,cChild,false));
 
 	cPar = new []{flowchartsegview.Columns["idflowchart"]};
 	cChild = new []{flowchart.Columns["paridflowchart"]};

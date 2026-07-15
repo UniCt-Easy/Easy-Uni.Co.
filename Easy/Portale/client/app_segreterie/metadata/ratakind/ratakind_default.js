@@ -83,6 +83,8 @@
 
 			//insertClick
 
+			//beforePost
+
 			manageratakind_default_idratakind: function () {
 				var def = appMeta.Deferred("beforeFill-manageratakind_idratakind");
 				var self = this;

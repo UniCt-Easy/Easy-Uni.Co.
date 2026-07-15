@@ -26,7 +26,7 @@
 					case 'default':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 50);
 						this.describeAColumn(table, 'active', 'Attivo', null, 30, null);
-						this.describeAColumn(table, 'sortcode', 'Sortcode', null, 40, null);
+						this.describeAColumn(table, 'sortcode', 'Ordinamento', null, 40, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -37,23 +37,31 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["title"].caption = "Denominazione";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_ratakind");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_ratakind");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$
@@ -64,6 +72,9 @@
 				switch (listType) {
 					case "default": {
 						return "title asc ";
+					}
+					case "default": {
+						return "title asc , sortcode desc";
 					}
 					//$getSortingin$
 				}

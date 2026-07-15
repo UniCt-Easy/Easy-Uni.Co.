@@ -23,10 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
-						this.describeAColumn(table, 'convalidakind_description', 'Descrizione', null, 30, 256);
-						this.describeAColumn(table, 'convalidakind_active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'convalidakind_sortcode', 'Sortcode', null, 50, null);
+						this.describeAColumn(table, 'title', 'Tipologia', null, 2000, 128);
+						this.describeAColumn(table, 'convalidakind_description', 'Descrizione', null, 3000, 256);
+						this.describeAColumn(table, 'convalidakind_active', 'Attivo', null, 4000, null);
+						this.describeAColumn(table, 'convalidakind_sortcode', 'Ordinamento', null, 5000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -50,6 +50,9 @@
 				switch (listType) {
 					case "default": {
 						return "title desc";
+					}
+					case "default": {
+						return "title desc, convalidakind_sortcode desc";
 					}
 					//$getSortingin$
 				}

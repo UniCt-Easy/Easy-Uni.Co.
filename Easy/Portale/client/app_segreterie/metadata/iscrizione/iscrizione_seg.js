@@ -42,9 +42,43 @@
 				return def.promise();
 			},
 			
-			//beforeFill
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#iscrizione_seg_idreg'), null);
+				} else {
+					this.helpForm.filter($('#iscrizione_seg_idreg'), this.q.eq('registry_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-iscrizione_seg");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#iscrizione_seg_iddidprog'), true);
+				this.enableControl($('#iscrizione_seg_idreg'), true);
+				this.helpForm.filter($('#iscrizione_seg_idreg'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -61,10 +95,10 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-iscrizione_seg");
-				$('#iscrizione_seg_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_seg_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_seg_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_seg_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#iscrizione_seg_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#iscrizione_seg_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#iscrizione_seg_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#iscrizione_seg_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -85,6 +119,8 @@
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
 
 			children: ['iscrizioneanno'],
 			haveChildren: function () {

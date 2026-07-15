@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace sdi_rifamm_default {
     partial class Frm_sdi_rifamm_default {
@@ -179,7 +177,7 @@ namespace sdi_rifamm_default {
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(329, 13);
             this.label10.TabIndex = 122;
-            this.label10.Text = "Nota: questo Ë il campo da riempire per il nuovo servizio Titulus Easy";
+            this.label10.Text = "Nota: questo √® il campo da riempire per il nuovo servizio Titulus Easy";
             // 
             // label2
             // 

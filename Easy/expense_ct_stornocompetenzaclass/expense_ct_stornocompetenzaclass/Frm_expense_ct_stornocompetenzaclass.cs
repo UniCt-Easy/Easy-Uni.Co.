@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +21,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using metadatalibrary;
+using metaeasylibrary;
 using funzioni_configurazione;
 using System.Collections;
 
@@ -166,7 +165,7 @@ namespace expense_ct_stornocompetenzaclass {
         }
 
         //Restituisce il tipo classificazione di fase 4 , associata a @idsorkind, ossia al tipo classificazione di fase 1.
-        /* Al momento la situazione delle classificazioni Ë la seguente:
+        /* Al momento la situazione delle classificazioni √® la seguente:
          *7	    COAN_U	    COAN Impegni
          *8	    COAN_U3	    COAN Liquidazioni
          *11	07U_MIUR	MIUR 2007 Spese
@@ -256,7 +255,7 @@ namespace expense_ct_stornocompetenzaclass {
             rExpVar["autokind"] = 29;// Storno disponibile Impegno Provenienza Competenza(Catania)
             rExpVar["adate"] = Meta.GetSys("datacontabile");
 
-            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cosÏ non considero la class. parziali
+            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cos√¨ non considero la class. parziali
             int esercizio = (int)Meta.GetSys("esercizio");
             string queryF1 = "select es1.idsor, s1.sortcode, s1.idsorkind, sum(es1.amount) as amountsorted "
            + " from expenseview "
@@ -396,10 +395,10 @@ namespace expense_ct_stornocompetenzaclass {
                 }
             }
 
-            //Effettua il post
-            PostData Post = Meta.Get_PostData();
-            Post.InitClass(DS, Conn);
-            bool res = Post.DO_POST();
+
+            Easy_PostData MyPostData = new Easy_PostData();
+            MyPostData.InitClass(DS, Conn);
+            bool res = MyPostData.DO_POST();
             if (res) {
                 object nomefase = Conn.DO_READ_VALUE("expensephase", QHS.CmpEq("nphase", Meta.GetSys("appropriationphase")), "description");
                 string mess = "Operazione Eseguita con successo.\r\n"

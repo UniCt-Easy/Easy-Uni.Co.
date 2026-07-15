@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,16 +13,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[get_itinerationrefundrule]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [get_itinerationrefundrule]
 GO
-
-
+--setuser'amministrazione'
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
 GO
+
+--DECLARE @outvar DECIMAL(19,2)
+--execute get_itinerationrefundrule 25725,7, 'iddetail',@outvar output
+--SELECT  @outvar
 
 CREATE  PROCEDURE [get_itinerationrefundrule]
 (
@@ -52,7 +53,9 @@ DECLARE @incomeclass int
 DECLARE @flag_geo char
 DECLARE @starttime smalldatetime
 DECLARE @iditinerationrefundkindgroup int
-declare @nhour int
+DECLARE @nhour int
+DECLARE @idforeigncountry int
+DECLARE @amount_f decimal(19,2)
 
 SELECT 	@idreg=itineration.idreg,
 	@livello = registrylegalstatus.livello,
@@ -70,7 +73,9 @@ SELECT 	@idreg=itineration.idreg,
 -- get flag,starttime from itinerationrefund
 SELECT  @flag_geo=flag_geo, @starttime = itinerationrefund.starttime,
 	@iditinerationrefundkindgroup=itinerationrefundkind.iditinerationrefundkindgroup , 
-	@nhour = datediff(hour, itinerationrefund.starttime,itinerationrefund.stoptime) 
+	@nhour = datediff(hour, itinerationrefund.starttime,itinerationrefund.stoptime),
+	@idforeigncountry = itinerationrefund.idforeigncountry,
+	@iditineration = itinerationrefund.iditineration
 	from itinerationrefund 
 	join itinerationrefundkind on itinerationrefund.iditinerationrefundkind=
 	itinerationrefundkind.iditinerationrefundkind
@@ -104,14 +109,69 @@ SELECT  @flag_geo=flag_geo, @starttime = itinerationrefund.starttime,
 	order by itinerationrefundrule.start desc
 
 if (select count(*) from #temp)=0 set @returnvalue=null
+--SELECT * from #temp
+--SELECT '@amount',@amount
+--SELECT '@idforeigncountry',@idforeigncountry
+--SELECT '@idposition',@idposition
 
 if @fieldname='iditinerationrefundrule' set @returnvalue=(select iditinerationrefundrule from #temp)
-if @fieldname='iddetail' set @returnvalue=(select iddetail from #temp)
+if @fieldname='iddetail' 
+ begin 
+ -- Per le missioni estere, Spese di vitto, Importo giornaliero previsto della spesa, letto dalla tabella MacroareaBoard. 
+-- Prendiamo 1 o 2 a seconda della pos.giuridica dell'anagrafica
+if (@iditinerationrefundkindgroup = 1) -- spese di vitto
+BEGIN
+		SET @amount_f = (SELECT CASE 
+				WHEN (select foreignclass from position
+					JOIN registrylegalstatus
+						ON position.idposition = registrylegalstatus.idposition
+					JOIN itineration
+						ON itineration.idregistrylegalstatus = registrylegalstatus.idregistrylegalstatus 
+						AND itineration.idreg = registrylegalstatus.idreg 
+					WHERE itineration.iditineration = @iditineration) = '1'
+
+				THEN  (SELECT amount_1
+					FROM macroareaboard
+					JOIN foreigncountry
+						ON foreigncountry.idmacroarea = macroareaboard.idmacroareaboard
+					WHERE foreigncountry.idforeigncountry = @idforeigncountry)
+
+				ELSE  (SELECT amount_2
+					FROM macroareaboard
+					JOIN foreigncountry
+						ON foreigncountry.idmacroarea = macroareaboard.idmacroareaboard
+					WHERE foreigncountry.idforeigncountry  =  @idforeigncountry)
+		END 
+		)
+	 END 
+	 set @returnvalue=(select iddetail from #temp) 
+	 if  @returnvalue is null set @returnvalue = @amount_f
+ end
 if @fieldname='advancepercentage' set @returnvalue=(select advancepercentage from #temp)
 if @fieldname='nhour_min' set @returnvalue=(select nhour_min from #temp)
 if @fieldname='nhour_max' set @returnvalue=(select nhour_max from #temp)
 if @fieldname='limit' set @returnvalue=(select limit from #temp)
-
+if @fieldname='daily_total'  
+BEGIN
+	WITH 
+	-- Step 2: Somma le amount per giorno e gruppo
+	TotaleGiornaliero AS (
+		SELECT 
+			CAST(ir.starttime AS DATE) AS giorno,
+			irk.iditinerationrefundkindgroup AS gruppo,
+			SUM(ir.amount) AS totale_giornaliero
+		FROM itinerationrefund ir
+		JOIN itinerationrefundkind irk 
+			ON ir.iditinerationrefundkind = irk.iditinerationrefundkind
+		WHERE irk.iditinerationrefundkindgroup = @iditinerationrefundkindgroup
+			AND day(ir.starttime) = day(@starttime)  AND day(ir.stoptime) = day(@starttime)
+			AND ir.flag_geo = @flag_geo and  ir.iditineration = @iditineration
+		GROUP BY CAST(ir.starttime AS DATE), irk.iditinerationrefundkindgroup
+	)
+	-- Step 3: Risultato finale
+	SELECT @returnvalue = ISNULL(totale_giornaliero,0) FROM TotaleGiornaliero
+	--SELECT * FROM TotaleGiornaliero
+END 
 
 END
 

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace ct_config_default {
     partial class Frm_ct_config_default {
@@ -55,7 +53,7 @@ namespace ct_config_default {
             this.lblSottosezionale.Name = "lblSottosezionale";
             this.lblSottosezionale.Size = new System.Drawing.Size(217, 13);
             this.lblSottosezionale.TabIndex = 0;
-            this.lblSottosezionale.Text = "Livello che identifica il livello ìsottosezionaleî";
+            this.lblSottosezionale.Text = "Livello che identifica il livello ‚Äúsottosezionale‚Äù";
             // 
             // textBox1
             // 

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -61,10 +59,10 @@ namespace Backend.Components {
             // se arrivo al value torno il value
             if (jObj["value"] != null) {
                 if (jObj["value"].GetType() == typeof(JValue)) {
-                    return ((JValue) jObj["value"]).Value; //Nino: perchË non semplicemente jObj.value?
+                    return ((JValue) jObj["value"]).Value; //Nino: perch√® non semplicemente jObj.value?
                 }
 
-                // caso mcmp, in cui il 2o prm Ë un JObject altrimenti andrebbe in errore
+                // caso mcmp, in cui il 2o prm √® un JObject altrimenti andrebbe in errore
                 if (jObj["value"].GetType() == typeof(JObject)) {
                     Dictionary<string, object> dictFromJObject = new Dictionary<string, object>();
                     // costruisce la dict con le chiavi valori del JObject
@@ -507,7 +505,7 @@ namespace Backend.Components {
                 throw new ArgumentException("Func mCmp() first parameter must be an array");
             }
 
-            // Ë il caso lato js passi un plain object con coppie "key:val" --> la des mi trasforma quel jObject in un dict
+            // √® il caso lato js passi un plain object con coppie "key:val" --> la des mi trasforma quel jObject in un dict
             if (pars[1] is Dictionary<string, object>) {
                 dict = (Dictionary<string, object>) pars[1];
             }

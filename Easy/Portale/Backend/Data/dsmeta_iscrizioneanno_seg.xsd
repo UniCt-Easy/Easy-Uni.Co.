@@ -35,6 +35,7 @@
               <xs:element name="aa" type="xs:string" />
               <xs:element name="anno" type="xs:int" />
               <xs:element name="annofc" type="xs:int" minOccurs="0" />
+              <xs:element name="annopt" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" />
@@ -55,6 +56,9 @@
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogoridefaultview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidprogcurr" />
       <xs:field xpath="mstns:iddidprogori" />
     </xs:unique>
     <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

@@ -82,6 +82,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="forzapunteggio" type="xs:string" minOccurs="0" />
               <xs:element name="idperfprogettoobiettivoattivita" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazionepersonaleobiettivo" type="xs:int" />
@@ -90,6 +91,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="note" type="xs:string" minOccurs="0" />
               <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="punteggio" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_perfvalutazionepersonalesoglia" type="xs:string" minOccurs="0" />
@@ -116,10 +118,14 @@
         <xs:element name="perfobiettiviuoattach" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="idperfobiettiviuo" type="xs:int" />
               <xs:element name="idperfobiettiviuoattach" type="xs:int" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
@@ -131,6 +137,7 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="forzapunteggio" type="xs:string" minOccurs="0" />
               <xs:element name="idperfobiettiviuo" type="xs:int" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
@@ -138,6 +145,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="note" type="xs:string" minOccurs="0" />
               <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="punteggio" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_perfobiettiviuosoglia" type="xs:string" minOccurs="0" />
@@ -169,11 +177,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_active" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_areadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_categoria" type="xs:string" />
               <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_macroareadidattica" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
@@ -209,6 +221,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idafferenza" type="xs:int" />
+              <xs:element name="idperfgiudizio_captec" type="xs:int" minOccurs="0" />
               <xs:element name="idperfschedastatus" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
@@ -223,10 +236,13 @@
               <xs:element name="motivazione" type="xs:string" minOccurs="0" />
               <xs:element name="percateneo" type="xs:decimal" minOccurs="0" />
               <xs:element name="perccomportamenti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="percgradodiff" type="xs:decimal" minOccurs="0" />
               <xs:element name="percobiettivi" type="xs:decimal" minOccurs="0" />
               <xs:element name="percperfuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoateneo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesocaptec" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesocomportamenti" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pesogradodiff" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoobiettivi" type="xs:decimal" minOccurs="0" />
               <xs:element name="pesoperfuo" type="xs:decimal" minOccurs="0" />
               <xs:element name="risultato" type="xs:decimal" minOccurs="0" />

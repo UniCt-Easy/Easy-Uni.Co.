@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -47,7 +45,6 @@ namespace serviceregistry_default
 		private System.Windows.Forms.Button btnInsAtt;
 		private System.Windows.Forms.TabPage tabPrincipale;
 		public serviceregistry_default.vistaForm DS;
-		private System.Windows.Forms.TextBox txtEsercizio;
 		private System.Windows.Forms.GroupBox grbIncaricato;
 		private System.Windows.Forms.RadioButton rdbdipendente;
 		private System.Windows.Forms.RadioButton rdbconsulente01;
@@ -408,7 +405,6 @@ namespace serviceregistry_default
 			this.rdbconsulente02 = new System.Windows.Forms.RadioButton();
 			this.rdbdipendente = new System.Windows.Forms.RadioButton();
 			this.rdbconsulente01 = new System.Windows.Forms.RadioButton();
-			this.txtEsercizio = new System.Windows.Forms.TextBox();
 			this.tabPubblicazione = new System.Windows.Forms.TabPage();
 			this.label22 = new System.Windows.Forms.Label();
 			this.grpPubblicazione = new System.Windows.Forms.GroupBox();
@@ -487,15 +483,16 @@ namespace serviceregistry_default
 			this.btnCodice01 = new System.Windows.Forms.Button();
 			this.txtDenom01 = new System.Windows.Forms.TextBox();
 			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.btnInsAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.labAutoCertificazione = new System.Windows.Forms.Label();
 			this.btnVisualizzaDichiarazioneIncarichi = new System.Windows.Forms.Button();
 			this.btnRimuoviDichiarazioneIncarichi = new System.Windows.Forms.Button();
 			this.btnAllegaDichiarazioneIncarichi = new System.Windows.Forms.Button();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.tabPerla = new System.Windows.Forms.TabPage();
 			this.label41 = new System.Windows.Forms.Label();
 			this.txtCodicePaIpa = new System.Windows.Forms.TextBox();
@@ -512,7 +509,6 @@ namespace serviceregistry_default
 			this.radioButton2 = new System.Windows.Forms.RadioButton();
 			this.cmbdepartment = new System.Windows.Forms.ComboBox();
 			this._opendlg = new System.Windows.Forms.OpenFileDialog();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.Principale.SuspendLayout();
 			this.tabPrincipale.SuspendLayout();
@@ -544,10 +540,10 @@ namespace serviceregistry_default
 			this.gboxclass02.SuspendLayout();
 			this.gboxclass01.SuspendLayout();
 			this.tabAllegati.SuspendLayout();
-			this.groupBox5.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
-			this.tabPerla.SuspendLayout();
 			this.groupBox6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
+			this.groupBox5.SuspendLayout();
+			this.tabPerla.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -587,7 +583,6 @@ namespace serviceregistry_default
 			this.tabPrincipale.Controls.Add(this.txtNumIncarico);
 			this.tabPrincipale.Controls.Add(this.grbincarico);
 			this.tabPrincipale.Controls.Add(this.grpincaricato);
-			this.tabPrincipale.Controls.Add(this.txtEsercizio);
 			this.tabPrincipale.Location = new System.Drawing.Point(4, 22);
 			this.tabPrincipale.Name = "tabPrincipale";
 			this.tabPrincipale.Size = new System.Drawing.Size(925, 754);
@@ -1759,13 +1754,6 @@ namespace serviceregistry_default
 			this.rdbconsulente01.Text = "Consulente";
 			this.rdbconsulente01.CheckedChanged += new System.EventHandler(this.rdbconsulente_CheckedChanged);
 			// 
-			// txtEsercizio
-			// 
-			this.txtEsercizio.Location = new System.Drawing.Point(0, 0);
-			this.txtEsercizio.Name = "txtEsercizio";
-			this.txtEsercizio.Size = new System.Drawing.Size(100, 20);
-			this.txtEsercizio.TabIndex = 10;
-			// 
 			// tabPubblicazione
 			// 
 			this.tabPubblicazione.Controls.Add(this.label22);
@@ -1834,10 +1822,10 @@ namespace serviceregistry_default
 			// 
 			// txtattestazioneConflittiInteresse
 			// 
-			this.txtattestazioneConflittiInteresse.Location = new System.Drawing.Point(201, 557);
+			this.txtattestazioneConflittiInteresse.Location = new System.Drawing.Point(215, 557);
 			this.txtattestazioneConflittiInteresse.Multiline = true;
 			this.txtattestazioneConflittiInteresse.Name = "txtattestazioneConflittiInteresse";
-			this.txtattestazioneConflittiInteresse.Size = new System.Drawing.Size(556, 38);
+			this.txtattestazioneConflittiInteresse.Size = new System.Drawing.Size(542, 38);
 			this.txtattestazioneConflittiInteresse.TabIndex = 48;
 			this.txtattestazioneConflittiInteresse.Tag = "serviceregistry.certinterestconflicts";
 			// 
@@ -1846,9 +1834,9 @@ namespace serviceregistry_default
 			this.lblAttestazioneConflittiInteresse.AutoSize = true;
 			this.lblAttestazioneConflittiInteresse.Location = new System.Drawing.Point(6, 560);
 			this.lblAttestazioneConflittiInteresse.Name = "lblAttestazioneConflittiInteresse";
-			this.lblAttestazioneConflittiInteresse.Size = new System.Drawing.Size(157, 13);
+			this.lblAttestazioneConflittiInteresse.Size = new System.Drawing.Size(203, 13);
 			this.lblAttestazioneConflittiInteresse.TabIndex = 51;
-			this.lblAttestazioneConflittiInteresse.Text = "Attestazione conflitti di interesse";
+			this.lblAttestazioneConflittiInteresse.Text = "Attestazione assenza conflitto di interesse";
 			// 
 			// txtDurataIncarico
 			// 
@@ -2613,6 +2601,60 @@ namespace serviceregistry_default
 			this.tabAllegati.Text = "Allegati";
 			this.tabAllegati.UseVisualStyleBackColor = true;
 			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.btnInsAtt);
+			this.groupBox6.Controls.Add(this.btnEditAtt);
+			this.groupBox6.Controls.Add(this.dataGridAllegati);
+			this.groupBox6.Controls.Add(this.btnDelAtt);
+			this.groupBox6.Location = new System.Drawing.Point(21, 145);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(726, 357);
+			this.groupBox6.TabIndex = 207;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Allegati";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(13, 24);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(108, 24);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(13, 59);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(695, 285);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "serviceregistryattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(204, 24);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
 			// groupBox5
 			// 
 			this.groupBox5.Controls.Add(this.labAutoCertificazione);
@@ -2663,47 +2705,6 @@ namespace serviceregistry_default
 			this.btnAllegaDichiarazioneIncarichi.Text = "Allega";
 			this.btnAllegaDichiarazioneIncarichi.UseVisualStyleBackColor = true;
 			this.btnAllegaDichiarazioneIncarichi.Click += new System.EventHandler(this.btnAllegaDichiarazioneIncarichi_Click);
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(13, 59);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(695, 285);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "serviceregistryattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(204, 24);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(108, 24);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(13, 24);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabPerla
 			// 
@@ -2853,19 +2854,6 @@ namespace serviceregistry_default
 			this.cmbdepartment.Size = new System.Drawing.Size(121, 21);
 			this.cmbdepartment.TabIndex = 0;
 			// 
-			// groupBox6
-			// 
-			this.groupBox6.Controls.Add(this.btnInsAtt);
-			this.groupBox6.Controls.Add(this.btnEditAtt);
-			this.groupBox6.Controls.Add(this.dataGridAllegati);
-			this.groupBox6.Controls.Add(this.btnDelAtt);
-			this.groupBox6.Location = new System.Drawing.Point(21, 145);
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(726, 357);
-			this.groupBox6.TabIndex = 207;
-			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Allegati";
-			// 
 			// Frm_serviceregistry_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -2922,11 +2910,11 @@ namespace serviceregistry_default
 			this.gboxclass01.ResumeLayout(false);
 			this.gboxclass01.PerformLayout();
 			this.tabAllegati.ResumeLayout(false);
-			this.groupBox5.ResumeLayout(false);
+			this.groupBox6.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
+			this.groupBox5.ResumeLayout(false);
 			this.tabPerla.ResumeLayout(false);
 			this.tabPerla.PerformLayout();
-			this.groupBox6.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -3013,8 +3001,13 @@ namespace serviceregistry_default
                 if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value &&
                     idsorkind3 == DBNull.Value && idsorkind4 == DBNull.Value && idsorkind5 == DBNull.Value) {
 						Principale.TabPages.Remove(tabAttributi);
-                    }
                 }
+			}
+
+			// ===============================================================================
+			// La InsertCopy non deve copiare le tabelle degli allegati
+			// ===============================================================================
+			QueryCreator.setSkipInsertCopy(DS.serviceregistryattachment, true);
 		}
 
         public void MetaData_AfterPost() {
@@ -3508,8 +3501,22 @@ namespace serviceregistry_default
 				btnAllegaDichiarazioneIncarichi.Enabled = false;
 				btnVisualizzaDichiarazioneIncarichi.Enabled = true;
 				btnRimuoviDichiarazioneIncarichi.Enabled = true;
-			} 
-			else {
+			}
+            else if(dichiarazioneIncarichi["idfilestorage"] != DBNull.Value) {
+                // MongoDb
+                byte[] B = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, dichiarazioneIncarichi["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (B == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+                labAutoCertificazione.Text = GetFileName(B);
+                btnAllegaDichiarazioneIncarichi.Enabled = false;
+                btnVisualizzaDichiarazioneIncarichi.Enabled = true;
+                btnRimuoviDichiarazioneIncarichi.Enabled = true;
+            }
+            else
+            {
 				labAutoCertificazione.Text = "";
 				btnAllegaDichiarazioneIncarichi.Enabled = true;
 				btnVisualizzaDichiarazioneIncarichi.Enabled = false;
@@ -3933,11 +3940,11 @@ namespace serviceregistry_default
                 byte flagcertinterestconflicts = 0;
                 flagcertinterestconflicts = CfgFn.GetNoNullByte(R["flagcertinterestconflicts"]);
                 if ((flagcertinterestconflicts & 2) != 0) {
-                    lblAttestazioneConflittiInteresse.Text = "Attestazione conflitti di interesse (*)";
+                    lblAttestazioneConflittiInteresse.Text = "Attestazione assenza conflitto di interesse (*)";
                     lblAttestazioneConflittiInteresse.ForeColor = System.Drawing.Color.Red;
                 }
             else {
-                    lblAttestazioneConflittiInteresse.Text = "Attestazione conflitti di interesse";
+                    lblAttestazioneConflittiInteresse.Text = "Attestazione assenza conflitto  di interesse";
                     lblAttestazioneConflittiInteresse.ForeColor = System.Drawing.SystemColors.ControlText;
                 }
 
@@ -4960,8 +4967,23 @@ Componenti variabili del compenso(componentsvariable)
 				btnVisualizzaDichiarazioneIncarichi.Enabled = true;
 				btnRimuoviDichiarazioneIncarichi.Enabled = true;
 			} 
-			else {
-				labAutoCertificazione.Text = "";
+			else if (Curr["idfilestorage"] != DBNull.Value)
+            {
+                // MongoDb
+                byte[] B = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (B == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+                labAutoCertificazione.Text = GetFileName(B);
+                btnAllegaDichiarazioneIncarichi.Enabled = false;
+                btnVisualizzaDichiarazioneIncarichi.Enabled = true;
+                btnRimuoviDichiarazioneIncarichi.Enabled = true;
+            }
+            else
+            {
+                labAutoCertificazione.Text = "";
 				btnAllegaDichiarazioneIncarichi.Enabled = true;
 				btnVisualizzaDichiarazioneIncarichi.Enabled = false;
 				btnRimuoviDichiarazioneIncarichi.Enabled = false;
@@ -4971,25 +4993,28 @@ Componenti variabili del compenso(componentsvariable)
 
 		private void btnRimuoviDichiarazioneIncarichi_Click(object sender, EventArgs e) {
 			if (Meta.IsEmpty) return;
-			DS.serviceregistry.Rows[0]["dichiarazione_incarichi"] = DBNull.Value;
+			if (DS.serviceregistry.Rows[0]["dichiarazione_incarichi"] != DBNull.Value)
+			{
+				DS.serviceregistry.Rows[0]["dichiarazione_incarichi"] = DBNull.Value;
+			}
+			else
+			{
+                DS.serviceregistry.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
 			abilitaDisabilitaAllegati();
 		}
 
 		private void btnVisualizzaDichiarazioneIncarichi_Click(object sender, EventArgs e) {
-			visualizzaAllegato("dichiarazione_incarichi");
-		}
-
-		private void visualizzaAllegato(string certification) {
 			if (Meta.IsEmpty) return;
 
 			DataRow Curr = DS.serviceregistry.Rows[0];
 
-			if (Curr[certification] == DBNull.Value) {
+			if (Curr["dichiarazione_incarichi"] == DBNull.Value && Curr["idfilestorage"] == DBNull.Value) {
 				show("Nessun dato da visualizzare", "Avviso");
 				return;
 			}
 
-			string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+			string FilePath = Path.GetTempPath();
 			string prefix = "SWMOREALL";
 			string filenametodelete = FilePath + prefix + "*.*";
 			string[] existingreports = Directory.GetFiles(FilePath, prefix + "*.*");
@@ -5003,10 +5028,24 @@ Componenti variabili del compenso(componentsvariable)
 			//sw è il nome del file temporaneo che hai creato
 			DateTime oggi_dt = DateTime.Now;
 			string oggi = oggi_dt.Ticks.ToString();
-			
 
-			byte[] ByteArray = (byte[])Curr[certification];
-			int offset = GetOffsetForData(ByteArray);
+
+			byte[] ByteArray = null;
+
+			if (Curr["dichiarazione_incarichi"] != DBNull.Value)
+			{
+				ByteArray = (byte[])Curr["dichiarazione_incarichi"];
+			}
+            else
+            {
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (ByteArray == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+            }
+            int offset = GetOffsetForData(ByteArray);
 			string fname = GetFileName(ByteArray);
 			string estensione = Path.GetExtension(fname).Trim();
 

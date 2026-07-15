@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="CHP_PC" Runat="Server" >
- 
+<div style="border: 1px solid #cccccc;padding: 20px 20px 10px 20px;border-radius: 15px;background-color: #f6f7f9;">
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
             <div class="row">
@@ -61,5 +61,5 @@
             </div>
         </div>
     </div>
-
-    </asp:Content>
+</div>
+</asp:Content>

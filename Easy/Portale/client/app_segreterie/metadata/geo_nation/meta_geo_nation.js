@@ -81,11 +81,6 @@
 //$innerSetCaptionConfig_seg$
 						break;
 					case 'lingue':
-						table.columns["idcontinent"].caption = "Continente";
-						table.columns["lang"].caption = "Lingua";
-						table.columns["start"].caption = "Inizio validità";
-						table.columns["stop"].caption = "Fine validità";
-						table.columns["title"].caption = "Nazione";
 						table.columns["idnation"].caption = "Id nazione (tabella geo_nation)";
 						table.columns["lt"].caption = "data ultima modifica";
 						table.columns["lu"].caption = "nome ultimo utente modifica";

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ namespace meta_treasurerview {//meta_istitutocassiereview//
 	public class Meta_treasurerview : Meta_easydata {
 		public Meta_treasurerview(DataAccess Conn, MetaDataDispatcher Dispatcher):
 			base(Conn, Dispatcher, "treasurerview") {		
-			Name= "Tesoriere";
+			Name= "Conto Corrente";
 			ListingTypes.Add("lista");
 		}
         public override string GetStaticFilter(string ListingType) {
@@ -48,9 +46,9 @@ namespace meta_treasurerview {//meta_istitutocassiereview//
 					DescribeAColumn(T, C.ColumnName, "", -1);
 				}
 				int nPos = 1;
-				DescribeAColumn(T, "idtreasurer",".#Cod. Tesoriere",nPos++);
-                DescribeAColumn(T, "codetreasurer", "Cod. Tesoriere", nPos++);
-                DescribeAColumn(T, "description", "Tesoriere", nPos++);
+				DescribeAColumn(T, "idtreasurer",".#Cod. Conto Corrente",nPos++);
+                DescribeAColumn(T, "codetreasurer", "Cod. Conto Corrente", nPos++);
+                DescribeAColumn(T, "description", "Conto Corrente", nPos++);
                 DescribeAColumn(T, "treasurerstart", "Saldo iniziale", nPos++);
                 DescribeAColumn(T, "currentfloatfund", "Saldo corrente", nPos++);
 				DescribeAColumn(T, "banktitle" , "Banca",nPos++);

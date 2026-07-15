@@ -10,7 +10,6 @@
 		this.canInsertCopy = false;
 		this.canCancel = false;
 		this.canShowLast = false;
-		this.firstSearchFilter = window.jsDataQuery.constant(true);
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
@@ -29,7 +28,7 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -58,6 +57,8 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#affidamento_docente_iddidprog'), true);
+				this.enableControl($('#affidamento_docente_idattivform'), true);
 				this.enableControl($('#affidamento_docente_freqobblSi'), true);
 				this.enableControl($('#affidamento_docente_freqobblNo'), true);
 				this.enableControl($('#affidamento_docente_gratuitoSi'), true);
@@ -71,6 +72,7 @@
 				this.enableControl($('#affidamento_docente_urlcorso'), true);
 				this.enableControl($('#affidamento_docente_frequenzaminima'), true);
 				this.enableControl($('#affidamento_docente_frequenzaminimadebito'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentoattach'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				//afterClearin
 				
@@ -84,19 +86,20 @@
 				this.state.DS.tables.affidamento.defaults({ 'iderogazkind': 1 });
 				this.state.DS.tables.affidamento.defaults({ 'riferimento': "N" });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar37').fullCalendar('rerenderEvents');
+					$('#calendar36').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
 				appMeta.metaModel.insertFilter(this.getDataTable("affidamentokinddefaultview"), this.q.eq('affidamentokind_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
-				$('#grid_affidamentocaratteristica_seg').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
-				var grid_affidamentocaratteristica_segChildsTables = [
-					{ tablename: 'affidamentocaratteristicaora', edittype: 'seg', columnlookup: 'ora', columncalc: '!affidamentocaratteristicaora'},
+				$('#grid_affidamentocaratteristica_doc').data('mdlconditionallookup', 'profess,S,Si;profess,N,No;');
+				var grid_affidamentocaratteristica_docChildsTables = [
+					{ tablename: 'affidamentocaratteristicaora', edittype: 'doc', columnlookup: 'aa', columncalc: '!affidamentocaratteristicaora'},
 				];
-				$('#grid_affidamentocaratteristica_seg').data('childtables', grid_affidamentocaratteristica_segChildsTables);
-				$('#grid_affidamentocaratteristica_seg').data('childtablesadd', false);
-				$('#grid_affidamentocaratteristica_seg').data('childtablesdelete', false);
+				$('#grid_affidamentocaratteristica_doc').data('childtables', grid_affidamentocaratteristica_docChildsTables);
+				$('#grid_affidamentocaratteristica_doc').data('childtablesadd', false);
+				$('#grid_affidamentocaratteristica_doc').data('childtablesedit', false);
+				$('#grid_affidamentocaratteristica_doc').data('childtablesdelete', false);
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -130,7 +133,11 @@
 
 			//beforePost
 
+			//afterPost
+
 			afterFill: function () {
+				this.enableControl($('#affidamento_docente_iddidprog'), false);
+				this.enableControl($('#affidamento_docente_idattivform'), false);
 				this.enableControl($('#affidamento_docente_freqobblSi'), false);
 				this.enableControl($('#affidamento_docente_freqobblNo'), false);
 				this.enableControl($('#affidamento_docente_gratuitoSi'), false);
@@ -144,6 +151,7 @@
 				this.enableControl($('#affidamento_docente_urlcorso'), false);
 				this.enableControl($('#affidamento_docente_frequenzaminima'), false);
 				this.enableControl($('#affidamento_docente_frequenzaminimadebito'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentoattach'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
 				//afterFillin
 

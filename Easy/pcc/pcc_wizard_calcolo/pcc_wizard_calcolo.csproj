@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0603D059-5B0E-46F6-926C-751D4D071316}</ProjectGuid>
+    <ProjectGuid>{CB49AAFA-84FD-4E84-B890-457EBA7492F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>pcc_wizard_calcolo</RootNamespace>

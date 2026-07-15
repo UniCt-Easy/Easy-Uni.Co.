@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -108,19 +106,19 @@ namespace EasyPagamenti {
 
         public bool ServerCallback(LdapConnection connection, X509Certificate certificate) {
             /// <summary>
-            /// Se verifyservercertificate Ë true (ossia sulla tabella ldapconfig Ë posto ad "S")
+            /// Se verifyservercertificate √® true (ossia sulla tabella ldapconfig √® posto ad "S")
             /// viene invocato questo metodo di callback che ritorna sempre true.
-            /// Ë servito nel caso specifico di OpenLDAP su LE in cui usano l'SSL, ma il certificato
-            /// va letto e non verificato (quindi Ë sufficiente far ritornare sempre true). 
-            /// Se si deve implementare una verifica Ë necessario fare override di questo metodo.            
+            /// √® servito nel caso specifico di OpenLDAP su LE in cui usano l'SSL, ma il certificato
+            /// va letto e non verificato (quindi √® sufficiente far ritornare sempre true). 
+            /// Se si deve implementare una verifica √® necessario fare override di questo metodo.            
             /// </summary>
 
             return true;
         }
 
         /// <summary>
-        /// Ritorna true se l'utente LDAP avente username e password Ë autenticato
-        /// false altrimenti. Se verifyservercertificate Ë true assegna la funzione di callback
+        /// Ritorna true se l'utente LDAP avente username e password √® autenticato
+        /// false altrimenti. Se verifyservercertificate √® true assegna la funzione di callback
         /// Dop l'autenticazione controlla che il CF sia presenta in  Active directory
         /// </summary>
         public bool Authenticate(string username, string password, object cf, out bool userexistsinAd) {

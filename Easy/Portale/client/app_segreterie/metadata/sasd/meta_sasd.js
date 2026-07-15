@@ -26,7 +26,7 @@
 					case 'default':
 						this.describeAColumn(table, 'codice', 'Codice', null, 20, 50);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 255);
-						this.describeAColumn(table, 'codice_old', 'Codice legge precedente', null, 50, 4);
+						this.describeAColumn(table, 'codice_old', 'Codice legge precedente', null, 50, 255);
 						this.describeAColumn(table, 'tipoente', 'Tipologia di ente', null, 60, null);
 //$objCalcFieldConfig_default$
 						break;

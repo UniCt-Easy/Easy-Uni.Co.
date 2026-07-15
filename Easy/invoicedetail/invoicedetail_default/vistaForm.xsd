@@ -522,6 +522,8 @@
               <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
               <xs:element name="codeivaregisterkind" type="xs:string" />
               <xs:element name="idivaregisterkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="emails" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

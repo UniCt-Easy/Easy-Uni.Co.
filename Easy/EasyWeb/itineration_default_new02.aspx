@@ -4,17 +4,9 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="CHP_PC" Runat="Server" >
     <div class="row">
         <div class="col-12">
-            <ul id="mainTabControl" class="nav nav-tabs nav-justified">
-		        <li><a data-toggle="tab" href="#tabgenerale">Generale</a></li>
-		        <li><a data-toggle="tab" href="#tabautorizzazionicomunicazioni">Autorizzazioni</a></li>
-		        <li><a data-toggle="tab" id='titleTappe' href="#tabtappespese">Tappe e Spese</a></li>
-                <li><a data-toggle="tab" href="#tabmezzo">Mezzo proprio</a></li>
-                <li><a data-toggle="tab" href="#tabpagamenti">Annotazioni</a></li>
-		        <li><a data-toggle="tab" href="#taballegati">Allegati</a></li>
-                <li><a data-toggle="tab" href="#tabEP">E/P</a></li>
-	        </ul>
-	        <div class="tab-content">
-		        <div id="tabgenerale" class="tab-pane fade in active">
+	        <div>
+		        <h3 class="ui-accordion-header active">Generale</h3>
+			    <div id="tabgenerale" class="ui-accordion-content active">
                     <div title="Generale">
                         <asp:Panel ID="Panel1" runat="server">
                             <div class="row">
@@ -22,10 +14,11 @@
                                     <!-- 4 colonne vuote-->
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    <cc1:hwButton runat="server" ID="btnitinerationhistory" Text="Storico Missioni Approvate" class="btn btn-primary" TabIndex="-1" ></cc1:hwButton>
+                                    <cc1:hwButton runat="server" ID="btnitinerationhistory" Text="Storico Missioni Approvate" class="btn btn-primary ForPanToolBar" TabIndex="-1" ></cc1:hwButton>
                                 </div>
-                                <div class="col-md-4">
-                                <cc1:hwButton ID="btnStampaMissione"  runat="server" Tag="stampamissione" class="btn btn-primary" Text="Stampa Missione" Visible="true"></cc1:hwButton>
+                                <div class="col-md-4 d-flex justify-content-end">
+                                <cc1:hwButton ID="btnStampaMissione"  runat="server" Tag="stampamissione" class="btn btn-primary printmission" Text="Stampa Missione" Visible="true">
+								</cc1:hwButton>
 			            
                                 </div>
 
@@ -341,7 +334,8 @@
 
 		        </div> <!--chiude tabgenerale-->
 
-		        <div id="tabautorizzazionicomunicazioni" class="tab-pane fade">
+		        <h3 class="ui-accordion-header">Autorizzazioni</h3>
+			    <div id="tabautorizzazionicomunicazioni" class="ui-accordion-content">
                     <div title="Autorizzazioni e Comunicazioni">
                         <div class="row">
                             <div class="col-md-12">
@@ -384,7 +378,8 @@
                     </div>
 		        </div>
 		
-                <div id="tabtappespese" class="tab-pane fade">
+                <h3 class="ui-accordion-header">Tappe e Spese</h3>
+			    <div id="tabtappespese" class="ui-accordion-content">
                     <div title="Tappe e Spese">
                         <asp:Panel ID="PanelTappe" runat="server">
                             <div class="row hid1">		 		
@@ -497,7 +492,8 @@
 				        </div>
                     </div>
 
-		        <div id="tabmezzo" class="tab-pane fade">
+		        <h3 class="ui-accordion-header">Mezzo proprio</h3>
+			    <div id="tabmezzo" class="ui-accordion-content">
                     <div title="Mezzo proprio"> 
                         <asp:Panel ID="km_panel" runat="server">
                             <div class="row">
@@ -615,7 +611,8 @@
                     </div> <!-- chiude Title Mezzo proprio-->
 		        </div> <!-- chiude tab Mezzo proprio-->
 
-                <div id="tabpagamenti" class="tab-pane fade">
+                <h3 class="ui-accordion-header">Annotazioni</h3>
+			    <div id="tabpagamenti" class="ui-accordion-content">
                     <div title="Pagamenti">
                         <div class="row">
                             <div class="col-md-12">
@@ -640,7 +637,8 @@
                     </div>
                 </div>
 
-		        <div id="taballegati" class="tab-pane fade">
+		        <h3 class="ui-accordion-header">Allegati</h3>
+			    <div id="taballegati" class="ui-accordion-content">
                     <div title="Allegati">
                         <asp:Panel ID="Panel2" runat="server">
                             <div class="row">
@@ -659,7 +657,8 @@
                     </div>
 		        </div>
 
-                <div id="tabEP" class="tab-pane fade">
+                <h3 class="ui-accordion-header">E/P</h3>
+			    <div id="tabEP" class="ui-accordion-content">
                     <div title="E/P">
                         <div class="row">
                             <div class="col-md-6">
@@ -769,6 +768,16 @@
 		    </div>
         </div>
     </div>
+	<%
+		string outval = "accordion";
+		try {
+			outval = this.GetType().Name;
+		}
+		catch {}
+	%>
+	<script type="text/javascript" src="js/cookiemgr.js?v=30"></script>
+	<script>var cookiePageName = "<%= outval %>";</script>
+	<script type="text/javascript" src="js/scrollpositionmgr.js?v=40"></script>
 
     <script type="text/javascript">
         function CalcTotAPiedi() {
@@ -809,7 +818,22 @@
             Total.TypeName = "Decimal";
 
             $(".c_EurTotMezzoProprio").val(StringValue(Total, "c.2...1"));
-        }
-    </script>
+		}
+		document.addEventListener("DOMContentLoaded", function () {
+			const accordionHeaders = document.querySelectorAll(".ui-accordion-header");
 
+			accordionHeaders.forEach(header => {
+				header.addEventListener("click", function () {
+					this.classList.toggle("active");
+					const accordionItem = this.nextElementSibling;
+					accordionItem.classList.toggle("active");
+				});
+            });
+			let forPanToolBar = document.querySelector(".ForPanToolBar");
+			let panToolBar = document.querySelector(".PanToolBar");
+			if (forPanToolBar && panToolBar) {
+				panToolBar.appendChild(forPanToolBar);
+			}
+		});
+	</script>
 </asp:Content>

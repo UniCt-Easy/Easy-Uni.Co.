@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,12 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
 using metaeasylibrary;
@@ -74,7 +68,7 @@ namespace meta_finattachment
                 return false;
             }
 
-            if (R["attachment"] == DBNull.Value)
+            if (R["attachment"] == DBNull.Value && R["idfilestorage"] == DBNull.Value)
             {
                 errmess = "E' necessario selezionare un file (non vuoto)";
                 errfield = "attachment";

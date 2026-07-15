@@ -1,3 +1,4 @@
+/*globals appMeta,$*/
 (function() {
 
     var loc;
@@ -57,8 +58,11 @@
             // gestisce localizzazione e cambio lingua
 			this.localize();
 
+			//TEST registrazone
+			//appMeta.currApp.callPage('registrationuser', 'usr', false);
             // se utente è gia loggato entro sulla app
             this.tryAutomaticLogin();
+
         },
 		
 		fillAnniCombo: function() {
@@ -356,6 +360,7 @@
          */
         doActionsAfterLoginSuccess:function () {
             var self = this;
+            appMeta.currApp.registerDynamicMetapages();
             // inizializza il menù da db
             this.initMenuWeb().then(function () {
 			    appMeta.authManager.setSystemInfo();
@@ -389,6 +394,10 @@
             if (!!searchon && searchon === "on") {
                 metaPage.cmdMainDoSearch();
             }
+        },
+
+        setUrlVarsAsExtraParameters: function (metaPage) {
+            Object.entries(this.getUrlVars()).forEach(([key, value]) => metaPage.state.setCallingParameter(key, value));
         },
 
         doLoginLDAP:function(that) {
@@ -537,6 +546,15 @@
             appMeta.routing.builderConnObj("clearSessions", 'GET', 'admin', false, true);
             appMeta.routing.builderConnObj("cryptSystemConfig", 'POST', 'admin', false, true);
 
+            appMeta.routing.methodEnum.getMapping = "getMapping";
+            appMeta.routing.builderConnObj("getMapping", 'GET', 'data', false, true);
+
+            appMeta.routing.methodEnum.generateExport = "generateExport";
+            appMeta.routing.builderConnObj("generateExport", 'POST', 'data', false, true);
+
+            //logger errori
+            appMeta.routing.builderConnObj("logError", 'POST', 'data', false, true); 
+
             //----------------variabili di applicazione
 
             //path relativo dove si trovano i servizi
@@ -611,7 +629,8 @@
             } else {
                 if (currPageShowing.detailPage) return this.disableMenu();
                 this.enableMenu();
-				this.checkSearchOnOpening(currPageShowing);
+                this.checkSearchOnOpening(currPageShowing);
+                this.setUrlVarsAsExtraParameters(currPageShowing);
             }
         },
 

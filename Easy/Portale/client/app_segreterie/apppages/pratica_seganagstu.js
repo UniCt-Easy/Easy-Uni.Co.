@@ -27,7 +27,15 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pratica_seganagstu_idiscrizione'), true);
+				this.enableControl($('#pratica_seganagstu_protnumero'), true);
+				this.enableControl($('#pratica_seganagstu_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#pratica_seganagstu_protnumero'), false);
@@ -40,6 +48,11 @@
 				var self = this;
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
+				this.state.DS.tables.dichiaraltre_segview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.iscrizionedefaultview_alias1.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.titolostudiodocentiview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq("statuskind_pratica",'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -50,8 +63,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-pratica_seganagstu");
-				$('#pratica_seganagstu_idiscrizione').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#pratica_seganagstu_idiscrizione').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#pratica_seganagstu_idiscrizione').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
+				$('#pratica_seganagstu_idiscrizione').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -83,7 +96,17 @@
 				return this.superClass.insertClick(that, grid);
 			},
 
+			//beforePost
+
 			firebtnProtocol: function (that) {
+				var idreg_origine = that.state.currentRow.idreg_studenti;
+				var idreg_destinazione = that.idreg_istituto;				
+
+				var oggetto = 'Pratica del ' + that.stringFromDate_ddmmyyyy(new Date());
+				var idprotocollodockind = 3;
+				var arrayTablesToProtocol = ['pratica'];
+				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.idpratica;
+
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 

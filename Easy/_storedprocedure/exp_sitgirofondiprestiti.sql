@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiprestiti]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitgirofondiprestiti]
@@ -58,14 +56,14 @@ BEGIN
 if(@showdetail = 'S')
 Begin
 	SELECT 
-		isnull(T1.header, T1.description) as 'Cassiere Principale',
+		isnull(T1.header, T1.description) as 'Conto Corrente Principale',
 		D.ytransfer as  'Eserc.Girofondo',
 		D.ntransfer as  'Num.Girofondo',
 		D.description as 'Descrizione',
 		D.adate as 'Data Girofondo',
 		D.amountprestato as 'Importo Erogato',
 		-(D.amountricevuto) as 'Importo Ricevuto',
-		isnull(T2.header, T2.description) as 'Cassiere di Riferimento'
+		isnull(T2.header, T2.description) as 'Conto Corrente di Riferimento'
 	FROM  @Dettagli D
 	JOIN treasurer T1
 		on D.idtreasurersource = T1.idtreasurer 
@@ -78,7 +76,7 @@ End
 Else
 Begin	
 	SELECT 
-		isnull(T1.header, T1.description) as 'Cassiere Principale',
+		isnull(T1.header, T1.description) as 'Conto Corrente Principale',
 		sum(D.amountprestato) as 'Importo Erogato',
 		-(sum(D.amountricevuto)) as 'Importo Ricevuto',
 		case when ( sum(isnull(D.amountprestato,0) + isnull(D.amountricevuto,0)) )>0  --> Il segno è +, perchè il campo è memorizzato col -.
@@ -89,7 +87,7 @@ Begin
 			then -(sum(isnull(D.amountprestato,0) + isnull(D.amountricevuto,0)))
 			else null 
 		end  as 'Girofondi da effettuare',
-		isnull(T2.header, T2.description) as 'Cassiere di Riferimento'
+		isnull(T2.header, T2.description) as 'Conto Corrente di Riferimento'
 	FROM  @Dettagli D
 	JOIN treasurer T1
 		on D.idtreasurersource = T1.idtreasurer 

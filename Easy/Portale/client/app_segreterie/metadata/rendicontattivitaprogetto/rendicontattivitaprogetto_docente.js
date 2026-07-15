@@ -24,7 +24,7 @@
 
 			manageValidResult: function (rowToCheck) {
 				var loc = appMeta.localResource;
-				var def = appMeta.Deferred("isValid-meta_rendicontattivitaprogetto");
+				var def = appMeta.Deferred("isValid-rendicontattivitaprogetto_docente");
 				var firstErrorObj;
 
 				let wpStop = this.state.DS.tables.workpackageelenchiview.select(this.q.eq('idworkpackage', this.state.currentRow.idworkpackage))[0].workpackage_stop;
@@ -158,8 +158,8 @@
 
 				def.resolve(true);
 				//$isValid$
-
-				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
 			},
 
 			afterGetFormData: function () {
@@ -231,6 +231,8 @@ arraydef.push(this.buildRendicontattivitaprogettooraTitle());
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#rendicontattivitaprogetto_docente_idprogetto'), true);
+				this.enableControl($('#rendicontattivitaprogetto_docente_idworkpackage'), true);
 				this.enableControl($('#rendicontattivitaprogetto_docente_orerendicont'), true);
 				//afterClearin
 				
@@ -297,8 +299,9 @@ arraydef.push(this.buildRendicontattivitaprogettooraTitle());
 				this.setFilterRendicontattivitaprogettoItineration();
 				this.state.DS.tables.rendicontattivitaprogetto.defaults({ 'idreg': parseInt(this.sec.usr('idreg')) });
 				this.state.DS.tables.rendicontattivitaprogetto.defaults({ 'idrendicontattivitaprogettokind': 1 });
+				this.state.DS.tables.rendicontattivitaprogetto.defaults({ 'rendicontatutto': 'N' });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar17').fullCalendar('rerenderEvents');
+					$('#calendar18').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);

@@ -17,6 +17,7 @@
               <xs:element name="yinv" type="xs:short" />
               <xs:element name="idinvkind" type="xs:int" />
               <xs:element name="idivaregisterkind" type="xs:int" />
+              <xs:element name="emails" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

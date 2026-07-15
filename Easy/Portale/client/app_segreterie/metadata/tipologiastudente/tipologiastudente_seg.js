@@ -61,9 +61,12 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('tipologiastudente'), this.getDataTable('graduatoriaesiti'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('graduatoriaesiti'), this.getDataTable('graduatoriaesitipos'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -77,6 +80,8 @@
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.graduatoriaesiti, "seg", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("graduatoriaesiti");
+				appMeta.metaModel.insertFilter(this.getDataTable("corsostudiokinddefaultview"), this.q.eq('corsostudiokind_active', 'Si'));
+				$('#grid_tipologiastudentestruttura_seg').data('mdlconditionallookup', '!idstruttura_struttura_active,S,Si;!idstruttura_struttura_active,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

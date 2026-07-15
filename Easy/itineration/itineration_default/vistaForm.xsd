@@ -91,6 +91,7 @@
               <xs:element name="advancepercentagefood" type="xs:decimal" minOccurs="0" />
               <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
               <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -829,6 +830,7 @@
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_attachmentkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -1332,9 +1334,10 @@
               <xs:element name="cu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="lt" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="iditinerationrefundattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1378,6 +1381,55 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundkindgroup_balance" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundkindgroup_advance" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationamountdetail" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="ndetail" type="xs:int" />
+              <xs:element name="totspesepreventivateanticipo" type="xs:decimal" />
+              <xs:element name="totspesesostenute" type="xs:decimal" />
+              <xs:element name="totspesedaconsiderare" type="xs:decimal" />
+              <xs:element name="indennsupplementare" type="xs:decimal" />
+              <xs:element name="indennkm" type="xs:decimal" />
+              <xs:element name="indennlordatrasfertait" type="xs:decimal" />
+              <xs:element name="indennlordatrasfertaestero" type="xs:decimal" />
+              <xs:element name="importolordo" type="xs:decimal" />
+              <xs:element name="contributiassicurativi" type="xs:decimal" />
+              <xs:element name="contributiprevidenziali" type="xs:decimal" />
+              <xs:element name="importoanticipo" type="xs:decimal" />
+              <xs:element name="quotaesente" type="xs:decimal" />
+              <xs:element name="imponibile" type="xs:decimal" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1593,6 +1645,19 @@
       <xs:selector xpath=".//mstns:itinerationrefundattachmentkind" />
       <xs:field xpath="mstns:iditinerationrefundattachmentkind" />
     </xs:unique>
+    <xs:unique name="itinerationrefundkindgroup_balance_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroup_balance" />
+      <xs:field xpath="mstns:iditinerationrefundkindgroup" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundkindgroup_advance_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkindgroup_advance" />
+      <xs:field xpath="mstns:iditinerationrefundkindgroup" />
+    </xs:unique>
+    <xs:unique name="itinerationamountdetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationamountdetail" />
+      <xs:field xpath="mstns:iditineration" />
+      <xs:field xpath="mstns:ndetail" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1634,11 +1699,14 @@
       <msdata:Relationship name="dalia_recruitmentmotive_itineration" msdata:parent="dalia_recruitmentmotive" msdata:child="itineration" msdata:parentkey="iddaliarecruitmentmotive" msdata:childkey="iddaliarecruitmentmotive" />
       <msdata:Relationship name="dalia_funzionale_itineration" msdata:parent="dalia_funzionale" msdata:child="itineration" msdata:parentkey="iddalia_funzionale" msdata:childkey="iddalia_funzionale" />
       <msdata:Relationship name="dalia_dipartimento_itineration" msdata:parent="dalia_dipartimento" msdata:child="itineration" msdata:parentkey="iddalia_dipartimento" msdata:childkey="iddalia_dipartimento" />
-      <msdata:Relationship name="itinerationrefund_advance_itinerationrefundattachment" msdata:parent="itinerationrefund_advance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
-      <msdata:Relationship name="itinerationrefund_balance_itinerationrefundattachment" msdata:parent="itinerationrefund_balance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
       <msdata:Relationship name="costpartition_itineration" msdata:parent="costpartition" msdata:child="itineration" msdata:parentkey="idcostpartition" msdata:childkey="idcostpartition" />
       <msdata:Relationship name="itinerationattachmentkind_itinerationattachment" msdata:parent="itinerationattachmentkind" msdata:child="itinerationattachment" msdata:parentkey="idattachmentkind" msdata:childkey="idattachmentkind" />
       <msdata:Relationship name="itinerationrefundattachmentkind_itinerationrefundattachment" msdata:parent="itinerationrefundattachmentkind" msdata:child="itinerationrefundattachment" msdata:parentkey="iditinerationrefundattachmentkind" msdata:childkey="iditinerationrefundattachmentkind" />
+      <msdata:Relationship name="itinerationrefundkindgroup_balance_itinerationrefundkind_balance" msdata:parent="itinerationrefundkindgroup_balance" msdata:child="itinerationrefundkind_balance" msdata:parentkey="iditinerationrefundkindgroup" msdata:childkey="iditinerationrefundkindgroup" />
+      <msdata:Relationship name="itinerationrefundkindgroup_advance_itinerationrefundkind_advance" msdata:parent="itinerationrefundkindgroup_advance" msdata:child="itinerationrefundkind_advance" msdata:parentkey="iditinerationrefundkindgroup" msdata:childkey="iditinerationrefundkindgroup" />
+      <msdata:Relationship name="itinerationrefund_advance_itinerationrefundattachment" msdata:parent="itinerationrefund_advance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
+      <msdata:Relationship name="itinerationrefund_balance_itinerationrefundattachment" msdata:parent="itinerationrefund_balance" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
+      <msdata:Relationship name="itineration_itinerationamountdetail" msdata:parent="itineration" msdata:child="itinerationamountdetail" msdata:parentkey="iditineration" msdata:childkey="iditineration" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

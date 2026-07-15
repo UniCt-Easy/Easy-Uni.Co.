@@ -23,12 +23,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstustato':
-						this.describeAColumn(table, 'annoaccademico_aa', 'Anno accademico', null, 20, 9);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 190, 1024);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Esame di stato', null, 50, 1024);
-						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 70, 50);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 4000, null);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Esame di stato', null, 5100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Esame di stato', null, 5200, 9);
+						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 7000, 50);
 //$objCalcFieldConfig_seganagstustato$
 						break;
 //$objCalcFieldConfig$

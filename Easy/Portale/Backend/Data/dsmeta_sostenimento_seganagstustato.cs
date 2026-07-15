@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sostenimento_seganagstustato"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sostenimento_seganagstustato: DataSet {
+public partial class dsmeta_sostenimento_seganagstustato: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -71,28 +69,28 @@ private void initClass() {
 	var tsostenimentoesitodefaultview= new MetaTable("sostenimentoesitodefaultview");
 	tsostenimentoesitodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsostenimentoesitodefaultview.defineColumn("idsostenimentoesito", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_active", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_description", typeof(string),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lt", typeof(DateTime));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lu", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_sortcode", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tsostenimentoesitodefaultview);
 	tsostenimentoesitodefaultview.defineKey("idsostenimentoesito");
 
 	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
 	var tregistrydefaultview= new MetaTable("registrydefaultview");
 	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydefaultview.defineColumn("idcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcity", typeof(int));
-	tregistrydefaultview.defineColumn("idnation", typeof(int));
 	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
-	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
-	tregistrydefaultview.defineColumn("idtitle", typeof(string));
-	tregistrydefaultview.defineColumn("residence", typeof(int),false);
+	tregistrydefaultview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrydefaultview);
 	tregistrydefaultview.defineKey("idreg");
 
 	//////////////////// PROVASTATOVIEW /////////////////////////////////
 	var tprovastatoview= new MetaTable("provastatoview");
 	tprovastatoview.defineColumn("dropdown_title", typeof(string),false);
-	tprovastatoview.defineColumn("idcorsostudio", typeof(int));
-	tprovastatoview.defineColumn("iddidprog", typeof(int));
+	tprovastatoview.defineColumn("idcorsostudio", typeof(int),false);
+	tprovastatoview.defineColumn("iddidprog", typeof(int),false);
 	tprovastatoview.defineColumn("idprova", typeof(int),false);
 	tprovastatoview.defineColumn("idquestionario", typeof(int));
 	tprovastatoview.defineColumn("prova_ct", typeof(DateTime),false);
@@ -109,7 +107,7 @@ private void initClass() {
 	tprovastatoview.defineColumn("title", typeof(string));
 	tprovastatoview.defineColumn("valutazionekind_title", typeof(string));
 	Tables.Add(tprovastatoview);
-	tprovastatoview.defineKey("idprova");
+	tprovastatoview.defineKey("idcorsostudio", "iddidprog", "idprova");
 
 	//////////////////// SOSTENIMENTO /////////////////////////////////
 	var tsostenimento= new MetaTable("sostenimento");

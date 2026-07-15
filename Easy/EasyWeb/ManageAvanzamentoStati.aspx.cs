@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -57,7 +55,7 @@ public partial class ManageAvanzamentoStati : System.Web.UI.Page {
          */
         switch (action) {
             case "call_getnextoffice": {
-                    /* Mostra i possibili Stati in cui puÚ avanzare la Richiesta.
+                    /* Mostra i possibili Stati in cui pu√≤ avanzare la Richiesta.
                      * Restituisce un XML contenente il risultato della sp,
                      * altrimenti un XML contenente un messaggio di
                      * "Nessuno Stato selezionabile"
@@ -79,8 +77,8 @@ public partial class ManageAvanzamentoStati : System.Web.UI.Page {
 
                     Easy_DataAccess UsrConnTemp = GetVars.GetUserConn(this);
                     if (UsrConnTemp == null || UsrConnTemp.Open() == false) {
-                        //Il Server del Dipartimento non Ë in rete. 
-                        //Il servizio non Ë disponibile in quanto il computer potrebbe essere spento.
+                        //Il Server del Dipartimento non √® in rete. 
+                        //Il servizio non √® disponibile in quanto il computer potrebbe essere spento.
                         WebLog.Log(this, "Il Server del dipartimento non risponde.");
                         return;
                     }

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
  if exists (select * from dbo.sysobjects where id = object_id(N'[exp_fatture_vendita]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_fatture_vendita]
@@ -145,8 +143,8 @@ select
     D.numero_dettaglio as 'nriga_fatt',
 	substring(D.descrizione,1,150) as 'descrdettaglio',
 	CASE when (len(D.descrizione)>150 and A.ymov is not null)
-		then 'Mov.eserc.'+ convert(varchar(4), A.ymov) + ' N.'+ convert(varchar(20),A.nmov) + '.'+' Descr.Bene (2¬∞parte): '+	substring(D.descrizione, 151, len(D.descrizione)-150) 
-		when len(D.descrizione)>150 then  'Descr.Bene (2¬∞parte): '+	substring(D.descrizione, 151, len(D.descrizione)-150)
+		then 'Mov.eserc.'+ convert(varchar(4), A.ymov) + ' N.'+ convert(varchar(20),A.nmov) + '.'+' Descr.Bene (2∞parte): '+	substring(D.descrizione, 151, len(D.descrizione)-150) 
+		when len(D.descrizione)>150 then  'Descr.Bene (2∞parte): '+	substring(D.descrizione, 151, len(D.descrizione)-150)
 		when A.ymov is not null then 'Mov.eserc.'+ convert(varchar(4), A.ymov) + ' N.'+ convert(varchar(20),A.nmov) + '.'
 		else null
 	END as 'annotazioni',
@@ -223,5 +221,5 @@ GO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
  -- exec exp_fatture_vendita 'A.AMCEN'--'A.DIMSA'
- -- amministrazione;27;exec [SERVER\cp1,1435].[TEST].[dbo].exp_fatture_vendita 'A.AMMCE'
+ -- amministrazione;27;exec [your-server\cp1,1435].[TEST].[dbo].exp_fatture_vendita 'A.AMMCE'
 ------------------------------------------------------------------------------------------------------------------------------------------------------------

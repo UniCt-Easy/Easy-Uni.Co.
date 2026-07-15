@@ -26,6 +26,7 @@
 					case 'seg':
 						this.describeAColumn(table, 'title', 'Titolo', null, 20, 2048);
 						this.describeAColumn(table, 'code', 'Codice identificativo', null, 40, 2048);
+						this.describeAColumn(table, 'url', 'Indirizzo web', null, 100, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -43,6 +44,7 @@
 						table.columns["description"].caption = "Descrizione";
 						table.columns["idreg"].caption = "Ente o azienda";
 						table.columns["title"].caption = "Titolo";
+						table.columns["url"].caption = "Indirizzo web";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$

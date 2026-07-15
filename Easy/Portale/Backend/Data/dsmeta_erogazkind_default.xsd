@@ -14,6 +14,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="sortcode" type="xs:int" />
               <xs:element name="title" type="xs:string" />
+              <xs:element name="title_en" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

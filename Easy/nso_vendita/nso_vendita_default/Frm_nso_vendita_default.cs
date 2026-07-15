@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -87,7 +85,7 @@ namespace nso_vendita_default {
             object fe_ipa_rifamm = Conn.GetUsr("fe_ipa_rifamm");
             object fe_ipa = Conn.GetUsr("fe_ipa");
             object fe_all = Conn.GetUsr("fe_all");
-            //Imposta l'elenco Ë pi˘ ampio.
+            //Imposta l'elenco √® pi√π ampio.
             if ((fe_all != null && fe_all.ToString().ToUpper() == "'S'") ||
                 (fe_ipa != null && fe_ipa.ToString().ToUpper() == "'S'")) {
                 Meta.DefaultListType = "ipa";
@@ -196,7 +194,7 @@ namespace nso_vendita_default {
             txtUserRifiutata.ReadOnly = true;
             txtEmailAvvisoRicezione.ReadOnly = true;
 
-            /*Disabilito il bottone "Rifiuta" se la data corrente Ë maggiore della decorrenza dei termini*/
+            /*Disabilito il bottone "Rifiuta" se la data corrente √® maggiore della decorrenza dei termini*/
             DataRow dr = DS.nso_vendita.Rows[0];
             object data_ricezione = dr["data_ricezione"];
 
@@ -233,9 +231,9 @@ namespace nso_vendita_default {
                 //                                      ACCETTA
                 // ==========================================================================================
                 btnAccetta.Enabled = false;
-                // La posso ACCETTARE se: Ricevuta e la lunghezza dell'ipa Ë 6
+                // La posso ACCETTARE se: Ricevuta e la lunghezza dell'ipa √® 6
                 if (stato == 1 && (Curr["codice_ipa"].ToString().Length == 6)) {                                     
-                    //Nessuna restrizione oppure Ë abilitato alla funzione accetta_fe 
+                    //Nessuna restrizione oppure √® abilitato alla funzione accetta_fe 
                     if ((idflowchart == null || idflowchart == DBNull.Value) || (accetta_ov != null && accetta_ov.ToString().ToUpper() == "'S'")) {
                         btnAccetta.Enabled = true;
                     }
@@ -245,9 +243,9 @@ namespace nso_vendita_default {
                 //                                      IMPORTA
                 // ==========================================================================================
                 btnImporta.Enabled = false;
-                // La posso IMPORTARE se: Accettata, o Decorsi i termini, o non l'ho gi‡ importata, e devo AVER SALVATO
+                // La posso IMPORTARE se: Accettata, o Decorsi i termini, o non l'ho gi√† importata, e devo AVER SALVATO
                 if (((stato == 2) || (stato == 4) || (Curr["codice_ipa"].ToString().Length != 6)) && (countEstimante == 0)) {
-                    //Nessuna restrizione oppure Ë abilitato alla funzione creaincontabilita_ov
+                    //Nessuna restrizione oppure √® abilitato alla funzione creaincontabilita_ov
                     if ((idflowchart == null || idflowchart == DBNull.Value) || (creaincontabilita_ov != null && creaincontabilita_ov.ToString().ToUpper() == "'S'")) {
                         btnImporta.Enabled = true;
                     }
@@ -258,9 +256,9 @@ namespace nso_vendita_default {
                 // ==========================================================================================
                 btnRifiuta.Enabled = false;
                 txtRifiuto.ReadOnly = true;
-                // La posso RIFIUTARE se:   Ricevuto e la lunghezza dell'ipa Ë 6
+                // La posso RIFIUTARE se:   Ricevuto e la lunghezza dell'ipa √® 6
                 if (stato == 1 && (Curr["codice_ipa"].ToString().Length == 6)) {
-                    //Nessuna restrizione oppure Ë abilitato alla funzione Rifiuta_fe
+                    //Nessuna restrizione oppure √® abilitato alla funzione Rifiuta_fe
                     if ((idflowchart == null || idflowchart == DBNull.Value) || (rifiuta_ov != null && rifiuta_ov.ToString().ToUpper() == "'S'")) {
                         btnRifiuta.Enabled = true;
                         txtRifiuto.ReadOnly = false;
@@ -371,7 +369,7 @@ namespace nso_vendita_default {
                 return idreg;
             }
 
-            //Ne ha trovate pi˘ di una con quella p.iva
+            //Ne ha trovate pi√π di una con quella p.iva
             if (countReg > 1) {
                 string VistaScelta = "registrymainview";
                 MetaData MRegistry = MetaData.GetMetaData(this, VistaScelta);
@@ -395,7 +393,7 @@ namespace nso_vendita_default {
                 return idreg;
             }
 
-            //Ne ha trovate pi˘ di una con quella denominazione
+            //Ne ha trovate pi√π di una con quella denominazione
             if (countReg > 1) {
                 string VistaScelta = "registrymainview";
                 MetaData MRegistry = MetaData.GetMetaData(this, VistaScelta);
@@ -471,7 +469,7 @@ namespace nso_vendita_default {
 
             DataRow Curr = DS.nso_vendita.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
-                show(this, "Non vi Ë alcun file da importare\nErrore");
+                show(this, "Non vi √® alcun file da importare\nErrore");
                 return;
             }
 
@@ -492,7 +490,7 @@ namespace nso_vendita_default {
             string idCodice = getXmlText(document, "cac:BuyerCustomerParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID");
             string idFiscaleIva = "";
             if (idPaese == "IT") {
-                //La partita IVA italiana Ë composta da 11 caratteri numerici. In registry abbiamo solo gli 11 numeri, per cui dobbiamo confrontare la p.iva solo con i numeri
+                //La partita IVA italiana √® composta da 11 caratteri numerici. In registry abbiamo solo gli 11 numeri, per cui dobbiamo confrontare la p.iva solo con i numeri
                 //Se invece fosse estera, avremmo anche la sigla della nazione.  
                 idFiscaleIva = idCodice;
             } else {
@@ -507,7 +505,7 @@ namespace nso_vendita_default {
             idreg = IndividuaAnagrafica(idFiscaleIvaSearch, Denominazione);
             if (CfgFn.GetNoNullInt32(idreg) == 0) {
                 string messaggio;
-                messaggio = $"Non Ë stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
+                messaggio = $"Non √® stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
                 show(this, messaggio, "Avviso");
                 //Apre un form per consentire all'utente la scelta dell'Anagrafica
                 FrmAskAnagrafica F = new FrmAskAnagrafica(Meta, Meta.Dispatcher);
@@ -551,7 +549,7 @@ namespace nso_vendita_default {
             MetaEstimateDetail.SetDefaults(EstimateDetail);
 
             if (MetaEstimate == null || MetaEstimate.destroyed) return;
-            //ToMeta.PrimaryDataTable. Ë la tabella principale del form creato
+            //ToMeta.PrimaryDataTable. √® la tabella principale del form creato
             Hashtable saveddefaults = new Hashtable();
             foreach (DataColumn C in MetaEstimate.PrimaryDataTable.Columns) {
                 saveddefaults[C.ColumnName] = C.DefaultValue;
@@ -584,7 +582,7 @@ namespace nso_vendita_default {
             DataTable tCurrency = Conn.RUN_SELECT("currency", "*", null, QHS.CmpEq("codecurrency", CurrencyCode), null, false);
             if (tCurrency == null) {
                 string messaggio;
-                messaggio = $"Non Ë stato trovata la Valuta :{CurrencyCode}. La valuta verr‡ impostata come Euro.";
+                messaggio = $"Non √® stato trovata la Valuta :{CurrencyCode}. La valuta verr√† impostata come Euro.";
                 show(this, messaggio, @"Avviso");
                 MetaData.SetDefault(Estimate, "idcurrency", Conn.DO_READ_VALUE("currency", QHS.CmpEq("codecurrency", "EUR"), "idcurrency"));
             } else {
@@ -618,7 +616,7 @@ namespace nso_vendita_default {
             // MetaData.SetDefault(Estimate, "docdate", DS.nso_vendita.Rows[0]["adate"]);
 
             // Estimate.docdate : viene valorizzata con nso_vendita.adate che contiene "IssueDate",
-            // qualora dovesse essere null (ma non dovrebbe mai accadere perchË Ë la data Emissione),
+            // qualora dovesse essere null (ma non dovrebbe mai accadere perch√® √® la data Emissione),
             // valorizzeremo con la data contabile.
 
             if (Curr["adate"] != DBNull.Value) {
@@ -721,7 +719,7 @@ namespace nso_vendita_default {
                 // Lancia l'html
                 runProcess(html, true);
 
-                // Elimina il file xml che non serve pi˘
+                // Elimina il file xml che non serve pi√π
                 File.Delete(xml);
             }
             catch (Exception ee)
@@ -854,11 +852,11 @@ namespace nso_vendita_default {
                 DateTime endDay = decorrenzaTermini.AddHours(23).AddMinutes(59).AddSeconds(59);
 
                 if (DateTime.Now.CompareTo(decorrenzaTermini) > 0 && DateTime.Now.CompareTo(endDay) < 0) {
-                    show(this, "Si Ë in procinto della decorrenza dei termini. Il rifiuto sar‡ accettato solo se il servizio NSO Ë attivo", "Avviso");
+                    show(this, "Si √® in procinto della decorrenza dei termini. Il rifiuto sar√† accettato solo se il servizio NSO √® attivo", "Avviso");
                 }
             }
 
-            if (show("Si Ë deciso di Rifiutare l'Ordine di Vendita. Procedo col rifiuto?", "Avviso", MessageBoxButtons.OKCancel) != DialogResult.OK) {
+            if (show("Si √® deciso di Rifiutare l'Ordine di Vendita. Procedo col rifiuto?", "Avviso", MessageBoxButtons.OKCancel) != DialogResult.OK) {
                 return;
             } else {
                 if (txtRifiuto.Text.ToString() == "") {
@@ -882,7 +880,7 @@ namespace nso_vendita_default {
                 return;
 
             Meta.GetFormData(true);
-            if (show(this, "Si Ë deciso di Accettare l'Ordine di Vendita. Procedo con l'Accettazione?", "Avviso", MessageBoxButtons.OKCancel) != DialogResult.OK) {
+            if (show(this, "Si √® deciso di Accettare l'Ordine di Vendita. Procedo con l'Accettazione?", "Avviso", MessageBoxButtons.OKCancel) != DialogResult.OK) {
                 return;
             }
 
@@ -892,7 +890,7 @@ namespace nso_vendita_default {
 
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi Ë alcun file\nErrore";
+                messaggio = "Non vi √® alcun file\nErrore";
                 show(this, messaggio);
                 return;
             }
@@ -920,8 +918,8 @@ namespace nso_vendita_default {
 
             if (total != orderLineSum) {
                 if (show(this,
-                        "L'importo dell'ordine Ë di Ä " + total.ToString("c") + " mentre la " +
-                        "somma delle linee dell'ordine Ë di Ä " + orderLineSum.ToString("c") + ". " +
+                        "L'importo dell'ordine √® di ‚Ç¨ " + total.ToString("c") + " mentre la " +
+                        "somma delle linee dell'ordine √® di ‚Ç¨ " + orderLineSum.ToString("c") + ". " +
                         "SI INTENDE PROCEDERE COMUNQUE?", "Avviso",
                         MessageBoxButtons.OKCancel) != DialogResult.OK) {
                     return;
@@ -1122,7 +1120,7 @@ namespace nso_vendita_default {
             DataRow Curr = DS.nso_vendita.Rows[0];
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
-                messaggio = "Non vi Ë alcun file\nErrore";
+                messaggio = "Non vi √® alcun file\nErrore";
                 show(this, messaggio);
                 return;
             }

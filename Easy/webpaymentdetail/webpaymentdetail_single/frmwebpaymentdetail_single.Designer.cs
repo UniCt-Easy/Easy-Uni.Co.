@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace webpaymentdetail_single {
 	partial class frmwebpaymentdetail_single {
@@ -387,7 +385,7 @@ namespace webpaymentdetail_single {
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(47, 13);
 			this.label17.TabIndex = 104;
-			this.label17.Text = "Quantit‡";
+			this.label17.Text = "Quantit√†";
 			// 
 			// txtCodeListClass
 			// 

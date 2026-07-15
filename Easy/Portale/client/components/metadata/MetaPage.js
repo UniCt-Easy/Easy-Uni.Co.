@@ -358,11 +358,18 @@
             const that = this;
             const primaryDataTable = this.getPrimaryDataTable();
             return this.getFormData(true) //gets data without checks
-                .then(function() {
-                    return metaModel.hasChanges(that.state.DS,
-                        primaryDataTable,
-                        that.state.sourceRow(),
-                        that.detailPage);
+                .then(function () {
+                    // per alcune stampe esce il messaggio che ci sono modifiche non salvate,
+                    // dato che non deve essere fatta nessuna insert/update sul db se apro una stampa restituisco direttamente false
+                    if (primaryDataTable.name != "exportviewer") {
+                        return metaModel.hasChanges(that.state.DS,
+                            primaryDataTable,
+                            that.state.sourceRow(),
+                            that.detailPage);
+                    }
+                    else {
+                        return false;
+                    }
                 });
         },
 
@@ -4110,7 +4117,7 @@
         manageValidResults: function(rowsToCheck) {
             const self = this;
             const def = Deferred("manageValidResults");
-            // salvo i check, che sono deid eferred in 1 array, che sbrigleiro con una when
+            // salvo i check, che sono dei deferred in 1 array, che eseguirò con una when
             const allDeferredChecks = [];
             _.forEach(rowsToCheck, function (row) {
                 allDeferredChecks.push(self.manageValidResult(row));
@@ -4130,15 +4137,14 @@
 
                 // mostro il primo messaggio obbligatorio
                 if (mandatoryMsg){
-
                     // mostro messagebox informativa
                     return self.showMessageOk(mandatoryMsg.errMsg + ': ' + mandatoryMsg.outCaption)
-                    .then(function (){
-                        // metto il focus sul controllo
-                        self.helpForm.focusField(mandatoryMsg.errField, mandatoryMsg.row.table.name);
-                        return false;
-                        // return Deferred("manageValidResults/showMessageOk").resolve(false).promise(); //deve uscire con false a prescindere dal fatto che uno prema ok
-                    });
+                        .then(function (){
+                            // metto il focus sul controllo
+                            self.helpForm.focusField(mandatoryMsg.errField, mandatoryMsg.row.table.name);
+                            return false;
+                            // return Deferred("manageValidResults/showMessageOk").resolve(false).promise(); //deve uscire con false a prescindere dal fatto che uno prema ok
+                        });
                 }
 
                 // recupera solo i warning

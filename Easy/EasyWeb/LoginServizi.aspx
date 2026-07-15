@@ -23,51 +23,50 @@
             </div>
             
             <hr />
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <asp:Label ID="lblNomeUtente" TabIndex="99" runat="server">Nome Utente:</asp:Label>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:TextBox ID="txtNomeUtente" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" runat="server" MaxLength="50" ToolTip="Login fornita dal segretario amministrativo" TabIndex="2"></asp:TextBox>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" TabIndex="99" runat="server" ErrorMessage="Digitare il Nome Utente" ControlToValidate="txtNomeUtente"></asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <asp:Label ID="lblPassword" TabIndex="99" runat="server">Password</asp:Label>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:TextBox ID="txtPassword" TabIndex="3" runat="server" MaxLength="50" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" ToolTip="Password fornita dal segretario amministrativo" TextMode="Password"></asp:TextBox>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" TabIndex="99" runat="server" ErrorMessage="Digitare la password" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
-                            <asp:Label ID="lblMessaggioPass" TabIndex="99" runat="server"></asp:Label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <asp:Label ID="lblData" runat="server">Data Contabile</asp:Label>:
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:TextBox ID="txtDataContabile" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" Style="text-align: right;" TabIndex="4" runat="server" MaxLength="12" ToolTip="Data Contabile"></asp:TextBox>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:RequiredFieldValidator ID="Label4" runat="server" TabIndex="99" ControlToValidate="txtDataContabile" ErrorMessage="Inserire la Data Contabile"></asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                    <div class="row d-none">
-                        <div class="col-12 col-sm-4">
-                            <asp:Label ID="Label3" runat="server">Codice Dipartimento:</asp:Label>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:TextBox ID="txtCodiceDipartimento" runat="server" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" MaxLength="50" ToolTip="Codice del dipartimento" TabIndex="5">amministrazione</asp:TextBox>
-                        </div>
-                        <div class="col-6 col-sm-4">
-                            <asp:RequiredFieldValidator ID="Label5" runat="server" TabIndex="99" ControlToValidate="txtCodiceDipartimento" ErrorMessage="Inserire il codice del dipartimento"> </asp:RequiredFieldValidator>
-                        </div>
-                    </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <asp:Label ID="lblNomeUtente" TabIndex="99" runat="server">Nome Utente:</asp:Label>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:TextBox ID="txtNomeUtente" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" runat="server" MaxLength="50" ToolTip="Login fornita dal segretario amministrativo" TabIndex="2"></asp:TextBox>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" TabIndex="99" runat="server" ErrorMessage="Digitare il Nome Utente" ControlToValidate="txtNomeUtente"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <asp:Label ID="lblPassword" TabIndex="99" runat="server">Password</asp:Label>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:TextBox ID="txtPassword" TabIndex="3" runat="server" MaxLength="50" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" ToolTip="Password fornita dal segretario amministrativo" TextMode="Password"></asp:TextBox>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" TabIndex="99" runat="server" ErrorMessage="Digitare la password" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
+                    <asp:Label ID="lblMessaggioPass" TabIndex="99" runat="server"></asp:Label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <asp:Label ID="lblData" runat="server">Data Contabile</asp:Label>:
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:TextBox ID="txtDataContabile" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" Style="text-align: right;" TabIndex="4" runat="server" MaxLength="12" ToolTip="Data Contabile"></asp:TextBox>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:RequiredFieldValidator ID="Label4" runat="server" TabIndex="99" ControlToValidate="txtDataContabile" ErrorMessage="Inserire la Data Contabile"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+            <div class="row d-none">
+                <div class="col-12 col-sm-4">
+                    <asp:Label ID="Label3" runat="server">Codice Dipartimento:</asp:Label>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:TextBox ID="txtCodiceDipartimento" runat="server" onfocus="document.getElementById(this.id).className='focused';" onblur="document.getElementById(this.id).className='';" MaxLength="50" ToolTip="Codice del dipartimento" TabIndex="5">amministrazione</asp:TextBox>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <asp:RequiredFieldValidator ID="Label5" runat="server" TabIndex="99" ControlToValidate="txtCodiceDipartimento" ErrorMessage="Inserire il codice del dipartimento"> </asp:RequiredFieldValidator>
                 </div>
             </div>
 

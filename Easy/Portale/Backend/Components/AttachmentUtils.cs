@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -32,19 +30,19 @@ namespace Backend.Components {
     public static class AttachmentUtils {
 
         /// <summary>
-        /// id che rimpiazza l'attachment reale. Il client se trova -1 s‡ che c'Ë un attachment.
+        /// id che rimpiazza l'attachment reale. Il client se trova -1 s√† che c'√® un attachment.
         /// </summary>
         private static int attachReplaced = -1;
 
         /// <summary>
         /// I campi che hanno allegati vengono bonfificati, inserendo un id notevole "-1" al posto del contenuto binario
-        /// nella rispettiva colonna calcolata, che quindi sar‡ !nomecolonna
+        /// nella rispettiva colonna calcolata, che quindi sar√† !nomecolonna
         /// </summary>
         /// <param name="ds"></param>
         public static void sanitizeDsForAttach(DataSet ds) {
             // VISUALIZZAZIONE
-            // 1) in lettura sostituisco il contenuto del campo attachment con un "farlocco zero" se Ë "0x"(c'Ë l'attachment) altrimenti rimane il null la cui semantica Ë che non c'Ë un attachment per quella riga.																									
-            // 2) Ë necessario fare l'acceptChange perchË lo stato deve rimanere unchanged (e svuota la collection della riga modificata)																									
+            // 1) in lettura sostituisco il contenuto del campo attachment con un "farlocco zero" se √® "0x"(c'√® l'attachment) altrimenti rimane il null la cui semantica √® che non c'√® un attachment per quella riga.																									
+            // 2) √® necessario fare l'acceptChange perch√® lo stato deve rimanere unchanged (e svuota la collection della riga modificata)																									
             var conn = HttpContext.Current.getDataDispatcher().conn;
             Dictionary<int, ColumnRowAttach> dataRowsModified = new Dictionary<int, ColumnRowAttach>();
             foreach (DataTable table in ds.Tables) {
@@ -52,7 +50,7 @@ namespace Backend.Components {
                     foreach (DataColumn c in table.Columns) {
                         if (c.DataType == System.Type.GetType("System.Byte[]")) {
                             var attach = r[c.ColumnName];
-                            // bonifico i byte[]. non li invio al clinet. ma informo al client tramite -1 che c'Ë un attach
+                            // bonifico i byte[]. non li invio al clinet. ma informo al client tramite -1 che c'√® un attach
                             if (attach != null && attach != DBNull.Value) {
                                 r[c.ColumnName] = IntToByte(attachReplaced);
                                 if (r.Table.Columns[getAttachColumn(c.ColumnName)] != null) r[getAttachColumn(c.ColumnName)] = attachReplaced;
@@ -80,7 +78,7 @@ namespace Backend.Components {
 
         /// <summary>
         /// Per ogni riga che era stata modificata con il contenuto in byte array del file salvato, elimino
-        /// il corrispondente file sul file system, poichË ora Ë reso persitente sul db
+        /// il corrispondente file sul file system, poich√® ora √® reso persitente sul db
         /// </summary>
         /// <param name="dataRowAttachModified"></param>
         public static void removeAttachmentAfterSuccess(Dictionary<int, ColumnRowAttach> dataRowAttachModified) {
@@ -103,7 +101,7 @@ namespace Backend.Components {
         }
 
         /// <summary>
-        /// Recupera i campi byte[] e osserva se c'Ë un idattach nella relativa colonna calcolata diverso dal default "attachReplaced"
+        /// Recupera i campi byte[] e osserva se c'√® un idattach nella relativa colonna calcolata diverso dal default "attachReplaced"
         /// In quel caso va sulla tabella attach e recupera il nome del file sul fileSystem. quello caricato via web
         /// </summary>
         /// <param name="outDs"></param>
@@ -121,26 +119,26 @@ namespace Backend.Components {
                                 if (table.Columns[getAttachColumn(c.ColumnName)] != null) { 
                                 var myidAttach = r[getAttachColumn(c.ColumnName)];
                                 // recupero l'id formattato nel formato che indica allegato aggiunto o modificato
-                                // se diverso da "attachReplaced". se andr‡ tutto ok, eseguirÚ la sanatizeDsForAttach()
+                                // se diverso da "attachReplaced". se andr√† tutto ok, eseguir√≤ la sanatizeDsForAttach()
                                 if (myidAttach == null || myidAttach == DBNull.Value) {
                                     // caso il client abbia premuto rimuovi allegato. mette null, e quindi qui devo ripulire il bytearray
                                     r[c.ColumnName] = DBNull.Value;
 
                                     // nell'else if siamo nel caso in cui ho un idattach reale, e devo quindi recuperare e salvare il file
                                 } else if (Int32.Parse(myidAttach.ToString()) != attachReplaced) {
-                                    // recupero nome file dalla tabella attach il file , cosÏ lo inserisco nel campo binario
+                                    // recupero nome file dalla tabella attach il file , cos√¨ lo inserisco nel campo binario
                                     var query = "select filename from attach where idattach=" + myidAttach;
                                     DataTable dtAttach = conn.SQLRunner(query);
                                     if (dtAttach.Rows.Count == 1) {
 
-                                        // recupero il nome file reale e lo concateno allo stream di byte, cosÏ poii recupero nome file ed estensione nel "downloadwin"
+                                        // recupero il nome file reale e lo concateno allo stream di byte, cos√¨ poii recupero nome file ed estensione nel "downloadwin"
                                         String[] separator = { "$__$" };
                                         var fname = dtAttach.Rows[0]["filename"].ToString();
                                         var fnameArr = fname.Split(separator, StringSplitOptions.None);
                                         var realFileName = fnameArr[1];
                                         int namelen = LengthForFileName(realFileName);
 
-                                        // aggiungo alla lista delle righe il cui campo image Ë stato modificato
+                                        // aggiungo alla lista delle righe il cui campo image √® stato modificato
                                         dataRowsModified.Add((int)myidAttach, new ColumnRowAttach(c.ColumnName, r));
 
                                         // recupero file e salvo sul campo il byteArray

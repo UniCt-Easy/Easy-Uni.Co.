@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -29,6 +27,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using funzioni_configurazione;//funzioni_configurazione
+using gestioneclassificazioni;
+using q = metadatalibrary.MetaExpression;
 
 namespace paydisposition_default {
 	public partial class WizCreaPagamenti : MetaDataForm {
@@ -242,7 +242,7 @@ namespace paydisposition_default {
 			ParentExpense = MyDR;
 			generaMovPrincipali(ParentExpense);
 
-			return doSave();
+			return doSave(ParentExpense);
 			
 		}
 		
@@ -444,7 +444,7 @@ namespace paydisposition_default {
 			string accountFieldName = "idaccdebit";
 
 			#region riempimento mod. pagamento
-			//aggiungere le informazioni della modalit‡ di pagamento
+			//aggiungere le informazioni della modalit√† di pagamento
 			object idpaymethod = check_tipomodpagamento(DS.paymethod, R);
 			NewLastMov["idpaymethod"] = idpaymethod;//ModPagam["idpaymethod"]; 
 			NewLastMov["iban"] = R["iban"];
@@ -472,7 +472,7 @@ namespace paydisposition_default {
 						NewLastMov["paymethod_allowdeputy"] = paymethod_allowdeputy;
 						NewLastMov["paymethod_flag"] = paymethod_flag;
 						int codicemodpagamento = CfgFn.GetNoNullInt32(R["paymethodcode"]);
-						if (codicemodpagamento == 6) // in tal caso Ë obbligatorio il numero conto banca d'Italia e non deve essere impostato l'IBAN
+						if (codicemodpagamento == 6) // in tal caso √® obbligatorio il numero conto banca d'Italia e non deve essere impostato l'IBAN
 							NewLastMov["extracode"] = R["paymentcode"]; // numero conto banca d'Italia
 			}
 					#endregion
@@ -563,19 +563,37 @@ namespace paydisposition_default {
 
 
 
-		private bool doSave() {
+		private bool doSave(DataRow rImpegno) {
+			DataSet DSP = DS.Copy();
+			DSP.Tables["mandatedetail"]._safeMergeFromDb(Conn,q.eq("idexp_taxable", rImpegno["idexp"]) & q.isNull("stop"));
+
 			int faseMax = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
 
 			GestioneAutomatismi ga = new GestioneAutomatismi(this, Meta.Conn, Meta.Dispatcher, DS,
 				faseMax, faseMax, "expense", true);
+
+			string newcomputesorting = Meta.Conn.DO_READ_VALUE("siopekind",
+				QHS.AppAnd(QHS.CmpEq("codesorkind_siopespese", Meta.GetSys("codesorkind_siopespese")),
+							QHS.CmpEq("ayear", CfgFn.GetNoNullInt32(Meta.GetSys("esercizio")))
+					),
+				"newcomputesorting")?.ToString();
+
+			if (newcomputesorting == "S") {
+				GestioneClassificazioni ManageClassificazioni = new GestioneClassificazioni(Meta, null, null, null, null, null, null, null, null);
+				ManageClassificazioni.ClassificaTramiteClassDocumento(ga.DSP, DS);
+				ManageClassificazioni.completaClassificazioniSiope(DS.expensesorted, ga.DSP);
+				//Meta.FreshForm();
+			}
+		 
+
+
 			ga.GeneraClassificazioniAutomatiche(ga.DSP, true);
 			//ga.GeneraClassificazioniIndirette(ga.DSP, true);
-
 
 			bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
 				MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
-					"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+					"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
 				return false;
 			} else {
 				res = ga.doPost(Meta.Dispatcher);
@@ -584,7 +602,7 @@ namespace paydisposition_default {
 					return true;
 				} else {
 					MetaFactory.factory.getSingleton<IMessageShower>().Show(this,
-						"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+						"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
 					return false;
 				}
 			}

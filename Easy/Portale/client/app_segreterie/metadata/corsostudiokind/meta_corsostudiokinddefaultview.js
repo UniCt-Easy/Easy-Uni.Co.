@@ -23,10 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'idcorsostudiokind', 'Codice', null, 10, null);
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
-						this.describeAColumn(table, 'corsostudiokind_active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'corsostudiokind_sortcode', 'Sortcode', null, 50, null);
+						this.describeAColumn(table, 'idcorsostudiokind', 'Identificativo', null, 1000, null);
+						this.describeAColumn(table, 'title', 'Tipologia', null, 2000, 50);
+						this.describeAColumn(table, 'corsostudiokind_active', 'Attivo', null, 4000, null);
+						this.describeAColumn(table, 'corsostudiokind_sortcode', 'Ordinamento', null, 5000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -49,7 +49,7 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
-						return "title asc ";
+						return "title asc , corsostudiokind_sortcode desc";
 					}
 					//$getSortingin$
 				}

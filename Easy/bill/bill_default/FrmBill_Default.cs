@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -314,7 +312,7 @@ namespace bill_default {
 			this.textBox4.Location = new System.Drawing.Point(3, 30);
 			this.textBox4.Multiline = true;
 			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(660, 46);
+			this.textBox4.Size = new System.Drawing.Size(901, 46);
 			this.textBox4.TabIndex = 34;
 			this.textBox4.Tag = "bill.regularizationnote";
 			// 
@@ -368,7 +366,7 @@ namespace bill_default {
 			this.btnIstitutoCassiere.TabIndex = 78;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// txtStorni
@@ -398,7 +396,7 @@ namespace bill_default {
 			this.groupBox7.Controls.Add(this.dgrRegolarizzazioni);
 			this.groupBox7.Location = new System.Drawing.Point(3, 6);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(660, 227);
+			this.groupBox7.Size = new System.Drawing.Size(901, 227);
 			this.groupBox7.TabIndex = 39;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Dettaglio delle regolarizzazioni associate alla bolletta";
@@ -412,7 +410,7 @@ namespace bill_default {
 			this.dgrRegolarizzazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
 			this.dgrRegolarizzazioni.Location = new System.Drawing.Point(12, 27);
 			this.dgrRegolarizzazioni.Name = "dgrRegolarizzazioni";
-			this.dgrRegolarizzazioni.Size = new System.Drawing.Size(642, 183);
+			this.dgrRegolarizzazioni.Size = new System.Drawing.Size(883, 183);
 			this.dgrRegolarizzazioni.TabIndex = 0;
 			this.dgrRegolarizzazioni.Tag = "billtransaction.detail.adebito";
 			// 
@@ -500,7 +498,7 @@ namespace bill_default {
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(669, 239);
+			this.tabPage1.Size = new System.Drawing.Size(910, 239);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Regolarizzazioni";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -512,7 +510,7 @@ namespace bill_default {
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(669, 239);
+			this.tabPage2.Size = new System.Drawing.Size(910, 239);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Altre informazioni";
 			this.tabPage2.UseVisualStyleBackColor = true;

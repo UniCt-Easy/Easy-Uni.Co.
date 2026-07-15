@@ -53,17 +53,18 @@
     <Reference Include="meta_flussoincassidetail">
       <HintPath>..\..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\dll\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp">
-      <HintPath>..\..\..\dll\PdfSharp.dll</HintPath>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp.Charting">
-      <HintPath>..\..\..\dll\PdfSharp.Charting.dll</HintPath>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
@@ -93,6 +94,11 @@
     <Compile Include="IntesaSanPaolo\RendicontaPlus.cs">
       <DependentUpon>RendicontaPlus.xsd</DependentUpon>
     </Compile>
+    <Compile Include="OpenAPIs\govpay-api-common.cs" />
+    <Compile Include="OpenAPIs\govpay-api-pendenze-v2.cs" />
+    <Compile Include="OpenAPIs\govpay-api-ragioneria.cs" />
+    <Compile Include="OpenAPIs\GovPayService.cs" />
+    <Compile Include="OpenAPIs\Pendenze.cs" />
     <Compile Include="PmPay.cs" />
     <Compile Include="Service References\bsondrio1_1\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -184,6 +190,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\govpayopenapi\govpay-api-ragioneria.yaml">
+      <Link>OpenAPIs\govpay-api-ragioneria.yaml</Link>
+      <ClassName>ApiRagioneria</ClassName>
+      <CodeGenerator>NSwagCSharp</CodeGenerator>
+    </None>
     <None Include="allineamentopendenze.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -196,6 +207,12 @@
     <None Include="IntesaSanPaolo\RendicontaPlus.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="OpenAPIs\govpay-api-pendenze-v2.yaml">
+      <ClassName>ApiPendenze</ClassName>
+      <CodeGenerator>NSwagCSharp</CodeGenerator>
+      <SourceUri>https://raw.githubusercontent.com/link-it/govpay/master/wars/api-pendenze/src/main/webapp/v2/govpay-api-pendenze-v2.yaml</SourceUri>
+    </None>
+    <None Include="packages.config" />
     <None Include="Service References\GompEasyService\gompPerEasy.wsdl" />
     <None Include="Service References\GompEasyService\pagoPaService.GompEasyService.easyCoopCorso.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

@@ -3,18 +3,27 @@
   <xs:element name="dsmeta_tesikeyword_segistcons" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="lang" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="tesikeyword" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idnation_lang" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrichitesi" type="xs:int" />
               <xs:element name="idtesi" type="xs:int" />
               <xs:element name="idtesikeyword" type="xs:int" />
               <xs:element name="keyword" type="xs:int" />
-              <xs:element name="lang" type="xs:string" />
+              <xs:element name="lang" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
             </xs:sequence>
@@ -23,6 +32,10 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:unique>
+    <xs:unique name="tesikeyword_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:tesikeyword" />
       <xs:field xpath="mstns:idistanza" />
       <xs:field xpath="mstns:idreg" />
@@ -31,4 +44,9 @@
       <xs:field xpath="mstns:idtesikeyword" />
     </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_tesikeyword_geo_nation_idnation_lang" msdata:parent="geo_nation" msdata:child="tesikeyword" msdata:parentkey="idnation" msdata:childkey="idnation_lang" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

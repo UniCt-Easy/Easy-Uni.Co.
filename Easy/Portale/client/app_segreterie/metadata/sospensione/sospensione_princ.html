@@ -10,24 +10,14 @@
 					<input id="sospensione_princ_motivo" type="text" class="form-control" data-tag="sospensione.motivo"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sospensione_princ_start").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="sospensione_princ_start">Inizio</label>
-					<input id="sospensione_princ_start" type="text" class="form-control" data-tag="sospensione.start.g"  data-mandatory />
+					<input id="sospensione_princ_start" type="text" class="form-control" data-tag="sospensione.start.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#sospensione_princ_stop").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="sospensione_princ_stop">Fine</label>
-					<input id="sospensione_princ_stop" type="text" class="form-control" data-tag="sospensione.stop.g"  />
+					<input id="sospensione_princ_stop" type="text" class="form-control" data-tag="sospensione.stop.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 </form>

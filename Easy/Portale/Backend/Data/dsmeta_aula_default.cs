@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -97,6 +95,7 @@ private void initClass() {
 	tsospensione.defineColumn("idreg", typeof(int));
 	tsospensione.defineColumn("idsede", typeof(int),false);
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
@@ -227,13 +226,13 @@ private void initClass() {
 	tsededefaultview.defineColumn("geo_nation_title", typeof(string));
 	tsededefaultview.defineColumn("idcity", typeof(int));
 	tsededefaultview.defineColumn("idnation", typeof(int));
+	tsededefaultview.defineColumn("idreg", typeof(int),false);
 	tsededefaultview.defineColumn("idsede", typeof(int),false);
 	tsededefaultview.defineColumn("sede_address", typeof(string));
 	tsededefaultview.defineColumn("sede_annotations", typeof(string));
 	tsededefaultview.defineColumn("sede_cap", typeof(string));
 	tsededefaultview.defineColumn("sede_ct", typeof(DateTime),false);
 	tsededefaultview.defineColumn("sede_cu", typeof(string),false);
-	tsededefaultview.defineColumn("sede_idreg", typeof(int));
 	tsededefaultview.defineColumn("sede_idsedemiur", typeof(int));
 	tsededefaultview.defineColumn("sede_latitude", typeof(decimal));
 	tsededefaultview.defineColumn("sede_longitude", typeof(decimal));
@@ -241,7 +240,7 @@ private void initClass() {
 	tsededefaultview.defineColumn("sede_lu", typeof(string),false);
 	tsededefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tsededefaultview);
-	tsededefaultview.defineKey("idsede");
+	tsededefaultview.defineKey("idreg", "idsede");
 
 	//////////////////// AULA /////////////////////////////////
 	var taula= new MetaTable("aula");

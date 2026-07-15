@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -39,8 +37,9 @@ namespace admpay_splitcolumn {
 		private System.Windows.Forms.Button btnFileLordi;
 		private System.Windows.Forms.OpenFileDialog _openInputFileDlg;
 		private System.Windows.Forms.SaveFileDialog _saveOutputFileDlg;
-		private System.Windows.Forms.ProgressBar progressBar1;
-		private System.Windows.Forms.Label lblTask;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Button btnFileReversali;
         private System.Windows.Forms.Button btnFileContr;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -82,7 +81,7 @@ namespace admpay_splitcolumn {
             this.btnFileLordi = new System.Windows.Forms.Button();
             this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
             this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            //this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblTask = new System.Windows.Forms.Label();
             this.btnFileReversali = new System.Windows.Forms.Button();
             this.btnFileContr = new System.Windows.Forms.Button();
@@ -128,12 +127,12 @@ namespace admpay_splitcolumn {
             // 
             // progressBar1
             // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(2, 185);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(481, 23);
-            this.progressBar1.TabIndex = 5;
+            //this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            //            | System.Windows.Forms.AnchorStyles.Right)));
+            //this.progressBar1.Location = new System.Drawing.Point(2, 185);
+            //this.progressBar1.Name = "progressBar1";
+            //this.progressBar1.Size = new System.Drawing.Size(481, 23);
+            //this.progressBar1.TabIndex = 5;
             // 
             // lblTask
             // 
@@ -194,7 +193,7 @@ namespace admpay_splitcolumn {
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTask);
-            this.Controls.Add(this.progressBar1);
+            //this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.txtInputFile);
             this.Controls.Add(this.btnInputFile);
             this.Name = "FrmAdmPay_SplitColumn";
@@ -388,10 +387,10 @@ namespace admpay_splitcolumn {
             }
 			 
 			lblTask.Text = operazione;
-			progressBar1.Value = 0;
-			progressBar1.Maximum = mData.Rows.Count;
+			//progressBar1.Value = 0;
+			//progressBar1.Maximum = mData.Rows.Count;
 			foreach(System.Data.DataRow r in mData.Select()) {
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				System.Windows.Forms.Application.DoEvents();
 				if (r[fieldOriginal] == DBNull.Value) continue;
 				string capitolo = r[fieldOriginal].ToString();
@@ -407,10 +406,10 @@ namespace admpay_splitcolumn {
 
 		private bool split_compSiope() {
 			lblTask.Text = "Split descrizione COMPETENZA SIOPE";
-			progressBar1.Value = 0;
-			progressBar1.Maximum = mData.Rows.Count;
+			//progressBar1.Value = 0;
+			//progressBar1.Maximum = mData.Rows.Count;
 			foreach(System.Data.DataRow r in mData.Select()) {
-				progressBar1.Value++;
+				//progressBar1.Value++;
 				System.Windows.Forms.Application.DoEvents();
 				if (r["COMPETENZA"] == DBNull.Value) continue;
                 string compSiope = r["COMPETENZA"].ToString().ToUpper();
@@ -778,9 +777,9 @@ namespace admpay_splitcolumn {
         /// <returns></returns>
         private bool interrogaFileExcel(string task) {
 
-            progressBar1.Minimum = 0;
-            progressBar1.Value = 0;
-            progressBar1.Maximum = 100;
+            //progressBar1.Minimum = 0;
+            //progressBar1.Value = 0;
+            //progressBar1.Maximum = 100;
 
             if (txtInputFile.Text == "") {
                 show("Non è stato scelto alcun file!");

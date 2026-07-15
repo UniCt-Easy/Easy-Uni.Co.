@@ -28,8 +28,10 @@
 						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 100, null);
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 110, null);
+						this.describeAColumn(table, '!idistanzakind_istanzakind_title', 'Tipologia', null, 61, null);
+						objCalcFieldConfig['!idistanzakind_istanzakind_title'] = { tableNameLookup:'istanzakind', columnNameLookup:'title', columnNamekey:'idistanzakind' };
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
-						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias1', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
 //$objCalcFieldConfig_seganagstusonpre$
 						break;
 					case 'cert_seg':
@@ -69,7 +71,6 @@
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 100, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 110, null);
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
-						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias3', columnNameLookup:'title', columnNamekey:'idstatuskind' };
 //$objCalcFieldConfig_pas_seganagstu$
 						break;
@@ -78,18 +79,20 @@
 						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 100, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 110, null);
-						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 21, null);
-						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 22, null);
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Denominazione Didattica programmata', null, 21, null);
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, '!idiscrizione_iscrizione_anno', 'Anno di corso Iscrizione', null, 21, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_aa', 'Anno accademico Iscrizione', null, 22, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Denominazione Iscrizione', null, 21, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_aa', 'Anno accademico Iscrizione', null, 22, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_idsede', 'Sede Iscrizione', null, 23, null);
+						objCalcFieldConfig['!idiscrizione_iscrizione_anno'] = { tableNameLookup:'iscrizione_alias6', columnNameLookup:'anno', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_aa'] = { tableNameLookup:'iscrizione_alias6', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione' };
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
-						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias7', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias7', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias2', columnNameLookup:'title', columnNamekey:'idstatuskind' };
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
+						objCalcFieldConfig['!idiscrizione_iscrizione_anno'] = { tableNameLookup:'iscrizione_alias7', columnNameLookup:'anno', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_aa'] = { tableNameLookup:'iscrizione_alias7', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
 //$objCalcFieldConfig_imm_seganagsturin$
 						break;
 					case 'imm_segrin':
@@ -113,16 +116,14 @@
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 110, null);
 						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 21, null);
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 22, null);
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Denominazione Didattica programmata', null, 21, null);
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
-						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
 						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias6', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias6', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind_alias1', columnNameLookup:'title', columnNamekey:'idstatuskind' };
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias7', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias7', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_imm_seganagstu$
 						break;
 					case 'imm_segpre':
@@ -139,20 +140,19 @@
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 110, null);
 						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 21, null);
 						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 22, null);
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Denominazione Didattica programmata', null, 21, null);
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
+						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias5', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias5', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
 						this.describeAColumn(table, '!idstatuskind_statuskind_title', 'Status', null, 81, null);
 						objCalcFieldConfig['!idstatuskind_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idstatuskind' };
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias5', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias5', columnNameLookup:'aa', columnNamekey:'iddidprog' };
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 20, null);
+						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog_alias6', columnNameLookup:'title', columnNamekey:'iddidprog' };
+						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog_alias6', columnNameLookup:'aa', columnNamekey:'iddidprog' };
 //$objCalcFieldConfig_imm_seganagstupre$
 						break;
 					case 'rein_seg':
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 610, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 620, null);
 //$objCalcFieldConfig_rein_seg$
@@ -197,7 +197,7 @@
 						break;
 					case 'pas_seg':
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
 //$objCalcFieldConfig_pas_seg$
 						break;
 					case 'abbr_seg':
@@ -206,9 +206,59 @@
 //$objCalcFieldConfig_abbr_seg$
 						break;
 					case 'tri_seg':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
 						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
 //$objCalcFieldConfig_tri_seg$
+						break;
+					case 'conseg_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+//$objCalcFieldConfig_conseg_stu$
+						break;
+					case 'pas_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
+//$objCalcFieldConfig_pas_stu$
+						break;
+					case 'eq_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 120, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 130, null);
+//$objCalcFieldConfig_eq_stu$
+						break;
+					case 'tru_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 120, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 130, null);
+//$objCalcFieldConfig_tru_stu$
+						break;
+					case 'rin_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 120, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 130, null);
+//$objCalcFieldConfig_rin_stu$
+						break;
+					case 'tri_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+//$objCalcFieldConfig_tri_stu$
+						break;
+					case 'imm_stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 610, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 620, null);
+//$objCalcFieldConfig_imm_stu$
+						break;
+					case 'imm_sturin':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 610, null);
+						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 620, null);
+//$objCalcFieldConfig_imm_sturin$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -221,19 +271,11 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'pas_seganagstu':
-						table.columns["iddidprog"].caption = "Didattica di destinazione";
-//$innerSetCaptionConfig_pas_seganagstu$
-						break;
-					case 'eq_seg':
-						table.columns["iddidprog"].caption = "Corso equipollente";
-//$innerSetCaptionConfig_eq_seg$
-						break;
-					case 'rimb_seg':
 						table.columns["aa"].caption = "Anno accademico";
 						table.columns["extension"].caption = "Tabella che estende il record";
-						table.columns["idcorsostudio"].caption = "Corso di studi";
-						table.columns["iddidprog"].caption = "Didattica programmata";
-						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi di destinazione";
+						table.columns["iddidprog"].caption = "Didattica di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione di destinazione";
 						table.columns["idistanza"].caption = "Istanza";
 						table.columns["idistanzakind"].caption = "Tipologia";
 						table.columns["idreg_studenti"].caption = "Studente";
@@ -241,11 +283,157 @@
 						table.columns["paridistanza"].caption = "Istanza collegata";
 						table.columns["protanno"].caption = "Anno di protocollo";
 						table.columns["protnumero"].caption = "Numero di protocollo";
+//$innerSetCaptionConfig_pas_seganagstu$
+						break;
+					case 'eq_seg':
+						table.columns["idcorsostudio"].caption = "Corso equipollente";
+						table.columns["iddidprog"].caption = "Didattica equipollente";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+//$innerSetCaptionConfig_eq_seg$
+						break;
+					case 'rimb_seg':
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata";
 //$innerSetCaptionConfig_rimb_seg$
 						break;
 					case 'conseg_seg':
-						table.columns["aa"].caption = "Anno accademico";
 //$innerSetCaptionConfig_conseg_seg$
+						break;
+					case 'segstuelenco':
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+//$innerSetCaptionConfig_segstuelenco$
+						break;
+					case 'seganagstusonpre':
+//$innerSetCaptionConfig_seganagstusonpre$
+						break;
+					case 'imm_seganagsturin':
+//$innerSetCaptionConfig_imm_seganagsturin$
+						break;
+					case 'imm_seganagstu':
+						table.columns["aa"].caption = "Anno accademico";
+//$innerSetCaptionConfig_imm_seganagstu$
+						break;
+					case 'imm_seganagstupre':
+//$innerSetCaptionConfig_imm_seganagstupre$
+						break;
+					case 'imm_segrin':
+//$innerSetCaptionConfig_imm_segrin$
+						break;
+					case 'imm_seg':
+						table.columns["aa"].caption = "Anno accademico";
+//$innerSetCaptionConfig_imm_seg$
+						break;
+					case 'imm_segpre':
+//$innerSetCaptionConfig_imm_segpre$
+						break;
+					case 'tru_seg':
+//$innerSetCaptionConfig_tru_seg$
+						break;
+					case 'tri_seg':
+//$innerSetCaptionConfig_tri_seg$
+						break;
+					case 'sosp_seg':
+//$innerSetCaptionConfig_sosp_seg$
+						break;
+					case 'rin_seg':
+//$innerSetCaptionConfig_rin_seg$
+						break;
+					case 'rein_seg':
+//$innerSetCaptionConfig_rein_seg$
+						break;
+					case 'pas_seg':
+						table.columns["aa"].caption = "Anno accademico";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddidprog"].caption = "Didattica programmata di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+//$innerSetCaptionConfig_pas_seg$
+						break;
+					case 'cert_seg':
+//$innerSetCaptionConfig_cert_seg$
+						break;
+					case 'abbr_seg':
+//$innerSetCaptionConfig_abbr_seg$
+						break;
+					case 'conseg_stu':
+//$innerSetCaptionConfig_conseg_stu$
+						break;
+					case 'pas_stu':
+						table.columns["idiscrizione"].caption = "Iscrizione attuale";
+						table.columns["idstatuskind"].caption = "Stato della istanza";
+//$innerSetCaptionConfig_pas_stu$
+						break;
+					case 'eq_stu':
+//$innerSetCaptionConfig_eq_stu$
+						break;
+					case 'tru_stu':
+//$innerSetCaptionConfig_tru_stu$
+						break;
+					case 'rin_stu':
+//$innerSetCaptionConfig_rin_stu$
+						break;
+					case 'tri_stu':
+//$innerSetCaptionConfig_tri_stu$
+						break;
+					case 'imm_stu':
+//$innerSetCaptionConfig_imm_stu$
+						break;
+					case 'imm_sturin':
+//$innerSetCaptionConfig_imm_sturin$
 						break;
 //$innerSetCaptionConfig$
 				}

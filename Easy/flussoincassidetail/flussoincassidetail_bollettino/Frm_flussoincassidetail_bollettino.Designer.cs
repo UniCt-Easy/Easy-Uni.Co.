@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace flussoincassidetail_bollettino {
 	partial class Frm_flussoincassidetail_bollettino {
@@ -328,7 +326,7 @@ namespace flussoincassidetail_bollettino {
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(56, 24);
 			this.label9.TabIndex = 140;
-			this.label9.Text = "N° bolletta";
+			this.label9.Text = "NÂ° bolletta";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtBill

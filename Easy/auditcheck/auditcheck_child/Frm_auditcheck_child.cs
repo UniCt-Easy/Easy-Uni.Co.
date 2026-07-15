@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -24,6 +22,8 @@ using System.Drawing;
 using SqlEditor;//SqlEditor
 using metaeasylibrary;
 using generaSQL;
+using System.Collections;
+using System.Linq;
 
 namespace auditcheck_child//businessrulecontrols//
 {
@@ -32,7 +32,6 @@ namespace auditcheck_child//businessrulecontrols//
 	/// </summary>
 	public class Frm_auditcheck_child : MetaDataForm
 	{
-		private System.Windows.Forms.Label label1;
 		public System.Windows.Forms.GroupBox MetaDataDetail;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -40,11 +39,9 @@ namespace auditcheck_child//businessrulecontrols//
 		private System.Windows.Forms.RadioButton radioButton2;
 		private System.Windows.Forms.RadioButton radioButton3;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button btnControlli;
 		MetaData Meta;
 		DataAccess Conn;
-		private System.Windows.Forms.TreeView Tree;
 		private System.Windows.Forms.ComboBox cmbTabella;
 		private System.Windows.Forms.TextBox txtMessage;
 		private System.Windows.Forms.ImageList images;
@@ -72,7 +69,11 @@ namespace auditcheck_child//businessrulecontrols//
         private Button btnSelezionaFolder;
         private FolderBrowserDialog _folderDlg;
         private IFolderBrowserDialog folderDlg;
-        bool IsAdmin =false;
+		private GroupBox groupBox3;
+		private ComboBox cmbSysType;
+		private Button BtnEsercizio;
+		private TreeView Tree;
+		bool IsAdmin =false;
 
 		public Frm_auditcheck_child()
 		{
@@ -118,8 +119,11 @@ namespace auditcheck_child//businessrulecontrols//
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_auditcheck_child));
 			this.cmbRuleID = new System.Windows.Forms.ComboBox();
 			this.DS = new auditcheck_child.vistaForm();
-			this.label1 = new System.Windows.Forms.Label();
 			this.MetaDataDetail = new System.Windows.Forms.GroupBox();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.cmbSysType = new System.Windows.Forms.ComboBox();
+			this.BtnEsercizio = new System.Windows.Forms.Button();
+			this.Tree = new System.Windows.Forms.TreeView();
 			this.gboxSql = new System.Windows.Forms.GroupBox();
 			this.txtFolder = new System.Windows.Forms.TextBox();
 			this.btnSelezionaFolder = new System.Windows.Forms.Button();
@@ -141,8 +145,6 @@ namespace auditcheck_child//businessrulecontrols//
 			this.radioButton2 = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.radioButton3 = new System.Windows.Forms.RadioButton();
-			this.Tree = new System.Windows.Forms.TreeView();
-			this.label5 = new System.Windows.Forms.Label();
 			this.txtMessage = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.cmbTabella = new System.Windows.Forms.ComboBox();
@@ -154,6 +156,7 @@ namespace auditcheck_child//businessrulecontrols//
 			this._folderDlg = new System.Windows.Forms.FolderBrowserDialog();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.MetaDataDetail.SuspendLayout();
+			this.groupBox3.SuspendLayout();
 			this.gboxSql.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.gboxApplicazione.SuspendLayout();
@@ -166,7 +169,7 @@ namespace auditcheck_child//businessrulecontrols//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbRuleID.DataSource = this.DS.audit;
 			this.cmbRuleID.DisplayMember = "title";
-			this.cmbRuleID.Location = new System.Drawing.Point(8, 32);
+			this.cmbRuleID.Location = new System.Drawing.Point(8, 14);
 			this.cmbRuleID.Name = "cmbRuleID";
 			this.cmbRuleID.Size = new System.Drawing.Size(438, 21);
 			this.cmbRuleID.TabIndex = 1;
@@ -178,36 +181,69 @@ namespace auditcheck_child//businessrulecontrols//
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
 			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(8, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(100, 23);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "Regola";
-			// 
 			// MetaDataDetail
 			// 
 			this.MetaDataDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.MetaDataDetail.Controls.Add(this.groupBox3);
 			this.MetaDataDetail.Controls.Add(this.gboxSql);
 			this.MetaDataDetail.Controls.Add(this.gboxApplicazione);
 			this.MetaDataDetail.Controls.Add(this.chkPost);
 			this.MetaDataDetail.Controls.Add(this.groupBox1);
-			this.MetaDataDetail.Controls.Add(this.Tree);
-			this.MetaDataDetail.Controls.Add(this.label5);
 			this.MetaDataDetail.Controls.Add(this.txtMessage);
 			this.MetaDataDetail.Controls.Add(this.label4);
 			this.MetaDataDetail.Controls.Add(this.cmbTabella);
 			this.MetaDataDetail.Controls.Add(this.label2);
 			this.MetaDataDetail.Controls.Add(this.cmbRuleID);
-			this.MetaDataDetail.Controls.Add(this.label1);
-			this.MetaDataDetail.Location = new System.Drawing.Point(12, 12);
+			this.MetaDataDetail.Location = new System.Drawing.Point(12, 10);
 			this.MetaDataDetail.Name = "MetaDataDetail";
-			this.MetaDataDetail.Size = new System.Drawing.Size(1029, 232);
+			this.MetaDataDetail.Size = new System.Drawing.Size(1029, 255);
 			this.MetaDataDetail.TabIndex = 1;
 			this.MetaDataDetail.TabStop = false;
-			this.MetaDataDetail.Text = "Controllo";
+			this.MetaDataDetail.Text = "Controllo Regola";
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.cmbSysType);
+			this.groupBox3.Controls.Add(this.BtnEsercizio);
+			this.groupBox3.Controls.Add(this.Tree);
+			this.groupBox3.Location = new System.Drawing.Point(8, 75);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(311, 170);
+			this.groupBox3.TabIndex = 5;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Campi della tabella o delle tabelle correlate che possono essere inseriti nel mes" +
+    "saggio:";
+			// 
+			// cmbSysType
+			// 
+			this.cmbSysType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.cmbSysType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbSysType.Location = new System.Drawing.Point(6, 56);
+			this.cmbSysType.Name = "cmbSysType";
+			this.cmbSysType.Size = new System.Drawing.Size(299, 21);
+			this.cmbSysType.TabIndex = 21;
+			this.cmbSysType.SelectedIndexChanged += new System.EventHandler(this.cmbSysType_SelectedIndexChanged);
+			// 
+			// BtnEsercizio
+			// 
+			this.BtnEsercizio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.BtnEsercizio.Location = new System.Drawing.Point(6, 29);
+			this.BtnEsercizio.Name = "BtnEsercizio";
+			this.BtnEsercizio.Size = new System.Drawing.Size(299, 23);
+			this.BtnEsercizio.TabIndex = 20;
+			this.BtnEsercizio.Text = "%<esercizio>%";
+			this.BtnEsercizio.Click += new System.EventHandler(this.BtnEsercizio_Click);
+			// 
+			// Tree
+			// 
+			this.Tree.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Tree.Location = new System.Drawing.Point(3, 82);
+			this.Tree.Name = "Tree";
+			this.Tree.Size = new System.Drawing.Size(302, 80);
+			this.Tree.TabIndex = 19;
+			this.Tree.TabStop = false;
+			this.Tree.DoubleClick += new System.EventHandler(this.Tree_DoubleClick);
 			// 
 			// gboxSql
 			// 
@@ -216,9 +252,9 @@ namespace auditcheck_child//businessrulecontrols//
 			this.gboxSql.Controls.Add(this.btnSelezionaFolder);
 			this.gboxSql.Controls.Add(this.groupBox2);
 			this.gboxSql.Controls.Add(this.btnAddScriptAuditCheck);
-			this.gboxSql.Location = new System.Drawing.Point(608, 16);
+			this.gboxSql.Location = new System.Drawing.Point(662, 40);
 			this.gboxSql.Name = "gboxSql";
-			this.gboxSql.Size = new System.Drawing.Size(408, 208);
+			this.gboxSql.Size = new System.Drawing.Size(361, 205);
 			this.gboxSql.TabIndex = 13;
 			this.gboxSql.TabStop = false;
 			this.gboxSql.Text = "GeneraScript";
@@ -228,14 +264,14 @@ namespace auditcheck_child//businessrulecontrols//
 			// 
 			this.txtFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtFolder.Location = new System.Drawing.Point(6, 180);
+			this.txtFolder.Location = new System.Drawing.Point(6, 172);
 			this.txtFolder.Name = "txtFolder";
-			this.txtFolder.Size = new System.Drawing.Size(396, 20);
+			this.txtFolder.Size = new System.Drawing.Size(349, 20);
 			this.txtFolder.TabIndex = 15;
 			// 
 			// btnSelezionaFolder
 			// 
-			this.btnSelezionaFolder.Location = new System.Drawing.Point(6, 151);
+			this.btnSelezionaFolder.Location = new System.Drawing.Point(6, 143);
 			this.btnSelezionaFolder.Name = "btnSelezionaFolder";
 			this.btnSelezionaFolder.Size = new System.Drawing.Size(134, 23);
 			this.btnSelezionaFolder.TabIndex = 14;
@@ -252,7 +288,7 @@ namespace auditcheck_child//businessrulecontrols//
 			this.groupBox2.Controls.Add(this.radThis);
 			this.groupBox2.Location = new System.Drawing.Point(6, 16);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(260, 129);
+			this.groupBox2.Size = new System.Drawing.Size(260, 116);
 			this.groupBox2.TabIndex = 13;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Operazione";
@@ -307,7 +343,7 @@ namespace auditcheck_child//businessrulecontrols//
 			// btnAddScriptAuditCheck
 			// 
 			this.btnAddScriptAuditCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddScriptAuditCheck.Location = new System.Drawing.Point(272, 19);
+			this.btnAddScriptAuditCheck.Location = new System.Drawing.Point(278, 19);
 			this.btnAddScriptAuditCheck.Name = "btnAddScriptAuditCheck";
 			this.btnAddScriptAuditCheck.Size = new System.Drawing.Size(75, 23);
 			this.btnAddScriptAuditCheck.TabIndex = 12;
@@ -323,7 +359,7 @@ namespace auditcheck_child//businessrulecontrols//
 			this.gboxApplicazione.Controls.Add(this.checkBox3);
 			this.gboxApplicazione.Controls.Add(this.checkBox2);
 			this.gboxApplicazione.Controls.Add(this.checkBox1);
-			this.gboxApplicazione.Location = new System.Drawing.Point(348, 56);
+			this.gboxApplicazione.Location = new System.Drawing.Point(411, 40);
 			this.gboxApplicazione.Name = "gboxApplicazione";
 			this.gboxApplicazione.Size = new System.Drawing.Size(245, 72);
 			this.gboxApplicazione.TabIndex = 4;
@@ -378,7 +414,7 @@ namespace auditcheck_child//businessrulecontrols//
 			// chkPost
 			// 
 			this.chkPost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.chkPost.Location = new System.Drawing.Point(465, 32);
+			this.chkPost.Location = new System.Drawing.Point(465, 14);
 			this.chkPost.Name = "chkPost";
 			this.chkPost.Size = new System.Drawing.Size(104, 24);
 			this.chkPost.TabIndex = 5;
@@ -391,7 +427,7 @@ namespace auditcheck_child//businessrulecontrols//
 			this.groupBox1.Controls.Add(this.radioButton2);
 			this.groupBox1.Controls.Add(this.radioButton1);
 			this.groupBox1.Controls.Add(this.radioButton3);
-			this.groupBox1.Location = new System.Drawing.Point(262, 56);
+			this.groupBox1.Location = new System.Drawing.Point(325, 40);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(84, 72);
 			this.groupBox1.TabIndex = 3;
@@ -428,40 +464,22 @@ namespace auditcheck_child//businessrulecontrols//
 			this.radioButton3.Text = "Delete";
 			this.radioButton3.CheckedChanged += new System.EventHandler(this.RicalcolaEnforcementID);
 			// 
-			// Tree
-			// 
-			this.Tree.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Tree.Location = new System.Drawing.Point(8, 144);
-			this.Tree.Name = "Tree";
-			this.Tree.Size = new System.Drawing.Size(216, 80);
-			this.Tree.TabIndex = 6;
-			this.Tree.TabStop = false;
-			this.Tree.DoubleClick += new System.EventHandler(this.Tree_DoubleClick);
-			// 
-			// label5
-			// 
-			this.label5.Location = new System.Drawing.Point(8, 113);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(216, 28);
-			this.label5.TabIndex = 9;
-			this.label5.Text = "Campi della tabella che possono essere inseriti nel messaggio:";
-			// 
 			// txtMessage
 			// 
 			this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtMessage.Location = new System.Drawing.Point(230, 144);
+			this.txtMessage.Location = new System.Drawing.Point(325, 142);
 			this.txtMessage.Multiline = true;
 			this.txtMessage.Name = "txtMessage";
 			this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtMessage.Size = new System.Drawing.Size(363, 80);
+			this.txtMessage.Size = new System.Drawing.Size(333, 103);
 			this.txtMessage.TabIndex = 7;
 			this.txtMessage.Tag = "auditcheck.message";
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(230, 128);
+			this.label4.Location = new System.Drawing.Point(327, 122);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(168, 16);
 			this.label4.TabIndex = 7;
@@ -473,9 +491,9 @@ namespace auditcheck_child//businessrulecontrols//
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbTabella.DataSource = this.DS.customobject;
 			this.cmbTabella.DisplayMember = "objectname";
-			this.cmbTabella.Location = new System.Drawing.Point(8, 72);
+			this.cmbTabella.Location = new System.Drawing.Point(53, 47);
 			this.cmbTabella.Name = "cmbTabella";
-			this.cmbTabella.Size = new System.Drawing.Size(247, 21);
+			this.cmbTabella.Size = new System.Drawing.Size(260, 21);
 			this.cmbTabella.TabIndex = 2;
 			this.cmbTabella.Tag = "auditcheck.tablename";
 			this.cmbTabella.ValueMember = "objectname";
@@ -483,7 +501,7 @@ namespace auditcheck_child//businessrulecontrols//
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(8, 56);
+			this.label2.Location = new System.Drawing.Point(8, 51);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(48, 16);
 			this.label2.TabIndex = 2;
@@ -493,7 +511,7 @@ namespace auditcheck_child//businessrulecontrols//
 			// btnControlli
 			// 
 			this.btnControlli.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnControlli.Location = new System.Drawing.Point(946, 249);
+			this.btnControlli.Location = new System.Drawing.Point(945, 271);
 			this.btnControlli.Name = "btnControlli";
 			this.btnControlli.Size = new System.Drawing.Size(96, 23);
 			this.btnControlli.TabIndex = 11;
@@ -523,7 +541,7 @@ namespace auditcheck_child//businessrulecontrols//
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(12, 247);
+			this.label3.Location = new System.Drawing.Point(15, 269);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(203, 25);
 			this.label3.TabIndex = 9;
@@ -539,9 +557,9 @@ namespace auditcheck_child//businessrulecontrols//
 			this.txtSql.BackColor = System.Drawing.Color.White;
 			this.txtSql.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtSql.ForeColor = System.Drawing.Color.Black;
-			this.txtSql.Location = new System.Drawing.Point(12, 275);
+			this.txtSql.Location = new System.Drawing.Point(12, 297);
 			this.txtSql.Name = "txtSql";
-			this.txtSql.Size = new System.Drawing.Size(1029, 274);
+			this.txtSql.Size = new System.Drawing.Size(1029, 252);
 			this.txtSql.TabIndex = 10;
 			this.txtSql.Tag = "auditcheck.sqlcmd";
 			this.txtSql.Text = "";
@@ -559,6 +577,7 @@ namespace auditcheck_child//businessrulecontrols//
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.MetaDataDetail.ResumeLayout(false);
 			this.MetaDataDetail.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
 			this.gboxSql.ResumeLayout(false);
 			this.gboxSql.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -568,7 +587,7 @@ namespace auditcheck_child//businessrulecontrols//
 
 		}
 		#endregion
-
+		DataTable SysType;
 		public void MetaData_AfterLink(){
 			Meta = MetaData.GetMetaData(this);
 			Conn= Meta.Conn;
@@ -597,6 +616,139 @@ namespace auditcheck_child//businessrulecontrols//
 			abilitaODisabilita(IsAdmin);
 			txtSql.ForeColor = Color.Black;
 			txtSql.BackColor = Color.White;
+
+
+			SysType = new DataTable("systype");
+			SysType.Columns.Add("valore", typeof(string));
+			SysType.Columns.Add("descrizione", typeof(string));
+			DataRow R;
+			R = SysType.NewRow();
+			R["valore"] = "esercizio";
+			R["descrizione"] = "Esercizio contabile";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "datacontabile";
+			R["descrizione"] = "Data contabile";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "maxexpensephase";
+			R["descrizione"] = "Ultima fase di spesa";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "maxincomephase";
+			R["descrizione"] = "Ultima fase di entrata";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "itinerationphase";
+			R["descrizione"] = "Fase contab.missione";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "mandatephase";
+			R["descrizione"] = "Fase contab.ordine";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "estimatephase";
+			R["descrizione"] = "Fase contab.contratto attivo";
+			SysType.Rows.Add(R);
+
+			R = SysType.NewRow();
+			R["valore"] = "expensefinphase";
+			R["descrizione"] = "Fase spesa bilancio";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "expenseregphase";
+			R["descrizione"] = "Fase spesa creditore";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "incomefinphase";
+			R["descrizione"] = "Fase entrata bilancio";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "incomeregphase";
+			R["descrizione"] = "Fase entrata creditore";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "appropriationphase";
+			R["descrizione"] = "Fase impegno";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "assessmentphase";
+			R["descrizione"] = "Fase accertamento";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "idcustomuser";
+			R["descrizione"] = "Id dell'utente (in customuser)";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "deferredexpensephase";
+			R["descrizione"] = "Fase spesa Iva differita";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "deferredincomephase";
+			R["descrizione"] = "Fase entrata Iva differita";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "idflowchart";
+			R["descrizione"] = "Ruolo Corrente";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "codesorkind_siopespese";
+			R["descrizione"] = "Codice Classificazione SIOPE Spese (code)";
+			SysType.Rows.Add(R);
+			R = SysType.NewRow();
+			R["valore"] = "codesorkind_siopeentrate";
+			R["descrizione"] = "Codice Classificazione SIOPE Entrate (code)";
+			SysType.Rows.Add(R);
+
+			cmbSysType.DataSource = SysType;
+			cmbSysType.DisplayMember = "descrizione";
+			cmbSysType.ValueMember = "valore";
+			cmbSysType.SelectedIndex = 1;
+			cmbSysType.SelectedIndex = 0;
+
+		}
+
+		void InsertStringIntoStatement(string S)
+		{
+			TextBox T = new TextBox();
+			T.Text = S;
+			T.SelectAll();
+			T.Copy();
+			txtMessage.Paste();
+			
+
+		}
+
+		private void BtnEsercizio_Click(object sender, System.EventArgs e)
+		{
+			InsertStringIntoStatement(BtnEsercizio.Text);
+		}
+
+		//private void Tree_DoubleClick(object sender, System.EventArgs e)
+		//{
+		//	if (Meta.IsEmpty) return;
+		//	TreeNode curr = Tree.SelectedNode;
+		//	if (curr == null) return;
+		//	if (curr.Nodes.Count > 0) return;
+		//	if (curr.Parent == null) return;
+		//	string tablename = curr.Parent.Text;
+		//	string colname = curr.Text;
+		//	string fieldref = "%<" + tablename + "." + colname + ">%";
+		//	string currmsg = txtMessage.Text;
+		//	int currpos = txtMessage.SelectionStart;
+		//	if ((currpos < 0) || (currpos > currmsg.Length)) currpos = currmsg.Length;
+		//	currmsg = currmsg.Insert(currpos, fieldref);
+		//	txtMessage.Text = currmsg;
+
+		//}
+
+
+
+		private void cmbSysType_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			if (cmbSysType.SelectedIndex < 0) return;
+			if (cmbSysType.SelectedValue == null) return;
+			BtnEsercizio.Text = "%<sys_" + cmbSysType.SelectedValue.ToString() + ">%";
 		}
 
 		void abilitaODisabilita(bool enabled) {
@@ -653,13 +805,57 @@ namespace auditcheck_child//businessrulecontrols//
 			Tree.Nodes.Add(tablename);
 			Tree.Nodes[0].Expand();
 
-			DataTable RefTables = Conn.SQLRunner(
-				"	SELECT object_name(rkeyid) FROM sysreferences "+
-				" WHERE fkeyid = object_id("+QueryCreator.quotedstrvalue(tablename,true)+")"+
-				" AND object_name(rkeyid) != "+QueryCreator.quotedstrvalue(tablename,true));
-			foreach (DataRow Rtable in RefTables.Rows){
-				Tree.Nodes.Add(Rtable[0].ToString());
+			////DataTable RefTables = Conn.SQLRunner(
+			//	"	SELECT object_name(rkeyid) FROM sysreferences "+
+			//	" WHERE fkeyid = object_id("+QueryCreator.quotedstrvalue(tablename,true)+")"+
+			//	" AND object_name(rkeyid) != "+QueryCreator.quotedstrvalue(tablename,true));
+
+			/*
+			* select customdirectrel.idcustomdirectrel, description,  totable, fromtable,   fromfield, tofield   from customdirectrel
+			join customdirectrelcol 
+			on customdirectrel.idcustomdirectrel = customdirectrelcol.idcustomdirectrel 
+
+			where fromtable = 'itinerationrefund'
+			order by totable, fromtable
+			 * */
+
+			// Dipendenze di primo livello eventualmente presenti nel dataset, mi baso sulle relazioni di navigazione diretta
+			DataTable RefTables = Conn.SQLRunner("	SELECT DISTINCT parent_table  FROM customsystablelinked " +
+				"   WHERE child_table = " + QueryCreator.quotedstrvalue(tablename, true)) ;
+
+
+			if ((RefTables != null) && (RefTables.Rows.Count > 0)) {
+				foreach (DataRow Rtable in RefTables.Rows) {
+					Tree.Nodes.Add(Rtable[0].ToString());
+				}
 			}
+		
+			ArrayList Views = dbanalyzer.ViewListFromDB(Conn);
+
+			if (Views.Contains(tablename + "view"))
+			{
+				dbstructure DBS1 = Conn.GetStructure(tablename + "view");
+				if (DBS1.customobject.Rows.Count > 0) Tree.Nodes.Add(tablename + "view".ToString());
+			}
+
+			// Dipendenze di secondo livello eventualmente presenti nel dataset, mi baso sulle relazioni navigazione diretta
+			foreach (TreeNode N in Tree.Nodes) {
+				string tablename2 = N.Text;
+				 DataTable RefTables2 = Conn.SQLRunner
+				("	SELECT DISTINCT parent_table  FROM customsystablelinked " +
+							" WHERE child_table = " + QueryCreator.quotedstrvalue(tablename2, true));
+				if ((RefTables2 != null)&&(RefTables2.Rows.Count>0)) {
+
+					foreach (DataRow Rtable in RefTables2.Rows) {
+						string nodeText = Rtable[0].ToString();
+						bool exists = Tree.Nodes.Cast<TreeNode>().Any(n => n.Text == nodeText);
+						if (!exists)
+							Tree.Nodes.Add(nodeText);
+					}
+				}
+
+			}
+
 
 			foreach (TreeNode N in Tree.Nodes){
 				string currtable= N.Text;

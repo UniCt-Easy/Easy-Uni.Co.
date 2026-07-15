@@ -14,7 +14,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -25,7 +25,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="registryistitutiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="registrydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
@@ -74,8 +74,8 @@
       <xs:selector xpath=".//mstns:annoaccademico" />
       <xs:field xpath="mstns:aa" />
     </xs:unique>
-    <xs:unique name="registryistitutiview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registryistitutiview" />
+    <xs:unique name="registrydefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrydefaultview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="istattitolistudio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -92,7 +92,7 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_titolostudio_attach_idattach" msdata:parent="attach" msdata:child="titolostudio" msdata:parentkey="idattach" msdata:childkey="idattach" />
       <msdata:Relationship name="FK_titolostudio_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="titolostudio" msdata:parentkey="aa" msdata:childkey="aa" />
-      <msdata:Relationship name="FK_titolostudio_registryistitutiview_idreg_istituti" msdata:parent="registryistitutiview" msdata:child="titolostudio" msdata:parentkey="idreg" msdata:childkey="idreg_istituti" />
+      <msdata:Relationship name="FK_titolostudio_registrydefaultview_idreg_istituti" msdata:parent="registrydefaultview" msdata:child="titolostudio" msdata:parentkey="idreg" msdata:childkey="idreg_istituti" />
       <msdata:Relationship name="FK_titolostudio_istattitolistudio_idistattitolistudio" msdata:parent="istattitolistudio" msdata:child="titolostudio" msdata:parentkey="idistattitolistudio" msdata:childkey="idistattitolistudio" />
     </xs:appinfo>
   </xs:annotation>

@@ -22,10 +22,16 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#perfruolo_default_idperfruolo'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -61,6 +67,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			//buttons
         });

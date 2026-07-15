@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_modpagamerrateinexpenselast]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_modpagamerrateinexpenselast]
@@ -88,7 +86,7 @@ begin
 	select
 		'Mandato' = npay,
 		'Mov' = nmov,
-		'Tesoriere' = treasurer,
+		'Conto Corrente' = treasurer,
 		'Pagamento' = paymethod,
 		'Errore'= errore,
 		'Iban' = iban,
@@ -96,8 +94,8 @@ begin
 		'Conto' = cc,
 		'Abi nel mov' = el_idbank,
 		'Cab nel mov' = el_idcab,
-		'Abi nel tesoriere' = tr_idbank,
-		'Cab nel tesoriere' = tr_idcab
+		'Abi nel conto corrente' = tr_idbank,
+		'Cab nel conto corrente' = tr_idcab
 		from #tabella 
 		order by npay, nmov
 end

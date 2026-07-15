@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_titolostudio_docenti"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_titolostudio_docenti: DataSet {
+public partial class dsmeta_titolostudio_docenti: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -37,7 +35,7 @@ public class dsmeta_titolostudio_docenti: DataSet {
 	public MetaTable annoaccademico 		=> (MetaTable)Tables["annoaccademico"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registryistitutiview 		=> (MetaTable)Tables["registryistitutiview"];
+	public MetaTable registrydefaultview 		=> (MetaTable)Tables["registrydefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable istattitolistudio 		=> (MetaTable)Tables["istattitolistudio"];
@@ -80,7 +78,7 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
 
@@ -90,13 +88,13 @@ private void initClass() {
 	Tables.Add(tannoaccademico);
 	tannoaccademico.defineKey("aa");
 
-	//////////////////// REGISTRYISTITUTIVIEW /////////////////////////////////
-	var tregistryistitutiview= new MetaTable("registryistitutiview");
-	tregistryistitutiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistryistitutiview.defineColumn("idreg", typeof(int),false);
-	tregistryistitutiview.defineColumn("registry_active", typeof(string));
-	Tables.Add(tregistryistitutiview);
-	tregistryistitutiview.defineKey("idreg");
+	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
+	var tregistrydefaultview= new MetaTable("registrydefaultview");
+	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
+	tregistrydefaultview.defineColumn("registry_active", typeof(string));
+	Tables.Add(tregistrydefaultview);
+	tregistrydefaultview.defineKey("idreg");
 
 	//////////////////// ISTATTITOLISTUDIO /////////////////////////////////
 	var tistattitolistudio= new MetaTable("istattitolistudio");
@@ -138,9 +136,9 @@ private void initClass() {
 	cChild = new []{titolostudio.Columns["aa"]};
 	Relations.Add(new DataRelation("FK_titolostudio_annoaccademico_aa",cPar,cChild,false));
 
-	cPar = new []{registryistitutiview.Columns["idreg"]};
+	cPar = new []{registrydefaultview.Columns["idreg"]};
 	cChild = new []{titolostudio.Columns["idreg_istituti"]};
-	Relations.Add(new DataRelation("FK_titolostudio_registryistitutiview_idreg_istituti",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_titolostudio_registrydefaultview_idreg_istituti",cPar,cChild,false));
 
 	cPar = new []{istattitolistudio.Columns["idistattitolistudio"]};
 	cChild = new []{titolostudio.Columns["idistattitolistudio"]};

@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1XYUIPPICAEQIHU4SK33F4G9E"
+  boundary="---------blocknote.net--1GMYK56JF5V2F1V3FT00C3EY5G"
 
 
------------blocknote.net--1XYUIPPICAEQIHU4SK33F4G9E
+-----------blocknote.net--1GMYK56JF5V2F1V3FT00C3EY5G
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -26,92 +26,107 @@ DIV { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 TD { FONT-FAMILY:Times New Roman; FONT-SIZE:12pt }
 </STYLE>
   </HEAD>
-<BODY>
-<P><FONT face=3D"Tahoma">menu <STRONG>Spese &gt; Variazione movimento di =
-Spesa</FONT></STRONG></P><HR>
-<P><FONT face=3D"Tahoma">Dalla voce di menu <STRONG>Spese &gt; Variazione=
- movimento di Spesa </STRONG>si apre il relativo form che consente di ric=
-ercare ed effettuare variazioni all=E2=80=99importo corrente dei moviment=
-i finanziari. Tale procedura permette di avere uno storico delle modifich=
-e apportate ai singoli movimenti finanziari, oltre a consentire la gestio=
-ne della note di credito e di debito sui documenti Iva nonch=C3=A9 l=E2=80=
-=99annullamento parziale o totale dei <EM>Mandati di pagamento.</FONT></E=
-M></P>
-<P><FONT face=3D"Tahoma">In questo form =C3=A8 possibile effettuare conte=
-stualmente alla variazione dell=E2=80=99importo del movimento finanziario=
- anche la modifica degli importi delle classificazioni associate.</FONT><=
-/P>
-<P><FONT face=3D"Tahoma">Il form <STRONG>=E2=80=9CVariazione movimento di=
- spesa=E2=80=9D </STRONG>=C3=A8 composto da due schede: <EM>Principale</E=
-M>, <EM>Dettagli </EM>e <EM>Classificazioni</EM> &nbsp;di cui la prima =C3=
-=A8 visualizzata in figura 1.</FONT></P>
-<P align=3D"center"><FONT face=3D"Tahoma">(figura 1)</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:2FAT3GLSO75MIGDS4612FNE5Q"></P>
+<BODY><DIV align=3D"left">
+<TABLE border=3D"1" cellspacing=3D"1" width=3D"5%">
+  <TR>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">v. 1.0</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">21/06=
+/2017</FONT></STRONG></TD>
+    <TD valign=3D"middle"><STRONG><FONT size=3D"2">Creazione</FONT></STRO=
+NG></TD>
+  </TR>
+  <TR>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">v. 1.1</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">12/04=
+/2023</FONT></STRONG></TD>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">eliminato link guida contabilizzazione NC - task 18374</FONT></STRONG><=
+/TD>
+  </TR>
+</TABLE>
+</DIV>
+<P><FONT size=3D"5">menu <STRONG>Spese &gt; Variazione movimento di Spesa=
+</FONT></STRONG></P><HR>
+<P><FONT size=3D"4">Dalla voce di menu <STRONG>Spese &gt; Variazione movi=
+mento di Spesa </STRONG>si apre il relativo form che consente di ricercar=
+e ed effettuare variazioni all=E2=80=99importo corrente dei movimenti fin=
+anziari. Tale procedura permette di avere uno storico delle modifiche app=
+ortate ai singoli movimenti finanziari, oltre a consentire la gestione de=
+lla note di credito e di debito sui documenti Iva nonch=C3=A9 l=E2=80=99a=
+nnullamento parziale o totale dei <EM>Mandati di pagamento.</FONT></EM></=
+P>
+<P><FONT size=3D"4">In questo form =C3=A8 possibile effettuare contestual=
+mente alla variazione dell=E2=80=99importo del movimento finanziario anch=
+e la modifica degli importi delle classificazioni associate.</FONT></P>
+<P><FONT size=3D"4">Il form <STRONG>=E2=80=9CVariazione movimento di spes=
+a=E2=80=9D </STRONG>=C3=A8 composto da due schede: <EM>Principale</EM>, <=
+EM>Dettagli </EM>e <EM>Classificazioni</EM> &nbsp;di cui la prima =C3=A8 =
+visualizzata in figura 1.</FONT></P>
+<P align=3D"center"><FONT size=3D"4">(figura 1)</FONT></P>
+<P align=3D"center"><IMG src=3D"cid:NFXFK8JIXFINHZVLIQL16HXI"></P>
 <P align=3D"center">&nbsp;</P>
-<P><STRONG><FONT face=3D"Tahoma">- Abilita documento IVA: </STRONG>la sel=
-ezione di questa casella permette di inserire i riferimenti successivi de=
-l documento IVA. (es.: nota di credito ricevuta).</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Tipo, riferimenti e causale del docume=
-nto IVA: </STRONG>se si devono gestire le note di credito emesse o altri =
-documenti IVA: indicare il tipo del documento, l=E2=80=99esercizio, il nu=
-mero e la causale del documento.</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Fase del movimento finanziario: </STRO=
-NG>selezionare la fase del movimento finanziario oggetto della variazione=
-=2E</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Riferimenti del movimento finanziario:=
- </STRONG>indicare direttamente nei rispettivi campi l=E2=80=99esercizio =
-e il numero del movimento finanziario o alternativamente selezionarlo dal=
- relativo bottone di comando.</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Esercizio e Numero della variazione:</=
-STRONG> indicazione dell=E2=80=99esercizio in cui viene effettuata la var=
-iazione di movimento e il numero progressivo attribuito da Easy al moment=
-o del salvataggio dell=E2=80=99operazione di inserimento.</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Descrizione della variazione: </STRONG=
->breve descrizione della variazione di movimento.</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Data e documento: </STRONG>eventuale i=
-ndicazione della data e del documento collegati alla variazione e che han=
-no giustificato la variazione stessa.</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Importo della variazione (aumento e di=
-minuzione): </STRONG>indicare la variazione in aumento o in diminuzione d=
-ell=E2=80=99importo del movimento finanziario.</FONT></P>
-<P><STRONG><FONT face=3D"Tahoma">- Data contabile: </STRONG>indicazione d=
-ella data in cui la variazione avr=C3=A0 effetto ai fini contabili.</FONT=
-></P>
-<P><STRONG><FONT face=3D"Tahoma">- Tipo variazione: </STRONG>indicare se =
-la variazione in oggetto riguarda un annullamento parziale o totale di un=
- mandato oppure un=E2=80=99operazione della normale gestione contabile.</=
-FONT></P>
+<P><STRONG><FONT size=3D"4">- Abilita documento IVA: </STRONG>la selezion=
+e di questa casella permette di inserire i riferimenti successivi del doc=
+umento IVA. (es.: nota di credito ricevuta).</FONT></P>
+<P><STRONG><FONT size=3D"4">- Tipo, riferimenti e causale del documento I=
+VA: </STRONG>se si devono gestire le note di credito emesse o altri docum=
+enti IVA: indicare il tipo del documento, l=E2=80=99esercizio, il numero =
+e la causale del documento.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Fase del movimento finanziario: </STRONG>se=
+lezionare la fase del movimento finanziario oggetto della variazione.</FO=
+NT></P>
+<P><STRONG><FONT size=3D"4">- Riferimenti del movimento finanziario: </ST=
+RONG>indicare direttamente nei rispettivi campi l=E2=80=99esercizio e il =
+numero del movimento finanziario o alternativamente selezionarlo dal rela=
+tivo bottone di comando.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Esercizio e Numero della variazione:</STRON=
+G> indicazione dell=E2=80=99esercizio in cui viene effettuata la variazio=
+ne di movimento e il numero progressivo attribuito da Easy al momento del=
+ salvataggio dell=E2=80=99operazione di inserimento.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Descrizione della variazione: </STRONG>brev=
+e descrizione della variazione di movimento.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Data e documento: </STRONG>eventuale indica=
+zione della data e del documento collegati alla variazione e che hanno gi=
+ustificato la variazione stessa.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Importo della variazione (aumento e diminuz=
+ione): </STRONG>indicare la variazione in aumento o in diminuzione dell=E2=
+=80=99importo del movimento finanziario.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Data contabile: </STRONG>indicazione della =
+data in cui la variazione avr=C3=A0 effetto ai fini contabili.</FONT></P>
+<P><STRONG><FONT size=3D"4">- Tipo variazione: </STRONG>indicare se la va=
+riazione in oggetto riguarda un annullamento parziale o totale di un mand=
+ato oppure un=E2=80=99operazione della normale gestione contabile.</FONT>=
+</P>
 <P>&nbsp;</P>
-<DIV><FONT face=3D"Tahoma">Scheda <STRONG><EM>Dettagli</FONT></EM></STRON=
-G></DIV>
-<P align=3D"justify"><FONT face=3D"Tahoma">Permette di visualizzare o mod=
-ificare i dettagli documento (contratto passivo o fattura) in base alla f=
-ase di spesa richiamata nella variazione</FONT></P>
+<DIV><FONT size=3D"4">Scheda <STRONG><EM>Dettagli</FONT></EM></STRONG></D=
+IV>
+<P align=3D"justify"><FONT size=3D"4">Permette di visualizzare o modifica=
+re i dettagli documento (contratto passivo o fattura) in base alla fase d=
+i spesa richiamata nella variazione</FONT></P>
 <P>&nbsp;</P>
 <P>&nbsp;</P>
-<P><FONT face=3D"Tahoma">Scheda <STRONG><EM>Classificazioni</FONT></EM></=
-STRONG></P>
-<P><FONT face=3D"Tahoma">Dopo aver selezionato il movimento finanziario o=
-ggetto della variazione la scheda Classificazioni (figura 3) consente di =
-gestire l=E2=80=99eventuale modifica in aumento o in diminuzione della cl=
-assificazioni associate al movimento.</FONT></P>
-<P><FONT face=3D"Tahoma">Dopo aver selezionato la classificazione dai bot=
-toni di comando <U>Aggiungi</U>, <U>Correggi</U> e <U>Cancella </U>=C3=A8=
- possibile inserire,modificare o eliminare i singoli dettagli.</FONT></P>
-<P align=3D"center"><FONT face=3D"Tahoma">(figura 3)</FONT></P>
-<P align=3D"center"><IMG src=3D"cid:LZJ2HNHTJN5QSXCPMLS2CW15"></P>
+<P><FONT size=3D"4">Scheda <STRONG><EM>Classificazioni</FONT></EM></STRON=
+G></P>
+<P><FONT size=3D"4">Dopo aver selezionato il movimento finanziario oggett=
+o della variazione la scheda Classificazioni (figura 3) consente di gesti=
+re l=E2=80=99eventuale modifica in aumento o in diminuzione della classif=
+icazioni associate al movimento.</FONT></P>
+<P><FONT size=3D"4">Dopo aver selezionato la classificazione dai bottoni =
+di comando <U>Aggiungi</U>, <U>Correggi</U> e <U>Cancella </U>=C3=A8 poss=
+ibile inserire,modificare o eliminare i singoli dettagli.</FONT></P>
+<P align=3D"center"><FONT size=3D"4">(figura 3)</FONT></P>
+<P align=3D"center"><FONT size=3D"4"><IMG src=3D"cid:Q1H0XAIPXIHTPP6HEB1N=
+O2R65"></FONT></P>
 <P align=3D"center">&nbsp;</P>
-<P align=3D"justify">&nbsp;</P><HR>
-<DIV><EM><FONT face=3D"Tahoma">Argomenti correlati:</FONT></EM></DIV>
-<P><A href=3D"contabilizzazioneNC.mht"><FONT face=3D"Tahoma">Contabilizza=
-zione nota di credito</A></FONT></P>
-<P>&nbsp;</P>
+<P align=3D"justify">&nbsp;</P>
 </BODY>
 </HTML>
 
------------blocknote.net--1XYUIPPICAEQIHU4SK33F4G9E
+-----------blocknote.net--1GMYK56JF5V2F1V3FT00C3EY5G
 Content-Type: image/x-png
-Content-Id: <2FAT3GLSO75MIGDS4612FNE5Q>
+Content-Id: <NFXFK8JIXFINHZVLIQL16HXI>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine5.png
 
@@ -793,9 +808,9 @@ LojOAQAAALsgOgcAAADsIrhv8gcAAABQa3yTPwAAANBoBFo7T09PV2UAAAAAdSHw
 XRCdAwAAAHZBdA4AAADYBdE5AAAAYBfyM1t655cYBQAAAAANwvjMFlUAAAAA0LDk
 550ToQMAAAC2oGn/H6qxcSmkXKvjAAAAAElFTkSuQmCC=
 
------------blocknote.net--1XYUIPPICAEQIHU4SK33F4G9E
+-----------blocknote.net--1GMYK56JF5V2F1V3FT00C3EY5G
 Content-Type: image/x-png
-Content-Id: <LZJ2HNHTJN5QSXCPMLS2CW15>
+Content-Id: <Q1H0XAIPXIHTPP6HEB1NO2R65>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Tempo Srl/Desktop/Immagine6.png
 
@@ -1147,4 +1162,4 @@ P50XiHQOAAAAoDr84tv/lnTKZt45AAAAYArSOQAAAGAK0jkAAABgCtI5AAAAYArS
 OQAAAGAK/Zkt7baW6QYAAAAA1aGkU7Yl0rmuAQAAAKhGlvX/AbnFCIZngb25AAAA
 AElFTkSuQmCC=
 
------------blocknote.net--1XYUIPPICAEQIHU4SK33F4G9E--
+-----------blocknote.net--1GMYK56JF5V2F1V3FT00C3EY5G--

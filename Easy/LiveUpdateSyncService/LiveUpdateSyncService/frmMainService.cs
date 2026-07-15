@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -236,7 +234,7 @@ namespace LiveUpdateSyncService {
                 return;
             }
             if (modified) {
-                ShowMsg("Ci sono modifiche in corso, Ë necessario salvare prima di effettuare il sync");
+                ShowMsg("Ci sono modifiche in corso, √® necessario salvare prima di effettuare il sync");
                 return;
             }
             DataTable T = GetTableMemory();
@@ -428,7 +426,7 @@ namespace LiveUpdateSyncService {
 
         private void DO_SYNC(DataTable T, bool IsLocal) {
    
-            //Al momento Ë gestito solo da locale
+            //Al momento √® gestito solo da locale
             DO_SYNC_LOCALE(T);
         }
 
@@ -444,7 +442,7 @@ namespace LiveUpdateSyncService {
        
         
         /// <summary>
-        /// Questo metodo viene utilizzato quando il sito da replicare Ë una cartella locale
+        /// Questo metodo viene utilizzato quando il sito da replicare √® una cartella locale
         /// </summary>
         /// <param name="source">indirizzo da replicare</param>
         /// <param name="T">Tabella che contiene i siti da sincronizzare</param>
@@ -543,7 +541,7 @@ namespace LiveUpdateSyncService {
             Ftp ftpDest,
             string cartellaAppoggio,
             string folderTrasferimento) {
-            //ftpDest.ChangeDir(webRoot);//Si sposta sulla cartella root del sito - rimosso, al momento sta gi‡ in easyservices
+            //ftpDest.ChangeDir(webRoot);//Si sposta sulla cartella root del sito - rimosso, al momento sta gi√† in easyservices
             bool res = true;
             foreach (string serviceName in getServiceNames() ) {
                 AggiungiLog(ftpDest.Host, "---------------------------------------------");
@@ -584,7 +582,7 @@ namespace LiveUpdateSyncService {
         private bool SincronizzaAllFile_LOCALE(string officialFolder, string serviceName, DataSet Source, Ftp ftpDest,string folderTrasferimento) {
 
             string versionfilename= "versionesw4.txt";
-            //La sincronizzazione viene ignorata se il DS sorgente Ë null
+            //La sincronizzazione viene ignorata se il DS sorgente √® null
             if (Source == null) return true;
             //risultato del metodo
             bool risultato = true;
@@ -639,7 +637,7 @@ namespace LiveUpdateSyncService {
             foreach (DataRow Rsource in Tsource.Rows) {
                 if (Tdest != null) {
                     DataRow[] Rdest = Tdest.Select("dllname=" + QueryCreator.quotedstrvalue(Rsource["dllname"], false));
-                    //se il file Ë nuovo o da aggiornare
+                    //se il file √® nuovo o da aggiornare
                     if (Rdest.Length == 0 || IsFileToUpdate(Rsource, Rdest[0])) {
                         string relativePath = "";
                         string fileName = "";
@@ -661,7 +659,7 @@ namespace LiveUpdateSyncService {
                         
                 }
             }
-            //se Ë tutto ok  aggiorno pure l'index dei file (nella directory principale dello slave)
+            //se √® tutto ok  aggiorno pure l'index dei file (nella directory principale dello slave)
             if (risultato) risultato = AggiornaFile_LOCALE( ftpDest, Ftp.Combine(folderTrasferimentoServizio,indexFilename),  
                                                 Path.Combine(officialFolder,serviceName,indexFilename));
 
@@ -753,7 +751,7 @@ namespace LiveUpdateSyncService {
             //Check remote dir
             string remotedirService = XDir.CheckFinalSlash( remotedir) + serviceName; // es. www. 
             string[] files = ftpDest.DirFull(remotedirService);
-            //null or 0 files <-> dir inesistente o cartella esistente ma vuota. E' un errore perchË dovrebbe contenere almeno un indice
+            //null or 0 files <-> dir inesistente o cartella esistente ma vuota. E' un errore perch√® dovrebbe contenere almeno un indice
             if (files == null || files.Length == 0) {
                 if (!ftpDest.CheckDir(remotedirService)) {
                     AggiungiLog(ftpDest.Host, ftpDest.GetLastError());
@@ -765,7 +763,7 @@ namespace LiveUpdateSyncService {
             ftpDest.ChangeDir(remotedirService);
             foreach (FileInfo F in D.GetFiles("*.zip",SearchOption.AllDirectories)) {
                 string relativeName = F.FullName.Substring(D.Name.Length);
-                string relativeWebName = relativeName.Replace("/","\\");//ottiene il path relativo, la root verr‡ accodata in fase di put Fisico
+                string relativeWebName = relativeName.Replace("/","\\");//ottiene il path relativo, la root verr√† accodata in fase di put Fisico
                 if (!AggiornaFile_LOCALE( ftpDest,  relativeWebName,   F.FullName)) return false;
             }
             return true;

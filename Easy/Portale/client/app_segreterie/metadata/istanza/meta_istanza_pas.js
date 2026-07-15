@@ -44,6 +44,11 @@
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_matricola'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'matricola', columnNamekey:'idiscrizione_from' };
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_nome'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'nome', columnNamekey:'idiscrizione_from' };
 						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno_ruolo'] = { tableNameLookup:'importcontrattistipendiview', columnNameLookup:'ruolo', columnNamekey:'idiscrizione_from' };
+						this.describeAColumn(table, '!idiscrizione_from_iscrizione_aa', 'Anno accademico Iscrizione di partenza', null, 512, null);
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno'] = { tableNameLookup:'iscrizione_alias7', columnNameLookup:'anno', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_aa'] = { tableNameLookup:'iscrizione_alias7', columnNameLookup:'aa', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_anno'] = { tableNameLookup:'iscrizione_alias8', columnNameLookup:'anno', columnNamekey:'idiscrizione_from' };
+						objCalcFieldConfig['!idiscrizione_from_iscrizione_aa'] = { tableNameLookup:'iscrizione_alias8', columnNameLookup:'aa', columnNamekey:'idiscrizione_from' };
 //$objCalcFieldConfig_seganagstu$
 						break;
 //$objCalcFieldConfig$
@@ -54,7 +59,34 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'pas_seganagstu':
+						table.columns["idcorsostudio"].caption = "Corso studio di destinazione";
+						table.columns["iddidprog"].caption = "Didattica di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione di destinazione";
+						table.columns["idiscrizione_from"].caption = "Iscrizione di partenza";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_pas_seganagstu$
+						break;
+					case 'pas_seg':
+						table.columns["iddidprog"].caption = "Didattica di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione di destinazione";
+						table.columns["idiscrizione_from"].caption = "Iscrizione di partenza";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_pas_seg$
+						break;
+					case 'pas_stu':
+						table.columns["iddidprog"].caption = "Didattica di destinazione";
+						table.columns["idiscrizione"].caption = "Iscrizione di destinazione";
+						table.columns["idiscrizione_from"].caption = "Iscrizione di partenza";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_pas_stu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_pas");

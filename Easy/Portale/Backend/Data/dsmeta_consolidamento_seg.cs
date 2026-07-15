@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -55,7 +53,7 @@ public partial class dsmeta_consolidamento_seg: DataSet {
 	public MetaTable consolidamentoora 		=> (MetaTable)Tables["consolidamentoora"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable getregistrydocentiamministrativinomcognview 		=> (MetaTable)Tables["getregistrydocentiamministrativinomcognview"];
+	public MetaTable getregistrydocentiamministrativinomcognmatview 		=> (MetaTable)Tables["getregistrydocentiamministrativinomcognmatview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable consolidamento 		=> (MetaTable)Tables["consolidamento"];
@@ -137,6 +135,7 @@ private void initClass() {
 	trendicontattivitaprogetto.defineColumn("lt", typeof(DateTime),false);
 	trendicontattivitaprogetto.defineColumn("lu", typeof(string),false);
 	trendicontattivitaprogetto.defineColumn("orepreventivate", typeof(int),false);
+	trendicontattivitaprogetto.defineColumn("rendicontatutto", typeof(string));
 	trendicontattivitaprogetto.defineColumn("stop", typeof(DateTime));
 	Tables.Add(trendicontattivitaprogetto);
 	trendicontattivitaprogetto.defineKey("idprogetto", "idreg", "idrendicontattivitaprogetto", "idworkpackage");
@@ -202,24 +201,24 @@ private void initClass() {
 	Tables.Add(tconsolidamentoora);
 	tconsolidamentoora.defineKey("idconsolidamentoora", "idreg");
 
-	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVINOMCOGNVIEW /////////////////////////////////
-	var tgetregistrydocentiamministrativinomcognview= new MetaTable("getregistrydocentiamministrativinomcognview");
-	tgetregistrydocentiamministrativinomcognview.defineColumn("dropdown_title", typeof(string),false);
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_areadidattica", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_categoria", typeof(string),false);
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_macroareadidattica", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
-	tgetregistrydocentiamministrativinomcognview.defineColumn("idreg", typeof(int),false);
-	tgetregistrydocentiamministrativinomcognview.defineColumn("surname", typeof(string));
-	Tables.Add(tgetregistrydocentiamministrativinomcognview);
-	tgetregistrydocentiamministrativinomcognview.defineKey("idreg");
+	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVINOMCOGNMATVIEW /////////////////////////////////
+	var tgetregistrydocentiamministrativinomcognmatview= new MetaTable("getregistrydocentiamministrativinomcognmatview");
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_areadidattica", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_categoria", typeof(string),false);
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_macroareadidattica", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("idreg", typeof(int),false);
+	tgetregistrydocentiamministrativinomcognmatview.defineColumn("surname", typeof(string));
+	Tables.Add(tgetregistrydocentiamministrativinomcognmatview);
+	tgetregistrydocentiamministrativinomcognmatview.defineKey("idreg");
 
 	//////////////////// CONSOLIDAMENTO /////////////////////////////////
 	var tconsolidamento= new MetaTable("consolidamento");
@@ -270,9 +269,9 @@ private void initClass() {
 	cChild = new []{consolidamentoora.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_consolidamentoora_consolidamento_idreg",cPar,cChild,false));
 
-	cPar = new []{getregistrydocentiamministrativinomcognview.Columns["idreg"]};
+	cPar = new []{getregistrydocentiamministrativinomcognmatview.Columns["idreg"]};
 	cChild = new []{consolidamento.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_consolidamento_getregistrydocentiamministrativinomcognview_idreg",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_consolidamento_getregistrydocentiamministrativinomcognmatview_idreg",cPar,cChild,false));
 
 	#endregion
 

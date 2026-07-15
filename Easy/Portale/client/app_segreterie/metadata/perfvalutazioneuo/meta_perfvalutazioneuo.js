@@ -56,6 +56,21 @@
 						this.describeAColumn(table, 'motivazione', 'Motivazione', null, 260, -1);
 //$objCalcFieldConfig_upo$
 						break;
+					case 'onlyunatantumpunteggio':
+						this.describeAColumn(table, '!risultatooriginale', '% Performance organizzativa valutata', 'fixed.2', 0, null);
+						this.describeAColumn(table, 'year', 'Anno solare', null, 20, null);
+						this.describeAColumn(table, 'risultato', '% Performance organizzativa calcolata', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'obiettiviindividuali', 'Percentuale di completamento degli obiettivi organizzativi', 'fixed.2', 260, null);
+//$objCalcFieldConfig_onlyunatantumpunteggio$
+						break;
+					case 'upo2026':
+						this.describeAColumn(table, 'year', 'Anno solare', null, 20, null);
+						this.describeAColumn(table, 'risultato', 'Risultato %', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'pesoobiettivi', 'Peso della valutazione della performance degli obiettivi una tantum', 'fixed.2', 160, null);
+						this.describeAColumn(table, 'obiettiviindividuali', 'Percentuale di completamento degli obiettivi una tantum', 'fixed.2', 170, null);
+						this.describeAColumn(table, 'motivazione', 'Motivazione', null, 260, -1);
+//$objCalcFieldConfig_upo2026$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -103,6 +118,14 @@
 						table.columns["pesoprogaltreuo"].caption = "Peso della valutazione della performance degli obiettivi dei progetti strategici di altre UO ";
 						table.columns["pesoproguo"].caption = "Peso della valutazione della performance dei progetti strategici della UO";
 //$innerSetCaptionConfig_upo$
+						break;
+					case 'onlyunatantumpunteggio':
+						table.columns["!risultatooriginale"].caption = "% Performance organizzativa valutata";
+						table.columns["risultato"].caption = "% Performance organizzativa calcolata";
+//$innerSetCaptionConfig_onlyunatantumpunteggio$
+						break;
+					case 'upo2026':
+//$innerSetCaptionConfig_upo2026$
 						break;
 //$innerSetCaptionConfig$
 				}

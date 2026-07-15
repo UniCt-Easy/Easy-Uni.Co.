@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -149,17 +147,17 @@ namespace mandate_default {
             //Per tutte le righe Deleted in Associazioni, le riattiva se sono state riselezionate
             foreach (DataRow r in Associazioni.Rows) {
                 if (r.RowState != DataRowState.Deleted) continue;
-                if (r["idavcp", DataRowVersion.Original].ToString() != idavcp.ToString()) continue; //non Ë lo stesso partecipante
+                if (r["idavcp", DataRowVersion.Original].ToString() != idavcp.ToString()) continue; //non √® lo stesso partecipante
                 if (isChecked(r["cigcode", DataRowVersion.Original])) r.RejectChanges();
             }
 
-            //Per tutte le righe attive in Associazioni, le cancella se la corrispondente riga non Ë pi˘ selezionata
+            //Per tutte le righe attive in Associazioni, le cancella se la corrispondente riga non √® pi√π selezionata
             foreach (DataRow r in Associazioni.Select(QHC.CmpEq("idavcp", idavcp))) {
                 if (isChecked(r["cigcode"])) continue;
                 r.Delete();
             }
 
-            //Per tutte le righe selezionate, le aggiunge ad Associazioni se  non sono gi‡ presenti in essa
+            //Per tutte le righe selezionate, le aggiunge ad Associazioni se  non sono gi√† presenti in essa
             foreach (DataRow p in Lotti.Select()) {
                 if (!isChecked(p["cigcode"])) continue;
                 if (Associazioni.Select(QHC.AppAnd(

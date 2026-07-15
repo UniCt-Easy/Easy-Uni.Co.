@@ -26,7 +26,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anag_idworkpackage">Workpackage</label>
-					<select id="rendicontattivitaprogetto_anag_idworkpackage" class="custom-select d-block w-100"  data-source-name="workpackageelenchiview" data-value-member="idworkpackage" data-display-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idworkpackage?rendicontattivitaprogettoanagview.idworkpackage"  data-mandatory  data-master="progettoelenchiview"> </select>
+					<select id="rendicontattivitaprogetto_anag_idworkpackage" class="custom-select d-block w-100"  data-source-name="workpackageelenchiview" data-value-member="idworkpackage" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idworkpackage?rendicontattivitaprogettoanagview.idworkpackage"  data-mandatory  data-master="progettoelenchiview"> </select>
 				</div>
 			</div>
 			<div class="row">
@@ -58,7 +58,12 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anag_idrendicontattivitaprogettokind">Tipo di attività</label>
-					<select id="rendicontattivitaprogetto_anag_idrendicontattivitaprogettokind" class="custom-select d-block w-100"  data-source-name="rendicontattivitaprogettokinddefaultview" data-value-member="idrendicontattivitaprogettokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idrendicontattivitaprogettokind?rendicontattivitaprogettoanagview.rendicontattivitaprogetto_idrendicontattivitaprogettokind"   > </select>
+					<select id="rendicontattivitaprogetto_anag_idrendicontattivitaprogettokind" class="custom-select d-block w-100"  data-source-name="rendicontattivitaprogettokinddefaultview" data-value-member="idrendicontattivitaprogettokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="rendicontattivitaprogetto.idrendicontattivitaprogettokind?rendicontattivitaprogettoanagview.rendicontattivitaprogetto_idrendicontattivitaprogettokind"   > </select>
+				</div>
+				<div class="col-md-6">
+					<div class="custom_lng_div" data-langkey="fieldlabelrendicontattivitaprogetto_anag_rendicontatutto" >Se selezionato tutte le ore lavorate del membro della unità di ricerca saranno imputate a questa attività automaticamente sui timesheet. Rende superflua la schedulazione sul calendario.</div>
+					<label class="col-form-label col-md-12" for="rendicontattivitaprogetto_anag_rendicontatutto">Rendiconta automaticamente tutte le ore sulla attività</label>
+					<input id="rendicontattivitaprogetto_anag_rendicontatutto" type="checkbox" class="custom-control-input big-checkbox" data-tag="rendicontattivitaprogetto.rendicontatutto:S:N?rendicontattivitaprogettoanagview.rendicontattivitaprogetto_rendicontatutto:Si:No" />
 				</div>
 			</div>
 			<div class="row">
@@ -75,7 +80,7 @@
 	<hr>
 		<div class="row">
 			<div class="col-md-12">
-				<div id="calendar14" data-tag="rendicontattivitaprogettoora.seg.seg" data-custom-control="calendar"  data-mdltitlecolumnname="!titleancestor"   data-mdlstartcolumnname="data"   data-mdlmaincolor="darkgreen"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+				<div id="calendar15" data-tag="rendicontattivitaprogettoora.seg.seg" data-custom-control="calendar"  data-mdltitlecolumnname="!titleancestor"   data-mdlstartcolumnname="data"   data-mdlmaincolor="darkgreen"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop data-mdlmergeableKey="idrendicontattivitaprogettoora"></div>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -311,7 +309,7 @@ namespace EasyPagamenti {
                 //********************************************************************************
 
 
-                //DataAccess newConn = ConnectToDepartment("amministrazione", "amministrazione", "**********", DateTime.Now);
+                //DataAccess newConn = ConnectToDepartment("amministrazione", "amministrazione", "YOUR_PASSWORD", DateTime.Now);
 
                 DataAccess newConn = ConnectToDepartment(depcode_given, null, null, D);
                 //** Autenticazione avvenuta con successo
@@ -451,7 +449,7 @@ namespace EasyPagamenti {
             LdapConnection ldapconn = new LdapConnection(new LdapDirectoryIdentifier(servername, port), new System.Net.NetworkCredential(username, password));
 
             string ldaproot_ = "LDAP://" + servername + ":" + port + "/" + filterroot; //equivale alla stringa di sotto
-            //ldaproot_ = "LDAP://172.25.1.94:389/ou=STUDENTI,ou=studenti,dc=unipmn,dc=it";
+            //ldaproot_ = "LDAP://your-db-server:389/ou=STUDENTI,ou=studenti,dc=unipmn,dc=it";
 
             DEroot = new DirectoryEntry(ldaproot_, username, password);
             DEroot.AuthenticationType = AuthenticationTypes.FastBind;

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -40,7 +38,7 @@ namespace entrydetail_single {
 		private System.Windows.Forms.TextBox txtImporto;
 		private System.Windows.Forms.Button btnAnnulla;
 		private System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnConto;
 		private System.Windows.Forms.TextBox txtClienteFornitore;
 		public entrydetail_single.vistaForm DS;
 		private System.Windows.Forms.GroupBox gboxClienteFornitore;
@@ -93,6 +91,8 @@ namespace entrydetail_single {
         private TextBox txtEsercizioAccertamento;
 		private TextBox txtIdrelated;
 		private Label label3;
+		private CheckBox chkListTitle;
+		private CheckBox chkListTitleUPB;
 
 		/// <summary>
 		/// Required designer variable.
@@ -361,7 +361,7 @@ namespace entrydetail_single {
 			this.gboxConto = new System.Windows.Forms.GroupBox();
 			this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
 			this.txtCodiceConto = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.btnConto = new System.Windows.Forms.Button();
 			this.gboxClienteFornitore = new System.Windows.Forms.GroupBox();
 			this.txtClienteFornitore = new System.Windows.Forms.TextBox();
 			this.gboxclass3 = new System.Windows.Forms.GroupBox();
@@ -407,6 +407,8 @@ namespace entrydetail_single {
 			this.txtEsercizioAccertamento = new System.Windows.Forms.TextBox();
 			this.txtIdrelated = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
+			this.chkListTitle = new System.Windows.Forms.CheckBox();
+			this.chkListTitleUPB = new System.Windows.Forms.CheckBox();
 			this.gboxUPB.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.gboxConto.SuspendLayout();
@@ -425,6 +427,7 @@ namespace entrydetail_single {
 			// 
 			this.gboxUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.gboxUPB.Controls.Add(this.chkListTitleUPB);
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
@@ -450,11 +453,11 @@ namespace entrydetail_single {
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(136, 32);
+			this.txtDescrUPB.Location = new System.Drawing.Point(167, 8);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(235, 49);
+			this.txtDescrUPB.Size = new System.Drawing.Size(204, 73);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
 			this.txtDescrUPB.Tag = "upb.title";
@@ -470,9 +473,10 @@ namespace entrydetail_single {
 			this.btnUPBCode.Size = new System.Drawing.Size(120, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
-			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Tag = "";
 			this.btnUPBCode.Text = "U.P.B.";
 			this.btnUPBCode.UseVisualStyleBackColor = false;
+			this.btnUPBCode.Click += new System.EventHandler(this.btnUPBCode_Click);
 			// 
 			// groupBox2
 			// 
@@ -538,9 +542,10 @@ namespace entrydetail_single {
 			// 
 			// gboxConto
 			// 
+			this.gboxConto.Controls.Add(this.chkListTitle);
 			this.gboxConto.Controls.Add(this.txtDenominazioneConto);
 			this.gboxConto.Controls.Add(this.txtCodiceConto);
-			this.gboxConto.Controls.Add(this.button1);
+			this.gboxConto.Controls.Add(this.btnConto);
 			this.gboxConto.Location = new System.Drawing.Point(12, 86);
 			this.gboxConto.Name = "gboxConto";
 			this.gboxConto.Size = new System.Drawing.Size(441, 113);
@@ -550,11 +555,11 @@ namespace entrydetail_single {
 			// 
 			// txtDenominazioneConto
 			// 
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(126, 16);
+			this.txtDenominazioneConto.Location = new System.Drawing.Point(168, 16);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
 			this.txtDenominazioneConto.ReadOnly = true;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(305, 64);
+			this.txtDenominazioneConto.Size = new System.Drawing.Size(263, 64);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
@@ -567,15 +572,16 @@ namespace entrydetail_single {
 			this.txtCodiceConto.TabIndex = 1;
 			this.txtCodiceConto.Tag = "account.codeacc?x";
 			// 
-			// button1
+			// btnConto
 			// 
-			this.button1.Location = new System.Drawing.Point(8, 58);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(88, 23);
-			this.button1.TabIndex = 0;
-			this.button1.TabStop = false;
-			this.button1.Tag = "manage.account.tree";
-			this.button1.Text = "Conto";
+			this.btnConto.Location = new System.Drawing.Point(8, 58);
+			this.btnConto.Name = "btnConto";
+			this.btnConto.Size = new System.Drawing.Size(88, 23);
+			this.btnConto.TabIndex = 0;
+			this.btnConto.TabStop = false;
+			this.btnConto.Tag = "";
+			this.btnConto.Text = "Conto";
+			this.btnConto.Click += new System.EventHandler(this.btnConto_Click);
 			// 
 			// gboxClienteFornitore
 			// 
@@ -1066,6 +1072,24 @@ namespace entrydetail_single {
 			this.label3.TabIndex = 47;
 			this.label3.Text = "Chiave EP";
 			// 
+			// chkListTitle
+			// 
+			this.chkListTitle.Location = new System.Drawing.Point(4, 15);
+			this.chkListTitle.Name = "chkListTitle";
+			this.chkListTitle.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitle.TabIndex = 60;
+			this.chkListTitle.TabStop = false;
+			this.chkListTitle.Text = "Cerca per denominazione";
+			// 
+			// chkListTitleUPB
+			// 
+			this.chkListTitleUPB.Location = new System.Drawing.Point(6, 8);
+			this.chkListTitleUPB.Name = "chkListTitleUPB";
+			this.chkListTitleUPB.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitleUPB.TabIndex = 61;
+			this.chkListTitleUPB.TabStop = false;
+			this.chkListTitleUPB.Text = "Cerca per denominazione";
+			// 
 			// FrmEntryDetail_single
 			// 
 			this.AcceptButton = this.btnOK;
@@ -1240,5 +1264,47 @@ namespace entrydetail_single {
         txtNumAccertamento.Text = "";
         Meta.FreshForm();
         }
+
+		private void btnConto_Click(object sender, EventArgs e) {
+			string filter = "";
+			int esercizio = (int)Meta.GetSys("esercizio");
+
+			string filteroperativo = "(idacc in (SELECT idacc from accountusable where ayear='" +
+				esercizio + "'))";
+
+			if (chkListTitle.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+				filter = GetData.MergeFilters(filter, filteroperativo);
+				MetaData.DoMainCommand(this, "choose.account.default." + filter);
+				return;
+			}
+			btnConto.Tag = "manage.account.tree";
+		}
+
+		private void btnUPBCode_Click(object sender, EventArgs e) {
+			string filter = qhs.DoPar(qhs.AppOr(qhs.NullOrEq("active", 'S'), qhs.CmpEq("active", "")));
+
+			if (chkListTitleUPB.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+
+				MetaData.DoMainCommand(this, "choose.upb.default." + filter);
+				return;
+			}
+
+			DS.upb.ExtendedProperties[MetaData.ExtraParams] = filter;
+			MetaData.DoMainCommand(this, "manage.upb.tree");
+		}
 	}
 }

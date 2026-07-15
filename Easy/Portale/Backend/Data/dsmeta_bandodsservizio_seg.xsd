@@ -139,9 +139,7 @@
         <xs:element name="esonerodefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="aa" type="xs:string" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcostoscontodef" type="xs:int" />
               <xs:element name="idesonero" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
@@ -150,8 +148,13 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idbandodsserviziokind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>

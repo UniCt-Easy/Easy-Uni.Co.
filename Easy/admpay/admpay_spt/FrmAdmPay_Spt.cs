@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -65,7 +63,7 @@ namespace admpay_spt {
             tToExcel.Clear();
             DS.Clear();
             lblTask.Text = null;
-            progressBar1.Value = 0;
+            //progressBar1.Value = 0;
             Cursor = null;
         }
 
@@ -77,7 +75,7 @@ namespace admpay_spt {
             tToExcel.Clear();
             DS.Clear();
             lblTask.Text = null;
-            progressBar1.Value = 0;
+            //progressBar1.Value = 0;
             Cursor = null;
         }
 
@@ -89,7 +87,7 @@ namespace admpay_spt {
             tToExcel.Clear();
             DS.Clear();
             lblTask.Text = null;
-            progressBar1.Value = 0;
+            //progressBar1.Value = 0;
             Cursor = null;
         }
 
@@ -647,7 +645,7 @@ namespace admpay_spt {
             Application.DoEvents();
             Cursor = Cursors.WaitCursor;
             int numFile = 0;
-            progressBar1.Maximum = (int)sr.BaseStream.Length;
+            //progressBar1.Maximum = (int)sr.BaseStream.Length;
             while (sr.Peek() != -1) {
                 numFile++;
                 DataRow rTC = DS.SPT_00.NewRow();
@@ -703,7 +701,7 @@ namespace admpay_spt {
                             }
                     }
                     tiprec = leggiIntestazioneRecord(sr, rTC);
-                    progressBar1.Value = (int)sr.BaseStream.Position;
+                    //progressBar1.Value = (int)sr.BaseStream.Position;
                     Application.DoEvents();
                 }
 

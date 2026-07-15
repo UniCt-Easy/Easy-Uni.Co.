@@ -24,10 +24,34 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'appello':
-						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
-						this.describeAColumn(table, '!idreg_registry_title', 'Studente', null, 81, null);
-						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg' };
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Corso Iscrizione', null, 21, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_aa', 'Anno accademico Iscrizione', null, 22, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_idsede', 'Sede Iscrizione', null, 23, null);
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione' };
+						this.describeAColumn(table, '!idreg_registry_title', 'Studente', null, 11, null);
+						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry_alias3', columnNameLookup:'title', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Denominazione Iscrizione', null, 21, null);
 //$objCalcFieldConfig_appello$
+						break;
+					case 'doc':
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Corso Iscrizione', null, 21, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_aa', 'Anno accademico Iscrizione', null, 22, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_idsede', 'Sede Iscrizione', null, 23, null);
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
+						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione' };
+						this.describeAColumn(table, '!idreg_registry_title', 'Studente', null, 11, null);
+						objCalcFieldConfig['!idreg_registry_title'] = { tableNameLookup:'registry_alias3', columnNameLookup:'title', columnNamekey:'idreg' };
+						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Denominazione Iscrizione', null, 21, null);
+//$objCalcFieldConfig_doc$
+						break;
+					case 'stupiano':
+						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
+//$objCalcFieldConfig_stupiano$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -37,7 +61,29 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'doc':
+						table.columns["idappello"].caption = "Appello";
+						table.columns["idattivform"].caption = "attività formativa";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idpianostudio"].caption = "Piano di studi";
+						table.columns["idpianostudioattivform"].caption = "Studente e attività formativa del suo piano di studi";
+						table.columns["idprova"].caption = "Prova";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_doc$
+						break;
+					case 'appello':
+						table.columns["idpianostudioattivform"].caption = "attività formativa del piano di studi";
+//$innerSetCaptionConfig_appello$
+						break;
+					case 'stupiano':
+//$innerSetCaptionConfig_stupiano$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_prenotappello");
@@ -60,7 +106,18 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "appello": {
+						return "idreg asc ";
+					}
+					case "stupiano": {
+						return "idreg asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 namespace Creport.Report.Rdl {
     public class TablixCell :ParentOf<CellContents> {
         public TablixCell(CellContents item)
@@ -26,7 +24,7 @@ namespace Creport.Report.Rdl {
         }
 
         /// <summary>
-        /// Crea una cella da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo
+        /// Crea una cella da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -55,7 +53,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit‡, ToggleItem oggetto del drilldown
+        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit√†, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>
@@ -116,7 +114,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campi da visualizzare, operand = operando,subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit‡, ToggleItem oggetto del drilldown
+        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campi da visualizzare, operand = operando,subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, visibility = espressione di visibilit√†, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">new string[]{ ElementProperty.Id1, ElementProperty.Id2 }</param>
         /// <param name="operand">"+"</param>
@@ -150,7 +148,7 @@ namespace Creport.Report.Rdl {
 
 
         /// <summary>
-        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se Ë subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, hidde = true nascondi, ToggleItem oggetto del drilldown
+        /// Crea una cella con drilldown da inserire in una row in una tablix. Element = campo da visualizzare, subtotal = indica se √® subtotale, fontFamily = tipo font, font = dimensione del font, fontweight = spessore, color = colore, format = formato, textAlign allieamento testo, hidde = true nascondi, ToggleItem oggetto del drilldown
         /// </summary>
         /// <param name="Element">ElementProperty.Name</param>
         /// <param name="subtotal">false</param>

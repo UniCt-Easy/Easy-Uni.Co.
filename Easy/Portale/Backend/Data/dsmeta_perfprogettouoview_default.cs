@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfprogettouoview_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfprogettouoview_default: DataSet {
+public partial class dsmeta_perfprogettouoview_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -92,6 +90,7 @@ private void initClass() {
 	tperfprogettouoview.defineColumn("idperfprogetto", typeof(int),false);
 	tperfprogettouoview.defineColumn("idperfvalutazioneuo", typeof(int),false);
 	tperfprogettouoview.defineColumn("idstruttura", typeof(int));
+	tperfprogettouoview.defineColumn("peso", typeof(int),false);
 	tperfprogettouoview.defineColumn("progetto_title", typeof(string));
 	tperfprogettouoview.defineColumn("risultato", typeof(decimal));
 	tperfprogettouoview.defineColumn("year", typeof(int),false);

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 --setuser 'amministrazione'
 
@@ -318,7 +316,10 @@ SELECT @A_IV_ProventiPerGestioneDiretta = SUM(budgetprevision.prevision),
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1401%'
+		--AND S.sortcode LIKE 'EA1401%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+		where L.sortcode_old = 'EA1401' and L.ayear_old = @ayear and @ayear = 2025),'EA1301')+'%'
+		)
 
 -- V.ALTRI PROVENTI E RICAVI DIVERSI
 -- 1) Utilizzo di riserve di Patrimonio netto derivanti dalla contabilità finanziaria
@@ -339,7 +340,10 @@ SELECT @A_V1_UtilizzoRiservePatrimonioNetto = SUM(budgetprevision.prevision),
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1501%'
+		--AND S.sortcode LIKE 'EA1501%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+		where L.sortcode_old = 'EA1501' and L.ayear_old = @ayear and @ayear = 2025),'EA1401')+'%'
+		)
 		
 declare @A_V2_AltriProventi decimal(19,2)
 declare @A_V2_AltriProventi_prev2 decimal(19,2)
@@ -357,7 +361,10 @@ SELECT @A_V2_AltriProventi = SUM(budgetprevision.prevision),
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1502%'
+		--AND S.sortcode LIKE 'EA1502%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1502' and L.ayear_old = @ayear and @ayear = 2025),'EA1402')+'%'
+				)
 		
 declare @A_V_UtilizzoRiservePatrimonioNetto decimal(19,2)
 declare @A_V_UtilizzoRiservePatrimonioNetto_prev2 decimal(19,2)
@@ -383,7 +390,10 @@ SELECT @A_VI_VariazioniRimanenze = SUM(budgetprevision.prevision),
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1601%'
+		--AND S.sortcode LIKE 'EA1601%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1601' and L.ayear_old = @ayear and @ayear = 2025),'EA1501')+'%'
+				)
 		
 -- Incremento delle Immobilizzazioni per Lavori Interni
 declare @A_VII_IncrementoImmobilizzazioni decimal(19,2)
@@ -402,7 +412,10 @@ SELECT @A_VII_IncrementoImmobilizzazioni = SUM(budgetprevision.prevision),
 		AND U.idupb like @idupb
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)	AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)	AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)	
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)	AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-		AND S.sortcode LIKE 'EA1701%'
+		--AND S.sortcode LIKE 'EA1701%'
+		AND ( S.sortcode LIKE  isnull((select L.sortcode_new from lookupprintedeconomicbudget L 
+				where L.sortcode_old = 'EA1701' and L.ayear_old = @ayear and @ayear = 2025),'EA1601')+'%'
+				)
 /*
  B)	COSTI OPERATIVI
 VIII.COSTI DEL PERSONALE

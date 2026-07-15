@@ -35,6 +35,7 @@
               <xs:element name="aa" type="xs:string" />
               <xs:element name="anno" type="xs:int" />
               <xs:element name="annofc" type="xs:int" minOccurs="0" />
+              <xs:element name="annopt" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" />

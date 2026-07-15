@@ -58,6 +58,8 @@
 						objCalcFieldConfig['!idreg_aziende_registry_flag_pa'] = { tableNameLookup:'registry', columnNameLookup:'flag_pa', columnNamekey:'idreg_aziende' };
 						this.describeAColumn(table, '!idreg_aziende_registry_idanpr', 'Idanpr', null, 541, null);
 						objCalcFieldConfig['!idreg_aziende_registry_idanpr'] = { tableNameLookup:'registry', columnNameLookup:'idanpr', columnNamekey:'idreg_aziende' };
+						this.describeAColumn(table, '!idreg_aziende_istitutokind_tipoistituto', 'Tipo di istituto', null, 627, null);
+						objCalcFieldConfig['!idreg_aziende_istitutokind_tipoistituto'] = { tableNameLookup:'istitutokind', columnNameLookup:'tipoistituto', columnNamekey:'idreg_aziende' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

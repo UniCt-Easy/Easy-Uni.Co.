@@ -5,16 +5,16 @@
 		<a href="#tabprova_default_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabprova_default_0"><i class="fa fa-user-check mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_4"><i class="fa fa-circle mr-1"></i>Commissione</a>
+		<a href="#tabprova_default_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_5"><i class="fa fa-circle mr-1"></i>Commissione</a>
 	</li>
 	<li class="nav-item">
 		<a href="#tabprova_default_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_1"><i class="fa fa-chalkboard mr-1"></i>Aule</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_5"><i class="fa fa-circle mr-1"></i>Membri</a>
+		<a href="#tabprova_default_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_2"><i class="fa fa-circle mr-1"></i>Prenotazioni</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabprova_default_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_3"><i class="fa fa-circle mr-1"></i>Sostenimenti</a>
+		<a href="#tabprova_default_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabprova_default_4"><i class="fa fa-circle mr-1"></i>Sostenimenti</a>
 	</li>
 
 	</ul>
@@ -22,19 +22,33 @@
 <div class="tab-content mt-2">
 	<div class="tab-pane fade active show" id="tabprova_default_0" role="tabpanel">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="prova_default_title">Denominazione</label>
 					<input id="prova_default_title" type="text" class="form-control" data-tag="prova.title?provadefaultview.title"  data-mandatory />
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="prova_default_start">Data e ora inizio</label>
-					<input id="prova_default_start" type="text" class="form-control" data-tag="prova.start.g?provadefaultview.prova_start.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="prova_default_idattivform">Attività formativa</label>
+					<div>
+						<input id="prova_default_idattivform" name="prova_default_idattivform" type="text" data-listtype="appello"  class="form-control" data-minchar="2" data-tag="attivformappelloview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="prova_default_start">Data e ora inizio</label>
+					<input id="prova_default_start" type="text" class="form-control" data-tag="prova.start.g?provadefaultview.prova_start.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
+				</div>
+				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="prova_default_stop">Data e ora fine</label>
 					<input id="prova_default_stop" type="text" class="form-control" data-tag="prova.stop.g?provadefaultview.prova_stop.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="prova_default_idvalutazionekind">Tipologia di valutazione</label>
+					<select id="prova_default_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekinddefaultview" data-value-member="idvalutazionekind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="prova.idvalutazionekind?provadefaultview.prova_idvalutazionekind"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="prova_default_idquestionario">Questionario</label>
@@ -44,25 +58,36 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="prova_default_idvalutazionekind">Tipologia di valutazione</label>
-					<select id="prova_default_idvalutazionekind" class="custom-select d-block w-100"  data-source-name="valutazionekind" data-value-member="idvalutazionekind" data-display-member="title" data-custom-control="combo" data-tag="prova.idvalutazionekind?provadefaultview.prova_idvalutazionekind"   > </select>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="prova_default_programma">Programma</label>
 					<textarea class="textarea form-control" id="prova_default_programma" type="text"  rows="4" data-tag="prova.programma?provadefaultview.prova_programma"  ></textarea>
 				</div>
 			</div>
 	</div>
-	<div class="tab-pane fade" id="tabprova_default_4" role="tabpanel">
+	<div class="tab-pane fade" id="tabprova_default_5" role="tabpanel">
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="commiss_default_idreg_docenti">Verbalizzante</label>
 					<div>
 						<input id="commiss_default_idreg_docenti" name="commiss_default_idreg_docenti" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelcommiss_default_XXcommissregistry_docenti" >Membri</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_commissregistry_docenti_idreg_docenti" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_commissregistry_docenti_idreg_docenti" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Membri
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_commissregistry_docenti_default" data-tag="commissregistry_docenti.default.default" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 				</div>
 			</div>
 	</div>
@@ -80,22 +105,11 @@
 			<hr>
 				<div class="gridx" id="grid_provaaula_appelli" data-tag="provaaula.appelli.appelli" data-custom-control="gridx" data-mdlbuttondelete  ></div>
 	</div>
-	<div class="tab-pane fade" id="tabprova_default_5" role="tabpanel">
-			<div class="row">
-				<div class="col-md-9">
-					<input id="txt_commissregistry_docenti_idreg_docenti" type="text" class="form-control" placeholder="..." aria-label="Search" />
-				</div>
-				<div class="col-md-3">
-					<button id="btn_add_commissregistry_docenti_idreg_docenti" type="button" class="btn btn-primary p-2 mt-1">
-						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Membri
-					</button>
-				</div>
-			</div>
-			<hr>
-				<div class="gridx" id="grid_commissregistry_docenti_default" data-tag="commissregistry_docenti.default.default" data-custom-control="gridx" data-mdlbuttondelete  ></div>
+	<div class="tab-pane fade" id="tabprova_default_2" role="tabpanel">
+				<div class="gridx" id="grid_prenotappello_appello" data-tag="prenotappello.appello.appello" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabprova_default_3" role="tabpanel">
-				<div class="gridx" id="grid_sostenimento_default" data-tag="sostenimento.default.default" data-custom-control="gridx" data-mdlbuttonedit ></div>
+	<div class="tab-pane fade" id="tabprova_default_4" role="tabpanel">
+				<div class="gridx" id="grid_sostenimento_default" data-tag="sostenimento.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

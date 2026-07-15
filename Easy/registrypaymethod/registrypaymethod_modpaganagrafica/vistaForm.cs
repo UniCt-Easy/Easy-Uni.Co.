@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -136,6 +134,8 @@ private void initClass() {
 	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_doc", typeof(Byte[])));
 	tregistrypaymethod.Columns.Add( new DataColumn("requested_doc", typeof(int)));
 	tregistrypaymethod.Columns.Add( new DataColumn("ccdedicato_stop", typeof(DateTime)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
+	tregistrypaymethod.Columns.Add( new DataColumn("idfilestorage2", typeof(string)));
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.PrimaryKey =  new DataColumn[]{tregistrypaymethod.Columns["idreg"], tregistrypaymethod.Columns["idregistrypaymethod"]};
 
@@ -453,6 +453,7 @@ private void initClass() {
 	tregistrypaymethodattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	tregistrypaymethodattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tregistrypaymethodattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	tregistrypaymethodattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tregistrypaymethodattachment);
 	tregistrypaymethodattachment.PrimaryKey =  new DataColumn[]{tregistrypaymethodattachment.Columns["idreg"], tregistrypaymethodattachment.Columns["idregistrypaymethod"], tregistrypaymethodattachment.Columns["idattachment"]};
 

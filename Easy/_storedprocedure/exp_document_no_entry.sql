@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 -- setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_document_no_entry]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -39,7 +37,7 @@ AS
 BEGIN
 -- setuser'amministrazione'
 -- setuser'amm'
--- exec [exp_document_no_entry] 2021, 'I'
+-- exec [exp_document_no_entry] 2024, 'A'
  
 /*
 A) Compensi (Missioni, Contratti occasionali, Cedolini, Compensi a dipendenti, Import da stipendi CSA, Liquidazione imposte) -- >C
@@ -300,7 +298,7 @@ INSERT INTO #document
 SELECT 'Importazione Esiti Bancari','ABI: ' + idbank, ayear, idbankimport, null, null, 'Tot Mandati:' + Convert(varchar(20), totalpayment) +  ' Tot Reversali:' + Convert(varchar(20), totalproceeds) ,
 		adate, null, null,null,null,null, null
 from bankimport where not exists
-(select * from entry where idrelated = 'bankimport' + '§' + convert(varchar(4),idbankimport)  
+(select * from entry where idrelated = 'bankimport' + '§' + convert(varchar(14),idbankimport)  
 )
 and exists (select * from banktransaction where idbankimport = bankimport.idbankimport)
 and @kind in ('T','A') AND ayear = @ayear
@@ -319,7 +317,7 @@ SELECT
 from invoiceview 
  
 left join sorting on invoiceview.idsor01 = sorting.idsor where not exists
-(select * from entry where idrelated = 'inv' + '§' + convert(varchar(4),idinvkind) + '§'  + 
+(select * from entry where idrelated = 'inv' + '§' + convert(varchar(14),idinvkind) + '§'  + 
 		convert(varchar(4),yinv) + '§'  + convert(varchar(14),ninv))
 AND yinv = @ayear
 AND @kind in ('I','A')
@@ -442,7 +440,7 @@ SELECT
 from payrollview C
 left join sorting on C.idsor01 = sorting.idsor
 where not  exists
-(select * from entry where idrelated = 'payroll' + '§' + convert(varchar(10),C.idpayroll) + '§'  + 
+(select * from entry where idrelated = 'payroll' + '§' + convert(varchar(14),C.idpayroll) + '§'  + 
 		convert(varchar(4),C.fiscalyear) + '§'  + convert(varchar(14),C.npayroll))
 AND fiscalyear = @ayear
 	AND (@idsor01 IS NULL OR C.idsor01 = @idsor01)
@@ -464,7 +462,7 @@ SELECT
 	adate, registry,null, null,sorting.sortcode, sorting.description
 	from assetunloadview 
 	left join sorting on assetunloadview.idsor01 = sorting.idsor where not exists
-(select * from entry where idrelated = 'assetunload' + '§' + convert(varchar(10),idassetunload))
+(select * from entry where idrelated = 'assetunload' + '§' + convert(varchar(14),idassetunload))
 and not exists(select * from assetunloadmotive where assetunloadmotive.idmot = assetunloadview.idmot and (assetunloadmotive.flag&1) <> 0)
 	AND yassetunload = @ayear
 	--and totalassetunload <> 0
@@ -486,7 +484,7 @@ SELECT
 		adate,registry,null,null,sorting.sortcode, sorting.description
 from assetloadview 
 left join sorting on assetloadview.idsor01 = sorting.idsor where  not exists
-(select * from entry where idrelated = 'assetload' + '§' + convert(varchar(10),idassetload))
+(select * from entry where idrelated = 'assetload' + '§' + convert(varchar(14),idassetload))
 AND yassetload = @ayear AND assetloadmotive = 'DONAZIONE'
 AND @kind in ('P','A')
 and totalassetload <> 0
@@ -508,7 +506,7 @@ SELECT
 from storeunloaddetailview 
 left join sorting on storeunloaddetailview.idsor01 = sorting.idsor where not  exists
 (select * from entry where idrelated = 'storeunloaddetail' + '§' + convert(varchar(14),idstoreunload) + '§'  + 
-		convert(varchar(4),idstoreunloaddetail))
+		convert(varchar(14),idstoreunloaddetail))
 AND ystoreunload = @ayear
 AND @kind in ('M','A')
 	AND (@idsor01 IS NULL OR storeunloaddetailview.idsor01 = @idsor01)
@@ -544,7 +542,7 @@ SELECT
 adate, null, null, manager,amount,sorting.sortcode, sorting.description
 from pettycashoperationview 
 left join sorting on pettycashoperationview.idsor01 = sorting.idsor where  not exists
-(select * from entry where idrelated = 'pettycashoperation' + '§' + convert(varchar(4),idpettycash) + '§'  + 
+(select * from entry where idrelated = 'pettycashoperation' + '§' + convert(varchar(14),idpettycash) + '§'  + 
 		convert(varchar(4),yoperation) + '§'  + convert(varchar(14),noperation))
 AND yoperation = @ayear
 	AND (@idsor01 IS NULL OR pettycashoperationview.idsor01 = @idsor01)

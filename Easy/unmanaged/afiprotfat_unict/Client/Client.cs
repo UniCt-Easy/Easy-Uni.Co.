@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +21,9 @@ using System.Data;
 using RestSharp;
 
 using metadatalibrary;
-using meta_invoice;
-using meta_registry;
 
 using afiprotfat_unict.Models;
-using afiprotfat.Exceptions;
-
-using Newtonsoft.Json; //TOREMOVE
+using afiprotfat_unict.Exceptions;
 
 namespace afiprotfat_unict.Client {
 
@@ -76,9 +70,33 @@ namespace afiprotfat_unict.Client {
             cfg?.Channel) {
         }
 
+        private string GetAttachmentFromRow(IDataAccess conn, DataRow Curr, string tableName)
+        {
+            if (Curr["attachment"] == DBNull.Value && Curr["idfilestorage"] == DBNull.Value)
+                return string.Empty;
+
+            // File preso dall'attachment o dal MongoDb
+            byte[] ByteArray = { };
+
+            if (Curr["attachment"] != DBNull.Value)
+            {
+                // Attachment
+                ByteArray = (byte[])Curr["attachment"];
+            }
+            else
+            {
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(conn, tableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (ByteArray == null)
+                    return string.Empty;
+            }
+
+            return Convert.ToBase64String(ByteArray);
+        }
+
         public string Protocollo(
-            invoiceRow invoice,
-            registryRow registry,
+            InvoiceParameters invoice,
+            RegistryParameters registry,
             string address,
             IEnumerable<DataRow> invoiceattachments,
             string officeId) {
@@ -88,11 +106,11 @@ namespace afiprotfat_unict.Client {
             try {
                 body = new DatiFatt() {
                     Attach = invoiceattachments.Select(attachmentRow => new Attach() {
-                        Base64 = Convert.ToBase64String((byte[])attachmentRow["attachment"]) ?? string.Empty,
+                        Base64 = GetAttachmentFromRow(this._dbConnection, attachmentRow, attachmentRow.Table.TableName),// Convert.ToBase64String((byte[])attachmentRow["attachment"]) ?? string.Empty,
                         Nome = attachmentRow["filename"].ToString() ?? string.Join("_", _invoicettachmentkindCache.Value.TryGetValue((int)attachmentRow["idattachmentkind"], out var title) ? title.ToString() : string.Empty, Guid.NewGuid().ToString()),
                     }).ToList(),
                     CFOper = _operatorId,
-                    DataProt = invoice.docdate?.ToString() ?? DateTime.Now.ToString(),
+                    DataProt = invoice.docdate.ToString(),
                     Indirizzo = address,
                     Mezzo = _channel,
                     Oggetto = string.Join(", ", _invoicekindCache.Value.TryGetValue(invoice.idinvkind, out string description) ? description : string.Empty, invoice.yinv, invoice.ninv),

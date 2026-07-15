@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace sorting_wizardmiur {
     partial class FrmMeter {
@@ -41,7 +39,7 @@ namespace sorting_wizardmiur {
         /// </summary>
         private void InitializeComponent() {
             this.lblOpCorrente = new System.Windows.Forms.Label();
-            this.pBar = new System.Windows.Forms.ProgressBar();
+            //this.pBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // lblOpCorrente
@@ -55,14 +53,14 @@ namespace sorting_wizardmiur {
             // 
             // pBar
             // 
-            this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar.Location = new System.Drawing.Point(4, 3);
-            this.pBar.Name = "pBar";
-            this.pBar.Size = new System.Drawing.Size(528, 23);
-            this.pBar.Step = 1;
-            this.pBar.TabIndex = 7;
+            //this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            //            | System.Windows.Forms.AnchorStyles.Left)
+            //            | System.Windows.Forms.AnchorStyles.Right)));
+            //this.pBar.Location = new System.Drawing.Point(4, 3);
+            //this.pBar.Name = "pBar";
+            //this.pBar.Size = new System.Drawing.Size(528, 23);
+            //this.pBar.Step = 1;
+            //this.pBar.TabIndex = 7;
             // 
             // FrmMeter
             // 
@@ -70,7 +68,7 @@ namespace sorting_wizardmiur {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(536, 61);
             this.Controls.Add(this.lblOpCorrente);
-            this.Controls.Add(this.pBar);
+            //this.Controls.Add(this.pBar);
             this.Name = "FrmMeter";
             this.Text = "Elaborazione in corso";
             this.ResumeLayout(false);
@@ -80,6 +78,7 @@ namespace sorting_wizardmiur {
         #endregion
 
         private System.Windows.Forms.Label lblOpCorrente;
-        public System.Windows.Forms.ProgressBar pBar;
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //public System.Windows.Forms.ProgressBar pBar;
     }
 }

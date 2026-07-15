@@ -37,7 +37,20 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["aa_start"].caption = "Anno accademico di inizio";
+						table.columns["aa_stop"].caption = "Anno accademico di fine";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["idprogrammami"].caption = "Programma di mobilità internazionale";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_accordoscambiomi");

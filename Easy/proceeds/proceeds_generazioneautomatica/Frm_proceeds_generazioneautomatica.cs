@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -186,7 +184,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 			this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
 			this.cmbCodiceIstituto.DisplayMember = "description";
 			this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbCodiceIstituto.Location = new System.Drawing.Point(78, 16);
+			this.cmbCodiceIstituto.Location = new System.Drawing.Point(96, 16);
 			this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
 			this.cmbCodiceIstituto.Size = new System.Drawing.Size(210, 21);
 			this.cmbCodiceIstituto.TabIndex = 1;
@@ -201,13 +199,13 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 			// 
 			// btnIstitutoCassiere
 			// 
-			this.btnIstitutoCassiere.Location = new System.Drawing.Point(8, 16);
+			this.btnIstitutoCassiere.Location = new System.Drawing.Point(6, 15);
 			this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
-			this.btnIstitutoCassiere.Size = new System.Drawing.Size(64, 24);
+			this.btnIstitutoCassiere.Size = new System.Drawing.Size(86, 24);
 			this.btnIstitutoCassiere.TabIndex = 52;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista";
-			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox4
@@ -575,11 +573,11 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 			// label10
 			// 
 			this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.label10.Location = new System.Drawing.Point(599, 7);
+			this.label10.Location = new System.Drawing.Point(616, 7);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(101, 38);
+			this.label10.Size = new System.Drawing.Size(84, 38);
 			this.label10.TabIndex = 58;
-			this.label10.Text = "Numero Progr. Cassiere:";
+			this.label10.Text = "Numero Progr. Conto Corrente:";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox1
@@ -596,7 +594,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 			// btnBollo
 			// 
 			this.btnBollo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.btnBollo.Location = new System.Drawing.Point(294, 14);
+			this.btnBollo.Location = new System.Drawing.Point(314, 14);
 			this.btnBollo.Name = "btnBollo";
 			this.btnBollo.Size = new System.Drawing.Size(48, 24);
 			this.btnBollo.TabIndex = 56;
@@ -611,7 +609,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 			this.cmbBollo.DataSource = this.DS.stamphandling;
 			this.cmbBollo.DisplayMember = "description";
 			this.cmbBollo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbBollo.Location = new System.Drawing.Point(347, 16);
+			this.cmbBollo.Location = new System.Drawing.Point(367, 16);
 			this.cmbBollo.Name = "cmbBollo";
 			this.cmbBollo.Size = new System.Drawing.Size(246, 21);
 			this.cmbBollo.TabIndex = 55;
@@ -1121,6 +1119,8 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             else {
                 condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
                     QHS.IsNull("idtreasurer_main"));
+                //Se cassiereSelezionato è valorizzato, usa quello; altrimenti usa codiceistituto = cassiere di default
+                codiceistituto = (cassiereSelezionato != null)? cassiereSelezionato : codiceistituto;
                 MetaData.SetDefault(DS.proceeds, "idtreasurer", codiceistituto);
                 //Settare il combo dell'istituto cassiere con il valore selezionato e abilitarlo
                 HelpForm.SetComboBoxValue(cmbCodiceIstituto, codiceistituto);
@@ -1197,8 +1197,9 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             //CalcolaImporto();
  
         }
+        /// <param name="firsttime">Indica se il metodo viene chiamato al click del button Inizia</param>
+        private void CollegaRigheADocumento(bool quiet, bool firsttime) {
 
-        private void CollegaRigheADocumento(bool quiet) {
             string dataContabile = txtDataContabile.Text;
             while (true) {
                 if (TempTable == null || TempTable.Rows.Count == 0) {
@@ -1340,6 +1341,11 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
                     else {
                         condizioniaggiuntive = QHS.AppAnd(condizioniaggiuntive,
                         QHS.IsNull("idtreasurer_bill"));
+                        if (!firsttime) {
+                            // Quando parte valorizza il combo del Cassiere con quello di default, le volte successive:
+                            // Se cassiereSelezionato è valorizzato, usa quello; altrimenti usa codiceistituto = cassiere di default
+                            codiceistituto = (cassiereSelezionato != null) ? cassiereSelezionato : codiceistituto;
+                        }
                         MetaData.SetDefault(DS.proceeds, "idtreasurer", codiceistituto);
                         //Settare il combo dell'istituto cassiere con il valore predefinito e abilitarlo
                         HelpForm.SetComboBoxValue(cmbCodiceIstituto, codiceistituto);
@@ -1464,7 +1470,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
 
         private void btnSuccessivo_Click(object sender, System.EventArgs e) {
 
-            CollegaRigheADocumento(false);
+            CollegaRigheADocumento(false, false);
             btnSuccessivo.Enabled = false;
             grpConferma.Enabled = TempTable.Rows.Count > 0;
             if (TempTable.Rows.Count == 0) Meta.DontWarnOnInsertCancel = true;
@@ -1489,7 +1495,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             txtDataContabile.ReadOnly = false;
             //
             FillTempTable();
-            CollegaRigheADocumento(false);
+            CollegaRigheADocumento(false, true);
             btnInizia.Enabled = false;
             chkCSA.Enabled = false;
             chkCrediti.Enabled = false;
@@ -1662,7 +1668,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             while (TempTable.Rows.Count > 0) {
                 bool esito = AccettaDocumentoConDimensione(true);
                 if (!esito) break;
-                CollegaRigheADocumento(true);
+                CollegaRigheADocumento(true, false);
                 //MetaData.FreshForm(this, false);
             }
             grpConferma.Enabled = false;
@@ -1673,6 +1679,7 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
         private void DetailGrid_Paint(object sender, System.Windows.Forms.PaintEventArgs e) {
             if (DetailGrid.DataSource == null) return;
             CalcolaImporto();
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         private void chkCSA_CheckedChanged(object sender, EventArgs e) {

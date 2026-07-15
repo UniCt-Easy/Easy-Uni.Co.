@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[import_inquadranagrafiche_csa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [import_inquadranagrafiche_csa]
 GO
@@ -23,6 +23,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
+
+
 
 CREATE  PROCEDURE [import_inquadranagrafiche_csa](
 	@LinkedServer varchar(200),
@@ -53,7 +55,7 @@ Begin
 	DECLARE @OPENQUERY nvarchar(4000)
 	SET @OPENQUERY = ' OPENQUERY('+ @LinkedServer + ','''
 
-	SET @EASY_INQUADRAMENTI = @OPENQUERY + 'SELECT * FROM '+@istance+'EASY_INQUADRAMENTI'')' 
+	SET @EASY_INQUADRAMENTI = @OPENQUERY + 'SELECT * FROM '+@istance+'EASY_INQUADRAMENTI'')'		--	>>>>>>>>>>>>>>>>>>>>>>>>>> EASY_INQUADRAMENTI3 per unicampania 
 	SET @PAGAMENTI = @OPENQUERY + 'SELECT * FROM '+@istance+'EASY_MODALITA_PAGAMENTO_ANAGRAFICA'')' 
 End
 Else
@@ -64,6 +66,8 @@ Begin
 	SET @EASY_INQUADRAMENTI = @dbservername +'.EASY_INQUADRAMENTI'
 	SET @PAGAMENTI = @dbservername+'.EASY_MODALITA_PAGAMENTO_ANAGRAFICA' 
 End
+
+--SET @EASY_INQUADRAMENTI = 'table_easy_inquadramenti'
 
 
 DECLARE @query_EASY_INQUADRAMENTI nvarchar(4000)
@@ -77,11 +81,12 @@ CREATE TABLE #INQUADRAMENTI
 	------------INQUADRAMENTO E REDDITO ANNUO PRESUNTO-------------
 	---------------------------------------------------------------
 	datadecorrenza datetime,		-- --in_vigore_Econ, inizio validità inquadramento
-	in_vigore_giur datetime, 
+	datadelibera datetime, 
 	imponpresunto decimal(19,2),	-- reddito annuo presunto
 	classestipendiale int,			-- classe stipendiale
 	codicequalifica	varchar(20),	-- codice qualifica in Easy
 	codiceinquadramento int,		-- id inquadramento in Easy
+	tempdef char(1),				-- dobbiamo leggere tempdef dalla riga inquadramento referenziata da registrylegalstatus
 	livello int,
 	codicequalifica_bdm	varchar(20),	-- codice qualifica
 	iddaliaposition int,
@@ -114,9 +119,9 @@ ELSE
 		' WHERE (XXX.matricola <= ' +  CONVERT(varchar(20),@matricolastop) + ' ) '
 	END
 
-
-------------------
-DECLARE @COL_Inq int
+	
+--------------------------------------------------------------------- Verifica presenza colonna INQUADRAMENTO --------------------------------------------------------------
+DECLARE @COL_Inquadramento int
 
 BEGIN TRY
 
@@ -125,58 +130,94 @@ BEGIN TRY
 	set @x = (select top 1 Inquadramento 
 	FROM ' + @EASY_INQUADRAMENTI + ' ) ' 
 
---print @SqlQuery
 	EXEC sp_executesql @SqlQuery
-  -- PRINT 'La colonna esiste sulla tabella.';
-	set @COL_Inq=1
+
+	set @COL_Inquadramento=1
 END TRY
 BEGIN CATCH
 	--PRINT 'Errore durante la verifica della colonna o linked server non disponibile.';
-	set @COL_Inq=0
+	set @COL_Inquadramento=0
     
 END CATCH;
-------------------
 
-if (@COL_Inq <> 0) -- colonna INQUADRAMENTO presente
+--------------------------------------------------------------------- Verifica presenza colonna INIZIO_INQ ---------------------------------------------------------------
+
+DECLARE @COL_INIZIO_INQ int
+
+BEGIN TRY
+
+	DECLARE @SqlQuery2 NVARCHAR(MAX) = 
+	'declare @x varchar(50)
+	set @x = (select top 1 INIZIO_INQ 
+	FROM ' + @EASY_INQUADRAMENTI + ' ) ' 
+
+	EXEC sp_executesql @SqlQuery2
+
+	set @COL_INIZIO_INQ=1
+END TRY
+BEGIN CATCH
+	--PRINT 'Errore durante la verifica della colonna o linked server non disponibile.';
+	set @COL_INIZIO_INQ=0
+    
+END CATCH;
+
+---------------------------------------------------------------------------------------------------
+if (@COL_Inquadramento <> 0) and (@COL_INIZIO_INQ=0)    -- colonna INQUADRAMENTO presente e colonna INIZIO_INQ assente
 Begin
  
 	-- Viste che hanno anche la colonna inquadramento
-	SET @query_EASY_INQUADRAMENTI = '
-	 INSERT INTO #INQUADRAMENTI(
-		matricola,
-		ruolo,
-		comparto,
-		datadecorrenza,
-		termine,
-		in_vigore_giur,
-		imponpresunto,
-		inquadramento,
-		classestipendiale
-	)
-	
-	SELECT 
-		I.matricola, 
-		I.ruolo,
-		I.comparto,
-		I.datadecorrenza,
-		I.termine,
-		isnull(I.datadelibera,I.datadecorrenza),
-		null, --	I.imponibilepresunto
-		I.inquadramento,
-		CASE 
-			WHEN SUBSTRING(I.inquadramento,0,3) in (''PN'',''PV'',''DN'',''DV'') THEN CAST(SUBSTRING(I.inquadramento,5,2)as int) 
-			WHEN SUBSTRING(I.inquadramento,4,3) in ('' ND'','' NP'') THEN CAST(SUBSTRING(I.inquadramento,2,2)as int) 
-		ELSE 0
-		END
-	FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
-	ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
-	' GROUP BY I.matricola,I.ruolo,I.inquadramento, I.comparto,I.datadecorrenza,
-		I.termine,
-		I.datadelibera' 
+
+	-- IMPORTANTE: lo spazio presente davanti a (' ND',' NP') non va rimosso.
+
+	--------------------------------------------- nuova versione --------------------------------------
+	SET @query_EASY_INQUADRAMENTI ='
+		;WITH CTE AS (
+		SELECT 
+			matricola, comparto,ruolo, 	inquadramento,
+			datadecorrenza, isnull(datadelibera,datadecorrenza) as datadelibera,
+			termine,
+			LAG(termine) OVER (PARTITION BY matricola,comparto, ruolo, inquadramento ORDER BY datadecorrenza, datadelibera) AS prev_termine
+			FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
+			ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
+		')
+		insert into  #INQUADRAMENTI(
+			matricola,	comparto,  ruolo,inquadramento,classestipendiale,
+			datadecorrenza,	datadelibera, termine)
+		SELECT 
+			matricola,comparto, ruolo, 	inquadramento,
+				CASE 
+					WHEN SUBSTRING(inquadramento,0,3) in (''PN'',''PV'',''DN'',''DV'') THEN CAST(SUBSTRING(inquadramento,5,2)as int) 
+					WHEN SUBSTRING(inquadramento,4,3) in ('' ND'','' NP'') THEN CAST(SUBSTRING(inquadramento,2,2)as int) 
+				ELSE 0
+				END,
+			MIN(datadecorrenza) AS datadecorrenza,
+			min(datadelibera) as datadelibera,
+			MAX(termine) AS termine
+		FROM CTE
+		WHERE datadecorrenza = DATEADD(day, 1, prev_termine) OR prev_termine IS NULL
+		GROUP BY matricola,comparto, ruolo, inquadramento
+		ORDER BY 
+		matricola, datadecorrenza;
+
+
+		INSERT INTO  #INQUADRAMENTI(
+			matricola,	comparto,  ruolo,inquadramento,
+			datadecorrenza,	datadelibera, termine)
+		SELECT 
+			I.matricola, I.comparto, I.ruolo, 	I.inquadramento,
+			I.datadecorrenza, isnull(I.datadelibera, I.datadecorrenza),	I.termine
+		FROM ' + @EASY_INQUADRAMENTI + ' as I '+
+		' JOIN #INQUADRAMENTI I2
+			ON I2.comparto = I.comparto and I2.ruolo = I.ruolo and I2.inquadramento = I.inquadramento and I2.matricola = I.matricola
+		WHERE I.DATADECORRENZA NOT between I2.datadecorrenza and I2.termine
+		
+		'
 -- IMPORTANTE: lo spazio presente davanti a (' ND',' NP') non va rimosso.
 
 	EXEC (@query_EASY_INQUADRAMENTI) 
 	print @query_EASY_INQUADRAMENTI
+-------------------------------------------------------------------------------------------------
+
 	-- UPDATE per valorizzare EVENTUALMENTE idposition
 	UPDATE #INQUADRAMENTI SET codicequalifica = CSA_P.idposition, 
 			codiceinquadramento = CSA_P.idinquadramento, 
@@ -186,48 +227,133 @@ Begin
 			WHERE CSA_P.csa_compartment = #INQUADRAMENTI.comparto /* fa il match fra la tripla che arriva dalla view e la tripla presente nel LookUp, e prende il valore corrispondente in Easy di idposition e idinquadramento*/
 				AND CSA_P.csa_role = #INQUADRAMENTI.Ruolo 
 				AND CSA_P.csa_class = #INQUADRAMENTI.Inquadramento
+
+UPDATE #INQUADRAMENTI SET tempdef = inquadramento.tempdef
+			FROM inquadramento 
+			WHERE inquadramento.idinquadramento = #INQUADRAMENTI.codiceinquadramento 
+
 				
 End
-Else
+
+if ( (@COL_Inquadramento = 0) and (@COL_INIZIO_INQ=0) )  -- colonna INQUADRAMENTO assente e colonna INIZIO_INQ assente
 Begin
 	-- Viste che NON hanno anche la colonna inquadramento
-	SET @query_EASY_INQUADRAMENTI = '
-	 INSERT INTO #INQUADRAMENTI(
-		matricola,
-		ruolo,
-		comparto,
-		datadecorrenza,
-		termine,
-		in_vigore_giur,
-		imponpresunto,
-		classestipendiale
-	)
-	--
-	SELECT 
-		I.matricola, 
-		I.ruolo,
-		I.comparto,
-		I.datadecorrenza,
-		I.termine,
-		isnull(I.datadelibera,I.datadecorrenza),
-		null,--	I.imponibilepresunto
-		0
-	FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
-	ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
-	' GROUP BY I.matricola,I.ruolo,I.comparto,I.datadecorrenza,
-		I.termine,
-		I.datadelibera' 
+	--------------------------------------------- nuova versione --------------------------------------
+	SET @query_EASY_INQUADRAMENTI ='
+		;WITH CTE AS (
+		SELECT 
+			matricola, comparto,ruolo, 	
+			datadecorrenza, isnull(datadelibera,datadecorrenza) as datadelibera,
+			termine,
+			LAG(termine) OVER (PARTITION BY matricola,comparto, ruolo ORDER BY datadecorrenza, datadelibera) AS prev_termine
+			FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
+			ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
+		')
+		insert into  #INQUADRAMENTI(
+			matricola,	comparto,  ruolo,
+			datadecorrenza,	datadelibera, termine)
+		SELECT 
+			matricola,comparto, ruolo, 	
+			MIN(datadecorrenza) AS datadecorrenza,
+			min(datadelibera) as datadelibera,
+			MAX(termine) AS termine
+		FROM CTE
+		WHERE datadecorrenza = DATEADD(day, 1, prev_termine) OR prev_termine IS NULL
+		GROUP BY matricola,comparto, ruolo 
+		ORDER BY 
+		matricola, datadecorrenza;
 
-	EXEC (@query_EASY_INQUADRAMENTI) 
+		INSERT INTO  #INQUADRAMENTI(
+			matricola,	comparto,  ruolo,
+			datadecorrenza,	datadelibera, termine)
+		SELECT 
+			I.matricola, I.comparto, I.ruolo,
+			I.datadecorrenza, isnull(I.datadelibera, I.datadecorrenza),	I.termine
+		FROM ' + @EASY_INQUADRAMENTI + ' as I '+
+		' JOIN #INQUADRAMENTI I2
+			ON I2.comparto = I.comparto and I2.ruolo = I.ruolo  and I2.matricola = I.matricola
+		WHERE I.DATADECORRENZA NOT between I2.datadecorrenza and I2.termine
 
-	-- UPDATE per valorizzare EVENTUALMENTE idposition
-UPDATE #INQUADRAMENTI SET codicequalifica = idposition, 
-				imponpresunto = supposedtaxable
-			FROM csapositionlookup CSA_P
-			WHERE CSA_P.csa_compartment = #INQUADRAMENTI.comparto 
-				AND CSA_P.csa_role = #INQUADRAMENTI.Ruolo 
+		'
+	-- IMPORTANTE: lo spazio presente davanti a (' ND',' NP') non va rimosso.
+
+		EXEC (@query_EASY_INQUADRAMENTI) 
+		print @query_EASY_INQUADRAMENTI
+	-------------------------------------------------------------------------------------------------
+
+		-- UPDATE per valorizzare EVENTUALMENTE idposition
+	UPDATE #INQUADRAMENTI SET codicequalifica = idposition, 
+					imponpresunto = supposedtaxable
+				FROM csapositionlookup CSA_P
+				WHERE CSA_P.csa_compartment = #INQUADRAMENTI.comparto 
+					AND CSA_P.csa_role = #INQUADRAMENTI.Ruolo 
 End
 
+-- Solo per Unicampania
+if (@COL_Inquadramento <> 0) and (@COL_INIZIO_INQ <>0 )  -- colonna INIZIO_INQ presente
+Begin
+	
+	--------------------------------------------- nuova versione --------------------------------------
+	SET @query_EASY_INQUADRAMENTI ='
+		;WITH CTE AS (
+		SELECT 
+			matricola, comparto,ruolo, 	inquadramento,
+			INIZIO_INQ, INIZIO_INQ as datadelibera,
+			FINE_INQ,
+			LAG(FINE_INQ) OVER (PARTITION BY matricola,comparto, ruolo, inquadramento ORDER BY INIZIO_INQ, INIZIO_INQ) AS prev_termine
+			FROM ' + @EASY_INQUADRAMENTI + ' as I ' +
+			ISNULL(REPLACE(@where_ANAGRAFICA,'XXX.','I.'),'')  + 
+		')
+		insert into  #INQUADRAMENTI(
+			matricola,	comparto,  ruolo, inquadramento, classestipendiale,
+			datadecorrenza,	datadelibera, termine)
+		SELECT 
+			matricola,comparto, ruolo, 	inquadramento,
+				CASE 
+					WHEN SUBSTRING(inquadramento,0,3) in (''PN'',''PV'',''DN'',''DV'') THEN CAST(SUBSTRING(inquadramento,5,2)as int) 
+					WHEN SUBSTRING(inquadramento,4,3) in ('' ND'','' NP'') THEN CAST(SUBSTRING(inquadramento,2,2)as int) 
+				ELSE 0
+				END,
+			MIN(INIZIO_INQ) AS datadecorrenza,
+			min(INIZIO_INQ) as datadelibera,
+			MAX(FINE_INQ) AS termine
+		FROM CTE
+		WHERE INIZIO_INQ = DATEADD(day, 1, prev_termine) OR prev_termine IS NULL
+		GROUP BY matricola,comparto, ruolo, inquadramento
+		ORDER BY 
+		matricola, datadecorrenza;
+
+		INSERT INTO  #INQUADRAMENTI(
+			matricola,	comparto,  ruolo, inquadramento,
+			datadecorrenza,	datadelibera, termine)
+		SELECT 
+			I.matricola, I.comparto, I.ruolo, 	I.inquadramento,
+			I.INIZIO_INQ,  I.INIZIO_INQ,	I.FINE_INQ
+		FROM ' + @EASY_INQUADRAMENTI + ' as I '+
+		' 		 JOIN #INQUADRAMENTI I2
+			ON I2.comparto = I.comparto and I2.ruolo = I.ruolo and I2.inquadramento = I.inquadramento and I2.matricola = I.matricola
+		WHERE I.INIZIO_INQ NOT between I2.datadecorrenza and I2.termine
+
+
+		'
+	-- IMPORTANTE: lo spazio presente davanti a (' ND',' NP') non va rimosso.
+
+		EXEC (@query_EASY_INQUADRAMENTI) 
+		print @query_EASY_INQUADRAMENTI
+	-------------------------------------------------------------------------------------------------
+
+		-- UPDATE per valorizzare EVENTUALMENTE idposition
+	UPDATE #INQUADRAMENTI SET 
+					codicequalifica = idposition, 
+					codiceinquadramento = CSA_P.idinquadramento, 
+					livello = CSA_P.livello,
+					imponpresunto = CSA_P.supposedtaxable
+				FROM csapositionlookup CSA_P
+				WHERE CSA_P.csa_compartment = #INQUADRAMENTI.comparto 
+					AND CSA_P.csa_role = #INQUADRAMENTI.Ruolo 
+					AND CSA_P.csa_class = #INQUADRAMENTI.Inquadramento
+
+End
 
 -- UPDATE per valorizzare EVENTUALMENTE iddaliaposition
 UPDATE #INQUADRAMENTI SET iddaliaposition = dalia_position.iddaliaposition 
@@ -330,11 +456,10 @@ SELECT
 	------------INQUADRAMENTO E REDDITO ANNUO PRESUNTO-------------
 	---------------------------------------------------------------
 	C.datadecorrenza,
-	case when (year(isnull(termine,1900))='2222') 
-		then {d '2078-12-31'}
+	case when (year(isnull(termine,1900))='2222') then null
 		else C.termine
 	end AS termine,
-	C.in_vigore_giur,
+	C.datadelibera as in_vigore_giur, -->>>solo per evitare di modificare il form
 	C.classestipendiale,
 
 	C.codicequalifica ,-- è l'idposition di Easy
@@ -342,6 +467,7 @@ SELECT
 	C.livello,
 	C.iddaliaposition ,-- è l'iddaliaposition di Easy
 	C.imponpresunto	,  -- è l'imponibile presunto di Easy
+	C.tempdef,
 	'N' as avviso,
 	null as dettaglio,
 	C.comparto,
@@ -384,6 +510,7 @@ SELECT
 	null as livello,
 	null as iddaliaposition,-- è l'iddaliaposition di Easy
 	null as imponpresunto	,  -- è l'imponibile presunto di Easy
+	null as tempdef,
 	isnull(p.avviso,'N') as avviso,
 	case 
 		when (isnull(P.avviso,'N')='S')  then 'Sono state riscontrate più Mod.Pagamento'

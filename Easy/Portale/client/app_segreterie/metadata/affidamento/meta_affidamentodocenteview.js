@@ -30,9 +30,9 @@
 						this.describeAColumn(table, 'erogazkind_title', 'Tipo di erogazione', null, 4200, 50);
 						this.describeAColumn(table, 'affidamento_freqobbl', 'Frequenza obbligatoria', null, 5000, null);
 						this.describeAColumn(table, 'affidamento_gratuito', 'Gratuito', null, 6000, null);
+						this.describeAColumn(table, 'XXaffidamentocaratteristica', 'Caratteristiche dell\'affidamento', null, 9000, null);
 						this.describeAColumn(table, 'affidamento_start', 'Inizio', null, 15000, null);
 						this.describeAColumn(table, 'affidamento_stop', 'Fine', null, 16000, null);
-						this.describeAColumn(table, 'XXaffidamentocaratteristica', 'Caratteristiche dell\'affidamento', null, 20000, null);
 //$objCalcFieldConfig_docente$
 						break;
 //$objCalcFieldConfig$

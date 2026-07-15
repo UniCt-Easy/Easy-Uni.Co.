@@ -21,7 +21,28 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.isNull(parentRow.idconvalidakind))
+					parentRow.idconvalidakind = 9;
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-convalida_segmi");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
@@ -82,8 +103,9 @@
 				this.helpForm.addExtraEntity("convalidante");
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.convalidato, "segmi", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("convalidato");
-				appMeta.metaModel.insertFilter(this.getDataTable("convalidakinddefaultview"), this.q.eq('convalidakind_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("changeskinddefaultview"), this.q.eq('changeskind_active', 'Si'));
+				this.state.DS.tables.sostenimentodefaultview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg));
+				this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprog", this.state.callerState.currentRow.iddidprog));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -92,15 +114,7 @@
 				});
 			},
 
-			afterRowSelect: function (t, r) {
-				var def = appMeta.Deferred("afterRowSelect-convalida_segmi");
-				$('#convalidato_segmi_idiscrizionebmi').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizionebmi);
-				$('#convalidato_segmi_idiscrizionebmi').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizionebmi);
-				$('#convalidato_segmi_idlearningagrstud').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idlearningagrstud);
-				$('#convalidato_segmi_idlearningagrstud').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idlearningagrstud);
-				//afterRowSelectin
-				return def.resolve();
-			},
+			//afterRowSelect
 
 			//afterActivation
 
@@ -108,29 +122,9 @@
 
 			//buttonClickEnd
 
-			insertClick: function (that, grid) {
-				if (!$('#convalidato_segmi_idiscrizionebmi').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Iscrizione al bando di mobilità internazionale');
-				}
-				if (!$('#convalidato_segmi_idlearningagrstud').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Learning agreements for studies');
-				}
-				//insertClickin
-				return this.superClass.insertClick(that, grid);
-			},
+			//insertClick
 
 			//beforePost
-
-			children: ['convalidante', 'convalidato'],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
-			},
 
 			//buttons
         });

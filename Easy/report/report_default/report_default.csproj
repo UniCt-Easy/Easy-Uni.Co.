@@ -98,6 +98,12 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ReportGenClient">
+      <HintPath>..\..\ReportGenClient\bin\Debug\ReportGenClient.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportGenData">
+      <HintPath>..\..\dll\ReportGenData.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

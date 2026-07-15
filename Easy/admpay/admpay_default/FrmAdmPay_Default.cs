@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -1836,7 +1834,7 @@ namespace admpay_default {
 
             FrmMeter FM = new FrmMeter("Generazione pseudo movimenti");
 
-            FM.pBar.Maximum = tSource.Rows.Count;
+            //FM.pBar.Maximum = tSource.Rows.Count;
             FM.Show();
             Cursor.Current = Cursors.WaitCursor;
 
@@ -1845,7 +1843,7 @@ namespace admpay_default {
             QueryCreator.MarkEvent("Inizio Raggruppamento Meta Movimenti: " + DateTime.Now + "\n\r");
             int hdl = metaprofiler.StartTimer("INIZIO RAGGRUPPAMENTO META MOVIMENTI...");
 			foreach(DataRow rSource in tSource.Rows) {
-                FM.pBar.Increment(1);
+                //FM.pBar.Increment(1);
                 nRow++;
                 if ((nRow % 10) == 0) {
                     Application.DoEvents();
@@ -1956,7 +1954,7 @@ namespace admpay_default {
 
             FrmMeter FM = new FrmMeter("Creazione HashTable dal file di input");
 
-            FM.pBar.Maximum = mData.Rows.Count;
+            //FM.pBar.Maximum = mData.Rows.Count;
             FM.Show();
 
             if (!mData.Columns.Contains("!idfin")) {
@@ -1982,7 +1980,7 @@ namespace admpay_default {
             bool isOk = true;
             
             foreach (DataRow rData in mData.Rows) {
-                FM.pBar.Increment(1);
+                //FM.pBar.Increment(1);
                 if (nRow % 20 == 0) {
                     Application.DoEvents();
                 }

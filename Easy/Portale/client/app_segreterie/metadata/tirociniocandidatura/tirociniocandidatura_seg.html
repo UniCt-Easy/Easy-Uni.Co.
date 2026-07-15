@@ -16,29 +16,24 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tirociniocandidatura_seg_idreg_studenti">Studente</label>
 					<div>
-						<input id="tirociniocandidatura_seg_idreg_studenti" name="tirociniocandidatura_seg_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
+						<input id="tirociniocandidatura_seg_idreg_studenti" name="tirociniocandidatura_seg_idreg_studenti" type="text" data-listtype="studenti"  class="form-control" data-minchar="2" data-tag="registrystudentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#tirociniocandidatura_seg_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="tirociniocandidatura_seg_data">Data</label>
-					<input id="tirociniocandidatura_seg_data" type="text" class="form-control" data-tag="tirociniocandidatura.data.g"  />
+					<input id="tirociniocandidatura_seg_data" type="text" class="form-control" data-tag="tirociniocandidatura.data.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tirociniocandidatura_seg_idreg_docenti">Tutor</label>
 					<div>
-						<input id="tirociniocandidatura_seg_idreg_docenti" name="tirociniocandidatura_seg_idreg_docenti" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="tirociniocandidatura_seg_idreg_docenti" name="tirociniocandidatura_seg_idreg_docenti" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tirociniocandidatura_seg_idtirociniocandidaturakind">Tipologia</label>
-					<select id="tirociniocandidatura_seg_idtirociniocandidaturakind" class="custom-select d-block w-100"  data-source-name="tirociniocandidaturakinddefaultview" data-value-member="idtirociniocandidaturakind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="tirociniocandidatura.idtirociniocandidaturakind"  data-mandatory  > </select>
+					<select id="tirociniocandidatura_seg_idtirociniocandidaturakind" class="custom-select d-block w-100"  data-source-name="tirociniocandidaturakinddefaultview" data-value-member="idtirociniocandidaturakind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="tirociniocandidatura.idtirociniocandidaturakind"  data-mandatory  > </select>
 				</div>
 			</div>
 	</div>

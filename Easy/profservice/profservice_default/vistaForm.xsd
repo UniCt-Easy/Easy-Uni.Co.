@@ -1097,6 +1097,7 @@
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_serviceattachmentkind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>

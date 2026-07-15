@@ -37,6 +37,7 @@
 						this.describeAColumn(table, 'geo_nation_title', 'Nazionalità', null, 11300, 65);
 						this.describeAColumn(table, 'registry_pic', 'Participant Identification Code (PIC)', null, 12000, 10);
 						this.describeAColumn(table, 'registry_flag_pa', 'Ente pubblico', null, 100000, null);
+						this.describeAColumn(table, 'istitutokind_tipoistituto', 'Tipo di istituto', null, 106200, 256);
 //$objCalcFieldConfig_aziende$
 						break;
 //$objCalcFieldConfig$

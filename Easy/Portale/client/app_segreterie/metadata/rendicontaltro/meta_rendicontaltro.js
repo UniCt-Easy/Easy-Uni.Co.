@@ -43,7 +43,6 @@
 						this.describeAColumn(table, 'ore', 'Ore', 'fixed.2', 50, null);
 						this.describeAColumn(table, '!idrendicontaltrokind_rendicontaltrokind_title', 'Tipologia', null, 41, null);
 						objCalcFieldConfig['!idrendicontaltrokind_rendicontaltrokind_title'] = { tableNameLookup:'rendicontaltrokind', columnNameLookup:'title', columnNamekey:'idrendicontaltrokind' };
-						objCalcFieldConfig['!idrendicontaltrokind_rendicontaltrokind_title'] = { tableNameLookup:'rendicontaltrokind_alias1', columnNameLookup:'title', columnNamekey:'idrendicontaltrokind' };
 //$objCalcFieldConfig_docente$
 						break;
 //$objCalcFieldConfig$
@@ -66,8 +65,6 @@
 //$innerSetCaptionConfig_doc$
 						break;
 					case 'docente':
-						table.columns["!title"].caption = "Descrizione";
-						table.columns["aa"].caption = "Anno accademico della rendicontazione";
 						table.columns["idreg_docenti"].caption = "Docente";
 						table.columns["idrendicontaltro"].caption = "Codice";
 						table.columns["idrendicontaltrokind"].caption = "Tipologia";

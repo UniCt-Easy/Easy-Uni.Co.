@@ -27,20 +27,23 @@
 						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
 						this.describeAColumn(table, 'anno', 'Anno', null, 30, null);
 						this.describeAColumn(table, 'annofc', 'Anno fuori corso', null, 40, null);
-						this.describeAColumn(table, 'data', 'Data', 'g', 50, null);
-						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 61, null);
+						this.describeAColumn(table, 'annopt', 'Anno part-time', null, 50, null);
+						this.describeAColumn(table, 'data', 'Data', 'g', 60, null);
+						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 71, null);
 						objCalcFieldConfig['!iddidprogori_didprogori_title'] = { tableNameLookup:'didprogori', columnNameLookup:'title', columnNamekey:'iddidprogori' };
+						this.describeAColumn(table, '!parttimeinfo', 'Part-time', null, 80, null);
 //$objCalcFieldConfig_didprog$
 						break;
 					case 'seganagstu':
 						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
 						this.describeAColumn(table, 'anno', 'Anno', null, 30, null);
 						this.describeAColumn(table, 'annofc', 'Anno fuori corso', null, 40, null);
-						this.describeAColumn(table, 'data', 'Data', 'g', 50, null);
-						this.describeAColumn(table, 'iddidprogori', 'Orientamento', null, 60, null);
+						this.describeAColumn(table, 'annopt', 'Anno part-time', null, 50, null);
+						this.describeAColumn(table, 'data', 'Data', 'g', 60, null);
+						this.describeAColumn(table, 'iddidprogori', 'Orientamento', null, 70, null);
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 200, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 210, null);
-						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 61, null);
+						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 71, null);
 						objCalcFieldConfig['!iddidprogori_didprogori_title'] = { tableNameLookup:'didprogori', columnNameLookup:'title', columnNamekey:'iddidprogori' };
 //$objCalcFieldConfig_seganagstu$
 						break;
@@ -48,10 +51,12 @@
 						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 10, 9);
 						this.describeAColumn(table, 'anno', 'Anno', null, 30, null);
 						this.describeAColumn(table, 'annofc', 'Anno fuori corso', null, 40, null);
-						this.describeAColumn(table, 'data', 'Data', 'g', 50, null);
+						this.describeAColumn(table, 'annopt', 'Anno part-time', null, 50, null);
+						this.describeAColumn(table, 'data', 'Data', 'g', 60, null);
+						this.describeAColumn(table, 'iddidprogori', 'Orientamento', null, 70, null);
 						this.describeAColumn(table, 'protnumero', 'Numero di protocollo', null, 200, null);
 						this.describeAColumn(table, 'protanno', 'Anno di protocollo', null, 210, null);
-						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 61, null);
+						this.describeAColumn(table, '!iddidprogori_didprogori_title', 'Orientamento', null, 71, null);
 						objCalcFieldConfig['!iddidprogori_didprogori_title'] = { tableNameLookup:'didprogori', columnNameLookup:'title', columnNamekey:'iddidprogori' };
 //$objCalcFieldConfig_seg$
 						break;
@@ -68,6 +73,7 @@
 					case 'seganagstu':
 						table.columns["aa"].caption = "Anno Accademico";
 						table.columns["annofc"].caption = "Anno fuori corso";
+						table.columns["annopt"].caption = "Anno part-time";
 						table.columns["idcorsostudio"].caption = "Corso di studi";
 						table.columns["iddidprog"].caption = "Didattica programmata";
 						table.columns["iddidprogori"].caption = "Orientamento";
@@ -76,6 +82,13 @@
 						table.columns["protanno"].caption = "Anno di protocollo";
 						table.columns["protnumero"].caption = "Numero di protocollo";
 //$innerSetCaptionConfig_seganagstu$
+						break;
+					case 'didprog':
+//$innerSetCaptionConfig_didprog$
+						break;
+					case 'seg':
+						table.columns["aa"].caption = "Anno Accademico";
+//$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$
 				}

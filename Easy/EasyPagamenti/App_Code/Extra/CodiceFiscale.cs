@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using metadatalibrary;
 using System;
@@ -179,26 +177,26 @@ namespace EasyPagamenti.Extra {
             string r = "";
             foreach (char c in s) {
                 switch (c) {
-                    case '‡':
-                    case '¿':
+                    case '√†':
+                    case '√Ä':
                         r += 'A';
                         break;
-                    case 'È':
-                    case '…':
-                    case 'Ë':
-                    case '»':
+                    case '√©':
+                    case '√â':
+                    case '√®':
+                    case '√à':
                         r += 'E';
                         break;
-                    case 'Ï':
-                    case 'Ã':
+                    case '√¨':
+                    case '√å':
                         r += 'I';
                         break;
-                    case 'Ú':
-                    case '“':
+                    case '√≤':
+                    case '√í':
                         r += 'O';
                         break;
-                    case '˘':
-                    case 'Ÿ':
+                    case '√π':
+                    case '√ô':
                         r += 'U';
                         break;
                     default:
@@ -213,7 +211,7 @@ namespace EasyPagamenti.Extra {
             errori = "";
             string codicefiscale = R["cf"].ToString().ToUpper();
             if (codicefiscale == "") return true;
-            //per entit‡ che hanno codice fiscale numerico da 11
+            //per entit√† che hanno codice fiscale numerico da 11
             if (codicefiscale.Length == 11) {
                 foreach (char c in codicefiscale.ToCharArray()) {
                     if (!char.IsDigit(c)) return false;
@@ -301,7 +299,7 @@ namespace EasyPagamenti.Extra {
         }
 
         /// <summary>
-        /// Calcola il codice fiscale conoscendo gi‡ il codice fiscale del comune
+        /// Calcola il codice fiscale conoscendo gi√† il codice fiscale del comune
         /// </summary>
         public static string Make(string Nome, string Cognome,
             object DataNascita, string CodiceComune, string Sesso,
@@ -336,11 +334,11 @@ namespace EasyPagamenti.Extra {
 
             string lastchar;
             string codice;
-            // Controllo sulla lunghezza, se non rispettata Ë inutile effettuare altri controlli
+            // Controllo sulla lunghezza, se non rispettata √® inutile effettuare altri controlli
             if (codicefiscale.Length != 16) {
                 return "Lunghezza non corretta";
             }
-            // Controllo sulla congruit‡ del CF rispetto alle info date
+            // Controllo sulla congruit√† del CF rispetto alle info date
             // Controllo sull'ultimo carattere
             bool IsValid;
             codice = codicefiscale.Substring(0, (codicefiscale.Length - 1));
@@ -377,13 +375,13 @@ namespace EasyPagamenti.Extra {
         }
 
         /// <summary>
-        /// Restituisce il valore di un codice ente conoscendo il codice id della entit‡ geo 
+        /// Restituisce il valore di un codice ente conoscendo il codice id della entit√† geo 
         /// </summary>
         /// <param name="Conn">Connessione</param>
         /// <param name="Nome"></param>
         /// <param name="Cognome"></param>
         /// <param name="DataNascita"></param>
-        /// <param name="idgeo">id della entit‡ geo (geo_comune, geo_provincia, etc)...</param>
+        /// <param name="idgeo">id della entit√† geo (geo_comune, geo_provincia, etc)...</param>
         /// <param name="Sesso"></param>
         /// <param name="TipoGeo">"C" = Comune (default), "P" = Provincia, "R" = Regione, "N" = Nazione</param>
         /// <param name="IsValid"></param>

@@ -27,6 +27,12 @@
 						this.describeAColumn(table, 'dataora', 'Data e ora', 'g', 20, null);
 //$objCalcFieldConfig_seg$
 						break;
+					case 'default':
+						this.describeAColumn(table, 'dataora', 'Data e ora', 'g', 20, null);
+						this.describeAColumn(table, '!idpagamentokind_pagamentokind_title', 'Tipologia', null, 41, null);
+						objCalcFieldConfig['!idpagamentokind_pagamentokind_title'] = { tableNameLookup:'pagamentokind', columnNameLookup:'title', columnNamekey:'idpagamentokind' };
+//$objCalcFieldConfig_default$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -35,7 +41,17 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["dataora"].caption = "Data e ora";
+						table.columns["idpagamentokind"].caption = "Tipologia";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_pagamento");

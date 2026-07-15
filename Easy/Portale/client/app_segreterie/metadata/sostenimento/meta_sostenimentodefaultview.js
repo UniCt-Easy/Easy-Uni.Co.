@@ -23,16 +23,15 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'annoaccademico_aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'registry_title', 'Studente', null, 10, 101);
-						this.describeAColumn(table, 'sostenimento_data', 'Data', null, 20, null);
-						this.describeAColumn(table, 'sostenimento_ects', 'ECTS', null, 40, null);
-						this.describeAColumn(table, 'sostenimento_giudizio', 'Giudizio', null, 50, 50);
-						this.describeAColumn(table, 'sostenimentoesito_title', 'Esito', null, 120, 50);
-						this.describeAColumn(table, 'sostenimento_livello', 'Livello', null, 160, null);
-						this.describeAColumn(table, 'sostenimento_voto', 'Voto', 'fixed.2', 200, null);
-						this.describeAColumn(table, 'sostenimento_votosu', 'Su', null, 220, null);
-						this.describeAColumn(table, 'sostenimento_votolode', 'Lode', null, 230, null);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 1300, 101);
+						this.describeAColumn(table, 'sostenimento_data', 'Data', null, 2000, null);
+						this.describeAColumn(table, 'sostenimento_ects', 'ECTS', null, 4000, null);
+						this.describeAColumn(table, 'sostenimento_giudizio', 'Giudizio', null, 5000, 50);
+						this.describeAColumn(table, 'sostenimentoesito_title', 'Esito', null, 12200, 50);
+						this.describeAColumn(table, 'sostenimento_livello', 'Livello', null, 16000, null);
+						this.describeAColumn(table, 'sostenimento_voto', 'Voto', 'fixed.2', 20000, null);
+						this.describeAColumn(table, 'sostenimento_votosu', 'Su', null, 22000, null);
+						this.describeAColumn(table, 'sostenimento_votolode', 'Lode', null, 23000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

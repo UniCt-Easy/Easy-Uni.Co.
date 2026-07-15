@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,12 +13,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_giornale_cassa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_giornale_cassa]
 GO
-
-
+--setuser 'amministrazione'
  
 SET QUOTED_IDENTIFIER ON 
 GO
@@ -46,7 +43,9 @@ AS BEGIN
 	DECLARE	@newxayear 		int
 	SET @newxayear = @ayear +1
 
---exec rpt_giornale_cassa 2014, {ts '2014-02-11 00:00:00'}, {ts '2014-02-11 00:00:00'}, 'N','S', 4
+	--select @cashvaliditykind
+	--select @documentiesitati
+-- exec rpt_giornale_cassa 2025, {ts '2025-01-01 00:00:00'}, {ts '2025-06-30 00:00:00'}, 'N','N', null,'N'
 -- Per ulteriori dettagli in merito a questa modifica leggere la Documentazione del task n.4077
 	
 	DECLARE @floatfund decimal(19,2)
@@ -69,26 +68,52 @@ AS BEGIN
 	SET @31dicCurr = CONVERT(datetime,'31-12-' + CONVERT(varchar(4),@ayear),105)
 
 	DECLARE @tot_payment_comp	decimal(19,2)
-	SELECT 	@tot_payment_comp = SUM(amount)
-	FROM 	historypaymentview 
-	WHERE 	competencydate < @start
-		AND ymov = @ayear
-		AND ( (totflag & 1) =0) -- Competenza
-		AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+
+	if (@cashvaliditykind = 4 )
+	begin
+			SELECT 	@tot_payment_comp = SUM(amount)
+				FROM 	historypaymentbankview 
+				WHERE 	competencydate < @start
+					AND ymov = @ayear
+					AND ( (totflag & 1) =0) -- Competenza
+					AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+	end
+	else
+	begin
+			SELECT 	@tot_payment_comp = SUM(amount)
+			FROM 	historypaymentview 
+			WHERE 	competencydate < @start
+						AND ymov = @ayear
+						AND ( (totflag & 1) =0) -- Competenza
+						AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+	end
 
 	DECLARE @tot_proceeds_comp	decimal(19,2)
-	SELECT 	@tot_proceeds_comp = SUM(amount)
-	FROM 	historyproceedsview 
-	WHERE 	competencydate < @start
-		AND ymov = @ayear
-		AND ( (totflag & 1) =0)-- Competenza
-		AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
-			
+	if (@cashvaliditykind = 4 )
+	begin
+		SELECT 	@tot_proceeds_comp = SUM(amount)
+		FROM 	historyproceedsbankview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =0)-- Competenza
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
+	else
+	begin
+		SELECT 	@tot_proceeds_comp = SUM(amount)
+		FROM 	historyproceedsview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =0)-- Competenza
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
+
 	DECLARE @codphase_payment tinyint
 	SELECT 	@codphase_payment = MAX(nphase)
 	FROM    expensephase
 
 	DECLARE @var_payment_comp	decimal(19,2)
+
 	SELECT  @var_payment_comp = SUM(EV.amount)
     	FROM   expensevar EV
 	JOIN historypaymentview HPV
@@ -109,6 +134,7 @@ AS BEGIN
 		AND ((EV.autokind = 11)OR(EV.autokind = 10 )) 
 	) 
 	)
+	AND @cashvaliditykind <> 4 
 
 	DECLARE @codphase_proceeds tinyint
 	SELECT 	@codphase_proceeds = MAX(nphase) FROM incomephase
@@ -133,23 +159,48 @@ AS BEGIN
 				AND (   (IV.autokind = 11)OR(IV.autokind = 10)  ) 
 			) 
 		)
-	
+	AND @cashvaliditykind <> 4 
+
 	DECLARE @tot_payment_resid	decimal(19,2)
-	SELECT 	@tot_payment_resid = SUM(amount)
-	FROM 	historypaymentview 
-	WHERE 	competencydate < @start
-		AND ymov = @ayear
-		AND ( (totflag & 1) =1) --Residuo
-		AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+
+	if (@cashvaliditykind = 4 )
+	begin
+		SELECT 	@tot_payment_resid = SUM(amount)
+		FROM 	historypaymentbankview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =1) --Residuo
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
+	else
+	Begin
+		SELECT 	@tot_payment_resid = SUM(amount)
+		FROM 	historypaymentview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =1) --Residuo
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
 
 	DECLARE @tot_proceeds_resid	decimal(19,2)
-	SELECT 	@tot_proceeds_resid = SUM(amount)
-	FROM 	historyproceedsview 
-	WHERE 	competencydate < @start
-		AND ymov = @ayear
-		AND ( (totflag & 1) =1) -- Residuo
-		AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
-	
+	if (@cashvaliditykind = 4 )
+	begin
+		SELECT 	@tot_proceeds_resid = SUM(amount)
+		FROM 	historyproceedsbankview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =1) -- Residuo
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
+	else
+	begin
+		SELECT 	@tot_proceeds_resid = SUM(amount)
+		FROM 	historyproceedsview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =1) -- Residuo
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
 	DECLARE @var_payment_resid	decimal(19,2)
 	SELECT  @var_payment_resid = SUM(EV.amount)
 	FROM expensevar EV
@@ -171,6 +222,7 @@ AS BEGIN
 			AND (   (EV.autokind = 11)OR(EV.autokind = 10)  ) 
 		) 
 	)
+	AND @cashvaliditykind <> 4 
 
 	DECLARE @var_proceeds_resid	decimal(19,2)
 	SELECT 	@var_proceeds_resid = SUM(IV.amount)
@@ -193,6 +245,7 @@ AS BEGIN
 			AND ((IV.autokind = 11)OR(IV.autokind = 10)  ) 
 		) 
 	)
+	AND @cashvaliditykind <> 4 
 
 DECLARE @girofondi_pay	decimal(19,2)
 DECLARE @girofondi_pro	decimal(19,2)
@@ -261,6 +314,63 @@ End
 		1
 	)
 
+if (@cashvaliditykind = 4)
+Begin
+	INSERT INTO #journal
+	(
+		adate,
+		nmov,
+		npro,
+		docdate,
+		registry,
+		description,
+		doc,
+		codefin,  
+		codeupb,
+		competency_proceeds,
+		residual_proceeds,
+		idmov,
+		operationorder
+	)  
+	SELECT
+		HPV.adate,
+		HPV.nmov,
+		HPV.npro,
+		HPV.competencydate,
+		registry.title,
+		HPV.description,
+		CASE
+			WHEN 	HPV.doc IS NOT NULL AND 
+				HPV.docdate IS NULL THEN
+				'Inc. ' + HPV.doc
+			WHEN 	HPV.doc IS NOT NULL AND
+				HPV.docdate IS NOT NULL THEN
+				'Inc. ' + HPV.doc + 
+				' del ' + CONVERT(varchar(20), HPV.docdate, 105)
+			ELSE
+				(NULL)
+		END,
+		fin.codefin,
+		upb.codeupb,
+		CASE WHEN ( (HPV.totflag & 1) =0)  then sum(HPV.amount)  ELSE NULL END,
+		CASE WHEN ( (HPV.totflag & 1) =1) then sum(HPV.amount)  ELSE NULL END,
+		HPV.idinc, 
+		2
+	FROM historyproceedsbankview HPV  
+	JOIN fin
+		ON fin.idfin = HPV.idfin
+	JOIN registry
+		ON registry.idreg = HPV.idreg
+	JOIN upb
+		ON upb.idupb = HPV.idupb
+	WHERE HPV.competencydate BETWEEN @start AND @stop
+		AND HPV.ymov 	= @ayear
+		AND (HPV.idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	group by HPV.adate,		HPV.nmov,		HPV.npro,		HPV.competencydate,
+		registry.title,		HPV.description,HPV.doc, HPV.docdate,HPV.totflag , HPV.idinc,fin.codefin,		upb.codeupb
+End
+Else
+Begin
 	INSERT INTO #journal
 	(
 		adate,
@@ -312,8 +422,20 @@ End
 		AND HPV.ymov 	= @ayear
 		AND (HPV.idtreasurer = @idtreasurer		 or @idtreasurer is null)		
 
+End
+
+ 
+
 	if ( @cashvaliditykind = 4 and @documentiesitati='S')
 	Begin
+	WITH
+		banktr (idinc, amount, transactiondate)  
+		AS  
+		(  
+			   SELECT idinc, SUM(amount)AS amount,  max(transactiondate) AS transactiondate  
+			   FROM banktransaction where idinc is not null
+			   GROUP BY idinc  
+		)
 		INSERT INTO #journal
 		(
 			adate,
@@ -331,39 +453,37 @@ End
 			operationorder
 		)  
 		SELECT
-			HPV.adate,
-			HPV.nmov,
-			HPV.npro,
-			@31dicCurr,--HPV.competencydate,
-			registry.title,
-			HPV.description,
+			IL.adate,
+			IL.nmov,
+			IL.npro,
+			@31dicCurr, 
+			IL.registry,
+			IL.description,
 			CASE
-				WHEN 	HPV.doc IS NOT NULL AND 
-					HPV.docdate IS NULL THEN
-					'Inc. ' + HPV.doc
-				WHEN 	HPV.doc IS NOT NULL AND
-					HPV.docdate IS NOT NULL THEN
-					'Inc. ' + HPV.doc + 
-					' del ' + CONVERT(varchar(20), HPV.docdate, 105)
+				WHEN 	IL.doc IS NOT NULL AND 
+					IL.docdate IS NULL THEN
+					'Inc. ' + IL.doc
+				WHEN 	IL.doc IS NOT NULL AND
+					IL.docdate IS NOT NULL THEN
+					'Inc. ' + IL.doc + 
+					' del ' + CONVERT(varchar(20), IL.docdate, 105)
 				ELSE
 					(NULL)
 			END,
-			fin.codefin,
-			upb.codeupb,
-			CASE WHEN ( (HPV.totflag & 1) =0)  then HPV.amount  ELSE NULL END,
-			CASE WHEN ( (HPV.totflag & 1) =1) then HPV.amount  ELSE NULL END,
-			HPV.idinc, 
+			IL.codefin,
+			IL.codeupb,
+			CASE WHEN ( (IL.totflag & 1) =0)  then IL.amount  ELSE NULL END,
+			CASE WHEN ( (IL.totflag & 1) =1) then IL.amount  ELSE NULL END,
+			IL.idinc, 
 			2
-		FROM historyproceedsview HPV  
-		JOIN fin
-			ON fin.idfin = HPV.idfin
-		JOIN registry
-			ON registry.idreg = HPV.idreg
-		JOIN upb
-			ON upb.idupb = HPV.idupb
-		WHERE year(HPV.competencydate ) = @newxayear -- Considera gli incassi esitati l'anno successivo, come incassi esitati l'anno corrente affinchè influiscano sulla cassa dell'anno corrente
-			AND HPV.ymov 	= @ayear
-			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)	
+		FROM incomelastview IL  
+		JOIN proceeds 
+			on proceeds.kpro = IL.kpro
+		JOIN  banktr
+			on banktr.idinc = IL.idinc 
+			and year(banktr.transactiondate) = @newxayear
+		WHERE IL.ymov 	= @ayear AND @stop >= @31dicCurr
+			AND (proceeds.idtreasurer = @idtreasurer	 or @idtreasurer is null)	
 	End
 	
 
@@ -438,6 +558,64 @@ End
 			))
 	END
 
+if ( @cashvaliditykind = 4 )
+Begin
+	INSERT INTO #journal
+	(
+		adate,
+		nmov,
+		npro,
+		docdate,
+		registry,
+		description,
+		doc,
+		codefin,
+		codeupb,
+		competency_payment,
+		residual_payment,
+		idmov,
+		operationorder
+	)
+	SELECT
+		HPV.adate,
+		HPV.nmov,
+		HPV.npay,
+		HPV.competencydate,
+		registry.title,
+		HPV.description,
+		CASE
+			WHEN HPV.doc IS NOT NULL AND 
+				HPV.docdate IS NULL THEN
+				'Pag. ' + HPV.doc
+			WHEN HPV.doc IS NOT NULL AND
+				HPV.docdate IS NOT NULL THEN
+				'Pag. ' + HPV.doc + 
+				' del ' + CONVERT(varchar(20), HPV.docdate, 105)
+			ELSE
+		NULL
+		END,
+		fin.codefin,
+		upb.codeupb,
+		CASE WHEN ( (HPV.totflag & 1) = 0) then sum(HPV.amount)  ELSE NULL END,
+		CASE WHEN ( (HPV.totflag & 1) = 1) then sum(HPV.amount)  ELSE NULL END,
+		HPV.idexp,
+		4
+		FROM historypaymentbankview HPV
+		JOIN fin
+			ON fin.idfin = HPV.idfin
+		JOIN registry
+			ON registry.idreg = HPV.idreg
+		JOIN upb
+			ON upb.idupb = HPV.idupb
+		WHERE 	HPV.ymov  = @ayear
+			AND HPV.competencydate BETWEEN @start AND @stop
+			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)			
+		group by HPV.adate,		HPV.idexp, HPV.nmov,HPV.npay,
+			HPV.competencydate,	registry.title,		HPV.description, HPV.doc,	HPV.docdate ,
+			fin.codefin,		upb.codeupb,	HPV.totflag
+End
+Else
+Begin
 	INSERT INTO #journal
 	(
 		adate,
@@ -487,10 +665,19 @@ End
 			ON upb.idupb = HPV.idupb
 		WHERE 	HPV.ymov  = @ayear
 			AND HPV.competencydate BETWEEN @start AND @stop
-			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)			
+			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)	;		
+End
 
 if ( @cashvaliditykind = 4 and @documentiesitati='S')
 Begin
+	WITH
+	banktr (idexp, amount, transactiondate)  
+	AS 
+	(  
+		   SELECT idexp, SUM(amount)AS amount,  max(transactiondate) AS transactiondate  
+		   FROM banktransaction where idexp is not null
+		   GROUP BY idexp  
+	)
 	INSERT INTO #journal
 	(
 		adate,
@@ -507,42 +694,42 @@ Begin
 		idmov,
 		operationorder
 	)
+
 	SELECT
-		HPV.adate,
-		HPV.nmov,
-		HPV.npay,
+		EL.adate,
+		EL.nmov,
+		EL.npay,
 		@31dicCurr,--HPV.competencydate,
-		registry.title,
-		HPV.description,
+		EL.registry,
+		EL.description,
 		CASE
-			WHEN HPV.doc IS NOT NULL AND 
-				HPV.docdate IS NULL THEN
-				'Pag. ' + HPV.doc
-			WHEN HPV.doc IS NOT NULL AND
-				HPV.docdate IS NOT NULL THEN
-				'Pag. ' + HPV.doc + 
-				' del ' + CONVERT(varchar(20), HPV.docdate, 105)
+			WHEN EL.doc IS NOT NULL AND 
+				EL.docdate IS NULL THEN
+				'Pag. ' + EL.doc
+			WHEN EL.doc IS NOT NULL AND
+				EL.docdate IS NOT NULL THEN
+				'Pag. ' + EL.doc + 
+				' del ' + CONVERT(varchar(20), EL.docdate, 105)
 			ELSE
 		NULL
 		END,
-		fin.codefin,
-		upb.codeupb,
-		CASE WHEN ( (HPV.totflag & 1) = 0) then HPV.amount  ELSE NULL END,
-		CASE WHEN ( (HPV.totflag & 1) = 1) then HPV.amount  ELSE NULL END,
-		HPV.idexp,
+		EL.codefin,
+		EL.codeupb,
+		CASE WHEN ( (EL.totflag & 1) = 0) then EL.curramount  ELSE NULL END,
+		CASE WHEN ( (EL.totflag & 1) = 1) then EL.curramount  ELSE NULL END,
+		EL.idexp,
 		4
-		FROM historypaymentview HPV
-		JOIN fin
-			ON fin.idfin = HPV.idfin
-		JOIN registry
-			ON registry.idreg = HPV.idreg
-		JOIN upb
-			ON upb.idupb = HPV.idupb
-		WHERE 	HPV.ymov  = @ayear
-			and year(HPV.competencydate ) = @newxayear -- Considera i pagamenti esitati l'anno successivo, come pagamenti esitati l'anno corrente affinchè influiscano sulla cassa dell'anno corrente
-			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+		FROM expenselastview EL
+		JOIN payment
+			ON payment.kpay = EL.kpay 
+		JOIN  banktr
+			on banktr.idexp = EL.idexp 
+			AND year(banktr.transactiondate) = @newxayear  
+ 
+		WHERE 	EL.ymov  = @ayear AND @stop >= @31dicCurr
+		 	AND (payment.idtreasurer = @idtreasurer or @idtreasurer is null)		
 End
-
+ 
 	IF @cashvaliditykind <> 4
 	BEGIN
 		INSERT INTO #journal

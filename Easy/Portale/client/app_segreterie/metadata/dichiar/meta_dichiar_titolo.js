@@ -13,26 +13,53 @@
             constructor: meta_dichiar_titolo,
 			superClass: MetaData.prototype,
 
-			//$describeColumns$
+			describeColumns: function (table, listType) {
+				var nPos=1;
+				var objCalcFieldConfig = {};
+				var self = this;
+				_.forEach(table.columns, function (c) {
+					self.describeAColumn(table, c.name, '', null, -1, null);
+				});
+				switch (listType) {
+					default:
+						return this.superClass.describeColumns(table, listType);
+					case 'titolo_stu':
+						return this.superClass.describeColumns(table, listType);
+//$objCalcFieldConfig_titolo_stu$
+						break;
+//$objCalcFieldConfig$
+				}
+				table['customObjCalculateFields'] = objCalcFieldConfig;
+				appMeta.metaModel.computeRowsAs(table, listType, this.superClass.calculateFields);
+				return appMeta.Deferred("describeColumns").resolve();
+			},
 
-			//$setCaptions$
+
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'titolo_stu':
+						table.columns["idtitolostudio"].caption = "Titolo di studio";
+//$innerSetCaptionConfig_titolo_stu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_dichiar_titolo");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_dichiar_titolo");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					idreg : 0,
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

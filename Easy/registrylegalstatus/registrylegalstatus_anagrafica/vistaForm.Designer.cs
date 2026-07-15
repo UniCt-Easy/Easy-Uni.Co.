@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -259,6 +257,9 @@ private void initClass() {
 	tregistrylegalstatusregview.Columns.Add( new DataColumn("stop", typeof(DateTime)));
 	tregistrylegalstatusregview.Columns.Add( new DataColumn("livello", typeof(int)));
 	tregistrylegalstatusregview.Columns.Add( new DataColumn("flagdefault", typeof(string)));
+	tregistrylegalstatusregview.Columns.Add( new DataColumn("idinquadramento", typeof(int)));
+	tregistrylegalstatusregview.Columns.Add( new DataColumn("inquadramento", typeof(string)));
+	tregistrylegalstatusregview.Columns.Add( new DataColumn("extmatricula", typeof(string)));
 	Tables.Add(tregistrylegalstatusregview);
 
 	//////////////////// REGISTRYMAINVIEW /////////////////////////////////
@@ -382,6 +383,7 @@ private void initClass() {
 	tregistrylegalstatusattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	tregistrylegalstatusattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tregistrylegalstatusattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	tregistrylegalstatusattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tregistrylegalstatusattachment);
 	tregistrylegalstatusattachment.PrimaryKey =  new DataColumn[]{tregistrylegalstatusattachment.Columns["idreg"], tregistrylegalstatusattachment.Columns["idregistrylegalstatus"], tregistrylegalstatusattachment.Columns["idattachment"]};
 

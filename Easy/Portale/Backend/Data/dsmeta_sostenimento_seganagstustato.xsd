@@ -8,6 +8,12 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idsostenimentoesito" type="xs:int" />
+              <xs:element name="sostenimentoesito_active" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimentoesito_description" type="xs:string" />
+              <xs:element name="sostenimentoesito_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="sostenimentoesito_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="sostenimentoesito_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -15,14 +21,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcentralizedcategory" type="xs:string" minOccurs="0" />
-              <xs:element name="idcity" type="xs:int" minOccurs="0" />
-              <xs:element name="idnation" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idregistryclass" type="xs:string" minOccurs="0" />
-              <xs:element name="idtitle" type="xs:string" minOccurs="0" />
-              <xs:element name="residence" type="xs:int" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -30,8 +30,8 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
-              <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
               <xs:element name="idprova" type="xs:int" />
               <xs:element name="idquestionario" type="xs:int" minOccurs="0" />
               <xs:element name="prova_ct" type="xs:dateTime" />
@@ -95,6 +95,8 @@
     </xs:unique>
     <xs:unique name="provastatoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:provastatoview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:idprova" />
     </xs:unique>
     <xs:unique name="sostenimento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

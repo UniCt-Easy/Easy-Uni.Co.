@@ -3,9 +3,22 @@
   <xs:element name="dsmeta_attivform_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="canaleregistry" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="idcanale" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="canale" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="_x0021_filtrostud" type="xs:string" minOccurs="0" />
               <xs:element name="aa" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
@@ -269,14 +282,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sede" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idsede" type="xs:int" />
-              <xs:element name="title" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="didproggrupp" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -420,6 +425,11 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:canaleregistry" />
+      <xs:field xpath="mstns:idcanale" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="canale_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:canale" />
       <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idattivform" />
@@ -547,10 +557,6 @@
       <xs:field xpath="mstns:iddidprogori" />
       <xs:field xpath="mstns:iddidprogporzanno" />
     </xs:unique>
-    <xs:unique name="sede_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:sede" />
-      <xs:field xpath="mstns:idsede" />
-    </xs:unique>
     <xs:unique name="didproggrupp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didproggrupp" />
       <xs:field xpath="mstns:idcorsostudio" />
@@ -559,14 +565,28 @@
     </xs:unique>
     <xs:unique name="didprogporzannodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogporzannodefaultview" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
       <xs:field xpath="mstns:iddidprogporzanno" />
     </xs:unique>
     <xs:unique name="didprogannodefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogannodefaultview" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
       <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
     </xs:unique>
     <xs:unique name="didprogoridefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogoridefaultview" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidprogcurr" />
       <xs:field xpath="mstns:iddidprogori" />
     </xs:unique>
     <xs:unique name="didprogcurr_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -577,6 +597,7 @@
     </xs:unique>
     <xs:unique name="insegnintegdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:insegnintegdefaultview" />
+      <xs:field xpath="mstns:idinsegn" />
       <xs:field xpath="mstns:idinsegninteg" />
     </xs:unique>
     <xs:unique name="insegndefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -599,6 +620,7 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_canale_attivform_aa-idattivform-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idsede" msdata:parent="attivform" msdata:child="canale" msdata:parentkey="aa idattivform idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idsede" msdata:childkey="aa idattivform idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idsede" />
+      <msdata:Relationship name="FK_canaleregistry_canale_idcanale" msdata:parent="canale" msdata:child="canaleregistry" msdata:parentkey="idcanale" msdata:childkey="idcanale" />
       <msdata:Relationship name="FK_attivformproped_attivform_aa-idattivform-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno" msdata:parent="attivform" msdata:child="attivformproped" msdata:parentkey="aa idattivform idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" msdata:childkey="aa idattivform idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno" />
       <msdata:Relationship name="FK_attivformproped_attivform_alias1_idattivform_proped" msdata:parent="attivform_alias1" msdata:child="attivformproped" msdata:parentkey="idattivform" msdata:childkey="idattivform_proped" />
       <msdata:Relationship name="FK_attivform_alias1_insegninteg_idinsegninteg" msdata:parent="insegninteg" msdata:child="attivform_alias1" msdata:parentkey="idinsegninteg" msdata:childkey="idinsegninteg" />
@@ -615,7 +637,6 @@
       <msdata:Relationship name="FK_attivformcaratteristica_sasdgruppo_idsasdgruppo" msdata:parent="sasdgruppo" msdata:child="attivformcaratteristica" msdata:parentkey="idsasdgruppo" msdata:childkey="idsasdgruppo" />
       <msdata:Relationship name="FK_attivformcaratteristica_sasd_idsasd" msdata:parent="sasd" msdata:child="attivformcaratteristica" msdata:parentkey="idsasd" msdata:childkey="idsasd" />
       <msdata:Relationship name="FK_attivformcaratteristica_ambitoareadisc_idambitoareadisc" msdata:parent="ambitoareadisc" msdata:child="attivformcaratteristica" msdata:parentkey="idambitoareadisc" msdata:childkey="idambitoareadisc" />
-      <msdata:Relationship name="FK_attivform_sede_idsede" msdata:parent="sede" msdata:child="attivform" msdata:parentkey="idsede" msdata:childkey="idsede" />
       <msdata:Relationship name="FK_attivform_didproggrupp_iddidproggrupp" msdata:parent="didproggrupp" msdata:child="attivform" msdata:parentkey="iddidproggrupp" msdata:childkey="iddidproggrupp" />
       <msdata:Relationship name="FK_attivform_didprogporzannodefaultview_iddidprogporzanno" msdata:parent="didprogporzannodefaultview" msdata:child="attivform" msdata:parentkey="iddidprogporzanno" msdata:childkey="iddidprogporzanno" />
       <msdata:Relationship name="FK_didprogporzannodefaultview_didprogannodefaultview_iddidproganno" msdata:parent="didprogannodefaultview" msdata:child="didprogporzannodefaultview" msdata:parentkey="iddidproganno" msdata:childkey="iddidproganno" />

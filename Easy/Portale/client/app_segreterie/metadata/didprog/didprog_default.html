@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_aa">Anno accademico</label>
-					<select id="didprog_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="didprog.aa?didprogdefaultview.aa"  data-mandatory  > </select>
+					<select id="didprog_default_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="aa" data-custom-control="combo" data-tag="didprog.aa?didprogdefaultview.aa"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_codice">Codice</label>
@@ -60,6 +60,16 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_annosolare">Anno solare</label>
 					<input id="didprog_default_annosolare" type="text" class="form-control" data-tag="didprog.annosolare?didprogdefaultview.didprog_annosolare"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_default_idcorsostudiokind">Tipologia</label>
+					<select id="didprog_default_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idcorsostudiokind?didprogdefaultview.didprog_idcorsostudiokind"   > </select>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_default_idcorsostudiolivello">Livello</label>
+					<select id="didprog_default_idcorsostudiolivello" class="custom-select d-block w-100"  data-source-name="corsostudiolivellodefaultview" data-value-member="idcorsostudiolivello" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idcorsostudiolivello?didprogdefaultview.didprog_idcorsostudiolivello"   data-master="corsostudiokinddefaultview"> </select>
 				</div>
 			</div>
 			<div class="row">
@@ -90,80 +100,78 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label class="col-form-label col-md-12" for="didprog_default_idcorsostudio">Corso di studi</label>
-					<div>
-						<input id="didprog_default_idcorsostudio" name="didprog_default_idcorsostudio" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="corsostudiodefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
-					</div>
+					<select id="didprog_default_idcorsostudio" class="custom-select d-block w-100"  data-source-name="corsostudioelenchiprogerogview" data-value-member="idcorsostudio" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idcorsostudio?didprogdefaultview.idcorsostudio"  data-mandatory  > </select>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_iddidprognumchiusokind">Numero chiuso</label>
-					<select id="didprog_default_iddidprognumchiusokind" class="custom-select d-block w-100"  data-source-name="didprognumchiusokind" data-value-member="iddidprognumchiusokind" data-display-member="title" data-custom-control="combo" data-tag="didprog.iddidprognumchiusokind?didprogdefaultview.didprog_iddidprognumchiusokind"   > </select>
+					<select id="didprog_default_iddidprognumchiusokind" class="custom-select d-block w-100"  data-source-name="didprognumchiusokind" data-value-member="iddidprognumchiusokind" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="didprog.iddidprognumchiusokind?didprogdefaultview.didprog_iddidprognumchiusokind"   > </select>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_iddidprogsuddannokind">Suddivisioni dell'anno</label>
-					<select id="didprog_default_iddidprogsuddannokind" class="custom-select d-block w-100"  data-source-name="didprogsuddannokinddefaultview" data-value-member="iddidprogsuddannokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="didprog.iddidprogsuddannokind?didprogdefaultview.didprog_iddidprogsuddannokind"  data-mandatory  > </select>
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="didprog_default_iderogazkind">Erogazione</label>
-					<select id="didprog_default_iderogazkind" class="custom-select d-block w-100"  data-source-name="erogazkinddefaultview" data-value-member="iderogazkind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="didprog.iderogazkind?didprogdefaultview.didprog_iderogazkind"   > </select>
+					<select id="didprog_default_iddidprogsuddannokind" class="custom-select d-block w-100"  data-source-name="didprogsuddannokinddefaultview" data-value-member="iddidprogsuddannokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.iddidprogsuddannokind?didprogdefaultview.didprog_iddidprogsuddannokind"  data-mandatory  > </select>
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_default_iderogazkind">Erogazione</label>
+					<select id="didprog_default_iderogazkind" class="custom-select d-block w-100"  data-source-name="erogazkinddefaultview" data-value-member="iderogazkind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.iderogazkind?didprogdefaultview.didprog_iderogazkind"   > </select>
+				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_idgraduatoria">Graduatoria</label>
 					<div>
 						<input id="didprog_default_idgraduatoria" name="didprog_default_idgraduatoria" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="graduatoria.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="didprog_default_idsede">Sede</label>
-					<select id="didprog_default_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idsede?didprogdefaultview.didprog_idsede"   > </select>
-				</div>
 			</div>
 			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_default_idsede">Sede</label>
+					<select id="didprog_default_idsede" class="custom-select d-block w-100"  data-source-name="sededefaultview" data-value-member="idsede" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idsede?didprogdefaultview.didprog_idsede"  data-mandatory  > </select>
+				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_idnation_lang">Lingua di erogazione</label>
 					<div>
 						<input id="didprog_default_idnation_lang" name="didprog_default_idnation_lang" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation.lang" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_idnation_lang2">Seconda lingua di erogazione</label>
 					<div>
 						<input id="didprog_default_idnation_lang2" name="didprog_default_idnation_lang2" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation_alias1.lang" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_idnation_langvis">Lingua di visualizzazione</label>
 					<div>
 						<input id="didprog_default_idnation_langvis" name="didprog_default_idnation_langvis" type="text" data-listtype="lingue"  class="form-control" data-minchar="2" data-tag="geo_nation_alias2.lang" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_idreg_docenti">Referente</label>
 					<div>
 						<input id="didprog_default_idreg_docenti" name="didprog_default_idreg_docenti" type="text" data-listtype="docenti"  class="form-control" data-minchar="2" data-tag="registrydocentiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_idsessione">Sessione</label>
 					<div>
 						<input id="didprog_default_idsessione" name="didprog_default_idsessione" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="sessionedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="didprog_default_idtitolokind">Titolo di studi</label>
-					<select id="didprog_default_idtitolokind" class="custom-select d-block w-100"  data-source-name="titolokinddefaultview" data-value-member="idtitolokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idtitolokind?didprogdefaultview.didprog_idtitolokind"   > </select>
-				</div>
 			</div>
 			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="didprog_default_idtitolokind">Titolo di studi</label>
+					<select id="didprog_default_idtitolokind" class="custom-select d-block w-100"  data-source-name="titolokinddefaultview" data-value-member="idtitolokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idtitolokind?didprogdefaultview.didprog_idtitolokind"   > </select>
+				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_default_utenzasost">Utenza sostenibile</label>
 					<input id="didprog_default_utenzasost" type="text" class="form-control" data-tag="didprog.utenzasost?didprogdefaultview.didprog_utenzasost"  />

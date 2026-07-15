@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
  if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_fin_upb_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 
@@ -650,6 +648,12 @@ AND
 order by fin.codefin, upb.codeupb
 END
 
+--SELECT '#FIN_UPB',* FROM #FIN_UPB
+--SELECT '#output_lordi', * FROM #output_lordi
+--SELECT '#output_versamenti', * FROM #output_versamenti
+--SELECT '#output_versamenti_diff', * FROM #output_versamenti_diff
+
+
 --> SOLO CASSA 
 IF (@fin_kind = 2) 
 BEGIN
@@ -661,49 +665,49 @@ fin.codefin as 'Cod. Bilancio',
 fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
- isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+ isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 		as   'Previsione Disponibile di cassa attuale' ,
 
  CASE WHEN (@kind = 'L' or @kind = 'T')  
-	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 			- isnull(LORDI.totcassa,0)	 
-	 ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)
+	 ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)
 	 END
 	  as 'Previsione Disponibile di cassa dopo elaborazione solo Lordi',
 
  CASE WHEN  (@kind = 'V' or @kind='T')
-	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 			- isnull(VERSAMENTI.totcassa,0)	 
-		ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti',
 
 	CASE WHEN  (@kind = 'V' or @kind='T')
-	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 			- isnull(VERSAMENTI.totcassa,0)	- isnull(VERSAMENTI_DIFF.totcassa,0)	  
-		ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti e V.differiti',
 
 
 
-	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	
-		WHEN @kind = 'L'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN @kind = 'L'   THEN	 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 									- isnull(LORDI.totcassa,0) 
-		WHEN @kind = 'V'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN @kind = 'V'   THEN	 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 									- isnull(VERSAMENTI.totcassa,0)	 			 
-		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
 	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti',
  	 
-	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								- isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 - isnull(VERSAMENTI_DIFF.totcassa,0)		
-		WHEN @kind = 'L'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN @kind = 'L'   THEN	 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 									- isnull(LORDI.totcassa,0) 
-		WHEN @kind = 'V'   THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN @kind = 'V'   THEN	 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 									- isnull(VERSAMENTI.totcassa,0)	- isnull(VERSAMENTI_DIFF.totcassa,0)	 	 		 
-		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
 	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti V.differiti'
 
@@ -712,7 +716,7 @@ from #FIN_UPB   UWT
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb	
 	left outer join upbincometotal UITS on UITS.idfin=UWT.idfin and UITS.idupb=UWT.idupb and uits.nphase = @maxphaseincome
-	left outer join #output_lordi LORDI on LORDI.idfin=LORDI.idfin and LORDI.idupb=UWT.idupb
+	left outer join #output_lordi LORDI on LORDI.idfin=UWT.idfin and LORDI.idupb=UWT.idupb
 	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
 	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb
 	
@@ -722,7 +726,7 @@ AND
 (
 	--- PREVISIONE DISPONIBILE DI CASSA NEGATIVA
 	(
-		isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 				- isnull(LORDI.totcassa,0) 
 				- isnull(VERSAMENTI.totcassa,0)  - isnull(VERSAMENTI_DIFF.totcassa,0)  
 	)	 <0
@@ -738,47 +742,47 @@ fin.codefin as 'Cod. Bilancio',
 fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
-	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)  
+	isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)  
 		as 'Previsione Disponibile di cassa attuale' ,
 
  CASE WHEN (@kind = 'L' or @kind = 'T')  
-	  THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	  THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 			- isnull(LORDI.totcassa,0)	 
-	 ELSE isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)
+	 ELSE isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)
 	 END
 	  as 'Previsione Disponibile di cassa dopo elaborazione solo Lordi',
  
 	CASE WHEN  (@kind = 'V' or @kind='T')
-	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 			- isnull(VERSAMENTI.totcassa,0)	 
-			ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+			ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti',
 
 	CASE WHEN  (@kind = 'V' or @kind='T')
-	 THEN  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 THEN  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 			- isnull(VERSAMENTI.totcassa,0)	 - isnull(VERSAMENTI_DIFF.totcassa,0)
-			ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+			ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 	 END 
 	as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti e V.differiti',
 
-	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								  - isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	  
-		WHEN  @kind = 'V'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN  @kind = 'V'  THEN	  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								  - isnull(VERSAMENTI.totcassa,0)	 	
-		WHEN  @kind = 'L'  THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN  @kind = 'L'  THEN	 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								 - isnull(LORDI.totcassa,0)	 							 
-		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
 	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti',
 
-	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	 CASE WHEN @kind = 'T'  THEN	  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								  - isnull(LORDI.totcassa,0)	- isnull(VERSAMENTI.totcassa,0)	 	- isnull(VERSAMENTI_DIFF.totcassa,0)	 	 
-		WHEN  @kind = 'V'  THEN	  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN  @kind = 'V'  THEN	  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								  - isnull(VERSAMENTI.totcassa,0)	 	- isnull(VERSAMENTI_DIFF.totcassa,0)	
-		WHEN  @kind = 'L'  THEN	 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+		WHEN  @kind = 'L'  THEN	 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 								 - isnull(LORDI.totcassa,0)	 							 
-		ELSE  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
+		ELSE  isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 				
 	 END
 	 as 'Previsione Disponibile di cassa dopo elaborazione Lordi e Versamenti V.differiti'
 	 
@@ -787,7 +791,7 @@ from #FIN_UPB   UWT
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbexpensetotal UITS on UITs.idfin=UWT.idfin and UITs.idupb=UWT.idupb and UITS.nphase = @maxphaseexpense
-	left outer join #output_lordi LORDI on LORDI.idfin=LORDI.idfin and LORDI.idupb=UWT.idupb
+	left outer join #output_lordi LORDI on LORDI.idfin=UWT.idfin and LORDI.idupb=UWT.idupb
 	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb 
 	left outer join #output_versamenti_diff VERSAMENTI_DIFF on VERSAMENTI_DIFF.idfin=UWT.idfin and VERSAMENTI_DIFF.idupb=UWT.idupb 
 	
@@ -795,7 +799,7 @@ from #FIN_UPB   UWT
 WHERE UWT.kind = 'Spesa'
 AND
 (
-	(	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
+	(	isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
 				- isnull(LORDI.totcassa,0) 
 				- isnull(VERSAMENTI.totcassa,0) 
 				- isnull(VERSAMENTI_DIFF.totcassa,0) 

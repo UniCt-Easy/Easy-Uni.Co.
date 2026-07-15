@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,11 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
 using System.Data;
@@ -30,18 +25,18 @@ namespace expense_automatismi//spesa_automatismi//
 	/// </summary>
 	public class Frm_expense_automatismi : MetaDataForm
 	{
-		private Crownwood.Magic.Controls.TabControl tabControl1;
+		private TabControl tabControl1;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnOk;
-		private Crownwood.Magic.Controls.TabPage tabEntrata;
-		private Crownwood.Magic.Controls.TabPage tabSpesa;
-		private Crownwood.Magic.Controls.TabPage tabVarSpesa;
+		private TabPage tabEntrata;
+		private TabPage tabSpesa;
+		private TabPage tabVarSpesa;
 		private System.Windows.Forms.DataGrid gridEntrata;
 		private System.Windows.Forms.DataGrid gridSpesa;
 		private System.Windows.Forms.DataGrid gridVarSpesa;
 		public vistaForm DS;
 		MetaData Meta;
-		private Crownwood.Magic.Controls.TabPage tabVarEntrata;
+		private TabPage tabVarEntrata;
 		private System.Windows.Forms.DataGrid gridVarEntrata;
 		/// <summary>
 		/// Required designer variable.
@@ -184,14 +179,14 @@ namespace expense_automatismi//spesa_automatismi//
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.tabControl1 = new Crownwood.Magic.Controls.TabControl();
-			this.tabVarEntrata = new Crownwood.Magic.Controls.TabPage();
+			this.tabControl1 = new TabControl();
+			this.tabVarEntrata = new TabPage();
 			this.gridVarEntrata = new System.Windows.Forms.DataGrid();
-			this.tabEntrata = new Crownwood.Magic.Controls.TabPage();
+			this.tabEntrata = new TabPage();
 			this.gridEntrata = new System.Windows.Forms.DataGrid();
-			this.tabSpesa = new Crownwood.Magic.Controls.TabPage();
+			this.tabSpesa = new TabPage();
 			this.gridSpesa = new System.Windows.Forms.DataGrid();
-			this.tabVarSpesa = new Crownwood.Magic.Controls.TabPage();
+			this.tabVarSpesa = new TabPage();
 			this.gridVarSpesa = new System.Windows.Forms.DataGrid();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOk = new System.Windows.Forms.Button();
@@ -213,29 +208,29 @@ namespace expense_automatismi//spesa_automatismi//
 			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl1.IDEPixelArea = true;
+			//this.tabControl1.IDEPixelArea = true;
 			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.SelectedTab = this.tabEntrata;
 			this.tabControl1.Size = new System.Drawing.Size(624, 384);
 			this.tabControl1.TabIndex = 0;
-			this.tabControl1.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+			this.tabControl1.TabPages.AddRange(new TabPage[] {
 																						  this.tabEntrata,
 																						  this.tabSpesa,
 																						  this.tabVarSpesa,
 																						  this.tabVarEntrata});
-			this.tabControl1.SelectionChanged += new System.EventHandler(this.tabControl1_SelectionChanged);
+			// this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectionChanged);
 			// 
 			// tabVarEntrata
 			// 
 			this.tabVarEntrata.Controls.Add(this.gridVarEntrata);
 			this.tabVarEntrata.Location = new System.Drawing.Point(0, 0);
 			this.tabVarEntrata.Name = "tabVarEntrata";
-			this.tabVarEntrata.Selected = false;
+			//this.tabVarEntrata.Selected = false;
 			this.tabVarEntrata.Size = new System.Drawing.Size(624, 359);
 			this.tabVarEntrata.TabIndex = 3;
-			this.tabVarEntrata.Title = "Variazioni Entrata";
+			this.tabVarEntrata.Text = "Variazioni Entrata";
 			// 
 			// gridVarEntrata
 			// 
@@ -258,7 +253,7 @@ namespace expense_automatismi//spesa_automatismi//
 			this.tabEntrata.Name = "tabEntrata";
 			this.tabEntrata.Size = new System.Drawing.Size(624, 359);
 			this.tabEntrata.TabIndex = 0;
-			this.tabEntrata.Title = "Movimenti Entrata";
+			this.tabEntrata.Text = "Movimenti Entrata";
 			// 
 			// gridEntrata
 			// 
@@ -281,10 +276,9 @@ namespace expense_automatismi//spesa_automatismi//
 			this.tabSpesa.Controls.Add(this.gridSpesa);
 			this.tabSpesa.Location = new System.Drawing.Point(0, 0);
 			this.tabSpesa.Name = "tabSpesa";
-			this.tabSpesa.Selected = false;
 			this.tabSpesa.Size = new System.Drawing.Size(624, 359);
 			this.tabSpesa.TabIndex = 1;
-			this.tabSpesa.Title = "Movimenti Spesa";
+			this.tabSpesa.Text = "Movimenti Spesa";
 			// 
 			// gridSpesa
 			// 
@@ -307,10 +301,9 @@ namespace expense_automatismi//spesa_automatismi//
 			this.tabVarSpesa.Controls.Add(this.gridVarSpesa);
 			this.tabVarSpesa.Location = new System.Drawing.Point(0, 0);
 			this.tabVarSpesa.Name = "tabVarSpesa";
-			this.tabVarSpesa.Selected = false;
 			this.tabVarSpesa.Size = new System.Drawing.Size(624, 359);
 			this.tabVarSpesa.TabIndex = 2;
-			this.tabVarSpesa.Title = "Variazioni Spesa";
+			this.tabVarSpesa.Text = "Variazioni Spesa";
 			// 
 			// gridVarSpesa
 			// 
@@ -551,14 +544,5 @@ namespace expense_automatismi//spesa_automatismi//
 		private void btnOk_Click(object sender, System.EventArgs e) {
 			if (!Modal) Close();
 		}
-
-		private void tabControl1_SelectionChanged(object sender, System.EventArgs e) {
-
-		}
-
-
-
-
-
 	}
 }

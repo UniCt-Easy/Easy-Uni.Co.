@@ -25,7 +25,10 @@
 					case 'default':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 1024);
 						this.describeAColumn(table, 'aa', 'Anno accademico', null, 2000, 9);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 19200, 1024);
+						this.describeAColumn(table, 'sede_title', 'Sede', null, 3200, 1024);
+						this.describeAColumn(table, 'didprog_codicemiur', 'Codice MIUR', null, 8000, 50);
+						this.describeAColumn(table, 'corsostudiokind_didprog_title', 'Tipologia', null, 42200, 50);
+						this.describeAColumn(table, 'corsostudiolivello_didprog_title', 'Livello', null, 43200, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

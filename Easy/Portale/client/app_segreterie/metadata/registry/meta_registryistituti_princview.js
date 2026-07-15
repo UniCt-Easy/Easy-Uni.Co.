@@ -24,22 +24,14 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'istituti_princ':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 101);
-						this.describeAColumn(table, 'registry_istituti_codicemiur', 'Codice MIUR', null, 1000, 50);
 						this.describeAColumn(table, 'registry_active', 'attivo', null, 2000, null);
-						this.describeAColumn(table, 'registry_istituti_codiceustat', 'Codice USTAT', null, 2000, 50);
 						this.describeAColumn(table, 'registry_annotation', 'Annotazioni', null, 3000, 400);
-						this.describeAColumn(table, 'registry_istituti_comune', 'Comune', null, 3000, 64);
 						this.describeAColumn(table, 'registry_authorization_free', 'Esente ai fini dell\'autorizzazione EQUITALIA. (S/N)', null, 4000, null);
-						this.describeAColumn(table, 'istitutokind_tipoistituto', 'Tipologia', null, 4200, 256);
 						this.describeAColumn(table, 'registry_badgecode', 'Codice badge', null, 5000, 20);
-						this.describeAColumn(table, 'registry_istituti_idistitutoustat', 'Codice USTAT', null, 5000, null);
 						this.describeAColumn(table, 'registry_birthdate', 'Data di nascita', null, 6000, null);
 						this.describeAColumn(table, 'registry_ccp', 'Conto corrente postale di Riscossione', null, 7000, 12);
-						this.describeAColumn(table, 'registry_istituti_nome', 'Denominazione breve', null, 7000, null);
 						this.describeAColumn(table, 'registry_cf', 'Codice fiscale', null, 8000, 16);
-						this.describeAColumn(table, 'registry_istituti_sortcode', 'Sortcode', null, 8000, null);
 						this.describeAColumn(table, 'registry_email_fe', 'Email_fe', null, 9000, 200);
-						this.describeAColumn(table, 'registry_istituti_title_en', 'Denominazione (ENG)', null, 9000, 256);
 						this.describeAColumn(table, 'registry_extmatricula', 'Matricola', null, 11000, 40);
 						this.describeAColumn(table, 'registry_flag_pa', 'Applica lo split payment  (per le fatture di vendita)', null, 12000, null);
 						this.describeAColumn(table, 'registry_flagbankitaliaproceeds', 'Regolarizzazione Riscossioni presso  T.P.S. - Banca d\'Italia', null, 13000, null);
@@ -80,7 +72,7 @@
 						this.describeAColumn(table, 'nace_activity', 'Activity Idnace', null, 50200, -1);
 						this.describeAColumn(table, 'naturagiur_title', 'Idnaturagiur', null, 51200, 200);
 						this.describeAColumn(table, 'numerodip_title', 'Idnumerodip', null, 52200, 50);
-						this.describeAColumn(table, 'registryistituti_title', 'Idreg_istituti', null, 53100, 101);
+						this.describeAColumn(table, 'registryistituti_title', 'Idreg_istituti', null, 53300, 101);
 						this.describeAColumn(table, 'sasd_codice', 'Codice Idsasd', null, 54200, 50);
 						this.describeAColumn(table, 'sasd_title', 'Denominazione Idsasd', null, 54300, 255);
 						this.describeAColumn(table, 'struttura_title', 'Denominazione Idstruttura', null, 55100, 1024);
@@ -89,7 +81,15 @@
 						this.describeAColumn(table, 'registry_pic', 'Pic', null, 57000, 10);
 						this.describeAColumn(table, 'registry_ricevimento', 'Ricevimento', null, 58000, -1);
 						this.describeAColumn(table, 'registry_soggiorno', 'Soggiorno', null, 59000, 255);
-						this.describeAColumn(table, 'registry_title_en', 'Title_en', null, 60000, 150);
+						this.describeAColumn(table, 'registry_title_en', 'Denominazione in inglese', null, 60000, 150);
+						this.describeAColumn(table, 'registry_acronim', 'Acronimo', null, 61000, 255);
+						this.describeAColumn(table, 'registry_code', 'Code', null, 62000, 255);
+						this.describeAColumn(table, 'registry_codicemiur', 'Codice MIUR', null, 63000, 255);
+						this.describeAColumn(table, 'registry_codiceustat', 'Codice USTAT', null, 64000, 255);
+						this.describeAColumn(table, 'registry_idanpr', 'Idanpr', null, 65000, 9);
+						this.describeAColumn(table, 'istitutokind_tipoistituto', 'Idistitutokind', null, 66200, 256);
+						this.describeAColumn(table, 'registry_institutionalcode', 'Institutionalcode', null, 67000, 255);
+						this.describeAColumn(table, 'registry_referencenumber', 'Referencenumber', null, 68000, 255);
 //$objCalcFieldConfig_istituti_princ$
 						break;
 //$objCalcFieldConfig$

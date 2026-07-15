@@ -22,7 +22,7 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -32,6 +32,11 @@
 					this.helpForm.filter($('#tirocinioproposto_seg_idreg_referente'), null);
 				} else {
 					this.helpForm.filter($('#tirocinioproposto_seg_idreg_referente'), this.q.eq('registry_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#tirocinioproposto_seg_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#tirocinioproposto_seg_idstruttura'), this.q.eq('struttura_active', 'Si'));
 				}
 				//beforeFillFilter
 				
@@ -52,8 +57,13 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#tirocinioproposto_seg_idreg_referente'), true);
 				this.helpForm.filter($('#tirocinioproposto_seg_idreg_referente'), null);
+				this.helpForm.filter($('#tirocinioproposto_seg_idstruttura'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -62,8 +72,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-tirocinioproposto_seg");
-				$('#tirocinioproposto_seg_idreg_referente').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#tirocinioproposto_seg_idreg_referente').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#tirocinioproposto_seg_idreg_referente').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_referente);
+				$('#tirocinioproposto_seg_idreg_referente').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_referente);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -83,6 +93,8 @@
 			},
 
 			//beforePost
+
+			//afterPost
 
 			children: ['tirociniocandidatura'],
 			haveChildren: function () {

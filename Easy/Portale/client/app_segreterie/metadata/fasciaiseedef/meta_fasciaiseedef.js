@@ -24,15 +24,15 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'more':
-						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 30, 50);
+						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 10, 50);
 //$objCalcFieldConfig_more$
 						break;
 					case 'sconti':
-						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 30, 50);
+						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 10, 50);
 //$objCalcFieldConfig_sconti$
 						break;
 					case 'default':
-						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 30, 50);
+						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 10, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -48,6 +48,12 @@
 					case 'more':
 						table.columns["idfasciaisee"].caption = "Fascia ISEE";
 //$innerSetCaptionConfig_more$
+						break;
+					case 'sconti':
+//$innerSetCaptionConfig_sconti$
+						break;
+					case 'default':
+//$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$
 				}

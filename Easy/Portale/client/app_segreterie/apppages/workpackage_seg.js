@@ -23,7 +23,7 @@
 
 			manageValidResult: function (rowToCheck) {
 				var loc = appMeta.localResource;
-				var def = appMeta.Deferred("isValid-meta_rendicontattivitaprogetto");
+				var def = appMeta.Deferred("isValid-workpackage_seg");
 				var firstErrorObj;
 
 				this.lastProroga = this.state.callerState.DS.tables.progettoproroga.rows.length ?
@@ -147,8 +147,8 @@
 
 				def.resolve(true);
 				//$isValid$
-
-				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
 			},
 
 			afterGetFormData: function () {
@@ -171,15 +171,15 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (this.isNull(parentRow.start))
+				if (self.isNullOrMinDate(parentRow.start))
 					parentRow.start = this.state.callerState.currentRow.start;
-				if (this.isNull(parentRow.stop))
+				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = this.state.callerState.currentRow.stop;
 				this.manageworkpackage_seg_amount();				this.manageworkpackage_seg_titolobreve();
 				//beforeFillFilter
@@ -226,6 +226,7 @@
 				$("#btn_add_workpackageupb_idupb").prop("disabled", true);
 				this.setDenyNull("workpackage","title");
 				appMeta.metaModel.insertFilter(this.getDataTable("strutturadefaultview"), this.q.eq('struttura_active', 'Si'));
+				$('#grid_rendicontattivitaprogetto_alias1_seg').data('mdlconditionallookup', 'rendicontatutto,S,Si;rendicontatutto,N,No;');
 				$('#workpackage_seg_importattivita').on("change", _.partial(this.manageimportattivita, self));
 				$('#workpackage_seg_start').on("change", _.partial(this.managestart, self));
 				$('#workpackage_seg_stop').on("change", _.partial(this.managestop, self));
@@ -261,6 +262,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			manageworkpackage_seg_amount: function () {
 				var assetdiary= this.getDataTable('assetdiary');
@@ -302,7 +305,7 @@
 				var colname = 'idworkpackage'; //chiave del padre
 				var id = [that.state.currentRow[colname],that.state.currentRow.idprogetto]; //chiavi padre, nonno, ecc.
 				//nome della procedura, array chiavi, riga dell'header del file di import, nome tabella in griglia da ricaricare, chiave del padre
-				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_rendicontattivitaprogetto', id, 0, 'rendicontattivitaprogetto_alias1', colname, 'rendicontattivitaprogettoora' )
+				appMeta.ImportExcel.importFileIntoTable(that, file, 'sp_import_rendicontattivitaprogetto', id, 0, 'rendicontattivitaprogetto_alias1', colname, null )
 					.then(function () {
 						$('#workpackage_seg_importattivita').val('');
 					});
@@ -346,11 +349,10 @@
 						return that.showMessageOk('La data di inizio del workpackage deve essere precedente ' + that.oraStartMessage);
 					}
 				}
-
 			},
 
 			managestop: function(that) { 
-								if (!$("#workpackage_seg_stop").val()) {
+				if (!$("#workpackage_seg_stop").val()) {
 					return;
 				}
 

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -1375,6 +1373,15 @@ private void initClass() {
 	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
 	taccountvardetailview.Columns.Add(C);
+	taccountvardetailview.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	taccountvardetailview.Columns.Add( new DataColumn("sortcode1", typeof(string)));
+	taccountvardetailview.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	taccountvardetailview.Columns.Add( new DataColumn("sortcode2", typeof(string)));
+	taccountvardetailview.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	taccountvardetailview.Columns.Add( new DataColumn("sortcode3", typeof(string)));
+	taccountvardetailview.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	taccountvardetailview.Columns.Add( new DataColumn("costpartitioncode", typeof(string)));
+	taccountvardetailview.Columns.Add( new DataColumn("underwritingkind_desc", typeof(string)));
 	Tables.Add(taccountvardetailview);
 	taccountvardetailview.PrimaryKey =  new DataColumn[]{taccountvardetailview.Columns["yvar"], taccountvardetailview.Columns["nvar"], taccountvardetailview.Columns["rownum"]};
 
@@ -1596,6 +1603,7 @@ private void initClass() {
 	tupbattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	tupbattachment.Columns.Add( new DataColumn("ct", typeof(DateTime)));
 	tupbattachment.Columns.Add( new DataColumn("cu", typeof(string)));
+	tupbattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tupbattachment);
 	tupbattachment.PrimaryKey =  new DataColumn[]{tupbattachment.Columns["idupb"], tupbattachment.Columns["idattachment"]};
 
@@ -1755,10 +1763,6 @@ private void initClass() {
 	cChild = new []{autoexpensesorting.Columns["idsor"]};
 	Relations.Add(new DataRelation("sorting_autoexpensesorting",cPar,cChild,false));
 
-	cPar = new []{manager.Columns["idman"]};
-	cChild = new []{upb.Columns["idman"]};
-	Relations.Add(new DataRelation("managerupb",cPar,cChild,false));
-
 	cPar = new []{underwriter.Columns["idunderwriter"]};
 	cChild = new []{upb.Columns["idunderwriter"]};
 	Relations.Add(new DataRelation("underwriterupb",cPar,cChild,false));
@@ -1810,6 +1814,10 @@ private void initClass() {
 	cPar = new []{treasurer.Columns["idtreasurer"]};
 	cChild = new []{upb.Columns["idtreasurer"]};
 	Relations.Add(new DataRelation("FK_treasurer_upb",cPar,cChild,false));
+
+	cPar = new []{manager.Columns["idman"]};
+	cChild = new []{upb.Columns["idman"]};
+	Relations.Add(new DataRelation("managerupb",cPar,cChild,false));
 
 	#endregion
 

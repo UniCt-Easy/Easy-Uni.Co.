@@ -23,7 +23,7 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 50);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 1000, 1024);
 						this.describeAColumn(table, 'prova_start', 'Data e ora inizio', 'g', 2000, null);
 						this.describeAColumn(table, 'prova_stop', 'Data e ora fine', 'g', 3000, null);
 //$objCalcFieldConfig_default$

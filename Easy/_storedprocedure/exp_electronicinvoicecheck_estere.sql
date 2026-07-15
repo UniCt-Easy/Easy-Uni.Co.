@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicecheck_estere]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoicecheck_estere]
 GO
@@ -23,7 +21,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
- 
+
 --setuser 'amministrazione'
 
 CREATE procedure exp_electronicinvoicecheck_estere(
@@ -32,7 +30,7 @@ CREATE procedure exp_electronicinvoicecheck_estere(
 	@idinvkind int
 	) as
 begin
--- exec exp_electronicinvoicecheck_estere 2021, 5, 2 
+-- exec exp_electronicinvoicecheck_estere 2025, 5, 2 
 CREATE TABLE #error (message varchar(4000))
 
 --CONTROLLARE CHE ipa_ven_emittente SIA VALORIZZATO
@@ -104,7 +102,13 @@ join mandate E on ID.idmankind=E.idmankind and ID.yman = E.yman and ID.nman=E.nm
 where  I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind
 and E.doc is null and ID.cigcode is not null
 
-
+--- ipa_ven_emittente CONTROLLO SENZA electronicinvoice
+INSERT INTO #error(message)
+select 'Fattura di Acquisto Estera senza Codice IPA dell''Ente Mittente (Scheda Fattura Elettronica - Mittente della FE Acq.Estere - Codice IPA ):' + convert(varchar(50), I.invoicekind) + convert(varchar(10),I.yinv)
+		+ ' N.'+convert(varchar(10),I.ninv) 
+from invoiceview I 
+where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind and I.flagbuysell = 'A'
+	and I.ipa_ven_emittente  IS NULL 
 
 
 INSERT INTO #error(message)

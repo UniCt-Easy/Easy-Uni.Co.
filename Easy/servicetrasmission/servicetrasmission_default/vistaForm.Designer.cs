@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -230,6 +228,7 @@ private void initClass() {
 	tserviceregistry.Columns.Add( new DataColumn("dichiarazione_incarichi", typeof(Byte[])));
 	tserviceregistry.Columns.Add( new DataColumn("idpublicinstitutionservice", typeof(int)));
 	tserviceregistry.Columns.Add( new DataColumn("idthematicscope", typeof(int)));
+	tserviceregistry.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tserviceregistry);
 	tserviceregistry.PrimaryKey =  new DataColumn[]{tserviceregistry.Columns["yservreg"], tserviceregistry.Columns["nservreg"]};
 
@@ -259,6 +258,7 @@ private void initClass() {
 	tservicetrasmission.Columns.Add( new DataColumn("idsor03", typeof(int)));
 	tservicetrasmission.Columns.Add( new DataColumn("idsor04", typeof(int)));
 	tservicetrasmission.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tservicetrasmission.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tservicetrasmission);
 	tservicetrasmission.PrimaryKey =  new DataColumn[]{tservicetrasmission.Columns["idtrasmission"]};
 
@@ -588,6 +588,7 @@ private void initClass() {
 	tservicetrasmissionattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	tservicetrasmissionattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tservicetrasmissionattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	tservicetrasmissionattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tservicetrasmissionattachment);
 	tservicetrasmissionattachment.PrimaryKey =  new DataColumn[]{tservicetrasmissionattachment.Columns["idtrasmission"], tservicetrasmissionattachment.Columns["idattachment"]};
 

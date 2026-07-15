@@ -27,7 +27,7 @@
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 50);
 						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 20, null);
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 30, null);
-						//$objCalcFieldConfig_dotmas$
+//$objCalcFieldConfig_dotmas$
 						break;
 					case 'stato':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 50);
@@ -36,7 +36,7 @@
 						//$objCalcFieldConfig_stato$
 						break;
 					case 'default':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 50);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
 						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 20, null);
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 30, null);
 //$objCalcFieldConfig_default$
@@ -53,7 +53,20 @@
 						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 30, null);
 						//$objCalcFieldConfig_aula$
 						break;
-					//$objCalcFieldConfig$
+										case 'doc':
+						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
+						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 20, null);
+						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 30, null);
+//$objCalcFieldConfig_doc$
+						break;
+					case 'stuaccesso':
+						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 50);
+						this.describeAColumn(table, 'start', 'Data e ora inizio', 'g', 20, null);
+						this.describeAColumn(table, 'stop', 'Data e ora fine', 'g', 30, null);
+						this.describeAColumn(table, '!sostenimento', 'Sostenimenti', null, 40, null);
+//$objCalcFieldConfig_stuaccesso$
+						break;
+//$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
 				appMeta.metaModel.computeRowsAs(table, listType, this.superClass.calculateFields);
@@ -78,6 +91,16 @@
 						break;
 					case 'default':
 //$innerSetCaptionConfig_default$
+						break;
+					case 'dotmas':
+						table.columns["idappello"].caption = "Appello";
+//$innerSetCaptionConfig_dotmas$
+						break;
+					case 'doc':
+//$innerSetCaptionConfig_doc$
+						break;
+					case 'stuaccesso':
+//$innerSetCaptionConfig_stuaccesso$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -120,6 +143,14 @@
 
 
 
+
+
+
+
+
+
+
+
 			//$isValidFunction$
 
 			//$getStaticFilter$
@@ -139,6 +170,12 @@
 						return "title asc ";
 					}
 					case "aula": {
+						return "title asc ";
+					}
+					case "doc": {
+						return "title asc ";
+					}
+					case "stuaccesso": {
 						return "title asc ";
 					}
 					//$getSortingin$

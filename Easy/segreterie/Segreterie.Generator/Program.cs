@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 UniversitÃƒÂ  degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,16 +13,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using generaSQL;
 using metadatalibrary;
 using metaeasylibrary;
+using Microsoft.Internal.VisualStudio.Shell.TableControl;
+using Microsoft.VisualStudio.Shell.TableManager;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,28 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Segreterie.Generator
 {
+    /// <summary>
+    /// Metodi di estensione per la classe field
+    /// </summary>
+    public static class FieldExtensions {
+
+        //public static Action<field> DefaultMutator = field => field.Radiovalues.Replace('\'', '’');
+        public static Action<field> DefaultMutator = field => {
+
+            StringBuilder builder = new StringBuilder(field.Radiovalues);
+            builder.Replace("\'", "’");
+
+            field.Radiovalues = builder.ToString();
+        };
+
+        // questa classe di estensione andrebbe espressa in un file a parte ma per semplicità le lascio qui
+        public static field Mutate(this field original, Action<field> mutator) {
+            // qua va a farsi benedire l'immutabilità ma per semplicità lascio così, andrebbero cambiate troppe cose
+            mutator(original);
+            return original;
+        }
+    }
+
     public class Program
     {
         //schema di come i path sono relativi uno all'altro
@@ -52,13 +75,13 @@ namespace Segreterie.Generator
         private static string testFolder = "../../../../../progetti/Portale/client/test/spec_e2e_app_produzione/VisualMDLW/"; //cartella del client
 
         //per il generatore di script
-        private static string dbipport = "10.10.10.215";
+        private static string dbipport = "your-db-server";
         private static string dbipportname = "unibas_new";
         private static string dipartimento = "amministrazione";
         //per leggere i dati di visualmdlw
-        private static string connectionString = "Data Source=" + dbipport + ";Initial Catalog=" + dbipportname + ";Persist Security Info=True;User ID=assistenza;Password=123***********";
+        private static string connectionString="Server=your-db-server;Database=YOUR_DB_NAME;User Id=YOUR_USER_ID;Password=YOUR_PASSWORD;" + dbipport + ";Initial Catalog=" + dbipportname + ";Persist Security Info=True;User ID=assistenza;Password=123*YOUR_PASSWORD";
         //per hdsgen
-        private static string connectionStringAdmin = "data source=" + dbipport + ";initial catalog=" + dbipportname + ";User ID =" + dipartimento + ";Password=**********;Application Name=HDSGene(nino);WorkStation ID =PC-Caprilli;Pooling=false;Connection Timeout=300;";
+        private static string connectionStringAdmin = "data source=" + dbipport + ";initial catalog=" + dbipportname + ";User ID =" + dipartimento + ";Password=YOUR_PASSWORD;Application Name=HDSGene(nino);WorkStation ID =PC-Caprilli;Pooling=false;Connection Timeout=300;";
 
         private static bool verbose = true;
         private static bool skipView = false; //true per non riscrivere la vista sul db		
@@ -103,7 +126,7 @@ namespace Segreterie.Generator
 						)
 					THEN 'S' ELSE 'N' 
 					END as haveview,
-					CASE WHEN EXISTS(select * from sysobjects where id = object_id(isc.TABLE_SCHEMA + '.' + isc.TABLE_NAME) and OBJECTPROPERTY(id, N'IsView') = 1) THEN 'S' ELSE 'N' END AS isview,
+					CASE WHEN EXISTS (SELECT 1 FROM sys.objects o WHERE o.name = ttd.tablename  AND o.type = 'V' ) THEN 'S' ELSE 'N' END AS isview,
 					--VERIFICA VOCABOLARIO EASY
 					CASE WHEN NOT EXISTS(select tablename, field, iskey from amministrazione.columntypes c 
 										where c.tablename = isc.TABLE_NAME AND c.field = isc.COLUMN_NAME AND c.iskey = 
@@ -179,7 +202,7 @@ namespace Segreterie.Generator
 
         private static string queryFields2 = @"select
 					'N' as haveview,
-					CASE WHEN EXISTS(select * from sysobjects where id = object_id(ttd.tablename) and OBJECTPROPERTY(id, N'IsView') = 1) THEN 'S' ELSE 'N' END AS isview,
+					CASE WHEN EXISTS (SELECT 1 FROM sys.objects o WHERE o.name = ttd.tablename  AND o.type = 'V' ) THEN 'S' ELSE 'N' END AS isview,
 					'S' as isInVoc,
 					--TABELLA OGGETTO
 					ttd.tablename, isnull(td.title, ttd.title) as title, 'dbo' as [schema],
@@ -231,7 +254,7 @@ namespace Segreterie.Generator
 												and (t.idapptab = fd.idapptab OR (fd.idapptab is null AND t.title = 'Principale'))
 					left outer join appfieldlist fl on fl.columnname = fd.columnname  and fl.idapppages = td.idapppages ";
 
-        //per marcare i metadati quando vengono utilizzati da piÃƒÂ¹ interfacce per non rigenerarli		
+        //per marcare i metadati quando vengono utilizzati da più interfacce per non rigenerarli		
         private static List<string> jsalreadyCreated = new List<string>();
         private static List<string> scriptAlreadyCreated = new List<string>();
         private static TextFileCollection fileContainer = new TextFileCollection();
@@ -327,7 +350,7 @@ namespace Segreterie.Generator
 
                 var queryOrderby = "\r\n order by tablename, idapppages, field";
 
-                var queryColonne = queryFields + "\r\n where " + queryWhere + "\r\n UNION \r\n" +
+                var queryColonne = queryFields + "\r\n where " + queryWhere + "\r\n UNION ALL\r\n" +
                     queryFields2 + "\r\n where fd.columnname like '!%' and " + queryWhere.Replace("isc.TABLE_NAME", "ttd.tablename") + queryOrderby;
 
                 startExecTime = DateTime.Now;
@@ -358,7 +381,7 @@ namespace Segreterie.Generator
                             EditListingType = string.IsNullOrEmpty(r["editlistingtype"].ToString()) ? "default" : r["editlistingtype"].ToString(),
                             PageId = r["idapppages"].ToString(),
                             ParentMenuId = r["idmenuweb"].ToString(),
-                            Principale = r["principale"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ principale
+                            Principale = r["principale"].ToString() != "N" ? "S" : "N", //di default è principale
                             Using = r["customusing"].ToString(),
                             Code = r["customcode"].ToString(),
                             Reference = r["customreference"].ToString(),
@@ -367,22 +390,22 @@ namespace Segreterie.Generator
                             Icon = r["icon"].ToString(),
                             CustomJavascript = r["customjavascript"].ToString(),
                             Staticfilter = r["staticfilter"].ToString(),
-                            CanCancel = r["cancancel"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            CanCmdClose = r["cancmdclose"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            CanInsert = r["caninsert"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            CanInsertCopy = r["caninsertcopy"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            CanSave = r["cansave"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            CanShowLast = r["canshowlast"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            SearchEnabled = r["cansearch"].ToString() != "N" ? "S" : "N", //di default ÃƒÂ¨ si
-                            OthersApp = r["othersapp"].ToString() == "S", //di default ÃƒÂ¨ no
+                            CanCancel = r["cancancel"].ToString() != "N" ? "S" : "N", //di default è si
+                            CanCmdClose = r["cancmdclose"].ToString() != "N" ? "S" : "N", //di default è si
+                            CanInsert = r["caninsert"].ToString() != "N" ? "S" : "N", //di default è si
+                            CanInsertCopy = r["caninsertcopy"].ToString() != "N" ? "S" : "N", //di default è si
+                            CanSave = r["cansave"].ToString() != "N" ? "S" : "N", //di default è si
+                            CanShowLast = r["canshowlast"].ToString() != "N" ? "S" : "N", //di default è si
+                            SearchEnabled = r["cansearch"].ToString() != "N" ? "S" : "N", //di default è si
+                            OthersApp = r["othersapp"].ToString() == "S", //di default è no
                             IsValid = r["isvalid"].ToString(),
-                            Anonimous = r["anonimous"].ToString() == "S", //di default ÃƒÂ¨ no
-                            IsVoc = r["vocabolario"].ToString() == "S", //di default ÃƒÂ¨ no
-                            Autosearch = r["autosearch"].ToString() == "S", //di default ÃƒÂ¨ no
+                            Anonimous = r["anonimous"].ToString() == "S", //di default è no
+                            IsVoc = r["vocabolario"].ToString() == "S", //di default è no
+                            Autosearch = r["autosearch"].ToString() == "S", //di default è no
                             Calendartitle = r["calendartitle"].ToString(),
                             Calendarstart = r["calendarstart"].ToString(),
                             Calendarstop = r["calendarstop"].ToString(),
-                            Testcustom = r["testcustom"].ToString() == "S", //di default ÃƒÂ¨ no
+                            Testcustom = r["testcustom"].ToString() == "S", //di default è no
                             TestcustomText = r["testcustomtext"].ToString(),
                             AdditionalTables = !string.IsNullOrWhiteSpace(r["additionaltables"].ToString()) ? r["additionaltables"].ToString().Split(',').ToList() : new List<string>(),
                             Createmetapage = r["createmetapage"].ToString() == "S",
@@ -396,6 +419,35 @@ namespace Segreterie.Generator
                 }
 
                 var allfields = new List<field>();
+
+
+                //--------------------------------VOCABOLARIO DI TUTTE LE APPAGES--------------------------------
+
+                var queryPages = @"select idapppages, tablename, editlistingtype, title, 
+                                    CASE WHEN EXISTS (SELECT 1 FROM sys.objects o WHERE o.name = tablename  AND o.type = 'V' ) THEN 'S' ELSE 'N' END AS isview 
+                                   from apppages where idapplicazione = " + applicationID;
+
+                cmd = new SqlCommand(queryPages, connection);
+                cmd.CommandTimeout = 1800;
+                dataReader = cmd.ExecuteReader();
+
+                var possibleTablesTable = new DataTable();
+                possibleTablesTable.Load(dataReader);
+                dataReader.Close();
+
+                var possibleTables = new List<obj>();
+                foreach (DataRow r in possibleTablesTable.Rows)
+                {
+                    possibleTables.Add(new obj
+                    {
+                        Table = r["tablename"].ToString(),
+                        Title = (r["title"] != null ? r["title"].ToString() : r["tablename"].ToString()),
+                        EditListingType = string.IsNullOrEmpty(r["editlistingtype"].ToString()) ? "default" : r["editlistingtype"].ToString(),
+                        PageId = r["idapppages"].ToString(),
+                        IsView = r["isview"].ToString() != "N",
+                    });
+
+                }
 
                 // --------------------------------TABELLE--------------------------------
                 ConsoleWriter.Title("TABELLE");
@@ -453,7 +505,7 @@ namespace Segreterie.Generator
                     if (o != null)
                     {
                         /*foreach (var o in objects)*/
-                        Console.WriteLine(o.Table + " " + o.EditListingType + " " + o.Principale);
+                        Console.WriteLine(o.PageId + " " + o.Table + " " + o.EditListingType + " " + o.Principale);
                     }
                     else
                     {
@@ -477,12 +529,12 @@ namespace Segreterie.Generator
 
                         ConsoleWriter.Title("OGGETTO CORRENTE: " + o.PageId + " " + o.Table + " " + o.EditListingType + " " + curr + " di " + count);
                         curr++;
-                        GetMissingFields(o.Table, null, ref allfields, connection, verbose);
+                        GetMissingFields(o.Table, null, ref allfields, possibleTables, connection, verbose);
 
                         if (allfields.Any(f => !f.IsInVoc && f.Name != "idapppages_ext" && !f.Name.StartsWith("XX")))
                         {
                             var errorFields = string.Join(", ", allfields.Where(f => !f.IsInVoc).Select(e => e.Table + "." + e.Name).ToList());
-                            ConsoleWriter.ErrorDB("Il vocabolario dei dati non ÃƒÂ¨ aggiornato per le seguenti colonne:\r\n" + errorFields);
+                            ConsoleWriter.ErrorDB("Il vocabolario dei dati non è aggiornato per le seguenti colonne:\r\n" + errorFields);
                             continue;
                         }
 
@@ -499,16 +551,16 @@ namespace Segreterie.Generator
                         var current = o.Table;
                         var container = o.Table;
 
-                        var objectKey = GetIdByTable(o.Table, allfields, connection, false, o.EditListingType);
-                        var objectKeyFields = GetIdFieldsByTable(o.Table, allfields, connection, false, o.EditListingType);
+                        var objectKey = GetIdByTable(o.Table, allfields, possibleTables, connection, false, o.EditListingType);
+                        var objectKeyFields = GetIdFieldsByTable(o.Table, allfields, possibleTables, connection, false, o.EditListingType);
                         var buttonFields = new List<buttonField>();
 
-                        var isLinkingObj = IsLinkingObject(o.Table, ref allfields, connection);
-                        var isExtendedObjView = IsExtendingObject(current, ref allfields, connection);
+                        var isLinkingObj = IsLinkingObject(o.Table, ref allfields, possibleTables, connection);
+                        var isExtendedObjView = IsExtendingObject(current, ref allfields, possibleTables, connection);
                         var isNormalObj = !isExtendedObjView && !isLinkingObj;
 
                         var principalkey = isLinkingObj || allfields.Where(f => f.IsLinkingObj && f.ListVisible && f.Table == o.Table && f.EditListingType == o.EditListingType).Any() ?
-                            null : GetPrincipalKey(o.Table, o.EditListingType, allfields, connection, false);
+                            null : GetPrincipalKey(o.Table, o.EditListingType, allfields, possibleTables, connection, false);
 
                         var currentTable = o.Table + (o.ForceAlias > 0 && isExtendedObjView ? "_alias" + o.ForceAlias.ToString() : "");
                         var extendedObject = "";
@@ -523,7 +575,7 @@ namespace Segreterie.Generator
                         var scriptFullPath = clientFolder + scriptFolder + o.Table + ".sql";
                         WriteSQLScript(scriptFullPath, o.Table, (o.IsVoc || IsEnum(o.Table, allfields)), ref allfields, connection);
                         {
-                            //rieseguo lo script cosÃƒÂ¬ come ÃƒÂ¨ stato calcolato dalle funzioni di easy
+                            //rieseguo lo script così come è stato calcolato dalle funzioni di easy
                             var enc = TextFile.GetEncoding(scriptFullPath);
                             var cmdstring = File.ReadAllText(scriptFullPath, enc);
                             var cmdiv = new SqlCommand(cmdstring, HDSGen.extConn);
@@ -562,9 +614,9 @@ namespace Segreterie.Generator
                         }
                         //----------------------------------------------------------------------------
 
-                        //se ÃƒÂ¨ un edit type che serve a definire i campi di un oggetto da estendere non genero niente
+                        //se è un edit type che serve a definire i campi di un oggetto da estendere non genero niente
                         var possibleExtendingobj = current + "_" + editListingTypes.Split('_')[0];
-                        GetMissingFields(possibleExtendingobj, null, ref allfields, connection, false);
+                        GetMissingFields(possibleExtendingobj, null, ref allfields, possibleTables, connection, false);
                         if (!allfields.Any(af => af.Table == possibleExtendingobj))
                         {
 
@@ -577,15 +629,17 @@ namespace Segreterie.Generator
                                 extendingObject = current.Split('_')[1];
                                 current = extendedObject + extendingObject + (editListingTypes == "default" ? "" : "_" + editListingTypes) + "view";
                                 editListingTypes = GetEditListingTypeForExtended(o.Table, editListingTypes);
-                                extendedObjectKeyFields.AddRange(GetIdFieldsByTable(extendedObject, allfields, connection, false, editListingTypes));
+                                extendedObjectKeyFields.AddRange(GetIdFieldsByTable(extendedObject, allfields, possibleTables, connection, false, editListingTypes));
                                 extendedObjectKey.AddRange(extendedObjectKeyFields.Select(ek => ek.Name).OrderBy(ek => ek));
-                                isLinkingObj = IsLinkingObject(extendedObject, ref allfields, connection);
+                                isLinkingObj = IsLinkingObject(extendedObject, ref allfields, possibleTables, connection);
                             }
 
                             var mainObject = isExtendedObjView ? extendedObject : o.Table;
 
                             //mi preparo la collection dei campi che mi interessano
-                            var fields = allfields.Where(af => af.Table == (string.IsNullOrEmpty(extendedObject) ? o.Table : extendedObject) && af.EditListingType == editListingTypes).ToList();
+                            var fields = allfields
+                                .Select(f => f.Mutate(FieldExtensions.DefaultMutator))
+                                .Where(af => af.Table == (string.IsNullOrEmpty(extendedObject) ? o.Table : extendedObject) && af.EditListingType == editListingTypes).ToList();
                             var subfields = new List<field>();
 
                             //paracadute per quando sono nel caso di oggetto esteso e mi sono scordato di definire i campi con l'edit type  = all'oggetto estendente, allora uso i suoi campi di default
@@ -607,7 +661,7 @@ namespace Segreterie.Generator
 
                             //ENTITA' FIGLIE ------------------------------------------------------------------------------------------------------------------------------
                             var one2one = "";
-                            var relationFields = GetChildentitiesFields(o.PageId, extendedObject, allfields, HDSGen.extConn);
+                            var relationFields = GetChildentitiesFields(o.PageId, extendedObject, allfields, possibleTables, HDSGen.extConn);
                             foreach (var r in relationFields)
                             {
                                 var metadatoChild = r.Name.Substring(2);
@@ -615,7 +669,7 @@ namespace Segreterie.Generator
                                 var metadatoChildKey = allfields.Where(af => af.Table == metadatoChild && af.EditListingType == (r.Listtype ?? "defaut") && af.IsKey).First();
                                 if (metadatoChildKey.ForceAlias > 0)
                                     metadatoChild += "_alias" + metadatoChildKey.ForceAlias.ToString();
-                                SetMetadatoChild(fields, r, metadatoChild, ref allfields, connection);
+                                SetMetadatoChild(fields, r, metadatoChild, ref allfields, possibleTables, connection);
 
                                 //ricorsivo su se stesso
                                 if (fields.Any(f => f.Table == r.MetadatoChild))
@@ -627,7 +681,7 @@ namespace Segreterie.Generator
                                 //aggiungo la relazione ai fields
                                 fields.Add(r);
 
-                                //se ÃƒÂ¨ una relazione 1 a 1 ...
+                                //se è una relazione 1 a 1 ...
                                 if (r.RelationType == "unique")
                                 {
 
@@ -640,16 +694,16 @@ namespace Segreterie.Generator
                                     var sortSubQuery = string.Join(", ", uniquefields.Where(f => !string.IsNullOrEmpty((f.SortData ?? "").Trim()))
                                                                 .OrderBy(f => f.SortList).Select(f => f.Table + "." + (string.IsNullOrEmpty(f.ViewAlias) ? f.Name : f.ViewAlias) + " " + f.SortData));
                                     if (string.IsNullOrWhiteSpace(sortSubQuery))
-                                        ConsoleWriter.ErrorDB("Ho una relazione entitÃƒÂ  (" + o.Table + ") / sub-entitÃƒÂ  (" + metadatoChild + ") uno a uno ma non ho definito un ordinamento per la sub-entitÃƒÂ ");
+                                        ConsoleWriter.ErrorDB("Ho una relazione entità (" + o.Table + ") / sub-entità (" + metadatoChild + ") uno a uno ma non ho definito un ordinamento per la sub-entità");
 
                                     //... se sono visibili nella scheda, in quanto mi servono nei search tag
                                     foreach (var fi in uniquefields.Where(f => f.Detailvisible && !f.Name.StartsWith("!")))
                                     {
                                         var hadAlias = true;
-                                        //tolgo gli alias ai campi su cui insisterÃƒÂ  una autochoose
+                                        //tolgo gli alias ai campi su cui insisterà una autochoose
                                         if (HaveKeyName(fi) && (!IsPrincipalKey(fi, o.Table) || isLinkingObj))
                                         {
-                                            var metadatoChild2 = GetTableById(fi.Name, allfields, connection);
+                                            var metadatoChild2 = GetTableById(fi.Name, allfields, possibleTables, connection);
                                             if (!string.IsNullOrEmpty(metadatoChild2))
                                             {
                                                 hadAlias = IsDropdown(fi, metadatoChild2);
@@ -677,13 +731,40 @@ namespace Segreterie.Generator
                                             fieldToSelect += "END AS " + fi.Table + "_" + fi.Name;
                                         }
 
-                                        var k = principalkey.Name;
+
+                                        var key = principalkey.Name;
+                                        var childkey = principalkey.Name;
                                         if ((r.LookupFor ?? "").Split(' ').Count() == 1)
-                                            k = r.LookupFor;
+                                            childkey = r.LookupFor;
+                                        var rel = GetPersonalizedRelation(r.IdAppRelation, connection);
+                                        var condition = "";
+                                        if (!string.IsNullOrWhiteSpace(rel))
+                                        {
+                                            key = rel.Split(';')[1].Trim();
+                                            childkey = rel.Split(';')[0].Trim();
+                                            string[] keys = key.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            string[] childkeys = childkey.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            if (keys.Count() == 1)
+                                            {
+                                                key = keys[0];
+                                                childkey = childkeys[0];
+                                            }
+                                            else {
+                                                var conditions = new List<string>();
+                                                var childIndex = 0;
+                                                foreach (var pk in key.Split(' '))
+                                                {
+                                                    var trueck = childkey.Split(' ')[childIndex];
+                                                    conditions.Add( fi.Schema + "." + fi.Table + "." + pk + " = " + o.Table + "." + trueck);
+                                                    childIndex++;
+                                                }
+                                                condition = string.Join(" AND ", conditions);
+                                            }
+                                        }
 
                                         one2one += @"(select top 1 " + fieldToSelect + @" 
 						from " + fi.Schema + "." + fi.Table + @" 
-						where " + fi.Schema + "." + fi.Table + @"." + k + @" = " + o.Table + @"." + principalkey.Name + @"
+						where " + (!string.IsNullOrEmpty(condition) ? condition : fi.Schema + "." + fi.Table + @"." + childkey + @" = " + o.Table + @"." + key) + @"
 						" + (string.IsNullOrWhiteSpace(sortSubQuery) ? "" : " order by " + sortSubQuery) + ") as " + (hadAlias ? fi.Table + "_" : "") + fi.Name + @",
 						";
                                         //preparo l'alias da mettere nel searchtag
@@ -696,21 +777,21 @@ namespace Segreterie.Generator
                             //VISTA ------------------------------------------------------------------------------------------------------------------------------
 
                             //verifico se ha un campo testuale di un'altra tabella a cui si riferisce da mostrare negli elenchi (pagina principale) o nelle griglie (pagina figlia) o un campo radio
-                            // (N.B. Nelle griglie, per quelle si usano i campi calcolati nel dataset di pagina figlia NON si usa la vista quindi NON verrÃƒÂ  creata veramente sul DB) 
+                            // (N.B. Nelle griglie, per quelle si usano i campi calcolati nel dataset di pagina figlia NON si usa la vista quindi NON verrà creata veramente sul DB) 
                             var hasTxtFieldsToShow = fields.Any(f => f.ListVisible && ((HaveKeyName(f) && (!IsPrincipalKey(f, f.Table) || isLinkingObj)) || (f.Type == "char" && f.Len == 1)));
 
-                            //se ÃƒÂ¨ un oggetto estendete o non lo ÃƒÂ¨ ma deve mostrare un campo di un'altra tabella nel proprio list type di default
+                            //se è un oggetto estendete o non lo è ma deve mostrare un campo di un'altra tabella nel proprio list type di default
                             //devo costruire una vista
                             var viewFields = new List<field>();
 
                             //se le griglie o elenchi per questo list type vanno filtrati allora creo una vista
                             var hasfilter = fields.Any(f => !string.IsNullOrEmpty(f.Filter));
 
-                            //vedo se vi insiste una autochoose che quindi mostrerÃƒÂ  l'elenco
+                            //vedo se vi insiste una autochoose che quindi mostrerà l'elenco
                             var hasAutochoose = allfields.Any(af => af.Table != o.Table && af.Name == (principalkey ?? new field()).Name && af.Detailvisible);
                             if (!hasAutochoose)
                             {
-                                // se non emerge dai dati giÃƒÂ  presenti devo verificarlo con una query
+                                // se non emerge dai dati già presenti devo verificarlo con una query
                                 var autochoosequery = "select count(d.idappfielddetail) from appfielddetail d " +
                                     "							inner join apppages p  on p.idapppages = d.idapppages " +
                                     "							where d.visible = 'S' and p.tablename <> '" +
@@ -723,26 +804,26 @@ namespace Segreterie.Generator
                                 hasAutochoose = autochooseDt.Rows[0][0].ToString() != "0";
                             }
 
-                            //verifico se l'autochoose/dropdowngrid mostreranno come valore scelto nel textbox piÃƒÂ¹ di una colonna
+                            //verifico se l'autochoose/dropdowngrid mostreranno come valore scelto nel textbox più di una colonna
                             var hasMultipleColumnsOnTextbox = fields.Count(f => f.Textfield > 0) > 1;
 
                             //se si tratta solo di griglie non creo veramente la vista sul DB 
-                            //(la scrivo solo in caso di elenchi con campi di lookup, oggetti estendenti, filtri, autochoose che mostrano piÃƒÂ¹ colonne nella textbox)
-                            //la scrivo anche se sto generando un oggetto che ÃƒÂ¨ una vista, altrimenti non troverei poi nulla selle tabelle managed sul db e poi la mdl non trova la chiave relativa
+                            //(la scrivo solo in caso di elenchi con campi di lookup, oggetti estendenti, filtri, autochoose che mostrano più colonne nella textbox)
+                            //la scrivo anche se sto generando un oggetto che è una vista, altrimenti non troverei poi nulla selle tabelle managed sul db e poi la mdl non trova la chiave relativa
                             var createDbView = (hasTxtFieldsToShow && ((o.Principale == "S" || hasAutochoose) || isExtendedObjView || hasfilter))
                                 || IsView(o.Table, allfields)
                                 || (hasMultipleColumnsOnTextbox && hasAutochoose);
 
                             if (!createDbView && !isLinkingObj && principalkey != null)
                             {
-                                //se ÃƒÂ¨ collegato da un oggetto di collegamento (non puÃƒÂ² essere a sua volta di collegamento) con il tasto cerca sarÃƒÂ  visualizzato in un elenco, 
+                                //se è collegato da un oggetto di collegamento (non può essere a sua volta di collegamento) con il tasto cerca sarà visualizzato in un elenco, 
                                 //quindi la vista va creata e siccome si tratta di un calcolo che richiede una query sul db lo faccio solo se sto per NON creare la vista qui
                                 var fkfields = allfields.Where(af => af.Table != o.Table && af.Name == principalkey.Name && af.ListVisible &&
                                                         (string.IsNullOrEmpty(af.Listtype) ? "default" : af.Listtype) == editListingTypes);
-                                var linkingfields = fkfields.Where(af => IsLinkingObject(af.Table, ref allfields, connection));
+                                var linkingfields = fkfields.Where(af => IsLinkingObject(af.Table, ref allfields, possibleTables, connection));
                                 foreach (var linkingfield in linkingfields)
                                 {
-                                    var relations = GetParentEntitiesFields(linkingfield.PageId, extendedObject, allfields, connection, false);
+                                    var relations = GetParentEntitiesFields(linkingfield.PageId, extendedObject, allfields, possibleTables, connection, false);
                                     if (relations.Any(r => r.RelationType == "cerca"))
                                         createDbView = true;
                                 }
@@ -778,8 +859,8 @@ UPDATE [dbo].[metadataprimarykey] SET [primarykey] = '""" + string.Join("\",\"",
                                     isExtendedObjView ? o.Table : "",
                                     editListingTypes,
                                     fields.Where(fi => !fi.Name.StartsWith("XX")).ToList(),
-                                    fields.Where(fi => fi.Name.StartsWith("XX") && fi.ShowInParentGrid > 0).ToList(),
-                                    allfields,
+                                    fields.Where(fi => fi.Name.StartsWith("XX") && fi.ShowInParentGrid > 0).ToList(), //nipoti
+                                    allfields, possibleTables,
                                     createDbView,
                                     isLinkingObj, one2one, o, HDSGen.extConn);
 
@@ -813,7 +894,7 @@ UPDATE [dbo].[metadataprimarykey] SET [primarykey] = '""" + string.Join("\",\"",
                                 }
 
 
-                                //se ÃƒÂ¨ un oggetto che negli ELENCHI (Principale) deve mostrare campi testuali di altre tabelle a cui si riferisce, devo creare il metadato relativo alla vista ...
+                                //se è un oggetto che negli ELENCHI (Principale) deve mostrare campi testuali di altre tabelle a cui si riferisce, devo creare il metadato relativo alla vista ...
 
 
                                 #region inserimento tabella
@@ -924,7 +1005,7 @@ UPDATE [dbo].[metadatastaticfilter] SET [staticfilter] = '" + o.Staticfilter.Rep
                                 if (File.Exists(name))
                                 {
                                     File.Delete(name);
-                                    ConsoleWriter.InfoDB("Il file del metadato JS {0} non ÃƒÂ¨ piÃƒÂ¹ necessario, ÃƒÂ¨ stato cancellato", name);
+                                    ConsoleWriter.InfoDB("Il file del metadato JS {0} non è più necessario, è stato cancellato", name);
                                 }
 
                                 #region cancellazione weblistredir
@@ -951,7 +1032,7 @@ UPDATE [dbo].[metadatastaticfilter] SET [staticfilter] = '" + o.Staticfilter.Rep
                                     ConsoleWriter.ErrorDB("Errore cancellazione della vista " + viewName + " o del suo record in web_listredir. Comando: " + cmd.CommandText + " Errore: " + ex.Message);
                                 }
 
-                                ConsoleWriter.InfoDB("La vista " + viewName + " non ÃƒÂ¨ necessaria in quanto non risultano chiavi esterne visibili in " + o.Table + " e non estende altri oggetti");
+                                ConsoleWriter.InfoDB("La vista " + viewName + " non è necessaria in quanto non risultano chiavi esterne visibili in " + o.Table + " e non estende altri oggetti");
 
                                 //aggiorno il file zz_GenerateWebList_Redir.sql con le istruzioni per cancellare la vista
 
@@ -1086,7 +1167,7 @@ END";
                             {
                                 customGetNewRow = currentAppTable["customgetnewrow"].ToString();
                                 //aggiungo il bottone per la protocollazione se serve
-                                if (fields.Any(f => f.Name == "protnumero") && fields.Any(f => f.Name == "protanno"))
+                                if (fields.Any(f => f.Name == "protnumero" && f.Detailvisible) && fields.Any(f => f.Name == "protanno" && f.Detailvisible))
                                 {
                                     //recupero gli script del protocollo
                                     var javascript = "firebtnProtocol: function (that) {\r\n";
@@ -1114,20 +1195,32 @@ END";
 
                             //ENTITA' MADRI------------------------------------------------------------------------------------------------------------------------------
 
-                            var parentEntities = GetParentEntitiesFields(o.PageId, extendedObject, allfields, connection);
+                            var parentEntities = GetParentEntitiesFields(o.PageId, extendedObject, allfields, possibleTables, connection);
 
                             //CAMPI DA MOSTRARE NEGLI ELENCHI (senza redir) O NELLE GRIGLIE -----------------------------------------------------------------------------
 
                             //aggiungo campi normali
 
                             var describeColumnsFileds = fields.Where(f => f.ListVisible && f.Table == o.Table).ToList();
-                            //aggiungo campi di lookup delle foreignkey per ELENCHI (pagine principali) e GRIGLIE (pagine figlie, solo se la foreignkey non ÃƒÂ¨ editabile)
-                            describeColumnsFileds.AddRange(viewFields.Where(vf => describeColumnsFileds.Where(dcf => !dcf.Editable).Select(dcf => dcf.Name).Contains(vf.LookupFor)));
-                            //rimuovo gli id che hanno un lookup
-                            foreach (var toRemove in describeColumnsFileds.Where(idf => idf.LookupFor == null && describeColumnsFileds.Select(dcf => dcf.LookupFor).Contains(idf.Name)).ToList())
-                                describeColumnsFileds.Remove(toRemove);
 
-                            var describeColumnsFiledsExt = new List<field>();
+                            // se c'è una vista ...
+                            if (viewFields.Any())
+                            {
+                                //aggiungo campi di lookup delle foreignkey per ELENCHI (pagine principali) e GRIGLIE (pagine figlie, solo se la foreignkey non è editabile)
+                                describeColumnsFileds.AddRange(viewFields.Where(vf => describeColumnsFileds.Where(dcf => !dcf.Editable).Select(dcf => dcf.Name).Contains(vf.LookupFor)));
+
+                                //rimuovo gli id che hanno un lookup
+                                foreach (var toRemove in describeColumnsFileds.Where(idf => idf.LookupFor == null && describeColumnsFileds.Select(dcf => dcf.LookupFor).Contains(idf.Name)).ToList())
+                                    describeColumnsFileds.Remove(toRemove);
+                            }
+                            else
+                            {
+                                // ... altrimenti se non c'è una vista i campi di lookup non sono stati calcolati e quindi devo rimuovere comunque i campi che li avranno dopo, 
+                                //facendo la supposizione che li avranno tutti
+                                foreach (var toRemove in describeColumnsFileds.Where(idf => idf.LookupFor == null && HaveKeyName(idf) && !IsEnum(idf, allfields, possibleTables, connection)).ToList())
+                                    describeColumnsFileds.Remove(toRemove);
+                            }
+                                var describeColumnsFiledsExt = new List<field>();
                             if (isExtendedObjView)
                             {
                                 //aggiungo campi normali
@@ -1192,7 +1285,7 @@ END";
                                 if (!Directory.Exists(clientFolder + metapageFolder + container))
                                     Directory.CreateDirectory(clientFolder + metapageFolder + container);
 
-                                //-creo la voce di menÃƒÂ¹ se ÃƒÂ¨ una pagina principale /*e che non derivi da un bottone*/
+                                //-creo la voce di menù se è una pagina principale /*e che non derivi da un bottone*/
                                 if (o.Principale != "N" /*&& !parentEntities.Any(pe => pe.RelationType == "button")*/)
                                 {
                                     cmd = new SqlCommand("menuweb_addentry", connection);
@@ -1218,8 +1311,8 @@ END";
                                 var fullPathMetaDatoJS = clientFolder + metapageFolder + container + "/meta_" + o.Table + ".js";
                                 SetMetadatoJs(fullPathMetaDatoJS, container, o.Table, currentApp, objectKeyFields, isExtendedObjView, allfields, connection, customGetNewRow);
 
-                                //se ÃƒÂ¨ un oggetto che negli ELENCHI (Principale o autochoose) deve mostrare campi testuali di altre tabelle a cui si riferisce 
-                                //devo creare il metadato relativo alla vista solo se non ÃƒÂ¨ un oggetto esteso o di collegamento
+                                //se è un oggetto che negli ELENCHI (Principale o autochoose) deve mostrare campi testuali di altre tabelle a cui si riferisce 
+                                //devo creare il metadato relativo alla vista solo se non è un oggetto esteso o di collegamento
                                 var viewObjectFileJS = "";
                                 if (createDbView && !isExtendedObjView)
                                 {
@@ -1262,15 +1355,15 @@ END";
                                 var describeColumns = new List<string>();
                                 foreach (var f in describeColumnsFileds.Where(f => f.ListVisible).OrderBy(f => f.SortList))
                                 {
-                                    //devo controllare se il campo ÃƒÂ¨ di lookup ma a sua volta ÃƒÂ¨ una foreign key per un'altra tabella
+                                    //devo controllare se il campo è di lookup ma a sua volta è una foreign key per un'altra tabella
                                     //e non sia un enum (chiave e testo uguali) 
-                                    if (f.LookupFor != null && HaveKeyName(f) && !IsEnum(f, allfields, connection))
+                                    if (f.LookupFor != null && HaveKeyName(f) && !IsEnum(f, allfields, possibleTables, connection))
                                     {
                                         //N.B. i campi calcolati li aggiunge la preparazione del dataset della pagina che li mostra in griglia, quindi MAI qui
                                     }
                                     else
                                     {
-                                        //altrimenti se ÃƒÂ¨ un campo normale o un lookup semplice
+                                        //altrimenti se è un campo normale o un lookup semplice
 
                                         //N.B. i campi calcolati li aggiunge la preparazione del dataset della pagina che li mostra in griglia, quindi MAI qui
                                         if (f.LookupFor == null)
@@ -1290,7 +1383,7 @@ END";
                                 if (viewFields.Any() && createDbView)
                                 {
                                     //aggiungo i campi testuali calcolati al momento della creazione della vista
-                                    //N.B. non ordinare per tabella perchÃƒÂ¨ ci sono nel mezzo i campi di lookup
+                                    //N.B. non ordinare per tabella perchè ci sono nel mezzo i campi di lookup
                                     foreach (var tf in viewFields.Where(f => f.ListVisible).OrderBy(f => f.SortList))
                                     {
                                         var colName = string.IsNullOrEmpty(tf.ViewAlias) ? tf.Name : tf.ViewAlias;
@@ -1310,15 +1403,15 @@ END";
                                     var describeColumnsExt = new List<string>();
                                     foreach (var f in describeColumnsFiledsExt.Where(f => f.ListVisible).OrderBy(f => f.SortList))
                                     {
-                                        //devo controllare se il campo ÃƒÂ¨ di lookup ma a sua volta ÃƒÂ¨ ina foreign key per un'altra tabella
+                                        //devo controllare se il campo è di lookup ma a sua volta è ina foreign key per un'altra tabella
                                         //e non sia un enum (chiave e testo uguali) 
-                                        if (f.LookupFor != null && HaveKeyName(f) && !IsEnum(f, allfields, connection))
+                                        if (f.LookupFor != null && HaveKeyName(f) && !IsEnum(f, allfields, possibleTables, connection))
                                         {
                                             //N.B. i campi calcolati li aggiunge la preparazione del dataset della pagina che li mostra in griglia, quindi MAI qui
                                         }
                                         else
                                         {
-                                            //altrimenti se ÃƒÂ¨ un campo normale o un lookup semplice
+                                            //altrimenti se è un campo normale o un lookup semplice
 
                                             //N.B. i campi calcolati li aggiunge la preparazione del dataset della pagina che li mostra in griglia, quindi MAI qui
                                             if (f.LookupFor == null)
@@ -1392,6 +1485,7 @@ END";
 
                                 //STATIC FILTER -------------------begin
 
+                                //NOTA BENE questo non viene considerato e attualmente viene iniettato anche direttamente nel dataset per la tabella interessata
                                 //se si tratta di uno di quei rari casi in cui l'oggetto non sia rappresentato da una vista il filtro statico deve essere un jsDataQuery inserito direttamente nel metadato js
                                 if (!string.IsNullOrEmpty(o.Staticfilter) && string.IsNullOrEmpty(viewObjectFileJS))
                                     SetGetStaticFilterOnJS(fullPathMetaDatoJS, editListingTypes, "\"" + o.Staticfilter + "\"");
@@ -1457,7 +1551,7 @@ END";
                                         var oldDescribeTree = Regex.Matches(allTextFile, @"describeTree: function(.*?)\}[\,]?\r\n", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value.Trim()).Distinct().ToList();
                                         if (!allTextFile.Contains("//$describeTree$") && oldDescribeTree.Count() == 0)
                                         {
-                                            //nel file non ÃƒÂ¨ presente nÃƒÂ¨ il markup nÃƒÂ¨ una vecchia funzione,accodo la funzione a //$getSorting$
+                                            //nel file non è presente nè il markup nè una vecchia funzione,accodo la funzione a //$getSorting$
                                             var getSortingPoint = Regex.Matches(allTextFile, @"//\$getSorting\$", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value.Trim()).Distinct().ToList();
                                             if (getSortingPoint.Any())
                                                 ReplaceStringInFile(fullPathMetaDatoJS, getSortingPoint[0], getSortingPoint[0] + "\r\n\r\n			" + describeTree + ",");
@@ -1466,19 +1560,19 @@ END";
                                                 getSortingPoint = Regex.Matches(allTextFile, @"getSorting:+\s*function+\s*\(+[\w\s\p{P}/$]*\}[\,]?\r\n", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value.Trim()).Distinct().ToList();
                                                 if (getSortingPoint.Any())
                                                     ReplaceStringInFile(fullPathMetaDatoJS, getSortingPoint[0], getSortingPoint[0] + (getSortingPoint[0].EndsWith(",") ? string.Empty : ",\r\n") + "\n\r\n			" + describeTree);
-                                                else ConsoleWriter.Error("Non ÃƒÂ¨ stata inserita nessuna funzione describeTree, rivedere il markup //$describeTree$ nel metadato.js");
+                                                else ConsoleWriter.Error("Non è stata inserita nessuna funzione describeTree, rivedere il markup //$describeTree$ nel metadato.js");
                                             }
 
                                         }
                                         else if (oldDescribeTree.Count() > 0)
                                         {
-                                            //proviamo a sotituire la eventuale describeTree giÃƒÂ  implementata in precedenza
+                                            //proviamo a sotituire la eventuale describeTree già implementata in precedenza
                                             //NOTA BENE se non avvenisse la sostituzione in modo corretto verificare che dopo }, ci sia subito un accapo
                                             ReplaceStringInFile(fullPathMetaDatoJS, oldDescribeTree[0], describeTree);
                                         }
                                         else
                                         {
-                                            //  ÃƒÂ¨ la prima volta che la funzione viene scritta
+                                            //  è la prima volta che la funzione viene scritta
                                             var getSortingPoint = Regex.Matches(allTextFile, @"getSorting:+\s*function+\s*\(+[\w\s\p{P}/$]*\}[\,]?\r\n", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value.Trim()).Distinct().ToList();
                                             if (getSortingPoint.Any() && !getSortingPoint[0].EndsWith(","))
                                                 ReplaceStringInFile(fullPathMetaDatoJS, getSortingPoint[0], getSortingPoint[0] + ",", true);
@@ -1514,7 +1608,7 @@ END";
                                     {
 
                                         SetBottomCode(fullPathMetaPageJS, "createAndGetListManager: function (searchTableName, listingType, prefilter, isModal, rootElement, that, filterLocked, toMerge, isCommandSearch) {\r\n" +
-                                        "                // isCommandSearch ÃƒÂ¨ true se lancio comando di ricerca, false se vengo da un autochoose, e qin quel caso implemnto comportamento di default\r\n" +
+                                        "                // isCommandSearch è true se lancio comando di ricerca, false se vengo da un autochoose, e qin quel caso implemnto comportamento di default\r\n" +
                                         "                var startColumnName = \"" + o.Calendarstart + "\";\r\n" +
                                         "                var titleColumnName = \"" + o.Calendartitle + "\";\r\n" +
                                         "                var stopColumnName = " + (!string.IsNullOrEmpty(o.Calendarstop) ? "\"" + o.Calendarstop + "\"" : "null") + ";\r\n" +
@@ -1534,7 +1628,7 @@ END";
                                     if (!string.IsNullOrEmpty(o.CustomJavascript))
                                     {
 
-                                        //aggiungo tutto il codice subito perchÃƒÂ¨ potrei aver fatto l'override di qualche evento
+                                        //aggiungo tutto il codice subito perchè potrei aver fatto l'override di qualche evento
                                         //nel campo del configuratore, il codice per gli override va messo prima delle funzioni personalizzate, in modo da eliminare PRIMA i marcatori per afterlink, beforefill e afterGetFormData 
                                         SetBottomCode(fullPathMetaPageJS, o.CustomJavascript);
 
@@ -1553,7 +1647,7 @@ END";
                                                 //se NON si tratta di ovverride di eventi devo aggiungere la chiamata al metodo inserito
 
                                                 if (!o.BeforeFillSinc.Contains("this." + fun + "()") && !o.BeforeFillSinc.Contains("self." + fun + "()"))
-                                                    //... ma solo se non ÃƒÂ¨ giÃƒÂ  stato richiamato nella beforeFill
+                                                    //... ma solo se non è già stato richiamato nella beforeFill
                                                     if (funsBody[i].Contains("this.getDataTable(") || funsBody[i].Contains("self.getDataTable("))
                                                     {
                                                         //se usa il dataset va lanciata nell'afterGetFormData
@@ -1617,13 +1711,13 @@ END";
                                                 if (HaveKeyName(p) && (!IsPrincipalKey(p, o.Table) || isLinkingObj) && !p.Name.StartsWith("idattach"))
                                                 {
                                                     var ex = GetException(null, null, p.Table, p.Name);
-                                                    var metadatoChild = ex != null ? ex.Item1 : GetTableById(p.Name, allfields, connection);
+                                                    var metadatoChild = ex != null ? ex.Item1 : GetTableById(p.Name, allfields, possibleTables, connection);
 
                                                     if (!string.IsNullOrEmpty(metadatoChild))
                                                     {
                                                         var listtype = !string.IsNullOrEmpty(p.Listtype) ? p.Listtype : "default";
                                                         var metadatoChildView = metadatoChild + listtype + "view";
-                                                        if (HaveView(metadatoChild, listtype, ref allfields, connection))
+                                                        if (HaveView(metadatoChild, listtype, ref allfields, possibleTables, connection))
                                                         {
                                                             metadatoChild = metadatoChildView;
                                                         }
@@ -1728,7 +1822,7 @@ END";
                                      msg = ""KO "" + res.err;
                                  }
                                  else {
-                                     msg = ""OK. Il report ÃƒÂ¨ stato aggiornato"";
+                                     msg = ""OK. Il report è stato aggiornato"";
                                      var ds = appMeta.getDataUtils.getJsDataSetFromJson(res.ds);
                                      if (ds.tables['Table']) {
 
@@ -1738,7 +1832,7 @@ END";
 
                                          //individuo il tag del gridx dei risultati
                                          var el = $(""#" + o.Table + @"_" + o.EditListingType + @"_result"");
-                                         //se giÃƒÂ  c'ÃƒÂ¨ il controllo non lo rigenero
+                                         //se già c'è il controllo non lo rigenero
                                          var grid = el.data(""customController"");
                                          if (grid) {
                                              grid.clearControl();
@@ -1756,7 +1850,7 @@ END";
                                          });
                                      }
                                      else {
-                                         msg = ""KO. Il sistema non ÃƒÂ¨ riuscito a estrarre il report. Verificare i dati inseriti."";
+                                         msg = ""KO. Il sistema non è riuscito a estrarre il report. Verificare i dati inseriti."";
                                      }
                                  }
                                  return true;
@@ -1778,10 +1872,11 @@ END";
 
                                     //------------------------------------relazioni 1 a 1 ----------------------------------------------begin
 
-                                    //-aggiungo i campi che vanno affogati nella pagina perchÃƒÂ¨ l'associazione ÃƒÂ¨ "unique" cioÃƒÂ¨ 1 a 1
+                                    //-aggiungo i campi che vanno affogati nella pagina perchè l'associazione è "unique" cioè 1 a 1
                                     var relationFieldUnique = fields.Where(f => f.Name.StartsWith("XX") && f.RelationType == "unique").ToList();
 
                                     if (isExtendedObjView)
+                                    {
                                         SetBeforeFillAsinc(fullPathMetaPageJS, "var dt = this.state.DS.tables[\"" + currentTable + "\"];\r\n" +
                                             "\t\t\t\tif (dt.rows.length === 0) {\r\n" +
                                             "\t\t\t\t\tvar meta = appMeta.getMeta(\"" + o.Table + "\");\r\n" +
@@ -1795,6 +1890,10 @@ END";
                                             "\t\t\t\t\tarraydef.push(def" + o.Table + ");\r\n" +
                                             "\t\t\t\t}\r\n" +
                                             "\r\n", o.Table, editListingTypes);
+
+                                        SetAfterlink(fullPathMetaPageJS, "this.state.addExtraEntity('" + currentTable + "');\r\n");
+
+                                    }
 
                                     var uniqueobjs = new List<string>();
                                     var nephewByUnique = new List<field>();
@@ -1825,7 +1924,7 @@ END";
                                         "\", this.superClass.calculateFields);\r\n");
 
                                         //nel caso particolare in cui l'oggetto collegato 1 a 1 mostri solamente foreignkey in autochoose, l'oggetto non compare mai nei controlli 
-                                        //e il framework non riesce ad aggiungerlo automaticamente alle entitÃƒÂ  extra, quindi lo forziamo adesso, tanto se giÃƒÂ  l'ha inserito lui 
+                                        //e il framework non riesce ad aggiungerlo automaticamente alle entità extra, quindi lo forziamo adesso, tanto se già l'ha inserito lui 
                                         //non viene duplicato ma sovrascritto
                                         SetAfterlink(fullPathMetaPageJS, "this.helpForm.addExtraEntity(\"" + uniqueobj + "\");\r\n");
 
@@ -1846,7 +1945,7 @@ END";
                                             unique.Tab = unique.Name;
                                             fields.AddRange(uniquefields);
                                             //aggiungo anche i campi di relazione che a sua volta aveva l'oggetto collegato 1 a 1
-                                            var uniqueRelations = GetChildentitiesFields(uniquefields.First().PageId, null, allfields, connection);
+                                            var uniqueRelations = GetChildentitiesFields(uniquefields.First().PageId, null, allfields, possibleTables, connection);
                                             if (uniqueRelations.Any())
                                             {
                                                 fields.AddRange(uniqueRelations);
@@ -1854,7 +1953,7 @@ END";
                                                 foreach (var ur in uniqueRelations)
                                                 {
                                                     var metadatoChild = ur.Name.Substring(2);
-                                                    SetMetadatoChild(fields, ur, metadatoChild, ref allfields, connection);
+                                                    SetMetadatoChild(fields, ur, metadatoChild, ref allfields, possibleTables, connection);
                                                 }
                                             }
                                         }
@@ -1866,7 +1965,7 @@ END";
                                     var relationFieldfiltered = fields.Where(f => f.Name.StartsWith("XX")).ToList();
                                     foreach (var filteredrel in relationFieldfiltered)
                                     {
-                                        SetFilterOnMetaPageJS(filteredrel, fullPathMetaPageJS, o.Table, (string.IsNullOrWhiteSpace(extendedObject) ? o.Table : extendedObject), editListingTypes, ref allfields, fields, connection);
+                                        SetFilterOnMetaPageJS(filteredrel, fullPathMetaPageJS, o.Table, (string.IsNullOrWhiteSpace(extendedObject) ? o.Table : extendedObject), editListingTypes, ref allfields, possibleTables, fields, connection);
                                     }
 
                                     //in ultimo devo eseguire il setting del valore nella beforefill della subpage per gli oggetti nuovi SOLO SE E' UGUALE
@@ -1882,9 +1981,21 @@ END";
                                     //------------------------------------filtri sulle griglie------------------------------------------end
 
                                     //------------------------------------SET DEFAULT DI PAGINA------------------------------------------begin
-                                    var fieldsWithDefault = fields.Where(fi => fi.Name != "ct" && fi.Name != "lt" && fi.Name != "cu" && fi.Name != "lu"
-                                                         && (!string.IsNullOrEmpty(fi.Defaultvalue) || ((fi.Type == "datetime" || fi.Type == "date") && !fi.Allownull))
-                                                         && (fi.Table == o.Table || fi.Table == extendedObject || uniqueobjs.Contains(fi.Table)));
+                                    var logFilds = new List<string>();
+                                    logFilds.Add("ct");
+                                    logFilds.Add("lt");
+                                    logFilds.Add("cu");
+                                    logFilds.Add("lu");
+
+                                    var fieldsWithDefault = fields.Where(fi => 
+                                                            (
+                                                            !logFilds.Contains(fi.Name) &&
+                                                            (!string.IsNullOrEmpty(fi.Defaultvalue) || ((fi.Type == "datetime" || fi.Type == "date") && !fi.Allownull))
+                                                            && (fi.Table == o.Table || fi.Table == extendedObject || uniqueobjs.Contains(fi.Table))
+                                                            ) 
+                                                            ||
+                                                            (logFilds.Contains(fi.Name) && !string.IsNullOrEmpty(fi.Defaultvalue)) //se sono campi di log se ho forzato un valora allora lo metto
+                                                            );
                                     if (fieldsWithDefault.Any())
                                     {
 
@@ -1940,6 +2051,8 @@ END";
                                                     //per le chiavi stringa e per i bit non accetto stringa vuota
                                                     if ((f.IsKey && GetDatasetType(f.Type) == "string") || (f.Type == "char" && f.Len == 1))
                                                         checkForKeys = " || " + table + tableCol + " == ''";
+
+                                                    //è definito un default value
                                                     if (!string.IsNullOrEmpty(f.Defaultvalue))
                                                     {
                                                         if (o.Principale == "S" /*&& !f.IsKey*/)
@@ -1952,7 +2065,7 @@ END";
                                                         {
                                                             //per le pagine secondarie il getNewRow viene eseguito prima dell'afterlink della pagina secondaria, 
                                                             //quindi devo controllarli a posteriori nel beforefill
-                                                            if ((f.Type == "datetime" || f.Type == "date") && !f.Allownull)
+                                                            if ((f.Type == "datetime" || f.Type == "date"))
                                                             {
                                                                 setPageDefault = "\t\t\t\tif (self.isNullOrMinDate(" + table + tableCol + "))\r\n";
                                                                 setPageDefault += "\t\t\t\t\t" + table + tableCol + " = " + f.Defaultvalue + ";\r\n";
@@ -1960,16 +2073,22 @@ END";
                                                             }
                                                             else
                                                             {
-                                                                setPageDefault = "\t\t\t\tif (this.isNull(" + table + tableCol + ")" + checkForKeys + ")\r\n";
+                                                                //se sono cu e lu anche stringa vuota va sostituita
+                                                                if (logFilds.Contains(f.Name))
+                                                                    setPageDefault = "\t\t\t\tif (!" + table + tableCol + " " + checkForKeys + ")\r\n";
+                                                                else
+                                                                    setPageDefault = "\t\t\t\tif (this.isNull(" + table + tableCol + ")" + checkForKeys + ")\r\n";
                                                                 setPageDefault += "\t\t\t\t\t" + table + tableCol + " = " + f.Defaultvalue + ";\r\n";
                                                                 SetBeforeFill(fullPathMetaPageJS, setPageDefault, o.Table, editListingTypes, true);
                                                             }
                                                         }
                                                     }
+
+                                                    //in ogni caso (è definito un default value oppure no) se non è ammesso un valore null
                                                     if ((f.Type == "datetime" || f.Type == "date") && !f.Allownull)
                                                     {
-                                                        setPageDefault = "\t\t\t\tif (self.isNullOrMinDate(" + table + tableCol + "))\r\n";
-                                                        setPageDefault += "\t\t\t\t\t" + table + tableCol + " = new Date();\r\n";
+                                                        setPageDefault = "\t\t\tif (self.isNullOrMinDate(" + table + tableCol + "))\r\n";
+                                                        setPageDefault += "\t\t\t\t" + table + tableCol + " = new Date();\r\n";
                                                         SetBeforeFill(fullPathMetaPageJS, setPageDefault, o.Table, editListingTypes, true);
                                                     }
                                                 }
@@ -1977,7 +2096,7 @@ END";
                                         }
 
                                         if (isExtendedObjView)
-                                            SetBeforeFill(fullPathMetaPageJS, "parentRow.extension = \"" + extendingObject + "\";\r\n", o.Table, editListingTypes);
+                                            SetBeforeFill(fullPathMetaPageJS, "parentRow.extension = \"" + extendingObject + "\";\r\n", o.Table, editListingTypes, true);
 
                                     }
                                     //------------------------------------SET DEFAULT DI PAGINA------------------------------------------end
@@ -1986,7 +2105,7 @@ END";
 
                                     if (!string.IsNullOrWhiteSpace(o.BeforeFillSinc))
                                         if (o.BeforeFillSinc.Contains("arraydef.push("))
-                                            //salto il controllo se giÃƒÂ  esiste perchÃƒÂ¨ potrei averlo giÃƒÂ  inserito in un altro punto
+                                            //salto il controllo se già esiste perchè potrei averlo già inserito in un altro punto
                                             SetBeforeFillAsinc(fullPathMetaPageJS, o.BeforeFillSinc, o.Table, editListingTypes, false, true);
                                         else
                                             SetBeforeFill(fullPathMetaPageJS, o.BeforeFillSinc, o.Table, editListingTypes);
@@ -2013,27 +2132,27 @@ END";
                                                 var linkedtableListType = string.IsNullOrEmpty(linkid.Listtype) ? "default" : linkid.Listtype;
 
                                                 //tabella collegata con eventuali alias
-                                                var linkedtable = GetLinkedTable(linkid, ref fields, subfields, ref allfields, connection);
+                                                var linkedtable = GetLinkedTable(linkid, ref fields, subfields, ref allfields, possibleTables, connection);
 
                                                 if (!string.IsNullOrEmpty(linkedtable))
                                                 {
 
-                                                    //assegno subito al metodo il nome della tabella collegata cosÃƒÂ¬ poi se ÃƒÂ¨ estendente e quindi la tabella collegata cambia 
+                                                    //assegno subito al metodo il nome della tabella collegata così poi se è estendente e quindi la tabella collegata cambia 
                                                     //il nome del metodo resta quello originale
                                                     var methodName = linkedtable;
 
                                                     var sourceFieldLink = GetIdByForeignKey(linkid.Name, linktable);
                                                     //campo testuale principale della tabella collegata
-                                                    var linkedtableTextField = GetTextFieldByTable(linkedtable, allfields, connection).FirstOrDefault();
+                                                    var linkedtableTextField = GetTextFieldByTable(linkedtable, allfields, possibleTables, connection).FirstOrDefault();
                                                     //var isExtended = false;
                                                     if (linkedtable.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0] != linkedtableTextField.Table)
                                                     {
                                                         //aggiungo il filtro statico linkid.name in (select linkid.Name from linkedtable) 
-                                                        //dove linkedtable ÃƒÂ¨ ancora l'oggetto estendente
+                                                        //dove linkedtable è ancora l'oggetto estendente
 
-                                                        //mi ÃƒÂ¨ stato restituito il campo testuale dell'oggetto da cui deriva quindi devo cercare lÃƒÂ¬
+                                                        //mi è stato restituito il campo testuale dell'oggetto da cui deriva quindi devo cercare lì
                                                         linkedtable = linkedtableTextField.Table;
-                                                        var linkids = GetIdByTable(linkedtable, allfields, connection, false);
+                                                        var linkids = GetIdByTable(linkedtable, allfields, possibleTables, connection, false);
                                                         if (linkids.Any())
                                                             sourceFieldLink = linkids.First();
                                                         //anche il list type cambia
@@ -2052,13 +2171,13 @@ END";
                                                     //inserisco solo l'associazione tra il bottone e l'evento all'interno del buttonClickEnd
                                                     SetButtonClickEnd(fullPathMetaPageJS, "$(\"#btn_add_" + linktable + "_" + linkid.Name + "\").prop(\"disabled\", true);\r\n");
 
-                                                    //se si tratta di una sub-entitÃƒÂ  di un oggetto collegato 1 a 1 in realtÃƒÂ  ÃƒÂ¨ un nipote ... 
+                                                    //se si tratta di una sub-entità di un oggetto collegato 1 a 1 in realtà è un nipote ... 
                                                     //quindi gli devo passare una parentrow differente
                                                     var isNephew = nephewByUnique.Contains(fi);
 
                                                     //se la tabella collegata ha un campo attivo lo devo considerare
-                                                    var haveActive = HaveActiveField(linkedtable, linkedtableListType, ref allfields, connection);
-                                                    var haveView = HaveView(linkedtable, linkedtableListType, ref allfields, connection);
+                                                    var haveActive = HaveActiveField(linkedtable, linkedtableListType, ref allfields, possibleTables, connection);
+                                                    var haveView = HaveView(linkedtable, linkedtableListType, ref allfields, possibleTables, connection);
 
                                                     //aggiungo l'evento di chiamata alla funzione c#
                                                     var btn = "searchAndAssign" + methodName + @": function (that) {
@@ -2074,25 +2193,26 @@ END";
 					columnToFill: """ + linkid.Name + @""",
 					tableToFill: """ + linktable + @"""" +
     (isNephew ? ",\r\n\t\t\t\t\tparentRow: that.state.DS.tables." + fi.Table + ".rows[0]\r\n" : "")+
-    (haveActive ? ",\r\n\t\t\t\t\tfilter: that.q.eq('" + (haveView ? RemoveAlias(linkedtable) + /*(isExtended ? "": linkedtableListType) + */"_" : "") + "active', 'S" + (haveView ? "i" : "") + "')\r\n" : "\r\n")
+    (!string.IsNullOrEmpty(fi.Filter) ? ",\r\n\t\t\t\t\tfilter: " + fi.Filter + "\r\n" : "\r\n") +
+    (haveActive && string.IsNullOrEmpty(fi.Filter) ? ",\r\n\t\t\t\t\tfilter: that.q.eq('" + (haveView ? RemoveAlias(linkedtable) + /*(isExtended ? "": linkedtableListType) + */"_" : "") + "active', 'S" + (haveView ? "i" : "") + "')\r\n" : "\r\n")
     + @"				});
 			}";
                                                     SetBottomCode(fullPathMetaPageJS, btn);
                                                 }
                                                 else
                                                 {
-                                                    ConsoleWriter.ErrorDB("in fase di generazione del tab con ricerca per la tabella di collegamento " + linktable + " ÃƒÂ¨ fallito il recupero della tabella collegata");
+                                                    ConsoleWriter.ErrorDB("in fase di generazione del tab con ricerca per la tabella di collegamento " + linktable + " è fallito il recupero della tabella collegata");
                                                 }
                                             }
                                             else
                                             {
-                                                ConsoleWriter.ErrorDB("in fase di generazione del tab con ricerca per la tabella di collegamento " + linktable + " ÃƒÂ¨ fallita l'individuazione della foreignkey di collegamento");
+                                                ConsoleWriter.ErrorDB("in fase di generazione del tab con ricerca per la tabella di collegamento " + linktable + " è fallita l'individuazione della foreignkey di collegamento");
                                             }
 
                                         }
                                     }
 
-                                    //evito il bug del calendar che se in un tab appare con celle piÃƒÂ¹ basse fino al primo evento------------------------------------------------------
+                                    //evito il bug del calendar che se in un tab appare con celle più basse fino al primo evento------------------------------------------------------
                                     var relationFieldCalendar = fields.Where(f => f.Name.StartsWith("XX") && (f.RelationType == "calendario" || f.RelationType == "calendariow")).ToList();
                                     if (relationFieldCalendar.Any())
                                     {
@@ -2110,7 +2230,7 @@ END";
 
                                     // prima parte se siamo nella maschera madre:
 
-                                    //-gestisco il bottone per la pagina a bottone perchÃƒÂ¨ l'associazione ÃƒÂ¨ "button"
+                                    //-gestisco il bottone per la pagina a bottone perchè l'associazione è "button"
                                     var relationFieldButton = fields.Where(f => f.Name.StartsWith("XX") && f.RelationType == "button").ToList();
                                     if (relationFieldButton.Any())
                                     {
@@ -2125,13 +2245,20 @@ END";
                                             //inserisco l'associazione tra il bottone e l'evento all'interno dell'afterlink
                                             SetAfterlink(fullPathMetaPageJS, "$(\"#" + b.Name + "\").prop(\"disabled\", true);\r\n");
 
-                                            //abilito il bottone nell'afterfill se la pagina ÃƒÂ¨ in edit state
+                                            //abilito il bottone nell'afterfill se la pagina è in edit state
                                             SetAfterFill(fullPathMetaPageJS, "this.enableControl($(\"#" + b.Name + "\"), this.state.isEditState());\r\n"/*, o.Table, editListingTypes*/);
 
                                             //inserisco solo la disabilitazione tra il bottone e l'evento all'interno del buttonClickEnd
                                             SetButtonClickEnd(fullPathMetaPageJS, "if ($(\"#" + b.Name + "\").length) {\r\n" +
                                                 "\t\t\t\t\t$(\"#" + b.Name + "\").prop(\"disabled\", !currMetaPage.state.isEditState());\r\n" +
                                                 "\t\t\t\t}\r\n", true);
+
+                                            //dico al framwork che questa tabella non dovrebbe gestita
+                                            SetAfterlink(fullPathMetaPageJS, "appMeta.metaModel.cachedTable(this.getDataTable(\"" + b.Name.Substring(2) + "\"), true);\r\n");
+                                            SetAfterlink(fullPathMetaPageJS, "appMeta.metaModel.lockRead(this.getDataTable(\"" + b.Name.Substring(2) + "\"));\r\n");
+
+                                            //la riempio con i soli figli
+                                            SetBeforeFillAsinc(fullPathMetaPageJS, "arraydef.push(appMeta.getData.runSelectIntoTable(self.getDataTable(\"" + b.Name.Substring(2) + "\"), window.jsDataQuery.eq(\"" + principalkey.Name + "\", self.state.currentRow." + principalkey.Name + "), null));\r\n", o.Table, o.EditListingType);
                                         }
                                     }
 
@@ -2143,7 +2270,7 @@ END";
                                         foreach (var r in parentEntities.Where(pe => pe.RelationType == "button"))
                                         {
 
-                                            var allParentkeys = GetIdByTable(r.Name.Substring(2), allfields, connection);
+                                            var allParentkeys = GetIdByTable(r.Name.Substring(2), allfields, possibleTables, connection);
                                             var parentkeys = allParentkeys.Where(pk => objectKey.Contains(pk));
 
                                             var index = 1;
@@ -2168,7 +2295,21 @@ END";
                                                 SetAfterlink(fullPathMetaPageJS, "self.firstSearchFilter  = window.jsDataQuery.and(" + filter + ");\r\n" +
                                                     "\t\t\t\t\tself.startFilter = self.firstSearchFilter;\r\n");
                                             }
+
                                         }
+
+                                        var firstRelationButton = parentEntities.Where(pe => pe.RelationType == "button").First();
+                                        //aggiorno al salvataggio la tabella del dataset padre
+                                        SetAfterPost(fullPathMetaPageJS, "if (this.state.currentRow.getRow().myState != 'unchanged') {\r\n" +
+                                            "\t\t\t\t\tlet oldRow = this.state.callerState.DS.tables." + o.Table + 
+                                            ".select(this.q.eq(\"" + principalkey.Name + "\", this.state.currentRow." + principalkey.Name + "));\r\n" +
+                                            "\t\t\t\t\tif(oldRow.length > 0) {\r\n" +
+                                            "\t\t\t\t\t\toldRow[0].getRow().makeSameAs(this.state.currentRow);\r\n" +
+                                            "\t\t\t\t\t} else {\r\n" +
+                                            "\t\t\t\t\t\tthis.state.callerState.DS.tables." + o.Table + ".rows.add(this.state.currentRow);\r\n" +
+                                            "\t\t\t\t\t}\r\n" +
+                                            "\t\t\t\t}\r\n"
+                                            );
                                     }
 
                                     //------------------------------------relazioni a bottone ----------------------------------------------end
@@ -2246,7 +2387,7 @@ END";
                                             }
                                             else
                                             {
-                                                //se il codice personalizzato contiene giÃƒÂ  una afterfill allora la faccio inserire da lui (ÃƒÂ¨ il primo)
+                                                //se il codice personalizzato contiene già una afterfill allora la faccio inserire da lui (è il primo)
                                                 if (b.Javascript.Contains("afterFill: function ()"))
                                                     ReplaceStringInFile(fullPathMetaPageJS, "//afterFill\r\n", "");
                                                 SetBottomCode(fullPathMetaPageJS, b.Javascript);
@@ -2296,13 +2437,13 @@ END";
 
                                         var parentEntity = parentEntities.First();
                                         var table = parentEntity.Name.Substring(2);
-                                        var parentkeys = GetIdByTable(table, allfields, connection);
-                                        //se ÃƒÂ¨ un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
+                                        var parentkeys = GetIdByTable(table, allfields, possibleTables, connection);
+                                        //se è un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
                                         var joinstring = "";
                                         if (table.Contains("_"))
                                         {
                                             var metadatoExtended = table.Split('_')[0];
-                                            var keys = GetIdByTable(table, allfields, connection);
+                                            var keys = GetIdByTable(table, allfields, possibleTables, connection);
                                             joinstring += " INNER JOIN " + metadatoExtended + " ON ";
                                             var addend = false;
                                             foreach (var key in keys)
@@ -2311,7 +2452,7 @@ END";
                                                 addend = true;
                                             }
                                         }
-                                        var schema = GetSchemaByTable(table, allfields, connection, false);
+                                        var schema = GetSchemaByTable(table, allfields, possibleTables, connection, false);
                                         var q = "select * from " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + table + joinstring;
                                         if (allfields.Any(af => af.Name == "active" && af.Table == table))
                                             q += " where active = 'S'";
@@ -2419,7 +2560,7 @@ END";
 
                                     //CAMPI CALCOLATI-------------------------- begin
 
-                                    //se ÃƒÂ¨ un campo calcolato aggiungo la funzione per calcolarlo e la sua chiamata nella afterGetFormData 
+                                    //se è un campo calcolato aggiungo la funzione per calcolarlo e la sua chiamata nella afterGetFormData 
                                     //e nella before fill se visibile
                                     foreach (var fi in fields.OrderBy(f => f.Sort))
                                     {
@@ -2473,16 +2614,19 @@ END";
 
                                     formString += (tabs.Count == 1 ? "" : "<div class=\"tab-content mt-2\">\r\n");
 
+                                    var isFirstTab = true;
                                     //per ogni tab in ordine ...
                                     foreach (var tab in tabs.OrderBy(t => t.Sort))
                                     {
+
+                                        
 
                                         Console.Write(".");
 
                                         var isgrid = false;
                                         var isunique = fields.Where(f => f.Tab == tab.Title).Count() == 1;
 
-                                        //se ÃƒÂ¨ una relazione 1 a 1 con campi affogati nella pagina NON devo inserire la griglia e il suo tab
+                                        //se è una relazione 1 a 1 con campi affogati nella pagina NON devo inserire la griglia e il suo tab
                                         var skipall = false;
                                         if (isunique)
                                         {
@@ -2498,14 +2642,16 @@ END";
                                             {
                                                 //...aggiungo i tab in testa
                                                 tabString += "	<li class=\"nav-item\">\r\n		<a href=\"#tab" + o.Table + "_" + editListingTypes + "_" + tabs.IndexOf(tab).ToString() +
-                                                    "\" class=\"nav-link" + (tab.Title.Trim() == "Principale" ? " active show" : "") + "\" data-bs-toggle=\"pill\" data-bs-target=\"#tab" +
+                                                    "\" class=\"nav-link" + (isFirstTab ? " active show" : "") + "\" data-bs-toggle=\"pill\" data-bs-target=\"#tab" +
                                                     o.Table + "_" + editListingTypes + "_" + tabs.IndexOf(tab).ToString() +
                                                     "\"><i class=\"fa " + tab.Icon + " mr-1\"></i>" + tab.Title + "</a>\r\n	</li>\r\n";
 
                                                 //...aggiungo l'etichetta del titolo del tab
                                                 ReplaceStringInLocalResourceFile(RegionMarker.LocalResource_nomiTab, "\"#tab" + o.Table + "_" + editListingTypes, "_" + tabs.IndexOf(tab).ToString() + "\"", tab.Title.Replace("\r\n", "").Replace("'", "\\'"));
                                                 //...apro il tab
-                                                formString += "	<div class=\"tab-pane fade" + (tab.Title.Trim() == "Principale" ? " active show" : "") + "\" id=\"tab" + o.Table + "_" + editListingTypes + "_" + tabs.IndexOf(tab).ToString() + "\" role=\"tabpanel\">\r\n";
+                                                formString += "	<div class=\"tab-pane fade" + (isFirstTab ? " active show" : "") + "\" id=\"tab" + o.Table + "_" + editListingTypes + "_" + tabs.IndexOf(tab).ToString() + "\" role=\"tabpanel\">\r\n";
+
+                                                isFirstTab = false;
 
                                                 if (!string.IsNullOrWhiteSpace(tab.Tabheader))
                                                 {
@@ -2525,7 +2671,7 @@ END";
                                                     formString += "\t\t<button id=\"" + b.Name + "\" type=\"button\" class=\"btn btn-primary p-2 mt-2\" >\r\n\t\t\t<i class=\"fa " + b.Icon + " mr-1\" ></i>" + b.Title + "\r\n\t\t</button>\r\n";
                                             }
 
-                                            //se ÃƒÂ¨ un unico campo nel tab per una entitÃƒÂ  figlia ...
+                                            //se è un unico campo nel tab per una entità figlia ...
                                             if (isunique)
                                             {
                                                 var fi = fields.Where(f => f.Tab == tab.Title).First();
@@ -2547,7 +2693,7 @@ END";
                                                     else
                                                     {
                                                         formString += GetGrid(o, tab, fi, fields, subfields, allfields, fullPathMetaPageJS, string.IsNullOrWhiteSpace(fullPathTestParams) ? fullPathTest : fullPathTestParams,
-                                                        false, childColumns, objects, HDSGen.extConn);
+                                                        false, childColumns, objects, possibleTables, HDSGen.extConn);
                                                     }
                                                 }
                                             }
@@ -2583,7 +2729,7 @@ END";
                                                         //il tag di ricerca chiude anche le virgolette
                                                         var searchtag = format + "\" ";
                                                         //lo devo aggiungere ogniqualvolta io abbia creato una vista sul db per una pagina principale, 
-                                                        //perchÃƒÂ¨ le query di ricerca sono solo sulle pagine principali e subiscono il web_listredir e cercano sulla vista 
+                                                        //perchè le query di ricerca sono solo sulle pagine principali e subiscono il web_listredir e cercano sulla vista 
                                                         if (viewFields.Any() && createDbView)
                                                         {
                                                             searchtag = format + "?" + viewName + "." + (string.IsNullOrEmpty(fi.ViewAlias) ? fi.Name : fi.ViewAlias) + format + "\" ";
@@ -2592,7 +2738,7 @@ END";
                                                         {
                                                         }
 
-                                                        //i tag vanno marcati se non si tratta della tabella principale (che nel caso di oggetti estesi ÃƒÂ¨ extendedObject)
+                                                        //i tag vanno marcati se non si tratta della tabella principale (che nel caso di oggetti estesi è extendedObject)
                                                         if (fi.Table != (string.IsNullOrEmpty(extendedObject) ? o.Table : extendedObject))
                                                         {
                                                             searchtag += "data-subentity ";
@@ -2601,6 +2747,14 @@ END";
                                                         if (fi.Hidden)
                                                         {
                                                             formString += "					<input hidden id=\"" + nametag + "\" type=\"text\" class=\"form-control\" " + "data-tag=\"" + datatag + searchtag + " />\r\n";
+                                                            //NON SERVONO PROPRIO IN QUANTO E' SEMPRE SOLO UNA TEXTBOX //se ci sono più foreign key nascoste verso la stessa tabella, devo comunque settare il metadatochild (ovvero gli alias) al fine di creare un dataset corretto (e non che tutte puntano alla stessa tabella)
+                                                            //if (HaveKeyName(fi) && (!IsPrincipalKey(fi, o.Table) || isLinkingObj))
+                                                            //{
+                                                            //    var ex = GetException(null, null, fi.Table, fi.Name);
+                                                            //    var metadatoChild = ex != null ? ex.Item1 : GetTableById(fi.Name, allfields, possibleTables, connection);
+                                                            //    if (!string.IsNullOrEmpty(metadatoChild))
+                                                            //        SetMetadatoChild(fields, fi, metadatoChild, ref allfields, possibleTables, connection);
+                                                            //}
                                                         }
                                                         else
                                                         {
@@ -2611,7 +2765,7 @@ END";
                                                                     SetReadonly(fi, nametag, fullPathMetaPageJS, o, editListingTypes);
                                                             }
 
-                                                            //se ÃƒÂ¨ una chiave che si disabilitano da sole e non tornano abilitate alla ricerca da sole ...
+                                                            //se è una chiave che si disabilitano da sole e non tornano abilitate alla ricerca da sole ...
                                                             if (fi.IsKey)
                                                                 //lo riabilito quando torno alla ricerca sempre a prescindere
                                                                 SetAfterClear(fullPathMetaPageJS, "this.enableControl($('#" + nametag + "'), true);\r\n");
@@ -2621,8 +2775,6 @@ END";
                                                             var sinistro = IsSinistro(position, isInverted, tab.Cols);
                                                             if (IsTextArea(fi))
                                                             {
-                                                                //var sinistro = IsSinistro(position, isInverted, tab.Cols);
-
                                                                 if (tab.Cols == 2)
                                                                 {
                                                                     //-se destro:  
@@ -2644,9 +2796,9 @@ END";
                                                                     {
                                                                         //chiudo colonna e chiudo riga;
                                                                         formString += "				</div>\r\n			</div>\r\n";
-                                                                        //resetto la position
-                                                                        position = 0;
                                                                     }
+                                                                    //resetto la position SEMPRE perchè se occupa tutta la riga si riparte alla riga dopo da sinistra
+                                                                    position = 0;
                                                                 }
                                                                 //-apro riga, apro colonna 12, disegno textarea, chiudo colonna, chiudo riga
 
@@ -2687,11 +2839,9 @@ END";
                                                             }
                                                             else
                                                             {
-                                                                //altrimenti verifico che non sia richiesta l'unicitÃƒÂ  sulla riga------------begin
+                                                                //altrimenti verifico che non sia richiesta l'unicità sulla riga------------begin
                                                                 if (fi.UniqueOnRow)
                                                                 {
-                                                                    //var sinistro = IsSinistro(position, isInverted, tab.Cols);
-
                                                                     if (tab.Cols == 2)
                                                                     {
                                                                         //-se destro:  
@@ -2713,21 +2863,19 @@ END";
                                                                         {
                                                                             //chiudo colonna e chiudo riga;
                                                                             formString += "				</div>\r\n			</div>\r\n";
-                                                                            //resetto la position
-                                                                            position = 0;
                                                                         }
+                                                                        //resetto la position SEMPRE perchè se occupa tutta la riga si riparte alla riga dopo da sinistra
+                                                                        position = 0;
                                                                     }
                                                                     //-apro riga, apro colonna 12, disegno textarea, chiudo colonna, chiudo riga
 
                                                                     formString += "			<div class=\"row\">\r\n				<div class=\"col-md-12\">\r\n";
 
-                                                                    //altrimenti verifico che non sia richiesta l'unicitÃƒÂ  sulla riga------------end
+                                                                    //altrimenti verifico che non sia richiesta l'unicità sulla riga------------end
                                                                 }
                                                                 else
                                                                 {
                                                                     //altrimenti scrivo su due colonne: ---------------begin
-
-                                                                    //var sinistro = IsSinistro(position, isInverted, tab.Cols);
 
                                                                     if (tab.Cols == 2)
                                                                     {
@@ -2775,18 +2923,18 @@ END";
                                                                     ReplaceStringInLocalResourceFile(RegionMarker.LocalResource_labels, "fieldlabel" + classtag, valuetag, fi.Text.Replace("\"", "\\\"").Replace("\r", "").Replace("\n", "").Replace("'", "\\'"));
                                                                 }
 
-                                                                //se ÃƒÂ¨ una griglia affogata nella pagina la disegno ora
+                                                                //se è una griglia affogata nella pagina la disegno ora
                                                                 if (fi.Name.StartsWith("XX"))
                                                                 {
                                                                     formString += GetGrid(o, tab, fi, fields, subfields, allfields, fullPathMetaPageJS, string.IsNullOrWhiteSpace(fullPathTestParams) ? fullPathTest : fullPathTestParams,
-                                                                        false, childColumns, objects, HDSGen.extConn);
+                                                                        false, childColumns, objects, possibleTables, HDSGen.extConn);
                                                                 }
                                                                 else
                                                                 {
                                                                     //-disegno il campo :
-                                                                    //se ÃƒÂ¨ una chiave in genere, 
-                                                                    //ma non ÃƒÂ¨ la chiave dell'oggetto (quella specifica per la tabella, le chiavi derivate dagli ancestor invece, se visibili, vengono prese) 
-                                                                    //oppure ÃƒÂ¨ chiave dell'oggetto ma ÃƒÂ¨ una tabella di collegamento
+                                                                    //se è una chiave in genere, 
+                                                                    //ma non è la chiave dell'oggetto (quella specifica per la tabella, le chiavi derivate dagli ancestor invece, se visibili, vengono prese) 
+                                                                    //oppure è chiave dell'oggetto ma è una tabella di collegamento
                                                                     if (HaveKeyName(fi) && (!IsPrincipalKey(fi, o.Table) || isLinkingObj))
                                                                     {
 
@@ -2808,19 +2956,18 @@ END";
                                                                         {
                                                                             var ex = GetException(null, null, fi.Table, fi.Name);
 
-                                                                            var metadatoChild = ex != null ? ex.Item1 : GetTableById(fi.Name, allfields, connection);
+                                                                            var metadatoChild = ex != null ? ex.Item1 : GetTableById(fi.Name, allfields, possibleTables, connection);
 
                                                                             if (!string.IsNullOrEmpty(metadatoChild))
                                                                             {
-
                                                                                 var listtype = !string.IsNullOrEmpty(fi.Listtype) ? fi.Listtype : "default";
 
-                                                                                //scorro i campi e scelgo title, se no description, se no il campo testuale piÃƒÂ¹ piccolo ma >1 da indicare come:
+                                                                                //scorro i campi e scelgo title, se no description, se no il campo testuale più piccolo ma >1 da indicare come:
                                                                                 //1- campo testuale nelle tendine
                                                                                 //2- campo da considerare nelle viste nella ricerca per gli oggetti 
-                                                                                var txtField = GetTextFieldByTable(metadatoChild, allfields, connection, ex != null, (listtype != "default" ? listtype : null)).FirstOrDefault(); //il get missing non serve perchÃƒÂ© lo ha giÃƒÂ  fatto poco prima il GetTableById
+                                                                                var txtField = GetTextFieldByTable(metadatoChild, allfields, possibleTables, connection, ex != null, (listtype != "default" ? listtype : null)).FirstOrDefault(); //il get missing non serve perché lo ha già fatto poco prima il GetTableById
 
-                                                                                SetMetadatoChild(fields, fi, metadatoChild, ref allfields, connection);
+                                                                                SetMetadatoChild(fields, fi, metadatoChild, ref allfields, possibleTables, connection);
 
                                                                                 var metadatochildWithText = belongsToOtherTable(metadatoChild, txtField) ? fi.MetadatoExtendedChild : fi.MetadatoChild;
 
@@ -2829,12 +2976,12 @@ END";
                                                                                 if (IsDropdown(fi, metadatochildWithText))
                                                                                 {
 
-                                                                                    SetDropDownParams(fi, txtField, metadatochildWithText, fields, ref allfields, connection);
+                                                                                    SetDropDownParams(fi, txtField, metadatochildWithText, fields, ref allfields, possibleTables, connection);
 
                                                                                     var addMaster = true;
-                                                                                    if (IsAddictedDropdown(fi, ref allfields, connection))
+                                                                                    if (IsAddictedDropdown(fi, ref allfields, possibleTables, connection))
                                                                                     {
-                                                                                        //se utilizza come master una dropdowngrid oppure anche se ÃƒÂ¨ una dropdown ma ho una relazione personalizzata...
+                                                                                        //se utilizza come master una dropdowngrid oppure anche se è una dropdown ma ho una relazione personalizzata...
 
                                                                                         //ricavo il campo master della scheda (oggetto principale)
                                                                                         var masterField = fields.FirstOrDefault(ff =>
@@ -2846,7 +2993,7 @@ END";
                                                                                             if (!string.IsNullOrWhiteSpace(fi.AfterRowSelectPrefill) || !string.IsNullOrWhiteSpace(fi.AfterActivationPrefill))
                                                                                             {
                                                                                                 var slaveField = masterField;
-                                                                                                var slaveField2 = GetChildKeysbyMaster(fi.Master, GetFields(fi.MetadatoChild, fi.Listtype, ref allfields, connection), allfields, connection, !string.IsNullOrWhiteSpace(fi.AfterRowSelectPrefill));
+                                                                                                var slaveField2 = GetChildKeysbyMaster(fi.Master, GetFields(fi.MetadatoChild, fi.Listtype, ref allfields, possibleTables, connection), allfields, possibleTables, connection, !string.IsNullOrWhiteSpace(fi.AfterRowSelectPrefill));
                                                                                                 if (slaveField2.Count() == 2)
                                                                                                     slaveField = slaveField2[1];
                                                                                                 //...devo filtrare la dropdown detail quando scelgo il valore
@@ -2926,18 +3073,18 @@ END";
                                                                                     //	listtype, metadatochildWithText, txtField, fullPathMetaPageJS, fullPathTest, fullPathTestParams, connection);
 
                                                                                     isDropDownGridgrid = true;
-                                                                                    formString += WriteDropdowngrid(o, editListingTypes, tab, fi, fields, allfields, objects, nametag, metadatoChild,
+                                                                                    formString += WriteDropdowngrid(o, editListingTypes, tab, fi, fields, allfields, possibleTables, objects, nametag, metadatoChild,
                                                                                         listtype, metadatochildWithText, txtField, fullPathMetaPageJS, fullPathTest, fullPathTestParams, extendedObject, HDSGen.extConn);
 
                                                                                 }
 
 
-                                                                                //se c'ÃƒÂ¨ un campo "active" deve essere filtrato in fase di inserimento/editing
-                                                                                var extended = GetExtendedObject(metadatoChild, ref allfields, connection);
+                                                                                //se c'è un campo "active" deve essere filtrato in fase di inserimento/editing
+                                                                                var extended = GetExtendedObject(metadatoChild, ref allfields, possibleTables, connection);
                                                                                 var table = RemoveAlias(metadatochildWithText);
-                                                                                if (HaveActiveField(table, listtype, ref allfields, connection))
+                                                                                if (HaveActiveField(table, listtype, ref allfields, possibleTables, connection))
                                                                                 {
-                                                                                    var isView = HaveView(table, listtype, ref allfields, connection);
+                                                                                    var isView = HaveView(table, listtype, ref allfields, possibleTables, connection);
                                                                                     var dropDownViewName = table + listtype + "view";
 
                                                                                     var field = "active";
@@ -2970,7 +3117,7 @@ END";
                                                                                             trueKey = keyEx.Item2;
                                                                                         }
 
-                                                                                        //ÃƒÂ¨ gestito direttamente dal framework ovvero dal comboManager
+                                                                                        //è gestito direttamente dal framework ovvero dal comboManager
                                                                                         SetAfterlink(fullPathMetaPageJS, "appMeta.metaModel.insertFilter(this.getDataTable(\"" + (isView ? dropDownViewName : table) + "\"), this.q.eq('" + field + "', 'S" + (isView ? "i" : "") + "'));\r\n");
 
                                                                                         //NON USARE MAI filteredPreFillCombo IN beforeFill !!!!!!!!!
@@ -2998,35 +3145,35 @@ END";
                                                                                     //inserisco il filtro sulla tabella all'interno dell'afterlink
                                                                                     SetAfterlink(fullPathMetaPageJS, "this.state.DS.tables." + fi.MetadatoChild +
                                                                                         ".staticFilter(window.jsDataQuery." + fi.TableFilter + ");\r\n");
-                                                                                    //la inserirÃƒÂ² con tutte le colonne sul dataset per essere sicuro che ci siano le colonne su cui opera il filtro
+                                                                                    //la inserirò con tutte le colonne sul dataset per essere sicuro che ci siano le colonne su cui opera il filtro
                                                                                     fullTables.Add(fi.MetadatoChild);
                                                                                 }
 
-                                                                                //se ÃƒÂ¨ un id della tabella ma anche di un parent ...
+                                                                                //se è un id della tabella ma anche di un parent ...
                                                                                 if (fi.IsKey && !fi.Readonlyfield)
                                                                                 {
-                                                                                    //...verrebbe disabilitato quindi lo riabilito in fase di inserimento finchÃƒÂ¨ non ha figli
-                                                                                    SetAfterRowSelect(fullPathMetaPageJS, "$('#" + nametag + "').prop(\"disabled\", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow." + fi.Name + ");\r\n\t\t\t\t$('#" +
+                                                                                    //...verrebbe disabilitato quindi lo riabilito in fase di inserimento finchè non ha figli
+                                                                                    SetAfterRowSelect(fullPathMetaPageJS, "$('#" + nametag + "').prop(\"disabled\", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow?." + fi.Name + ");\r\n\t\t\t\t$('#" +
                                                                                         nametag + "').prop(\"readonly\", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow." + fi.Name + ");\r\n", null, o.Table, editListingTypes);
 
                                                                                     //...se dipende da un altro campo anche l'altro campo segue la stessa logica di abilitazione
                                                                                     if (!string.IsNullOrWhiteSpace(fi.Master))
                                                                                     {
                                                                                         var masterTable = fi.Master.Replace("defaultview", "");
-                                                                                        var masterkeys = GetPrincipalKey(masterTable, null, allfields, connection, true);
+                                                                                        var masterkeys = GetPrincipalKey(masterTable, null, allfields, possibleTables, connection, true);
                                                                                         var masterField = fields.Where(f => f.Name == masterkeys.Name && f.Detailvisible).FirstOrDefault();
                                                                                         if (masterField != null)
                                                                                         {
                                                                                             var masterNametag = masterField.Table + "_" + masterField.EditListingType + "_" + masterField.Name;
 
-                                                                                            SetAfterRowSelect(fullPathMetaPageJS, "$('#" + masterNametag + "').prop(\"disabled\", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow." + fi.Name + ");\r\n\t\t\t\t$('#" +
+                                                                                            SetAfterRowSelect(fullPathMetaPageJS, "$('#" + masterNametag + "').prop(\"disabled\", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow?." + fi.Name + ");\r\n\t\t\t\t$('#" +
                                                                                                 masterNametag + "').prop(\"readonly\", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow." + fi.Name + ");\r\n", null, o.Table, editListingTypes);
                                                                                         }
 
                                                                                     }
 
 
-                                                                                    //...blocco l'inserimento di subentitÃƒÂ  finchÃƒÂ¨ non l'ho selezionato
+                                                                                    //...blocco l'inserimento di subentità finchè non l'ho selezionato
                                                                                     SetInsertClick(fullPathMetaPageJS, "if (!$('#" + nametag + "').val() && this.children.includes(grid.dataSourceName)) {\r\n" +
                                                                                         "\t\t\t\t\treturn this.showMessageOk('Prima devi selezionare un valore per il campo " + fi.Title.Replace("'", "\\'") + "');\r\n" +
                                                                                         "\t\t\t\t}\r\n");
@@ -3034,7 +3181,7 @@ END";
                                                                                     //...aggiungo il codice per gestione dei figli (non bottone)
                                                                                     SetBottomCode(fullPathMetaPageJS, "children: ['" + string.Join("', '",
                                                                                         fields.Where(f => f.Name.StartsWith("XX") && f.RelationType != "button").OrderBy(f => f.Name).Select(f =>
-                                                                                        IsExtendingObject(f.Name.Substring(2), ref allfields, connection) ? f.MetadatoExtendedChild ?? f.Name.Substring(2).Split('_')[0] : f.MetadatoChild ?? f.Name.Substring(2)
+                                                                                        IsExtendingObject(f.Name.Substring(2), ref allfields, possibleTables, connection) ? f.MetadatoExtendedChild ?? f.Name.Substring(2).Split('_')[0] : f.MetadatoChild ?? f.Name.Substring(2)
                                                                                         )) + "'],\r\n" +
                                                                                         "			haveChildren: function () {\r\n" +
                                                                                         "				var self = this;\r\n" +
@@ -3046,7 +3193,7 @@ END";
                                                                                         "				});\r\n" +
                                                                                         "			}");
 
-                                                                                    //... se c'ÃƒÂ¨ un figlio 1 a 1 devo aggiungere la copia del valore anche nella sua chiave corrispondente
+                                                                                    //... se c'è un figlio 1 a 1 devo aggiungere la copia del valore anche nella sua chiave corrispondente
                                                                                     foreach (var child in fields.Where(f => f.Name.StartsWith("XX") && fi.RelationType == "unique"))
                                                                                     {
                                                                                         var tablechild = child.MetadatoChild ?? child.Name.Substring(2);
@@ -3055,7 +3202,7 @@ END";
                                                                                         "						this.state.DS.tables['" + tablechild + "'].rows[0]." + fi.Name + " = r." + fi.Name + ";\r\n", null, o.Table, editListingTypes);
                                                                                     }
 
-                                                                                    //... se c'ÃƒÂ¨ un estendente devo aggiungere la copia del valore anche nella sua chiave corrispondente
+                                                                                    //... se c'è un estendente devo aggiungere la copia del valore anche nella sua chiave corrispondente
                                                                                     if (isExtendedObjView)
                                                                                     {
                                                                                         var child = fields.Where(f => f.Table == o.Table && f.Name == fi.Name.Split('_')[0] && f.IsKey).FirstOrDefault();
@@ -3067,7 +3214,7 @@ END";
                                                                                     }
 
                                                                                     //NON PIU' NECESSARIO
-                                                                                    ////in generale devo aggiungere al meta che di default ÃƒÂ¨ 0 o "" (a seconda del tipo) e non null altrimenti il serializzatore sdoppia le righe
+                                                                                    ////in generale devo aggiungere al meta che di default è 0 o "" (a seconda del tipo) e non null altrimenti il serializzatore sdoppia le righe
 
                                                                                     //var getNewRowDefaultValue = string.Format("{0} : {1},\r\n\t\t\t\t\t//$getNewRowDefault$\r\n", fi.Name, !IsTextField(fi) ? "0" : "\"\"");
 
@@ -3078,7 +3225,7 @@ END";
                                                                             }
                                                                             else
                                                                             {
-                                                                                //il campo cominciava per id ma in realtÃƒÂ  non era l'indice di alcuna tabella, quindi lo tratto come un campo normale
+                                                                                //il campo cominciava per id ma in realtà non era l'indice di alcuna tabella, quindi lo tratto come un campo normale
                                                                                 //textbox
                                                                                 formString += "					<label class=\"col-form-label col-md-12\" for=\"" + nametag + "\">" + fi.Title + "</label>\r\n" +
                                                                                          "					<input id=\"" + nametag + "\" type=\"text\" class=\"form-control\" " + "data-tag=\"" + datatag + searchtag + (fi.Allownull ? "" : " data-mandatory ") + "/>\r\n";
@@ -3151,9 +3298,9 @@ END";
                                                                                 foreach (var r in v)
                                                                                     if (v.IndexOf(r) % 2 == 0)
                                                                                     {
-                                                                                        formString += "						<input id=\"" + nametag + r + "\" type=\"radio\" name=\"" + nametag + "\" class=\"custom-control-input\" " + "data-tag=\"" +
+                                                                                        formString += "						<div class=\"radio-option-wrapper\"><input id=\"" + nametag + r + "\" type=\"radio\" name=\"" + nametag + "\" class=\"custom-control-input\" " + "data-tag=\"" +
                                                                                             datatag + ":" + r + (searchtag == "\" " ? searchtag : searchtag.Replace("\" ", ":" + v[v.IndexOf(r) + 1] + "\" ")) + " " +
-                                                                                            (fi.Allownull ? "" : "data-mandatory ") + "><label for=\"" + nametag + r + "\"> " + v[v.IndexOf(r) + 1] + "</label>\r\n";
+                                                                                            (fi.Allownull ? "" : "data-mandatory ") + "><label for=\"" + nametag + r + "\"> " + v[v.IndexOf(r) + 1] + "</label></div>\r\n";
 
                                                                                         //...aggiungo l'etichetta per la label
                                                                                         var labelStringradio = "		" + (nametag.Contains("!") ? "\"" + nametag + r + "\"" : nametag + r) + ": \"" + v[v.IndexOf(r) + 1] + "\",\r\n";
@@ -3168,7 +3315,7 @@ END";
                                                                                             {
                                                                                                 testWritten = true;
                                                                                                 SetArrayInputTest(string.IsNullOrWhiteSpace(fullPathTestParams) ? fullPathTest : fullPathTestParams,
-                                                                                                    "{ tag: '" + datatag + ":" + r + (searchtag == "\" " ? "" : searchtag.Replace("\" data-subentity ", "").Replace("\" ", "") + ":" + v[v.IndexOf(r) + 1]) +
+                                                                                                    "{ tag: '" + datatag + ":" + r + (searchtag == "\" " ? "" : searchtag.Replace("\" data-subentity ", "").Replace("\" ", "") + ":" + v[v.IndexOf(r) + 1].Replace("'", "\'")) +
                                                                                                     "', value: true, type: controlTypeEnum.inputRadio" + getDefaultForArrayInputTest(fi) + " }", fi);
                                                                                             }
                                                                                         }
@@ -3330,7 +3477,7 @@ END";
                                                                     }
 
                                                                     //Abilitazione e disabilitazione condizionale del campo in base al master
-                                                                    var disablerFields = IsDisabledByOtherFild(fi, ref allfields, connection);
+                                                                    var disablerFields = IsDisabledByOtherFild(fi, ref allfields, possibleTables, connection);
                                                                     if (disablerFields.Any())
                                                                     {
                                                                         //se utilizza come master un campo vuol dire che si abilita/disabilita in base ad esso
@@ -3341,7 +3488,7 @@ END";
 
                                                                             fullTables.Add(masterField.Table);
 
-                                                                            var masterPrincipalKey = GetPrincipalKey(masterField.Table, masterField.EditListingType, allfields, connection);
+                                                                            var masterPrincipalKey = GetPrincipalKey(masterField.Table, masterField.EditListingType, allfields, possibleTables, connection);
                                                                             //...devo filtrare la dropdown detail quando scelgo il valore, o nelle pagine principali quando le apro
                                                                             SetAfterRowSelect(fullPathMetaPageJS, null,
                                                                                 "if (t.name === \"" + fi.Master + "\" && r !== null) {\r\n" +
@@ -3446,7 +3593,7 @@ END";
                                                     }
                                                 }
 
-                                                //se l'ultmo field del tab o pagina ÃƒÂ¨ sinistro o centrale devo chiudere l'ultima riga/colonna in quanto manca l'elemento destro che lo faceva
+                                                //se l'ultmo field del tab o pagina è sinistro o centrale devo chiudere l'ultima riga/colonna in quanto manca l'elemento destro che lo faceva
                                                 var sinistro2 = IsSinistro(position - 1, isInverted, tab.Cols);
 
                                                 if (tab.Cols == 2)
@@ -3478,13 +3625,13 @@ END";
                                             foreach (var b in relationFieldButton.Where(f => f.Tab == tab.Title))
                                             {
                                                 formString += " <button id=\"" + b.Name + "\" type=\"button\" class=\"btn btn-primary p-2 mt-2\" data-tag=\"manage." + b.Name.Substring(2) + "." + b.EditListingType + "\">\r\n        <i class=\"fa " + b.Icon + " mr-1\" ></i>" + b.Title + "\r\n    </button>\r\n";
-                                                //tolgo il field dai fields cosÃƒÂ¬ non verrÃƒÂ  creato il ramo relativo nel dataset
+                                                //tolgo il field dai fields così non verrà creato il ramo relativo nel dataset
                                                 fields.Remove(b);
                                                 //aggiungo le tabelle a quelle aggiuntive ma vuota
                                                 o.AdditionalTables.Add(b.MetadatoChild + "$V");
                                             }
 
-                                            //se ÃƒÂ¨ una pagina report
+                                            //se è una pagina report
                                             if (o.Report == "P" || o.Report == "B")
                                             {
                                                 formString += @"		<div class=""row"">
@@ -3543,7 +3690,7 @@ END";
                                         ReplaceStringInLocalResourceFile(RegionMarker.LocalResource_labels, "pagefooter", o.PageId, o.Footer.Replace("\"", "\\\"").Replace("\r", "").Replace("\r", "").Replace("'", "\\'"));
                                     }
 
-                                    //-----------------------parti di pagina javascript che devono trovarsi il metadatochild giÃƒÂ  calcolato ------------------------------------------------------------------
+                                    //-----------------------parti di pagina javascript che devono trovarsi il metadatochild già calcolato ------------------------------------------------------------------
 
 
                                     //------------------------------------eventi custom
@@ -3557,7 +3704,7 @@ END";
                                             if ((evento.EventType == "change" || evento.EventType == "select2:select")
                                                 && HaveKeyName(evento) && (!IsPrincipalKey(evento, o.Table) || isLinkingObj) && !evento.Name.StartsWith("idattach"))
                                             {
-                                                //se ÃƒÂ¨ un evento di cambiamento ed ÃƒÂ¨ una dorpdown o ÃƒÂ¨ una dorpdowngrid
+                                                //se è un evento di cambiamento ed è una dorpdown o è una dorpdowngrid
 
                                                 var callEvent = @"if (t.name === """ + evento.MetadatoChild + @""" && r !== null) {
 					return this.manage" + evento.Name + @"(this).then(function () {
@@ -3613,7 +3760,7 @@ END";
                                                     "						return null;\r\n" +
                                                     "				});\r\n" +
                                                     "				if (masterRow)\r\n" +
-                                                    "					this.state." + currentRow + "." + fi.Name + " = masterRow." + fi.Name + ";\r\n" +
+                                                    "					this.state." + currentRow + "." + fi.Name + " = masterRow." + fi.Name.Split('_')[0] + ";\r\n" +
                                                     "				return def.resolve();\r\n" +
                                                     "			}");
                                             }
@@ -3633,7 +3780,7 @@ END";
                                             foreach (var col in childColumns.Where(c => c.ControlName == ctrl))
                                             {
                                                 childColString += "\t\t\t\t\t{ tablename: '" + col.Tablechild + "', edittype: '" + col.EdittypeChild + "', columnlookup: '" + col.Columnlookup + "', columncalc: '" + col.Columncalc + "'},\r\n";
-                                                SetFilterOnMetaPageJS(col.Nephew, fullPathMetaPageJS, o.Table, col.Tablename, editListingTypes, ref allfields, nephews, connection, false);
+                                                SetFilterOnMetaPageJS(col.Nephew, fullPathMetaPageJS, o.Table, col.Tablename, editListingTypes, ref allfields, possibleTables, nephews, connection, false);
                                             }
                                             childColString += "\t\t\t\t];\r\n";
                                             childColString += "\t\t\t\t$('#" + ctrl + "').data('childtables', " + ctrl + "ChildsTables);\r\n";
@@ -3666,7 +3813,7 @@ END";
                                             Copy(fullpathDatasetMetaData + ".Designer.cs", fullpathDatasetMetapage + ".cs", true);
 
                                         //ci metto il metadato principale o estendente
-                                        var dsMetadatoAndKey = GetDatasetTable(currentTable, null, false, allfields, connection, editListingTypes, fullPathMetaPageJS);
+                                        var dsMetadatoAndKey = GetDatasetTable(currentTable, null, false, allfields, possibleTables, connection, editListingTypes, fullPathMetaPageJS);
                                         var datasetMetadato = "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n";
                                         datasetMetadato += dsMetadatoAndKey.Split(';')[0];
                                         datasetMetadato += "      </xs:choice>";
@@ -3685,10 +3832,10 @@ END";
                                         if (!string.IsNullOrEmpty(extendingObject))
                                         {
                                             //--se stiamo lavorando con un oggetto esteso, devo inserire la loro relazione e l'estendente
-                                            var extendingKeys = GetChildKeysString(extendedObject, o.Table, editListingTypes, o.EditListingType, extendedObjectKey, allfields, connection);
+                                            var extendingKeys = GetChildKeysString(extendedObject, o.Table, editListingTypes, o.EditListingType, extendedObjectKey, allfields, possibleTables, connection);
 
                                             PreparePageDataset(fullpathDatasetMetapage + ".xsd", extendedObject, currentTable, String.Join(" ", extendedObjectKey), extendingKeys, current, false,
-                                                datasetfields, allfields, o.EditListingType, editListingTypes, null, connection, false, 1, "", new List<string>(), fullPathMetaPageJS, 1, childColumns, null, true, null);
+                                                datasetfields, allfields, o.EditListingType, editListingTypes, null, possibleTables, connection, false, 1, "", new List<string>(), fullPathMetaPageJS, 1, childColumns, null, true, null);
                                         }
 
                                         //se si tratta di una pagina ad albero devo inserire l'auto relazione sula tabella principale
@@ -3702,7 +3849,7 @@ END";
                                             SetRelationInDataset(fullpathDatasetMetapage + ".xsd", datasetRelation);
                                         }
 
-                                        //preparo una lista di tabelle che non vanno minificate PerchÃƒÂ© fanno parte di filtri o calcoli per campi calcolati
+                                        //preparo una lista di tabelle che non vanno minificate Perché fanno parte di filtri o calcoli per campi calcolati
                                         if (o.Createmetapage)
                                         {
                                             var fileText = TextFile.ReadAllTextFile(fullPathMetaPageJS);
@@ -3722,9 +3869,9 @@ END";
                                         }
 
                                         //ciclo tra i campi visibili (o invisibili ma che servono a calcolare un campo calcolato) e le relazioni dell'oggetto principale  
-                                        //o del suo esteso, perchÃƒÂ¨ potrebbero esserci campi aggiunti di subentitÃƒÂ  affogate nella pagina
+                                        //o del suo esteso, perchè potrebbero esserci campi aggiunti di subentità affogate nella pagina
                                         //l'ordinamento fa in modo che l'ordine delle eventuali assegnazioni degli alias resti lo stesso in generazioni successive
-                                        foreach (var fi in fields.Where(f => (f.Detailvisible || fullTables.Any(ft => IsPrincipalKey(f, ft)))
+                                        foreach (var fi in fields.Where(f => ((!f.Hidden && f.Detailvisible) || fullTables.Any(ft => IsPrincipalKey(f, ft)))
                                                                     && (f.Table == o.Table || f.Table == extendedObject))
                                                                     .OrderBy(f => f.Sort).ThenBy(f => f.Name))
                                         {
@@ -3733,7 +3880,7 @@ END";
                                                 (!IsPrincipalKey(fi, o.Table) || isLinkingObj || fi.IsLinkingObj)
                                                 && (HaveKeyName(fi) || fi.Name.StartsWith("XX")))
                                             {
-                                                //se ÃƒÂ¨ un campo della tabella corrente considero che potrebbe avere giÃƒÂ  un alias
+                                                //se è un campo della tabella corrente considero che potrebbe avere già un alias
                                                 var tableParent = fi.Table == o.Table ? currentTable : fi.Table;
                                                 var editListingTypesParent = fi.Table == o.Table ? o.EditListingType : editListingTypes;
                                                 var tablechild = "";
@@ -3741,18 +3888,20 @@ END";
                                                 var childkey = "";
                                                 var minimal = false;
                                                 var pageid = "";
-                                                var editListTypeField = GetEditTypeById(fi, allfields, connection);
+                                                var editListTypeField = GetEditTypeById(fi, allfields, possibleTables, connection);
                                                 var extendedTableChild = "";
                                                 var iteration = 1;
                                                 int? sortList = null;
                                                 var skipLookup = false;
                                                 string master = "";
+                                                string staticFilter = "";
+                                                string staticFilterParent = "";
 
-                                                //se ÃƒÂ¨ un dropdown con master e non ha relazione personalizzata ...
+                                                //se è un dropdown con master e non ha relazione personalizzata ...
                                                 if (!string.IsNullOrWhiteSpace(fi.Master) && string.IsNullOrWhiteSpace(fi.AfterRowSelectPrefill) && IsDropdown(fi))
                                                 {
 
-                                                    ////...e il master ÃƒÂ¨ un dropdown...
+                                                    ////...e il master è un dropdown...
                                                     //var cm = fields.Where(ff => ff.MetadatoChild == fi.Master).FirstOrDefault();
                                                     //if (cm != null && IsDropdown(cm))
 
@@ -3763,22 +3912,23 @@ END";
                                                 //nel caso si tratta di un id vero e proprio
                                                 if (HaveKeyName(fi))
                                                 {
-                                                    //se ÃƒÂ¨ un oggetto aggiunto perchÃƒÂ¨ utile nei calcoli non ha il metadatochild 
+                                                    //se è un oggetto aggiunto perchè utile nei calcoli non ha il metadatochild 
                                                     if (!fi.Detailvisible && fi.MetadatoChild == null)
                                                     {
-                                                        SetMetadatoChild(fields, fi, GetTableById(fi.Name, allfields, connection), ref allfields, connection);
+                                                        SetMetadatoChild(fields, fi, GetTableById(fi.Name, allfields, possibleTables, connection), ref allfields, possibleTables, connection);
                                                     }
 
-                                                    tablechild = fi.MetadatoChild ?? GetTableById(fi.Name, allfields, connection);
+                                                    tablechild = fi.MetadatoChild ?? GetTableById(fi.Name, allfields, possibleTables, connection);
 
-                                                    if (IsView(tablechild, allfields))
+                                                    //controllo se è una vista ma declasso a warning l'errore perchè se è un falso id tablechild risulta tringa vuota ma è normale
+                                                    if (IsView(tablechild, allfields, false))
                                                         skipLookup = true;
 
                                                     key = fi.Name; //potrebbe avere suffissi o prefissi
                                                     childkey = GetIdByForeignKey(fi);
                                                     if (childkey.Split(' ').Count() > 1)
                                                     {
-                                                        //l'oggetto puntato dalla chiave ha una chiave multipla quindi l'oggetto corrente deve avere una foreign key da piÃƒÂ¹ colonne
+                                                        //l'oggetto puntato dalla chiave ha una chiave multipla quindi l'oggetto corrente deve avere una foreign key da più colonne
                                                         key = string.Join(" ", fields.Where(af => childkey.Split(' ').Any(ck => ck == af.Name.Split('_')[0]) ||
                                                                                         (af.Name.Contains("_") && childkey.Split(' ').Any(ck => ck == af.Name.Split('_')[1]))
                                                                                     ).Select(k => k.Name));
@@ -3788,12 +3938,12 @@ END";
                                                     sortList = fi.SortList;
                                                 }
 
-                                                //se ÃƒÂ¨ una tabella figlia prendo come chiave quella dell'oggetto
+                                                //se è una tabella figlia prendo come chiave quella dell'oggetto
                                                 var childs = new List<field>();
                                                 if (fi.Name.StartsWith("XX"))
                                                 {
                                                     tablechild = fi.MetadatoChild ?? fi.Name.Substring(2);
-                                                    GetMissingFields(tablechild, null, ref allfields, connection);
+                                                    GetMissingFields(tablechild, null, ref allfields, possibleTables, connection);
 
                                                     //verifico prima che non siano espressamente indicate le chiavi della relazione
                                                     var rel = GetPersonalizedRelation(fi.IdAppRelation, connection);
@@ -3801,14 +3951,21 @@ END";
                                                     {
                                                         key = rel.Split(';')[1].Trim();
                                                         childkey = rel.Split(';')[0].Trim();
+
+                                                        //controllo a questo punto se la relazione sia possibile solo e unicamente con l'estendente quindi
+                                                        //se tra le chiavi della relazione perrsonalizzzata ce n'è almeno una che non è contenuta nei campi dell'oggetto esteso (fi.table) ...
+                                                        if (key.Split(' ').Any(k => !GetTextFieldByTable(fi.Table, allfields, possibleTables, connection).Select(f => f.Name).Contains(k))) {
+                                                            //... allora lo relaziono con l'estendente
+                                                            tableParent = o.Table;
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        //key e childkey per le relazioni tra subentitÃƒÂ , sono sempre tutte le chiavi del padre
+                                                        //key e childkey per le relazioni tra subentità, sono sempre tutte le chiavi del padre
                                                         key = string.Join(" ", (isExtendedObjView ? extendedObjectKey : objectKey).OrderBy(k => k));
                                                         childkey = string.Join(" ", fi.LookupFor.Split(' ').OrderBy(k => k));
                                                         if (string.IsNullOrWhiteSpace(childkey) || childkey.Split(' ').Any(k => k.StartsWith("parid")))
-                                                            childkey = GetChildKeysString(fi.Table, tablechild, editListingTypesParent, fi.EditListingType, key.Split(' ').ToList(), allfields, connection);
+                                                            childkey = GetChildKeysString(fi.Table, tablechild, editListingTypesParent, fi.EditListingType, key.Split(' ').ToList(), allfields, possibleTables, connection);
                                                     }
 
                                                     if (fi.RelationType == "unique" || fi.RelationType == "checkbox")
@@ -3819,15 +3976,24 @@ END";
                                                     pageid = fi.PageId;
                                                     extendedTableChild = fi.MetadatoExtendedChild;
 
-                                                    // se ÃƒÂ¨ una vista verifico che non ho specificato figli da visualizzare in colonne nipoti ad esempio, 
-                                                    //perchÃƒÂ¨ altrimenti la inserirei come un vocabolario e basta senza visualizzarli
+                                                    // se è una vista verifico che non ho specificato figli da visualizzare in colonne nipoti ad esempio, 
+                                                    //perchè altrimenti la inserirei come un vocabolario e basta senza visualizzarli
                                                     if (fi.IsView)
-                                                        childs = GetChildentitiesFields(pageid, extendedTableChild, allfields, connection);
+                                                        childs = GetChildentitiesFields(pageid, extendedTableChild, allfields, possibleTables, connection);
+
+                                                    //se il metadato figlio ha un filtro statico non sarà usato come al solito per filtrare una vista dei risultati di ricerca ma sarà inettato direttamente nel dataset in quanto figlio
+                                                    staticFilter = fi.Staticfilter;
+
+                                                    if(!string.IsNullOrEmpty(extendedTableChild) )
+                                                    //controllo che lo staticFilter sia applicabile anche all'oggetto esteso
+                                                    if(CheckStaticFilterForTable(extendedTableChild, staticFilter, allfields))
+                                                        staticFilterParent = staticFilter;
+
 
                                                 }
 
                                                 if (!string.IsNullOrEmpty(tablechild) && !string.IsNullOrEmpty(key) &&
-                                                    tablechild != extendedObject) //evito i riferimenti circolari quando, scandendo l'extending, trovo la chiave, che ÃƒÂ¨ come quella dell'extended, 
+                                                    tablechild != extendedObject) //evito i riferimenti circolari quando, scandendo l'extending, trovo la chiave, che è come quella dell'extended, 
                                                                                   //che viene scambiato come figlio
                                                 {
                                                     //se sto costruendo una subpage su una vista come fosse una vera e propria tabella devo avvisare il framework di non salvarla/modificarla/eliminarla
@@ -3840,18 +4006,18 @@ END";
                                                     if (fi.IsView && !childs.Any())
                                                     {
                                                         //sempre minimal = false: la vogliamo intera, 
-                                                        //relazione invertita (altrimenti come subentitÃƒÂ , non essendo nel dataset principale non si riempirebbe nelle subpage)
+                                                        //relazione invertita (altrimenti come subentità, non essendo nel dataset principale non si riempirebbe nelle subpage)
                                                         //PageId = null: non hanno mai sottopagine
                                                         //skiplookup = true: non cerchiamo mai i lookup per le viste
                                                         PreparePageDataset(fullpathDatasetMetapage + ".xsd", tablechild, tableParent, childkey, key, o.Table, false, datasetfields, allfields,
-                                                         editListingTypesParent, editListTypeField, null, connection, fi.IsLinkingObj, iteration, extendedTableChild, fullTables, fullPathMetaPageJS,
-                                                        sortList, childColumns, master, true, fi.Title);
+                                                         editListingTypesParent, editListTypeField, null, possibleTables, connection, fi.IsLinkingObj, iteration, extendedTableChild, fullTables, fullPathMetaPageJS,
+                                                        sortList, childColumns, master, true, fi.Title, staticFilter, staticFilterParent);
                                                     }
                                                     else
                                                     {
                                                         PreparePageDataset(fullpathDatasetMetapage + ".xsd", tableParent, tablechild, key, childkey, o.Table, minimal, datasetfields, allfields,
-                                                            editListTypeField, editListingTypesParent, pageid, connection, fi.IsLinkingObj, iteration, extendedTableChild, fullTables, fullPathMetaPageJS,
-                                                            sortList, childColumns, master, skipLookup, fi.Title);
+                                                            editListTypeField, editListingTypesParent, pageid, possibleTables, connection, fi.IsLinkingObj, iteration, extendedTableChild, fullTables, fullPathMetaPageJS,
+                                                            sortList, childColumns, master, skipLookup, fi.Title, staticFilter, staticFilterParent);
                                                     }
                                                 }
                                             }
@@ -3880,7 +4046,7 @@ END";
                                         //		cmd_r.ExecuteNonQuery();
                                         //	} catch (Exception e) {
                                         //		if (verbose)
-                                        //			Console.WriteLine("INFO: La vista di riepilogo esisteva giÃƒÂ  " + e.Message);
+                                        //			Console.WriteLine("INFO: La vista di riepilogo esisteva già " + e.Message);
                                         //		var alterView = view_riepilogo.Replace("CREATE VIEW","ALTER VIEW");
                                         //		cmd_r = new SqlCommand(alterView, connection);
                                         //		try {
@@ -3920,10 +4086,10 @@ END";
                                             var datasetFile = TextFile.ReadAllTextFile(fullpathDatasetMetapage + ".xsd");
                                             foreach (var tt in o.AdditionalTables.Distinct())
                                             {
-                                                var t = tt.Split('$')[0];
+                                                var t = tt.Split('$')[0].ToLower();
                                                 if (!datasetFile.Contains("<xs:element name=\"" + t + "\""))
                                                 {
-                                                    GetMissingFields(t, null, ref allfields, connection);
+                                                    GetMissingFields(t, null, ref allfields, possibleTables, connection);
                                                     //se ho caricato una vista allora forzo tutti gli id come chiavi 
                                                     if (!allfields.Where(af => af.Table == t).Any(fi => fi.IsKey))
                                                     {
@@ -3933,7 +4099,7 @@ END";
                                                                 f.IsKey = true;
                                                         }
                                                     }
-                                                    var tstring = GetDatasetTable(t, null, false, allfields, connection, "", fullPathMetaPageJS);
+                                                    var tstring = GetDatasetTable(t, null, false, allfields, possibleTables, connection, "", fullPathMetaPageJS);
                                                     if (!string.IsNullOrEmpty(tstring))
                                                     {
                                                         //la aggiungo al dataset
@@ -3946,12 +4112,12 @@ END";
                                                         if (toFill)
                                                         {
                                                             //faccio in modo che la pagina la riempia
-                                                            SetAfterlink(fullPathMetaPageJS, "//indico al framework che la tabella " + t + " ÃƒÂ¨ cached\r\n" +
+                                                            SetAfterlink(fullPathMetaPageJS, "//indico al framework che la tabella " + t + " è cached\r\n" +
                                                                 "\t\t\t\tvar " + t + "Table = this.getDataTable(\"" + t + "\");\r\n" +
                                                                 "\t\t\t\tappMeta.metaModel.cachedTable(" + t + "Table, true);\r\n");
                                                             SetAfterlinkAsinc(fullPathMetaPageJS, "appMeta.getData.runSelectIntoTable(" + t + "Table, null, null)");
                                                         }
-                                                        //se ÃƒÂ¨ una vista dico alla pagina di non salvarla
+                                                        //se è una vista dico alla pagina di non salvarla
                                                         if (allfields.Where(af => af.Table == t).Any(fi => fi.IsView))
                                                             SetBeforePost(fullPathMetaPageJS, "this.getDataTable('" + t + "').acceptChanges();\r\n");
 
@@ -3980,7 +4146,7 @@ END";
                         else
                         {
                             ConsoleWriter.WarningDB("Non genero l'interfaccia per la tabella " + o.Table + " con l'edit type " + o.EditListingType +
-                                " perchÃƒÂ¨ esiste l'oggetto " + o.Table + "_" + o.EditListingType + " che lo estende");
+                                " perchè esiste l'oggetto " + o.Table + "_" + o.EditListingType + " che lo estende");
                         }
                     }
                     else
@@ -4012,9 +4178,13 @@ END";
                 buildboundle.Start();
                 buildboundle.WaitForExit();
 
+                var datePart = DateTime.Now.ToString("yyyy_M_d", CultureInfo.InvariantCulture);
+
                 ReplaceRegExInFile(clientFolder + "index.html",
                     "mdlw_bundle_" + currentApp + @"_(.*?).js",
-                    "mdlw_bundle_" + currentApp + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + ".js");
+                    //"mdlw_bundle_" + currentApp + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + ".js"
+                    $"mdlw_bundle_{currentApp}_{datePart}.js"
+                    );
 
                 Console.WriteLine("Aggiorno la versione dei meta e le cartelle per il live update");
 
@@ -4112,7 +4282,7 @@ END";
                 if (File.Exists(fileVocdbo))
                     fileContainer.Add(fileVocdbo);
 
-                //aggiungo la tabella alla cache di quelle giÃƒÂ  elaborate
+                //aggiungo la tabella alla cache di quelle già elaborate
                 scriptAlreadyCreated.Add(tableName);
 
                 //bool isDbo = (GetSchemaByTable(tableName, allfields, connection) == "dbo");
@@ -4129,7 +4299,7 @@ END";
                 string Server = dbipport;
                 string Database = dbipportname;
                 string User = "assistenza";
-                string Password = "123***********";
+                string Password = "YOUR_SECRET";
                 string DIPARTIMENTO = dipartimento;
                 int Esercizio = DateTime.Now.Year;
                 DateTime DataContabile = DateTime.Now; // TODO deve essere passata dal client
@@ -4142,7 +4312,7 @@ END";
                 Server,
                 Database,
                 DIPARTIMENTO,
-                "**********",
+                "YOUR_PASSWORD",
                 User,
                 Password,
                 Esercizio,
@@ -4209,7 +4379,7 @@ END";
                 if (dbo == "dbo")
                     isDbo = true;
 
-                //scrivo il file con la sola struttura (puÃƒÂ² essere dbo o non dbo)
+                //scrivo il file con la sola struttura (può essere dbo o non dbo)
                 StreamWriter writerDBO = new StreamWriter(isDbo ? fileDbo : fileNdbo, false, System.Text.Encoding.Default);
                 GeneraSQL.GeneraStrutturaPura(isDbo, Conn, t, writerDBO, IsTable);
                 if (isVoc)
@@ -4284,13 +4454,13 @@ END";
 
         #region generazione dei javascript
 
-        private static void SetFilterOnMetaPageJS(field filteredrel, string fullPathMetaPageJS, string tableMetaPageJS, string parentTable, string listType, ref List<field> allfields, List<field> fields, SqlConnection connection, bool setOnGridControl = true)
+        private static void SetFilterOnMetaPageJS(field filteredrel, string fullPathMetaPageJS, string tableMetaPageJS, string parentTable, string listType, ref List<field> allfields, List<obj> possibleTables, List<field> fields, SqlConnection connection, bool setOnGridControl = true)
         {
             var filteredobj = filteredrel.MetadatoChild ?? filteredrel.Name.Substring(2);
             var filteredListType = filteredrel.Listtype;
             var filteredFields = allfields.Where(af => af.Table == filteredrel.Name.Substring(2) && af.EditListingType == filteredListType
                                              && !string.IsNullOrEmpty(af.FilterJs)).ToList();
-            if (IsExtendingObject(filteredrel.Name.Substring(2), ref allfields, connection))
+            if (IsExtendingObject(filteredrel.Name.Substring(2), ref allfields, possibleTables, connection))
             {
 
                 var extending = filteredrel.Name.Substring(2);
@@ -4336,13 +4506,13 @@ END";
             }
         }
 
-        private static string GetFullPathMetaDatoJS(string metadato, List<field> allfields, SqlConnection connection)
+        private static string GetFullPathMetaDatoJS(string metadato, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             var currentObject = metadato.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
             var container = currentObject;
-            var isExtendingObject = IsExtendingObject(metadato, ref allfields, connection);
+            var isExtendingObject = IsExtendingObject(metadato, ref allfields, possibleTables, connection);
             if (isExtendingObject)
-                container = GetExtendedObject(metadato, ref allfields, connection, false);
+                container = GetExtendedObject(metadato, ref allfields, possibleTables, connection, false);
             return clientFolder + metapageFolder + container + "/meta_" + currentObject + ".js";
         }
 
@@ -4433,7 +4603,7 @@ END";
                     //proviamo con il tag qualora fosse la prima volta che il meta.js viene scritto
                     var txtdelfile = ReplaceStringInFile(path, "//$getNewRow$", getnewrow);
 
-                    //proviamo a sotituire la eventuale getNewRow giÃƒÂ  implementata in precedenza
+                    //proviamo a sotituire la eventuale getNewRow già implementata in precedenza
                     //NOTA BENE se non avvenisse la sostituzione in modo corretto verificare che dopo }, ci sia subito un accapo
                     var oldGetnewrow = Regex.Matches(txtdelfile, @"getNewRow: function(.*?)\}\,\r\n", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value.Trim()).Distinct().ToList();
                     if (oldGetnewrow.Count() > 0)
@@ -4451,7 +4621,7 @@ END";
         private static void SetDescribeColumnsOnJS(string fullPathMetaDatoJS, string editListingType, List<string> describeAColumns, bool overwrite = false)
         {
             //aggiungo il describecolumns js:
-            //prima la singola colonna se giÃƒÂ  esiste l'edit type nella switch
+            //prima la singola colonna se già esiste l'edit type nella switch
             string stringfilefullPathMetaDatoJS = TextFile.ReadAllTextFile(fullPathMetaDatoJS);
             var caseExist = false;
             var superclassAlreadyReplaced = false;
@@ -4459,13 +4629,13 @@ END";
             {
                 if (stringfilefullPathMetaDatoJS.Contains("//$objCalcFieldConfig_" + editListingType + "$") || caseExist)
                 {
-                    //esiste giÃƒÂ  il contenitore...
+                    //esiste già il contenitore...
 
-                    //... se stavo aggiungendo nuovamente la chiamata alla superclasse non lo faccio perchÃƒÂ¨ giÃƒÂ  ci sono i describecolumns propri ...
+                    //... se stavo aggiungendo nuovamente la chiamata alla superclasse non lo faccio perchè già ci sono i describecolumns propri ...
                     if (!describeAColumn.Contains("return this.superClass.describeColumns(table, listType);"))
                     {
 
-                        //...altrimenti occorre verificare se c'ÃƒÂ¨ giÃƒÂ  il contenuto
+                        //...altrimenti occorre verificare se c'è già il contenuto
                         var KeyPattern = "case '" + editListingType + "':(.*?)objCalcFieldConfig_" + editListingType;
                         var calculatedfields = Regex.Matches(stringfilefullPathMetaDatoJS, KeyPattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList()
                                         .FirstOrDefault();
@@ -4483,7 +4653,7 @@ END";
                                 {
                                     if (calculatedfields.Contains("return this.superClass.describeColumns(table, listType);") && !superclassAlreadyReplaced)
                                     {
-                                        //se ÃƒÂ¨ il primo potrei aver giÃƒÂ  messo la chiamata alla superclasse
+                                        //se è il primo potrei aver già messo la chiamata alla superclasse
                                         ReplaceStringInFile(fullPathMetaDatoJS,
                                         "\t\t\t\t\t\treturn this.superClass.describeColumns(table, listType);\r\n//$objCalcFieldConfig_" + editListingType + "$", describeAColumn + "//$objCalcFieldConfig_" + editListingType + "$"
                                             , true);
@@ -4537,7 +4707,7 @@ END";
         private static void SetCaptionOnJS(string fullPathMetaDatoJS, string editListingType, List<string> setCaptions)
         {
             //aggiungo il setcaption :
-            //prima la singola colonna se giÃƒÂ  esiste l'edit type nella switch
+            //prima la singola colonna se già esiste l'edit type nella switch
             string stringfilefullPathMetaDatoJS = TextFile.ReadAllTextFile(fullPathMetaDatoJS);
 
             //in prima battuta lo svuto
@@ -4559,7 +4729,7 @@ END";
             {
                 if (stringfilefullPathMetaDatoJS.Contains("//$innerSetCaptionConfig_" + editListingType + "$") || caseExist)
                 {
-                    //esiste giÃƒÂ  il contenitore, occorre verificare se c'ÃƒÂ¨ giÃƒÂ  il contenuto
+                    //esiste già il contenitore, occorre verificare se c'è già il contenuto
                     //var KeyPattern = "case '" + editListingType + "':(.*?)innerSetCaptionConfig_" + editListingType;
                     calculatedfields = Regex.Matches(stringfilefullPathMetaDatoJS, KeyPattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList()
                                     .FirstOrDefault();
@@ -4567,7 +4737,7 @@ END";
                         if (!calculatedfields.Contains(setCaption))
                             ReplaceStringInFile(fullPathMetaDatoJS,
                             "//$innerSetCaptionConfig_" + editListingType + "$", setCaption + "//$innerSetCaptionConfig_" + editListingType + "$"
-                            , true);//potrei averlo giÃƒÂ  messo per un altro edittype
+                            , true);//potrei averlo già messo per un altro edittype
                 }
                 else
                 {
@@ -4646,6 +4816,23 @@ END";
                 "\t\t\t},\r\n");
             //poi i comandi
             ReplaceStringInFile(fullPathMetaPageJS, "//innerBeforePost\r\n", commands + "\t\t\t\t//innerBeforePost\r\n");
+        }
+
+        /// <summary>
+        /// Metodo che aggiunge un comando alla afterlink
+        /// </summary>
+        /// <param name="fullPathMetaPageJS"></param>
+        /// <param name="commands"></param>
+        private static void SetAfterPost(string fullPathMetaPageJS, string commands)
+        {
+            //aggiungo tutto l'evento se manca
+            ReplaceStringInFile(fullPathMetaPageJS, "//afterPost\r\n",
+                "afterPost: function () {\r\n" +
+                "\t\t\t\tvar self = this;\r\n" +
+                "\t\t\t\t//innerAfterPost\r\n" +
+                "\t\t\t},\r\n");
+            //poi i comandi
+            ReplaceStringInFile(fullPathMetaPageJS, "//innerAfterPost\r\n", commands + "\t\t\t\t//innerAfterPost\r\n");
         }
 
         /// <summary>
@@ -4762,7 +4949,7 @@ END";
 
         private static void SetRowSelected(string fullPathMetaPageJS, string commands)
         {
-            //se ÃƒÂ¨ il primo bottone di pagina aggiungo tutto il rowSelected event ...
+            //se è il primo bottone di pagina aggiungo tutto il rowSelected event ...
             ReplaceStringInFile(fullPathMetaPageJS, "//pageHeaderDeclaration\r\n", "this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);\r\n" +
                 "\t\t//pageHeaderDeclaration\r\n");
             ReplaceStringInFile(fullPathMetaPageJS, "//rowSelected",
@@ -4776,7 +4963,7 @@ END";
 
         private static void SetButtonClickEnd(string fullPathMetaPageJS, string commands, bool isRel = false)
         {
-            //se ÃƒÂ¨ il primo bottone di pagina aggiungo tutto il buttonClickEnd event ...
+            //se è il primo bottone di pagina aggiungo tutto il buttonClickEnd event ...
             ReplaceStringInFile(fullPathMetaPageJS, "//pageHeaderDeclaration\r\n", "appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);\r\n" +
                 "\t\t//pageHeaderDeclaration\r\n");
             ReplaceStringInFile(fullPathMetaPageJS, "//buttonClickEnd", "buttonClickEnd: function (currMetaPage, cmd) {\r\n" +
@@ -4974,7 +5161,7 @@ END";
             var parentPageIdList = GetParentPagesId(page, connection);
 
             //se non ha pagina parent la aggiungo alla lista delle pagine principali
-            if (!parentPageIdList.Any())
+            if (!parentPageIdList.Any() && !(rootChildList.Any(item => item == page)))
                 rootChildList.Add(page);
 
             //per tutte le pagine parent ripeto quanto fatto per la pagina corrente (per la coerenza dei dataset)
@@ -4992,12 +5179,12 @@ END";
         /// <returns></returns>
         private static List<string> GetNewPageList(List<string> oldPageList, SqlConnection connection)
         {
-            //per ogni pagina da rigenerare perchÃƒÂ¨ modificata
+            //per ogni pagina da rigenerare perchè modificata
             foreach (var oldPage in oldPageList)
             {
                 //ricavo ricorsivamente una lista intermedia contenente: 
-                //tutte le pagine parent fino alla pagina principale perchÃƒÂ¨ tutti i dataset devono essere coerenti
-                ////tutte le pagine figlie perchÃƒÂ¨ distruggo e ricreo i describe columns al primo passaggio sul metadato 
+                //tutte le pagine parent fino alla pagina principale perchè tutti i dataset devono essere coerenti
+                ////tutte le pagine figlie perchè distruggo e ricreo i describe columns al primo passaggio sul metadato 
                 GetMiddleList(oldPage, connection);
 
                 //devo aggiungere anche i figli
@@ -5022,7 +5209,7 @@ END";
                 i++;
             }
 
-            //inverto l'ordine perchÃƒÂ¨ devo rigenerare prima le foglie
+            //inverto l'ordine perchè devo rigenerare prima le foglie
             newList.Reverse();
 
             return newList;
@@ -5073,7 +5260,7 @@ END";
             //quindi per ora lasciamo gli static filter solo su c# e quando il FW sara totalmente javascript andranno riscritti tutti
 
             //aggiungo il describecolumns js:
-            //prima la singola colonna se giÃƒÂ  esiste l'edit type nella switch
+            //prima la singola colonna se già esiste l'edit type nella switch
             string stringfilefullPathMetaDato = TextFile.ReadAllTextFile(fullPathMetaDatoJS);
             if (!stringfilefullPathMetaDato.Contains("getStaticFilter: function (listType)"))
             {
@@ -5231,12 +5418,12 @@ END";
         /// <param name="tablekey">chiave</param>
         /// <param name="allfields">campi da popolare</param>
         /// <param name="connection">connessione</param>
-        private static void GetMissingFields(string tablename, string tablekey, ref List<field> allfields, SqlConnection connection, bool showmessage = true)
+        private static void GetMissingFields(string tablename, string tablekey, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool showmessage = true)
         {
             if (!string.IsNullOrEmpty(tablename))
             {
                 tablename = RemoveAlias(tablename);
-                //se giÃƒÂ  c'ÃƒÂ¨ non faccio nulla
+                //se già c'è non faccio nulla
                 if (allfields.Any(af => af.Table == tablename))
                     return;
             }
@@ -5244,9 +5431,27 @@ END";
             {
                 //ripulisco la chiave da prefissi e suffissi
                 tablekey = GetIdByForeignKey(tablekey, null);
-                //se giÃƒÂ  c'ÃƒÂ¨ non faccio nulla
-                if (allfields.Any(af => af.Name == tablekey && af.IsKey && IsPrincipalKey(af, af.Table)))
+                //if (allfields.Any(af => af.Name == tablekey && af.IsKey && IsPrincipalKey(af, af.Table)))
+
+                //se già c'è non faccio nulla: controllo che in tutti gli oggetti definiti che potrebbero essere sua tabella principale sono presenti nei campi già scaricati
+                //controlllo solo le tabelle e non le viste perchè la query di recupero dopo per id non le caricherebbe comunque,
+                // vengono caricate quando il getmissing viene chiamato per loro per nome della vista
+                var possibleTablesForKey = possibleTables.Where(pt => IsPrincipalKey(tablekey, pt.Table) && !pt.IsView).Select(pt => pt.Table).Distinct().ToList();
+                var someoneTableMissing = false;
+                foreach (var pt in possibleTablesForKey)
+                {
+                    if (!allfields.Any(af => af.Table == pt)) 
+                    {
+                        someoneTableMissing = true;
+                        break;
+                    }
+                }
+                if (!someoneTableMissing)
                     return;
+
+                if (possibleTablesForKey.Count() == 0) {
+                    ConsoleWriter.ErrorDB("Non trovo una configurazione per una tabella con chiave uguale a " + tablekey);
+                }
             }
 
             //passate le verifiche precedenti me li prendo dal db
@@ -5258,7 +5463,7 @@ END";
                 var queryWhereTable = "and isc.TABLE_NAME = '" + tablename + "'";
                 queryWhere += queryWhereTable;
 
-                queryColonne = string.Format(queryTempFields, applicationID, queryWhereTable) + "\r\n" + queryFields + "\r\n where " + queryWhere + "\r\n UNION \r\n" +
+                queryColonne = string.Format(queryTempFields, applicationID, queryWhereTable) + "\r\n" + queryFields + "\r\n where " + queryWhere + "\r\n UNION ALL\r\n" +
                     queryFields2 + "\r\n where fd.columnname like '!%' and " + queryWhere.Replace("isc.TABLE_NAME", "ttd.tablename")
                     + "\r\n drop table #temp";
             }
@@ -5271,7 +5476,7 @@ END";
 										 OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + QUOTENAME(CONSTRAINT_NAME)), 'IsPrimaryKey') = 1
 										 /*order by LEN(cc.TABLE_NAME)*/)";
 
-                queryColonne = string.Format(queryTempFields, applicationID, "") + "\r\n" + queryFields + "\r\n where " + queryWhere + "\r\n UNION \r\n" +
+                queryColonne = string.Format(queryTempFields, applicationID, "") + "\r\n" + queryFields + "\r\n where " + queryWhere + "\r\n UNION ALL\r\n" +
                     queryFields2 + "\r\n where fd.columnname like '!%' and " + queryWhere.Replace("isc.TABLE_NAME", "ttd.tablename")
                     + "\r\n drop table #temp";
             }
@@ -5285,16 +5490,16 @@ END";
             if (showmessage && verbose && colonneMiss.Rows.Count == 0)
             {
                 if (!string.IsNullOrEmpty(tablename))
-                    ConsoleWriter.WarningDB("Per la tabella " + tablename + " non ÃƒÂ¨ stato trovato alcun campo.");
+                    ConsoleWriter.WarningDB("Per la tabella " + tablename + " non è stato trovato alcun campo.");
                 if (!string.IsNullOrEmpty(tablekey))
-                    ConsoleWriter.WarningDB("Per la chiave " + tablekey + " non ÃƒÂ¨ stato trovata alcuna tabella e di conseguenza alcun campo.");
+                    ConsoleWriter.WarningDB("Per la chiave " + tablekey + " non è stato trovata alcuna tabella e di conseguenza alcun campo.");
             }
 
             SetFieldsByRows(colonneMiss, ref allfields);
             if (allfields.Any(f => !f.IsInVoc && f.Name != "idapppages_ext" && !f.Name.StartsWith("XX")))
             {
                 var errorFields = string.Join(", ", allfields.Where(f => !f.IsInVoc).Select(e => e.Table + "." + e.Name).ToList());
-                ConsoleWriter.ErrorDB("Il vocabolario dei dati non ÃƒÂ¨ aggiornato per le seguenti colonne:\r\n" + errorFields + "\r\n" +
+                ConsoleWriter.ErrorDB("Il vocabolario dei dati non è aggiornato per le seguenti colonne:\r\n" + errorFields + "\r\n" +
                     "Provare a premere il tasto 'Genera dettagli' sull'interfaccia per l'oggetto " + errorFields.Split(',')[0].Split('.')[0] + "\r\n" +
                     "oppure in caso di chiave modificata aggiornare la tabella con il seguente comando \r\n" +
                     "update amministrazione.columntypes set iskey = 'S' where tablename = '" + errorFields.Split(',')[0].Split('.')[0] + "' AND field = '" + errorFields.Split(',')[0].Split('.')[1] + "' AND iskey = 'N'");
@@ -5342,12 +5547,12 @@ END";
                 var tabname = string.IsNullOrEmpty(r["tab"].ToString()) ? "Principale" : r["tab"].ToString();
                 var isLogField = r["field"].ToString() == "ct" || r["field"].ToString() == "cu" || r["field"].ToString() == "lt" || r["field"].ToString() == "lu";
 
-                var isSecurityAttrubuteField = r["field"].ToString() == "idsor01" || r["field"].ToString() == "idsor02" || r["field"].ToString() == "idsor03" || r["field"].ToString() == "idsor04" || r["field"].ToString() == "idsor05"
+                //var isSecurityAttrubuteField = r["field"].ToString() == "idsor01" || r["field"].ToString() == "idsor02" || r["field"].ToString() == "idsor03" || r["field"].ToString() == "idsor04" || r["field"].ToString() == "idsor05"
                                     //|| r["field"].ToString() == "idcontrattokind"
                                     ;
 
-                if (!isSecurityAttrubuteField)
-                {
+                //if (!isSecurityAttrubuteField)
+                //{
                     var f = new field
                     {
                         Name = r["field"].ToString(),
@@ -5422,7 +5627,7 @@ END";
                     };
 
 
-                    //se ÃƒÂ¨ un vocabolario configuro i fields in automatico
+                    //se è un vocabolario configuro i fields in automatico
                     if (f.Table.Contains("kind") || f.Table.Contains("status") || f.Table.Contains("stato")
                         || r["vocabolario"].ToString() == "S")
                     {
@@ -5446,13 +5651,13 @@ END";
 
                     if (!allfields.Any(af => af.Table == f.Table && af.EditListingType == f.EditListingType && af.Name == f.Name))
                         allfields.Add(f);
-                }
+                //}
             }
         }
 
         /// <summary>
         /// Restituisce una lista di fields che contengono solamente i dati relativi alla tabella senza quelli delle interfacce che vi si riferiscono
-        /// Serve a deduplicare i fileds quando sono presenti un piÃƒÂ¹ interfacce
+        /// Serve a deduplicare i fileds quando sono presenti un più interfacce
         /// </summary>
         /// <param name="tablename"></param>
         /// <param name="allfields"></param>
@@ -5522,14 +5727,14 @@ END";
         /// <param name="editlisttype">editlisttype</param>
         /// <param name="allfields">tutti i campi</param>
         /// <returns>i campi corrispondenti a tablename e editlisttype</returns>
-        private static List<field> GetFields(string tablename, string editlisttype, ref List<field> allfields, SqlConnection connection = null)
+        private static List<field> GetFields(string tablename, string editlisttype, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection = null)
         {
 
             if (string.IsNullOrEmpty(editlisttype))
                 editlisttype = "default";
 
             if (connection != null)
-                GetMissingFields(tablename, null, ref allfields, connection);
+                GetMissingFields(tablename, null, ref allfields, possibleTables, connection);
 
             tablename = RemoveAlias(tablename);
 
@@ -5543,7 +5748,7 @@ END";
         private static string GetStaticFilter(string table, string listtype, List<obj> objects, SqlConnection connection)
         {
             //qualora ci fosse un filtro statico lo devo applicare io come farebbe il framework al metadato vista...
-            //... o ce l'ho giÃƒÂ  in elenco
+            //... o ce l'ho già in elenco
             var acObj = objects.Where(aco => aco.Table == table && aco.EditListingType == listtype).FirstOrDefault();
             //... o me lo devo caricare da db
             if (acObj == null && partialGeneration)
@@ -5575,31 +5780,31 @@ END";
         /// imposta sul campo "fi" i parametri per costrutire una dropdown per scegliere il suo valore
         /// </summary>
         /// <param name="fi">campo</param>
-        /// <param name="txtField">campo testuale della tabella di cui il campo ÃƒÂ¨ foreign key</param>
+        /// <param name="txtField">campo testuale della tabella di cui il campo è foreign key</param>
         /// <param name="sourcetable"></param>
         /// <param name="fields"></param>
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
-        private static void SetDropDownParams(field fi, field txtField, string sourcetable, List<field> fields, ref List<field> allfields, SqlConnection connection)
+        private static void SetDropDownParams(field fi, field txtField, string sourcetable, List<field> fields, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
-            //se sono giÃƒÂ  popolati non faccio niente
+            //se sono già popolati non faccio niente
             if (fi.DDSourceTableKey == null)
             {
                 fi.DDSourcetable = sourcetable;
                 var listtype = !string.IsNullOrEmpty(fi.Listtype) ? fi.Listtype : "default";
-                fi.DDSourceTableKey = GetPrincipalKey(sourcetable, "", allfields, connection, false);
+                fi.DDSourceTableKey = GetPrincipalKey(sourcetable, "", allfields, possibleTables, connection, false);
 
-                //se l'oggetto ha piÃƒÂ¹ chiavi e non ho scelto quella principale
+                //se l'oggetto ha più chiavi e non ho scelto quella principale
                 if (!fi.Name.Contains(fi.DDSourceTableKey.Name))
                 {
-                    fi.DDSourceTableKey = GetIdFieldsByTable(sourcetable, allfields, connection)
+                    fi.DDSourceTableKey = GetIdFieldsByTable(sourcetable, allfields, possibleTables, connection)
                         .FirstOrDefault(x => fi.Name.Split('_')[0] == x.Name) ?? fi.DDSourceTableKey;
                 }
 
                 fi.DDSourceDisplayMember = txtField.Name;
 
                 //oggetto che userebbe una dropdowngrid ma usa una dropdown normale
-                if (HaveView(sourcetable, listtype, ref allfields, connection))
+                if (HaveView(sourcetable, listtype, ref allfields, possibleTables, connection))
                 {
                     var metadatochildWithTextOriginal = RemoveAlias(sourcetable);
                     var alias = GetAlias(sourcetable);
@@ -5609,7 +5814,7 @@ END";
                     //riassegno il metadato alla vista, in modo da corstruirci gli alias se necessario
                     fi.MetadatoChild = null;
                     fi.MetadatoExtendedChild = null;
-                    SetMetadatoChild(fields, fi, fi.DDSourcetable, ref allfields, connection);
+                    SetMetadatoChild(fields, fi, fi.DDSourcetable, ref allfields, possibleTables, connection);
                 }
 
                 //in partenza ordino per campo visualizzato
@@ -5621,7 +5826,7 @@ END";
                     var sortfield = allfields.Where(af => af.IdAppFieldDetail == fi.IdAppFieldDetail_sortmember);
                     if (!sortfield.Any())
                     {
-                        //se non c'ÃƒÂ¨ devo caricare in allfields i campi e riprovare
+                        //se non c'è devo caricare in allfields i campi e riprovare
                         var querySortmeber = @"select top 1 p.tablename from apppages p
                                                 inner join appfielddetail d 
                                                 on d.idapppages = p.idapppages 
@@ -5635,14 +5840,14 @@ END";
                             tablename = sortmeber["tablename"].ToString().Trim();
                         if (!string.IsNullOrWhiteSpace(tablename))
                         {
-                            GetMissingFields(tablename, null, ref allfields, connection);
+                            GetMissingFields(tablename, null, ref allfields, possibleTables, connection);
                             sortfield = allfields.Where(af => af.IdAppFieldDetail == fi.IdAppFieldDetail_sortmember);
                             if (sortfield.Any())
                                 fi.DDSortMember = sortfield.First().Name;
                         }
                         else {
-                            ConsoleWriter.ErrorDB("Per il campo " + fi.Name + " ÃƒÂ¨ stato forzato l'ordinamento col campo di ordinamento diverso dal display-member, con id " + fi.IdAppFieldDetail_sortmember.ToString() +
-                                " ma nella nella collezione dei campi non ÃƒÂ¨ stato trovato." +
+                            ConsoleWriter.ErrorDB("Per il campo " + fi.Name + " è stato forzato l'ordinamento col campo di ordinamento diverso dal display-member, con id " + fi.IdAppFieldDetail_sortmember.ToString() +
+                                " ma nella nella collezione dei campi non è stato trovato." +
                                 "Controllare il campo di ordinamento scelto per il campo.");
                         }
                     }
@@ -5659,11 +5864,11 @@ END";
         /// <param name="fields">campi della pagina attuale</param>
         /// <param name="fi">campo foreignkey che si sta valutando</param>
         /// <param name="metadatoChild">tabella a cui porta la foreignkey</param>
-        private static void SetMetadatoChild(List<field> fields, field fi, string metadatoChild, ref List<field> allfields, SqlConnection connection)
+        private static void SetMetadatoChild(List<field> fields, field fi, string metadatoChild, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             //potrebbe accadere di ripassare sugli stessi field, ad esempio nei casi di campi affogati nella maschera, 
             //in quei casi occorre mantenere le tabelle con gli alias calcolati in precedenza
-            //a meno che non c'ÃƒÂ¨ un altro campo che ha generato autochoose sulla stessa tabella
+            //a meno che non c'è un altro campo che ha generato autochoose sulla stessa tabella
             if (string.IsNullOrWhiteSpace(fi.MetadatoChild))
             {
                 //verifico prima che no sia stato forzato un alias per la tabella/listtype che punta
@@ -5673,9 +5878,9 @@ END";
                 {
                     if (fields.Any(f => f.MetadatoChild == metadatoChild + "_alias" + firstMetadatoChildField.ForceAlias.ToString()))
                     {
-                        ConsoleWriter.ErrorDB("Per la pagina " + metadatoChild + " " + fi.Listtype + " ÃƒÂ¨ stato forzato l'alias " + firstMetadatoChildField.ForceAlias.ToString() +
-                            " ma nella costruzione del dataset '" + metadatoChild + "_alias" + firstMetadatoChildField.ForceAlias.ToString() + "' ÃƒÂ¨ giÃƒÂ  stato utilizzato." +
-                            "Per evitare un errore sul dataset la forzatura ÃƒÂ¨ stata ignorata. Verificare la configurazione dell'alias forzato e rigenerare la pagina");
+                        ConsoleWriter.ErrorDB("Per la pagina " + metadatoChild + " " + fi.Listtype + " è stato forzato l'alias " + firstMetadatoChildField.ForceAlias.ToString() +
+                            " ma nella costruzione del dataset '" + metadatoChild + "_alias" + firstMetadatoChildField.ForceAlias.ToString() + "' è già stato utilizzato." +
+                            "Per evitare un errore sul dataset la forzatura è stata ignorata. Verificare la configurazione dell'alias forzato e rigenerare la pagina");
                     }
                     else
                     {
@@ -5703,30 +5908,30 @@ END";
                     var totalAliases = otherForeignKeyInTable + (otherFieldsInDataset ? 1 : 0);
 
                     //if (firstMetadatoChildField != null && firstMetadatoChildField.ForceAlias > 0 && totalAliases == firstMetadatoChildField.ForceAlias) {
-                    //		ConsoleWriter.ErrorDB("Anche avendo ignorato la forzatura dell'alias il sistema ha calcolato comunque lo stesso alias, qundi la generazione del dataset genererÃƒÂ  errore." +
-                    //			" Per riuscire a generare la pagina sarÃƒÂ  necessario modificare la configurazione dell'alias.");
+                    //		ConsoleWriter.ErrorDB("Anche avendo ignorato la forzatura dell'alias il sistema ha calcolato comunque lo stesso alias, qundi la generazione del dataset genererà errore." +
+                    //			" Per riuscire a generare la pagina sarà necessario modificare la configurazione dell'alias.");
                     //	}
                     if (fields.Any(f => f.MetadatoChild == metadatoChild + "_alias" + totalAliases.ToString()))
                     {
-                        ConsoleWriter.Warning("Per la pagina " + metadatoChild + " " + fi.Listtype + " ÃƒÂ¨ stato calcolato l'alias " + totalAliases.ToString() + " ma risulta giÃƒÂ  utilizzato (probabilmente da una forzatura) quindi verrÃƒÂ  incrementato di 1.");
+                        ConsoleWriter.Warning("Per la pagina " + metadatoChild + " " + fi.Listtype + " è stato calcolato l'alias " + totalAliases.ToString() + " ma risulta già utilizzato (probabilmente da una forzatura) quindi verrà incrementato di 1.");
                         totalAliases += 1;
                         if (fields.Any(f => f.MetadatoChild == metadatoChild + "_alias" + totalAliases.ToString()))
                         {
-                            ConsoleWriter.ErrorDB("Anche avendo incrementato l'alias di 1 il sistema ha calcolato comunque un alias giÃƒÂ  utilizzato, qundi la generazione del dataset genererÃƒÂ  errore." +
-                                " Per riuscire a generare la pagina sarÃƒÂ  necessario modificare la configurazione dell'alias.");
+                            ConsoleWriter.ErrorDB("Anche avendo incrementato l'alias di 1 il sistema ha calcolato comunque un alias già utilizzato, qundi la generazione del dataset genererà errore." +
+                                " Per riuscire a generare la pagina sarà necessario modificare la configurazione dell'alias.");
                         }
                     }
 
                     if (totalAliases > 0)
                     {
-                        //devo inserire i riferimenti successivi al primo con degli alias, sia nel dataset che nell'html, indicando poi nel js quale ÃƒÂ¨ la vera tabella da interrogare nelle query
+                        //devo inserire i riferimenti successivi al primo con degli alias, sia nel dataset che nell'html, indicando poi nel js quale è la vera tabella da interrogare nelle query
                         fi.MetadatoChild = metadatoChild + "_alias" + totalAliases.ToString();
                     }
                     else
                         fi.MetadatoChild = metadatoChild;
                 }
 
-                if (IsExtendingObject(metadatoChild, ref allfields, connection))
+                if (IsExtendingObject(metadatoChild, ref allfields, possibleTables, connection))
                 {
                     var extended = metadatoChild.Split('_')[0];
                     var extendedListType = GetEditListingTypeForExtended(metadatoChild, fi.EditListingType);
@@ -5753,7 +5958,7 @@ END";
                         var totalAliases = otherForeignKeyInTable + (otherFieldsInDataset ? 1 : 0);
                         if (totalAliases > 0)
                         {
-                            //devo inserire i riferimenti successivi al primo con degli alias, sia nel dataset che nell'html, indicando poi nel js quale ÃƒÂ¨ la vera tabella da interrogare nelle query
+                            //devo inserire i riferimenti successivi al primo con degli alias, sia nel dataset che nell'html, indicando poi nel js quale è la vera tabella da interrogare nelle query
                             fi.MetadatoExtendedChild = extended + "_alias" + totalAliases.ToString();
                         }
                         else
@@ -5772,15 +5977,15 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static string GetPageIdByTableOrViewEditype(string tableOrView, string editListingTypes, List<field> allfields, SqlConnection connection)
+        private static string GetPageIdByTableOrViewEditype(string tableOrView, string editListingTypes, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
-            //ricavo il pageid per decidere se ÃƒÂ¨ un elemento in modifica oppure no
-            var pageId = (GetfiledsByTableEditType(tableOrView, editListingTypes, allfields, connection, true).FirstOrDefault() ?? new field { PageId = "0" }).PageId;
+            //ricavo il pageid per decidere se è un elemento in modifica oppure no
+            var pageId = (GetfiledsByTableEditType(tableOrView, editListingTypes, allfields, possibleTables, connection, true).FirstOrDefault() ?? new field { PageId = "0" }).PageId;
             if (string.IsNullOrEmpty(pageId))
             {
-                //ÃƒÂ¨ una vista
-                var t = GetOriginalTableByView(tableOrView, editListingTypes, allfields);
-                pageId = (GetfiledsByTableEditType(t, editListingTypes, allfields, connection, true).FirstOrDefault() ?? new field { PageId = "0" }).PageId;
+                //è una vista
+                var t = GetOriginalTableByView(tableOrView, editListingTypes, allfields, possibleTables);
+                pageId = (GetfiledsByTableEditType(t, editListingTypes, allfields, possibleTables, connection, true).FirstOrDefault() ?? new field { PageId = "0" }).PageId;
                 if (string.IsNullOrEmpty(pageId))
                     ConsoleWriter.ErrorDB("Non trovo l'id di pagina per " + tableOrView + " " + editListingTypes);
             }
@@ -5821,7 +6026,7 @@ END";
 																	ELSE ct.title END
 														ELSE r.[description] END
 											ELSE t.title END AS [description],
-									--ribatto il nome nel text che in caso di tabella affogata nella pagina gli farÃƒÂ  da label
+									--ribatto il nome nel text che in caso di tabella affogata nella pagina gli farà da label
 									CASE WHEN LTRIM(RTRIM(isnull(r.[description],''))) = '' THEN ct.title ELSE r.[description] END as text,
 									--se non specificato nella relazione uso l'edit type della pagina FIGLIA
 									ct.editlistingtype, 
@@ -5832,6 +6037,7 @@ END";
 									CASE WHEN r.idapptab is null and r.position is not null THEN r.position ELSE null END AS tabposition,
 									r.idappfielddetail_parent, r.showinparentgridpos
 									,CASE WHEN EXISTS(select * from sysobjects where id = object_id(ct.tablename) and OBJECTPROPERTY(id, N'IsView') = 1) THEN 'S' ELSE 'N' END AS isview, r.idapprelation
+                                    ,ct.staticfilter, r.filter                      
 									from apprelation r
 									left outer join apppages pt on pt.idapppages = r.idapppages_parent
 									left outer join apppages ct on ct.idapppages = r.idapppages
@@ -5853,7 +6059,7 @@ END";
         /// <param name="allfields">tutti i campi utilizzati</param>
         /// <param name="connection">connessione</param>
         /// <returns>i campi che descrivono la relazione con l'interfaccia figlia</returns>
-        private static List<field> GetChildentitiesFields(string pageId, string extendedObject, List<field> allfields, SqlConnection connection)
+        private static List<field> GetChildentitiesFields(string pageId, string extendedObject, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             List<field> fields = new List<field>();
 
@@ -5868,15 +6074,15 @@ END";
                     var tablename = relation["childtable"].ToString().Trim();
 
                     //scarico dal db i campi
-                    GetMissingFields(tablename, null, ref allfields, connection);
+                    GetMissingFields(tablename, null, ref allfields, possibleTables, connection);
 
-                    //verifico se c'ÃƒÂ¨ una eccezione
+                    //verifico se c'è una eccezione
                     var ex = GetException(currentObjectTable, null, tablename, null);
 
-                    //verifico se non c'ÃƒÂ¨ una relazione personalizzata, caso in cui si presuppone che sia comunque considerabile entitÃƒÂ  figlia
+                    //verifico se non c'è una relazione personalizzata, caso in cui si presuppone che sia comunque considerabile entità figlia
                     var rel = GetPersonalizedRelation(int.Parse(relation["idapprelation"].ToString()), connection);
 
-                    //verifico che sia una vera entitÃƒÂ  figlia (deve avere un riferimento alla chiave dell'oggetto corrente)
+                    //verifico che sia una vera entità figlia (deve avere un riferimento alla chiave dell'oggetto corrente)
                     if (allfields.Any(af => af.Table == tablename && currentObjectKey.Any(k => k.Name == af.Name.Split('_')[0])) || ex != null || !string.IsNullOrWhiteSpace(rel))
                     {
 
@@ -5886,12 +6092,12 @@ END";
                             //    tabtitle = "Principale";
                             title = relation["text"].ToString();
                         var editListingType = string.IsNullOrEmpty(relation["editlistingtype"].ToString()) ?
-                        "default" : //se ÃƒÂ¨ vuoto vuol dire che nella relazione non ÃƒÂ¨ stato indicato e la tabella figlia ha il list type vuoto , quindi default
+                        "default" : //se è vuoto vuol dire che nella relazione non è stato indicato e la tabella figlia ha il list type vuoto , quindi default
                         relation["editlistingtype"].ToString();
 
                         if (!allfields.Any(af => af.Table == tablename && af.EditListingType == editListingType))
                             ConsoleWriter.ErrorDB("E' stata inserita una relazione con " + tablename + " con edit type " + editListingType + " ma questa combinazione non esiste." +
-                                "Controllare se ÃƒÂ¨ stato forzato un list type inesistente nella relazione.");
+                                "Controllare se è stato forzato un list type inesistente nella relazione.");
 
                         var numrowsmandatory = string.IsNullOrEmpty(relation["numrowsmandatory"].ToString()) ? 0 : int.Parse(relation["numrowsmandatory"].ToString().Trim());
 
@@ -5915,27 +6121,29 @@ END";
                             PageIdParent = pageId,
                             CalendarSettings = relation["calendartitle"].ToString() + ";" + relation["calendarstart"].ToString() + ";" + relation["calendarstop"].ToString() + ";" + relation["calendarmaincolor"].ToString(),
                             Numrowsmandatory = numrowsmandatory,
-                            Savebeforetest = relation["savebeforetest"].ToString() == "S", //di default ÃƒÂ¨ no
+                            Savebeforetest = relation["savebeforetest"].ToString() == "S", //di default è no
                             Tabheader = relation["header"].ToString(), //l'header del figlio va a riempire l'intestazione del tab
                             UniqueOnRow = true,
                             Text = relation["text"].ToString(),
-                            Buttoninsert = relation["buttoninsert"].ToString() != "N", //default ÃƒÂ¨ Si 
-                            Buttonedit = relation["buttonedit"].ToString() != "N", //default ÃƒÂ¨ Si 
-                            Buttondelete = relation["buttondelete"].ToString() != "N", //default ÃƒÂ¨ Si 
-                            Sort = string.IsNullOrWhiteSpace(relation["position"].ToString()) ? 100 : int.Parse(relation["position"].ToString()), //se non c'ÃƒÂ¨ ed ÃƒÂ¨ affogata la mette in fondo
+                            Buttoninsert = relation["buttoninsert"].ToString() != "N", //default è Si 
+                            Buttonedit = relation["buttonedit"].ToString() != "N", //default è Si 
+                            Buttondelete = relation["buttondelete"].ToString() != "N", //default è Si 
+                            Sort = string.IsNullOrWhiteSpace(relation["position"].ToString()) ? 100 : int.Parse(relation["position"].ToString()), //se non c'è ed è affogata la mette in fondo
                             MasterField = string.IsNullOrEmpty(relation["idappfielddetail_parent"].ToString()) ? (int?)null : int.Parse(relation["idappfielddetail_parent"].ToString()),
                             ShowInParentGrid = string.IsNullOrWhiteSpace(relation["showinparentgridpos"].ToString()) ? 0 : int.Parse(relation["showinparentgridpos"].ToString()),
                             IsView = relation["isview"].ToString() != "N",
-                            IdAppRelation = int.Parse(relation["idapprelation"].ToString())
+                            IdAppRelation = int.Parse(relation["idapprelation"].ToString()),
+                            Staticfilter = relation["staticfilter"].ToString(),
+                            Filter = relation["filter"].ToString()
                         };
 
-                        //se l'entitÃƒÂ  figlia ÃƒÂ  un oggetto esteso CASO PARTICOLARE DI ESTENDENTE RICORSIVO SU ESTENDENTE, SE FAI ESTENDENTE RICORSIVO SU ESTESO NON SERVE
-                        if (IsExtendingObject(tablename, ref allfields, connection))
+                        //se l'entità figlia à un oggetto esteso CASO PARTICOLARE DI ESTENDENTE RICORSIVO SU ESTENDENTE, SE FAI ESTENDENTE RICORSIVO SU ESTESO NON SERVE
+                        if (IsExtendingObject(tablename, ref allfields, possibleTables, connection))
                         {
                             //ricavo l'estendente
                             var extendedobjectChild = tablename.Split('_')[0];
 
-                            //se l'entitÃƒÂ  figlia ÃƒÂ¨ estesa e il suo esteso ÃƒÂ¨ ugauale all'esteso dell'oggetto corrente (estendente e ricorsivo)
+                            //se l'entità figlia è estesa e il suo esteso è ugauale all'esteso dell'oggetto corrente (estendente e ricorsivo)
                             if (extendedobjectChild == extendedObject)
                             {
                                 //... allora imposto la relazione sulla gerarchia ricorsiva id<->parid
@@ -5965,13 +6173,13 @@ END";
                         //SUB-ENTITA' Standard
                         if (fi.LookupFor == null)
                         {
-                            //verifico che non si tratti di una subentitÃƒÂ  ovvero tutta la chiave del padre ÃƒÂ¨ contenuta nel figlio
+                            //verifico che non si tratti di una subentità ovvero tutta la chiave del padre è contenuta nel figlio
                             var childkey = allfields.Where(af => af.Table == tablename && af.EditListingType == editListingType && af.IsKey).Select(ck => ck.Name);
 
-                            //TODO le entitÃƒÂ  figlie devono avere lo stesso nome della chiave?
-                            //nel caso di subentitÃƒÂ  si parla di chiavi primarie e non di foreign key e in questo caso non esistono suffissi (si usano solo per le foreignkey)
+                            //TODO le entità figlie devono avere lo stesso nome della chiave?
+                            //nel caso di subentità si parla di chiavi primarie e non di foreign key e in questo caso non esistono suffissi (si usano solo per le foreignkey)
                             //a eccezione degli oggetti estesi
-                            //anzi nel caso ci fossero vuol dire che ÃƒÂ¨ una tabella di collegamento verso la stessa entitÃƒÂ  collegata, e quindi bisogna prendere solo le chiavi primarie (senza suffissi) e non le foreign key (con suffissi)
+                            //anzi nel caso ci fossero vuol dire che è una tabella di collegamento verso la stessa entità collegata, e quindi bisogna prendere solo le chiavi primarie (senza suffissi) e non le foreign key (con suffissi)
 
                             if (currentObjectKey.All(cok => childkey.Any(ck => ck == cok.Name ||
                                                                     (cok.Name.IndexOf('_') != -1 && ck == cok.Name.Split('_')[0] && GetException(null, cok.Name, null, null) != null))))
@@ -5982,7 +6190,7 @@ END";
                         if (fi.LookupFor == null)
                         {
                             //tutti i campi sulla tabella figlia che sono FK per una PK della madre e non sono visibili 
-                            //nelle tebelle di collegamento e simili che si riferiscono piÃƒÂ¹ di una volta alla stessa tabella la relazione con la madre non ÃƒÂ¨ visibile
+                            //nelle tebelle di collegamento e simili che si riferiscono più di una volta alla stessa tabella la relazione con la madre non è visibile
                             fi.LookupFor = string.Join(" ", allfields.Where(af => af.Table == tablename && af.EditListingType == editListingType && !af.Detailvisible &&
                                         currentObjectKey.Any(cok => cok.Name == GetIdByForeignKey(af))).OrderBy(x => x.Name /*IsKey*/).Select(x => x.Name).ToList());
 
@@ -5992,8 +6200,8 @@ END";
                                 fi.LookupFor = string.Join(" ", allfields.Where(af => af.Table == tablename && af.EditListingType == editListingType &&
                                             currentObjectKey.Any(cok => cok.Name == GetIdByForeignKey(af))).OrderBy(x => x.IsKey).Select(x => x.Name).ToList());
                                 if (verbose)
-                                    ConsoleWriter.WarningDB("Se ÃƒÂ¨ un oggetto di collegamento: Per l'interfaccia: " + tablename + " " + editListingType + " ÃƒÂ¨ visibile il campo di collegamento: " + fi.LookupFor + " con l'interfaccia madre solitamente non necessario.\r\n" +
-                                        "Altrimenti: Per l'interfaccia: " + tablename + " " + editListingType + " ÃƒÂ¨ stato recuperato il campo di collegamento: " + fi.LookupFor + " con l'interfaccia madre cercando tra le foreign key una che puntasse ad una chiave della madre.\r\n");
+                                    ConsoleWriter.WarningDB("Se è un oggetto di collegamento: Per l'interfaccia: " + tablename + " " + editListingType + " è visibile il campo di collegamento: " + fi.LookupFor + " con l'interfaccia madre solitamente non necessario.\r\n" +
+                                        "Altrimenti: Per l'interfaccia: " + tablename + " " + editListingType + " è stato recuperato il campo di collegamento: " + fi.LookupFor + " con l'interfaccia madre cercando tra le foreign key una che puntasse ad una chiave della madre.\r\n");
                             }
 
                         }
@@ -6003,8 +6211,8 @@ END";
                     else
                     {
                         ConsoleWriter.ErrorDB("E' stata inserita una relazione tra una pagina figlia " + tablename + " e la pagina padre " + relation["parenttable"].ToString() +
-                            " ma " + tablename + " non ÃƒÂ¨ un vero figlio di " + relation["parenttable"].ToString() +
-                            " e quindi non verrebbe comunque salvato e quindi non ÃƒÂ¨ stato preso in considerazione.");
+                            " ma " + tablename + " non è un vero figlio di " + relation["parenttable"].ToString() +
+                            " e quindi non verrebbe comunque salvato e quindi non è stato preso in considerazione.");
                     }
                 }
             }
@@ -6051,7 +6259,7 @@ END";
 																	ELSE ct.title END
 														ELSE r.[description] END
 											ELSE t.title END AS [description],
-									--ribatto il nome nel text che in caso di tabella affogata nella pagina gli farÃƒÂ  da label
+									--ribatto il nome nel text che in caso di tabella affogata nella pagina gli farà da label
 									isnull(r.[description],ct.title) as text,
 									--se non specificato nella relazione uso l'edit type della pagina FIGLIA
 									ct.editlistingtype, 
@@ -6080,7 +6288,7 @@ END";
         /// <param name="allfields">tutti i campi utilizzati</param>
         /// <param name="connection">connessione</param>
         /// <returns>i campi che descrivono la relazione con l'interfaccia madre</returns>
-        private static List<field> GetParentEntitiesFields(string pageId, string extendedObject, List<field> allfields, SqlConnection connection, bool getMissing = true)
+        private static List<field> GetParentEntitiesFields(string pageId, string extendedObject, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool getMissing = true)
         {
             List<field> fields = new List<field>();
 
@@ -6099,15 +6307,15 @@ END";
 
                 //scarico dal db i campi
                 if (getMissing)
-                    GetMissingFields(tablename, null, ref allfields, connection);
+                    GetMissingFields(tablename, null, ref allfields, possibleTables, connection);
 
-                //verifico che sia una vera entitÃƒÂ  figlia (deve avere un riferimento alla chiave dell'oggetto corrente)
+                //verifico che sia una vera entità figlia (deve avere un riferimento alla chiave dell'oggetto corrente)
                 if (allfields.Any(af => af.Table == tablename && currentObjectKey.Any(k => k.Name == af.Name.Split('_')[0])))
                 {
 
                     var tabtitle = string.IsNullOrEmpty(relation["description"].ToString()) ? tablename : relation["description"].ToString();
                     var editListingType = string.IsNullOrEmpty(relation["editlistingtype"].ToString()) ?
-                        "default" : //se ÃƒÂ¨ vuoto vuol dire che nella relazione non ÃƒÂ¨ stato indicato e la tabella figlia ha il list type vuoto , quindi default
+                        "default" : //se è vuoto vuol dire che nella relazione non è stato indicato e la tabella figlia ha il list type vuoto , quindi default
                         relation["editlistingtype"].ToString();
 
                     var numrowsmandatory = string.IsNullOrEmpty(relation["numrowsmandatory"].ToString()) ? 0 : int.Parse(relation["numrowsmandatory"].ToString().Trim());
@@ -6131,7 +6339,7 @@ END";
                         PageIdParent = pageId,
                         CalendarSettings = relation["calendartitle"].ToString() + ";" + relation["calendarstart"].ToString() + ";" + relation["calendarstop"].ToString() + ";" + relation["calendarmaincolor"].ToString(),
                         Numrowsmandatory = numrowsmandatory,
-                        Savebeforetest = relation["savebeforetest"].ToString() == "S", //di default ÃƒÂ¨ no
+                        Savebeforetest = relation["savebeforetest"].ToString() == "S", //di default è no
                         Tabheader = relation["header"].ToString(), //l'header del figlio va a riempire l'intestazione del tab
                         UniqueOnRow = true,
                         Text = relation["text"].ToString(),
@@ -6199,7 +6407,7 @@ END";
         }
 
         /// <summary>
-        /// Calcola se il campo genererÃƒÂ  una dropdown
+        /// Calcola se il campo genererà una dropdown
         /// </summary>
         /// <param name="fi">campo (foreign key)</param>
         /// <param name="table">tabella puntata dal campo</param>
@@ -6220,18 +6428,18 @@ END";
         }
 
         /// <summary>
-        /// Indica se ÃƒÂ¨ abilitato o disabilitato in base al valore selezionato di un altro campo della stessa interfaccia
+        /// Indica se è abilitato o disabilitato in base al valore selezionato di un altro campo della stessa interfaccia
         /// </summary>
         /// <param name="fi"></param>
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static List<field> IsDisabledByOtherFild(field fi, ref List<field> allfields, SqlConnection connection)
+        public static List<field> IsDisabledByOtherFild(field fi, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             if (!string.IsNullOrWhiteSpace(fi.Master))
             {
                 if (!allfields.Any(af => af.Table == fi.Master))
-                    GetMissingFields(fi.Master, null, ref allfields, connection);
+                    GetMissingFields(fi.Master, null, ref allfields, possibleTables, connection);
                 //cerca nella tabella master un booleano con lo stesso nome del campo da abilitare/disabilitare
                 return allfields.Where(af => af.Table == fi.Master && (
                     (af.Name == fi.Name && af.Type == "char" && af.Len == 1) //S o N su tabella
@@ -6243,17 +6451,17 @@ END";
         }
 
         /// <summary>
-        /// Indica se il dropdown o dropdowngrid ÃƒÂ¨ a cascata rispetto ad un altro
+        /// Indica se il dropdown o dropdowngrid è a cascata rispetto ad un altro
         /// </summary>
         /// <param name="fi"></param>
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static bool IsAddictedDropdown(field fi, ref List<field> allfields, SqlConnection connection)
+        public static bool IsAddictedDropdown(field fi, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             if (!string.IsNullOrWhiteSpace(fi.Master))
             {
-                return !IsDisabledByOtherFild(fi, ref allfields, connection).Any();
+                return !IsDisabledByOtherFild(fi, ref allfields, possibleTables, connection).Any();
             }
             return false;
         }
@@ -6288,22 +6496,26 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static bool HaveView(string table, string listtype, ref List<field> allfields, SqlConnection connection)
+        public static bool HaveView(string table, string listtype, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
-            GetMissingFields(table, null, ref allfields, connection);
+            GetMissingFields(table, null, ref allfields, possibleTables, connection);
             return allfields.Any(af => af.Table == RemoveAlias(table) && af.EditListingType == listtype && af.HaveView);
         }
 
         /// <summary>
-        /// indica se il nome della tabella passta ÃƒÂ¨ di una vista seguendo la convenzione che se contiene view lo ÃƒÂ¨
+        /// indica se il nome della tabella passta è di una vista seguendo la convenzione che se contiene view lo è
         /// </summary>
         /// <param name="table"></param>
         /// <returns></returns>
-        public static bool IsView(string table, List<field> allfields = null)
+        public static bool IsView(string table, List<field> allfields = null, bool activateError = true)
         {
             if (string.IsNullOrWhiteSpace(table))
             {
-                ConsoleWriter.ErrorDB("Sto cercando di rimuovere l'alias da una tabella ma non ÃƒÂ¨ stato passato il nome in input.");
+                if(activateError) 
+                    ConsoleWriter.ErrorDB("Sto cercando di rimuovere l'alias da una tabella ma non è stato passato il nome in input.");
+                else
+                    ConsoleWriter.WarningDB("Sto cercando di rimuovere l'alias da una tabella ma non è stato passato il nome in input. Forse la tabella è nulla perchè è calcolata da una falsa chiave.");
+                
                 return false;
             }
             if (table.Contains("view"))
@@ -6322,9 +6534,9 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static bool HaveActiveField(string table, string listtype, ref List<field> allfields, SqlConnection connection)
+        public static bool HaveActiveField(string table, string listtype, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
-            GetMissingFields(table, null, ref allfields, connection);
+            GetMissingFields(table, null, ref allfields, possibleTables, connection);
             return allfields.Any(af => af.Table == RemoveAlias(table) && af.EditListingType == listtype && af.Name == "active");
         }
 
@@ -6336,10 +6548,10 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static string GetActiveField(string table, string listtype, ref List<field> allfields, SqlConnection connection)
+        public static string GetActiveField(string table, string listtype, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
-            var extended = GetExtendedObject(table, ref allfields, connection);
-            var isView = HaveView(table, listtype, ref allfields, connection);
+            var extended = GetExtendedObject(table, ref allfields, possibleTables, connection);
+            var isView = HaveView(table, listtype, ref allfields, possibleTables, connection);
             var field = "active";
             if (isView && !string.IsNullOrEmpty(extended))
             {
@@ -6419,7 +6631,7 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public static string GetLinkedTable(field linkid, ref List<field> fields, List<field> subfields, ref List<field> allfields, SqlConnection connection)
+        public static string GetLinkedTable(field linkid, ref List<field> fields, List<field> subfields, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             //tabella collegata con eventuali alias
             var linkedtable = "";
@@ -6436,10 +6648,10 @@ END";
                 }
                 else
                 {
-                    linkedtable = GetTableById(linkid.Name, allfields, connection);
+                    linkedtable = GetTableById(linkid.Name, allfields, possibleTables, connection);
                 }
                 subfields.Add(linkid);
-                SetMetadatoChild(fields.Union(subfields).ToList(), linkid, linkedtable, ref allfields, connection);
+                SetMetadatoChild(fields.Union(subfields).ToList(), linkid, linkedtable, ref allfields, possibleTables, connection);
                 linkedtable = linkid.MetadatoChild;
             }
             return linkedtable;
@@ -6470,12 +6682,16 @@ END";
         /// <param name="masterTable"></param>
         /// <param name="skiplookup">non genera le tabelle collegate per i lookup</param>
         private static void PreparePageDataset(string pathMetaPage, string metadatoParent, string metadatoChild, string parentKey, string childkey, string current, bool minimal,
-            List<field> fields, List<field> allfields, string editListingType, string editListingTypeParent, string pageid, SqlConnection connection, bool isLinkingObjKey, int iteration,
+            List<field> fields, List<field> allfields, string editListingType, string editListingTypeParent, string pageid, List<obj> possibleTables, SqlConnection connection, bool isLinkingObjKey, int iteration,
             string extendedTableChild, List<string> fullTables, string fullPathMetaPageJS, int? colpos, List<childColumn> childColumns, string masterTable = null, bool skiplookup = false,
-            string fkTitle = null)
+            string fkTitle = null, string staticFilter = null, string staticFilterParent = null)
         {
 
             Console.Write(".");
+
+            //verifico che i campi di metadatoChild siano già stati caricati dal db altrimento lo faccio ora
+            GetMissingFields(metadatoChild, null, ref allfields, possibleTables, connection);
+
 
             var isSubentity = (!string.IsNullOrWhiteSpace(pageid));
 
@@ -6484,32 +6700,32 @@ END";
 
                 var metadatoParentOriginal = metadatoParent;
                 if (metadatoParent.Contains("_alias"))
-                    //se il parent ÃƒÂ¨ un alias lo uso e calcolo il valore originale
+                    //se il parent è un alias lo uso e calcolo il valore originale
                     metadatoParentOriginal = metadatoParent.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
                 var datasetMetadatoParent = "";
                 if (metadatoParent != current)
                 {
-                    datasetMetadatoParent = GetDatasetTable(metadatoParent, null, false, allfields, connection, editListingTypeParent, fullPathMetaPageJS, iteration, editListingTypeParent);
+                    datasetMetadatoParent = GetDatasetTable(metadatoParent, null, false, allfields, possibleTables, connection, editListingTypeParent, fullPathMetaPageJS, iteration, editListingTypeParent,null, null, staticFilterParent);
                     addTableToDataset(pathMetaPage, metadatoParent, datasetMetadatoParent, false);
                 }
 
                 var datasetMetadatoChild = "";
-                var parentIsLinkingObject = IsLinkingObject(metadatoParent, ref allfields, connection)
+                var parentIsLinkingObject = IsLinkingObject(metadatoParent, ref allfields, possibleTables, connection)
                                     || isLinkingObjKey
                                     || allfields.Any(af => af.Table == metadatoParent && af.EditListingType == editListingTypeParent && af.IsLinkingObj
                                         && childkey.Split(' ').Contains(af.Name.Split('_')[0]));
 
                 var metadatoChildOriginal = metadatoChild;
                 if (metadatoChild.Contains("_alias"))
-                    //se il child ÃƒÂ¨ un alias lo uso e calcolo il valore originale
+                    //se il child è un alias lo uso e calcolo il valore originale
                     metadatoChildOriginal = metadatoChild.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
                 var editListingTypeExtended = GetEditListingTypeForExtended(metadatoChildOriginal, editListingType);
 
                 //aggiungo la tabella figlia e la sua relazione con la tabella principale
-                //se perÃƒÂ² ÃƒÂ¨ una figlia di una tabella di collegamento o ÃƒÂ¨ la tabella degli allegati, la figlia va inserita sempre con tutti i campi, 
-                //quindi minimal va falsificato (potrebbe arrivare true o giÃƒÂ  false)
+                //se però è una figlia di una tabella di collegamento o è la tabella degli allegati, la figlia va inserita sempre con tutti i campi, 
+                //quindi minimal va falsificato (potrebbe arrivare true o già false)
                 if (parentIsLinkingObject || metadatoChildOriginal == "attach")
                     minimal = false;
 
@@ -6520,8 +6736,8 @@ END";
                 {
                     var forceFull = fullTables.Contains(metadatoChild);
 
-                    datasetMetadatoChild = GetDatasetTable(metadatoChild, metadatoParent, minimal && !forceFull, allfields, connection, editListingType, fullPathMetaPageJS, iteration, editListingTypeParent,
-                        isSubEntityRelation ? parentKey : null, masterTable);
+                    datasetMetadatoChild = GetDatasetTable(metadatoChild, metadatoParent, minimal && !forceFull, allfields, possibleTables, connection, editListingType, fullPathMetaPageJS, iteration, editListingTypeParent,
+                        isSubEntityRelation ? parentKey : null, masterTable, staticFilter);
 
                     if (!string.IsNullOrEmpty(datasetMetadatoChild))
                     {
@@ -6530,10 +6746,10 @@ END";
                         var relationParentField = fields.Where(item => item.Name == "XX" + metadatoParentOriginal).FirstOrDefault() ?? new field();
 
                         if (relationChildField != null)
-                            //preparo l'autorelazione per l'entitÃƒÂ  ad albero
+                            //preparo l'autorelazione per l'entità ad albero
                             if (relationChildField.RelationType == "tree" && !minimal)
                             {
-                                var fiPrincipalKey = GetPrincipalKey(metadatoChildOriginal, editListingType, fields, connection);
+                                var fiPrincipalKey = GetPrincipalKey(metadatoChildOriginal, editListingType, fields, possibleTables, connection);
                                 var fiParentKey = GetParentkey(metadatoChildOriginal, editListingType, fiPrincipalKey.Name, fields);
                                 var datasetRelation = "     <msdata:Relationship name=\"FK_" + metadatoChild + "_" + metadatoChild + "_" + fiPrincipalKey.Name + "\" msdata:parent=\"" +
                                                                 metadatoChild + "\" msdata:child=\"" + metadatoChild + "\" msdata:parentkey=\"" + fiPrincipalKey.Name + "\" msdata:childkey=\"" + fiParentKey.Name + "\" />\r\n";
@@ -6544,24 +6760,24 @@ END";
                         if ((extendedTableChild ?? "").Contains("_alias"))
                             extendedTableChildOriginal = extendedTableChild.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-                        var islinkingobject = IsLinkingObject(metadatoChildOriginal, ref allfields, connection);
+                        var islinkingobject = IsLinkingObject(metadatoChildOriginal, ref allfields, possibleTables, connection);
 
-                        //Calcolo il metadato JS del metadatoParent (controllando se ÃƒÂ¨ esteso)
+                        //Calcolo il metadato JS del metadatoParent (controllando se è esteso)
                         var currentObject = metadatoParent.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
                         var container = currentObject;
-                        var isExtendingObject = IsExtendingObject(metadatoParent, ref allfields, connection);
+                        var isExtendingObject = IsExtendingObject(metadatoParent, ref allfields, possibleTables, connection);
                         if (isExtendingObject)
-                            container = GetExtendedObject(metadatoParent, ref allfields, connection, false);
+                            container = GetExtendedObject(metadatoParent, ref allfields, possibleTables, connection, false);
                         var fullPathMetaDatoJS = clientFolder + metapageFolder + container + "/meta_" + currentObject + ".js";
 
-                        //-----------------aggiungo al dataset l'entitÃƒÂ  figlia (minimal = false) oppure la tabella per i campi di lookup (minimal = true)--------------------------------------------------------------
+                        //-----------------aggiungo al dataset l'entità figlia (minimal = false) oppure la tabella per i campi di lookup (minimal = true)--------------------------------------------------------------
                         addTableToDataset(pathMetaPage, metadatoChild, datasetMetadatoChild, minimal);
 
                         //aggiungo alla tabella parent il campo di lookup della relazione attuale solo per le griglie (per questo iteration = 2),
                         //ma nel caso di oggetti estesi la tabella estendente si aggiunge in un secondo momento per due volte, come figlia e come padre, 
                         //quindi al momento in cui viene aggiunta la prima volta come figlia, non vanno aggiunti i campi di lookup (skiplookup = true).
                         //in ogni caso non elaboro campi di lookup per le tabelle di collegamento che non hanno campi testuali da mostrare
-                        //e in generale tutte le subentitÃƒÂ  (oggetti figli) non generano campi di lookup sulla entitÃƒÂ  principale (foreign key sull'entitÃƒÂ  principale verso vocabolari), 
+                        //e in generale tutte le subentità (oggetti figli) non generano campi di lookup sulla entità principale (foreign key sull'entità principale verso vocabolari), 
                         //a meno che non vadano mostrate in colonne nipoti, caso in cui aggiungo SUL DATASET le tabelle ma non i campi calcolati alla iterazione 2 e i campi calcolati nella iterazione 3 --------------------------
                         if (!skiplookup && !islinkingobject && (
                             (iteration == 2 && (!isSubentity || relationChildField.ShowInParentGrid > 0)) || //lookup che partono da griglie o colonne nipoti
@@ -6573,9 +6789,9 @@ END";
                             var describeColumns = new List<string>();
                             if (parentIsLinkingObject)
                             {
-                                //se il parent ÃƒÂ¨ un oggetto di collegamento allora i campi ci vanno tutti quelli visibili in lista tranne la chiave principale
+                                //se il parent è un oggetto di collegamento allora i campi ci vanno tutti quelli visibili in lista tranne la chiave principale
                                 var calculatedfields = new List<field>();
-                                calculatedfields.AddRange(GetLinkingObjectFields(metadatoParent, editListingTypeParent, ref allfields, connection)
+                                calculatedfields.AddRange(GetLinkingObjectFields(metadatoParent, editListingTypeParent, ref allfields, possibleTables, connection)
                                     .Where(af => af.ListVisible && !IsPrincipalKey(af, af.Table)));
                                 //inserisco solo i campi collegati del padre relativi al metadatochild che sto valutando in questo momento
                                 var descColumnColl = calculatedfields.Where(f => f.Table == metadatoChildOriginal || f.Table == metadatoChildOriginal.Split('_')[0])
@@ -6600,10 +6816,10 @@ END";
                                         if (HaveKeyName(cf))
                                         {
                                             //devo mettere il campo di lookup al suo posto
-                                            var lookupTableTemp = cf.MetadatoChild ?? GetTableById(cf.Name, allfields, connection);
+                                            var lookupTableTemp = cf.MetadatoChild ?? GetTableById(cf.Name, allfields, possibleTables, connection);
                                             if (!string.IsNullOrWhiteSpace(lookupTableTemp))
                                             {
-                                                var lookupFields = GetTextFieldByTable(lookupTableTemp, allfields, connection, true, cf.Listtype);
+                                                var lookupFields = GetTextFieldByTable(lookupTableTemp, allfields, possibleTables, connection, true, cf.Listtype);
                                                 // ha trovato il capo testuale o ha una chiave testuale
                                                 var firstlookup = true;
                                                 foreach (var lookupField in lookupFields)
@@ -6611,16 +6827,16 @@ END";
                                                     {
                                                         if (firstlookup)
                                                         {
-                                                            //calcolando il primo campo stestuale tolgo il field di origine perchÃƒÂ¨ metterÃƒÂ² al suo posto i suoi campi testuali
+                                                            //calcolando il primo campo stestuale tolgo il field di origine perchè metterò al suo posto i suoi campi testuali
                                                             textField = new List<field>();
                                                             firstlookup = false;
                                                         }
                                                         var tf = lookupField;
-                                                        //qui setto lookuptable e non lookupField.Table perchÃƒÂ¨ se si tratta di un oggetto esteso lookupField.Table potrebbe essere 
+                                                        //qui setto lookuptable e non lookupField.Table perchè se si tratta di un oggetto esteso lookupField.Table potrebbe essere 
                                                         //l'esteso e invece ci voglio mettere l'estendente che sta appunto in lookuptable. 
                                                         //TODO verificare se in questi casi non occorre anche aggiungere il cf ai fields
-                                                        SetMetadatoChild(fields, cf, lookupTableTemp, ref allfields, connection);
-                                                        //se il campo testuale sta sulla tabella estesa allora la loookup table ÃƒÂ¨ lei altrimenti la sua estendente
+                                                        SetMetadatoChild(fields, cf, lookupTableTemp, ref allfields, possibleTables, connection);
+                                                        //se il campo testuale sta sulla tabella estesa allora la loookup table è lei altrimenti la sua estendente
                                                         if (!string.IsNullOrWhiteSpace(cf.MetadatoExtendedChild))
                                                             lookupTable = tf.Table == cf.MetadatoExtendedChild.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0] ?
                                                                                         cf.MetadatoExtendedChild : cf.MetadatoChild;
@@ -6628,15 +6844,15 @@ END";
                                                             lookupTable = cf.MetadatoChild;
 
                                                         if (!HaveKeyName(tf) || tf.Name == cf.Name)
-                                                            //se non ÃƒÂ¨ a sua volta una chiave (oppure lo ÃƒÂ¨ ma volevo mostrare prorio lei)
+                                                            //se non è a sua volta una chiave (oppure lo è ma volevo mostrare prorio lei)
                                                             //mostro il campo
                                                             textField.Add(tf);
                                                         else
                                                         {
-                                                            //altrimenti il campo testuale ÃƒÂ¨ a sua volta una foreign key verso un altra tabella
+                                                            //altrimenti il campo testuale è a sua volta una foreign key verso un altra tabella
                                                             //quindi mostro i campi testuali della tabella/tabelle collegata/collegate
-                                                            var lookuplookupTable = tf.MetadatoChild ?? GetTableById(tf.Name, allfields, connection);
-                                                            lookupFields = GetTextFieldByTable(lookuplookupTable, allfields, connection, true, tf.Listtype);
+                                                            var lookuplookupTable = tf.MetadatoChild ?? GetTableById(tf.Name, allfields, possibleTables, connection);
+                                                            lookupFields = GetTextFieldByTable(lookuplookupTable, allfields, possibleTables, connection, true, tf.Listtype);
                                                             var addToDataset = false;
                                                             if (lookupFields.Any())
                                                             {
@@ -6646,13 +6862,13 @@ END";
                                                                         addToDataset = true;
                                                                         if (cf.Name.StartsWith("parid"))
                                                                         {
-                                                                            //TODO quando cf ÃƒÂ¨ una fk verso se stesso tf.metadatochild andrebbe forzato ad avere un alias+1 ma ha giÃƒÂ  l'alias impostato
-                                                                            //ne deriva che le tabelle di lookup dell'oggetto padre sono le stesse dell'oggetto figlio quindi poi la scantable le riempirÃƒÂ  solo per uno dei due
-                                                                            SetMetadatoChild(fields, tf, lookuplookupTable, ref allfields, connection);
+                                                                            //TODO quando cf è una fk verso se stesso tf.metadatochild andrebbe forzato ad avere un alias+1 ma ha già l'alias impostato
+                                                                            //ne deriva che le tabelle di lookup dell'oggetto padre sono le stesse dell'oggetto figlio quindi poi la scantable le riempirà solo per uno dei due
+                                                                            SetMetadatoChild(fields, tf, lookuplookupTable, ref allfields, possibleTables, connection);
                                                                         }
                                                                         else
                                                                         {
-                                                                            SetMetadatoChild(fields, tf, lookuplookupTable, ref allfields, connection);
+                                                                            SetMetadatoChild(fields, tf, lookuplookupTable, ref allfields, possibleTables, connection);
                                                                         }
                                                                         if (!string.IsNullOrWhiteSpace(tf.MetadatoExtendedChild))
                                                                             lookuplookupTable = lookupField2.Table == tf.MetadatoExtendedChild.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0] ?
@@ -6673,7 +6889,7 @@ END";
                                                                 //se sto facendo un altro salto la tabella del secondo salto non verrebbe aggiunta al dataset 
                                                                 //quindi devo aggiungerla forzatamente 
                                                                 PreparePageDataset(pathMetaPage, lookupTable /*tf.Table*/, lookuplookupTable, tf.Name,
-                                                                tf.Name.Split('_')[0], metadatoChild, true, fields, allfields, GetEditTypeById(tf, allfields, connection), editListingType, null, connection,
+                                                                tf.Name.Split('_')[0], metadatoChild, true, fields, allfields, GetEditTypeById(tf, allfields, possibleTables, connection), editListingType, null, possibleTables, connection,
                                                                 false, //gli dico se l'id fa da collegamento imponendo come se fi.table fosse una tabella di collegamento
                                                                 iteration + 1, null, fullTables, fullPathMetaPageJS, colpos, childColumns, null, iteration > 2, fkTitle);
                                                             }
@@ -6685,10 +6901,10 @@ END";
                                         }
                                         else
                                         {
-                                            //se ÃƒÂ¨ giÃƒÂ  un text field ma di un'altra tabella allora vuol dire che GetLinkingObjectFields ha restituito campi di tabelle diverse 
-                                            //perchÃƒÂ¨ collega un estendente e di conseguenza il suo esteso, quindi la tabella di lookup potrebbe essere quella estesa
+                                            //se è già un text field ma di un'altra tabella allora vuol dire che GetLinkingObjectFields ha restituito campi di tabelle diverse 
+                                            //perchè collega un estendente e di conseguenza il suo esteso, quindi la tabella di lookup potrebbe essere quella estesa
                                             if (belongsToOtherTable(metadatoChildOriginal, textField.First()))
-                                                //se ÃƒÂ¨ l'oggetto esteso uso il parametro e non textField.Table perchÃƒÂ¨ mi serve l'eventuale alias calcolato
+                                                //se è l'oggetto esteso uso il parametro e non textField.Table perchè mi serve l'eventuale alias calcolato
                                                 lookupTable = extendedTableChild;
                                         }
 
@@ -6725,7 +6941,7 @@ END";
                                                             descColumnColl.Count() == calculatedfields.Count() ?
                                                                     cf.Title//campo collegato da fk ma unico: mostro il titolo dell'oggetto collegato
                                                                     :
-                                                                    (tf.Title == cf.Title ? fkTitle : cf.Title + ' ' + fkTitle) //l'oggetto padre di collegamento collega piÃƒÂ¹ oggetti (solitamente collega 2 e mostra solo 1), quindi devo concatenare il nome dell'oggetto collegato al nome colonna
+                                                                    (tf.Title == cf.Title ? fkTitle : cf.Title + ' ' + fkTitle) //l'oggetto padre di collegamento collega più oggetti (solitamente collega 2 e mostra solo 1), quindi devo concatenare il nome dell'oggetto collegato al nome colonna
                                                         :
                                                         fkTitle, //mostro solo una colonna dell'oggetto collegato quindi uso il nome dell'oggetto
                                                 textField.Count > 1 || descColumnColl.Count() != calculatedfields.Count()));
@@ -6735,7 +6951,7 @@ END";
 
 
                                             //metadato c#
-                                            //describeColumns.Add(GetFormatDescribeColumn(cf, "!" + colName));
+                                            //describeColumns.Add(GetFormatDescribeColumn(cf, "!" + colName)); 
                                         }
 
                                     }
@@ -6751,10 +6967,10 @@ END";
                                     //										var filetxt = ReadAllTextFile(fullPathMetaDatoCS);
                                     //										bool justinsered = false;
                                     //										if (filetxt.Contains(describeColumnsCase)) {
-                                    //											//recupero quanto giÃƒÂ  inserito per l'oggetto per tutti i list type nel describe columns 
+                                    //											//recupero quanto già inserito per l'oggetto per tutti i list type nel describe columns 
                                     //											string tablePatternDescribeColumn = @"public override void DescribeColumns(.*?)\$DescribeAColumn\$";
                                     //											var element = Regex.Matches(filetxt, tablePatternDescribeColumn, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().First();
-                                    //											//recupero quanto giÃƒÂ  inserito per lo specifico describe columns 
+                                    //											//recupero quanto già inserito per lo specifico describe columns 
                                     //											string tablePattern = @"case """ + editListingTypeParent + @""": {
                                     //(.*?)						break;";
                                     //											var elementspecoriginale = Regex.Matches(element, tablePattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().FirstOrDefault();
@@ -6793,15 +7009,15 @@ END";
                             }
                             else
                             {
-                                //se il padre non ÃƒÂ¨ un oggetto di collegamento, gli aggiungo le colonne di lookup nella griglia
-                                //SOLO SE si tratta di una relazione che parte da una foreign key e il suo campo di lookup e NON se ÃƒÂ¨ una relazione con una subentitÃƒÂ 
+                                //se il padre non è un oggetto di collegamento, gli aggiungo le colonne di lookup nella griglia
+                                //SOLO SE si tratta di una relazione che parte da una foreign key e il suo campo di lookup e NON se è una relazione con una subentità
 
                                 //se sto disegnando una griglia con nipoti devo prendere tutti i campi definiti per la griglia e non i campi testuali
-                                //getmissing non serve perchÃƒÂ© metadatoChildOriginal arriva da metadatoChild che arriva da GetTablebyId che giÃƒÂ  lo fa
+                                //getmissing non serve perché metadatoChildOriginal arriva da metadatoChild che arriva da GetTablebyId che già lo fa
                                 var textFields = (iteration == 2 && relationChildField.ShowInParentGrid > 0) ?
-                                    GetGridFieldByTable(metadatoChildOriginal, allfields, connection, false, editListingType) //caso colonne nipoti
+                                    GetGridFieldByTable(metadatoChildOriginal, allfields, possibleTables, connection, false, editListingType) //caso colonne nipoti
                                     :
-                                    GetTextFieldByTable(metadatoChildOriginal, allfields, connection, false, editListingType); //caso lookup (di griglie o nipoti)
+                                    GetTextFieldByTable(metadatoChildOriginal, allfields, possibleTables, connection, false, editListingType); //caso lookup (di griglie o nipoti)
 
                                 //controllo che non si tratti di un oggetto di collegamento forzato, per il quale non devo aggiungere lookup alla tabella parent
                                 if (!textFields.Where(tf => tf.IsLinkingObj).Any())
@@ -6809,8 +7025,8 @@ END";
 
                                     //se i textfield restituiti sono diversi dalla chiave
                                     var stringtxtfields = string.Join(" ", textFields.Select(af => af.Name).ToList().OrderBy(x => x));
-                                    var stringKeys = string.Join(" ", GetIdByTable(metadatoChildOriginal, allfields, connection).OrderBy(x => x));
-                                    //il text field ÃƒÂ¨ diverso dalla sua chiave
+                                    var stringKeys = string.Join(" ", GetIdByTable(metadatoChildOriginal, allfields, possibleTables, connection).OrderBy(x => x));
+                                    //il text field è diverso dalla sua chiave
                                     if (stringtxtfields != stringKeys || stringtxtfields == "aa")
                                     {
 
@@ -6818,8 +7034,8 @@ END";
 
                                         if (textFields.Any(tf => belongsToOtherTable(metadatoChildOriginal, tf)))
                                         {
-                                            //mi ÃƒÂ¨ stato restituito il campo testuale da un esteso e non dell'oggetto corrente quindi devo cercare lÃƒÂ¬
-                                            //aggiungo all'elenco dei lookup l'id dell'esteso che ÃƒÂ¨ lo stesso dell'estendete che ÃƒÂ¨ il parent
+                                            //mi è stato restituito il campo testuale da un esteso e non dell'oggetto corrente quindi devo cercare lì
+                                            //aggiungo all'elenco dei lookup l'id dell'esteso che è lo stesso dell'estendete che è il parent
                                             textFields.ForEach(ntf => lookups.Add(parentKey));
                                         }
 
@@ -6829,18 +7045,18 @@ END";
                                         var toAdd = new List<field>();
 
                                         foreach (var tf in textFields)
-                                            //...ma se a sua volta ÃƒÂ¨ una foreign key (quindi ÃƒÂ¨ la principal key di un altra tabella)? devo fare un altro salto per trovare il campo testuale
+                                            //...ma se a sua volta è una foreign key (quindi è la principal key di un altra tabella)? devo fare un altro salto per trovare il campo testuale
                                             //a meno che non sia: un enum (chiave e testo uguali)
-                                            if (HaveKeyName(tf) && !IsEnum(tf, allfields, connection))
+                                            if (HaveKeyName(tf) && !IsEnum(tf, allfields, possibleTables, connection))
                                             {
                                                 //var secondaryTableText = GetTableById(tf.Name, allfields, connection);
-                                                var secondaryTableText = GetTableByForeignKey(tf, allfields, connection);
+                                                var secondaryTableText = GetTableByForeignKey(tf, allfields, possibleTables, connection);
                                                 //potrei aver inserito tra i text field una delle chiavi della tabella stessa quindi ora controllo di non stare referenziando di nuovo se stessa
                                                 if (metadatoChildOriginal != secondaryTableText)
                                                 {
                                                     var primatyTableTextKey = tf.Name;
                                                     var secondaryTableTextKey = primatyTableTextKey.Split('_')[0];
-                                                    var newTextfields = GetTextFieldByTable(secondaryTableText, allfields, connection, false, tf.Listtype).ToList();
+                                                    var newTextfields = GetTextFieldByTable(secondaryTableText, allfields, possibleTables, connection, false, tf.Listtype).ToList();
                                                     //se ha restituito ancora una chiave mi fermo
                                                     if (newTextfields.Any(ntf => !HaveKeyName(ntf)))
                                                     {
@@ -6852,7 +7068,7 @@ END";
                                                         //se i nuovi textfield sono uno solo ...
                                                         if (newTextfields.Count() == 1)
                                                         {
-                                                            //...la denominazione corretta ÃƒÂ¨ quella della foreighkey che l'ha referenziata
+                                                            //...la denominazione corretta è quella della foreighkey che l'ha referenziata
                                                             toAdd.Add(RenewField(newTextfields[0], newTextfields[0], newTextfields[0].SortList, newTextfields[0].Detailvisible, newTextfields[0].ListVisible, null, tf.Title));
                                                         }
                                                         else
@@ -6860,22 +7076,22 @@ END";
                                                             //altrimenti aggiungo i nuovi textfields a quelli da aggiungere
                                                             toAdd.AddRange(newTextfields);
                                                         }
-                                                        //tolgo la chiave dai campi testuali in quanto ormai ÃƒÂ¨ rappresentata dai propri campi 
+                                                        //tolgo la chiave dai campi testuali in quanto ormai è rappresentata dai propri campi 
                                                         toRemove.Add(tf);
                                                         //siamo nell'ambito di tabelle utilizzate per generatre i campi testuali in griglie quindi va SEMPRE aggiunto l'alias
-                                                        //altrimenti si rischia che se piÃƒÂ¹ di una fk punta alla stessa tabella per i campi testuali la scantable la riempie per la prima fk e non per la seconda
+                                                        //altrimenti si rischia che se più di una fk punta alla stessa tabella per i campi testuali la scantable la riempie per la prima fk e non per la seconda
                                                         fields.Add(tf);
-                                                        SetMetadatoChild(fields, tf, newTextfields.First().Table, ref allfields, connection);
+                                                        SetMetadatoChild(fields, tf, newTextfields.First().Table, ref allfields, possibleTables, connection);
                                                         if (tf.MetadatoChild.Contains("_alias"))
                                                             //lasciare anche in non verbose
                                                             ConsoleWriter.WarningDB("E' stata aggiunta la tabella con alias (" + tf.MetadatoChild + ") collegata da chiave esterna di un oggetto nipote (" +
                                                                 (tfIsExtended ? extendedTableChild : metadatoChild) + "). Verificare che poi l'alias sia presente anche nella sotto-pagina e sotto-sotto-pagina.");
                                                         //se sto facendo un altro salto la tabella del secondo salto non verrebbe aggiunta al dataset 
                                                         //quindi devo aggiungerla forzatamente.
-                                                        //Qualora il text field di partenza (tf) appartenga giÃƒÂ  ad un'altra tabella significa che detta tabella ÃƒÂ¨ l'estesa di metadatoChild che ÃƒÂ¨ suo estendente 
+                                                        //Qualora il text field di partenza (tf) appartenga già ad un'altra tabella significa che detta tabella è l'estesa di metadatoChild che è suo estendente 
                                                         //e quindi la relazione la costruisco con lei e non con metadatochild
                                                         PreparePageDataset(pathMetaPage, tfIsExtended ? extendedTableChild : metadatoChild, tf.MetadatoChild ?? newTextfields.First().Table, primatyTableTextKey,
-                                                        secondaryTableTextKey, tfIsExtended ? extendedTableChild : metadatoChild, true, fields, allfields, GetEditTypeById(tf, allfields, connection), editListingType, null, connection,
+                                                        secondaryTableTextKey, tfIsExtended ? extendedTableChild : metadatoChild, true, fields, allfields, GetEditTypeById(tf, allfields, possibleTables, connection), editListingType, null, possibleTables, connection,
                                                         false, //gli dico se l'id fa da collegamento imponendo come se fi.table fosse una tabella di collegamento
                                                         iteration + 1, null, fullTables, fullPathMetaPageJS, tf.SortList, childColumns, null, iteration > 2, tf.Title);
                                                     }
@@ -6887,10 +7103,10 @@ END";
                                         foreach (var ta in toAdd)
                                             textFields.Add(ta);
 
-                                        //solo se ÃƒÂ¨ NON una subentitÃƒÂ  aggiungo i campi calcolati alla tabella parent
+                                        //solo se è NON una subentità aggiungo i campi calcolati alla tabella parent
                                         if (!isSubentity)
                                         {
-                                            //devo verificare se non ÃƒÂ¨ giÃƒÂ  stato inserito in un ciclo precedente
+                                            //devo verificare se non è già stato inserito in un ciclo precedente
                                             var stringfilecalculatedfields = TextFile.ReadAllTextFile(pathMetaPage);
                                             var KeyPattern = "<xs:element name=\"" + metadatoParent + "\"(.*?)<!--LookupFields " + metadatoParent + "-->";
                                             var calculatedfields = Regex.Matches(stringfilecalculatedfields, KeyPattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList()
@@ -6907,8 +7123,8 @@ END";
                                                 {
                                                     //verifico se questo text field in particolare era sull'esteso o sull'estendente
                                                     var tfIsExtended = textField.Table == extendedTableChildOriginal;
-                                                    //verifico se il text filed non ÃƒÂ¨ il risultato di un doppio salto altrimento devo indicare anche la seconda chiave del salto che protrebbero 
-                                                    //essere piÃƒÂ¹ di una per la stessa tabella ma con suffisso differente 
+                                                    //verifico se il text filed non è il risultato di un doppio salto altrimento devo indicare anche la seconda chiave del salto che protrebbero 
+                                                    //essere più di una per la stessa tabella ma con suffisso differente 
                                                     bool isDoubleJump = (textField.Table != metadatoChildOriginal) && !tfIsExtended;
                                                     var colName = parentKey.Replace(" ", "-") + "_" + metadatoChildOriginal + "_" +
                                                                 (isDoubleJump ? lookups[i].Replace(" ", "-") + "_" : "") + textField.Name;
@@ -6923,7 +7139,7 @@ END";
                                                             " msdata:ReadOnly=\"false\" msdata:AllowDBNull=\"true\" " +
                                                             "type=\"xs:" + GetDatasetType(textField.Type) + "\" minOccurs=\"0\" />\r\n" + "<!--LookupFields " + metadatoParent + "-->", true);
 
-                                                    //solo se ÃƒÂ¨ una grid normale oppure un nipote, ma non se ÃƒÂ¨ relativa a un campo editabile in griglia, aggiungo anche
+                                                    //solo se è una grid normale oppure un nipote, ma non se è relativa a un campo editabile in griglia, aggiungo anche
                                                     if ((iteration == 2 || (iteration == 3 && (relationParentField ?? new field()).ShowInParentGrid > 0)) && !originalForeignKeyInMetadatoParentWasEditable)
                                                     {
                                                         //... al metadato js al describecolumns
@@ -6956,10 +7172,10 @@ END";
                                     customGetNewRow = currentAppTable["customgetnewrow"].ToString();
                                 }
 
-                                SetMetadatoJs(fullPathMetaDatoJS, container, currentObject, currentApp, GetIdFieldsByTable(currentObject, allfields, connection, false),
+                                SetMetadatoJs(fullPathMetaDatoJS, container, currentObject, currentApp, GetIdFieldsByTable(currentObject, allfields, possibleTables, connection, false),
                                 isExtendingObject, allfields, connection, customGetNewRow);
 
-                                //metto il describe a colums (sovrascrivo la prima volta perchÃƒÂ¨ ormai genero prima le subpage e poi le parent page)
+                                //metto il describe a colums (sovrascrivo la prima volta perchè ormai genero prima le subpage e poi le parent page)
                                 if (describeColumns.Any())
                                     SetDescribeColumnsOnJS(fullPathMetaDatoJS, editListingTypeParent, describeColumns);
 
@@ -6970,27 +7186,27 @@ END";
                         }
 
 
-                        //aggiungo le tabelle per i lookup delle entitÃƒÂ  figlie (chiavi esterne), tranne la chiave esterna stessa che le collega alla tabella parent
+                        //aggiungo le tabelle per i lookup delle entità figlie (chiavi esterne), tranne la chiave esterna stessa che le collega alla tabella parent
                         if (!skiplookup && !minimal)
                         {
                             //--se trovo altre chiavi nei capi VISIBILI aggiungo le tabelle e le relazioni (campi di lookup) 
-                            //solo per tabelle al primo livello (griglia standard) o di secondo se ÃƒÂ¨ una tabella collegata
+                            //solo per tabelle al primo livello (griglia standard) o di secondo se è una tabella collegata
                             if (iteration <= 1 || (parentIsLinkingObject && iteration == 2))
                                 foreach (var fi in allfields.Where(f =>
                                     (
                                       (f.Table == metadatoChildOriginal && f.EditListingType == editListingType) || //campo dell'oggetto oppure ...
                                       (f.Table == extendedTableChildOriginal && f.EditListingType == editListingTypeExtended) //... del suo esteso
                                     )
-                                    && (f.ListVisible || (f.Detailvisible && f.IsUniqueField)) //o lo mostrerÃƒÂ² in elenco o se ÃƒÂ¨ in relazione 1 a 1 nella maschera
+                                    && (f.ListVisible || (f.Detailvisible && f.IsUniqueField)) //o lo mostrerò in elenco o se è in relazione 1 a 1 nella maschera
                                     && HaveKeyName(f) /*&& !f.Name.StartsWith("parid") */&&
                                     (!IsPrincipalKey(f, f.Table) || islinkingobject || GetException(null, null, f.Table, f.Name) != null)
-                                    //NON scriverÃƒÂ² nel describecolum di una sub-entitÃƒÂ  la chiave del padre che causerebbe una griglia con una colonna
+                                    //NON scriverò nel describecolum di una sub-entità la chiave del padre che causerebbe una griglia con una colonna
                                     //con valori tutti uguali all'oggetto padre
                                     && !childkey.Split(' ').Contains(f.Name)).ToList()
                                     )
                                 {
 
-                                    var tablechild = GetTableById(fi.Name, allfields, connection);
+                                    var tablechild = GetTableById(fi.Name, allfields, possibleTables, connection);
 
                                     var ex = GetException(null, null, fi.Table, fi.Name);
                                     if (ex != null)
@@ -6999,19 +7215,19 @@ END";
                                     if (!string.IsNullOrEmpty(tablechild) && !string.IsNullOrEmpty(fi.Name))
                                     {
 
-                                        var listtype = GetEditTypeById(fi, allfields, connection);
+                                        var listtype = GetEditTypeById(fi, allfields, possibleTables, connection);
 
                                         //if (
                                         //	//gli oggetti estesi vanno sempre con l'alias
                                         //	!string.IsNullOrWhiteSpace(fi.MetadatoExtendedChild) ||
-                                        //	//se c'ÃƒÂ¨ un altro campo che ha generato autochoose sulla stessa tabella o vista devo aggiungere sempre l'alias
+                                        //	//se c'è un altro campo che ha generato autochoose sulla stessa tabella o vista devo aggiungere sempre l'alias
                                         //	fields.Any(f => (f.MetadatoChild ?? "").Split(new string[] { "_alias" }, StringSplitOptions.None)[0] == tablechild && !IsDropdown(f))
                                         //	)
 
                                         //siamo nell'ambito di tabelle utilizzate per generatre i campi testuali in griglie quindi va SEMPRE aggiunto l'alias
-                                        //altrimenti si rischia che se piÃƒÂ¹ di una fk punta alla stessa tabella per i campi testuali la scantable la riempie per la prima fk e non per la seconda
+                                        //altrimenti si rischia che se più di una fk punta alla stessa tabella per i campi testuali la scantable la riempie per la prima fk e non per la seconda
                                         fields.Add(fi);
-                                        SetMetadatoChild(fields, fi, tablechild, ref allfields, connection);
+                                        SetMetadatoChild(fields, fi, tablechild, ref allfields, possibleTables, connection);
 
                                         var childobject = fi.MetadatoChild;
                                         var extendedchildobject = fi.MetadatoExtendedChild;
@@ -7019,7 +7235,7 @@ END";
 
                                         if (childIsExt)
                                         {
-                                            // se il cild ÃƒÂ¨ estendente il list type attuale ÃƒÂ¨ quello dell'esteso devo quindi correggerlo
+                                            // se il cild è estendente il list type attuale è quello dell'esteso devo quindi correggerlo
                                             if (listtype.Contains("_"))
                                             {
                                                 listtype = listtype.Substring(listtype.IndexOf("_"), listtype.Length - listtype.IndexOf("_"));
@@ -7029,16 +7245,22 @@ END";
 
                                         var isext = fi.Table == extendedTableChildOriginal;
 
+                                        //controllo che il filtro statico impostato per metadatoChild vada ene anche per extendedTableChild
+                                        string staticFilterExtended = null;
+                                        if (isext && CheckStaticFilterForTable(extendedTableChild, staticFilter, allfields)) { 
+                                            staticFilterExtended = staticFilter; 
+                                        }
+
                                         //imposto lo skip dei lookup del metadatochild
                                         var skipLookup = true;
                                         if (!IsView(/*fi.MetadatoChild*/(isext ? extendedTableChild : metadatoChild), allfields))
-                                            skipLookup = iteration > 2 || IsEnum(fi, allfields, connection);
+                                            skipLookup = iteration > 2 || IsEnum(fi, allfields, possibleTables, connection);
 
                                         var key = fi.Name;
                                         var childobjectkey = GetIdByForeignKey(fi);
                                         if (childobjectkey.Split(' ').Count() > 1)
                                         {
-                                            //l'oggetto puntato dalla chiave ha una chiave multipla quindi l'oggetto corrente deve avere una foreign key da piÃƒÂ¹ colonne
+                                            //l'oggetto puntato dalla chiave ha una chiave multipla quindi l'oggetto corrente deve avere una foreign key da più colonne
                                             //fields nei livelli della ricorsione contiene colonne di altre tabelle quindi filtro per la corrente
                                             key = string.Join(" ", allfields.Where(af => (af.Table == extendedTableChild && af.EditListingType == editListingTypeExtended ||
                                                                              af.Table == metadatoChild && af.EditListingType == editListingType)
@@ -7049,9 +7271,9 @@ END";
                                         }
 
                                         PreparePageDataset(pathMetaPage, isext ? extendedTableChild : metadatoChild, childobject, key, childobjectkey,
-                                            metadatoChild, true, fields, allfields, listtype, isext ? editListingTypeExtended : editListingType, null, connection,
+                                            metadatoChild, true, fields, allfields, listtype, isext ? editListingTypeExtended : editListingType, null, possibleTables, connection,
                                             fi.IsLinkingObj, //gli dico se l'id fa da collegamento imponendo come se fi.table fosse una tabella di collegamento
-                                            iteration + 1, isext ? null : extendedchildobject, fullTables, fullPathMetaPageJS, fi.SortList, childColumns, null, skipLookup, fi.Title);
+                                            iteration + 1, isext ? null : extendedchildobject, fullTables, fullPathMetaPageJS, fi.SortList, childColumns, null, skipLookup, fi.Title, null, isext ? staticFilterExtended : staticFilter);
                                     }
                                 }
 
@@ -7059,21 +7281,21 @@ END";
                             if (!string.IsNullOrEmpty(pageid))
                             {
                                 //----ricavo le relazioni
-                                var relationFields = GetChildentitiesFields(pageid, "", allfields, connection);
+                                var relationFields = GetChildentitiesFields(pageid, "", allfields, possibleTables, connection);
 
-                                var mdck = string.Join(" ", GetIdByTable(metadatoChild, allfields, connection, true, editListingType));
+                                var mdck = string.Join(" ", GetIdByTable(metadatoChild, allfields, possibleTables, connection, true, editListingType));
 
                                 //----ricavo i campi del dataset (precedenti e calcolati adesso) calcolando gli alias per i nuovi campi relazione
                                 foreach (var r in relationFields)
                                 {
-                                    //se ÃƒÂ¨ un nipote a bottone nel dataset non ci va proprio
+                                    //se è un nipote a bottone nel dataset non ci va proprio
                                     if (!(iteration > 0 && r.RelationType == "button"))
                                     {
                                         var tc = r.Name.Substring(2);
-                                        GetMissingFields(tc, null, ref allfields, connection);
+                                        GetMissingFields(tc, null, ref allfields, possibleTables, connection);
 
                                         //per le relazioni i rami vanno tenuti sempre separati con gli alias a tutti i livelli:
-                                        //caso 1 - potrebbero essere giÃƒÂ  stati calcolati perchÃƒÂ© convolti in una colonna nipote
+                                        //caso 1 - potrebbero essere già stati calcolati perché convolti in una colonna nipote
                                         var nephewdAlreadyCalculated = childColumns.Where(cc => cc.PageId == pageid && cc.Nephew.Name == r.Name).FirstOrDefault();
                                         if (nephewdAlreadyCalculated != null)
                                         {
@@ -7089,7 +7311,7 @@ END";
 
                                             //... al metadato js al describecolumns
                                             var describeColumns = new List<string>() { GetFormatDescribeColumnJS(nephewdAlreadyCalculated.Nephew, "!" + colName, 10 * nephewdAlreadyCalculated.Nephew.ShowInParentGrid) };
-                                            var fullPathMetaDatoJSTablename = GetFullPathMetaDatoJS(nephewdAlreadyCalculated.Tablename, allfields, connection);
+                                            var fullPathMetaDatoJSTablename = GetFullPathMetaDatoJS(nephewdAlreadyCalculated.Tablename, allfields, possibleTables, connection);
                                             SetDescribeColumnsOnJS(fullPathMetaDatoJSTablename, nephewdAlreadyCalculated.Edittype, describeColumns);
 
                                             ReplaceStringInLocalResourceFile(RegionMarker.LocalResource_colonne, "\"" + nephewdAlreadyCalculated.ControlName, "_" + "!" + colName + "\"", nephewdAlreadyCalculated.Nephew.Title.Replace("'", "\\'"));
@@ -7099,12 +7321,12 @@ END";
                                         if (iteration > 0)
                                         {
                                             //caso 2 - casi normali in cui calcolo l'alias adesso
-                                            SetMetadatoChild(fields, r, tc, ref allfields, connection);
+                                            SetMetadatoChild(fields, r, tc, ref allfields, possibleTables, connection);
                                             fields.Add(r);
                                         }
                                         else
                                         {
-                                            //caso 3 - i figli di oggetti con una relazione 1 a 1 (iteration = 0) sono giÃƒÂ  stati considerati e hanno giÃƒÂ  l'alias calcolato
+                                            //caso 3 - i figli di oggetti con una relazione 1 a 1 (iteration = 0) sono già stati considerati e hanno già l'alias calcolato
                                             var childAlreadyCalculated = fields.Where(ff => ff.Name == r.Name).FirstOrDefault();
                                             if (childAlreadyCalculated != null)
                                             {
@@ -7113,7 +7335,7 @@ END";
                                             }
                                         }
 
-                                        //di base le chiavi del figlio sono: foreign key anche con suffissi o prefissi ?? subentitÃƒÂ 
+                                        //di base le chiavi del figlio sono: foreign key anche con suffissi o prefissi ?? subentità
                                         var ckString = r.LookupFor ?? mdck;
 
                                         //verifico prima che non siano espressamente indicate le chiavi della relazione
@@ -7125,20 +7347,20 @@ END";
                                         }
                                         else
                                         {
-                                            //verifico se ÃƒÂ¨ un figlio ricorsivo
-                                            var kc = GetIdByTable(tc, allfields, connection, true, r.Listtype);
+                                            //verifico se è un figlio ricorsivo
+                                            var kc = GetIdByTable(tc, allfields, possibleTables, connection, true, r.Listtype);
                                             if (kc.Any(k => k.StartsWith("parid")))
                                             {
-                                                ckString = GetChildKeysString(metadatoChild, tc, editListingType, r.Listtype, mdck.Split(' ').ToList(), allfields, connection);
+                                                ckString = GetChildKeysString(metadatoChild, tc, editListingType, r.Listtype, mdck.Split(' ').ToList(), allfields, possibleTables, connection);
                                             }
 
                                         }
 
-                                        //se ÃƒÂ¨ figlio di un oggetto con una relazione 1 a 1 (ma non di una griglia con ricerca perchÃƒÂ¨ gestisce la parentrow autonomamente) 
-                                        //devo specificare al getNewRow che la parentrow in questo caso non ÃƒÂ¨ qella principale ma un'altra
+                                        //se è figlio di un oggetto con una relazione 1 a 1 (ma non di una griglia con ricerca perchè gestisce la parentrow autonomamente) 
+                                        //devo specificare al getNewRow che la parentrow in questo caso non è qella principale ma un'altra
                                         if (iteration == 0 && r.RelationType != "cerca")
                                         {
-                                            var fullPathMetaDatoJStc = clientFolder + metapageFolder + tc/*.Split('_')[0]*/ + "/meta_" + tc + ".js"; //TODO se ÃƒÂ¨ estendente ÃƒÂ¨ sbagliato il container?
+                                            var fullPathMetaDatoJStc = clientFolder + metapageFolder + tc/*.Split('_')[0]*/ + "/meta_" + tc + ".js"; //TODO se è estendente è sbagliato il container?
 
                                             //creo il metadato js se necessario (recuperando anche la get new row personalizzata)
                                             var customGetNewRow = string.Empty;
@@ -7148,8 +7370,8 @@ END";
                                                 customGetNewRow = currentAppTable["customgetnewrow"].ToString();
                                             }
 
-                                            SetMetadatoJs(fullPathMetaDatoJStc, tc, tc, currentApp, GetIdFieldsByTable(tc, allfields, connection, false),
-                                                IsExtendingObject(tc, ref allfields, connection), allfields, connection, customGetNewRow);
+                                            SetMetadatoJs(fullPathMetaDatoJStc, tc, tc, currentApp, GetIdFieldsByTable(tc, allfields, possibleTables, connection, false),
+                                                IsExtendingObject(tc, ref allfields, possibleTables, connection), allfields, connection, customGetNewRow);
 
                                             ReplaceStringInFile(fullPathMetaDatoJStc, "//$getNewRowInside$\r\n",
                                                 "var realParentObjectRow = parentRow;\r\n" +
@@ -7183,35 +7405,39 @@ END";
                                         //le viste usate come subpage in ogni caso non le metto se non sono figlie dell'oggetto principale
                                         if ((isView && iteration == 0))
                                             //sempre minimal = false: la vogliamo intera, 
-                                            //relazione invertita (altrimenti come subentitÃƒÂ , non essendo nel dataset principale non si riempirebbe nelle subpage)
+                                            //relazione invertita (altrimenti come subentità, non essendo nel dataset principale non si riempirebbe nelle subpage)
                                             //PageId = null: non hanno mai sottopagine
                                             //skiplookup = true: non cerchiamo mai i lookup per le viste
                                             PreparePageDataset(pathMetaPage, r.MetadatoChild ?? tc, metadatoChild, ckString.Trim(), mdck,
-                                            metadatoChild, false, fields, allfields, editListingType, r.Listtype, null, connection,
-                                            false, //metadatoChild verrÃƒÂ  comunque verificato se ÃƒÂ¨ di collegamento dal metodo stesso
+                                            metadatoChild, false, fields, allfields, editListingType, r.Listtype, null, possibleTables, connection,
+                                            false, //metadatoChild verrà comunque verificato se è di collegamento dal metodo stesso
                                             iteration + 1, r.MetadatoExtendedChild, fullTables, fullPathMetaPageJS, null, childColumns, null, true, r.Title);
 
                                         if (!isView)
-                                            //non puÃƒÂ² essere minimal perchÃƒÂ¨ ci potrebbero essere campi di lookup in tabelle ulteriori
+                                            //non può essere minimal perchè ci potrebbero essere campi di lookup in tabelle ulteriori
                                             PreparePageDataset(pathMetaPage, metadatoChild, r.MetadatoChild ?? tc, mdck, ckString.Trim(),
-                                            metadatoChild, false, fields, allfields, r.Listtype, editListingType, r.PageId, connection,
-                                            false, //metadatoChild verrÃƒÂ  comunque verificato se ÃƒÂ¨ di collegamento dal metodo stesso
-                                            iteration + 1, r.MetadatoExtendedChild, fullTables, fullPathMetaPageJS, null, childColumns, null, skiplookup, r.Title);
+                                            metadatoChild, false, fields, allfields, r.Listtype, editListingType, r.PageId, possibleTables, connection,
+                                            false, //metadatoChild verrà comunque verificato se è di collegamento dal metodo stesso
+                                            iteration + 1, r.MetadatoExtendedChild, fullTables, fullPathMetaPageJS, null, childColumns, null, skiplookup, r.Title,r.Staticfilter);
                                     }
                                 }
                             }
                         }
 
-                        //se ÃƒÂ¨ un oggetto estendente devo mettere anche l'oggetto che estende (esteso), ma solo se non ÃƒÂ¨ una vista dell'estendente che comprende giÃƒÂ  l'esteso!
+                        //se è un oggetto estendente devo mettere anche l'oggetto che estende (esteso), ma solo se non è una vista dell'estendente che comprende già l'esteso!
                         if (!string.IsNullOrEmpty(extendedTableChild) && !IsView(metadatoChild, allfields))
                         {
-                            var keysExtended = GetIdByTable(extendedTableChild, allfields, connection, true, editListingTypeExtended);
+                            var keysExtended = GetIdByTable(extendedTableChild, allfields, possibleTables, connection, true, editListingTypeExtended);
                             var keysExtendedString = String.Join(" ", keysExtended);
-                            var keysExtending = GetIdByTable(metadatoChild, allfields, connection, true);
+                            var keysExtending = GetIdByTable(metadatoChild, allfields, possibleTables, connection, true);
                             var keysExtendingString = String.Join(" ", keysExtending);
-                            //l'iteration non la incremento perchÃƒÂ¨ ÃƒÂ¨ allo stesso livello dell'estendete
+
+                            //controllo che lo staticFilter sia applicabile anche all'oggetto esteso
+                            bool tutteColonneValide = CheckStaticFilterForTable(extendedTableChild, staticFilter, allfields);
+
+                            //l'iteration non la incremento perchè è allo stesso livello dell'estendete
                             PreparePageDataset(pathMetaPage, extendedTableChild, metadatoChild, keysExtendedString.Trim(), keysExtendingString.Trim(), metadatoChild, false, fields, allfields, editListingType,
-                                editListingTypeExtended, null, connection, false, iteration + 1, "", fullTables, fullPathMetaPageJS, 1, childColumns, null, iteration > 2, fkTitle);
+                                editListingTypeExtended, null, possibleTables, connection, false, iteration + 1, "", fullTables, fullPathMetaPageJS, 1, childColumns, null, iteration > 2, fkTitle, null, tutteColonneValide ? staticFilter : null);
                         }
 
                     }
@@ -7224,29 +7450,29 @@ END";
                     var datasetRelation = "";
 
                     //se ho cotruito il figlio per intero (!minimal) 
-                    //e il padre non ÃƒÂ¨ un oggetto di collegamento (!parentIsLinkingObject) 
-                    //e il figlio non ÃƒÂ¨ in realta un oggetto esteso e quindi il padre naturale (!isAnInvertedExtensionRelation) 
-                    //e il figlio non ÃƒÂ¨ la tabella degli allegati (metadatoChild != "attach"): 
-                    //allora la chiave esterna ÃƒÂ¨ del figlio e interna del padre (il child ÃƒÂ¨ una subentitÃƒÂ ), 
-                    //altrimenti li scambio (il child ÃƒÂ¨ un vocabolario o un oggetto esteso o un allegato)
+                    //e il padre non è un oggetto di collegamento (!parentIsLinkingObject) 
+                    //e il figlio non è in realta un oggetto esteso e quindi il padre naturale (!isAnInvertedExtensionRelation) 
+                    //e il figlio non è la tabella degli allegati (metadatoChild != "attach"): 
+                    //allora la chiave esterna è del figlio e interna del padre (il child è una subentità), 
+                    //altrimenti li scambio (il child è un vocabolario o un oggetto esteso o un allegato)
                     if (isSubEntityRelation)
                     {
-                        //sub-entitÃƒÂ 
+                        //sub-entità
 
                         //se si tratta di un oggetto estendente il suo esteso gli ruba la relazione nel caso di lookup
                         if (!string.IsNullOrEmpty(extendedTableChild) && !skiplookup)
                         {
-                            var childkeyExt = GetChildKeysString(metadatoParent, extendedTableChild, editListingType, editListingTypeExtended, parentKey.Split(' ').ToList(), allfields, connection);
+                            var childkeyExt = GetChildKeysString(metadatoParent, extendedTableChild, editListingType, editListingTypeExtended, parentKey.Split(' ').ToList(), allfields, possibleTables, connection);
 
                             datasetRelation = "     <msdata:Relationship name=\"FK_" + extendedTableChild + "_" + metadatoParent + "_" + childkey.Replace(" ", "-") + "\" msdata:parent=\"" +
                             metadatoParent + "\" msdata:child=\"" + extendedTableChild + "\" msdata:parentkey=\"" + parentKey + "\" msdata:childkey=\"" + childkeyExt + "\" />\r\n";
                         }
                         else
                         {
-                            //nel caso sia una subpage per un oggetto che NON ÃƒÂ¨ subentitÃƒÂ  devo rivalutare la relazione perchÃƒÂ¨ potrebbe essere su foreign key e non su primary key
+                            //nel caso sia una subpage per un oggetto che NON è subentità devo rivalutare la relazione perchè potrebbe essere su foreign key e non su primary key
                             if (parentKey.Split(' ').Count() != childkey.Split(' ').Count())
                             {
-                                var kk = GetChildForeignKeysString(metadatoParent, metadatoChild, editListingTypeParent, editListingType, parentKey.Split(' ').ToList(), allfields, connection);
+                                var kk = GetChildForeignKeysString(metadatoParent, metadatoChild, editListingTypeParent, editListingType, parentKey.Split(' ').ToList(), allfields, possibleTables, connection);
                                 childkey = kk.Replace(" ;", ";").Split(';')[0].TrimEnd();
                                 parentKey = kk.Replace(" ;", ";").Split(';')[1].TrimEnd();
                             }
@@ -7271,7 +7497,9 @@ END";
                     var childIndex = 0;
                     foreach (var pk in parentKey.Split(' '))
                     {
-                        var truepk = allfields.Where(f => f.Table == metadatoParentOriginal && f.Name == pk).First();
+                        var truepk = allfields.Where(f => f.Table == metadatoParentOriginal && f.Name == pk).FirstOrDefault();
+                        if(truepk is null)
+                            truepk = allfields.Where(f => f.Table == metadatoParentOriginal && f.Name == pk.Split('_')[0]).First();
                         var trueck = allfields.Where(f => f.Table == metadatoChildOriginal && f.Name == childkey.Split(' ')[childIndex]).First();
                         if (truepk.Type != trueck.Type)
                         {
@@ -7286,17 +7514,39 @@ END";
 
                     if (iteration == 1 && !string.IsNullOrWhiteSpace(masterTable))
                     {
-                        var childFields = allfields.Where(af => af.Table == RemoveAlias(metadatoChild) && (af.EditListingType == editListingType || RemoveAlias(metadatoChild).EndsWith(editListingType + "view"))).ToList();
-                        if (childFields.Any())
+
+                        //in primis controllo che la tabella master sia già stata scritta sul dataset ...
+                        var enc = TextFile.GetEncoding(pathMetaPage);
+                        string text = File.ReadAllText(pathMetaPage, enc);
+                        if (!text.Contains(masterTable))
                         {
-                            var rel = GetChildKeysbyMaster(masterTable, childFields, allfields, connection);
-                            if (rel.Any())
-                                datasetRelation += "     <msdata:Relationship name=\"FK_" + metadatoChild + "_" + masterTable + "_" + rel[0].Name + "\" msdata:parent=\"" +
-                                    masterTable + "\" msdata:child=\"" + metadatoChild + "\" msdata:parentkey=\"" + rel[0].Name + "\" msdata:childkey=\"" + rel[1].Name + "\" />\r\n";
+                            //... altrimenti vuol dire che 
+                            ConsoleWriter.ErrorDB("non sono riuscito a trovare la tabella master " + masterTable + " nel dataset. Questo potrebbe dipendere da" +
+                                " 1) i campi potrebbero non essere nell'ordine corretto, quindi il campo master va messo prima del campo slave" + 
+                                " 2) è rimasto 'campo master' dichiarato sul campo slave per un campo master non visibile (per cui la sua tabella di lookup non viene aggiunta la dataset).");
                         }
                         else
                         {
-                            ConsoleWriter.ErrorDB("non sono riuscito a trovare i campi di " + metadatoChild + " " + editListingType + " per la sua relazione con il campo master " + masterTable);
+
+                            var childFields = allfields.Where(af => af.Table == RemoveAlias(metadatoChild) && (af.EditListingType == editListingType || RemoveAlias(metadatoChild).EndsWith(editListingType + "view"))).ToList();
+                            if (childFields.Any())
+                            {
+                                var rel = GetChildKeysbyMaster(masterTable, childFields, allfields, possibleTables, connection);
+                                if (rel.Any())
+                                {
+                                    var masterKeysRelString = string.Join(" ", rel.Where(r => r.Table == RemoveAlias(masterTable)).OrderBy(r => r.Name).Select(r => r.Name).ToList());
+                                    var metadatoChildKeysRelString = string.Join(" ", rel.Where(r => r.Table == RemoveAlias(metadatoChild)).OrderBy(r => r.Name).Select(r => r.Name).ToList());
+
+                                    datasetRelation += "     <msdata:Relationship name=\"FK_" + metadatoChild + "_" + masterTable + "_" + rel[0].Name + "\" msdata:parent=\"" +
+                                        masterTable + "\" msdata:child=\"" + metadatoChild + "\" msdata:parentkey=\"" + masterKeysRelString + "\" msdata:childkey=\"" + metadatoChildKeysRelString + "\" />\r\n";
+                                }
+                            }
+                            else
+                            {
+                                ConsoleWriter.ErrorDB("non sono riuscito a trovare i campi di " + metadatoChild + " " + editListingType + " per la sua relazione con il campo master " + masterTable +
+                                    ". E' probabile che non esista la configurazione per " + metadatoChild + " " + editListingType +
+                                    ". Controllare il listtype scelto per la foregn key che punta a " + metadatoChild + " ");
+                            }
                         }
                     }
 
@@ -7310,6 +7560,44 @@ END";
                 }
             }
 
+        }
+
+        private static bool CheckStaticFilterForTable(string tableName, string staticFilter, List<field> allfields) 
+        {
+            bool tutteColonneValide = false;
+            if (staticFilter != null)
+            {
+                string[] parole = staticFilter.Split(new[] { " " }, StringSplitOptions.None);
+                List<string> colonne = new List<string>();
+                foreach (string parola in parole)
+                {
+                    string parolaTrim = parola.Trim();
+                    if (parolaTrim.EndsWith(","))
+                        parolaTrim = parolaTrim.Substring(0, parolaTrim.Length - 1);
+                    if (parolaTrim.Contains("=") || parolaTrim.Contains("!=") || parolaTrim.Contains("IN") || parolaTrim.Contains("NOT IN") || parolaTrim.Contains("IS NULL") || parolaTrim.Contains("IS NOT NULL"))
+                        parolaTrim = parolaTrim.Split(new[] { "=", "!=", "IN", "NOT IN", "IS NULL", "IS NOT NULL" }, StringSplitOptions.None)[0].Trim();
+                    if (parolaTrim.Contains("(") && parolaTrim.Contains(")"))
+                    {
+                        parolaTrim = parolaTrim.Substring(0, parolaTrim.IndexOf("(")).Trim();
+                        parolaTrim = parolaTrim.Substring(0, parolaTrim.LastIndexOf(")")).Trim();
+                    }
+                    //escludo numeri, stringhe, date, bool, guid
+                    if (!string.IsNullOrEmpty(parolaTrim) && !colonne.Contains(parolaTrim) && !parolaTrim.Any(char.IsDigit) && !parolaTrim.Contains("'"))
+                        colonne.Add(parolaTrim);
+                }
+                tutteColonneValide = colonne.Count > 0;
+                foreach (string colonna in colonne)
+                {
+                    var colonnaTrovata = allfields.FirstOrDefault(f => f.Name == colonna && f.Table == RemoveAlias(tableName));
+
+                    if (colonnaTrovata == null)
+                    {
+                        tutteColonneValide = false;
+                        break;
+                    }
+                }
+            }
+            return tutteColonneValide;
         }
 
         /// <summary>
@@ -7341,11 +7629,11 @@ END";
         {
             var metadatoChildOriginal = metadatoChild.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
             var stringfile = TextFile.ReadAllTextFile(pathMetaPage);
-            var fileContainsMinimal = stringfile.Contains("<xs:element name=\"" + metadatoChild + "\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\"" + metadatoChildOriginal + "\"" : "") + "><!--m-->");
-            var fileContainsNormal = stringfile.Contains("<xs:element name=\"" + metadatoChild + "\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\"" + metadatoChildOriginal + "\"" : "") + "><!--n-->")
+            var fileContainsMinimal = Regex.IsMatch(stringfile, "<xs:element name=\"" + metadatoChild + "\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\"" + metadatoChildOriginal + "\"" : "") + "[^<>]*><!--m-->");
+            var fileContainsNormal =  Regex.IsMatch(stringfile, "<xs:element name=\"" + metadatoChild + "\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\"" + metadatoChildOriginal + "\"" : "") + "[^<>]*><!--n-->")
                               || stringfile.Contains("<xs:element name=\"" + metadatoChild + "\">\r\n");
 
-            //se non c'ÃƒÂ¨ l'aggiungo
+            //se non c'è l'aggiungo
             if (!fileContainsMinimal && !fileContainsNormal)
             {
                 ReplaceStringInFile(pathMetaPage, "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n", "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n" + datasetMetadatoChild.Split(';')[0]);
@@ -7353,26 +7641,34 @@ END";
             }
             else
             {
-                //se c'ÃƒÂ¨ lo sostituisco solo nei seguenti casi:
+                //se c'è lo sostituisco solo nei seguenti casi:
                 if (fileContainsMinimal && !minimal)
-                {// se giÃƒÂ  c'ÃƒÂ¨ minimale e lo sto aggiungendo normale la sostituisco
+                {// se già c'è minimale e lo sto aggiungendo normale la sostituisco
                     if (verbose)
-                        Console.WriteLine("INFO: Per " + metadatoChild + " il dataset contiene giÃƒÂ  una versione minimale e la sto aggiungendo normale, oppure normale e la sto aggiungendo normale ed ÃƒÂ¨ visibile in maschera, quindi la sostituisco");
+                        Console.WriteLine("INFO: Per " + metadatoChild + " il dataset contiene già una versione minimale e la sto aggiungendo normale, oppure normale e la sto aggiungendo normale ed è visibile in maschera, quindi la sostituisco");
 
-                    //sostituisco la tabella se era minimale ... la chiave invece ÃƒÂ¨ sempre uguale
-                    if (fileContainsMinimal)
-                    {
-                        string tablePattern = "<xs:element name=\\\"" + metadatoChild + "\\\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\\\"" + metadatoChildOriginal + "\\\"" : "") + "><!--" + (fileContainsMinimal ? "m" : "n") + "-->(.*?)</xs:element>";
-                        var element = Regex.Matches(stringfile, tablePattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().First();
-                        ReplaceStringInFile(pathMetaPage, element, "");
-                        ReplaceStringInFile(pathMetaPage, "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n", "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n" + datasetMetadatoChild.Split(';')[0]);
-                    }
+                    //sostituisco la tabella se era minimale ... la chiave invece è sempre uguale
+                    string tablePattern = "<xs:element name=\\\"" + metadatoChild + "\\\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\\\"" + metadatoChildOriginal + "\\\"" : "") + "><!--" + (fileContainsMinimal ? "m" : "n") + "-->(.*?)</xs:element>";
+                    var element = Regex.Matches(stringfile, tablePattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().First();
+                    ReplaceStringInFile(pathMetaPage, element, "");
+                    ReplaceStringInFile(pathMetaPage, "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n", "<xs:choice minOccurs=\"0\" maxOccurs=\"unbounded\">\r\n" + datasetMetadatoChild.Split(';')[0]);
 
                 }
                 else
                 {
                     if (verbose)
-                        Console.WriteLine("INFO: Per " + metadatoChild + " il dataset contiene giÃƒÂ  una versione minimale e la sto aggiungendo mimimale, oppure normale e la sto aggiungendo normale quindi non la aggiungo");
+                        Console.WriteLine("INFO: Per " + metadatoChild + " il dataset contiene già una versione minimale e la sto aggiungendo mimimale, oppure normale e la sto aggiungendo normale quindi non la aggiungo");
+                }
+
+                //se ho passato un filtro statico e non ce lo ha el dataset lo devo inserire //TODO VERIFICARE SE SERVE
+                if (datasetMetadatoChild.Split(';')[0].Contains("msprop:filter=") &&
+                    !Regex.IsMatch(stringfile, "<xs:element name=\"" + metadatoChild + "\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\"" + metadatoChildOriginal + "\"" : "") + "[^<>]*msprop:filter=[^<>]*><!--" + (fileContainsMinimal ? "m" : "n") + "-->"))
+                {
+                    string tablePattern = "<xs:element name=\\\"" + metadatoChild + "\\\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\\\"" + metadatoChildOriginal + "\\\"" : "") + "(.*?)><!--" + (fileContainsMinimal ? "m" : "n") + "-->";
+                    var element = Regex.Matches(stringfile, tablePattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().First();
+                    string tablePatternInput = "<xs:element name=\\\"" + metadatoChild + "\\\"" + (metadatoChild.Contains("_alias") ? " msprop:TableForReading=\\\"" + metadatoChildOriginal + "\\\"" : "") + "(.*?)><!--" + (fileContainsMinimal ? "m" : "n") + "-->";
+                    var elementInput = Regex.Matches(datasetMetadatoChild.Split(';')[0], tablePattern, RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().First();
+                    ReplaceStringInFile(pathMetaPage, element, elementInput);
                 }
             }
         }
@@ -7385,8 +7681,8 @@ END";
         /// <param name="allfields">campi</param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static string GetDatasetTable(string tablename, string tableAliasParent, bool minimal, List<field> allfields, SqlConnection connection, string editListingType, string fullPathMetaPageJS, int iteration = 0, string editListingTypeParent = null,
-            string parentkey = null, string masterTable = null)
+        private static string GetDatasetTable(string tablename, string tableAliasParent, bool minimal, List<field> allfields, List<obj> possibleTables, SqlConnection connection, string editListingType, string fullPathMetaPageJS, int iteration = 0, string editListingTypeParent = null,
+            string parentkey = null, string masterTable = null, string staticFilter = null)
         {
 
             //verifico che non si tratti di un alias
@@ -7394,42 +7690,69 @@ END";
             if (tablename.Contains("_alias"))
                 tablename = tableAlias.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
-            GetMissingFields(tablename, null, ref allfields, connection);
+            //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
+            GetMissingFields(tablename, null, ref allfields, possibleTables, connection);
 
             //estrapolo i dati dei campi della tabella senza le informazioni delle interfacce
             var tableFields = new List<field>();
             if (string.IsNullOrEmpty(editListingType) || (!string.IsNullOrEmpty(editListingType) && !allfields.Any(af => af.Table == tablename && af.EditListingType == editListingType)))
                 //potrei stare aggingendo al dataset: 
                 //1 - una tabella aggiuntiva (quindi senza un edit type specifico): 
-                //2 - una tabella referenziata tramite fk (vocabolario) di cui proverÃƒÂ² sempre prima con l'edit type "default" ma potrebbe anche non esistere
+                //2 - una tabella referenziata tramite fk (vocabolario) di cui proverò sempre prima con l'edit type "default" ma potrebbe anche non esistere
                 tableFields = GetDatasetFields(tablename, allfields);
             else
                 tableFields = allfields.Where(af => af.Table == tablename && af.EditListingType == editListingType).ToList();
 
             var fields = new List<field>();
 
-            //se ÃƒÂ¨ una vista devo settare delle chiavi, a prescindere se sia minimale o meno
+            //se è una vista devo settare delle chiavi, a prescindere se sia minimale o meno
             if (IsView(tablename, allfields))
             {
-                //verifico prima che non siano giÃƒÂ  state forzate nel configuratore...
+                //verifico prima che non siano già state forzate nel configuratore...
+                var potentialViewFields = new List<field>();
+                var potentialView = tablename.Replace("defaultview", "");
                 if (!tableFields.Any(tf => tf.IsKey))
                 {
-                    //...altrimenti cerco di desumerle
-                    var originalTable = GetOriginalTableByView(tablename, editListingType, allfields);
-                    if (!string.IsNullOrWhiteSpace(originalTable))
+                    //verifico prima che non siano già state forzate nel configuratore se è la vista di una vista
+                    if (IsView(potentialView, allfields))
                     {
-                        var originalTableKeys = GetIdByTable(originalTable, allfields, connection, true, editListingType);
-                        foreach (var k in tableFields.Where(af => originalTableKeys.Contains(af.Name)))// IsPrincipalKey(af, originalTable, true)))
-                            k.IsKey = true;
-                        if (!tableFields.Any(tf => tf.IsKey))
+                        potentialViewFields = allfields.Where(af => af.Table == potentialView && af.EditListingType == "default").ToList();
+                    }
+                    if (!potentialViewFields.Any(tf => tf.IsKey))
+                    {
+                        //...altrimenti cerco di desumerle
+                        var originalTable = GetOriginalTableByView(tablename, editListingType, allfields, possibleTables);
+                        if (!string.IsNullOrWhiteSpace(originalTable))
+                        {
+                            var originalTableKeys = GetIdByTable(originalTable, allfields, possibleTables, connection, true, editListingType);
+                            foreach (var k in tableFields.Where(af => originalTableKeys.Contains(af.Name)))// IsPrincipalKey(af, originalTable, true)))
+                                k.IsKey = true;
+                            if (!tableFields.Any(tf => tf.IsKey))
+                                if (verbose)
+                                    ConsoleWriter.ErrorDB("Per la vista " + tablename + " non è stato trovato il campo chiave");
+                        }
+                        else
                             if (verbose)
-                                ConsoleWriter.ErrorDB("Per la vista " + tablename + " non ÃƒÂ¨ stato trovato il campo chiave");
+                            ConsoleWriter.ErrorDB("Per la vista " + tablename + " con edit type " + editListingType +
+                                " non è stato trovato il campo chiave perchè non ne ha definita alcuna e non è stata trovata la tabella di partenza");
                     }
                     else
-                        if (verbose)
-                        ConsoleWriter.ErrorDB("Per la vista " + tablename + " con edit type " + editListingType +
-                            " non ÃƒÂ¨ stato trovato il campo chiave perchÃƒÂ¨ non ne ha definita alcuna e non ÃƒÂ¨ stata trovata la tabella di partenza");
+                    {
+                        //se sono state forzate le chiavi nel configuratore nella vista ma è una vista di una vista, quindi glie le riconfiguro con i campi della vista di partenza
+                        foreach (var k in potentialViewFields.Where(af => af.IsKey))
+                        {
+                            var correspondingField = tableFields.Where(tf => tf.Name == k.Name).FirstOrDefault();
+                            if (correspondingField != null)
+                            {
+                                correspondingField.IsKey = true;
+                            }
+                            else
+                            {
+                                if (verbose)
+                                    ConsoleWriter.ErrorDB("Per la vista " + tablename + " è stata forzata la chiave " + k.Name + " ma non è stato trovato un campo corrispondente alla vista originale " + potentialView + ", verificare che la vista di partenza abbia un campo con lo stesso nome");
+                            }
+                        }
+                    }
                 }
             }
 
@@ -7452,11 +7775,11 @@ END";
                     }
 
                     //2-i campi testuali
-                    foreach (var txt in GetTextFieldByTable(tablename, allfields, connection, false, editListingType)) //il get missing l'ho fatto poco prima
+                    foreach (var txt in GetTextFieldByTable(tablename, allfields, possibleTables, connection, false, editListingType)) //il get missing l'ho fatto poco prima
                     {
                         if (belongsToOtherTable(tablename, txt))
                         {
-                            //non posso realizzare la tabella minimale senza coinvolgere anche la tabella estesa, (che verrÃƒÂ  comunque aggiunta al dataset nei passaggi successivi)
+                            //non posso realizzare la tabella minimale senza coinvolgere anche la tabella estesa, (che verrà comunque aggiunta al dataset nei passaggi successivi)
                             //quindi rinuncio e la metto per esteso
                             minimal = false;
                             fields = new List<field>();
@@ -7477,7 +7800,7 @@ END";
                 {
                     //1-le chiavi
                     if (!tableFields.Any(tf => tf.IsKey))
-                        fields.AddRange(tableFields.Where(af => HaveKeyName(af))); //tutto ciÃƒÂ² che sembra una chiave
+                        fields.AddRange(tableFields.Where(af => HaveKeyName(af))); //tutto ciò che sembra una chiave
                     else
                         fields.AddRange(tableFields.Where(af => af.IsKey)); //forzate nel configuratore...oppure assegnate al momento
 
@@ -7487,7 +7810,7 @@ END";
                         fields.Add(txtf);
                     else
                     {
-                        var textFieldView = GetTextFieldByTable(tablename, allfields, connection, false, editListingType);//il get missing l'ho fatto poco prima
+                        var textFieldView = GetTextFieldByTable(tablename, allfields, possibleTables, connection, false, editListingType);//il get missing l'ho fatto poco prima
                         if (textFieldView.Any())
                         {
                             foreach (var txt in textFieldView)
@@ -7498,7 +7821,7 @@ END";
                         }
                         else
                         {
-                            ConsoleWriter.ErrorDB("Per la vista " + tablename + " non ÃƒÂ¨ stato trovato il campo testuale");
+                            ConsoleWriter.ErrorDB("Per la vista " + tablename + " non è stato trovato il campo testuale");
                         }
                     }
 
@@ -7512,22 +7835,26 @@ END";
                 //3-eventuali foreign key alla tabella master
                 if (!string.IsNullOrWhiteSpace(masterTable))
                 {
-                    var rel = GetChildKeysbyMaster(masterTable, tableFields, allfields, connection);
+                    var rel = GetChildKeysbyMaster(masterTable, tableFields, allfields, possibleTables, connection);
                     if (rel.Any())
-                        if (!fields.Any(f => f.Name == rel[1].Name))
-                            fields.Add(rel[1]);
+                    {
+                        //if (!fields.Any(f => f.Name == rel[1].Name))
+                        //    fields.Add(rel[1]);
+                        //rel contiene le chiavi della relazione master-tabella figlia devo aggiungere eventuali colonne della tabella figlia se non le ho già messe
+                        fields.AddRange(rel.Where(r=> r.Table == tablename && !fields.Any(f => f.Name == r.Name)));
+                    }
                 }
             }
 
             if (!minimal)
             {
-                //se ÃƒÂ¨ una tabella completa ci vanno anche i suoi campi di lookup
+                //se è una tabella completa ci vanno anche i suoi campi di lookup
                 fields.AddRange(tableFields);
                 //il contatore degli allegati e i campi file per gli importer non vanno mai aggiunti
                 fields.RemoveAll(f => (f.Table == "attach" && f.Name == "counter") || f.Type == "file");
             }
 
-            return GetDatasetTable(tablename, tableAlias, tableAliasParent, minimal, fields, fullPathMetaPageJS, iteration, allfields, parentkey, editListingTypeParent);
+            return GetDatasetTable(tablename, tableAlias, tableAliasParent, minimal, fields, fullPathMetaPageJS, iteration, allfields, parentkey, editListingTypeParent, staticFilter);
         }
 
         /// <summary>
@@ -7539,33 +7866,34 @@ END";
         /// <param name="fields">campi</param>
         /// <param name="parentkey">chiavi del padre</param>
         /// <returns></returns>
-        private static string GetDatasetTable(string tablename, string tableAlias, string tableAliasParent, bool minimal, List<field> fields, string fullPathMetaPageJS, int iteration, List<field> allfields, string parentkey = null, string editListingTypeParent = null)
+        private static string GetDatasetTable(string tablename, string tableAlias, string tableAliasParent, bool minimal, List<field> fields, string fullPathMetaPageJS, int iteration, List<field> allfields, 
+            string parentkey = null, string editListingTypeParent = null, string staticFilter = null)
         {
 
             var datasetmedatdatoKeys = "<xs:unique name=\"" + tableAlias + "_Constraint\" msdata:PrimaryKey=\"true\">\r\n      <xs:selector xpath=\".//mstns:" + tableAlias + "\" />\r\n";
 
-            //Se sto costruento un elenco di oggetti che si riferiscono a quello corrente senza essere direttamente subentitÃƒÂ  (ad es le lezioni che si svolgono nell'aula)
-            //oppure oggetti subentitÃƒÂ  ma relativi ad un'entitÃƒÂ  estesa (ad esempio sospensione relativa a location)
-            //devo (per il dataset di questa interfaccia) forzare a chiave la chiave del padre, tranne se si tratta di oggetti esteso e estendente che giÃƒÂ  lo ÃƒÂ¨
+            //Se sto costruento un elenco di oggetti che si riferiscono a quello corrente senza essere direttamente subentità (ad es le lezioni che si svolgono nell'aula)
+            //oppure oggetti subentità ma relativi ad un'entità estesa (ad esempio sospensione relativa a location)
+            //devo (per il dataset di questa interfaccia) forzare a chiave la chiave del padre, tranne se si tratta di oggetti esteso e estendente che già lo è
             var isNotEntityChild = false;
             if (!string.IsNullOrEmpty(parentkey))
                 if (!isSubentity(tableAliasParent, editListingTypeParent, parentkey.Split(' ').ToList(), fields, allfields))
                 {
                     isNotEntityChild = true;
-                    //mi trovo nel caso di sub-page riferite a oggetti che non sono sub-entitÃƒÂ  quindi lo devo indicare nella metapage
+                    //mi trovo nel caso di sub-page riferite a oggetti che non sono sub-entità quindi lo devo indicare nella metapage
                     SetAfterClear(fullPathMetaPageJS, "appMeta.metaModel.addNotEntityChild(this.getDataTable('" + tableAliasParent + "'), this.getDataTable('" + tableAlias + "'));\r\n");
                     SetAfterFill(fullPathMetaPageJS, "appMeta.metaModel.addNotEntityChild(this.getDataTable('" + tableAliasParent + "'), this.getDataTable('" + tableAlias + "'));\r\n");
 
                     if (fields.Count(f => f.IsKey) < iteration)
                     {
                         ConsoleWriter.ErrorDB("La tabella " + tableAlias + " non ha tra le sue chiavi tutte le chiavi di della tabella parent " + tableAliasParent + ", e si trova un una sottointerfaccia al " + iteration +
-                            " livello, quindi creando due nuovi record, su due rami partendo da padri di primo livello diversi, avrebbero la stessa chiave sul dataset della pagina principale, creando cosÃƒÂ¬ un errore a runtime. " +
+                            " livello, quindi creando due nuovi record, su due rami partendo da padri di primo livello diversi, avrebbero la stessa chiave sul dataset della pagina principale, creando così un errore a runtime. " +
                             "Aggiungere la chiave dei suoi padri almeno fino al primo livello.");
                     }
                     else
                     {
                         ConsoleWriter.WarningDB("La tabella " + tableAlias + " non ha tra le sue chiavi tutte le chiavi di della tabella parent " + tableAliasParent + ", e si trova un una sottointerfaccia al " + iteration +
-                            " livello, quindi creando due nuovi record, su due rami partendo da padri di primo livello diversi, potrebbero avere la stessa chiave sul dataset della pagina principale, creando cosÃƒÂ¬ un errore a runtime. " +
+                            " livello, quindi creando due nuovi record, su due rami partendo da padri di primo livello diversi, potrebbero avere la stessa chiave sul dataset della pagina principale, creando così un errore a runtime. " +
                             "Verificare se non sia necessario aggiungere la chiave dei suoi padri almeno fino al primo livello.");
                     }
 
@@ -7575,19 +7903,19 @@ END";
                     //if (fields.Any(f => f.Name == fk.Name))
                     //{
                     //	datasetmedatdatoKeys += "      <xs:field xpath=\"mstns:" + fk.Name + "\" />\r\n";
-                    //	//devo fare in modo che la pagina ne imponga l'inserimento (a meno che non lo ÃƒÂ¨ giÃƒÂ )
+                    //	//devo fare in modo che la pagina ne imponga l'inserimento (a meno che non lo è già)
                     //	if (!fk.DenyNull)
                     //	{
                     //		SetAfterlink(fullPathMetaPageJS, "this.setDenyNull(\"" + fk.Table + (fk.ForceAlias > 0 ? "_alias" + fk.ForceAlias.ToString() : "") + "\",\"" + fk.Name + "\");\r\n");
                     //		if (verbose)
-                    //			Console.WriteLine("INFO: " + fk.Table + "\",\"" + fk.Name + " ÃƒÂ¨ stato inserito con allowDBnull = false nella pagina " + fullPathMetaPageJS +
-                    //				" perchÃƒÂ¨ nella costruzione del dataset ÃƒÂ© risultato essere chiave del padre e non del figlio (" + tableAlias + ") ed ÃƒÂ¨ stato forzato a chiava anche nel figlio");
+                    //			Console.WriteLine("INFO: " + fk.Table + "\",\"" + fk.Name + " è stato inserito con allowDBnull = false nella pagina " + fullPathMetaPageJS +
+                    //				" perchè nella costruzione del dataset é risultato essere chiave del padre e non del figlio (" + tableAlias + ") ed è stato forzato a chiava anche nel figlio");
                     //	}
                     //}
                 }
 
-            var datasetMetadato = "        <xs:element name=\"" + tableAlias + "\"" + (tableAlias != tablename ? " msprop:TableForReading=\"" + tablename + "\"" : "") + (isNotEntityChild ? " msprop:NotEntityChild=\"true\" " : "") +
-                ">" + (minimal ? "<!--m-->" : "<!--n-->") + "\r\n          <xs:complexType>\r\n            <xs:sequence>\r\n";
+            var datasetMetadato = "        <xs:element name=\"" + tableAlias + "\"" + (tableAlias != tablename ? " msprop:TableForReading=\"" + tablename + "\"" : "") + (isNotEntityChild ? " msprop:NotEntityChild=\"true\" " : "") 
+                + (string.IsNullOrEmpty(staticFilter) ? "" :  " msprop:filter=\"" +  staticFilter + "\" " ) + ">" + (minimal ? "<!--m-->" : "<!--n-->") + "\r\n          <xs:complexType>\r\n            <xs:sequence>\r\n";
 
             foreach (var fi in fields.Where(f => !f.Name.StartsWith("XX")).OrderBy(f => f.Name))
             {
@@ -7653,10 +7981,14 @@ END";
                     }
                 case "int":
                 case "smallint":
-                case "bigint":
                 case "tinyint":
                     {
                         output = "int";
+                        break;
+                    }
+                case "bigint":
+                    {
+                        output = "long";
                         break;
                     }
                 case "image":
@@ -7694,11 +8026,11 @@ END";
             return f.Name.StartsWith("parid") || (f.Name.EndsWith("parent") && f.Name.StartsWith("id"));
 
         }
-        private static List<field> GetChildKeysbyMaster(string masterTable, List<field> childFields, List<field> allfields, SqlConnection connection, bool onlyWarning = false)
+        private static List<field> GetChildKeysbyMaster(string masterTable, List<field> childFields, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool onlyWarning = false)
         {
             if (childFields.Any())
             {
-                var masterkey = GetPrincipalKey(masterTable, "", allfields, connection, true);
+                var masterkey = GetPrincipalKey(masterTable, "", allfields, possibleTables, connection, true);
 
                 if (masterkey != null)
                 {
@@ -7708,24 +8040,49 @@ END";
                         return new List<field>() { masterkey, childForeignKey };
                     else
                     {
-                        var msg = "Non riesco a trovare nella tabella " + childFields.First().Table + " la chiave o chiave esterna corrispondente a " + masterkey.Name + " di " + masterTable;
-                        if (onlyWarning)
-                            ConsoleWriter.Warning(msg);
+
+                        var msg = "Non riesco a trovare nella tabella figlia " + childFields.First().Table + " la chiave o chiave esterna corrispondente a " + masterkey.Name + " della tabella Master " + masterTable +
+                            ". Riprovo a costruire la relazione al contrario, cioè cerco la chiave principale della tabella figlia " + childFields.First().Table + " nella tabella del master " + masterTable;
+                        ConsoleWriter.Warning(msg);
+
+                        //faccio un tentativo al contrario cioè cerco la masterkey del child nella tabella del master
+                        var childkeys = childFields.Where(cf => cf.IsKey);
+                        if (childkeys.Any())
+                        {
+                            var masterFields = GetDatasetFields(masterTable, allfields);
+                            var masterForeignKey = masterFields.Where(af => childkeys.Any(cf => cf.Name == af.Name) || (af.Name.Contains("_") && childkeys.Any(cf => cf.Name == af.Name.Split('_')[0])));
+                            var childkey = childkeys.Where(ck => masterForeignKey.Any(mk => mk.Name == ck.Name || (mk.Name.Contains("_") && ck.Name == mk.Name.Split('_')[0])));
+                            if (masterForeignKey.Any() && childkey.Any())
+                            {
+                                if (masterForeignKey.Count() == 1 && childkey.Count() == 1)
+                                    return new List<field>() { masterForeignKey.First(), childkey.First() };
+                                else
+                                    return masterForeignKey.Concat(childkey).ToList();
+                            }
+                        }
                         else
-                            ConsoleWriter.ErrorDB(msg);
+                        {
+                            msg = "Non riesco a trovare nella tabella figlia " + childFields.First().Table + " la chiave o chiave esterna corrispondente a " + masterkey.Name + " della tabella Master " + masterTable +
+                            " ne a costruire la relazione al contrario, cioè cerco la chiave principale della tabella figlia " + childFields.First().Table + " nella tabella del master " + masterTable;
+
+                            if (onlyWarning)
+                                ConsoleWriter.Warning(msg);
+                            else
+                                ConsoleWriter.ErrorDB(msg);
+                        }
                     }
                 }
                 else
-                    ConsoleWriter.ErrorDB(childFields.First().Table + " ÃƒÂ¨ in una tendina in cascata con " + masterTable + " ma " + masterTable + " non ha una chiave principale da condividere.");
+                    ConsoleWriter.ErrorDB(childFields.First().Table + " è in una tendina in cascata con " + masterTable + " ma " + masterTable + " non ha una chiave principale da condividere.");
             }
             else
-                ConsoleWriter.ErrorDB("C'ÃƒÂ¨ in una tendina in cascata con " + masterTable + " ma non riesco a ricavare i campi della tendina.");
+                ConsoleWriter.ErrorDB("C'è in una tendina in cascata con " + masterTable + " ma non riesco a ricavare i campi della tendina.");
 
             return new List<field>();
         }
 
         /// <summary>
-        /// restituisce la foreign key sulla chiave di una subentitÃƒÂ  rispetto alla key del padre
+        /// restituisce la foreign key sulla chiave di una subentità rispetto alla key del padre
         /// </summary>
         /// <param name="tableParent"></param>
         /// <param name="tableChild"></param>
@@ -7735,17 +8092,17 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static string GetChildKeysString(string tableParent, string tableChild, string editListTypeParent, string editListTypeChild, List<string> keysParent, List<field> allfields,
+        private static string GetChildKeysString(string tableParent, string tableChild, string editListTypeParent, string editListTypeChild, List<string> keysParent, List<field> allfields, List<obj> possibleTables,
             SqlConnection connection, bool onlywarning = false)
         {
             var ckString = "";
-            var keysChild = GetIdByTable(tableChild, allfields, connection, true, editListTypeChild);
+            var keysChild = GetIdByTable(tableChild, allfields, possibleTables, connection, true, editListTypeChild);
             foreach (var kp in keysParent)
             {
-                //prima cerco se ÃƒÂ¨ la chiave della relazione della paternitÃƒÂ 
+                //prima cerco se è la chiave della relazione della paternità
                 var keyRecoursive = keysChild.Where(k => "par" + kp.Split('_')[0] == k.Split('_')[0]).FirstOrDefault();
                 if (keyRecoursive == null)
-                    //altrimenti se ÃƒÂ¨ parte della relazione e basta
+                    //altrimenti se è parte della relazione e basta
                     keyRecoursive = keysChild.Where(k => kp.Split('_')[0] == k.Split('_')[0]).FirstOrDefault();
 
                 if (keyRecoursive != null)
@@ -7769,7 +8126,7 @@ END";
         }
 
         /// <summary>
-        /// restituisce la foreign key sulle colonne di una subentitÃƒÂ  rispetto alla key del padre
+        /// restituisce la foreign key sulle colonne di una subentità rispetto alla key del padre
         /// </summary>
         /// <param name="tableParent"></param>
         /// <param name="tableChild"></param>
@@ -7779,12 +8136,12 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static string GetChildForeignKeysString(string tableParent, string tableChild, string editListTypeParent, string editListTypeChild, List<string> keysParent, List<field> allfields,
+        private static string GetChildForeignKeysString(string tableParent, string tableChild, string editListTypeParent, string editListTypeChild, List<string> keysParent, List<field> allfields, List<obj> possibleTables,
             SqlConnection connection, bool onlywarning = true)
         {
             var ckString = "";
             var pkString = "";
-            var keysChild = GetfiledsByTableEditType(tableChild, editListTypeChild, allfields, connection, true);
+            var keysChild = GetfiledsByTableEditType(tableChild, editListTypeChild, allfields, possibleTables, connection, true);
             var allParentKeysAreNotInChildColumns = false;
             foreach (var kp in keysParent)
             {
@@ -7796,10 +8153,10 @@ END";
                 }
                 else
                 {
-                    //prima cerco se ÃƒÂ¨ la chiave della relazione della paternitÃƒÂ 
+                    //prima cerco se è la chiave della relazione della paternità
                     keyRecoursive = keysChild.Where(k => "par" + kp.Split('_')[0] == k.Name.Split('_')[0]).FirstOrDefault();
                     if (keyRecoursive == null)
-                        //altrimenti se ÃƒÂ¨ parte della relazione e basta
+                        //altrimenti se è parte della relazione e basta
                         keyRecoursive = keysChild.Where(k => kp.Split('_')[0] == k.Name.Split('_')[0]).FirstOrDefault();
                 }
 
@@ -7826,7 +8183,7 @@ END";
             //verifico che non siano da relazionare colonne fk che non sono chiave
             if (allParentKeysAreNotInChildColumns)
             {
-                foreach (var colParent in GetfiledsByTableEditType(tableParent, editListTypeParent, allfields, connection, true)
+                foreach (var colParent in GetfiledsByTableEditType(tableParent, editListTypeParent, allfields, possibleTables, connection, true)
                     .Where(cp => !cp.IsKey && HaveKeyName(cp)))
                 {
                     var colChild = keysChild.Where(k => colParent.Name.Split('_')[0] == k.Name.Split('_')[0] &&
@@ -7837,7 +8194,7 @@ END";
                         pkString += colParent.Name + " ";
                         if (verbose)
                             Console.WriteLine("INFO: aggiungo anche le colonne " + tableParent + "." + colParent.Name + "=" + tableChild + "." + colChild.Name +
-                                " alla relazione perchÃƒÂ© non tutte le chiavi del padre (" + tableParent + ") sono contenute nel figlio (" + tableChild + ")");
+                                " alla relazione perché non tutte le chiavi del padre (" + tableParent + ") sono contenute nel figlio (" + tableChild + ")");
 
                     }
 
@@ -7847,20 +8204,20 @@ END";
         }
 
         /// <summary>
-        /// determina se una tabella ÃƒÂ¨ di collegamento
-        /// deve essere composta esclusivamente dai campi di log e piÃƒÂ¹ di una chiave
+        /// determina se una tabella è di collegamento
+        /// deve essere composta esclusivamente dai campi di log e più di una chiave
         /// </summary>
         /// <param name="table"></param>
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static bool IsLinkingObject(string table, ref List<field> allfields, SqlConnection connection)
+        private static bool IsLinkingObject(string table, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
 
             if (table.Contains("_alias"))
                 table = table.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            GetMissingFields(table, null, ref allfields, connection);
+            GetMissingFields(table, null, ref allfields, possibleTables, connection);
             var ft = GetDatasetFields(table, allfields).Where(af => af.Table == table && af.Name != "ct" && af.Name != "cu" && af.Name != "lt" && af.Name != "lu").ToList();
             return ft.All(f => f.IsKey) && ft.Count() > 1;
         }
@@ -7873,7 +8230,7 @@ END";
         /// <param name="allfields">tutti i campi</param>
         /// <param name="connection">connessione</param>
         /// <returns>i campi della tabella collegata</returns>
-        private static List<field> GetLinkingObjectFields(string linkingtable, string linkingeditlisttype, ref List<field> allfields, SqlConnection connection)
+        private static List<field> GetLinkingObjectFields(string linkingtable, string linkingeditlisttype, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
 
             var linkingobjectfields = new List<field>();
@@ -7898,9 +8255,9 @@ END";
                     }
                     else
                     {
-                        linkedtable = GetTableById(linkingid.Name, allfields, connection);
+                        linkedtable = GetTableById(linkingid.Name, allfields, possibleTables, connection);
                     }
-                    GetMissingFields(linkedtable, null, ref allfields, connection);
+                    GetMissingFields(linkedtable, null, ref allfields, possibleTables, connection);
 
                     //controllo che non indichi un list type specifico, altrimenti uso quello del padre o quello di default
                     var linkededitlisttype = linkingeditlisttype;
@@ -7913,28 +8270,28 @@ END";
                     if (linkedtable.Contains("_"))
                     {
                         var extendedobject = linkedtable.Split('_')[0];
-                        GetMissingFields(extendedobject, null, ref allfields, connection);
+                        GetMissingFields(extendedobject, null, ref allfields, possibleTables, connection);
                         var extendedlisttype = linkedtable.Split('_')[1] + (linkededitlisttype == "default" ? "" : "_" + linkededitlisttype);
                         var extendedfields = allfields.Where(af => af.Table == extendedobject && af.EditListingType == extendedlisttype).ToList();
-                        ConsoleWriter.WarningDB("L'elemento collegato dall'oggetto di collegamento " + linkingtable + " " + linkingeditlisttype + " che ÃƒÂ¨ " + linkedtable + " " + linkededitlisttype +
-                            " ÃƒÂ¨ un oggetto estendente, quindi sono stati aggiunti ai campi calcolati anche i campi dell'oggetto " + linkedtable.Split('_')[0] + " " + linkedtable.Split('_')[1]);
+                        ConsoleWriter.WarningDB("L'elemento collegato dall'oggetto di collegamento " + linkingtable + " " + linkingeditlisttype + " che è " + linkedtable + " " + linkededitlisttype +
+                            " è un oggetto estendente, quindi sono stati aggiunti ai campi calcolati anche i campi dell'oggetto " + linkedtable.Split('_')[0] + " " + linkedtable.Split('_')[1]);
                         linkingobjectfields.AddRange(extendedfields);
                     }
                 }
             }
             else
-                ConsoleWriter.ErrorDB("L'elemento collegato dall'oggetto di collegamento " + linkingtable + " " + linkingeditlisttype + " non ÃƒÂ¨ individuabile, verificare la visibilitÃƒÂ  nella lista di almeno uno dei campi");
+                ConsoleWriter.ErrorDB("L'elemento collegato dall'oggetto di collegamento " + linkingtable + " " + linkingeditlisttype + " non è individuabile, verificare la visibilità nella lista di almeno uno dei campi");
             return linkingobjectfields;
         }
 
         /// <summary>
-        /// Verifica se un oggetto ÃƒÂ¨ una tabella estendente oppure no
+        /// Verifica se un oggetto è una tabella estendente oppure no
         /// </summary>
         /// <param name="table">oggetto</param>
         /// <param name="allfields">tutti i campi scaricati</param>
         /// <param name="connection">connessione</param>
         /// <returns>si/no</returns>
-        private static bool IsExtendingObject(string table, ref List<field> allfields, SqlConnection connection)
+        private static bool IsExtendingObject(string table, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             var output = false;
             //prima tolgo l'alias
@@ -7943,10 +8300,10 @@ END";
             if (table.Contains("_"))
             {
                 var extendedObject = table.Split('_')[0];
-                GetMissingFields(extendedObject, null, ref allfields, connection);
-                //verifico che non si tratti in realtÃƒÂ  di una tabella di collegamento con un oggetto esteso:
+                GetMissingFields(extendedObject, null, ref allfields, possibleTables, connection);
+                //verifico che non si tratti in realtà di una tabella di collegamento con un oggetto esteso:
                 //se adesso che ho appena cercato di aggiungere i campi dell'oggetto esteso non li ho trovati sul db allora vuol dire che la tabella non esiste, 
-                //perchÃƒÂ¨ ÃƒÂ¨ in realtÃƒÂ  una tabella di collegamneto (in cui la tabella estendente ÃƒÂ¨ sempre nella parte destra del nome)
+                //perchè è in realtà una tabella di collegamneto (in cui la tabella estendente è sempre nella parte destra del nome)
                 if (allfields.Any(af => af.Table == extendedObject))
                 {
                     output = true;
@@ -7955,7 +8312,7 @@ END";
                 {
                     extendedObject = "";
                     if (verbose)
-                        Console.WriteLine("INFO: la tabella " + table + " contiene _ ma ÃƒÂ¨ solo una tabella di collegamento ad una estendente");
+                        Console.WriteLine("INFO: la tabella " + table + " contiene _ ma è solo una tabella di collegamento ad una estendente");
                 }
             }
             return output;
@@ -7967,10 +8324,10 @@ END";
         /// <param name="table">oggetto estendente</param>
         /// <param name="allfields">tutti i campi</param>
         /// <param name="connection">connessione</param>
-        /// <param name="getmissing">verifica di aver caricato i campi dal db (default ÃƒÂ¨ true)</param>
+        /// <param name="getmissing">verifica di aver caricato i campi dal db (default è true)</param>
         /// <param name=""></param>
         /// <returns></returns>
-        private static string GetExtendedObject(string table, ref List<field> allfields, SqlConnection connection, bool getmissing = true)
+        private static string GetExtendedObject(string table, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool getmissing = true)
         {
             string extendedObject = null;
             //prima tolgo l'alias
@@ -7980,10 +8337,10 @@ END";
             {
                 extendedObject = table.Split('_')[0];
                 if (getmissing)
-                    GetMissingFields(extendedObject, null, ref allfields, connection);
-                //verifico che non si tratti in realtÃƒÂ  di una tabella di collegamento con un oggetto esteso:
+                    GetMissingFields(extendedObject, null, ref allfields, possibleTables, connection);
+                //verifico che non si tratti in realtà di una tabella di collegamento con un oggetto esteso:
                 //se adesso che ho appena cercato di aggiungere i campi dell'oggetto esteso non li ho trovati sul db allora vuol dire che la tabella non esiste, 
-                //perchÃƒÂ¨ ÃƒÂ¨ in realtÃƒÂ  una tabella di collegamneto (in cui la tabella estendente ÃƒÂ¨ sempre nella parte destra del nome)
+                //perchè è in realtà una tabella di collegamneto (in cui la tabella estendente è sempre nella parte destra del nome)
                 if (allfields.Any(af => af.Table == extendedObject))
                 {
                 }
@@ -7991,21 +8348,21 @@ END";
                 {
                     extendedObject = null;
                     if (verbose)
-                        Console.WriteLine("INFO: la tabella " + table + " contiene _ ma ÃƒÂ¨ solo una tabella di collegamento ad una estendente");
+                        Console.WriteLine("INFO: la tabella " + table + " contiene _ ma è solo una tabella di collegamento ad una estendente");
                 }
             }
             return extendedObject;
         }
 
         /// <summary>
-        /// Elenco delle eccezioni, si puÃƒÂ² passare la tabella, la chiave oppure la coppia tabella con foreign key e foreign key
+        /// Elenco delle eccezioni, si può passare la tabella, la chiave oppure la coppia tabella con foreign key e foreign key
         /// restituisce una tupla con le informazioni sulla tabella o sulle relazionioni
         /// </summary>
         /// <param name="table">tabella</param>
         /// <param name="key">chiave</param>
         /// <param name="linkedTable">tabella con foreign key</param>
         /// <param name="linkedcolumn">foreign key</param>
-        /// <returns>tabella, chiave, tabella con foreign key,foreign key, ÃƒÂ¨ una vera chiave?, ÃƒÂ¨ un oggetto esteso?</returns>
+        /// <returns>tabella, chiave, tabella con foreign key,foreign key, è una vera chiave?, è un oggetto esteso?</returns>
         private static Tuple<string, string, string, string, bool, bool> GetException(string table, string key, string linkedTable, string linkedcolumn)
         {
             /* var exceptions = new List<Tuple<string, string, string, string, bool, bool>>(); */
@@ -8032,7 +8389,7 @@ END";
         /// <param name="id">l'indice</param>
         /// <param name="allfields">i campi del db</param>
         /// <returns>la tabella</returns>
-        private static string GetTableById(string id, List<field> allfields, SqlConnection connection, string linkingObject = null)
+        private static string GetTableById(string id, List<field> allfields, List<obj> possibleTables, SqlConnection connection, string linkingObject = null)
         {
             if (id != "id")
             {
@@ -8048,10 +8405,10 @@ END";
                     if (!ex.Item5)
                     {
                         if (verbose)
-                            ConsoleWriter.InfoDB("INFO: E' stata cercata la tabella per la colonna " + id + " che sembra una chiave ma non lo ÃƒÂ¨");
+                            ConsoleWriter.InfoDB("INFO: E' stata cercata la tabella per la colonna " + id + " che sembra una chiave ma non lo è");
                         return "";
                     }
-                    GetMissingFields(ex.Item1, null, ref allfields, connection);
+                    GetMissingFields(ex.Item1, null, ref allfields, possibleTables, connection);
                     return ex.Item1;
                 }
 
@@ -8064,22 +8421,22 @@ END";
                 {
                     var output = id.Substring(2);
                     if (!allfields.Any(af => af.Table == output))
-                        GetMissingFields(output, null, ref allfields, connection);
+                        GetMissingFields(output, null, ref allfields, possibleTables, connection);
 
-                    //1- se io debba riferirmi ad una chiave di un oggetto estendente (quando ÃƒÂ¨ il collegamento con l'oggetto padre non serve)
+                    //1- se io debba riferirmi ad una chiave di un oggetto estendente (quando è il collegamento con l'oggetto padre non serve)
                     //devo averla inserita come se avesse la propria chiave (id+estendente) e non quella dell'esteso (id+esteso)
                     if (allfields.Any(af => af.Table == output))
                         return output;
 
-                    //2- se io debba riferirmi piÃƒÂ¹ volte alla stessa chiave nella stessa tabella, io possa accodare _xxx alla chiave
+                    //2- se io debba riferirmi più volte alla stessa chiave nella stessa tabella, io possa accodare _xxx alla chiave
                     id = id.Substring(0, id.IndexOf('_'));
                     if (verbose)
                         ConsoleWriter.InfoDB("INFO: Riprovo ripartendo dall'indice " + id + ".");
                 }
 
-                //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora 
+                //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora 
                 //(se avessi avuto solo quella di collegamento adesso avrei anche la tabella collegata)
-                GetMissingFields(null, id, ref allfields, connection);
+                GetMissingFields(null, id, ref allfields, possibleTables, connection);
 
                 //prendo tutte le tabelle con quella chiave
                 var allOutput = allfields.Where(af => af.IsKey && af.Name == id);//.Select(af => af.Table);
@@ -8098,11 +8455,11 @@ END";
                     //se ho passato una tabella di collegamento ...
                     if (linkingObject != null)
                     {
-                        //... scelgo la tabella il cui nome ÃƒÂ¨ in quella di collegamento ed ÃƒÂ¨ piÃƒÂ¹ lungo (estendente)
+                        //... scelgo la tabella il cui nome è in quella di collegamento ed è più lungo (estendente)
                         output = outputs.Where(o => linkingObject.Contains(o)).OrderBy(o => o.Length).LastOrDefault();
                     }
                     else
-                        //...altrimenti scelgo la tabella col nome piÃƒÂ¹ corto (esteso)
+                        //...altrimenti scelgo la tabella col nome più corto (esteso)
                         output = outputs.OrderBy(o => o.Length).FirstOrDefault();
 
                     if (!string.IsNullOrEmpty(output))
@@ -8135,12 +8492,12 @@ END";
         /// <param name="allfields"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private static string GetEditTypeById(field id, List<field> allfields, SqlConnection connection)
+        private static string GetEditTypeById(field id, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             var editListTypeField = string.IsNullOrEmpty(id.Listtype) ? "default" : id.Listtype;
             if (editListTypeField == "default" && id.Name.Contains("_") && !id.Name.StartsWith("XX") && id.Name != "id")
             {
-                //prendo la seconda stringa dopo _ se ÃƒÂ¨ una sola altrimenti prendo la terza ma provo comunque tutte e due
+                //prendo la seconda stringa dopo _ se è una sola altrimenti prendo la terza ma provo comunque tutte e due
                 var possibleListType = new List<string>();
                 if (id.Name.Split('_').Count() > 2)
                 {
@@ -8149,11 +8506,11 @@ END";
                 }
                 possibleListType.Add(id.Name.Split('_')[1]);
 
-                var table = GetTableById(id.Name, allfields, connection);
+                var table = GetTableById(id.Name, allfields, possibleTables, connection);
                 if(!string.IsNullOrWhiteSpace(table))
                     //se alla GetTableById viene passato un id di un estendente (idesteso_listtypeesteso) restituisce la tabella estendente, 
-                    //che non avrÃƒÂ  MAI il list type dell'esteso, quindi in quel caso devo recuperare la tabella dell'esteso
-                    if (IsExtendingObject(table, ref allfields, connection))
+                    //che non avrà MAI il list type dell'esteso, quindi in quel caso devo recuperare la tabella dell'esteso
+                    if (IsExtendingObject(table, ref allfields, possibleTables, connection))
                         table = table.Split('_')[0];
 
                 foreach (var plt in possibleListType)
@@ -8169,14 +8526,14 @@ END";
         /// <param name="table">tabella</param>
         /// <param name="allfields">campi del db</param>
         /// <returns>gli indici</returns>
-        private static List<string> GetIdByTable(string table, List<field> allfields, SqlConnection connection, bool checkmissing = true, string edittype = null)
+        private static List<string> GetIdByTable(string table, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool checkmissing = true, string edittype = null)
         {
 
             table = table.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
+            //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
             if (checkmissing)
-                GetMissingFields(table, null, ref allfields, connection);
+                GetMissingFields(table, null, ref allfields, possibleTables, connection);
 
             var tablefields = new List<field>();
             if (!string.IsNullOrWhiteSpace(edittype))
@@ -8184,7 +8541,8 @@ END";
             else
                 tablefields = GetDatasetFields(table, allfields);
 
-            var output = tablefields.Where(af => af.IsKey || (IsView(table, allfields) && HaveKeyName(af))).OrderBy(x => x.Name).Select(af => af.Name).ToList();
+            //che sono chiave o se è una vista che hanno un nome di chiave ma non sono una replica e per la vista non ne erano state specificate nel configuratore
+            var output = tablefields.Where(af => af.IsKey || (IsView(table, allfields) && HaveKeyName(af) && !char.IsDigit(af.Name[af.Name.Length -1]) && !tablefields.Any(aaf=>aaf.IsKey)) ).OrderBy(x => x.Name).Select(af => af.Name).ToList();
             if (output.Any())
                 return output;
             else
@@ -8216,17 +8574,23 @@ END";
         /// <param name="connection"></param>
         /// <param name="checkmissing"></param>
         /// <returns></returns>
-        private static List<field> GetfiledsByTableEditType(string table, string edittype, List<field> allfields, SqlConnection connection = null, bool checkmissing = false)
+        private static List<field> GetfiledsByTableEditType(string table, string edittype, List<field> allfields, List<obj> possibleTables, SqlConnection connection = null, bool checkmissing = false)
         {
             table = table.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
+            //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
             if (checkmissing)
-                GetMissingFields(table, null, ref allfields, connection);
+                GetMissingFields(table, null, ref allfields, possibleTables, connection);
 
             var output = new List<field>();
             if (!string.IsNullOrWhiteSpace(edittype))
+            {
                 output = allfields.Where(af => af.Table == table && af.EditListingType == (IsView(table, allfields) ? "default" : edittype)).ToList();
+                if (!output.Any()) { 
+                    //potrebbe essere una vista ma usata come tabella per disegnare una griglia
+                    output = allfields.Where(af => af.Table == table && af.EditListingType == edittype).ToList(); 
+                }
+            }
             else
                 output = GetDatasetFields(table, allfields);
 
@@ -8236,12 +8600,12 @@ END";
             return output;
         }
 
-        private static string GetSchemaByTable(string table, List<field> allfields, SqlConnection connection, bool checkmissing = true)
+        private static string GetSchemaByTable(string table, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool checkmissing = true)
         {
 
-            //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
+            //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
             if (checkmissing)
-                GetMissingFields(table, null, ref allfields, connection);
+                GetMissingFields(table, null, ref allfields, possibleTables, connection);
 
 
             var output = allfields.Where(af => af.Table == table && (af.IsKey || af.IsView)).OrderBy(x => x.Name).Select(af => af.Schema).FirstOrDefault();
@@ -8266,14 +8630,14 @@ END";
         /// <param name="table">tabella</param>
         /// <param name="allfields">campi del db</param>
         /// <returns>gli indici</returns>
-        private static List<field> GetIdFieldsByTable(string table, List<field> allfields, SqlConnection connection, bool checkmissing = true, string edittype = null)
+        private static List<field> GetIdFieldsByTable(string table, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool checkmissing = true, string edittype = null)
         {
 
             table = table.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-            //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
+            //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
             if (checkmissing)
-                GetMissingFields(table, null, ref allfields, connection);
+                GetMissingFields(table, null, ref allfields, possibleTables, connection);
 
             var tablefields = new List<field>();
             if (!string.IsNullOrWhiteSpace(edittype))
@@ -8318,11 +8682,11 @@ END";
         }
 
         /// <summary>
-        /// Restituisce true se si tratta della chiave principale (non quelle derivati dalle entitÃƒÂ  padri) dell'oggetto
+        /// Restituisce true se si tratta della chiave principale (non quelle derivati dalle entità padri) dell'oggetto
         /// </summary>
         /// <param name="f">Campo da esaminare</param>
         /// <param name="table">tabella di cui potrebbe essere chiave</param>
-        /// <param name="isView">indica se la tabella in esame ÃƒÂ¨ una vista</param>
+        /// <param name="isView">indica se la tabella in esame è una vista</param>
         /// <returns></returns>
         private static bool IsPrincipalKey(field f, string table, bool isView = false)
         {
@@ -8338,7 +8702,27 @@ END";
         }
 
         /// <summary>
-        /// restituisce true se i campi passati sono relative a vere subentitÃƒÂ  ovvero tutta la chiave del padre ÃƒÂ¨ contenuta nella chiave del figlio
+        /// Restituisce true se si tratta della chiave principale (non quelle derivati dalle entità padri) dell'oggetto
+        /// </summary>
+        /// <param name="f">Campo da esaminare</param>
+        /// <param name="table">tabella di cui potrebbe essere chiave</param>
+        /// <param name="isView">indica se la tabella in esame è una vista</param>
+        /// <returns></returns>
+        private static bool IsPrincipalKey(string f, string table, bool isView = false)
+        {
+            if (f.Substring(2) == table.Split('_')[0])
+                return true;
+            if ( f == "id")
+                return true;
+            var ex = GetException(table, null, null, null);
+            if (ex != null)
+                if ( (f == ex.Item2.Split('_')[0] || ex.Item2.Split(' ').Contains(f)))
+                    return true;
+            return false;
+        }
+
+        /// <summary>
+        /// restituisce true se i campi passati sono relative a vere subentità ovvero tutta la chiave del padre è contenuta nella chiave del figlio
         /// </summary>
         /// <param name="parentKey"></param>
         /// <param name="childFieds"></param>
@@ -8347,15 +8731,15 @@ END";
         {
             var input = parentKey;
             if (!string.IsNullOrEmpty(parentTable)) {
-                //se ho passato la tabella parent ÃƒÂ¨ perchÃƒÂ¨ non mi posso fidare delle parentkey passate perchÃƒÂ¨ la relazione potrebbe essere personalizzata 
-                //e quindi la parentkey alterata e quindi il calcolo della subentitÃƒÂ  ne risulterebbe potenzialmente sbagliato
+                //se ho passato la tabella parent è perchè non mi posso fidare delle parentkey passate perchè la relazione potrebbe essere personalizzata 
+                //e quindi la parentkey alterata e quindi il calcolo della subentità ne risulterebbe potenzialmente sbagliato
                 var t = RemoveAlias(parentTable);
                 input = allfields.Where(af => af.Table == t && af.EditListingType == editListingTypeParent && af.IsKey == true).Select(af=>af.Name).ToList(); 
             }
-            //verifico che tutte le chiavi del padre siano nella chiave del figlio => subentitÃƒÂ 
+            //verifico che tutte le chiavi del padre siano nella chiave del figlio => subentità
             foreach (var pk in input)
             {
-                if (!childFieds.Any(f => f.IsKey && (f.Name.Split('_')[0] == pk || f.Name == pk)))
+                if (!childFieds.Any(f => f.IsKey && (f.Name.Split('_')[0] == pk.Split('_')[0] || f.Name == pk)))
                     return false;
             }
             return true;
@@ -8369,7 +8753,7 @@ END";
         /// <param name="allfields"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        private static string GetOriginalTableByView(string tablename, string editListingType, List<field> allfields)
+        private static string GetOriginalTableByView(string tablename, string editListingType, List<field> allfields, List<obj> possibleTables)
         {
             var originalTable = "";
             var realeditListingType = string.IsNullOrWhiteSpace(editListingType) ? "default" : editListingType;
@@ -8384,6 +8768,13 @@ END";
                 if (allfields.Any(af => af.Table + (af.EditListingType == "" ? "default" : af.EditListingType) + "view" == tablename))
                     originalTable = allfields.Where(af => af.Table + (af.EditListingType == "" ? "default" : af.EditListingType) + "view" == tablename).Select(af => af.Table).FirstOrDefault();
 
+            //se non l'ho ancora trovato provo al contrario a cercare sul db tutti gli ogetti che potrebbero corrispondere
+            if (string.IsNullOrWhiteSpace(originalTable))
+            {
+                if (possibleTables.Any(af => af.Table + (af.EditListingType == "" ? "default" : af.EditListingType) + "view" == tablename))
+                    originalTable = possibleTables.Where(af => af.Table + (af.EditListingType == "" ? "default" : af.EditListingType) + "view" == tablename).Select(af => af.Table).FirstOrDefault();
+            }
+
             if (string.IsNullOrWhiteSpace(originalTable) && verbose)
                 Console.WriteLine("WARING: Non trovo la tabella originale per la vista " + tablename);
             return originalTable;
@@ -8391,15 +8782,24 @@ END";
 
 
         //restituisce true se si tratta di un enum ovvero chiave e title coincidono
-        private static bool IsEnum(field f, List<field> allfields, SqlConnection connection)
+        private static bool IsEnum(field f, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             if (f.Name.StartsWith("aa"))
                 return true;
 
             if (HaveKeyName(f))
             {
-                var table = GetTableById(f.Name, allfields, connection);
-                //vado avanti solo se non ÃƒÂ¨ un falso id che quindi non ha portato ad alcuna tabella
+                //var key = f.Name;
+                ////se è una foreign key controllo prima che non ci sia una eccezione 
+                //var ex = GetException(null, null, f.Name, f.Table);
+                //if (ex != null)
+                //{
+                //    if(ex.Item5)
+                //        key = ex.Item2;
+                //}
+
+                var table = GetTableByForeignKey(f, allfields, possibleTables, connection);
+                //vado avanti solo se non è un falso id che quindi non ha portato ad alcuna tabella
                 if (!string.IsNullOrWhiteSpace(table))
                 {
                     var title = allfields.Where(af => af.Table == table && af.Name == "title").FirstOrDefault();
@@ -8440,13 +8840,13 @@ END";
             return false;
         }
 
-        //restituisce true se il campo ÃƒÂ¨ una textarea
+        //restituisce true se il campo è una textarea
         private static bool IsTextArea(field f)
         {
             return (f.Type == "ntext" || f.Type == "text" || (f.Type == "nvarchar" && f.Len == -1) || (f.Type == "varchar" && f.Len == -1) || f.Textarea);
         }
 
-        //restituisce true se il campo ÃƒÂ¨ una campo testo
+        //restituisce true se il campo è una campo testo
         private static bool IsTextField(field f)
         {
             return (new List<string>() { "char", "nchar", "nvarchar", "varchar", "text", "ntext" }).Contains(f.Type);
@@ -8461,7 +8861,7 @@ END";
         /// <param name="connection"></param>
         /// <param name="checkmissing"></param>
         /// <returns>la chiave principale</returns>
-        private static field GetPrincipalKey(string table, string edittype, List<field> allfields, SqlConnection connection, bool checkmissing = true)
+        private static field GetPrincipalKey(string table, string edittype, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool checkmissing = true)
         {
 
             var realtable = RemoveAlias(table);
@@ -8469,20 +8869,27 @@ END";
             var isView = IsView(realtable, allfields);
 
             if (isView)
-                tableOfView = GetOriginalTableByView(realtable, edittype, allfields);
+                tableOfView = GetOriginalTableByView(realtable, edittype, allfields, possibleTables);
 
             if (checkmissing)
-                GetMissingFields(realtable, null, ref allfields, connection, true);
+                GetMissingFields(realtable, null, ref allfields, possibleTables, connection, true);
 
             var keys = string.IsNullOrWhiteSpace(edittype) ?
                 allfields.Where(f => (f.IsKey || isView) && f.Table == realtable) :
                 allfields.Where(f => (f.IsKey || isView) && f.Table == realtable && f.EditListingType == edittype);
 
+            //if (!keys.Any() && isView) {
+            //    //paracadute se non ho trovato campi per la vista
+            //    keys = //string.IsNullOrWhiteSpace(edittype) ?
+            //        allfields.Where(f => f.IsKey && f.Table == tableOfView); //:
+            //        //allfields.Where(f => f.IsKey && f.Table == tableOfView && f.EditListingType == edittype);
+            //}
+
             foreach (var key in keys)
                 if (IsPrincipalKey(key, string.IsNullOrWhiteSpace(tableOfView) ? realtable : tableOfView, isView))
                     return key;
 
-            if (!IsLinkingObject(realtable, ref allfields, connection))
+            if (!IsLinkingObject(realtable, ref allfields, possibleTables, connection))
             {
                 var ex = GetException(table, null, null, null);
                 if (ex != null)
@@ -8492,8 +8899,8 @@ END";
                         allfields.Where(f => ex.Item2.Split(' ').Any(ek => ek == f.Name) && f.Table == realtable && f.EditListingType == edittype).First();
                 }
 
-                if (isView || GetfiledsByTableEditType(realtable, edittype, allfields).Any(x => x.IsLinkingObj))
-                    ConsoleWriter.Info("Chiave principale non trovata per la tabella " + table + " e l'edit type " + edittype);
+                if (isView || GetfiledsByTableEditType(realtable, edittype, allfields, possibleTables).Any(x => x.IsLinkingObj))
+                    ConsoleWriter.Info("Chiave principale non trovata per la vista " + table + " e l'edit type " + edittype +". Verificare che la vista " + table + " esista veramente.");
                 else
                     ConsoleWriter.ErrorDB("Chiave principale non trovata per la tabella " + table + " e l'edit type " + edittype);
 
@@ -8528,17 +8935,17 @@ END";
         /// <param name="getmissing"></param>
         /// <param name="listtype"></param>
         /// <returns></returns>
-        private static List<field> GetGridFieldByTable(string table, List<field> allfields, SqlConnection connection, bool getmissing = true, string listtype = "default")
+        private static List<field> GetGridFieldByTable(string table, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool getmissing = true, string listtype = "default")
         {
 
             if (string.IsNullOrEmpty(listtype))
                 listtype = "default";
 
             if (getmissing)
-                //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
-                GetMissingFields(table, null, ref allfields, connection);
+                //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
+                GetMissingFields(table, null, ref allfields, possibleTables, connection);
 
-            return GetFields(table, listtype, ref allfields).Where(x => x.ListVisible).ToList();
+            return GetFields(table, listtype, ref allfields, possibleTables).Where(x => x.ListVisible).ToList();
         }
 
         /// <summary>
@@ -8548,7 +8955,7 @@ END";
         /// <param name="allfields">campi del db, se gli passo un subset non devo MAI mettere getmissing = false</param>
         /// <param name="getmissing">verifica che i dati siano stati caricati dal db</param>
         /// <returns></returns>
-        private static List<field> GetTextFieldByTable(string table, List<field> allfields, SqlConnection connection, bool getmissing = true, string listtype = "default")
+        private static List<field> GetTextFieldByTable(string table, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool getmissing = true, string listtype = "default")
         {
 
             table = RemoveAlias(table);
@@ -8556,7 +8963,7 @@ END";
             if (string.IsNullOrEmpty(listtype))
                 listtype = "default";
 
-            //il naming standard prevede che se c'ÃƒÂ¨ un _ allora table ÃƒÂ¨ un oggetto derivato, quindi il text field ÃƒÂ¨ sul padre
+            //il naming standard prevede che se c'è un _ allora table è un oggetto derivato, quindi il text field è sul padre
             var originaltable = table;
             if (table.IndexOf('_') != -1)
             {
@@ -8567,16 +8974,16 @@ END";
                 if (isExtendingObject)
                 {
                     listtype = table.Split('_')[1] + ((listtype != "default" && listtype != null) ? "_" + listtype : "");
-                    //se si tratta di tabella estendente non ho piÃƒÂ¹ garanzia che il codice immediatamente precedente a 
-                    //questo metodo abbia giÃƒÂ  caricato la tabella estesa, quindi riattivo il caricamento incrementale da db
+                    //se si tratta di tabella estendente non ho più garanzia che il codice immediatamente precedente a 
+                    //questo metodo abbia già caricato la tabella estesa, quindi riattivo il caricamento incrementale da db
                     getmissing = true;
                 }
                 table = table.Substring(0, table.IndexOf('_'));
             }
 
             if (getmissing)
-                //verifico che i campi siano giÃƒÂ  stati caricati dal db altrimento lo faccio ora
-                GetMissingFields(table, null, ref allfields, connection);
+                //verifico che i campi siano già stati caricati dal db altrimento lo faccio ora
+                GetMissingFields(table, null, ref allfields, possibleTables, connection);
 
             //se non ho trovato la tabella riprovo con quella originale
             if (!allfields.Any(af => af.Table == table))
@@ -8586,7 +8993,7 @@ END";
                 {
                     if (verbose)
                         Console.WriteLine("INFO: Riprovo con " + table + ".");
-                    GetMissingFields(table, null, ref allfields, connection);
+                    GetMissingFields(table, null, ref allfields, possibleTables, connection);
                 }
             }
 
@@ -8596,8 +9003,8 @@ END";
             if (!tablefields.Any())
                 tablefields = GetDatasetFields(table, allfields);
 
-            //di base ÃƒÂ¨ l'id ...
-            var txtField = GetIdFieldsByTable(table, allfields, connection, false, listtype);
+            //di base è l'id ...
+            var txtField = GetIdFieldsByTable(table, allfields, possibleTables, connection, false, listtype);
             //...poi provo con il campo preposto
             var fiText = tablefields.Where(af => af.Textfield > 0).OrderBy(af => af.Textfield).ToList();
             if (fiText.Any())
@@ -8631,7 +9038,7 @@ END";
                         }
                         else
                         {
-                            ConsoleWriter.WarningDB("Per la tabella " + table + " non ÃƒÂ¨ stato trovato un campo testuale da mostrare nelle dropdown o autochoose");
+                            ConsoleWriter.WarningDB("Per la tabella " + table + " non è stato trovato un campo testuale da mostrare nelle dropdown o autochoose");
                         }
 
                     }
@@ -8649,6 +9056,13 @@ END";
                 specification = f.Name.Split('_')[1];
                 if (f.Name.Split('_').Length == 3)
                     specification += "_" + f.Name.Split('_')[2];
+            }
+
+            //se l'id finisce con dei numeri li prendo come specifica per distinguere le eventuali multiple relazioni tra due tabelle
+            Match match = Regex.Match(f.Name, @"\d+$");
+            if (match.Success)
+            {
+                specification = match.Value;
             }
 
             if (f.Name.StartsWith("parid") || f.Name == "idmenuwebparent")
@@ -8675,9 +9089,25 @@ END";
             return specification;
         }
 
+        private static string GetSqlColNameByLabel(string label) {
+            return label.Replace(" ", "_")
+                .Replace(";", "")
+                .Replace(":", "")
+                .Replace(",", "")
+                .Replace("%", "percentuale")
+                .Replace("*", "_per_")
+                .Replace("/", "_diviso_")
+                .Replace("-", "_")
+                .Replace("à", "a").Replace("è", "e").Replace("é", "e").Replace("ì", "i").Replace("ò", "o").Replace("ù", "u")
+                .Replace(")", "").Replace("(", "")
+                .Replace("]", "").Replace("[", "")
+                .Replace("]", "").Replace("[", "")
+                ;
+        }
+
         /// <summary>
         /// Crea la view per il metadato esteso + il metadato estendente oppure 
-        /// la view per il list type Default per gli oggetti che hanno un campo che referenzia un'altra tabella ed ÃƒÂ¨ indicato come visibile nell'elenco
+        /// la view per il list type Default per gli oggetti che hanno un campo che referenzia un'altra tabella ed è indicato come visibile nell'elenco
         /// </summary>
         /// <param name="table">tabella o oggetto esteso</param>
         /// <param name="extendingObjectTable"></param>
@@ -8686,16 +9116,16 @@ END";
         /// <param name="allfields">campi sul db</param>
         /// <param name="toWrite"></param>
         /// <param name="isLinkingObj"></param>
-        /// <param name="one2one">campi in subquery perchÃƒÂ¨ facenti parte di relazioni 1 a 1</param>
-        /// <param name="connection">connessione giÃƒÂ  aperta che non viene chiusa</param>
+        /// <param name="one2one">campi in subquery perchè facenti parte di relazioni 1 a 1</param>
+        /// <param name="connection">connessione già aperta che non viene chiusa</param>
         /// <returns></returns>
-        private static List<field> CreateView(string table, string extendingObjectTable, string editType, List<field> fields, List<field> actualNephews, List<field> allfields, bool toWrite, bool isLinkingObj, string one2one,
+        private static List<field> CreateView(string table, string extendingObjectTable, string editType, List<field> fields, List<field> actualNephews, List<field> allfields, List<obj> possibleTables, bool toWrite, bool isLinkingObj, string one2one,
         obj currentObj, SqlConnection connection)
         {
 
             var viewFields = new List<field>();
 
-            var schema = GetSchemaByTable(table, allfields, connection, false);
+            var schema = GetSchemaByTable(table, allfields, possibleTables, connection, false);
             if (!string.IsNullOrEmpty(schema))
                 schema = "[" + schema + "].";
 
@@ -8705,11 +9135,12 @@ END";
             var joinView = "";
             var whereView = "";
 
+            var keys = GetIdByTable(table, allfields, possibleTables, connection);
+
             //caso di oggetto esteso
             if (!string.IsNullOrEmpty(extendingObjectTable))
             {
-                var keys = GetIdByTable(table, allfields, connection);
-                var keysExtending = GetIdByTable(extendingObjectTable, allfields, connection);
+                var keysExtending = GetIdByTable(extendingObjectTable, allfields, possibleTables, connection);
                 joinView += "\r\nINNER JOIN " + extendingObjectTable + " WITH (NOLOCK) ON ";
                 var addend = false;
                 foreach (var key in keys)
@@ -8725,9 +9156,9 @@ END";
             var dropdowns = new List<textField>();
 
             //qui sicuramente: 
-            //-il get missing non serve perchÃƒÂ¨ sono i campi principali 
-            //-non devo controllare se il text field ÃƒÂ¨ di un estendente perchÃƒÂ¨ non glieli passo mai
-            var textfield = GetTextFieldByTable(table, allfields, connection, false, editType != "default" ? editType : null).FirstOrDefault();
+            //-il get missing non serve perchè sono i campi principali 
+            //-non devo controllare se il text field è di un estendente perchè non glieli passo mai
+            var textfield = GetTextFieldByTable(table, allfields, possibleTables, connection, false, editType != "default" ? editType : null).FirstOrDefault();
             if (textfield != null)
             {
                 if (belongsToOtherTable(table, textfield))
@@ -8742,7 +9173,7 @@ END";
                 {
 
                     //tolgo l'alias all'id e al text field dell'oggetto corrente e agli enum
-                    var hadAlias = !(f.Table == table && (f.IsKey || f.Name == textfield.Name)) && !IsEnum(f, allfields, connection);
+                    var hadAlias = !(f.Table == table && (f.IsKey || keys.Contains(f.Name) || f.Name == textfield.Name)) && !IsEnum(f, allfields, possibleTables, connection);
                     if (hadAlias)
                         f.ViewAlias = f.Table + "_" + f.Name;
 
@@ -8751,24 +9182,24 @@ END";
                     if (ex != null)
                         isExternalKey = true;
 
-                    // se ÃƒÂ¨ una chiave esterna ed ÃƒÂ¨ visibile in lista o in dettaglio...
+                    // se è una chiave esterna ed è visibile in lista o in dettaglio...
                     if (HaveKeyName(f) && (f.ListVisible || (f.Detailvisible && !f.Hidden)) &&
                         //...e se non sono incappato in una delle sue chiavi stesse ... (a meno che non sia un oggetto di collegamento)
                         (!IsPrincipalKey(f, table) || isLinkingObj || isExternalKey)
                         //...e non si tratta di un enum
-                        && !IsEnum(f, allfields, connection)
+                        && !IsEnum(f, allfields, possibleTables, connection)
                         )
                     {
 
                         //...aggiungo il join 
 
-                        var tableChild = GetTableById(f.Name, allfields, connection);
+                        var tableChild = GetTableByForeignKey(f, allfields, possibleTables, connection);
 
                         if (!string.IsNullOrEmpty(tableChild))
                         {
                             createView += "\r\n";
 
-                            var schemaJoin = GetSchemaByTable(tableChild, allfields, connection, true);
+                            var schemaJoin = GetSchemaByTable(tableChild, allfields, possibleTables, connection, true);
 
                             var specification = GetSpecification(f, tableChild, table, ref loop, joinView, schemaJoin);
 
@@ -8779,18 +9210,18 @@ END";
 
                             var hasAlias = !string.IsNullOrEmpty(specification);
 
-                            //creo una variabile che conterrÃƒÂ  l'alias della tabella child oppure la tabella child con lo schema
+                            //creo una variabile che conterrà l'alias della tabella child oppure la tabella child con lo schema
                             var tableChildAndSchema = schemaJoin + tableChild;
                             var tableChildAlias = tableChild + specification;
                             var tableChildInUse = hasAlias ? tableChildAlias : tableChildAndSchema;
 
 
-                            //ricavo la relazione, essendo una foreignkey il figlio ÃƒÂ¨ la tabella principale e il padre la key a cui la foreignkey punta
+                            //ricavo la relazione, essendo una foreignkey il figlio è la tabella principale e il padre la key a cui la foreignkey punta
                             var childkey = f.Name;
                             var parentKey = GetIdByForeignKey(f);
                             if (parentKey.Split(' ').ToList().Count > 1)
                             {
-                                var kk = GetChildForeignKeysString(tableChild, table, null, editType, parentKey.Split(' ').ToList(), allfields, connection);
+                                var kk = GetChildForeignKeysString(tableChild, table, null, editType, parentKey.Split(' ').ToList(), allfields, possibleTables, connection);
                                 childkey = kk.Split(';')[0].Trim();
                                 parentKey = kk.Split(';')[1].Trim();
                             }
@@ -8806,13 +9237,13 @@ END";
                             //-----------------------------
 
 
-                            var idTableChild = GetPrincipalKey(tableChild, null, allfields, connection, true).Name;
+                            var idTableChild = GetPrincipalKey(tableChild, null, allfields, possibleTables, connection, true).Name;
 
                             joinView += "\r\nLEFT OUTER JOIN " + tableChildAndSchema + (hasAlias ? " AS " + tableChildAlias : "") +
                                      " WITH (NOLOCK) ON " + onString;
 
-                            //aggiungerÃƒÂ² la chiave esterna senza alias per poter usare il campo in ricerca in presenza di autochoose, 
-                            //perchÃƒÂ¨ non posso indicare il campo su cui cercare col searchtag
+                            //aggiungerò la chiave esterna senza alias per poter usare il campo in ricerca in presenza di autochoose, 
+                            //perchè non posso indicare il campo su cui cercare col searchtag
                             //(siamo nel ramo delle autochoose o select quindi !select = autochoose ma comunque ribatto la regola che all'id e al text field dell'oggetto corrente 
                             //non va messo l'alias)
                             hadAlias = IsDropdown(f, tableChild) && !(f.Table == table && (f.IsKey || f.Name == textfield.Name));
@@ -8820,20 +9251,20 @@ END";
                                 f.ViewAlias = null;
 
 
-                            //se ÃƒÂ¨ una tabella di collegamento
+                            //se è una tabella di collegamento
                             if (isLinkingObj || f.IsLinkingObj)
                             {
                                 //aggiungo TUTTI i campi della tabella collegata visibili in griglia ...
-                                var joinfields = GetLinkingObjectFields(table, editType, ref allfields, connection);
+                                var joinfields = GetLinkingObjectFields(table, editType, ref allfields, possibleTables, connection);
                                 foreach (var txtField in joinfields.Where(jf => belongsToOtherTable(table, jf)))
                                 {
                                     var alias = txtField.Table + specification + "_" + txtField.Name;
                                     var column = (hasAlias ? "" : schemaJoin) + txtField.Table + (belongsToOtherTable(tableChild, txtField) ? "_" + tableChild : "") + specification + "." + txtField.Name;
                                     createView += " " + column + " AS " + alias + ",";
 
-                                    AddDropDownField(txtField, ref dropdowns, column, f.Textfield, null, txtField, allfields, connection);
+                                    AddDropDownField(txtField, ref dropdowns, column, f.Textfield, null, txtField, allfields, possibleTables, connection);
 
-                                    //lo devo rinnovare con tabella e visibilitÃƒÂ  uguali a quello dell'ID che lo ha generato
+                                    //lo devo rinnovare con tabella e visibilità uguali a quello dell'ID che lo ha generato
                                     viewFields.Add(RenewField(txtField, f, (f.SortList * 100) + (txtField.SortList * 10)  /*txtField.SortList*/, txtField.Detailvisible, txtField.ListVisible, alias, txtField.Title));
                                     Console.Write(".");
                                 }
@@ -8841,7 +9272,7 @@ END";
                                 {
                                     //mi mi sono stati restituiti alcuni text field dell'estendente, quindi devo aggiungerlo nel join (ci metto sempre l'alias non si sa mai)
                                     var extendedTableChild = joinfields.First(jf => belongsToOtherTable(tableChild, jf)).Table;
-                                    var schemaJoin2 = GetSchemaByTable(extendedTableChild, allfields, connection, false);
+                                    var schemaJoin2 = GetSchemaByTable(extendedTableChild, allfields, possibleTables, connection, false);
 
                                     if (string.IsNullOrEmpty(schemaJoin2))
                                         isDbo = false;
@@ -8857,34 +9288,34 @@ END";
                             else
                             {
                                 //...aggiungo ai campi tabella.campotestuale AS tabella_campotestuale
-                                var txtFields = GetTextFieldByTable(tableChild, allfields, connection, false, f.Listtype);
+                                var txtFields = GetTextFieldByTable(tableChild, allfields, possibleTables, connection, false, f.Listtype);
                                 if (tableChild == txtFields.First().Table)
                                 {
 
                                     foreach (var txtField in txtFields)
                                     {
-                                        //se non ÃƒÂ¨ una foreignkey oppure se ÃƒÂ¨ una key per questo specifico oggetto lo aggiungo 
-                                        if (!HaveKeyName(txtField) || txtField.IsKey || IsEnum(txtField, allfields, connection))
+                                        //se non è una foreignkey oppure se è una key per questo specifico oggetto lo aggiungo 
+                                        if (!HaveKeyName(txtField) || txtField.IsKey || IsEnum(txtField, allfields, possibleTables, connection))
                                         {
                                             var alias = tableChildAlias + "_" + txtField.Name;
                                             var column = tableChildInUse + "." + txtField.Name;
                                             createView += " " + column + " AS " + alias + ",";
 
-                                            AddDropDownField(f, ref dropdowns, column, f.Textfield, null, txtField, allfields, connection);
+                                            AddDropDownField(f, ref dropdowns, column, f.Textfield, null, txtField, allfields, possibleTables, connection);
 
-                                            //lo devo rinnovare con sortList, tabella e visibilitÃƒÂ  uguali a quello dell'ID che lo ha generato
+                                            //lo devo rinnovare con sortList, tabella e visibilità uguali a quello dell'ID che lo ha generato
                                             viewFields.Add(RenewField(txtField, f, (f.SortList * 100) + (txtField.SortList * 10)  /*f.SortList*/, f.Detailvisible, f.ListVisible, alias, (txtFields.Count > 1 ? txtField.Title + " " : "") + f.Title));
                                             Console.Write(".");
                                         }
                                         else
                                         {
 
-                                            //caso in cui il text field ÃƒÂ¨ a sua volta una foreign key quindi devo saltare su un'altra tabella ancora
-                                            var tableChild2 = GetTableById(txtField.Name, allfields, connection);
+                                            //caso in cui il text field è a sua volta una foreign key quindi devo saltare su un'altra tabella ancora
+                                            var tableChild2 = GetTableById(txtField.Name, allfields, possibleTables, connection);
                                             if (!string.IsNullOrEmpty(tableChild2))
                                             {
                                                 int loop2 = 0;
-                                                var schemaJoin2 = GetSchemaByTable(tableChild2, allfields, connection, true);
+                                                var schemaJoin2 = GetSchemaByTable(tableChild2, allfields, possibleTables, connection, true);
 
                                                 var specification2 = GetSpecification(txtField, tableChild2, table, ref loop2, joinView, schemaJoin2);
 
@@ -8895,7 +9326,7 @@ END";
 
                                                 var hasAlias2 = !string.IsNullOrEmpty(specification2);
 
-                                                var idTableChild2 = GetPrincipalKey(tableChild2, null, allfields, connection, true).Name;
+                                                var idTableChild2 = GetPrincipalKey(tableChild2, null, allfields, possibleTables, connection, true).Name;
 
                                                 var tableChildAndSchema2 = schemaJoin2 + tableChild2;
                                                 var tableChildAslias2 = tableChild2 + specification2;
@@ -8906,7 +9337,7 @@ END";
                                                 joinView += "\r\nLEFT OUTER JOIN " + tableChildAndSchema2 + (hasAlias2 ? " AS " + tableChildAslias2 : "") +
                                                          " WITH (NOLOCK) ON " + tableChildInUse + "." + txtField.Name + " = " + tableChildInUse2 + "." + idTableChild2;
 
-                                                var txtFields2 = GetTextFieldByTable(tableChild2, allfields, connection, false, txtField.Listtype);
+                                                var txtFields2 = GetTextFieldByTable(tableChild2, allfields, possibleTables, connection, false, txtField.Listtype);
 
                                                 //potrebbe essere un estendente e i campi testuali essere sull'esteso quindi devo aggiungere anche l'esteso
                                                 var extendedTable = "";
@@ -8929,11 +9360,11 @@ END";
                                                     txtFields2.Add(txtField);
                                                 foreach (var txtField2 in txtFields2)
                                                 {
-                                                    //di base ÃƒÂ¨ l'utima tabella del join ma ...
+                                                    //di base è l'utima tabella del join ma ...
                                                     var txtFieldTableInUse = tableChildInUse2;
                                                     var txtFieldTableAlias = tableChildAslias2;
 
-                                                    //... se ÃƒÂ¨ il textfield originale rimetto la tabella di partenza
+                                                    //... se è il textfield originale rimetto la tabella di partenza
                                                     var isOriginalTextField = false;
                                                     if (txtField2.Table == txtField.Table && txtField2.Name == txtField.Name)
                                                     {
@@ -8942,9 +9373,9 @@ END";
                                                         txtFieldTableAlias = tableChildAlias;
                                                     }
 
-                                                    if (!HaveKeyName(txtField2) || txtField2.IsKey || IsEnum(txtField2, allfields, connection) || isOriginalTextField)
+                                                    if (!HaveKeyName(txtField2) || txtField2.IsKey || IsEnum(txtField2, allfields, possibleTables, connection) || isOriginalTextField)
                                                     {
-                                                        //... se ÃƒÂ¨ esteso metto l'esteso da quest'ultima
+                                                        //... se è esteso metto l'esteso da quest'ultima
                                                         if (txtField2.Table == extendedTable)
                                                         {
                                                             txtFieldTableInUse = extendedTableInUse2;
@@ -8955,9 +9386,9 @@ END";
                                                         var column = txtFieldTableInUse + "." + txtField2.Name;
                                                         createView += " " + column + " AS " + alias + ",";
                                                         if (!isOriginalTextField && f.Textfield > 0)
-                                                            AddDropDownField(txtField, ref dropdowns, column, f.Textfield, txtField.Textfield, txtField2, allfields, connection, true);
+                                                            AddDropDownField(txtField, ref dropdowns, column, f.Textfield, txtField.Textfield, txtField2, allfields, possibleTables, connection, true);
 
-                                                        //lo devo rinnovare con sortList, tabella e visibilitÃƒÂ  uguali a quello dell'ID che lo ha generato
+                                                        //lo devo rinnovare con sortList, tabella e visibilità uguali a quello dell'ID che lo ha generato
                                                         viewFields.Add(RenewField(txtField2, txtField,
                                                             (f.SortList * 100) + (txtField.SortList * 10) + txtField2.SortList /*txtField.SortList*/,
                                                             f.Detailvisible ? !isOriginalTextField ? txtField.Detailvisible : false : false, // mostro solo se era visibile sia la fk che il lookup (ma non la fk intermedia eventualmente riaggiunta ai textfields)
@@ -8977,9 +9408,9 @@ END";
                                 }
                                 else
                                 {
-                                    //mi ÃƒÂ¨ stato restituito il text field del padre, quindi devo aggiungerlo nel join (ci metto sempre l'alias non si sa mai)
+                                    //mi è stato restituito il text field del padre, quindi devo aggiungerlo nel join (ci metto sempre l'alias non si sa mai)
                                     var extendedTable = txtFields.First().Table;
-                                    var schemaJoin2 = GetSchemaByTable(extendedTable, allfields, connection, false);
+                                    var schemaJoin2 = GetSchemaByTable(extendedTable, allfields, possibleTables, connection, false);
                                     if (string.IsNullOrEmpty(schemaJoin2))
                                         isDbo = false;
                                     else
@@ -8998,9 +9429,9 @@ END";
                                         var column = extendedTableInUse2 + "." + txtField.Name;
                                         createView += " " + column + " AS " + alias + ",";
 
-                                        AddDropDownField(f, ref dropdowns, column, f.Textfield, null, txtField, allfields, connection);
+                                        AddDropDownField(f, ref dropdowns, column, f.Textfield, null, txtField, allfields, possibleTables, connection);
 
-                                        //lo devo rinnovare con sortList, tabella e visibilitÃƒÂ  uguali a quello dell'ID che lo ha generato
+                                        //lo devo rinnovare con sortList, tabella e visibilità uguali a quello dell'ID che lo ha generato
                                         viewFields.Add(RenewField(txtField, f, (f.SortList * 100) + (txtField.SortList * 10)  /*f.SortList*/, f.Detailvisible, f.ListVisible, alias, f.Title));
                                         Console.Write(".");
                                     }
@@ -9014,7 +9445,7 @@ END";
                         }
                         else
                         {
-                            //aggiungo il campo id ai fields della vista perchÃƒÂ¨ non porta a nulla 
+                            //aggiungo il campo id ai fields della vista perchè non porta a nulla 
                             viewFields.Add(RenewField(f, f, (f.SortList * 100) /* f.SortList*/, f.Detailvisible, f.ListVisible, f.ViewAlias));
                             Console.Write(".");
                         }
@@ -9025,7 +9456,7 @@ END";
                         viewFields.Add(RenewField(f, f, (f.SortList * 100) /* f.SortList*/, f.Detailvisible, f.ListVisible, f.ViewAlias));
                         Console.Write(".");
 
-                        AddDropDownField(f, ref dropdowns, f.Table + "." + f.Name, f.Textfield, null, new field { Type = f.Type, Textfield = 0 }, allfields, connection);
+                        AddDropDownField(f, ref dropdowns, f.Table + "." + f.Name, f.Textfield, null, new field { Type = f.Type, Textfield = 0 }, allfields, possibleTables, connection);
                     }
 
                     //aggiungo il campo alla vista ...
@@ -9043,7 +9474,7 @@ END";
                             }
                             else
                             {
-                                createView += "THEN '" + r + "' ";
+                                createView += "THEN '" + r.Replace("'", "''") + "' ";
                             }
                         }
                         createView += "END AS " + (hadAlias ? f.Table + "_" + f.Name : f.Name) + ",";
@@ -9052,7 +9483,7 @@ END";
                         //...togliendo gli alias all'id e al text field dell'oggetto corrente
                         createView += " " + f.Table + "." + f.Name + (hadAlias ? " AS " + f.Table + "_" + f.Name : "") + ",";
 
-                    //aggiungo il filtro statico per questa vista indicato nel campo e l'eventuale non nullabilitÃƒÂ  delle chiavi forzate
+                    //aggiungo il filtro statico per questa vista indicato nel campo e l'eventuale non nullabilità delle chiavi forzate
                     if (!string.IsNullOrEmpty(f.Filter))
                         whereView += " AND " + f.Table + "." + f.Name + " " + f.Filter;
                     if (f.IsKey)
@@ -9064,7 +9495,7 @@ END";
                 ConsoleWriter.ErrorDB("La tabella " + table + " con l'edit type " + editType + " non ha un campo testuale definito da mostrare");
             }
             //IL FILTRO STATICO NON VIENE APPLICATO QUI ma nel metadato vista (o normale) 
-            //NON si puÃƒÂ² applicare qui perchÃƒÂ¨ :
+            //NON si può applicare qui perchè :
             //1 - sono scritti tutti con gli alias della vista mentre qui andrebbero riferiti alle tabelle
             //2 - sono presenti elementi dinamici elaborati a runtime dal codice come l'id dell'utente loggato
             //if (!string.IsNullOrEmpty(currentObj.Staticfilter))
@@ -9087,7 +9518,7 @@ END";
             }
             else
             {
-                ConsoleWriter.WarningDB("Non ho costruito il dropdown_title. ATTENZIONE: se la vista sarÃƒÂ  utilizzata in una dropdown, la generazione del dataset potrebbe dare errore.\r\nCompilare la colonna \"Campo testuale\" nell'oggetto " + table + " con edit type " + editType);
+                ConsoleWriter.WarningDB("Non ho costruito il dropdown_title. ATTENZIONE: se la vista sarà utilizzata in una dropdown, la generazione del dataset potrebbe dare errore.\r\nCompilare la colonna \"Campo testuale\" nell'oggetto " + table + " con edit type " + editType);
                 createView = createView.Substring(0, createView.Length - 1);
             }
             //----------------------------------------------------------------------------------------------
@@ -9103,27 +9534,48 @@ END";
                 var nepEditType = string.IsNullOrEmpty(nep.Listtype) ? "default" : nep.Listtype;
                 var nepCols = new List<textField>();
                 //ricavo i campi testuali
-                foreach (var tf in GetTextFieldByTable(nepTable, allfields, connection, true, nepEditType))
+                foreach (var tf in GetTextFieldByTable(nepTable, allfields, possibleTables, connection, true, nepEditType))
                 {
-                    AddDropDownField(tf, ref nepCols, tf.Table + "." + tf.Name, tf.Textfield, null, new field { Type = tf.Type, Textfield = 0 }, allfields, connection, false, true);
+                    if(!tf.Name.StartsWith("!")) //escludo i campi calcolati che sul db non esistono
+                        AddDropDownField(tf, ref nepCols, tf.Table + "." + tf.Name, tf.Textfield, null, new field { Type = tf.Type, Textfield = 0 }, allfields, possibleTables, connection, false, true);
                 }
                 var calcCol = "";
                 //scrivo il campo di select in JSON				
-                var schemaJoin = GetSchemaByTable(nepTable, allfields, connection);
+                var schemaJoin = GetSchemaByTable(nepTable, allfields, possibleTables, connection);
 
                 if (nepCols.Any())
                 {
                     foreach (var f in nepCols.OrderBy(ddf => ddf.FirstIndex).ThenBy(ddf => ddf.SecondIndex))
                     {
                         var colName = "[" + f.ColumnName + "]";
-                        if (f.Column.EndsWith(colName + ","))
-                            calcCol += f.Column.Replace(colName, f.ColumnName.Replace(" ", "_").Replace("%", "percentuale"));
+                        if (f.Column.EndsWith(colName + ",")) //TODO verificare perchè attualmente sembra condizione impossibile
+                            calcCol += f.Column.Replace(colName, GetSqlColNameByLabel(f.ColumnName));
                         else
-                            calcCol += f.Column.Replace("\"\" : ", "") + (string.IsNullOrWhiteSpace(f.ColumnName) ? "" : " AS " + f.ColumnName.Replace(" ", "_").Replace("%", "percentuale")) + ",";
+                            calcCol += f.Column.Replace("\"\" : ", "") + (string.IsNullOrWhiteSpace(f.ColumnName) ? "" : " AS " + GetSqlColNameByLabel(f.ColumnName)) + ",";
                     }
-                    var parentKey = GetIdByTable(table, allfields, connection, false, editType);
 
-                    var kk = GetChildForeignKeysString(table, nepTable, editType, nepEditType, parentKey, allfields, connection);
+                    //se il nipote è estendente e mostra anche colonne dell'esteso le aggiungo al join
+                    var neptables = nepCols.Select(f => f.Table).Distinct().ToList();
+                    var extendedJoin = "";
+                    if (neptables.Count() == 2)
+                    {
+                        var extendedTable = neptables.Where(nts => nts != nepTable).FirstOrDefault();
+                        var extendedSchema = GetSchemaByTable(extendedTable, allfields, possibleTables, connection);
+                        var extendedPrimaryKey = GetPrincipalKey(extendedTable, nepTable.Split('_')[1] + "_" + nepEditType, allfields, possibleTables, connection, false);
+                        extendedJoin = " inner join " + extendedSchema + "." + extendedTable + " on " + schemaJoin + "." + nepTable + ".idnullaosta = " + extendedSchema + "." + extendedTable + ".idnullaosta";
+                    }
+                    else
+                    {
+                        //caso in cui mostra SOLO campi dell'esteso (o a questo punto potrebbe essere anche una tabella normale e questa sostituzione è indifferente)
+                        //controllo però che non sia una tabella di collegamento a una estendente
+                        if(nepTable.IndexOf("_") > 0 && !IsLinkingObject(nepTable, ref allfields, possibleTables, connection))
+                            nepEditType = nepTable.Split('_')[1] + "_" + nepEditType;
+                        nepTable = neptables.FirstOrDefault();
+                    }
+
+                    var parentKey = GetIdByTable(table, allfields, possibleTables, connection, false, editType);
+
+                    var kk = GetChildForeignKeysString(table, nepTable, editType, nepEditType, parentKey, allfields, possibleTables, connection);
                     var childkey = kk.Split(';')[0].Trim();
 
                     //preparo la condizione di JOIN
@@ -9140,9 +9592,10 @@ END";
                             table + "." + pk;
                         ik++;
                     }
+
                     //calcolo e aggiungo  la colonna nipote				
-                    calcCol = "\r\n , (SELECT (SELECT dbo.CreateJSON((SELECT DISTINCT " + calcCol.Substring(0, calcCol.Length - 1) + " FROM  " + schemaJoin + "." + nepTable +
-                        "\r\n WHERE " + whereString + " FOR XML path, root)))) AS " + nep.Name + " ";
+                    calcCol = "\r\n , (SELECT (SELECT dbo.CreateJSON((SELECT DISTINCT " + calcCol.Substring(0, calcCol.Length - 1) + " FROM  " + schemaJoin + "." + nepTable + extendedJoin +
+                            "\r\n WHERE " + whereString + " FOR XML path, root)))) AS " + nep.Name + " ";
 
                     createView += calcCol;
                     nep.ListVisible = true;
@@ -9160,7 +9613,7 @@ END";
                 createView += "\r\nWHERE " + whereView.Substring(4);
 
             //verifichiamo se si tratta di una vista non dbo 
-            //in base al fatto se un qualunque join ÃƒÂ¨ non dbo
+            //in base al fatto se un qualunque join è non dbo
             if (!isDbo)
             {
                 schema = "";
@@ -9169,7 +9622,7 @@ END";
                 try { cmd.ExecuteNonQuery(); }
                 catch (Exception e)
                 {
-                    ConsoleWriter.ErrorDB("Fallita l'eliminazione della vista [dbo].[" + table + editType + "view] perchÃƒÂ¨ va ricreata NON dbo. " + e.Message);
+                    ConsoleWriter.ErrorDB("Fallita l'eliminazione della vista [dbo].[" + table + editType + "view] perchè va ricreata NON dbo. " + e.Message);
                 }
             }
 
@@ -9186,7 +9639,7 @@ END";
                 catch (Exception e)
                 {
                     if (verbose)
-                        ConsoleWriter.InfoDB("La vista " + table + editType + "view esisteva giÃƒÂ  " + e.Message);
+                        ConsoleWriter.InfoDB("La vista " + table + editType + "view esisteva già " + e.Message);
                     var alterView = createView.Replace("CREATE VIEW", "ALTER VIEW");
                     cmd = new SqlCommand(alterView, connection);
                     try
@@ -9206,7 +9659,7 @@ END";
             return viewFields;
         }
 
-        private static void AddDropDownField(field f, ref List<textField> dropdowns, string column, int firstIndex, int? secondIndex, field textField, List<field> allfields, SqlConnection connection, bool cocnatTitles = false, bool addQuot = false)
+        private static void AddDropDownField(field f, ref List<textField> dropdowns, string column, int firstIndex, int? secondIndex, field textField, List<field> allfields, List<obj> possibleTables, SqlConnection connection, bool cocnatTitles = false, bool addQuot = false)
         {
             if (f.Textfield > 0)
             {
@@ -9251,7 +9704,8 @@ END";
                         ColumnName = (string.IsNullOrWhiteSpace(prefix) ? title : prefix),
                         FirstIndex = firstIndex,
                         SecondIndex = secondIndex != null ? (int)secondIndex : textField.Textfield,
-                        ThirdIndex = secondIndex != null ? textField.Textfield : 0
+                        ThirdIndex = secondIndex != null ? textField.Textfield : 0,
+                        Table = f.Table
                     });
                 }
                 else
@@ -9270,7 +9724,8 @@ END";
                             ColumnName = (string.IsNullOrWhiteSpace(prefix) ? title : prefix),
                             FirstIndex = firstIndex,
                             SecondIndex = secondIndex != null ? (int)secondIndex : textField.Textfield,
-                            ThirdIndex = secondIndex != null ? textField.Textfield : 0
+                            ThirdIndex = secondIndex != null ? textField.Textfield : 0,
+                            Table = f.Table
                         });
                     }
                     else
@@ -9280,8 +9735,8 @@ END";
                             if (HaveKeyName(f))
                             {
 
-                                var fktable = GetTableById(f.Name, allfields, connection);
-                                var txtFields = GetTextFieldByTable(fktable, allfields, connection, true, f.Listtype);
+                                var fktable = GetTableById(f.Name, allfields, possibleTables, connection);
+                                var txtFields = GetTextFieldByTable(fktable, allfields, possibleTables, connection, true, f.Listtype);
                                 var selectString = "(Select top 1 ";
 
                                 foreach (var tf in txtFields.OrderBy(ttf => ttf.SortList))
@@ -9296,7 +9751,7 @@ END";
                                     selectString += "'" + tf.Title.Replace("'", "''") + ": ' +" + tfStringSQLCol + " + '; ' + ";
                                 }
                                 var keys = GetIdByForeignKey(f).Split(' ').ToList();
-                                //se ÃƒÂ¨ un oggetto esteso uso txtFields[0].Table invece di fktable
+                                //se è un oggetto esteso uso txtFields[0].Table invece di fktable
                                 if (keys.Count() == 1)
                                     selectString = selectString.Substring(0, selectString.Length - 10) + " from " + txtFields[0].Table + " x where x." + keys[0] + " = " + column + ")";
                                 else
@@ -9316,7 +9771,8 @@ END";
                                     ColumnName = (string.IsNullOrWhiteSpace(prefix) ? title : prefix),
                                     FirstIndex = firstIndex,
                                     SecondIndex = secondIndex != null ? (int)secondIndex : textField.Textfield,
-                                    ThirdIndex = secondIndex != null ? textField.Textfield : 0
+                                    ThirdIndex = secondIndex != null ? textField.Textfield : 0,
+                                    Table = f.Table
                                 });
                             }
                             else
@@ -9328,7 +9784,8 @@ END";
                                     ColumnName = (string.IsNullOrWhiteSpace(prefix) ? title : prefix),
                                     FirstIndex = firstIndex,
                                     SecondIndex = secondIndex != null ? (int)secondIndex : textField.Textfield,
-                                    ThirdIndex = secondIndex != null ? textField.Textfield : 0
+                                    ThirdIndex = secondIndex != null ? textField.Textfield : 0,
+                        Table = f.Table
                                 });
                         }
                         else
@@ -9341,7 +9798,8 @@ END";
                                 ColumnName = (string.IsNullOrWhiteSpace(prefix) ? title : prefix),
                                 FirstIndex = firstIndex,
                                 SecondIndex = secondIndex != null ? (int)secondIndex : textField.Textfield,
-                                ThirdIndex = secondIndex != null ? textField.Textfield : 0
+                                ThirdIndex = secondIndex != null ? textField.Textfield : 0,
+                                Table = f.Table
                             });
                     }
                 }
@@ -9354,12 +9812,12 @@ END";
         /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
-        private static string GetTableByForeignKey(field f, List<field> allfields, SqlConnection connection)
+        private static string GetTableByForeignKey(field f, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             var ex = GetException(null, null, f.Table, f.Name);
             if (ex != null)
             {
-                GetMissingFields(ex.Item1, null, ref allfields, connection);
+                GetMissingFields(ex.Item1, null, ref allfields, possibleTables, connection);
                 return ex.Item1;
             }
             else
@@ -9368,7 +9826,7 @@ END";
                 if (key.StartsWith("parid"))
                     key = key.Substring(3);
                 //fa anche il GetMissingFields()
-                return GetTableById(key, allfields, connection);
+                return GetTableById(key, allfields, possibleTables, connection);
             }
         }
 
@@ -9403,7 +9861,7 @@ END";
         }
 
         /// <summary>
-        /// Indica che il name del campo ÃƒÂ¨ quello di una chiave
+        /// Indica che il name del campo è quello di una chiave
         /// </summary>
         /// <param name="fi">campo</param>
         /// <returns>true/false</returns>
@@ -9438,7 +9896,7 @@ END";
         /// <param name="allfields">tutti i campi</param>
         /// <param name="connection">connessione</param>
         /// <returns>stringa dei valori campo,valore,testo;campo,valore,testo;</returns>
-        private static string GetRadioFieldsValues(string relationType, string gridtable, string listtype, List<obj> objects, List<field> fields, ref List<field> allfields, SqlConnection connection)
+        private static string GetRadioFieldsValues(string relationType, string gridtable, string listtype, List<obj> objects, List<field> fields, ref List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
             var radiotag = "";
             if (relationType != "calendariow" & relationType != "calendario")
@@ -9446,14 +9904,14 @@ END";
                 var gridfields = new List<field>();
                 field gridkey = null;
 
-                //se ÃƒÂ¨ un oggetto di collegamento devo considerare i campi
-                if (IsLinkingObject(gridtable, ref allfields, connection))
+                //se è un oggetto di collegamento devo considerare i campi
+                if (IsLinkingObject(gridtable, ref allfields, possibleTables, connection))
                 {
-                    gridfields = GetLinkingObjectFields(gridtable, listtype, ref allfields, connection);
+                    gridfields = GetLinkingObjectFields(gridtable, listtype, ref allfields, possibleTables, connection);
                     gridkey = gridfields.Where(gf => gf.IsKey).FirstOrDefault();
                 }
                 else
-                    gridfields = GetFields(gridtable, listtype, ref allfields);
+                    gridfields = GetFields(gridtable, listtype, ref allfields, possibleTables);
 
                 //per ogni campo della griglia ....
                 foreach (var fi in gridfields.Where(gf => gf.ListVisible))
@@ -9474,22 +9932,22 @@ END";
                             }
                         }
                     }
-                    //se ÃƒÂ¨ una foreign key editabile (escludo le chiavi stesse dell'oggetto mostrato in griglia e tutti i campi se si stratta di un oggetto di collegamento perchÃƒÂ¨ modificherei un valore che poi non verrebbe salvato in quanto calcolato) e ...
-                    else if (fi.Editable && HaveKeyName(fi) && !IsPrincipalKey(fi, gridtable) && !IsLinkingObject(gridtable, ref allfields, connection))
+                    //se è una foreign key editabile (escludo le chiavi stesse dell'oggetto mostrato in griglia e tutti i campi se si stratta di un oggetto di collegamento perchè modificherei un valore che poi non verrebbe salvato in quanto calcolato) e ...
+                    else if (fi.Editable && HaveKeyName(fi) && !IsPrincipalKey(fi, gridtable) && !IsLinkingObject(gridtable, ref allfields, possibleTables, connection))
                     {
 
                         var ex = GetException(null, null, fi.Table, fi.Name);
 
-                        var metadatoChild = ex != null ? ex.Item1 : GetTableById(fi.Name, allfields, connection);
+                        var metadatoChild = ex != null ? ex.Item1 : GetTableById(fi.Name, allfields, possibleTables, connection);
 
                         if (!string.IsNullOrEmpty(metadatoChild))
                         {
 
                             var listtypeFi = !string.IsNullOrEmpty(fi.Listtype) ? fi.Listtype : "default";
 
-                            var txtField = GetTextFieldByTable(metadatoChild, allfields, connection, ex != null, (listtypeFi != "default" ? listtypeFi : null)).FirstOrDefault(); //il get missing non serve perchÃƒÂ© lo ha giÃƒÂ  fatto poco prima il GetTableById
+                            var txtField = GetTextFieldByTable(metadatoChild, allfields, possibleTables, connection, ex != null, (listtypeFi != "default" ? listtypeFi : null)).FirstOrDefault(); //il get missing non serve perché lo ha già fatto poco prima il GetTableById
 
-                            SetMetadatoChild(fields, fi, metadatoChild, ref allfields, connection);
+                            SetMetadatoChild(fields, fi, metadatoChild, ref allfields, possibleTables, connection);
 
                             var metadatochildWithText = belongsToOtherTable(metadatoChild, txtField) ? fi.MetadatoExtendedChild : fi.MetadatoChild;
 
@@ -9497,9 +9955,9 @@ END";
                             if (IsDropdown(fi, metadatochildWithText))
                             {
 
-                                var haveActiveField = HaveActiveField(metadatochildWithText, listtypeFi, ref allfields, connection);
+                                var haveActiveField = HaveActiveField(metadatochildWithText, listtypeFi, ref allfields, possibleTables, connection);
 
-                                SetDropDownParams(fi, txtField, metadatochildWithText, fields, ref allfields, connection);
+                                SetDropDownParams(fi, txtField, metadatochildWithText, fields, ref allfields, possibleTables, connection);
 
                                 //inserisco nella pagina i valori da editare 
                                 var q = "select  " + fi.DDSourceTableKey.Name + "," + fi.DDSourceDisplayMember + " from " + fi.DDSourcetable + (haveActiveField ? " where " + metadatochildWithText + "_active = 'Si'" : "");
@@ -9537,9 +9995,9 @@ END";
                                 }
                                 catch
                                 {
-                                    ConsoleWriter.ErrorDB("Non ÃƒÂ¨ stato possibile recuperare i valori per il campo editabile " + fi.Title + " nella griglia per " + gridtable);
+                                    ConsoleWriter.ErrorDB("Non è stato possibile recuperare i valori per il campo editabile " + fi.Title + " nella griglia per " + gridtable);
 
-                                    //		//se ÃƒÂ¨ un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
+                                    //		//se è un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
                                     //		var joinstring = "";
                                     //		if (table != metadatoChild) {
                                     //			var keys = GetIdByTable(table, allfields, connection);
@@ -9676,7 +10134,7 @@ END";
             bool replace = false;
             string initiallyText = textFile;
             string patternToControl;
-            //se toReplace ÃƒÂ¨ null vuol dire che la sostituzione non sarÃƒÂ  mai in aggiunta, dovrÃƒÂ² sempre sostituire in caso il valore sia diverso
+            //se toReplace è null vuol dire che la sostituzione non sarà mai in aggiunta, dovrò sempre sostituire in caso il valore sia diverso
             if (String.IsNullOrEmpty(valueToReplace))
             {
                 //per la verifica elimino tutti gli spazi vuoti che potrebbero rendere non veritieri i controlli di stringhe equivalenti
@@ -9694,10 +10152,10 @@ END";
                                                                     .Select(m => new KeyValuePair<string, int>(m.Value, textFile.IndexOf(m.Value))).ToList();
 
 
-            //verifico se la linea ÃƒÂ¨ giÃƒÂ  presente
+            //verifico se la linea è già presente
             if (lines.Any() && !replace)
             {
-                //se ci sono doppioni li elimino tutti tranne uno che eventualmente sostituirÃƒÂ² con il nuovo valore
+                //se ci sono doppioni li elimino tutti tranne uno che eventualmente sostituirò con il nuovo valore
                 if (lines.Count > 1)
                 {
                     var delete = true;
@@ -9731,10 +10189,10 @@ END";
             {
                 if (!replace)
                 {
-                    //la linea non ÃƒÂ¨ presente la aggiungo
+                    //la linea non è presente la aggiungo
                     int ultimaRiga;
                     var newLine = String.Format("\t\t{0}", patternToReplace.Replace("(.*?)", newValue).Replace("\\r", "\r").Replace("\\n", "\n"));
-                    //solo se specificato verifico se ÃƒÂ¨ giÃƒÂ  esistente una riga dello stesso tipo per accodarla
+                    //solo se specificato verifico se è già esistente una riga dello stesso tipo per accodarla
                     if (previousLikeValueExist != null)
                     {
                         string lastLine = Regex.Matches(textFile, "(\"|\\s|\\t|$)" + previousLikeValueExist + "(.*?)\r\n", RegexOptions.Singleline).Cast<Match>().Select(m => m.Value).ToList().LastOrDefault();
@@ -9745,14 +10203,14 @@ END";
                         }
                         else
                         {
-                            //se  la classe non ÃƒÂ¨ presente o non si ÃƒÂ¨ scelto di accodarla, la aggiungo in testa alla sezione
+                            //se  la classe non è presente o non si è scelto di accodarla, la aggiungo in testa alla sezione
                             ultimaRiga = textFile.LastIndexOf(mark) + mark.Length;
                             textFile = textFile.Insert(ultimaRiga, newLine);
                         }
                     }
                     else
                     {
-                        //se  la classe non ÃƒÂ¨ presente o non si ÃƒÂ¨ scelto di accodarla, la aggiungo in testa alla sezione
+                        //se  la classe non è presente o non si è scelto di accodarla, la aggiungo in testa alla sezione
                         ultimaRiga = textFile.LastIndexOf(mark) + mark.Length;
                         textFile = textFile.Insert(ultimaRiga, newLine);
                     }
@@ -9816,13 +10274,13 @@ END";
                 if (append)
                 {
                     var marker = "//" + oldvalue.Split(new string[] { "//" }, StringSplitOptions.RemoveEmptyEntries).ToList().Last();
-                    //lo aggiungo solo se non c'ÃƒÂ¨ giÃƒÂ 
+                    //lo aggiungo solo se non c'è già
                     if (!oldvalue.Contains(toWrite.Replace(marker, "")))
                     {
                         toWrite = oldvalue.Replace(marker, toWrite);
                     }
                     else
-                        //se giÃƒÂ  c'ÃƒÂ¨ esco subito
+                        //se già c'è esco subito
                         return textFile;
                 }
                 textFile = textFile.Replace(oldvalue, toWrite);
@@ -9844,7 +10302,7 @@ END";
 
             var enc = TextFile.GetEncoding(fullPath);
             string text = File.ReadAllText(fullPath, enc);
-            if (text.Contains(toReplace) || text.Contains(toReplace.Replace("\r", ""))) //l'accapo inserito dal configuratore ÃƒÂ¨ solo \n e non \r\n
+            if (text.Contains(toReplace) || text.Contains(toReplace.Replace("\r", ""))) //l'accapo inserito dal configuratore è solo \n e non \r\n
                 if (
                        (!TextFile.RemoveUnquotedWhiteSpaces(text).Contains(TextFile.RemoveUnquotedWhiteSpaces(toWrite.Replace(toReplace, ""))) && !CheckwithToReplace)
                     || (!TextFile.RemoveUnquotedWhiteSpaces(text).Contains(TextFile.RemoveUnquotedWhiteSpaces(toWrite)) && CheckwithToReplace)
@@ -9880,7 +10338,7 @@ END";
 
         #region generazione html
 
-        private static string GetGroupedColumns(List<field> fields, string summary, List<field> allfields, SqlConnection connection)
+        private static string GetGroupedColumns(List<field> fields, string summary, List<field> allfields, List<obj> possibleTables, SqlConnection connection)
         {
 
             var output = new List<string>();
@@ -9889,18 +10347,18 @@ END";
             {
                 if (f.Summary == summary)
                 {
-                    if (HaveKeyName(f) && !IsEnum(f, allfields, connection))
+                    if (HaveKeyName(f) && !IsEnum(f, allfields, possibleTables, connection))
                     {
-                        //se sto raggruppando per un id (e NON un enum ovvero entitÃƒÂ  con chiave e testo uguali) probabilmente in realtÃƒÂ  voglio il text field della tabella di cui ÃƒÂ¨ chiave
-                        var secondaryTableText = GetTableById(f.Name, allfields, connection);
-                        var textFields = GetTextFieldByTable(secondaryTableText, allfields, connection, false);
+                        //se sto raggruppando per un id (e NON un enum ovvero entità con chiave e testo uguali) probabilmente in realtà voglio il text field della tabella di cui è chiave
+                        var secondaryTableText = GetTableById(f.Name, allfields, possibleTables, connection);
+                        var textFields = GetTextFieldByTable(secondaryTableText, allfields, possibleTables, connection, false);
                         foreach (var tf in textFields)
                         {
-                            if (HaveKeyName(tf) && !IsEnum(tf, allfields, connection))
+                            if (HaveKeyName(tf) && !IsEnum(tf, allfields, possibleTables, connection))
                             {
-                                //ÃƒÂ¨ a sua volta un id quindi probabilmente in realtÃƒÂ  voglio il text field della tabella di cui ÃƒÂ¨ chiave
-                                var tertiaryTableText = GetTableById(tf.Name, allfields, connection);
-                                var tertiarytextFields = GetTextFieldByTable(tertiaryTableText, allfields, connection, false);
+                                //è a sua volta un id quindi probabilmente in realtà voglio il text field della tabella di cui è chiave
+                                var tertiaryTableText = GetTableById(tf.Name, allfields, possibleTables, connection);
+                                var tertiarytextFields = GetTextFieldByTable(tertiaryTableText, allfields, possibleTables, connection, false);
                                 foreach (var ttf in tertiarytextFields)
                                 {
                                     output.Add("!" + f.Name + "_" + secondaryTableText + "_" + tf.Name + "_" + ttf.Name);
@@ -9923,7 +10381,7 @@ END";
         }
 
         private static string GetGrid(obj o, tab tab, field fi, List<field> fields, List<field> subfields, List<field> allfields, string fullPathMetaPageJS, string fullPathTest, bool mdlexcludegroup,
-            List<childColumn> childColumns, List<obj> objects, SqlConnection connection)
+            List<childColumn> childColumns, List<obj> objects, List<obj> possibleTables, SqlConnection connection)
         {
 
             var formString = "";
@@ -9932,7 +10390,7 @@ END";
             var edittype = fi.EditListingType;
             var gridId = "grid_" + gridtable + "_" + edittype;
 
-            var radiotag = GetRadioFieldsValues(fi.RelationType, gridtable, edittype, objects, fields, ref allfields, connection);
+            var radiotag = GetRadioFieldsValues(fi.RelationType, gridtable, edittype, objects, fields, ref allfields, possibleTables, connection);
 
             if (!string.IsNullOrWhiteSpace(radiotag))
             {
@@ -9946,14 +10404,14 @@ END";
             var originalTable = GetOriginalTableByForeignKey(fi);
             var originalextendedTable = GetOriginalExtendedTableByForeignKey(fi);
             var pageid = allfields.Where(af => af.Table == originalTable && af.EditListingType == edittype).Select(af => af.PageId).First();
-            var actualNephews = GetChildentitiesFields(pageid, originalextendedTable, allfields, connection);
+            var actualNephews = GetChildentitiesFields(pageid, originalextendedTable, allfields, possibleTables, connection);
             foreach (var c in actualNephews)
             {
                 var metadatoC = c.Name.Substring(2);
-                //siccome per i nipoti che sono affogati nel tab del figlio il metodo GetChildentitiesFields sostituisce il title dell'oggetto con il title del Tab in cui ÃƒÂ¨ affogato, 
+                //siccome per i nipoti che sono affogati nel tab del figlio il metodo GetChildentitiesFields sostituisce il title dell'oggetto con il title del Tab in cui è affogato, 
                 //ma in questo contesto serve invece il titolo dell'oggetto, ribatto nel titolo del field il titolo dell'oggetto
                 c.Title = c.Text;
-                SetMetadatoChild(fields.Union(actualNephews).Union(childColumns.Select(cc => cc.Nephew)).ToList(), c, metadatoC, ref allfields, connection);
+                SetMetadatoChild(fields.Union(actualNephews).Union(childColumns.Select(cc => cc.Nephew)).ToList(), c, metadatoC, ref allfields, possibleTables, connection);
             }
             var havechild = actualNephews.Any(c => c.ShowInParentGrid > 0);
             foreach (var c in actualNephews.Where(c => c.ShowInParentGrid > 0))
@@ -9964,7 +10422,7 @@ END";
                     Tablename = gridtable,
                     Tablechild = c.MetadatoChild,
                     Columncalc = "!" + c.MetadatoChild,
-                    Columnlookup = GetTextFieldByTable(c.MetadatoChild, allfields, connection, true, c.Listtype).First().Name, //DEPRECATO
+                    Columnlookup = GetTextFieldByTable(c.MetadatoChild, allfields, possibleTables, connection, true, c.Listtype).First().Name, //DEPRECATO
                     EdittypeChild = c.Listtype,
                     Edittype = edittype,
                     Nephew = c,
@@ -9976,20 +10434,20 @@ END";
             {
                 default:
                     //...disegno la grid
-                    //se ÃƒÂ¨ un oggetto estendente devo mettere l'oggetto esteso con edit type = estendente_edittype
-                    if (IsExtendingObject(gridtable, ref allfields, connection))
+                    //se è un oggetto estendente devo mettere l'oggetto esteso con edit type = estendente_edittype
+                    if (IsExtendingObject(gridtable, ref allfields, possibleTables, connection))
                     {
                         edittype = gridtable.Split('_')[1] + "_" + edittype;
                         gridtable = fi.MetadatoExtendedChild ?? fi.Name.Substring(2).Split('_')[0];
                         if (fi.MetadatoExtendedChild == null)
                             if (verbose)
-                                ConsoleWriter.WarningDB("La griglia " + gridtable + "." + edittype + "." + edittype + " ÃƒÂ© per un oggetto esteso ma non ho il valore dell'alias calcolato.");
+                                ConsoleWriter.WarningDB("La griglia " + gridtable + "." + edittype + "." + edittype + " é per un oggetto esteso ma non ho il valore dell'alias calcolato.");
                     }
 
                     var gridFields = allfields.Where(gf => gf.Table == gridtable && gf.EditListingType == edittype && gf.ListVisible).ToList();
 
-                    var grf = GetGroupedColumns(gridFields, "R", allfields, connection);
-                    var gra = GetGroupedColumns(gridFields, "A", allfields, connection);
+                    var grf = GetGroupedColumns(gridFields, "R", allfields, possibleTables, connection);
+                    var gra = GetGroupedColumns(gridFields, "A", allfields, possibleTables, connection);
                     var gre = gridFields.Where(gf => gf.Editable);
 
                     formString += "\t\t\t\t<div class=\"gridx\" id=\"" + gridId + "\" data-tag=\"" + gridtable + //qui ci va il nome della tabella
@@ -10018,14 +10476,14 @@ END";
                 case "tree":
 
                     //...disegno la tree
-                    //se ÃƒÂ¨ un oggetto estendente devo mettere l'oggetto esteso con edit type = estendente_edittype
-                    if (IsExtendingObject(gridtable, ref allfields, connection))
+                    //se è un oggetto estendente devo mettere l'oggetto esteso con edit type = estendente_edittype
+                    if (IsExtendingObject(gridtable, ref allfields, possibleTables, connection))
                     {
                         edittype = gridtable.Split('_')[1] + "_" + edittype;
                         gridtable = fi.MetadatoExtendedChild ?? fi.Name.Substring(2).Split('_')[0];
                         if (fi.MetadatoExtendedChild == null)
                             if (verbose)
-                                ConsoleWriter.WarningDB("La griglia " + gridtable + "." + edittype + "." + edittype + " ÃƒÂ© per un oggetto esteso ma non ho il valore dell'alias calcolato.");
+                                ConsoleWriter.WarningDB("La griglia " + gridtable + "." + edittype + "." + edittype + " é per un oggetto esteso ma non ho il valore dell'alias calcolato.");
                     }
 
                     var treeFields = allfields.Where(gf => gf.Table == gridtable && gf.EditListingType == edittype && gf.ListVisible).ToList();
@@ -10045,8 +10503,8 @@ END";
                     SetArrayInputTest(fullPathTest, "{ tag: '" + gridtable + "." + edittype + "." + edittype + "', value:null, " +
                         (fi.Numrowsmandatory > 1 ? "rows:" + fi.Numrowsmandatory + "," : "") + " columns:" + treeFields.Count.ToString() + "," +
                         " type:controlTypeEnum.treecustom}", fi);
-                    var rootTextFields = GetTextFieldByTable(o.Table, allfields, connection, false, o.EditListingType);
-                    var treeTextFields = GetTextFieldByTable(gridtable, allfields, connection, false, edittype);
+                    var rootTextFields = GetTextFieldByTable(o.Table, allfields, possibleTables, connection, false, o.EditListingType);
+                    var treeTextFields = GetTextFieldByTable(gridtable, allfields, possibleTables, connection, false, edittype);
                     string rootTitle = string.Empty;
                     bool first = true;
                     foreach (var textField in rootTextFields)
@@ -10075,14 +10533,14 @@ END";
                     {
 
                         //tabella collegata con eventuali alias
-                        linkedtable = GetLinkedTable(linkid, ref fields, subfields, ref allfields, connection);
+                        linkedtable = GetLinkedTable(linkid, ref fields, subfields, ref allfields, possibleTables, connection);
 
                         if (!string.IsNullOrWhiteSpace(linkid.Listtype))
                             linkedtablelisttype = linkid.Listtype;
                     }
 
                     //ricavo i campi da mostrare
-                    gridFields = GetfiledsByTableEditType(linkedtable, linkedtablelisttype, allfields).Where(gf => gf.ListVisible).ToList();
+                    gridFields = GetfiledsByTableEditType(linkedtable, linkedtablelisttype, allfields, possibleTables).Where(gf => gf.ListVisible).ToList();
 
                     //...disegno la grid
                     formString += "		<div id=\"" + gridId + "\" data-tag=\"" + linkedtable + "." + linkedtablelisttype + "." + linkedtablelisttype + "\" data-custom-control=\"checklist\" " +
@@ -10106,30 +10564,35 @@ END";
 
                     var linkidManual = allfields.Where(f => f.IsLinkingObj && f.ListVisible && f.Table == gridtable && f.EditListingType == edittype).FirstOrDefault();
 
-                    if (IsLinkingObject(gridtable, ref allfields, connection) || linkidManual != null)
+                    if (IsLinkingObject(gridtable, ref allfields, possibleTables, connection) || linkidManual != null)
                     {
 
                         //tabella di collegamento
                         var linktable = gridtable;
+                        var noAliasLinkTable = RemoveAlias(linktable);
                         //chiave sulla tabella di collegamento
-                        linkid = linkidManual ?? allfields.Where(f => f.IsKey && f.ListVisible && f.Table == linktable && f.EditListingType == edittype && HaveKeyName(f)).FirstOrDefault();
+                        linkid = linkidManual ?? allfields.Where(f => f.IsKey && f.ListVisible && f.Table == noAliasLinkTable && f.EditListingType == edittype && HaveKeyName(f)).FirstOrDefault();
 
                         if (linkid != null)
                         {
+                            //se la tabella di ocllegamento contiene un alias devo correggere la tabella da riempire nell'evento colegato al bottone
+                            if(noAliasLinkTable!= linktable)
+                                ReplaceStringInFile(fullPathMetaPageJS, "tableToFill: \"" + noAliasLinkTable + "\",\r\n", "tableToFill: \"" + linktable + "\",\r\n");
 
-                            linkedtable = GetTableById(linkid.Name, allfields, connection);//tabella collegata
 
-                            gridFields = GetLinkingObjectFields(linktable, edittype, ref allfields, connection);
-                            grf = GetGroupedColumns(gridFields, "R", allfields, connection);
-                            gra = GetGroupedColumns(gridFields, "A", allfields, connection);
+                            linkedtable = GetTableById(linkid.Name, allfields, possibleTables, connection);//tabella collegata
+
+                            gridFields = GetLinkingObjectFields(linktable, edittype, ref allfields, possibleTables, connection);
+                            grf = GetGroupedColumns(gridFields, "R", allfields, possibleTables, connection);
+                            gra = GetGroupedColumns(gridFields, "A", allfields, possibleTables, connection);
                             gre = gridFields.Where(gf => gf.Editable);
 
                             formString += "			<div class=\"row\">\r\n" +
                                      "				<div class=\"col-md-9\">\r\n" +
-                                     "					<input id=\"txt_" + linktable + "_" + linkid.Name + "\" type=\"text\" class=\"form-control\" placeholder=\"...\" aria-label=\"Search\" />\r\n" +
+                                     "					<input id=\"txt_" + noAliasLinkTable + "_" + linkid.Name + "\" type=\"text\" class=\"form-control\" placeholder=\"...\" aria-label=\"Search\" />\r\n" +
                                      "				</div>\r\n" +
                                      "				<div class=\"col-md-3\">\r\n" +
-                                     "					<button id=\"btn_add_" + linktable + "_" + linkid.Name + "\" type=\"button\" class=\"btn btn-primary p-2 mt-1\">\r\n" +
+                                     "					<button id=\"btn_add_" + noAliasLinkTable + "_" + linkid.Name + "\" type=\"button\" class=\"btn btn-primary p-2 mt-1\">\r\n" +
                                      "						<i class=\"fas fa-search-plus mr-1\"></i> Cerca e aggiungi " + fi.Text.Trim() + "\r\n" +
                                      "					</button>\r\n" +
                                      "				</div>\r\n" +
@@ -10154,12 +10617,12 @@ END";
                                     var q = "";
                                     var table = linkedtable.Split(new string[] { "_alias" }, StringSplitOptions.RemoveEmptyEntries)[0];
                                     var listtype = string.IsNullOrWhiteSpace(linkid.Listtype) ? "default" : linkid.Listtype;
-                                    var linkedtextfield = GetTextFieldByTable(linkedtable, allfields, connection, false, listtype).FirstOrDefault();
+                                    var linkedtextfield = GetTextFieldByTable(linkedtable, allfields, possibleTables, connection, false, listtype).FirstOrDefault();
                                     var linkedtextfieldName = linkedtextfield.Name;
 
 
 
-                                    if (HaveView(table, listtype, ref allfields, connection))
+                                    if (HaveView(table, listtype, ref allfields, possibleTables, connection))
                                     {
                                         linkedtextfieldName = "dropdown_title";
                                         //qualora ci fosse una vista per questo list type allora devo selezionare un elemento da li
@@ -10167,7 +10630,7 @@ END";
 
                                         //FILTRO WHERE
                                         //qualora ci fosse un filtro statico lo devo applicare io come farebbe il framework al metadato vista...
-                                        //... o ce l'ho giÃƒÂ  in elenco
+                                        //... o ce l'ho già in elenco
                                         var acObj = objects.Where(aco => aco.Table == table && aco.EditListingType == listtype).FirstOrDefault();
                                         //... o me lo devo caricare da db
                                         if (acObj == null && partialGeneration)
@@ -10198,11 +10661,11 @@ END";
                                     }
                                     else
                                     {
-                                        //se ÃƒÂ¨ un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
+                                        //se è un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
                                         var joinstring = "";
                                         if (table != linkedtextfield.Table)
                                         {
-                                            var keys = GetIdByTable(table, allfields, connection);
+                                            var keys = GetIdByTable(table, allfields, possibleTables, connection);
                                             var extendedlinktable = table.Split('_')[0];
                                             joinstring += " INNER JOIN " + extendedlinktable + " ON ";
                                             var addend = false;
@@ -10212,7 +10675,7 @@ END";
                                                 addend = true;
                                             }
                                         }
-                                        var schema = GetSchemaByTable(table, allfields, connection, false);
+                                        var schema = GetSchemaByTable(table, allfields, possibleTables, connection, false);
                                         q = "select " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + linkedtextfield.Table + "." + linkedtextfieldName +
                                             " from " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + table + joinstring;
                                         if (allfields.Any(af => af.Name == "active" && af.Table == table))
@@ -10282,11 +10745,11 @@ END";
                     var title = fi.CalendarSettings.Split(';')[0];
                     if (string.IsNullOrEmpty(title))
                     {
-                        var txtfield = GetTextFieldByTable(gridtable, allfields, connection).FirstOrDefault();
+                        var txtfield = GetTextFieldByTable(gridtable, allfields, possibleTables, connection).FirstOrDefault();
                         title = txtfield.Name;
                         if (belongsToOtherTable(gridtable, txtfield))
                         {
-                            //mi ÃƒÂ¨ stato restituito il campo testuale dell'oggetto da cui deriva quindi devo cercare lÃƒÂ¬
+                            //mi è stato restituito il campo testuale dell'oggetto da cui deriva quindi devo cercare lì
                             gridtable = txtfield.Table;
                         }
                     }
@@ -10320,7 +10783,7 @@ END";
                     (string.IsNullOrEmpty(maincolor) ? "" : "  data-mdlmaincolor=\"" + maincolor + "\" ") +
                     (fi.Buttoninsert ? " data-mdlbuttoninsert " : "") + (fi.Buttonedit ? "data-mdlbuttonedit " : "") + (fi.Buttondelete ? "data-mdlbuttondelete " : "") +
                     (ded ? "data-mdldragdrop " : "") + (fi.RelationType == "calendariow" ? "data-mdlweekend " : "") +
-                    (string.IsNullOrEmpty(stop) ? "data-mdlmergeableKey=\"" + GetPrincipalKey(gridtable, edittype, allfields, connection, false).Name + "\"" : "") + //sono mergiabili solo gli eventi "tutto il giorno"
+                    (string.IsNullOrEmpty(stop) ? "data-mdlmergeableKey=\"" + GetPrincipalKey(gridtable, edittype, allfields, possibleTables, connection, false).Name + "\"" : "") + //sono mergiabili solo gli eventi "tutto il giorno"
                     "></div>\r\n			</div>\r\n		</div>\r\n";
 
                     //test
@@ -10351,14 +10814,14 @@ END";
 
         }
 
-        private static string WriteAutochoose(obj o, string editListingTypes, tab tab, field fi, List<field> fields, List<field> allfields, List<obj> objects, string nametag,
+        private static string WriteAutochoose(obj o, string editListingTypes, tab tab, field fi, List<field> fields, List<field> allfields, List<obj> possibleTables, List<obj> objects, string nametag,
             string metadatoChild, string listtype, string metadatochildWithText, field txtField, string fullPathMetaPageJS, string fullPathTest, string fullPathTestParams, SqlConnection connection)
         {
             var formString = "";
             //Autochoose
             // punto direttamente la tabella con i valori tanto il MDLW fa tutto da solo collegando le chiavi
 
-            //se ÃƒÂ¨ un oggetto ÃƒÂ¨ estendente allora devo usare il suo list type specifico
+            //se è un oggetto è estendente allora devo usare il suo list type specifico
             if (fi.Name.Contains("_"))
             {
                 var extended = fi.Name.Split('_')[0].Substring(2);
@@ -10368,14 +10831,14 @@ END";
                     extended = ex.Item1;
                 }
                 var extending = extended + "_" + fi.Name.Split('_')[1];
-                GetMissingFields(extending, null, ref allfields, connection);
+                GetMissingFields(extending, null, ref allfields, possibleTables, connection);
 
                 if (allfields.Any(af => af.Table == extending))
                     listtype = fi.Name.Split('_')[1];
                 else
                 {
                     if (verbose)
-                        Console.WriteLine("INFO: " + fi.Name + " ÃƒÂ¨ un indice con suffisso e non di una tabella estendente.");
+                        Console.WriteLine("INFO: " + fi.Name + " è un indice con suffisso e non di una tabella estendente.");
                 }
             }
 
@@ -10386,7 +10849,7 @@ END";
                               metadatochildWithText + "." + txtField.Name + "\" data-subentity placeholder=\"...\" " + (fi.Allownull ? "" : "data-mandatory ") + "/>\r\n" +
             "					</div>\r\n";
 
-            //se ÃƒÂ¨ un id della tabella ma anche di un parent verrebbe disabilitato quindi lo riabilito
+            //se è un id della tabella ma anche di un parent verrebbe disabilitato quindi lo riabilito
             if (fi.IsKey)
                 SetReadonly(fi, nametag, fullPathMetaPageJS, o, editListingTypes, false);
 
@@ -10397,7 +10860,7 @@ END";
                 //qualora ci fosse una vista per questo list type allora devo selezionare un eleento da li
                 var qview = "select * from " + table + listtype + "view";
                 //qualora ci fosse un filtro statico lo devo applicare io come farebbe il framework al metadato vista...
-                //... o ce l'ho giÃƒÂ  in elenco
+                //... o ce l'ho già in elenco
                 var acObj = objects.Where(aco => aco.Table == table && aco.EditListingType == listtype).FirstOrDefault();
                 //... o me lo devo caricare da db
                 if (acObj == null && partialGeneration)
@@ -10431,11 +10894,11 @@ END";
                 }
                 catch
                 {
-                    //se ÃƒÂ¨ un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
+                    //se è un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
                     var joinstring = "";
                     if (table != metadatoChild)
                     {
-                        var keys = GetIdByTable(table, allfields, connection);
+                        var keys = GetIdByTable(table, allfields, possibleTables, connection);
                         joinstring += " INNER JOIN " + metadatoChild + " ON ";
                         var addend = false;
                         foreach (var key in keys)
@@ -10444,7 +10907,7 @@ END";
                             addend = true;
                         }
                     }
-                    var schema = GetSchemaByTable(table, allfields, connection, false);
+                    var schema = GetSchemaByTable(table, allfields, possibleTables, connection, false);
                     var q = "select " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + table + "." + txtField.Name +
             " from " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + table + joinstring;
                     if (allfields.Any(af => af.Name == "active" && af.Table == table))
@@ -10479,12 +10942,12 @@ END";
             return formString;
         }
 
-        private static string WriteDropdowngrid(obj o, string editListingTypes, tab tab, field fi, List<field> fields, List<field> allfields, List<obj> objects, string nametag,
+        private static string WriteDropdowngrid(obj o, string editListingTypes, tab tab, field fi, List<field> fields, List<field> allfields, List<obj> possibleTables, List<obj> objects, string nametag,
             string metadatoChild, string listtype, string metadatochildWithText, field txtField, string fullPathMetaPageJS, string fullPathTest, string fullPathTestParams, string extendedObject, SqlConnection connection)
         {
             var formString = "";
 
-            //se ÃƒÂ¨ un oggetto ÃƒÂ¨ estendente allora devo usare il suo list type specifico
+            //se è un oggetto è estendente allora devo usare il suo list type specifico
             var extended = "";
             var isExtended = false;
             if (fi.Name.Contains("_"))
@@ -10499,32 +10962,36 @@ END";
                     }
                     var extending = extended + "_" + fi.Name.Split('_')[1];
 
-                    GetMissingFields(extended, null, ref allfields, connection);
-                    GetMissingFields(extending, null, ref allfields, connection);
+                    GetMissingFields(extended, null, ref allfields, possibleTables, connection);
+                    GetMissingFields(extending, null, ref allfields, possibleTables, connection);
 
                     if (allfields.Any(af => af.Table == extending))
                     {
-                        listtype = fi.Name.Split('_')[1];
+                        var declaredListType = "";
+                        if (!string.IsNullOrWhiteSpace(listtype))
+                            if (listtype != "default")
+                                declaredListType = listtype;
+                        listtype = fi.Name.Split('_')[1] + (string.IsNullOrWhiteSpace(declaredListType) ? "" : "_" + declaredListType);
                         isExtended = true;
                     }
                     else
                     {
                         if (verbose)
-                            Console.WriteLine("INFO: " + fi.Name + " ÃƒÂ¨ un indice con suffisso e non di una tabella estendente.");
+                            Console.WriteLine("INFO: " + fi.Name + " è un indice con suffisso e non di una tabella estendente.");
                     }
                 }
                 else
                 {
                     if (verbose)
-                        Console.WriteLine("INFO: " + fi.Name + " ÃƒÂ¨ un indice con suffisso e non di una tabella estendente.");
+                        Console.WriteLine("INFO: " + fi.Name + " è un indice con suffisso e non di una tabella estendente.");
                 }
 
             }
 
             var table = RemoveAlias(metadatochildWithText);
             var viewName = table + listtype + "view";
-            var isView = HaveView(table, listtype, ref allfields, connection);
-            var haveActiveField = HaveActiveField(table, listtype, ref allfields, connection);
+            var isView = HaveView(table, listtype, ref allfields, possibleTables, connection);
+            var haveActiveField = HaveActiveField(table, listtype, ref allfields, possibleTables, connection);
 
             //calcolo il datatag in base al fatto se ho trovato la vista oppure no
             var datatag = "";
@@ -10535,7 +11002,7 @@ END";
                 //riassegno il metadato alla vista, in modo da corstruirci gli alias se necessario
                 fi.MetadatoChild = null;
                 fi.MetadatoExtendedChild = null;
-                SetMetadatoChild(fields, fi, viewName, ref allfields, connection);
+                SetMetadatoChild(fields, fi, viewName, ref allfields, possibleTables, connection);
                 datatag = fi.MetadatoChild + ".dropdown_title";
             }
             else
@@ -10545,7 +11012,7 @@ END";
             }
 
             //SPOSTATO A POSTERIORI ANCHE PER I DROPDOWN NORMALI
-            ////se c'ÃƒÂ¨ un campo "active" deve essere filtrato in fase di inserimento
+            ////se c'è un campo "active" deve essere filtrato in fase di inserimento
             //if (HaveActiveField((isExtended ? extended : metadatoChild), listtype, ref allfields, connection)) {
 
             //	var field = "active";
@@ -10587,7 +11054,7 @@ END";
                         if (!string.IsNullOrWhiteSpace(staticFilter))
                             qview += (haveActiveField ? " and " : " where ") + staticFilter;
 
-                        ////... o ce l'ho giÃƒÂ  in elenco
+                        ////... o ce l'ho già in elenco
                         //var acObj = objects.Where(aco => aco.Table == table && aco.EditListingType == listtype).FirstOrDefault();
                         ////... o me lo devo caricare da db
                         //if (acObj == null && partialGeneration) {
@@ -10621,18 +11088,18 @@ END";
                         }
                         catch
                         {
-                            ConsoleWriter.ErrorDB("Il dropdowngrid " + metadatoChild + " risultava avere la vista ma non ÃƒÂ¨ stata trovata per costruire il test");
+                            ConsoleWriter.ErrorDB("Il dropdowngrid " + metadatoChild + " risultava avere la vista ma non è stata trovata per costruire il test");
                         }
                     }
                     else
                     {
                         if (verbose)
                             Console.WriteLine("INFO: il dropdowngrid " + metadatoChild + " non usa la vista per costruire il test");
-                        //se ÃƒÂ¨ un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
+                        //se è un oggetto estendente devo prendere solo i valori che si trovano su entrambe le tabelle
                         var joinstring = "";
                         if (table != metadatoChild)
                         {
-                            var keys = GetIdByTable(table, allfields, connection);
+                            var keys = GetIdByTable(table, allfields, possibleTables, connection);
                             joinstring += " INNER JOIN " + metadatoChild + " ON ";
                             var addend = false;
                             foreach (var key in keys)
@@ -10641,7 +11108,7 @@ END";
                                 addend = true;
                             }
                         }
-                        var schema = GetSchemaByTable(table, allfields, connection, false);
+                        var schema = GetSchemaByTable(table, allfields, possibleTables, connection, false);
                         var q = "select " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + table + "." + txtField.Name +
                               " from " + (!string.IsNullOrWhiteSpace(schema) ? schema + "." : "") + table + joinstring;
                         if (haveActiveField)
@@ -10660,7 +11127,7 @@ END";
                         }
                         catch
                         {
-                            ConsoleWriter.ErrorDB("Il dropdowngrid " + metadatoChild + " risultava avere la vista ma non ÃƒÂ¨ stata trovata per costruire il test");
+                            ConsoleWriter.ErrorDB("Il dropdowngrid " + metadatoChild + " risultava avere la vista ma non è stata trovata per costruire il test");
                         }
 
                     }
@@ -10675,7 +11142,7 @@ END";
                         {
                             var val = colonneTest.Rows[0][textColName].ToString();
 
-                            //se la prima riga ÃƒÂ¨ vuota vado avanti sulle successive
+                            //se la prima riga è vuota vado avanti sulle successive
                             if (string.IsNullOrWhiteSpace(val) && colonneTest.Rows.Count > 1)
                                 foreach (DataRow r in colonneTest.Rows)
                                     if (!string.IsNullOrWhiteSpace(r[textColName].ToString()))
@@ -10712,7 +11179,7 @@ END";
             ) +
             "					</div>\r\n";
 
-            if (IsAddictedDropdown(fi, ref allfields, connection))
+            if (IsAddictedDropdown(fi, ref allfields, possibleTables, connection))
             {
                 var masterTable = fi.Master;
                 string masterListtype = null;
@@ -10723,18 +11190,18 @@ END";
                     var masterField = fields.Where(f => f.Name + (string.IsNullOrEmpty(f.Listtype) ? "default" : f.Listtype) + "view" == "id" + fi.Master).FirstOrDefault();
                     if (masterField != null)
                     {
-                        masterTable = GetOriginalTableByView(masterTable, masterField.Listtype, allfields);
+                        masterTable = GetOriginalTableByView(masterTable, masterField.Listtype, allfields, possibleTables);
                         masterListtype = masterField.Listtype;
                     }
                 }
 
 
-                var masterkeys = GetPrincipalKey(masterTable, masterListtype, allfields, connection, true);
+                var masterkeys = GetPrincipalKey(masterTable, masterListtype, allfields, possibleTables, connection, true);
                 //var childkey = GetChildKeysString(masterTable, fi.MetadatoChild, "default", fi.Listtype, new List<string>() { masterkeys.Name }, allfields, connection, true).Trim();
                 //if (string.IsNullOrWhiteSpace(childkey))
                 //	childkey = GetChildForeignKeysString(masterTable, fi.MetadatoChild, "default", fi.Listtype, new List<string>() { masterkeys.Name }, allfields, connection, false).Trim().Split(';')[0].Trim();
                 var childkey = masterkeys.Name;
-                var slaveField2 = GetChildKeysbyMaster(fi.Master, GetFields(fi.MetadatoChild, fi.Listtype, ref allfields, connection), allfields, connection, !string.IsNullOrWhiteSpace(fi.AfterRowSelectPrefill));
+                var slaveField2 = GetChildKeysbyMaster(fi.Master, GetFields(fi.MetadatoChild, fi.Listtype, ref allfields, possibleTables, connection), allfields, possibleTables, connection, !string.IsNullOrWhiteSpace(fi.AfterRowSelectPrefill));
                 if (slaveField2.Count() == 2)
                     childkey = slaveField2[1].Name;
 
@@ -10809,13 +11276,13 @@ END";
                     ReplaceStringInFile(indexDebugPagePath, "$title$", currentTitle, true);
                     ReplaceStringInFile(indexDebugPagePath, "$appMainConfigPath$", "../config/" + clientName + "/appMainConfig.js", true);
 
-                    //file del menÃƒÂ¹
+                    //file del menù
                     string menuBuilderPath = Path.Combine(clientFolder, "menubuilder/", "menuBuilder.js");
                     ReplaceStringInFile(menuBuilderPath, "$idMenu$", idmenu);
 
                     ConsoleWriter.OK("Sostituzioni effettuate nei file della cartella client");
                 }
-                else ConsoleWriter.OK("Cartella client giÃƒÂ  presente");
+                else ConsoleWriter.OK("Cartella client già presente");
 
                 //ConsoleWriter.Info("Controllo che esista la cartella di configuarzione");
 
@@ -10849,18 +11316,18 @@ END";
                     }
                     ConsoleWriter.OK("Sostituzioni effettuate nei file della cartella test");
                 }
-                else ConsoleWriter.OK("Cartella test giÃƒÂ  presente");
+                else ConsoleWriter.OK("Cartella test già presente");
 
                 ConsoleWriter.Control("Controllo l'esistenza del file delle credenziali per il test");
                 var testButtonFile = Path.Combine(testFolder, "AAA_loginConfigTest.js");
                 if (!File.Exists(testButtonFile))
                 {
-                    //aggiungo il file per i test dei bottoni visibili, inizialmente con l'utenza riccardotest da sostituire con quella che si utilizzerÃƒÂ  per l'applicazione
+                    //aggiungo il file per i test dei bottoni visibili, inizialmente con l'utenza riccardotest da sostituire con quella che si utilizzerà per l'applicazione
                     File.Copy(@"..\..\test_template\AAA_loginConfigTest.js", testButtonFile);
 
                     ConsoleWriter.OK("File delle credenziali per il test creato");
                 }
-                else ConsoleWriter.OK("File delle credenziali per il test giÃƒÂ  esistente");
+                else ConsoleWriter.OK("File delle credenziali per il test già esistente");
 
                 var webpackPath = Path.Combine(clientFolderInfo.Parent.FullName, "webpack");
                 string webpackIndexPath = Path.Combine(webpackPath, String.Format("index{0}.js", currentApp));
@@ -10874,7 +11341,7 @@ END";
                         ReplaceStringInFile(webpackIndexPath, "$currentApp$", currentApp, true);
                         ConsoleWriter.OK("File creato");
                     }
-                    else ConsoleWriter.OK("Cartella e File giÃƒÂ  presenti");
+                    else ConsoleWriter.OK("Cartella e File già presenti");
                 }
                 else ConsoleWriter.ErrorDB("Cartella {0} non esistente, file {0} non creato", webpackPath, webpackIndexPath);
 
@@ -10899,7 +11366,7 @@ END";
                         //string packageline = File.ReadAllLines(packageJsonPath).ToList().Where(item => item.Contains(buildPackageRow)).First();
                         //int startPosition = packageline.IndexOf(String.Format("--env={0},", currentApp)) + String.Format("--env={0},", currentApp).Length;
                         //createDatePackageRow = packageline.Substring(startPosition, (packageline.LastIndexOf("\",") - startPosition));
-                        ConsoleWriter.OK("Riga del nuovo progetto giÃƒÂ  esistente nel file package.json");
+                        ConsoleWriter.OK("Riga del nuovo progetto già esistente nel file package.json");
                     }
                 }
 
@@ -10913,12 +11380,12 @@ END";
                     Directory.CreateDirectory(ScriptFolder.Replace("/ScriptSQL", ""));// "../../../../../progetti/Portale/client/scripts/" + clientName);
                     Directory.Move(Path.Combine(clientFolder, "ScriptSQL"), ScriptFolder);
                 }
-                else ConsoleWriter.OK("Cartella per gli script di installazione giÃƒÂ  presente");
+                else ConsoleWriter.OK("Cartella per gli script di installazione già presente");
                 if (!Directory.Exists(ScriptLUFolder))
                 {
                     Directory.CreateDirectory(ScriptLUFolder);
                 }
-                else ConsoleWriter.OK("Cartella per gli script di aggiornamento giÃƒÂ  presente");
+                else ConsoleWriter.OK("Cartella per gli script di aggiornamento già presente");
 
 
                 ConsoleWriter.Control("Controllo esistenza del file di configurazione");
@@ -10929,7 +11396,7 @@ END";
                     Directory.CreateDirectory(configFolder);
                     CopyDir("../../appmainconfig_template", configFolder);
                 }
-                else ConsoleWriter.OK("Cartella di configurazione giÃƒÂ  presente");
+                else ConsoleWriter.OK("Cartella di configurazione già presente");
 
                 ConsoleWriter.Control("Controllo esistenza del file index.html e la corrispondenza della versione del bundle");
                 if (!File.Exists(indexPagePath))
@@ -10970,7 +11437,7 @@ END";
                         ReplaceStringInFile(buildBundleBATFilePath, "$template$", currentApp);
                         ConsoleWriter.OK("File BIND_BUNDLE creato");
                     }
-                    else ConsoleWriter.OK("File BIND_BUNDLE giÃƒÂ  presente");
+                    else ConsoleWriter.OK("File BIND_BUNDLE già presente");
                 }
                 else ConsoleWriter.ErrorDB("Cartella BIND_BUNDLE non presente");
             }
@@ -11000,18 +11467,18 @@ END";
 
                 var data = rx.Split(text);
 
-                //se c'ÃƒÂ¨ altro prima prendo la prima istanza di CREATE
+                //se c'è altro prima prendo la prima istanza di CREATE
                 int first = data.ToList().IndexOf("CREATE");
 
                 //Effettuo i controlli sul formato
                 if (data[first].ToUpper() != "CREATE" || data[first + 1].ToUpper() != "PROCEDURE")
-                    throw new Exception("La stored non ÃƒÂ¨ nel formato corretto");
+                    throw new Exception("La stored non è nel formato corretto");
 
                 if (data.Count() > 3)
                     spName = data[first + 2];
-                else throw new Exception("La stored non ÃƒÂ¨ nel formato corretto");
+                else throw new Exception("La stored non è nel formato corretto");
 
-                //recupero il suo nome che poi verrÃƒÂ  dato al file
+                //recupero il suo nome che poi verrà dato al file
 
                 fileName = spName.Replace("[", "").Replace("]", "").Replace("dbo.", "");
 
@@ -11077,14 +11544,14 @@ GO
 
                     ConsoleWriter.Info("SALVO LA STORED {0} NEL FILE {1} ", spName, fileName);
 
-                    ConsoleWriter.OK("La stored {0} ÃƒÂ¨ stata creata correttamente", spName);
+                    ConsoleWriter.OK("La stored {0} è stata creata correttamente", spName);
 
                 }
 
             }
             catch (Exception ex)
             {
-                ConsoleWriter.ErrorDB("La creazione della stored non ÃƒÂ¨ andata a buon fine: {0}", ex.Message);
+                ConsoleWriter.ErrorDB("La creazione della stored non è andata a buon fine: {0}", ex.Message);
 
             }
 
@@ -11237,6 +11704,7 @@ GO
         public int Cols { get; set; }
         public int IdAppRelation { get; set; }
         public bool TestExclude { get; set; }
+        public string Staticfilter { get; set; }
     }
 
     class buttonField
@@ -11260,6 +11728,7 @@ GO
         public int SecondIndex { get; set; }
         public string ColumnName { get; set; }
         public int ThirdIndex { get; set; }
+        public string Table { get; set; }
     }
 
     class childColumn

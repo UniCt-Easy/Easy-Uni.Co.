@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_moneytransferresidual]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -69,11 +67,11 @@ as (
 	ORDER BY T1.description,T2.description
 */
 	SELECT 
-		T1.description as 'Cassiere per l''incasso',
+		T1.description as 'Conto corrente per l''incasso',
 		sum(V.amount) as 'Importo Destinato',
 		sum(M.amount) as 'Importo Girofondato',
 		sum(V.moneytotransfer) as 'Importo da Girofondare',
-		T2.description as 'Cassiere del progetto finanziato'
+		T2.description as 'Conto corrente del progetto finanziato'
 	FROM  moneytransfer M	
 	JOIN treasurer T1
 		on M.idtreasurersource = T1.idtreasurer 
@@ -96,11 +94,11 @@ Begin
 		V.y as 'Esercizio',
 		V.n as 'Numero',
 		M.ntransfer as 'Op.Girofondo',
-		T1.description as 'Cassiere per l''incasso',
+		T1.description as 'Conto corrente per l''incasso',
 		V.amount as 'Importo Destinato',
 		M.amount as 'Importo Girofondato',
 		V.moneytotransfer as 'Importo da Girofondare',
-		T2.description as 'Cassiere del progetto finanziato',
+		T2.description as 'Conto corrente del progetto finanziato',
 		V.codeupb as 'Cod.Progetto Finanziato',
 		V.upb as 'Progetto Finanziato',
 		V.codefin as 'Cod.Bilancio',
@@ -130,9 +128,9 @@ GO
 
 
 
- exec [exp_moneytransferresidual] 2013, null, null, 'T'
+-- exec [exp_moneytransferresidual] 2013, null, null, 'T'
 
 GO
-exec [exp_moneytransferresidual] 2013, null, null, 'R'
+--exec [exp_moneytransferresidual] 2013, null, null, 'R'
 GO
 

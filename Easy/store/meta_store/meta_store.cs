@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using metadatalibrary;
 using metaeasylibrary;
@@ -28,15 +26,14 @@ namespace meta_store {
             : base(Conn, Dispatcher, "store") {
             EditTypes.Add("default");
             ListingTypes.Add("default");
+            ListingTypes.Add("elenco");
             Name = "Magazzino";
         }
 
         protected override Form GetForm(string FormName) {
             if (FormName == "default") {
                 Name = "Elenco Magazzini";
-                DefaultListType = "default";
-                ActAsList();
-                SearchEnabled = false;
+                DefaultListType = "elenco";
                 return GetFormByDllName("store_default");
             }
             return null;
@@ -64,10 +61,22 @@ namespace meta_store {
                 DescribeAColumn(T, "idstore", "Codice", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "deliveryaddress", "Indirizzo", nPos++);
+                DescribeAColumn(T, "!upb", "Cod. UPB","upb.codeupb", nPos++);
+                DescribeAColumn(T, "!estimatekind", "Tipo Contratto attivo", "estimatekind.description", nPos++);
                 DescribeAColumn(T, "active", "Attivo", nPos++);
                 DescribeAColumn(T, "virtual", "Virtuale", nPos++);
             }
         }
+
+
+        public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge) {
+            if (ListingType == "elenco") {
+                return base.SelectOne(ListingType, filter, "storeview", ToMerge);
+            }
+            return base.SelectOne(ListingType, filter, searchtable, ToMerge);
+        }
+
+
 
     }
 

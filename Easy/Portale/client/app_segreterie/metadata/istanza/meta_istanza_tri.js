@@ -27,6 +27,10 @@
 						this.describeAColumn(table, 'aaprimaiscr', 'Anno accademico di prima iscrizione', null, 510, 9);
 //$objCalcFieldConfig_tri_seg$
 						break;
+					case 'tri_stu':
+						this.describeAColumn(table, 'aaprimaiscr', 'Anno accademico di prima iscrizione', null, 510, 9);
+//$objCalcFieldConfig_tri_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -35,7 +39,25 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'tri_seg':
+						table.columns["aaprimaiscr"].caption = "Anno accademico di prima iscrizione";
+						table.columns["idcorsostudio"].caption = "Corso di studi";
+						table.columns["iddichiar_titolo"].caption = "Dichiarazione di titolo di studio in corso";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idreg_istituti"].caption = "Istituto di provenienza";
+//$innerSetCaptionConfig_tri_seg$
+						break;
+					case 'tri_stu':
+//$innerSetCaptionConfig_tri_stu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_tri");

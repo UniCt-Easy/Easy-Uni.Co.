@@ -26,6 +26,16 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.isNull(parentRow.nonsvolta) || parentRow.nonsvolta == '')
+					parentRow.nonsvolta = "N";
+				if (this.isNull(parentRow.stage) || parentRow.stage == '')
+					parentRow.stage = "N";
+				if (self.isNullOrMinDate(parentRow.start))
+				parentRow.start = new Date();
+				if (self.isNullOrMinDate(parentRow.stop))
+				parentRow.stop = new Date();
+				if (this.isNull(parentRow.visita) || parentRow.visita == '')
+					parentRow.visita = "N";
 				//afterGetFormDataFilter
 				
 				//parte asincrona
@@ -49,16 +59,6 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (this.isNull(parentRow.nonsvolta) || parentRow.nonsvolta == '')
-					parentRow.nonsvolta = "N";
-				if (this.isNull(parentRow.stage) || parentRow.stage == '')
-					parentRow.stage = "N";
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
-				if (this.isNull(parentRow.visita) || parentRow.visita == '')
-					parentRow.visita = "N";
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -80,7 +80,15 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#lezione_attivform_idsede'), true);
+				this.enableControl($('#lezione_attivform_idedificio'), true);
+				this.enableControl($('#lezione_attivform_idaula'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -155,7 +163,7 @@
 			},
 
 			managelezione_attivform_idsede: function () {
-				if (!self.state.currentRow.idsede){
+				if (!this.state.currentRow.idsede){
 					var def = appMeta.Deferred("managelezione_attivform_idsede");
 					var self = this;
 					var affidamentolezione = _.find(this.state.DS.tables.affidamento.rows, function (row) {

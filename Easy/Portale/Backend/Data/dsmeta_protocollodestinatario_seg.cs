@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_protocollodestinatario_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_protocollodestinatario_seg: DataSet {
+public partial class dsmeta_protocollodestinatario_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -64,14 +62,8 @@ private void initClass() {
 	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
 	var tregistrydefaultview= new MetaTable("registrydefaultview");
 	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydefaultview.defineColumn("idcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcity", typeof(int));
-	tregistrydefaultview.defineColumn("idnation", typeof(int));
 	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
-	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
-	tregistrydefaultview.defineColumn("idtitle", typeof(string));
-	tregistrydefaultview.defineColumn("residence", typeof(int),false);
+	tregistrydefaultview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrydefaultview);
 	tregistrydefaultview.defineKey("idreg");
 

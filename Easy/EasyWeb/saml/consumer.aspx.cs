@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using ComponentSpace.SAML2;
 using System;
@@ -52,7 +50,7 @@ public partial class SAMLConsumerService : System.Web.UI.Page {
         // Processa la risposta SAML dall'identity provider
         SAMLServiceProvider.ReceiveSSO(Request, out isInResponseTo, out partnerIdP, out userName, out attributes, out targetUrl);
 
-        // Se non Ë stato fornito un URL di destinazione imposta quello di default.
+        // Se non √® stato fornito un URL di destinazione imposta quello di default.
         if (string.IsNullOrEmpty(targetUrl)) {
             targetUrl = "~/LoginSAML.aspx";
         }

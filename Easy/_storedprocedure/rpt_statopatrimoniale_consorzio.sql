@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_statopatrimoniale_consorzio]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_statopatrimoniale_consorzio]
 GO
@@ -25,7 +23,7 @@ SET ANSI_NULLS ON
 GO
 -- setuser 'amm'
 -- setuser'amministrazione'
--- exec  [rpt_statopatrimoniale_consorzio] 2023, {ts '2023-01-01 00:00:00'}, {ts '2023-07-03 00:00:00'}
+-- exec  [rpt_statopatrimoniale_consorzio] 2023, {ts '2023-01-01 00:00:00'}, {ts '2023-12-31 00:00:00'}
 CREATE PROCEDURE [rpt_statopatrimoniale_consorzio]
 (
 @ayear int,
@@ -123,7 +121,6 @@ select patrimony.idpatrimony,  sum(entrydetail.amount)
 	--insert into #dati(idpatrimony, amountprec, amountcurr) values ('19R00020003', -20, -50)
 		
 select patrimony.nlevel,
-
 	substring (patrimony.idpatrimony, 1, 7) as 'gruppo_lev1',
 	substring (patrimony.idpatrimony, 1, 11) as 'gruppo_lev2',
 	case
@@ -135,9 +132,9 @@ select patrimony.nlevel,
 	end as codepatrimony,
 	patrimony.title, 
 	patrimony.patpart, 
-	isnull(sum(OLD.amountprec),0) AS amountprec,
+	isnull(sum(CURR.amountprec),0) AS amountprec,
 	isnull(sum(CURR.amountcurr),0) AS amountcurr,
-	isnull(sum(CURR.amountcurr),0) - isnull(sum(OLD.amountprec),0) AS DIFFERENZA,
+	isnull(sum(CURR.amountcurr),0) - isnull(sum(CURR.amountprec),0) AS DIFFERENZA,
 case 
 	when patrimony.patpart ='A' and patrimony.codepatrimony like 'A)%' then 'A) IMMOBILIZZAZIONI'
 	when patrimony.patpart ='A' and patrimony.codepatrimony like 'B)%' then 'B) ATTIVO CIRCOLANTE'
@@ -151,8 +148,8 @@ case
 from patrimony
 left outer join #dati CURR 
 	ON patrimony.idpatrimony = CURR.idpatrimony
-left outer join  #dati OLD
-	on patrimony.idpatrimony = OLD.idpatrimony 
+--left outer join  #dati OLD
+--	on patrimony.idpatrimony = OLD.idpatrimony 
 where patrimony.ayear = @ayear
 group by patrimony.patpart, patrimony.nlevel, patrimony.idpatrimony, patrimony.codepatrimony,patrimony.nlevel, patrimony.printingorder, patrimony.title
 ORDER BY patrimony.patpart, patrimony.printingorder

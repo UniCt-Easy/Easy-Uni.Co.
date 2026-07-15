@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -47,7 +45,7 @@ namespace paymentattachment_detail
         public void MetaData_AfterFill(){
             DataRow R = DS.paymentattachment.Rows[0];
             btnVisualizza.Visible = true;
-            if (R["attachment"] == DBNull.Value){
+            if (R["attachment"] == DBNull.Value && R["idfilestorage"] == DBNull.Value){
                 btnVisualizza.Visible = false;
             }
 
@@ -112,11 +110,14 @@ namespace paymentattachment_detail
             string fname = Path.GetFileName(openFileDialog1.FileName);
             labAutocertFileName.Text = fname;
             Curr["filename"] = fname;
+
+            btnVisualizza.Enabled = true;
+            btnVisualizza.Visible = true;
         }
 
 		private void btnVisualizza_Click(object sender, EventArgs e)
 		{
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWATTACHMENT";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -133,9 +134,27 @@ namespace paymentattachment_detail
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
             DataRow Curr = DS.paymentattachment.Rows[0];
-            if (Curr["attachment"] == DBNull.Value) return;
+            if (Curr["attachment"] == DBNull.Value && Curr["idfilestorage"] == DBNull.Value) return;
 
-            byte[] ByteArray = (byte[])Curr["attachment"];
+            // File preso dall'attachment o dal MongoDb
+            byte[] ByteArray = { };
+
+            if (Curr["attachment"] != DBNull.Value)
+            {
+                // Attachment
+                ByteArray = (byte[])Curr["attachment"];
+            }
+            else
+            {
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (ByteArray == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+            }
+
             int offset = 0;
             string fname = Curr["filename"].ToString();
             string estensione = Path.GetExtension(fname).Trim();
@@ -153,3 +172,4 @@ namespace paymentattachment_detail
         }
 	}
 }
+

@@ -23,7 +23,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'sconti':
-						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 30, 50);
+						this.describeAColumn(table, 'idfasciaisee', 'Fascia ISEE', null, 1000, 50);
+						this.describeAColumn(table, 'XXratadef', 'Rate', null, 2000, null);
 //$objCalcFieldConfig_sconti$
 						break;
 //$objCalcFieldConfig$

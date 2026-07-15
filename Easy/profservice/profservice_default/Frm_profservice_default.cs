@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -1167,9 +1165,9 @@ namespace profservice_default { //contrattoprofessionale//
 			// label72
 			// 
 			this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label72.Location = new System.Drawing.Point(106, 116);
+			this.label72.Location = new System.Drawing.Point(107, 116);
 			this.label72.Name = "label72";
-			this.label72.Size = new System.Drawing.Size(45, 23);
+			this.label72.Size = new System.Drawing.Size(41, 23);
 			this.label72.TabIndex = 101;
 			this.label72.Text = "Cassa";
 			this.label72.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -1186,9 +1184,9 @@ namespace profservice_default { //contrattoprofessionale//
 			// label70
 			// 
 			this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label70.Location = new System.Drawing.Point(99, 84);
+			this.label70.Location = new System.Drawing.Point(102, 84);
 			this.label70.Name = "label70";
-			this.label70.Size = new System.Drawing.Size(70, 23);
+			this.label70.Size = new System.Drawing.Size(65, 23);
 			this.label70.TabIndex = 99;
 			this.label70.Text = "Contributo";
 			this.label70.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -1963,18 +1961,18 @@ namespace profservice_default { //contrattoprofessionale//
 			// 
 			// label24
 			// 
-			this.label24.Location = new System.Drawing.Point(30, 84);
+			this.label24.Location = new System.Drawing.Point(50, 84);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(74, 23);
+			this.label24.Size = new System.Drawing.Size(50, 23);
 			this.label24.TabIndex = 10;
 			this.label24.Text = "Addebito";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// label23
 			// 
-			this.label23.Location = new System.Drawing.Point(18, 116);
+			this.label23.Location = new System.Drawing.Point(56, 116);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(96, 23);
+			this.label23.Size = new System.Drawing.Size(50, 23);
 			this.label23.TabIndex = 18;
 			this.label23.Text = "Addebito ";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -3938,9 +3936,23 @@ namespace profservice_default { //contrattoprofessionale//
 			bool IsAdmin = (Meta.GetSys("manage_prestazioni") != null) ? Meta.GetSys("manage_prestazioni").ToString() == "S" : false;
             object flag_escludidacu = Conn.GetUsr("flag_escludidacu");
             bool function_enabled = ((flag_escludidacu != null && flag_escludidacu.ToString().ToUpper() == "'S'"));
-            SubEntity_chkExcludeFromCertificate.Enabled = IsAdmin||function_enabled;
+			object idflowchart = conn.GetSys("idflowchart");
+			bool fuori_organigramma = (idflowchart == null) || (idflowchart == DBNull.Value) || (idflowchart.ToString() == "");
 
-        }
+			SubEntity_chkExcludeFromCertificate.Enabled = IsAdmin||function_enabled|| fuori_organigramma;
+
+			
+			
+			 
+
+			// ===============================================================================
+			// La InsertCopy non deve copiare le tabelle degli allegati e quelle del TAB AVCP
+			// ===============================================================================
+			QueryCreator.setSkipInsertCopy(DS.profserviceattachment, true);
+			QueryCreator.setSkipInsertCopy(DS.profserviceavcpdetail, true);
+
+			QueryCreator.setSkipInsertCopy(DS.profservicecig, true);
+		}
 
         siope_helper SiopeObj;
 
@@ -3969,22 +3981,37 @@ namespace profservice_default { //contrattoprofessionale//
             }
         }
 
-        public void CreaPartecipanteInAutomatico(bool manual) {
-            if (DS.profserviceavcp.Select().Length > 0) return;
-            DataRow curr = DS.profservice.Rows[0];
-            object idreg = curr["idreg"];
-            if ((idreg == DBNull.Value) || CfgFn.GetNoNullInt32(idreg) == 0) return;
-            btnAggiungiAggiudicatario.Visible = false;
+		public void CreaPartecipanteInAutomatico(bool manual) {
+			DataRow curr = DS.profservice.Rows[0];
+			object idreg = curr["idreg"];
+			if ((idreg == DBNull.Value) || CfgFn.GetNoNullInt32(idreg) == 0)
+				return;
+			string filterIdreg = QHC.CmpEq("idreg", idreg);
 
-            if (!Meta.InsertMode && !manual) {
-                btnAggiungiAggiudicatario.Visible = true;
-                return;
-            }
+			if (DS.profserviceavcp.Select(filterIdreg).Length > 0) return;
+			btnAggiungiAggiudicatario.Visible = false;
 
-            //Crea il partecipante
-            MetaData mAvcp = MetaData.GetMetaData(this, "profserviceavcp");
-            mAvcp.SetDefaults(DS.profserviceavcp);
-            DataRow ravcp = mAvcp.Get_New_Row(curr, DS.profserviceavcp);
+			if (!Meta.InsertMode && !manual) {
+				btnAggiungiAggiudicatario.Visible = true;
+				return;
+			}
+
+			//Crea il partecipante
+			DataRow ravcp = null;
+			//vede se in memoria c'era già una riga cancellata
+			if (DS.profserviceavcp.Select(null, null, DataViewRowState.Deleted).Length > 0) {
+				ravcp =
+					DS.profserviceavcp.Select(null, null,
+						DataViewRowState.Deleted)[0];
+				ravcp.RejectChanges();
+			}
+			else {
+				MetaData mAvcp = MetaData.GetMetaData(this, "profserviceavcp");
+				mAvcp.SetDefaults(DS.profserviceavcp);
+				ravcp = mAvcp.Get_New_Row(curr, DS.profserviceavcp);
+			}
+
+
             DataRow R = DS.registry.Select(QHC.CmpEq("idreg", idreg))[0];
             ravcp["idreg"] = idreg;
 
@@ -4006,7 +4033,8 @@ namespace profservice_default { //contrattoprofessionale//
                 }
             }
             ravcp["title"] = R["title"];
-        }
+			 
+		}
 
         bool isPartitaEstera(string p_iva) {
             if (p_iva == null) return false;
@@ -4040,10 +4068,10 @@ namespace profservice_default { //contrattoprofessionale//
                 GetAliquotaIva();
             }
 
-            if (DS.profservice.Rows.Count > 0) {
-                DataRow Curr = DS.profservice.Rows[0];
-                CreaPartecipanteInAutomatico(false);
-            }
+            //if (DS.profservice.Rows.Count > 0) {
+            //    DataRow Curr = DS.profservice.Rows[0];
+            //    CreaPartecipanteInAutomatico(false);
+            //}
         }
 
         public void MetaData_AfterClear() {
@@ -4100,9 +4128,17 @@ namespace profservice_default { //contrattoprofessionale//
 
         }
 
-        public void MetaData_BeforePost() {
-            if (DS.profservice.Rows.Count == 0) return;
-            EPM.beforePost();
+		public void MetaData_BeforePost() {
+			if (DS.profservice.Rows.Count == 0) {
+				DS.profservicecig.Clear();
+				DS.profserviceavcp.Clear();
+				DS.profserviceattachment.Clear();
+				DS.profserviceavcpdetail.Clear();
+				DS.profservicesorting.Clear();
+				return;
+			}
+
+			EPM.beforePost();
             AssegnaAutomaticamenteLotti();
             CancellaSporcizie();
         }
@@ -4375,8 +4411,11 @@ namespace profservice_default { //contrattoprofessionale//
                     bool scegliDalia = false;
                     int codcred = CfgFn.GetNoNullInt32(R["idreg"]);
                     if (codcred == 0) return;
-                    if (lastCreditore != codcred) {
-                        lastCreditore = codcred;
+					string filterLastIdreg = "";
+
+					if (lastCreditore != codcred) {
+
+						lastCreditore = codcred;
                         if (DaliaAbilitato) {
                             scegliDalia = true;
                         }
@@ -4384,7 +4423,16 @@ namespace profservice_default { //contrattoprofessionale//
                     }
                     // Se cambia l'anagrafica imposta il valore di default X
                     Curr["authneeded"] = "X";
-                    rdbNonApplicabile.Checked = true;
+					filterLastIdreg = QHC.CmpNe("idreg", lastCreditore);
+					// Cancella Partecipante vecchia anagrafica
+					if (DS.profserviceavcp.Select(filterLastIdreg).Length > 0) {
+						if (shower.Show(null, "Si desidera cancellare i precedenti partecipanti al bando?", "AVVISO", MessageBoxButtons.YesNo) == DialogResult.Yes)
+							foreach (DataRow rowAvcp in DS.profserviceavcp.Select(filterLastIdreg)) {
+								rowAvcp.Delete();
+							}
+					}
+					
+					rdbNonApplicabile.Checked = true;
                     if (!Meta.IsEmpty) CreaPartecipanteInAutomatico(false);
                     if (scegliDalia) {
                         selezionaQualificaDalia(true);

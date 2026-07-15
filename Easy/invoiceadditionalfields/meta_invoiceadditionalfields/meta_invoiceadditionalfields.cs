@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -42,6 +40,18 @@ namespace meta_invoiceadditionalfields {
 			return null;
 		}
 
+		//DataRow[] RR = DS.invoicemultifieldkind.Select(null, "ordernumber asc");
+
+		//	if (RR.Length > 0) {
+		//		// Estrazione valori distinti della colonna "tabname"
+		//		var distinctTabNames = DS.invoicemultifieldkind.AsEnumerable()
+		//								.Select(row => row.Field<string>("tabname"))
+		//								.Distinct()
+		//								.ToList();
+
+		//string[] distinctTabNamesArray = distinctTabNames.ToArray();
+
+
 		public override void DescribeColumns(DataTable T, string ListingType) {
 			base.DescribeColumns(T, ListingType);
 			if (ListingType == "detail") {
@@ -51,6 +61,8 @@ namespace meta_invoiceadditionalfields {
 				int nPos = 1;
 				DescribeAColumn(T, "documentkind", "Tipo documento", nPos++);
 				DescribeAColumn(T, "idadditionalfields", "#", nPos++);
+				DescribeAColumn(T, "tabname", "Sezione", nPos++);
+
 				DescribeAColumn(T, "labelfield1int","Campo", nPos++);
 				DescribeAColumn(T, "valuefield1int","Valore", nPos++);
 
@@ -73,6 +85,12 @@ namespace meta_invoiceadditionalfields {
 
 		public override void SetDefaults(DataTable PrimaryTable) {
 			base.SetDefaults(PrimaryTable);
+			DataTable Tinvoicemultifieldkind = Conn.RUN_SELECT("invoicemultifieldkind", "tabname", "ordernumber asc", QHS.CmpEq("active","S"), null, false);
+			if (Tinvoicemultifieldkind.Rows.Count > 0) {
+				string tabnameFirst = Tinvoicemultifieldkind.Rows[0]["tabname"].ToString();
+				SetDefault(PrimaryTable, "tabname", tabnameFirst);
+			}
+
 		}
 
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {

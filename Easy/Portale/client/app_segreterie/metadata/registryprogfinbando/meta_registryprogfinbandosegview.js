@@ -26,6 +26,7 @@
 						this.describeAColumn(table, 'title', 'Titolo', null, 2000, 2048);
 						this.describeAColumn(table, 'registryprogfinbando_number', 'Numero', null, 6000, 2048);
 						this.describeAColumn(table, 'registryprogfinbando_scadenza', 'Deadline of submission', null, 7000, null);
+						this.describeAColumn(table, 'registryprogfinbando_url', 'Indirizzo web', null, 12000, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

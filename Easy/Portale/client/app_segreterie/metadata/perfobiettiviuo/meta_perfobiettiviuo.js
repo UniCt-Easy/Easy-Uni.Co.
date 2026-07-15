@@ -52,6 +52,14 @@
 						this.describeAColumn(table, '!perfobiettiviuosoglia', 'Target', null, 40, null);
 //$objCalcFieldConfig_onlyprestazionali$
 						break;
+					case 'onlyunatantumpunteggio':
+						this.describeAColumn(table, 'title', 'Obiettivo', null, 10, 2048);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'punteggio', 'Punteggio', null, 70, null);
+						this.describeAColumn(table, 'note', 'Note', null, 80, -1);
+						this.describeAColumn(table, '!perfobiettiviuoattach', 'Allegati', null, 100, null);
+//$objCalcFieldConfig_onlyunatantumpunteggio$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -71,21 +79,17 @@
 //$innerSetCaptionConfig_default$
 						break;
 					case 'onlyunatantum':
-						table.columns["completamento"].caption = "Percentuale di completamento";
 						table.columns["description"].caption = "Indicatore";
-						table.columns["peso"].caption = "Peso";
-						table.columns["title"].caption = "Obiettivo";
-						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
 						table.columns["idperfvalutazionepersonale"].caption = "Responsabile";
+						table.columns["title"].caption = "Obiettivo";
 //$innerSetCaptionConfig_onlyunatantum$
 						break;
 					case 'onlyprestazionali':
-						table.columns["completamento"].caption = "Percentuale di completamento";
-						table.columns["description"].caption = "Indicatore";
-						table.columns["peso"].caption = "Peso";
-						table.columns["title"].caption = "Obiettivo";
-						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
 //$innerSetCaptionConfig_onlyprestazionali$
+						break;
+					case 'onlyunatantumpunteggio':
+						table.columns["forzapunteggio"].caption = "Punteggio personalizzato";
+//$innerSetCaptionConfig_onlyunatantumpunteggio$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -121,6 +125,9 @@
 						return "title asc ";
 					}
 					case "onlyprestazionali": {
+						return "title asc ";
+					}
+					case "onlyunatantumpunteggio": {
 						return "title asc ";
 					}
 					//$getSortingin$

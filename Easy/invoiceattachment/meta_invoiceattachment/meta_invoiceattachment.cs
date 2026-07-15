@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -61,7 +59,7 @@ namespace meta_invoiceattachment {
 			if (!base.IsValid(R, out errmess, out errfield)) return false;
 
             if (R["idattachmentkind"] == DBNull.Value) {
-                errmess = "Il tipo allegato Ë obbligatorio";
+                errmess = "Il tipo allegato √® obbligatorio";
                 errfield = "idattachmentkind";
                 return false;
             }
@@ -73,7 +71,7 @@ namespace meta_invoiceattachment {
                 return false;
             }
 
-            if (R["attachment"] == DBNull.Value)
+            if (R["attachment"] == DBNull.Value && R["idfilestorage"] == DBNull.Value)
             {
                 errmess = "E' necessario selezionare un file (non vuoto)";
                 errfield = "attachment";

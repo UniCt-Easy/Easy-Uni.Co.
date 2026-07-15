@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -40,7 +38,7 @@ public partial class dsmeta_rendicont_default: DataSet {
 	public MetaTable rendicontlezionestud 		=> (MetaTable)Tables["rendicontlezionestud"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable lezione 		=> (MetaTable)Tables["lezione"];
+	public MetaTable lezione_alias1 		=> (MetaTable)Tables["lezione_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable annoaccademico 		=> (MetaTable)Tables["annoaccademico"];
@@ -133,36 +131,37 @@ private void initClass() {
 	Tables.Add(trendicontlezionestud);
 	trendicontlezionestud.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idreg_studenti", "idsede");
 
-	//////////////////// LEZIONE /////////////////////////////////
-	var tlezione= new MetaTable("lezione");
-	tlezione.defineColumn("!title", typeof(string));
-	tlezione.defineColumn("aa", typeof(string),false);
-	tlezione.defineColumn("ct", typeof(DateTime),false);
-	tlezione.defineColumn("cu", typeof(string),false);
-	tlezione.defineColumn("idaffidamento", typeof(int),false);
-	tlezione.defineColumn("idattivform", typeof(int),false);
-	tlezione.defineColumn("idaula", typeof(int),false);
-	tlezione.defineColumn("idcanale", typeof(int),false);
-	tlezione.defineColumn("idcorsostudio", typeof(int),false);
-	tlezione.defineColumn("iddidprog", typeof(int),false);
-	tlezione.defineColumn("iddidproganno", typeof(int),false);
-	tlezione.defineColumn("iddidprogcurr", typeof(int),false);
-	tlezione.defineColumn("iddidprogori", typeof(int),false);
-	tlezione.defineColumn("iddidprogporzanno", typeof(int),false);
-	tlezione.defineColumn("idedificio", typeof(int),false);
-	tlezione.defineColumn("idlezione", typeof(int),false);
-	tlezione.defineColumn("idreg_docenti", typeof(int),false);
-	tlezione.defineColumn("idsede", typeof(int),false);
-	tlezione.defineColumn("lt", typeof(DateTime),false);
-	tlezione.defineColumn("lu", typeof(string),false);
-	tlezione.defineColumn("nonsvolta", typeof(string));
-	tlezione.defineColumn("stage", typeof(string));
-	tlezione.defineColumn("start", typeof(DateTime),false);
-	tlezione.defineColumn("stop", typeof(DateTime),false);
-	tlezione.defineColumn("titolo", typeof(string));
-	tlezione.defineColumn("visita", typeof(string));
-	Tables.Add(tlezione);
-	tlezione.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");
+	//////////////////// LEZIONE_ALIAS1 /////////////////////////////////
+	var tlezione_alias1= new MetaTable("lezione_alias1");
+	tlezione_alias1.defineColumn("!title", typeof(string));
+	tlezione_alias1.defineColumn("aa", typeof(string),false);
+	tlezione_alias1.defineColumn("ct", typeof(DateTime),false);
+	tlezione_alias1.defineColumn("cu", typeof(string),false);
+	tlezione_alias1.defineColumn("idaffidamento", typeof(int),false);
+	tlezione_alias1.defineColumn("idattivform", typeof(int),false);
+	tlezione_alias1.defineColumn("idaula", typeof(int),false);
+	tlezione_alias1.defineColumn("idcanale", typeof(int),false);
+	tlezione_alias1.defineColumn("idcorsostudio", typeof(int),false);
+	tlezione_alias1.defineColumn("iddidprog", typeof(int),false);
+	tlezione_alias1.defineColumn("iddidproganno", typeof(int),false);
+	tlezione_alias1.defineColumn("iddidprogcurr", typeof(int),false);
+	tlezione_alias1.defineColumn("iddidprogori", typeof(int),false);
+	tlezione_alias1.defineColumn("iddidprogporzanno", typeof(int),false);
+	tlezione_alias1.defineColumn("idedificio", typeof(int),false);
+	tlezione_alias1.defineColumn("idlezione", typeof(int),false);
+	tlezione_alias1.defineColumn("idreg_docenti", typeof(int),false);
+	tlezione_alias1.defineColumn("idsede", typeof(int),false);
+	tlezione_alias1.defineColumn("lt", typeof(DateTime),false);
+	tlezione_alias1.defineColumn("lu", typeof(string),false);
+	tlezione_alias1.defineColumn("nonsvolta", typeof(string));
+	tlezione_alias1.defineColumn("stage", typeof(string));
+	tlezione_alias1.defineColumn("start", typeof(DateTime),false);
+	tlezione_alias1.defineColumn("stop", typeof(DateTime),false);
+	tlezione_alias1.defineColumn("titolo", typeof(string));
+	tlezione_alias1.defineColumn("visita", typeof(string));
+	tlezione_alias1.ExtendedProperties["TableForReading"]="lezione";
+	Tables.Add(tlezione_alias1);
+	tlezione_alias1.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idsede");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");
@@ -195,12 +194,12 @@ private void initClass() {
 	Relations.Add(new DataRelation("FK_rendicontaltro_rendicontaltrokind_idrendicontaltrokind",cPar,cChild,false));
 
 	cPar = new []{rendicont.Columns["aa"], rendicont.Columns["idreg_docenti"]};
-	cChild = new []{lezione.Columns["aa"], lezione.Columns["idreg_docenti"]};
-	Relations.Add(new DataRelation("FK_lezione_rendicont_aa-idreg_docenti",cPar,cChild,false));
+	cChild = new []{lezione_alias1.Columns["aa"], lezione_alias1.Columns["idreg_docenti"]};
+	Relations.Add(new DataRelation("FK_lezione_alias1_rendicont_aa-idreg_docenti",cPar,cChild,false));
 
-	cPar = new []{lezione.Columns["aa"], lezione.Columns["idaffidamento"], lezione.Columns["idattivform"], lezione.Columns["idaula"], lezione.Columns["idcanale"], lezione.Columns["idcorsostudio"], lezione.Columns["iddidprog"], lezione.Columns["iddidproganno"], lezione.Columns["iddidprogcurr"], lezione.Columns["iddidprogori"], lezione.Columns["iddidprogporzanno"], lezione.Columns["idedificio"], lezione.Columns["idlezione"], lezione.Columns["idreg_docenti"], lezione.Columns["idsede"]};
+	cPar = new []{lezione_alias1.Columns["aa"], lezione_alias1.Columns["idaffidamento"], lezione_alias1.Columns["idattivform"], lezione_alias1.Columns["idaula"], lezione_alias1.Columns["idcanale"], lezione_alias1.Columns["idcorsostudio"], lezione_alias1.Columns["iddidprog"], lezione_alias1.Columns["iddidproganno"], lezione_alias1.Columns["iddidprogcurr"], lezione_alias1.Columns["iddidprogori"], lezione_alias1.Columns["iddidprogporzanno"], lezione_alias1.Columns["idedificio"], lezione_alias1.Columns["idlezione"], lezione_alias1.Columns["idreg_docenti"], lezione_alias1.Columns["idsede"]};
 	cChild = new []{rendicontlezionestud.Columns["aa"], rendicontlezionestud.Columns["idaffidamento"], rendicontlezionestud.Columns["idattivform"], rendicontlezionestud.Columns["idaula"], rendicontlezionestud.Columns["idcanale"], rendicontlezionestud.Columns["idcorsostudio"], rendicontlezionestud.Columns["iddidprog"], rendicontlezionestud.Columns["iddidproganno"], rendicontlezionestud.Columns["iddidprogcurr"], rendicontlezionestud.Columns["iddidprogori"], rendicontlezionestud.Columns["iddidprogporzanno"], rendicontlezionestud.Columns["idedificio"], rendicontlezionestud.Columns["idlezione"], rendicontlezionestud.Columns["idreg_docenti"], rendicontlezionestud.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_rendicontlezionestud_lezione_aa-idaffidamento-idattivform-idaula-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idedificio-idlezione-idreg_docenti-idsede",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_rendicontlezionestud_lezione_alias1_aa-idaffidamento-idattivform-idaula-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idedificio-idlezione-idreg_docenti-idsede",cPar,cChild,false));
 
 	cPar = new []{annoaccademico.Columns["aa"]};
 	cChild = new []{rendicont.Columns["aa"]};

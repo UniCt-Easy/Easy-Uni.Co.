@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 --  exec exp_f24ep 117
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_f24ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -444,7 +442,7 @@ begin
 		Ltrim(Rtrim(Upper(rifa))),
 		rifb_month,
 		rifb_year,
-		Ltrim(Rtrim(Upper(code))),
+		Ltrim(Rtrim(Upper(expenseclawback.code))),
 		Upper(tiporiga)
 		FROM   expenseclawback 
 		JOIN   expense 
@@ -944,7 +942,7 @@ begin
 	
   --select  * from #f24 order by codicetributo
   insert into #f24 (tiporecord, declaration_on_behalf_of, cf_contributor)
-	 SELECT DISTINCT 'M', isnull(declaration_on_behalf_of, 'S') as declaration_on_behalf_of, cf_contributor 
+	 SELECT DISTINCT 'M', isnull(declaration_on_behalf_of, 'N') as declaration_on_behalf_of, cf_contributor 
 	 FROM #f24 WHERE cf_contributor IS NOT NULL
 
 	if (select count(*) from #errori) > 0
@@ -965,7 +963,7 @@ begin
 	else
 	 begin
 
-		select tiporecord, isnull(declaration_on_behalf_of, 'S') as declaration_on_behalf_of, cf_contributor, tiporiga,codicetributo, codice, estremi,riferimentoA,riferimentoB,
+		select tiporecord, isnull(declaration_on_behalf_of, 'N') as declaration_on_behalf_of, cf_contributor, tiporiga,codicetributo, codice, estremi,riferimentoA,riferimentoB,
 		importoadebito = isnull(sum(importoADebito),0),
 		importoacredito =  isnull(sum(importoACredito),0) 
 		from #f24 

@@ -9,7 +9,7 @@
         // dati per login e utente già registrato
         /*userName:"riccardo2",
         password:"65266DC08B",
-        email : 'riccardo@treagles.it',
+        email : 'your-email@example.com',
         codiceFiscale : 'cf',
         partitaIva :  '08586690961',
         cognome :  'proietti',
@@ -20,7 +20,7 @@
         //password: "vis_psuma",
         userName: "seg_fcaprilli",
 		password: "seg_fcaprilli",
-        email : 'info@tempo.it',
+        email : 'your-email@example.com',
         codiceFiscale : 'cf',
         partitaIva :  '08586690961',
         cognome :  'riccardotestProietti',
@@ -30,12 +30,12 @@
         // dati per login e utente per reset passoword
         userNameResetPassword: 'riccardo2',
         passwordResetPassword: 'riccardo2',
-        emailResetPassword: 'riccardo@treagles.it',
+        emailResetPassword: 'your-email@example.com',
 
 
         userName2: "riccardotest",
         password2:"riccardotest",
-        email2 : 'info@treagles.it',
+        email2 : 'your-email@example.com',
         codiceFiscale2 : 'cf',
         partitaIva2 :  '08586690961',
         cognome2 :  'riccardotestProietti',

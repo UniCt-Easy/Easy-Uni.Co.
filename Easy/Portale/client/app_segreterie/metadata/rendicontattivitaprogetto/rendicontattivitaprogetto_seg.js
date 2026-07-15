@@ -6,8 +6,6 @@
 		MetaPage.apply(this, ['rendicontattivitaprogetto', 'seg', true]);
         this.name = 'Attività';
 		this.defaultListType = 'seg';
-		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
-		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
 		//pageHeaderDeclaration
     }
 
@@ -23,7 +21,7 @@
 
 			manageValidResult: function (rowToCheck) {
 				var loc = appMeta.localResource;
-				var def = appMeta.Deferred("isValid-meta_rendicontattivitaprogetto");
+				var def = appMeta.Deferred("isValid-rendicontattivitaprogetto_seg");
 				var firstErrorObj;
 
 				let wpStop = this.state.callerState.currentRow.stop;
@@ -154,11 +152,22 @@
 					}
 				}
 
+				let checkbox = document.getElementById("rendicontattivitaprogetto_seg_rendicontatutto");
+				if (this.oreNonCancellate && this.oreNonCancellate.length && checkbox.checked) {
+					firstErrorObj = {
+						warningMsg: "",
+						errMsg: 'Se viene spuntata l\'opzione \"Rendiconta automaticamente tutte le ore sulla attività\", non devono essere presenti ore sul calendario per l\'attività. L\'opzione assegna tutte le ore lavorabili del soggetto a questa specifica attività senza che sia necessario schedularle sul calendario',
+						outCaption: 'Rendiconta automaticamente tutte le ore sulla attività',
+						errField: 'rendicontatutto',
+						row: rowToCheck
+					};
+					return def.resolve(firstErrorObj).then(MetaPage.prototype.manageValidResult.call(this, rowToCheck));
+				}
 
 				def.resolve(true);
 				//$isValid$
-
-				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
 			},
 
 			afterGetFormData: function () {
@@ -175,7 +184,6 @@
 				arraydef.push(this.managerendicontattivitaprogetto_seg_titolobreve());
 				arraydef.push(this.managerendicontattivitaprogetto_seg_raggruppamento());
 				arraydef.push(this.managerendicontattivitaprogetto_seg_wp());
-				arraydef.push(this.managerendicontattivitaprogetto_seg_orerendicont());
 				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
@@ -184,39 +192,27 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (this.isNullOrMinDate(parentRow.datainizioprevista))
+				if (self.isNullOrMinDate(parentRow.datainizioprevista))
 					parentRow.datainizioprevista = this.state.callerState.currentRow.start;
 				if (self.isNullOrMinDate(parentRow.datainizioprevista))
-					parentRow.datainizioprevista = new Date();
+				parentRow.datainizioprevista = new Date();
 				if (this.isNull(parentRow.idrendicontattivitaprogettokind))
 					parentRow.idrendicontattivitaprogettokind = 1;
-				if (this.isNullOrMinDate(parentRow.stop))
+				if (this.isNull(parentRow.rendicontatutto) || parentRow.rendicontatutto == '')
+					parentRow.rendicontatutto = 'N';
+				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = this.state.callerState.currentRow.stop;
 				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
-								var that = this;
-				_.forEach(this.getDataTable("rendicontattivitaprogettoora").rows, function (r) {
-					var progettoTitle = that.state.callerState.callerState.currentRow.title;
-					var workpageTitle = that.state.callerState.currentRow.title;
-					var rendicontattivitaprogettoTitle = that.state.currentRow.description;
-
-					var p = [];
-					p.push([r.ore, null, 'Ore']);
-					p.push([progettoTitle, null, 'Progetto']);
-					p.push([workpageTitle, null, 'Workpackage']);
-					p.push([rendicontattivitaprogettoTitle, null, 'Attività']);
-					r['!titleancestor'] = that.stringify(p, 'string');
-				});
+				parentRow.stop = new Date();
 				this.managerendicontattivitaprogetto_seg_titolobreve();
 				this.managerendicontattivitaprogetto_seg_raggruppamento();
 				this.managerendicontattivitaprogetto_seg_wp();
-				this.managerendicontattivitaprogetto_seg_orerendicont();
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -240,7 +236,7 @@
 				this.enableControl($('#rendicontattivitaprogetto_seg_titolobreve'), true);
 				this.enableControl($('#rendicontattivitaprogetto_seg_raggruppamento'), true);
 				this.enableControl($('#rendicontattivitaprogetto_seg_wp'), true);
-				this.enableControl($('#rendicontattivitaprogetto_seg_orerendicont'), true);
+				this.enableControl($('#rendicontattivitaprogetto_seg_idreg'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoyear'));
 				//afterClearin
@@ -248,7 +244,16 @@
 				//afterClearInAsyncBase
 			},
 
-			
+			afterFill: function () {
+				this.enableControl($('#rendicontattivitaprogetto_seg_titolobreve'), false);
+				this.enableControl($('#rendicontattivitaprogetto_seg_raggruppamento'), false);
+				this.enableControl($('#rendicontattivitaprogetto_seg_wp'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoyear'));
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
+
 			
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-rendicontattivitaprogetto_seg");
@@ -265,22 +270,9 @@
 
 			//afterActivation
 
-			rowSelected: function (dataRow) {
-				$("#OpenScheduleConfig").prop("disabled", false);
-				//firerowSelected
-			},
+			//rowSelected
 
-
-			buttonClickEnd: function (currMetaPage, cmd) {
-				//fireRelButtonClickEnd
-				cmd = cmd.toLowerCase();
-				if (cmd === "mainsetsearch") {
-					$("#OpenScheduleConfig").prop("disabled", true);
-					//firebuttonClickEnd
-				}
-				return this.superClass.buttonClickEnd(currMetaPage, cmd);
-			},
-
+			//buttonClickEnd
 
 			insertClick: function (that, grid) {
 				if (!$('#rendicontattivitaprogetto_seg_idreg').val() && this.children.includes(grid.dataSourceName)) {
@@ -296,18 +288,16 @@
 				//innerBeforePost
 			},
 
+			//afterPost
+
 			afterLink: function () {
 				var self = this;
 				this.setFilterRendicontattivitaprogettoItineration();
 				this.setFilterRendicontattivitaprogetto_seg_idreg();
-				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar17').fullCalendar('rerenderEvents');
-				});
-				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
-				$("#OpenScheduleConfig").prop("disabled", true);
 				this.setDenyNull("rendicontattivitaprogetto","orepreventivate");
 				this.setDenyNull("rendicontattivitaprogetto","datainizioprevista");
 				this.setDenyNull("rendicontattivitaprogetto","stop");
+				appMeta.metaModel.insertFilter(this.getDataTable("getregistrydocentiamministratividefaultview"), this.q.eq('getregistrydocentiamministrativi_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("rendicontattivitaprogettokinddefaultview"), this.q.eq('rendicontattivitaprogettokind_active', 'Si'));
 				$('#rendicontattivitaprogetto_seg_datainizioprevista').on("change", _.partial(this.managedatainizioprevista, self));
 				$('#rendicontattivitaprogetto_seg_stop').on("change", _.partial(this.managestop, self));
@@ -327,94 +317,6 @@
 				self.state.DS.tables.getregistrydocentiamministratividefaultview.staticFilter(filter);
 			},
 
-			afterFill: function () {
-				this.enableControl($('#rendicontattivitaprogetto_seg_titolobreve'), false);
-				this.enableControl($('#rendicontattivitaprogetto_seg_raggruppamento'), false);
-				this.enableControl($('#rendicontattivitaprogetto_seg_wp'), false);
-				this.enableControl($('#rendicontattivitaprogetto_seg_orerendicont'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoyear'));
-				//afterFillin
-
-				var self = this;
-				if (!this.isEmpty()) {
-					if (this.state.currentRow.idreg && this.state.currentRow.idrendicontattivitaprogetto) {
-						// carica tutte le attività dell'utente. seve per visualizzarle sul calendario
-						var filter = self.q.and(
-							self.q.eq("idreg", this.state.currentRow.idreg),
-							self.q.ne("idrendicontattivitaprogetto", this.state.currentRow.idrendicontattivitaprogetto)
-						);
-						return this.getExternalEventForCalendar(filter, $("[data-tag='rendicontattivitaprogettoora.seg.seg']")).then(function () {
-							return MetaPage.prototype.afterFill.call(self);
-						});
-					}
-					return MetaPage.prototype.afterFill.call(this);
-				}
-				return MetaPage.prototype.afterFill.call(this);
-			},
-
-			fireOpenScheduleConfig: function (that) {
-				if (!that.state.currentRow.idreg)
-					return that.showMessageOk('Occorre indicare chi svolge l\'attività e salvare');
-				let datafine = that.getRealStopForSchedulingResearchActivity();
-				if (!datafine)
-					return that.showMessageOk('Occorre indicare la data di fine attività e salvare');
-				let datainizio = that.getRealStartForSchedulingResearchActivity();
-				if (!datainizio)
-					return that.showMessageOk('Occorre indicare la data di inizio attività e salvare');
-				let maxHoursPerDayTable = null;
-				let idreg = that.state.currentRow.idreg;
-				let filter = that.q.and([
-					that.q.eq("idreg", idreg),
-					that.q.or(that.q.isNull("start"), that.q.le("start", datafine)),
-					that.q.or(that.q.isNull("stop"), that.q.ge("stop", datainizio))
-				]);
-				appMeta.getData.runSelect("getoremaxgg" , "*" , filter, null)
-					.then(function (dt) {
-						maxHoursPerDayTable = dt;
-						return that.getFormData(true);
-					}).then(function () {
-							var progettoTitle = that.state.callerState.callerState.currentRow.title;
-							var workpageTitle = that.state.callerState.currentRow.title;
-							var rendicontattivitaprogettoTitle = that.state.currentRow.description;
-
-						if (!that.state.currentRow.description) {
-							if (that.state.currentRow.idrendicontattivitaprogettokind)
-								that.state.currentRow.description = that.state.DS.tables.rendicontattivitaprogettokinddefaultview.select(that.q.eq("idrendicontattivitaprogettokind", that.state.currentRow.idrendicontattivitaprogettokind))[0].title;
-							else
-								that.state.currentRow.description = '-';
-						}
-							if (!that.state.currentRow.orepreventivate
-								|| !that.state.currentRow.idprogetto
-								|| !progettoTitle
-								|| !workpageTitle
-								|| !that.state.currentRow.idworkpackage) return that.showMessageOk(that.localResource.scheduler_fields_mandatory_msg1);
-
-							var p = [];
-							p.push([progettoTitle, null, 'Progetto']);
-							p.push([workpageTitle, null, 'Workpackage']);
-							p.push([rendicontattivitaprogettoTitle, null, 'Attività']);
-							var columnTitleValue = that.stringify(p, 'string');
-							var scheduler = new appMeta.scheduleConfig(that,
-								{
-									endDate: datafine,
-									minDateValue: datainizio,
-									maxHours: that.state.currentRow.orepreventivate,
-									tableNameSchedule: 'rendicontattivitaprogettoora',
-									columnDate: 'data',
-									columnOre: 'ore',
-									columnTitle : '!titleancestor',
-									columnTitleValue : columnTitleValue,
-									calendarTag : "rendicontattivitaprogettoora.seg.seg",
-									maxHoursPerDayTable : maxHoursPerDayTable,
-									maxHoursPerYearTable: that.state.DS.tables.rendicontattivitaprogettowpview,
-									maxHoursPerYearTableMaxHourCol: 'oremaxanno',
-									maxHoursPerYearTableWorkedHourCol: 'oreanno'
-								});
-							return scheduler.show();
-						});
-			},
-
 			managerendicontattivitaprogetto_seg_titolobreve: function () {
 				this.state.currentRow['!titolobreve'] = this.state.callerState.callerState.currentRow.titolobreve;
 			},
@@ -427,13 +329,7 @@
 				this.state.currentRow['!wp'] = this.state.callerState.currentRow.title;
 			},
 
-			managerendicontattivitaprogetto_seg_orerendicont: function () {
-				this.state.currentRow['!orerendicont'] = _.sumBy(this.getDataTable('rendicontattivitaprogettoora').rows, function (r) {
-					return r.ore;
-				});
-			},
-
-			children: ['rendicontattivitaprogettoitineration', 'rendicontattivitaprogettoora', 'rendicontattivitaprogettowpview', 'rendicontattivitaprogettoyear'],
+			children: ['rendicontattivitaprogettoitineration', 'rendicontattivitaprogettowpview', 'rendicontattivitaprogettoyear'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {
@@ -507,19 +403,12 @@
 						.select(that.q.and(that.q.eq("idprogetto", that.state.currentRow.idprogetto), that.q.eq("idreg", that.state.currentRow.idreg))
 						), 'stop', 'desc')[0] : null;
 
-				// carica tutte le attività dell'utente. seve per visualizzarle sul calendario
-				var filter = that.q.and(
-					that.q.eq("idreg", that.state.currentRow.idreg),
-					that.q.ne("idrendicontattivitaprogetto", that.state.currentRow.idrendicontattivitaprogetto)
-				);
-				return that.getExternalEventForCalendar(filter, $("[data-tag='rendicontattivitaprogettoora.seg.seg']"))
-					.then(function () {
-						return that.setFilterRendicontattivitaprogettoItineration();
-					});
+				return that.setFilterRendicontattivitaprogettoItineration();
+
 			},
 
 			managestop: function(that) { 
-				//inizio controllo intervallo date
+								//inizio controllo intervallo date
 				if (!$("#rendicontattivitaprogetto_seg_stop").val()) {
 					return;
 				}				
@@ -563,7 +452,7 @@
 				}
 
 				//fine controllo intervallo date
-
+                               
 				//mini getFormData
 				that.state.currentRow.stop = tempStop;
 				that.setFilterRendicontattivitaprogettoItineration();

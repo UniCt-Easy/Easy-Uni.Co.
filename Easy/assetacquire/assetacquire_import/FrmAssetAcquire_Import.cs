@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +24,7 @@ using System.IO;
 using metadatalibrary;
 using System.Collections;
 using funzioni_configurazione;
+using System.Threading.Tasks;
 
 namespace assetacquire_import {
     public partial class FrmAssetAcquire_Import : MetaDataForm {
@@ -76,7 +75,157 @@ namespace assetacquire_import {
 
         int nPassi = 14;
 
-        private void btnImporta_Click(object sender, EventArgs e) {
+        private async void btnImporta_Click(object sender, EventArgs e)
+        {
+            btnImporta.Enabled = false;
+
+            try
+			{
+                await ImportaAsync();
+			}
+            finally
+			{
+                btnImporta.Enabled = true;
+			}
+        }
+
+        private async Task ImportaAsync()
+		{
+            if (isBlazor())
+            {
+                SelezionaCartella();
+            }
+
+            await InvokeAsync(() => {
+                progressBar1.Minimum = 0;
+                progressBar1.Maximum = nPassi;
+            });
+
+            if (txtFolder.Text == "")
+            {
+                await ShowMessageAsync("Non è stata scelta la cartella dove verrà salvato il file di log", "Errore");
+                return;
+            }
+
+            DialogResult dr = await InvokeAsync(() => openFileDialog1.ShowDialog(this));
+            if (dr != DialogResult.OK) return;
+
+            try
+            {
+                dsFile = new DataSet();
+                using (FileStream fs = (FileStream)openFileDialog1.OpenFile())
+                {
+                    await Task.Run(() => dsFile.ReadXml(fs));
+                }
+
+                await AggiornaFormAsync("Apertura del File");
+            }
+            catch (Exception)
+            {
+                await ShowMessageAsync("Errore nell'apertura del file! Processo Terminato");
+                return;
+            }
+
+            string codiceEnte = openFileDialog1.FileName;
+            int ultimoBackSlash = codiceEnte.LastIndexOf("\\");
+            codiceEnte = codiceEnte.Substring(ultimoBackSlash + 1);
+            codiceEnte = codiceEnte.Substring(0, codiceEnte.Length - 4);
+
+            object idEnte = await Task.Run(() => ottieniIdEnte(codiceEnte));
+
+            if ((idEnte == null) || (idEnte == DBNull.Value))
+            {
+                await ShowMessageAsync("Non esiste alcun ente inventariale con codice " + codiceEnte);
+                return;
+            }
+
+            await Task.Run(() => aggiungiCampiTemporanei());
+            await Task.Run(() => popolaTabelleLookup());
+
+            // Metodi che aggiornano le tabelle importate con i valori che dovranno assumere
+            // sul DB dell'amministrazione centrale
+            bool successAssegnazione = await Task.Run(() => assegnaCodiceAnagrafica());
+            if (!successAssegnazione)
+            {
+                await ShowMessageAsync("Errore nell'assegnazione dei codici anagrafici");
+                return;
+            }
+
+            // Attenzione! Essendo cambiata la chiave del buono di carico, devo calcolarlo subito
+            // in quanto è chiave esterna x le altre tabelle
+            bool successBuonoCarico = await Task.Run(() => assegnaValoriBuonoCarico());
+            if (!successBuonoCarico)
+            {
+                await ShowMessageAsync("Errore nell'assegnazione dei buoni di carico");
+                return;
+            }
+
+            bool successBuonoScarico = await Task.Run(() => assegnaValoriBuonoScarico());
+            if (!successBuonoScarico)
+            {
+                await ShowMessageAsync("Errore nell'assegnazione dei buoni di scarico");
+                return;
+            }
+
+            bool successCaricoBene = await Task.Run(() => assegnaValoriCaricoBene());
+            if (!successCaricoBene)
+            {
+                await ShowMessageAsync("Errore nell'assegnazione dei carichi cespiti");
+                return;
+            }
+
+            bool successBeniRimanenti = await Task.Run(() => assegnaValoriBeniRimanenti());
+            if (!successBeniRimanenti)
+            {
+                await ShowMessageAsync("Errore nell'assegnazione dei cespiti rimanenti");
+                return;
+            }
+
+            bool successRivalutazione = await Task.Run(() => assegnaValoriRivalutazioneBene());
+            if (!successRivalutazione)
+            {
+                await ShowMessageAsync("Errore nell'assegnazione delle rivalutazioni/svalutazioni dei cespiti");
+                return;
+            }
+
+            // Processo di Travaso dei dati
+            bool successTravaso = await Task.Run(() => travasaIDatiInAmminCentrale(codiceEnte));
+            if (!successTravaso) return;
+
+            await Task.Run(() => saveData());
+        }
+
+        // Metodi helper per l'UI thread
+        private async Task InvokeAsync(Action action)
+        {
+            if (this.InvokeRequired)
+            {
+                await Task.Run(() => this.Invoke(action));
+            }
+            else
+            {
+                action();
+            }
+        }
+
+        private async Task<T> InvokeAsync<T>(Func<T> func)
+        {
+            if (this.InvokeRequired)
+            {
+                return await Task.Run(() => (T)this.Invoke(func));
+            }
+            else
+            {
+                return func();
+            }
+        }
+
+        private async Task ShowMessageAsync(string text, string caption = "", MessageBoxButtons buttons = MessageBoxButtons.OK)
+        {
+            await InvokeAsync(() => show(this, text, caption, buttons));
+        }
+
+        private void _btnImporta_Click(object sender, EventArgs e) {
             if (isBlazor())
 			{
                 SelezionaCartella();
@@ -1804,11 +1953,30 @@ namespace assetacquire_import {
         }
         #endregion
 
-        private void aggiornaForm(string testo) {
-            lblTabella.Text = testo;
-            if (progressBar1.Value < progressBar1.Maximum) progressBar1.Value++;
-            Application.DoEvents();
+        private async Task AggiornaFormAsync(string testo)
+        {
+            await InvokeAsync(() => {
+                lblTabella.Text = testo;
+                if (progressBar1.Value < progressBar1.Maximum)
+                    progressBar1.Value++;
+
+                MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+            });
+
+            // Piccola pausa per mantenere l'UI reattiva
+            await Task.Delay(1);
         }
+
+        private async void aggiornaForm(string testo)
+        {
+            await AggiornaFormAsync(testo);
+        }
+
+        //private void aggiornaForm(string testo) {
+        //    lblTabella.Text = testo;
+        //    if (progressBar1.Value < progressBar1.Maximum) progressBar1.Value++;
+        //    Application.DoEvents();
+        //}
 
         private void btnFolder_Click(object sender, EventArgs e) {
             SelezionaCartella();

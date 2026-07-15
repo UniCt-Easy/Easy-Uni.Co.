@@ -33,9 +33,10 @@
 						this.describeAColumn(table, 'geo_nationlang_lang', 'Lingua di erogazione', null, 20400, 64);
 						this.describeAColumn(table, 'geo_nationlang2_lang', 'Seconda lingua di erogazione', null, 21400, 64);
 						this.describeAColumn(table, 'geo_nationlangvis_lang', 'Lingua di visualizzazione', null, 22400, 64);
+						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 24100, null);
+						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 24200, null);
 						this.describeAColumn(table, 'sessionekind_title', 'Tipologia Tipologia Sessione', null, 24320, 50);
-						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 24400, null);
-						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 24500, null);
+						this.describeAColumn(table, 'appellokind_title', 'Titolo Tipologia di appello Sessione', null, 24420, 50);
 						this.describeAColumn(table, 'titolokind_title', 'Titolo di studi', null, 25200, 50);
 //$objCalcFieldConfig_ingresso$
 						break;

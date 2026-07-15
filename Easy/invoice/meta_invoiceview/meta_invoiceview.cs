@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -84,7 +82,7 @@ namespace meta_invoiceview//meta_documentoivaview//
                 //DescribeAColumn(T,"intracommunityregime","Tipo regime",pos++);
                 //DescribeAColumn(T,"nomenclatureiva","Nomenclatura",pos++);
 				DescribeAColumn(T,"currency","Valuta",pos++);
-                DescribeAColumn(T,"treasurer","Tesoriere", pos++);
+                DescribeAColumn(T,"treasurer","Conto Corrente", pos++);
                 //DescribeAColumn(T,"nation","Paese",pos++);
 				DescribeAColumn(T,"exchangerate","Cambio",pos++);
                 //DescribeAColumn(T,"netweight","Massa",pos++);
@@ -139,7 +137,7 @@ namespace meta_invoiceview//meta_documentoivaview//
                 DescribeAColumn(T, "paymentexpiring", "Scadenza", pos++);
                 DescribeAColumn(T, "scadenza", "Tipo Scad.", pos++);
                 DescribeAColumn(T, "currency", "Valuta", pos++);
-                DescribeAColumn(T, "treasurer", "Tesoriere", pos++);
+                DescribeAColumn(T, "treasurer", "Conto Corrente", pos++);
                 DescribeAColumn(T, "adate", "Data reg.", pos++);
                 DescribeAColumn(T, "taxable", "Imponibile", pos++);
                 DescribeAColumn(T, "tax", "Imposta", pos++);

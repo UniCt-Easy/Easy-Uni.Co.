@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_registro_ammortamenti_ente_con_simulazione]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_registro_ammortamenti_ente_con_simulazione]
 GO
@@ -25,7 +23,7 @@ SET ANSI_NULLS ON
 GO
 --setuser 'amministrazione'
 -- exec rpt_registro_ammortamenti_ente_con_simulazione 2020, 8, {d '2023-03-16'},'N', 8024, 8024
--- exec rpt_registro_ammortamenti_ente_con_simulazione 2015, 1, null,'S'
+-- exec rpt_registro_ammortamenti_ente_con_simulazione 2025, 1, null,'S'
 CREATE    PROCEDURE [rpt_registro_ammortamenti_ente_con_simulazione]
 (
 	@year int,
@@ -41,39 +39,39 @@ AS BEGIN
 declare @SS1 datetime
 declare @SS2 datetime
 
-IF (@simulation_on_to_adate IS NULL OR
-   YEAR(@simulation_on_to_adate)<  @year)
-   BEGIN
-		SELECT
-			NULL AS idasset,
-			NULL AS idpiece,
-			NULL AS lifestart,
-			NULL AS idinventoryagency,
-			NULL AS acquirekind,
-			NULL AS inventoryagency,
-			NULL AS inventory,
-			NULL AS inventorykind,
-			NULL AS ninventory,
-			NULL AS assetloadkind, 
-			NULL AS idassetloadkind,
-			NULL AS yassetload,
-			NULL AS nassetload,
-			NULL AS category,
-			NULL AS idinv,
-			NULL AS codeinv,
-			NULL AS description,
-			NULL AS assetdescription,
-			NULL AS assetoriginalvalue,
-			NULL AS startvalue,
-			NULL AS finalvalue,
-			NULL AS namortization,
-			NULL AS amortizationquota,
-			NULL AS assetvalue,
-			NULL AS adate,
-			NULL AS amortizationvalue,
-			NULL AS real_or_simulation
-		RETURN
-END
+--IF (@simulation_on_to_adate IS NULL OR
+--   YEAR(@simulation_on_to_adate)<  @year)
+--   BEGIN
+--		SELECT
+--			NULL AS idasset,
+--			NULL AS idpiece,
+--			NULL AS lifestart,
+--			NULL AS idinventoryagency,
+--			NULL AS acquirekind,
+--			NULL AS inventoryagency,
+--			NULL AS inventory,
+--			NULL AS inventorykind,
+--			NULL AS ninventory,
+--			NULL AS assetloadkind, 
+--			NULL AS idassetloadkind,
+--			NULL AS yassetload,
+--			NULL AS nassetload,
+--			NULL AS category,
+--			NULL AS idinv,
+--			NULL AS codeinv,
+--			NULL AS description,
+--			NULL AS assetdescription,
+--			NULL AS assetoriginalvalue,
+--			NULL AS startvalue,
+--			NULL AS finalvalue,
+--			NULL AS namortization,
+--			NULL AS amortizationquota,
+--			NULL AS assetvalue,
+--			NULL AS adate,
+--			NULL AS amortizationvalue,
+--			NULL AS real_or_simulation
+--		RETURN
+--END
 -------------------------------------------------------------------------------------
 -------------- Elenco cespiti e accessori  ammortizzati nell'anno -------------------
 -------------------------------------------------------------------------------------

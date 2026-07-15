@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -155,6 +153,14 @@ namespace bankdispositionsetup_carimenew {
 
             if (D == null) return;
             D.InnerXml = D.InnerXml.Replace("&#x1F", "&#x90");
+
+            XmlNode codiceAbiNode = D.SelectSingleNode("//codice_ABI_BT");
+
+            string codiceAbi = "";
+
+            if (codiceAbiNode != null)
+                codiceAbi = codiceAbiNode.InnerText.Trim();
+
             string filterTreasurer = QHS.CmpEq("idtreasurer", idtreasurer);
             string fname = "";
             object savepath = Conn.DO_READ_VALUE("treasurer", filterTreasurer, "savepath");
@@ -170,7 +176,13 @@ namespace bankdispositionsetup_carimenew {
                 XmlWriterSettings xs = new XmlWriterSettings();
                 xs.Indent = true;
                 xs.CloseOutput = true;
-                xs.Encoding = Encoding.GetEncoding("UTF-8");
+
+                // Task 20095 - Arpal ha come banca la BdM, l'encoding deve essere UTF-8 e non UTF-8 BOM 
+                if (codiceAbi == "05424")
+                    xs.Encoding = new UTF8Encoding(false);
+                else
+                    xs.Encoding = Encoding.GetEncoding("UTF-8");
+
                 XmlWriter xw = XmlWriter.Create(fname, xs);
                 D.WriteTo(xw);
                 xw.Flush();
@@ -260,6 +272,15 @@ namespace bankdispositionsetup_carimenew {
             EsportazioneDistinteIncasso E = new EsportazioneDistinteIncasso(Conn, y, n);
             XmlDocument D = E.GeneraFileXML();
 
+            if (D == null) return;
+
+            XmlNode codiceAbiNode = D.SelectSingleNode("//codice_ABI_BT");
+
+            string codiceAbi = "";
+
+            if (codiceAbiNode != null)
+                codiceAbi = codiceAbiNode.InnerText.Trim();
+
             string filterTreasurer = QHS.CmpEq("idtreasurer", idtreasurer);
             string fname = "";
             object savepath = Conn.DO_READ_VALUE("treasurer", filterTreasurer, "savepath");
@@ -276,7 +297,13 @@ namespace bankdispositionsetup_carimenew {
                 XmlWriterSettings xs = new XmlWriterSettings();
                 xs.Indent = true;
                 xs.CloseOutput = true;
-                xs.Encoding = Encoding.GetEncoding("UTF-8");
+
+                // Task 20095 - Arpal ha come banca la BdM, l'encoding deve essere UTF-8 e non UTF-8 BOM
+                if (codiceAbi == "05424")
+                    xs.Encoding = new UTF8Encoding(false);
+                else
+                    xs.Encoding = Encoding.GetEncoding("UTF-8");
+
                 XmlWriter xw = XmlWriter.Create(fname, xs);
                 D.WriteTo(xw);
                 xw.Flush();

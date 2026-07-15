@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -1560,13 +1558,15 @@ namespace ep_functions {
                     if (DS.Tables["invoicedetail"]
                             .Select(QHC.AppAnd(QHC.BitSet("flagbit", 0), QHC.NullOrGt("unabatable", 0))).Length >
                         0) return true;
-
-                    //Per le fatt. collegate a parcelle gli impegni stanno sulla parcella tranne per le fatt a ricevere parte iva indet.
-                    if (Conn.RUN_SELECT_COUNT("profservice", QHS.AppAnd(QHS.CmpGe("ycon", minimoAnnoImpegniDiBudget),
-                                QHS.DoPar(QHS.AppOr(QHS.IsNull("epkind"), QHS.NullOrEq("epkind", "N"))), QHS.CmpKey(r)),
-                            false) > 0) return false;
+                                        
+					//Per le fatt. collegate a parcelle gli impegni stanno sulla parcella tranne per le fatt a ricevere parte iva indet.
+					if (Conn.RUN_SELECT_COUNT("profservice", QHS.AppAnd(QHS.CmpGe("ycon", minimoAnnoImpegniDiBudget),
+								QHS.DoPar(QHS.AppOr(QHS.IsNull("epkind"), QHS.NullOrEq("epkind", "N"))), QHS.CmpKey(r)),
+							    false) > 0 &&
+                            // Se non ci sono dettagli NON collegati a parcella non vanno generati gli impegni di budget, perchè generati dalla parcella
+                            DS.Tables["invoicedetail"].Select(QHS.AppAnd(QHS.IsNull("ycon"), QHS.IsNull("ncon"))).Length == 0) return false;
                     //if (DS.Tables["invoicedetail"].Select(QHS.CmpGe("ycon", minimoAnnoImpegniDiBudget)).Length > 0) return false;
-
+                         
                     //Per fatture collegate a contratti prof., di tipo fatt. a ricevere, comunque non genera impegni (task  10223 e chat successive
                     // con Antonio)
                     ////// elimino la condizione  a seguito task 10272 (dipende se fatt.commerciale se a ricevere etc.)
@@ -3512,8 +3512,8 @@ namespace ep_functions {
                 //task 8714 Implementazione sui contratti professionali della gestione automatica ratei e fatture da ricevere
                 if (linkedProfService != null) {
                     int annoCProf = CfgFn.GetNoNullInt32(linkedProfService["ycon"]);
-                    if (annoCProf < annoFattura) {
-                        object epkind = linkedProfService["epkind"];
+                    //if (annoCProf < annoFattura) { // task 20272
+                    object epkind = linkedProfService["epkind"];
                         if (epkind != null) {
                             if (epkind.ToString().ToUpper() == "F" || epkind.ToString().ToUpper() == "R") {
                                 isFattRic = true; //valorizza fatt.  a ricevere per professionali
@@ -3522,18 +3522,21 @@ namespace ep_functions {
 
                             isFattRateo = epkind.ToString().ToUpper() == "R";
                         }
-                    }
+                    //}
                 }
 
                 //In base al task 5413, non considera il flag fatture a ricevere se l'anno dell'ordine è lo stesso dell'anno fattura
                 //In base al task 17551, non considera il flag fatture a ricevere se l'anno inizio del dettaglio ordine è lo stesso dell'anno fattura
+                //Task 21310, parziale rettifica del task 17551, considera il flag fatture a ricevere se il dettaglio contratto passivo
+                //è originato da una sostituzione con altro dettaglio di esercizio precedente
                 if (rInvDet["idmankind"] != DBNull.Value) {
                     int annoOrdine = CfgFn.GetNoNullInt32(rInvDet["yman"]);
                     int yearStartDettaglio = annoOrdine;
 
                     if (rMandateDetail["start"] != DBNull.Value)  
                         {
-                            DateTime originalDate = (DateTime)(rMandateDetail["start"]);
+                            DataRow firstRow = getFirstRow(rMandateDetail);
+                            DateTime originalDate = (DateTime)(firstRow["start"] == DBNull.Value ? new DateTime(annoOrdine, 12, 31): firstRow["start"]);
                             yearStartDettaglio = originalDate.Year;
                         }
 
@@ -3621,9 +3624,9 @@ namespace ep_functions {
                 // Se è una NC valorizziamo l'idrelated di entrydetail pari all'idrelated del dettaglio fattura-madre,
                 // considerando quindi la NC un'estensione della fattura( alla stregua della scrittura della distinta che chiude il debito).
                 if (rInvDet["idinvkind_main"] != DBNull.Value) {
-                    //rintracciamo la riga della fattura madre e costruiamo l'idrelated del dettaglio scrittura con i suoi riferimenti
+                    //rintracciamo la riga della fattura rettificata e costruiamo l'idrelated del dettaglio scrittura con i suoi riferimenti
                     if (rInvDet["rownum_main"] != null && rInvDet["rownum_main"] != DBNull.Value) {
-                        //associazione alla fattura madre con n.riga (versione nuova)
+                        //associazione alla fattura rettificata con n.riga (versione nuova)
                         string filter = QHS.AppAnd(QHS.CmpEq("idinvkind", rInvDet["idinvkind_main"]), QHS.CmpEq("yinv", rInvDet["yinv_main"]),
                                 QHS.CmpEq("ninv", rInvDet["ninv_main"]), QHS.CmpEq("rownum", rInvDet["rownum_main"]));
                         DataTable tMainInvoicedetail = Conn.RUN_SELECT("invoicedetail", "*", null, filter, null, false);
@@ -3633,7 +3636,7 @@ namespace ep_functions {
                         }
                     }
 					else {
-                        //associazione alla fattura madre fatta all'intero documento senza specificare il n.riga(versione attuale)
+                        //associazione alla fattura rettificata fatta all'intero documento senza specificare il n.riga(versione attuale)
                         string filter = QHS.AppAnd(QHS.CmpEq("idinvkind", rInvDet["idinvkind_main"]), QHS.CmpEq("yinv", rInvDet["yinv_main"]),
                                 QHS.CmpEq("ninv", rInvDet["ninv_main"]));
                         DataTable tMainInvoice = Conn.RUN_SELECT("invoice", "*", null, filter, null, false);
@@ -3694,6 +3697,17 @@ namespace ep_functions {
                             return false;
                         }
                     }
+                    // Fattura collegata a Parcella, marcata come 'fattura da ricevere'
+                    if (isFattRic && idepexp == DBNull.Value && linkedProfService !=null && idrelatedLinkedDoc != null) {
+                        idepexp = getIdEpExpByIdRelated(idrelatedLinkedDoc, 2);
+                        if (idepexp == null) {
+                            ShowMessage(
+                                $"Non è stato trovato il Contratto Professionale collegato alla riga fattura n.{rInvDet["rownum"]} ",
+                                "Errore");
+                            return false;
+                        }
+                    }
+
 
                 }
 
@@ -3751,7 +3765,7 @@ namespace ep_functions {
                     // Se è una NC rintracciamo l'idrelated del dettaglio della fattura-madre,
                     if (rInvDet["idinvkind_main"] != DBNull.Value) {
                         if (rInvDet["rownum_main"] != null && rInvDet["rownum_main"] != DBNull.Value) {
-                            //associazione alla fattura madre con n.riga (versione nuova)
+                            //associazione alla fattura rettificata con n.riga (versione nuova)
                             string filter = QHS.AppAnd(QHS.CmpEq("idinvkind", rInvDet["idinvkind_main"]), QHS.CmpEq("yinv", rInvDet["yinv_main"]),
                                     QHS.CmpEq("ninv", rInvDet["ninv_main"]), QHS.CmpEq("rownum", rInvDet["rownum_main"]));
                             DataTable tMainInvoicedetail = Conn.RUN_SELECT("invoicedetail", "*", null, filter, null, false);
@@ -3784,7 +3798,7 @@ namespace ep_functions {
                             }
                         }
                         else {
-                            //associazione alla fattura madre fatta all'intero documento senza specificare il n.riga(versione attuale)
+                            //associazione alla fattura rettificata fatta all'intero documento senza specificare il n.riga(versione attuale)
                             string filter = QHS.AppAnd(QHS.CmpEq("idinvkind", rInvDet["idinvkind_main"]), QHS.CmpEq("yinv", rInvDet["yinv_main"]),
                                     QHS.CmpEq("ninv", rInvDet["ninv_main"]));
                             DataTable tMainInvoice = Conn.RUN_SELECT("invoice", "*", null, filter, null, false);
@@ -4132,7 +4146,7 @@ namespace ep_functions {
 
                     //Non considera l'impegno di budget per le spese anticipate
 
-                    // Se si tratta di una NC, e non è contabilizzata con una var. di spesa, dobbiamo associare il dettaglio scrittura all' imp.di Budget della fattura madre                
+                    // Se si tratta di una NC, e non è contabilizzata con una var. di spesa, dobbiamo associare il dettaglio scrittura all' imp.di Budget della fattura rettificata                
                     if ((rInvDet["idinvkind_main"] != DBNull.Value) && (rInvDet["idexp_taxable"]==DBNull.Value) && (rInvDet["idexp_iva"] == DBNull.Value)) {
                         idepexpProrata = idepexp_main; // Cambio valorizzazione idepexp
                     }
@@ -4175,7 +4189,7 @@ namespace ep_functions {
                 }
 
                 object idepexpForDebit = idepexp;
-                // Se si tratta di una NC, e NON è contabilizzata con una var. di spesa, dobbiamo associare il dettaglio scrittura all' imp.di Budget della fattura madre                
+                // Se si tratta di una NC, e NON è contabilizzata con una var. di spesa, dobbiamo associare il dettaglio scrittura all' imp.di Budget della fattura rettificata                
                 if ((rInvDet["idinvkind_main"] != DBNull.Value) && (rInvDet["idexp_taxable"] == DBNull.Value) && (rInvDet["idexp_iva"] == DBNull.Value)) {
                     idepexpForDebit = idepexp_main; // Cambio valorizzazione idepexp
                 }
@@ -6933,7 +6947,7 @@ namespace ep_functions {
                     decimal segno = 1;
                     if (rDett["flagvariation"].ToString().ToUpper() == "S") {
                         segno = -1;
-                        //Se la NC è collegata ad un dettaglio fattura, il dettaglio scritture dovrà essere valorizzato col dett. fattura madre
+                        //Se la NC è collegata ad un dettaglio fattura, il dettaglio scritture dovrà essere valorizzato col dett. fattura rettificata
                         if ((rDett["rownum_main"] != null) && (rDett["rownum_main"] != DBNull.Value)) {
                             idrelatedDett =
                                    $"inv§{rDett["idinvkind_main"]}§{rDett["yinv_main"]}§{rDett["ninv_main"]}§{rDett["rownum_main"]}";
@@ -12356,7 +12370,8 @@ namespace ep_functions {
                         curr["matricola"]);
 
                     EP.EffettuaScritturaIdRelated("PAGAM", quota * sign, idaccPayment,
-                        idregCsa, curr["idupb"], null,
+                        idregCsa != DBNull.Value ? idregCsa : idregToUse, 
+                        curr["idupb"], null,
                         getAccMotiveForSiope(curr["idsor_siope"], curr["idacc"]),
                         idrelatedTransitorio,
                         "Riepiloghi positivi, Riepilogo, riga " + curr["idriep"] +
@@ -13817,7 +13832,7 @@ namespace ep_functions {
 
         Dictionary<string, bool> budgetEnabled = new Dictionary<string, bool>();
 
-        bool isBudgetEnabled(object idacc) {
+        public bool isBudgetEnabled(object idacc) {
             if (idacc == DBNull.Value) return false;
             if (idacc == null) return false;
             if (budgetEnabled.ContainsKey(idacc.ToString())) return budgetEnabled[idacc.ToString()];
@@ -16237,6 +16252,7 @@ namespace ep_functions {
                 var idrel = BudgetFunction.GetIdForDocument(rAssAmm);
                 foreach (DataRow r in ContiSpesa) {
                     object idacc = r["idacc"];
+                    if (EP.isImmobilizzazione(idacc)) continue;
                     if (!EP.isCosto(idacc)) continue;
 
                     if (!isBudgetEnabled(idacc)) continue;
@@ -17431,15 +17447,15 @@ namespace ep_functions {
                 //task 8714 Implementazione sui contratti professionali della gestione automatica ratei e fatture da ricevere
                 if (linkedProfService != null) {
                     int annoCProf = CfgFn.GetNoNullInt32(linkedProfService["ycon"]);
-                    if (annoCProf < annoFattura) {
-                        object epkind = linkedProfService["epkind"];
+                    //if (annoCProf < annoFattura) { // task 20272
+                    object epkind = linkedProfService["epkind"];
                         if (epkind != null) {
                             if (epkind.ToString().ToUpper() == "F" || epkind.ToString().ToUpper() == "R")
                                 isFattRic = true; //valorizza fatt.  a ricevere per professionali
                         }
 
                         noMessage = true;
-                    }
+                    //}
                 }
 
                 //se c'è un ordine collegato di tipo fatture a ricevere, COMUNQUE non deve generare un impegno di budget
@@ -17899,18 +17915,24 @@ namespace ep_functions {
                 //  l'unica differenza potrebbe essere per il discorso del prorata
                 if (linkedProfService != null) {
                     int annoCProf = CfgFn.GetNoNullInt32(linkedProfService["ycon"]);
-                    if (annoCProf < annoFattura) {
-                        object epkind = linkedProfService["epkind"];
-                        if (epkind != null) {
-                            if (epkind.ToString().ToUpper() == "F" || epkind.ToString().ToUpper() == "R")
-                                isFattRic = true; //valorizza fatt.  a ricevere per professionali
-                        }
+                    //if (annoCProf < annoFattura) {// task 20272
+                    object epkind = linkedProfService["epkind"];
+                    if (epkind != null) {
+                        if (epkind.ToString().ToUpper() == "F" || epkind.ToString().ToUpper() == "R")
+                            isFattRic = true; //valorizza fatt.  a ricevere per professionali
                     }
+                    //}
 
-                    //12382:applico questa parte solo se non è rateo o fatt.ric
-                    if (annoCProf < minimoAnnoImpegniDiBudget && !isFattRic) {
-                        usaProRataAnnoOrigineDettaglio = false;
-                    }
+                    if (!isFattRic)
+					{
+                        //12382:applico questa parte solo se non è rateo o fatt.ric
+                        if (annoCProf < minimoAnnoImpegniDiBudget)
+                            usaProRataAnnoOrigineDettaglio = false;
+                        else
+                        // altrimenti salto la creazione dell'impegno di budget per questo dettaglio
+                            continue;
+					}
+
                 }
 
                 //prorata per fatt. a ricevere, usato nell'impegno se fatto in anni precedenti
@@ -23384,7 +23406,7 @@ namespace ep_functions {
                     EP.EffettuaScritturaSuddivisaImpegnoBudget(idepcontext, importoAmm, idacc, idreg, idupb, 
                         null, null, rAssAmm,
                         idaccmotive, rAssAmm["idcostpartition"],
-                        EP.isCosto(idacc) ? getIdEpExpByIdRelated(idrel, 2) : null,
+                        (EP.isCosto(idacc) && !(EP.isImmobilizzazione(idacc))) ? getIdEpExpByIdRelated(idrel, 2) : null,
                         null, idrel, what);
                 }
             }
@@ -26361,6 +26383,8 @@ namespace ep_functions {
         }
 
         public int flagAccountUsage(object idacc) {
+            if (idacc == DBNull.Value || idacc == null)
+                return 0;
             var strIdAcc = idacc.ToString();
             if (!flagAccount.ContainsKey(strIdAcc)) {
                 DataRow rAcc = getRowIdAcc(idacc);

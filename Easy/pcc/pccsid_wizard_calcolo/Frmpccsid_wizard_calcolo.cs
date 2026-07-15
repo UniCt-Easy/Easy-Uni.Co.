@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -368,7 +366,7 @@ namespace pccsid_wizard_calcolo {
             if (res) {
                 GeneraFile(Rpcc["idpcc"]);
                 ScriviFileNelDB();
-                //Process.Start(NomeCompletoFileCSV);//Apre il file creato. L'ho commentato perchè non piace 
+                //Process.Start(NomeCompletoFileCSV);//Apre il file creato. L'ho commentato perchÃ¨ non piace 
                 return;
             }
         }
@@ -510,7 +508,7 @@ namespace pccsid_wizard_calcolo {
 
             try {
                 string S = MyDataTableToCSV(DT, false, headerKind);
-                    // il secondo parametro è l'header, ma impostato a false
+                    // il secondo parametro Ã¨ l'header, ma impostato a false
                 StreamWriter SWR = new StreamWriter(NomeCompletoFileCSV, false, Encoding.Default);
                 SWR.Write(S);
                 SWR.Close();
@@ -556,9 +554,9 @@ namespace pccsid_wizard_calcolo {
                          ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                          "DATI AMMINISTRAZIONE (SDI 1.4 CessionarioCommittente);;;DATI FORNITORE (SDI 1.2 CedentePrestatore);;;LOTTO;DATI FATTURA;;;;;;;;;;;;;;;;;;;;;;ESITO ELABORAZIONE;;;;;;;;;;;;;;;;;;;;;;" +
                          "\r\n" +
-                         "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario);Denominazione Amministrazione* - Specificare la denominazione dell'Amministrazione destinataria del documento (SDI 1.4.1.3 Anagrafica); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Denominazione Fornitore* - Specificare la denominazione del Fornitore che ha emesso il documento (SDI 1.2.1.3 Anagrafica);Descrizione distinta o lotto* - Specificare una descrizione o numero relativo all'invio  (SDI 1.1.2 ProgressivoInvio);DATI GENERALI (SDI 2.1 DatiGenerali);;;;;;;;RIEPILOGO ALIQUOTE (SDI 2.2.2 DatiRiepilogo);;;;DISTRIBUZIONE PER CIG/CUP (SDI 2.2.1 DettaglioLinee);;;DETTAGLIO PAGAMENTO (SDI 2.4.2 DettaglioPagamento);;;;RICEZIONE;;;Forzatura immissione - Consente di specificare l'azione da eseguire nei casi di segnalazione di sospetto duplicato.  AG: Aggiungi la fattura come nuova /  SO: Sovrascivi la fattura già presente;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;" +
+                         "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario);Denominazione Amministrazione* - Specificare la denominazione dell'Amministrazione destinataria del documento (SDI 1.4.1.3 Anagrafica); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Denominazione Fornitore* - Specificare la denominazione del Fornitore che ha emesso il documento (SDI 1.2.1.3 Anagrafica);Descrizione distinta o lotto* - Specificare una descrizione o numero relativo all'invio  (SDI 1.1.2 ProgressivoInvio);DATI GENERALI (SDI 2.1 DatiGenerali);;;;;;;;RIEPILOGO ALIQUOTE (SDI 2.2.2 DatiRiepilogo);;;;DISTRIBUZIONE PER CIG/CUP (SDI 2.2.1 DettaglioLinee);;;DETTAGLIO PAGAMENTO (SDI 2.4.2 DettaglioPagamento);;;;RICEZIONE;;;Forzatura immissione - Consente di specificare l'azione da eseguire nei casi di segnalazione di sospetto duplicato.  AG: Aggiungi la fattura come nuova /  SO: Sovrascivi la fattura giÃ  presente;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;" +
                          "\r\n" +
-                         ";;;;;;;Tipo Documento* - Specificare TD01: fattura /  TD02: acconto/anticipo su fattura /  TD03: acconto/anticipo su parcella /  TD04: nota di credito /  TD05: nota di debito /  TD06: parcella (SDI 2.1.1.1 TipoDocumento);Numero fattura* (SDI 2.1.1.4 Numero);Data emissione* (SDI 2.1.1.3 Data);Importo totale documento* (SDI 2.1.1.9 ImportoTotaleDocumento);Descrizione / Causale* (SDI 2.1.1.11 Causale);Art. 73 - Specificare SI  - Documento emesso secondo le modalità stabilite con DM ai sensi dell'art. 73 DPR 633/72 (SDI  2.1.1.12 Art73);Totale imponibile della fattura* (SDI  somma di 2.2.2.5 ImponibileImporto);Totale imposta della fattura* (SDI  somma di 2.2.2.6 Imposta);Aliquota IVA (SDI 2.2.2.1 AliquotaIVA);Codice Esenzione IVA (SDI 2.2.2.2 Natura);Totale Imponibile per aliquota (SDI 2.2.2.5 Imposta);Totale Imposta per aliquota (SDI 2.2.2.6 Imposta);Importo per CIG/CUP (SDI Somma di 2.2.1.11 PrezzoTotale + applicazione 2.2.1.12 AliquotaIVA);Codice CIG - Codice Identificativo della gara (SDI  2.1.2.7 CIG);Codice CUP - Codice Unitario Progetto (SDI 2.1.2.6 CUP);Data riferimento termini di pagamento - Specificare la data dalla quale decorrono i termini di pagamento (SDI 2.4.2.3 DataRiferimentoTerminiPagamento);Giorni termini pagamento - Specificare il numero di giorni entro i quali sarà effettuato il pagamento  (SDI 2.4.2.4 GiorniTerminiPagamento);Data scadenza pagamento (SDI 2.4.2.5 DataScadenzaPagamento);Importo Pagamento (SDI 2.4.2.6 ImportoPagamento);Numero Protocollo in Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;;;;;;;;;;;;;;;;;;;;;;;" +
+                         ";;;;;;;Tipo Documento* - Specificare TD01: fattura /  TD02: acconto/anticipo su fattura /  TD03: acconto/anticipo su parcella /  TD04: nota di credito /  TD05: nota di debito /  TD06: parcella (SDI 2.1.1.1 TipoDocumento);Numero fattura* (SDI 2.1.1.4 Numero);Data emissione* (SDI 2.1.1.3 Data);Importo totale documento* (SDI 2.1.1.9 ImportoTotaleDocumento);Descrizione / Causale* (SDI 2.1.1.11 Causale);Art. 73 - Specificare SI  - Documento emesso secondo le modalitÃ  stabilite con DM ai sensi dell'art. 73 DPR 633/72 (SDI  2.1.1.12 Art73);Totale imponibile della fattura* (SDI  somma di 2.2.2.5 ImponibileImporto);Totale imposta della fattura* (SDI  somma di 2.2.2.6 Imposta);Aliquota IVA (SDI 2.2.2.1 AliquotaIVA);Codice Esenzione IVA (SDI 2.2.2.2 Natura);Totale Imponibile per aliquota (SDI 2.2.2.5 Imposta);Totale Imposta per aliquota (SDI 2.2.2.6 Imposta);Importo per CIG/CUP (SDI Somma di 2.2.1.11 PrezzoTotale + applicazione 2.2.1.12 AliquotaIVA);Codice CIG - Codice Identificativo della gara (SDI  2.1.2.7 CIG);Codice CUP - Codice Unitario Progetto (SDI 2.1.2.6 CUP);Data riferimento termini di pagamento - Specificare la data dalla quale decorrono i termini di pagamento (SDI 2.4.2.3 DataRiferimentoTerminiPagamento);Giorni termini pagamento - Specificare il numero di giorni entro i quali sarÃ  effettuato il pagamento  (SDI 2.4.2.4 GiorniTerminiPagamento);Data scadenza pagamento (SDI 2.4.2.5 DataScadenzaPagamento);Importo Pagamento (SDI 2.4.2.6 ImportoPagamento);Numero Protocollo in Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;;;;;;;;;;;;;;;;;;;;;;;" +
                          "\r\n";
             }
             if (HeaderKind == "O") {
@@ -569,7 +567,7 @@ namespace pccsid_wizard_calcolo {
                     "Utente che trasmette il file (Codice Fiscale);" + CFTrasmittente + ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                     "DATI IDENTIFICATIVI FATTURA*;;;;;;TIPO OPERAZIONE*;VARIAZIONE IMPORTI DOCUMENTI Tutti i campi sono obbligatori Sezione da compilare solo per le righe del modello per le quali Azione = 'SID';;;;;;;;;;REGIME IVA Sezione da compilare solo per le righe del modello per le quali Azione = 'MI';RICEZIONE / RIFIUTO / COMUNICAZIONE SCADENZA Sezione da compilare solo per le righe del modello per le quali Azione = 'RC' Azione = 'RF' Azione = 'CS';;ESITO ELABORAZIONE;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                     "IDENTIFICATIVO 1;;IDENTIFICATIVO 3 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-                    "Numero progressivo di registrazione;IDENTIFICATIVO 2 ;;Data documento (SDI 2.1.1.3 Data);Codice fiscale fornitore;Codice ufficio;Azione ;Imponibile;Imposta;Importo non commerciale*;Importo sospeso in Contenzioso*;Data inizio sospesione in Contenzioso*;Importo sospeso in contestazione/adempimenti normativi*;Data inizio sospesione in contestazione /adempimenti normativi*;Importo sospeso per data esito regolare verifica di conformità*;Data inizio sospensione per data esito regolare verifica di conformità*;Importo non liquidabile*;Flag split (S/N);Data;Numero protocollo di entrata;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
+                    "Numero progressivo di registrazione;IDENTIFICATIVO 2 ;;Data documento (SDI 2.1.1.3 Data);Codice fiscale fornitore;Codice ufficio;Azione ;Imponibile;Imposta;Importo non commerciale*;Importo sospeso in Contenzioso*;Data inizio sospesione in Contenzioso*;Importo sospeso in contestazione/adempimenti normativi*;Data inizio sospesione in contestazione /adempimenti normativi*;Importo sospeso per data esito regolare verifica di conformitÃ *;Data inizio sospensione per data esito regolare verifica di conformitÃ *;Importo non liquidabile*;Flag split (S/N);Data;Numero protocollo di entrata;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                     ";Lotto SDI;Numero fattura(SDI 2.1.1.4 Numero);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n";
             }
             if (HeaderKind == "P") {
@@ -606,7 +604,7 @@ namespace pccsid_wizard_calcolo {
                         continue;
 					}
                         //if (C.ColumnName == "npay") {
-                        //    //se è valorizzata Piccolaspesa allora comunicheramo il numero dlela piccola spesa, altrimenti il numero del mandato
+                        //    //se Ã¨ valorizzata Piccolaspesa allora comunicheramo il numero dlela piccola spesa, altrimenti il numero del mandato
                         //    if (r["piccolaspesa"].ToString() != "") {
                         //        variabile = format(r["piccolaspesa"]);
                         //    }
@@ -1016,9 +1014,9 @@ namespace pccsid_wizard_calcolo {
                 selectedrows = GetGridSelectedRows();
             }
             creaTableOperazioni();
-            // Le operazioni devono seguire un ordine preciso, perchè il sistema PCC processa le righe nell'ordine in cui vengono inserite
+            // Le operazioni devono seguire un ordine preciso, perchÃ¨ il sistema PCC processa le righe nell'ordine in cui vengono inserite
             // quindi CO-> CS->CP
-            // non è possibile seguire un ordine alfabetico, quindi facciamo 3 cicli
+            // non Ã¨ possibile seguire un ordine alfabetico, quindi facciamo 3 cicli
             for (int i = 0; i < selectedrows.Length; i++) {
                 DataRow Ri = selectedrows[i];
                 if (Ri["azione"].ToString() != "SID") 
@@ -1764,7 +1762,7 @@ namespace pccsid_wizard_calcolo {
             foreach (DataRow r in MyTable.Select()) {
                 lookup[r["nriga"].ToString()] = r;
                 if (r["invoicekind"].ToString() != "") {
-                    string lookInvoice = r["invoicekind"].ToString() + "§" + r["yinv"].ToString() + "§" +
+                    string lookInvoice = r["invoicekind"].ToString() + "Â§" + r["yinv"].ToString() + "Â§" +
                                          r["ninv"].ToString();
                     if (!sameInvoice.ContainsKey(lookInvoice)) {
                         sameInvoice.Add(lookInvoice, new List<DataRow>());
@@ -1785,7 +1783,7 @@ namespace pccsid_wizard_calcolo {
                 List<DataRow> linked;
 
                 if (r["invoicekind"].ToString() != "") {
-                    string lookInvoice = r["invoicekind"].ToString() + "§" + r["yinv"].ToString() + "§" +
+                    string lookInvoice = r["invoicekind"].ToString() + "Â§" + r["yinv"].ToString() + "Â§" +
                                          r["ninv"].ToString();
 
         
@@ -1806,6 +1804,7 @@ namespace pccsid_wizard_calcolo {
 
 
             InsidePaint = false;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         //Consente di fare la seleziona automatica dei dettagli di una stessa fattura o contratto passivo
@@ -1868,7 +1867,7 @@ namespace pccsid_wizard_calcolo {
             DataSet MyDS = (DataSet) G.DataSource;
             DataTable MyTable = MyDS.Tables[TableName];
             string filter = "";
-            //  usiamo nriga come chiave del grid per comodità, perchè altrimenti dovremmo usare idinvkind,yinv,ninv,idmankind,nman,yman,ycon,ncon come chiave
+            //  usiamo nriga come chiave del grid per comoditÃ , perchÃ¨ altrimenti dovremmo usare idinvkind,yinv,ninv,idmankind,nman,yman,ycon,ncon come chiave
             filter = QHC.CmpEq("nriga", G[index, 0]);
             DataRow[] selectresult = MyTable.Select(filter);
             if (selectresult.Length == 0)

@@ -6,22 +6,18 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_idcostoscontodefdettagliokind">Voce di dettaglio</label>
-					<select id="costoscontodefdettaglio_more_idcostoscontodefdettagliokind" class="custom-select d-block w-100"  data-source-name="costoscontodefdettagliokind" data-value-member="idcostoscontodefdettagliokind" data-display-member="title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idcostoscontodefdettagliokind"   > </select>
+					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_idfasciaiseedef">Fascia ISEE</label>
+					<select id="costoscontodefdettaglio_more_idfasciaiseedef" class="custom-select d-block w-100"  data-source-name="fasciaiseedefdefaultview" data-value-member="idfasciaiseedef" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idfasciaiseedef"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_idfasciaiseedef">Fascia ISEE</label>
-					<div>
-						<input id="costoscontodefdettaglio_more_idfasciaiseedef" name="costoscontodefdettaglio_more_idfasciaiseedef" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="fasciaiseedefdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
-					</div>
+					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_idratadef">Rata</label>
+					<select id="costoscontodefdettaglio_more_idratadef" class="custom-select d-block w-100"  data-source-name="ratadefdefaultview" data-value-member="idratadef" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idratadef"  data-mandatory  data-master="fasciaiseedefdefaultview"> </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_idratadef">Rata</label>
-					<div>
-						<input id="costoscontodefdettaglio_more_idratadef" name="costoscontodefdettaglio_more_idratadef" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="ratadefdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
-					</div>
+					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_idcostoscontodefdettagliokind">Voce di dettaglio</label>
+					<select id="costoscontodefdettaglio_more_idcostoscontodefdettagliokind" class="custom-select d-block w-100"  data-source-name="costoscontodefdettagliokinddefaultview" data-value-member="idcostoscontodefdettagliokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idcostoscontodefdettagliokind"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_more_importo">Importo</label>

@@ -29,7 +29,9 @@
 						this.describeAColumn(table, 'pesouo', 'Peso della valutazione della performance dell’unità organizzativa', 'fixed.2', 80, null);
 						this.describeAColumn(table, 'pesocomp', 'Peso della valutazione della performance dei comportamenti', 'fixed.2', 90, null);
 						this.describeAColumn(table, 'pesoindividuale', 'Peso della valutazione della performance individuale', 'fixed.2', 100, null);
-						this.describeAColumn(table, 'generascheda', 'Ha la scheda di valutazione', null, 110, null);
+						this.describeAColumn(table, 'pesocapacitatp', 'Peso delle capacità tecnico-professionali', 'fixed.2', 120, null);
+						this.describeAColumn(table, 'pesodiff', 'Peso della differenziazione dei giudizi', 'fixed.2', 130, null);
+						this.describeAColumn(table, 'generascheda', 'Ha la scheda di valutazione', null, 200, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -45,7 +47,9 @@
 					case 'default':
 						table.columns["generascheda"].caption = "Ha la scheda di valutazione";
 						table.columns["pesoateneo"].caption = "Peso della valutazione della performance organizzativa di ateneo";
+						table.columns["pesocapacitatp"].caption = "Peso delle capacità tecnico-professionali";
 						table.columns["pesocomp"].caption = "Peso della valutazione della performance dei comportamenti";
+						table.columns["pesodiff"].caption = "Peso della differenziazione dei giudizi";
 						table.columns["pesoindividuale"].caption = "Peso della valutazione della performance individuale";
 						table.columns["pesouo"].caption = "Peso della valutazione della performance dell’unità organizzativa";
 						table.columns["title"].caption = "Titolo";

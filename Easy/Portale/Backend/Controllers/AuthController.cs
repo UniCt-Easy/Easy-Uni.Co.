@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Backend.CommonBackend;
 using Backend.Data;
@@ -30,25 +28,25 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.Caching;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Script.Serialization;
 using static Backend.CommonBackend.DBLogger;
 using Backend.LDAP;
-using System.Runtime.Caching;
-using System.Linq;
-using System.Threading;
 
 namespace Backend.Controllers {
 
@@ -62,13 +60,13 @@ namespace Backend.Controllers {
 		/// Registra un nuovo utente per l'accesso al servizio.
 		/// </summary>
 		/// <remarks>
-		/// Il metodo puÚ essere invocato indistintamente per la registrazione di un utente privato oppure di una azienda.
-		/// Nel primo caso Ë obbligatorio specificare un codice fiscale valido mentre nel secondo Ë obbligatorio
+		/// Il metodo pu√≤ essere invocato indistintamente per la registrazione di un utente privato oppure di una azienda.
+		/// Nel primo caso √® obbligatorio specificare un codice fiscale valido mentre nel secondo √® obbligatorio
 		/// specificare la partita IVA dell'azienda.
-		/// La procedura di registrazione cerca nel database di Easy se l'e-mail specificata Ë gi‡ associata ad un'anagrafica
+		/// La procedura di registrazione cerca nel database di Easy se l'e-mail specificata √® gi√† associata ad un'anagrafica
 		/// attiva ed eventualmente le associa le credenziali di accesso al servizio. In alternativa viene generata una nuova
 		/// anagrafica, contestualmente alla registrazione dell'account.
-		/// Al termine della procedura di registrazione, verr‡ inviata una e-mail all'utente, contenente un codice
+		/// Al termine della procedura di registrazione, verr√† inviata una e-mail all'utente, contenente un codice
 		/// per l'attivazione dell'account, mediante l'uso del metodo <see cref="AuthController.activate"/>.
 		/// </remarks>
 		/// <param name="data">Contenuto del form di registrazione (vedi <see cref="RegistrationFormData"/>).</param>
@@ -79,10 +77,10 @@ namespace Backend.Controllers {
 		/// Invia un codice di attivazione.
 		/// </summary>
 		/// <remarks>
-		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi‡ attivato
+		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi√† attivato
 		/// per l'accesso al servizio.
-		/// Se la procedura va a buon fine, verr‡ inviata una e-mail all'utente, contenente un nuovo codice di attivazione.
-		/// Se esiste gi‡ un codice nella cache, questo viene sovrascritto quindi solo l'ultimo codice generato Ë valido.
+		/// Se la procedura va a buon fine, verr√† inviata una e-mail all'utente, contenente un nuovo codice di attivazione.
+		/// Se esiste gi√† un codice nella cache, questo viene sovrascritto quindi solo l'ultimo codice generato √® valido.
 		/// </remarks>
 		/// <param name="email">Indirizzo e-mail utilizzatao per la registrazione.</param>
 		/// <returns>Risultato dell'elaborazione.</returns>
@@ -92,9 +90,9 @@ namespace Backend.Controllers {
 		/// Attiva un account precedentemente registrato.
 		/// </summary>
 		/// <remarks>
-		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi‡ attivato
+		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi√† attivato
 		/// per l'accesso al servizio.
-		/// Se la procedura va a buon fine, l'account viene attivato e puÚ essere utilizzato per accedere la servizio.
+		/// Se la procedura va a buon fine, l'account viene attivato e pu√≤ essere utilizzato per accedere la servizio.
 		/// </remarks>
 		/// <param name="email">Indirizzo e-mail utilizzatao per la registrazione.</param>
 		/// <param name="code">Codice di attivazione.</param>
@@ -107,7 +105,7 @@ namespace Backend.Controllers {
 		/// <remarks>
 		/// Questo metodo controlla che l'account associato alle credenziali specificate esista e sia stato attivato.
 		/// Se la procedura va a buon fine, il metodo restituisce il token per l'accesso al servizio, contenente
-		/// le informazioni relative all'identit‡ dell'utente.
+		/// le informazioni relative all'identit√† dell'utente.
 		/// </remarks>
 		/// <param name="data">Contenuto del form di accesso (vedi <see cref="LoginFormData"/>).</param>
 		/// <returns>Risultato dell'elaborazione.</returns>
@@ -126,11 +124,11 @@ namespace Backend.Controllers {
 		IHttpActionResult resetPassword([Required, EmailAddress] string email);
 
 		/// <summary>
-		/// Ritorna le informazioni relative all'identit‡ dell'utente.
+		/// Ritorna le informazioni relative all'identit√† dell'utente.
 		/// </summary>
 		/// <remarks>
 		/// Usare questo metodo esclusivamente per operazioni di debug. Il token restituito dal metodo
-		/// <see cref="AuthController.login"/> Ë decodificabile dal client.
+		/// <see cref="AuthController.login"/> √® decodificabile dal client.
 		/// </remarks>
 		/// <returns>Le informazioni contenute nel token di autenticazione.</returns>
 		IHttpActionResult userData();
@@ -148,11 +146,30 @@ namespace Backend.Controllers {
 	/// </summary>
 	/// <remarks>
 	/// Il percorso (URL) per accedere ai metodi contenuti in questo controller devono avere il prefisso "/auth".
-	/// I metodi contenuti in questo controller sono accessibili senza necessit‡ di specificare il token di autenticazione.
+	/// I metodi contenuti in questo controller sono accessibili senza necessit√† di specificare il token di autenticazione.
 	/// I metodi contenuti in questo controller sono accessibili da qualsiasi client (CORS attivati per ogni richiesta).
 	/// </remarks>
 	[RoutePrefix("auth"), AllowAnonymous, EnableCors("*", "*", "*")]
 	public class AuthController : ApiController, IAuthController {
+
+        /// <summary>
+        /// Indica il tipo di login da utilizzare.
+        /// </summary>
+        public enum TLogin {
+
+			/// <summary>
+			/// Login con username e password.
+			/// </summary>
+			UserPassw = 3,
+            /// <summary>
+            /// Login con LDAP.
+            /// </summary>
+            LDAP = 4,
+            /// <summary>
+            /// Login con Single Sign On (SSO).
+            /// </summary>
+            SSO = 5,
+        }
 
 		private const int RegistryClassCompany = 21;
 		private const int RegistryClassPrivate = 22;
@@ -165,14 +182,22 @@ namespace Backend.Controllers {
 		[HttpPost, Route("GetToken")]
 		public IHttpActionResult GetToken(LoginFormData data)
 		{
+			string ipAddress = string.Empty;
+
+            if (Request.Properties.ContainsKey("MS_HttpContext"))
+            {
+                var context = (HttpContextWrapper)Request.Properties["MS_HttpContext"];
+                ipAddress = $" - IP: {context.Request.UserHostAddress}";
+            }
+
             if (data == null)
             {
-                common.logInfo("request", $"Auth > GetToken > No Data");
+                common.logInfo("request", $"Auth > GetToken > No Data {ipAddress}");
                 return Content(HttpStatusCode.OK, "No Data");
             }
 
             // REQUEST LOG
-            common.logInfo("request", $"Auth > GetToken > data: {JsonConvert.SerializeObject(data)}");
+            common.logInfo("request", $"Auth > GetToken > data: {JsonConvert.SerializeObject(data)} {ipAddress}");
 
             if (data?.userName == null)
 			{
@@ -192,8 +217,7 @@ namespace Backend.Controllers {
                 return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.DataContabileMissing);
 			}
 
-			int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindUserPassw"]);
-			IHttpActionResult loginResult = _doLogin(data?.userName, data.password, data.datacontabile, null, userkind);
+			IHttpActionResult loginResult = _doLogin(data?.userName, data.password, data.datacontabile, null, TLogin.UserPassw);
 			HttpResponseMessage response = loginResult.ExecuteAsync(CancellationToken.None).Result;
 
 			// Get the status code from the HttpResponseMessage
@@ -218,13 +242,13 @@ namespace Backend.Controllers {
 		/// OBSOLETO, la registrazione avvine sul metodo savedataset. Registra un nuovo utente per l'accesso al servizio.
 		/// </summary>
 		/// <remarks>
-		/// Il metodo puÚ essere invocato indistintamente per la registrazione di un utente privato oppure di una azienda.
-		/// Nel primo caso Ë obbligatorio specificare un codice fiscale valido mentre nel secondo Ë obbligatorio
+		/// Il metodo pu√≤ essere invocato indistintamente per la registrazione di un utente privato oppure di una azienda.
+		/// Nel primo caso √® obbligatorio specificare un codice fiscale valido mentre nel secondo √® obbligatorio
 		/// specificare la partita IVA dell'azienda.
-		/// La procedura di registrazione cerca nel database di Easy se l'e-mail specificata Ë gi‡ associata ad un'anagrafica
+		/// La procedura di registrazione cerca nel database di Easy se l'e-mail specificata √® gi√† associata ad un'anagrafica
 		/// attiva ed eventualmente le associa le credenziali di accesso al servizio. In alternativa viene generata una nuova
 		/// anagrafica, contestualmente alla registrazione dell'account.
-		/// Al termine della procedura di registrazione, verr‡ inviata una e-mail all'utente, contenente un codice
+		/// Al termine della procedura di registrazione, verr√† inviata una e-mail all'utente, contenente un codice
 		/// per l'attivazione dell'account, mediante l'uso del metodo <see cref="activate"/>.
 		/// </remarks>
 		/// <param name="data">Contenuto del form di registrazione (vedi <see cref="RegistrationFormData"/>).</param>
@@ -318,7 +342,7 @@ namespace Backend.Controllers {
 				getData.DO_GET(false, registryRow);
 			}
 
-			// Crea un nuovo contatto o riutilizza quello gi‡ esistente
+			// Crea un nuovo contatto o riutilizza quello gi√† esistente
 			var filterByEmail = dispatcher.CQueryHelper.CmpEq("email", data.email);
 			var referenceRow = ds.registryreference.First(filterByEmail);
 			if (referenceRow == null) {
@@ -326,10 +350,10 @@ namespace Backend.Controllers {
 				referenceRow["email"] = data.email;
 			}
 			else if (!referenceRow.IsNull("passwordweb")) {
-				return Content(HttpStatusCode.BadRequest, "Utente gi‡ registrato.");
+				return Content(HttpStatusCode.BadRequest, "Utente gi√† registrato.");
 			}
 
-			// Imposta il contatto di default in caso non ce ne sia gi‡ uno
+			// Imposta il contatto di default in caso non ce ne sia gi√† uno
 			var filterDefault = dispatcher.CQueryHelper.CmpEq("flagdefault", "S");
 			var defaultReferenceRow = ds.registryreference.First(filterDefault);
 			if (defaultReferenceRow == null) {
@@ -354,7 +378,7 @@ namespace Backend.Controllers {
 			// 1. TODO Devo associare qui il virtualuser, a seconda del tipo di utente
 			// Es. 0 Admin, 1 studente, 2. docente rappresentato dallo "usekind" su virtual user.
 			// Quindi inserire una entry per quel virtual user che ho configurato , inserisco la username.
-			// mentre il sys_user Ë quello che utilizzo per andare in join con idcustomer su flowchartuser, che a sua volta vain join con flowchart tramite idflowchart
+			// mentre il sys_user √® quello che utilizzo per andare in join con idcustomer su flowchartuser, che a sua volta vain join con flowchart tramite idflowchart
 			// Sono tutte tab di configurazione quindi tranne l'inserimento della entry per username su virtual user, che va fatta qui alla registrazione.
 			// Vedi punto 2 su login()
 			string sys_user = "nino";
@@ -397,10 +421,10 @@ namespace Backend.Controllers {
 		/// Invia un codice di attivazione.
 		/// </summary>
 		/// <remarks>
-		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi‡ attivato
+		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi√† attivato
 		/// per l'accesso al servizio.
-		/// Se la procedura va a buon fine, verr‡ inviata una e-mail all'utente, contenente un nuovo codice di attivazione.
-		/// Se esiste gi‡ un codice nella cache, questo viene sovrascritto quindi solo l'ultimo codice generato Ë valido.
+		/// Se la procedura va a buon fine, verr√† inviata una e-mail all'utente, contenente un nuovo codice di attivazione.
+		/// Se esiste gi√† un codice nella cache, questo viene sovrascritto quindi solo l'ultimo codice generato √® valido.
 		/// </remarks>
 		/// <param name="email">Indirizzo e-mail utilizzatao per la registrazione.</param>
 		/// <returns>Risultato dell'elaborazione.</returns>
@@ -424,7 +448,7 @@ namespace Backend.Controllers {
 				return Content(HttpStatusCode.NotFound, "E-mail non registrata.");
 			}
 			else if (referenceRow.Field<string>("activeweb").Equals("S")) {
-				return Content(HttpStatusCode.Forbidden, "Account gi‡ attivato.");
+				return Content(HttpStatusCode.Forbidden, "Account gi√† attivato.");
 			}
 
 			try {
@@ -452,9 +476,9 @@ namespace Backend.Controllers {
 		/// Attiva un account precedentemente registrato.
 		/// </summary>
 		/// <remarks>
-		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi‡ attivato
+		/// Questo metodo controlla che l'account associato alla e-mail specificata esista e non sia stato gi√† attivato
 		/// per l'accesso al servizio.
-		/// Se la procedura va a buon fine, l'account viene attivato e puÚ essere utilizzato per accedere la servizio.
+		/// Se la procedura va a buon fine, l'account viene attivato e pu√≤ essere utilizzato per accedere la servizio.
 		/// </remarks>
 		/// <param name="email">Indirizzo e-mail utilizzatao per la registrazione.</param>
 		/// <param name="code">Codice di attivazione.</param>
@@ -481,7 +505,7 @@ namespace Backend.Controllers {
 				return Content(HttpStatusCode.NotFound, "E-mail non registrata.");
 			}
 			else if (referenceRow.Field<string>("activeweb").Equals("S")) {
-				return Content(HttpStatusCode.Forbidden, "Account gi‡ attivato.");
+				return Content(HttpStatusCode.Forbidden, "Account gi√† attivato.");
 			}
 
 			referenceRow.SetField("activeweb", "S");
@@ -513,7 +537,7 @@ namespace Backend.Controllers {
 			}
 
 			// check sulla sessione
-			// recupera la session dal server e vede se Ë scaduta
+			// recupera la session dal server e vede se √® scaduta
 			// questa viene creata su saml/consumer.aspx.cs
 			SessionInfoSSO authenticatedSSO = SessionMDLW.validSessionSSO(data.session, data.userName);
 
@@ -523,8 +547,7 @@ namespace Backend.Controllers {
 			// ** END DEBUG ROW
 
 			if (authenticatedSSO != null) {
-				int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindSSO"]);
-				return _doLogin(data?.userName, "", data.datacontabile, authenticatedSSO, userkind);
+				return _doLogin(data?.userName, "", data.datacontabile, authenticatedSSO, TLogin.SSO);
 			}
 
 			return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
@@ -546,12 +569,12 @@ namespace Backend.Controllers {
 			}
 
 
-            //// connessione al DB webreport dove c'Ë il mapping tra username e utente ldap
+            //// connessione al DB webreport dove c'√® il mapping tra username e utente ldap
             //string Server = WebConfigurationManager.AppSettings["DBServer"];
             //string Database = "webreport_unisalento";
             //string User = "webuser_unisalento";
             //SystemConfig systemConfig = Security.Token.decodeSystemConfig(WebConfigurationManager.AppSettings["DBPassword"]);
-            //string Password = "#read__only_for_webreport_unisalento#";
+            //string Password = "YOUR_SECRET";
             //string DIPARTIMENTO = WebConfigurationManager.AppSettings["DBDipartimento"]; ;
             //int Esercizio = DateTime.Now.Year;
 
@@ -566,7 +589,7 @@ namespace Backend.Controllers {
             dispatcher.createDbConnection();
             IEasyDataAccess usrConn = dispatcher.conn;
 
-			// 2. ripulisco la security della connessione ne caso in cui sia stata riciclata una gi‡ esistente
+			// 2. ripulisco la security della connessione ne caso in cui sia stata riciclata una gi√† esistente
             EasySecurity sec = usrConn.Security as EasySecurity;
             sec.Clear();
 
@@ -584,9 +607,9 @@ namespace Backend.Controllers {
 			// 4. eseguo l'autenticazione sul sistema LDAP
 			if (!ldpauth.Authenticate(data?.userName, data?.password)) {
                 //attivare solo per il debug
-				//ldpauth.user_decoded = "p9999999";
-                
-				if (!string.IsNullOrWhiteSpace(ldpauth.ErrorMsg))
+                //ldpauth.user_decoded = "p9999999"; ldpauth.ErrorMsg = "";
+
+                if (!string.IsNullOrWhiteSpace(ldpauth.ErrorMsg))
 				{
 					BEError bEError = new BEError();
 					bEError.conn = usrConn;
@@ -602,16 +625,15 @@ namespace Backend.Controllers {
                 if (ldpauth.ErrorMsg.Contains("Le credenziali specificate non sono valide") || ldpauth.ErrorMsg.Contains("The supplied credential is invalid"))
                     return Content(HttpStatusCode.Unauthorized, LoginFailedStatus.BadCredential);
 
-				//a questo punto se l'errore NON DIPENDE DAL FATTO CHE NON Ë REGISTRATO (AUTENTICAZIONE NOSTRA FALLITA MENTRE LDAP RUSCITA) lo restituisco com'Ë, altrimenti proseguo per farlo registrare (nel metodo successivo)
+				//a questo punto se l'errore NON DIPENDE DAL FATTO CHE NON √® REGISTRATO (AUTENTICAZIONE NOSTRA FALLITA MENTRE LDAP RUSCITA) lo restituisco com'√®, altrimenti proseguo per farlo registrare (nel metodo successivo)
                 if (!(ldpauth.ErrorMsg.Contains("Il nome distinto contiene sintassi non valida") || ldpauth.ErrorMsg.Contains("The distinguished name contains invalid syntax")))
 					return base.Content(HttpStatusCode.BadRequest, "Errore LDAP.Authenticate: " + ldpauth.ErrorMsg);
 			}
 
             // 5. eseguo l'autenticazione sul sistema
-            // costruisco un sessionInfo cosÏ esegue stessi passi di sso, quindi no check password
-            int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindLDAP"]);
-			SessionInfoSSO sessionInfoSSO = new SessionInfoSSO(data.userName, "", "", data.userName, "", "");
-			return _doLogin(ldpauth.user_decoded, "", data.datacontabile, sessionInfoSSO, userkind);
+            // costruisco un sessionInfo cos√¨ esegue stessi passi di sso, quindi no check password
+            SessionInfoSSO sessionInfoSSO = new SessionInfoSSO(data.userName, "", "", data.userName, "", "");
+			return _doLogin(ldpauth.user_decoded, "", data.datacontabile, sessionInfoSSO, TLogin.LDAP);
 
 		}
 
@@ -621,7 +643,7 @@ namespace Backend.Controllers {
 		/// <remarks>
 		/// Questo metodo controlla che l'account associato alle credenziali specificate esista e sia stato attivato.
 		/// Se la procedura va a buon fine, il metodo restituisce il token per l'accesso al servizio, contenente
-		/// le informazioni relative all'identit‡ dell'utente.
+		/// le informazioni relative all'identit√† dell'utente.
 		/// </remarks>
 		/// <param name="data">Contenuto del form di accesso (vedi <see cref="LoginFormData"/>).</param>
 		/// <returns>Risultato dell'elaborazione.</returns>
@@ -639,12 +661,31 @@ namespace Backend.Controllers {
 				return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.DataContabileMissing);
 			}
 
-			int userkind = Convert.ToInt32(WebConfigurationManager.AppSettings["userkindUserPassw"]);
-			return _doLogin(data?.userName, data.password, data.datacontabile, null, userkind);
+			return _doLogin(data?.userName, data.password, data.datacontabile, null, TLogin.UserPassw);
 
 		}
 
-		private bool isEmptyVirtualUser(DataTable virtualuser) {
+        /// <summary>
+        /// Questa login √® chiamata dalla dashboard che invia le credenziali, ovvero il cf criptato e il token di sessione SSO
+		/// Nel metodo viene chiamato il dashboard/sso/checktoken per verificare che il token sia valido, non scaduto, e che arriva dalla dashboard
+		/// Se tutto ok, viene eseguito il login con il solo cf senza la password perch√® √® SSO
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet, Route("loginDASH")]
+        public IHttpActionResult loginDASH([FromUri] string credentials, string token)
+        {
+
+            if (string.IsNullOrWhiteSpace(credentials) || string.IsNullOrWhiteSpace(token))
+            {
+                return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
+            }
+
+            return _doLoginDash(token, credentials, TLogin.SSO);
+        }
+
+        private bool isEmptyVirtualUser(DataTable virtualuser) {
 			if (virtualuser == null) {
 				return true;
 			}
@@ -658,17 +699,17 @@ namespace Backend.Controllers {
 
 		/// <summary>
 		/// Verifica che l'utente possa avere accesso al programma, lo decodifica tramite la tabella virtualuser ai fini della determinazione dell'utente di
-		///  organigramma. Se non Ë SSO, verifica la password in registryreference.
+		///  organigramma. Se non √® SSO, verifica la password in registryreference.
 		/// </summary>
 		/// <param name="userName"></param>
-		/// <param name="password">sar‡ vuota nel caso di login SSO</param> 
+		/// <param name="password">sar√† vuota nel caso di login SSO</param> 
 		/// <param name="datacontabile"></param>
-		/// <param name="sessionInfoSSO">obj se Ë chiamata da login  SSO, null altrimenti</param>
+		/// <param name="sessionInfoSSO">obj se √® chiamata da login  SSO, null altrimenti</param>
 		/// <param name="userkind"></param> 
 		/// <returns></returns>
-		private IHttpActionResult _doLogin(String userName, String password, DateTime datacontabile, SessionInfoSSO sessionInfoSSO, int userkind) {
+		private IHttpActionResult _doLogin(String userName, String password, DateTime datacontabile, SessionInfoSSO sessionInfoSSO, TLogin userkind) {
 			// 1. richiede una connessione di sistema
-			var dispatcher = new Dispatcher();
+            var dispatcher = new Dispatcher();
 			dispatcher.createDbConnection();
 			IEasyDataAccess usrConn = dispatcher.conn;
 			var QH = dispatcher.QueryHelper;
@@ -687,7 +728,7 @@ namespace Backend.Controllers {
 			var coddip = WebConfigurationManager.AppSettings["DBDipartimento"].ToString();
 			string filter = QH.AppAnd(QH.CmpEq("username", userName),
 				QH.CmpEq("codicedipartimento", coddip),
-				QH.CmpEq("userkind", userkind)
+				QH.CmpEq("userkind", (int)userkind)
 			);
 			DataTable virtualuser = dispatcher.conn.RUN_SELECT("virtualuser", "*", null, filter, null, false);
 			string sys_user;
@@ -695,8 +736,8 @@ namespace Backend.Controllers {
 			/**********************************************************************************************/
 			// 2. imposto sicurezza 
 			// Devo recuperare il virtualuser, e utilizzo il sys_user del virtual user come  sec.SetSys("user", sys_user);
-			// in modo tale che prendo i privilegi del virtual user, l'associazione con l'utente corrente Ë fatta nella registrazione a seconda del tipo
-			// cioË se studente, docente etc... Dal virtual user poi il sistema associa il flowchartid e ndetail giusti, prendendoli da flowchartuser 
+			// in modo tale che prendo i privilegi del virtual user, l'associazione con l'utente corrente √® fatta nella registrazione a seconda del tipo
+			// cio√® se studente, docente etc... Dal virtual user poi il sistema associa il flowchartid e ndetail giusti, prendendoli da flowchartuser 
 			// che sta in join con flowchart tramite idflowchart
 
 			string email = "";
@@ -708,7 +749,7 @@ namespace Backend.Controllers {
 				var lastname = virtualuser.Rows[0]["surname"].ToString();
 				email = virtualuser.Rows[0]["email"].ToString();
 				var cf = virtualuser.Rows[0]["cf"].ToString();
-				//external user Ë il nome con cui l'utente si logga, che non Ë necessariamente quello ai fini dell'organigramma
+				//external user √® il nome con cui l'utente si logga, che non √® necessariamente quello ai fini dell'organigramma
 				usrConn.externalUser = userName;
 				sec.SetUsr("HasVirtualUser", "S");
 				sec.SetSys("user", sys_user);
@@ -719,7 +760,7 @@ namespace Backend.Controllers {
 				sec.SetUsr("cf", cf);
 			}
 			else {
-				// NON Ë associato ad external user
+				// NON √® associato ad external user
 				var ext_user = userName;
 				sys_user = userName;
 				usrConn.externalUser = ext_user;
@@ -741,12 +782,12 @@ namespace Backend.Controllers {
 
 			bool enableSSORegistration = Convert.ToBoolean(WebConfigurationManager.AppSettings["EnableSSORegistraton"]);
 
-			// se non trovo utente su virtual user ed Ë abilitata la richiesta di registarzione allora proviamo con la richeista di registrazione
+			// se non trovo utente su virtual user ed √® abilitata la richiesta di registarzione allora proviamo con la richeista di registrazione
 			if (isEmptyVirtualUser(virtualuser) && enableSSORegistration) {
 
 
 				if (sessionInfoSSO != null) {
-					// Ë richiesta registrazione. 
+					// √® richiesta registrazione. 
 
 					var resultSSO = new JObject {
 						{"login", sessionInfoSSO.userName},
@@ -755,7 +796,7 @@ namespace Backend.Controllers {
 						{"email", sessionInfoSSO.email},
 						{"cf", sessionInfoSSO.cf},
 						{"matricola", sessionInfoSSO.matricola},
-						{"userkind", userkind},
+						{"userkind", (int)userkind},
 					};
 					return Content(HttpStatusCode.OK, resultSSO);
 				}
@@ -854,7 +895,7 @@ namespace Backend.Controllers {
 			CacheMDLW.addUtilizer(sys_user, idreg, sec.groupOperations);
 
 			// 7. memorizzo idflowchart e nDetail, che individuano il ruolo dell'utente. Saranno passati nel token
-			// sul metodo "AuthenticateAsync" che gestisce l'autenticazione su WebApiconfig.cs; recupererÚ la sicurezza prendendo idflowcahrt e nDetail che 
+			// sul metodo "AuthenticateAsync" che gestisce l'autenticazione su WebApiconfig.cs; recuperer√≤ la sicurezza prendendo idflowcahrt e nDetail che 
 			// mettiamo nel token di autenticazione durante la fase di login
 			object idflowchart = usrConn.Security.GetSys("idflowchart");
 			object nDetail = usrConn.Security.GetSys("ndetail");
@@ -888,7 +929,7 @@ namespace Backend.Controllers {
 
 
 			// 8 + 9. Salvo un nuovo sessionInfo. Lo utilizzo come cache e lo invio al client la prima volta.
-			// Creo un guid, che Ë la chiave per la specifica sessione
+			// Creo un guid, che √® la chiave per la specifica sessione
 
 			// inserisco la username
 			sec.SetUsr("userweb", userName);
@@ -911,12 +952,12 @@ namespace Backend.Controllers {
 			Hashtable usr = AuthUtils.getUsr(sec);
 			Hashtable sys = AuthUtils.getSys(sec);
 
-			// 9. salvo sessione con usr sys e groupOperations  e sys_user che Ë
-			// la chiave tramite cui accederÚ alla cache per i privilegi di sicurezza
+			// 9. salvo sessione con usr sys e groupOperations  e sys_user che √®
+			// la chiave tramite cui acceder√≤ alla cache per i privilegi di sicurezza
 			SessionMDLW.createSession(guidSession, usr, sys, sys_user, idreg);
 
 			// 9.1 Calcola ruoli
-			//TODO: se la data contabile non Ë quella di oggi dare come ruoli l'intersezione tra
+			//TODO: se la data contabile non √® quella di oggi dare come ruoli l'intersezione tra
 			//quello che ha oggi con quello che aveva nella data contabile
 			DataTable dtRoles = getRolesDataTable(DateTime.Today, sys_user, dispatcher);
 
@@ -964,8 +1005,8 @@ namespace Backend.Controllers {
                 ;
             DBLogger.log(logOK);
 
-            // 12. invio al client le informazioni dopo la login, cioË il token pi˘ l'environment (le system per questioni di sicurezza non le invio)
-            // expiresOn serve al client nel check per non mostrare amschera di login se + gi‡ connesso.
+            // 12. invio al client le informazioni dopo la login, cio√® il token pi√π l'environment (le system per questioni di sicurezza non le invio)
+            // expiresOn serve al client nel check per non mostrare amschera di login se + gi√† connesso.
             // torna al js un obj 'new Date(xxxxxxxx)'
             var result = new JObject {
 				{"usr", JToken.FromObject(usr)},
@@ -981,7 +1022,313 @@ namespace Backend.Controllers {
 
 		}
 
-		private byte[] GetObjectToBytes(object obj) {
+        private IHttpActionResult _doLoginDash(string tokendash, string credentials, TLogin userkind)
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            byte[] B = Crypt.StringToByteArray(credentials);
+            string dec = Crypt.DecryptString(B);
+            Dictionary<string, string> credenziali = JsonConvert.DeserializeObject<Dictionary<string, string>>(dec);
+			credenziali.TryGetValue("cf", out string cf);
+
+            // check dashboard token
+            var dashboardUrl = WebConfigurationManager.AppSettings.Get("dashboardUrl");
+			if (string.IsNullOrEmpty(dashboardUrl))
+                return Content(HttpStatusCode.InternalServerError, "Dashboard not configured");
+
+            Uri baseUri = new Uri(dashboardUrl);										// es: https://dashboard.temposrl.com/
+            Uri uri = new Uri(baseUri, $"sso/checktoken?token={tokendash}&cf={cf}");	// es: https://easyweb4.temposrl.com/sso/checktoken?token=...&cf=...
+            string tokenUrl = uri.AbsoluteUri;
+
+            // Call Service
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    // Call the URL synchronously
+                    var response = client.GetAsync(tokenUrl).Result;
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return Content(HttpStatusCode.BadGateway, "Error contacting SSO server");
+                    }
+
+                    // Read returned text ("ok" or "ko")
+                    string body = response.Content.ReadAsStringAsync().Result;
+
+                    if (body.Trim().Equals("ok", StringComparison.OrdinalIgnoreCase))
+                    {
+                        
+                    }
+                    else
+                    {
+                        return Content(HttpStatusCode.Unauthorized, "Token invalid");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Content(HttpStatusCode.InternalServerError, $"SSO error: {ex.Message}");
+                }
+            }
+
+            DateTime datacontabile = DateTime.Now;
+
+            // 1. richiede una connessione di sistema
+            var dispatcher = new Dispatcher();
+            dispatcher.createDbConnection();
+            IEasyDataAccess usrConn = dispatcher.conn;
+            var QH = dispatcher.QueryHelper;
+            EasySecurity sec = usrConn.Security as EasySecurity;
+            // svuota usr + sys environment
+            string[] uks = sec.EnumUsrKeys();
+            foreach (object o in uks)
+            {
+                object k = sec.GetUsr(o.ToString());
+                sec.SetUsr(o.ToString(), null);
+            }
+            sec.SetSys("user", null);
+            sec.SetSys("usergrouplist", null);
+            sec.SetSys("idcustomuser", null);
+
+            // cerco virtual user associato al CF
+            var coddip = WebConfigurationManager.AppSettings["DBDipartimento"].ToString();
+            string filter = QH.AppAnd(QH.CmpEq("cf", cf),
+                QH.CmpEq("codicedipartimento", coddip),
+                QH.CmpEq("userkind", (int)userkind)
+            );
+
+            DataTable virtualuser = dispatcher.conn.RUN_SELECT("virtualuser", "*", null, filter, null, false);
+            string sys_user;
+
+            /**********************************************************************************************/
+            // 2. imposto sicurezza 
+            // Devo recuperare il virtualuser, e utilizzo il sys_user del virtual user come  sec.SetSys("user", sys_user);
+            // in modo tale che prendo i privilegi del virtual user, l'associazione con l'utente corrente √® fatta nella registrazione a seconda del tipo
+            // cio√® se studente, docente etc... Dal virtual user poi il sistema associa il flowchartid e ndetail giusti, prendendoli da flowchartuser 
+            // che sta in join con flowchart tramite idflowchart
+
+            string email = "";
+            string userName = "";
+            string forename = "";
+            string lastname = "";
+
+            //Calcola l'utente effettivo da utilizzare, anche ai fini della sicurezza, e lo mette in usrConn.externalUser
+            if (!isEmptyVirtualUser(virtualuser))
+            {
+                sys_user = virtualuser.Rows[0]["sys_user"].ToString();
+                forename = virtualuser.Rows[0]["forename"].ToString();
+                lastname = virtualuser.Rows[0]["surname"].ToString();
+                email = virtualuser.Rows[0]["email"].ToString();
+                userName = virtualuser.Rows[0]["username"].ToString();
+
+                //external user √® il nome con cui l'utente si logga, che non √® necessariamente quello ai fini dell'organigramma
+                usrConn.externalUser = userName;
+                sec.SetUsr("HasVirtualUser", "S");
+                sec.SetSys("user", sys_user);
+                sec.SetSys("usergrouplist", null);
+                sec.SetUsr("forename", forename);
+                sec.SetUsr("surname", lastname);
+                sec.SetUsr("email", email);
+                sec.SetUsr("cf", cf);
+            }
+            else
+            {
+                return base.Content(HttpStatusCode.BadRequest, LoginFailedStatus.NoCredential);
+            }
+
+            // Cerca su registryreference la userweb pari allo username
+            // 4. eseguo logica di business per l'utente che si trova su registry reference
+            var ds = new dsmeta_registry_anagrafica();
+
+            var getData = new GetData();
+            getData.InitClass(ds, dispatcher.Connection, "registryreference");
+
+            var filterByUsername = dispatcher.QueryHelper.CmpEq("userweb", userName);
+            getData.GET_PRIMARY_TABLE(filterByUsername);
+
+            var referenceRow = ds.registryreference.First();
+
+            if (referenceRow == null)
+            {
+
+                BEError bEError = new BEError();
+                bEError.conn = usrConn;
+                bEError.error = LoginFailedStatus.UserNotSecurity + " - registryreference non trovata";
+                bEError.methodInfo = "login";
+                bEError.metadata = "esercizio: " + usrConn.Security.GetSys("esercizio") + ", sys_user: " + sys_user +
+                    ", idcustomuser: " + usrConn.Security.GetSys("idcustomuser") + ", userName: " + userName;
+                DBLogger.log(bEError);
+
+                return Content(HttpStatusCode.Unauthorized, LoginFailedStatus.BadCredential);
+            }
+
+            if (referenceRow["email"] != null)
+                email = referenceRow["email"].ToString();
+
+            // 5. prendo idreg e lo metto nel token
+            var idreg = referenceRow["idreg"] != null ? referenceRow["idreg"].ToString() : string.Empty;
+
+            //var registryRow = referenceRow.GetParentRow("FK_registryreference_registry");
+            var filterDenominazione = "idreg=" + idreg; //  q.eq("idreg", referenceRow.idreg.ToString());
+            string denominazione = (string)usrConn.DO_READ_VALUE("registry", filterDenominazione, "title");
+            string matricola = (string)usrConn.DO_READ_VALUE("registry", filterDenominazione, "extmatricula");
+
+
+            // 6. profilo la sicurezza. TODO capire se devo mettere in cache.
+            sec.CalculateGroupList();
+            sec.RecalcUserEnvironment();
+            // osservo se le groupOperation sono  in cache
+            // il sys_user corrisponde al customuser
+            var groupOperations = CacheMDLW.getGroupOperations(sys_user);
+            if (groupOperations == null)
+            {
+                // se non trovo nella cache lo calcolo, altrimeni lo ricavo dalla cache
+                sec.ReadAllGroupOperations();
+            }
+            else
+            {
+                sec.groupOperations = groupOperations;
+            }
+
+            // aggiungo eventuale utente con groupOperations nella cache
+            CacheMDLW.addUtilizer(sys_user, idreg, sec.groupOperations);
+
+            // 7. memorizzo idflowchart e nDetail, che individuano il ruolo dell'utente. Saranno passati nel token
+            // sul metodo "AuthenticateAsync" che gestisce l'autenticazione su WebApiconfig.cs; recuperer√≤ la sicurezza prendendo idflowcahrt e nDetail che 
+            // mettiamo nel token di autenticazione durante la fase di login
+            object idflowchart = usrConn.Security.GetSys("idflowchart");
+            object nDetail = usrConn.Security.GetSys("ndetail");
+
+            // check su utente sotto controllo di sicurezza 
+            if ((idflowchart.ToString() == "" || nDetail.ToString() == ""))
+            {
+
+                BEError bEError = new BEError();
+                bEError.conn = usrConn;
+                bEError.error = LoginFailedStatus.UserNotSecurity;
+                bEError.methodInfo = "login";
+                bEError.metadata = "esercizio: " + usrConn.Security.GetSys("esercizio") + ", sys_user: " + sys_user + ", idreg: " + idreg +
+                    ", idcustomuser: " + usrConn.Security.GetSys("idcustomuser") + ", userName: " + userName;
+                DBLogger.log(bEError);
+
+                return Content(HttpStatusCode.Unauthorized, LoginFailedStatus.UserNotSecurity);
+            }
+
+            if (!CambioDataConsentita(usrConn, datacontabile))
+            {
+
+                BEError bEError = new BEError();
+                bEError.conn = usrConn;
+                bEError.error = LoginFailedStatus.DataNotPermitted;
+                bEError.methodInfo = "login";
+                bEError.metadata = "esercizio: " + usrConn.Security.GetSys("esercizio") + ", sys_user: " + sys_user + ", idreg: " + idreg +
+                    ", idcustomuser: " + usrConn.Security.GetSys("idcustomuser") + ", userName: " + userName;
+                DBLogger.log(bEError);
+
+                return Content(HttpStatusCode.Unauthorized, LoginFailedStatus.DataNotPermitted);
+            }
+
+
+            // 8 + 9. Salvo un nuovo sessionInfo. Lo utilizzo come cache e lo invio al client la prima volta.
+            // Creo un guid, che √® la chiave per la specifica sessione
+
+            // inserisco la username
+            sec.SetUsr("userweb", userName);
+
+            // inserisce tra le var di sistema di segreterie idreg_istituto
+            var idreg_istituto = dispatcher.conn.DO_READ_VALUE("istitutoprinc", null, "idreg", null);
+            sec.SetUsr("idreg_istituto", idreg_istituto);
+            var tipoente = dispatcher.conn.DO_READ_VALUE("istitutoprinc", null, "tipoente", null);
+            sec.SetUsr("tipoente", tipoente);
+
+            sec.SetUsr("idreg", idreg);
+
+            //inserisco l'eventuale idman corrispondente alle variabili di ambiente
+            int? idman = (int?)usrConn.DO_READ_VALUE("manager", filterByUsername, "idman");
+            sec.SetUsr("idman", idman);
+
+
+            Guid guidSession = Guid.NewGuid();
+            // calcolo le hashtable con l'environment
+            Hashtable usr = AuthUtils.getUsr(sec);
+            Hashtable sys = AuthUtils.getSys(sec);
+
+            // 9. salvo sessione con usr sys e groupOperations  e sys_user che √®
+            // la chiave tramite cui acceder√≤ alla cache per i privilegi di sicurezza
+            SessionMDLW.createSessionSSO(guidSession.ToString(), userName, forename, lastname, email, cf, matricola);
+
+            // 9.1 Calcola ruoli
+            //TODO: se la data contabile non √® quella di oggi dare come ruoli l'intersezione tra
+            //quello che ha oggi con quello che aveva nella data contabile
+            DataTable dtRoles = getRolesDataTable(DateTime.Today, sys_user, dispatcher);
+
+            // 10. costruisco token da mandare all'utente
+            String clientAddress = HttpContext.Current.Request.UserHostAddress;
+            var userdata = new Identity(guidSession, clientAddress, userName, email, denominazione,
+                idflowchart.ToString(), nDetail.ToString());
+            var token = Security.Token.encode(userdata);
+
+            var dbversion = dispatcher.conn.DO_READ_VALUE("updatedbversion", null, "max(versionname)");
+
+            Hashtable sysClient = new Hashtable();
+            sysClient.Add("dbversion", dbversion);
+            sysClient.Add("backendversion", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            sysClient.Add("idcustomuser", usrConn.Security.GetSys("idcustomuser"));
+            sysClient.Add("ndetail", usrConn.Security.GetSys("ndetail"));
+            sysClient.Add("usergrouplist", usrConn.Security.GetSys("usergrouplist"));
+            sysClient.Add("ayear", datacontabile.Year);
+            sysClient.Add("esercizio", datacontabile.Year);
+            sysClient.Add("idflowchart", idflowchart);
+            sysClient.Add("user", userName);
+
+
+            // 11. distruggo connessione di sistema
+            if (dispatcher != null)
+            {
+                dispatcher.Dispose();
+            }
+
+            dispatcher = null;
+
+            //eseguo il LOG degli accessi
+            BEError logOK = new BEError();
+            logOK.conn = usrConn;
+            logOK.error = "Login avvenuto con successo";
+            logOK.methodInfo = "login";
+            logOK.metadata =
+                "esercizio: " + usrConn.Security.GetSys("esercizio") +
+                ", sys_user: " + sys_user +
+                ", idreg: " + idreg +
+                ", idcustomuser: " + usrConn.Security.GetSys("idcustomuser") +
+                ", userName: " + userName +
+                ", dbversion: " + dbversion.ToString() +
+                ", backendversion: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
+                ", idflowchart: " + idflowchart
+                ;
+            DBLogger.log(logOK);
+
+            // 12. invio al client le informazioni dopo la login, cio√® il token pi√π l'environment (le system per questioni di sicurezza non le invio)
+            // expiresOn serve al client nel check per non mostrare amschera di login se + gi√† connesso.
+            // torna al js un obj 'new Date(xxxxxxxx)'
+            var result = new JObject {
+                {"usr", JToken.FromObject(usr)},
+                {"sys", JToken.FromObject(sysClient)},
+                {"token", token},
+                {"dtRoles", DataUtils.dataTableToJSon(dtRoles,false,true)},
+                {"expiresOn", JsonConvert.SerializeObject(userdata.expiresOn, new JavaScriptDateTimeConverter())}
+            };
+
+            // 13. torno risposta al client con token
+            //return Content(HttpStatusCode.OK, result);
+
+            String parameters = "?session=" + guidSession + "&username=" + userName;
+            var frontendSSO = WebConfigurationManager.AppSettings.Get("frontendSSO") + parameters;
+
+            // Redireziona il browser dell'utente verso il frontend per la login automatica
+            return Redirect(frontendSSO);
+        }
+
+        private byte[] GetObjectToBytes(object obj) {
 
 			byte[] bytes;
 			using (var _MemoryStream = new MemoryStream()) {
@@ -1025,13 +1372,13 @@ namespace Backend.Controllers {
 
 				T.Columns.Add(new DataColumn("k", typeof(String)));
 				foreach (DataRow R in T.Rows) {
-					R["k"] = R["idflowchart"].ToString() + "ß" + R["ndetail"].ToString();
+					R["k"] = R["idflowchart"].ToString() + "¬ß" + R["ndetail"].ToString();
 				}
 			}
 			else {
 				T.Columns.Add(new DataColumn("k", typeof(String)));
 				foreach (DataRow R in T.Rows) {
-					R["k"] = R["idflowchart"].ToString() + "ß" + R["ndetail"].ToString();
+					R["k"] = R["idflowchart"].ToString() + "¬ß" + R["ndetail"].ToString();
 				}
 			}
 
@@ -1041,7 +1388,7 @@ namespace Backend.Controllers {
 
 
 		/// <summary>
-		/// Verifica se l'utente puÚ effettuare il cambio data alla data specificata
+		/// Verifica se l'utente pu√≤ effettuare il cambio data alla data specificata
 		/// </summary>
 		/// <param name="DA"></param>
 		/// <param name="newDate"></param>
@@ -1088,7 +1435,7 @@ namespace Backend.Controllers {
 				DataRow DR = DT.Rows[0];
 				string username = DR["username"].ToString();
 
-				//2. tramite username recupero riga su registryreference, sulla quale dovrÚ aggiornare nuova pwd
+				//2. tramite username recupero riga su registryreference, sulla quale dovr√≤ aggiornare nuova pwd
 
 				var dsAnagrafica = new dsmeta_registry_anagrafica();
 
@@ -1297,11 +1644,11 @@ namespace Backend.Controllers {
 		//#if DEBUG
 
 		/// <summary>
-		/// Ritorna le informazioni relative all'identit‡ dell'utente.
+		/// Ritorna le informazioni relative all'identit√† dell'utente.
 		/// </summary>
 		/// <remarks>
 		/// Usare questo metodo esclusivamente per operazioni di debug. Il token restituito dal metodo
-		/// <see cref="login"/> Ë decodificabile dal client.
+		/// <see cref="login"/> √® decodificabile dal client.
 		/// </remarks>
 		/// <returns>Le informazioni contenute nel token di autenticazione.</returns>
 		[HttpPost, Route("user"), Authorize]

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -69,9 +67,28 @@ namespace registrydurc_anagraficadetail{
             }
             DataRow Curr = DS.registrydurc.Rows[0];
 
-            if (Curr["selfcertification"] != DBNull.Value) {
-                byte[] B = (byte[])Curr["selfcertification"];
-                labAutocertFileName.Text = GetFileName(B);
+            if (Curr["selfcertification"] != DBNull.Value || Curr["idfilestorage2"] != DBNull.Value) {
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (Curr["selfcertification"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])Curr["selfcertification"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage2"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                    {
+                        show("Servizio Download degli Allegati non disponibile");
+                        return;
+                    }
+                }
+
+                labAutocertFileName.Text = GetFileName(ByteArray);
                 btnAllegaAuto.Enabled = false;
                 btnVisualizzaAuto.Enabled = true;
                 btnRimuoviAuto.Enabled = true;
@@ -82,12 +99,31 @@ namespace registrydurc_anagraficadetail{
                 btnRimuoviAuto.Enabled = false;
             }
 
-            if (Curr["durccertification"] != DBNull.Value) {
+            if (Curr["durccertification"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value) {
                 btnAllegaDurc.Enabled = false;
                 btnVisualizzaDurc.Enabled = true;
                 btnRimuoviDurc.Enabled = true;
-                byte[] B = (byte[])Curr["durccertification"];
-                labDurcFileName.Text = GetFileName(B);
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (Curr["durccertification"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])Curr["durccertification"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                    {
+                        show("Servizio Download degli Allegati non disponibile");
+                        return;
+                    }
+                }
+
+                labDurcFileName.Text = GetFileName(ByteArray);
             }
             else {
                 btnAllegaDurc.Enabled = true;
@@ -253,7 +289,7 @@ namespace registrydurc_anagraficadetail{
 
         private void VisualizzaAllegato(string certification){
             if (Meta.IsEmpty) return;
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWMOREDURC";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -271,35 +307,49 @@ namespace registrydurc_anagraficadetail{
 
             DataRow Curr = DS.registrydurc.Rows[0];
 
-            byte[] ByteArray = (byte[])Curr[certification];
-            int offset = GetOffsetForData(ByteArray);
-            string fname = GetFileName(ByteArray);
-            string estensione = Path.GetExtension(fname).Trim();;
+            string idfilestorage = certification == "selfcertification" ? "idfilestorage2" : "idfilestorage";
 
-            bool extensionDenied = CfgFn.ExtensionDenied(estensione);
+            byte[] ByteArray = { };
 
-			if (extensionDenied) {
-				show("Impossibile aprire questo tipo di file");
-				return;
-			}
-			if (!CfgFn.ExtensionAllowed(estensione)) {
-				DialogResult dr = show("Si sta aprendo un file con estensione " + estensione +". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
-				if (dr == DialogResult.No) 
-					return;
-			}
-
-            string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
-            try
+            if (Curr[certification] != DBNull.Value)
             {
-                ScriviFile(sw, ByteArray,offset);
-
-                runProcess(sw, true);
+                // Attachment
+                ByteArray = (byte[])Curr[certification];
             }
-            catch (Exception E)
+            else
             {
-                QueryCreator.ShowException(E);
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(conn, DS.registrydurc.TableName, Curr[idfilestorage].ToString()).GetAwaiter().GetResult();
             }
 
+            if (ByteArray != null) {
+                int offset = GetOffsetForData(ByteArray);
+                string fname = GetFileName(ByteArray);
+                string estensione = Path.GetExtension(fname).Trim();
+
+                bool extensionDenied = CfgFn.ExtensionDenied(estensione);
+
+                if (extensionDenied) {
+                    show("Impossibile aprire questo tipo di file");
+                    return;
+                }
+                if (!CfgFn.ExtensionAllowed(estensione)) {
+                    DialogResult dr = show("Si sta aprendo un file con estensione " + estensione + ". Sei sicuro di voler aprire questo file?", "Attenzione!", MessageBoxButtons.YesNo);
+                    if (dr == DialogResult.No)
+                        return;
+                }
+
+                string sw = Path.Combine(FilePath, prefix + oggi.ToString() + estensione);
+                try {
+                    ScriviFile(sw, ByteArray, offset);
+
+                    runProcess(sw, true);
+                }
+                catch (Exception E) {
+                    QueryCreator.ShowException(E);
+                }
+            }
+            
         }
 
         void ScriviFile(string sw, byte[] documento,int offset){
@@ -321,13 +371,27 @@ namespace registrydurc_anagraficadetail{
 
 
         private void btnRimuoviDurc_Click(object sender, EventArgs e){
-            DS.registrydurc.Rows[0]["durccertification"] = DBNull.Value;
+            if (DS.registrydurc.Rows[0]["idfilestorage"] != DBNull.Value)
+            {
+                DS.registrydurc.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registrydurc.Rows[0]["durccertification"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
 
         }
 
         private void btnRimuoviAuto_Click(object sender, EventArgs e) {
-            DS.registrydurc.Rows[0]["selfcertification"] = DBNull.Value;
+            if (DS.registrydurc.Rows[0]["idfilestorage2"] != DBNull.Value)
+            {
+                DS.registrydurc.Rows[0]["idfilestorage2"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registrydurc.Rows[0]["selfcertification"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
         }
 

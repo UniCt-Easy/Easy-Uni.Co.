@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -151,11 +149,6 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
 		private void InitializeComponent() {
 			this.DS = new registrypaymethod_modpaganagrafica.vistaForm();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.cmbChargeHandling = new System.Windows.Forms.ComboBox();
 			this.btnChargeHandling = new System.Windows.Forms.Button();
@@ -223,11 +216,14 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
 			this.btnVisualizzaCCdedicato = new System.Windows.Forms.Button();
 			this.btnRimuoviCCdedicato = new System.Windows.Forms.Button();
 			this.btnAllegaCCdedicato = new System.Windows.Forms.Button();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this._opendlg = new System.Windows.Forms.OpenFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -241,6 +237,8 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
 			this.tabCertificazioni.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -259,61 +257,6 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(772, 594);
 			this.tabControl1.TabIndex = 0;
-			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGridAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "registrypaymethodattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabPage1
 			// 
@@ -1050,6 +993,64 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
 			this.btnAllegaCCdedicato.UseVisualStyleBackColor = true;
 			this.btnAllegaCCdedicato.Click += new System.EventHandler(this.btnAllegaCCdedicato_Click);
 			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(764, 568);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(749, 520);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "registrypaymethodattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+		 
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			 
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
+		 
+			// 
 			// _opendlg
 			// 
 			this._opendlg.Title = "Scegli il file da allegare";
@@ -1142,8 +1143,23 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
             DataRow Curr = DS.registrypaymethod.Rows[0];
 
             if (Curr["ccdedicato_doc"] != DBNull.Value) {
-                byte[] B = (byte[])Curr["ccdedicato_doc"];
-                labAutocertFileName.Text = GetFileName(B);
+                // byte[] B = (byte[])Curr["ccdedicato_doc"];
+                byte[] B = { };
+
+                if (Curr["ccdedicato_doc"] != DBNull.Value){
+                    // Attachment
+                    B = (byte[])Curr["ccdedicato_doc"];
+                }
+                else{
+                    // MongoDb
+                    B = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage2"].ToString()).GetAwaiter().GetResult();
+					if (B == null) {
+						show("Servizio Download degli Allegati non disponibile");
+						return;
+					}
+				}
+
+				labAutocertFileName.Text = GetFileName(B);
                 btnAllegaCCdedicato.Enabled = false;
                 btnVisualizzaCCdedicato.Enabled = true;
                 btnRimuoviCCdedicato.Enabled = true;
@@ -1158,8 +1174,25 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
                 btnAllegaDocCF.Enabled = false;
                 btnVisualizzaDocCF.Enabled = true;
                 btnRimuoviDocCF.Enabled = true;
-                byte[] B = (byte[])Curr["ccdedicato_cf"];
-                labDurcFileName.Text = GetFileName(B);
+                // byte[] B = (byte[])Curr["ccdedicato_cf"];
+
+                byte[] B = { };
+
+                if (Curr["ccdedicato_cf"] != DBNull.Value){
+                    // Attachment
+                    B = (byte[])Curr["ccdedicato_cf"];
+                }
+                else{
+                    // MongoDb
+                    B = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+					if (B == null) {
+						show("Servizio Download degli Allegati non disponibile");
+						return;
+					}
+
+				}
+
+				labDurcFileName.Text = GetFileName(B);
             }
             else {
                 btnAllegaDocCF.Enabled = true;
@@ -1549,7 +1582,7 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
             DataRow Curr = DS.registrypaymethod.Rows[0];
             int flag = CfgFn.GetNoNullInt32(Curr["requested_doc"]);
             // bit 0 - CC dedicato
-            if (Curr["ccdedicato_doc"] != DBNull.Value) {
+            if (Curr["ccdedicato_doc"] != DBNull.Value || Curr["idfilestorage2"] != DBNull.Value) {
                 //Lo azzera e Valorizza 1
                 flag = flag & 0x01;
                 flag = flag + 1;
@@ -1617,16 +1650,30 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
             }
         }
 
-        private void btnRimuoviCCdedicato_Click(object sender, EventArgs e) {
-            DS.registrypaymethod.Rows[0]["ccdedicato_doc"] = DBNull.Value;
+        private void btnRimuoviCCdedicato_Click(object sender, EventArgs e) {            
+			if (DS.registrypaymethod.Rows[0]["idfilestorage2"] != DBNull.Value)
+            {
+                DS.registrypaymethod.Rows[0]["idfilestorage2"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registrypaymethod.Rows[0]["ccdedicato_doc"] = DBNull.Value;
+            }
 			DS.registrypaymethod.Rows[0]["ccdedicato_stop"] = DBNull.Value;
-			txtScadenzaCCdedicato.Text = "";
+            txtScadenzaCCdedicato.Text = "";
 			AbilitaDisabilitaAllegati();
             FlagCCdedicato();
         }
 
         private void btnRimuoviDocCF_Click(object sender, EventArgs e) {
-            DS.registrypaymethod.Rows[0]["ccdedicato_cf"] = DBNull.Value;
+            if (DS.registrypaymethod.Rows[0]["idfilestorage"] != DBNull.Value)
+            {
+                DS.registrypaymethod.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registrypaymethod.Rows[0]["ccdedicato_cf"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
         }
 
@@ -1655,7 +1702,7 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
         }
 
         private void VisualizzaAllegato(string certification) {
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWMOREALL";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -1697,15 +1744,26 @@ namespace registrypaymethod_modpaganagrafica {//modpagamentocreddebianagrafica//
             catch (Exception E) {
                 QueryCreator.ShowException(E);
             }
-
-        }
-
-        private bool LeggiFlagEsenteBancaPredefinita() {
+			
+		}
+		
+		private bool LeggiFlagEsenteBancaPredefinita() {
             DataTable tTreasurer = Meta.Conn.RUN_SELECT("treasurer", "*", null, QHS.AppAnd(QHS.CmpEq("flagdefault", "S"), QHS.BitSet("flag", 1)), null, false);
             if (tTreasurer.Rows.Count == 0) return false;
             else
                 return true;
         }
 
-    }
+		private void btnEditAtt_Click(object sender, EventArgs e) {
+
+		}
+
+		private void btnInsAtt_Click(object sender, EventArgs e) {
+
+		}
+
+		private void btnDelAtt_Click(object sender, EventArgs e) {
+
+		}
+	}
 }

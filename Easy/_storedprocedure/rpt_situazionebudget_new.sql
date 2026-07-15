@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_situazionebudget_new]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_situazionebudget_new]
@@ -916,7 +914,7 @@ begin
  end
  
 --select * from #budgetsituation where rowkind in (1,2,7)
- 
+
 --select * from #budgetsituation where rowkind in(0, 1, 2)
 delete from #budgetsituation where isnull(amount,0) =0 and isnull(amount2,0) =0  and isnull(amount3,0) =0  and isnull(amount4,0) =0  and isnull(amount5,0) =0 
 			and isnull(initialprevision,0) =0 and isnull(initialprevision2,0) =0 and isnull(initialprevision3,0) =0 and isnull(initialprevision4,0) =0 and isnull(initialprevision5,0) =0 
@@ -1117,6 +1115,7 @@ BEGIN
 		--U.printingorder,
 		B.rowkind,B.operationkind,B.accountkind
 	order by /*U.printingorder,*/		B.accountkind,  A.printingorder ,  B.rowkind
+	 --select '1#budgetsituation_compact', * from #budgetsituation_compact where codeacc = 'CB08a002'
 
 INSERT INTO #budgetsituation_compact
  (
@@ -1166,11 +1165,13 @@ INSERT INTO #budgetsituation_compact
 		0 as curramount, 0 as curramount2, 0 as curramount3,0 as curramount4, 0 as curramount5,
 		0 as initialprevision, 0 as initialprevision2, 0 as initialprevision3,0 as initialprevision4, 0 as initialprevision5,
 		
+ 
+
 		ISNULL(initialprevision,0) +   ISNULL((SELECT SUM(amount) 
 													FROM #budgetsituation_compact VARIAZ 
 													WHERE VARIAZ.idacc = #budgetsituation_compact.idacc AND ISNULL(VARIAZ.idupb,@fixedidupb) = ISNULL(#budgetsituation_compact.idupb,@fixedidupb) AND rowkind = 2 ),0) 
 																	-	ISNULL((SELECT SUM(curramount) 
-													FROM #budgetsituation PREIMP 
+													FROM #budgetsituation_compact PREIMP 
 													WHERE PREIMP.idacc = #budgetsituation_compact.idacc AND ISNULL(PREIMP.idupb,@fixedidupb) = ISNULL(#budgetsituation_compact.idupb,@fixedidupb) AND rowkind IN (3)),0),
 		ISNULL(initialprevision2,0) +   ISNULL((SELECT SUM(amount2) 
 													FROM #budgetsituation_compact VARIAZ 
@@ -1201,8 +1202,7 @@ INSERT INTO #budgetsituation_compact
 		FROM #budgetsituation_compact 
 		WHERE #budgetsituation_compact.rowkind = 1 and #budgetsituation_compact.accountkind= 'C'
  
-
-
+ 
 --- calcolo previsione disponibile ricavi
  
 INSERT INTO #budgetsituation_compact
@@ -1285,9 +1285,9 @@ INSERT INTO #budgetsituation_compact
 		#budgetsituation_compact.accountkind		
 	    FROM #budgetsituation_compact 
 		WHERE #budgetsituation_compact.rowkind = 10 	   and #budgetsituation_compact.accountkind <> 'C'
-
+ 
 END
-
+ 
 -- select * from #budgetsituation_compact
 
 CREATE TABLE #output

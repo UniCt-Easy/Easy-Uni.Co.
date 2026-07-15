@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_bandodsservizio_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_bandodsservizio_seg: DataSet {
+public partial class dsmeta_bandodsservizio_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -228,9 +226,7 @@ private void initClass() {
 
 	//////////////////// ESONERODEFAULTVIEW /////////////////////////////////
 	var tesonerodefaultview= new MetaTable("esonerodefaultview");
-	tesonerodefaultview.defineColumn("aa", typeof(string),false);
 	tesonerodefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tesonerodefaultview.defineColumn("idcostoscontodef", typeof(int),false);
 	tesonerodefaultview.defineColumn("idesonero", typeof(int),false);
 	Tables.Add(tesonerodefaultview);
 	tesonerodefaultview.defineKey("idesonero");
@@ -238,8 +234,13 @@ private void initClass() {
 	//////////////////// BANDODSSERVIZIOKIND /////////////////////////////////
 	var tbandodsserviziokind= new MetaTable("bandodsserviziokind");
 	tbandodsserviziokind.defineColumn("active", typeof(string),false);
+	tbandodsserviziokind.defineColumn("ct", typeof(DateTime),false);
+	tbandodsserviziokind.defineColumn("cu", typeof(string),false);
 	tbandodsserviziokind.defineColumn("description", typeof(string));
 	tbandodsserviziokind.defineColumn("idbandodsserviziokind", typeof(int),false);
+	tbandodsserviziokind.defineColumn("lt", typeof(DateTime),false);
+	tbandodsserviziokind.defineColumn("lu", typeof(string),false);
+	tbandodsserviziokind.defineColumn("sortcode", typeof(int),false);
 	tbandodsserviziokind.defineColumn("title", typeof(string),false);
 	Tables.Add(tbandodsserviziokind);
 	tbandodsserviziokind.defineKey("idbandodsserviziokind");

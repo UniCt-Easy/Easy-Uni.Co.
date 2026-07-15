@@ -23,10 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'appellokind_title', 'Tipologia di appello', null, 20, 50);
-						this.describeAColumn(table, 'sessionekind_title', 'Tipologia', null, 30, 50);
-						this.describeAColumn(table, 'sessione_start', 'Data di inizio', null, 40, null);
-						this.describeAColumn(table, 'sessione_stop', 'Data di fine', null, 50, null);
+						this.describeAColumn(table, 'start', 'Data di inizio', null, 1000, null);
+						this.describeAColumn(table, 'sessione_stop', 'Data di fine', null, 2000, null);
+						this.describeAColumn(table, 'sessionekind_title', 'Tipologia', null, 3200, 50);
+						this.describeAColumn(table, 'appellokind_title', 'Tipologia di appello', null, 4200, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -46,7 +46,15 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "default": {
+						return "start desc, sessionekind_title asc ";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

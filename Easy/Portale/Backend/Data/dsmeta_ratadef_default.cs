@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_ratadef_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_ratadef_default: DataSet {
+public partial class dsmeta_ratadef_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -65,6 +63,13 @@ private void initClass() {
 	var tratakinddefaultview= new MetaTable("ratakinddefaultview");
 	tratakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tratakinddefaultview.defineColumn("idratakind", typeof(string),false);
+	tratakinddefaultview.defineColumn("ratakind_active", typeof(string));
+	tratakinddefaultview.defineColumn("ratakind_ct", typeof(DateTime),false);
+	tratakinddefaultview.defineColumn("ratakind_cu", typeof(string),false);
+	tratakinddefaultview.defineColumn("ratakind_lt", typeof(DateTime),false);
+	tratakinddefaultview.defineColumn("ratakind_lu", typeof(string),false);
+	tratakinddefaultview.defineColumn("ratakind_sortcode", typeof(int));
+	tratakinddefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tratakinddefaultview);
 	tratakinddefaultview.defineKey("idratakind");
 

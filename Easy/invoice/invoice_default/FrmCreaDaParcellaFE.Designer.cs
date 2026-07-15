@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace invoice_default {
     partial class FrmCreaDaParcellaFE {
@@ -71,7 +69,7 @@ namespace invoice_default {
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(448, 13);
 			this.label4.TabIndex = 51;
-			this.label4.Text = "Scegliere quale Parcella professionale dovr‡ essere associata alla Fattura Elettr" +
+			this.label4.Text = "Scegliere quale Parcella professionale dovr√† essere associata alla Fattura Elettr" +
     "onica, oppure,";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 

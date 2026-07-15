@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -79,7 +77,7 @@ public partial class dsmeta_progettotimesheet_default: DataSet {
 	public MetaTable progettoelenchiview 		=> (MetaTable)Tables["progettoelenchiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable timesheettemplate 		=> (MetaTable)Tables["timesheettemplate"];
+	public MetaTable timesheettemplatedefaultview 		=> (MetaTable)Tables["timesheettemplatedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable year 		=> (MetaTable)Tables["year"];
@@ -207,7 +205,7 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
 
@@ -238,6 +236,7 @@ private void initClass() {
 	tprogetto.defineColumn("finanziamento", typeof(string));
 	tprogetto.defineColumn("finanziatoretxt", typeof(string));
 	tprogetto.defineColumn("idattach", typeof(int));
+	tprogetto.defineColumn("idattach_logot", typeof(int));
 	tprogetto.defineColumn("idcorsostudio", typeof(int));
 	tprogetto.defineColumn("idcurrency", typeof(int));
 	tprogetto.defineColumn("idduratakind", typeof(int));
@@ -269,7 +268,7 @@ private void initClass() {
 	tprogetto.defineColumn("ulteriorecup", typeof(string));
 	tprogetto.defineColumn("unitaorganizzativa", typeof(string));
 	tprogetto.defineColumn("url", typeof(string));
-	tprogetto.defineColumn("!idattach_attach_filename", typeof(string));
+	tprogetto.defineColumn("!idattach_logot_attach_filename", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_title", typeof(string));
 	tprogetto.defineColumn("!idcorsostudio_corsostudio_annoistituz", typeof(int));
 	tprogetto.defineColumn("!idpartnerkind_partnerkind_title", typeof(string));
@@ -294,6 +293,7 @@ private void initClass() {
 	tprogettotimesheetprogetto.defineColumn("idprogettotimesheet", typeof(int),false);
 	tprogettotimesheetprogetto.defineColumn("lt", typeof(DateTime));
 	tprogettotimesheetprogetto.defineColumn("lu", typeof(string));
+	tprogettotimesheetprogetto.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tprogettotimesheetprogetto);
 	tprogettotimesheetprogetto.defineKey("idprogetto", "idprogettotimesheet");
 
@@ -302,10 +302,12 @@ private void initClass() {
 	tsalelenchiview.defineColumn("dropdown_title", typeof(string),false);
 	tsalelenchiview.defineColumn("idprogetto", typeof(int),false);
 	tsalelenchiview.defineColumn("idsal", typeof(int),false);
+	tsalelenchiview.defineColumn("numerosal", typeof(int));
+	tsalelenchiview.defineColumn("sal_autoassociazione", typeof(string));
 	tsalelenchiview.defineColumn("sal_budget", typeof(decimal));
 	tsalelenchiview.defineColumn("sal_datablocco", typeof(DateTime));
-	tsalelenchiview.defineColumn("sal_stop", typeof(DateTime));
 	tsalelenchiview.defineColumn("sal_start", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_stop", typeof(DateTime));
 	Tables.Add(tsalelenchiview);
 	tsalelenchiview.defineKey("idprogetto", "idsal");
 
@@ -318,11 +320,13 @@ private void initClass() {
 
 	//////////////////// PROGETTOELENCHIVIEW /////////////////////////////////
 	var tprogettoelenchiview= new MetaTable("progettoelenchiview");
+	tprogettoelenchiview.defineColumn("attach_filename", typeof(string));
 	tprogettoelenchiview.defineColumn("corsostudio_annoistituz", typeof(int));
 	tprogettoelenchiview.defineColumn("corsostudio_title", typeof(string));
 	tprogettoelenchiview.defineColumn("currency_codecurrency", typeof(string));
 	tprogettoelenchiview.defineColumn("dropdown_title", typeof(string),false);
 	tprogettoelenchiview.defineColumn("duratakind_title", typeof(string));
+	tprogettoelenchiview.defineColumn("idattach", typeof(int));
 	tprogettoelenchiview.defineColumn("idcorsostudio", typeof(int));
 	tprogettoelenchiview.defineColumn("idcurrency", typeof(int));
 	tprogettoelenchiview.defineColumn("idprogetto", typeof(int),false);
@@ -396,11 +400,22 @@ private void initClass() {
 	Tables.Add(tprogettoelenchiview);
 	tprogettoelenchiview.defineKey("idprogetto");
 
-	//////////////////// TIMESHEETTEMPLATE /////////////////////////////////
-	var ttimesheettemplate= new MetaTable("timesheettemplate");
-	ttimesheettemplate.defineColumn("idtimesheettemplate", typeof(string),false);
-	Tables.Add(ttimesheettemplate);
-	ttimesheettemplate.defineKey("idtimesheettemplate");
+	//////////////////// TIMESHEETTEMPLATEDEFAULTVIEW /////////////////////////////////
+	var ttimesheettemplatedefaultview= new MetaTable("timesheettemplatedefaultview");
+	ttimesheettemplatedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	ttimesheettemplatedefaultview.defineColumn("idtimesheettemplate", typeof(string),false);
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_active", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_ct", typeof(DateTime));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_cu", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_description", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_leftsignaturelabel", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_lt", typeof(DateTime));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_lu", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_middlesignaturelabel", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("timesheettemplate_rightsignaturelabel", typeof(string));
+	ttimesheettemplatedefaultview.defineColumn("title", typeof(string));
+	Tables.Add(ttimesheettemplatedefaultview);
+	ttimesheettemplatedefaultview.defineKey("idtimesheettemplate");
 
 	//////////////////// YEAR /////////////////////////////////
 	var tyear= new MetaTable("year");
@@ -417,6 +432,7 @@ private void initClass() {
 	tprogettotimesheet.defineColumn("idprogetto", typeof(int));
 	tprogettotimesheet.defineColumn("idprogettotimesheet", typeof(int),false);
 	tprogettotimesheet.defineColumn("idreg", typeof(int),false);
+	tprogettotimesheet.defineColumn("idrendicontaltrokind", typeof(int));
 	tprogettotimesheet.defineColumn("idsal", typeof(int));
 	tprogettotimesheet.defineColumn("idtimesheettemplate", typeof(string));
 	tprogettotimesheet.defineColumn("intestazioneallsheet", typeof(string));
@@ -487,8 +503,8 @@ private void initClass() {
 	Relations.Add(new DataRelation("FK_progetto_corsostudio_idcorsostudio",cPar,cChild,false));
 
 	cPar = new []{attach.Columns["idattach"]};
-	cChild = new []{progetto.Columns["idattach"]};
-	Relations.Add(new DataRelation("FK_progetto_attach_idattach",cPar,cChild,false));
+	cChild = new []{progetto.Columns["idattach_logot"]};
+	Relations.Add(new DataRelation("FK_progetto_attach_idattach_logot",cPar,cChild,false));
 
 	cPar = new []{salelenchiview.Columns["idsal"]};
 	cChild = new []{progettotimesheet.Columns["idsal"]};
@@ -506,9 +522,9 @@ private void initClass() {
 	cChild = new []{progettotimesheet.Columns["idprogetto"]};
 	Relations.Add(new DataRelation("FK_progettotimesheet_progettoelenchiview_idprogetto",cPar,cChild,false));
 
-	cPar = new []{timesheettemplate.Columns["idtimesheettemplate"]};
+	cPar = new []{timesheettemplatedefaultview.Columns["idtimesheettemplate"]};
 	cChild = new []{progettotimesheet.Columns["idtimesheettemplate"]};
-	Relations.Add(new DataRelation("FK_progettotimesheet_timesheettemplate_idtimesheettemplate",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_progettotimesheet_timesheettemplatedefaultview_idtimesheettemplate",cPar,cChild,false));
 
 	cPar = new []{year.Columns["year"]};
 	cChild = new []{progettotimesheet.Columns["year"]};

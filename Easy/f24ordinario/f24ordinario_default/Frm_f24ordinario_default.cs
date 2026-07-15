@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -616,7 +614,7 @@ namespace f24ordinario_default {
 				if (i < tRigaA.Length)
 				{
 					DataRow r = tRigaA[i];
-					// se è il primo elemento della riga aggiungo il Codice altri enti previdenziali ed assicurativi
+					// se Ã¨ il primo elemento della riga aggiungo il Codice altri enti previdenziali ed assicurativi
 					if (i == ((numRecV - 1) * 2))
 					{
 						//va scritto solo una volta per sezione
@@ -635,7 +633,7 @@ namespace f24ordinario_default {
 				}
 				else
 				{
-					// se è il primo elemento della riga aggiungo il Codice altri enti previdenziali ed assicurativi
+					// se Ã¨ il primo elemento della riga aggiungo il Codice altri enti previdenziali ed assicurativi
 					if (i == ((numRecV - 1) * 2))
 					{
 						//va scritta una sezione A completamente vuota, introdotta da 
@@ -700,7 +698,7 @@ namespace f24ordinario_default {
 			DateTime dataDiVersamento = (DateTime)HelpForm.GetObjectFromString(
 				typeof(DateTime), txtDataDiVersamento.Text, txtDataDiVersamento.Tag.ToString());
 			if (dataDiVersamento < DateTime.Now.Date) {
-				show("Data di addebito: il valore immesso non può essere inferiore alla data corrente");
+				show("Data di addebito: il valore immesso non puÃ² essere inferiore alla data corrente");
 				HelpForm.FocusControl(txtDataDiVersamento);
 				return;
 			}
@@ -715,7 +713,7 @@ namespace f24ordinario_default {
 				if (dr == DialogResult.OK) {
 					txtPercorso.Text = saveFileDialog1.FileName;
 				} else {
-					show(this, "Non è stato selezionato il percorso in cui memorizzare il file dell'F24");
+					show(this, "Non Ã¨ stato selezionato il percorso in cui memorizzare il file dell'F24");
 					return;
 				}
 				Stream stream = saveFileDialog1.OpenFile();
@@ -884,7 +882,7 @@ namespace f24ordinario_default {
 				DialogResult result = openInputFileDlg.ShowDialog();
 				if (result != DialogResult.OK)
 				{
-					show("Non è stato scelto alcun file");
+					show("Non Ã¨ stato scelto alcun file");
 					return;
 				}
 
@@ -925,7 +923,7 @@ namespace f24ordinario_default {
 
 			DataTable tributi = Meta.Conn.RUN_SELECT("f24tributi", "*", null, null, null, false);
 
-			// La configurazione Inail è stata inserita nella tabella pat
+			// La configurazione Inail Ã¨ stata inserita nella tabella pat
 			DataTable pat = Meta.Conn.RUN_SELECT("pat", "*", null, null, null, false);
 
 			//prendo il massimo iddetail di f24ordinariodetail
@@ -1039,7 +1037,7 @@ namespace f24ordinario_default {
 
 						if (rowsPat.Count() > 1)
 						{
-							show("Ci sono più configurazione Inail. Lasciare attiva una e disattivare le altre.");
+							show("Ci sono piÃ¹ configurazione Inail. Lasciare attiva una e disattivare le altre.");
 							DS.f24ordinariodetail.Clear();
 							return;
 						}

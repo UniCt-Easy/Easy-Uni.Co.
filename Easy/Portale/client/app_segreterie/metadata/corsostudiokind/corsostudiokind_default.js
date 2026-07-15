@@ -22,10 +22,16 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#corsostudiokind_default_idcorsostudiokind'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -42,6 +48,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			//buttons
         });

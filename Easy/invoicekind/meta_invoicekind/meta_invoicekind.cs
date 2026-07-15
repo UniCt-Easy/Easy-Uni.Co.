@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -30,15 +28,17 @@ namespace meta_invoicekind {//meta_tipodocumentoiva//
 		public Meta_invoicekind(DataAccess Conn, MetaDataDispatcher Dispatcher):
 			base(Conn, Dispatcher, "invoicekind") {		
 			EditTypes.Add("default");
+			EditTypes.Add("history");
 			ListingTypes.Add("default");
             ListingTypes.Add("lista");
             Name = "Tipo di documento";
 		}
 		
 		protected override Form GetForm(string FormName){
-			if (FormName=="default") {
+			if ((FormName=="default") || (FormName == "history")) {
 				DefaultListType="elenco";
 				Name="Tipo di documento";
+				Name = (FormName == "history") ? "Tipo di documento con storico Registro IVA" : "Tipo di documento";
 				return GetFormByDllName("invoicekind_default");
 				//return new frmtipodocumentoiva();
 			}

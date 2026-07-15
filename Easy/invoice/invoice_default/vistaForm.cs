@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -357,7 +355,7 @@ private void initClass() {
 
 	//////////////////// IVAREGISTERKIND /////////////////////////////////
 	var tivaregisterkind= new ivaregisterkindTable();
-	tivaregisterkind.addBaseColumns("idivaregisterkind","description","registerclass","cu","ct","lu","lt","flagactivity","codeivaregisterkind");
+	tivaregisterkind.addBaseColumns("idivaregisterkind","description","registerclass","cu","ct","lu","lt","flagactivity","codeivaregisterkind","emails");
 	Tables.Add(tivaregisterkind);
 	tivaregisterkind.defineKey("idivaregisterkind");
 
@@ -1344,6 +1342,7 @@ private void initClass() {
 	tinvoiceattachment.defineColumn("ct", typeof(DateTime));
 	tinvoiceattachment.defineColumn("cu", typeof(string));
 	tinvoiceattachment.defineColumn("idattachmentkind", typeof(int));
+	tinvoiceattachment.defineColumn("idfilestorage", typeof(string));
 	tinvoiceattachment.defineColumn("!attachmentkind", typeof(string));
 	tinvoiceattachment.defineColumn("!attachment_fe", typeof(string));
 	Tables.Add(tinvoiceattachment);
@@ -1583,6 +1582,7 @@ private void initClass() {
 	tinvoiceadditionalfields.defineColumn("valuefield5int", typeof(int));
 	tinvoiceadditionalfields.defineColumn("valuefield5str", typeof(string));
 	tinvoiceadditionalfields.defineColumn("documentkind", typeof(string),false);
+	tinvoiceadditionalfields.defineColumn("tabname", typeof(string));
 	Tables.Add(tinvoiceadditionalfields);
 	tinvoiceadditionalfields.defineKey("idadditionalfields", "idinvkind", "yinv", "ninv");
 

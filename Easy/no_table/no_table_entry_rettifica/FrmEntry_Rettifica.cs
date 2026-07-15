@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -51,24 +49,24 @@ namespace no_table_entry_rettifica {
             QHS = Conn.GetQueryHelper();
             tPlAccount = DataAccess.CreateTableByName(Conn, "placcount", "idplaccount, placcpart");
             tAccount = DataAccess.CreateTableByName(Conn, "account", "idacc, idplaccount");
-           
+
             if (Meta.edit_type == "rettifica_pluriennale") {
                 labelDescrizione.Text = "PROCEDURA ASSESTAMENTO PROGETTI PLURIENNALI a Commessa Completata";
                 btnOperazione.Text = "Inizia assestamento";
                 chkCommerciale.Visible = false;
-                chkRiscontaAmmortamentiFuturi.Visible  = true;
+                chkRiscontaAmmortamentiFuturi.Visible = true;
                 int currAyear = (int)Meta.GetSys("esercizio");
                 object risconta_ammortamenti_futuriObj = Conn.DO_READ_VALUE("config", QHS.CmpEq("ayear", currAyear), "risconta_ammortamenti_futuri");
                 if (risconta_ammortamenti_futuriObj == DBNull.Value) risconta_ammortamenti_futuriObj = "N";
                 risconta_ammortamenti_futuri = risconta_ammortamenti_futuriObj.ToString().ToUpper() == "S";
-                chkRiscontaAmmortamentiFuturi.Checked  = risconta_ammortamenti_futuri;
+                chkRiscontaAmmortamentiFuturi.Checked = risconta_ammortamenti_futuri;
                 identrykindToGenerate = 8;
             }
             if (Meta.edit_type == "rettifica_pluriennale_percentuale") {
                 labelDescrizione.Text = "PROCEDURA ASSESTAMENTO PROGETTI PLURIENNALI a percentuale di completamento";
                 btnOperazione.Text = "Inizia assestamento";
                 chkCommerciale.Visible = false;
-                 chkRiscontaAmmortamentiFuturi.Visible  = false;
+                chkRiscontaAmmortamentiFuturi.Visible = false;
                 identrykindToGenerate = 13;
             }
             if (Meta.edit_type == "rettifica") {
@@ -76,7 +74,7 @@ namespace no_table_entry_rettifica {
                     "PROCEDURA CHE RETTIFICA I COSTI/RICAVI CON COMPETENZA OLTRE L'ESERCIZIO CORRENTE";
                 btnOperazione.Text = "Inizia Rettifica";
                 identrykindToGenerate = 3;
-                chkRiscontaAmmortamentiFuturi.Visible  = false;
+                chkRiscontaAmmortamentiFuturi.Visible = false;
             }
             //task 15894, momentaneamente disattivo la gestione degli ammortamenti futuri 
             chkRiscontaAmmortamentiFuturi.Checked = false; //per ora lo rendo non checkato per tutti
@@ -98,7 +96,7 @@ namespace no_table_entry_rettifica {
         private void btnRettifica_Click(object sender, EventArgs e) {
             if (Meta.edit_type == "rettifica") {
                 // Caricamento delle tabelle entry e entrydetail che devono essere integrate
-                int currAyear = (int) Meta.GetSys("esercizio");
+                int currAyear = (int)Meta.GetSys("esercizio");
                 DateTime dec31 = new DateTime(currAyear, 12, 31);
 
                 DataTable tEntryDetail = ottieniDettagliScrittura();
@@ -111,82 +109,72 @@ namespace no_table_entry_rettifica {
                 }
             }
             if (Meta.edit_type == "rettifica_pluriennale") {
-				//      Assestamento Commessa Completata: progetti pluriennali ancora aperti
-				DataTable tEntryDetail = ottieniDettagliAssestamentoCommessaCompletata();
-				if (tEntryDetail == null)
-				{
-					show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata", "Errore");
-				}
-				else
-				{
-					string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
-					if (tEntryDetail.Rows.Count == 0)
-					{
-						show(this, noRows,
-							"Avvertimento");
-					}
-					else
-					{
-						labelFase.Text = "Elaborazione progetti pluriennali ancora aperti";
+                //      Assestamento Commessa Completata: progetti pluriennali ancora aperti
+                DataTable tEntryDetail = ottieniDettagliAssestamentoCommessaCompletata();
+                if (tEntryDetail == null) {
+                    show(this, "Errore nel calcolo scritture pluriennali aperti di tipo Commessa Completata", "Errore");
+                }
+                else {
+                    string noRows = "Progetti pluriennali ancora aperti: nessun importo da rettificare";
+                    if (tEntryDetail.Rows.Count == 0) {
+                        show(this, noRows,
+                            "Avvertimento");
+                    }
+                    else {
+                        labelFase.Text = "Elaborazione progetti pluriennali ancora aperti";
 
 
-						if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, false))
-						{
-							show(this, "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
-						}
-					}
-				}
-				tEntryDetail = ottieniRateiApertiProgettiInChiusura();
-				if (tEntryDetail == null)
-				{
-					show(this, "Errore nel calcolo scritture pluriennali aperti", "Errore");
-				}
-				else
-				{
-					string noRows = "Progetti pluriennali in chiusura: nessun importo da rettificare";
-					if (tEntryDetail.Rows.Count == 0)
-					{
-						show(this, noRows, "Avvertimento");
-					}
-					else
-					{
-						labelFase.Text = "Elaborazione progetti pluriennali in chiusura";
-						if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, true))
-						{
-							show(this,
-								"Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
-						}
+                        if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, false)) {
+                            show(this, "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
+                        }
+                    }
+                }
+                tEntryDetail = ottieniRateiApertiProgettiInChiusura();
+                if (tEntryDetail == null) {
+                    show(this, "Errore nel calcolo scritture pluriennali aperti", "Errore");
+                }
+                else {
+                    string noRows = "Progetti pluriennali in chiusura: nessun importo da rettificare";
+                    if (tEntryDetail.Rows.Count == 0) {
+                        show(this, noRows, "Avvertimento");
+                    }
+                    else {
+                        labelFase.Text = "Elaborazione progetti pluriennali in chiusura";
+                        if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, true)) {
+                            show(this,
+                                "Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
+                        }
 
-					}
-				}
-				//tEntryDetail = new DataTable();
-                if (chkRiscontaAmmortamentiFuturi.Checked){
-                        tEntryDetail = ottieniProgettiInChiusuraNoRateiAperti();
-                        if (tEntryDetail == null) {
-                            show(this, "Errore nel calcolo scritture pluriennali per progetti in Scadenza", "Errore");
+                    }
+                }
+                //tEntryDetail = new DataTable();
+                if (chkRiscontaAmmortamentiFuturi.Checked) {
+                    tEntryDetail = ottieniProgettiInChiusuraNoRateiAperti();
+                    if (tEntryDetail == null) {
+                        show(this, "Errore nel calcolo scritture pluriennali per progetti in Scadenza", "Errore");
+                    }
+                    else {
+                        string noRows = "Progetti pluriennali in chiusura - risconti su ammortamenti futuri: nessun importo da rettificare";
+                        ottieniAmmmortamentiFuturiUPB();
+                        if ((tEntryDetail.Rows.Count == 0) || (hAmmortamentiFuturi.Count == 0)) {
+                            show(this, noRows, "Avvertimento");
                         }
                         else {
-                            string noRows = "Progetti pluriennali in chiusura - risconti su ammortamenti futuri: nessun importo da rettificare";
-                            ottieniAmmmortamentiFuturiUPB();
-                            if ((tEntryDetail.Rows.Count == 0) || (hAmmortamentiFuturi.Count==0)) {
-                                show(this, noRows, "Avvertimento");
-                            }
-                            else {
-                                labelFase.Text = "Elaborazione progetti pluriennali in chiusura: risconti su ammortamenti futuri";
+                            labelFase.Text = "Elaborazione progetti pluriennali in chiusura: risconti su ammortamenti futuri";
 
-                                if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows,true)) {
-                                    show(this,
-                                        "Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
-                                }
-
+                            if (!DoAssestamentoCommessaCompletata(tEntryDetail, noRows, true)) {
+                                show(this,
+                                    "Errore nel processo di rettifica per i progetti pluriennali in chiusura", "Errore");
                             }
+
                         }
-                }
-                else{
-                     string noRows = "Progetti pluriennali in chiusura - risconti su ammortamenti futuri: si è scelto di non rettificare " +
-                                     "(vedere Configurazione annuale EP di Ratei e Risconti)";
-                     //show(this, noRows, "Avvertimento");
                     }
+                }
+                else {
+                    string noRows = "Progetti pluriennali in chiusura - risconti su ammortamenti futuri: si è scelto di non rettificare " +
+                                    "(vedere Configurazione annuale EP di Ratei e Risconti)";
+                    //show(this, noRows, "Avvertimento");
+                }
                 labelFase.Text = "Elaborazione scritture Assestamento pluriennali a Commessa Completata";
                 DoElaboraScrittureAssestamentoCommessaCompletata();
                 btnOperazione.Enabled = false;
@@ -200,10 +188,10 @@ namespace no_table_entry_rettifica {
                 }
                 else {
                     if (tEntryDetail.Rows.Count == 0) {
-                        show(this, noRows,"Avvertimento");
+                        show(this, noRows, "Avvertimento");
                     }
                     else {
-                        if (!doRettificaPluriennalePercentuale(tEntryDetail,noRows)) {
+                        if (!doRettificaPluriennalePercentuale(tEntryDetail, noRows)) {
                             show(this,
                                 "Errore nel processo di rettifica per i progetti pluriennali ancora aperti", "Errore");
                         }
@@ -214,10 +202,10 @@ namespace no_table_entry_rettifica {
 
         private DataTable ottieniDettagliScrittura() {
             int currAyear = (int)Meta.GetSys("esercizio");
-            DateTime dec31 = new DateTime(currAyear, 12, 31);
+            DateTime lastDate = getQuarterEnd();
 
-            string queryED = "SELECT d.amount, d.description,d.idacc, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3,"+
-                "A.codeacc, A.title as account, ACCM.codemotive, ACCM.title as accmotive,reg.title as registry, "+
+            string queryED = "SELECT d.amount, d.description,d.idacc, d.idreg, d.idupb, d.idsor1, d.idsor2, d.idsor3," +
+                "A.codeacc, A.title as account, ACCM.codemotive, ACCM.title as accmotive,reg.title as registry, " +
                 "U.codeupb, "
 
             + " d.competencystart, d.competencystop, d.idaccmotive, d.idepexp,d.idepacc,P.placcpart " + // 
@@ -230,11 +218,11 @@ namespace no_table_entry_rettifica {
             + " JOIN ACCOUNT A ON " + QHS.CmpEq("A.idacc", QHS.Field("d.idacc"))
             + " JOIN PLACCOUNT P ON " + QHS.CmpEq("P.idplaccount", QHS.Field("A.idplaccount"))
             + " WHERE " + QHS.AppAnd(QHS.FieldIn("e.identrykind", new object[] { 1, 5 }),
-            QHS.CmpEq("e.yentry", currAyear), QHS.CmpGt("d.competencystop", dec31));
+            QHS.CmpEq("e.yentry", currAyear), QHS.CmpGt("d.competencystop", lastDate/*dec31*/));
             //+ " GROUP BY d.idepexp, d.idepacc,d.idacc, d.idreg, d.idupb, d.idsor1, d.idsor2, "+
             //    "d.idsor3, d.competencystart, d.competencystop, d.idaccmotive ";
 
-            DataTable tEntryDetail = DataAccess.SQLRunner(Conn, queryED,false,600);
+            DataTable tEntryDetail = DataAccess.SQLRunner(Conn, queryED, false, 600);
             if (tEntryDetail == null) {
                 show(this, "Errore nell'estrazione dei dati da ENTRYDETAIL", "Errore");
                 return null;
@@ -245,9 +233,102 @@ namespace no_table_entry_rettifica {
             return tEntryDetail;
         }
 
+        /// <summary>
+        /// Restituisce l'ultimo giorno del trimestre di una data (Q1=31/03, Q2=30/06, Q3=30/09, Q4=31/12).
+        /// Utile se vuoi derivare automaticamente la chiusura dal "periodo di riferimento".
+        /// </summary>
+        /// /*
+        public static DateTime GetQuarterEnd(DateTime referenceDate) {
+            referenceDate = referenceDate.Date; // ignora l'ora, se presente
+            int year = referenceDate.Year;
+            int month = referenceDate.Month;
+
+            if (month <= 3)
+                return new DateTime(year, 3, 31);
+            if (month <= 6)
+                return new DateTime(year, 6, 30);
+            if (month <= 9)
+                return new DateTime(year, 9, 30);
+            return new DateTime(year, 12, 31);
+        }
+        
+        /// <summary>
+        /// Giorni "da trascorrere" dopo la chiusura del trimestre fino alla fine della competenza.
+        /// Per il civile usa differenza giorni; per il commerciale usa il tuo 30/360
+        /// a partire dal giorno successivo alla chiusura del trimestre.
+        /// </summary>
+        public static int NGiorniDaTrascorrereTrimestre(DateTime fineCompetenza, DateTime dataChiusuraTrimestre, bool commerciale) {
+            if (fineCompetenza <= dataChiusuraTrimestre)
+                return 0;
+
+            if (commerciale) {
+                var giornoDopoChiusura = dataChiusuraTrimestre.AddDays(1);
+                return ngiorniCommerciali(giornoDopoChiusura, fineCompetenza);
+            }
+            else {
+                // coerente con la tua scelta di inclusività in NgiorniTotali
+                return (fineCompetenza - dataChiusuraTrimestre).Days;
+            }
+        }
+
+        private DateTime getQuarterEnd() {
+            int currAyear = (int)Meta.GetSys("esercizio");
+            DateTime dec31 = new DateTime(currAyear, 12, 31); // termine anno corrente
+            DateTime mar31 = new DateTime(currAyear, 3, 31);  // termine I trimestre
+            DateTime giu30 = new DateTime(currAyear, 6, 30);  // termine II trimestre
+            DateTime set30 = new DateTime(currAyear, 9, 30);  // termine III trimestre
+            DateTime datacontabile = ((DateTime)meta.GetSys("datacontabile")).Date;
+
+            DateTime lastDate;
+            if (datacontabile < mar31)
+                lastDate = dec31.AddYears(-1);  // anno precedente
+            else if (datacontabile < giu30)
+                lastDate = mar31;
+            else if (datacontabile < set30)
+                lastDate = giu30;
+            else if (datacontabile < dec31)
+                lastDate = set30;
+            else
+                lastDate = dec31;
+            return lastDate;
+        }
+
+        /// <summary>
+        /// Calcola il risconto "trimestrale" al closing indicato.
+        /// </summary>
+        public static decimal calcolaRiscontoTrimestrale(
+            bool consideraAnnoCommerciale,
+            DateTime dataChiusuraTrimestre,
+            decimal importo,
+            DateTime inizioCompetenza,
+            DateTime fineCompetenza) {
+            // Se la competenza inizia dopo la chiusura del trimestre: tutto futuro -> risconto = 100%
+            if (inizioCompetenza > dataChiusuraTrimestre)
+                return CfgFn.RoundValuta(importo);
+
+            // Se al contrario l'intero periodo è già maturato entro il trimestre, nessun risconto
+            if (fineCompetenza <= dataChiusuraTrimestre)
+                return 0m;
+
+            int tot_giorni = NgiorniTotali(inizioCompetenza, fineCompetenza, consideraAnnoCommerciale);
+            int tot_daTrascorrere = NGiorniDaTrascorrereTrimestre(fineCompetenza, dataChiusuraTrimestre, consideraAnnoCommerciale);
+
+            decimal importoRisconto = (tot_giorni == 0) ? 0m : (importo / tot_giorni) * tot_daTrascorrere;
+            return CfgFn.RoundValuta(importoRisconto);
+        }
+
+
+
+
         private bool doVerify() {
+ 
+            int currAyear = (int)Meta.GetSys("esercizio");
+
+            DateTime lastDate = getQuarterEnd();
+                
             string filter = QHS.AppAnd(QHS.CmpEq("identrykind", identrykindToGenerate), 
-                                QHS.CmpEq("Year(adate)", Meta.GetSys("esercizio")));
+                            QHS.CmpEq("Year(adate)", currAyear));
+            filter = QHS.AppAnd(filter, QHS.CmpEq("adate", lastDate));
 
             string sqlCmd = " SELECT *" +
                      " FROM entry " +
@@ -255,7 +336,7 @@ namespace no_table_entry_rettifica {
 
             DataTable T = Conn.SQLRunner(sqlCmd,false,600);
             if ((T != null) && (T.Rows.Count > 0)) {
-                if (show("Le scritture di Rettifica relative all''esercizio corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
+                if (show("Le scritture di Rettifica relative all''esercizio/trimestre corrente risultano già generate. Si desidera proseguire comunque?", "Avviso",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return false;
             }
@@ -299,12 +380,14 @@ namespace no_table_entry_rettifica {
             MetaData.SetDefault(ds.Tables["entry"], "yentry", currYear);
             
             DateTime dec31 = new DateTime(currYear, 12, 31);
+            DateTime lastDate = getQuarterEnd(); // data fine trimestre precedente
+            DateTime firstQuarterDate = lastDate.AddDays(1);   // data inizio trimestre precedente
             string descr = "Rettifica costi/ricavi in risconti";
             if (!doVerify()) return false;
             DataRow rEntry = MEntry.Get_New_Row(null, ds.Tables["entry"]);
 
             rEntry["identrykind"] = "3";
-            rEntry["adate"] = dec31;
+            rEntry["adate"] = lastDate;
             rEntry["description"] = descr;
 
             DateTime jan01 = new DateTime(1 + currYear, 1, 1);
@@ -327,6 +410,7 @@ namespace no_table_entry_rettifica {
             MetaData MEntryDetail = MetaData.GetMetaData(this, "entrydetail");
             MEntryDetail.SetDefaults(ds.Tables["entrydetail"]);
 
+
             foreach (DataRow Curr in tEntryDetailSource.Rows) {
 
                 decimal importoDettaglio = CfgFn.GetNoNullDecimal(Curr["amount"]);
@@ -342,9 +426,16 @@ namespace no_table_entry_rettifica {
                 if ((Curr["competencystart"] == null) || (Curr["competencystart"] == DBNull.Value)) continue;
                 DateTime inizioCompetenza = (DateTime)Curr["competencystart"];
                 DateTime fineCompetenza = (DateTime)Curr["competencystop"];
-
-                decimal importoRisconto = calcolaRisconto(AnnoCommerciale, (int)Meta.GetSys("esercizio"),
-                                    importoDettaglio, inizioCompetenza, fineCompetenza);
+                decimal importoRisconto = 0;
+                if (lastDate == dec31) {
+					importoRisconto = calcolaRisconto(AnnoCommerciale, (int)Meta.GetSys("esercizio"),
+										importoDettaglio, inizioCompetenza, fineCompetenza);
+                }
+                else {
+                    importoRisconto = calcolaRiscontoTrimestrale(AnnoCommerciale, lastDate, 
+                                       importoDettaglio, inizioCompetenza, fineCompetenza);
+                }
+                 
                 if (importoRisconto == 0) continue;
 
 
@@ -365,8 +456,10 @@ namespace no_table_entry_rettifica {
                 rEntryDetailCR["idepacc"] = Curr["idepacc"];
                 rEntryDetailCR["idaccmotive"] = Curr["idaccmotive"];
                 rEntryDetailCR["description"] = Curr["description"];
-                if (inizioCompetenza.CompareTo(jan01) < 0) {
-                    rEntryDetailCR["competencystart"] = jan01;
+ 
+
+                if (inizioCompetenza.CompareTo(firstQuarterDate) < 0) {
+                    rEntryDetailCR["competencystart"] = firstQuarterDate;
                 }
                 else {
                     rEntryDetailCR["competencystart"] = inizioCompetenza;
@@ -409,11 +502,11 @@ namespace no_table_entry_rettifica {
                 rEntryDetailRis["idepacc"] = Curr["idepacc"];
                 rEntryDetailRis["idaccmotive"] = Curr["idaccmotive"];
                 rEntryDetailRis["description"] = Curr["description"];
-                if (inizioCompetenza.CompareTo(jan01) < 0) {
-                    rEntryDetailRis["competencystart"] = jan01;
+                if (inizioCompetenza.CompareTo(firstQuarterDate) < 0) {
+                    rEntryDetailCR["competencystart"] = firstQuarterDate;
                 }
                 else {
-                    rEntryDetailRis["competencystart"] = inizioCompetenza;
+                    rEntryDetailCR["competencystart"] = inizioCompetenza;
                 }
                 rEntryDetailRis["competencystop"] = fineCompetenza;
 
@@ -494,6 +587,8 @@ namespace no_table_entry_rettifica {
         public static decimal calcolaRisconto(bool ConsideraAnnoCommerciale, int currAyear,
                     decimal importo, DateTime inizioCompetenza, DateTime fineCompetenza) {
             if (inizioCompetenza.Year > currAyear) return importo;
+
+            DateTime lastDate;
             int tot_giorni = NgiorniTotali(inizioCompetenza, fineCompetenza, ConsideraAnnoCommerciale);
             int tot_datrascorrere = NGiorniDaTrascorrere(fineCompetenza, currAyear, ConsideraAnnoCommerciale);
             decimal importoRisconto = (importo / tot_giorni) * tot_datrascorrere;
@@ -781,11 +876,11 @@ namespace no_table_entry_rettifica {
             MetaData MEntryDetail = MetaData.GetMetaData(this, "entrydetail");
             MEntryDetail.SetDefaults(ds.Tables["entrydetail"]);
 
-            progBar.Maximum = tEntryDetailSource.Rows.Count;
-            progBar.Value = 0;
+            //progBar.Maximum = tEntryDetailSource.Rows.Count;
+            //progBar.Value = 0;
             foreach (DataRow Curr in tEntryDetailSource.Rows) {
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
                 Application.DoEvents();
                 string idupb = Curr["idupb"].ToString();
                 
@@ -1118,8 +1213,8 @@ namespace no_table_entry_rettifica {
             ds.Tables.Add(tCommessaCompletata);
  
             int n = tCommessaCompletata.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             bool anyError = false;
             string lastUpbWithError = "";
             foreach (DataRow r in tCommessaCompletata.Rows) {
@@ -1129,13 +1224,13 @@ namespace no_table_entry_rettifica {
                     anyError = true; 
                     lastUpbWithError += $@"UPB {r["codeupb"]} {r["title"]}"+ "\n";
                  }
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
                 Application.DoEvents();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             //if (anyError) {
             // show(this, "Generazione scritture completata con ERRORI " + lastUpbWithError + ".");
             //}

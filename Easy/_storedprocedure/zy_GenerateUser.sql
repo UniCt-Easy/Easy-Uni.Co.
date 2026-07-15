@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 IF EXISTS(select * from sysobjects where id = object_id(N'[dbo].[GenerateUser]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[GenerateUser]
@@ -55,7 +53,7 @@ IF NOT EXISTS (select loginname from master.dbo.syslogins where hasaccess = 1 an
 BEGIN
 
 	set @sql = --'use ' + @safe_db + ';' +
-			   'create login [' + @safe_login + '] with password = ''' + @safe_password + ''', DEFAULT_DATABASE = ' + @safe_db + ', CHECK_EXPIRATION = OFF, CHECK_POLICY = OFF; ' --+
+			   'create login [' + @safe_login + '] with password = ''' + @safe_password + ''', DEFAULT_DATABASE = ' + @safe_db + '; ' --+
 			   --'create user DEV' + @safe_login + ' from login ' + @safe_login + ';'
 	exec (@sql)
 

@@ -23,14 +23,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'description', 'Descrizione', null, 10, 1024);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 20, 9);
-						this.describeAColumn(table, 'appelloazionekind_title', 'Ordinario/Correttivo/Integrativo', null, 80, 50);
-						this.describeAColumn(table, 'appellokind_title', 'Tipologia', null, 90, 50);
-						this.describeAColumn(table, 'sessione_start', 'Data di inizio Sessione', null, 100, null);
-						this.describeAColumn(table, 'sessione_stop', 'Data di fine Sessione', null, 100, null);
-						this.describeAColumn(table, 'sessionekind_title', 'Tipologia Tipologia', null, 30, 50);
-						this.describeAColumn(table, 'sessionekind_idsessionekind', 'Tipologia Tipologia', null, 30, null);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 1000, 1024);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 2000, 9);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

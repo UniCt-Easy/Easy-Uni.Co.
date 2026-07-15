@@ -21,6 +21,7 @@
               <xs:element name="flagmedia" type="xs:unsignedByte" minOccurs="0" />
               <xs:element name="flagvisible" type="xs:int" minOccurs="0" />
               <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
+              <xs:element name="flagautofill" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

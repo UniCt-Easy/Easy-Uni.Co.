@@ -23,12 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segstud':
-						this.describeAColumn(table, 'annoaccademico_aa', 'Anno accademico', null, 20, 9);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 190, 1024);
-						this.describeAColumn(table, 'annoaccademico_iscrizione_aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 10, 1024);
-						this.describeAColumn(table, 'pianostudiostatus_title', 'Status', null, 50, 50);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 1100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 1200, 9);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 1320, 1024);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 2000, 9);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 3300, 101);
+						this.describeAColumn(table, 'pianostudiostatus_title', 'Status', null, 4200, 50);
 //$objCalcFieldConfig_segstud$
 						break;
 //$objCalcFieldConfig$

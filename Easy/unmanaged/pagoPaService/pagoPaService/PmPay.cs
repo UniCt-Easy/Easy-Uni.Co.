@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -50,10 +48,10 @@ namespace pagoPaService {
 
         [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v11.0.0.0)")]
         public partial class Credenziali {
-            [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
+            [JsonProperty("username", Required = Required.Always)]
             public string Username { get; set; }
 
-            [Newtonsoft.Json.JsonProperty("password", Required = Newtonsoft.Json.Required.Always)]
+            [JsonProperty("password", Required = Required.Always)]
             public string Password { get; set; }
 
             public System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -330,7 +328,7 @@ namespace pagoPaService {
         public FlussoRiversamento GetRendicontazionePmpay(string codiceEnte, string token, string id_Rendicontazione, out string errore) {
             errore = null;
 
-            //L’operazione restituisce il file XML di rendicontazione come ricevuto da nodo SPC o messaggio di errore nel caso di operazione non andata a buon fine.
+            //Lâ€™operazione restituisce il file XML di rendicontazione come ricevuto da nodo SPC o messaggio di errore nel caso di operazione non andata a buon fine.
 
             errore = null;
 
@@ -485,7 +483,7 @@ namespace pagoPaService {
                             try {
                                 RicercaPagamentoRisposta Risp = JsonConvert.DeserializeObject<RicercaPagamentoRisposta>(responseBody);
                                 List<Pagamento> Items = Risp.Items;
-                                // è stato scritto solo per test della response
+                                // Ã¨ stato scritto solo per test della response
                                 //Pagamento Items_0 = Items[0];
                                 //List<Versamento> VV = Items_0.Versamenti;
                                 //Versamento V_0 = VV[0];
@@ -574,78 +572,78 @@ namespace pagoPaService {
         public int numeroIuvRichiesti { get; set; }
     }
     public partial class RicercaPagamento {
-        [Newtonsoft.Json.JsonProperty("paginazione", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("paginazione", Required = Required.Always)]
         public RichiestaPaginazione Paginazione { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ordinamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("ordinamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Ordinamento Ordinamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("importoDa", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("importoDa", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string ImportoDa { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("importoA", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("importoA", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string ImportoA { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataInserimentoDa", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataInserimentoDa", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public System.DateTime DataInserimentoDa { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataInsermentoA", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataInsermentoA", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         //public System.DateTime DataInsermentoA { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dataOperazioneDa", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("dataOperazioneDa", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         public System.DateTime DataOperazioneDa { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dataOperazioneA", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("dataOperazioneA", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         public System.DateTime DataOperazioneA { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataScadenzaDa", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataScadenzaDa", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         //public System.DateTime DataScadenzaDa { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataScadenzaA", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataScadenzaA", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         //public System.DateTime DataScadenzaA { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataRendicontazioneDa", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataRendicontazioneDa", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         //public System.DateTime DataRendicontazioneDa { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataRendicontazioneA", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataRendicontazioneA", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public System.DateTime DataRendicontazioneA { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("servizio", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("servizio", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Servizio { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idFiscale", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("idFiscale", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IdFiscale { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("statoPagamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        [JsonProperty("statoPagamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public StatoPagamento StatoPagamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("statoRendicontato", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("statoRendicontato", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool StatoRendicontato { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("canaleInsermentoPagamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("canaleInsermentoPagamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string CanaleInsermentoPagamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("tipoEsecuzionePagamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        [JsonProperty("tipoEsecuzionePagamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public TipoEsecuzionePagamento TipoEsecuzionePagamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("iuv", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("iuv", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Iuv { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idDebito", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("idDebito", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IdDebito { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idFlussoRendicontazione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("idFlussoRendicontazione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IdFlussoRendicontazione { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("numeroAvviso", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("numeroAvviso", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string NumeroAvviso { get; set; }
     }
     public enum TipoEsecuzionePagamento {
@@ -660,13 +658,13 @@ namespace pagoPaService {
 
     }
     public partial class RicercaPagamentoRisposta {
-        [Newtonsoft.Json.JsonProperty("paginazione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("paginazione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Paginazione Paginazione { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ordinamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("ordinamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Ordinamento Ordinamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("items", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public List<Pagamento> Items { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -678,13 +676,13 @@ namespace pagoPaService {
         }
     }
     public partial class Paginazione : RichiestaPaginazione {
-        [Newtonsoft.Json.JsonProperty("numeroPagineTotali", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("numeroPagineTotali", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public int NumeroPagineTotali { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("numeroElementiTotali", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("numeroElementiTotali", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public int NumeroElementiTotali { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("numeroElementiPagina", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("numeroElementiPagina", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public int NumeroElementiPagina { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -696,10 +694,10 @@ namespace pagoPaService {
         }
     }
     public partial class RichiestaPaginazione {
-        [Newtonsoft.Json.JsonProperty("dimensionePagina", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("dimensionePagina", Required = Required.Always)]
         public int DimensionePagina { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("paginaCorrente", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("paginaCorrente", Required = Required.Always)]
         public int PaginaCorrente { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -718,10 +716,10 @@ namespace pagoPaService {
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v11.0.0.0)")]
     public partial class CampoOrdinamento {
-        [Newtonsoft.Json.JsonProperty("campo", Required = Newtonsoft.Json.Required.AllowNull)]
+        [JsonProperty("campo", Required = Required.AllowNull)]
         public CampoOrdinamentoCampo Campo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ascDesc", Required = Newtonsoft.Json.Required.AllowNull)]
+        [JsonProperty("ascDesc", Required = Required.AllowNull)]
         public CampoOrdinamentoAscDesc AscDesc { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -801,63 +799,63 @@ namespace pagoPaService {
     }
 
     public partial class Pagamento {
-        [Newtonsoft.Json.JsonProperty("iuv", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("iuv", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Iuv { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("numeroAvviso", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("numeroAvviso", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string NumeroAvviso { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idDebito", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("idDebito", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IdDebito { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("importo", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("importo", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Importo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("dataScadenza", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("dataScadenza", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         public System.DateTime DataScadenza { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataInizioValidita", Required = Newtonsoft.Json.Required.AllowNull )]
+        //[JsonProperty("dataInizioValidita", Required = Required.AllowNull )]
 
         //public System.DateTime DataInizioValidita { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataFineValidita", Required = Newtonsoft.Json.Required.AllowNull)]
+        //[JsonProperty("dataFineValidita", Required = Required.AllowNull)]
 
         //public System.DateTime DataFineValidita { get; set; }
 
         /// <summary>Per eseguire pagamenti anonimi `idFiscaleDebitore` deve essere valorizzato con il valore: XYZXYZ80A01H501C</summary>
-        [Newtonsoft.Json.JsonProperty("idFiscaleDebitore", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("idFiscaleDebitore", Required = Required.Always)]
         public string IdFiscaleDebitore { get; set; }
 
-        /// <summary>specificando questo campo è possibile definire e salvare l'anagrafica proprio come avviene chiamando /ente/{codiceEnte}/anagrafica</summary>
-        [Newtonsoft.Json.JsonProperty("anagrafica", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>specificando questo campo Ã¨ possibile definire e salvare l'anagrafica proprio come avviene chiamando /ente/{codiceEnte}/anagrafica</summary>
+        [JsonProperty("anagrafica", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Anagrafica Anagrafica { get; set; }
 
         /// <summary>Identifica i pagamenti costituenti lo stesso pacchetto rate</summary>
-        //[Newtonsoft.Json.JsonProperty("idRata", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("idRata", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public string IdRata { get; set; }
 
         ///// <summary>Identifica l'ordine dei pagamenti all'interno del pacchetto di rate. 0 = rata unica. Considerato solo in presenza di idRata</summary>
-        //[Newtonsoft.Json.JsonProperty("idxRata", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("idxRata", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public int IdxRata { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("versamenti", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("versamenti", Required = Required.Always)]
         public System.Collections.Generic.List<Versamento> Versamenti { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("datiAggiuntiviADisposizione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("datiAggiuntiviADisposizione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public DatiAggiuntivi DatiAggiuntiviADisposizione { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataInsermento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataInsermento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public System.DateTime DataInsermento { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("dataOperazione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("dataOperazione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
 
         //public System.DateTime DataOperazione { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("numeroVersamenti", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("numeroVersamenti", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public int NumeroVersamenti { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("iur", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        //[JsonProperty("iur", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         //public string Iur { get; set; }
 
         /// <summary>
@@ -865,22 +863,22 @@ namespace pagoPaService {
         /// * PO indica un pagamento effettuato tramite modello 3
         /// * POS indica un pagamento effettuato tramite POS
         /// </summary>
-        [Newtonsoft.Json.JsonProperty("tipoEsecuzionePagamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("tipoEsecuzionePagamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string TipoEsecuzionePagamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("statoPagamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        [JsonProperty("statoPagamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public StatoPagamento StatoPagamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("canaleInserimentoPagamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("canaleInserimentoPagamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string CanaleInserimentoPagamento { get; set; }
 
-        /// <summary>in caso di pagamento concluso (stato CON) viene riportato l'iban su cui è stato accreditato l'importo, si consiglia di usare quello contenuto nei versamenti</summary>
-        [Newtonsoft.Json.JsonProperty("iban", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>in caso di pagamento concluso (stato CON) viene riportato l'iban su cui Ã¨ stato accreditato l'importo, si consiglia di usare quello contenuto nei versamenti</summary>
+        [JsonProperty("iban", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Iban { get; set; }
 
         /// <summary>Contiene i dati realitivi all'attualizzazione del pagamento</summary>
-        [Newtonsoft.Json.JsonProperty("datiAttualizzazione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("datiAttualizzazione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public DatiAttualizzazione DatiAttualizzazione { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -893,16 +891,16 @@ namespace pagoPaService {
     }
 
     public partial class ErrorResponseInsertPagamento {
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("status", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public int Status { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("reason", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("reason", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Reason { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("message", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Message { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("errors", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -921,31 +919,31 @@ namespace pagoPaService {
         }
     }
     public partial class Anagrafica {
-        [Newtonsoft.Json.JsonProperty("codiceEnte", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("codiceEnte", Required = Required.Always)]
         public string CodiceEnte { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idFiscale", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("idFiscale", Required = Required.Always)]
         public IdFiscale IdFiscale { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("anagrafica", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("anagrafica", Required = Required.Always)]
         public string AnagraficaDenominazione { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("indirizzo", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("indirizzo", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Indirizzo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("cap", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("cap", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Cap { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("localita", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("localita", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Localita { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("provincia", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("provincia", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Provincia { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("nazione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("nazione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Nazione { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("email", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Email { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -958,33 +956,33 @@ namespace pagoPaService {
     }
 
     public partial class Versamento {
-        [Newtonsoft.Json.JsonProperty("importo", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("importo", Required = Required.Always)]
         public string Importo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("causale", Required = Newtonsoft.Json.Required.AllowNull)]
+        [JsonProperty("causale", Required = Required.AllowNull)]
         public string Causale { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("servizio", Required = Newtonsoft.Json.Required.AllowNull)]
+        [JsonProperty("servizio", Required = Required.AllowNull)]
 
         public string Servizio { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("vociVersamento", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("vociVersamento", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string VociVersamento { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("datiBollo", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("datiBollo", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public DatiBollo DatiBollo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("datiAggiuntiviADisposizione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("datiAggiuntiviADisposizione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public DatiAggiuntivi DatiAggiuntiviADisposizione { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idFlussoRendicontazione", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("idFlussoRendicontazione", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IdFlussoRendicontazione { get; set; }
 
         /// <summary>codice identificativo del psp</summary>
-        [Newtonsoft.Json.JsonProperty("identificativoPsp", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("identificativoPsp", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IdentificativoPsp { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("ibanAccredito", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("ibanAccredito", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IbanAccredito { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -1031,11 +1029,11 @@ namespace pagoPaService {
     }
     public partial class DatiAttualizzazione {
         /// <summary>flag per forzare attualizzazione ad ogni tentativo di pagamento</summary>
-        [Newtonsoft.Json.JsonProperty("flagAttualizzaSempre", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("flagAttualizzaSempre", Required = Required.Always)]
         public bool FlagAttualizzaSempre { get; set; }
 
         /// <summary>url al quale inoltrare la richiesta di attualizzazione</summary>
-        [Newtonsoft.Json.JsonProperty("urlAttualizzaSempre", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("urlAttualizzaSempre", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string UrlAttualizzaSempre { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -1050,10 +1048,10 @@ namespace pagoPaService {
         /// <summary>* F se persona fisica
         /// * G persona giuridica
         /// </summary>
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public IdFiscaleTipo tipo { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("codice", Required = Newtonsoft.Json.Required.Always)]
+        [JsonProperty("codice", Required = Required.Always)]
         public string Codice { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -1066,18 +1064,18 @@ namespace pagoPaService {
     }
 
     public partial class DatiBollo {
-        /// <summary>01 – valore fisso</summary>
-        [Newtonsoft.Json.JsonProperty("tipoBollo", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        /// <summary>01 â€“ valore fisso</summary>
+        [JsonProperty("tipoBollo", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public DatiBolloTipoBollo TipoBollo { get; set; }
 
         /// <summary>Hash SHA256 del documento informatico rappresentato in base64, 44 caratteri ( es. test= n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg= )</summary>
-        [Newtonsoft.Json.JsonProperty("impronta", Required = Newtonsoft.Json.Required.AllowNull)]
+        [JsonProperty("impronta", Required = Required.AllowNull)]
 
         public string Impronta { get; set; }
 
         /// <summary>sigla identificativa della provincia di residenza</summary>
-        [Newtonsoft.Json.JsonProperty("provinciaResidenza", Required = Newtonsoft.Json.Required.AllowNull)]
+        [JsonProperty("provinciaResidenza", Required = Required.AllowNull)]
 
         public string ProvinciaResidenza { get; set; }
 
@@ -1103,16 +1101,16 @@ namespace pagoPaService {
     }
 
     public partial class ErrorResponse {
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("status", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public int Status { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("reason", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("reason", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Reason { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("message", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Message { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [JsonProperty("errors", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace no_table_flussostudenti {
     partial class Frmflussostudenti {
@@ -90,8 +88,9 @@ namespace no_table_flussostudenti {
 			this.txtCodiceBollettinoUnivoco = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.btnAnnullaCrediti = new System.Windows.Forms.Button();
-			this.pBar = new System.Windows.Forms.ProgressBar();
-			this.labPBar = new System.Windows.Forms.Label();
+			// Rimuovo la progress bar, se dovesse servire bisogna farla async
+			//this.pBar = new System.Windows.Forms.ProgressBar();
+			//this.labPBar = new System.Windows.Forms.Label();
 			this.DS = new no_table_flussostudenti.dsmeta();
 			this.tabGrid.SuspendLayout();
 			this.tabPageCreditiImportati.SuspendLayout();
@@ -130,7 +129,6 @@ namespace no_table_flussostudenti {
 			this.tabGrid.SelectedIndex = 0;
 			this.tabGrid.Size = new System.Drawing.Size(716, 277);
 			this.tabGrid.TabIndex = 11;
-			this.tabGrid.DoubleClick += new System.EventHandler(this.datagrid_DoubleClick);
 			// 
 			// tabPageCreditiImportati
 			// 
@@ -610,21 +608,21 @@ namespace no_table_flussostudenti {
 			// 
 			// pBar
 			// 
-			this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.pBar.Location = new System.Drawing.Point(16, 211);
-			this.pBar.Name = "pBar";
-			this.pBar.Size = new System.Drawing.Size(702, 23);
-			this.pBar.TabIndex = 132;
-			this.pBar.Visible = false;
+			//this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.pBar.Location = new System.Drawing.Point(16, 211);
+			//this.pBar.Name = "pBar";
+			//this.pBar.Size = new System.Drawing.Size(702, 23);
+			//this.pBar.TabIndex = 132;
+			//this.pBar.Visible = false;
 			// 
 			// labPBar
 			// 
-			this.labPBar.AutoSize = true;
-			this.labPBar.Location = new System.Drawing.Point(19, 190);
-			this.labPBar.Name = "labPBar";
-			this.labPBar.Size = new System.Drawing.Size(0, 13);
-			this.labPBar.TabIndex = 133;
+			//this.labPBar.AutoSize = true;
+			//this.labPBar.Location = new System.Drawing.Point(19, 190);
+			//this.labPBar.Name = "labPBar";
+			//this.labPBar.Size = new System.Drawing.Size(0, 13);
+			//this.labPBar.TabIndex = 133;
 			// 
 			// DS
 			// 
@@ -637,8 +635,8 @@ namespace no_table_flussostudenti {
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(737, 525);
-			this.Controls.Add(this.labPBar);
-			this.Controls.Add(this.pBar);
+			//this.Controls.Add(this.labPBar);
+			//this.Controls.Add(this.pBar);
 			this.Controls.Add(this.tabFunzioni);
 			this.Controls.Add(this.tabGrid);
 			this.Name = "Frmflussostudenti";
@@ -720,8 +718,8 @@ namespace no_table_flussostudenti {
         private System.Windows.Forms.TextBox txtStartFlusso;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ProgressBar pBar;
-		private System.Windows.Forms.Label labPBar;
+        //private System.Windows.Forms.ProgressBar pBar;
+		//private System.Windows.Forms.Label labPBar;
 		private System.Windows.Forms.TabPage tabPageAnnullaCrediti;
 		private System.Windows.Forms.TextBox txtCodiceBollettinoUnivoco;
 		private System.Windows.Forms.Label label5;

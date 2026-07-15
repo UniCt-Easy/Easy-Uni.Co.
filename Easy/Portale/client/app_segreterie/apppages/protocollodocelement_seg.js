@@ -22,14 +22,23 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			//beforeFill
 
 			//afterClear
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.protocollodockind.staticFilter(window.jsDataQuery.eq("kind", this.state.callerState.callerState.DS.tables.protocollokinddefaultview.rows.find(row => row.idprotocollokind === this.state.callerState.callerState.currentRow.idprotocollokind)?.title ?? ''));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -42,6 +51,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			//buttons
         });

@@ -23,40 +23,12 @@
 
 			//isValidFunction
 
-			afterGetFormData: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				//afterGetFormDataFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("afterGetFormData-istanza_imm_imm_seganagsturin");
-				var arraydef = [];
-				
-				arraydef.push(this.manageistanza__imm_seganagsturin_idcorsostudio());
-				arraydef.push(this.manageistanza_imm__seganagsturin_idcorsostudio());
-				//afterGetFormDataInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return def.resolve();
-					});
-				return def.promise();
-			},
-			
+						
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				if (!parentRow.idistanzakind)
-					parentRow.idistanzakind = 15;
-				if (!parentRow.idstatuskind)
-					parentRow.idstatuskind = 1;
-				parentRow.extension = "imm";
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -69,6 +41,7 @@
 					meta.setDefaults(dt);
 					var defistanza_imm = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
 						function (currentRowimm) {
+							currentRowimm.current.idistanzakind = 15;
 							currentRowimm.current.parttime = "N";
 							currentRowimm.current.pre = "R";
 							//defaultExtendingObject
@@ -77,8 +50,6 @@
 					);
 					arraydef.push(defistanza_imm);
 				}
-
-				//beforeFillInside
 
 				//beforeFillInside
 				
@@ -93,32 +64,30 @@
 			},
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanza_imm_alias2'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanzadichiar'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('nullaosta_imm_alias3'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('diniego_alias2'));
+				//parte sincrona
+				this.enableControl($('#istanza_imm_seganagsturin_protnumero'), true);
+				this.enableControl($('#istanza_imm_seganagsturin_protanno'), true);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
 				this.enableControl($('#istanza_imm_seganagsturin_protnumero'), false);
 				this.enableControl($('#istanza_imm_seganagsturin_protanno'), false);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanza_imm_alias2'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('istanzadichiar'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('nullaosta_imm_alias3'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('istanza'), this.getDataTable('diniego_alias2'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
 			afterLink: function () {
 				var self = this;
+				this.state.addExtraEntity('istanza_imm_alias2');
 				$("#btn_add_istanzadichiar_iddichiar").on("click", _.partial(this.searchAndAssigndichiar, self));
 				$("#btn_add_istanzadichiar_iddichiar").prop("disabled", true);
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
-				appMeta.metaModel.cachedTable(this.getDataTable("didprogcurr"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("didprogcurr"));
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq('statuskind_istanze', 'Si'));
+				$('#grid_nullaosta_imm_alias3_seganagsturin').data('mdlconditionallookup', 'parttime,S,Si;parttime,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -128,42 +97,25 @@
 			},
 
 			afterRowSelect: function (t, r) {
-				$('#istanza_imm_seganagsturin_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#istanza_imm_seganagsturin_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
-				if (t.name === 'didprogdefaultview' && r !== null)
-					if (this.state.DS.tables['istanza_imm_alias2'].rows.length)
-						this.state.DS.tables['istanza_imm_alias2'].rows[0].iddidprog = r.iddidprog;
-				//afterRowSelectin
-				var arraydef = [];
-				var self = this;
-				if (t.name === "didprogdefaultview" && r !== null) {
-					appMeta.metaModel.cachedTable(this.getDataTable("didprogcurr"), false);
-					var istanza_imm_seganagsturin_iddidprogcurrCtrl = $('#istanza_imm_seganagsturin_iddidprogcurr').data("customController");
-					arraydef.push(istanza_imm_seganagsturin_iddidprogcurrCtrl.filteredPreFillCombo(window.jsDataQuery.eq("iddidprog", r ? r.iddidprog : null), null, true)
-						.then(function (dt) {
-							if (self.state.currentRow && self.state.currentRow.iddidprogcurr)
-								istanza_imm_seganagsturin_iddidprogcurrCtrl.fillControl(null, self.state.currentRow.iddidprogcurr);
-							return true;
-						})
-);
+				var def = appMeta.Deferred("afterRowSelect-istanza_imm_imm_seganagsturin");
+				if (t.name === "annoaccademico" && r !== null) {
+					this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.eq("aa", r.aa));
+					if (this.state.DS.tables.iscrizionedefaultview.rows.length)
+						if (this.state.DS.tables.iscrizionedefaultview.rows[0].aa !== r.aa) {
+							this.state.DS.tables.iscrizionedefaultview.clear();
+							$('#istanza_imm_seganagsturin_idiscrizione').val('');
+						}
 				}
-				//afterRowSelectAsincIn
-				return $.when.apply($, arraydef);
+				if (t.name === "iscrizionedefaultview" && r !== null) {
+					return this.manageidiscrizione(this).then(function () {
+						return def.resolve();
+					});
+				}
+				//afterRowSelectin
+				return def.resolve();
 			},
 
-			afterActivation: function () {
-				var parentRow = this.state.currentRow;
-				var self = this;
-				//afterActivationin
-				var arraydef = [];
-				if (parentRow.iddidprog) {
-					appMeta.metaModel.cachedTable(this.getDataTable("didprogcurr"), false);
-					var istanza_imm_seganagsturin_iddidprogcurrCtrl = $('#istanza_imm_seganagsturin_iddidprogcurr').data("customController");
-					arraydef.push(istanza_imm_seganagsturin_iddidprogcurrCtrl.filteredPreFillCombo(window.jsDataQuery.eq("iddidprog", parentRow.iddidprog), null, true));
-				}
-				//afterActivationAsincIn
-				return $.when.apply($, arraydef);
-			},
+			//afterActivation
 
 			rowSelected: function (dataRow) {
 				$("#btn_add_istanzadichiar_iddichiar").prop("disabled", false);
@@ -185,17 +137,56 @@
 
 
 			insertClick: function (that, grid) {
-				if (!$('#istanza_imm_seganagsturin_iddidprog').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Didattica programmata');
+				if (!$('#istanza_imm_seganagsturin_idiscrizione').val() && grid.dataSourceName === 'nullaosta_alias3') {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Iscrizione');
 				}
-				if (!$('#istanza_imm_seganagsturin_iddidprog').val() && grid.dataSourceName === 'nullaosta_alias3') {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Didattica programmata');
+				if (!$('#istanza_imm_seganagsturin_idiscrizione').val() && grid.dataSourceName === 'diniego_alias3') {
+					return this.showMessageOk('Prima devi selezionare un valore per il campo Iscrizione');
 				}
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
 
 			//beforePost
+
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (!this.isNull($('#istanza_imm_seganagsturin_idiscrizione').val()) && this.state.DS.tables["istanza_imm_alias2"].rows && this.state.DS.tables["istanza_imm_alias2"].rows[0].idiscrizione != $('#istanza_imm_segrin_idiscrizione').val()) {
+					this.state.DS.tables["istanza_imm_alias2"].rows[0].idcorsostudio = this.state.currentRow.idcorsostudio;
+					this.state.DS.tables["istanza_imm_alias2"].rows[0].iddidprog = this.state.currentRow.iddidprog;
+				}
+				if (!this.isNull($('#istanza_imm_seganagsturin_iddidprogcurr').val()) && this.state.DS.tables["istanza_imm_alias2"].rows.length > 0 && this.state.DS.tables["istanza_imm_alias2"].rows[0].iddidprogcurr != $('#istanza_imm_seganagsturin_iddidprogcurr').val())
+					this.state.DS.tables["istanza_imm_alias2"].rows[0].iddidprogcurr = parseInt( $('#istanza_imm_seganagsturin_iddidprogcurr').val());
+				if (!this.isNull($('#istanza_imm_seganagsturin_iddidprogori').val()) && this.state.DS.tables["istanza_imm_alias2"].rows.length > 0 && this.state.DS.tables["istanza_imm_alias2"].rows[0].iddidprogori != $('#istanza_imm_seganagsturin_iddidprogori').val())
+					this.state.DS.tables["istanza_imm_alias2"].rows[0].iddidprogori = parseInt($('#istanza_imm_seganagsturin_iddidprogori').val());
+
+				if (this.isNull(parentRow.aa))
+					parentRow.aa = this.getAAByDate();
+								if (self.isNullOrMinDate(parentRow.data))
+					parentRow.data = new Date();
+				if (this.isNull(parentRow.idistanzakind) || parentRow.idistanzakind == 0)
+					parentRow.idistanzakind = 15;
+				if (this.isNull(parentRow.idstatuskind))
+					parentRow.idstatuskind = 1;
+				parentRow.extension = "imm";
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-istanza_imm_imm_segpre");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 
 			searchAndAssigndichiar: function (that) {
 				return that.searchAndAssign({
@@ -206,7 +197,9 @@
 					columnNameText: "iddichiarkind",
 					columnSource: "iddichiar",
 					columnToFill: "iddichiar",
-					tableToFill: "istanzadichiar"
+					tableToFill: "istanzadichiar_alias2",
+					filter: that.q.eq('idreg', that.state.currentRow.idreg_studenti)
+
 				});
 			},
 
@@ -223,23 +216,28 @@
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 
-			children: ['diniego_alias2', 'istanza_alias14', 'istanzadichiar', 'nullaosta_alias3'],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
+			manageidiscrizione: function(that) { 
+				var def = appMeta.Deferred("idiscrizione_change-istanza_imm_imm_segrin");
+				var arraydef = [];
+				
+				arraydef.push(this.manageistanza__imm_seganagsturin_idcorsostudio());
+				arraydef.push(this.manageistanza__imm_seganagsturin_iddidprog());
+				arraydef.push(this.manageistanza_imm__seganagsturin_idcorsostudio());
+				arraydef.push(this.manageistanza_imm__seganagsturin_iddidprog());
+
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
 			},
 
 			manageistanza__imm_seganagsturin_idcorsostudio: function () {
 				var def = appMeta.Deferred("beforeFill-manageistanza__imm_seganagsturin_idcorsostudio");
 				var self = this;
-				var masterRow = _.find(this.state.DS.tables.didprogdefaultview.rows, function (row) {
-					if (self.state.currentRow.iddidprog)
-						return row.iddidprog === self.state.currentRow.iddidprog;
+				var masterRow = _.find(this.state.DS.tables.iscrizionedefaultview.rows, function (row) {
+					if (self.state.currentRow.idiscrizione)
+						return row.idiscrizione === self.state.currentRow.idiscrizione;
 					else
 						return null;
 				});
@@ -248,17 +246,45 @@
 				return def.resolve();
 			},
 
+			manageistanza__imm_seganagsturin_iddidprog: function () {
+				var def = appMeta.Deferred("beforeFill-manageistanza__imm_seganagsturin_iddidprog");
+				var self = this;
+				var masterRow = _.find(this.state.DS.tables.iscrizionedefaultview.rows, function (row) {
+					if (self.state.currentRow.idiscrizione)
+						return row.idiscrizione === self.state.currentRow.idiscrizione;
+					else
+						return null;
+				});
+				if (masterRow)
+					this.state.currentRow.iddidprog = masterRow.iddidprog;
+				return def.resolve();
+			},
+
 			manageistanza_imm__seganagsturin_idcorsostudio: function () {
 				var def = appMeta.Deferred("beforeFill-manageistanza_imm__seganagsturin_idcorsostudio");
 				var self = this;
-				var masterRow = _.find(this.state.DS.tables.didprogdefaultview.rows, function (row) {
-					if (self.state.currentRow.iddidprog)
-						return row.iddidprog === self.state.currentRow.iddidprog;
+				var masterRow = _.find(this.state.DS.tables.iscrizionedefaultview.rows, function (row) {
+					if (self.state.currentRow.idiscrizione)
+						return row.idiscrizione === self.state.currentRow.idiscrizione;
 					else
 						return null;
 				});
 				if (masterRow)
 					this.state.DS.tables.istanza_imm_alias2.rows[0].idcorsostudio = masterRow.idcorsostudio;
+				return def.resolve();
+			},
+
+			manageistanza_imm__seganagsturin_iddidprog: function () {
+				var def = appMeta.Deferred("beforeFill-manageistanza_imm__seganagsturin_iddidprog");
+				var self = this;
+				var masterRow = _.find(this.state.DS.tables.iscrizionedefaultview.rows, function (row) {
+					if (self.state.currentRow.idiscrizione)
+						return row.idiscrizione === self.state.currentRow.idiscrizione;
+					else
+						return null;
+				});
+				if (masterRow)
+					this.state.DS.tables.istanza_imm_alias2.rows[0].iddidprog = masterRow.iddidprog;
 				return def.resolve();
 			},
 

@@ -27,7 +27,7 @@
 						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 4000, null);
 						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 5100, 1024);
 						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 5200, 9);
-						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 6920, 1024);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 5320, 1024);
 						this.describeAColumn(table, 'iscrizione_matricola', 'Matricola', null, 7000, 50);
 //$objCalcFieldConfig_seganagstu$
 						break;

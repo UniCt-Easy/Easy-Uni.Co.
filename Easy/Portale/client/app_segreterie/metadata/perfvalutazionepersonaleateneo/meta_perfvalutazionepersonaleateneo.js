@@ -29,6 +29,12 @@
 						this.describeAColumn(table, 'punteggiopesato', 'Punteggio pesato', 'fixed.2', 50, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'unibas':
+						this.describeAColumn(table, 'peso', 'Peso (Pqs)', 'fixed.2', 10, null);
+						this.describeAColumn(table, '!punti', 'Punteggio (ptqs) - Media dei giudizi espressi', null, 20, null);
+						this.describeAColumn(table, '!puntipesati', 'Punteggio Ponderato QS [(ptqs*pqs/pqs]', 'fixed.2', 30, null);
+//$objCalcFieldConfig_unibas$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -44,6 +50,14 @@
 						table.columns["punteggio"].caption = "Punteggio";
 						table.columns["punteggiopesato"].caption = "Punteggio pesato";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'unibas':
+						table.columns["!punti"].caption = "Punteggio (ptqs) - Media dei giudizi espressi";
+						table.columns["!puntipesati"].caption = "Punteggio Ponderato QS [(ptqs*pqs/pqs]";
+						table.columns["peso"].caption = "Peso (Pqs)";
+						table.columns["punteggio"].caption = "Percentuale";
+						table.columns["punteggiopesato"].caption = "Percentuale pesata";
+//$innerSetCaptionConfig_unibas$
 						break;
 //$innerSetCaptionConfig$
 				}

@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -99,6 +97,8 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 		private CheckBox chkFiltraGiornalieri;
 		private Button btnCalcolaNuova;
 		private Label NFileSelected;
+		private Button btnToClipBoard;
+		private Button btnNonAggiornati;
 
 		private enum eTipoLiveUpdate {
 			DLL_EXE,
@@ -378,84 +378,86 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.components = new Container();
-			var resources = new ComponentResourceManager(typeof(frmGeneraLiveUpdate));
-			this.label2 = new Label();
-			this.label1 = new Label();
-			this.groupBox1 = new GroupBox();
-			this.radioReport = new RadioButton();
-			this.radioDLL = new RadioButton();
-			this.txtWeb = new TextBox();
-			this.btnDiff = new Button();
-			this.btnXMLFile = new Button();
-			this.lblDiff = new Label();
-			this.lblFileXML = new Label();
-			this.checkList = new CheckedListBox();
-			this.btnSelAll = new Button();
-			this.btnDeselAll = new Button();
-			this.lblNumero = new Label();
-			this.chkSP = new CheckBox();
-			this.btnDirUff = new Button();
-			this.txtDirUff = new TextBox();
-			this.label3 = new Label();
-			this.btnDirTemp = new Button();
-			this.txtDirDiff = new TextBox();
-			this.DS = new vistaForm();
-			this.btnCopia = new Button();
-			this.groupBox2 = new GroupBox();
-			this.label6 = new Label();
-			this.btnDirSP = new Button();
-			this.txtLocalSP = new TextBox();
-			this.label5 = new Label();
-			this.btnDirReport = new Button();
-			this.txtLocalReport = new TextBox();
-			this.label4 = new Label();
-			this.btnDirDLL = new Button();
-			this.txtLocalDLL = new TextBox();
-			this.btnSync = new Button();
-			this.txtVerSWNew = new TextBox();
-			this.txtVerSWOld = new TextBox();
-			this.labVersioneSW = new Label();
-			this.groupBox3 = new GroupBox();
-			this.btnCalcolaNuova = new Button();
-			this.labNewVerRpt = new Label();
-			this.labNewVerSw = new Label();
-			this.btnVersioni = new Button();
-			this.txtVerReportNew = new TextBox();
-			this.txtVerReportOld = new TextBox();
-			this.labVersioneReport = new Label();
-			this.txtNThread = new TextBox();
-			this.tabControl1 = new TabControl();
-			this.tabPage1 = new TabPage();
-			this.NFileSelected = new Label();
-			this.chkFiltraGiornalieri = new CheckBox();
-			this.tabPage2 = new TabPage();
-			this.btnScegli = new Button();
-			this.txtDescription = new TextBox();
-			this.label15 = new Label();
-			this.txtMinVersioneSw = new TextBox();
-			this.label14 = new Label();
-			this.label13 = new Label();
-			this.txtLocalSQL = new TextBox();
-			this.txtNuovaVersione = new TextBox();
-			this.btnNewVer = new Button();
-			this.btnAnalizza = new Button();
-			this.btnUpdate = new Button();
-			this.tree = new TreeView();
-			this.contextMenuStrip1 = new ContextMenuStrip(this.components);
-			this.menuDescrizione = new ToolStripMenuItem();
-			this.menuRinomina = new ToolStripMenuItem();
-			this.menuElimina = new ToolStripMenuItem();
-			this.icons = new ImageList(this.components);
-			this.txtSQLLocale = new TextBox();
-			this.txtSQLProduzione = new TextBox();
-			this.label12 = new Label();
-			this.label11 = new Label();
-			this.tabPage3 = new TabPage();
-			this.nonaggiornati = new CheckedListBox();
-			this.openFile = new OpenFileDialog();
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGeneraLiveUpdate));
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.radioReport = new System.Windows.Forms.RadioButton();
+			this.radioDLL = new System.Windows.Forms.RadioButton();
+			this.txtWeb = new System.Windows.Forms.TextBox();
+			this.btnDiff = new System.Windows.Forms.Button();
+			this.btnXMLFile = new System.Windows.Forms.Button();
+			this.lblDiff = new System.Windows.Forms.Label();
+			this.lblFileXML = new System.Windows.Forms.Label();
+			this.checkList = new System.Windows.Forms.CheckedListBox();
+			this.btnSelAll = new System.Windows.Forms.Button();
+			this.btnDeselAll = new System.Windows.Forms.Button();
+			this.lblNumero = new System.Windows.Forms.Label();
+			this.chkSP = new System.Windows.Forms.CheckBox();
+			this.btnDirUff = new System.Windows.Forms.Button();
+			this.txtDirUff = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.btnDirTemp = new System.Windows.Forms.Button();
+			this.txtDirDiff = new System.Windows.Forms.TextBox();
+			this.DS = new GeneraLiveUpdate.vistaForm();
+			this.btnCopia = new System.Windows.Forms.Button();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.btnDirSP = new System.Windows.Forms.Button();
+			this.txtLocalSP = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.btnDirReport = new System.Windows.Forms.Button();
+			this.txtLocalReport = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.btnDirDLL = new System.Windows.Forms.Button();
+			this.txtLocalDLL = new System.Windows.Forms.TextBox();
+			this.btnSync = new System.Windows.Forms.Button();
+			this.txtVerSWNew = new System.Windows.Forms.TextBox();
+			this.txtVerSWOld = new System.Windows.Forms.TextBox();
+			this.labVersioneSW = new System.Windows.Forms.Label();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.btnCalcolaNuova = new System.Windows.Forms.Button();
+			this.labNewVerRpt = new System.Windows.Forms.Label();
+			this.labNewVerSw = new System.Windows.Forms.Label();
+			this.btnVersioni = new System.Windows.Forms.Button();
+			this.txtVerReportNew = new System.Windows.Forms.TextBox();
+			this.txtVerReportOld = new System.Windows.Forms.TextBox();
+			this.labVersioneReport = new System.Windows.Forms.Label();
+			this.txtNThread = new System.Windows.Forms.TextBox();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.btnToClipBoard = new System.Windows.Forms.Button();
+			this.NFileSelected = new System.Windows.Forms.Label();
+			this.chkFiltraGiornalieri = new System.Windows.Forms.CheckBox();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.btnScegli = new System.Windows.Forms.Button();
+			this.txtDescription = new System.Windows.Forms.TextBox();
+			this.label15 = new System.Windows.Forms.Label();
+			this.txtMinVersioneSw = new System.Windows.Forms.TextBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtLocalSQL = new System.Windows.Forms.TextBox();
+			this.txtNuovaVersione = new System.Windows.Forms.TextBox();
+			this.btnNewVer = new System.Windows.Forms.Button();
+			this.btnAnalizza = new System.Windows.Forms.Button();
+			this.btnUpdate = new System.Windows.Forms.Button();
+			this.tree = new System.Windows.Forms.TreeView();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.menuDescrizione = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuRinomina = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuElimina = new System.Windows.Forms.ToolStripMenuItem();
+			this.icons = new System.Windows.Forms.ImageList(this.components);
+			this.txtSQLLocale = new System.Windows.Forms.TextBox();
+			this.txtSQLProduzione = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.nonaggiornati = new System.Windows.Forms.CheckedListBox();
+			this.openFile = new System.Windows.Forms.OpenFileDialog();
+			this.btnNonAggiornati = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
-			((ISupportInitialize) (this.DS)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -487,13 +489,13 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.radioReport, "radioReport");
 			this.radioReport.Name = "radioReport";
-			this.radioReport.CheckedChanged += new EventHandler(this.radioReport_CheckedChanged);
+			this.radioReport.CheckedChanged += new System.EventHandler(this.radioReport_CheckedChanged);
 			// 
 			// radioDLL
 			// 
 			resources.ApplyResources(this.radioDLL, "radioDLL");
 			this.radioDLL.Name = "radioDLL";
-			this.radioDLL.CheckedChanged += new EventHandler(this.radioDLL_CheckedChanged);
+			this.radioDLL.CheckedChanged += new System.EventHandler(this.radioDLL_CheckedChanged);
 			// 
 			// txtWeb
 			// 
@@ -504,13 +506,13 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnDiff, "btnDiff");
 			this.btnDiff.Name = "btnDiff";
-			this.btnDiff.Click += new EventHandler(this.btnDiff_Click);
+			this.btnDiff.Click += new System.EventHandler(this.btnDiff_Click);
 			// 
 			// btnXMLFile
 			// 
 			resources.ApplyResources(this.btnXMLFile, "btnXMLFile");
 			this.btnXMLFile.Name = "btnXMLFile";
-			this.btnXMLFile.Click += new EventHandler(this.btnXMLFile_Click);
+			this.btnXMLFile.Click += new System.EventHandler(this.btnXMLFile_Click);
 			// 
 			// lblDiff
 			// 
@@ -529,20 +531,20 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			this.checkList.Name = "checkList";
 			this.checkList.Sorted = true;
 			this.checkList.ThreeDCheckBoxes = true;
-			this.checkList.Click += new EventHandler(this.checkList_Click);
-			this.checkList.SelectedValueChanged += new EventHandler(this.checkList_SelectedValueChanged);
+			this.checkList.Click += new System.EventHandler(this.checkList_Click);
+			this.checkList.SelectedValueChanged += new System.EventHandler(this.checkList_SelectedValueChanged);
 			// 
 			// btnSelAll
 			// 
 			resources.ApplyResources(this.btnSelAll, "btnSelAll");
 			this.btnSelAll.Name = "btnSelAll";
-			this.btnSelAll.Click += new EventHandler(this.btnSelAll_Click);
+			this.btnSelAll.Click += new System.EventHandler(this.btnSelAll_Click);
 			// 
 			// btnDeselAll
 			// 
 			resources.ApplyResources(this.btnDeselAll, "btnDeselAll");
 			this.btnDeselAll.Name = "btnDeselAll";
-			this.btnDeselAll.Click += new EventHandler(this.btnDeselAll_Click);
+			this.btnDeselAll.Click += new System.EventHandler(this.btnDeselAll_Click);
 			// 
 			// lblNumero
 			// 
@@ -558,7 +560,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnDirUff, "btnDirUff");
 			this.btnDirUff.Name = "btnDirUff";
-			this.btnDirUff.Click += new EventHandler(this.btnDirUff_Click);
+			this.btnDirUff.Click += new System.EventHandler(this.btnDirUff_Click);
 			// 
 			// txtDirUff
 			// 
@@ -575,7 +577,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnDirTemp, "btnDirTemp");
 			this.btnDirTemp.Name = "btnDirTemp";
-			this.btnDirTemp.Click += new EventHandler(this.btnDirTemp_Click);
+			this.btnDirTemp.Click += new System.EventHandler(this.btnDirTemp_Click);
 			// 
 			// txtDirDiff
 			// 
@@ -586,14 +588,14 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
-			this.DS.Locale = new CultureInfo("en-US");
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// btnCopia
 			// 
 			resources.ApplyResources(this.btnCopia, "btnCopia");
 			this.btnCopia.ForeColor = System.Drawing.Color.Red;
 			this.btnCopia.Name = "btnCopia";
-			this.btnCopia.Click += new EventHandler(this.btnCopia_Click);
+			this.btnCopia.Click += new System.EventHandler(this.btnCopia_Click);
 			// 
 			// groupBox2
 			// 
@@ -619,7 +621,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnDirSP, "btnDirSP");
 			this.btnDirSP.Name = "btnDirSP";
-			this.btnDirSP.Click += new EventHandler(this.btnDirSP_Click);
+			this.btnDirSP.Click += new System.EventHandler(this.btnDirSP_Click);
 			// 
 			// txtLocalSP
 			// 
@@ -636,7 +638,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnDirReport, "btnDirReport");
 			this.btnDirReport.Name = "btnDirReport";
-			this.btnDirReport.Click += new EventHandler(this.btnDirReport_Click);
+			this.btnDirReport.Click += new System.EventHandler(this.btnDirReport_Click);
 			// 
 			// txtLocalReport
 			// 
@@ -653,7 +655,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnDirDLL, "btnDirDLL");
 			this.btnDirDLL.Name = "btnDirDLL";
-			this.btnDirDLL.Click += new EventHandler(this.btnDirDLL_Click);
+			this.btnDirDLL.Click += new System.EventHandler(this.btnDirDLL_Click);
 			// 
 			// txtLocalDLL
 			// 
@@ -665,7 +667,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnSync, "btnSync");
 			this.btnSync.Name = "btnSync";
-			this.btnSync.Click += new EventHandler(this.btnSync_Click);
+			this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
 			// 
 			// txtVerSWNew
 			// 
@@ -704,7 +706,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnCalcolaNuova, "btnCalcolaNuova");
 			this.btnCalcolaNuova.Name = "btnCalcolaNuova";
-			this.btnCalcolaNuova.Click += new EventHandler(this.btnCalcolaNuova_Click);
+			this.btnCalcolaNuova.Click += new System.EventHandler(this.btnCalcolaNuova_Click);
 			// 
 			// labNewVerRpt
 			// 
@@ -720,7 +722,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			resources.ApplyResources(this.btnVersioni, "btnVersioni");
 			this.btnVersioni.Name = "btnVersioni";
-			this.btnVersioni.Click += new EventHandler(this.btnVersioni_Click);
+			this.btnVersioni.Click += new System.EventHandler(this.btnVersioni_Click);
 			// 
 			// txtVerReportNew
 			// 
@@ -756,6 +758,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.btnToClipBoard);
 			this.tabPage1.Controls.Add(this.NFileSelected);
 			this.tabPage1.Controls.Add(this.chkFiltraGiornalieri);
 			this.tabPage1.Controls.Add(this.groupBox1);
@@ -782,6 +785,12 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			resources.ApplyResources(this.tabPage1, "tabPage1");
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// btnToClipBoard
+			// 
+			resources.ApplyResources(this.btnToClipBoard, "btnToClipBoard");
+			this.btnToClipBoard.Name = "btnToClipBoard";
+			this.btnToClipBoard.Click += new System.EventHandler(this.btnToClipBoard_Click);
 			// 
 			// NFileSelected
 			// 
@@ -821,13 +830,13 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			resources.ApplyResources(this.btnScegli, "btnScegli");
 			this.btnScegli.Name = "btnScegli";
 			this.btnScegli.UseVisualStyleBackColor = true;
-			this.btnScegli.Click += new EventHandler(this.btnScegli_Click);
+			this.btnScegli.Click += new System.EventHandler(this.btnScegli_Click);
 			// 
 			// txtDescription
 			// 
 			resources.ApplyResources(this.txtDescription, "txtDescription");
 			this.txtDescription.Name = "txtDescription";
-			this.txtDescription.Leave += new EventHandler(this.txtDescription_Leave);
+			this.txtDescription.Leave += new System.EventHandler(this.txtDescription_Leave);
 			// 
 			// label15
 			// 
@@ -865,21 +874,21 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			resources.ApplyResources(this.btnNewVer, "btnNewVer");
 			this.btnNewVer.Name = "btnNewVer";
 			this.btnNewVer.UseVisualStyleBackColor = true;
-			this.btnNewVer.Click += new EventHandler(this.btnNewVer_Click);
+			this.btnNewVer.Click += new System.EventHandler(this.btnNewVer_Click);
 			// 
 			// btnAnalizza
 			// 
 			resources.ApplyResources(this.btnAnalizza, "btnAnalizza");
 			this.btnAnalizza.Name = "btnAnalizza";
 			this.btnAnalizza.UseVisualStyleBackColor = true;
-			this.btnAnalizza.Click += new EventHandler(this.btnAnalizza_Click);
+			this.btnAnalizza.Click += new System.EventHandler(this.btnAnalizza_Click);
 			// 
 			// btnUpdate
 			// 
 			resources.ApplyResources(this.btnUpdate, "btnUpdate");
 			this.btnUpdate.Name = "btnUpdate";
 			this.btnUpdate.UseVisualStyleBackColor = true;
-			this.btnUpdate.Click += new EventHandler(this.btnUpdate_Click);
+			this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
 			// 
 			// tree
 			// 
@@ -888,17 +897,16 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			this.tree.ContextMenuStrip = this.contextMenuStrip1;
 			this.tree.ImageList = this.icons;
 			this.tree.Name = "tree";
-			this.tree.AfterSelect += new TreeViewEventHandler(this.tree_AfterSelect);
-			this.tree.DragDrop += new DragEventHandler(this.treeView1_DragDrop);
-			this.tree.DragEnter += new DragEventHandler(this.treeView1_DragEnter);
+			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
+			this.tree.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeView1_DragDrop);
+			this.tree.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeView1_DragEnter);
 			// 
 			// contextMenuStrip1
 			// 
-			this.contextMenuStrip1.Items.AddRange(new ToolStripItem[] {
-				this.menuDescrizione,
-				this.menuRinomina,
-				this.menuElimina
-			});
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuDescrizione,
+            this.menuRinomina,
+            this.menuElimina});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
 			// 
@@ -906,23 +914,23 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			this.menuDescrizione.Name = "menuDescrizione";
 			resources.ApplyResources(this.menuDescrizione, "menuDescrizione");
-			this.menuDescrizione.Click += new EventHandler(this.menuDescrizione_Click);
+			this.menuDescrizione.Click += new System.EventHandler(this.menuDescrizione_Click);
 			// 
 			// menuRinomina
 			// 
 			this.menuRinomina.Name = "menuRinomina";
 			resources.ApplyResources(this.menuRinomina, "menuRinomina");
-			this.menuRinomina.Click += new EventHandler(this.menuRinomina_Click);
+			this.menuRinomina.Click += new System.EventHandler(this.menuRinomina_Click);
 			// 
 			// menuElimina
 			// 
 			this.menuElimina.Name = "menuElimina";
 			resources.ApplyResources(this.menuElimina, "menuElimina");
-			this.menuElimina.Click += new EventHandler(this.menuElimina_Click);
+			this.menuElimina.Click += new System.EventHandler(this.menuElimina_Click);
 			// 
 			// icons
 			// 
-			this.icons.ImageStream = ((ImageListStreamer) (resources.GetObject("icons.ImageStream")));
+			this.icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons.ImageStream")));
 			this.icons.TransparentColor = System.Drawing.Color.Transparent;
 			this.icons.Images.SetKeyName(0, "");
 			this.icons.Images.SetKeyName(1, "");
@@ -951,6 +959,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.btnNonAggiornati);
 			this.tabPage3.Controls.Add(this.nonaggiornati);
 			resources.ApplyResources(this.tabPage3, "tabPage3");
 			this.tabPage3.Name = "tabPage3";
@@ -970,6 +979,12 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			resources.ApplyResources(this.openFile, "openFile");
 			this.openFile.Multiselect = true;
 			// 
+			// btnNonAggiornati
+			// 
+			resources.ApplyResources(this.btnNonAggiornati, "btnNonAggiornati");
+			this.btnNonAggiornati.Name = "btnNonAggiornati";
+			this.btnNonAggiornati.Click += new System.EventHandler(this.btnToClipBoard_Click);
+			// 
 			// frmGeneraLiveUpdate
 			// 
 			resources.ApplyResources(this, "$this");
@@ -977,9 +992,9 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			this.Controls.Add(this.txtNThread);
 			this.Controls.Add(this.lblFileXML);
 			this.Name = "frmGeneraLiveUpdate";
-			this.Closing += new CancelEventHandler(this.frmGeneraLiveUpdate_Closing);
+			this.Closing += new System.ComponentModel.CancelEventHandler(this.frmGeneraLiveUpdate_Closing);
 			this.groupBox1.ResumeLayout(false);
-			((ISupportInitialize) (this.DS)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
@@ -1070,7 +1085,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			string[] rempath = new string[1];
 			rempath[0] = txtWeb.Text.Trim();
 
-			///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il più veloce
+			///Legge i numeri di versione dll e report remoti e sceglie il sito di liveupdate di riferimento come il piÃ¹ veloce
 			int K2 = metaprofiler.StartTimer("new Download");
 
 			var download = new Download(null, rempath, m_XMLFile, m_LocalDir);
@@ -1261,17 +1276,17 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 					string fname = dirdiff + item[0] + ".zip";
 					string fnametmp = dirtemp + item[0] + ".zip";
 					if (checkList.GetItemChecked(i)) {
-						//se è selezionato copio il file da tmp in diff
+						//se Ã¨ selezionato copio il file da tmp in diff
 						lasttemp = "Sposto " + fnametmp + " in " + fname;
 						File.Copy(fnametmp, fname, true);
 					}
 					else {
 						//altrimenti lo rimuovo dalla cartella diff
 						lasttemp = "Sposto " + fname + " in " + fnametmp;
-						//se il sorgente non esiste vuol dire che è stato
+						//se il sorgente non esiste vuol dire che Ã¨ stato
 						//deselezionato in precedenza
 						if (!File.Exists(fname)) continue;
-						//è stato deselezionato, lo elimino da diff
+						//Ã¨ stato deselezionato, lo elimino da diff
 						if (File.Exists(fnametmp)) File.Delete(fnametmp);
 						//e lo sposto in tmp
 						File.Move(fname, fnametmp);
@@ -1432,7 +1447,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			}
 
 			//else {
-			//    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione "+tipoversione+" verrà aggiornata. Continuare?",
+			//    if (MetaFactory.factory.getSingleton<IMessageShower>().Show("La versione "+tipoversione+" verrÃ  aggiornata. Continuare?",
 			//        "Attenzione",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)!=DialogResult.Yes) {
 			//        txtNew.Text="";
 			//        return;
@@ -1603,7 +1618,7 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 			txtMinVersioneSw.Text = maxswversion;
 
 
-			//Aggiunge le directory presenti in più
+			//Aggiunge le directory presenti in piÃ¹
 			var DI = new DirectoryInfo(txtLocalSQL.Text);
 			foreach (var D in DI.GetDirectories()) {
 				string dirname = D.Name;
@@ -1862,6 +1877,27 @@ namespace GeneraLiveUpdate //GeneraLiveUpdate//
 
 		private void checkList_SelectedValueChanged(object sender, EventArgs e) {
 			NFileSelected.Text = checkList.CheckedItems.Count.ToString() + " file selezionati";
+		}
+
+		private void btnToClipBoard_Click(object sender, EventArgs e) {
+			StringBuilder sb = new StringBuilder();
+			Button B = (Button)sender;
+			Clipboard.Clear();
+			CheckedListBox chkList = new CheckedListBox();
+			if (B.Name == btnNonAggiornati.Name)
+				chkList = nonaggiornati;
+			else
+				chkList = checkList;
+
+			for (int i = 0; i < chkList.Items.Count; i++) {
+				bool isChecked = chkList.GetItemChecked(i);
+				string stato = isChecked ? "[X]" : "[ ]";
+				sb.AppendLine($"{stato} {chkList.Items[i]}");
+			}
+
+			if (sb.Length > 0)
+				Clipboard.SetText(sb.ToString());
+			
 		}
 	}
 

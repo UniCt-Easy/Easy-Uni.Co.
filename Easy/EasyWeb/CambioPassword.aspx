@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MetaMasterBootstrap.master" AutoEventWireup="true" CodeFile="CambioPassword.aspx.cs" Inherits="EasyWebReport.CambioPassword" Title="Cambio password" %>
+
 <%@ Register Assembly="HelpWeb" Namespace="HelpWeb" TagPrefix="cc1" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="CHP_PC" Runat="Server" >
+<asp:Content ID="Content1" ContentPlaceHolderID="CHP_PC" runat="Server">
 
     <div class="row">
         <div class="col-md-2">
@@ -42,24 +43,13 @@
         </div>
     </div>
 
-
-
-     <div class="row">
-        <div class="col-md-5">
+    <div class="row">
+        <div class="col-6" style="text-align: right">
+            <cc1:hwButton ID="btnOk" runat="server" TabIndex="4" Text="Ok" class="btn btn-primary" OnClick="btnOk_Click" />
         </div>
-        <div class="col-md-1">
-            <cc1:hwButton ID="btnOk"  runat="server" TabIndex="4" Text="Ok" class="btn btn-primary" OnClick="btnOk_Click" />
-        </div>
-        <div class="col-md-1">
+        <div class="col-6" style="text-align: left">
             <cc1:hwButton ID="btnCancel" runat="server" OnClick="btnCancel_Click" TabIndex="5" class="btn btn-danger" Text="Annulla" />
-        </div>
-        <div class="col-md-5">
         </div>
     </div>
 
-
-    
-    
-    
 </asp:Content>
-

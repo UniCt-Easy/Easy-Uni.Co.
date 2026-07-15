@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -31,12 +29,6 @@ public partial class dsmeta_lezione_rendicont: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable strutturakind 		=> (MetaTable)Tables["strutturakind"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable struttura 		=> (MetaTable)Tables["struttura"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -46,7 +38,7 @@ public partial class dsmeta_lezione_rendicont: DataSet {
 	public MetaTable affidamentosegview 		=> (MetaTable)Tables["affidamentosegview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable canale 		=> (MetaTable)Tables["canale"];
+	public MetaTable canaledefaultview 		=> (MetaTable)Tables["canaledefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attivformdefaultview 		=> (MetaTable)Tables["attivformdefaultview"];
@@ -97,44 +89,9 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_lezione_rendicont.xsd";
 
 	#region create DataTables
-	//////////////////// STRUTTURAKIND /////////////////////////////////
-	var tstrutturakind= new MetaTable("strutturakind");
-	tstrutturakind.defineColumn("active", typeof(string),false);
-	tstrutturakind.defineColumn("idstrutturakind", typeof(int),false);
-	tstrutturakind.defineColumn("title", typeof(string),false);
-	Tables.Add(tstrutturakind);
-	tstrutturakind.defineKey("idstrutturakind");
-
-	//////////////////// STRUTTURA /////////////////////////////////
-	var tstruttura= new MetaTable("struttura");
-	tstruttura.defineColumn("active", typeof(string));
-	tstruttura.defineColumn("codice", typeof(string));
-	tstruttura.defineColumn("codiceipa", typeof(string));
-	tstruttura.defineColumn("ct", typeof(DateTime),false);
-	tstruttura.defineColumn("cu", typeof(string),false);
-	tstruttura.defineColumn("email", typeof(string));
-	tstruttura.defineColumn("fax", typeof(string));
-	tstruttura.defineColumn("idaoo", typeof(int));
-	tstruttura.defineColumn("idreg", typeof(int));
-	tstruttura.defineColumn("idsede", typeof(int),false);
-	tstruttura.defineColumn("idstruttura", typeof(int),false);
-	tstruttura.defineColumn("idstrutturakind", typeof(int),false);
-	tstruttura.defineColumn("idupb", typeof(string));
-	tstruttura.defineColumn("lt", typeof(DateTime),false);
-	tstruttura.defineColumn("lu", typeof(string),false);
-	tstruttura.defineColumn("paridstruttura", typeof(int));
-	tstruttura.defineColumn("pesoindicatori", typeof(decimal));
-	tstruttura.defineColumn("pesoobiettivi", typeof(decimal));
-	tstruttura.defineColumn("pesoprogaltreuo", typeof(decimal));
-	tstruttura.defineColumn("pesoproguo", typeof(decimal));
-	tstruttura.defineColumn("telefono", typeof(string));
-	tstruttura.defineColumn("title", typeof(string));
-	tstruttura.defineColumn("title_en", typeof(string));
-	Tables.Add(tstruttura);
-	tstruttura.defineKey("idstruttura");
-
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("acronim", typeof(string));
 	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
@@ -142,6 +99,9 @@ private void initClass() {
 	tregistry.defineColumn("birthdate", typeof(DateTime),false);
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("code", typeof(string));
+	tregistry.defineColumn("codicemiur", typeof(string));
+	tregistry.defineColumn("codiceustat", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
 	tregistry.defineColumn("cu", typeof(string),false);
 	tregistry.defineColumn("email_fe", typeof(string));
@@ -161,9 +121,10 @@ private void initClass() {
 	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistry.defineColumn("idistitutokind", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnace", typeof(string));
-	tregistry.defineColumn("idnation", typeof(int),false);
+	tregistry.defineColumn("idnation", typeof(int));
 	tregistry.defineColumn("idnaturagiur", typeof(int));
 	tregistry.defineColumn("idnumerodip", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
@@ -174,6 +135,7 @@ private void initClass() {
 	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
 	tregistry.defineColumn("indicebibliometrico", typeof(int));
+	tregistry.defineColumn("institutionalcode", typeof(string));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -184,6 +146,7 @@ private void initClass() {
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
 	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("referencenumber", typeof(string));
 	tregistry.defineColumn("residence", typeof(int),false);
 	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
@@ -224,29 +187,11 @@ private void initClass() {
 	trendicontlezionestud.defineColumn("notadisciplinare", typeof(string));
 	trendicontlezionestud.defineColumn("ritardo", typeof(DateTime));
 	trendicontlezionestud.defineColumn("ritardogiustifica", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registryclass_description", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_title", typeof(string));
+	trendicontlezionestud.defineColumn("!idreg_studenti_registry_surname", typeof(string));
+	trendicontlezionestud.defineColumn("!idreg_studenti_registry_forename", typeof(string));
 	trendicontlezionestud.defineColumn("!idreg_studenti_registry_cf", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_p_iva", typeof(string));
+	trendicontlezionestud.defineColumn("!idreg_studenti_registry_extmatricula", typeof(string));
 	trendicontlezionestud.defineColumn("!idreg_studenti_registry_active", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_idanpr", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_ateco_codice", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_ateco_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_fonteindicebibliometrico_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_nace_idnace", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_nace_activity", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_naturagiur_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_numerodip_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_alias1_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_sasd_codice", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_sasd_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_struttura_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_struttura_strutturakind_title", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_indicebibliometrico", typeof(int));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_pic", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_ricevimento", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_soggiorno", typeof(string));
-	trendicontlezionestud.defineColumn("!idreg_studenti_registry_title_en", typeof(string));
 	Tables.Add(trendicontlezionestud);
 	trendicontlezionestud.defineKey("aa", "idaffidamento", "idattivform", "idaula", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idedificio", "idlezione", "idreg_docenti", "idreg_studenti", "idsede");
 
@@ -294,28 +239,29 @@ private void initClass() {
 	Tables.Add(taffidamentosegview);
 	taffidamentosegview.defineKey("aa", "idaffidamento", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idreg_docenti");
 
-	//////////////////// CANALE /////////////////////////////////
-	var tcanale= new MetaTable("canale");
-	tcanale.defineColumn("aa", typeof(string),false);
-	tcanale.defineColumn("ct", typeof(DateTime),false);
-	tcanale.defineColumn("cu", typeof(string),false);
-	tcanale.defineColumn("CUIN", typeof(string));
-	tcanale.defineColumn("idattivform", typeof(int),false);
-	tcanale.defineColumn("idcanale", typeof(int),false);
-	tcanale.defineColumn("idcorsostudio", typeof(int),false);
-	tcanale.defineColumn("iddidprog", typeof(int),false);
-	tcanale.defineColumn("iddidproganno", typeof(int),false);
-	tcanale.defineColumn("iddidprogcurr", typeof(int),false);
-	tcanale.defineColumn("iddidprogori", typeof(int),false);
-	tcanale.defineColumn("iddidprogporzanno", typeof(int),false);
-	tcanale.defineColumn("idsede", typeof(int),false);
-	tcanale.defineColumn("lt", typeof(DateTime),false);
-	tcanale.defineColumn("lu", typeof(string),false);
-	tcanale.defineColumn("numerostud", typeof(int));
-	tcanale.defineColumn("sortcode", typeof(int));
-	tcanale.defineColumn("title", typeof(string));
-	Tables.Add(tcanale);
-	tcanale.defineKey("aa", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
+	//////////////////// CANALEDEFAULTVIEW /////////////////////////////////
+	var tcanaledefaultview= new MetaTable("canaledefaultview");
+	tcanaledefaultview.defineColumn("aa", typeof(string),false);
+	tcanaledefaultview.defineColumn("canale_ct", typeof(DateTime),false);
+	tcanaledefaultview.defineColumn("canale_cu", typeof(string),false);
+	tcanaledefaultview.defineColumn("canale_CUIN", typeof(string));
+	tcanaledefaultview.defineColumn("canale_idsede", typeof(int),false);
+	tcanaledefaultview.defineColumn("canale_lt", typeof(DateTime),false);
+	tcanaledefaultview.defineColumn("canale_lu", typeof(string),false);
+	tcanaledefaultview.defineColumn("canale_numerostud", typeof(int));
+	tcanaledefaultview.defineColumn("canale_sortcode", typeof(int));
+	tcanaledefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tcanaledefaultview.defineColumn("idattivform", typeof(int),false);
+	tcanaledefaultview.defineColumn("idcanale", typeof(int),false);
+	tcanaledefaultview.defineColumn("idcorsostudio", typeof(int),false);
+	tcanaledefaultview.defineColumn("iddidprog", typeof(int),false);
+	tcanaledefaultview.defineColumn("iddidproganno", typeof(int),false);
+	tcanaledefaultview.defineColumn("iddidprogcurr", typeof(int),false);
+	tcanaledefaultview.defineColumn("iddidprogori", typeof(int),false);
+	tcanaledefaultview.defineColumn("iddidprogporzanno", typeof(int),false);
+	tcanaledefaultview.defineColumn("title", typeof(string));
+	Tables.Add(tcanaledefaultview);
+	tcanaledefaultview.defineKey("aa", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
 
 	//////////////////// ATTIVFORMDEFAULTVIEW /////////////////////////////////
 	var tattivformdefaultview= new MetaTable("attivformdefaultview");
@@ -331,6 +277,7 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("attivform_start", typeof(DateTime));
 	tattivformdefaultview.defineColumn("attivform_stop", typeof(DateTime));
 	tattivformdefaultview.defineColumn("attivform_tipovalutaz", typeof(string));
+	tattivformdefaultview.defineColumn("attivform_title", typeof(string));
 	tattivformdefaultview.defineColumn("didproganno_title", typeof(string));
 	tattivformdefaultview.defineColumn("didprogcurr_title", typeof(string));
 	tattivformdefaultview.defineColumn("didproggrupp_title", typeof(string));
@@ -351,7 +298,6 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("insegn_denominazione", typeof(string));
 	tattivformdefaultview.defineColumn("insegninteg_codice", typeof(string));
 	tattivformdefaultview.defineColumn("insegninteg_denominazione", typeof(string));
-	tattivformdefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tattivformdefaultview);
 	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
@@ -433,10 +379,17 @@ private void initClass() {
 	//////////////////// DIDPROGDEFAULTVIEW /////////////////////////////////
 	var tdidprogdefaultview= new MetaTable("didprogdefaultview");
 	tdidprogdefaultview.defineColumn("aa", typeof(string));
+	tdidprogdefaultview.defineColumn("appellokind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("areadidattica_title", typeof(string));
 	tdidprogdefaultview.defineColumn("convenzione_title", typeof(string));
 	tdidprogdefaultview.defineColumn("corsostudio_annoistituz", typeof(int));
+	tdidprogdefaultview.defineColumn("corsostudio_idcorsostudiokind", typeof(int));
+	tdidprogdefaultview.defineColumn("corsostudio_idcorsostudiolivello", typeof(int));
 	tdidprogdefaultview.defineColumn("corsostudio_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiokind_didprog_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiokind_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiolivello_didprog_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiolivello_title", typeof(string));
 	tdidprogdefaultview.defineColumn("didprog_annosolare", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_attribdebiti", typeof(string));
 	tdidprogdefaultview.defineColumn("didprog_ciclo", typeof(int));
@@ -444,6 +397,8 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("didprog_codicemiur", typeof(string));
 	tdidprogdefaultview.defineColumn("didprog_dataconsmaxiscr", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("didprog_freqobbl", typeof(string));
+	tdidprogdefaultview.defineColumn("didprog_idcorsostudiokind", typeof(int));
+	tdidprogdefaultview.defineColumn("didprog_idcorsostudiolivello", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_iddidprognumchiusokind", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_iddidprogsuddannokind", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_iderogazkind", typeof(int));
@@ -485,6 +440,7 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("idsessione", typeof(int));
 	tdidprogdefaultview.defineColumn("registrydocenti_title", typeof(string));
 	tdidprogdefaultview.defineColumn("sede_title", typeof(string));
+	tdidprogdefaultview.defineColumn("sessione_idappellokind", typeof(int));
 	tdidprogdefaultview.defineColumn("sessione_idsessionekind", typeof(int));
 	tdidprogdefaultview.defineColumn("sessione_start", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("sessione_stop", typeof(DateTime));
@@ -544,17 +500,13 @@ private void initClass() {
 	cChild = new []{rendicontlezionestud.Columns["idreg_studenti"]};
 	Relations.Add(new DataRelation("FK_rendicontlezionestud_registry_idreg_studenti",cPar,cChild,false));
 
-	cPar = new []{strutturakind.Columns["idstrutturakind"]};
-	cChild = new []{struttura.Columns["idstrutturakind"]};
-	Relations.Add(new DataRelation("FK_struttura_strutturakind_idstrutturakind",cPar,cChild,false));
-
 	cPar = new []{affidamentosegview.Columns["idaffidamento"]};
 	cChild = new []{lezione.Columns["idaffidamento"]};
 	Relations.Add(new DataRelation("FK_lezione_affidamentosegview_idaffidamento",cPar,cChild,false));
 
-	cPar = new []{canale.Columns["idcanale"]};
+	cPar = new []{canaledefaultview.Columns["idcanale"]};
 	cChild = new []{lezione.Columns["idcanale"]};
-	Relations.Add(new DataRelation("FK_lezione_canale_idcanale",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_lezione_canaledefaultview_idcanale",cPar,cChild,false));
 
 	cPar = new []{attivformdefaultview.Columns["idattivform"]};
 	cChild = new []{lezione.Columns["idattivform"]};

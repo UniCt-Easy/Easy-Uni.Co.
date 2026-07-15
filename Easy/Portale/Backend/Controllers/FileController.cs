@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Newtonsoft.Json.Linq;
 using System.Net;
@@ -79,32 +77,36 @@ namespace Backend.Controllers {
             HttpResponseMessage result = null;
             var dispatcher = HttpContext.Current.getDataDispatcher();
             try {
-                string fileName = "";
                 var conn = dispatcher.conn;
                 var filter = MetaExpression.eq("idattach", idattach);
                 Dictionary<string, object> objFileName = conn.readObject("attach", filter, "filename");
 
-                if (objFileName.Count == 1) {
-                    fileName = (string) objFileName["filename"];
-                    // Dato l'id recupero il nome del file
-                    string path = AppDomain.CurrentDomain.BaseDirectory + UploadPath;
-                    byte[] fileBytes = System.IO.File.ReadAllBytes(path + fileName);
-                    result = Request.CreateResponse(HttpStatusCode.OK);
-                    result.Content = new ByteArrayContent(fileBytes);
-                    result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    result.Content.Headers.ContentDisposition =
-                        new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                    result.Content.Headers.ContentDisposition.FileName = fileName;
-                    result.Content.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+                // Check riga tabella attach esista
+                if (objFileName.Count != 1)
+                    return Request.CreateResponse(HttpStatusCode.Gone, "Il file non √® disponibile. Se non si conosce la causa della mancanza contattare l'assistenza.");
 
-                }
+                // File Name
+                string fileName = (string) objFileName["filename"];
+                
+                // Percorso
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UploadPath.Replace("/", ""), fileName);
+
+                // Check file esista nel folder
+                if (!File.Exists(path))
+                    return Request.CreateResponse(HttpStatusCode.Gone, "Il file non √® disponibile. Se non si conosce la causa della mancanza contattare l'assistenza.");
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+                result = Request.CreateResponse(HttpStatusCode.OK);
+                result.Content = new ByteArrayContent(fileBytes);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = fileName;
+                result.Content.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
 
                 return result;
-
             }
             catch (Exception ex) {
-                return Request.CreateResponse(HttpStatusCode.Gone,
-                    "Errore interno del server nel recupero file: " + ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, "Errore interno del server nel recupero file: " + ex.Message);
             }
         }
 
@@ -252,9 +254,9 @@ namespace Backend.Controllers {
                                 stream.CopyTo(fileStream);
                             }
 
-                            // quando il pezzo di file Ë salvato lo unisce al  resto inviato  
+                            // quando il pezzo di file √® salvato lo unisce al  resto inviato  
                             UtilsFile UT = new UtilsFile();
-                            // fileNameAttachOnServer sar‡ deltipo c://.../../nomefile.ext oopure vuoto se Ë caricamento parziale
+                            // fileNameAttachOnServer sar√† deltipo c://.../../nomefile.ext oopure vuoto se √® caricamento parziale
                             fileNameAttachOnServer = UT.MergeFile(path);
                         }
                         catch (IOException ex) {
@@ -263,15 +265,15 @@ namespace Backend.Controllers {
                     }
                 }
 
-                // se non ha ricevuto fileNameAttachOnServer significa che l'upload non Ë terminato
+                // se non ha ricevuto fileNameAttachOnServer significa che l'upload non √® terminato
                 if (String.IsNullOrEmpty(fileNameAttachOnServer)) {
                     return Content(HttpStatusCode.OK, "");
                 }
                 else {
-                    // se ha ricevuto fileNameAttachOnServer significa che l'upload Ë completo
+                    // se ha ricevuto fileNameAttachOnServer significa che l'upload √® completo
                     var attachTableName = "attach";
                     var dispatcher = HttpContext.Current.getDataDispatcher();
-                    // creo ds attach in cui inserirÚ la nuova riga sulla tabella attach
+                    // creo ds attach in cui inserir√≤ la nuova riga sulla tabella attach
                     var dsattach = DataUtils.createEmptyDataSet(attachTableName, "default");
                     var mainMeta = dispatcher.GetMeta(attachTableName);
                     // nuova riga 
@@ -280,18 +282,18 @@ namespace Backend.Controllers {
                     rattach["filename"] = Path.GetFileName(fileNameAttachOnServer);
                     rattach["size"] = new System.IO.FileInfo(fileNameAttachOnServer).Length;
 
-                    // salvo su DB tale informazione. counter sar‡ null
+                    // salvo su DB tale informazione. counter sar√† null
                     var postData = mainMeta.Get_PostData();
                     postData.initClass(dsattach, dispatcher.Connection);
                     var myMessages = postData.DO_POST_SERVICE();
-                    // check se Ë andata male, anche se non dovrebbe mai essere
+                    // check se √® andata male, anche se non dovrebbe mai essere
                     if (myMessages.Count > 0) {
                         EasyProcedureMessage msg = (EasyProcedureMessage) myMessages[0];
                         return Content(HttpStatusCode.BadRequest, "Error upload: " + msg.LongMess);
                     }
 
-                    // Se invece Ë andata bene invio dataset con nuova riga al client.
-                    // Tale riga avr‡ l'idattach vero, che dovrÚ collegare alla tabella custom con il riferimento all'allegato 
+                    // Se invece √® andata bene invio dataset con nuova riga al client.
+                    // Tale riga avr√† l'idattach vero, che dovr√≤ collegare alla tabella custom con il riferimento all'allegato 
                     var jsonResDataSet = DataUtils.dataSetToJSon(dsattach, false);
                     // invio json con ds serializzato
                     return Content(HttpStatusCode.OK, jsonResDataSet);

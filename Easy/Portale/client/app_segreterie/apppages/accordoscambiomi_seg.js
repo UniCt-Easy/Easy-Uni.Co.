@@ -26,16 +26,19 @@
 			//beforeFill
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidettaz'), this.getDataTable('cefrlanglevel'));
+				//parte sincrona
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidett'), this.getDataTable('accordoscambiomiporzanno'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidett'), this.getDataTable('cefrlanglevel_alias1'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidett'), this.getDataTable('cefrlanglevel'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidettaz'), this.getDataTable('cefrlanglevel_alias1'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidettaz'), this.getDataTable('cefrlanglevel'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidett'), this.getDataTable('accordoscambiomiporzanno'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidett'), this.getDataTable('cefrlanglevel_alias1'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidett'), this.getDataTable('cefrlanglevel'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('accordoscambiomidettaz'), this.getDataTable('cefrlanglevel_alias1'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},

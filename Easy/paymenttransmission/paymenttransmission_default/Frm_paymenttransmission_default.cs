@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -77,7 +75,7 @@ namespace paymenttransmission_default { //trasmdocpagamento//
         private Button btnCollegaVar;
         private GroupBox gBoxTransmissionKind;
         private CheckBox chkTransmissionKind;
-        private ProgressBar progressBarImport;
+        //private ProgressBar progressBarImport;
         private Label lblNotifiche;
         private Button btnGeneraEP;
         private Label label5;
@@ -114,644 +112,617 @@ namespace paymenttransmission_default { //trasmdocpagamento//
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.cmbCodiceIstituto = new System.Windows.Forms.ComboBox();
-            this.DS = new paymenttransmission_default.vistaForm();
-            this.btnIstitutoCassiere = new System.Windows.Forms.Button();
-            this.cmbResponsabile = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtDataTrasmissione = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtNumero = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtEsercizio = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new Crownwood.Magic.Controls.TabControl();
-            this.tabPrincipale = new Crownwood.Magic.Controls.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.lblNotifiche = new System.Windows.Forms.Label();
-            this.progressBarImport = new System.Windows.Forms.ProgressBar();
-            this.gBoxTransmissionKind = new System.Windows.Forms.GroupBox();
-            this.chkTransmissionKind = new System.Windows.Forms.CheckBox();
-            this.tabDocumenti = new System.Windows.Forms.TabControl();
-            this.tabPageMandati = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtTotale = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnModifica = new System.Windows.Forms.Button();
-            this.btnScollega = new System.Windows.Forms.Button();
-            this.dataGrid1 = new System.Windows.Forms.DataGrid();
-            this.btnCollega = new System.Windows.Forms.Button();
-            this.tabPageVariazioni = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnModificaVar = new System.Windows.Forms.Button();
-            this.btnScollegaVar = new System.Windows.Forms.Button();
-            this.dgrVariazioni = new System.Windows.Forms.DataGrid();
-            this.btnCollegaVar = new System.Windows.Forms.Button();
-            this.gBoxNotifiche = new System.Windows.Forms.GroupBox();
-            this.chkFlagMailSent = new System.Windows.Forms.CheckBox();
-            this.btnSendNotification = new System.Windows.Forms.Button();
-            this.tabEP = new Crownwood.Magic.Controls.TabPage();
-            this.labEPDisabilitato = new System.Windows.Forms.Label();
-            this.btnGeneraEP = new System.Windows.Forms.Button();
-            this.btnVisualizzaEP = new System.Windows.Forms.Button();
-            this.labEP = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize) (this.DS)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPrincipale.SuspendLayout();
-            this.gBoxTransmissionKind.SuspendLayout();
-            this.tabDocumenti.SuspendLayout();
-            this.tabPageMandati.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGrid1)).BeginInit();
-            this.tabPageVariazioni.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dgrVariazioni)).BeginInit();
-            this.gBoxNotifiche.SuspendLayout();
-            this.tabEP.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // cmbCodiceIstituto
-            // 
-            this.cmbCodiceIstituto.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
-            this.cmbCodiceIstituto.DisplayMember = "description";
-            this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCodiceIstituto.Location = new System.Drawing.Point(160, 19);
-            this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
-            this.cmbCodiceIstituto.Size = new System.Drawing.Size(533, 23);
-            this.cmbCodiceIstituto.TabIndex = 1;
-            this.cmbCodiceIstituto.Tag = "paymenttransmission.idtreasurer?paymenttransmissionview.idtreasurer";
-            this.cmbCodiceIstituto.ValueMember = "idtreasurer";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // btnIstitutoCassiere
-            // 
-            this.btnIstitutoCassiere.Location = new System.Drawing.Point(68, 16);
-            this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
-            this.btnIstitutoCassiere.Size = new System.Drawing.Size(88, 24);
-            this.btnIstitutoCassiere.TabIndex = 78;
-            this.btnIstitutoCassiere.TabStop = false;
-            this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-            this.btnIstitutoCassiere.Text = "Cassiere:";
-            this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbResponsabile
-            // 
-            this.cmbResponsabile.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbResponsabile.DataSource = this.DS.manager;
-            this.cmbResponsabile.DisplayMember = "title";
-            this.cmbResponsabile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbResponsabile.Location = new System.Drawing.Point(160, 80);
-            this.cmbResponsabile.Name = "cmbResponsabile";
-            this.cmbResponsabile.Size = new System.Drawing.Size(533, 23);
-            this.cmbResponsabile.TabIndex = 3;
-            this.cmbResponsabile.Tag = "paymenttransmission.idman?paymenttransmissionview.manager";
-            this.cmbResponsabile.ValueMember = "idman";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(8, 80);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(144, 24);
-            this.label7.TabIndex = 73;
-            this.label7.Text = "Responsabile della distinta:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDataTrasmissione
-            // 
-            this.txtDataTrasmissione.Location = new System.Drawing.Point(112, 52);
-            this.txtDataTrasmissione.Name = "txtDataTrasmissione";
-            this.txtDataTrasmissione.Size = new System.Drawing.Size(94, 23);
-            this.txtDataTrasmissione.TabIndex = 2;
-            this.txtDataTrasmissione.Tag =
-                "paymenttransmission.transmissiondate?paymenttransmissionview.transmissiondate";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(6, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 16);
-            this.label3.TabIndex = 71;
-            this.label3.Text = "Data trasmissione:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtNumero);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtEsercizio);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(352, 46);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Distinta di trasmissione";
-            // 
-            // txtNumero
-            // 
-            this.txtNumero.Location = new System.Drawing.Point(245, 17);
-            this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(88, 23);
-            this.txtNumero.TabIndex = 1;
-            this.txtNumero.Tag = "paymenttransmission.npaymenttransmission?paymenttransmissionview.npaymenttransmis" +
-                                 "sion";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(165, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Numero:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtEsercizio
-            // 
-            this.txtEsercizio.Location = new System.Drawing.Point(85, 17);
-            this.txtEsercizio.Name = "txtEsercizio";
-            this.txtEsercizio.ReadOnly = true;
-            this.txtEsercizio.Size = new System.Drawing.Size(56, 23);
-            this.txtEsercizio.TabIndex = 1;
-            this.txtEsercizio.TabStop = false;
-            this.txtEsercizio.Tag =
-                "paymenttransmission.ypaymenttransmission?paymenttransmissionview.ypaymenttransmis" +
-                "sion";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(5, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Esercizio:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.textBox8);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.cmbResponsabile);
-            this.groupBox3.Controls.Add(this.cmbCodiceIstituto);
-            this.groupBox3.Controls.Add(this.btnIstitutoCassiere);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.txtDataTrasmissione);
-            this.groupBox3.Location = new System.Drawing.Point(11, 90);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(699, 107);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Dati Contabili";
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(447, 54);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 16);
-            this.label6.TabIndex = 83;
-            this.label6.Text = "Data acquisizione banca:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(599, 48);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(97, 23);
-            this.textBox8.TabIndex = 82;
-            this.textBox8.Tag = "paymenttransmission.bankdate?paymenttransmissionview.bankdate";
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(211, 54);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(123, 16);
-            this.label5.TabIndex = 80;
-            this.label5.Text = "Data creazione flusso:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(335, 52);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(106, 23);
-            this.textBox1.TabIndex = 79;
-            this.textBox1.Tag = "paymenttransmission.streamdate?paymenttransmissionview.streamdate";
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.IDEPixelArea = true;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.SelectedTab = this.tabPrincipale;
-            this.tabControl1.Size = new System.Drawing.Size(715, 543);
-            this.tabControl1.TabIndex = 4;
-            this.tabControl1.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
-                this.tabPrincipale,
-                this.tabEP
-            });
-            // 
-            // tabPrincipale
-            // 
-            this.tabPrincipale.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPrincipale.Controls.Add(this.checkBox1);
-            this.tabPrincipale.Controls.Add(this.lblNotifiche);
-            this.tabPrincipale.Controls.Add(this.progressBarImport);
-            this.tabPrincipale.Controls.Add(this.gBoxTransmissionKind);
-            this.tabPrincipale.Controls.Add(this.tabDocumenti);
-            this.tabPrincipale.Controls.Add(this.gBoxNotifiche);
-            this.tabPrincipale.Controls.Add(this.btnSendNotification);
-            this.tabPrincipale.Controls.Add(this.groupBox3);
-            this.tabPrincipale.Controls.Add(this.groupBox1);
-            this.tabPrincipale.Location = new System.Drawing.Point(0, 0);
-            this.tabPrincipale.Name = "tabPrincipale";
-            this.tabPrincipale.Size = new System.Drawing.Size(715, 518);
-            this.tabPrincipale.TabIndex = 3;
-            this.tabPrincipale.Title = "Principale";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(351, 210);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(221, 19);
-            this.checkBox1.TabIndex = 87;
-            this.checkBox1.Tag = "paymenttransmission.flagtransmissionenabled:S:N";
-            this.checkBox1.Text = "Verificato, si autorizza la trasmissione";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // lblNotifiche
-            // 
-            this.lblNotifiche.Location = new System.Drawing.Point(12, 52);
-            this.lblNotifiche.Name = "lblNotifiche";
-            this.lblNotifiche.Size = new System.Drawing.Size(352, 16);
-            this.lblNotifiche.TabIndex = 86;
-            this.lblNotifiche.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // progressBarImport
-            // 
-            this.progressBarImport.Anchor =
-                ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top |
-                                                        System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarImport.Location = new System.Drawing.Point(11, 68);
-            this.progressBarImport.Name = "progressBarImport";
-            this.progressBarImport.Size = new System.Drawing.Size(693, 19);
-            this.progressBarImport.TabIndex = 85;
-            this.progressBarImport.Visible = false;
-            // 
-            // gBoxTransmissionKind
-            // 
-            this.gBoxTransmissionKind.Controls.Add(this.chkTransmissionKind);
-            this.gBoxTransmissionKind.Location = new System.Drawing.Point(12, 197);
-            this.gBoxTransmissionKind.Name = "gBoxTransmissionKind";
-            this.gBoxTransmissionKind.Size = new System.Drawing.Size(333, 36);
-            this.gBoxTransmissionKind.TabIndex = 84;
-            this.gBoxTransmissionKind.TabStop = false;
-            this.gBoxTransmissionKind.Text = "Tipo elenco";
-            // 
-            // chkTransmissionKind
-            // 
-            this.chkTransmissionKind.AutoSize = true;
-            this.chkTransmissionKind.Location = new System.Drawing.Point(76, 13);
-            this.chkTransmissionKind.Name = "chkTransmissionKind";
-            this.chkTransmissionKind.Size = new System.Drawing.Size(212, 19);
-            this.chkTransmissionKind.TabIndex = 82;
-            this.chkTransmissionKind.Tag = "paymenttransmission.transmissionkind:V:I";
-            this.chkTransmissionKind.Text = "Elenco di Variazioni e Annullamenti";
-            this.chkTransmissionKind.UseVisualStyleBackColor = true;
-            this.chkTransmissionKind.CheckedChanged += new System.EventHandler(this.chkTransmissionKind_CheckedChanged);
-            // 
-            // tabDocumenti
-            // 
-            this.tabDocumenti.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabDocumenti.Controls.Add(this.tabPageMandati);
-            this.tabDocumenti.Controls.Add(this.tabPageVariazioni);
-            this.tabDocumenti.Location = new System.Drawing.Point(11, 239);
-            this.tabDocumenti.Name = "tabDocumenti";
-            this.tabDocumenti.SelectedIndex = 0;
-            this.tabDocumenti.Size = new System.Drawing.Size(690, 270);
-            this.tabDocumenti.TabIndex = 82;
-            // 
-            // tabPageMandati
-            // 
-            this.tabPageMandati.Controls.Add(this.groupBox2);
-            this.tabPageMandati.Location = new System.Drawing.Point(4, 24);
-            this.tabPageMandati.Name = "tabPageMandati";
-            this.tabPageMandati.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMandati.Size = new System.Drawing.Size(682, 242);
-            this.tabPageMandati.TabIndex = 0;
-            this.tabPageMandati.Text = "Mandati inclusi nella distinta di trasmissione";
-            this.tabPageMandati.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.txtTotale);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.btnModifica);
-            this.groupBox2.Controls.Add(this.btnScollega);
-            this.groupBox2.Controls.Add(this.dataGrid1);
-            this.groupBox2.Controls.Add(this.btnCollega);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(670, 230);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            // 
-            // txtTotale
-            // 
-            this.txtTotale.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTotale.Location = new System.Drawing.Point(557, 195);
-            this.txtTotale.Name = "txtTotale";
-            this.txtTotale.ReadOnly = true;
-            this.txtTotale.Size = new System.Drawing.Size(104, 23);
-            this.txtTotale.TabIndex = 80;
-            this.txtTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label4
-            // 
-            this.label4.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom |
-                                                       System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.Location = new System.Drawing.Point(471, 202);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 16);
-            this.label4.TabIndex = 79;
-            this.label4.Text = "Totale distinta";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnModifica
-            // 
-            this.btnModifica.Location = new System.Drawing.Point(16, 64);
-            this.btnModifica.Name = "btnModifica";
-            this.btnModifica.Size = new System.Drawing.Size(75, 23);
-            this.btnModifica.TabIndex = 78;
-            this.btnModifica.TabStop = false;
-            this.btnModifica.Text = "Modifica...";
-            this.btnModifica.Click += new System.EventHandler(this.btnModifica_Click);
-            // 
-            // btnScollega
-            // 
-            this.btnScollega.Location = new System.Drawing.Point(16, 104);
-            this.btnScollega.Name = "btnScollega";
-            this.btnScollega.Size = new System.Drawing.Size(75, 23);
-            this.btnScollega.TabIndex = 77;
-            this.btnScollega.TabStop = false;
-            this.btnScollega.Tag = "unlink";
-            this.btnScollega.Text = "Rimuovi";
-            // 
-            // dataGrid1
-            // 
-            this.dataGrid1.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid1.CaptionVisible = false;
-            this.dataGrid1.DataMember = "";
-            this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGrid1.Location = new System.Drawing.Point(96, 24);
-            this.dataGrid1.Name = "dataGrid1";
-            this.dataGrid1.Size = new System.Drawing.Size(566, 161);
-            this.dataGrid1.TabIndex = 75;
-            this.dataGrid1.Tag = "paymentview.documentitrasmessi";
-            // 
-            // btnCollega
-            // 
-            this.btnCollega.Location = new System.Drawing.Point(16, 24);
-            this.btnCollega.Name = "btnCollega";
-            this.btnCollega.Size = new System.Drawing.Size(75, 23);
-            this.btnCollega.TabIndex = 76;
-            this.btnCollega.TabStop = false;
-            this.btnCollega.Text = "Inserisci";
-            this.btnCollega.Click += new System.EventHandler(this.btnCollega_Click);
-            // 
-            // tabPageVariazioni
-            // 
-            this.tabPageVariazioni.Controls.Add(this.groupBox4);
-            this.tabPageVariazioni.Location = new System.Drawing.Point(4, 24);
-            this.tabPageVariazioni.Name = "tabPageVariazioni";
-            this.tabPageVariazioni.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageVariazioni.Size = new System.Drawing.Size(682, 242);
-            this.tabPageVariazioni.TabIndex = 1;
-            this.tabPageVariazioni.Text = "Variazioni incluse nella distinta di trasmissione";
-            this.tabPageVariazioni.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.btnModificaVar);
-            this.groupBox4.Controls.Add(this.btnScollegaVar);
-            this.groupBox4.Controls.Add(this.dgrVariazioni);
-            this.groupBox4.Controls.Add(this.btnCollegaVar);
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(670, 230);
-            this.groupBox4.TabIndex = 6;
-            this.groupBox4.TabStop = false;
-            // 
-            // btnModificaVar
-            // 
-            this.btnModificaVar.Location = new System.Drawing.Point(16, 64);
-            this.btnModificaVar.Name = "btnModificaVar";
-            this.btnModificaVar.Size = new System.Drawing.Size(75, 23);
-            this.btnModificaVar.TabIndex = 78;
-            this.btnModificaVar.TabStop = false;
-            this.btnModificaVar.Text = "Modifica...";
-            this.btnModificaVar.Click += new System.EventHandler(this.btnModificaVar_Click);
-            // 
-            // btnScollegaVar
-            // 
-            this.btnScollegaVar.Location = new System.Drawing.Point(16, 104);
-            this.btnScollegaVar.Name = "btnScollegaVar";
-            this.btnScollegaVar.Size = new System.Drawing.Size(75, 23);
-            this.btnScollegaVar.TabIndex = 77;
-            this.btnScollegaVar.TabStop = false;
-            this.btnScollegaVar.Tag = "";
-            this.btnScollegaVar.Text = "Rimuovi";
-            this.btnScollegaVar.Click += new System.EventHandler(this.btnScollegaVar_Click);
-            // 
-            // dgrVariazioni
-            // 
-            this.dgrVariazioni.Anchor =
-                ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top |
-                                                         System.Windows.Forms.AnchorStyles.Bottom)
-                                                        | System.Windows.Forms.AnchorStyles.Left)
-                                                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgrVariazioni.CaptionVisible = false;
-            this.dgrVariazioni.DataMember = "";
-            this.dgrVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-            this.dgrVariazioni.Location = new System.Drawing.Point(96, 24);
-            this.dgrVariazioni.Name = "dgrVariazioni";
-            this.dgrVariazioni.Size = new System.Drawing.Size(566, 188);
-            this.dgrVariazioni.TabIndex = 75;
-            this.dgrVariazioni.Tag = "expensevarview.documentitrasmessi";
-            // 
-            // btnCollegaVar
-            // 
-            this.btnCollegaVar.Location = new System.Drawing.Point(16, 24);
-            this.btnCollegaVar.Name = "btnCollegaVar";
-            this.btnCollegaVar.Size = new System.Drawing.Size(75, 23);
-            this.btnCollegaVar.TabIndex = 76;
-            this.btnCollegaVar.TabStop = false;
-            this.btnCollegaVar.Text = "Inserisci";
-            this.btnCollegaVar.Click += new System.EventHandler(this.btnCollegaVar_Click);
-            // 
-            // gBoxNotifiche
-            // 
-            this.gBoxNotifiche.Controls.Add(this.chkFlagMailSent);
-            this.gBoxNotifiche.Location = new System.Drawing.Point(538, 3);
-            this.gBoxNotifiche.Name = "gBoxNotifiche";
-            this.gBoxNotifiche.Size = new System.Drawing.Size(144, 46);
-            this.gBoxNotifiche.TabIndex = 81;
-            this.gBoxNotifiche.TabStop = false;
-            this.gBoxNotifiche.Text = "Notifiche";
-            // 
-            // chkFlagMailSent
-            // 
-            this.chkFlagMailSent.AutoSize = true;
-            this.chkFlagMailSent.Location = new System.Drawing.Point(6, 17);
-            this.chkFlagMailSent.Name = "chkFlagMailSent";
-            this.chkFlagMailSent.Size = new System.Drawing.Size(113, 19);
-            this.chkFlagMailSent.TabIndex = 81;
-            this.chkFlagMailSent.Tag = "paymenttransmission.flagmailsent:S:N";
-            this.chkFlagMailSent.Text = "Notifiche Inviate";
-            this.chkFlagMailSent.UseVisualStyleBackColor = true;
-            // 
-            // btnSendNotification
-            // 
-            this.btnSendNotification.Location = new System.Drawing.Point(393, 12);
-            this.btnSendNotification.Name = "btnSendNotification";
-            this.btnSendNotification.Size = new System.Drawing.Size(118, 24);
-            this.btnSendNotification.TabIndex = 80;
-            this.btnSendNotification.TabStop = false;
-            this.btnSendNotification.Tag = "";
-            this.btnSendNotification.Text = "Invia Email";
-            this.btnSendNotification.Click += new System.EventHandler(this.btnSendNotification_Click);
-            // 
-            // tabEP
-            // 
-            this.tabEP.Controls.Add(this.labEPDisabilitato);
-            this.tabEP.Controls.Add(this.btnGeneraEP);
-            this.tabEP.Controls.Add(this.btnVisualizzaEP);
-            this.tabEP.Controls.Add(this.labEP);
-            this.tabEP.Location = new System.Drawing.Point(0, 0);
-            this.tabEP.Name = "tabEP";
-            this.tabEP.Selected = false;
-            this.tabEP.Size = new System.Drawing.Size(715, 518);
-            this.tabEP.TabIndex = 4;
-            this.tabEP.Title = "E/P";
-            // 
-            // labEPDisabilitato
-            // 
-            this.labEPDisabilitato.Location = new System.Drawing.Point(12, 132);
-            this.labEPDisabilitato.Name = "labEPDisabilitato";
-            this.labEPDisabilitato.Size = new System.Drawing.Size(352, 16);
-            this.labEPDisabilitato.TabIndex = 17;
-            this.labEPDisabilitato.Text = "Le scritture in partita doppia sono disabilitate per questo elenco.";
-            // 
-            // btnGeneraEP
-            // 
-            this.btnGeneraEP.Location = new System.Drawing.Point(6, 93);
-            this.btnGeneraEP.Name = "btnGeneraEP";
-            this.btnGeneraEP.Size = new System.Drawing.Size(224, 23);
-            this.btnGeneraEP.TabIndex = 16;
-            this.btnGeneraEP.Text = "Genera le scritture in partita doppia";
-            this.btnGeneraEP.UseVisualStyleBackColor = true;
-            // 
-            // btnVisualizzaEP
-            // 
-            this.btnVisualizzaEP.Location = new System.Drawing.Point(6, 64);
-            this.btnVisualizzaEP.Name = "btnVisualizzaEP";
-            this.btnVisualizzaEP.Size = new System.Drawing.Size(224, 23);
-            this.btnVisualizzaEP.TabIndex = 15;
-            this.btnVisualizzaEP.Text = "Visualizza le scritture in partita doppia";
-            // 
-            // labEP
-            // 
-            this.labEP.Location = new System.Drawing.Point(3, 9);
-            this.labEP.Name = "labEP";
-            this.labEP.Size = new System.Drawing.Size(352, 16);
-            this.labEP.TabIndex = 13;
-            this.labEP.Text = "Le scritture in partita doppia sono state generate.";
-            // 
-            // Frm_paymenttransmission_default
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(715, 543);
-            this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Name = "Frm_paymenttransmission_default";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmtrasmdocpagamento";
-            ((System.ComponentModel.ISupportInitialize) (this.DS)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPrincipale.ResumeLayout(false);
-            this.tabPrincipale.PerformLayout();
-            this.gBoxTransmissionKind.ResumeLayout(false);
-            this.gBoxTransmissionKind.PerformLayout();
-            this.tabDocumenti.ResumeLayout(false);
-            this.tabPageMandati.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGrid1)).EndInit();
-            this.tabPageVariazioni.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dgrVariazioni)).EndInit();
-            this.gBoxNotifiche.ResumeLayout(false);
-            this.gBoxNotifiche.PerformLayout();
-            this.tabEP.ResumeLayout(false);
-            this.ResumeLayout(false);
+			this.cmbCodiceIstituto = new System.Windows.Forms.ComboBox();
+			this.DS = new paymenttransmission_default.vistaForm();
+			this.btnIstitutoCassiere = new System.Windows.Forms.Button();
+			this.cmbResponsabile = new System.Windows.Forms.ComboBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.txtDataTrasmissione = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.txtNumero = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtEsercizio = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.textBox8 = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.tabControl1 = new Crownwood.Magic.Controls.TabControl();
+			this.tabPrincipale = new Crownwood.Magic.Controls.TabPage();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.lblNotifiche = new System.Windows.Forms.Label();
+			//this.progressBarImport = new System.Windows.Forms.ProgressBar();
+			this.gBoxTransmissionKind = new System.Windows.Forms.GroupBox();
+			this.chkTransmissionKind = new System.Windows.Forms.CheckBox();
+			this.tabDocumenti = new System.Windows.Forms.TabControl();
+			this.tabPageMandati = new System.Windows.Forms.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.txtTotale = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.btnModifica = new System.Windows.Forms.Button();
+			this.btnScollega = new System.Windows.Forms.Button();
+			this.dataGrid1 = new System.Windows.Forms.DataGrid();
+			this.btnCollega = new System.Windows.Forms.Button();
+			this.tabPageVariazioni = new System.Windows.Forms.TabPage();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.btnModificaVar = new System.Windows.Forms.Button();
+			this.btnScollegaVar = new System.Windows.Forms.Button();
+			this.dgrVariazioni = new System.Windows.Forms.DataGrid();
+			this.btnCollegaVar = new System.Windows.Forms.Button();
+			this.gBoxNotifiche = new System.Windows.Forms.GroupBox();
+			this.chkFlagMailSent = new System.Windows.Forms.CheckBox();
+			this.btnSendNotification = new System.Windows.Forms.Button();
+			this.tabEP = new Crownwood.Magic.Controls.TabPage();
+			this.labEPDisabilitato = new System.Windows.Forms.Label();
+			this.btnGeneraEP = new System.Windows.Forms.Button();
+			this.btnVisualizzaEP = new System.Windows.Forms.Button();
+			this.labEP = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.groupBox1.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.tabControl1.SuspendLayout();
+			this.tabPrincipale.SuspendLayout();
+			this.gBoxTransmissionKind.SuspendLayout();
+			this.tabDocumenti.SuspendLayout();
+			this.tabPageMandati.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
+			this.tabPageVariazioni.SuspendLayout();
+			this.groupBox4.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgrVariazioni)).BeginInit();
+			this.gBoxNotifiche.SuspendLayout();
+			this.tabEP.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// cmbCodiceIstituto
+			// 
+			this.cmbCodiceIstituto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
+			this.cmbCodiceIstituto.DisplayMember = "description";
+			this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbCodiceIstituto.Location = new System.Drawing.Point(160, 19);
+			this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
+			this.cmbCodiceIstituto.Size = new System.Drawing.Size(533, 23);
+			this.cmbCodiceIstituto.TabIndex = 1;
+			this.cmbCodiceIstituto.Tag = "paymenttransmission.idtreasurer?paymenttransmissionview.idtreasurer";
+			this.cmbCodiceIstituto.ValueMember = "idtreasurer";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// btnIstitutoCassiere
+			// 
+			this.btnIstitutoCassiere.Location = new System.Drawing.Point(59, 17);
+			this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
+			this.btnIstitutoCassiere.Size = new System.Drawing.Size(97, 24);
+			this.btnIstitutoCassiere.TabIndex = 78;
+			this.btnIstitutoCassiere.TabStop = false;
+			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
+			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbResponsabile
+			// 
+			this.cmbResponsabile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbResponsabile.DataSource = this.DS.manager;
+			this.cmbResponsabile.DisplayMember = "title";
+			this.cmbResponsabile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbResponsabile.Location = new System.Drawing.Point(160, 80);
+			this.cmbResponsabile.Name = "cmbResponsabile";
+			this.cmbResponsabile.Size = new System.Drawing.Size(533, 23);
+			this.cmbResponsabile.TabIndex = 3;
+			this.cmbResponsabile.Tag = "paymenttransmission.idman?paymenttransmissionview.manager";
+			this.cmbResponsabile.ValueMember = "idman";
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(8, 80);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(144, 24);
+			this.label7.TabIndex = 73;
+			this.label7.Text = "Responsabile della distinta:";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtDataTrasmissione
+			// 
+			this.txtDataTrasmissione.Location = new System.Drawing.Point(112, 52);
+			this.txtDataTrasmissione.Name = "txtDataTrasmissione";
+			this.txtDataTrasmissione.Size = new System.Drawing.Size(94, 23);
+			this.txtDataTrasmissione.TabIndex = 2;
+			this.txtDataTrasmissione.Tag = "paymenttransmission.transmissiondate?paymenttransmissionview.transmissiondate";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(6, 58);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(104, 16);
+			this.label3.TabIndex = 71;
+			this.label3.Text = "Data trasmissione:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.txtNumero);
+			this.groupBox1.Controls.Add(this.label2);
+			this.groupBox1.Controls.Add(this.txtEsercizio);
+			this.groupBox1.Controls.Add(this.label1);
+			this.groupBox1.Location = new System.Drawing.Point(12, 3);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(352, 46);
+			this.groupBox1.TabIndex = 1;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Distinta di trasmissione";
+			// 
+			// txtNumero
+			// 
+			this.txtNumero.Location = new System.Drawing.Point(245, 17);
+			this.txtNumero.Name = "txtNumero";
+			this.txtNumero.Size = new System.Drawing.Size(88, 23);
+			this.txtNumero.TabIndex = 1;
+			this.txtNumero.Tag = "paymenttransmission.npaymenttransmission?paymenttransmissionview.npaymenttransmis" +
+    "sion";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(165, 17);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(72, 16);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Numero:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtEsercizio
+			// 
+			this.txtEsercizio.Location = new System.Drawing.Point(85, 17);
+			this.txtEsercizio.Name = "txtEsercizio";
+			this.txtEsercizio.ReadOnly = true;
+			this.txtEsercizio.Size = new System.Drawing.Size(56, 23);
+			this.txtEsercizio.TabIndex = 1;
+			this.txtEsercizio.TabStop = false;
+			this.txtEsercizio.Tag = "paymenttransmission.ypaymenttransmission?paymenttransmissionview.ypaymenttransmis" +
+    "sion";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(5, 17);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(72, 16);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Esercizio:";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Controls.Add(this.label6);
+			this.groupBox3.Controls.Add(this.textBox8);
+			this.groupBox3.Controls.Add(this.label5);
+			this.groupBox3.Controls.Add(this.textBox1);
+			this.groupBox3.Controls.Add(this.label7);
+			this.groupBox3.Controls.Add(this.cmbResponsabile);
+			this.groupBox3.Controls.Add(this.cmbCodiceIstituto);
+			this.groupBox3.Controls.Add(this.btnIstitutoCassiere);
+			this.groupBox3.Controls.Add(this.label3);
+			this.groupBox3.Controls.Add(this.txtDataTrasmissione);
+			this.groupBox3.Location = new System.Drawing.Point(11, 90);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(699, 107);
+			this.groupBox3.TabIndex = 2;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Dati Contabili";
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(447, 54);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(146, 16);
+			this.label6.TabIndex = 83;
+			this.label6.Text = "Data acquisizione banca:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox8
+			// 
+			this.textBox8.Location = new System.Drawing.Point(599, 48);
+			this.textBox8.Name = "textBox8";
+			this.textBox8.Size = new System.Drawing.Size(97, 23);
+			this.textBox8.TabIndex = 82;
+			this.textBox8.Tag = "paymenttransmission.bankdate?paymenttransmissionview.bankdate";
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(211, 54);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(123, 16);
+			this.label5.TabIndex = 80;
+			this.label5.Text = "Data creazione flusso:";
+			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(335, 52);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(106, 23);
+			this.textBox1.TabIndex = 79;
+			this.textBox1.Tag = "paymenttransmission.streamdate?paymenttransmissionview.streamdate";
+			// 
+			// tabControl1
+			// 
+			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl1.IDEPixelArea = true;
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.SelectedTab = this.tabPrincipale;
+			this.tabControl1.Size = new System.Drawing.Size(715, 543);
+			this.tabControl1.TabIndex = 4;
+			this.tabControl1.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
+            this.tabPrincipale,
+            this.tabEP});
+			// 
+			// tabPrincipale
+			// 
+			this.tabPrincipale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabPrincipale.Controls.Add(this.checkBox1);
+			this.tabPrincipale.Controls.Add(this.lblNotifiche);
+			//this.tabPrincipale.Controls.Add(this.progressBarImport);
+			this.tabPrincipale.Controls.Add(this.gBoxTransmissionKind);
+			this.tabPrincipale.Controls.Add(this.tabDocumenti);
+			this.tabPrincipale.Controls.Add(this.gBoxNotifiche);
+			this.tabPrincipale.Controls.Add(this.btnSendNotification);
+			this.tabPrincipale.Controls.Add(this.groupBox3);
+			this.tabPrincipale.Controls.Add(this.groupBox1);
+			this.tabPrincipale.Location = new System.Drawing.Point(0, 0);
+			this.tabPrincipale.Name = "tabPrincipale";
+			this.tabPrincipale.Size = new System.Drawing.Size(715, 518);
+			this.tabPrincipale.TabIndex = 3;
+			this.tabPrincipale.Title = "Principale";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(351, 210);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(220, 19);
+			this.checkBox1.TabIndex = 87;
+			this.checkBox1.Tag = "paymenttransmission.flagtransmissionenabled:S:N";
+			this.checkBox1.Text = "Verificato, si autorizza la trasmissione";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// lblNotifiche
+			// 
+			this.lblNotifiche.Location = new System.Drawing.Point(12, 52);
+			this.lblNotifiche.Name = "lblNotifiche";
+			this.lblNotifiche.Size = new System.Drawing.Size(352, 16);
+			this.lblNotifiche.TabIndex = 86;
+			this.lblNotifiche.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// progressBarImport
+			// 
+			//this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBarImport.Location = new System.Drawing.Point(11, 68);
+			//this.progressBarImport.Name = "progressBarImport";
+			//this.progressBarImport.Size = new System.Drawing.Size(693, 19);
+			//this.progressBarImport.TabIndex = 85;
+			//this.progressBarImport.Visible = false;
+			// 
+			// gBoxTransmissionKind
+			// 
+			this.gBoxTransmissionKind.Controls.Add(this.chkTransmissionKind);
+			this.gBoxTransmissionKind.Location = new System.Drawing.Point(12, 197);
+			this.gBoxTransmissionKind.Name = "gBoxTransmissionKind";
+			this.gBoxTransmissionKind.Size = new System.Drawing.Size(333, 36);
+			this.gBoxTransmissionKind.TabIndex = 84;
+			this.gBoxTransmissionKind.TabStop = false;
+			this.gBoxTransmissionKind.Text = "Tipo elenco";
+			// 
+			// chkTransmissionKind
+			// 
+			this.chkTransmissionKind.AutoSize = true;
+			this.chkTransmissionKind.Location = new System.Drawing.Point(76, 13);
+			this.chkTransmissionKind.Name = "chkTransmissionKind";
+			this.chkTransmissionKind.Size = new System.Drawing.Size(211, 19);
+			this.chkTransmissionKind.TabIndex = 82;
+			this.chkTransmissionKind.Tag = "paymenttransmission.transmissionkind:V:I";
+			this.chkTransmissionKind.Text = "Elenco di Variazioni e Annullamenti";
+			this.chkTransmissionKind.UseVisualStyleBackColor = true;
+			this.chkTransmissionKind.CheckedChanged += new System.EventHandler(this.chkTransmissionKind_CheckedChanged);
+			// 
+			// tabDocumenti
+			// 
+			this.tabDocumenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabDocumenti.Controls.Add(this.tabPageMandati);
+			this.tabDocumenti.Controls.Add(this.tabPageVariazioni);
+			this.tabDocumenti.Location = new System.Drawing.Point(11, 239);
+			this.tabDocumenti.Name = "tabDocumenti";
+			this.tabDocumenti.SelectedIndex = 0;
+			this.tabDocumenti.Size = new System.Drawing.Size(690, 270);
+			this.tabDocumenti.TabIndex = 82;
+			// 
+			// tabPageMandati
+			// 
+			this.tabPageMandati.Controls.Add(this.groupBox2);
+			this.tabPageMandati.Location = new System.Drawing.Point(4, 24);
+			this.tabPageMandati.Name = "tabPageMandati";
+			this.tabPageMandati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageMandati.Size = new System.Drawing.Size(682, 242);
+			this.tabPageMandati.TabIndex = 0;
+			this.tabPageMandati.Text = "Mandati inclusi nella distinta di trasmissione";
+			this.tabPageMandati.UseVisualStyleBackColor = true;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.txtTotale);
+			this.groupBox2.Controls.Add(this.label4);
+			this.groupBox2.Controls.Add(this.btnModifica);
+			this.groupBox2.Controls.Add(this.btnScollega);
+			this.groupBox2.Controls.Add(this.dataGrid1);
+			this.groupBox2.Controls.Add(this.btnCollega);
+			this.groupBox2.Location = new System.Drawing.Point(6, 6);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(670, 230);
+			this.groupBox2.TabIndex = 5;
+			this.groupBox2.TabStop = false;
+			// 
+			// txtTotale
+			// 
+			this.txtTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTotale.Location = new System.Drawing.Point(557, 195);
+			this.txtTotale.Name = "txtTotale";
+			this.txtTotale.ReadOnly = true;
+			this.txtTotale.Size = new System.Drawing.Size(104, 23);
+			this.txtTotale.TabIndex = 80;
+			this.txtTotale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label4
+			// 
+			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label4.Location = new System.Drawing.Point(471, 202);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(80, 16);
+			this.label4.TabIndex = 79;
+			this.label4.Text = "Totale distinta";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// btnModifica
+			// 
+			this.btnModifica.Location = new System.Drawing.Point(16, 64);
+			this.btnModifica.Name = "btnModifica";
+			this.btnModifica.Size = new System.Drawing.Size(75, 23);
+			this.btnModifica.TabIndex = 78;
+			this.btnModifica.TabStop = false;
+			this.btnModifica.Text = "Modifica...";
+			this.btnModifica.Click += new System.EventHandler(this.btnModifica_Click);
+			// 
+			// btnScollega
+			// 
+			this.btnScollega.Location = new System.Drawing.Point(16, 104);
+			this.btnScollega.Name = "btnScollega";
+			this.btnScollega.Size = new System.Drawing.Size(75, 23);
+			this.btnScollega.TabIndex = 77;
+			this.btnScollega.TabStop = false;
+			this.btnScollega.Tag = "unlink";
+			this.btnScollega.Text = "Rimuovi";
+			// 
+			// dataGrid1
+			// 
+			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid1.CaptionVisible = false;
+			this.dataGrid1.DataMember = "";
+			this.dataGrid1.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid1.Location = new System.Drawing.Point(96, 24);
+			this.dataGrid1.Name = "dataGrid1";
+			this.dataGrid1.Size = new System.Drawing.Size(566, 161);
+			this.dataGrid1.TabIndex = 75;
+			this.dataGrid1.Tag = "paymentview.documentitrasmessi";
+			// 
+			// btnCollega
+			// 
+			this.btnCollega.Location = new System.Drawing.Point(16, 24);
+			this.btnCollega.Name = "btnCollega";
+			this.btnCollega.Size = new System.Drawing.Size(75, 23);
+			this.btnCollega.TabIndex = 76;
+			this.btnCollega.TabStop = false;
+			this.btnCollega.Text = "Inserisci";
+			this.btnCollega.Click += new System.EventHandler(this.btnCollega_Click);
+			// 
+			// tabPageVariazioni
+			// 
+			this.tabPageVariazioni.Controls.Add(this.groupBox4);
+			this.tabPageVariazioni.Location = new System.Drawing.Point(4, 24);
+			this.tabPageVariazioni.Name = "tabPageVariazioni";
+			this.tabPageVariazioni.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageVariazioni.Size = new System.Drawing.Size(682, 242);
+			this.tabPageVariazioni.TabIndex = 1;
+			this.tabPageVariazioni.Text = "Variazioni incluse nella distinta di trasmissione";
+			this.tabPageVariazioni.UseVisualStyleBackColor = true;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Controls.Add(this.btnModificaVar);
+			this.groupBox4.Controls.Add(this.btnScollegaVar);
+			this.groupBox4.Controls.Add(this.dgrVariazioni);
+			this.groupBox4.Controls.Add(this.btnCollegaVar);
+			this.groupBox4.Location = new System.Drawing.Point(6, 6);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(670, 230);
+			this.groupBox4.TabIndex = 6;
+			this.groupBox4.TabStop = false;
+			// 
+			// btnModificaVar
+			// 
+			this.btnModificaVar.Location = new System.Drawing.Point(16, 64);
+			this.btnModificaVar.Name = "btnModificaVar";
+			this.btnModificaVar.Size = new System.Drawing.Size(75, 23);
+			this.btnModificaVar.TabIndex = 78;
+			this.btnModificaVar.TabStop = false;
+			this.btnModificaVar.Text = "Modifica...";
+			this.btnModificaVar.Click += new System.EventHandler(this.btnModificaVar_Click);
+			// 
+			// btnScollegaVar
+			// 
+			this.btnScollegaVar.Location = new System.Drawing.Point(16, 104);
+			this.btnScollegaVar.Name = "btnScollegaVar";
+			this.btnScollegaVar.Size = new System.Drawing.Size(75, 23);
+			this.btnScollegaVar.TabIndex = 77;
+			this.btnScollegaVar.TabStop = false;
+			this.btnScollegaVar.Tag = "";
+			this.btnScollegaVar.Text = "Rimuovi";
+			this.btnScollegaVar.Click += new System.EventHandler(this.btnScollegaVar_Click);
+			// 
+			// dgrVariazioni
+			// 
+			this.dgrVariazioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgrVariazioni.CaptionVisible = false;
+			this.dgrVariazioni.DataMember = "";
+			this.dgrVariazioni.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dgrVariazioni.Location = new System.Drawing.Point(96, 24);
+			this.dgrVariazioni.Name = "dgrVariazioni";
+			this.dgrVariazioni.Size = new System.Drawing.Size(566, 188);
+			this.dgrVariazioni.TabIndex = 75;
+			this.dgrVariazioni.Tag = "expensevarview.documentitrasmessi";
+			// 
+			// btnCollegaVar
+			// 
+			this.btnCollegaVar.Location = new System.Drawing.Point(16, 24);
+			this.btnCollegaVar.Name = "btnCollegaVar";
+			this.btnCollegaVar.Size = new System.Drawing.Size(75, 23);
+			this.btnCollegaVar.TabIndex = 76;
+			this.btnCollegaVar.TabStop = false;
+			this.btnCollegaVar.Text = "Inserisci";
+			this.btnCollegaVar.Click += new System.EventHandler(this.btnCollegaVar_Click);
+			// 
+			// gBoxNotifiche
+			// 
+			this.gBoxNotifiche.Controls.Add(this.chkFlagMailSent);
+			this.gBoxNotifiche.Location = new System.Drawing.Point(538, 3);
+			this.gBoxNotifiche.Name = "gBoxNotifiche";
+			this.gBoxNotifiche.Size = new System.Drawing.Size(144, 46);
+			this.gBoxNotifiche.TabIndex = 81;
+			this.gBoxNotifiche.TabStop = false;
+			this.gBoxNotifiche.Text = "Notifiche";
+			// 
+			// chkFlagMailSent
+			// 
+			this.chkFlagMailSent.AutoSize = true;
+			this.chkFlagMailSent.Location = new System.Drawing.Point(6, 17);
+			this.chkFlagMailSent.Name = "chkFlagMailSent";
+			this.chkFlagMailSent.Size = new System.Drawing.Size(113, 19);
+			this.chkFlagMailSent.TabIndex = 81;
+			this.chkFlagMailSent.Tag = "paymenttransmission.flagmailsent:S:N";
+			this.chkFlagMailSent.Text = "Notifiche Inviate";
+			this.chkFlagMailSent.UseVisualStyleBackColor = true;
+			// 
+			// btnSendNotification
+			// 
+			this.btnSendNotification.Location = new System.Drawing.Point(393, 12);
+			this.btnSendNotification.Name = "btnSendNotification";
+			this.btnSendNotification.Size = new System.Drawing.Size(118, 24);
+			this.btnSendNotification.TabIndex = 80;
+			this.btnSendNotification.TabStop = false;
+			this.btnSendNotification.Tag = "";
+			this.btnSendNotification.Text = "Invia Email";
+			this.btnSendNotification.Click += new System.EventHandler(this.btnSendNotification_Click);
+			// 
+			// tabEP
+			// 
+			this.tabEP.Controls.Add(this.labEPDisabilitato);
+			this.tabEP.Controls.Add(this.btnGeneraEP);
+			this.tabEP.Controls.Add(this.btnVisualizzaEP);
+			this.tabEP.Controls.Add(this.labEP);
+			this.tabEP.Location = new System.Drawing.Point(0, 0);
+			this.tabEP.Name = "tabEP";
+			this.tabEP.Selected = false;
+			this.tabEP.Size = new System.Drawing.Size(715, 518);
+			this.tabEP.TabIndex = 4;
+			this.tabEP.Title = "E/P";
+			// 
+			// labEPDisabilitato
+			// 
+			this.labEPDisabilitato.Location = new System.Drawing.Point(12, 132);
+			this.labEPDisabilitato.Name = "labEPDisabilitato";
+			this.labEPDisabilitato.Size = new System.Drawing.Size(352, 16);
+			this.labEPDisabilitato.TabIndex = 17;
+			this.labEPDisabilitato.Text = "Le scritture in partita doppia sono disabilitate per questo elenco.";
+			// 
+			// btnGeneraEP
+			// 
+			this.btnGeneraEP.Location = new System.Drawing.Point(6, 93);
+			this.btnGeneraEP.Name = "btnGeneraEP";
+			this.btnGeneraEP.Size = new System.Drawing.Size(224, 23);
+			this.btnGeneraEP.TabIndex = 16;
+			this.btnGeneraEP.Text = "Genera le scritture in partita doppia";
+			this.btnGeneraEP.UseVisualStyleBackColor = true;
+			// 
+			// btnVisualizzaEP
+			// 
+			this.btnVisualizzaEP.Location = new System.Drawing.Point(6, 64);
+			this.btnVisualizzaEP.Name = "btnVisualizzaEP";
+			this.btnVisualizzaEP.Size = new System.Drawing.Size(224, 23);
+			this.btnVisualizzaEP.TabIndex = 15;
+			this.btnVisualizzaEP.Text = "Visualizza le scritture in partita doppia";
+			// 
+			// labEP
+			// 
+			this.labEP.Location = new System.Drawing.Point(3, 9);
+			this.labEP.Name = "labEP";
+			this.labEP.Size = new System.Drawing.Size(352, 16);
+			this.labEP.TabIndex = 13;
+			this.labEP.Text = "Le scritture in partita doppia sono state generate.";
+			// 
+			// Frm_paymenttransmission_default
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(715, 543);
+			this.Controls.Add(this.tabControl1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
+			this.Name = "Frm_paymenttransmission_default";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "frmtrasmdocpagamento";
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.tabControl1.ResumeLayout(false);
+			this.tabPrincipale.ResumeLayout(false);
+			this.tabPrincipale.PerformLayout();
+			this.gBoxTransmissionKind.ResumeLayout(false);
+			this.gBoxTransmissionKind.PerformLayout();
+			this.tabDocumenti.ResumeLayout(false);
+			this.tabPageMandati.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+			this.tabPageVariazioni.ResumeLayout(false);
+			this.groupBox4.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgrVariazioni)).EndInit();
+			this.gBoxNotifiche.ResumeLayout(false);
+			this.gBoxNotifiche.PerformLayout();
+			this.tabEP.ResumeLayout(false);
+			this.ResumeLayout(false);
 
         }
 
@@ -859,14 +830,14 @@ namespace paymenttransmission_default { //trasmdocpagamento//
 
 				if ((TDetails == null) || (TDetails.Rows.Count == 0)) continue;
  
-				progressBarImport.Visible = true;
-                progressBarImport.Value = 0;
-                progressBarImport.Maximum = TDetails.Rows.Count;
+				//progressBarImport.Visible = true;
+    //            progressBarImport.Value = 0;
+    //            progressBarImport.Maximum = TDetails.Rows.Count;
                 lblNotifiche.Text = "Invio notifiche in corso per Mandato n° " + Mandato["npay"];
 
                 // Ciclo sui beneficiari della disposizione di pagamento
                 foreach (DataRow rDispDetailsRow in TDetails.Rows) {
-                    if (progressBarImport.Value < progressBarImport.Maximum) progressBarImport.Value++;
+                    //if (progressBarImport.Value < progressBarImport.Maximum) progressBarImport.Value++;
                     Application.DoEvents();
                     object description = rDispDetailsRow["maindescription"];
                     object surname = rDispDetailsRow["surname"];
@@ -964,8 +935,8 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     else sent = true;
                 }
 
-                progressBarImport.Value = 0;
-                progressBarImport.Visible = false;
+                //progressBarImport.Value = 0;
+                //progressBarImport.Visible = false;
                 lblNotifiche.Text = "";
             }
         }
@@ -1001,13 +972,13 @@ namespace paymenttransmission_default { //trasmdocpagamento//
 
                 if (T == null || T.Rows.Count == 0) return;
 
-                progressBarImport.Visible = true;
-                progressBarImport.Value = 0;
-                progressBarImport.Maximum = T.Rows.Count;
+                //progressBarImport.Visible = true;
+                //progressBarImport.Value = 0;
+                //progressBarImport.Maximum = T.Rows.Count;
                 lblNotifiche.Text = "Invio notifiche in corso per Mandato n° " + Mandato["npay"];
                 // Ciclo sui beneficiari delle righe di mandato
                 foreach (DataRow rExp in T.Rows) {
-                    if (progressBarImport.Value < progressBarImport.Maximum) progressBarImport.Value++;
+                    //if (progressBarImport.Value < progressBarImport.Maximum) progressBarImport.Value++;
                     Application.DoEvents();
                     object idreg = rExp["idreg"];
                     object description = rExp["description"];
@@ -1114,8 +1085,8 @@ namespace paymenttransmission_default { //trasmdocpagamento//
                     else sent = true;
                 }
 
-                progressBarImport.Value = 0;
-                progressBarImport.Visible = false;
+                //progressBarImport.Value = 0;
+                //progressBarImport.Visible = false;
                 lblNotifiche.Text = "";
             }
         }

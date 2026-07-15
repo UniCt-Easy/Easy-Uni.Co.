@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,11 +25,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_istanza_seganagstusonpre"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_istanza_seganagstusonpre: DataSet {
+public partial class dsmeta_istanza_seganagstusonpre: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable statuskind 		=> (MetaTable)Tables["statuskind"];
+	public MetaTable statuskinddefaultview 		=> (MetaTable)Tables["statuskinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable annoaccademico 		=> (MetaTable)Tables["annoaccademico"];
@@ -64,12 +62,22 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_istanza_seganagstusonpre.xsd";
 
 	#region create DataTables
-	//////////////////// STATUSKIND /////////////////////////////////
-	var tstatuskind= new MetaTable("statuskind");
-	tstatuskind.defineColumn("idstatuskind", typeof(int),false);
-	tstatuskind.defineColumn("title", typeof(string),false);
-	Tables.Add(tstatuskind);
-	tstatuskind.defineKey("idstatuskind");
+	//////////////////// STATUSKINDDEFAULTVIEW /////////////////////////////////
+	var tstatuskinddefaultview= new MetaTable("statuskinddefaultview");
+	tstatuskinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("idstatuskind", typeof(int),false);
+	tstatuskinddefaultview.defineColumn("statuskind_ct", typeof(DateTime),false);
+	tstatuskinddefaultview.defineColumn("statuskind_cu", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("statuskind_delibera", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_istanze", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_istanzedelibera", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_lt", typeof(DateTime),false);
+	tstatuskinddefaultview.defineColumn("statuskind_lu", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("statuskind_pratica", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_sortcode", typeof(int),false);
+	tstatuskinddefaultview.defineColumn("title", typeof(string),false);
+	Tables.Add(tstatuskinddefaultview);
+	tstatuskinddefaultview.defineKey("idstatuskind");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");
@@ -94,8 +102,8 @@ private void initClass() {
 	tistanza.defineColumn("lt", typeof(DateTime),false);
 	tistanza.defineColumn("lu", typeof(string),false);
 	tistanza.defineColumn("paridistanza", typeof(int),false);
-	tistanza.defineColumn("protanno", typeof(int),false);
-	tistanza.defineColumn("protnumero", typeof(int),false);
+	tistanza.defineColumn("protanno", typeof(int));
+	tistanza.defineColumn("protnumero", typeof(int));
 	Tables.Add(tistanza);
 	tistanza.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti", "paridistanza");
 
@@ -103,9 +111,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{statuskind.Columns["idstatuskind"]};
+	var cPar = new []{statuskinddefaultview.Columns["idstatuskind"]};
 	var cChild = new []{istanza.Columns["idstatuskind"]};
-	Relations.Add(new DataRelation("FK_istanza_statuskind_idstatuskind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_istanza_statuskinddefaultview_idstatuskind",cPar,cChild,false));
 
 	cPar = new []{annoaccademico.Columns["aa"]};
 	cChild = new []{istanza.Columns["aa"]};

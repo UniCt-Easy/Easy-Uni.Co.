@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -42,7 +40,7 @@ public partial class ManageCart :System.Web.UI.Page {
          * - idlist: id dell'articolo in listino
          * - idstore: id magazzino
          * - idstock: id stock
-         * - units: numero di unit‡ da prenotare.
+         * - units: numero di unit√† da prenotare.
          * - action: azione da effetturare. Ha tre valori:
          *   * add: aggiunge al carrello;
          *   * show: mostra il contenuto attuale del carrello;
@@ -51,7 +49,7 @@ public partial class ManageCart :System.Web.UI.Page {
         switch (action) {
         case "add": {
                 /* Aggiunge articoli al carrello
-                 * necessita dei parametri idlist (id articolo), units (quantit‡),
+                 * necessita dei parametri idlist (id articolo), units (quantit√†),
                  * idstore (id magazzino). Restituisce un XML che contiene
                  * il messaggio di notifica di avvenuto inserimento dell'articolo nel carrello.
                  */
@@ -221,7 +219,7 @@ public partial class ManageCart :System.Web.UI.Page {
                     htmltext += "<div class=\"row\">";
                     htmltext += "<div class=\"col-md-5\"></div>";
                     htmltext += "<div class=\"col-md-4\">";
-                    htmltext += "<label>Il suo carrello Ë vuoto.</label>";
+                    htmltext += "<label>Il suo carrello √® vuoto.</label>";
                     htmltext += "</div>";
                     htmltext += "<div class=\"col-md-3\"></div>";
                     htmltext += "</div>";//chiude la rows
@@ -268,7 +266,7 @@ public partial class ManageCart :System.Web.UI.Page {
                     htmltext += "<thead><tr>";
                     htmltext += "<thead><tr><th>Voce</th><th>Prezzo</th>";
                     //htmltext += "<th>Class.Merceologica</th>";// Hanno chiesto di nasconderla
-                    htmltext += "<th>Quantit‡</th></tr></thead><tbody>";
+                    htmltext += "<th>Quantit√†</th></tr></thead><tbody>";
 
                     int counter;
                     string bgcolor = "";
@@ -295,7 +293,7 @@ public partial class ManageCart :System.Web.UI.Page {
                         htmltext += "<td><style=\"text-align: justify;\">" + itemdescription + "</td>";
 						decimal prezzoivato = CI.price + CI.iva;
 
-						htmltext += "<td><style=\"text-align: justify;\">" + "Ä "+prezzoivato.ToString() + "</td>";
+						htmltext += "<td><style=\"text-align: justify;\">" + "‚Ç¨ "+prezzoivato.ToString() + "</td>";
                             // htmltext += "<td><style=\"text-align: left;\">" + listclass + "</td>";     // Hanno chiesto di nasconderla
                         htmltext += "<td><style=\"text-align: center;\">" + CI.quantity.ToString() + "</td>";
                         htmltext += "</tr>";
@@ -335,16 +333,16 @@ public partial class ManageCart :System.Web.UI.Page {
                 /* Svuota il carrello corrente. 
                  * Restituisce un XML contenente il messaggio di notifica
                  * dell'avvenuto svuotamento, oppure un messaggio di notifica
-                 * che avvisa l'utente che il carrello Ë gi‡ vuoto.
+                 * che avvisa l'utente che il carrello √® gi√† vuoto.
                  */
                 // azzera il carrello
                 if (Session["Cart"] == null) {
-                    htmltext += "<p>Il suo Carrello Ë gi‡ vuoto.</p>";
+                    htmltext += "<p>Il suo Carrello √® gi√† vuoto.</p>";
                 }
                 else {
                     Session["Cart"] = null;
 
-                    htmltext += "<p>Il suo Carrello Ë stato svuotato come richiesto.</p>";
+                    htmltext += "<p>Il suo Carrello √® stato svuotato come richiesto.</p>";
                 }
 
                 myXmlWriter.WriteStartDocument();

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using metadatalibrary;
@@ -67,7 +65,7 @@ namespace meta_sdi_acquistoiparifammview {
                 DescribeAColumn(T, "rejectreason", "Motivo del rifiuto", nPos++);
                 DescribeAColumn(T, "utente_accettata", "Utente accettazione", nPos++);
                 DescribeAColumn(T, "data_accettata", "Data accettazione", nPos++);
-                DescribeAColumn(T, "existsinvoice", "Fatt.Creata in contabilit‡", nPos++);
+                DescribeAColumn(T, "existsinvoice", "Fatt.Creata in contabilit√†", nPos++);
                 DescribeAColumn(T, "data_ricezione", "Data Ricezione SDI", nPos++);
                 //DescribeAColumn(T, "exist_mt", "File dei metadati");
                 //DescribeAColumn(T, "exist_se", "Notifica di scarto esito committente");

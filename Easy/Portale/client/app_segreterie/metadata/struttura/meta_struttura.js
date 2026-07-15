@@ -63,6 +63,12 @@
 						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
 						this.describeAColumn(table, 'codice', 'Codice', null, 30, 50);
 						this.describeAColumn(table, 'active', 'Attivo', null, 160, null);
+						this.describeAColumn(table, '!idstrutturakind_strutturakind_title', 'Tipo', null, 21, null);
+						objCalcFieldConfig['!idstrutturakind_strutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstrutturakind' };
+						this.describeAColumn(table, '!paridstruttura_struttura_title', 'Denominazione Struttura madre', null, 91, null);
+						this.describeAColumn(table, '!paridstruttura_struttura_idstrutturakind_title', 'Tipo Struttura madre', null, 90, null);
+						objCalcFieldConfig['!paridstruttura_struttura_title'] = { tableNameLookup:'struttura_alias2', columnNameLookup:'title', columnNamekey:'paridstruttura' };
+						objCalcFieldConfig['!paridstruttura_struttura_idstrutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'paridstruttura' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'perfelenchi':
@@ -108,8 +114,6 @@
 //$innerSetCaptionConfig_perf$
 						break;
 					case 'princ':
-						table.columns["codiceipa"].caption = "Codice IPA";
-						table.columns["active"].caption = "Attivo";
 //$innerSetCaptionConfig_princ$
 						break;
 					case 'seg_child':

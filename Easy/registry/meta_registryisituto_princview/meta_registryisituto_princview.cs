@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -80,7 +78,7 @@ namespace meta_registryisituto_princview
 						DescribeAColumn(T, "registry_gender", "Sesso (M/F)", nPos++);
 						DescribeAColumn(T, "category_description", "ID Categoria (tabella category)", nPos++);
 						DescribeAColumn(T, "centralizedcategory_description", "ID Classificazione centralizzata anagrafica (tabella centralizedcategory)", nPos++);
-						DescribeAColumn(T, "geo_city_title", "id citt‡ (tabella geo_city)", nPos++);
+						DescribeAColumn(T, "geo_city_title", "id citt√† (tabella geo_city)", nPos++);
 						DescribeAColumn(T, "registry_idexternal", "Id chiave in altri database, usato in migrazioni o simili", nPos++);
 						DescribeAColumn(T, "maritalstatus_description", "ID Stato civile (tabella maritalstatus)", nPos++);
 						DescribeAColumn(T, "geo_nation_title", "Id nazione (tabella geo_nation)", nPos++);

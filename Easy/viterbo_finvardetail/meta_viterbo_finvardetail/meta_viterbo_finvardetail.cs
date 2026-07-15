@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -279,17 +277,17 @@ namespace meta_viterbo_finvardetail
         public override bool IsValid(DataRow R, out string errmess, out string errfield) {
             if (!base.IsValid(R, out errmess, out errfield)) return false;
             if (R["amount"] == DBNull.Value) {
-                errmess = "Attenzione! L'importo non puÚ essere nullo.";
+                errmess = "Attenzione! L'importo non pu√≤ essere nullo.";
                 errfield = "amount";
                 return false;
             }
             if (CfgFn.GetNoNullInt32(R["idfin"]) == 0) {
-                errmess = "Attenzione! La voce di bilancio non puÚ essere nulla.";
+                errmess = "Attenzione! La voce di bilancio non pu√≤ essere nulla.";
                 errfield = "finview.codefin";
                 return false;
             }
             if (CfgFn.GetNoNullDecimal(R["limit"]) < 0) {
-                errmess = "Il limite non puÚ essere negativo.";
+                errmess = "Il limite non pu√≤ essere negativo.";
                 errfield = "limit";
                 return false;
             }

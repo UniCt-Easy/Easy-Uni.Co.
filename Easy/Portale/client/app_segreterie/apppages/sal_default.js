@@ -41,8 +41,8 @@
 				def.resolve();
 
 				//$isValid$
-
-				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
 			},
 
 			afterGetFormData: function () {
@@ -121,6 +121,8 @@
 				var f1 = window.jsDataQuery.eq("idprogetto", this.state.callerState.currentRow.idprogetto);
 				self.firstSearchFilter  = f1;
 					self.startFilter = self.firstSearchFilter;
+				$('#sal_default_start').on("change", _.partial(this.managestart, self));
+				$('#sal_default_stop').on("change", _.partial(this.managestop, self));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -296,6 +298,52 @@
 				self.state.currentRow['!budgetcalcolato'] = _.sumBy(progettocostoRows, function (r) {
 					return r.amount;
 				});
+			},
+
+			managestart: function(that) { 
+				var def = appMeta.Deferred("managesal_default_start");
+				let originalStart = that.state.currentRow.start;
+				that.state.currentRow.start = that.getDateTimeFromString($('#sal_default_start').val());
+				if (that.state.currentRow.start && that.state.currentRow.stop) {
+					appMeta.getData.runSelect("sal", "*", that.q.eq("idprogetto", that.state.currentRow.idprogetto))
+						.then(function (dtSal) {
+							let any = dtSal.select(that.q.and(that.q.ne("idsal", that.state.currentRow.idsal), that.q.le("start", that.state.currentRow.stop), that.q.ge("stop", that.state.currentRow.start)))
+							if (any.length) {
+								that.state.currentRow.start = originalStart;
+								$('#sal_default_start').val(that.stringFromDate_ddmmyyyy(originalStart));
+								return that.showMessageOk("Esiste un SAL con date sovrapposte a quelle di questo sal: " + any[0].numerosal);
+							}
+							else
+								return def.resolve();
+						});
+					return def.promise();
+				} else {
+					return def.resolve();
+				}
+
+			},
+
+			managestop: function(that) { 
+				var def = appMeta.Deferred("managesal_default_stop");
+				let originalStop = that.state.currentRow.stop;
+				that.state.currentRow.stop = that.getDateTimeFromString($('#sal_default_stop').val());
+				if (that.state.currentRow.start && that.state.currentRow.stop) {
+					appMeta.getData.runSelect("sal", "*", that.q.eq("idprogetto", that.state.currentRow.idprogetto))
+						.then(function (dtSal) {
+							let any = dtSal.select(that.q.and(that.q.ne("idsal", that.state.currentRow.idsal), that.q.le("start", that.state.currentRow.stop), that.q.ge("stop", that.state.currentRow.start)))
+							if (any.length) {
+								that.state.currentRow.stop = originalStop;
+								$('#sal_default_stop').val(that.stringFromDate_ddmmyyyy(originalStop));
+								return that.showMessageOk("Esiste un SAL con date sovrapposte a quelle di questo sal: " + any[0].numerosal);
+							}
+							else
+								return def.resolve();
+						});
+					return def.promise();
+				} else {
+					return def.resolve();
+				}
+
 			},
 
 			//buttons

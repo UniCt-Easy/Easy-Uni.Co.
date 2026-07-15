@@ -23,10 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'title', 'Titolo', null, 10, -1);
-						this.describeAColumn(table, 'programmami_acronimo', 'Programma di mobilità internazionale', null, 20, 50);
-						this.describeAColumn(table, 'aa_start', 'Anno accademico di inizio', null, 30, 9);
-						this.describeAColumn(table, 'aa_stop', 'Anno accademico di fine', null, 40, 9);
+						this.describeAColumn(table, 'title', 'Titolo', null, 1000, -1);
+						this.describeAColumn(table, 'programmami_acronimo', 'Programma di mobilità internazionale', null, 2400, 50);
+						this.describeAColumn(table, 'aa_start', 'Anno accademico di inizio', null, 3000, 9);
+						this.describeAColumn(table, 'aa_stop', 'Anno accademico di fine', null, 4000, 9);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

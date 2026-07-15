@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -60,8 +58,8 @@ namespace meta_invoicedetailavailable
                 DescribeAColumn(T, "invidgroup", "Gruppo", 4);
                 DescribeAColumn(T, "registry", "Fornitore", 5);
                 DescribeAColumn(T, "detaildescription", "Descrizione", 6);
-                DescribeAColumn(T, "invoiced", "Q.t‡ fatturata", 7);
-                DescribeAColumn(T, "loaded", "Q.t‡ associata a carichi", 7); 
+                DescribeAColumn(T, "invoiced", "Q.t√† fatturata", 7);
+                DescribeAColumn(T, "loaded", "Q.t√† associata a carichi", 7); 
                 DescribeAColumn(T, "residual", "Disponibile a caricare", 8);
                 HelpForm.SetFormatForColumn(T.Columns["loaded"], "n");
                 HelpForm.SetFormatForColumn(T.Columns["invoiced"], "n");

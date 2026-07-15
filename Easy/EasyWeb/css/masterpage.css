@@ -1,12 +1,13 @@
-﻿body
+﻿* {
+	border-radius: 0 !important;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:14px!important;
+}
+
+body
 {
 	font-size: 11px;
 	font-family: Microsoft Sans Serif, Arial;
-	color: #3A5570;
-	background-image: url("Immagini/sfondo.jpg");
-	background-repeat: repeat;
-	/*border-color: #eeeeee;*/
-	
 }
     
 header
@@ -89,7 +90,7 @@ table.normalwrap th
 input[type="password"]
 {
 	background-color: White;
-	color: Blue;
+	color: Black;
 	border: 1px solid gray;
 	font-size: 12px;
 	font-family: Microsoft Sans Serif, Arial;
@@ -103,7 +104,7 @@ input[type="password"]
 input[type="text"]
 {
 	background-color: White;
-	color: Blue;
+	color: Black;
 	border: 1px solid gray;
 	font-size: 12px;
 	font-family: Microsoft Sans Serif, Arial;
@@ -117,13 +118,14 @@ input[type="text"]
 
 select, input[type="select"]
 {
-	color: Blue;
+	color: Black;
 	background-color: White;
 	border: 1px solid gray;
 	font-size: 12px;
 	font-family: Microsoft Sans Serif, Arial;
 }
 
+/*
 input:focus,input[type="text"].focus,input[type="password"].focus, textarea:focus,input[type="select"].focus,select:focus 
  {
     background-color: #F2F5A9;
@@ -135,10 +137,7 @@ select.active, input[type="select"].active,  textarea:active,input[type="passwor
 	background-color: #F2F5A9;
 	border-color: Blue;
 }
-
-
-
-
+*/
 
 input[readonly]
 {
@@ -148,14 +147,12 @@ input[readonly]
 	
 }
 
-
+/*
 input[type="text"].focused, input[type="text"].active{
 	background-color: #F2F5A9;
-	/*border-width: 4px;*/
-	/*border-style: inset;*/
-	border-color: Blue;
-	
+	border-color: Blue;	
 }
+*/
 
 .centerdiv {
   /*position: absolute; 
@@ -166,6 +163,18 @@ input[type="text"].focused, input[type="text"].active{
   /* transform: translate(-50%, -50%); Yep! */
   width: 48%;
   height: 59%;
+}
+
+.grp {
+    background-color: white !important;
+    border: 1px solid #ccc;
+    padding-top: 5px;
+    margin-bottom: 6px;
+}
+
+.grp fieldset {
+    margin: 0;
+    border: 0;
 }
 
 
@@ -201,7 +210,7 @@ input[type="button"]:hover
 input[type="radio"]
 {
 	background-color: white;
-	color: Blue;
+	color: Black;
 	font-size: 12px;
 	font-family: Microsoft Sans Serif, Arial;
 	
@@ -505,7 +514,7 @@ input[type="button"].showcasebutton:hover
 
 textarea
 {
-	color: Blue;
+	color: Black;
 	background-color: White;
 	border: 1px solid gray;
 	font-family: Arial, Helvetica;
@@ -516,6 +525,12 @@ textarea
 	/*	resize: none; */
 }
 
+button {
+    color: white !important;
+    border: 1px solid #0049a9 !important;
+    background: #0049a9 !important;
+    border-radius: 0 !important;
+}
 
 
 textarea[readonly]
@@ -562,4 +577,135 @@ textarea[readonly]
 
    input::-ms-clear {
   display: none;
+}
+
+.ui-widget-content, .ui-state-default, .ui-widget-header {
+    background: none !important;
+    background-color: white !important;
+    color: black !important;
+    font-weight: normal !important;
+}
+
+.ui-pgrid-table tbody td, .ui-pgrid-table thead th, .ui-pgrid-table tbody td.ui-state-highlight, .ui-pgrid-table tbody td.ui-state-default, .ui-pgrid-table tbody td.ui-state-hover {
+    padding: 2px 4px!important;
+    text-align: left!important;
+}
+
+.ui-pgrid-table td, .ui-pgrid-table th {
+    border-color: #ccc;
+}
+
+.ui-widget-content {
+    border: 0;
+	padding: 0;
+}
+
+
+.ui-pgrid-footer {
+	display: block;
+    padding-top: 10px;
+}
+
+.ui-pgrid-table-header-text {
+    height: 25px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-left: 15px;
+}
+
+.ui-pgrid-table-header-resizeable {
+    position: relative;
+}
+
+.ui-pgrid-table-header-resizeable .ui-icon {
+    position: absolute;
+    left: 0;
+    top: 4px;
+}
+
+.ui-pgrid-table-header-resizeable p {
+    margin: inherit !important;
+}
+
+.ui-pgrid-table-header-resizeable {
+    border: 1px solid #ccc !important;
+    padding-right: 5px;
+}
+
+.ui-pgrid-table-container {
+    background-color: white;
+    border-left: 1px solid #ccc;
+}
+
+.ui-pgrid-table, .ui-pgrid-footer {
+    background-color: white!important;
+}
+
+.ui-pgrid-footer {
+    padding: 7px 7px 0 3px !important;
+	border-color: #ccc;
+    border-top: 0;
+}
+
+.ui-pgrid-footer-filter-container button {
+    background: #0049a9 ;
+    background-color: #0049a9 ;
+    color: white ;
+}
+
+button.ui-state-default.ui-corner-all {
+    background: #0049a9!important;
+    color: white!important;
+    border-color: #0049a9!important;
+    font-size: 14px;
+    padding: 0 4px;
+    margin: 0 4px;
+}
+
+input.ui-pgrid-footer-filter-input.ui-widget.ui-widget-content.ui-corner-all, input.ui-widget.ui-widget-content.ui-corner-all.ui-pgrid-per-page, input.ui-widget.ui-widget-content.ui-corner-all.ui-pgrid-page-number {
+    border: 1px solid #ccc;
+}
+
+input.ui-widget.ui-widget-content.ui-corner-all.ui-pgrid-per-page, input.ui-widget.ui-widget-content.ui-corner-all.ui-pgrid-page-number {
+    width: 35px;
+}
+
+.ui-widget-header {
+    background: none;
+}
+
+.ui-pgrid-table thead th .ui-icon {
+    top: 6px;
+}
+
+.ui-pgrid-table tr th:first-child {
+    border-top: 1px solid #ccc;
+}
+
+#tblFooter {
+    padding-top: 10px;
+}
+
+.ui-dialog-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ui-widget-header {
+    background: none;
+    padding-top: 13px !important;
+	border:none;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    top: 12px;
+    right: 8px;
+    background: white;
+    color: white;
+}
+
+.ui-pgrid-table-container tr {
+    background: none !important;
+    color: black !important;
 }

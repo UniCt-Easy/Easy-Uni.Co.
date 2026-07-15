@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace sdi_acquisto_default {
     partial class Frm_sdi_acquisto_default {
@@ -248,7 +246,7 @@ namespace sdi_acquisto_default {
 			this.SubEntity_chkNoncreareincontabilita.Size = new System.Drawing.Size(190, 17);
 			this.SubEntity_chkNoncreareincontabilita.TabIndex = 72;
 			this.SubEntity_chkNoncreareincontabilita.Tag = "sdi_acquisto.notcreacontabilita:S:N";
-			this.SubEntity_chkNoncreareincontabilita.Text = "Fattura da non creare in contabilit‡";
+			this.SubEntity_chkNoncreareincontabilita.Text = "Fattura da non creare in contabilit√†";
 			this.SubEntity_chkNoncreareincontabilita.UseVisualStyleBackColor = true;
 			// 
 			// btnVisualizza
@@ -387,7 +385,7 @@ namespace sdi_acquisto_default {
 			this.chkEsisteFattura.Size = new System.Drawing.Size(155, 17);
 			this.chkEsisteFattura.TabIndex = 51;
 			this.chkEsisteFattura.Tag = "";
-			this.chkEsisteFattura.Text = "Fattura creata in Contabilit‡";
+			this.chkEsisteFattura.Text = "Fattura creata in Contabilit√†";
 			this.chkEsisteFattura.UseVisualStyleBackColor = true;
 			// 
 			// grpOperazionisuFE
@@ -430,7 +428,7 @@ namespace sdi_acquisto_default {
 			this.btnImporta.Name = "btnImporta";
 			this.btnImporta.Size = new System.Drawing.Size(117, 26);
 			this.btnImporta.TabIndex = 45;
-			this.btnImporta.Text = "Crea in contabilit‡";
+			this.btnImporta.Text = "Crea in contabilit√†";
 			this.btnImporta.UseVisualStyleBackColor = true;
 			this.btnImporta.Click += new System.EventHandler(this.btnImporta_Click);
 			// 

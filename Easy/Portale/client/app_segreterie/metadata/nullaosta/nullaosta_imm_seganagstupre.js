@@ -46,6 +46,8 @@
 					var defnullaosta_imm = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
 						function (currentRowimm) {
 							currentRowimm.current.parttime = "N";
+							currentRowimm.current.iddidprog = parentRow.iddidprog;
+							currentRowimm.current.idcorsostudio = parentRow.idcorsostudio;
 							//defaultExtendingObject
 							return true;
 						}

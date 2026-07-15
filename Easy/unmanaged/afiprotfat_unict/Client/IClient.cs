@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,22 +13,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using meta_invoice;
-using meta_registry;
+using afiprotfat_unict.Models;
 
 namespace afiprotfat_unict {
     public interface IClient : IDisposable {
         string Protocollo(
-            invoiceRow invoice,
-            registryRow registry,
+            InvoiceParameters invoice,
+            RegistryParameters registry,
             string address,
             IEnumerable<DataRow> invoiceattachments,
             string officeId);

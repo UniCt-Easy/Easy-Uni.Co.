@@ -16,7 +16,7 @@
         this.metaPage = metaPage;
         this.rootElement = metaPage.rootElement || document.body;
 
-        this.maxHoursDay = 8;
+        this.maxHoursDay = 8; //ore massime per giorno da proporre dallo scheduler all'utente nella tendina
         this.minHours = 1;
 
         this.endDate = objConf.endDate;
@@ -41,10 +41,15 @@
         this.calendarTag = objConf.calendarTag;
         this.maxHoursPerDayTable = objConf.maxHoursPerDayTable;
 
-        _.forEach(this.maxHoursPerDayTable.rows, function (r) {
-            if (r.oremaxgg > self.maxHoursDay)
-                self.maxHoursDay = r.oremaxgg;
-        });
+        if (this.maxHoursPerDayTable) {
+            _.forEach(this.maxHoursPerDayTable.rows, function (r) {
+                //se r.oremaxgg è decimale lo riporto a intero
+                r.oremaxgg = parseInt(r.oremaxgg);
+                //adeguo le ore da proporre dallo scheduler all'utente nel caso ne potesse lavorare di più di 8 per giorno
+                if (r.oremaxgg > self.maxHoursDay)
+                    self.maxHoursDay = r.oremaxgg;
+            });
+        }
 
         //costruisco la tabella del residuo annuo
         this.maxHoursPerYearTable = objConf.maxHoursPerYearTable;
@@ -308,47 +313,52 @@
             if (!!oretotali && !!year && oretotali > page.maxHours)
                 isHoursForYear = true;
 
-            // calcolo le ore rimaneti da schedulare
-            var totHours = page.maxHours; //se ho passato la configurazione "ore per anno" sono solo le ore per quello specifico anno! 
+            //se non è stato passato un tetto massimo  consideriamo sempre minseribili 1500 ore
+            if (page.maxHours) {
+                // calcolo le ore rimaneti da schedulare
+                var totHours = page.maxHours; //se ho passato la configurazione "ore per anno" sono solo le ore per quello specifico anno! 
 
-            var self = page;
-            var dtSchedule = page.metaPage.getDataTable(page.tableNameSchedule);
-            var rowsToConsider = _.filter(dtSchedule.rows, function (r) {
-                return (r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true))
-                    && (!isHoursForYear || r[self.columnDate].getFullYear() == year);
-            });
+                var self = page;
+                var dtSchedule = page.metaPage.getDataTable(page.tableNameSchedule);
+                var rowsToConsider = _.filter(dtSchedule.rows, function (r) {
+                    return (r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true))
+                        && (!isHoursForYear || r[self.columnDate].getFullYear() == year);
+                });
 
-            var calcHoursRemain;
-            if (page.columnStop) {
-                // calcolo la somma delle ore allocate. eseguo diff tra start e stop
-                calcHoursRemain = totHours - _.sumBy(rowsToConsider, function (row) {
-                    return Math.abs(row[self.columnStop].getTime() - row[self.columnDate].getTime()) / 3600000;
-                });
-            } else {
-                // orario fisso per giorno. quindi sommo il parametro ore
-                calcHoursRemain = totHours - _.sumBy(rowsToConsider, function (row) {
-                    return row.ore;
-                });
-                //se ho passato la chiave ...
-                if (parentKey) {
-                    var calendar = page.metaPage.getCustomControl(page.calendarTag);
-                    //...devo togliere anche le ore degli eventi esterni
-                    let externalRowsToConsider = _.filter(calendar.externalEventsDt.rows, function (r) {
-                        return (r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true))
-                            && (!isHoursForYear || r.start.getFullYear() == year);
+                var calcHoursRemain;
+                if (page.columnStop) {
+                    // calcolo la somma delle ore allocate. eseguo diff tra start e stop
+                    calcHoursRemain = totHours - _.sumBy(rowsToConsider, function (row) {
+                        return Math.abs(row[self.columnStop].getTime() - row[self.columnDate].getTime()) / 3600000;
                     });
-                    calcHoursRemain = calcHoursRemain - _.sumBy(externalRowsToConsider, function (row) {
+                } else {
+                    // orario fisso per giorno. quindi sommo il parametro ore
+                    calcHoursRemain = totHours - _.sumBy(rowsToConsider, function (row) {
                         return row.ore;
                     });
+                    //se ho passato la chiave ...
+                    if (parentKey) {
+                        var calendar = page.metaPage.getCustomControl(page.calendarTag);
+                        //...devo togliere anche le ore degli eventi esterni
+                        let externalRowsToConsider = _.filter(calendar.externalEventsDt.rows, function (r) {
+                            return (r.getRow().state !== 'deleted' && (parentKey ? r[parentKeyName] == parentKey : true))
+                                && (!isHoursForYear || r.start.getFullYear() == year);
+                        });
+                        calcHoursRemain = calcHoursRemain - _.sumBy(externalRowsToConsider, function (row) {
+                            return row.ore;
+                        });
 
+                    }
                 }
-            }
 
-            //verifico se il residuo annuo della persona sia sufficiente, a prescindere dalla configurazione per anno della attività, solo se stiamo schedulando nell'anno
-            if (page.maxHoursPerYear.length && year) {
-                let existingRecord = page.maxHoursPerYear.find(r => r.anno === year);
-                if (existingRecord && existingRecord.residuo < calcHoursRemain)
-                    calcHoursRemain = existingRecord.residuo;
+                //verifico se il residuo annuo della persona sia sufficiente, a prescindere dalla configurazione per anno della attività, solo se stiamo schedulando nell'anno
+                if (page.maxHoursPerYear.length && year) {
+                    let existingRecord = page.maxHoursPerYear.find(r => r.anno === year);
+                    if (existingRecord && existingRecord.residuo < calcHoursRemain)
+                        calcHoursRemain = existingRecord.residuo;
+                }
+            } else {
+                calcHoursRemain = 1500;
             }
 
             return calcHoursRemain;
@@ -620,6 +630,50 @@
             // Calcola il numero totale di giorni tra startDate e endDate
             let totalDays = (end - start) / (1000 * 60 * 60 * 24);
 
+            //PRIMO TENTATIVO: considerando tutti i giorni con tutte e ore richieste (hourPerDay) libere
+            let result = this.createInternalElements(startDate, endDate, numElements, daysOfWeek, hourPerDay);
+
+            if (result.length < numDayToSchedule) {
+
+                //SECONDO TENTATIVO: abbasso di volta in volta il numero di ore giornaliero sperando che sia possibile
+                appMeta.Toast.showNotification("non ci sono giorni sufficienti " + result.length + " per schedulare tutte le ore. Sarebbero necessari " + numDayToSchedule + " giorni.");
+                let isEnd = false;
+                while (hourPerDay > 1 && isEnd == false) {
+                    hourPerDay--;
+                    numDayToSchedule = numElements / hourPerDay;
+                    result = this.createInternalElements(startDate, endDate, numElements, daysOfWeek, hourPerDay);
+                    if (result.length >= numDayToSchedule)
+                        isEnd = true;
+                }
+
+                if (result.length < numDayToSchedule) {
+                    //TERZO TENTATIVO: la schedualzione omogenea non è applicabile, si passa alla modalità a riempimento (standard) restituento tutti i giorni con almeno 1 ora libera
+                    result = [];
+                    for (let i = 0; i <= totalDays; i++) {
+                        let current = new Date(start);
+                        current.setDate(start.getDate() + i);
+                        let currentMoment = moment(current, "DD/MM/YYYY hh:mm")
+                        //se è nei giorni giusti della settimana
+                        if (_.includes(daysOfWeek, currentMoment.day().toString())) {
+                            //se quel giorno ha abbastanza ore
+                            if (this.getHoursToSchedule(currentMoment, hourPerDay, false) >= 1)
+                                result.push(new Date(current));
+                        }
+                    }
+                }
+            }
+
+            return result;
+        },
+
+        createInternalElements: function (startDate, endDate, numElements, daysOfWeek, hourPerDay) {
+            let start = new Date(startDate);
+            let end = new Date(endDate);
+            let numDayToSchedule = numElements / hourPerDay;
+
+            // Calcola il numero totale di giorni tra startDate e endDate
+            let totalDays = (end - start) / (1000 * 60 * 60 * 24);
+
             // Trova tutti i giorni della settimana desiderati nel periodo
             let allDaysOfWeek = [];
             for (let i = 0; i <= totalDays; i++) {
@@ -629,7 +683,7 @@
                 //se è nei giorni giusti della settimana
                 if (_.includes(daysOfWeek, currentMoment.day().toString())) {
                     //se quel giorno ha abbastanza ore
-                    if (this.getHoursToSchedule(currentMoment, hourPerDay) > 0)
+                    if (this.getHoursToSchedule(currentMoment, hourPerDay, false) >= hourPerDay)
                         allDaysOfWeek.push(new Date(current));
                 }
             }
@@ -640,12 +694,13 @@
             // Seleziona gli elementi distribuiti omogeneamente
             let result = [];
             for (let i = 0; i < numDayToSchedule; i++) {
-                //result.push(allDaysOfWeek[i * interval]);
-                result.push(allDaysOfWeek[Math.round(i * interval)]);
+                if (!_.includes(result, allDaysOfWeek[Math.round(i * interval)]))
+                    result.push(allDaysOfWeek[Math.round(i * interval)]);
             }
 
             return result;
         },
+
 
         includes: function (array, value) {
             return !!array.find(item => { return (new Date(item)).getTime() == (new Date(value)).getTime() });
@@ -779,18 +834,18 @@
          * @param {number} hourDurataLezione
          * @returns {number} the hours schedulable | 0 if it si not possible to schedule for this date.
          */
-        getHoursToSchedule: function (date, hourDurataLezione) {
+        getHoursToSchedule: function (date, hourDurataLezione, log) {
             var isSospensione = false;
             if (appMeta.appMain.dtSospensioni) {
                 // torna true se ricade fuori dalla sospensione
                 isSospensione = !_.every(appMeta.appMain.dtSospensioni.rows, function (rowSosp) {
-                    if (rowSosp.start && rowSosp.stop) return !(date.isAfter(moment(rowSosp.start)) && date.isBefore(moment(rowSosp.stop)));
+                    if (rowSosp.start && rowSosp.stop) return !(date.isSameOrAfter(moment(rowSosp.start)) && date.isSameOrBefore(moment(rowSosp.stop)));
                     return true;
                 });
             }
 
             if (isSospensione) {
-                this.logMaxHourPerDay += localResource.getSospDay(date.format("DD/MM/YYYY")) + "</br></br>";
+                if (log != false) this.logMaxHourPerDay += localResource.getSospDay(date.format("DD/MM/YYYY")) + "</br></br>";
                 return 0;
             }
 
@@ -799,24 +854,27 @@
             // osservo le ore max per giorno
             // sommo per questo giorno tutte le ore degli eventi + quelle che avrei messo
             var allEvents = self.metaPage.getCustomControl(self.calendarTag).getAllEvents();
+            var eventsSameDay = _.filter(allEvents, function (ev) {
+                ev.calculatedStart = moment(ev.row.start ? ev.row.start : (ev.row.data ? ev.row.data : null));
+                ev.calculatedStop = ev.row.stop ? moment(ev.row.stop) : ev.calculatedStart;
+                return ((!ev.allDay && ev.calculatedStart.isSame(date, 'day')) //o è un evento non all day allora vedo se è lo stesso giorno che sto controllando
+                    ||//oppure l'evento è allday e lo start e lo stop contengono il giorno
+                    (ev.allDay && date.isBetween(ev.calculatedStart, ev.calculatedStop, 'day', '[]')))
+                    //escludendo le ore timbrate, consolidate, gli errori e le missioni
+                    && ev.row.color != "slategray" && ev.row.color != "red" && ev.row.color != "Pink";
+            });
+
             var hoursSameDay =
                 _.sumBy(
-                    // filtro stesso giorno
-                    _.filter(allEvents, function (ev) {
-                        var start = ev.row.start ? ev.row.start : (ev.row.data ? ev.row.data : null);
-                        //ritorno tutti gli eventi dello stesso giorno esclusi quelli
-                        //grigi che rappresentano il monte ore lavorato
-                        //rossi che rappresentano gli avvisi di errore
-                        //rosa che sono le missioni e quindi è possibile schedulare ore durante le missioni
-                        return moment(start).isSame(date, 'day') && ev.row.color != "slategray" && ev.row.color != "red" && ev.row.color != "Pink";
-                    }),
+                    eventsSameDay
+                    ,
                     function (ev) {
                         // se c'è stop eseguo somma della differenza con start, altrimenti sommo il prm ore che mi aspetto
                         if (ev.end) {
-                            var start = ev.row.start ? ev.row.start : (ev.row.data ? ev.row.data : null);
-                            var stop = ev.row.stop ? ev.row.stop : null;
-                            if (start && stop) {
-                                return Math.abs(stop.getTime() - start.getTime()) / 3600000;
+                            if (ev.calculatedStart && ev.calculatedStop) {
+                                //se l'evento dura più di un giorno, metto 24h
+                                let diffHours = ev.calculatedStop.diff(ev.calculatedStart, 'hours', true);
+                                return diffHours > 24 ? 24 : diffHours;
                             }
                             else {
                                 return ev.row.ore;
@@ -837,7 +895,7 @@
             // 1 spalmo. ci sono ancora ore nel giorno
             if (diffHourToAdd > 0) {
                 if (diffHourToAdd < hourDurataLezione) {
-                    this.logMaxHourPerDay += localResource.getLogSchedulerMaxHourPerDayDiff(date.format("DD/MM/YYYY"),
+                    if (log != false) this.logMaxHourPerDay += localResource.getLogSchedulerMaxHourPerDayDiff(date.format("DD/MM/YYYY"),
                         maxHoursPerDayRole.maxHoursPerDay,
                         hoursSameDay,
                         diffHourToAdd,
@@ -852,7 +910,7 @@
             }
 
             // 2. salto il giorno
-            this.logMaxHourPerDay += localResource.getLogSchedulerMaxHourPerDay(date.format("DD/MM/YYYY"),
+            if (log != false) this.logMaxHourPerDay += localResource.getLogSchedulerMaxHourPerDay(date.format("DD/MM/YYYY"),
                 maxHoursPerDayRole.maxHoursPerDay,
                 maxHoursPerDayRole.role) + "</br></br>";
             return 0;

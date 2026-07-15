@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -227,13 +225,13 @@ namespace accountprevisionview_prevision
 		}
 
         private void AbilitaBottoni(bool Enable) {
-            btnBudgetIniziale.Enabled = Enable;
-            btnVarBudget.Enabled = Enable;
-            btnPreimpegniBudget.Enabled = Enable;
-            btnImpegniBudget.Enabled = Enable;
-            btnCalcolaTotali.Enabled = Enable;
-            btnVarImpegni.Enabled = Enable;
-            btnVarPreimpegni.Enabled = Enable;
+            //btnBudgetIniziale.Enabled = Enable;
+            //btnVarBudget.Enabled = Enable;
+            //btnPreimpegniBudget.Enabled = Enable;
+            //btnImpegniBudget.Enabled = Enable;
+            //btnCalcolaTotali.Enabled = Enable;
+            //btnVarImpegni.Enabled = Enable;
+            //btnVarPreimpegni.Enabled = Enable;
 
         }
         public void MetaData_AfterRowSelect(DataTable T, DataRow R) {
@@ -1429,7 +1427,7 @@ namespace accountprevisionview_prevision
             int esercizioCurr = (int)Meta.GetSys("esercizio");
 
             string filter = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
-            filter = QHS.AppAnd(filter, QHS.CmpEq("idacc", Curr["idacc"]));
+            filter = QHS.AppAnd(filter, QHS.Like("idacc", Curr["idacc"].ToString()+"%"));
             if (chkUpbChilds.Checked) {
                 filter = QHS.AppAnd(filter, QHS.Like("idupb", Curr["idupb"].ToString() + "%"));
             }
@@ -1732,7 +1730,8 @@ namespace accountprevisionview_prevision
 
             //Previsione corrente (principale)
             string filter = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
-            filter = QHS.AppAnd(filter, QHS.CmpEq("idacc", Curr["idacc"]));
+            //filter = QHS.AppAnd(filter, QHS.CmpEq("idacc", Curr["idacc"]));
+            filter = QHS.AppAnd(filter, QHS.Like("idacc", Curr["idacc"].ToString() + "%"));
             filter = QHS.AppAnd(filter, QHS.CmpNe("prevision", 0));
             if (chkUpbChilds.Checked) {
                 filter = QHS.AppAnd(filter, QHS.Like("idupb", Curr["idupb"].ToString() + "%"));

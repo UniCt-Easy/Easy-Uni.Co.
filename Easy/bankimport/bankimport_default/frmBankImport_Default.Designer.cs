@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace bankimport_default {
     partial class frmBankImport_Default {
@@ -603,7 +601,7 @@ namespace bankimport_default {
 			// 
 			this.txtBanca.Location = new System.Drawing.Point(7, 42);
 			this.txtBanca.Name = "txtBanca";
-			this.txtBanca.Size = new System.Drawing.Size(100, 20);
+			this.txtBanca.Size = new System.Drawing.Size(116, 20);
 			this.txtBanca.TabIndex = 3;
 			this.txtBanca.Tag = "bank.idbank";
 			// 
@@ -611,10 +609,10 @@ namespace bankimport_default {
 			// 
 			this.BancaButton.Location = new System.Drawing.Point(6, 13);
 			this.BancaButton.Name = "BancaButton";
-			this.BancaButton.Size = new System.Drawing.Size(101, 23);
+			this.BancaButton.Size = new System.Drawing.Size(117, 23);
 			this.BancaButton.TabIndex = 2;
 			this.BancaButton.Tag = "choose.bank.default.(flagusable<>\'N\')";
-			this.BancaButton.Text = "ABI Cassiere";
+			this.BancaButton.Text = "ABI Banca";
 			// 
 			// txtDescrBanca
 			// 

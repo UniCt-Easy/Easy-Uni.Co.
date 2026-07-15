@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -28,6 +26,7 @@ using metadatalibrary;
 using metaeasylibrary;
 using funzioni_configurazione;
 using System.IO;
+using itinerationFunctions;
 
 namespace no_table_trasfdocmandato {
     public partial class Frm_trasfdocmandato : MetaDataForm {
@@ -196,18 +195,73 @@ namespace no_table_trasfdocmandato {
                             Directory.CreateDirectory(dstPath);
                         }
 
-                        if (Rdurc["durccertification"] == DBNull.Value) continue;
-                        byte[] ByteArray = (byte[])Rdurc["durccertification"];
-                        int offset = 0;
-                        string fname = GetFileName(ByteArray);
-                        fname = "DURC_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
-                        string sw = Path.Combine(dstPath, fname);
-                        try {
-                            ScriviFile(sw, ByteArray, offset);
+                        byte[] ByteArray = null;
+                        byte[] ByteArray2 = null;
+
+                        if (Rdurc["durccertification"] == DBNull.Value && Rdurc["selfcertification"] == DBNull.Value)
+                        {
+                            if (Rdurc["idfilestorage"] != DBNull.Value)
+                            {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "registrydurc", Rdurc["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null)
+                                {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+
+                            if (Rdurc["idfilestorage2"] != DBNull.Value)
+                            {
+                                // Leggo da MongoDb
+                                ByteArray2 = HttpFileStorage.DownloadFile(Conn, "registrydurc", Rdurc["idfilestorage2"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray2 == null)
+                                {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
                         }
-                        catch (Exception E) {
-                            QueryCreator.ShowException(E);
+                        else if (Rdurc["durccertification"] != DBNull.Value)
+                        {
+                            ByteArray = (byte[])Rdurc["durccertification"];
                         }
+                        else if (Rdurc["selfcertification"] != DBNull.Value)
+						{
+                            ByteArray2 = (byte[])Rdurc["selfcertification"];
+						}
+
+                        if (ByteArray != null)
+                        {
+                            int offset = 0;
+                            string fname = GetFileName(ByteArray);
+                            fname = "DURC_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
+                            string sw = Path.Combine(dstPath, fname);
+                            try
+                            {
+                                ScriviFile(sw, ByteArray, offset);
+                            }
+                            catch (Exception E)
+                            {
+                                QueryCreator.ShowException(E);
+                            }
+                        }
+                        
+                        if (ByteArray2 != null)
+						{
+                            int offset = 0;
+                            string fname = GetFileName(ByteArray2);
+                            fname = "DURC_Autocertificazione_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
+                            string sw = Path.Combine(dstPath, fname);
+							try
+							{
+                                ScriviFile(sw, ByteArray2, offset);
+							}
+							catch (Exception E)
+							{
+                                QueryCreator.ShowException(E);
+							}
+						}
                     }
                 }
                 // Stampa CC dedicato: prendiamo l'ultimo attivo
@@ -228,20 +282,254 @@ namespace no_table_trasfdocmandato {
                             Directory.CreateDirectory(dstPath);
                         }
 
-                        if (R["ccdedicato_doc"] == DBNull.Value) continue;
-                        byte[] ByteArray = (byte[])R["ccdedicato_doc"];
+                        byte[] ByteArray = null;
+                        byte[] ByteArray2 = null;
+                        if (R["ccdedicato_doc"] == DBNull.Value)
+                        {
+                            if (R["idfilestorage2"] != DBNull.Value)
+                            {
+                                // Leggo da MongoDb
+                                ByteArray2 = HttpFileStorage.DownloadFile(Conn, "registrypaymethod", R["idfilestorage2"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray2 == null)
+                                {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray2 = (byte[])R["ccdedicato_doc"];
+
+                        if (ByteArray2 != null) {
+                     
+                            int offset = 0;
+                            string fname = GetFileName(ByteArray2);
+                            fname = "CCdedicato_Anagr_" + R["idreg"].ToString() + "_" + fname;
+                            string sw = Path.Combine(dstPath, fname);
+                            try {
+                                ScriviFile(sw, ByteArray2, offset);
+                            }
+                            catch (Exception E) {
+                                QueryCreator.ShowException(E);
+                            }
+                        }
+
+                        if (R["ccdedicato_cf"] == DBNull.Value) {
+                            if (R["idfilestorage"] != DBNull.Value) {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "registrypaymethod", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null) {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray = (byte[])R["ccdedicato_cf"];
+
+                        if (ByteArray != null) {
+
+                            int offset = 0;
+                            string fname = GetFileName(ByteArray);
+                            fname = "CCdedicato_CF_Anagr_" + R["idreg"].ToString() + "_" + fname;
+                            string sw = Path.Combine(dstPath, fname);
+                            try {
+                                ScriviFile(sw, ByteArray, offset);
+                            }
+                            catch (Exception E) {
+                                QueryCreator.ShowException(E);
+                            }
+                        }
+
+                    }
+                }
+
+                //Stampa il prospetto di calcolo missione
+                string queryCalcMiss = "select EL.ypay, EL.npay, itineration.* "
+                    + " from expense E "
+                    + " join expenselastview EL on E.idexp = EL.idexp "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expenseitineration EI on EI.idexp = ELK.idparent "
+                    + " join itineration on EI.iditineration = itineration.iditineration "
+                    + " where " + filterKpay;
+
+                DataTable tItineration = Meta.Conn.SQLRunner(queryCalcMiss);
+                if ((tItineration != null) && (tItineration.Rows.Count > 0)) {
+                    foreach (DataRow R in tItineration.Select()) {
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+                        
+                        if (!Directory.Exists(dstPath))
+						{
+                            Directory.CreateDirectory(dstPath);
+						}
+                        
+                        string err = MissFun.ProduciStampaMissione(Conn, dstPath, R);
+
+                        if (!string.IsNullOrEmpty(err))
+						{
+                            show(err);
+						}
+                    }
+                }
+
+                // Scarica i file allegati nel mandato
+                string queryPayment = "WITH payment_file AS ( "
+                        + " select p.ypay, p.npay, pa.* "
+                        + " from paymentattachment pa "
+                        + " join payment p on pa.kpay = p.kpay) "
+                    + " select * from payment_file "
+                    + " where " + filterKpay;
+
+                DataTable tPaymentAttachmet = Meta.Conn.SQLRunner(queryPayment);
+                if ((tPaymentAttachmet != null) && (tPaymentAttachmet.Rows.Count > 0))
+                {
+                    foreach (DataRow R in tPaymentAttachmet.Select())
+                    {
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath))
+                        {
+                            Directory.CreateDirectory(dstPath);
+                        }
+
+                        byte[] ByteArray = null;
+
+                        if (R["attachment"] == DBNull.Value)
+                        {
+                            if (R["idfilestorage"] != DBNull.Value)
+                            {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "paymentattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null)
+                                {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray = (byte[])R["attachment"];
+
                         int offset = 0;
-                        string fname = GetFileName(ByteArray);
-                        fname = "CCdedicato_Anagr_" + R["idreg"].ToString() + "_" + fname;
+                        string fname = R["filename"].ToString();
+                        fname = "Mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
                         string sw = Path.Combine(dstPath, fname);
-                        try {
+                        try
+                        {
                             ScriviFile(sw, ByteArray, offset);
                         }
-                        catch (Exception E) {
+                        catch (Exception E)
+                        {
                             QueryCreator.ShowException(E);
                         }
                     }
                 }
+
+                // Scarica i file allegati nel contratto occasionale
+                string queryCasualContract = " select EL.kpay, EL.ypay, EL.npay, CA.* "
+                    + " from expenselastview EL "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expensecasualcontract EC on EC.idexp = ELK.idparent "
+                    + " join casualcontractattachment CA on CA.ycon = EC.ycon and CA.ncon = EC.ncon "
+                    + " where " + filterKpay;
+
+                DataTable tCasualContractAttach = Meta.Conn.SQLRunner(queryCasualContract);
+                if ((tCasualContractAttach != null) && (tCasualContractAttach.Rows.Count > 0))
+				{
+                    foreach (DataRow R in tCasualContractAttach.Select())
+					{
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath))
+						{
+                            Directory.CreateDirectory(dstPath);
+						}
+
+                        byte[] ByteArray = null;
+
+                        if (R["attachment"] == DBNull.Value)
+                        {
+                            if (R["idfilestorage"] != DBNull.Value)
+                            {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "casualcontractattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null)
+                                {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray = (byte[])R["attachment"];
+
+                        int offset = 0;
+                        string fname = R["filename"].ToString();
+                        fname = "Contratto_Occas_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+						try
+						{
+                            ScriviFile(sw, ByteArray, offset);
+						}
+						catch (Exception E)
+						{
+                            QueryCreator.ShowException(E);
+						}
+                    }
+				}
+
+                // Scarica i file allegati nel contratto professionale
+                string queryProfService = "select EL.ypay, EL.npay, PS.* "
+                    + " from expenselastview EL "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expenseprofservice EP on EP.idexp = ELK.idparent "
+                    + " join profserviceattachment PS on PS.ycon = EP.ycon and PS.ncon = EP.ncon "
+                    + " where " + filterKpay;
+
+                DataTable tProfServiceAttach = Meta.Conn.SQLRunner(queryProfService);
+                if((tProfServiceAttach != null) && (tProfServiceAttach.Rows.Count > 0))
+				{
+                    foreach (DataRow R in tProfServiceAttach.Select())
+					{
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath))
+						{
+                            Directory.CreateDirectory(dstPath);
+						}
+
+                        byte[] ByteArray = null;
+
+                        if (R["attachment"] == DBNull.Value)
+                        {
+                            if (R["idfilestorage"] != DBNull.Value)
+                            {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "profserviceattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null)
+                                {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray = (byte[])R["attachment"];
+
+                        int offset = 0;
+                        string fname = R["filename"].ToString();
+                        fname = "Contratto_Profes_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+						try
+						{
+                            ScriviFile(sw, ByteArray, offset);
+						}
+						catch (Exception E)
+						{
+                            QueryCreator.ShowException(E);
+						}
+					}
+				}
 
                 show("Download eseguito");
 

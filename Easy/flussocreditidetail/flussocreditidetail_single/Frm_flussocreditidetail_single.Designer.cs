@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace flussocreditidetail_single {
     partial class Frm_flussocreditidetail_single {
@@ -442,7 +440,7 @@ namespace flussocreditidetail_single {
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(98, 16);
 			this.label13.TabIndex = 126;
-			this.label13.Text = "Quantit‡";
+			this.label13.Text = "Quantit√†";
 			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// cmbIva
@@ -985,7 +983,7 @@ namespace flussocreditidetail_single {
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(114, 16);
 			this.label5.TabIndex = 114;
-			this.label5.Text = "Data fine validit‡";
+			this.label5.Text = "Data fine validit√†";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtstop

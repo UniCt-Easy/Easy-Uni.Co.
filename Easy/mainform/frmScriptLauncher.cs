@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -68,7 +66,7 @@ namespace mainform {
                 //bool res = msg == null;
                 //if (res) {
                 //    res = DC.Open();
-                //    msg = "Non Ë stato possibile effettuare il collegamento al dipartimento.";
+                //    msg = "Non √® stato possibile effettuare il collegamento al dipartimento.";
                 //    dettaglio = DC.LastError;
                 //}
                 //if (!res) {
@@ -92,12 +90,12 @@ namespace mainform {
 
             string[] rempath = GetLiveUpdateAddress();
             EntityDispatcher Disp = new EntityDispatcher(DepConn);
-            //Forzo la creazione perchÈ posso aver aggiornato
+            //Forzo la creazione perch√© posso aver aggiornato
             //la configurazione locale
             Download MyDownloadDB = new Download(Disp, rempath, C_FILEINDEXNAME,
                 AppDomain.CurrentDomain.BaseDirectory);
 
-            //Si puÚ verififcare quando durante l'attesa per la connessione
+            //Si pu√≤ verififcare quando durante l'attesa per la connessione
             //al server web ci si disconnette dal Database
             DataAccess DownloadDBConnection = DepConn.Duplicate();
             MyDownloadDB.Connessione = DownloadDBConnection;
@@ -157,7 +155,7 @@ namespace mainform {
                 bool res = msg == null;
                 if (res) {
                     res = DC.Open();
-                    msg = "Non Ë stato possibile effettuare il collegamento al dipartimento.\r\n";
+                    msg = "Non √® stato possibile effettuare il collegamento al dipartimento.\r\n";
                     dettaglio = DC.LastError;
                 }
                 if (!res) {

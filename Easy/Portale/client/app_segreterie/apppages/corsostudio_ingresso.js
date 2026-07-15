@@ -44,12 +44,17 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#corsostudio_ingresso_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#corsostudio_ingresso_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -90,7 +95,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#corsostudio_ingresso_idstruttura'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -104,6 +115,8 @@
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar49').fullCalendar('rerenderEvents');
 				});
+				appMeta.metaModel.insertFilter(this.getDataTable("didprognumchiusokind"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("titolokinddefaultview"), this.q.eq('titolokind_active', 'Si'));
 				$('#grid_graduatoriaesiti_default').data('mdlconditionallookup', 'provvisoria,P,Provvisoria;provvisoria,D,Definitiva;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -138,6 +151,8 @@
 
 			//beforePost
 
+			//afterPost
+
 			searchAndAssigndidprog_alias2: function (that) {
 				return that.searchAndAssign({
 					tableName: "didprog_alias2",
@@ -149,6 +164,8 @@
 					columnToFill: "iddidprog_acc",
 					tableToFill: "didprogaccesso",
 					parentRow: that.state.DS.tables.didprog.rows[0]
+
+
 				});
 			},
 

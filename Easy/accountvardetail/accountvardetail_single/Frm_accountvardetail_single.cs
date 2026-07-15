@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -101,6 +99,7 @@ namespace accountvardetail_single {
 		private Button btnSpalmaPrevisioni;
 		private TextBox txtNumDettaglio;
 		private Label labelNumDett;
+		private CheckBox chkListTitleUPB;
 		CQueryHelper QHC;
 		public Frm_accountvardetail_single() {
 			InitializeComponent();
@@ -192,6 +191,7 @@ namespace accountvardetail_single {
 			this.btnSpalmaPrevisioni = new System.Windows.Forms.Button();
 			this.txtNumDettaglio = new System.Windows.Forms.TextBox();
 			this.labelNumDett = new System.Windows.Forms.Label();
+			this.chkListTitleUPB = new System.Windows.Forms.CheckBox();
 			this.grpImporto5.SuspendLayout();
 			this.grpImporto4.SuspendLayout();
 			this.grpImporto3.SuspendLayout();
@@ -458,12 +458,13 @@ namespace accountvardetail_single {
 			// 
 			// gboxUPB
 			// 
+			this.gboxUPB.Controls.Add(this.chkListTitleUPB);
 			this.gboxUPB.Controls.Add(this.txtUPB);
 			this.gboxUPB.Controls.Add(this.txtDescrUPB);
 			this.gboxUPB.Controls.Add(this.btnUPBCode);
-			this.gboxUPB.Location = new System.Drawing.Point(290, 242);
+			this.gboxUPB.Location = new System.Drawing.Point(290, 233);
 			this.gboxUPB.Name = "gboxUPB";
-			this.gboxUPB.Size = new System.Drawing.Size(267, 104);
+			this.gboxUPB.Size = new System.Drawing.Size(267, 113);
 			this.gboxUPB.TabIndex = 8;
 			this.gboxUPB.TabStop = false;
 			this.gboxUPB.Tag = "AutoChoose.txtUPB.default.(active=\'S\')";
@@ -472,7 +473,7 @@ namespace accountvardetail_single {
 			// 
 			this.txtUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtUPB.Location = new System.Drawing.Point(8, 77);
+			this.txtUPB.Location = new System.Drawing.Point(8, 84);
 			this.txtUPB.Name = "txtUPB";
 			this.txtUPB.Size = new System.Drawing.Size(250, 20);
 			this.txtUPB.TabIndex = 5;
@@ -482,13 +483,14 @@ namespace accountvardetail_single {
 			// 
 			this.txtDescrUPB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescrUPB.Location = new System.Drawing.Point(126, 16);
+			this.txtDescrUPB.Location = new System.Drawing.Point(126, 27);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
 			this.txtDescrUPB.ReadOnly = true;
-			this.txtDescrUPB.Size = new System.Drawing.Size(132, 55);
+			this.txtDescrUPB.Size = new System.Drawing.Size(132, 53);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
+			this.txtDescrUPB.ReadOnly = true;
 			this.txtDescrUPB.Tag = "upb.title";
 			// 
 			// btnUPBCode
@@ -496,14 +498,15 @@ namespace accountvardetail_single {
 			this.btnUPBCode.BackColor = System.Drawing.SystemColors.Control;
 			this.btnUPBCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnUPBCode.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnUPBCode.Location = new System.Drawing.Point(8, 51);
+			this.btnUPBCode.Location = new System.Drawing.Point(8, 60);
 			this.btnUPBCode.Name = "btnUPBCode";
 			this.btnUPBCode.Size = new System.Drawing.Size(112, 20);
 			this.btnUPBCode.TabIndex = 2;
 			this.btnUPBCode.TabStop = false;
-			this.btnUPBCode.Tag = "manage.upb.tree";
+			this.btnUPBCode.Tag = "";
 			this.btnUPBCode.Text = "UPB:";
 			this.btnUPBCode.UseVisualStyleBackColor = true;
+			this.btnUPBCode.Click += new System.EventHandler(this.btnUPBCode_Click);
 			// 
 			// gboxConto
 			// 
@@ -536,6 +539,7 @@ namespace accountvardetail_single {
 			this.txtDenominazioneConto.Size = new System.Drawing.Size(134, 56);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
+			this.txtDenominazioneConto.ReadOnly = true;
 			this.txtDenominazioneConto.Tag = "account.title";
 			// 
 			// txtCodiceConto
@@ -736,9 +740,9 @@ namespace accountvardetail_single {
 			this.grpRipartizioneCosti.Controls.Add(this.button3);
 			this.grpRipartizioneCosti.Controls.Add(this.textBox1);
 			this.grpRipartizioneCosti.Controls.Add(this.txtCodiceRipartizione);
-			this.grpRipartizioneCosti.Location = new System.Drawing.Point(563, 242);
+			this.grpRipartizioneCosti.Location = new System.Drawing.Point(563, 233);
 			this.grpRipartizioneCosti.Name = "grpRipartizioneCosti";
-			this.grpRipartizioneCosti.Size = new System.Drawing.Size(262, 99);
+			this.grpRipartizioneCosti.Size = new System.Drawing.Size(262, 108);
 			this.grpRipartizioneCosti.TabIndex = 56;
 			this.grpRipartizioneCosti.TabStop = false;
 			this.grpRipartizioneCosti.Tag = "AutoChoose.txtCodiceRipartizione.default.(active=\'S\')";
@@ -771,7 +775,7 @@ namespace accountvardetail_single {
 			// 
 			this.txtCodiceRipartizione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 73);
+			this.txtCodiceRipartizione.Location = new System.Drawing.Point(8, 82);
 			this.txtCodiceRipartizione.Name = "txtCodiceRipartizione";
 			this.txtCodiceRipartizione.Size = new System.Drawing.Size(248, 20);
 			this.txtCodiceRipartizione.TabIndex = 2;
@@ -900,6 +904,15 @@ namespace accountvardetail_single {
 			this.labelNumDett.Size = new System.Drawing.Size(77, 13);
 			this.labelNumDett.TabIndex = 76;
 			this.labelNumDett.Text = "Num. Dettaglio";
+			// 
+			// chkListTitleUPB
+			// 
+			this.chkListTitleUPB.Location = new System.Drawing.Point(8, 8);
+			this.chkListTitleUPB.Name = "chkListTitleUPB";
+			this.chkListTitleUPB.Size = new System.Drawing.Size(155, 19);
+			this.chkListTitleUPB.TabIndex = 62;
+			this.chkListTitleUPB.TabStop = false;
+			this.chkListTitleUPB.Text = "Cerca per denominazione";
 			// 
 			// Frm_accountvardetail_single
 			// 
@@ -1269,6 +1282,30 @@ namespace accountvardetail_single {
 				}
 			}
 			Meta.FreshForm(false);
+		}
+
+		private void btnUPBCode_Click(object sender, EventArgs e) {
+			string filter = "";
+			if (!Meta.IsEmpty) Meta.GetFormData(true);
+			string filterActive = QHS.DoPar(QHS.AppOr(QHS.NullOrEq("active", 'S'), QHS.CmpEq("active", "")));
+
+			if (chkListTitleUPB.Checked) {
+				FrmAskDescr FR = new FrmAskDescr(0);
+				createForm(FR, this);
+				DialogResult D = FR.ShowDialog(this);
+				if (D != DialogResult.OK) return;
+				filter = GetData.MergeFilters(filter,
+					"(title like " + QueryCreator.quotedstrvalue(
+					"%" + FR.txtDescrizione.Text + "%", true)) + ")";
+
+				filter = GetData.MergeFilters(filter, filterActive);
+				MetaData.DoMainCommand(this, "choose.upb.default." + filter);
+				return;
+			}
+
+			DS.upb.ExtendedProperties[MetaData.ExtraParams] = filterActive;
+			MetaData.DoMainCommand(this, "manage.upb.tree");
+
 		}
 	}
 }

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -62,7 +60,9 @@ namespace no_table_flussostudenti {
 		//private object _idsorkindMiurE;
 		private object _idsorkindSiopeE;
 		private int _nphaseSiopeE;
-
+		private object _idsorkindCoan1;
+		private object _idsorkindCoan2;
+		private object _idsorkindCoan3;
 		private enum TipoElaborazioneIncassi {
 			imponibile,
 			iva,
@@ -131,9 +131,20 @@ namespace no_table_flussostudenti {
 			_ctrl.SearchEnabled = false;
 			_idsorkindSiopeE =
 				_conn.readValue("sortingkind", q.eq("codesorkind", "SIOPE_E_18"), "idsorkind"); //era 07E_SIOPE
+
 			_nphaseSiopeE =
-				CfgFn.GetNoNullInt32(
-					_conn.readValue("sortingkind", q.eq("idsorkind", _idsorkindSiopeE), "nphaseincome"));
+			CfgFn.GetNoNullInt32(
+			_conn.readValue("sortingkind", q.eq("idsorkind", _idsorkindSiopeE), "nphaseincome"));
+
+
+			_idsorkindCoan1 =
+				_conn.readValue("config", q.eq("ayear", esercizio), "idsortingkind1");  
+
+			_idsorkindCoan2 =
+				_conn.readValue("config", q.eq("ayear", esercizio), "idsortingkind2");  
+
+			_idsorkindCoan3 =
+				_conn.readValue("config", q.eq("ayear", esercizio), "idsortingkind3");  
 
 
 			btnElaboraContabilizzazioni.Enabled = false;
@@ -232,6 +243,9 @@ namespace no_table_flussostudenti {
 					tExcel.Columns.Add("memorizza_causale_anagrafica", typeof(string));
 					tExcel.Columns.Add("codice_causale_finanziaria_iva", typeof(string));
 					tExcel.Columns.Add("codice_listino", typeof(string));
+					tExcel.Columns.Add("codcoan1", typeof(string));
+					tExcel.Columns.Add("codcoan2", typeof(string));
+					tExcel.Columns.Add("codcoan3", typeof(string));
 
 						break;
 				}
@@ -553,6 +567,9 @@ namespace no_table_flussostudenti {
 					dt.Columns["memorizza_causale_anagrafica"].Caption = "Memorizza causale anagrafica";
 					dt.Columns["codice_causale_finanziaria_iva"].Caption = "Causale finanziaria IVA";
 					dt.Columns["codice_listino"].Caption = "Codice Listino";
+					dt.Columns["codcoan1"].Caption = "Coord. Analitica 1";
+					dt.Columns["codcoan2"].Caption = "Coord. Analitica 2";
+					dt.Columns["codcoan3"].Caption = "Coord. Analitica 3";
 						break;
 				}
 
@@ -604,7 +621,10 @@ namespace no_table_flussostudenti {
 			"cognome_studente;Cognome Studente (ai fini di creare un'anagrafica specifica);Stringa;50",
 			"memorizza_causale_anagrafica;Memorizza la causale di credito dell'anagrafica;Codificato;1;S|N",
 			"codice_causale_finanziaria_iva;Codice Causale Finanziaria per IVA;Stringa;50",
-			"codice_listino;Codice Listino;Stringa;50"
+			"codice_listino;Codice Listino;Stringa;50",
+			"codcoan1;Codice Coordinata Analitica 1;Stringa;50",
+			"codcoan2;Codice Coordinata Analitica 2;Stringa;50",
+			"codcoan3;Codice Coordinata Analitica 3;Stringa;50"
 		};
 
 		//string[] _tracciatoFlussostudentiFaseunoEssetre =
@@ -1030,6 +1050,17 @@ namespace no_table_flussostudenti {
 
 				var oCodiceListino = getVal(20, "codice_listino", r, "faseuno", out errore);
 				if (errore != "") err = err + " " + errore; // non bloccante
+
+ 
+				var oCodCoan1 = getVal(21, "codcoan1", r, "faseuno", out errore);
+				if (errore != "") err = err + " " + errore; // non bloccante
+
+				var oCodCoan2 = getVal(22, "codcoan2", r, "faseuno", out errore);
+				if (errore != "") err = err + " " + errore; // non bloccante
+
+				var oCodCoan3 = getVal(23, "codcoan3", r, "faseuno", out errore);
+				if (errore != "") err = err + " " + errore; // non bloccante
+
 
 				var idupb = getIdUpb(oCodiceUpb, out errore);
 				if (idupb == DBNull.Value && errore != "") {
@@ -1747,6 +1778,32 @@ namespace no_table_flussostudenti {
 						show(errore, "Errore");
 						//return;
 					}
+
+					// Coordinate analitiche
+					var oCodCoan1 = rr["codcoan1"];
+					var idSor1 =  GetIdSorForSortCode("1",  oCodCoan1, out errore);
+					if (errore != "")
+					{
+						show(errore, "Errore");
+					}
+
+
+					var oCodCoan2 = rr["codcoan2"];
+					var idSor2 = GetIdSorForSortCode("2", oCodCoan2, out errore);
+					if (errore != "")
+					{
+						show(errore, "Errore");
+					}
+
+
+					var oCodCoan3 = rr["codcoan3"];
+					var idSor3 = GetIdSorForSortCode("3", oCodCoan3, out errore);
+					if (errore != "")
+					{
+						show(errore, "Errore");
+					}
+
+
 				}
 
 				var myPostD = new Easy_PostData();
@@ -1767,7 +1824,7 @@ namespace no_table_flussostudenti {
 				var rFirst = dtToImport.Rows[0];
 				var idestimkind = checkTipoContrattoAttivo(rFirst["codice_tipo_contratto"], out errore);
 				if (idestimkind == null) {
-					show(errore, "");
+					show(errore, "Errore");
 					return;
 				}
 
@@ -1777,7 +1834,7 @@ namespace no_table_flussostudenti {
 				// Nota: aggiungere la gestione degli errori
 				var attrs = getAttributiTipoContrattoAttivo(idestimkind, out errore);
 				if (attrs == null) {
-					show(errore, "");
+					show(errore, "Errore");
 					return;
 				}
 
@@ -1861,8 +1918,20 @@ namespace no_table_flussostudenti {
 
 					var oCodiceListino = rigaTracciatoCrediti["codice_listino"];
 					var idList = GetIdListForCodelist(oCodiceListino, out errore);
-					//La presenza di errore o assenza campo listino non deve bloccare l'elaborazione dei dati, perchè il campo non è obbligatorio
+
+					// Coordinate analitiche
+					var oCodCoan1 = rigaTracciatoCrediti["codcoan1"];
+					var idSor1 = GetIdSorForSortCode("1", oCodCoan1, out errore);
+
+					var oCodCoan2 = rigaTracciatoCrediti["codcoan2"];
+					var idSor2 = GetIdSorForSortCode("2", oCodCoan2, out errore);
 					 
+					var oCodCoan3 = rigaTracciatoCrediti["codcoan3"];
+					var idSor3 = GetIdSorForSortCode("3", oCodCoan3, out errore);
+					 
+
+					//La presenza di errore o assenza campo listino non deve bloccare l'elaborazione dei dati, perchè il campo non è obbligatorio
+
 					//if ((idList == null) && (errore != "")) {
 					//	show(errore, "Errore");
 					//	return;
@@ -1905,6 +1974,9 @@ namespace no_table_flussostudenti {
 						rNewFlussocreditiDetail["idlist"] = idList; 
 						rNewFlussocreditiDetail["idreg"] = oIdreg;
 						rNewFlussocreditiDetail["idupb"] = idupb;
+						rNewFlussocreditiDetail["idsor1"] = idSor1;
+						rNewFlussocreditiDetail["idsor2"] = idSor2;
+						rNewFlussocreditiDetail["idsor3"] = idSor3;
 						rNewFlussocreditiDetail["ct"] = DateTime.Now;
 						rNewFlussocreditiDetail["cu"] = "importaFlussoCrediti_" + _conn.externalUser;
 						rNewFlussocreditiDetail["lt"] = DateTime.Now;
@@ -2123,11 +2195,11 @@ namespace no_table_flussostudenti {
 		
 
 		void ricalcolaFlagElaborato() {
-			initPBar("Ricalcolo flag elaborato flusso incassi", DS.flussoincassi.Rows.Count);
+			//initPBar("Ricalcolo flag elaborato flusso incassi", DS.flussoincassi.Rows.Count);
 			//var someThingDone = false;
 			StringBuilder sb = new StringBuilder();
 			foreach (var flusso in DS.flussoincassi) {
-				incPBar();
+				//incPBar();
 				sb.AppendLine($"exec compute_flussoincassiflagelaborato {esercizio},{flusso.idflusso}");
 				if (sb.Length > 10000) {
 					_conn.SQLRunner(sb.ToString());
@@ -2138,7 +2210,7 @@ namespace no_table_flussostudenti {
 			if (sb.Length > 0) {
 				_conn.SQLRunner(sb.ToString());
 			}
-			closePBar();
+			//closePBar();
 		}
 
 
@@ -2597,7 +2669,10 @@ namespace no_table_flussostudenti {
 
 		private string checkTipoContrattoAttivo(object oCodiceTipoContratto, out string errori) {
 			errori = "";
-			if (oCodiceTipoContratto == DBNull.Value) return null;
+			if (oCodiceTipoContratto == DBNull.Value || oCodiceTipoContratto == null) {
+				errori = "Codice Tipo Contratto non trovato";
+				return null; 
+			}
 			string idestimkind = null;
 
 			var rEstimKind = DS.estimatekind.Filter(q.eq("idestimkind", oCodiceTipoContratto));
@@ -2811,7 +2886,7 @@ namespace no_table_flussostudenti {
 			DS.incomeinvoice.Clear();
 			DS.incomelastestimatedetail.Clear();
 			righeContrattoAttivo.Clear();
-			initPBar("Inizializzazione creazione contratti da flusso crediti",5);
+			//initPBar("Inizializzazione creazione contratti da flusso crediti",5);
 
 			var metaEstimate = MetaData.GetMetaData(this, "estimate");
 			metaEstimate.SetDefaults(DS.estimate);
@@ -2819,7 +2894,7 @@ namespace no_table_flussostudenti {
 			metaEstimateDetail.SetDefaults(DS.estimatedetail);
 
 			var ivaKind = _conn.RUN_SELECT("ivakind", "idivakind,rate", null, null, null, false);
-			incPBar();
+			//incPBar();
 			var ivaTaxRate = new Dictionary<int, object>();
 			foreach (var r in ivaKind.Select()) {
 				ivaTaxRate[CfgFn.GetNoNullInt32(r["idivakind"])] = r["rate"];
@@ -2853,7 +2928,7 @@ namespace no_table_flussostudenti {
 
 			var allRows =
 				DS.flussocreditidetail.readTableJoined(_conn, "upb", condizioneSuDettCrediti, filterUpbSec, "idupb");
-			incPBar();
+			//incPBar();
 			//attenzione: sfrutta il comportamento interno della readTableJoined, che ha già modificato gli alias delle condizioni in input
 
 			var overallCondition =
@@ -2872,7 +2947,7 @@ namespace no_table_flussostudenti {
 			DS.flussocrediti._sqlGetFromDb(_conn, getFlussiSql);
 			QueryCreator.MarkEvent($"fillEstimate - 1 : in DS.flussocrediti {DS.flussocrediti.Rows.Count} righe");
 
-			incPBar();
+			//incPBar();
 			var flussoCreditiDict = new Dictionary<int?, flussocreditiRow>();
 			foreach (var r in DS.flussocrediti) flussoCreditiDict[r.idflusso] = r;
 
@@ -2904,7 +2979,7 @@ namespace no_table_flussostudenti {
 			QueryCreator.MarkEvent($"fillEstimate - 2 : in DS.estimate {DS.estimate.Rows.Count} righe");
 
 			foreach (var r in DS.estimate) addEstimateRow(r);
-			incPBar();
+			//incPBar();
 
 			
 			string colonneDettContratti = string.Join(",",
@@ -2923,9 +2998,9 @@ namespace no_table_flussostudenti {
 			QueryCreator.MarkEvent($"fillEstimate - 3 : in DS.estimatedetail {DS.estimatedetail.Rows.Count} righe");
 
 			QueryCreator.MarkEvent("Inizio foreach (var rCreditiDetail");
-			initPBar("Creazione contratti da flusso crediti",allRows.Length);
+			//initPBar("Creazione contratti da flusso crediti",allRows.Length);
 			foreach (var rCreditiDetail in allRows) {
-				incPBar();
+				//incPBar();
 				//Application.DoEvents();
 				// Dovrò creare un solo contratto con tanti dettagli 
 				// quante sono le anagrafiche pertanto data contabile, tipo contratto e causale ricavo saranno uguali
@@ -3007,7 +3082,7 @@ namespace no_table_flussostudenti {
 					}
 
 					var rNewEstimate = metaEstimate.Get_New_Row(null, DS.estimate) as estimateRow;
-					rNewEstimate.nestim = tempNestim;
+					//rNewEstimate.nestim = tempNestim;
 					rNewEstimate.adate = _security.GetDataContabile();
 					rNewEstimate.docdate = docdate;
 					rNewEstimate.description = "Import.Flusso Studenti";
@@ -3109,7 +3184,7 @@ namespace no_table_flussostudenti {
 				rNewDetail.idsor3 = rCreditiDetail.idsor3;
 
 			}
-			closePBar();
+			//closePBar();
 
 			return true;
 		}
@@ -3123,7 +3198,7 @@ namespace no_table_flussostudenti {
 		private bool fillAnnulment(object _from, object _to) {
 		 
 			QueryCreator.MarkEvent("Inizio fillAnnulment");
-			initPBar("Inizializzazione Elaborazione annullamento crediti",1);
+			//initPBar("Inizializzazione Elaborazione annullamento crediti",1);
 			// Ciclo per l'annullamento dei dettagli
 			bool result = true;
 			var iduniqueformcodeToAnnul = new List<string>();
@@ -3222,7 +3297,7 @@ namespace no_table_flussostudenti {
 				availablePerIdinc[CfgFn.GetNoNullInt32(r["idinc"])] = CfgFn.GetNoNullDecimal(r["available"]);
 			}
 
-			incPBar();
+			//incPBar();
 			//DS.flussocreditidetail.mergeFromDb(_conn, filtroCreditiAnnullati);
 			//DataAccess.RUN_SELECT_INTO_TABLE(_conn, DS.flussocreditidetail, "idflusso", filterNonElaborati, null, true);
 			iduniqueformcodeToAnnul.Clear();
@@ -3230,10 +3305,10 @@ namespace no_table_flussostudenti {
 
 			QueryCreator.MarkEvent("Inizio foreach (var rCreditoAnnullo");
 			// Richiede che le righe in flussocrediti da annullare siano già corredate della chiave del dettaglio contratto attivo
-			initPBar(" Elaborazione annulli",annulli.Length);
+			//initPBar(" Elaborazione annulli",annulli.Length);
 
 			foreach (var rCreditoAnnullo in annulli) {
-				incPBar();
+				//incPBar();
 				var iduniqueformcode = rCreditoAnnullo.iduniqueformcode;
 				if (iduniqueformcode == null) continue;
 				if (iduniqueformcodeToAnnul.Contains(iduniqueformcode)) continue;
@@ -3358,7 +3433,7 @@ namespace no_table_flussostudenti {
 				rCreditoAnnullo["flag"] = CfgFn.GetNoNullInt32(rCreditoAnnullo["flag"]) | 1;
 
 			}
-			closePBar();
+			//closePBar();
 
 			//Salva i dati
 			//var myPostData = new Easy_PostData();
@@ -3428,7 +3503,7 @@ namespace no_table_flussostudenti {
 		/// <param name="errori"></param>
 		/// <returns></returns>
 		private List<string> getBollettiniFatturaDaConsiderare(bool soloConSospesi, out string errori) {
-			initPBar("Inizializzazione calcolo bollettini da considerare",3);
+			//initPBar("Inizializzazione calcolo bollettini da considerare",3);
 			var bollettiniDaConsiderare = new HashSet<string>();
 			//foreach(string b in bollettiniDaConsiderare)QueryCreator.MarkEvent("Bollettino da considerare: "+b);
 			errori = "";
@@ -3463,7 +3538,7 @@ namespace no_table_flussostudenti {
 				}
 			}
  
-			incPBar();
+			//incPBar();
 
 			// filtriamo la sicurezza solo in base al flussocrediti, campo idsor01
 			var whereFlussoCrediti = _security.SelectCondition("flussocrediti", true).toMetaExpression();
@@ -3543,7 +3618,7 @@ namespace no_table_flussostudenti {
 
 			//unisce a  flussocreditidetail i crediti associati agli incassi non elaborati
 			DS.flussocreditidetail._sqlSafeMergeFromDb(_conn, sqlCredDet);
-			incPBar();
+			//incPBar();
  
 
 			var dettCreditiByIuv = new Dictionary<string, List<flussocreditidetailRow>>();
@@ -3558,9 +3633,9 @@ namespace no_table_flussostudenti {
 				l.Add(r);
 			}
 
-			incPBar();
+			//incPBar();
 
-			initPBar("Estrazione dati bollettini ",righeFlussoIncassi.Length);
+			//initPBar("Estrazione dati bollettini ",righeFlussoIncassi.Length);
 		 
 			var dettCreditiByCodiceBollettino = new Dictionary<string, List<flussocreditidetailRow>>();
 			foreach (var r in DS.flussocreditidetail) {
@@ -3574,12 +3649,12 @@ namespace no_table_flussostudenti {
 				l.Add(r);
 			}
 			QueryCreator.MarkEvent($"Trovati {righeFlussoIncassi.Length} righe flusso incassi");
-			initPBar("Estrazione dati bollettini ",righeFlussoIncassi.Length);
+			//initPBar("Estrazione dati bollettini ",righeFlussoIncassi.Length);
 
 			//per tutti gli incassi da elaborare
 			foreach (var rFlussoIncassi in righeFlussoIncassi) { //DS.flussoincassi.Select()
 				
-				incPBar();
+				//incPBar();
 				var idflusso = rFlussoIncassi["idflusso"];
 				//QueryCreator.MarkEvent($"Considero flusso {idflusso}");
 				var dettincassi = DS.flussoincassidetail.get(_conn, q.eq("idflusso", idflusso));
@@ -3621,7 +3696,7 @@ namespace no_table_flussostudenti {
 					}
 				}
 			}
-			closePBar();
+			//closePBar();
 			return bollettiniDaConsiderare.ToList();
 		}
 
@@ -4198,7 +4273,8 @@ namespace no_table_flussostudenti {
 			try
 			{
 				WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
-				reportContents = client.Generate(moduleReport, Params);
+				string db = conn.GetSys("database").ToString();
+				reportContents = client.Generate(db, moduleReport, Params);
 			}
 			catch (Exception ex)
 			{
@@ -4528,26 +4604,26 @@ namespace no_table_flussostudenti {
 			return true;
 		}
 
-		void initPBar(string op, int nOperations) {
-			labPBar.Text = "Operazione in corso: " + op;
-			pBar.Maximum = nOperations;
-			pBar.Value = 0;
-			pBar.Visible = true;
-			Application.DoEvents();
-		}
+		//void initPBar(string op, int nOperations) {
+		//	labPBar.Text = "Operazione in corso: " + op;
+		//	pBar.Maximum = nOperations;
+		//	pBar.Value = 0;
+		//	pBar.Visible = true;
+		//	Application.DoEvents();
+		//}
 
-		void incPBar() {
-			pBar.Increment(1);
-			Application.DoEvents();
-		}
+		//void incPBar() {
+		//	pBar.Increment(1);
+		//	Application.DoEvents();
+		//}
 
-		void closePBar() {
-			labPBar.Text = "";
-			pBar.Maximum = 0;
-			pBar.Value = 0;
-			pBar.Visible = false;
-			Application.DoEvents();
-		}
+		//void closePBar() {
+		//	labPBar.Text = "";
+		//	pBar.Maximum = 0;
+		//	pBar.Value = 0;
+		//	pBar.Visible = false;
+		//	Application.DoEvents();
+		//}
 
 		/// <summary>
 		/// Crea gli incassi per i contratti attivi, ed eventualmente anche gli accertamenti.
@@ -4559,7 +4635,7 @@ namespace no_table_flussostudenti {
 		private bool creaIncassiContrattiAttivi(bool soloConSospesi) {
 			//Dictionary<int, decimal> flussoIncassiAmounts = new Dictionary<int, decimal>();
 
-			initPBar("Inizializzazione calcolo incassi",5);
+			//initPBar("Inizializzazione calcolo incassi",5);
 			var filterNonElaborati = q.eq("ayear", esercizio) & q.eq("elaborato", "N") & q.eq("active", "S") & q.isNotNull("dataincasso");
 			if (soloConSospesi) filterNonElaborati &= q.isNotNull("nbill");
 			if ((txtDaNumFlussoIncassi.Text != "") && (txtANumFlussoIncassi.Text != "")) {
@@ -4583,7 +4659,7 @@ namespace no_table_flussostudenti {
 			string filterNonElaboratiSql = filterNonElaborati.toSql(_qhs, _conn) +
 											   $" AND (flussoincassi.nbill is null or flussoincassi.nbill in (select nbill from bill where billkind='C' AND ybill={esercizio}) )";
 
-			incPBar();
+			//incPBar();
 
 			string colonneDettCrediti = string.Join(",",
 				(from c in DS.flussocreditidetail.Columns._names()
@@ -4796,7 +4872,7 @@ namespace no_table_flussostudenti {
 				}
 				foreach (DataRow r in DS.estimate.Rows) addEstimateDateToDict(r);
 			}
-			incPBar();
+			//incPBar();
 
 			foreach (var r in DS.flussocreditidetail) {
 				info.addDettFlussoCrediti(r);
@@ -4979,11 +5055,11 @@ namespace no_table_flussostudenti {
 			var iuvElaborati = new Dictionary<string, bool>();
 			var allRows = DS.flussoincassi.all();
 
-			initPBar("Creazione contratti attivi - "+tipoElaborazione.ToString(),allRows.Count);
+			//initPBar("Creazione contratti attivi - "+tipoElaborazione.ToString(),allRows.Count);
 			
 			//fattureDaCreare = new List<string>();
 			foreach (var rFlussoIncassi in allRows ) { //DS.flussoincassi.Select()
-				incPBar();
+				//incPBar();
 				Application.DoEvents();
 				decimal sumIncassiContrattiAttivi = 0;
 				if (!info.flussoIncassiAmounts.ContainsKey((int) rFlussoIncassi.idflusso)) {
@@ -5185,7 +5261,7 @@ namespace no_table_flussostudenti {
 									});
 									show(this,
 										$"Errore nell'elaborazione della generazione dell'accertamento per il bollettino di codice {rFileDet.iduniqueformcode} o iuv {iuv}");
-									closePBar();
+									//closePBar();
 									return false;
 								}
 								// Dato che entra in questo if anche quando gestionedifferita == "N" se monofase, allora verifico se devo aggiornare la data inizio
@@ -5426,7 +5502,7 @@ namespace no_table_flussostudenti {
 				//}
 				info.flussoIncassiAmounts[(int) rFlussoIncassi.idflusso].sommaIncassi += sumIncassiContrattiAttivi;
 			} //flusso incassi
-			closePBar();
+			//closePBar();
 			return true;
 		}
 
@@ -5438,7 +5514,7 @@ namespace no_table_flussostudenti {
 		}
 
 		private bool creaIncassiFatture(bool soloConSospesi) {
-			initPBar("Inizializzazione creazione incassi per fatture",2);
+			//initPBar("Inizializzazione creazione incassi per fatture",2);
 			azzeraTutto();
 
 			var filterNonElaborati = q.eq("ayear", esercizio) & q.eq("elaborato", "N") & q.eq("active", "S") ;
@@ -5502,7 +5578,7 @@ namespace no_table_flussostudenti {
 
 			if (idFlussiDaElaborare.Rows.Count == 0) {
 				show($" Non ci sono Flussi da incassare", "Avviso");
-				closePBar();
+				//closePBar();
 				return true;
 			}
 			string lista_idListing = qhc.DistinctVal(idFlussiDaElaborare.Select(), "idflusso");
@@ -5539,13 +5615,13 @@ namespace no_table_flussostudenti {
 				$") AND (yinv <= {esercizio}) ";
 			//La sicurezza l'abbiamo già filtrata sui crediti, non c'è bisogno di filtrarla anche sul dettaglio contratto
 			DS.invoicedetail._sqlGetFromDb(_conn, sqlGetFatture);
-			incPBar();
+			//incPBar();
 			foreach (var r in DS.invoicedetail) {
 				info.addDettFattura(r);
 				var filterInvoice = q.mCmp(r, "idinvkind", "yinv", "ninv");
 				DS.invoice.get(_conn, filterInvoice);
 			}
-			closePBar();
+			//closePBar();
 			
 			if (DS.invoicedetail.Rows.Count == 0) {
 				show(
@@ -5609,9 +5685,9 @@ namespace no_table_flussostudenti {
 			var bollettiniElaborati = new Dictionary<string, bool>();
 
 			// ciclo flusso incassi
-			initPBar("creaIncassiFatture - "+tipoElaborazione.ToString(),DS.flussoincassi.Rows.Count);
+			//initPBar("creaIncassiFatture - "+tipoElaborazione.ToString(),DS.flussoincassi.Rows.Count);
 			foreach (var rFlussoIncassi in DS.flussoincassi) {
-				incPBar();
+				//incPBar();
 				decimal sumAmount = 0;
 				if (!info.flussoIncassiAmounts.ContainsKey((int) rFlussoIncassi.idflusso)) {
 					info.flussoIncassiAmounts.Add((int) rFlussoIncassi.idflusso, new infoIncasso() {
@@ -6095,7 +6171,7 @@ namespace no_table_flussostudenti {
 
 				info.flussoIncassiAmounts[(int) rFlussoIncassi.idflusso].sommaIncassi += sumAmount;
 			}
-			closePBar();
+			//closePBar();
 			//fine ciclo flusso incassi
 
 			return true;
@@ -6456,88 +6532,88 @@ namespace no_table_flussostudenti {
 		/// <param name="e"></param>
 		private void btnAssociaEventualiBollette_Click(object sender, EventArgs e) {
 			DS.flussoincassi.Clear();
-			
-			//var sqlBill = $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
-			//            $" join flussoincassi on " +
-			//			  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
-			//			  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR "+
-			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
-			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR " +
-			//			  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
-			//            $" WHERE flussoincassi.ayear= {esercizio} and flussoincassi.nbill is null " +
-			//            $" AND bill.billkind='C' and bill.ybill={esercizio} " +
-			//            $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
-			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
-			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')"+
-			//			  $" UNION " +	
-			//			  $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
-			//			  $" join flussoincassi on " +
-			//			  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
-			//			  $" AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR " +
-			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
-			//			  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR" +
-			//			  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
-			//			  $" WHERE flussoincassi.ayear= {esercizio} " +
-			//			  $" AND bill.billkind='C' and bill.ybill={esercizio} + 1 " +
-			//			  $" and MONTH(bill.adate) = 1 and DAY(bill.adate) <= 5 " +
-			//			  $" and MONTH(flussoincassi.dataincasso)= 12 and DAY(flussoincassi.dataincasso) >= 25 " +
-			//			  $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
-			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
-			//			  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')";
+
+			var sqlBill = $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
+						  $" join flussoincassi on " +
+						  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
+						  $"AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR " +
+						  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
+						  $" WHERE flussoincassi.ayear= {esercizio} and flussoincassi.nbill is null " +
+						  $" AND bill.billkind='C' and bill.ybill={esercizio} " +
+						  $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')" +
+						  $" UNION " +
+						  $"select bill.nbill, bill.ybill, bill.adate, flussoincassi.causale from bill " +
+						  $" join flussoincassi on " +
+						  $" (bill.motive like '%'+flussoincassi.causale+'%' " +
+						  $" AND flussoincassi.causale like '%/PUR/LGPE-RIVERSAMENTO/URI/%' ) OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale+'%') OR " +
+						  $" (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale+'%') OR" +
+						  $" (bill.motive like '%'+flussoincassi.codiceflusso+'%')" +
+						  $" WHERE flussoincassi.ayear= {esercizio}  AND flussoincassi.elaborato = 'N' " +
+						  $" AND bill.billkind='C' and bill.ybill={esercizio} + 1 " +
+						  $" and MONTH(bill.adate) = 1 and DAY(bill.adate) <= 15 " +
+						  $" and MONTH(flussoincassi.dataincasso)= 12 and DAY(flussoincassi.dataincasso) >= 25 " +
+						  $" AND (bill.motive like '%/PUR/LGPE-RIVERSAMENTO/URI/%'  " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' " +
+						  $" OR bill.motive like '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%')";
 
 
-			var sqlBill = $"  WITH FilteredBills AS( " +
-						  $"  SELECT " +
-						  $"	bill.nbill, " +
-						  $"	bill.ybill, " +
-						  $"	bill.adate, " +
-						  $"	bill.motive, " +
-						  $"	flussoincassi.causale, " +
-						  $"	flussoincassi.dataincasso " +
-						  $" FROM bill" +
-						  $" JOIN " +
-						  $"	flussoincassi ON ( " +
-						  $"		(bill.motive LIKE '%' + flussoincassi.causale + '%' AND flussoincassi.causale LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/%') OR " +
-						  $"		(bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale + '%') OR " +
-						  $"		(bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale + '%') OR " +
-						  $"		(bill.motive LIKE '%' + flussoincassi.codiceflusso + '%') " +
-						  $"	) " +
-						  $" WHERE " +
-						  $"	flussoincassi.ayear = {esercizio}  " +
-						  $"	AND flussoincassi.nbill IS NULL " +
-						  $"	AND bill.billkind = 'C' " +
-						  $"	AND" +
-						  $"		(" +
-						  $"		bill.ybill = {esercizio} " +
-						  $"		OR (bill.ybill = {esercizio} +1  AND MONTH(bill.adate) = 1 AND DAY(bill.adate) <= 5)" +
-/*>>>>*/				  $"		OR  (bill.ybill = {esercizio} - 1  AND MONTH(bill.adate) = 12 ) " +
-						  $"		) " +
-						  $"		AND( " +
-						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/%' OR " +
-						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' OR " +
-						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%'  "  + 
-						  $")  " +
-						  $" ) " +
-						  $" SELECT " +
-						  $"	nbill, " +
-						  $"	ybill, " +
-						  $"	adate, " +
-						  $"	causale " +
-						  $" FROM " +
-						  $"	FilteredBills " +
-						  $" WHERE " +
-						  $" ( " +
-						  $"	(FilteredBills.ybill = {esercizio}) " +
-						  $"	OR " +
-						  $"	(FilteredBills.ybill = {esercizio} +1  AND MONTH(FilteredBills.dataincasso) = 12 AND DAY(FilteredBills.dataincasso) >= 25) " +
-/*>>>>*/                  $"	OR " +
-						  $"	(FilteredBills.ybill = {esercizio} - 1  AND MONTH(FilteredBills.adate) = 12 AND year(FilteredBills.dataincasso) = {esercizio} ) " +
-						  $" ) ";
+//			var sqlBill1 = $"  WITH FilteredBills AS( " +
+//						  $"  SELECT " +
+//						  $"	bill.nbill, " +
+//						  $"	bill.ybill, " +
+//						  $"	bill.adate, " +
+//						  $"	bill.motive, " +
+//						  $"	flussoincassi.causale, " +
+//						  $"	flussoincassi.dataincasso " +
+//						  $" FROM bill" +
+//						  $" JOIN " +
+//						  $"	flussoincassi ON ( " +
+//						  $"		(bill.motive LIKE '%' + flussoincassi.causale + '%' AND flussoincassi.causale LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/%') OR " +
+//						  $"		(bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/' + flussoincassi.causale + '%') OR " +
+//						  $"		(bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/_/URI/' + flussoincassi.causale + '%') OR " +
+//						  $"		(bill.motive LIKE '%' + flussoincassi.codiceflusso + '%') " +
+//						  $"	) " +
+//						  $" WHERE " +
+//						  $"	flussoincassi.ayear = {esercizio}  " +
+//						  $"	AND flussoincassi.nbill IS NULL " +
+//						  $"	AND bill.billkind = 'C' " +
+//						  $"	AND" +
+//						  $"		(" +
+//						  $"		bill.ybill = {esercizio} " +
+//						  $"		OR (bill.ybill = {esercizio} +1  AND MONTH(bill.adate) = 1 AND DAY(bill.adate) <= 5)" +
+//*>>>>*/				  $"		OR  (bill.ybill = {esercizio} - 1  AND MONTH(bill.adate) = 12 ) " +
+//						  $"		) " +
+//						  $"		AND( " +
+//						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/URI/%' OR " +
+//						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/_/URI/%' OR " +
+//						  $" bill.motive LIKE '%/PUR/LGPE-RIVERSAMENTO/TXT/0/URI/%'  "  + 
+//						  $")  " +
+//						  $" ) " +
+//						  $" SELECT " +
+//						  $"	nbill, " +
+//						  $"	ybill, " +
+//						  $"	adate, " +
+//						  $"	causale " +
+//						  $" FROM " +
+//						  $"	FilteredBills " +
+//						  $" WHERE " +
+//						  $" ( " +
+//						  $"	(FilteredBills.ybill = {esercizio}) " +
+//						  $"	OR " +
+//						  $"	(FilteredBills.ybill = {esercizio} +1  AND MONTH(FilteredBills.dataincasso) = 12 AND DAY(FilteredBills.dataincasso) >= 25) " +
+//*>>>>*/                  $"	OR " +
+						  //$"	(FilteredBills.ybill = {esercizio} - 1  AND MONTH(FilteredBills.adate) = 12 AND year(FilteredBills.dataincasso) = {esercizio} ) " +
+						  //$" ) ";
 
 			DataTable billFromCausali = _conn.SQLRunner(sqlBill,false,0);
 			if (billFromCausali.Rows.Count == 0)
 				return;
-			var rows = DS.flussoincassi.getFromDb(_conn, q.eq("ayear", esercizio)/* & q.isNull("nbill")*/);
+			var rows = DS.flussoincassi.getFromDb(_conn, q.eq("ayear", esercizio) & q.eq("elaborato", "N")/* & q.isNull("nbill")*/);
 			Dictionary<string,int> nBillPerCausale = new Dictionary<string, int>();
 			Dictionary<string,object> dataIncassoPerCausale = new Dictionary<string, object>();
 			Dictionary<string, int> annoBillPerCausale = new Dictionary<string, int>();
@@ -6704,6 +6780,48 @@ namespace no_table_flussostudenti {
 			return idlist;
 		}
 
+		static Dictionary<string, object> _AllSortCode = new Dictionary<string, object>();
+
+		object GetIdSorForSortCode(string order, object sortcode, out string errori)
+		{
+			errori = "";
+			if (sortcode == DBNull.Value)
+			{
+
+				return DBNull.Value;
+			}
+			string filterTipoClass = "_idsorkindCoan" + order;
+			object selectedValue;
+			
+			switch (order)
+			{
+				case "1":
+					selectedValue = _idsorkindCoan1;
+					break;
+				case "2":
+					selectedValue = _idsorkindCoan2;
+					break;
+				case "3":
+					selectedValue = _idsorkindCoan3;
+					break;
+				default:
+					selectedValue = DBNull.Value;  
+					break;
+			}
+
+			string str_sortcode = sortcode.ToString();
+			if (_AllSortCode.ContainsKey(order + "§" + str_sortcode))
+				return _AllSortCode[order + "§" + str_sortcode];
+			object idSor = _conn.DO_READ_VALUE("sorting",_qhs.AppAnd( _qhs.CmpEq("sortcode", str_sortcode), _qhs.CmpEq("idsorkind", selectedValue)),  "idsor");
+			if (idSor == null)
+			{
+				errori = " Codice Coan" + order + " " + str_sortcode.ToString() + " non valido per la Coordinata Analitica: " + order;
+				return DBNull.Value;
+			}
+
+			_AllSortCode[order+ "§" + str_sortcode] = idSor;
+			return idSor;
+		}
 
 		//13720
 		Dictionary<string, string> __EstimatekindTitles = new Dictionary<string, string>();

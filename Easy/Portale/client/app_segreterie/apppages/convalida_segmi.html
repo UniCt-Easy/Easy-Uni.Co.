@@ -5,10 +5,10 @@
 		<a href="#tabconvalida_segmi_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabconvalida_segmi_0"><i class="fa fa-check-circle mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabconvalida_segmi_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segmi_3"><i class="fa fa-check-circle mr-1"></i>Convalidante</a>
+		<a href="#tabconvalida_segmi_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segmi_3"><i class="fa fa-sign-in-alt mr-1"></i>Convalidante</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabconvalida_segmi_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segmi_4"><i class="fa fa-check-circle mr-1"></i>Convalidato</a>
+		<a href="#tabconvalida_segmi_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabconvalida_segmi_4"><i class="fa fa-sign-in-alt mr-1"></i>Convalidato</a>
 	</li>
 
 	</ul>
@@ -31,15 +31,11 @@
 					<input id="convalida_segmi_data" type="text" class="form-control" data-tag="convalida.data.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="convalida_segmi_idconvalidakind">Tipologia</label>
-					<select id="convalida_segmi_idconvalidakind" class="custom-select d-block w-100"  data-source-name="convalidakinddefaultview" data-value-member="idconvalidakind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="convalida.idconvalidakind"   > </select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="convalida_segmi_voto">Voto</label>
 					<input id="convalida_segmi_voto" type="text" class="form-control" data-tag="convalida.voto.fixed.2"  />
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="convalida_segmi_votolode">Lode</label>
 					<div class="custom-control custom-radio">
@@ -47,8 +43,6 @@
 						<input id="convalida_segmi_votolodeNo" type="radio" name="convalida_segmi_votolode" class="custom-control-input" data-tag="convalida.votolode:N"  ><label for="convalida_segmi_votolodeNo"> No</label>
 					</div>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="convalida_segmi_votosu">Su</label>
 					<input id="convalida_segmi_votosu" type="text" class="form-control" data-tag="convalida.votosu"  />
@@ -74,7 +68,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="convalidante_segmi_idchangeskind">Changes kind</label>
-					<select id="convalidante_segmi_idchangeskind" class="custom-select d-block w-100"  data-source-name="changeskinddefaultview" data-value-member="idchangeskind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="convalidante.idchangeskind" data-subentity   > </select>
+					<select id="convalidante_segmi_idchangeskind" class="custom-select d-block w-100"  data-source-name="changeskinddefaultview" data-value-member="idchangeskind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="convalidante.idchangeskind" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="convalidante_segmi_idsostenimento">Sostenimento</label>
@@ -86,17 +80,9 @@
 	</div>
 	<div class="tab-pane fade" id="tabconvalida_segmi_4" role="tabpanel">
 			<div class="row">
-				<div class="col-md-12">
-					<label class="col-form-label col-md-12" for="convalidato_segmi_changesother">Changes other</label>
-					<textarea class="textarea form-control" id="convalidato_segmi_changesother" type="text"  rows="4" data-tag="convalidato.changesother" data-subentity  ></textarea>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="convalidato_segmi_idattivform">attività formativa</label>
-					<div>
-						<input id="convalidato_segmi_idattivform" name="convalidato_segmi_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
-					</div>
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idchangeskind">Changes kind</label>
+					<select id="convalidato_segmi_idchangeskind" class="custom-select d-block w-100"  data-source-name="changeskinddefaultview_alias1" data-value-member="idchangeskind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="convalidato.idchangeskind" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="convalidato_segmi_idchanges">Changes</label>
@@ -106,22 +92,16 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="convalidato_segmi_idchangeskind">Changes kind</label>
-					<select id="convalidato_segmi_idchangeskind" class="custom-select d-block w-100"  data-source-name="changeskinddefaultview_alias1" data-value-member="idchangeskind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="convalidato.idchangeskind" data-subentity   > </select>
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="convalidato_segmi_idiscrizionebmi">Iscrizione al bando di mobilità internazionale</label>
-					<div>
-						<input id="convalidato_segmi_idiscrizionebmi" name="convalidato_segmi_idiscrizionebmi" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="iscrizionebmi.idreg" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
-					</div>
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_changesother">Changes other</label>
+					<textarea class="textarea form-control" id="convalidato_segmi_changesother" type="text"  rows="4" data-tag="convalidato.changesother" data-subentity  ></textarea>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="convalidato_segmi_idlearningagrstud">Learning agreements for studies</label>
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="convalidato_segmi_idattivform">attività formativa</label>
 					<div>
-						<input id="convalidato_segmi_idlearningagrstud" name="convalidato_segmi_idlearningagrstud" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="learningagrstud.department" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="convalidato_segmi_idattivform" name="convalidato_segmi_idattivform" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="attivformdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
 					</div>
 				</div>
 			</div>

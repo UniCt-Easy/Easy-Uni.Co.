@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -67,10 +65,10 @@ namespace meta_tassonomia_pagopa {
 		}
 
 		public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-			//T.setMySelector("ntabella", "nphase", 0);  //campo nphase  Ë selettore per calcolo di ntabella
-			//T.setMySelector("ntabella", "ytabella", 0);//campo ytabella  Ë selettore per calcolo di ntabella
-			//T.setAutoincrement("ntabella", null, null, 0);  //ntabella Ë campo ad autoincremento
-			T.setAutoincrement("idtassonomia", null, null, 0); //idtabella Ë campo ad autoincremento
+			//T.setMySelector("ntabella", "nphase", 0);  //campo nphase  √® selettore per calcolo di ntabella
+			//T.setMySelector("ntabella", "ytabella", 0);//campo ytabella  √® selettore per calcolo di ntabella
+			//T.setAutoincrement("ntabella", null, null, 0);  //ntabella √® campo ad autoincremento
+			T.setAutoincrement("idtassonomia", null, null, 0); //idtabella √® campo ad autoincremento
 
 			//T.setMinimumTempValue("idtabella", 999900000);     //Da impostare  in caso di pericolo di conflitto
 			DataRow R = base.Get_New_Row(ParentRow, T);
@@ -126,8 +124,8 @@ namespace meta_tassonomia_pagopa {
 					DescribeAColumn(T, "descrizione", "Descrizione", nPos++);
 					DescribeAColumn(T, "motivoriscossione", "Motivo riscossione", nPos++);
 					DescribeAColumn(T, "causale", "Dati specifici di incasso", nPos++);
-					DescribeAColumn(T, "start", "Inizio validit‡", nPos++);
-					DescribeAColumn(T, "stop", "Fine validit‡", nPos++);
+					DescribeAColumn(T, "start", "Inizio validit√†", nPos++);
+					DescribeAColumn(T, "stop", "Fine validit√†", nPos++);
 					DescribeAColumn(T, "versione", "Versione", nPos++);
 					break;
 				}

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -205,10 +203,14 @@ private void initClass() {
 
 	//////////////////// PERFOBIETTIVIUOATTACH /////////////////////////////////
 	var tperfobiettiviuoattach= new MetaTable("perfobiettiviuoattach");
+	tperfobiettiviuoattach.defineColumn("ct", typeof(DateTime));
+	tperfobiettiviuoattach.defineColumn("cu", typeof(string));
 	tperfobiettiviuoattach.defineColumn("idattach", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfobiettiviuo", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfobiettiviuoattach", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("lt", typeof(DateTime));
+	tperfobiettiviuoattach.defineColumn("lu", typeof(string));
 	tperfobiettiviuoattach.defineColumn("title", typeof(string),false);
 	Tables.Add(tperfobiettiviuoattach);
 	tperfobiettiviuoattach.defineKey("idattach", "idperfobiettiviuo", "idperfobiettiviuoattach", "idperfvalutazioneuo");
@@ -235,6 +237,7 @@ private void initClass() {
 	tperfobiettiviuo.defineColumn("ct", typeof(DateTime));
 	tperfobiettiviuo.defineColumn("cu", typeof(string));
 	tperfobiettiviuo.defineColumn("description", typeof(string));
+	tperfobiettiviuo.defineColumn("forzapunteggio", typeof(string));
 	tperfobiettiviuo.defineColumn("idperfobiettiviuo", typeof(int),false);
 	tperfobiettiviuo.defineColumn("idperfvalutazionepersonale", typeof(int));
 	tperfobiettiviuo.defineColumn("idperfvalutazioneuo", typeof(int),false);
@@ -242,6 +245,7 @@ private void initClass() {
 	tperfobiettiviuo.defineColumn("lu", typeof(string));
 	tperfobiettiviuo.defineColumn("note", typeof(string));
 	tperfobiettiviuo.defineColumn("peso", typeof(decimal));
+	tperfobiettiviuo.defineColumn("punteggio", typeof(int));
 	tperfobiettiviuo.defineColumn("title", typeof(string));
 	tperfobiettiviuo.defineColumn("valorenumerico", typeof(decimal));
 	tperfobiettiviuo.defineColumn("!perfobiettiviuosoglia", typeof(string));
@@ -259,7 +263,7 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
 
@@ -422,6 +426,7 @@ private void initClass() {
 	tperfprogettouoview.defineColumn("idperfprogetto", typeof(int),false);
 	tperfprogettouoview.defineColumn("idperfvalutazioneuo", typeof(int),false);
 	tperfprogettouoview.defineColumn("idstruttura", typeof(int));
+	tperfprogettouoview.defineColumn("peso", typeof(int),false);
 	tperfprogettouoview.defineColumn("progetto_title", typeof(string));
 	tperfprogettouoview.defineColumn("risultato", typeof(decimal));
 	tperfprogettouoview.defineColumn("year", typeof(int),false);
@@ -464,6 +469,7 @@ private void initClass() {
 	tperfvalutazioneuostatuschanges.defineColumn("lt", typeof(DateTime));
 	tperfvalutazioneuostatuschanges.defineColumn("lu", typeof(string));
 	tperfvalutazioneuostatuschanges.defineColumn("!idperfschedastatus_perfschedastatus_title", typeof(string));
+	tperfvalutazioneuostatuschanges.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfvalutazioneuostatuschanges);
 	tperfvalutazioneuostatuschanges.defineKey("idperfvalutazioneuo", "idperfvalutazioneuostatuschanges");
 

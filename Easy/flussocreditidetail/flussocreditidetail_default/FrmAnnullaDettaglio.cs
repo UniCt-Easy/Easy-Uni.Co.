@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -117,7 +115,7 @@ namespace flussocreditidetail_default {
 			if (existentRowsToAnnull.Length == 0)
 			{
 				errore =
-					$"Bollettino numero {oCodiceBollettinoUnivoco} non trovato (o gi‡ annullato) nei crediti esistenti. L'annullo di tale bollettino non sar‡ considerato.";
+					$"Bollettino numero {oCodiceBollettinoUnivoco} non trovato (o gi√† annullato) nei crediti esistenti. L'annullo di tale bollettino non sar√† considerato.";
 				show(errore, "Avviso");
 				return;
 			}
@@ -129,7 +127,7 @@ namespace flussocreditidetail_default {
 			if (rFlussoCreditiRows.Length == 0)
 			{
 				errore =
-					$"Flusso numero {existentRowsToAnnull[0]["idflusso"]} non trovato. L'annullo di tale bollettino non sar‡ considerato.";
+					$"Flusso numero {existentRowsToAnnull[0]["idflusso"]} non trovato. L'annullo di tale bollettino non sar√† considerato.";
 				show(errore, "Avviso");
 				return;
 			}
@@ -149,7 +147,7 @@ namespace flussocreditidetail_default {
 
 			rNewFlussoCrediti["datacreazioneflusso"] = _security.GetSys("datacontabile");
 			rNewFlussoCrediti["flusso"] = DBNull.Value;
-			rNewFlussoCrediti["istransmitted"] = "S"; //il flusso che creiamo si intenda gi‡ trasmesso da un programma esterno
+			rNewFlussoCrediti["istransmitted"] = "S"; //il flusso che creiamo si intenda gi√† trasmesso da un programma esterno
 			rNewFlussoCrediti["filename"] = DBNull.Value; ;
 			rNewFlussoCrediti["docdate"] = oDataContabile;
 			rNewFlussoCrediti["ct"] = DateTime.Now;
@@ -161,7 +159,7 @@ namespace flussocreditidetail_default {
 			foreach (var rToAnnull in existentRowsToAnnull)
 			{
 				
-				//nuova riga di annullo che creiamo, deve avere la data fine validit‡ stop
+				//nuova riga di annullo che creiamo, deve avere la data fine validit√† stop
 				//la vecchia riga deve avere la data di annullo 
 
 				rToAnnull.annulmentValue = oDataContabile; //Imposta il campo ANNULLATO nel dettaglio credito esistent 

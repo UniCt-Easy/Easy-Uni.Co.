@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -1008,9 +1006,10 @@ public partial class ExportParameter_Default : MetaPage
 
         //la riduzione di VPosition serve per l'allineamento con l'help
         //grp.Location = new Point(HPosition, VPosition - 4);
-        grp.Height = 41;
+        grp.Height = 48;
         //grp.Width = ControlWidth;
         grp.Style.Add("width", "300px");
+        grp.CssClass = "grp";
 
         return grp;
     }

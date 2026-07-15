@@ -13,9 +13,13 @@
         HORIZON: "HORIZON",
         HORIZON_Y: "HORIZON_Y",
         PON: "PON",
+        HORIZON_ERANET_COFUND: "HORIZON_ERANET_COFUND",
         PNRR: "PNRR",
+        PNRR_AGE_IT: "PNRR_AGE_IT",
         NBFC_CNR: "NBFC_CNR",
         FSC_MS_5: "FSC_MS_5",
+        FSC_MS_3: "FSC_MS_3",
+        PATTO_TERR: "PATTO_TERR",
         FSC_MS: "FSC_MS",
         MASE: "MASE",
         PNRR_PF: "PNRR_PF",
@@ -25,14 +29,114 @@
         PORCAMPANIA: "PORCAMPANIA",
         EMPIR: "EMPIR",
         MIMIT: "MIMIT",
-        MIMIT_2: "MIMIT_2"
+        MIMIT_2: "MIMIT_2",
+        PORCAMPANIA_21_27: "PORCAMPANIA_21_27",
+        MALATTIE_RARE: "MALATTIE_RARE",
+        PSRCAMPANIA: "PSRCAMPANIA",
     };
 
     var pdfData = null;
     var pdfName = "";
 
-    var usignToken = "";
+    var usignToken = "YOUR_SECRET";
     var usignFileId = "";
+
+    var dataRetrievers = {
+
+        //[ETemplateType.HORIZON]: function () {
+        //    console.log("Handling HORIZON template");
+        //},
+
+        //[ETemplateType.PNRR]: function () {
+        //    console.log("Handling PNRR template");
+        //},
+
+        //[ETemplateType.MISE]: function () {
+        //    console.log("Handling MISE template");
+        //},
+
+        [ETemplateType.PSRCAMPANIA]: function (timesheet) {
+
+            console.log("Retrieving extra data for PSRCAMPANIA");
+
+            var data = {
+                sets: {},
+                tables: {},
+            };
+
+
+            const datasetConfigs = [
+                {
+                    name: 'progettoregistry_aziende',
+                    editType: 'seg',
+                    getFilter: (opts) => appMeta.currApp.q.eq('idprogetto', opts.idprogetto),
+                },
+                {
+                    name: 'registry',
+                    editType: 'docenti',
+                    getFilter: (opts) => appMeta.currApp.q.eq('idreg', opts.idreg),
+                },
+            ];
+            const tableConfigs = [
+                {
+                    name: 'costoorariomembroattivitaprogettoperiodoview',
+                    getFilter: (opts) => appMeta.currApp.q
+                        .and(appMeta.currApp.q.eq('idreg', opts.idreg),
+                            appMeta.currApp.q.eq('idprogetto', opts.idprogetto),
+                            appMeta.currApp.q.eq('anno', opts.year)),
+                },
+                {
+                    name: 'rendicontattivitaprogettomesetmview',
+                    getFilter: (opts) => {
+                        const q = appMeta.currApp.q;
+                        const filters = [
+                            q.eq('idreg', opts.idreg),
+                            q.eq('idprogetto', opts.idprogetto),
+                            q.eq('anno', opts.year)
+                        ];
+
+                        if (opts.mese) {
+                            filters.push(q.eq('mese', opts.mese));
+                        }
+
+                        return q.and(...filters);
+                    }
+                }
+            ];
+
+            const dsPromises = datasetConfigs.map(cfg => {
+
+                const filter = cfg.getFilter(timesheet.opts);    // valutiamo il filtro
+
+                return appMeta.getData.getDataSet(cfg.name, cfg.editType)
+                    .then(emptyDS => appMeta.getData.fillDataSet(emptyDS, cfg.name, cfg.editType, filter))
+                    .then(filledDS => {
+                        data.sets[cfg.name] = data.sets[cfg.name] || {};
+                        data.sets[cfg.name][cfg.editType] = filledDS;
+                    });
+            });
+            const tablePromises = tableConfigs.map(cfg => {
+
+                const filter = cfg.getFilter(timesheet.opts)    // valutiamo il filtro
+
+                return appMeta.getData.runSelect(cfg.name, '*', filter, null)
+                    .then(tableData => {
+                        data.tables[cfg.name] = data.tables[cfg.name] || {};
+                        data.tables[cfg.name] = tableData;
+                    });
+            });
+
+            const promises = [...dsPromises, ...tablePromises];
+
+            return Promise.all(promises)
+                .then(() => {
+                    return data;
+                })
+                .catch((err) => {
+                    var tmp = err;
+                })
+        }
+    };
 
     /**
      * @constructor Timesheet
@@ -100,7 +204,8 @@
             );
             if (
                 opts.idtimesheettemplate === ETemplateType.PNRR_PF ||
-                opts.idtimesheettemplate === ETemplateType.PNRR ||
+                opts.idtimesheettemplate === ETemplateType.PNRR || 
+                opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT || 
                 opts.idtimesheettemplate === ETemplateType.NBFC_CNR ||
                 opts.idtimesheettemplate === ETemplateType.FSC_MS_5 ||
                 opts.idtimesheettemplate === ETemplateType.FSC_MS ||
@@ -108,7 +213,10 @@
                 opts.idtimesheettemplate === ETemplateType.PNC ||
                 opts.idtimesheettemplate === ETemplateType.MISE ||
                 opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
-                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA ||
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND ||
+                opts.idtimesheettemplate === ETemplateType.MALATTIE_RARE
             ) {
                 //... ma se è il template pnrr devo prendere tutto
                 filter = q.and(
@@ -117,30 +225,35 @@
                 );
             }
 
-
             var currDt = null;
 
-            appMeta.getData.runSelect('timesheetview', '*', filter, null)
-                .then(function (dt) {
-                    currDt = dt;
-                    return self.getLogo(opts, currDt);
-                })
-                .then(function (logoBase64) {
-                    // crea datatable
+            this.initSignatureLabels(opts)  // questa logica andrebbe spostata in initRequiredData ora che abbiamo il sistema per recuperare dati aggiuntivi
+                .then(() => {
+                    appMeta.getData.runSelect('timesheetview', '*', filter, null)
+                        .then(function (dt) {
+                            currDt = dt;
+                            return self.getLogo(opts, currDt);
+                        })
+                        .then(() => {
+                            return self.initRequiredData(opts);
+                        })
+                        .then(function (logoBase64) {
+                            // crea datatable
 
-                    let filteroremaxgg = q.and([
-                        q.eq("idreg", opts.idreg),
-                        q.or(q.isNull("start"), q.le("start", new Date(opts.year, 11, 31))),
-                        q.or(q.isNull("stop"), q.ge("stop", new Date(opts.year, 0, 1)))
-                    ]);
-                    appMeta.getData.runSelect("getoremaxgg", "*", filteroremaxgg, null)
-                        .then(function (getoremaxgg) {
-                            self.maxHoursPerDayTable = getoremaxgg;
-                            opts.metaPage.hideWaitingIndicator(waitingHandler);
-                            return def.from(self.buildTimesheetTable(currDt, opts, logoBase64))
-                        }).fail(function (err) {
-                            opts.metaPage.hideWaitingIndicator(waitingHandler);
-                            def.reject(err);
+                            let filteroremaxgg = q.and([
+                                q.eq("idreg", opts.idreg),
+                                q.or(q.isNull("start"), q.le("start", new Date(opts.year, 11, 31))),
+                                q.or(q.isNull("stop"), q.ge("stop", new Date(opts.year, 0, 1)))
+                            ]);
+                            appMeta.getData.runSelect("getoremaxgg", "*", filteroremaxgg, null)
+                                .then(function (getoremaxgg) {
+                                    self.maxHoursPerDayTable = getoremaxgg;
+                                    opts.metaPage.hideWaitingIndicator(waitingHandler);
+                                    return def.from(self.buildTimesheetTable(currDt, opts, logoBase64))
+                                }).fail(function (err) {
+                                    opts.metaPage.hideWaitingIndicator(waitingHandler);
+                                    def.reject(err);
+                                });
                         });
                 });
 
@@ -179,160 +292,247 @@
             var def = appMeta.Deferred("getLogo");
             let self = this;
 
+            // Create a mapping for adjusting timesheet logo cell positions (modificatori)
+            const timesheetAdjustment = {
+                [ETemplateType.HORIZON]: (cellStr) => {
+                    const indexes = self.cellStringToIndices(cellStr);
+                    return self.indicesToCellString(indexes.rowIndex, indexes.columnIndex - 1);
+                },
+                [ETemplateType.HORIZON_Y]: (cellStr) => {
+                    const indexes = self.cellStringToIndices(cellStr);
+                    return self.indicesToCellString(indexes.rowIndex, indexes.columnIndex - 1);
+                }
+            };
+
+            // questi sarebbero da omogeneizzare per snellire il codice e renderlo più funzionale in tutti i sensi
+            const logoAteneoConfig = {
+                default:                    { timesheetLogoCellTLYear: 'N2', timesheetLogoCellBRYear: 'P8', timesheetLogoCellTL: 'AA2', timesheetLogoCellBR: 'AC8', maxHeightInCells: 6 },
+                [ETemplateType.NBFC_CNR]:   { timesheetLogoCellTLYear: 'N3', timesheetLogoCellBRYear: 'P8', timesheetLogoCellTL: 'AA3', timesheetLogoCellBR: 'AC8', maxHeightInCells: 1 },
+                [ETemplateType.HORIZON]:    { timesheetLogoCellTLYear: 'N2', timesheetLogoCellBRYear: 'P8', timesheetLogoCellTL: 'AA2', timesheetLogoCellBR: 'AC8', maxHeightInCells: 4 },
+                [ETemplateType.HORIZON_Y]:  { timesheetLogoCellTLYear: 'N2', timesheetLogoCellBRYear: 'P8', timesheetLogoCellTL: 'AA2', timesheetLogoCellBR: 'AC8', maxHeightInCells: 4 },
+                [ETemplateType.EMPIR]:      { timesheetLogoCellTLYear: 'B2', timesheetLogoCellBRYear: 'D8', timesheetLogoCellTL: 'B2', timesheetLogoCellBR: 'D8', maxHeightInCells: 6 },
+                //[ETemplateType.MISE]:       { timesheetLogoCellTLYear: 'V2', timesheetLogoCellBRYear: 'P8', timesheetLogoCellTL: 'AA2', timesheetLogoCellBR: 'AC8', maxHeightInCells: 6 },
+                [ETemplateType.MIMIT_2]:    { timesheetLogoCellTLYear: 'N2', timesheetLogoCellBRYear: 'P8', timesheetLogoCellTL: 'AA2', timesheetLogoCellBR: 'AC8', maxHeightInCells: 6 }
+            };
+
+            const logoProgettoConfig = {
+                default:                    { topLeftLogoProgettoYear: 'B2', bottomRigthLogoProgettoYear: 'D8', topLeftLogoProgetto: 'B2', bottomRigthLogoProgetto: 'D8' },
+                [ETemplateType.HORIZON]:    { topLeftLogoProgettoYear: 'B2', bottomRigthLogoProgettoYear: 'C6', topLeftLogoProgetto: 'B2', bottomRigthLogoProgetto: 'C6' },
+                [ETemplateType.HORIZON_Y]:  { topLeftLogoProgettoYear: 'B2', bottomRigthLogoProgettoYear: 'C6', topLeftLogoProgetto: 'B2', bottomRigthLogoProgetto: 'C6' },
+                //[ETemplateType.MISE]:       { topLeftLogoProgettoYear: 'O9', bottomRigthLogoProgettoYear: 'Q15', topLeftLogoProgetto: 'AA9', bottomRigthLogoProgetto: 'AC15' },
+                [ETemplateType.EMPIR]:      { topLeftLogoProgettoYear: 'F2', bottomRigthLogoProgettoYear: 'G7', topLeftLogoProgetto: 'F2', bottomRigthLogoProgetto: 'J7' }
+            };
+
+            const logoTemplateConfig = {
+                default:                            { logoTemplatePath: null, logoTemplateTopLeft: 'E2', logoTemplateBottomRigth: 'O9' },
+                [ETemplateType.PON]:                { logoTemplatePath: 'assets/PONLogo.png', logoTemplateTopLeft: 'E2', logoTemplateBottomRigth: 'M9' },
+                [ETemplateType.PNRR]:               { logoTemplatePath: 'assets/PNRRLogo.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.PNRR_PF]:            { logoTemplatePath: 'assets/PNRRLogo.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.PNRR_AGE_IT]:        { logoTemplatePath: 'assets/loghi_age-it.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.NBFC_CNR]:           { logoTemplatePath: 'assets/NBFC_CNRLogo.png', logoTemplateTopLeft: 'D3', logoTemplateBottomRigth: 'U7' },
+                [ETemplateType.FSC_MS_3]:           { logoTemplatePath: 'assets/FSC_MSLogo.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.PATTO_TERR]:         { logoTemplatePath: 'assets/PATTO_TERRLogo.png', logoTemplateTopLeft: 'C2', logoTemplateBottomRigth: 'U7' },
+                [ETemplateType.FSC_MS_5]:           { logoTemplatePath: 'assets/FSC_MSLogo.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.FSC_MS]:             { logoTemplatePath: 'assets/FSC_MSLogo.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.PNC]:                { logoTemplatePath: 'assets/PNCLogo.png', logoTemplateTopLeft: 'E2', logoTemplateBottomRigth: 'O9' },
+                [ETemplateType.MASE]:               { logoTemplatePath: 'assets/MASELogo.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+                [ETemplateType.PORCAMPANIA]:        { logoTemplatePath: 'assets/PORCAMPANIALogo.png', logoTemplateTopLeft: 'E2', logoTemplateBottomRigth: 'O9' },
+                [ETemplateType.PORCAMPANIA_21_27]:  { logoTemplatePath: 'assets/porcampania2127.png', logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'O7' },
+                [ETemplateType.MIMIT]:              { logoTemplatePath: 'assets/Logo_Ministero_Imprese_e_Made_in_Italy.png', logoTemplateTopLeft: 'E2', logoTemplateBottomRigth: 'L9' },
+                [ETemplateType.MIMIT_2]:            { logoTemplatePath: 'assets/Logo_Ministero_Imprese_e_Made_in_Italy.png', logoTemplateTopLeft: 'E2', logoTemplateBottomRigth: 'L9', },
+                [ETemplateType.MALATTIE_RARE]:      { logoTemplatePath: null, logoTemplateTopLeft: 'D2', logoTemplateBottomRigth: 'P9' },
+            };
+
+            const logoOverrideExclusions = [];
+
             //LOGO ATENEO --------------------------------------------------------------------------------------------------------------------
 
-            //posizione logo ateneo anno
-            this.timesheetLogoCellTLYear = 'N2';
-            this.timesheetLogoCellBRYear = 'P8';
-            //posizione logo ateneo mesi
-            this.timesheetLogoCellTL = 'AA2';
-            this.timesheetLogoCellBR = 'AC8';
+            // Get configuration based on the current template,
+            // falling back to the default if nothing specific exists.
+            const ateneoConfig = logoAteneoConfig[opts.idtimesheettemplate] || logoAteneoConfig.default;
+            self.timesheetLogoCellTLYear = ateneoConfig.timesheetLogoCellTLYear;
+            self.timesheetLogoCellBRYear = ateneoConfig.timesheetLogoCellBRYear;
+            self.timesheetLogoCellTL = ateneoConfig.timesheetLogoCellTL;
+            self.timesheetLogoCellBR = ateneoConfig.timesheetLogoCellBR;
+            self.maxHeightInCells = ateneoConfig.maxHeightInCells
 
-            //altezza massima del logo in celle
-            this.maxHeightInCells = 6;
+            // valutiamo se il logo override è definito
+            let principalProjectRows = currDt.select(q.eq('idprogetto', appMeta.currApp.currentMetaPage.state.currentRow.idprogetto));
+            let overrideLogo = !!(principalProjectRows?.[0]?.idattach_logot);
 
-            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
-                //logo minuscolo per farlo sparire dietro al logo template
-                this.maxHeightInCells = 1;
-                this.timesheetLogoCellTLYear = 'N3';
-                this.timesheetLogoCellTL = 'AA3';
-           }
+            utils._if(!!overrideLogo && !logoOverrideExclusions.includes(opts.idtimesheettemplate))
+                ._then(() => {
+                    self.getLogoOverride(opts, currDt)
+                        .then(imageContent => {
 
-            if (opts.idtimesheettemplate === ETemplateType.HORIZON || opts.idtimesheettemplate === ETemplateType.HORIZON_Y) {
-                //logo più piccolo
-                this.maxHeightInCells = 4;
-            }
+                            var ateneoConfig = logoAteneoConfig[opts.idtimesheettemplate] || logoAteneoConfig.default;
+                            var progettoConfig = logoProgettoConfig[opts.idtimesheettemplate] || logoProgettoConfig.default;
+                            var templateConfig = logoTemplateConfig[opts.idtimesheettemplate] || logoTemplateConfig.default;
 
-            if (opts.idtimesheettemplate === ETemplateType.EMPIR) {
-                //logo a sinistra anzichè a destra
-                this.timesheetLogoCellTLYear = 'B2';
-                this.timesheetLogoCellBRYear = 'D8';
-                this.timesheetLogoCellTL = 'B2';
-                this.timesheetLogoCellBR = 'D8';
-            }
-
-            if (opts.idtimesheettemplate === ETemplateType.MISE) {
-                //posizioni diverse perchè senza logo del template
-                this.timesheetLogoCellTLYear = 'N2';
-                this.timesheetLogoCellBRYear = 'P8';
-                this.timesheetLogoCellTL = 'V2';
-                this.timesheetLogoCellBR = 'AC8';
-            }
-
-            if (opts.idtimesheettemplate === ETemplateType.MIMIT_2) {
-                //posizioni diverse perchè con logo del template più piccolo
-                this.timesheetLogoCellTLYear = 'N2';
-                this.timesheetLogoCellBRYear = 'P8';
-                this.timesheetLogoCellTL = 'U2';
-                this.timesheetLogoCellBR = 'Z8';
-            }
-
-            this.getLogoAteneo()
-                .then(function (logoAteneo) {     
-                    self.getBottomRightCornerCell(logoAteneo, self.timesheetLogoCellTLYear, self.timesheetLogoCellTL, self.maxHeightInCells)
-                        .then(function (positions) {
-                            self.timesheetLogoCellBRYear = positions.cellYear;
-                            self.timesheetLogoCellBR = positions.cell;
-
-                            if (opts.idtimesheettemplate === ETemplateType.HORIZON || opts.idtimesheettemplate === ETemplateType.HORIZON_Y) {
-                                //l'intestazione horizon deforma quindi va applicata una correzione
-                                let indexesYear = self.cellStringToIndices(self.timesheetLogoCellBRYear);
-                                let indexes = self.cellStringToIndices(self.timesheetLogoCellBR);
-                                self.timesheetLogoCellBRYear = self.indicesToCellString(indexesYear.rowIndex, indexesYear.columnIndex-1);
-                                self.timesheetLogoCellBR = self.indicesToCellString(indexes.rowIndex, indexes.columnIndex-1);
+                            // se ci sono modificatori
+                            if (timesheetAdjustment[opts.idtimesheettemplate]) {
+                                ateneoConfig.timesheetLogoCellBRYear = timesheetAdjustment[opts.idtimesheettemplate](self.timesheetLogoCellBRYear);
+                                ateneoConfig.timesheetLogoCellBR = timesheetAdjustment[opts.idtimesheettemplate](self.timesheetLogoCellBR);
                             }
 
-                            //LOGO PROGETTO ----------------------------------------------------------------------------------------------------
-
-                            //di base a sinistra in alto
-                            self.topLeftLogoProgettoYear = 'B2';
-                            self.bottomRigthLogoProgettoYear = 'D8';
-                            self.topLeftLogoProgetto = 'B2';
-                            self.bottomRigthLogoProgetto = 'D8';
-
-                            if (opts.idtimesheettemplate === ETemplateType.HORIZON || opts.idtimesheettemplate === ETemplateType.HORIZON_Y) {
-                                //per gli horizon un po' più piccolo
-                                self.bottomRigthLogoProgettoYear = 'C6';
-                                self.bottomRigthLogoProgetto = 'C6';
+                            var logoCoords = {
+                                month: [
+                                    { topLeft: ateneoConfig.timesheetLogoCellTL, bottomRight: ateneoConfig.timesheetLogoCellBR },
+                                    { topLeft: progettoConfig.topLeftLogoProgetto, bottomRight: progettoConfig.bottomRigthLogoProgetto },
+                                    { topLeft: templateConfig.logoTemplateTopLeft, bottomRight: templateConfig.logoTemplateBottomRigth },
+                                ],
+                                year: [
+                                    { topLeft: ateneoConfig.timesheetLogoCellTLYear, bottomRight: ateneoConfig.timesheetLogoCellBRYear },
+                                    { topLeft: progettoConfig.topLeftLogoProgettoYear, bottomRight: progettoConfig.bottomRigthLogoProgettoYear },
+                                    { topLeft: templateConfig.logoTemplateTopLeft, bottomRight: templateConfig.logoTemplateBottomRigth },
+                                ],
                             }
 
-                            if (opts.idtimesheettemplate === ETemplateType.MISE) {
-                                self.topLeftLogoProgettoYear = 'O9';
-                                self.bottomRigthLogoProgettoYear = 'Q15';
-                                self.topLeftLogoProgetto = 'AA9';
-                                self.bottomRigthLogoProgetto = 'AC15';
+                            if (imageContent) {
+
+                                self.logoOverride = {
+                                    imageBase64: imageContent,
+                                    area: {
+                                        month: {
+                                            get topLeft() {
+                                                const rowIndex = Math.min(...logoCoords.month.map(obj => self.cellStringToIndices(obj.topLeft).rowIndex));
+                                                const columnIndex = Math.min(...logoCoords.month.map(obj => self.cellStringToIndices(obj.topLeft).columnIndex));
+                                                return {
+                                                    rowIndex,
+                                                    columnIndex,
+                                                    cellString: self.indicesToCellString(rowIndex, columnIndex)
+                                                };
+                                            },
+                                            get bottomRight() {
+                                                const rowIndex = Math.max(...logoCoords.month.map(obj => self.cellStringToIndices(obj.bottomRight).rowIndex));
+                                                const columnIndex = Math.max(...logoCoords.month.map(obj => self.cellStringToIndices(obj.bottomRight).columnIndex));
+                                                return {
+                                                    rowIndex,
+                                                    columnIndex,
+                                                    cellString: self.indicesToCellString(rowIndex, columnIndex)
+                                                };
+                                            },
+                                            get dimensions() {
+                                                return {
+                                                    height: this.bottomRight.rowIndex - this.topLeft.rowIndex,
+                                                    width: this.bottomRight.columnIndex - this.topLeft.columnIndex
+                                                };
+                                            }
+                                        },
+                                        year: {
+                                            get topLeft() {
+                                                const rowIndex = Math.min(...logoCoords.year.map(obj => self.cellStringToIndices(obj.topLeft).rowIndex));
+                                                const columnIndex = Math.min(...logoCoords.year.map(obj => self.cellStringToIndices(obj.topLeft).columnIndex));
+                                                return {
+                                                    rowIndex,
+                                                    columnIndex,
+                                                    cellString: self.indicesToCellString(rowIndex, columnIndex)
+                                                };
+                                            },
+                                            get bottomRight() {
+                                                const rowIndex = Math.max(...logoCoords.year.map(obj => self.cellStringToIndices(obj.bottomRight).rowIndex));
+                                                const columnIndex = Math.max(...logoCoords.year.map(obj => self.cellStringToIndices(obj.bottomRight).columnIndex));
+                                                return {
+                                                    rowIndex,
+                                                    columnIndex,
+                                                    cellString: self.indicesToCellString(rowIndex, columnIndex)
+                                                };
+                                            },
+                                            get dimensions() {
+                                                return {
+                                                    height: this.bottomRight.rowIndex - this.topLeft.rowIndex,
+                                                    width: this.bottomRight.columnIndex - this.topLeft.columnIndex
+                                                };
+                                            }
+                                        }
+                                    }
+                                };
+
                             }
-                            if (opts.idtimesheettemplate === ETemplateType.EMPIR) {
-                                self.topLeftLogoProgettoYear = 'F2';
-                                self.bottomRigthLogoProgettoYear = 'G7';
-                                self.topLeftLogoProgetto = 'F2';
-                                self.bottomRigthLogoProgetto = 'J7';
+                            else {
+
+                                delete self.logoOverride;
                             }
 
-                            self.getLogoProgetto(opts, currDt)
-                                .then(function (logoProgetto) {
+                            self.getBottomRightCornerCellModified(
+                                self.logoOverride.imageBase64,
+                                self.logoOverride.area.year.topLeft.cellString,
+                                self.logoOverride.area.month.topLeft.cellString,
+                                self.logoOverride.area.year.dimensions.height,
+                                self.logoOverride.area.year.dimensions.width,
+                                10, 35)
+                                .then(positions => {
+                                    //riassegno le celle bottom-right ricalcolate in base alle dimensioni del logo
+                                    self.logoOverride.area.year.bottomRight_cellString = positions.cellYear;
 
-                                    self.logoProgetto = logoProgetto;
+                                    self.getBottomRightCornerCellModified(
+                                        self.logoOverride.imageBase64,
+                                        self.logoOverride.area.year.topLeft.cellString,
+                                        self.logoOverride.area.month.topLeft.cellString,
+                                        self.logoOverride.area.month.dimensions.height,
+                                        self.logoOverride.area.month.dimensions.width
+                                        , 10, 35)
+                                        .then(positions => {
+                                            //riassegno le celle bottom-right ricalcolate in base alle dimensioni del logo
+                                            self.logoOverride.area.month.bottomRight_cellString = positions.cellMonth;
 
-                                    // LOGO TEMPLATE -------------------------------------------------------------------------------------------
-                                    self.logoTemplatePath = null;
-                                    self.logoTemplateTopLeft = 'E2';
-                                    self.logoTemplateBottomRigth = 'O9';
+                                            return def.resolve(imageContent);
+                                        })
+                                })
+                        })
+                })
+                ._else(() => {
+                    self.getLogoAteneo()
+                        .then(function (logoAteneo) {
+                            self.getBottomRightCornerCell(logoAteneo, self.timesheetLogoCellTLYear, self.timesheetLogoCellTL, self.maxHeightInCells)
+                                .then(function (positions) {
+                                    self.timesheetLogoCellBRYear = positions.cellYear;
+                                    self.timesheetLogoCellBR = positions.cell;
 
-                                    if (opts.idtimesheettemplate === ETemplateType.PON) {
-                                        self.logoTemplateBottomRigth = 'M9';
-                                        self.logoTemplatePath = 'assets/PONLogo.png';
-                                    }
-                                    if (
-                                        opts.idtimesheettemplate === ETemplateType.PNRR || opts.idtimesheettemplate === ETemplateType.PNRR_PF) {
-                                        self.logoTemplateTopLeft = 'D2';
-                                        self.logoTemplateBottomRigth = 'P9';
-                                        self.logoTemplatePath = 'assets/PNRRLogo.png';
-                                    }
-                                    if (
-                                        opts.idtimesheettemplate === ETemplateType.NBFC_CNR ) {
-                                        self.logoTemplateTopLeft = 'D3';
-                                        self.logoTemplateBottomRigth = 'U7';
-                                        self.logoTemplatePath = 'assets/NBFC_CNRLogo.png';
-                                    }
-                                    if (
-                                        opts.idtimesheettemplate === ETemplateType.FSC_MS_5 || opts.idtimesheettemplate === ETemplateType.FSC_MS) {
-                                        self.logoTemplateTopLeft = 'D2';
-                                        self.logoTemplateBottomRigth = 'P9';
-                                        self.logoTemplatePath = 'assets/FSC_MSLogo.png';
-                                    }
-                                    if (opts.idtimesheettemplate === ETemplateType.PNC) {
-                                        self.logoTemplatePath = 'assets/PNCLogo.png';
-                                    }
-                                    if (opts.idtimesheettemplate === ETemplateType.MASE) {
-                                        self.logoTemplateTopLeft = 'D2';
-                                        self.logoTemplateBottomRigth = 'P9';
-                                        self.logoTemplatePath = 'assets/MASELogo.png';
-                                    }
-                                    if (opts.idtimesheettemplate === ETemplateType.PORCAMPANIA) {
-                                        self.logoTemplatePath = 'assets/PORCAMPANIALogo.png';
-                                    }
-                                    if (opts.idtimesheettemplate === ETemplateType.MIMIT || opts.idtimesheettemplate === ETemplateType.MIMIT_2) {
-                                        self.logoTemplateBottomRigth = 'L9';
-                                        self.logoTemplatePath = 'assets/Logo_Ministero_Imprese_e_Made_in_Italy.png';
+                                    // se ci sono modificatori
+                                    if (timesheetAdjustment[opts.idtimesheettemplate]) {
+                                        self.timesheetLogoCellBRYear = timesheetAdjustment[opts.idtimesheettemplate](self.timesheetLogoCellBRYear);
+                                        self.timesheetLogoCellBR = timesheetAdjustment[opts.idtimesheettemplate](self.timesheetLogoCellBR);
                                     }
 
-                                    //template senza logo
-                                    if (!self.logoTemplatePath) {
-                                        self.logoTemplate = null;
-                                        return def.resolve();
-                                    }
-                                    else {
+                                    //LOGO PROGETTO ----------------------------------------------------------------------------------------------------
 
-                                        self.getLogoTemplate(self.logoTemplatePath)
-                                            .then(function (logoTemplateProgetto) {
-                                                self.logoTemplate = logoTemplateProgetto;
-                                                return def.resolve(logoTemplateProgetto);
-                                            });
-                                    }
+                                    // Get configuration based on the current template,
+                                    // falling back to the default if nothing specific exists.
+                                    const progettoConfig = logoProgettoConfig[opts.idtimesheettemplate] || logoProgettoConfig.default;
+                                    self.topLeftLogoProgettoYear = progettoConfig.topLeftLogoProgettoYear;
+                                    self.bottomRigthLogoProgettoYear = progettoConfig.bottomRigthLogoProgettoYear;
+                                    self.topLeftLogoProgetto = progettoConfig.topLeftLogoProgetto;
+                                    self.bottomRigthLogoProgetto = progettoConfig.bottomRigthLogoProgetto;
+
+                                    self.getLogoProgetto(opts, currDt)
+                                        .then(function (logoProgetto) {
+
+                                            self.logoProgetto = logoProgetto;
+
+                                            // LOGO TEMPLATE -------------------------------------------------------------------------------------------
+                                            const templateConfig = logoTemplateConfig[opts.idtimesheettemplate] || logoTemplateConfig.default;
+                                            self.logoTemplatePath = templateConfig.logoTemplatePath;
+                                            self.logoTemplateTopLeft = templateConfig.logoTemplateTopLeft || logoTemplateConfig.default.logoTemplateTopLeft
+                                            self.logoTemplateBottomRigth = templateConfig.logoTemplateBottomRigth || logoTemplateConfig.default.logoTemplateBottomRigth;
+
+                                            // If no logo path is specified, then there's no template logo to load.
+                                            if (!self.logoTemplatePath) {
+                                                self.logoTemplate = null;
+                                                return def.resolve();
+                                            } else {
+                                                self.getLogoTemplate(self.logoTemplatePath)
+                                                    .then(function (logoTemplateProgetto) {
+                                                        self.logoTemplate = logoTemplateProgetto;
+                                                        return def.resolve(logoTemplateProgetto);
+                                                    });
+                                            }
+                                        });
                                 });
                         });
                 });
+
+
             return def.promise();
         },
 
@@ -373,6 +573,30 @@
                         def.resolve(null);
                     });
                 return def.promise();
+            }
+        },
+
+        /**
+        * call ws "downloadLogoProgetto" to downloading override logo of Project
+        * @returns {*}
+        */
+        getLogoOverride: function (opts, dtInput) {
+            var def = appMeta.Deferred("getLogoOverride");
+
+            let principalProjectRows = dtInput.select(q.eq('idprogetto', opts.idprogetto));
+            if (principalProjectRows.length && principalProjectRows[0].idattach_logot) {
+
+                appMeta.callWebService("downloadLogoProgetto", { idattach: principalProjectRows[0].idattach_logot })
+                    .then(function (logoBase64) {
+                        def.resolve("data:image/png;base64," + logoBase64);
+                    })
+                    .fail(function () {
+                        console.log("missing timesheet logo");
+                        def.resolve(null);
+                    });
+                return def.promise();
+            } else {
+                return def.resolve("getLogoOverride");
             }
         },
 
@@ -419,10 +643,13 @@
             } else {
                 // ragruppo per progetto e poi per workpackage, ma Teaching activities va per ultimo
                 dtInput.rows = _.sortBy(dtInput.rows, function (r) {
-                    if (r.progetto === 'Other Research Activities') return "zzzx";
-                    if (r.progetto === 'Other activities') return "zzzy";
-                    if (r.progetto === 'Teaching activities') return "zzzz";
-                    return r.progetto;
+                    if (r.progetto === 'Other Research Activities') return "zzzu";
+                    if (r.progetto === 'Other activities') return "zzzv";
+                    if (r.progetto === 'Teaching activities') return "zzzw";
+                    if (r.tipoprogetto == 'malattia') return "zzzx";
+                    if (r.tipoprogetto == 'ferie') return "zzzy";
+                    if (r.tipoprogetto == 'permessi') return "zzzz";
+                   return r.progetto;
                 });
 
                 //se devo unire le attività didattiche con le altre attività
@@ -443,14 +670,35 @@
                     });
                 }
 
+                //se devo collassare le sospensioni in un unica riga
+                if (opts.idtimesheettemplate === ETemplateType.PNRR ||
+                    opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT ||
+                    opts.idtimesheettemplate === ETemplateType.MALATTIE_RARE) {
+
+                    _.forEach(dtInput.rows, function (r) {
+                        if (r.tipoprogetto == 'malattia') r.progetto = "Altro (Malattia, Ferie, Permessi, …)";
+                        if (r.tipoprogetto == 'ferie') r.progetto = "Altro (Malattia, Ferie, Permessi, …)";
+                        if (r.tipoprogetto == 'permessi') r.progetto = "Altro (Malattia, Ferie, Permessi, …)";
+                    });
+                }
+                if (opts.idtimesheettemplate === ETemplateType.MASE) {
+                    _.forEach(dtInput.rows, function (r) {
+                        if (r.tipoprogetto == 'malattia') r.progetto = "Altro (malattia, ferie, permessi, etc..) (E)";
+                        if (r.tipoprogetto == 'ferie') r.progetto = "Altro (malattia, ferie, permessi, etc..) (E)";
+                        if (r.tipoprogetto == 'permessi') r.progetto = "Altro (malattia, ferie, permessi, etc..) (E)";
+                    });
+                }
+
+
+
                 let principalProjectRows = dtInput.select(q.eq('idprogetto', opts.idprogetto));
                 let enteFinanziatore = '';
                 if (principalProjectRows.length)
                     enteFinanziatore = principalProjectRows[0].idreg_aziende_fin ? principalProjectRows[0].idreg_aziende_fin : '';
 
-                //per i template MISE, PON, POR tutti gli altri progetti finiscono in un rigo solo (tutti template in italiano)
+                //per alcuni template tutti gli altri progetti finiscono in un rigo solo (tutti template in italiano)
                 if (
-                    opts.idtimesheettemplate === ETemplateType.PON ||
+                    opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND || 
                     opts.idtimesheettemplate === ETemplateType.MIMIT ||
                     opts.idtimesheettemplate === ETemplateType.POR ||
                     opts.idtimesheettemplate === ETemplateType.PORCAMPANIA ||
@@ -458,7 +706,7 @@
                     opts.idtimesheettemplate === ETemplateType.FSC_MS
                 ) {
                     _.forEach(dtInput.rows, function (r) {
-                        if (r.idprogetto != opts.idprogetto && r.idprogetto != 99999 && r.idprogetto != 99998)
+                        if (r.idprogetto != opts.idprogetto && (r.tipoprogetto == 'ricerca' || r.tipoprogetto == 'fittizio ricerca'))
                             switch (opts.idtimesheettemplate) {
                                 case ETemplateType.FSC_MS:
                                     if (r.idreg_aziende_fin == enteFinanziatore)
@@ -475,7 +723,6 @@
                                 default:
                                     r.progetto = "Altri progetti finanziati";
                             }
-                            //r.progetto = (opts.idtimesheettemplate === ETemplateType.FSC_MS_5 ? "hpp" : (opts.idtimesheettemplate === ETemplateType.MIMIT ? "Altre attività non di pertinenza del progetto" : "Altri progetti finanziati"));
                     });
                 }
 
@@ -551,14 +798,16 @@
                                 self.COLOR_MONTH_FONT = null; //nero
                             }
 
-                            if (opts.idtimesheettemplate === ETemplateType.FSC_MS) {
+                            if (opts.idtimesheettemplate === ETemplateType.FSC_MS_3 || opts.idtimesheettemplate === ETemplateType.FSC_MS) {
                                 self.COLOR_MONTH = "#99CCFF"; //azzurro
                                 self.COLOR_ROW_TOTAL = "#ccccff"; //lilla
                                 self.COLOR_CELL_FRONTESPIZIO = "#ccccff"; //lilla
                                 self.COLOR_MONTH_FONT = null; //nero
                             }
 
-                            if (opts.idtimesheettemplate === ETemplateType.PNRR || opts.idtimesheettemplate === ETemplateType.PNRR_PF) {
+                            if (opts.idtimesheettemplate === ETemplateType.PNRR ||
+                                opts.idtimesheettemplate === ETemplateType.PNRR_PF ||
+                                opts.idtimesheettemplate === ETemplateType.MALATTIE_RARE) {
                                 self.COLOR_MONTH = "#DCE6F1"; //azzurrino
                                 self.COLOR_MONTH_FONT = null; //nero
                             }
@@ -567,9 +816,15 @@
                                 self.COLOR_MONTH_FONT = new $.ig.excel.WorkbookColorInfo($.ig.excel.WorkbookThemeColorType.light1);//bianco
                             }
 
-                            if (opts.idtimesheettemplate === ETemplateType.PON ) {
+                            if (opts.idtimesheettemplate === ETemplateType.PON) {
                                 self.COLOR_MONTH = "#DCE6F1";//azzurrino
                                 self.COLOR_MONTH_FONT = null;//nero
+                            }
+
+                            if (opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND) {
+                                self.COLOR_MONTH = "#eeece1";//giallino
+                                self.COLOR_MONTH_FONT = null;//nero
+                                self.COLOR_ROW_TOTAL = "#ffffff"; //bianco
                             }
 
                             if (opts.idtimesheettemplate === ETemplateType.MIMIT) {
@@ -577,22 +832,21 @@
                                 self.COLOR_MONTH_FONT = null;//nero
                             }
 
-                            if (opts.idtimesheettemplate === ETemplateType.PNC) {
+                            if (
+                                opts.idtimesheettemplate === ETemplateType.PNC ||
+                                opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT
+                            ) {
                                 self.COLOR_MONTH = "#008200"; //verde
                                 self.COLOR_MONTH_FONT = new $.ig.excel.WorkbookColorInfo($.ig.excel.WorkbookThemeColorType.light1);//bianco
                             }
 
-                            if (opts.idtimesheettemplate === ETemplateType.MISE ) {
-                                self.COLOR_MONTH = "#FFFFFF";//bianco
-                                self.COLOR_MONTH_FONT = null;//nero
-                            }
-
-                            if (opts.idtimesheettemplate === ETemplateType.MIMIT_2) {
-                                self.COLOR_MONTH = "#FFFFFF";//bianco
-                                self.COLOR_MONTH_FONT = null;//nero
-                            }
-
-                            if (opts.idtimesheettemplate === ETemplateType.EMPIR) {
+                            if (
+                                opts.idtimesheettemplate === ETemplateType.MISE ||
+                                opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
+                                opts.idtimesheettemplate === ETemplateType.EMPIR ||
+                                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                                opts.idtimesheettemplate === ETemplateType.PATTO_TERR
+                           ) {
                                 self.COLOR_MONTH = "#FFFFFF";//bianco
                                 self.COLOR_MONTH_FONT = null;//nero
                             }
@@ -603,7 +857,7 @@
                                 self.COLOR_ROW_TOTAL = "#CCCCFF";
                             }
 
-                            self.getFrontespizioData(opts, dtInput); 
+                            self.getFrontespizioData(opts, dtInput);
 
                             //setto la variabile che non è stato costruito ancora alcun frontespizio
                             self.isFirstFrontespizio = true;
@@ -666,6 +920,7 @@
 
                     return def.reject("Errore nella generazione del timesheet: " + e.message);
                 }
+
                 return def.resolve();
             }
         },
@@ -1211,7 +1466,8 @@
             if (opts.multilineType) {
                 _.forEach(projects, function (o) {
                     o.progetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].progetto;
-                    o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].cup;
+                    o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].cup ?
+                        o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].cup:'';
                     o.idprogetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].idprogetto;
                     o.idreg_aziende_fin = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].idreg_aziende_fin;
                     o.ismur = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].ismur;
@@ -1221,7 +1477,8 @@
             } else {
                 _.forEach(projects, function (o) {
                     o.progetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].progetto;
-                    o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].cup;
+                    o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].cup ?
+                        o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].cup : '';
                     o.idprogetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].idprogetto;
                     o.idreg_aziende_fin = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].idreg_aziende_fin;
                     o.ismur = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].ismur;
@@ -1247,9 +1504,11 @@
             if (
                 //2A) tempalte con una sola riga per tutti gli altri (li ho già collassati prima)
                 opts.idtimesheettemplate === ETemplateType.PORCAMPANIA ||
+                opts.idtimesheettemplate === ETemplateType.FSC_MS_3 ||
                 opts.idtimesheettemplate === ETemplateType.FSC_MS_5 ||
                 opts.idtimesheettemplate === ETemplateType.FSC_MS ||
                 opts.idtimesheettemplate === ETemplateType.PON ||
+                opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND ||
                 opts.idtimesheettemplate === ETemplateType.MIMIT ||
                 opts.idtimesheettemplate === ETemplateType.POR ||
 
@@ -1258,21 +1517,30 @@
                 opts.idtimesheettemplate === ETemplateType.HORIZON_Y ||
                 opts.idtimesheettemplate === ETemplateType.EMPIR ||
                 opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
-                opts.idtimesheettemplate === ETemplateType.MISE 
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                opts.idtimesheettemplate === ETemplateType.MISE ||
+                opts.idtimesheettemplate === ETemplateType.PATTO_TERR 
+                
             ) {
                 //poi quella degli altri progetti 
-                let objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' });
+                let objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && (o.tipoprogetto == 'ricerca' || o.tipoprogetto == 'didattica' || o.tipoprogetto == 'altro'); });
 
                 if (opts.idtimesheettemplate === ETemplateType.FSC_MS_5)
-                    objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && o.idprogetto != 99999 && o.idprogetto != 99998 && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' });
+                    objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca'; });
 
-                if (opts.idtimesheettemplate === ETemplateType.MIMIT_2) {
+                if (
+                    opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                    opts.idtimesheettemplate === ETemplateType.MIMIT_2
+                ) {
                     self.getRowText(sheet, rowIndex, "Altre attività non di pertinenza del progetto");
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
 
                 }
 
-                if (opts.idtimesheettemplate === ETemplateType.MISE) {
+                if (
+                    opts.idtimesheettemplate === ETemplateType.PON ||
+                    opts.idtimesheettemplate === ETemplateType.MISE
+                ) {
                     self.getRowText(sheet, rowIndex, "Altri progetti finanziati");
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
                 }
@@ -1293,7 +1561,7 @@
                         rowIndex += 1; // righe aggiunte per wp + 1 del prog
 
                         objFinEq = _.filter(projects, function (o) {
-                            return o.iseu == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                            return o.iseu == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                         });
 
                     } else {
@@ -1302,7 +1570,7 @@
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
 
                     objFinEq = _.filter(projects, function (o) {
-                        return o.ismur == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                        return o.ismur == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                     });
 
                 }
@@ -1323,7 +1591,7 @@
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
                 }
                 objFinNeq = _.filter(projects, function (o) {
-                    return o.ismur != 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                    return o.ismur != 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                 });
 
                 _.forEach(objFinNeq, function (el) {
@@ -1412,6 +1680,116 @@
 
             }
 
+            //MALATTIE FERIE PERMESSI -----------------------------------------------------------------------------------------------------------
+
+            if (
+                opts.idtimesheettemplate === ETemplateType.PNRR ||
+                opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT ||
+                opts.idtimesheettemplate === ETemplateType.MALATTIE_RARE
+            ) {
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia' || o.tipoprogetto == 'ferie' || o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+            }
+
+            if (opts.idtimesheettemplate === ETemplateType.MASE) {
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia' || o.tipoprogetto == 'ferie' || o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+            }
+
+            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                //faccio in modo che in questo primo totale ci sia il totale reale calcolato su ricerca insegnamento e attività ordinaria
+                opts.showOtherActivitiesrow = false;
+
+                //visualizza il totale mensile
+                this.addLastRowWithTotalActivitiesMonth(sheet, rowIndex, dtInput, opts);
+                rowIndex += 1;
+
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+
+                let objFerie = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'ferie'
+                });
+                _.forEach(objFerie, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+                let objPermessi = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objPermessi, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+
+                self.getRowText(sheet, rowIndex, "Altre assenze");
+                rowIndex += 1;
+            }
+
+            if (
+                opts.idtimesheettemplate === ETemplateType.MISE ||
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
+                opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND
+            ) {
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+
+                let objFerie = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'ferie'
+                });
+                _.forEach(objFerie, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+                let objPermessi = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objPermessi, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+            }
+
+            if (opts.idtimesheettemplate === ETemplateType.FSC_MS) {
+                let objFerie = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'ferie'
+                });
+                _.forEach(objFerie, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+                let objPermessi = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objPermessi, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheetYear(sheet, rowIndex, el.progetto, el, dtInput, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+            }
+
+
+
             //RIGHE ATTIVABILI CON OPZIONI + TOTALE + PIEDIPAGINA-----------------------------------------------------------------------------------------------------
 
             if (opts.showOtherActivitiesrow) {
@@ -1420,13 +1798,17 @@
             }
 
             if (opts.showactivitiesrow) {
-                this.addLastRowWithTotalActivitiesMonth(sheet, rowIndex, dtInput);
+                this.addLastRowWithTotalActivitiesMonth(sheet, rowIndex, dtInput, opts);
                 rowIndex++;
             }
+
             this.addLastRowWithTotalMonth(sheet, rowIndex, dtInput, opts.year, opts);
 
             //il piè di pagina
-            if (opts.idtimesheettemplate === ETemplateType.PORCAMPANIA) {
+            if (
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA ||
+                opts.idtimesheettemplate === ETemplateType.PATTO_TERR
+            ) {
                 rowIndex += this.buildPiedipagina(sheet, opts, dtInput, 16, rowIndex, null);
             }
 
@@ -1443,18 +1825,48 @@
          */
         addSheetLogo: function (sheet, opts, logoBase64, isYear) {
             try {
+                if (this.logoOverride) {
+
+                    var topLeftCell;
+                    var bottomRightCell;
+
+                    if (opts.idtimesheettemplate == ETemplateType.HORIZON ||
+                        opts.idtimesheettemplate == ETemplateType.HORIZON_Y ||
+                        opts.idtimesheettemplate == ETemplateType.HORIZON_ERANET_COFUND
+                    ) {
+
+                        topLeftCell = "B2";
+                        bottomRightCell = "Q6";
+
+                    } else {
+
+                        topLeftCell = isYear ? this.logoOverride.area.year.topLeft.cellString : this.logoOverride.area.month.topLeft.cellString;
+                        bottomRightCell = isYear ? this.logoOverride.area.year.bottomRight_cellString : this.logoOverride.area.month.bottomRight_cellString;
+                    };
+
+                    var imageShapeT = new $.ig.excel.WorksheetImage(this.logoOverride.imageBase64);
+                    imageShapeT.topLeftCornerCell(sheet.getCell(topLeftCell));
+                    imageShapeT.bottomRightCornerCell(sheet.getCell(bottomRightCell));
+                    sheet.shapes().add(imageShapeT);
+
+                    return;
+                }
 
                 //logo ateneo
-                if (appMeta.logoBase64) {
-                    var imageShape = new $.ig.excel.WorksheetImage(appMeta.logoBase64);
-                    if (isYear) {
-                        imageShape.topLeftCornerCell(sheet.getCell(this.timesheetLogoCellTLYear));
-                        imageShape.bottomRightCornerCell(sheet.getCell(this.timesheetLogoCellBRYear));
-                    } else {
-                        imageShape.topLeftCornerCell(sheet.getCell(this.timesheetLogoCellTL));
-                        imageShape.bottomRightCornerCell(sheet.getCell(this.timesheetLogoCellBR));
+                if (
+                    opts.idtimesheettemplate != ETemplateType.PATTO_TERR //logo ateneo già presente nel logo del template
+                ) { 
+                    if (appMeta.logoBase64) {
+                        var imageShape = new $.ig.excel.WorksheetImage(appMeta.logoBase64);
+                        if (isYear) {
+                            imageShape.topLeftCornerCell(sheet.getCell(this.timesheetLogoCellTLYear));
+                            imageShape.bottomRightCornerCell(sheet.getCell(this.timesheetLogoCellBRYear));
+                        } else {
+                            imageShape.topLeftCornerCell(sheet.getCell(this.timesheetLogoCellTL));
+                            imageShape.bottomRightCornerCell(sheet.getCell(this.timesheetLogoCellBR));
+                        }
+                        sheet.shapes().add(imageShape);
                     }
-                    sheet.shapes().add(imageShape);
                 }
 
                 //logo template progetto
@@ -1466,16 +1878,20 @@
                 }
 
                 //logo progetto
-                if (this.logoProgetto) {
-                    var imageShapeP = new $.ig.excel.WorksheetImage(this.logoProgetto);
-                    if (isYear) {
-                        imageShapeP.topLeftCornerCell(sheet.getCell(this.topLeftLogoProgettoYear));
-                        imageShapeP.bottomRightCornerCell(sheet.getCell(this.bottomRigthLogoProgettoYear));
-                    } else {
-                        imageShapeP.topLeftCornerCell(sheet.getCell(this.topLeftLogoProgetto));
-                        imageShapeP.bottomRightCornerCell(sheet.getCell(this.bottomRigthLogoProgetto));
+                if (
+                    opts.idtimesheettemplate != ETemplateType.PATTO_TERR //logo ateneo già presente nel logo del template
+                ) {
+                    if (this.logoProgetto) {
+                        var imageShapeP = new $.ig.excel.WorksheetImage(this.logoProgetto);
+                        if (isYear) {
+                            imageShapeP.topLeftCornerCell(sheet.getCell(this.topLeftLogoProgettoYear));
+                            imageShapeP.bottomRightCornerCell(sheet.getCell(this.bottomRigthLogoProgettoYear));
+                        } else {
+                            imageShapeP.topLeftCornerCell(sheet.getCell(this.topLeftLogoProgetto));
+                            imageShapeP.bottomRightCornerCell(sheet.getCell(this.bottomRigthLogoProgetto));
+                        }
+                        sheet.shapes().add(imageShapeP);
                     }
-                   sheet.shapes().add(imageShapeP);
                 }
             } catch (e) {
 
@@ -1539,6 +1955,75 @@
             return def.promise();
         },
 
+        getBottomRightCornerCellModified: function (
+            imageBase64,
+            startCellYear,
+            startCell,
+            maxHeightInCells,
+            maxWidthInCells,  // New parameter for maximum allowed width in cells
+            cellHeight = 20,
+            cellWidth = 64
+        ) {
+            var def = appMeta.Deferred("getBottomRightCornerCell");
+            let self = this;
+
+            var img = new Image();
+
+            img.onload = function () {
+                let originalWidth = img.width;
+                let originalHeight = img.height;
+
+                // Natural dimensions in cells (if there were no limits)
+                let naturalHeightInCells = originalHeight / cellHeight;
+                let naturalWidthInCells = originalWidth / cellWidth;
+
+                // Determine the scaling needed so that neither the height nor the width exceed limits.
+                // The scale factor is the fraction by which we must shrink the image.
+                let scaleFromHeight = maxHeightInCells / naturalHeightInCells;
+                let scaleFromWidth = maxWidthInCells / naturalWidthInCells;
+                let scaleFactor = Math.min(scaleFromHeight, scaleFromWidth, 1); // never scale up
+
+                // Determine final dimensions (in cells) by applying the scale factor.
+                let scaledHeightInCells = naturalHeightInCells * scaleFactor;
+                let scaledWidthInCells = naturalWidthInCells * scaleFactor;
+
+                // Calculate bottom right cell based on startCellYear
+                let indexesYear = self.cellStringToIndices(startCellYear);
+                let endCellRowYear = indexesYear.rowIndex + Math.ceil(scaledHeightInCells);
+                let endCellColumnYear = indexesYear.columnIndex + Math.ceil(scaledWidthInCells);
+                let cellYear = self.indicesToCellString(endCellRowYear, endCellColumnYear);
+
+                // Calculate bottom right cell based on startCell
+                let indexes = self.cellStringToIndices(startCell);
+                let endCellRow = indexes.rowIndex + Math.ceil(scaledHeightInCells);
+                let endCellColumn = indexes.columnIndex + Math.ceil(scaledWidthInCells);
+                let cellMonth = self.indicesToCellString(endCellRow, endCellColumn);
+
+
+                def.resolve({ cellYear: cellYear, cellMonth: cellMonth });
+            };
+
+            img.onerror = function () {
+
+                if (this.verbose)
+                    console.log("Errore nel ridimensionamento del logo di ateneo");
+
+                // Fall back to default cells if there's an error
+                let cellYear = self.timesheetLogoCellBRYear;
+                let cell = self.timesheetLogoCellBR;
+                def.resolve({ cellYear, cell });
+
+
+            };
+
+            // Set the image source with the base64-encoded string  
+            img.src = imageBase64;
+
+
+            return def.promise();
+        },
+
+
         cellStringToIndices: function (cellString) {
             // Estrai le lettere della colonna e il numero della riga dalla stringa
             let match = cellString.match(/^([A-Z]+)(\d+)$/);
@@ -1577,6 +2062,10 @@
         getMaxHourPerDay: function (date) {
             var role = localResource.schedulerNoRoleDefined;
             var maxHoursPerDay = this.maxHoursPerDay;
+
+            //se non ci sono max ore per giorno assegno 0
+            if (!maxHoursPerDay) maxHoursPerDay = 0;
+
             var self = this;
             if (this.maxHoursPerDayTable) {
                 _.forEach(this.maxHoursPerDayTable.rows, function (rowMaxDay) {
@@ -1623,11 +2112,11 @@
             mergedCellProgName.cellFormat().leftBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             mergedCellProgName.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             mergedCellProgName.value(this.lang == 'it' ? "Ore totali" : "Total hours");
-            if (
-                opts.idtimesheettemplate === ETemplateType.NBFC_CNR
-            ) {
-                mergedCellProgName.value(this.lang == 'it' ? "Totale ore produttive" : "Total hours");
+
+            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                mergedCellProgName.value("Totale ore lavorative");
             }
+
             var xlRow = sheet.rows(rowIndex + this.offsetY);
             xlRow.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
             xlRow.cellFormat().font().bold(true);
@@ -1682,7 +2171,7 @@
                 }
                 globalTot += totalMonth;
                 var dataCellIndex = this.columnIndexMonth + counterMonth + this.offsetX + this.offsetXYear;
-                xlRow.setCellValue(dataCellIndex, totalMonth);
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(totalMonth));
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.double1);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(isRed ? this.COLOR_CELL_ERRORE : this.COLOR_ROW_TOTAL));
@@ -1693,8 +2182,10 @@
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
-            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, globalTot);
+            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, this.toTimeString(globalTot));
         },
+
+        toTimeString: function (num) { return Math.floor(num) + (num % 1 ? `:${String(Math.round((num % 1) * 60)).padStart(2, '0')}` : '') },
 
         /**
          * @method addLastRowWithTotalActivitiesMonth
@@ -1704,7 +2195,7 @@
          * @param rowIndex
          * @param dtInput
          */
-        addLastRowWithTotalActivitiesMonth: function (sheet, rowIndex, dtInput) {
+        addLastRowWithTotalActivitiesMonth: function (sheet, rowIndex, dtInput, opts) {
             // 1. aggiungo riga del totale
             var posY = this.posY.bind(this);
             var posX = this.posX.bind(this);
@@ -1712,8 +2203,15 @@
                 posY(rowIndex), posX(0) + this.offsetXYear,
                 posY(rowIndex), posX(this.columnIndexMonth) + this.offsetXYear);
             mergedCellProgName.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+
             mergedCellProgName.value(this.lang == 'it' ? "Ore totali in attività di ricerca" : "Total research activities hours");
             mergedCellProgName.cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
+
+            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                mergedCellProgName.value("Totale ore produttive");
+                mergedCellProgName.cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_TOTAL));
+            }
+
             mergedCellProgName.cellFormat().leftBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             mergedCellProgName.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             mergedCellProgName.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
@@ -1722,28 +2220,37 @@
             xlRow.cellFormat().font().bold(true);
             for (var counterMonth = 1; counterMonth <= 12; counterMonth++) {
                 var dataCellIndex = this.columnIndexMonth + counterMonth + this.offsetX + this.offsetXYear;
-                xlRow.setCellValue(dataCellIndex,
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(
                     _.sumBy(_.filter(dtInput.rows,
                         function (o) {
-                        return o.mese == counterMonth && !(o.progetto === 'Other activities' || o.progetto === 'Teaching activities' || o.progetto === 'Attività ordinaria' || o.progetto === 'Institutional activities')
+                            return o.mese == counterMonth && (o.tipoprogetto == 'ricerca' || o.tipoprogetto == 'fittizio ricerca');
                         }
                         //{ mese: counterMonth }
-                    ), 'ore'));
+                    ), 'ore')));
                 xlRow.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
-            }
+
+                if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                    sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_TOTAL));
+                }
+           }
 
             // aggiungo cella per il totale
             var total = _.sumBy(_.filter(dtInput.rows,
                 function (o) {
-                    return !(o.progetto === 'Other activities' || o.progetto === 'Teaching activities' || o.progetto === 'Attività ordinaria' || o.progetto === 'Institutional activities')
+                    return (o.tipoprogetto == 'ricerca' || o.tipoprogetto == 'fittizio ricerca');
                 }
             ), 'ore');
-            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, total);
+            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
+
+            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_TOTAL));
+            }
+
         },
 
         /**
@@ -1803,7 +2310,7 @@
                     var d = new Date(opts.year, counterMonth - 1, counterDay);
                     //ore massime lavorabili
                     var maxHoursPerDayRole = this.getMaxHourPerDay(d);
-                    var maxDayHour = maxHoursPerDayRole.maxHoursPerDay;
+                    var maxDayHour = this.isZeroOtherActivitiesDay(d) ? 0 : maxHoursPerDayRole.maxHoursPerDay;
                     var diff = maxDayHour - _.sumBy(_.filter(projectsRows, { giorno: counterDay, mese: counterMonth }), 'ore');
                     if (diff && diff < 0 && maxHoursPerDayRole.role == 'Timbrature') {
                         //se è una timbratura la segnalo in rosso e lascio il numero negativo
@@ -1822,21 +2329,21 @@
                     }
 
                     //se è un massimale che viene dalla configurazione si può superare ...
-                    if (diff && diff > 0 && maxHoursPerDayRole.role != 'Timbrature' && maxHoursPerDayRole.role != 'Consolidamenti') {
+                    if (diff && diff < 0 && maxHoursPerDayRole.role != 'Timbrature' && maxHoursPerDayRole.role != 'Consolidamenti') {
                         //... ma devo impostare le altre ore a zero (non possono essere negative)
                         diff = 0;
                     }
 
                     totalMonth += diff;
                 }
-                xlRow.setCellValue(dataCellIndex, totalMonth);
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(totalMonth));
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(isRed ? this.COLOR_CELL_ERRORE : this.COLOR_ROW_PROG));
                 totalYear += totalMonth;
             }
 
             // aggiungo cella per il totale
-            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, totalYear);
+            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, this.toTimeString(totalYear));
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
@@ -1877,14 +2384,18 @@
             if ((
                 opts.idtimesheettemplate === ETemplateType.PNRR ||
                 opts.idtimesheettemplate === ETemplateType.PNRR_PF ||
+                opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT ||
                 opts.idtimesheettemplate === ETemplateType.PNC ||
-                opts.idtimesheettemplate === ETemplateType.NBFC_CNR
+                opts.idtimesheettemplate === ETemplateType.NBFC_CNR ||
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                opts.idtimesheettemplate === ETemplateType.MIMIT_2
             )
                 && progettoObj.tipoprogetto == 'ricerca'
             ) {
-
-                mergedCellProgName.value(progettokey + '; CUP:' + progettoObj.cup + ';');
-
+                if (progettoObj.cup)
+                    mergedCellProgName.value(progettokey + '; CUP:' + progettoObj.cup + ';');
+                else
+                    mergedCellProgName.value(progettokey);
             }
 
             if (
@@ -1903,6 +2414,7 @@
 
                 if (
                     opts.idtimesheettemplate === ETemplateType.MISE ||
+                    opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
                     opts.idtimesheettemplate === ETemplateType.MIMIT_2
                 )
                     mergedCellProgName.value("Attività progetto");
@@ -1914,7 +2426,7 @@
 
             //modifica della altre ore + ore di didattica 
             if (opts.idtimesheettemplate === ETemplateType.MASE) {
-                if (progettoObj.tipoprogetto != 'ricerca') {
+                if (progettoObj.tipoprogetto == 'altro' || progettoObj.tipoprogetto == 'didattica') {
                     mergedCellProgName.value("Attività ordinaria (D)");
                 }
             }
@@ -1938,20 +2450,20 @@
             xlRow.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
             for (var counterMonth = 1; counterMonth <= 12; counterMonth++) {
                 var dataCellIndex = this.columnIndexMonth + counterMonth + this.offsetX + this.offsetXYear;
-                xlRow.setCellValue(dataCellIndex, this.getDaySumProjectMonth(dtInput, progettokey, counterMonth));
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(this.getDaySumProjectMonth(dtInput, progettokey, counterMonth)));
                 sheet.rows(rowIndex + this.offsetY ).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY ).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
             }
 
             // aggiungo cella per il totale
             var total = _.sumBy(_.filter(dtInput.rows, { progetto: progettokey }), 'ore');
-            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, total);
+            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
 
             //se è stata indicata l'opzione di visualizzare i workpackage e non ho applicato il collasso su una riga sola del progetto corrente e sono righe di progetti reali (non fittizi)
-            if (opts.withWorkpackage == true && progettokey != "Altri progetti finanziati" && progettoObj.tipoprogetto == 'ricerca') {
+            if (opts.withWorkpackage == true && progettokey != "Altri progetti finanziati" && progettoObj.tipoprogetto == 'ricerca' && progettoObj.idprogetto == opts.idprogetto) {
                 // 2. scorro i workpackege del progetto e creo riga
 
                 progettoObj.group = Object.keys(progettoObj.group)
@@ -1963,7 +2475,7 @@
 
                 _.forOwn(progettoObj.group, function (el, wpkey) {
                     if (wpkey !== 'Teaching activities' && wpkey !== 'Other activities' && wpkey !== 'Other Research Activities') {
-                        if (opts.multilineType == true) {
+                        if (opts.multilineType == true /*&& progettoObj.idprogetto == opts.idprogetto*/) {
                             _.forOwn(el.group, function (elType, wpkeyType) {
                                 currRowIndex++;
                                 self.getWorkpackageTimeSheetMonth(sheet, currRowIndex + rowIndex, wpkey, progettokey, dtInput, opts, wpkeyType);
@@ -2048,6 +2560,11 @@
                     moment.locale(this.lang);
                     this.buildFrontespizioPON(sheet, opts, dtInput, maximumX, mese);
                     break;
+                case ETemplateType.HORIZON_ERANET_COFUND:
+                    this.lang = 'it'
+                    moment.locale(this.lang);
+                    this.buildFrontespizioHORIZON_ERANET_COFUND(sheet, opts, dtInput, maximumX, mese);
+                    break;
                 case ETemplateType.MIMIT:
                     this.lang = 'it'
                     moment.locale(this.lang);
@@ -2058,6 +2575,7 @@
                     moment.locale(this.lang);
                     this.buildFrontespizioMASE(sheet, opts, dtInput, maximumX, mese);
                     break;
+                case ETemplateType.PNRR_AGE_IT:
                 case ETemplateType.PNRR:
                     this.lang = 'it'
                     moment.locale(this.lang);
@@ -2072,6 +2590,16 @@
                     this.lang = 'it'
                     moment.locale(this.lang);
                     this.buildFrontespizioFSC_MS_5(sheet, opts, dtInput, maximumX, mese);
+                    break;
+                case ETemplateType.FSC_MS_3:
+                    this.lang = 'it'
+                    moment.locale(this.lang);
+                    this.buildFrontespizioFSC_MS_3(sheet, opts, dtInput, maximumX, mese);
+                    break;
+                case ETemplateType.PATTO_TERR:
+                    this.lang = 'it'
+                    moment.locale(this.lang);
+                    this.buildFrontespizioPATTO_TERR(sheet, opts, dtInput, maximumX, mese);
                     break;
                 case ETemplateType.FSC_MS:
                     this.lang = 'it'
@@ -2091,8 +2619,9 @@
                 case ETemplateType.MISE:
                     this.lang = 'it'
                     moment.locale(this.lang);
-                    this.buildFrontespizioMISE(sheet, opts, dtInput, maximumX, mese, 1); 
+                    this.buildFrontespizioMISE(sheet, opts, dtInput, maximumX, mese, this.logoOverride ? 9 : 1);
                     break;
+                case ETemplateType.PORCAMPANIA_21_27:
                 case ETemplateType.MIMIT_2:
                     this.lang = 'it'
                     moment.locale(this.lang);
@@ -2107,6 +2636,16 @@
                     this.lang = 'en'
                     moment.locale(this.lang);
                     this.buildFrontespizioEMPIR(sheet, opts, dtInput, maximumX, mese);
+                    break;
+                case ETemplateType.MALATTIE_RARE:
+                    this.lang = 'it'
+                    moment.locale(this.lang);
+                    this.buildFrontespizioMALATTIE_RARE(sheet, opts, dtInput, maximumX, mese);
+                    break;
+                case ETemplateType.PSRCAMPANIA:
+                    this.lang = 'it'
+                    moment.locale(this.lang);
+                    this.buildFrontespizioPSRCAMPANIA(sheet, opts, dtInput, maximumX, mese);
                     break;
                 default:
                     this.buildFrontespizioHorizon(sheet, opts, dtInput, mese);
@@ -2143,6 +2682,7 @@
                         'cognome': principalProjectRows[0].cognome ? principalProjectRows[0].cognome : '',
                         'extmatricula': principalProjectRows[0].extmatricula ? principalProjectRows[0].extmatricula : '',
                         'cf': principalProjectRows[0].cf ? principalProjectRows[0].cf : '',
+                        'unitaorganizzativa': principalProjectRows[0].unitaorganizzativa ? principalProjectRows[0].unitaorganizzativa : '',
                         'start': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(begin),//principalProjectRows[0].start ? appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(principalProjectRows[0].start) : '',
                         'stop': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(end),//principalProjectRows[0].stop ? appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(principalProjectRows[0].stop) : '',
                         'oredivisionecostostipendio': principalProjectRows[0].oredivisionecostostipendio ? principalProjectRows[0].oredivisionecostostipendio : 1500,
@@ -2151,23 +2691,47 @@
             }
 
             if (self.dataPnrr == null) {
-                self.dataPnrr = {
-                    'cup': '',
-                    'codice': '',
-                    'denominazione': '',
-                    'titolo': '',
-                    'enteFinanziatore': '',
-                    'title_prog_fin': '',
-                    'title_prog_fin_bando': '',
-                    'finanziamento': '',
-                    'istituto': '',
-                    'nome': '',
-                    'cognome': '',
-                    'extmatricula': '',
-                    'cf': '',
-                    'start': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(begin),
-                    'stop': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(end),
-                    'oredivisionecostostipendio': 1500,
+                if (opts.progettoprincipaleRow.length && opts.progettoMembroRow.length) {
+                    self.dataPnrr = {
+                        'cup': opts.progettoprincipaleRow[0].progetto_cup,
+                        'codice': opts.progettoprincipaleRow[0].progetto_codiceidentificativo,
+                        'denominazione': opts.progettoprincipaleRow[0].progetto_title,
+                        'titolo': opts.progettoprincipaleRow[0].titolobreve,
+                        'enteFinanziatore': opts.progettoprincipaleRow[0].progetto_finanziatoretxt,
+                        'title_prog_fin': opts.progettoprincipaleRow[0].progetto_progfinanziamentotxt,
+                        'title_prog_fin_bando': opts.progettoprincipaleRow[0].progetto_bandoriferimentotxt,
+                        'unitaorganizzativa': opts.progettoprincipaleRow[0].progetto_unitaorganizzativa,
+                        'finanziamento': '',
+                        'istituto': opts.progettoprincipaleRow[0].registryaziende_title,
+                        'nome': opts.progettoMembroRow[0].getregistrydocentiamministrativiprj_forename,
+                        'cognome': opts.progettoMembroRow[0].surname,
+                        'extmatricula': opts.progettoMembroRow[0].getregistrydocentiamministrativiprj_extmatricula,
+                        'cf': opts.progettoMembroRow[0].getregistrydocentiamministrativiprj_cf,
+                        'start': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(begin),
+                        'stop': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(end),
+                        'oredivisionecostostipendio': 1500,
+                    }
+
+                } else { 
+                    self.dataPnrr = {
+                        'cup': '',
+                        'codice': '',
+                        'denominazione': '',
+                        'titolo': '',
+                        'enteFinanziatore': '',
+                        'title_prog_fin': '',
+                        'title_prog_fin_bando': '',
+                        'unitaorganizzativa': '',
+                        'finanziamento': '',
+                        'istituto': '',
+                        'nome': '',
+                        'cognome': '',
+                        'extmatricula': '',
+                        'cf': '',
+                        'start': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(begin),
+                        'stop': appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(end),
+                        'oredivisionecostostipendio': 1500,
+                    }
                 }
             }
 
@@ -2179,6 +2743,7 @@
                 self.dataPnrr.stop = appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(end);
             }
 
+            self.dataPnrr.numerosal = '';
             if (self.opts.idsal) {
                 let sal = appMeta.currApp.currentMetaPage.getDataTable('salelenchiview').select(q.eq('idsal', self.opts.idsal));
                 if (sal.length) {
@@ -2188,23 +2753,36 @@
                     if (end.getTime() > sal[0].sal_stop.getTime())
                         end = sal[0].sal_stop;
                     self.dataPnrr.stop = appMeta.currApp.currentMetaPage.stringFromDate_ddmmyyyy(end);
+
+                    self.dataPnrr.numerosal = sal[0].numerosal;
                 }
             }
 
             //totale
-            self.dataPnrr.tot = _.sumBy(
+            self.dataPnrr.tot = this.toTimeString(_.sumBy(
                 _.filter(dtInput.rows, function (r) {
                     return r.progetto == self.dataPnrr.progetto && r.data >= begin && r.data <= end;
                 })
-                , 'ore');
+                , 'ore'));
 
             //recupero il contratto al primo giorno del timesheet ---------------------------------------------------
-            var contrattoCurr = _.find(self.contratto.rows, function (row) {
+
+            var contrattiCurr = _.orderBy(_.filter(self.contratto.rows, function (row) {
                 return begin < (row.stop ? row.stop : new Date(2100, 0, 1))
                     && end > (row.start ? row.start : new Date(1900, 0, 1))
-                    && row.idposition;
-            });
-            if (contrattoCurr) {
+                    && row.idposition && row.active == 'S';
+            }), 'start', 'asc');
+
+
+            if (contrattiCurr.length) {
+
+                var contrattoCurr = contrattiCurr[0];
+
+                //se ho più contratti,e ho specificato il mese, prendo il secondo
+                if (opts.mese && contrattiCurr.length > 1) {
+                    contrattoCurr = contrattiCurr[1];
+                }
+
                 var contrattokindCurrs = self.contrattokind.select(q.eq('idposition', contrattoCurr.idposition));
                 if (contrattokindCurrs.length) {
                     let contrattokindCurr = contrattokindCurrs[0];
@@ -2234,9 +2812,9 @@
                         self.dataPnrr.livello = '';
                         if (contrattokindCurr.codeposition == '07_SW_PORD')
                             self.dataPnrr.livello = 'ALTO (Professore Ordinario)';
-                        if (contrattokindCurr.codeposition == '07_SW_PASC' || contrattoCurr.codeposition == '07_SW_PASN')
+                        else if (contrattokindCurr.codeposition == '07_SW_PASC' || contrattoCurr.codeposition == '07_SW_PASN')
                             self.dataPnrr.livello = 'MEDIO (Professore Associato)';
-                        if (contrattokindCurr.codeposition == '07_SW_RICN' || contrattoCurr.codeposition == '07_SW_RICC' || contrattoCurr.codeposition == 'RUT')
+                        else//if (contrattokindCurr.codeposition == '07_SW_RICN' || contrattoCurr.codeposition == '07_SW_RICC' || contrattoCurr.codeposition == 'RUT' || contrattoCurr.codeposition == 'ASS_RIC')
                             self.dataPnrr.livello = 'BASSO (Ricercatore)';
 
                         self.dataPnrr.classe = contrattoCurr.incomeclass
@@ -2257,6 +2835,80 @@
                     }
                 }
             }
+        },
+
+        /**
+        * retrieve required data according to the template
+        * @returns {*}
+        */
+        initRequiredData: function (opts) {
+
+            self = this;
+
+            var def = appMeta.Deferred("initRequiredData");
+
+            const dataRetriever = dataRetrievers[opts.idtimesheettemplate];
+
+            if (dataRetriever) {
+
+                dataRetriever(self)
+                    .then((data) => {
+
+                        if (data) {
+
+                            self.requiredData = data;
+                        };
+
+                        def.resolve("initRequiredData");
+                    });
+
+            } else {
+
+                return def.resolve(`No retriever defined for "${opts.idtimesheettemplate}"`);
+            }
+
+            return def.promise();
+        },
+
+        /**
+        * retrieve timesheet signature labels from the DB
+        * @returns {*}
+        */
+        initSignatureLabels: function (opts) {
+
+            self = this;
+
+            var def = appMeta.Deferred("initSignatureLabels");
+
+            appMeta.getData.runSelect('timesheettemplate', '*', q.eq("idtimesheettemplate", opts.idtimesheettemplate), null)
+
+                .then(results => {
+ 
+                    if (results.rows.length) {
+
+                        self.signatureLabels = {
+                            left: results.rows[0].leftsignaturelabel || "",
+                            middle: results.rows[0].middlesignaturelabel || "",
+                            right: results.rows[0].rightsignaturelabel || "",
+                        };
+                    }
+
+                    def.resolve("initSignatureLabels");
+                })
+                .fail(() => {
+
+                    self.signatureLabels = {
+                        left: "",
+                        middle: "",
+                        right: "",
+                    };
+
+                    appMeta.logger.log(appMeta.logger.logType.ERROR, `No configuration found for '${opts.idtimesheettemplate}', using empty defaults for labels`);
+
+                    def.resolve("initSignatureLabels");
+                })
+
+            return def.promise();
         },
 
 
@@ -2448,7 +3100,7 @@
             applyStylecontentlLeft(mergedCellRegion);
             mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
-            mergedCellRegion.value(this.getTotalWorkedHours(dtInput, year, opts, month));
+            mergedCellRegion.value(this.toTimeString(this.getTotalWorkedHours(dtInput, year, opts, month)));
 
 
             //setto la riga di partenza del riquadro delle ore
@@ -2676,10 +3328,90 @@
             return '';
         },
 
+        //---------------------------------FRONTESPIZIO HORIZON_ERANET_COFUND-----------------------------------------------
+
+        buildFrontespizioHORIZON_ERANET_COFUND: function (sheet, opts, dtInput, maximumX, month) {
+            this.columnIndexMonth = 2;
+            let posY = this.posY.bind(this);
+            let posX = this.posX.bind(this);
+
+            this.initialY = 6;
+
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, posX(0),
+                0 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("TIME SHEET PRESENZE DEL PERSONALE DIPENDENTE");
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                2 + this.initialY, posX(0),
+                2 + this.initialY, 3
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("Periodo dal " + this.dataPnrr.start + " al " + this.dataPnrr.stop);
+
+            //sal
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                2 + this.initialY, 4,
+                2 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("SAL n. " + this.dataPnrr.numerosal);
+
+            this.addOraKind(sheet, opts, maximumX, 'Ricerca Fondamentale', 1, 4 + this.initialY, month, dtInput);
+            this.addOraKind(sheet, opts, maximumX, 'Ricerca Industriale', (month ? 9 : 5), 4 + this.initialY, month, dtInput);
+            this.addOraKind(sheet, opts, maximumX, 'Sviluppo Sperimentale', (month ? 17 : 9), 4 + this.initialY, month, dtInput);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                6 + this.initialY, posX(0),
+                6 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Nominativo: " + this.dataPnrr.cognome + ' ' + this.dataPnrr.nome);
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                7 + this.initialY, posX(0),
+                7 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("Contratto applicato: " + this.dataPnrr.figuraContrattuale);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                8 + this.initialY, posX(0),
+                8 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("Livello: " + this.dataPnrr.livello);
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                9 + this.initialY, posX(0),
+                9 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Monte ore lavorative annuo previsto: " + this.dataPnrr.oredivisionecostostipendio);
+
+            //setto la riga di partenza del riquadro delle ore
+            this.offsetYFrontespizio = 9 + this.initialY;
+
+            if (this.isFirstFrontespizio) {
+                this.offsetY += this.offsetYFrontespizio;
+                this.isFirstFrontespizio = false;
+            }
+        },
+
         //---------------------------------FRONTESPIZIO PON-----------------------------------------------
 
         buildFrontespizioPON: function (sheet, opts, dtInput, maximumX, month) {
-            this.addProgetto(sheet, opts, maximumX);
+            this.addProgetto(sheet, opts, maximumX, 9, "#89e9fa");
             this.addInfoProgetto(sheet, opts, maximumX, month, dtInput);
         },
 
@@ -2693,17 +3425,17 @@
          * @param dtInput
          * @param year
          */
-        addProgetto: function (sheet, opts, maximumX) {
+        addProgetto: function (sheet, opts, maximumX, initialY, color) {
 
             let applyRegionStyle = function (region) {
                 region.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
-                region.cellFormat().fill($.ig.excel.CellFill.createSolidFill("#89e9fa"));
+                region.cellFormat().fill($.ig.excel.CellFill.createSolidFill(color));
                 region.cellFormat().font().bold(true);
             };
 
             let posY = this.posY.bind(this);
             let posX = this.posX.bind(this);
-            this.initialY = 9;
+            this.initialY = initialY;
             //let maximumX = 14;
 
             let mergedCellRegion = sheet.mergedCellsRegions().add( // Codice progetto
@@ -2936,14 +3668,14 @@
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.cellFormat().fill($.ig.excel.CellFill.createSolidFill("#b8cce4"));//azzurrino intenso
             mergedCellRegion.value("SAL n. ");
-
+            
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 4 + this.initialY, posX(0) + 3,
                 4 + this.initialY, Math.round(maximumX / 2)
             );
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.cellFormat().fill($.ig.excel.CellFill.createSolidFill("#DCE6F1"));//azzurrino
-            //mergedCellRegion.value("SAL n. ");
+            mergedCellRegion.value(this.dataPnrr.numerosal);
 
             //nominativo
 
@@ -3126,8 +3858,237 @@
 
         //---------------------------------FRONTESPIZIO MISE-----------------------------------------------
 
-        buildFrontespizioMISE: function (sheet, opts, dtInput, maximumX, month, initialY) {
+        //buildFrontespizioMISE: function (sheet, opts, dtInput, maximumX, month, initialY) {
 
+        //    let applyRegionStyle = function (region) {
+        //        region.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+        //        region.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+        //        region.cellFormat().leftBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+        //        region.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+        //        region.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+        //    };
+
+        //    let posX = this.posX.bind(this);
+        //    this.initialY = initialY;
+        //    let posXLabelLeft = posX(0);
+        //    let posXContentLeft = posX(0) + 3;
+        //    let posXContentRight = (month ? 20 : 12);
+
+        //    // SCHEDA DI REGISTRAZIONE DELLE PRESENZE – PERSONALE DIPENDENTE
+        //    let mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        0 + this.initialY, posXLabelLeft,
+        //        0 + this.initialY, posXContentRight
+        //    );
+        //    //applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.cellFormat().font().bold(true);
+        //    mergedCellRegion.value('SCHEDA DI REGISTRAZIONE DELLE PRESENZE – PERSONALE DIPENDENTE');
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        1 + this.initialY, posXLabelLeft,
+        //        1 + this.initialY, posXContentLeft - 1
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value('Ore lavorate');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        1 + this.initialY, posXContentLeft,
+        //        1 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value('Dal:' + this.dataPnrr.start + ' al:' + this.dataPnrr.stop);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        2 + this.initialY, posXLabelLeft,
+        //        2 + this.initialY, posXContentLeft - 1
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value('Per l\'esecuzione del progetto n.');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        2 + this.initialY, posXContentLeft,
+        //        2 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.codice + ' CUP:' + this.dataPnrr.cup);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        3 + this.initialY, posXLabelLeft,
+        //        3 + this.initialY, posXContentLeft - 1
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value('Decreto');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        3 + this.initialY, posXContentLeft,
+        //        3 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.finanziamento ? this.dataPnrr.finanziamento : 'n.             del:');
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        5 + this.initialY, posXLabelLeft,
+        //        5 + this.initialY, posXContentLeft
+        //    );
+        //    mergedCellRegion.value('Periodo dal ' + this.dataPnrr.start + ' al ' + this.dataPnrr.stop);
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        5 + this.initialY, posXContentLeft + 1,
+        //        5 + this.initialY, posXContentLeft + 2
+        //    );
+        //    mergedCellRegion.value('SAL n. ');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        5 + this.initialY, posXContentLeft + 3,
+        //        5 + this.initialY, posXContentLeft + 3
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.numerosal);
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        5 + this.initialY, posXContentLeft + 5,
+        //        5 + this.initialY, posXContentLeft + (month ? 8 : 7)
+        //    );
+        //    mergedCellRegion.value('ANNO SOLARE:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        5 + this.initialY, posXContentLeft + (month ? 9 : 8),
+        //        5 + this.initialY, posXContentLeft + (month ? 10 : 8)
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.opts.year);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        7 + this.initialY, posXLabelLeft,
+        //        7 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Ricerca e Sviluppo:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        7 + this.initialY, posXContentLeft,
+        //        7 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+
+        //    const tipiOre = dtInput.rows.filter(r => r.idprogetto == opts.idprogetto).reduce((acc, { tipo, ore }) => {
+        //        acc[tipo] = (acc[tipo] || 0) + ore;
+        //        return acc;
+        //    }, {});
+
+        //    const tipoWithMostOre = Object.entries(tipiOre).reduce((max, [tipo, ore]) => {
+        //        return ore > max.ore ? { tipo, ore } : max;
+        //    }, { tipo: null, ore: -Infinity });
+
+        //    mergedCellRegion.value(tipoWithMostOre.tipo);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        9 + this.initialY, posXLabelLeft,
+        //        9 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Nominativo:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        9 + this.initialY, posXContentLeft,
+        //        9 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.cognome + ' ' + this.dataPnrr.nome);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        11 + this.initialY, posXLabelLeft,
+        //        11 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Categoria dipendente:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        11 + this.initialY, posXContentLeft,
+        //        11 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.categoria);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        13 + this.initialY, posXLabelLeft,
+        //        13 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Livello dipendente:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        13 + this.initialY, posXContentLeft,
+        //        13 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.livello);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        15 + this.initialY, posXLabelLeft,
+        //        15 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Contratto applicato:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        15 + this.initialY, posXContentLeft,
+        //        15 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.figuraContrattuale);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        17 + this.initialY, posXLabelLeft,
+        //        17 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Monte ore lavorative annuo previsto:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        17 + this.initialY, posXContentLeft,
+        //        17 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(this.dataPnrr.oredivisionecostostipendio);
+
+        //    // -------------------------------------------------
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        19 + this.initialY, posXLabelLeft,
+        //        19 + this.initialY, posXContentLeft - 1
+        //    );
+        //    mergedCellRegion.value('Sede di svolgimento delle attività:');
+
+        //    mergedCellRegion = sheet.mergedCellsRegions().add(
+        //        19 + this.initialY, posXContentLeft,
+        //        19 + this.initialY, posXContentRight
+        //    );
+        //    applyRegionStyle(mergedCellRegion);
+        //    mergedCellRegion.value(opts.sede);
+
+        //    //setto la riga di partenza del riquadro delle ore
+        //    this.offsetYFrontespizio = 21 + this.initialY;
+        //    if (this.isFirstFrontespizio) {
+        //        this.offsetY += this.offsetYFrontespizio;
+        //        this.isFirstFrontespizio = false;
+        //    }
+        //},
+
+        buildFrontespizioMISE: function (sheet, opts, dtInput, maximumX, month, initialY) {
             let applyRegionStyle = function (region) {
                 region.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
                 region.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.thin);
@@ -3141,211 +4102,125 @@
             let posXLabelLeft = posX(0);
             let posXContentLeft = posX(0) + 3;
             let posXContentRight = (month ? 20 : 12);
+            let row = this.initialY;
 
-            // SCHEDA DI REGISTRAZIONE DELLE PRESENZE – PERSONALE DIPENDENTE
-            let mergedCellRegion = sheet.mergedCellsRegions().add(
-                0 + this.initialY, posXLabelLeft,
-                0 + this.initialY, posXContentRight
-            );
-            //applyRegionStyle(mergedCellRegion);
+            let mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentRight);
             mergedCellRegion.cellFormat().font().bold(true);
             mergedCellRegion.value('SCHEDA DI REGISTRAZIONE DELLE PRESENZE – PERSONALE DIPENDENTE');
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                1 + this.initialY, posXLabelLeft,
-                1 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value('Ore lavorate');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                1 + this.initialY, posXContentLeft,
-                1 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value('Dal:' + this.dataPnrr.start + ' al:' + this.dataPnrr.stop);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                2 + this.initialY, posXLabelLeft,
-                2 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value('Per l\'esecuzione del progetto n.');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                2 + this.initialY, posXContentLeft,
-                2 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.dataPnrr.codice + ' CUP:' + this.dataPnrr.cup);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                3 + this.initialY, posXLabelLeft,
-                3 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value('Decreto');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                3 + this.initialY, posXContentLeft,
-                3 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
-            mergedCellRegion.value('n.             del:');
+            mergedCellRegion.value(this.dataPnrr.finanziamento ? this.dataPnrr.finanziamento : 'n.             del:');
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                5 + this.initialY, posXLabelLeft,
-                5 + this.initialY, posXContentLeft
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft);
             mergedCellRegion.value('Periodo dal ' + this.dataPnrr.start + ' al ' + this.dataPnrr.stop);
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                5 + this.initialY, posXContentLeft + 1,
-                5 + this.initialY, posXContentLeft + 2
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft + 1, row, posXContentLeft + 2);
             mergedCellRegion.value('SAL n. ');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                5 + this.initialY, posXContentLeft + 3,
-                5 + this.initialY, posXContentLeft + 3
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft + 3, row, posXContentLeft + 3);
             applyRegionStyle(mergedCellRegion);
-            //mergedCellRegion.value('SAL n. ');
+            mergedCellRegion.value(this.dataPnrr.numerosal);
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                5 + this.initialY, posXContentLeft + 5,
-                5 + this.initialY, posXContentLeft + (month ? 8 : 7)
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft + 5, row, posXContentLeft + (month ? 8 : 7));
             mergedCellRegion.value('ANNO SOLARE:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                5 + this.initialY, posXContentLeft + (month ? 9 : 8),
-                5 + this.initialY, posXContentLeft + (month ? 10 : 8)
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft + (month ? 9 : 8), row, posXContentLeft + (month ? 10 : 8));
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.opts.year);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                7 + this.initialY, posXLabelLeft,
-                7 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Ricerca e Sviluppo:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                7 + this.initialY, posXContentLeft,
-                7 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
-            //mergedCellRegion.value('SAL n. ');
+            const tipiOre = dtInput.rows.filter(r => r.idprogetto == opts.idprogetto).reduce((acc, { tipo, ore }) => {
+                acc[tipo] = (acc[tipo] || 0) + ore;
+                return acc;
+            }, {});
+            const tipoWithMostOre = Object.entries(tipiOre).reduce((max, [tipo, ore]) => ore > max.ore ? { tipo, ore } : max, { tipo: null, ore: -Infinity });
+            mergedCellRegion.value(tipoWithMostOre.tipo);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                9 + this.initialY, posXLabelLeft,
-                9 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Nominativo:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                9 + this.initialY, posXContentLeft,
-                9 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.dataPnrr.cognome + ' ' + this.dataPnrr.nome);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                11 + this.initialY, posXLabelLeft,
-                11 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Categoria dipendente:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                11 + this.initialY, posXContentLeft,
-                11 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.dataPnrr.categoria);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                13 + this.initialY, posXLabelLeft,
-                13 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Livello dipendente:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                13 + this.initialY, posXContentLeft,
-                13 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.dataPnrr.livello);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                15 + this.initialY, posXLabelLeft,
-                15 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Contratto applicato:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                15 + this.initialY, posXContentLeft,
-                15 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.dataPnrr.figuraContrattuale);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                17 + this.initialY, posXLabelLeft,
-                17 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Monte ore lavorative annuo previsto:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                17 + this.initialY, posXContentLeft,
-                17 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(this.dataPnrr.oredivisionecostostipendio);
+            row++;
 
-            // -------------------------------------------------
-
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                19 + this.initialY, posXLabelLeft,
-                19 + this.initialY, posXContentLeft - 1
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXLabelLeft, row, posXContentLeft - 1);
             mergedCellRegion.value('Sede di svolgimento delle attività:');
 
-            mergedCellRegion = sheet.mergedCellsRegions().add(
-                19 + this.initialY, posXContentLeft,
-                19 + this.initialY, posXContentRight
-            );
+            mergedCellRegion = sheet.mergedCellsRegions().add(row, posXContentLeft, row, posXContentRight);
             applyRegionStyle(mergedCellRegion);
             mergedCellRegion.value(opts.sede);
+            row++;
 
-            //setto la riga di partenza del riquadro delle ore
-            this.offsetYFrontespizio = 21 + this.initialY;
+            this.offsetYFrontespizio = row;
             if (this.isFirstFrontespizio) {
                 this.offsetY += this.offsetYFrontespizio;
                 this.isFirstFrontespizio = false;
             }
         },
-
 
         //---------------------------------FRONTESPIZIO PORCAMPANIA-----------------------------------------------
 
@@ -3734,6 +4609,249 @@
             }
         },
 
+        //---------------------------------FRONTESPIZIO PATTO_TERR-----------------------------------------------
+
+        buildFrontespizioPATTO_TERR: function (sheet, opts, dtInput, maximumX, month) {
+
+            this.columnIndexMonth = 2;
+            let posY = this.posY.bind(this);
+            let posX = this.posX.bind(this);
+
+            //inizio a riga 9
+            this.initialY = 9;
+
+            // intestazione
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                this.initialY, posX(0),
+                this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('Progetto "Patto territoriale per il Sistema Universitario Pugliese"');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                1 + this.initialY, posX(0),
+                1 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(false);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('PATTO TERRITORIALE DELL\'ALTA FORMAZIONE PER LE IMPRESE');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                2 + this.initialY, posX(0),
+                2 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(false);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('AI SENSI DELL’ARTICOLO 14 – BIS DEL DECRETO-LEGGE 6 NOVEMBRE 2021, N. 152');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                3 + this.initialY, posX(0),
+                3 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(false);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('CUP: ' + this.dataPnrr.cup);
+
+            //4 riga vuota
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                5 + this.initialY, posX(0),
+                5 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Beneficiario: " + this.dataPnrr.istituto );
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                6 + this.initialY, posX(0),
+                6 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("Periodo di rendicontazione dal " + this.dataPnrr.start + " al " + this.dataPnrr.stop);
+
+            //7 riga vuota
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                8 + this.initialY, posX(0),
+                8 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Nominativo: " + this.dataPnrr.cognome + ' ' + this.dataPnrr.nome);
+
+            let livelloPatto = '';
+            let costoPatto = '';
+
+            if (this.dataPnrr.livello == 'ALTO (Professore Ordinario)') {
+                livelloPatto = 'Professore Ordinario';
+                costoPatto = '73';
+            } else
+                if (this.dataPnrr.livello == 'MEDIO (Professore Associato)') {
+                    livelloPatto = 'Professore Associato';
+                    costoPatto = '48';
+                } else
+                    if (this.dataPnrr.livello == 'BASSO (Ricercatore)') {
+                        livelloPatto = 'Ricercatore';
+                        costoPatto = '31';
+                    } else
+                        if (this.dataPnrr.categoria == 'Impiegato') {
+                            livelloPatto = 'Personale Tecnico';
+                            costoPatto = '31';
+                        } 
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                9 + this.initialY, posX(0),
+                9 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("Livello: " + livelloPatto);
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                10 + this.initialY, posX(0),
+                10 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Costo orario: " + costoPatto);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                11 + this.initialY, posX(0),
+                11 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Monte ore lavorative annuo previsto: 1500"); //+ this.dataPnrr.oredivisionecostostipendio);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                12 + this.initialY, posX(0),
+                12 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Dipartimento di afferenza: " + this.dataPnrr.unitaorganizzativa); 
+
+            //setto la riga di partenza del riquadro delle ore
+            this.offsetYFrontespizio = 14 + this.initialY;
+
+            if (this.isFirstFrontespizio) {
+                this.offsetY += this.offsetYFrontespizio;
+                this.isFirstFrontespizio = false;
+            }
+
+
+        },
+
+        //---------------------------------FRONTESPIZIO FSC_MS_3-----------------------------------------------
+
+        buildFrontespizioFSC_MS_3: function (sheet, opts, dtInput, maximumX, month) {
+
+            this.columnIndexMonth = 2;
+            let posY = this.posY.bind(this);
+            let posX = this.posX.bind(this);
+
+            //inizio a riga 9
+
+            // intestazione
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                9, posX(0),
+                9, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('Avviso Pubblico bandito dal Ministero della Salute e contenuto nel Piano Operativo Salute (FSC 2014-2020) Traiettoria 3 “Medicina rigenerativa, predittiva e personalizzata” Linea di azione 3.1 ');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                10, posX(0),
+                10, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('“Creazione di un programma di medicina di precisione per la mappatura del genoma umano su scala nazionale”');
+
+            //progetto a riga 11
+
+            this.addProgetto(sheet, opts, maximumX, 12, "#d9e1f2");
+
+            //riparto da riga 15
+
+
+            this.initialY = 15;
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                1 + this.initialY, posX(0),
+                1 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Nominativo: " + this.dataPnrr.cognome + ' ' + this.dataPnrr.nome);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                1 + this.initialY, Math.round(maximumX / 2) + 1,
+                1 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("CF: " + this.dataPnrr.cf);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                2 + this.initialY, posX(0),
+                2 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("QUALIFICA: " + this.dataPnrr.figuraContrattuale);
+
+            //mergedCellRegion = sheet.mergedCellsRegions().add(
+            //    3 + this.initialY, posX(0),
+            //    3 + this.initialY, maximumX
+            //);
+            //mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            //mergedCellRegion.cellFormat().font().bold(true);
+            //mergedCellRegion.value("Livello: " + this.dataPnrr.livello);
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                4 + this.initialY, posX(0),
+                4 + this.initialY, Math.round(maximumX / 2)
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("Monte ore lavorative annuo previsto: " + this.dataPnrr.oredivisionecostostipendio);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                4 + this.initialY, Math.round(maximumX / 2) + 1,
+                4 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.value("ORE TOTALI RENDICONTANTE SUL PROGETTO PER IL PERIODO IN OGGETTO: " + this.dataPnrr.tot);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                6 + this.initialY, posX(0),
+                6 + this.initialY, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("Periodo dal " + this.dataPnrr.start + " al " + this.dataPnrr.stop);
+
+            //setto la riga di partenza del riquadro delle ore
+            this.offsetYFrontespizio = 7 + this.initialY;
+
+            if (this.isFirstFrontespizio) {
+                this.offsetY += this.offsetYFrontespizio;
+                this.isFirstFrontespizio = false;
+            }
+
+
+        },
+
+
         //---------------------------------FRONTESPIZIO FSC_MS-----------------------------------------------
 
         buildFrontespizioFSC_MS: function (sheet, opts, dtInput, maximumX, month) {
@@ -4025,7 +5143,7 @@
             this.applyRegionOrCellStyleLabel(mergedCellRegion);
             mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
             mergedCellRegion.cellFormat().font().italic(true);
-            mergedCellRegion.value("Figura Professionale");
+            mergedCellRegion.value("Figura Professionale" + (opts.idtimesheettemplate == ETemplateType.PNRR_AGE_IT ? ": " + this.dataPnrr.figuraContrattualeEsatta : ""));
 
 
             //NOME
@@ -4106,7 +5224,58 @@
                 8 + this.initialY, maximumX
             );
             applyRegionStyleContent(mergedCellRegion);
-            mergedCellRegion.value(totOreMese);
+            mergedCellRegion.value(this.toTimeString(totOreMese));
+
+            if (opts.idtimesheettemplate == ETemplateType.PNRR_AGE_IT) { 
+                //CCNL
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    9 + this.initialY, posX(0),
+                    9 + this.initialY, posXContentLeft - 1
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value("CCNL");
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    9 + this.initialY, posXContentLeft,
+                    9 + this.initialY, posXLabelRight - 1
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value("");
+
+                //ORE LAVORATIVE ANNUE
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    9 + this.initialY, posXLabelRight,
+                    9 + this.initialY, posXContentRight - 9
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value("ORE LAVORATIVE ANNUE");
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    9 + this.initialY, posXContentRight - 8,
+                    9 + this.initialY, posXContentRight - 7
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value(this.toTimeString(this.dataPnrr.oredivisionecostostipendio));
+
+                //ORE PRODUTTIVE ANNUE
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    9 + this.initialY, posXContentRight - 6,
+                    9 + this.initialY, posXContentRight - 1
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value("ORE PRODUTTIVE ANNUE");
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    9 + this.initialY, posXContentRight,
+                    9 + this.initialY, maximumX
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value(this.toTimeString(this.dataPnrr.oredivisionecostostipendio - (this.dataPnrr.oremincompitidida ? this.dataPnrr.oremincompitidida : 0)));
+
+            }
 
             //setto la riga di partenza del riquadro delle ore
             this.offsetYFrontespizio = 10 + this.initialY;
@@ -4360,7 +5529,7 @@
             );
             applyRegionStyleContent(mergedCellRegion);
             mergedCellRegion.cellFormat().font().bold(true);
-            mergedCellRegion.value(totOreMese);
+            mergedCellRegion.value(this.toTimeString(totOreMese));
 
             //FIGURA PROFESSIONALE 2
 
@@ -4380,7 +5549,8 @@
             );
             this.applyRegionOrCellStyleLabel(mergedCellRegion);
             mergedCellRegion.cellFormat().font().bold(false);
-            mergedCellRegion.value("Ore lavorative annue " + this.dataPnrr.oredivisionecostostipendio + " - ore produttive annue:");
+            //mergedCellRegion.value("Ore lavorative annue " + this.dataPnrr.oredivisionecostostipendio + " - ore produttive annue:");
+            mergedCellRegion.value("Ore lavorative annue");
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 7 + this.initialY, posXContentRight,
@@ -4388,7 +5558,8 @@
             );
             applyRegionStyleContent(mergedCellRegion);
             mergedCellRegion.cellFormat().font().bold(true);
-            mergedCellRegion.value(this.dataPnrr.oredivisionecostostipendio - (this.dataPnrr.oremincompitidida ? this.dataPnrr.oremincompitidida : 0));
+            //mergedCellRegion.value(this.dataPnrr.oredivisionecostostipendio - (this.dataPnrr.oremincompitidida ? this.dataPnrr.oremincompitidida : 0));
+            mergedCellRegion.value(this.dataPnrr.oredivisionecostostipendio);
 
 
             //setto la riga di partenza del riquadro delle ore
@@ -4398,7 +5569,6 @@
                 this.isFirstFrontespizio = false;
             }
         },
-
 
         //---------------------------------FRONTESPIZIO MASE-----------------------------------------------
 
@@ -4503,6 +5673,377 @@
             }
         },
 
+        //-----------------------------FRONTESPIZIO MALATTIE_RARE----------------------------------------
+
+        buildFrontespizioMALATTIE_RARE: function (sheet, opts, dtInput, maximumX, month) {
+
+            let applyRegionStyleContent = function (region) {
+                region.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+                region.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+                region.cellFormat().leftBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+                region.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+                region.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+            };
+
+            let posY = this.posY.bind(this);
+            let posX = this.posX.bind(this);
+            this.initialY = 10;
+
+            let posXContentLeft = posX(0) + 2;
+            let posXLabelRight = Math.round(maximumX / 2) - Math.round(maximumX / 4);
+            let posXContentRight = Math.round(maximumX / 2) + 7;
+
+            // INTESTAZIONE
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                this.initialY, posX(0),
+                this.initialY + 1, posXContentRight + 1
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+
+            mergedCellRegion.value('Avviso Pubblico \"Promozione di progetti di ricerca, sviluppo sperimentale e innovazione collaborativi nel campo delle malattie rare\"\r\n previsto al progr.n. 30 degli Allegati \"A5\" e \"B4\" dell\'Accordo per la Coesione della Regione Campania del 17/09/2024 a valere sulle risorse del Fondo di Rotazione ex L. 183/1987');
+
+            this.initialY = mergedCellRegion.lastRow() + 2;
+
+            // TIMESHEET PER RENDICONTAZIONE PERSONALE
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, posX(0),
+                0 + this.initialY, posXContentRight - 4
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value('TIMESHEET PER RENDICONTAZIONE PERSONALE');
+
+            if (month) {
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    0 + this.initialY, posXContentRight - 3,
+                    0 + this.initialY, posXContentRight - 1
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value('MESE');
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    0 + this.initialY, posXContentRight,
+                    0 + this.initialY, posXContentRight + 2
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value(this.getMonthColumnName(month));
+            }
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, (month ? posXContentRight + 3 : posXContentRight - 3),
+                0 + this.initialY, (month ? posXContentRight + 5 : posXContentRight - 2)
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value('ANNO');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, (month ? posXContentRight + 5 : posXContentRight - 2) + 1,
+                0 + this.initialY, maximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(this.opts.year);
+
+
+            // ID PROGETTO
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                2 + this.initialY, posX(0),
+                2 + this.initialY, posXContentLeft - 1
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value('ID PROGETTO');
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                2 + this.initialY, posXContentLeft,
+                2 + this.initialY, maximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(this.dataPnrr.titolo);
+
+            // CUP
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                3 + this.initialY, posX(0),
+                3 + this.initialY, posXContentLeft - 1
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value('CUP');
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                3 + this.initialY, posXContentLeft,
+                3 + this.initialY, maximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(this.dataPnrr.cup);
+
+            // // CODICE DEL PROGETTO
+            // mergedCellRegion = sheet.mergedCellsRegions().add(
+            //     4 + this.initialY, posX(0),
+            //     4 + this.initialY, posXContentLeft - 1
+            // );
+            // this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            // mergedCellRegion.value('CODICE DEL PROGETTO');
+
+
+            // mergedCellRegion = sheet.mergedCellsRegions().add(
+            //     4 + this.initialY, posXContentLeft,
+            //     4 + this.initialY, maximumX
+            // );
+            // applyRegionStyleContent(mergedCellRegion);
+            // mergedCellRegion.value(this.dataPnrr.codice);
+
+            // SOGGETTO ATTUATORE
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                4 + this.initialY, posX(0),
+                4 + this.initialY, posXContentLeft - 1
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value('SOGGETTO ATTUATORE');
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                4 + this.initialY, posXContentLeft,
+                4 + this.initialY, maximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(this.dataPnrr.istituto);
+
+            // //SEPARATORE FIGURA PROFESSIONALE
+
+            // mergedCellRegion = sheet.mergedCellsRegions().add(
+            //     6 + this.initialY, posX(0),
+            //     6 + this.initialY, maximumX
+            // );
+            // this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            // mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+            // mergedCellRegion.cellFormat().font().italic(true);
+            // mergedCellRegion.value("Figura Professionale" + (opts.idtimesheettemplate == ETemplateType.PNRR_AGE_IT ? ": " + this.dataPnrr.figuraContrattualeEsatta : ""));
+
+
+            //NOMINATIVO RISORSA
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                5 + this.initialY, posX(0),
+                5 + this.initialY, posXContentLeft - 1
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value("NOMINATIVO RISORSA");
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                5 + this.initialY, posXContentLeft,
+                5 + this.initialY, maximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(`${this.dataPnrr.cognome} ${this.dataPnrr.nome}`);
+
+            //LIVELLO E TIPOLOGIA
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                6 + this.initialY, posX(0),
+                6 + this.initialY, posXContentLeft - 1
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value("Livello / Tipologia");
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                6 + this.initialY, posXContentLeft,
+                6 + this.initialY, maximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(`${this.dataPnrr.livello || 'N/A'} / ${this.dataPnrr.categoria || 'N/A'}`);
+
+            //setto la riga di partenza del riquadro delle ore
+            this.offsetYFrontespizio = 7 + this.initialY;
+            if (this.isFirstFrontespizio) {
+                this.offsetY += this.offsetYFrontespizio;
+                this.isFirstFrontespizio = false;
+            }
+        },
+
+        //-----------------------------FRONTESPIZIO PSRCAMPANIA----------------------------------------
+
+        buildFrontespizioPSRCAMPANIA: function (sheet, opts, dtInput, maximumX, month) {
+            let applyRegionStyleContent = function (region) {
+                region.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
+                region.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+                region.cellFormat().leftBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+                region.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+                region.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+            };
+
+            processedMaximumX = month ? maximumX : maximumX; // aggiungo spazio se c'è il mese
+
+            let posY = this.posY.bind(this);
+            let posX = this.posX.bind(this);
+            this.initialY = 10;
+
+            let posXContentLeft = posX(0) + 2;
+            let posXLabelRight = Math.round(processedMaximumX / 2) - Math.round(processedMaximumX / 4);
+
+            let posXContentRight = processedMaximumX - 6;
+
+            // INTESTAZIONE
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                this.initialY, posX(0),
+                this.initialY + 11, processedMaximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+
+
+            let formulaAnagrafica = '';
+            let formulaIndirizzoResidenza = '';
+
+            if (this.requiredData.sets.registry.docenti.tables.registry.rows[0]) {
+
+                const row = this.requiredData.sets.registry.docenti.tables.registry.rows[0];
+
+                formulaAnagrafica = `nato a ${row.location} il ${new Date(row.birthdate).toLocaleDateString("en-GB") }`;
+            }
+
+            if (this.requiredData.sets.registry.docenti.tables.registryaddress.rows[0]) {
+
+                const row = this.requiredData.sets.registry.docenti.tables.registryaddress.rows[0];
+
+                formulaIndirizzoResidenza = `e residente in ${row.address}, ${row.cap} ${row.location}`;
+            }
+
+            const header = `
+                PROGETTO "${this.dataPnrr.titolo}"
+                PSR Campania 2014-2022 - TIPOLOGIA DI INTERVENTO  16.1.2  AZIONE 2
+                D.R.D. N. 329 del  29.08.2022 -  CUP  ${this.dataPnrr.cup}
+
+                TIME SHEET INTEGRATO - RIEPILOGO
+
+                "Il sottoscritto ${this.dataPnrr.cognome} ${this.dataPnrr.nome} ${formulaAnagrafica} ${formulaIndirizzoResidenza}"
+                DICHIARA
+                sotto la propria responsabilità, consapevole di incorrere, in ipotesi di falsità in atti e dichiarazioni mendaci, nelle sanzioni penali di cui all’art. 76 del D.P.R. 445 del 28/12/2000,
+                che ha collaborato allo svolgimento del progetto (${this.dataPnrr.progetto}) fornendo le ore di lavoro di seguito indicate
+            `;
+
+            mergedCellRegion.value(header);
+            this.initialY = mergedCellRegion.lastRow() + 2;
+
+            // TITOLO TIMESHEET
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, posX(0),
+                0 + this.initialY, posXContentRight - 4
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value('TIMESHEET PER RENDICONTAZIONE PERSONALE');
+
+            if (month) {
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    0 + this.initialY, posXContentRight - 3,
+                    0 + this.initialY, posXContentRight - 1
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value('MESE');
+
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    0 + this.initialY, posXContentRight,
+                    0 + this.initialY, posXContentRight + 2
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value(this.getMonthColumnName(month));
+            }
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, (month ? posXContentRight + 3 : posXContentRight - 3),
+                0 + this.initialY, (month ? posXContentRight + 5 : posXContentRight - 2)
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+            mergedCellRegion.value('ANNO');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                0 + this.initialY, (month ? posXContentRight + 5 : posXContentRight - 2) + 1,
+                0 + this.initialY, processedMaximumX
+            );
+            applyRegionStyleContent(mergedCellRegion);
+            mergedCellRegion.value(this.opts.year);
+
+            // CAMPI COLONNA 1
+            const firstColumnFields = [
+                { label: 'Partner', value: `${this.requiredData.sets.progettoregistry_aziende.seg.tables.registryaziendeview.rows.map(r => r.dropdown_title).join(' ')}` },
+                { label: 'Voce di spesa', value: `${this.dataPnrr.figuraContrattuale}` },
+                { label: 'Nome e cognome', value: `${this.dataPnrr.nome} ${this.dataPnrr.cognome}` },
+                { label: 'Tipologia di contratto', value: `${this.dataPnrr.figuraContrattualeEsatta}` },
+                { label: 'Costo standard', value: `${[...new Set(this.requiredData.tables.costoorariomembroattivitaprogettoperiodoview.rows.map(r => r.costostandard))].join(' ')}` },
+            ];
+
+            firstColumnFields.forEach((field, index) => {
+                const row = 2 + this.initialY + index;
+
+                // Label
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    row, posX(0),
+                    row, posXContentLeft - 1
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value(field.label);
+
+                // Valore
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    row, posXContentLeft,
+                    row, posXLabelRight + 1
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value(field.value);
+            });
+
+            // CAMPI COLONNA 2
+            const secondColumnStartX = posXLabelRight + 3;
+            const secondColumnLabelWidth = month ? 6 : 3;
+            const secondColumnValueStartX = secondColumnStartX + secondColumnLabelWidth;
+            const secondColumnValueEndX = processedMaximumX;
+
+            const secondColumnFields = [
+                { label: 'Livello/Qualifica', value: `${this.dataPnrr.livello || 'N/A'} / ${this.dataPnrr.categoria || 'N/A'}` },
+                {
+                    label: 'Durata del contratto', value: `${[...new Set(this.requiredData.tables.costoorariomembroattivitaprogettoperiodoview.rows
+                        .map(r => {
+                            if (!r.startcontratto || !r.stopcontratto) {
+                                return 'N/A';
+                            }
+
+                            let diffTime = Math.abs(new Date(r.stopcontratto) - new Date(r.startcontratto));
+                            return `${ Math.ceil(diffTime / (1000 * 60 * 60 * 24)) } giorni`;
+
+                        }))].join(' ')}`
+                },
+                { label: 'Nr. Ore progetto', value: this.dataPnrr.tot },
+                {
+                    label: 'Importo rendicontato', value: `€ ${ this.requiredData.tables.rendicontattivitaprogettomesetmview.rows
+                        .reduce((sum, row) => sum + row.stipendiorendicontato, 0).toFixed(2) }`
+                },
+            ];
+
+            secondColumnFields.forEach((field, index) => {
+                const row = 2 + this.initialY + index;
+
+                // Label
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    row, secondColumnStartX,
+                    row, secondColumnValueStartX - 1
+                );
+                this.applyRegionOrCellStyleLabel(mergedCellRegion);
+                mergedCellRegion.value(field.label);
+
+                // Valore
+                mergedCellRegion = sheet.mergedCellsRegions().add(
+                    row, secondColumnValueStartX,
+                    row, secondColumnValueEndX
+                );
+                applyRegionStyleContent(mergedCellRegion);
+                mergedCellRegion.value(field.value);
+            });
+
+            // Offset per sezione successiva
+            this.offsetYFrontespizio = 2 + this.initialY + Math.max(firstColumnFields.length, secondColumnFields.length);
+            if (this.isFirstFrontespizio) {
+                this.offsetY += this.offsetYFrontespizio;
+                this.isFirstFrontespizio = false;
+            }
+        },
+
         //---------------------------------FINE FRONTESPIZIO-----------------------------------------------
 
         //---------------------------------INIZIO PIEDIPAGINA-----------------------------------------------
@@ -4528,15 +6069,25 @@
                     break;
                 case ETemplateType.PON:
                     this.buildPiedipaginaPON(sheet, opts, dtInput, maximumX, rowIndex);
-                    return  15;
+                    return 15;
+                    break;
+                case ETemplateType.HORIZON_ERANET_COFUND:
+                    this.buildPiedipaginaHORIZON_ERANET_COFUND(sheet, opts, dtInput, maximumX, rowIndex);
+                    return 15;
                     break;
                 case ETemplateType.MASE:
                     this.buildPiedipaginaMASE(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return  13;
                     break;
+                case ETemplateType.PNRR_PF:
+                case ETemplateType.PNC:
                 case ETemplateType.PNRR:
                     this.buildPiedipaginaPNRR(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return  13;
+                    break;
+                case ETemplateType.PNRR_AGE_IT:
+                    this.buildPiedipaginaPNRR_AGE_IT(sheet, opts, dtInput, maximumX, rowIndex, month);
+                    return 13;
                     break;
                 case ETemplateType.NBFC_CNR:
                     this.buildPiedipaginaNBFC_CNR(sheet, opts, dtInput, maximumX, rowIndex, month);
@@ -4546,22 +6097,23 @@
                     this.buildPiedipaginaFSC_MS_5(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return 20;
                     break;
+                case ETemplateType.PATTO_TERR:
+                    this.buildPiedipaginaPATTO_TERR(sheet, opts, dtInput, maximumX, rowIndex, month);
+                    return 10;
+                    break;
+                case ETemplateType.FSC_MS_3:
+                    this.buildPiedipaginaFSC_MS_3(sheet, opts, dtInput, maximumX, rowIndex, month);
+                    return 10;
+                    break;
                 case ETemplateType.FSC_MS:
                     this.buildPiedipaginaFSC_MS(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return 6;
-                    break;
-                case ETemplateType.PNRR_PF:
-                    this.buildPiedipaginaPNRR(sheet, opts, dtInput, maximumX, rowIndex, month);
-                    return  13;
-                    break;
-                case ETemplateType.PNC:
-                    this.buildPiedipaginaPNRR(sheet, opts, dtInput, maximumX, rowIndex, month);
-                    return  13;
                     break;
                 case ETemplateType.MISE:
                     this.buildPiedipaginaMISE(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return  8;
                     break;
+                case ETemplateType.PORCAMPANIA_21_27:
                 case ETemplateType.MIMIT_2:
                     this.buildPiedipaginaMISE(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return  8;
@@ -4577,6 +6129,11 @@
                 case ETemplateType.EMPIR:
                     this.buildPiedipaginaEMPIR(sheet, opts, dtInput, maximumX, rowIndex, month);
                     return  8;
+                    break;
+                case ETemplateType.MALATTIE_RARE:
+                    this.buildPiedipaginaMALATTIE_RARE(sheet, opts, dtInput, maximumX, rowIndex, month);
+                    return  13; // return così, slegati, quando potevano essere valori di ritorno delle funzioni...
+                                // servono ad aumentare la confusione e possibilità di errore?
                     break;
                 default:
                     //this.buildPiedipaginaHorizon(sheet, opts, dtInput);
@@ -4596,13 +6153,13 @@
                 rowIndex + 4, 2,
                 rowIndex + 4, 4
             );
-            mergedCellRegion.value('Firma del Dipendente');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 4, 10,
                 rowIndex + 4, 22
             );
-            mergedCellRegion.value('Firma del Responsabile Amministrativo');
+            mergedCellRegion.value(self.signatureLabels.right);
 
             //seconda riga
 
@@ -4632,13 +6189,13 @@
                 rowIndex + 4, 2,
                 rowIndex + 4, 4
             );
-            mergedCellRegion.value('Firma collaboratore');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 4, 10,
                 rowIndex + 4, 22
             );
-            mergedCellRegion.value('Firma Responsabile progetto');
+            mergedCellRegion.value(self.signatureLabels.right);
 
             //seconda riga
 
@@ -4685,13 +6242,13 @@
                 rowIndex + 4, 2,
                 rowIndex + 4, 4
             );
-            mergedCellRegion.value('Date and signature of staff member');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 4, 10,
                 rowIndex + 4, 22
             );
-            mergedCellRegion.value('Date and signature of person in charge of the work');
+            mergedCellRegion.value(self.signatureLabels.right);
 
             //seconda riga
 
@@ -4717,19 +6274,19 @@
                 rowIndex + 2, 1,
                 rowIndex + 2, 3
             );
-            mergedCellRegion.value('Date and signature of the project manager');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 2, 4,
                 rowIndex + 2, 19
             );
-            mergedCellRegion.value('Date and signature of the Administrative Director or Personnel Manager');
+            mergedCellRegion.value(self.signatureLabels.middle);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 2, 22,
                 rowIndex + 2, 30
             );
-            mergedCellRegion.value('Date and signature of the Project Manager');
+            mergedCellRegion.value(self.signatureLabels.right);
 
         },
 
@@ -4741,19 +6298,19 @@
                 rowIndex + 2, 1,
                 rowIndex + 2, 3
             );
-            mergedCellRegion.value('Data e firma dell\'addetto al progetto');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 2, 4,
                 rowIndex + 2, 19
             );
-            mergedCellRegion.value('Sigla del Direttore Amministrativo o Responsabile del Personale ');
+            mergedCellRegion.value(self.signatureLabels.middle);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 2, 22,
                 rowIndex + 2, 29
             );
-            mergedCellRegion.value('Sigla del Responsabile del progetto');
+            mergedCellRegion.value(self.signatureLabels.right);
 
             this.addBorder(sheet, rowIndex + 4, maximumX + 2, false);
 
@@ -4815,14 +6372,14 @@
                 rowIndex + 9, 1,
                 rowIndex + 9, 4
             );
-            mergedCellRegion.value('Data e firma dell\'addetto al progetto');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 9, 24,
                 rowIndex + 9, maximumX
             );
             //mergedCellRegion.value('Firma del Direttore amministrativo/Direttore del personale/Legale rappresentante *');
-            mergedCellRegion.value('Firma del Direttore del Dipartimento');
+            mergedCellRegion.value(self.signatureLabels.middle);
 
             //quarta riga
 
@@ -4830,7 +6387,7 @@
                 rowIndex + 13, 24,
                 rowIndex + 13, maximumX
             );
-            mergedCellRegion.value('Visto del responsabile del progetto');
+            mergedCellRegion.value(self.signatureLabels.right);
 
             //qunta riga
 
@@ -4839,6 +6396,101 @@
             //    rowIndex + 15, 4
             //);
             //mergedCellRegion.value('* in alternativa');
+
+        },
+
+        buildPiedipaginaHORIZON_ERANET_COFUND: function (sheet, opts, dtInput, maximumX, rowIndex) {
+
+            //prima riga
+
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 1,
+                rowIndex + 2, 7
+            );
+            mergedCellRegion.value('Personale dipendente assunto con stabile sede presso il laboratorio sito in (località)');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 8,
+                rowIndex + 2, 21
+            );
+            mergedCellRegion.value(opts.sede);
+            mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 23,
+                rowIndex + 2, 23
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+
+            //seconda riga
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 4, 1,
+                rowIndex + 4, 9
+            );
+            mergedCellRegion.value('Personale dipendente assunto altrove e trasferito/distaccato presso il laboratorio sito in (località)');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 4, 10,
+                rowIndex + 4, 21
+            );
+            mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 4, 23,
+                rowIndex + 4, 23
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+
+            //terza riga
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 6, 1,
+                rowIndex + 6, 9
+            );
+            mergedCellRegion.value('Personale non dipendente contrattualizzato  presso il laboratorio sito in (località)');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 6, 10,
+                rowIndex + 6, 21
+            );
+            mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 6, 23,
+                rowIndex + 6, 23
+            );
+            this.applyRegionOrCellStyleLabel(mergedCellRegion);
+
+            //quarta riga
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 9, 1,
+                rowIndex + 9, 4
+            );
+            mergedCellRegion.value(self.signatureLabels.left);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 9, 24,
+                rowIndex + 9, maximumX
+            );
+            mergedCellRegion.value(self.signatureLabels.middle);
+
+            //quinta riga
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 13, 24,
+                rowIndex + 13, maximumX
+            );
+            mergedCellRegion.value(self.signatureLabels.right);
+
+            //sesta riga
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 15, 1,
+                rowIndex + 15, 4
+            );
+            mergedCellRegion.value('* in alternativa');
 
         },
 
@@ -4861,7 +6513,7 @@
             mergedCellRegion.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.thin);
             mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
             mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
-            mergedCellRegion.value('Data e firma del dipendente');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 4, 21,
@@ -4872,8 +6524,48 @@
             mergedCellRegion.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.thin);
             mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
             mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
-            mergedCellRegion.value('Firma del responsabile del progetto');
+            mergedCellRegion.value(self.signatureLabels.right);
 
+        },
+
+        buildPiedipaginaPNRR_AGE_IT: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
+
+            //DI CUI IMPUTATE AL PROGETTO LE SEGUENTI ORE SUDDIVISE PER TIPOLOGIA DI ATTIVITA':
+
+            let mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 1,
+                rowIndex + 2, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("DI CUI IMPUTATE AL PROGETTO LE SEGUENTI ORE SUDDIVISE PER TIPOLOGIA DI ATTIVITA':");
+
+            //CONTEGGIO ORE PER TIPO
+            this.addOraKind(sheet, opts, maximumX, 'Ricerca Fondamentale', 4, rowIndex + 3, month, dtInput);
+            this.addOraKind(sheet, opts, maximumX, 'Ricerca Industriale', 12, rowIndex + 3, month, dtInput);
+            this.addOraKind(sheet, opts, maximumX, 'Sviluppo Sperimentale', 20, rowIndex + 3, month, dtInput);
+            this.addOraKind(sheet, opts, maximumX, 'Formazione', 28, rowIndex + 3, month, dtInput);
+
+            //SEDE OPERATIVA IN CUI E' STATA SVOLTA L'ATTIVITA': 
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 1,
+                rowIndex + 5, 4
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("SEDE OPERATIVA IN CUI E' STATA SVOLTA L'ATTIVITA':");
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 5,
+                rowIndex + 5, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value(opts.sede);
+
+            //firma left
+            this.writeRiquadroFirma(sheet, self.signatureLabels.left, 1, Math.round(maximumX / 2) - 6, rowIndex + 7);
+
+            //firma right            
+            this.writeRiquadroFirma(sheet, self.signatureLabels.right, Math.round(maximumX / 2) - 5, maximumX, rowIndex + 7);
         },
 
         buildPiedipaginaPNRR: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
@@ -4910,19 +6602,21 @@
             mergedCellRegion.value(opts.sede);
 
             //firma left
-            this.writeRiquadroFirma(sheet, "FIRMATO DA (nome e cognome della figura professionale)", 1, Math.round(maximumX / 2) - 6, rowIndex + 7);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.left, 1, Math.round(maximumX / 2) - 6, rowIndex + 7);
 
             //firma right            
-            this.writeRiquadroFirma(sheet, "FIRMATO DA (nome e cognome del Supervisore)", Math.round(maximumX / 2) - 5, maximumX, rowIndex + 7);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.right, Math.round(maximumX / 2) - 5, maximumX, rowIndex + 7);
         },
+
         buildPiedipaginaNBFC_CNR: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
 
             //firma left
-            this.writeRiquadroFirma(sheet, "Firma del Ricercatore", 1, Math.round(maximumX / 2) - 6, rowIndex + 2);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.left, 1, Math.round(maximumX / 2) - 6, rowIndex + 2);
 
             //firma right            
-            this.writeRiquadroFirma(sheet, "Firma del Direttore d'Istituto", Math.round(maximumX / 2) - 5, maximumX, rowIndex + 2);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.right, Math.round(maximumX / 2) - 5, maximumX, rowIndex + 2);
         },
+
         buildPiedipaginaFSC_MS_5: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
 
             //Descrizione delle attività svolte nel periodo:
@@ -4937,13 +6631,80 @@
             mergedCellRegion.value('Nel caso di Personale dipendente');
 
             //firma left
-            this.writeRiquadroFirma(sheet, "FIRMATO DA (nome e cognome della figura professionale)", 1, Math.round(maximumX / 2) - 6, rowIndex + 10);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.left, 1, Math.round(maximumX / 2) - 6, rowIndex + 10);
 
             //firma right            
-            this.writeRiquadroFirma(sheet, "FIRMATO DA (nome e cognome del Supervisore)", Math.round(maximumX / 2) - 5, maximumX, rowIndex + 10);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.middle, Math.round(maximumX / 2) - 5, maximumX, rowIndex + 10);
 
             //Firma del Coordinatore Tecnico Scientifico del Progetto :
-            this.writeRiquadroFirma(sheet, "Firma del Coordinatore Tecnico Scientifico del Progetto :", 1, maximumX, rowIndex + 16);
+            this.writeRiquadroFirma(sheet, self.signatureLabels.right, 1, maximumX, rowIndex + 16);
+
+        },
+
+        buildPiedipaginaFSC_MS_3: function (sheet, opts, dtInput, maximumX, rowIndex) {
+
+            //prima riga
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 1,
+                rowIndex + 2, 4
+            );
+            mergedCellRegion.value(self.signatureLabels.left);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 24,
+                rowIndex + 2, maximumX
+            );
+            //mergedCellRegion.value('Firma del Direttore amministrativo/Direttore del personale/Legale rappresentante *');
+            mergedCellRegion.value(self.signatureLabels.right);
+
+        },
+
+        buildPiedipaginaPATTO_TERR: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
+
+            //prima riga
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 2, 2,
+                rowIndex + 2, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('Il/la sottoscritto/a dichiara che, nell\'anno e nei mesi e per le ore sopra indicati, ha svolto le proprie attività per lo svolgimento del Progetto');
+
+            //seconda riga 
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 3, 2,
+                rowIndex + 3, maximumX
+            );
+            mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+            mergedCellRegion.value('"Patto territoriale per il Sistema Universitario Pugliese" (CUP  ' + this.dataPnrr.cup + ')');
+
+            //terza riga vuota 
+
+            //quarta riga
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 2,
+                rowIndex + 5, 4
+            );
+            mergedCellRegion.value(self.signatureLabels.left);
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 6, 2,
+                rowIndex + 6, 4
+            );
+            mergedCellRegion.value("" + this.dataPnrr.cognome + ' ' + this.dataPnrr.nome);
+
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, (month ?24:12),
+                rowIndex + 5, maximumX
+            );
+            mergedCellRegion.value('VISTO IL');
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 6, (month ? 24 : 12),
+                rowIndex + 6, maximumX
+            );
+            mergedCellRegion.value(self.signatureLabels.right);
 
         },
 
@@ -4961,13 +6722,13 @@
                 rowIndex + 2, 4,
                 rowIndex + 2, 19
             );
-            mergedCellRegion.value('Firma del dipendente');
+            mergedCellRegion.value(self.signatureLabels.left);
 
             mergedCellRegion = sheet.mergedCellsRegions().add(
                 rowIndex + 2, 22,
                 rowIndex + 2, 29
             );
-            mergedCellRegion.value('Firma del rappresentante legale');
+            mergedCellRegion.value(self.signatureLabels.right);
 
             //seconda riga
 
@@ -4990,6 +6751,109 @@
             mergedCellRegion.cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.thin);
 
         },
+
+        buildPiedipaginaMALATTIE_RARE: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 1,
+                rowIndex + 5, 4
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("SEDE OPERATIVA IN CUI E' STATA SVOLTA L'ATTIVITA':");
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 5,
+                rowIndex + 5, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value(opts.sede);
+
+            // qua andrebbe fatto un metodo decente per calcolare le coordinate X non lineari (magari esponenziale?)
+            // ma non abbiamo tempo
+
+            const oneThird = Math.round(maximumX / 3);
+            const firstColumnScalingFactor = 0.7;
+            const offset = Math.floor(oneThird * firstColumnScalingFactor); // fattore di aggiustamento
+
+            let boxes = {
+                left: {
+                    x1: 1,
+                    x2: oneThird - offset,
+                    y: rowIndex + 7
+                },
+                middle: {
+                    x1: oneThird - offset + 1,
+                    x2: 2 * oneThird - offset,
+                    y: rowIndex + 7
+                },
+                right: {
+                    x1: 2 * oneThird - offset + 1,
+                    x2: maximumX,
+                    y: rowIndex + 7
+                }
+            }
+
+            //firma left
+            this.writeRiquadroFirma(sheet, self.signatureLabels.left, boxes.left.x1, boxes.left.x2, boxes.left.y);
+
+            //firma middle
+            this.writeRiquadroFirma(sheet, self.signatureLabels.middle, boxes.middle.x1, boxes.middle.x2, boxes.middle.y);
+
+            //firma right
+            this.writeRiquadroFirma(sheet, self.signatureLabels.right, boxes.right.x1, boxes.right.x2, boxes.right.y);
+        },
+
+        buildPiedipaginaPSRCAMPANIA: function (sheet, opts, dtInput, maximumX, rowIndex, month) {
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 1,
+                rowIndex + 5, 4
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value("SEDE OPERATIVA IN CUI E' STATA SVOLTA L'ATTIVITA':");
+
+            mergedCellRegion = sheet.mergedCellsRegions().add(
+                rowIndex + 5, 5,
+                rowIndex + 5, maximumX
+            );
+            mergedCellRegion.cellFormat().font().bold(true);
+            mergedCellRegion.value(opts.sede);
+
+            // qua andrebbe fatto un metodo decente per calcolare le coordinate X non lineari (magari esponenziale?)
+            // ma non abbiamo tempo
+
+            const oneThird = Math.round(maximumX / 3);
+            const firstColumnScalingFactor = 0.7;
+            const offset = Math.floor(oneThird * firstColumnScalingFactor); // fattore di aggiustamento
+
+            let boxes = {
+                left: {
+                    x1: 1,
+                    x2: oneThird - offset,
+                    y: rowIndex + 7
+                },
+                middle: {
+                    x1: oneThird - offset + 1,
+                    x2: 2 * oneThird - offset,
+                    y: rowIndex + 7
+                },
+                right: {
+                    x1: 2 * oneThird - offset + 1,
+                    x2: maximumX,
+                    y: rowIndex + 7
+                }
+            }
+
+            //firma left
+            this.writeRiquadroFirma(sheet, self.signatureLabels.left, boxes.left.x1, boxes.left.x2, boxes.left.y);
+
+            //firma middle
+            this.writeRiquadroFirma(sheet, self.signatureLabels.middle, boxes.middle.x1, boxes.middle.x2, boxes.middle.y);
+
+            //firma right
+            this.writeRiquadroFirma(sheet, self.signatureLabels.right, boxes.right.x1, boxes.right.x2, boxes.right.y);
+        },
+
 
         writeRiquadroFirma: function (sheet, label, posXleft, posiXRigt, posY, skipDataFirma) {
 
@@ -5066,19 +6930,19 @@
 
                 let mergedCellRegion = sheet.mergedCellsRegions().add(
                     Ypos, Xpos,
-                    Ypos, Xpos + 4
+                    Ypos, Xpos + (month ? 4 : 1)
                 );
                 mergedCellRegion.cellFormat().font().bold(true);
                 mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.left);
                 mergedCellRegion.value(label);
 
                 mergedCellRegion = sheet.mergedCellsRegions().add(
-                    Ypos, Xpos + 5,
-                    Ypos, Xpos + 6
+                    Ypos, Xpos + (month ? 5 : 2),
+                    Ypos, Xpos + (month ? 6 : 2)
                 );
                 this.applyRegionOrCellStyleLabel(mergedCellRegion);
                 mergedCellRegion.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
-                mergedCellRegion.value(totOreMese);
+                mergedCellRegion.value(this.toTimeString(totOreMese));
             } catch (e) {
                 if (this.verbose)
                     console.log("Errore nella generazione del timesheet: " + e.message);
@@ -5221,7 +7085,8 @@
                 if (opts.multilineType) {
                     _.forEach(projects, function (o) {
                         o.progetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].progetto;
-                        o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].cup;
+                        o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].cup ? 
+                            o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].cup : '';
                         o.idprogetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].idprogetto;
                         o.idreg_aziende_fin = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].idreg_aziende_fin;
                         o.ismur = o.group[Object.getOwnPropertyNames(o.group)[0]].group[Object.getOwnPropertyNames(o.group[Object.getOwnPropertyNames(o.group)[0]].group)[0]].group[0].ismur;
@@ -5231,7 +7096,8 @@
                 } else {
                     _.forEach(projects, function (o) {
                         o.progetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].progetto;
-                        o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].cup;
+                        o.cup = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].cup ?
+                            o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].cup : '';
                         o.idprogetto = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].idprogetto;
                         o.idreg_aziende_fin = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].idreg_aziende_fin;
                         o.ismur = o.group[Object.getOwnPropertyNames(o.group)[0]].group[0].ismur;
@@ -5258,9 +7124,11 @@
             if (
                 //2A) tempalte con una sola riga per tutti gli altri (li ho collassati prima)
                 opts.idtimesheettemplate === ETemplateType.PORCAMPANIA ||
+                opts.idtimesheettemplate === ETemplateType.FSC_MS_3 ||
                 opts.idtimesheettemplate === ETemplateType.FSC_MS_5 ||
                 opts.idtimesheettemplate === ETemplateType.FSC_MS ||
                 opts.idtimesheettemplate === ETemplateType.PON ||
+                opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND ||
                 opts.idtimesheettemplate === ETemplateType.MIMIT ||
                 opts.idtimesheettemplate === ETemplateType.POR ||
 
@@ -5268,21 +7136,28 @@
                 opts.idtimesheettemplate === ETemplateType.HORIZON ||
                 opts.idtimesheettemplate === ETemplateType.HORIZON_Y ||
                 opts.idtimesheettemplate === ETemplateType.EMPIR ||
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
                 opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
-                opts.idtimesheettemplate === ETemplateType.MISE 
+                opts.idtimesheettemplate === ETemplateType.MISE ||
+                opts.idtimesheettemplate === ETemplateType.PATTO_TERR 
             ) {
                 //poi quella degli altri progetti
-                let objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' });
+                let objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && (o.tipoprogetto == 'ricerca' || o.tipoprogetto == 'didattica' || o.tipoprogetto == 'altro'); });
                 if (opts.idtimesheettemplate === ETemplateType.FSC_MS_5)
-                    objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && o.idprogetto != 99999 && o.idprogetto != 99998 && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' });
+                    objFinEq = _.filter(projects, function (o) { return o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca'; });
 
                 if (opts.idtimesheettemplate === ETemplateType.MIMIT ||
-                    opts.idtimesheettemplate === ETemplateType.MIMIT_2) {
+                    opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                    opts.idtimesheettemplate === ETemplateType.MIMIT_2
+                ) {
                     self.getRowText(sheet, rowIndex, "Altre attività non di pertinenza del progetto", month);
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
                 }
 
-                if (opts.idtimesheettemplate === ETemplateType.MISE) {
+                if (
+                    opts.idtimesheettemplate === ETemplateType.PON ||
+                    opts.idtimesheettemplate === ETemplateType.MISE
+                ) {
                     self.getRowText(sheet, rowIndex, "Altri progetti finanziati", month);
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
                 }
@@ -5304,7 +7179,7 @@
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
 
                     objFinEq = _.filter(projects, function (o) {
-                        return o.iseu == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                        return o.iseu == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                     });
                 } else {
                     //2.2 aggiungo la riga "ATTIVITA' SVOLTE SU ALTRI PROGETTI MUR:"
@@ -5312,7 +7187,7 @@
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
 
                     objFinEq = _.filter(projects, function (o) {
-                        return o.ismur == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                        return o.ismur == 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                     });
 
                 }
@@ -5328,7 +7203,7 @@
                     self.getRowText(sheet, rowIndex, "Attività svolte su progetti finanziati con altre risorse (C)", month);
                     rowIndex += 1; // righe aggiunte per wp + 1 del prog
                     objFinNeq = _.filter(projects, function (o) {
-                        return o.iseu != 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                        return o.iseu != 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                     });
                 } else {
                     //2.3 aggiungo la riga "ATTIVITA' SVOLTE SU ALTRI PROGETTI:"
@@ -5337,7 +7212,7 @@
 
                     //2.4 poi quella dei progetti con ente finanziatore diverso
                     objFinNeq = _.filter(projects, function (o) {
-                        return o.ismur != 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto != 'fittizio ricerca' && o.tipoprogetto != 'fittizio altro' && o.tipoprogetto != 'didattica' && o.tipoprogetto != 'altro'
+                        return o.ismur != 'S' && o.idprogetto != opts.idprogetto && o.tipoprogetto == 'ricerca';
                     });
 
                 }
@@ -5431,54 +7306,110 @@
 
             //MALATTIE FERIE PERMESSI -----------------------------------------------------------------------------------------------------------
 
-            //solo per  PNRR aggiungo la riga ferie e malattie per PNRR_PF e PNC non la metto
-            if (opts.idtimesheettemplate === ETemplateType.PNRR) {
-                self.getRowText(sheet, rowIndex, "Altro (Malattia, Ferie, Permessi, …)", month);
-                rowIndex += 1;
+            if (
+                opts.idtimesheettemplate === ETemplateType.PNRR ||
+                opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT ||
+                opts.idtimesheettemplate === ETemplateType.MALATTIE_RARE
+            ) {
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia' || o.tipoprogetto == 'ferie' || o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
             }
 
-            //solo per MASE, aggiungo la riga ferie e malattie per PNRR_PF e PNC non la metto
             if (opts.idtimesheettemplate === ETemplateType.MASE) {
-                self.getRowText(sheet, rowIndex, "Altro (malattia, ferie, permessi, etc..) (E)", month);
-                rowIndex += 1;
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia' || o.tipoprogetto == 'ferie' || o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
             }
 
-            //solo per NBFC_CNR, aggiungo il totale reale e le righe ferie e malattie permessi e assenze
             if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
                 //faccio in modo che in questo primo totale ci sia il totale reale calcolato su ricerca insegnamento e attività ordinaria
                 opts.showOtherActivitiesrow = false;
 
                 //visualizza il totale giornaliero
-                this.addLastRowWithTotal(sheet, rowIndex, dtInput, month, year, opts);
+                this.addLastRowWithTotalActivities(sheet, rowIndex, dtInput, month, year, opts);
                 rowIndex += 1;
 
-                self.getRowText(sheet, rowIndex, "Malattia", month);
-                rowIndex += 1;
-                self.getRowText(sheet, rowIndex, "Ferie", month);
-                rowIndex += 1;
-                self.getRowText(sheet, rowIndex, "Permessi", month);
-                rowIndex += 1;
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+
+                let objFerie = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'ferie'
+                });
+                _.forEach(objFerie, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+                let objPermessi = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objPermessi, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+
                 self.getRowText(sheet, rowIndex, "Altre assenze", month);
                 rowIndex += 1;
             }
 
-            //solo per MISE aggiungo le righe malattia,ferie e permessi
-            if (opts.idtimesheettemplate === ETemplateType.MISE || opts.idtimesheettemplate === ETemplateType.MIMIT_2) {
-                self.getRowText(sheet, rowIndex, "Malattia", month);
-                rowIndex += 1;
-                self.getRowText(sheet, rowIndex, "Ferie", month);
-                rowIndex += 1;
-                self.getRowText(sheet, rowIndex, "Permessi", month);
-                rowIndex += 1;
+            if (
+                opts.idtimesheettemplate === ETemplateType.MISE ||
+                opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                opts.idtimesheettemplate === ETemplateType.HORIZON_ERANET_COFUND
+            ) {
+                let objMalattia = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'malattia'
+                });
+                _.forEach(objMalattia, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+
+                let objFerie = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'ferie'
+                });
+                _.forEach(objFerie, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+                let objPermessi = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objPermessi, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
             }
 
-            //solo per MISE aggiungo le righe malattia,ferie e permessi
             if (opts.idtimesheettemplate === ETemplateType.FSC_MS) {
-                self.getRowText(sheet, rowIndex, "Ferie", month);
-                rowIndex += 1;
-                self.getRowText(sheet, rowIndex, "Permessi", month);
-                rowIndex += 1;
-            }
+                let objFerie = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'ferie'
+                });
+                _.forEach(objFerie, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });
+                let objPermessi = _.filter(projects, function (o) {
+                    return o.tipoprogetto == 'permessi'
+                });
+                _.forEach(objPermessi, function (el) {
+                    var currentRowIndex = self.getProgettoTimeSheet(sheet, rowIndex, el.progetto, el, dtInput, month, year, opts);
+                    rowIndex += currentRowIndex + 1; // righe aggiunte per wp + 1 del prog
+                });            }
 
             //RIGHE ATTIVABILI CON OPZIONI + TOTALE + PIEDIPAGINA-----------------------------------------------------------------------------------------------------
 
@@ -5491,13 +7422,13 @@
 
             //riga con il totale delle SOLE attività di ricerca
             if (showactivitiesrow) {
-                this.addLastRowWithTotalActivities(sheet, rowIndex, dtInput, month, year);
+                this.addLastRowWithTotalActivities(sheet, rowIndex, dtInput, month, year, opts);
                 rowIndex++;
             }
 
-            //se il template è  NBFC_CNR nell'ultimo totale ci va il totale fittizio del massimo delle ore lavorabili
-            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) 
-                opts.showOtherActivitiesrow = true;
+            ////se il template è  NBFC_CNR nell'ultimo totale ci va il totale fittizio del massimo delle ore lavorabili
+            //if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) 
+            //    opts.showOtherActivitiesrow = true;
 
             //visualizza il totale giornaliero
             this.addLastRowWithTotal(sheet, rowIndex, dtInput, month, year, opts);
@@ -5564,7 +7495,7 @@
                 posY(1), posX(this.columnIndexMonth)
             );
             mergedCellMonth.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
-            mergedCellMonth.value(this.getMonthColumnName(month));
+            mergedCellMonth.value(this.getMonthColumnName(month) + ' ' + year.toString());
             mergedCellMonth.cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_MONTH));
             mergedCellMonth.cellFormat().font().colorInfo(this.COLOR_MONTH_FONT);
             mergedCellMonth.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.double1);
@@ -5658,7 +7589,7 @@
             mergedCellProgName.value(this.lang == 'it' ? "Ore totali" : "Total hours");
 
             if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
-                mergedCellProgName.value(opts.showOtherActivitiesrow ? "Totale ore lavorative" : "Totale ore produttive");
+                mergedCellProgName.value("Totale ore lavorative");
             }
 
             if (opts.idtimesheettemplate === ETemplateType.FSC_MS_5) {
@@ -5675,18 +7606,23 @@
                 var d = new Date(year, month - 1, counterDay);
                 //ore rendicontate
                 var tot = _.sumBy(_.filter(dtInput.rows, { giorno: counterDay, mese: month }), 'ore');
+
                 //ore massime lavorabili
                 var maxHoursPerDayRole = this.getMaxHourPerDay(d);
                 var maxHours = maxHoursPerDayRole.maxHoursPerDay;
 
+                let isFestivo = this.isZeroOtherActivitiesDay(d);
+                //considero il ruolo solo se non è sabato, domenica o festività e non sono consolidamenti obbligatori (l'obbligatorietà dei consolidamenti la calcola la vista stessa
+                let role = isFestivo && maxHoursPerDayRole.role != 'Consolidamento assente' && maxHoursPerDayRole.role != 'Consolidamenti' ? '' : maxHoursPerDayRole.role; 
+
                 //SE ho calcolato la riga delle altre attività per differenza con le massime, allora ...
                 //...tranne che sabato, domenica e i gorni di sospensione se ha rendicontato meno delle ore lavorate/lavorabili ...
-                if (!this.isZeroOtherActivitiesDay(d) && tot < maxHours && opts.showOtherActivitiesrow) {
+                if (!isFestivo && tot < maxHours && opts.showOtherActivitiesrow) {
                     //...il mio totale sono le ore lavorate/lavorabili ...
                     tot = maxHours
                 }
 
-                if (maxHoursPerDayRole.role == 'Timbrature') {
+                if (role == 'Timbrature') {
                     //se ha sforato le timbrature...
                     if (tot > maxHours) {
                         //...la coloro di rosso
@@ -5698,7 +7634,7 @@
                     }
                 }
 
-                if (maxHoursPerDayRole.role == 'Consolidamenti') {
+                if (role == 'Consolidamenti') {
                     //se ha sforato oppure non saturato il consolidamento...
                     if (tot != maxHours) {
                         //...la coloro di rosso
@@ -5711,7 +7647,7 @@
                 }
 
                 //La vista in caso di utilizzo di timbrature restituisce questi ruoli speciali in caso di assenza
-                if (maxHoursPerDayRole.role == 'Consolidamento assente' || maxHoursPerDayRole.role == 'Timbratura assente') {
+                if (role == 'Consolidamento assente' || role == 'Timbratura assente') {
                     //...la coloro di rosso
                     isRed = true;
                     //... lascio il totale di quanto rendicontato 
@@ -5721,7 +7657,7 @@
 
                 globalTot += tot;
                 var dataCellIndex = this.columnIndexMonth + counterDay + this.offsetX;
-                xlRow.setCellValue(dataCellIndex, tot);
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(tot));
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.double1);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(isRed ? this.COLOR_CELL_ERRORE : this.COLOR_ROW_TOTAL));
@@ -5734,7 +7670,7 @@
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().bottomBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
-            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, globalTot);
+            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, this.toTimeString(globalTot));
         },
 
         /**
@@ -5747,7 +7683,7 @@
          * @param month
          * @param year
          */
-        addLastRowWithTotalActivities: function (sheet, rowIndex, dtInput, month, year) {
+        addLastRowWithTotalActivities: function (sheet, rowIndex, dtInput, month, year, opts) {
             // 1. aggiungo riga del totale
             var posY = this.posY.bind(this);
             var posX = this.posX.bind(this);
@@ -5755,8 +7691,15 @@
                 posY(rowIndex), posX(0),
                 posY(rowIndex), posX(this.columnIndexMonth));
             mergedCellProgName.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
+
             mergedCellProgName.value(this.lang == 'it' ? "Ore totali in attività di ricerca" : "Total research activities hours");
             mergedCellProgName.cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
+
+            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                mergedCellProgName.value("Totale ore produttive");
+                mergedCellProgName.cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_TOTAL));
+            }
+
             mergedCellProgName.cellFormat().leftBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             mergedCellProgName.cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             mergedCellProgName.cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
@@ -5766,32 +7709,41 @@
             var daysInMonth = this.getNumDaysInMonth(month, year);
             for (var counterDay = 1; counterDay <= daysInMonth; counterDay++) {
                 var dataCellIndex = this.columnIndexMonth + counterDay + this.offsetX;
-                xlRow.setCellValue(dataCellIndex,
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(
                     _.sumBy(
                         _.filter(
                             dtInput.rows,
                             function (o) {
-                                return o.giorno == counterDay && o.mese == month && !(o.progetto === 'Other activities' || o.progetto === 'Teaching activities' || o.progetto === 'Attività ordinaria' || o.progetto === 'Institutional activities' )
+                                return o.giorno == counterDay && o.mese == month && (o.tipoprogetto == 'ricerca' || o.tipoprogetto == 'fittizio ricerca');
                             }
                             //{ giorno: counterDay, mese: month }
                         )
-                        , 'ore'));
+                        , 'ore')));
                 xlRow.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
+
+                if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                    sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_TOTAL));
+                }
+
             }
 
             // aggiungo cella per il totale
             var total = _.sumBy(_.filter(
                 dtInput.rows, function (o) {
-                    return o.mese == month && !(o.progetto === 'Other activities' || o.progetto === 'Teaching activities' || o.progetto === 'Attività ordinaria' || o.progetto === 'Institutional activities')
+                    return o.mese == month && (o.tipoprogetto == 'ricerca' || o.tipoprogetto == 'fittizio ricerca');
                 }
                 //{ mese: month }
             ), 'ore');
-            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, total);
+            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
+
+            if (opts.idtimesheettemplate === ETemplateType.NBFC_CNR) {
+                sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_TOTAL));
+            }
         },
 
         /**
@@ -5851,35 +7803,41 @@
                 var dataCellIndex = this.columnIndexMonth + counterDay + this.offsetX;
                 //ore massime lavorabili
                 var maxHoursPerDayRole = this.getMaxHourPerDay(d);
-                var maxDayHour = maxHoursPerDayRole.maxHoursPerDay;
-                var diff = maxDayHour - _.sumBy(_.filter(projectsRows, { giorno: counterDay, mese: month }), 'ore');
+                let isFestivo = this.isZeroOtherActivitiesDay(d);
+                var maxDayHour = isFestivo ? 0 : maxHoursPerDayRole.maxHoursPerDay;
+                let role = isFestivo ? '' : maxHoursPerDayRole.role; //considero il ruolo solo se non è sabato, domenica o festività
+                let researchHours = _.sumBy(_.filter(projectsRows, { giorno: counterDay, mese: month }), 'ore');
+                let diff = maxDayHour - researchHours
 
                 //se è una timbratura e ho sforato (diff negativo) ...
-                if (diff && diff < 0 && maxHoursPerDayRole.role == 'Timbrature') {
+                if (
+                    (diff && diff < 0 && role == 'Timbrature')
+                    //|| role == " <span style='color:red;'>non definita per questo giorno<span>" //TOLTO perche' non deve essere segnalato nella riga "altre ore"" la timbratura assente. Lo farà il totale se serve
+                ) {
                     //...la segnalo in rosso e lascio il numero negativo
                     isRed = true;
                 }
 
                 //se è una Consolidamento e ho sforato (diff negativo) o non saturato (diff positivo)...
-                if (diff && diff != 0 && maxHoursPerDayRole.role == 'Consolidamenti') {
+                if (diff && diff != 0 && role == 'Consolidamenti') {
                     //...la segnalo in rosso e lascio il numero negativo
                     isRed = true;
                 }
 
                 //se è un massimale che viene dalla configurazione si può superare ...
-                if (diff && diff > 0 && maxHoursPerDayRole.role != 'Timbrature' && maxHoursPerDayRole.role != 'Consolidamenti') {
+                if (diff && diff < 0 && role != 'Timbrature' && role != 'Consolidamenti') {
                     //... ma devo impostare le altre ore a zero (non possono essere negative)
                     diff = 0;
                 }
 
-                xlRow.setCellValue(dataCellIndex, diff);
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(diff));
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(isRed ? this.COLOR_CELL_ERRORE : this.COLOR_ROW_PROG));
                 total += diff;
             }
 
             // aggiungo cella per il totale
-            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, total);
+            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
@@ -5909,9 +7867,12 @@
         isSospensioneDay: function (d) {
             var isSospensione = false;
             if (appMeta.appMain.dtSospensioni) {
-                // torna true se ricade fuori dalla sospensione
-                isSospensione = !_.every(appMeta.appMain.dtSospensioni.rows, function (rowSosp) {
-                    if (rowSosp.start && rowSosp.stop) return !(moment(d).isAfter(moment(rowSosp.start)) && moment(d).isBefore(moment(rowSosp.stop)));
+                // Non è fuori da tutte le sospensioni
+                isSospensione = !_.every(_.orderBy(appMeta.appMain.dtSospensioni.rows, 'start'), function (rowSosp) {
+                    if (rowSosp.start && rowSosp.stop) {
+                        //non è dentro => è fuori
+                        return !(moment(d).isSameOrAfter(moment(rowSosp.start)) && moment(d).isBefore(moment(rowSosp.stop)));
+                    }
                     return true;
                 });
             }
@@ -5955,14 +7916,19 @@
             if ((
                 opts.idtimesheettemplate === ETemplateType.PNRR ||
                 opts.idtimesheettemplate === ETemplateType.PNRR_PF ||
+                opts.idtimesheettemplate === ETemplateType.PNRR_AGE_IT ||
                 opts.idtimesheettemplate === ETemplateType.PNC ||
-                opts.idtimesheettemplate === ETemplateType.NBFC_CNR
+                opts.idtimesheettemplate === ETemplateType.NBFC_CNR ||
+                opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
+                opts.idtimesheettemplate === ETemplateType.MIMIT_2 ||
+                opts.idtimesheettemplate === ETemplateType.MALATTIE_RARE
             )
                 && progettoObj.tipoprogetto == 'ricerca'
             ) {
-
-                mergedCellProgName.value(progettokey + '; CUP:' + progettoObj.cup + ';');
-
+                if (progettoObj.cup)
+                    mergedCellProgName.value(progettokey + '; CUP:' + progettoObj.cup + ';');
+                else
+                    mergedCellProgName.value(progettokey);
             }
 
             if (
@@ -5981,6 +7947,7 @@
 
                 if (
                     opts.idtimesheettemplate === ETemplateType.MISE ||
+                    opts.idtimesheettemplate === ETemplateType.PORCAMPANIA_21_27 ||
                     opts.idtimesheettemplate === ETemplateType.MIMIT_2
                     )
                     mergedCellProgName.value("Attività progetto");
@@ -5992,7 +7959,7 @@
 
             //modifica della altre ore + ore di didattica 
             if (opts.idtimesheettemplate === ETemplateType.MASE) {
-                if (progettoObj.tipoprogetto != 'ricerca') {
+                if (progettoObj.tipoprogetto == 'altro' || progettoObj.tipoprogetto == 'didattica') {
                     mergedCellProgName.value("Attività ordinaria (D)");
                 }
             }
@@ -6017,19 +7984,19 @@
             var daysInMonth = this.getNumDaysInMonth(month, year);
             for (var counterDay = 1; counterDay <= daysInMonth; counterDay++) {
                 var dataCellIndex = this.columnIndexMonth + counterDay + this.offsetX;
-                xlRow.setCellValue(dataCellIndex, this.getDaySumProject(dtInput, progettokey, month, counterDay));
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(this.getDaySumProject(dtInput, progettokey, month, counterDay)));
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
                 sheet.rows(rowIndex + this.offsetY).cells(dataCellIndex).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
             }
             // aggiungo cella per il totale
             var total = _.sumBy(_.filter(dtInput.rows, { progetto: progettokey, mese: month }), 'ore');
-            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, total);
+            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().topBorderStyle($.ig.excel.CellBorderLineStyle.dotted);
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().fill($.ig.excel.CellFill.createSolidFill(this.COLOR_ROW_PROG));
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
 
             //se è stata indicata l'opzione di visualizzare i workpackage e non ho applicato il collasso su una riga sola del progetto corrente e sono righe di progetti reali (non fittizi)
-            if (opts.withWorkpackage == true && progettokey != "Altri progetti finanziati" && progettoObj.tipoprogetto == 'ricerca') {
+            if (opts.withWorkpackage == true && progettokey != "Altri progetti finanziati" && progettoObj.tipoprogetto == 'ricerca' && progettoObj.idprogetto == opts.idprogetto) {
                 // 2. scorro i workpackege del progetto e creo riga
 
                 progettoObj.group = Object.keys(progettoObj.group)
@@ -6040,7 +8007,7 @@
                     }, {});
                 _.forOwn(progettoObj.group, function (el, wpkey) {
                     if (wpkey !== 'Teaching activities' && wpkey !== 'Other activities' && wpkey !== 'Other Research Activities') {
-                        if (opts.multilineType == true) {
+                        if (opts.multilineType == true /*&& progettoObj.idprogetto == opts.idprogetto*/) {
                             _.forOwn(el.group, function (elType, wpkeyType) {
                                 currRowIndex++;
                                 self.getWorkpackageTimeSheet(sheet, currRowIndex + rowIndex, wpkey, progettokey, dtInput, month, year, opts, wpkeyType);
@@ -6112,7 +8079,7 @@
             var xlRow = sheet.rows(rowIndex + this.offsetY);
             for (var counterMonth = 1; counterMonth <= 12; counterMonth++) {
                 var dataCellIndex = this.columnIndexMonth + counterMonth + this.offsetX + this.offsetXYear;
-                xlRow.setCellValue(dataCellIndex, this.getDaySumWorkpackageMonth(dtInput, progettokey, workpackagekey, counterMonth, type));
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(this.getDaySumWorkpackageMonth(dtInput, progettokey, workpackagekey, counterMonth, type)));
                 xlRow.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
             }
             // aggiungo cella per il totale
@@ -6121,7 +8088,7 @@
                 total = _.sumBy(_.filter(dtInput.rows, { progetto: progettokey, workpackage: workpackagekey, tipo: type }), 'ore');
             else
                 total = _.sumBy(_.filter(dtInput.rows, { progetto: progettokey, workpackage: workpackagekey }), 'ore');
-            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, total);
+            xlRow.setCellValue(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterMonth + this.columnIndexMonth + this.offsetX + this.offsetXYear).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
         },
 
@@ -6158,7 +8125,7 @@
             var daysInMonth = this.getNumDaysInMonth(month, year);
             for (var counterDay = 1; counterDay <= daysInMonth; counterDay++) {
                 var dataCellIndex = this.columnIndexMonth + counterDay + this.offsetX;
-                xlRow.setCellValue(dataCellIndex, this.getDaySumWorkpackage(dtInput, progettokey, workpackagekey, month, counterDay, type));
+                xlRow.setCellValue(dataCellIndex, this.toTimeString(this.getDaySumWorkpackage(dtInput, progettokey, workpackagekey, month, counterDay, type)));
                 xlRow.cellFormat().alignment($.ig.excel.HorizontalCellAlignment.center);
             }
             // aggiungo cella per il totale
@@ -6167,7 +8134,7 @@
                 total = _.sumBy(_.filter(dtInput.rows, { progetto: progettokey, workpackage: workpackagekey, mese: month, tipo: type }), 'ore');
              else
                 total = _.sumBy(_.filter(dtInput.rows, { progetto: progettokey, workpackage: workpackagekey, mese: month }), 'ore');
-            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, total);
+            xlRow.setCellValue(counterDay + this.columnIndexMonth + this.offsetX, this.toTimeString(total));
             sheet.rows(rowIndex + this.offsetY).cells(counterDay + this.columnIndexMonth + this.offsetX).cellFormat().rightBorderStyle($.ig.excel.CellBorderLineStyle.double1);
         },
 

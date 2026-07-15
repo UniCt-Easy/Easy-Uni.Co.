@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_movfinsorted]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure exp_movfinsorted
@@ -63,7 +61,7 @@ begin
 	proceeds.npro as 'Num. Reversale',
 	proceedstransmission.nproceedstransmission as 'Num. Distinta Trasm.',
 	proceedstransmission.transmissiondate as 'Data Distinta Trasm.',
-	treasurer.description as 'Cassiere'
+	treasurer.description as 'Conto Corrente'
 	from incomesorted
 		join sorting on sorting.idsor=incomesorted.idsor
 		join sortingkind on sortingkind.idsorkind = sorting.idsorkind
@@ -110,7 +108,7 @@ begin
 	payment.npay as 'Num. Mandato',
 	paymenttransmission.npaymenttransmission as 'Num. Distinta Trasm.',
 	paymenttransmission.transmissiondate as 'Data Distinta Trasm.',
-	treasurer.description as 'Cassiere'
+	treasurer.description as 'Conto Corrente'
 	from expensesorted
 	join sorting on sorting.idsor=expensesorted.idsor
 	join sortingkind on sortingkind.idsorkind = sorting.idsorkind

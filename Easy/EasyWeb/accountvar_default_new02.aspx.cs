@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -141,6 +139,12 @@ public partial class accountvar_default_new02 : MetaPage {
                 DS.accountvar.Columns["idman"].DefaultValue = idman;
             }
         }
+
+        // ===============================================================================
+        // La InsertCopy non deve copiare le tabelle degli allegati
+        // ===============================================================================
+        QueryCreator.setSkipInsertCopy(DS.accountvarattachment, true);
+
         return;
     }
 
@@ -303,14 +307,20 @@ public partial class accountvar_default_new02 : MetaPage {
         LockUnLockControls(false);
         esercizio.ReadOnly = true;
         EnableDisableVariationKind();
+
+        // ===============================================================================
+        // La InsertCopy non deve copiare le tabelle degli allegati
+        // ===============================================================================
+        QueryCreator.setSkipInsertCopy(DS.accountvarattachment, true);
+
         return;
     }
 
     private void EnableDisableVariationKind() {
         if ((PState.IsEmpty) || (PState.InsertMode)) {
             variationtime1.Enabled = true;//Tipo Normale
-            //variationtime5.Enabled = true; Questa parte resta commentata, perchË in realt‡ questo check non Ë presente nel codice .aspx, esiste ma Ë commentato. Per le Var. di tipo Iniziale 
-            //c'Ë una voce di menu apposita che richiama questa pagina, e il gruppo Tipo Variazione viene completamente nascoso
+            //variationtime5.Enabled = true; Questa parte resta commentata, perch√® in realt√† questo check non √® presente nel codice .aspx, esiste ma √® commentato. Per le Var. di tipo Iniziale 
+            //c'√® una voce di menu apposita che richiama questa pagina, e il gruppo Tipo Variazione viene completamente nascoso
         }
         if (PState.EditMode) {
             DataRow Curr = DS.accountvar.Rows[0];

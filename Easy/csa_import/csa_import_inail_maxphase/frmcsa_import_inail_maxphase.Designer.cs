@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace csa_import_inail_maxphase {
 	partial class frmcsa_import_inail_maxphase {
@@ -78,7 +76,7 @@ namespace csa_import_inail_maxphase {
 			this.btnVersamenti = new System.Windows.Forms.Button();
 			this.tabRisultati = new Crownwood.Magic.Controls.TabPage();
 			this.labelRisultato = new System.Windows.Forms.Label();
-			this.progressBarImport = new System.Windows.Forms.ProgressBar();
+			//this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.DS = new csa_import_inail_maxphase.dsmeta();
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
@@ -512,7 +510,7 @@ namespace csa_import_inail_maxphase {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabRisultati.Controls.Add(this.labelRisultato);
-			this.tabRisultati.Controls.Add(this.progressBarImport);
+			//this.tabRisultati.Controls.Add(this.progressBarImport);
 			this.tabRisultati.Location = new System.Drawing.Point(0, 0);
 			this.tabRisultati.Name = "tabRisultati";
 			this.tabRisultati.Selected = false;
@@ -531,13 +529,13 @@ namespace csa_import_inail_maxphase {
 			// 
 			// progressBarImport
 			// 
-			this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBarImport.Location = new System.Drawing.Point(14, 321);
-			this.progressBarImport.Name = "progressBarImport";
-			this.progressBarImport.Size = new System.Drawing.Size(779, 22);
-			this.progressBarImport.TabIndex = 11;
-			this.progressBarImport.Visible = false;
+			//this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBarImport.Location = new System.Drawing.Point(14, 321);
+			//this.progressBarImport.Name = "progressBarImport";
+			//this.progressBarImport.Size = new System.Drawing.Size(779, 22);
+			//this.progressBarImport.TabIndex = 11;
+			//this.progressBarImport.Visible = false;
 			// 
 			// panel1
 			// 
@@ -617,7 +615,7 @@ namespace csa_import_inail_maxphase {
 		private System.Windows.Forms.Button btnVersamenti;
 		private System.Windows.Forms.GroupBox grpVerifiche;
 		private System.Windows.Forms.DataGrid dgrVersamentiAnnuali;
-		private System.Windows.Forms.ProgressBar progressBarImport;
+		//private System.Windows.Forms.ProgressBar progressBarImport;
 		private System.Windows.Forms.Label labelRisultato;
 		private System.Windows.Forms.GroupBox gBoxBollettaVersamenti;
 		private System.Windows.Forms.Label label8;

@@ -32,6 +32,9 @@
 						this.describeAColumn(table, 'contributomiimporto', 'Importo contributi per mobilità internazionale', 'fixed.2', 70, null);
 						this.describeAColumn(table, 'contributomimesi', 'Numero mesi contributi mobilità internazionale', null, 80, null);
 						this.describeAColumn(table, 'fuoricorso', 'Fuori corso', null, 90, null);
+						this.describeAColumn(table, 'idbandodsserviziokind', 'Tipo servizio offerto', null, 110, null);
+						this.describeAColumn(table, 'idesonero', 'Esonero', null, 120, null);
+						this.describeAColumn(table, 'idistattitolistudio_min', 'Titolo minimo di studio', null, 130, null);
 						this.describeAColumn(table, 'iseemax', 'ISEE massimo', 'fixed.2', 140, null);
 						this.describeAColumn(table, 'ispemax', 'ISPE massimo', 'fixed.2', 150, null);
 						this.describeAColumn(table, 'maggiorenne', 'Maggiorenne', null, 160, null);

@@ -29,6 +29,11 @@
 				var parentRow = self.state.currentRow;
 				
 				parentRow.idcostoscontodef = this.state.callerState.currentRow.idcostoscontodef;
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#fasciaiseedef_sconti_idfasciaisee'), null);
+				} else {
+					this.helpForm.filter($('#fasciaiseedef_sconti_idfasciaisee'), this.q.eq('fasciaisee_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -47,13 +52,20 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#fasciaiseedef_sconti_idfasciaisee'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
 			afterLink: function () {
 				var self = this;
-				self.firstSearchFilter  = window.jsDataQuery.eq("idcostoscontodef", this.state.callerState.currentRow.idcostoscontodef);
+				var f1 = window.jsDataQuery.eq("idcostoscontodef", this.state.callerState.currentRow.idcostoscontodef);
+				self.firstSearchFilter  = f1;
 					self.startFilter = self.firstSearchFilter;
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {

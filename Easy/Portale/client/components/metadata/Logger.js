@@ -87,8 +87,14 @@
                             var showInfo = envs.includes(appMeta.config.env) || appMeta.config.forceShowErrorInfo;
 
                             let winModal = new appMeta.BootstrapModal(localResource.error, params[0], [appMeta.localResource.ok], appMeta.localResource.cancel, time + (showInfo? ": " + JSON.stringify(params):""));
-                            //se l'utente è loggato scrivo sul db l'errore
-                            if (appMeta.security.usrEnv.userweb && params.length > 1 && !params[1].includes('Unauthorized') && !params[1].includes('TokenEmpty') && params[1] != ' errors: {"status":"error"}') { 
+                            //se l'utente è loggato e non è un errore dello stesso logger scrivo sul db l'errore
+                            if (appMeta.security.usrEnv.userweb && params.length > 1
+                                && !params[1].includes('logError')
+
+                                && !params[1].includes('Unauthorized')
+                                && !params[1].includes('TokenEmpty')
+                                && params[1] != ' errors: {"status":"error"}'
+                            ) { 
                                 appMeta.callWebService("logError",
                                     {
                                         error: params[1],

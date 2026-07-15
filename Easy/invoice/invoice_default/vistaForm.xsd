@@ -341,6 +341,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="flagactivity" type="xs:short" minOccurs="0" />
               <xs:element name="codeivaregisterkind" type="xs:string" minOccurs="0" />
+              <xs:element name="emails" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1771,6 +1772,7 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_attachmentkind" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_attachment_fe" type="xs:string" minOccurs="0" />
             </xs:sequence>
@@ -2019,6 +2021,7 @@
               <xs:element name="valuefield5int" type="xs:int" minOccurs="0" />
               <xs:element name="valuefield5str" type="xs:string" minOccurs="0" />
               <xs:element name="documentkind" type="xs:string" />
+              <xs:element name="tabname" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections;
@@ -109,7 +107,7 @@ public partial class MetaMasterBootstrap :System.Web.UI.MasterPage, MetaPageMast
             //lblTitoloUniversita1.Visible = false;
             lblDipartimento.Visible = false;
             CPH_InfoUtente.Visible = false;
-            //Dovrei nascondere anche il logo, ma attualmente Ë un Html Control, dunque non visibile da C#
+            //Dovrei nascondere anche il logo, ma attualmente √® un Html Control, dunque non visibile da C#
             //Va sostituito con un controllo ASP, in modo che possa gestirlo da codice, e dunque implementare 
             //il caricamento personalizzato dell'immagine del logo.
         }
@@ -253,7 +251,7 @@ public partial class MetaMasterBootstrap :System.Web.UI.MasterPage, MetaPageMast
 
 
     ///// <summary>
-    ///// Disabilita tutti i textbox presenti in un contenitore e aggiunge quelli gi‡ disabilitati a List
+    ///// Disabilita tutti i textbox presenti in un contenitore e aggiunge quelli gi√† disabilitati a List
     ///// </summary>
     ///// <param name="Parent">Container control</param>
     ///// <param name="List">List of controls which were already disabled</param>
@@ -414,7 +412,7 @@ public partial class MetaMasterBootstrap :System.Web.UI.MasterPage, MetaPageMast
         T.Columns.Add("msg", typeof(string));
         T.Columns["msg"].Caption = "Messaggio di errore";
         T.Columns.Add("kind", typeof(string));
-        T.Columns["kind"].Caption = "Gravit‡";
+        T.Columns["kind"].Caption = "Gravit√†";
         T.Columns.Add("codice", typeof(string));
         T.Columns["codice"].Caption = "Codice";
         //T.Columns.Add("table", typeof(string));

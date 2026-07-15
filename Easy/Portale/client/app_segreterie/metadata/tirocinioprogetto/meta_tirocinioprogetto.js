@@ -48,6 +48,9 @@
 						objCalcFieldConfig['!idstruttura_struttura_idstrutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
 						this.describeAColumn(table, '!idtirociniostato_tirociniostato_title', 'Stato del tirocinio', null, 191, null);
 						objCalcFieldConfig['!idtirociniostato_tirociniostato_title'] = { tableNameLookup:'tirociniostato', columnNameLookup:'title', columnNamekey:'idtirociniostato' };
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Tutor', null, 121, null);
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
+						this.describeAColumn(table, '!idstruttura_struttura_idstrutturakind_title', 'Tipo Struttura didattica', null, 160, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

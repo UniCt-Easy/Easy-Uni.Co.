@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -5661,6 +5659,11 @@ namespace casualcontract_default { //contrattooccasionale//
             }
             DataRow curr = DS.casualcontract.Rows[0];
             SiopeObj.setCausaleEPCorrente(curr["idaccmotive"]);
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.casualcontractattachment, true);
         }
 
        
@@ -5783,9 +5786,9 @@ namespace casualcontract_default { //contrattooccasionale//
                     QHS.IsNull("tax.geoappliance"), QHS.CmpLe("taxratestart.start", datadaconsiderare),
                     QHS.CmpGt("employrate", 0)) +
                 " AND taxratestart.idtaxratestart= (SELECT MAX(TT.idtaxratestart) from taxratestart TT where  " +
-                " TT.start=taxratestart.start)" +
+                " TT.start=taxratestart.start   and " + QHS.CmpLe("TT.start", datadaconsiderare)+ ")" +
                 " AND taxratestart.start = (SELECT MAX(TT2.start) from taxratestart TT2  where " +
-                QHS.AppAnd("(TT2.taxcode=TB.taxcode)",
+                QHS.AppAnd("(TT2.taxcode=TB.taxcode  and " + QHS.CmpLe("TT2.start", datadaconsiderare) + ")",
                     QHS.CmpLe("taxratestart.start", datadaconsiderare))
                 + ")";
 
@@ -6225,10 +6228,27 @@ namespace casualcontract_default { //contrattooccasionale//
             if (btnGeneraAP.Visible) {
                 show("Ricordarsi di compilare la scheda Anagrafe prestazioni");
             }
-        }
+		}
 
+	 bool FlagenablebudgetprevChecked() {
+			EP_functions CurrEP = new EP_functions(Meta.Dispatcher);
+			if (Meta.IsEmpty)
+				return false;
+			if( DS.casualcontract.Rows.Count==0)
+				return false;
+			DataRow Curr = DS.casualcontract.Rows[0];
+			object idaccmotive = Curr["idaccmotive"];
+			if(idaccmotive==DBNull.Value)
+				return false;
+			var contoCosto = CurrEP.GetAccMotiveDetails(idaccmotive);
+			if (contoCosto.Length != 0) {
+				object idAccCosto = contoCosto[0]["idacc"];
+				return EPM.isBudgetEnabled(idAccCosto);
+			}
+			return false;
+		}
 
-        public void MetaData_AfterPost() {
+		public void MetaData_AfterPost() {
             if (filterDeleteImputazione != "") {
                 string script = "delete from casualcontractyear where  "
                                 + filterDeleteImputazione;
@@ -6239,7 +6259,7 @@ namespace casualcontract_default { //contrattooccasionale//
             EPM.afterPost();
             if (DS.casualcontract.Rows.Count > 0 && EPM.UsaImpegniDiBudget) {
                 DataRow curr = DS.casualcontract.Rows[0];
-                if (curr.RowState == DataRowState.Unchanged && EPM.impegniAbilitati(curr)) {
+                if (curr.RowState == DataRowState.Unchanged && EPM.impegniAbilitati(curr) && FlagenablebudgetprevChecked()) {
                     int nEpExp = Conn.RUN_SELECT_COUNT("epexp",
                         QHS.CmpEq("idrelated", $"cascon§{curr["ycon"]}§{curr["ncon"]}"), false);
 

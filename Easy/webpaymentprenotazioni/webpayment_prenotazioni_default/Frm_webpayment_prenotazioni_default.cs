@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System.Windows.Forms;
 using metadatalibrary;
@@ -156,7 +154,7 @@ namespace webpayment_prenotazioni_default
 			this.txtEsercizio.Name = "txtEsercizio";
 			this.txtEsercizio.Size = new System.Drawing.Size(162, 20);
 			this.txtEsercizio.TabIndex = 3;
-			this.txtEsercizio.Tag = "webpayment.ywebpayment";
+			this.txtEsercizio.Tag = "webpayment.ywebpayment.year";
 			// 
 			// label2
 			// 
@@ -459,8 +457,8 @@ namespace webpayment_prenotazioni_default
 			Meta = MetaData.GetMetaData(this);
 			QHC = new CQueryHelper();
 			QHS = Meta.Conn.GetQueryHelper();
-			GetData.SetStaticFilter(DS.webpayment, QHS.CmpEq("ywebpayment", Meta.GetSys("esercizio")));
-			GetData.SetStaticFilter(DS.webpayment_prenotazioniview, QHS.CmpEq("ywebpayment", Meta.GetSys("esercizio")));
+			//GetData.SetStaticFilter(DS.webpayment, QHS.CmpEq("ywebpayment", Meta.GetSys("esercizio")));
+			//GetData.SetStaticFilter(DS.webpayment_prenotazioniview, QHS.CmpEq("ywebpayment", Meta.GetSys("esercizio")));
 		}
 
 

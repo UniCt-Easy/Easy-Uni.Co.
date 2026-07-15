@@ -100,7 +100,7 @@
 						.then(function (dt) {
 							var ambiti = _.map(dt.rows, function (ambito) {
 								return ambito.idambitoareadisc;
-							});
+							}).filter(d => !!d);
 							var filtroAmbito = window.jsDataQuery.isIn("idambitoareadisc", ambiti);
 							appMeta.metaModel.cachedTable(self.getDataTable("ambitoareadiscdefaultview"), false);
 							var affidamentocaratteristica_default_idambitoareadiscCtrl = $('#affidamentocaratteristica_default_idambitoareadisc').data("customController");

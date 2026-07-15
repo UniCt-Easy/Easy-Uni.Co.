@@ -24,11 +24,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
+						this.describeAColumn(table, 'title', 'Titolo', null, 20, 50);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 30, 256);
 						this.describeAColumn(table, 'active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'kind', 'Kind', null, 50, 50);
-						this.describeAColumn(table, 'sortcode', 'Sortcode', null, 60, null);
+						this.describeAColumn(table, 'kind', 'Tipo', null, 50, 50);
+						this.describeAColumn(table, 'sortcode', 'Ordinamento', null, 60, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -39,7 +39,20 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["active"].caption = "Attivo";
+						table.columns["description"].caption = "Descrizione";
+						table.columns["kind"].caption = "Tipo";
+						table.columns["sortcode"].caption = "Ordinamento";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_protocollodockind");
@@ -66,6 +79,9 @@
 				switch (listType) {
 					case "seg": {
 						return "title desc";
+					}
+					case "seg": {
+						return "title desc, sortcode desc";
 					}
 					//$getSortingin$
 				}

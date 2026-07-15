@@ -32,8 +32,8 @@
 				var def = appMeta.Deferred("afterGetFormData-lezione_seg");
 				var arraydef = [];
 				
-				arraydef.push(this.managelezione_seg_title());
 				arraydef.push(this.managelezione_seg_idreg_docenti());
+				arraydef.push(this.managelezione_seg_title());
 				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
@@ -42,7 +42,7 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -54,10 +54,10 @@
 					parentRow.nonsvolta = "N";
 				if (this.isNull(parentRow.stage) || parentRow.stage == '')
 					parentRow.stage = "N";
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
+			if (self.isNullOrMinDate(parentRow.start))
+				parentRow.start = new Date();
+			if (self.isNullOrMinDate(parentRow.stop))
+				parentRow.stop = new Date();
 				if (this.isNull(parentRow.visita) || parentRow.visita == '')
 					parentRow.visita = "N";
 				//beforeFillFilter
@@ -66,8 +66,8 @@
 				var def = appMeta.Deferred("beforeFill-lezione_seg");
 				var arraydef = [];
 				
-				arraydef.push(this.managelezione_seg_title());
 				arraydef.push(this.managelezione_seg_idreg_docenti());
+				arraydef.push(this.managelezione_seg_title());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -80,11 +80,27 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#lezione_seg_idedificio'), true);
+				this.enableControl($('#lezione_seg_idaula'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_rendicontlezionestud_doc').data('mdlconditionallookup', 'assente,S,Si;assente,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-lezione_seg");
@@ -117,16 +133,7 @@
 
 			//beforePost
 
-			managelezione_seg_title: function () {
-				var def = appMeta.Deferred("beforeFill-managelezione_title");
-				var self = this;
-				var affidamentolezione = _.find(this.state.DS.tables.affidamento.rows, function (row) {
-					return row.idaffidamento === self.state.currentRow.idaffidamento;
-				});
-				this.state.currentRow["!title"] = affidamentolezione.title;
-				return def.resolve();
-
-			},
+			//afterPost
 
 			managelezione_seg_idreg_docenti: function () {
      var def = appMeta.Deferred("beforeFill-managelezione_idreg_docenti");
@@ -138,7 +145,18 @@
      return def.resolve(); 
 			},
 
-			children: [''],
+			managelezione_seg_title: function () {
+				var def = appMeta.Deferred("beforeFill-managelezione_title");
+				var self = this;
+				var affidamentolezione = _.find(this.state.DS.tables.affidamento.rows, function (row) {
+					return row.idaffidamento === self.state.currentRow.idaffidamento;
+				});
+				this.state.currentRow["!title"] = affidamentolezione.title;
+				return def.resolve();
+
+			},
+
+			children: ['rendicontlezionestud'],
 			haveChildren: function () {
 				var self = this;
 				return _.some(this.children, function (child) {

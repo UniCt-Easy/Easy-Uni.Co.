@@ -56,15 +56,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="convalidakind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idconvalidakind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="convalida" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -90,7 +81,6 @@
               <xs:element name="voto" type="xs:decimal" minOccurs="0" />
               <xs:element name="votolode" type="xs:string" minOccurs="0" />
               <xs:element name="votosu" type="xs:int" minOccurs="0" />
-              <xs:element name="_x0021_idconvalidakind_convalidakind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -233,7 +223,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="registryistitutiesteriview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="registrydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
@@ -297,10 +287,6 @@
       <xs:field xpath="mstns:idlearningagrstud" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
-    <xs:unique name="convalidakind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:convalidakind" />
-      <xs:field xpath="mstns:idconvalidakind" />
-    </xs:unique>
     <xs:unique name="convalida_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:convalida" />
       <xs:field xpath="mstns:idconvalida" />
@@ -350,8 +336,8 @@
       <xs:selector xpath=".//mstns:eqf" />
       <xs:field xpath="mstns:ideqf" />
     </xs:unique>
-    <xs:unique name="registryistitutiesteriview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registryistitutiesteriview" />
+    <xs:unique name="registrydefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrydefaultview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="learningagrkinddefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -371,7 +357,6 @@
       <msdata:Relationship name="FK_convalida_learningagrstud_idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="learningagrstud" msdata:child="convalida" msdata:parentkey="idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idiscrizionebmi idlearningagrstud idreg" />
       <msdata:Relationship name="FK_convalidato_convalida_idconvalida-idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="convalida" msdata:child="convalidato" msdata:parentkey="idconvalida idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idconvalida idiscrizionebmi idlearningagrstud idreg" />
       <msdata:Relationship name="FK_convalidante_convalida_idconvalida-idiscrizionebmi-idlearningagrstud-idreg" msdata:parent="convalida" msdata:child="convalidante" msdata:parentkey="idconvalida idiscrizionebmi idlearningagrstud idreg" msdata:childkey="idconvalida idiscrizionebmi idlearningagrstud idreg" />
-      <msdata:Relationship name="FK_convalida_convalidakind_idconvalidakind" msdata:parent="convalidakind" msdata:child="convalida" msdata:parentkey="idconvalidakind" msdata:childkey="idconvalidakind" />
       <msdata:Relationship name="FK_cefrlanglevel_learningagrstud_idiscrizionebmi-idlearningagrstud" msdata:parent="learningagrstud" msdata:child="cefrlanglevel" msdata:parentkey="idiscrizionebmi idlearningagrstud" msdata:childkey="idiscrizionebmi idlearningagrstud" />
       <msdata:Relationship name="FK_cefrlanglevel_geo_nation_idnation" msdata:parent="geo_nation" msdata:child="cefrlanglevel" msdata:parentkey="idnation" msdata:childkey="idnation" />
       <msdata:Relationship name="FK_cefrlanglevel_cefrdefaultview_alias4_idcefr_scritto" msdata:parent="cefrdefaultview_alias4" msdata:child="cefrlanglevel" msdata:parentkey="idcefr" msdata:childkey="idcefr_scritto" />
@@ -382,7 +367,7 @@
       <msdata:Relationship name="FK_learningagrstud_mobilityperiodtype_idmobilityperiodtype" msdata:parent="mobilityperiodtype" msdata:child="learningagrstud" msdata:parentkey="idmobilityperiodtype" msdata:childkey="idmobilityperiodtype" />
       <msdata:Relationship name="FK_learningagrstud_strutturadefaultview_idstruttura" msdata:parent="strutturadefaultview" msdata:child="learningagrstud" msdata:parentkey="idstruttura" msdata:childkey="idstruttura" />
       <msdata:Relationship name="FK_learningagrstud_eqf_ideqf" msdata:parent="eqf" msdata:child="learningagrstud" msdata:parentkey="ideqf" msdata:childkey="ideqf" />
-      <msdata:Relationship name="FK_learningagrstud_registryistitutiesteriview_idreg_istitutiesteri" msdata:parent="registryistitutiesteriview" msdata:child="learningagrstud" msdata:parentkey="idreg" msdata:childkey="idreg_istitutiesteri" />
+      <msdata:Relationship name="FK_learningagrstud_registrydefaultview_idreg_istitutiesteri" msdata:parent="registrydefaultview" msdata:child="learningagrstud" msdata:parentkey="idreg" msdata:childkey="idreg_istitutiesteri" />
       <msdata:Relationship name="FK_learningagrstud_learningagrkinddefaultview_idlearningagrkind" msdata:parent="learningagrkinddefaultview" msdata:child="learningagrstud" msdata:parentkey="idlearningagrkind" msdata:childkey="idlearningagrkind" />
     </xs:appinfo>
   </xs:annotation>

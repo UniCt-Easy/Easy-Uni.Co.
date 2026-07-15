@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_epilogo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_epilogo]
 GO
@@ -24,7 +22,11 @@ GO
 SET ANSI_NULLS ON 
 GO
 --setuser 'amministrazione'
-
+/*
+[compute_epilogo_test]  2025, 'P'
+[compute_epilogo_old]  2025, 'P'
+[compute_epilogo]  2024, 'P'
+*/
 CREATE    procedure [compute_epilogo](
 	@ayear int,
 	@kind char(1),-- E: epilogo conto Economico, P: epilogo conti patrimoniali, R:Rilevazione risultato economico
@@ -37,13 +39,13 @@ CREATE    procedure [compute_epilogo](
 as begin 
 
 	declare @idaccPL varchar(38)-- Conto che pareggia l'epilogo dei conti economici 
-	select @idaccPL = idacc_pl from config where ayear = @ayear
+	select  @idaccPL = idacc_pl from config where ayear = @ayear
 
 	declare @idaccPAT varchar(38)-- Conto che pareggia l'epilogo dei conti patrimoniali
-	select @idaccPAT = idacc_patrimony from config where ayear = @ayear 
+	select  @idaccPAT = idacc_patrimony from config where ayear = @ayear 
 
 	declare @idacc_risultatoesercizio varchar(38) -- Conto di risultato esercizio
-	select @idacc_risultatoesercizio = idacc_economic_result from config where ayear = @ayear
+	select  @idacc_risultatoesercizio = idacc_economic_result from config where ayear = @ayear
 
 	declare @idaccToUse varchar(38)
 
@@ -61,7 +63,9 @@ as begin
 			--case when flag&32<>0 then ED.idrelated else null end
 		FROM entrydetail ED 
 		JOIN account ACC 			ON ED.idacc = ACC.idacc
-		 WHERE ED.yentry = @ayear 			and ACC.ayear = @ayear			and ACC.idplaccount is not null
+		 WHERE ED.yentry = @ayear 			
+		 and ACC.ayear = @ayear			
+		 and ACC.idplaccount is not null
 		 GROUP BY ED.idacc,  
 			(case when flag&2 =0 then ED.idupb else null end),
 			 (case when flag&1 =0  then ED.idreg else null end)--,
@@ -77,9 +81,10 @@ as begin
 		insert into @MyTable(amount, idacc, /*idaccmotive,*/ idepexp, idepacc, idupb, idreg, idrelated) --,idrelated
 		SELECT -SUM(ED.amount), ED.idacc, 
 		/*case WHEN (flag&8 =0 and (ED.idepexp is not null or ED.idepacc is not null) ) then ED.idaccmotive ELSE null END,  */
-		case when (flag&8 =0) then ED.idepexp else null end ,    
-		case when (flag&8 =0) then ED.idepacc else null end ,   
-		case when flag&2 =0	  then ED.idupb else null end ,  
+		
+		case when ((flag&8 =0) /*non ignorare Mov. Budget*/ and (( ACC.flagaccountusage & 256) = 0)) /*non Immobilizzazioni*/ then ED.idepexp else null end ,    
+		case when ((flag&8 =0) /*non ignorare Mov. Budget*/ and (( ACC.flagaccountusage & 256) = 0)) /*non Immobilizzazioni*/ then ED.idepacc else null end ,   
+		case when (flag&2 =0)	  then ED.idupb else null end ,  
 		case when (flag&1 =0) then ED.idreg else null end ,
 		case when (flag&32<>0) then ED.idrelated else null end 
 		 FROM entrydetail ED 
@@ -88,8 +93,8 @@ as begin
 		 GROUP BY ED.idacc, /* (CASE WHEN (flag&8 =0  and (ED.idepexp is not null or ED.idepacc is not null))  THEN ED.idaccmotive ELSE null END), */
 		 (case when (flag&2 =0) then ED.idupb else null end),
 		 (case when (flag&1 =0) then ED.idreg else null end),    
-		 (case when (flag&8 =0) then ED.idepexp else null end) ,    
-		 (case when (flag&8 =0) then ED.idepacc else null end),
+		 case when ((flag&8 =0) /*non ignorare Mov. Budget*/ and (( ACC.flagaccountusage & 256) = 0)) /*non Immobilizzazioni*/ then ED.idepexp else null end ,    
+		 case when ((flag&8 =0) /*non ignorare Mov. Budget*/ and (( ACC.flagaccountusage & 256) = 0)) /*non Immobilizzazioni*/ then ED.idepacc else null end , 
 		 (case when (flag&32<>0) then ED.idrelated else null end)         
 		 having SUM(ED.amount)<>0 
 	End
@@ -157,18 +162,13 @@ as begin
 	select @max_nentry+1, @ayear, @31dicembre, @identrykind, @description_entry,
 		'N', @idsor01, @idsor02, @idsor03, @idsor04, @idsor05,'S',
 		getdate(), 'compute_epilogo',getdate(), 'compute_epilogo'
-	
-	/* Se la query restituisce , @description_entryrighe, crea una scrittura
-	 di tipo 11 per Epilogo Conti Economici, descrizione = Scrittura di epilogo esercizio @ayear (conto economico)
-	 di tipo 12 per Epilogo Conti Patrimoniali, , descrizione = Scrittura di epilogo esercizio @ayear (stato patrimoniale)
-	*/
 
 	-- Legge il conto @idaccPAT e @idaccPL e controlloo se nella scrittura debba scrivere anche l'idreg e l'upb, ossia flagregistry e flagupb
 
 	-- Nell'Epilogo dei conti economici non dobbiamo valorizzare causale e impegno di budget
 	-- Quindi per ogni idacc della query, con idacc diverso da   @idaccPAT o @idaccPL, a seconda dell'epilogo, crea i dettagli scrittura positivi e negativi
 
-	DECLARE @MyEntrydetail table(
+	CREATE TABLE #MyEntrydetail (
 		nentry int,
 		yentry int,
 		ndetail int identity(1,1), 
@@ -181,9 +181,9 @@ as begin
 		idepexp int ,
 		idepacc int,
 		idrelated varchar(100)
-		 )
+		)
 
-		insert into @MyEntrydetail (nentry, yentry, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc,idrelated)
+		insert into #MyEntrydetail (nentry, yentry, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc,idrelated)
 		select @max_nentry+1, @ayear, T.amount, T.idacc, T.idreg, T.idupb,
 			null, ---case when @kind='P' then T.idaccmotive else null end,
 			case when @kind='P' then T.idepexp else null end,
@@ -193,40 +193,120 @@ as begin
 		where (@kind='E' and T.idacc <> @idaccPL )
 			OR (@kind ='P' and T.idacc <>@idaccPAT)
 			OR (@kind ='R')
-
-		insert into @MyEntrydetail (nentry, yentry, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc)
-		select @max_nentry+1, @ayear, sum(-T.amount), 
-			@idaccToUse,
-			case when @use_idreg = 'S' then T.idreg else null end, 
-			case when @use_idupb = 'S' then T.idupb else null end,
-			null, --case when @kind='P' then T.idaccmotive else null end,
-			case when @kind='P' then T.idepexp else null end,
-			case when @kind='P' then T.idepacc else null end
-			
-		from @MyTable T
-		group by
-			 case when @use_idreg = 'S' then T.idreg else null end,
-			 case when @use_idupb = 'S' then T.idupb else null end,
-			 case when @kind='P' then T.idepexp else null end ,
-			 case when @kind='P' then T.idepacc else null end
 		
+		-- IN CASO DI EPILOGO DELLO STATO PATRIMONIALE BISOGNA CREARE SOLO DUE DETTAGLI SUL CONTO OPERATIVO, UNO IN DARE E UNO IN AVERE
+		if (@kind='P')
+		begin
+			insert into #MyEntrydetail (nentry, yentry, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc)
+			select      @max_nentry+1, @ayear, sum(-T.amount), 
+				@idaccToUse,
+				null,
+				null,
+				null, --case when @kind='P' then T.idaccmotive else null end,
+				null,
+				null
+				from @MyTable T
+				group by  CASE WHEN T.amount > 0 THEN 1 ELSE 2 END
+
+				--SELECT '@MyTable', * FROM @MyTable
+				--SELECT '@MyTable > 0', sum(amount) FROM @MyTable where amount > 0
+				--SELECT '@MyTable < 0', sum(amount) FROM @MyTable where amount < 0
+				--SELECT 'DETT. SU C/EPILOGO', CASE WHEN idacc = @idaccPAT THEN 'E' ELSE 'N' END, * FROM #MyEntrydetail
+		end
+		else
+		begin
+			insert into #MyEntrydetail (nentry, yentry, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc)
+			select @max_nentry+1, @ayear, sum(-T.amount), 
+				@idaccToUse,
+				case when @use_idreg = 'S' then T.idreg else null end, 
+				case when @use_idupb = 'S' then T.idupb else null end,
+				null, --case when @kind='P' then T.idaccmotive else null end,
+				case when @kind='P' then T.idepexp else null end,
+				case when @kind='P' then T.idepacc else null end
+				from @MyTable T
+				group by
+				case when @use_idreg = 'S' then T.idreg else null end,
+				case when @use_idupb = 'S' then T.idupb else null end,
+				case when @kind='P' then T.idepexp else null end ,
+				case when @kind='P' then T.idepacc else null end
+		end
+
+-- SELECT 'Conto di Epilogo dello Stato Patrimoniale', @idaccPAT ;
+-- IN CASO DI EPILOGO DELLO STATO PATRIMONIALE BISOGNA CREARE SOLO DUE DETTAGLI SUL CONTO OPERATIVO, UNO IN DARE E UNO IN AVERE
+if (@kind='P')	
+BEGIN
+	---------------------- Cancellazione TERNE idupb, idreg, idacc con saldo zero
+	WITH Saldo_Zero (label, idacc, idupb, idreg , amount,epilogo) AS (
+			select 'Cancellazione TERNE idupb, idreg, idacc con saldo zero' as label, /*count(*),*/idacc, 
+			ISNULL(ED.idupb,'Nullo') idupb, ISNULL(ED.idreg,-1) idreg, sum(amount) as importo,
+			CASE WHEN ed.idacc = @idaccPAT THEN 'E' ELSE 'N' END
+			from [#MyEntrydetail] ed
+			WHERE (@kind ='P' and ed.idacc <>@idaccPAT)
+			Group by idacc, idupb, idreg
+			having sum(amount) = 0
+	)
+	 DELETE FROM  [#MyEntrydetail]
+	 WHERE  EXISTS (SELECT * FROM Saldo_Zero 
+					WHERE Saldo_Zero.idacc = [#MyEntrydetail].idacc 
+					AND Saldo_Zero.idupb = ISNULL([#MyEntrydetail].idupb,'Nullo') 
+					AND Saldo_Zero.idreg = ISNULL([#MyEntrydetail].idreg,-1)
+			 );
+	WITH Saldo_Zero_Quaterne  (label,idacc, idupb, idreg , amount,idepacc,idepexp,epilogo) AS
+	(
+		select 'Cancellazione QUATERNE idupb, idreg, idacc , idepacc o idepexp con saldo zero', /*count(*),*/idacc, 
+			ISNULL(ED.idupb,'Nullo') idupb, ISNULL(ED.idreg,-1) idreg, sum(amount) as importo , 
+			ISNULL(ED.idepacc,-1) idepacc, ISNULL(ED.idepexp,-1) idepexp,
+			CASE WHEN ed.idacc = @idaccPAT THEN 'E' ELSE 'N' END
+			from [#MyEntrydetail] ed
+			WHERE (@kind ='P' and ed.idacc <>@idaccPAT)
+			Group by idacc, idupb, idreg,  ISNULL(ED.idepacc,-1),  ISNULL(ED.idepexp,-1)
+			having sum(amount) = 0
+	) 
+	 DELETE  FROM  [#MyEntrydetail]
+	 WHERE  
+			EXISTS (SELECT * FROM Saldo_Zero_Quaterne 
+					WHERE Saldo_Zero_Quaterne.idacc = [#MyEntrydetail].idacc 
+					AND Saldo_Zero_Quaterne.idupb = ISNULL([#MyEntrydetail].idupb,'Nullo') 
+					AND Saldo_Zero_Quaterne.idreg = ISNULL([#MyEntrydetail].idreg,-1)
+					AND Saldo_Zero_Quaterne.idepacc = ISNULL([#MyEntrydetail].idepacc,-1) 
+					AND Saldo_Zero_Quaterne.idepexp = ISNULL([#MyEntrydetail].idepexp,-1)
+					);
+	WITH Saldo_Zero_idrelated (label, idacc, idrelated, amount,epilogo) AS(
+			SELECT 'Cancellazione COPPIE idacc, idrelated con saldo zero', /*count(*),*/
+			ed.idacc, ed.idrelated, sum(amount) as importo,
+			CASE WHEN ed.idacc = @idaccPAT THEN 'E' ELSE 'N' END 
+			FROM [#MyEntrydetail] ed
+			WHERE (@kind ='P' and ed.idacc <>@idaccPAT)
+			Group by ed.idacc, ed.idrelated
+			having sum(amount) = 0
+	)
+	 DELETE  FROM  [#MyEntrydetail]
+	 WHERE  EXISTS  (SELECT * FROM  Saldo_Zero_idrelated 
+					WHERE  Saldo_Zero_idrelated.idacc = [#MyEntrydetail].idacc 
+					AND  Saldo_Zero_idrelated.idrelated =  [#MyEntrydetail].idrelated 
+				 )
+	IF OBJECT_ID('tempdb..#MyEntrydetail') IS NOT NULL
+	BEGIN
+		-- La tabella esiste, droppo e ricreo la  colonna identity perchè non ci siano vuoti
+		-- di numerazione su ndetail causati dalle cancellazioni
+		ALTER TABLE #MyEntrydetail drop column ndetail
+		ALTER TABLE #MyEntrydetail add ndetail int identity(1,1)
+	END
+
+END
+--SELECT CASE when (( ACC.flagaccountusage & 256) = 0)  then 'N'  ELSE 'S' END as 'CONTO IMMOB.', ACC.title, [#MyEntrydetail].* 
+--FROM [#MyEntrydetail] join account ACC on [#MyEntrydetail].idacc = ACC.idacc
+--where (( ACC.flagaccountusage & 256) <> 0)  order by yentry, nentry, ndetail
 		insert into entrydetail(nentry, yentry, ndetail, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc, ct, cu, lt, lu,idrelated)
 		select nentry, yentry, ndetail, amount, idacc,	idreg ,	idupb,	idaccmotive,  idepexp,idepacc, getdate(), 'compute_epilogo', getdate(),'compute_epilogo',idrelated
-		from @MyEntrydetail
+		from #MyEntrydetail
 		where isnull(amount,0)<>0
-End
+END
 
 GO
-
- 
-
- 
-
 
 SET QUOTED_IDENTIFIER OFF 
 GO
 SET ANSI_NULLS ON 
 GO
-
--- select * from entry where cu='compute_epilogo'
--- select * from entrydetail where cu='compute_epilogo'
+ 

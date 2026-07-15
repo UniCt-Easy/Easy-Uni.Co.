@@ -23,34 +23,38 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
 				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				//beforeFillFilter
+				parentRow.data = new Date();
+				//afterGetFormDataFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-diniego_seganagstu");
+				var def = appMeta.Deferred("afterGetFormData-diniego_seganagstu");
 				var arraydef = [];
 				
-				//beforeFillInside
+				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
+						return def.resolve();
 					});
 				return def.promise();
 			},
+			
+			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#diniego_seganagstu_protanno'), true);
+				this.enableControl($('#diniego_seganagstu_protnumero'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#diniego_seganagstu_protanno'), false);
@@ -94,6 +98,8 @@
 
 			//insertClick
 
+			//beforePost
+
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.idreg_istituto;
 				var idreg_destinazione = that.state.currentRow.idreg; 
@@ -101,6 +107,7 @@
 				var idprotocollodockind = 7;
 				var arrayTablesToProtocol = ['diniego'];
 				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.iddiniego;
+
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 

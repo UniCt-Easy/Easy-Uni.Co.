@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,8 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
 
 --setuser'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_mod_liquidazioneperiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -33,7 +30,7 @@ CREATE  PROCEDURE [exp_mod_liquidazioneperiva] (
 AS
 BEGIN
 
---	exec exp_mod_liquidazioneperiva 2022, 4
+--	exec exp_mod_liquidazioneperiva 2024, 4
  
 CREATE TABLE #ivapay 
 (
@@ -249,6 +246,7 @@ SELECT @meseinizio +1
 INSERT INTO #mesi
 SELECT @mesefine
 
+ 
 DECLARE @saldo_iniziale decimal (19,2)
 SELECT  @saldo_iniziale = ISNULL(-startivabalance,0) from config where ayear = @esercizio
 
@@ -282,6 +280,8 @@ DECLARE @totalcredit decimal(19,2)
 DECLARE @prev_debit  decimal(19,2)
 DECLARE @startcredit_applied decimal(19,2)
 DECLARE @crs cursor
+ 
+
 SET @crs = CURSOR FOR
 SELECT 
 	   yivapay, 
@@ -297,7 +297,7 @@ SELECT
 FROM #mesi
 LEFT OUTER JOIN  ivapay ON month(start) = #mesi.mese
     AND paymentkind = 'C'
-	AND yivapay = @esercizio
+	AND yivapay >= @esercizio
 	and year(start) = @esercizio
 	AND month(start) BETWEEN @meseinizio AND @mesefine
 	AND ((ivapay.flag&1) <> 0)   --- iva commerciale e promiscua
@@ -431,9 +431,11 @@ Begin
 	from ivapay
 	WHERE paymentkind = 'A'
 	AND yivapay = @esercizio
-	and month(stop) = @month
+	--and month(stop) = @month
 	AND advancecomputemethod is not null
 	AND (ivapay.flag&1) <> 0 )   --- iva commerciale e promiscua
+	--print '@advancecomputemethod'
+	--print @advancecomputemethod
 End
 else
 Begin

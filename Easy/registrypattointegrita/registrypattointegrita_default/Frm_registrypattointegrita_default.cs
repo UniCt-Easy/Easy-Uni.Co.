@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +20,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using funzioni_configurazione;
 using metadatalibrary;
@@ -64,12 +61,31 @@ namespace registrypattointegrita_default {
             }
             DataRow Curr = DS.registrypattointegrita.Rows[0];
 
-            if (Curr["pattointegritacertification"] != DBNull.Value) {
+            if (Curr["pattointegritacertification"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value) {
                 btnAllegaPatto.Enabled = false;
                 btnVisualizzaPatto.Enabled = true;
                 btnRimuoviPatto.Enabled = true;
-                byte[] B = (byte[])Curr["pattointegritacertification"];
-                labPattoFileName.Text = GetFileName(B);
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (Curr["pattointegritacertification"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])Curr["pattointegritacertification"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                    {
+                        show("Servizio Download degli Allegati non disponibile");
+                        return;
+                    }
+                }
+
+                labPattoFileName.Text = GetFileName(ByteArray);
             }
             else {
                 btnAllegaPatto.Enabled = true;
@@ -108,7 +124,7 @@ namespace registrypattointegrita_default {
 
 
         private void VisualizzaAllegato(string certification) {
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWMOREVISU";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -119,7 +135,7 @@ namespace registrypattointegrita_default {
                 catch { }
             }
 
-            //sw Ë il nome del file temporaneo che hai creato
+            //sw √® il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
             DataRow Curr = DS.registrypattointegrita.Rows[0];
@@ -150,9 +166,8 @@ namespace registrypattointegrita_default {
             catch (Exception E) {
                 QueryCreator.ShowException(E);
             }
-
         }
-
+      
         void ScriviFile(string sw, byte[] documento, int offset) {
             // Legge il documento memorizzato nel DB e lo scrive nel file temp.
             if (Meta.IsEmpty) return;
@@ -224,7 +239,14 @@ namespace registrypattointegrita_default {
         }
 
         private void btnRimuoviPatto_Click(object sender, EventArgs e) {
-            DS.registrypattointegrita.Rows[0]["pattointegritacertification"] = DBNull.Value;
+            if (DS.registrypattointegrita.Rows[0]["idfilestorage"] != DBNull.Value)
+            {
+                DS.registrypattointegrita.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registrypattointegrita.Rows[0]["pattointegritacertification"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
         }
 

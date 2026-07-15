@@ -23,15 +23,13 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'appello':
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 50, 1024);
-						this.describeAColumn(table, 'insegn_denominazione', 'Denominazione Insegnamento', null, 110, 256);
-						this.describeAColumn(table, 'insegn_codice', 'Codice Insegnamento', null, 110, 50);
-						this.describeAColumn(table, 'insegninteg_denominazione', 'Denominazione Integrando', null, 120, 256);
-						this.describeAColumn(table, 'insegninteg_codice', 'Codice Integrando', null, 120, 50);
-						this.describeAColumn(table, 'attivform_tipovalutaz', 'Profitto o Idoneità', null, 180, null);
-						this.describeAColumn(table, 'sede_attivform_title', 'Sede', null, 230, 1024);
-						this.describeAColumn(table, 'annoaccademico_aa', 'Anno accademico', null, 20, 9);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 190, 1024);
+						this.describeAColumn(table, 'title', 'Attività formativa', null, 1000, -1);
+						this.describeAColumn(table, 'aa', 'AA', null, 2000, 9);
+						this.describeAColumn(table, 'didproganno_anno', 'Anno di corso', null, 3100, null);
+						this.describeAColumn(table, 'didprog_title', 'Didattica programmata', null, 5100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 5200, 9);
+						this.describeAColumn(table, 'sede_title', 'Sede Didattica programmata', null, 5320, 1024);
+						this.describeAColumn(table, 'attivform_tipovalutaz', 'Profitto o Idoneità', null, 18000, null);
 //$objCalcFieldConfig_appello$
 						break;
 //$objCalcFieldConfig$
@@ -55,6 +53,9 @@
 				switch (listType) {
 					case "appello": {
 						return "";
+					}
+					case "appello": {
+						return "title asc ";
 					}
 					//$getSortingin$
 				}

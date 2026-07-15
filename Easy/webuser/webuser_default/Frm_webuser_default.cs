@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -48,7 +46,7 @@ namespace webuser_default
             q = conn.GetQueryHelper();
             CanGoEdit = true;
             hds = new helpDeskService.doHelpDesk();
-            hds.Url = "https://SERVER/helpdeskservice/doHelpDesk.asmx";
+            hds.Url = "https://your-server/helpdeskservice/doHelpDesk.asmx";
             string filteruser = "(username=" +
             QueryCreator.quotedstrvalue(meta.GetSys("user"), true) + ")";
             DataTable TBUsers = meta.Conn.RUN_SELECT("webuser", "*", null, filteruser, null, false);
@@ -276,3 +274,4 @@ namespace webuser_default
         }
     }
 }
+

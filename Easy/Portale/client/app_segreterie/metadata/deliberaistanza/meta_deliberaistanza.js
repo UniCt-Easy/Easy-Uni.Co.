@@ -24,26 +24,21 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
+						this.describeAColumn(table, 'idistanza', 'Istanza', null, 20, null);
 						this.describeAColumn(table, '!idistanza_registry_title', 'Studente', null, 22, null);
 						this.describeAColumn(table, '!idistanza_annoaccademico_aa', 'Anno accademico', null, 22, null);
 						this.describeAColumn(table, '!idistanza_istanza_alias14_data', 'Data', 'g', 26, null);
 						this.describeAColumn(table, '!idistanza_istanzakind_title', 'Tipologia', null, 27, null);
-						this.describeAColumn(table, '!idistanza_statuskind_alias1_title', 'Status', null, 29, null);
+						this.describeAColumn(table, '!idistanza_statuskind_title', 'Status', null, 29, null);
 						this.describeAColumn(table, '!idistanza_istanza_alias14_protanno', 'Anno di protocollo', null, 30, null);
 						this.describeAColumn(table, '!idistanza_istanza_alias14_protnumero', 'Numero di protocollo', null, 31, null);
 						objCalcFieldConfig['!idistanza_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idistanza' };
 						objCalcFieldConfig['!idistanza_annoaccademico_aa'] = { tableNameLookup:'annoaccademico', columnNameLookup:'aa', columnNamekey:'idistanza' };
 						objCalcFieldConfig['!idistanza_istanza_alias14_data'] = { tableNameLookup:'istanza_alias14', columnNameLookup:'data', columnNamekey:'idistanza' };
 						objCalcFieldConfig['!idistanza_istanzakind_title'] = { tableNameLookup:'istanzakind', columnNameLookup:'title', columnNamekey:'idistanza' };
-						objCalcFieldConfig['!idistanza_statuskind_alias1_title'] = { tableNameLookup:'statuskind_alias1', columnNameLookup:'title', columnNamekey:'idistanza' };
+						objCalcFieldConfig['!idistanza_statuskind_title'] = { tableNameLookup:'statuskind', columnNameLookup:'title', columnNamekey:'idistanza' };
 						objCalcFieldConfig['!idistanza_istanza_alias14_protanno'] = { tableNameLookup:'istanza_alias14', columnNameLookup:'protanno', columnNamekey:'idistanza' };
 						objCalcFieldConfig['!idistanza_istanza_alias14_protnumero'] = { tableNameLookup:'istanza_alias14', columnNameLookup:'protnumero', columnNamekey:'idistanza' };
-						this.describeAColumn(table, '!idistanza_istanza_data', 'Data', 'g', 26, null);
-						this.describeAColumn(table, '!idistanza_istanza_protanno', 'Anno di protocollo', null, 30, null);
-						this.describeAColumn(table, '!idistanza_istanza_protnumero', 'Numero di protocollo', null, 31, null);
-						objCalcFieldConfig['!idistanza_istanza_data'] = { tableNameLookup:'istanza', columnNameLookup:'data', columnNamekey:'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_protanno'] = { tableNameLookup:'istanza', columnNameLookup:'protanno', columnNamekey:'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_protnumero'] = { tableNameLookup:'istanza', columnNameLookup:'protnumero', columnNamekey:'idistanza' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -54,7 +49,19 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["iddelibera"].caption = "Delibera";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idistanzakind"].caption = "Tipologia";
+						table.columns["idreg_studenti"].caption = "Studente";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_deliberaistanza");
@@ -73,7 +80,17 @@
 
 			//$isValidFunction$
 
-			//$getStaticFilter$
+			getStaticFilter: function (listType) {
+				switch (listType) {
+					case "seg": {
+						return "not exists(select * from deliberaistanza di where di.iddelibera <> deliberaistanza.iddelibera)";
+						break;
+					}
+				//$GetStaticFilterInner$
+				}
+				return this.superClass.getStaticFilter(listType);
+			},
+
 
 			getSorting: function (listType) {
 				switch (listType) {

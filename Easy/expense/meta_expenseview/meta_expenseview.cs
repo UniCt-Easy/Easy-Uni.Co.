@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -419,6 +417,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "codeupb", "U.P.B.", nPos++);
 					DescribeAColumn(T, "description", "Descrizione", nPos++);
 					DescribeAColumn(T, "amount", "Importo", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -442,6 +441,7 @@ namespace meta_expenseview { //meta_spesaview//
 					}
 
 					DescribeAColumn(T, "available", "Disponibile", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -463,7 +463,7 @@ namespace meta_expenseview { //meta_spesaview//
 					if (T.Columns.Contains("netamount")) {
 						DescribeAColumn(T, "netamount", "Importo Netto", nPos++);
 					}
-
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					FilterRows(T);
 					break;
@@ -485,6 +485,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "curramount", "Importo", nPos++);
 					DescribeAColumn(T, "ypay", "Eserc. Mandato", nPos++);
 					DescribeAColumn(T, "npay", "Num. Mandato", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -504,6 +505,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "description", "Descrizione", nPos++);
 					DescribeAColumn(T, "amount", "Importo Iniziale", nPos++);
 					DescribeAColumn(T, "curramount", "Importo Corrente", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -529,6 +531,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "available", "Disponibile", nPos++);
 					DescribeAColumn(T, "expiration", "Data scad.", nPos++);
 					DescribeAColumn(T, "adate", "Data cont.", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -553,6 +556,7 @@ namespace meta_expenseview { //meta_spesaview//
 
 					DescribeAColumn(T, "available", "Disponibile", nPos++);
 					DescribeAColumn(T, "adate", "Data cont.", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -574,7 +578,7 @@ namespace meta_expenseview { //meta_spesaview//
 					if (T.Columns.Contains("netamount")) {
 						DescribeAColumn(T, "netamount", "Importo Netto", nPos++);
 					}
-
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					FilterRows(T);
 					break;
@@ -597,7 +601,7 @@ namespace meta_expenseview { //meta_spesaview//
 					if (T.Columns.Contains("netamount")) {
 						DescribeAColumn(T, "netamount", "Importo Netto", nPos++);
 					}
-
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -620,7 +624,7 @@ namespace meta_expenseview { //meta_spesaview//
 					if (T.Columns.Contains("netamount")) {
 						DescribeAColumn(T, "netamount", "Importo Netto", nPos++);
 					}
-
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -647,6 +651,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "available", "Disponibile", nPos++);
 					DescribeAColumn(T, "expiration", "Data scad.", nPos++);
 					DescribeAColumn(T, "adate", "Data cont.", nPos++);
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}
@@ -706,7 +711,7 @@ namespace meta_expenseview { //meta_spesaview//
 					DescribeAColumn(T, "flagarrear", ".Competenza", -1);
 					DescribeAColumn(T, "expiration", ".Data Scadenza", -1);
 					DescribeAColumn(T, "ninc_linked", "n.mov.entrata p.giro", -1);
-
+					DescribeAColumn(T, "idtreasurer", "Conto Corrente", nPos++);
 					CompletaCaption(T);
 					break;
 				}

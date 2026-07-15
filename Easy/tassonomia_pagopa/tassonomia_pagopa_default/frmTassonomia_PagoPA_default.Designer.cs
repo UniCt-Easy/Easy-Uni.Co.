@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace tassonomia_pagopa_default {
 	partial class frmTassonomia_PagoPA_default {
@@ -261,7 +259,7 @@ namespace tassonomia_pagopa_default {
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(67, 13);
 			this.label7.TabIndex = 12;
-			this.label7.Text = "Inizio validit‡";
+			this.label7.Text = "Inizio validit√†";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox7
@@ -279,7 +277,7 @@ namespace tassonomia_pagopa_default {
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(63, 13);
 			this.label8.TabIndex = 14;
-			this.label8.Text = "Fine validit‡";
+			this.label8.Text = "Fine validit√†";
 			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// DS

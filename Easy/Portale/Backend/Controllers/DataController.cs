@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,42 +13,39 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-using Newtonsoft.Json.Linq;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Cors;
-using System.Collections.Generic;
-using metadatalibrary;
-using Backend.Data;
-using System.Web;
-using System.Threading.Tasks;
-using Backend.Components;
 using Backend.CommonBackend;
-using q = metadatalibrary.MetaExpression;
-using metaeasylibrary;
+using Backend.Components;
+using Backend.Data;
 using Backend.Extensions;
-using System.Linq;
-using funzioni_configurazione;
-using Newtonsoft.Json;
-using System.Reflection;
-using Backend.Security;
-using System.Web.Configuration;
-using System.IO;
-using System.Text;
+using Backend.Extra;
 using Backend.Models;
-using System.Collections;
-using static Backend.CommonBackend.DBLogger;
+using Backend.Security;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using metadatalibrary;
+using metaeasylibrary;
 using MimeKit;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.UI.WebControls;
-using System.Web.Http.Filters;
-using System.Runtime.InteropServices;
+using static Backend.CommonBackend.DBLogger;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using q = metadatalibrary.MetaExpression;
 
 namespace Backend.Controllers {
 
@@ -342,8 +338,8 @@ namespace Backend.Controllers {
 		}
 
 		/// <summary>
-		/// Verifica conn.LastError. se c'Ë un errore logga e ritorna l'errore.
-		/// il chiamante se trova errore popolato torner‡ errore 500.
+		/// Verifica conn.LastError. se c'√® un errore logga e ritorna l'errore.
+		/// il chiamante se trova errore popolato torner√† errore 500.
 		/// </summary>
 		/// <returns></returns>
 		private string evaluateLastError(string methodInfo) {
@@ -553,6 +549,60 @@ namespace Backend.Controllers {
 
 		}
 
+        /// <summary>
+        /// Contains the post params for the method generateExport
+        /// </summary>
+        public class generateExportQueryParameters {
+			/// <summary>
+			/// Identifies the page calling for the export.
+			/// </summary>
+			public string editType { get; set; }
+			/// <summary>
+			/// Gets or sets the parameters used for the export.
+			/// </summary>
+			public JObject generateExportParams { get; set; }
+		}
+
+        /// <summary>
+        /// Called by Client, returns a rendered file with the export.
+        /// </summary>
+        /// <param name="prms">generateExportQueryParameters</param>
+        /// <returns></returns>
+        [HttpPost, Route("generateExport")]
+		public IHttpActionResult generateExport(generateExportQueryParameters prms) {
+
+			var dispatcher = HttpContext.Current.getDataDispatcher();
+			var editType = prms.editType;
+
+            // l'istanza ce l'avevamo in createDataSet, per ora va bene cos√¨ anche perch√® altrimenti dovremmo cambiare
+            // troppe cose per poter riutilizzare la logica di ExportViewerManager. Poi vedremo di sistemare e di usare un singleton o cmq una sola istanza
+            var evm = new ExportViewerManager(dispatcher, editType);
+
+			try {
+				using (var tmpFile = new TempFile()) {
+
+					evm.Generate(prms, tmpFile.FilePath);
+
+					var bytes = File.ReadAllBytes(tmpFile.FilePath);
+
+					return Content(HttpStatusCode.OK, JsonConvert.SerializeObject(new {
+						filename = Path.ChangeExtension($"{evm.Config.Id}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss}", evm.Config.DefaultExtension),
+						base64StringBytes = Convert.ToBase64String(bytes)
+					}));
+				}
+			}
+			catch (NoDataException e) {
+                // il frontend dovrebbe saper gestire meglio anche 404 e altri stati... ma non √® cos√¨ quindi usiamo 200 OK con il messaggio di errore
+                return Content(HttpStatusCode.OK, JsonConvert.SerializeObject(new {
+					error = e.Message,
+                }));
+            }
+			catch (Exception e) {
+
+				return Content(HttpStatusCode.InternalServerError, GetAndLogErrorMessage(null, dispatcher.conn, e.ToString(), "generateExport", "editType:" + editType + ", generateExportParams:" + prms.generateExportParams));
+			}
+        }
+
 		/// <summary>
 		/// Contains the post params for the method prefillDataSet
 		/// </summary>
@@ -683,17 +733,17 @@ namespace Backend.Controllers {
 			MetaTable myDtParent = null;
 			if (dtParent != null) {
 				myDtParent = DataSetSerializer.jTokenToTable(dtParent, false, dispatcher,null);
-				// recupero la riga tramite la tabella. son sicuro che Ë la 1a riga. poichË il client passa la padre con una riga
+				// recupero la riga tramite la tabella. son sicuro che √® la 1a riga. poich√® il client passa la padre con una riga
 				drParent = myDtParent.Rows[0];
 			}
 
 			if (dtParent != null) {
 				// NUOVA GESTIONE TRAMITE RELAZIONE 
-				// creo ds ex novo, con 2 tabelle e la relazione. Se la tabella Ë la stessa aggiungo solo child 
+				// creo ds ex novo, con 2 tabelle e la relazione. Se la tabella √® la stessa aggiungo solo child 
 				// e mi accerto che ci sai la riga parent, con la riga parent
 				var dsTemp = new DataSet();
 
-				// metto figlio solamente se non Ë uguale al padre, altrimenti metto le righe della child sulla padre
+				// metto figlio solamente se non √® uguale al padre, altrimenti metto le righe della child sulla padre
 				if (myDtParent.TableName == myDtChild.TableName) {
 					// recupero stessa riga, che diventa la nuova drParent da passare alla getNewRow. se per qualche motivo non appartiene all child la inserisco
 					DataRow drParentOnChild = getSameRowOnTable(myDtChild, drParent);
@@ -740,10 +790,10 @@ namespace Backend.Controllers {
 			// serializzo DataTable di output
 			var myDtChildOutJson = DataUtils.dataTableToJSon(myDtChild,true, true);
 			// qui se tutto funziona i campi selettori e via dicendo dovrebbero essere serializzati
-			// attenzione bisogna capire se c'Ë da fare ulteriore lavoro per i campi customautoincrement la cui propriet‡ non Ë 
+			// attenzione bisogna capire se c'√® da fare ulteriore lavoro per i campi customautoincrement la cui propriet√† non √® 
 			//  serializzabile e quindi credo che bisogna artificialmente imporre un autoincremento generico 
 
-			// invio al client un json obj formato da dt con la nuova riga, che dovrÚ unire sul frontend + il filtro per individuare la riga
+			// invio al client un json obj formato da dt con la nuova riga, che dovr√≤ unire sul frontend + il filtro per individuare la riga
 			var result = new JObject {
 				{"dt", myDtChildOutJson},
 				{"filter", filterOutObjJson}
@@ -810,9 +860,9 @@ namespace Backend.Controllers {
 						"primary tablename:" + primaryTableName + ", filter:" + filter));
 				}
 
-                // la risposta non torna le righe delle tab principale  e subentit‡ perchË nel caso di onlyPeripherals non serve
+                // la risposta non torna le righe delle tab principale  e subentit√† perch√® nel caso di onlyPeripherals non serve
                 // serve in input al backend per il calcolo esatto delle righe nelle tabelle perificheriche , ma al ritorno evito di serializzarle
-                // poichË il client gi‡ le ha.
+                // poich√® il client gi√† le ha.
                 Hashtable Visited = new Hashtable();
                 Hashtable ToVisit = new Hashtable();
                 if (onlyPeripherals) {
@@ -949,7 +999,7 @@ namespace Backend.Controllers {
 				var getData = new GetData();
 				getData.InitClass(outDs, dispatcher.Connection, tableName);
 
-				// 1. Eseguo la SEARCH_BY_KEY, rivista, poichË dal client mi arriva gi‡ il filtro. Capire con Nino se va bene!!
+				// 1. Eseguo la SEARCH_BY_KEY, rivista, poich√® dal client mi arriva gi√† il filtro. Capire con Nino se va bene!!
 				var sFilter = DataUtils.getfilterFromJsDataQuery(filter, dispatcher);
 				getData.ReadCached();
 				dt = outDs.Tables[tableName];
@@ -1005,36 +1055,6 @@ namespace Backend.Controllers {
 			}
 		}
 
-
-		public string GetDSErrors(DataSet ds) {
-			if (ds == null) return "";
-
-			var errors = "";
-			foreach (DataTable table in ds.Tables) {
-                errors += GetDTErrors(table) + " - ";
-			}
-
-			return errors;
-		}
-
-        private string GetDTErrors(DataTable table) {
-            var errors = "";
-            if (table == null) return "";
-            foreach (DataRow dtrow in table.Rows) {
-                // concateno errori presenti sulle righe
-                String tErrors = "";
-                if (dtrow.RowError != null && dtrow.RowError.Length > 0 && !errors.Contains(dtrow.RowError)) {
-                    tErrors = " - " + dtrow.RowError;
-                }
-
-                if (tErrors.Length > 0) {
-                    errors = errors + " Table " + table.TableName + ": " + tErrors;
-                }
-            }
-            return errors;
-        }
-
-
 		/// <summary>
 		/// Returns a DataTable, with expected structure, based on the name of the table passed as parameter
 		/// </summary>
@@ -1089,10 +1109,53 @@ namespace Backend.Controllers {
 			return arrayMapped;
 		}
 
-		/// <summary>
-		/// Contains the post params for the method getPagedTable
-		/// </summary>
-		public class getPagedTableQueryParameters {
+        /// <summary>
+        /// Retrieves all the mappings for the given tableName and listType.
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="listType"></param>
+        /// <returns></returns>
+        [HttpGet, Route("getMapping")]
+		public IHttpActionResult getMapping(string tableName, string listType) {
+
+			string[] arrayMapped;
+
+			try {
+				arrayMapped = getMappingWebListRedir(tableName, listType);
+			}
+			catch (Exception e) {
+				return Content(HttpStatusCode.InternalServerError, e.Message);
+			}
+
+			return Content(HttpStatusCode.OK, arrayMapped);
+		}
+
+        /// <summary>
+        /// Retrieves the default redirections for the given table names.
+        /// </summary>
+        /// <param name="tableNamesListtypes"></param>
+        /// <returns></returns>
+        [HttpPost, Route("getDefaultRedirections")]
+        public IHttpActionResult getDefaultRedirections(string[] tableNamesListtypes) {
+
+            var dispatcher = HttpContext.Current.getDataDispatcher();
+
+            try
+            {
+				var defaultRedirs = ExportViewerManager.DefaultRedirections(dispatcher, tableNamesListtypes);
+
+                return Content(HttpStatusCode.OK, defaultRedirs);
+            }
+            catch (Exception e) {
+
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Contains the post params for the method getPagedTable
+        /// </summary>
+        public class getPagedTableQueryParameters {
 			[Required]
 			public string
 				tableName {
@@ -1158,14 +1221,14 @@ namespace Backend.Controllers {
 			if (dtOriginal.Columns.Count == 0) {
 
                 return Content(HttpStatusCode.BadRequest,
-                    GetAndLogErrorMessage(null, dispatcher.conn, "La tabella/vista " + newtablename + " non Ë censita sulle tabelle di configurazione opportune", "getPagedTable",
+                    GetAndLogErrorMessage(null, dispatcher.conn, "La tabella/vista " + newtablename + " non √® censita sulle tabelle di configurazione opportune", "getPagedTable",
                         "tablename:" + newtablename));
 
 			}
 
 			// La paginazione richiede il sort, quindi:
 			// sorting dal client (esiste un metadato javascript col metodo getsorting)
-			// oppure perchË dal client, negli elenchi viene fatto un ordinamento su colonn
+			// oppure perch√® dal client, negli elenchi viene fatto un ordinamento su colonn
 			// prendiamo il Sorting dal metadato backend,
 			// altrimenti se esiste la colonna "title",
 			// altrimenti come fallback la prima colonna
@@ -1181,7 +1244,7 @@ namespace Backend.Controllers {
 				WhereClause = " WHERE " + filterString;
 			}
 
-			// Prendo lo staticFilter. in mdl ce l'avevo gi‡ sul filter
+			// Prendo lo staticFilter. in mdl ce l'avevo gi√† sul filter
 			// preso dal GetStaticFilter() dell metadato. Ma in mdlw lo leggo in questa fase
 			string staticfilter = meta.GetStaticFilter(newlisttype);
 			// concateno lo staticFilter del metadato
@@ -1208,7 +1271,7 @@ namespace Backend.Controllers {
 
 			// calcolo totPage 
 			Double totPages = 0;
-			// il filtro da passare alla run_select_count Ë senza where, solo con le clausole
+			// il filtro da passare alla run_select_count √® senza where, solo con le clausole
 			int totrows = conn.RUN_SELECT_COUNT(newtablename, WhereClause.Replace("WHERE", ""), false);
 			if (totrows % nRowPerPage == 0) {
 				totPages = totrows / nRowPerPage;
@@ -1231,7 +1294,7 @@ namespace Backend.Controllers {
 
 				int firstrow = (nPage - 1) * nRowPerPage + 1;
 				//int lastrow = nPage * nRowPerPage;
-				// se il numero di righe Ë maggiore delle totali allora il delta lo calcolo in base al nuovo massimo
+				// se il numero di righe √® maggiore delle totali allora il delta lo calcolo in base al nuovo massimo
 				//lastrow = (lastrow > totrows) ? totrows : lastrow;
 				// calcolo il num di righe da torare su, oppure quelle rimaste nell'ultimo pacchetto
 				//int delta = lastrow - firstrow + 1;
@@ -1298,7 +1361,7 @@ namespace Backend.Controllers {
 			dtPaged.ExtendedProperties["sort_by"] = sort_by;
 
 			//Prendo lo staticFilter->trasformo in ME->serializzo in jsDQuery
-			// assegno alla proprietÚ filter che poi serializzerÚ
+			// assegno alla propriet√≤ filter che poi serializzer√≤
 			if (staticfilter != null && staticfilter.Length > 0) {
 				dtPaged.ExtendedProperties["filter"] = q.fromString(staticfilter);
 			}
@@ -1436,7 +1499,7 @@ namespace Backend.Controllers {
 
 			// 4. prendo la staticFilter -> trasformo in ME -> serializzo in jsDQuery
 			string statfilter = meta.GetStaticFilter(listType);
-			// assegno alla proprietÚ filter che poi serializzerÚ
+			// assegno alla propriet√≤ filter che poi serializzer√≤
 			if (statfilter != null && statfilter.Length > 0) {
 				dt.ExtendedProperties["filter"] = q.fromString(statfilter);
 			}
@@ -1478,7 +1541,7 @@ namespace Backend.Controllers {
 
 			// recupero il meta della tabella
 			string tableName = DataAccess.GetTableForReading(dt);
-			// TODO per ora Ë cablato l'esempio upb tree, vedere poi come integrare con mdl gi‡ esistente
+			// TODO per ora √® cablato l'esempio upb tree, vedere poi come integrare con mdl gi√† esistente
 			// Bisogna estrapolare in funz pubbliche richiamabili la parte del describe tree dei emtaDati prima
 			// di effettuare la new del treeViewManager
 
@@ -1566,7 +1629,7 @@ namespace Backend.Controllers {
 			[Required]
 			public JToken dsIn { get; set; } // ds di input con le righe da copiare 
 
-			public JToken dtPrimary { get; set; } // Ds che verr‡ emrgiato sul client con le nuove righe calcolate
+			public JToken dtPrimary { get; set; } // Ds che verr√† emrgiato sul client con le nuove righe calcolate
 
 			public JToken filterPrimary { get; set; }
 
@@ -1599,18 +1662,18 @@ namespace Backend.Controllers {
 			// deserializzo riga nuova padre inserita
 			MetaExpression metaExprFilterInsertRow = DataUtils.getMetaExpressionFromJsonDataQuery(filterInsertRow);
 			DataRow rowToInsert = getDataRowFromTableFiltered(myDtParent, metaExprFilterInsertRow);
-            // Recupero il dataset in questione poichË la getnewRow ha bisogno della relazione. 
-            // il tableBName del ds Ë quello della tabella parent passata
+            // Recupero il dataset in questione poich√® la getnewRow ha bisogno della relazione. 
+            // il tableBName del ds √® quello della tabella parent passata
             tableName = myDtParent.TableName;
 			DataSet outDs = DataUtils.createEmptyDataSet(tableName, editType);
 			// evito check di coerenza effettuati dal framework .net
 			ClearDataSet.RemoveConstraints(outDs);
-			// travaso i miei dati su questo dataset, poi invocherÚ la Get_New_Row su questi nuovi oggetti, che sono perÚ linkati al giusto DataSet
+			// travaso i miei dati su questo dataset, poi invocher√≤ la Get_New_Row su questi nuovi oggetti, che sono per√≤ linkati al giusto DataSet
 			// travaso la riga parent
 			DataTable newParentDataTable = outDs.Tables[tableName];
             // inizializzo prm da passare alla get_new_row di mdl. 
             // ---> Se esiste la riga parent,
-            // allora devo calcolare il ds giusto poicË servono le relazioni etc..
+            // allora devo calcolare il ds giusto poic√® servono le relazioni etc..
             DataRow newRowParent = newParentDataTable.NewRow();
             newRowParent.ItemArray = rowToInsert.ItemArray;
 			newParentDataTable.Rows.Add(newRowParent);
@@ -1650,7 +1713,7 @@ namespace Backend.Controllers {
 			DataRelationCollection relC = sourceRow.Table.ChildRelations;
 			foreach (DataRelation rel in relC) {
 				if (QueryCreator.SkipInsertCopy(rel.ChildTable))
-					continue; //salta la tabella se Ë di tipo SkipInsertCopy
+					continue; //salta la tabella se √® di tipo SkipInsertCopy
 				var childTableName = rel.ChildTable.TableName;
 				if (!DataUtils.isSubEntityOrNotEntityChild(null, outDs.Tables[childTableName], parentRow.Table)) continue;
 				if (childTableName == sourceRow.Table.TableName) continue;
@@ -1669,8 +1732,8 @@ namespace Backend.Controllers {
 							if (cc.ColumnName == childCol.ColumnName) skipthis = true;
 						}
 
-						// Effettua la copia vera e propria dei valori. (la funz. InserCopyColumn di emtadata non Ë accessibile.capire un attimo!)
-						//Nino: esiste la ExtCopyColumn poichÈ la InsertCopyColumn Ë protected
+						// Effettua la copia vera e propria dei valori. (la funz. InserCopyColumn di emtadata non √® accessibile.capire un attimo!)
+						//Nino: esiste la ExtCopyColumn poich√© la InsertCopyColumn √® protected
 						if (skipthis) continue;
 						metaChild.ExtCopyColumn(childCol,childRow,newChildRow);
 						//if (childCol.ColumnName == "adate") continue;
@@ -1704,6 +1767,11 @@ namespace Backend.Controllers {
 			} // N.B il ds in input al metodo va solo in post, altrimenti in get sarebbe troppo grande
 
 			/// <summary>
+			/// Use RowChange.SetOptimized (avoid recalculating keys) on Dataset tables
+			/// </summary>
+			public bool? setTablesOptimized { get; set; }
+
+			/// <summary>
 			/// main table name
 			/// </summary>
 			[Required]
@@ -1732,10 +1800,10 @@ namespace Backend.Controllers {
 			// valuto la variabile di ambiente "anonymous" configurata su WebApiConfig nella valutazione
 			// del token.
 			if (!(bool)conn.Security.GetUsr("anonymous")) {
-				return true; // se non Ë anonimo Ë sempre permesso
+				return true; // se non √® anonimo √® sempre permesso
 			}
 
-			// la stringa Ë fatta cosÏ:
+			// la stringa √® fatta cos√¨:
 			// tablename1%edittype,tablename2%edittype,... quindi ogni coppia di tablename ed edittype separati da virgola, e % all'interno della copia
 			string anonymousPermissions = WebConfigurationManager.AppSettings["AnonymousPermissions"].ToString();
 			string[] anonymousPermissionsArr = anonymousPermissions.Split(',');
@@ -1792,7 +1860,7 @@ namespace Backend.Controllers {
                     if (dt.TableName == "registrationuser" && rowStateCount.countAdded > 1) {
                         return false;     
                     }
-                    // impossibile richiedere pi˘ di 10 profili
+                    // impossibile richiedere pi√π di 10 profili
                     if (dt.TableName != "registrationuserflowchart" && rowStateCount.countAdded > 10) {
                         return false;
                     }
@@ -1812,6 +1880,7 @@ namespace Backend.Controllers {
 			var dispatcher = HttpContext.Current.getDataDispatcher();
 
 			var ds = prms.ds;
+			var setTablesOptimized = prms.setTablesOptimized;
 			var tableName = prms.tableName;
 			var editType = prms.editType;
 			var messages = prms.messages;
@@ -1837,38 +1906,41 @@ namespace Backend.Controllers {
                 var myMessages = new ProcedureMessageCollection();
 			    if (messages != null) myMessages = DataSetSerializer.deserializeMessages(messages);
 
-			    // sul meta della tab principale invocherÚ la post
+			    // sul meta della tab principale invocher√≤ la post
 			    var meta = dispatcher.GetMeta(tableName);
-			    if (meta == null) return Content(HttpStatusCode.BadRequest, "Entit‡ non valida " + tableName);
+			    if (meta == null) return Content(HttpStatusCode.BadRequest, "Entit√† non valida " + tableName);
 			    meta.edit_type = editType;
 
 			    // 2. Passo prima isValid()
-			    // Chiamata alla isValid del metaDato lato backend, per ogni riga della tabella principale e subentit‡ 
+			    // Chiamata alla isValid del metaDato lato backend, per ogni riga della tabella principale e subentit√† 
 			    // N.B bisogna controllare che tutti i controlli sulla isValid dei metaDati attuali non tornino msgBox
 			    // in questo caso bisogna far diventare tali check delle business rules, e rientrano cosi nei casi di errori non ignorabili
 			    // tornati dalla DO_POST_SERVICE()
-			    var isValid = true; // inizializzo a true, e metterÚ a false non appena isValid torna un false
+			    var isValid = true; // inizializzo a true, e metter√≤ a false non appena isValid torna un false
 			    string errMsg = "";
 			    string errfield = "";
 
 			    //ciclo su tutte le tabelle del dataset
 			    foreach (DataTable table in outDs.Tables) {
-				    // se Ë tab principale oppure subentity, 
+					// imposto il ricalcolo delle chiavi sulle tabelle
+					if (setTablesOptimized == true)
+						RowChange.SetOptimized(table, true);
+				    // se √® tab principale oppure subentity, 
 				    if (table.TableName == tableName || DataUtils.isSubEntityOrNotEntityChild(null, table, outDs.Tables[tableName])) {
 					    // devo invocare la specifica isValid, quindi recupero il meta
 					    string tName = DataAccess.GetTableForReading(table);
 					    var currMeta = dispatcher.GetMeta(tName);
 					    currMeta.edit_type = editType;
 					    currMeta.ds = outDs;
-					    if (currMeta == null) return Content(HttpStatusCode.BadRequest, "Entit‡ non valida " + tName);
-					    // ciclo sulle righe. e controllerÚ quelle in cui ci sono CRUD
+					    if (currMeta == null) return Content(HttpStatusCode.BadRequest, "Entit√† non valida " + tName);
+					    // ciclo sulle righe. e controller√≤ quelle in cui ci sono CRUD
 					    foreach (DataRow row in table.Rows) {
 						    // valuto solo le diverse da unchanged
 						    if (row.RowState == DataRowState.Unchanged || row.RowState == DataRowState.Deleted) continue;
 
 						    try {
 							    if (!currMeta.IsValid(row, out errMsg, out errfield)) {
-								    // la isValid non Ë passata, invio messaggio non ignorabile
+								    // la isValid non √® passata, invio messaggio non ignorabile
 								    EasyProcedureMessage msg = new EasyProcedureMessage();
 								    msg.CanIgnore = false;
 								    msg.TableName = tName;
@@ -1885,13 +1957,13 @@ namespace Backend.Controllers {
 								    myMessages.Add(msg);
 								    myMessages.CanIgnore = false;
 
-								    // setto isValid, var locale della funzione, cosÏ non eseguo post,ma invio messaggio all'utente
+								    // setto isValid, var locale della funzione, cos√¨ non eseguo post,ma invio messaggio all'utente
 								    isValid = false;
 							    } // fine isValid()
 						    }
 						    catch (Exception e) {
 
-							    // la isValid non Ë passata, invio messaggio non ignorabile
+							    // la isValid non √® passata, invio messaggio non ignorabile
 							    EasyProcedureMessage msg = new EasyProcedureMessage();
 							    msg.CanIgnore = false;
 							    msg.TableName = tName;
@@ -1909,7 +1981,7 @@ namespace Backend.Controllers {
 							    myMessages.Add(msg);
 							    myMessages.CanIgnore = false;
 
-							    // setto isValid, var locale della funzione, cosÏ non eseguo post,ma amndo emssaggio all'utente
+							    // setto isValid, var locale della funzione, cos√¨ non eseguo post,ma amndo emssaggio all'utente
 							    isValid = false;
 						    }
 
@@ -1920,8 +1992,8 @@ namespace Backend.Controllers {
 
 
 
-			    // lista delle righe il cui campo byte[] sar‡ modificato, e che in caso
-			    // di errore della save , dovrÚ bonificare.
+			    // lista delle righe il cui campo byte[] sar√† modificato, e che in caso
+			    // di errore della save , dovr√≤ bonificare.
 			    Dictionary<int, ColumnRowAttach> dataRowAttachModified = new Dictionary<int, ColumnRowAttach>();
 
 			    // 5. se dal controllo della isValid esce con true provo ad effettuare la post, altrimenti mando messaggio all'utente
@@ -1930,11 +2002,11 @@ namespace Backend.Controllers {
 				    var postData = meta.Get_PostData();
 				    postData.initClass(outDs, dispatcher.Connection);
 
-				    // 7. valuto se ci sono tabelle con allegati, cioË colonna idattach per convenzione
+				    // 7. valuto se ci sono tabelle con allegati, cio√® colonna idattach per convenzione
 				    // se ci sono costrusico un dsattach nuovo dove inserisco la logica dei contatori
 				    // che serve per gestire l'algoritmo di persistenza degli allegati, in base all'operazione
-				    // creo ds attach in cui inserirÚ la nuova riga sulla tabella attach. Questa operazione
-				    // va fatta in questo punto perchË il save del dell'allegato Ë fatto in un altra chiamata, e devo tenere persistenti e sincronizzate 
+				    // creo ds attach in cui inserir√≤ la nuova riga sulla tabella attach. Questa operazione
+				    // va fatta in questo punto perch√® il save del dell'allegato √® fatto in un altra chiamata, e devo tenere persistenti e sincronizzate 
 				    // le 2 sorgenti, filesystem e db. quindi gestisco con i contatori su una tabella del db
 				    var dsattach = getDsAttachWithCounterUpdated(outDs);
 				    // vedo se devo aggiungere sulla transazione il salvataggio del ds con i contatori aggiornati
@@ -1953,7 +2025,7 @@ namespace Backend.Controllers {
 					LogOperationAndData(myds, dispatcher.conn, tableName + "," + editType, "saveDatSet," + parentRowState, ds.ToString()); ;
 
 
-                    // segnalo i messaggi gi‡ ignorati 
+                    // segnalo i messaggi gi√† ignorati 
                     if (myMessages.Count > 0) postData.IgnoreMessages(myMessages);
 
 				    //salva i dati ed ottiene un eventuale elenco di messaggi
@@ -1966,14 +2038,14 @@ namespace Backend.Controllers {
 			    // invio una struttura con 4 prm:
 			    //  1. il ds serializzato
 			    //  2. i messaggi serializzati
-			    //  3. valore che indica se il save Ë andato con successo
+			    //  3. valore che indica se il save √® andato con successo
 			    //  4. valore che indica se tutti i messaggi sono ignorabili
 
 			    // inizializzo valori di default per i booleani di ritorno.
-			    var success = true; // indica se la transazione Ë avvenuta, quindi non ci sono messaggi di warning/errore
+			    var success = true; // indica se la transazione √® avvenuta, quindi non ci sono messaggi di warning/errore
 			    var canIgnore =
-				    true; // sar‡ true se tutti i messaggi sono ignorabili, false se almeno 1 messaggio  non Ë ignorabile
-					      // se ci sono messaggi , significa che la transazione non Ë stata eseguita, e devo amndare messaggi opportuni al client.
+				    true; // sar√† true se tutti i messaggi sono ignorabili, false se almeno 1 messaggio  non √® ignorabile
+					      // se ci sono messaggi , significa che la transazione non √® stata eseguita, e devo amndare messaggi opportuni al client.
 			    if (myMessages.Count > 0) {
 				    // dati non salvati a DB, mando lista dei messaggi, con relativo booleani che indicano se salvataggio avvenuto e se posso ignorare tutti i mess oppure no!
 				    success = false;
@@ -2004,7 +2076,7 @@ namespace Backend.Controllers {
 			    var dsSerialized = DataUtils.dataSetToJSon(outDs,false);
 
 			    var messagesSerialized = DataSetSerializer.serializeMessages(myMessages);
-			    // costruisco risposta da mandare al client con il ds e i messaggi eventuali pi˘ altre info utili
+			    // costruisco risposta da mandare al client con il ds e i messaggi eventuali pi√π altre info utili
 			    var result = DataUtils.getJsonSaveDataSetAnswer(dsSerialized, messagesSerialized, success, canIgnore);
 
 			    // 9. invio risposta al client
@@ -2024,7 +2096,7 @@ namespace Backend.Controllers {
 		/// <param name="ds"></param>
 		/// <returns></returns>
 		private void manageRegistration(DataSet ds) {
-			// se nel dataset c'Ë la tabella virtualuser allora significa che sto facendo una registrazione
+			// se nel dataset c'√® la tabella virtualuser allora significa che sto facendo una registrazione
 			if (ds.Tables["virtualuser"] != null && ds.Tables["registryreference"] != null) {
 
 				var registryRefRow = ds.Tables["registryreference"].First();
@@ -2122,10 +2194,10 @@ namespace Backend.Controllers {
 
 						// sullo stato modified devo decrementare il counter del vecchio record, mentre devo aumentare quello attuale
 						if (r.RowState == DataRowState.Modified) {
-							// recupero valore old, che andrÚ a recuperare sul db e decremento contatore
+							// recupero valore old, che andr√≤ a recuperare sul db e decremento contatore
 							var originalIdAttach = r[attachField, DataRowVersion.Original];
 							var currentIdAttach = r[attachField];
-							// solamente se Ë cambiato effettivamente l'id attach cioË ho un nuovo file
+							// solamente se √® cambiato effettivamente l'id attach cio√® ho un nuovo file
 							if (originalIdAttach.ToString() != currentIdAttach.ToString()) {
 								attachModified |= addDeltaToAttachment(conn, dtattach, originalIdAttach, -1);
 								attachModified |= addDeltaToAttachment(conn, dtattach, currentIdAttach, +1);
@@ -2184,9 +2256,10 @@ namespace Backend.Controllers {
 			EasySecurity sec = conn.Security as EasySecurity;
 
             sec.SetSys("idcustomuser", idcustomuser);
+            sec.SetSys("idflowchart", idflowchart);
 
-			// eseguo le stesse istruzioni di EasyWebReport
-			sec.RecalcUserEnvironment(idflowchart, ndetail);
+            // eseguo le stesse istruzioni di EasyWebReport
+            sec.RecalcUserEnvironment(idflowchart, ndetail);
 			// se non trovo nella cache lo calcolo, altrimeni lo ricavo dalla cache
 			sec.ReadAllGroupOperations();
 
@@ -2209,6 +2282,12 @@ namespace Backend.Controllers {
             sysClient.Add("dbversion", dispatcher.conn.DO_READ_VALUE("updatedbversion", null, "max(versionname)"));
             sysClient.Add("backendversion", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             sysClient.Add("idcustomuser", sec.GetSys("idcustomuser"));
+            sysClient.Add("ndetail", sec.GetSys("ndetail"));
+            sysClient.Add("usergrouplist", sec.GetSys("usergrouplist"));
+            sysClient.Add("ayear", sec.GetSys("esercizio"));
+            sysClient.Add("esercizio", sec.GetSys("esercizio"));
+            sysClient.Add("idflowchart", idflowchart);
+            sysClient.Add("user", idcustomuser);
 
             var result = new JObject {
 				{"usr", JToken.FromObject(usr)},
@@ -2289,7 +2368,7 @@ namespace Backend.Controllers {
 
         public class sendMailParameters {
             /// <summary>
-            /// EMails splitted by ;. For ex: mail1@m.it;mail2@m.it
+            /// EMails splitted by ;. For ex: your-email@example.com;your-email@example.com
             /// </summary>
             public string emailDest { get; set; }
 
@@ -2326,7 +2405,7 @@ namespace Backend.Controllers {
 
 				List<string> listStrLineElements = emailDest.Split(';').ToList();
 				foreach (String email in listStrLineElements) {
-					mail.To.Add(new MailboxAddress("", email));
+                    mail.To.Add(new MailboxAddress("", email.Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace("\f", "").Replace("\v", "")));
 				}
 				mail.Subject = subject;
 				builder.HtmlBody = body;
@@ -2410,7 +2489,7 @@ namespace Backend.Controllers {
             command = "CREATE TABLE " + tableName + " (\r";
             int ncol = columns.GetLength(0);
             for (i = 0; i < ncol; i++) {
-                command += "[" + columns[i] + "] varchar(1000) NULL ";
+                command += "[" + columns[i] + "] varchar(4000) NULL ";
                 if ((i + 1 < ncol)) command += ",\r";
             }
             command += ")";
@@ -2540,9 +2619,9 @@ namespace Backend.Controllers {
 				var filterByEmail = qh.AppAnd(qh.Like("referencename", "riccardo%"));
 				getData.GET_PRIMARY_TABLE(filterByEmail);
 
-				// Aggiungo propriet‡ AutoIncrement per test ser c# -> js 
+				// Aggiungo propriet√† AutoIncrement per test ser c# -> js 
 				// Ricorda che lato js i selettori generici e quelli specifici sarrano uniti. (uniti in fase di serializzazione c#)
-				// Un selettore generico Ë quello per cui per una data esiste una ExtendedProperties "Selector" e "SelectorMask". 
+				// Un selettore generico √® quello per cui per una data esiste una ExtendedProperties "Selector" e "SelectorMask". 
 				// Invece i selettori specifici sono stringhe concatenate da virgola contenute nelle ExtendedProperties "MySelector" e "MySelectorMask"
 
 				ds1.Tables["registryreference"].Columns["referencename"].ExtendedProperties["Selector"] = "s";
@@ -2577,7 +2656,7 @@ namespace Backend.Controllers {
 				var r = datat.Rows[0];
 				r["flagdefault"] = "N";
 				r["referencename"] = "Luigi";
-				//Ci sono 6 righe ove referencename like riccardo%. La prima riga Ë modified (flagdefault,referencename) , la 3a Ë deleted, l'ultima Ë added
+				//Ci sono 6 righe ove referencename like riccardo%. La prima riga √® modified (flagdefault,referencename) , la 3a √® deleted, l'ultima √® added
 				//AGGIUNGO UNA NUOVA RIGA ALLA TABELLA 
 
 				var row = datat.NewRow();
@@ -2677,7 +2756,7 @@ namespace Backend.Controllers {
 
 		/// <summary>
 		/// Richiamata un qualsaisi custom event descritto sui metadati in maniera standard
-		/// Si aspetta che nei prm ci siano almeno  "tablename"  e  "customevent" ed eventualmente dei parametri  aggiuntivi che poi passerÚ al metodo custom sul metadato
+		/// Si aspetta che nei prm ci siano almeno  "tablename"  e  "customevent" ed eventualmente dei parametri  aggiuntivi che poi passer√≤ al metodo custom sul metadato
 		/// </summary>
 		/// <returns></returns>
 		private IHttpActionResult callSP(JObject parameters) {
@@ -2734,7 +2813,7 @@ namespace Backend.Controllers {
 
 		/// <summary>
 		/// Richiamata un qualsaisi custom event descritto sui metadati in maniera standard
-		/// Si aspetta che nei prm ci siano almeno  "tablename"  e  "customevent" ed eventualmente dei parametri  aggiuntivi che poi passerÚ al metodo custom sul metadato
+		/// Si aspetta che nei prm ci siano almeno  "tablename"  e  "customevent" ed eventualmente dei parametri  aggiuntivi che poi passer√≤ al metodo custom sul metadato
 		/// </summary>
 		/// <returns></returns>
 		private IHttpActionResult mdlwCustomEvent(JObject parameters) {
@@ -2801,26 +2880,26 @@ namespace Backend.Controllers {
 
         #region Logging
 
-        public string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo, string metadata)
-        {
-            BEError bEError = new BEError();
-            bEError.conn = conn;
-            bEError.error = "Error: " + error + " " + GetDSErrors(ds);
-            bEError.methodInfo = methodInfo;
-            bEError.metadata = metadata;
-            DBLogger.log(bEError);
-            return bEError.error;
-        }
+        //public string GetAndLogErrorMessage(DataSet ds, IEasyDataAccess conn, string error, string methodInfo, string metadata)
+        //{
+        //    BEError bEError = new BEError();
+        //    bEError.conn = conn;
+        //    bEError.error = "Error: " + error + " " + GetDSErrors(ds);
+        //    bEError.methodInfo = methodInfo;
+        //    bEError.metadata = metadata;
+        //    DBLogger.log(bEError);
+        //    return bEError.error;
+        //}
 
-        public void LogOperationAndData(DataSet ds, IEasyDataAccess conn, string operation, string methodInfo, string metadata)
-        {
-            BEError bEError = new BEError();
-            bEError.conn = conn;
-            bEError.error = operation;
-            bEError.methodInfo = methodInfo;
-            bEError.metadata = metadata;
-            DBLogger.log(bEError);
-        }
+        //public void LogOperationAndData(DataSet ds, IEasyDataAccess conn, string operation, string methodInfo, string metadata)
+        //{
+        //    BEError bEError = new BEError();
+        //    bEError.conn = conn;
+        //    bEError.error = operation;
+        //    bEError.methodInfo = methodInfo;
+        //    bEError.metadata = metadata;
+        //    DBLogger.log(bEError);
+        //}
 
         public class logErrorParameters
         {

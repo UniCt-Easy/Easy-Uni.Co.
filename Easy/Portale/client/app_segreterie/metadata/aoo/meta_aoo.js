@@ -24,6 +24,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'princ':
+						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 1024);
+						this.describeAColumn(table, 'codiceaooipa', 'Codice IPA', null, 30, 50);
 						this.describeAColumn(table, '!idsede_sede_title', 'Sede', null, 41, null);
 						objCalcFieldConfig['!idsede_sede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'idsede' };
 //$objCalcFieldConfig_princ$
@@ -41,7 +43,19 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'princ':
+						table.columns["codiceaooipa"].caption = "Codice IPA";
+						table.columns["idreg"].caption = "Istituto o ente o azienda";
+						table.columns["idsede"].caption = "Sede";
+						table.columns["title"].caption = "Denominazione";
+//$innerSetCaptionConfig_princ$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_aoo");
@@ -67,6 +81,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "title asc ";
+					}
+					case "princ": {
 						return "title asc ";
 					}
 					//$getSortingin$

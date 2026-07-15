@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_iscrizione_seganagstuacc"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_iscrizione_seganagstuacc: DataSet {
+public partial class dsmeta_iscrizione_seganagstuacc: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -72,6 +70,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// SOSTENIMENTOESITO /////////////////////////////////
 	var tsostenimentoesito= new MetaTable("sostenimentoesito");
+	tsostenimentoesito.defineColumn("active", typeof(string),false);
 	tsostenimentoesito.defineColumn("idsostenimentoesito", typeof(int),false);
 	tsostenimentoesito.defineColumn("title", typeof(string),false);
 	Tables.Add(tsostenimentoesito);
@@ -114,6 +113,7 @@ private void initClass() {
 	//////////////////// DIDPROGINGRESSOVIEW /////////////////////////////////
 	var tdidprogingressoview= new MetaTable("didprogingressoview");
 	tdidprogingressoview.defineColumn("aa", typeof(string));
+	tdidprogingressoview.defineColumn("appellokind_title", typeof(string));
 	tdidprogingressoview.defineColumn("corsostudio_annoistituz", typeof(int));
 	tdidprogingressoview.defineColumn("corsostudio_title", typeof(string));
 	tdidprogingressoview.defineColumn("didprog_annosolare", typeof(int));
@@ -125,6 +125,8 @@ private void initClass() {
 	tdidprogingressoview.defineColumn("didprog_freqobbl", typeof(string));
 	tdidprogingressoview.defineColumn("didprog_idareadidattica", typeof(int));
 	tdidprogingressoview.defineColumn("didprog_idconvenzione", typeof(int));
+	tdidprogingressoview.defineColumn("didprog_idcorsostudiokind", typeof(int));
+	tdidprogingressoview.defineColumn("didprog_idcorsostudiolivello", typeof(int));
 	tdidprogingressoview.defineColumn("didprog_iddidprognumchiusokind", typeof(int));
 	tdidprogingressoview.defineColumn("didprog_iddidprogsuddannokind", typeof(int));
 	tdidprogingressoview.defineColumn("didprog_iderogazkind", typeof(int));
@@ -148,9 +150,9 @@ private void initClass() {
 	tdidprogingressoview.defineColumn("didprog_website", typeof(string));
 	tdidprogingressoview.defineColumn("didprognumchiusokind_title", typeof(string));
 	tdidprogingressoview.defineColumn("dropdown_title", typeof(string),false);
-	tdidprogingressoview.defineColumn("geo_nationlang_title", typeof(string));
-	tdidprogingressoview.defineColumn("geo_nationlang2_title", typeof(string));
-	tdidprogingressoview.defineColumn("geo_nationlangvis_title", typeof(string));
+	tdidprogingressoview.defineColumn("geo_nationlang_lang", typeof(string));
+	tdidprogingressoview.defineColumn("geo_nationlang2_lang", typeof(string));
+	tdidprogingressoview.defineColumn("geo_nationlangvis_lang", typeof(string));
 	tdidprogingressoview.defineColumn("graduatoria_title", typeof(string));
 	tdidprogingressoview.defineColumn("idcorsostudio", typeof(int),false);
 	tdidprogingressoview.defineColumn("iddidprog", typeof(int),false);
@@ -161,13 +163,15 @@ private void initClass() {
 	tdidprogingressoview.defineColumn("idsede", typeof(int));
 	tdidprogingressoview.defineColumn("idsessione", typeof(int));
 	tdidprogingressoview.defineColumn("sede_title", typeof(string));
+	tdidprogingressoview.defineColumn("sessione_idappellokind", typeof(int));
+	tdidprogingressoview.defineColumn("sessione_idsessionekind", typeof(int));
 	tdidprogingressoview.defineColumn("sessione_start", typeof(DateTime));
 	tdidprogingressoview.defineColumn("sessione_stop", typeof(DateTime));
 	tdidprogingressoview.defineColumn("sessionekind_title", typeof(string));
 	tdidprogingressoview.defineColumn("title", typeof(string));
 	tdidprogingressoview.defineColumn("titolokind_title", typeof(string));
 	Tables.Add(tdidprogingressoview);
-	tdidprogingressoview.defineKey("iddidprog");
+	tdidprogingressoview.defineKey("idcorsostudio", "iddidprog");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");

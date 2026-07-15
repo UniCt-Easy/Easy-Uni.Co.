@@ -59,6 +59,24 @@
 						this.describeAColumn(table, '!affidamentocaratteristicaora', 'Ore', null, 60, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'doc':
+						this.describeAColumn(table, 'cf', 'Crediti', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'profess', 'Professionalizzante', null, 140, null);
+						this.describeAColumn(table, '!idambitoareadisc_ambitoareadisc_title', 'Ambito o area disciplinare', null, 41, null);
+						objCalcFieldConfig['!idambitoareadisc_ambitoareadisc_title'] = { tableNameLookup:'ambitoareadisc', columnNameLookup:'title', columnNamekey:'idambitoareadisc' };
+						this.describeAColumn(table, '!idsasd_sasd_codice', 'Codice SASD', null, 121, null);
+						this.describeAColumn(table, '!idsasd_sasd_title', 'Denominazione SASD', null, 122, null);
+						objCalcFieldConfig['!idsasd_sasd_codice'] = { tableNameLookup:'sasd', columnNameLookup:'codice', columnNamekey:'idsasd' };
+						objCalcFieldConfig['!idsasd_sasd_title'] = { tableNameLookup:'sasd', columnNameLookup:'title', columnNamekey:'idsasd' };
+						this.describeAColumn(table, '!idsasdgruppo_sasdgruppo_title', 'Gruppo', null, 51, null);
+						objCalcFieldConfig['!idsasdgruppo_sasdgruppo_title'] = { tableNameLookup:'sasdgruppo', columnNameLookup:'title', columnNamekey:'idsasdgruppo' };
+						this.describeAColumn(table, '!idtipoattform_tipoattform_title', 'Denominazione Tipo di attività formativa', null, 31, null);
+						this.describeAColumn(table, '!idtipoattform_tipoattform_description', 'Descrizione Tipo di attività formativa', null, 32, null);
+						objCalcFieldConfig['!idtipoattform_tipoattform_title'] = { tableNameLookup:'tipoattform', columnNameLookup:'title', columnNamekey:'idtipoattform' };
+						objCalcFieldConfig['!idtipoattform_tipoattform_description'] = { tableNameLookup:'tipoattform', columnNameLookup:'description', columnNamekey:'idtipoattform' };
+						this.describeAColumn(table, '!affidamentocaratteristicaora', 'Ore', null, 60, null);
+//$objCalcFieldConfig_doc$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -83,6 +101,9 @@
 					case 'default':
 						table.columns["cf"].caption = "Crediti";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'doc':
+//$innerSetCaptionConfig_doc$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -116,6 +137,9 @@
 						return "idtipoattform desc, idambitoareadisc desc, idsasdgruppo desc, idsasd desc";
 					}
 					case "default": {
+						return "idtipoattform desc, idambitoareadisc desc, idsasdgruppo desc, idsasd desc";
+					}
+					case "doc": {
 						return "idtipoattform desc, idambitoareadisc desc, idsasdgruppo desc, idsasd desc";
 					}
 					//$getSortingin$

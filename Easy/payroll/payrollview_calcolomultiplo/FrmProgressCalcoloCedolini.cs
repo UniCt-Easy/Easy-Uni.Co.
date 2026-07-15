@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -42,7 +40,8 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 		private ArrayList cedolini;
 		private ArrayList contratti;
 		private string filtroContratti;
-		private System.Windows.Forms.ProgressBar progressBar1;
+		// Rimuovo la progress bar, se dovesse servire bisogna farla async
+		//private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Button btnInterrompi;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.TextBox txtCedoliniCalcolati;
@@ -53,6 +52,10 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+
+		private int esaminati;
+		private int totCedolini;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -97,7 +100,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			//this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.btnInterrompi = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.lblScartati = new System.Windows.Forms.Label();
@@ -113,12 +116,12 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(16, 152);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(668, 23);
-			this.progressBar1.TabIndex = 0;
+			//this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			//	| System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBar1.Location = new System.Drawing.Point(16, 152);
+			//this.progressBar1.Name = "progressBar1";
+			//this.progressBar1.Size = new System.Drawing.Size(668, 23);
+			//this.progressBar1.TabIndex = 0;
 			// 
 			// btnInterrompi
 			// 
@@ -224,7 +227,7 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 			this.Controls.Add(this.splitter1);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnInterrompi);
-			this.Controls.Add(this.progressBar1);
+			//this.Controls.Add(this.progressBar1);
 			this.Name = "FrmProgressCalcoloCedolini";
 			this.Text = "Statistiche Cedolini";
 			this.Activated += new System.EventHandler(this.FrmProgressCalcoloCedolini_Activated);
@@ -241,9 +244,11 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 			primaVolta = false;
 			ArrayList cedoliniDaCalcolare = new ArrayList();
 			int scartati = 0;
-			progressBar1.Maximum = cedolini.Count;
+			//progressBar1.Maximum = cedolini.Count;
+			esaminati = 0;
+			totCedolini = cedolini.Count;
 
-			lblEsaminati.Text = "Esaminati: "+progressBar1.Value+" / "+progressBar1.Maximum;
+			lblEsaminati.Text = "Esaminati: "+esaminati+" / "+totCedolini;
 			lblCalcolati.Text = "Calcolati: "+0;
 			lblScartati.Text = "Scartati: "+scartati;
 
@@ -327,9 +332,9 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 						{
 							scartati ++;
 							lblScartati.Text = "Scartati: "+scartati;
-							progressBar1.Value ++;
+							esaminati++;
 						}
-						lblEsaminati.Text = "Esaminati: "+progressBar1.Value+" / "+progressBar1.Maximum;
+						lblEsaminati.Text = "Esaminati: "+esaminati+" / "+totCedolini;
 						Application.DoEvents();
 					}
 
@@ -410,8 +415,8 @@ namespace payrollview_calcolomultiplo//cedolino_calcolomultiplo//
 					else {
 						txtErrori.Text += "n° " + idCedolino + "  (" + errore + ")\r\n";
 					} 
-					progressBar1.Value ++;
-					lblEsaminati.Text = "Esaminati: "+progressBar1.Value+" / "+progressBar1.Maximum;
+					esaminati++;
+					lblEsaminati.Text = "Esaminati: "+esaminati+" / "+totCedolini;
 					Application.DoEvents();
 					if (interrompi) {
 						btnInterrompi.Text = "Chiudi";

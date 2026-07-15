@@ -37,12 +37,15 @@
 						this.describeAColumn(table, 'orepreventivate', 'Numero di ore preventivate', null, 70, null);
 						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', null, 110, null);
 						this.describeAColumn(table, 'stop', 'Data fine prevista', null, 120, null);
+						this.describeAColumn(table, 'rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 140, null);
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto', null, 12, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto', null, 13, null);
+						this.describeAColumn(table, '!idprogetto_progetto_idprogetto', 'Codice interno Progetto', null, 14, null);
 						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'start', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_idprogetto'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'idprogetto', columnNamekey:'idprogetto' };
 						this.describeAColumn(table, '!idrendicontattivitaprogettokind_rendicontattivitaprogettokind_title', 'Tipo di attività', null, 131, null);
 						objCalcFieldConfig['!idrendicontattivitaprogettokind_rendicontattivitaprogettokind_title'] = { tableNameLookup:'rendicontattivitaprogettokind', columnNameLookup:'title', columnNamekey:'idrendicontattivitaprogettokind' };
 						this.describeAColumn(table, '!idworkpackage_workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 21, null);
@@ -61,12 +64,15 @@
 						this.describeAColumn(table, 'orepreventivate', 'Numero di ore preventivate', null, 70, null);
 						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', null, 110, null);
 						this.describeAColumn(table, 'stop', 'Data fine prevista', null, 120, null);
+						this.describeAColumn(table, 'rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 140, null);
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto', null, 12, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto', null, 13, null);
+						this.describeAColumn(table, '!idprogetto_progetto_idprogetto', 'Codice interno Progetto', null, 14, null);
 						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias3', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias3', columnNameLookup:'start', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias3', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_idprogetto'] = { tableNameLookup:'progetto_alias3', columnNameLookup:'idprogetto', columnNamekey:'idprogetto' };
 						this.describeAColumn(table, '!idrendicontattivitaprogettokind_rendicontattivitaprogettokind_title', 'Tipo di attività', null, 131, null);
 						objCalcFieldConfig['!idrendicontattivitaprogettokind_rendicontattivitaprogettokind_title'] = { tableNameLookup:'rendicontattivitaprogettokind', columnNameLookup:'title', columnNamekey:'idrendicontattivitaprogettokind' };
 						this.describeAColumn(table, '!idworkpackage_workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 21, null);
@@ -80,7 +86,6 @@
 //$objCalcFieldConfig_anag$
 						break;
 					case 'seg':
-						this.describeAColumn(table, '!orerendicont', 'Numero di ore rendicontate', null, 0, null);
 						this.describeAColumn(table, '!raggruppamento', 'Raggruppamento', null, 0, null);
 						this.describeAColumn(table, '!titolobreve', 'Progetto', null, 0, null);
 						this.describeAColumn(table, '!wp', 'Workpackage', null, 0, null);
@@ -88,6 +93,7 @@
 						this.describeAColumn(table, 'orepreventivate', 'Numero di ore preventivate', null, 70, null);
 						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', null, 110, null);
 						this.describeAColumn(table, 'stop', 'Data fine prevista', null, 120, null);
+						this.describeAColumn(table, 'rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 140, null);
 						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_surname', 'Cognome Partecipante', null, 11, null);
 						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_forename', 'Nome Partecipante', null, 12, null);
 						this.describeAColumn(table, '!idreg_getregistrydocentiamministrativi_extmatricula', 'Matricola Partecipante', null, 13, null);
@@ -109,6 +115,7 @@
 						this.describeAColumn(table, 'orepreventivate', 'Numero di ore preventivate', null, 70, null);
 						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', null, 110, null);
 						this.describeAColumn(table, 'stop', 'Data fine prevista', null, 120, null);
+						this.describeAColumn(table, 'rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 140, null);
 //$objCalcFieldConfig_docente$
 						break;
 					case 'segsal':
@@ -117,6 +124,7 @@
 						this.describeAColumn(table, 'orepreventivate', 'Numero di ore preventivate', null, 70, null);
 						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', null, 110, null);
 						this.describeAColumn(table, 'stop', 'Data fine prevista', null, 120, null);
+						this.describeAColumn(table, 'rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 140, null);
 //$objCalcFieldConfig_segsal$
 						break;
 					case 'personale':
@@ -125,6 +133,7 @@
 						this.describeAColumn(table, 'orepreventivate', 'Numero di ore preventivate', null, 70, null);
 						this.describeAColumn(table, 'datainizioprevista', 'Data inizio prevista', null, 110, null);
 						this.describeAColumn(table, 'stop', 'Data fine prevista', null, 120, null);
+						this.describeAColumn(table, 'rendicontatutto', 'Rendicontatutto', null, 140, null);
 //$objCalcFieldConfig_personale$
 						break;
 //$objCalcFieldConfig$
@@ -142,51 +151,34 @@
 //$innerSetCaptionConfig_doc$
 						break;
 					case 'anagamm':
-						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
 						table.columns["datainizioprevista"].caption = "Data inizio prevista";
 						table.columns["description"].caption = "Descrizione";
 						table.columns["idprogetto"].caption = "Progetto";
 						table.columns["idreg"].caption = "Partecipante";
+						table.columns["idrendicontattivitaprogettokind"].caption = "Tipo di attività";
 						table.columns["idworkpackage"].caption = "Workpackage";
 						table.columns["orepreventivate"].caption = "Numero di ore preventivate";
+						table.columns["rendicontatutto"].caption = "Rendiconta automaticamente tutte le ore sulla attività";
 						table.columns["stop"].caption = "Data fine prevista";
-						table.columns["idrendicontattivitaprogettokind"].caption = "Tipo di attività";
-						//$innerSetCaptionConfig_anagamm$
+//$innerSetCaptionConfig_anagamm$
 						break;
 					case 'anag':
 						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
 						//$innerSetCaptionConfig_anag$
 						break;
 					case 'seg':
-						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
-						table.columns["datainizioprevista"].caption = "Data inizio prevista";
-						table.columns["description"].caption = "Descrizione";
-						table.columns["idprogetto"].caption = "Progetto";
-						table.columns["idreg"].caption = "Partecipante";
-						table.columns["idworkpackage"].caption = "Workpackage";
-						table.columns["orepreventivate"].caption = "Numero di ore preventivate";
-						table.columns["stop"].caption = "Data fine prevista";
-						table.columns["idrendicontattivitaprogettokind"].caption = "Tipo di attività";
+						table.columns["!raggruppamento"].caption = "Raggruppamento";
 						table.columns["!titolobreve"].caption = "Progetto";
 						table.columns["!wp"].caption = "Workpackage";
-						table.columns["!raggruppamento"].caption = "Raggruppamento";
-						//$innerSetCaptionConfig_seg$
+//$innerSetCaptionConfig_seg$
 						break;
 					case 'docente':
-						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
 						table.columns["!datafine"].caption = "Data fine";
 						table.columns["!datainizio"].caption = "Data inizio";
 //$innerSetCaptionConfig_docente$
 						break;
 					case 'segsal':
-						table.columns["datainizioprevista"].caption = "Data inizio prevista";
-						table.columns["description"].caption = "Descrizione";
-						table.columns["idprogetto"].caption = "Progetto";
-						table.columns["idreg"].caption = "Partecipante";
-						table.columns["idworkpackage"].caption = "Workpackage";
-						table.columns["orepreventivate"].caption = "Numero di ore preventivate";
-						table.columns["stop"].caption = "Data fine prevista";
-						table.columns["!orerendicont"].caption = "Numero di ore rendicontate";
+						table.columns["rendicontatutto"].caption = "Rendiconta automaticamente tutte le ore sulla attività";
 //$innerSetCaptionConfig_segsal$
 						break;
 					case 'personale':

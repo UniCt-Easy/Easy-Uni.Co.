@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_opisiopeplus_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_opisiopeplus_ins]
 GO
@@ -24,7 +22,7 @@ GO
 SET ANSI_NULLS ON 
 GO
  --setuser 'amministrazione'
--- exec trasmele_expense_opisiopeplus_ins 2021, 176
+-- exec trasmele_expense_opisiopeplus_ins 2024, 272
 if not exists (select * from systypes where name = 'int_list') begin 
 	CREATE TYPE dbo.int_list AS TABLE      ( n int)  
 end
@@ -189,20 +187,22 @@ SET @len_agencycode = 7
 4 “ASSEGNO BANCARIO E POSTALE”
 5 “ASSEGNO CIRCOLARE”
 6 “ACCREDITO CONTO CORRENTE POSTALE”
-7 “ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A”   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
-8 “ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B”   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE
+7 “ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A”   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE => nella versione 1_7_1 è stato rimosso
+8 “ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B”   GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE => nella versione 1_7_1 è stato rimosso
++ “ACCREDITO TESORERIA PROVINCIALE STATO”																	=> AGGIUNTO nella versione 1_7_1 
 9 “F24EP” (7)										  GIROFONDO + VALORIZZAZ CODICE CONTABILITA SPECIALE 1777
 10 “VAGLIA POSTALE”
 11 “VAGLIA TESORO”
 
 “REGOLARIZZAZIONE”
-“REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A”
-“REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B”
+“REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB A” => nella versione 1_7_1 è stato rimosso
+“REGOLARIZZAZIONE ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B” => nella versione 1_7_1 è stato rimosso
 
 12 “ADDEBITO PREAUTORIZZATO”
 13 “DISPOSIZIONE DOCUMENTO ESTERNO”
 14 “COMPENSAZIONE”
 15 “BONIFICO ESTERO EURO”
+"SEPA INSTANT CREDIT TRANSFER"
 */
 
 /*
@@ -299,7 +299,7 @@ Begin
 
 				IF (@error = 'S')
 				BEGIN
-					SET @message = @message + ' Andare nella maschera CONFIGURAZIONE - CASSIERE - CASSIERE ed inserire i dati'
+					SET @message = @message + ' Andare nella maschera OPZIONI - BANCA - CONTO CORRENTE ed inserire i dati'
 					INSERT INTO #error VALUES(@message)
 				END
 
@@ -438,46 +438,47 @@ Begin
 				WHERE P.idstamphandling IS NULL
 					  AND P.kpaymenttransmission = @kpaymenttransmission
 
+--5.10.10 numero_conto_banca_italia_ente_ricevente => nella versione 1_7_1 è stato rimosso
 
 				-- CONTROLLO N. 14. codice contabilita speciale errato o mancante, controllare regole su codice contabilità speciale girofondi
-				IF EXISTS
-				(SELECT * FROM paymentcommunicated
-						join expenselast			        ON paymentcommunicated.idexp = expenselast.idexp
-						join expense						on expenselast.idexp = expense.idexp 
-						join registrypaymethod				on registrypaymethod.idreg = expense.idreg
-								and registrypaymethod.idpaymethod = expenselast.idpaymethod
-								and registrypaymethod.idregistrypaymethod = expenselast.idregistrypaymethod
-						JOIN paymethod	     				ON expenselast.idpaymethod = paymethod.idpaymethod
-				WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission					
-					AND ((expenselast.paymethod_flag & (256+512) )<>0 )  -- modalità di pagamento girofondo, valutare il girofondo A F24EP
-					AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL
-						OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
-						OR DATALENGTH(ISNULL(
-						REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
-						REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),',',''),'.',''),'_',''),'-',''),'*',''),'+',''),
-						'/',''),':',''),';','')
-						,'')) > @lencodicecontabilitaspeciale)
-				)
-				BEGIN
-					INSERT INTO #error (message)
-						(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
-						+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
-						+ ' nella modalità di pagamento non è stato inserito il Codice contabilità speciale o la sua lunghezza supera i '
-						+ CONVERT(varchar(7),@lencodicecontabilitaspeciale) + ' caratteri'
-						FROM paymentcommunicated
-						join expenselast		ON paymentcommunicated.idexp = expenselast.idexp
-						join expense			on expenselast.idexp = expense.idexp 
-						join registrypaymethod	on registrypaymethod.idreg = expense.idreg
-													and registrypaymethod.idpaymethod = expenselast.idpaymethod
-													and registrypaymethod.idregistrypaymethod = expenselast.idregistrypaymethod
-						JOIN paymethod			ON expenselast.idpaymethod = paymethod.idpaymethod
-						WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission
-							AND	(expenselast.paymethod_flag & (256+512) )<>0     -- modalità di pagamento girofondo, valutare il girofondo A F24EP
-							AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL 
-								OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
-								OR DATALENGTH(ISNULL(ISNULL(expenselast.extracode,registrypaymethod.extracode),'')) > @lencodicecontabilitaspeciale)
-						)
-				END
+				--IF EXISTS
+				--(SELECT * FROM paymentcommunicated
+				--		join expenselast			        ON paymentcommunicated.idexp = expenselast.idexp
+				--		join expense						on expenselast.idexp = expense.idexp 
+				--		join registrypaymethod				on registrypaymethod.idreg = expense.idreg
+				--				and registrypaymethod.idpaymethod = expenselast.idpaymethod
+				--				and registrypaymethod.idregistrypaymethod = expenselast.idregistrypaymethod
+				--		JOIN paymethod	     				ON expenselast.idpaymethod = paymethod.idpaymethod
+				--WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission					
+				--	AND ((expenselast.paymethod_flag & (256+512) )<>0 )  -- modalità di pagamento girofondo, valutare il girofondo A F24EP
+				--	AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL
+				--		OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
+				--		OR DATALENGTH(ISNULL(
+				--		REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+				--		REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),',',''),'.',''),'_',''),'-',''),'*',''),'+',''),
+				--		'/',''),':',''),';','')
+				--		,'')) > @lencodicecontabilitaspeciale)
+				--)
+				--BEGIN
+				--	INSERT INTO #error (message)
+				--		(SELECT 'Al movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
+				--		+ '/' + CONVERT(varchar(4),paymentcommunicated.ymov)
+				--		+ ' nella modalità di pagamento non è stato inserito il Codice contabilità speciale o la sua lunghezza supera i '
+				--		+ CONVERT(varchar(7),@lencodicecontabilitaspeciale) + ' caratteri'
+				--		FROM paymentcommunicated
+				--		join expenselast		ON paymentcommunicated.idexp = expenselast.idexp
+				--		join expense			on expenselast.idexp = expense.idexp 
+				--		join registrypaymethod	on registrypaymethod.idreg = expense.idreg
+				--									and registrypaymethod.idpaymethod = expenselast.idpaymethod
+				--									and registrypaymethod.idregistrypaymethod = expenselast.idregistrypaymethod
+				--		JOIN paymethod			ON expenselast.idpaymethod = paymethod.idpaymethod
+				--		WHERE paymentcommunicated.kpaymenttransmission = @kpaymenttransmission
+				--			AND	(expenselast.paymethod_flag & (256+512) )<>0     -- modalità di pagamento girofondo, valutare il girofondo A F24EP
+				--			AND (ISNULL(expenselast.extracode,registrypaymethod.extracode) IS NULL 
+				--				OR REPLACE(ISNULL(expenselast.extracode,registrypaymethod.extracode),' ','') = ''
+				--				OR DATALENGTH(ISNULL(ISNULL(expenselast.extracode,registrypaymethod.extracode),'')) > @lencodicecontabilitaspeciale)
+				--		)
+				--END
 
 				-- CONTROLLO N. 15. Movimento di Spesa a Importo zero
 				INSERT INTO #error (message)
@@ -582,7 +583,7 @@ CREATE TABLE #payment
 	tipo_contabilita_ente_ricevente varchar(20),
 	girofondo char(1),
 	deny_bank_details char(1),
-	extracode varchar(7),
+	--extracode varchar(7),
 	paymentdescr varchar(370),
 	--txt varchar(200), 
 	expenselast_paymentdescr varchar(150),
@@ -746,7 +747,8 @@ Begin
 			code, proprietary,
 			title_ben, cf_ben, pi_ben , 
 			paymentdescr, expenselast_paymentdescr, fulfilled, uncharged, girofondo,deny_bank_details,
-			extracode, iddeputy, refexternaldoc, nbill, idpay, 
+--			extracode, 
+			iddeputy, refexternaldoc, nbill, idpay, 
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
@@ -778,13 +780,17 @@ Begin
 			ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
 		 
 			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
+			-- tipo_contabilita_ente_ricevente
+			-- ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE
 			CASE
-				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP'))  THEN NULL
-				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
-				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
-			END, -- informazioni obbligatorie solo per i girofondi in BI
+				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP'))  THEN NULL
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
+			END, 
+			-- informazioni obbligatorie solo per i girofondi in BI
 			LTRIM(RTRIM(m.abi_label)),
-			CASE
+		CASE
 				WHEN DATALENGTH(ISNULL(el.idbank,'')) <= @len_ABI
 				THEN ISNULL(el.idbank,'')
 				ELSE SUBSTRING(el.idbank,1,@len_ABI)
@@ -835,10 +841,12 @@ Begin
 				WHEN (( el.flag & 8)<>0) then 'S' --uncharged
 				ELSE 'N'
 			END, 
+--ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE		
 			CASE
 				WHEN
 				   (
-						m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP') 
+						m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP') 
 				   )   THEN 'S'		--girofondo
 				ELSE 'N'
 			END,
@@ -846,11 +854,11 @@ Begin
 				WHEN ((el.paymethod_flag & 8)<>0) and ((el.paymethod_flag & 2)=0) then  'S'
 				ELSE 'N'
 			END,
-			CASE
-			WHEN DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,''))) <= @lencodicecontabilitaspeciale
-			THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,'')))) + ISNULL(el.extracode,ISNULL(mcd.extracode,''))
-			ELSE SUBSTRING(ISNULL(el.extracode,ISNULL(mcd.extracode,'')),1,@lencodicecontabilitaspeciale)
-			END	,
+			--CASE
+			--WHEN DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,''))) <= @lencodicecontabilitaspeciale
+			--THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,'')))) + ISNULL(el.extracode,ISNULL(mcd.extracode,''))
+			--ELSE SUBSTRING(ISNULL(el.extracode,ISNULL(mcd.extracode,'')),1,@lencodicecontabilitaspeciale)
+			--END	,
 			CASE
 				WHEN m.allowdeputy = 'S' THEN el.iddeputy 
 				ELSE NULL
@@ -919,7 +927,8 @@ Begin
 			code, proprietary,
 			title_ben, cf_ben, pi_ben , 
 			paymentdescr, expenselast_paymentdescr, fulfilled, uncharged, girofondo,deny_bank_details,
-			extracode, iddeputy, refexternaldoc, nbill, idpay, 
+--			extracode, 
+			iddeputy, refexternaldoc, nbill, idpay, 
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
@@ -948,21 +957,24 @@ Begin
 			END, --esenzione bollo
 			ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
 			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
+			--ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE		
 			CASE
-				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP'))  THEN NULL
-				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
-				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
+				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP'))  THEN NULL
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
 			END, -- informazioni obbligatorie solo per i girofondi in BI
 			--- Considero la seguente mappatura tra la modalità di pagamento della disposizione
 			--  e la modalità di pagamento ABI 
 			CASE
+				WHEN (pd.paymethodcode = 8)  and (pd.iban IS NOT NULL) THEN  'ACCREDITOTESORERIAPROVINCIALE' -- girofondo 
+				WHEN ((pd.iban IS NOT NULL) and m.abi_label ='SEPAINSTANTCREDITTRANSFER' )THEN 'SEPAINSTANTCREDITTRANSFER' -- bonifico istantaneo
 				WHEN (pd.iban IS NOT NULL) THEN 'SEPACREDITTRANSFER' -- bonifico  -- paymethodcode = 1
 				WHEN ((pd.paymethodcode = 2) AND (pd.iban IS NULL)) THEN  'CASSA' -- cassa
 				WHEN pd.paymethodcode = 3 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare
 				WHEN pd.paymethodcode = 4 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare non trasferibile
 				WHEN pd.paymethodcode = 5 THEN  'ASSEGNOBANCARIOEPOSTALE' -- assegno quietanza
-				WHEN pd.paymethodcode = 6 THEN  'ACCREDITOTESORERIAPROVINCIALESTATOPERTABA' -- girofondo Tab A
-				WHEN pd.paymethodcode = 7 THEN  'ACCREDITOTESORERIAPROVINCIALESTATOPERTABB' -- girofondo Tab B
+				WHEN pd.paymethodcode = 8 THEN  'ACCREDITOTESORERIAPROVINCIALE' -- girofondo 
 				ELSE 'CASSA' --cassa 
 			END, --@len_ABI--LTRIM(RTRIM(m.abi_label)),
 			CASE
@@ -1012,10 +1024,12 @@ Begin
 				WHEN (( el.flag & 8)<>0) then 'S' --uncharged
 				ELSE 'N'
 			END, 
+			--ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE			
 			CASE
 				WHEN
 				   (
-						m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB') 
+						m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE') 
 				   )   THEN 'S'		--girofondo
 				ELSE 'N'
 			END, -- può essere girofondo 
@@ -1023,11 +1037,11 @@ Begin
 				WHEN ((el.paymethod_flag & 8)<>0) and ((el.paymethod_flag & 2)=0) then  'S'
 				ELSE 'N'
 			END, --deny_bank_details -- vieta  coordinate bancarie
-			CASE
-				WHEN DATALENGTH (ISNULL(el.extracode,'')) <= @lencodicecontabilitaspeciale
-				THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,''))) + ISNULL(el.extracode,'')
-				ELSE SUBSTRING(ISNULL(el.extracode,''),1,@lencodicecontabilitaspeciale)
-			END	, -- codice contabilità speciale, vale solo per i girofondi
+			--CASE
+				--WHEN DATALENGTH (ISNULL(el.extracode,'')) <= @lencodicecontabilitaspeciale
+				--THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,''))) + ISNULL(el.extracode,'')
+				--ELSE SUBSTRING(ISNULL(el.extracode,''),1,@lencodicecontabilitaspeciale)
+			--END	, -- codice contabilità speciale, vale solo per i girofondi
 			CASE
 				WHEN m.allowdeputy = 'S' THEN el.iddeputy 
 				ELSE NULL
@@ -1095,7 +1109,8 @@ Begin
 			code, proprietary,
 			title_ben, cf_ben, pi_ben , 
 			paymentdescr, expenselast_paymentdescr, fulfilled, uncharged, girofondo,deny_bank_details,
-			extracode, iddeputy, refexternaldoc, nbill, idpay, 
+--			extracode,
+ 			iddeputy, refexternaldoc, nbill, idpay, 
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
@@ -1134,11 +1149,13 @@ Begin
 			'12345678901234567890', --ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
 			 
 			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
+			-- ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE			
 			CASE
-				WHEN (m.abi_label not  in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  ) THEN 'INFRUTTIFERA'  
-				WHEN (m.abi_label  in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  
+				WHEN (m.abi_label not  in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  ) THEN 'INFRUTTIFERA'  
+				WHEN (m.abi_label  in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  
 					 AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
-				WHEN (m.abi_label  in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  
+				WHEN (m.abi_label  in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  
 					 AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
 			END, -- informazioni obbligatorie solo per i girofondi in BI
 			LTRIM(RTRIM(m.abi_label)),
@@ -1193,10 +1210,12 @@ Begin
 				WHEN (( el.flag & 8)<>0) then 'S' --uncharged
 				ELSE 'N'
 			END, 
+			-- ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE		
 			CASE
 				WHEN
 				(
-					m.abi_label in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP') 
+					m.abi_label in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP') 
 			    )   THEN 'S'
 				ELSE 'N'
 			END,
@@ -1204,11 +1223,11 @@ Begin
 				WHEN ((el.paymethod_flag & 8)<>0) and ((el.paymethod_flag & 2)=0) then  'S'--deny_bank_details 
 				ELSE 'N'
 			END,
-			CASE
-			WHEN DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,''))) <= @lencodicecontabilitaspeciale
-			THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,'')))) + ISNULL(el.extracode,ISNULL(mcd.extracode,''))
-			ELSE SUBSTRING(ISNULL(el.extracode,ISNULL(mcd.extracode,'')),1,@lencodicecontabilitaspeciale)
-			END	,
+			--CASE
+			--WHEN DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,''))) <= @lencodicecontabilitaspeciale
+			--THEN SUBSTRING(REPLICATE('0',@lencodicecontabilitaspeciale),1,@lencodicecontabilitaspeciale - DATALENGTH(ISNULL(el.extracode,ISNULL(mcd.extracode,'')))) + ISNULL(el.extracode,ISNULL(mcd.extracode,''))
+			--ELSE SUBSTRING(ISNULL(el.extracode,ISNULL(mcd.extracode,'')),1,@lencodicecontabilitaspeciale)
+			--END	,
 			CASE
 				WHEN m.allowdeputy = 'S' THEN el.iddeputy 
 				ELSE NULL
@@ -1276,7 +1295,8 @@ Begin
 			code, proprietary,
 			title_ben, cf_ben, pi_ben , 
 			paymentdescr, expenselast_paymentdescr, fulfilled, uncharged, girofondo,deny_bank_details,
-			extracode, iddeputy, refexternaldoc, nbill, idpay, 
+			--extracode,
+			 iddeputy, refexternaldoc, nbill, idpay, 
 			idpaydisposition,iddetail,codeupb, upbtitle,
 			codefin, fintitle, 
 			nlevel,finlevel,
@@ -1309,14 +1329,18 @@ Begin
 			'N',
 			'12345678901234567890', --ISNULL(tb.handlingbankcode,''), -- causale esenzione bollo
 			@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
+			-- ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE			
 			CASE
-				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP'))  THEN NULL
-				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
-				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
+				WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP'))  THEN NULL
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
+				WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALE','FE4EP')  AND ((el.paymethod_flag & 4096)  <> 0)) THEN 'FRUTTIFERA'  
 			END, -- informazioni obbligatorie solo per i girofondi in BI
 			--- Considero la seguente mappatura tra la modalità di pagamento della disposizione
 			--  e la modalità di pagamento ABI 
 			CASE
+				WHEN (pd.paymethodcode = 8)  and (pd.iban IS NOT NULL) THEN  'ACCREDITOTESORERIAPROVINCIALE' -- girofondo 
+				WHEN ((pd.iban IS NOT NULL) and m.abi_label ='SEPAINSTANTCREDITTRANSFER' )THEN 'SEPAINSTANTCREDITTRANSFER' -- bonifico istantaneo
 				WHEN (pd.iban IS NOT NULL) THEN 'SEPACREDITTRANSFER' -- bonifico  -- paymethodcode = 1
 				WHEN ((pd.paymethodcode = 2) AND (pd.iban IS NULL)) THEN  'CASSA' -- cassa
 				WHEN pd.paymethodcode = 3 THEN  'ASSEGNOCIRCOLARE' -- assegno circolare
@@ -1376,7 +1400,7 @@ Begin
 			END, 
 			'N', -- non può essere girofondo 
 			'N', --deny_bank_details -- vieta  coordinate bancarie
-			SPACE(@lencodicecontabilitaspeciale), -- codice contabilità speciale, vale solo per i girofondi
+			--SPACE(@lencodicecontabilitaspeciale), -- codice contabilità speciale, vale solo per i girofondi
 			null, -- non ammette delegato
 			null, -- riferimento documento esterno
 			null, -- numero bolletta, non può essere a regolarizzazione
@@ -1493,9 +1517,9 @@ CASE
 	)
 	FROM #payment
 	
--- Valorizzo l'identificativo End to End per i Bonifici SEPA
+-- Valorizzo l'identificativo End to End per i Bonifici SEPA e BONIFICO ESTERO EURO con IBAN valorizzato
 UPDATE #payment SET id_end_to_end =SUBSTRING(CONVERT(VARCHAR(4),ydoc) + '_'+ CONVERT(VARCHAR(8),ndoc) +'_'+ CONVERT(VARCHAR(6),idpay),1,35)
-WHERE (abi_label in('SEPACREDITTRANSFER') AND (fulfilled = 'N')) 
+WHERE (((abi_label = 'SEPACREDITTRANSFER') OR (abi_label  = 'BONIFICOESTEROEURO' AND iban is not null))  AND (fulfilled = 'N')) 
 
 UPDATE #payment SET  abi_label = 'DISPOSIZIONEDOCUMENTOESTERNO' WHERE idpaydisposition IS NOT NULL  and iddetail is null
 
@@ -2146,9 +2170,17 @@ CREATE TABLE #DocContabilizzato(
 			case when (invoicekind.enable_fe='N' and invoicekind.enable_fe_estera='N') then 'FATT_ANALOGICA' else null end,
 			#payment.cf_ben,
 			year(I.docdate),
-			case when (invoicekind.enable_fe='S') then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) 
-			else substring(I.doc,1,20) /*anche per le FE estere va bene I.doc*/
-			end,  
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			case
+			when (invoicekind.enable_fe='S') then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) 
+			when  I.idsdi_acquistoestere IS NOT NULL then replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+substring(I.doc,1, 15) 
+			else substring(I.doc,1,20)  
+			end as 'numero',  
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
 			case when ((invoicekind.flag&4)<>0) then 'S' else 'N' end,
 			-- idsor_siope
 			D.idsor_siope,
@@ -2250,7 +2282,17 @@ CREATE TABLE #DocContabilizzato(
 			case when (invoicekind.enable_fe='N' and invoicekind.enable_fe_estera='N') then 'FATT_ANALOGICA' else null end,
 			#payment.cf_ben,
 			year(I.docdate),
-			case when invoicekind.enable_fe='S'  then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) else substring(I.doc,1,20) end,  
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			case
+			when (invoicekind.enable_fe='S') then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) 
+			when  I.idsdi_acquistoestere IS NOT NULL then replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+substring(I.doc,1, 15) 
+			else substring(I.doc,1,20)  
+			end as 'numero',  
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
 			case when ((invoicekind.flag&4)<>0) then 'S' else 'N' end,
 			-- idsor_siope
 			D.idsor_siope,
@@ -2349,7 +2391,17 @@ CREATE TABLE #DocContabilizzato(
 			case when (invoicekind.enable_fe='N' and invoicekind.enable_fe_estera='N') then 'FATT_ANALOGICA' else null end,
 			#payment.cf_ben,
 			year(I.docdate),
-			case when invoicekind.enable_fe='S'  then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) else substring(I.doc,1,20) end,  
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			case
+			when (invoicekind.enable_fe='S') then isnull(sdi_acquisto.ninvoice,substring(I.doc,1,20)) 
+			when  I.idsdi_acquistoestere IS NOT NULL then replicate('0',5-len(convert(varchar(5),I.idinvkind ))) + convert(varchar(5),I.idinvkind )+substring(I.doc,1, 15) 
+			else substring(I.doc,1,20)  
+			end as 'numero',  
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
+			-----------------------------------------------------------------------------------------------
 			case when ((invoicekind.flag&4)<>0) then 'S' else 'N' end,
 			-- idsor_siope
 			D.idsor_siope,
@@ -3638,34 +3690,37 @@ SELECT
 				   SUM(curramount),
 				   CASE   
 				    WHEN ((abi_label  IS NULL) AND (fulfilled = 'S')) THEN 'REGOLARIZZAZIONE'
-					WHEN (abi_label = 'ACCREDITOTESORERIAPROVINCIALESTATOPERTABA' AND (fulfilled = 'S')) THEN 'REGOLARIZZAZIONEACCREDITOTESORERIAPROVINCIALESTATOPERTABA'
-					WHEN (abi_label = 'ACCREDITOTESORERIAPROVINCIALESTATOPERTABB' AND (fulfilled = 'S')) THEN 'REGOLARIZZAZIONEACCREDITOTESORERIAPROVINCIALESTATOPERTABB'
-				    WHEN ((abi_label IS NOT NULL and abi_label not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB') ) AND (fulfilled = 'S')) THEN 'REGOLARIZZAZIONE'
+		-- ACCREDITOTESORERIAPROVINCIALESTATOPERTABA e ACCREDITOTESORERIAPROVINCIALESTATOPERTABB ==>> non più in vigore dalla versione 1_7_1
+			-- sostituiti con ACCREDITOTESORERIAPROVINCIALE
+					WHEN (abi_label = 'ACCREDITOTESORERIAPROVINCIALE' AND (fulfilled = 'S')) THEN 'REGOLARIZZAZIONE'
+				    WHEN ((abi_label IS NOT NULL and abi_label not in ('ACCREDITOTESORERIAPROVINCIALE') ) AND (fulfilled = 'S')) THEN 'REGOLARIZZAZIONE'
 					ELSE abi_label
 				   END,
 				   null,
 				   null,
 				   null,
-				   CONVERT(VARCHAR(10),expiration,20),--case when (autokind in (20,21,30,31)) then CONVERT(VARCHAR(10),expiration,20) else null end,   ---data esecuzione pagamento,
+				   case when abi_label ='SEPAINSTANTCREDITTRANSFER' then null else    CONVERT(VARCHAR(10),expiration,20) end,--case when (autokind in (20,21,30,31)) then CONVERT(VARCHAR(10),expiration,20) else null end,   ---data esecuzione pagamento,
 				   null,--case when (isnull(autokind,0) not in (20,21,30,31)) then CONVERT(VARCHAR(10),expiration,20) else null end,   ---data scadenza pagamento,
 				   destinazione, -- destinazione
-				   CASE 
-						WHEN (abi_label = 'F24EP') THEN 1777 
-						WHEN (abi_label = 'ACCREDITOTESORERIAPROVINCIALESTATOPERTABA')  THEN extracode
-						ELSE null
-				   END,
+  --5.10.10 numero_conto_banca_italia_ente_ricevente => nella versione 1_7_1 è stato rimosso per i Girofondi
+					null,
+				  -- CASE 
+						--WHEN (abi_label = 'F24EP') THEN '1777' 
+						--WHEN (abi_label = 'ACCREDITOTESORERIAPROVINCIALE')  THEN extracode
+						--ELSE null
+				  -- END,
 				   tipo_contabilita_ente_ricevente,   
 				   NULL,
 				   -----------------------------------------------------------
 				   ----------------- beneficiario --------------
 				   -----------------------------------------------------------
 				   CASE 
-						WHEN ( #payment.iddeputy is not null ) and (abi_label = 'SEPACREDITTRANSFER') THEN  SUBSTRING(#deputy.title_deputy,1,60)
+						WHEN ( #payment.iddeputy is not null ) and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')) THEN  SUBSTRING(#deputy.title_deputy,1,60)
 						ELSE SUBSTRING(title_ben,1,60)
 					END, 
 				   --Indirizzo Beneficiario
 				    CASE 
-						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN  SUBSTRING(#deputy.address_deputy,1,30)
+						WHEN ( #payment.iddeputy is not null )  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN  SUBSTRING(#deputy.address_deputy,1,30)
 						ELSE SUBSTRING(address_ben,1,30)
 					END	,
 				   -- C.A.P. Beneficiario
@@ -3675,91 +3730,91 @@ SELECT
 					END	,
 				   -- Località Beneficiario
 				    CASE 
-						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN  SUBSTRING(#deputy.location_deputy,1,30)
+						WHEN ( #payment.iddeputy is not null )  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN  SUBSTRING(#deputy.location_deputy,1,30)
 						ELSE  SUBSTRING(location_ben,1,30)
 					END	,
 				   -- Provincia Beneficiario
 				    CASE 
-						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN #deputy.province_deputy
+						WHEN ( #payment.iddeputy is not null )  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN #deputy.province_deputy
 						ELSE province_ben
 					END	,
 				   -- Stato_beneficiario
 				    CASE 
-						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN #deputy.nation_deputy
+						WHEN ( #payment.iddeputy is not null )  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN #deputy.nation_deputy
 						ELSE  iso_code_ben
 					END	,
 				    CASE 
-						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN null
+						WHEN ( #payment.iddeputy is not null )  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN null
 						ELSE  pi_ben
 					END	,
 				    CASE 
-						WHEN ( #payment.iddeputy is not null )  and (abi_label = 'SEPACREDITTRANSFER')THEN #deputy.cf_deputy
+						WHEN ( #payment.iddeputy is not null )  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN #deputy.cf_deputy
 						ELSE cf_ben
 					END	, 
 				   -----------------------------------------------------------
 				   ----------------- delegato --------------
 				   -----------------------------------------------------------
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN  SUBSTRING(#deputy.title_deputy,1,60)
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN  SUBSTRING(#deputy.title_deputy,1,60)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN SUBSTRING(#deputy.address_deputy,1,30)
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN SUBSTRING(#deputy.address_deputy,1,30)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN #deputy.cap_deputy
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN #deputy.cap_deputy
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN SUBSTRING(#deputy.location_deputy,1,30)
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')) THEN SUBSTRING(#deputy.location_deputy,1,30)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN #deputy.province_deputy
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN #deputy.province_deputy
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN  #deputy.nation_deputy
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN  #deputy.nation_deputy
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(abi_label, 'CASSA') <> 'SEPACREDITTRANSFER') THEN  #deputy.cf_deputy
+						WHEN (ISNULL(abi_label, 'CASSA') NOT IN ( 'COMPENSAZIONE','SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN  #deputy.cf_deputy
 						ELSE NULL
 				   END,
 				   -----------------------------------------------------------
 				   ---------------- CREDITORE EFFETTIVO ---------------------- 
 				   -----------------------------------------------------------
 				   CASE 
-						WHEN ( #payment.iddeputy is not null) and (abi_label = 'SEPACREDITTRANSFER')  THEN  SUBSTRING(title_ben,1,60)
+						WHEN ( #payment.iddeputy is not null) and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN  SUBSTRING(title_ben,1,60)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN ( #payment.iddeputy is not null)   and (abi_label = 'SEPACREDITTRANSFER')THEN SUBSTRING(address_ben,1,30)
+						WHEN ( #payment.iddeputy is not null)   and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN SUBSTRING(address_ben,1,30)
 						ELSE NULL				   
 					END,
 				   CASE 
-						WHEN  ( #payment.iddeputy is not null)  and (abi_label = 'SEPACREDITTRANSFER')  THEN cap_ben
+						WHEN  ( #payment.iddeputy is not null)  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))  THEN cap_ben
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN  ( #payment.iddeputy is not null)   and (abi_label = 'SEPACREDITTRANSFER') THEN   SUBSTRING(location_ben,1,30)
+						WHEN  ( #payment.iddeputy is not null)   and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')) THEN   SUBSTRING(location_ben,1,30)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN  ( #payment.iddeputy is not null)  and (abi_label = 'SEPACREDITTRANSFER') THEN  province_ben
+						WHEN  ( #payment.iddeputy is not null)  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')) THEN  province_ben
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN  ( #payment.iddeputy is not null)  and (abi_label = 'SEPACREDITTRANSFER')THEN  iso_code_ben
+						WHEN  ( #payment.iddeputy is not null)  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER'))THEN  iso_code_ben
 						ELSE NULL
 				   END,
 				    CASE 
-						WHEN  ( #payment.iddeputy is not null) and (abi_label = 'SEPACREDITTRANSFER') THEN  pi_ben
+						WHEN  ( #payment.iddeputy is not null) and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')) THEN  pi_ben
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN  ( #payment.iddeputy is not null)  and (abi_label = 'SEPACREDITTRANSFER') THEN  cf_ben
+						WHEN  ( #payment.iddeputy is not null)  and (abi_label in('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')) THEN  cf_ben
 						ELSE NULL
 				   END,
 				   --- Bollo
@@ -3778,22 +3833,46 @@ SELECT
 						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(abi_label, 'CASSA') = 'ACCREDITOCONTOCORRENTEPOSTALE') AND (fulfilled = 'N')) THEN  cc
 						ELSE NULL
 				   END, 
-  				   -- SEPA CREDIT TRANSFER ACCREDITO / TESORERIA PROVINCIALE STATO PER TAB B--
-  				   CASE 
-						WHEN ((abi_label IN ('SEPACREDITTRANSFER','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB')) AND (fulfilled = 'N')) THEN  iban
+  				   -- SEPA CREDIT TRANSFER / BONIFICO ESTERO EURO / SEPA INSTANT CREDIT TRANSFER con IBAN valorizzato/ ACCREDITO TESORERIA PROVINCIALE STATO PER TAB B--
+				   CASE 
+						WHEN	((
+						abi_label  IN ('SEPACREDITTRANSFER' ,'SEPAINSTANTCREDITTRANSFER','ACCREDITOTESORERIAPROVINCIALE')
+						OR 
+						(abi_label = 'BONIFICOESTEROEURO' and iban is not null)
+						) 
+						AND 
+						(fulfilled = 'N'))  THEN iban
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN ((abi_label = 'SEPACREDITTRANSFER') AND (fulfilled = 'N')) THEN  biccode
+						WHEN	((
+						abi_label in ('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')
+						OR 
+						(abi_label = 'BONIFICOESTEROEURO' and iban is not null)
+						) 
+						AND 
+						(fulfilled = 'N'))  THEN  biccode
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN ((abi_label = 'SEPACREDITTRANSFER') AND (fulfilled = 'N')) THEN  id_end_to_end
+						WHEN	((
+						abi_label  in ('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')
+						OR 
+						(abi_label = 'BONIFICOESTEROEURO' and iban is not null)
+						) 
+						AND 
+						(fulfilled = 'N'))  THEN  id_end_to_end
 						ELSE NULL
 				   END,
 				   code,
-				   CASE 
-						WHEN ((abi_label = 'SEPACREDITTRANSFER') AND (fulfilled = 'N')) THEN  proprietary
+				   CASE WHEN
+						((
+						abi_label  in ('SEPACREDITTRANSFER','SEPAINSTANTCREDITTRANSFER')
+						OR 
+						(abi_label = 'BONIFICOESTEROEURO' and iban is not null)
+						) 
+						AND 
+						(fulfilled = 'N')) THEN  proprietary
 						ELSE NULL
 				   END,
   				   -- CODICE INPS -- 
@@ -3802,7 +3881,7 @@ SELECT
   				   -- SOSPESO -- 
   				   null,
 				   -- Riferimento Documento Esterno  
-				   case when ((abi_label IN ('DISPOSIZIONEDOCUMENTOESTERNO','BONIFICOESTEROEURO'))   AND (fulfilled = 'N') AND autokind IN (20,21,30,31) AND (code <> 'SALA') ) 
+				   case when ((abi_label IN ('DISPOSIZIONEDOCUMENTOESTERNO'))   AND (fulfilled = 'N') AND autokind IN (20,21,30,31) AND (code <> 'SALA') ) 
 						then 'STIPENDI TX' 
 						when abi_label='SEPACREDITTRANSFER' then null /* si Tipo pagamento SEPACREDITTRANSFER, non devono essere compilate le note al tesoriere perchè altrimenti il mandato viene scartato.*/
 						else  SUBSTRING(isnull(expenselast_paymentdescr,''),1,400)  end,	 --+ ' '+ isnull(#payment.txt,'')
@@ -3815,7 +3894,8 @@ FROM #payment
 LEFT JOIN #deputy
 	ON #payment.iddeputy = #deputy.iddeputy
 	GROUP BY
-		#payment.ndoc, #payment.idpay,#payment.idexp, abi_label, fulfilled,deny_bank_details, destinazione, tipo_contabilita_ente_ricevente,extracode,#payment.autokind,
+		#payment.ndoc, #payment.idpay,#payment.idexp, abi_label, fulfilled,deny_bank_details, destinazione, tipo_contabilita_ente_ricevente,--extracode,
+		#payment.autokind,
 		title_ben, address_ben, cap_ben, location_ben, province_ben,iso_code_ben,
 		pi_ben, cf_ben,
 		#deputy.title_deputy,  #deputy.address_deputy,  #deputy.cap_deputy,#deputy.location_deputy,

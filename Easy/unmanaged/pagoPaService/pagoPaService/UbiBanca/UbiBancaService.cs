@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -41,7 +39,7 @@ namespace UbiBancaService {
 
         public static gestorePosizioni Create(string userName, string password, string URL, bool test,
              X509Certificate2 clientcert = null, X509Certificate2 servicecert = null, X509Certificate2 clientcerttest = null, X509Certificate2 servicecerttest = null) {
-            if (URL == null) URL = "https://cuniba.ubibanca.it/gestoreposizioni/services/soap/gestorePosizioni?";
+            if (URL == null) URL = "https://cuniba.ubibanca.it/gestoreposizioni/services/soap/gestorePosizioni​";
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             ServicePointManager.ServerCertificateValidationCallback +=

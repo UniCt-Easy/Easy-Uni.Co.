@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -223,7 +221,7 @@ namespace ct_expenselast_reset {
         private void btnAzzera_Click(object sender, EventArgs e) {
             DataRow[] Mov_SelectedRows = GetGridSelectedRows(gridDettagli);
             if ((Mov_SelectedRows == null) || (Mov_SelectedRows.Length == 0)) {
-                show("Non Ë stato selezionato alcun movimento da annullare.");
+                show("Non √® stato selezionato alcun movimento da annullare.");
                 return;
             }
             Azzera(Mov_SelectedRows);
@@ -234,7 +232,7 @@ namespace ct_expenselast_reset {
                 Conn.RUN_SELECT("accountingyear", "*", null, QHS.CmpEq("ayear", esercizio), null, true);
 
             if (EsercizioTable.Rows.Count == 0) {
-                show("L'esercizio " + esercizio + " non Ë stato creato.");
+                show("L'esercizio " + esercizio + " non √® stato creato.");
                 return false;
             }
             return true;
@@ -272,6 +270,7 @@ namespace ct_expenselast_reset {
             newConn.SetSys("esercizio", newEsercizio);
             newConn.SetSys("datacontabile", newDate);
 
+            newConn.SetSys("idcustomuser",Conn.Security.GetSys("idcustomuser"));
 
             newConn.RecalcUserEnvironment(Conn.GetSys("idflowchart"), Conn.GetSys("ndetail"));
             newConn.ReadAllGroupOperations();
@@ -297,8 +296,7 @@ namespace ct_expenselast_reset {
             Conn.RUN_SELECT_INTO_TABLE(DS.expense, null, filterMov, null, false);
             Conn.RUN_SELECT_INTO_TABLE(DS.expenselast, null, filterMov, null, false);
             string filterPayment = QHC.FieldInList("kpay", DistValkpay);
-            Conn.RUN_SELECT_INTO_TABLE(DS.payment, null, filterPayment, null, false);
-           
+            Conn.RUN_SELECT_INTO_TABLE(DS.payment, null, filterPayment, null, false);           
 
             //Calcola newConn
             DataAccess newConn = ottieniConnessioneNuovoEsercizio(Conn);
@@ -315,13 +313,22 @@ namespace ct_expenselast_reset {
                 return;
             }
             //Effettua il post
-            PostData Post = Meta.Get_PostData();
-            Post.InitClass(DS, Conn);
-            Post.InitClass(dNew, newConn);
-            bool res = Post.DO_POST();
+
+            Easy_PostData MyPostData = new Easy_PostData();
+            MyPostData.InitClass(DS, Conn);
+            MyPostData.InitClass(dNew, newConn);
+
+            //object oldidcustomuser = Conn.Security.GetSys("idcustomuser");
+            //show(oldidcustomuser.ToString(), "old esercizio idcustomuser");
+
+            //object idcustomuser = newConn.Security.GetSys("idcustomuser");
+            //show(idcustomuser.ToString(), "new esercizio idcustomuser");
+
+            bool res = MyPostData.DO_POST();
 
             newConn.Close();
             newConn.Destroy();
+
             if (res) {
                
                 string mess = "Operazione Eseguita con successo.";
@@ -336,10 +343,10 @@ namespace ct_expenselast_reset {
                 DS.expenseyear.Clear();
                 DS.expenselast.Clear();
                 DS.payment.Clear();
+                DS.expenselastmandatedetail.Clear();
                 return;
             }
         }
-
         
         private void RiempiExpSorted(DataAccess conn, MetaData metaExpSorted,  DataTable expSortedTable, int segno, DataTable tClassificazioni, object currIdexp, bool parent) {
             string suffix = parent ? "parent" : "";
@@ -362,7 +369,7 @@ namespace ct_expenselast_reset {
 
         private bool ElaboraMovimento(DataRow R, DataAccess currConn, vistaForm currDS, DataAccess newConn, DataSet newDS){
             object curr_idexp = R["idexp"];
-            
+
             DataRow[] selectresult = DS.expense.Select(QHC.CmpEq("idexp", curr_idexp));
             if (selectresult.Length == 0)return true;
             DataRow Curr = selectresult[0];
@@ -388,25 +395,23 @@ namespace ct_expenselast_reset {
             MetaData.SetDefault(currDS.expensevar, "idexp", curr_idexp);
             MetaData.SetDefault(currDS.expensesorted, "idexp", curr_idexp);
 
-
             MetaData ExpNew = dNew.Get("expense"); 
             MetaData ExpYearNew = dNew.Get("expenseyear"); 
             MetaData ExpLastNew = dNew.Get("expenselast");  
             MetaData ExpSortedNew = dNew.Get("expensesorted");
-
+            MetaData ExpLastManDet = dNew.Get("expenselastmandatedetail");
 
             DataTable dtExpNew = newDS.Tables["expense"];
             DataTable dtExpYearNew = newDS.Tables["expenseyear"];
             DataTable dtExpLastNew = newDS.Tables["expenselast"];
             DataTable dtExpSortedNew = newDS.Tables["expensesorted"];
+            DataTable dtExpLastManDet = newDS.Tables["expenselastmandatedetail"];
 
             ExpNew.SetDefaults(dtExpNew);
             ExpYearNew.SetDefaults(dtExpYearNew);
             ExpLastNew.SetDefaults(dtExpLastNew);
             ExpSortedNew.SetDefaults(dtExpSortedNew);
-
-
-
+            ExpLastManDet.SetDefaults(dtExpLastManDet);
 
             // Nuova riga in expensevar: crea la variazione in diminuzione sul movimento corrente
             DataRow rExpVar = ExpVar.Get_New_Row(Curr, dtExpVar);
@@ -424,10 +429,10 @@ namespace ct_expenselast_reset {
             rExpVar["yvar"] = Meta.GetSys("esercizio");
             rExpVar["description"] = "Azzeramento mandato";
             rExpVar["amount"] = -CfgFn.GetNoNullDecimal(R["curramount"]);
-            rExpVar["autokind"] = 11;// non c'Ë un autokind particolare in questo caso
+            rExpVar["autokind"] = 11;// non c'√® un autokind particolare in questo caso
             rExpVar["adate"] = Meta.GetSys("datacontabile");
 
-            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cosÏ non considero la class. parziali
+            //Ottengo un DataTable con gli importi di classificazione raggruppati per codice, cos√¨ non considero la class. parziali
             int esercizio = (int)Meta.GetSys("esercizio");
             string queryF4 = " select es1.idsor, s1.sortcode, s1.idsorkind, es1.amount, s2.idsor as idsorparent, EL.idparent as idexpparent"
                              + " from expense "
@@ -438,12 +443,9 @@ namespace ct_expenselast_reset {
                              + " left outer join sorting s2 on s2.idsorkind=sk2.idsorkind and s2.sortcode=s1.sortcode "
                              + " left outer join expenselink EL on EL.idchild=expense.idexp and EL.nlevel = sk2.nphaseexpense "
                              + " where " + QHS.AppAnd( QHS.CmpEq("expense.idexp", curr_idexp), QHS.CmpEq("es1.ayear",esercizio));
-           DataTable tClassificazioni = currConn.SQLRunner(queryF4);
-
-          
+            DataTable tClassificazioni = currConn.SQLRunner(queryF4);          
 
             //Cicla per ogni tipo classificazione di Fase 4
-
                 
             RiempiExpSorted(currConn, ExpSorted,  dtExpSorted, -1, tClassificazioni, curr_idexp, false);
 
@@ -481,7 +483,7 @@ namespace ct_expenselast_reset {
             }
             object newidfin = Calcola_newidfin(R["codefin"]);
             if (newidfin == null) {
-                show($"Nell'anno {Conn.GetEsercizio()} non Ë stata trovata una voce di bilancio mappata alla voce di "+
+                show($"Nell'anno {Conn.GetEsercizio()} non √® stata trovata una voce di bilancio mappata alla voce di "+
                     $" codice {R["codefin"]} dell'anno precedente","Errore");
                 return false;
             }
@@ -502,7 +504,7 @@ namespace ct_expenselast_reset {
                 if (CC.ColumnName == "idaccdebit") {
                     object newidacc = Calcola_newidacc(CurrLast["idaccdebit"]);
                     if (newidacc == null) {
-                        show($"Nell'anno {Conn.GetEsercizio()} non Ë stata trovata una voce del piano dei conti mappata alla voce di " +
+                        show($"Nell'anno {Conn.GetEsercizio()} non √® stata trovata una voce del piano dei conti mappata alla voce di " +
                             $" chiave {CurrLast["idaccdebit"]} (conto di debito) dell'anno precedente", "Errore");
                         return false;
                     }
@@ -515,16 +517,32 @@ namespace ct_expenselast_reset {
                 }
             }
 
-          
-
             foreach (DataColumn CC in dtExpYearNew.Columns) {
                 CC.DefaultValue = saveddefaults_ExpYearNew[CC.ColumnName];
             }
 
-
             // Nuove righe in expensesorted: crea le classificazioni per il movimento creato
             RiempiExpSorted(newConn, ExpSortedNew, dtExpSortedNew, 1, tClassificazioni, idexp, false);
             RiempiExpSorted(newConn, ExpSortedNew, dtExpSortedNew, 1, tClassificazioni, DBNull.Value, true);
+
+            DataAccess.RUN_SELECT_INTO_TABLE(currConn, currDS.expenselastmandatedetail, null, QHC.CmpEq("idexp", curr_idexp), null, true);
+
+            if (currDS.expenselastmandatedetail.Rows.Count > 0) {
+
+                DataRow currExpLastManDet = currDS.expenselastmandatedetail.Rows[0];
+
+                DataRow rExpLastManDet = ExpLastManDet.Get_New_Row(rNewExp, dtExpLastManDet);
+                rExpLastManDet["idmankind"] = currExpLastManDet["idmankind"];
+                rExpLastManDet["yman"] = currExpLastManDet["yman"];
+                rExpLastManDet["nman"] = currExpLastManDet["nman"];
+                rExpLastManDet["rownum"] = currExpLastManDet["rownum"];
+                rExpLastManDet["amount"] = currExpLastManDet["amount"];
+                rExpLastManDet["originalamount"] = currExpLastManDet["originalamount"];
+
+                currExpLastManDet["originalamount"] = currExpLastManDet["amount"];
+                currExpLastManDet["amount"] = 0;
+            }
+
             return true;       
             
         }

@@ -46,13 +46,13 @@
 					});
 				return def.promise();
 			},
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-								//appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazioneuostatuschanges'));
+				//appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazioneuostatuschanges'));
 				this.manageperfvalutazioneuo_default_idstruttura();
 				this.manageperfvalutazioneuo_default_completamentopsuo();
 				this.manageperfvalutazioneuo_default_completamentopsauo();
@@ -78,6 +78,8 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#perfvalutazioneuo_default_year'), true);
+				this.enableControl($('#perfvalutazioneuo_default_idstruttura'), true);
 				this.enableControl($('#perfvalutazioneuo_default_risultato'), true);
 				this.enableControl($('#perfvalutazioneuo_default_completamentopsuo'), true);
 				this.enableControl($('#perfvalutazioneuo_default_completamentopsauo'), true);
@@ -290,6 +292,7 @@
 				//innerBeforePost
 			},
 
+			
 			insertClick: function (that, grid) {
 				var msg = this.CheckRights(that, grid, 'i');
 				if (msg) return this.showMessageOk(msg);

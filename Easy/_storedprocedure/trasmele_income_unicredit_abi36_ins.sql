@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 -- setuser setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_income_unicredit_abi36_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -32,8 +30,8 @@ CREATE  PROCEDURE [trasmele_income_unicredit_abi36_ins]
 	@n int
 )
 AS BEGIN
-
---exec trasmele_income_unicredit_abi36_ins 2023, 146
+--setuser 'amministrazione'
+--exec trasmele_income_unicredit_abi36_ins 2025, 2
 ----------------------------------------------------------------
 --  STORED PROCEDURE PER LA TRASMISSIONE DELLE REVERSALI PER  --
 ----------------------- BANCA UNICREDIT ABI 36------------------
@@ -42,8 +40,15 @@ AS BEGIN
 DECLARE @abi_bancodisardegna varchar(5) = '01015'
 DECLARE @ABI_mps varchar(5) ='01030'
 DECLARE @ABI_bpbari varchar(5) = '05424'
+DECLARE @ABI_bppb varchar(5) = '05385'-- Banca Popolare di Puglia e Basilicata spa
 DECLARE @codetreasurer_bpbari varchar(20) = 'BPB_PNRR'
 DECLARE @codetreasurer_bpbfacil varchar(20) = 'BPB_FACIL'
+DECLARE @codetreasurer_bpbnativ varchar(20) = 'BPPB_NATIV'
+
+DECLARE @codetreasurer_bdm varchar(20)		 = 'BdM_PNRR'
+DECLARE @codetreasurer_bdmfacil varchar(20)  = 'BdM_FACIL'
+DECLARE @codetreasurer_bdmnativ varchar(20)  = 'BdM_NATIVI'
+
 DECLARE @istreasurer_pnrr char(1) = 'N'
 declare @CAB_bpbari_PNRR varchar(20)
 set  @CAB_bpbari_PNRR ='04297'
@@ -122,7 +127,11 @@ SELECT @treasurer_idbank = idbank,
 FROM treasurer WHERE idtreasurer = @idtreasurer
 
 if (isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbari or
-	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbnativ or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bdm or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bdmfacil or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bdmnativ  
 	)
 BEGIN
 		SET @istreasurer_pnrr = 'S'
@@ -132,14 +141,14 @@ print @treasurer_codetreasurer
 print @treasurer_idbank
 print @CAB
 print @istreasurer_pnrr
--- Per la banca popolare di bari - pnrr il tag conto_evidenza deve essere di due caratteri
+-- Per la banca popolare di bari  - banca del Mediterraneo o banca popolare pugliese conti vincolati PNRR il tag conto_evidenza deve essere di due caratteri
 -- quindi se trasmcode è maggiore di due caratteri restituisco un errore
 -- altrimenti valorizzo lenCC_vincolato a 2 invece di 7
-if (isnull(@treasurer_idbank, '') = @ABI_bpbari and   ISNULL(@istreasurer_pnrr,'N') = 'S')
+if ((isnull(@treasurer_idbank, '') = @ABI_bpbari  OR isnull(@treasurer_idbank, '') = @ABI_bppb )  and   ISNULL(@istreasurer_pnrr,'N') = 'S')
 BEGIN
 	IF (DATALENGTH(CONVERT(varchar(7),ISNULL(@treasurer_trasmcode,'0'))) > 2)
 	BEGIN
-		SELECT 'Il codice conto tesoreria del tesoriere ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
+		SELECT 'Il codice conto tesoreria del conto corrente ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
 		RETURN
 	END
 
@@ -151,6 +160,7 @@ DECLARE @cc_vincolato varchar(7)
 DECLARE @CodiceStruttura varchar(16)
 DECLARE @len_CodiceStruttura int
 SET @len_CodiceStruttura = 16
+DECLARE @destinazione varchar(20)
 
 SELECT 
 	@cod_department = ISNULL(RTRIM(agencycodefortransmission),''),
@@ -160,6 +170,14 @@ SELECT
 	@cin = ISNULL(cin, '00'),
 	@ABI_code = SUBSTRING(REPLICATE('0',@len_ABI),1,@len_ABI - DATALENGTH(ISNULL(idbank,'')))
 	+ ISNULL(idbank,''),
+	@destinazione = (case 
+						when ( (flag & 4 )<>0 and @ABI_code in ( @ABI_bppb, @abi_bancodisardegna) )then null
+						when ( (flag & 4 )<>0 and @ABI_code not in ( @ABI_bppb, @abi_bancodisardegna)   )then 'VINCOLATA' 
+						
+						when ((flag & 4 = 0) and @ABI_code in ( @ABI_bppb, @abi_bancodisardegna)  )then null
+						when ((flag & 4 = 0) and @ABI_code not in ( @ABI_bppb, @abi_bancodisardegna)   )then 'LIBERA' 
+						
+						end ),
 	@CodiceStruttura = 
 		CASE
 		WHEN DATALENGTH(ISNULL(billcode,'')) <= @len_CodiceStruttura
@@ -180,6 +198,11 @@ SELECT  @cf_dept = ISNULL(cf,p_iva),
 @address_dept = ISNULL(address1,''),
 @location_dept = ISNULL(location,'') 
 FROM license
+
+--- ENTI PARTICOLARI CHE NON GESTISCONO LA TRASMISSIONE SIOPE
+--- ARPAL
+DECLARE @nosiope char(1) = 'N'
+if (@cf_dept ='93497660725')  SET @nosiope = 'S'
 
 
 DECLARE @len_agencycode int
@@ -216,7 +239,7 @@ BEGIN
 END
 IF (@error = 'S')
 BEGIN
-	SET @message = @message + ' Andare nella maschera CONFIGURAZIONE - CASSIERE - CASSIERE ed inserire i dati'
+	SET @message = @message + ' Andare nella maschera OPZIONI - BANCA - CONTO CORRENTE ed inserire i dati'
 	INSERT INTO #error VALUES(@message)
 END
 
@@ -425,18 +448,10 @@ SELECT
 	END,
 	c.ccp,
  
-	CASE
-		WHEN  (@ABI_code = @abi_bancodisardegna) THEN NULL 
-		WHEN  (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
-		ELSE 
-		CASE
-			WHEN ((il.flag&16) = 0) THEN 'LIBERA'
-			ELSE 'VINCOLATA'
-		END
-	END,
+	@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
 
 	CASE
-		WHEN (@ABI_code = @abi_bancodisardegna) THEN NULL 
+		WHEN ((@ABI_code = @abi_bancodisardegna) or ( @ABI_code =@ABI_bppb ) ) THEN NULL 
 		ELSE
 		CASE
 			WHEN (d.flag & 8) <> 0 THEN 'FRUTTIFERO'
@@ -574,17 +589,9 @@ SELECT
 		else 'CASSA'
 	END,
 	c.ccp,
+	@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU
 	CASE
-		WHEN (@ABI_code = @abi_bancodisardegna) THEN NULL 
-		WHEN (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
-		ELSE 
-		CASE
-			WHEN ((il.flag&16) = 0) THEN 'LIBERA'
-			ELSE 'VINCOLATA'
-		END
-	END,
-	CASE
-		WHEN (@ABI_code = @abi_bancodisardegna) THEN NULL 
+		WHEN ((@ABI_code = @abi_bancodisardegna)  or ( @ABI_code =@ABI_bppb )   ) THEN NULL 
 		ELSE
 		CASE
 			WHEN (d.flag & 8) <> 0 THEN 'FRUTTIFERO'
@@ -931,11 +938,13 @@ SELECT  @codeclassSIOPE  =
 CASE  
 	WHEN  (@y<= 2006) THEN  'SIOPE'
 	WHEN  (@y BETWEEN 2007 AND 2017) THEN  '07E_SIOPE'
+	WHEN  @nosiope = 'S' THEN NULL
 	ELSE   'SIOPE_E_18'
 END
  
 DECLARE @classSIOPE int
 SELECT @classSIOPE = idsorkind FROM sortingkind WHERE codesorkind = @codeclassSIOPE
+
 
 -- Riempimento della tabella delle classificazioni SIOPE
 INSERT INTO #siope

@@ -6,7 +6,9 @@
         <xs:element name="protocollodockind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idprotocollodockind" type="xs:int" />
+              <xs:element name="kind" type="xs:string" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
@@ -28,7 +30,7 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idprotocollodoc" type="xs:int" />
               <xs:element name="idprotocollodocelement" type="xs:int" />
-              <xs:element name="idprotocollodocelement_primo" type="xs:int" />
+              <xs:element name="idprotocollodocelement_primo" type="xs:int" minOccurs="0" />
               <xs:element name="idprotocollodockind" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
@@ -40,14 +42,20 @@
               <xs:element name="_x0021_idprotocollodocelement_primo_protocollodocelement_protnumero" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idprotocollodocelement_primo_protocollodocelement_protanno" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idprotocollodockind_protocollodockind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idprotocollodockind_protocollodockind_kind" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="protocollorifkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="fincaturapositiondefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idprotocollorifkind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="fincaturaposition_active" type="xs:string" minOccurs="0" />
+              <xs:element name="fincaturaposition_lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="fincaturaposition_lu" type="xs:string" minOccurs="0" />
+              <xs:element name="fincaturaposition_title" type="xs:string" minOccurs="0" />
+              <xs:element name="idfincaturaposition" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -62,7 +70,25 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mimetypedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idmimetype" type="xs:int" />
+              <xs:element name="mimetype_active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="protocollorifkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idprotocollorifkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -71,8 +97,11 @@
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="datadoc" type="xs:dateTime" minOccurs="0" />
               <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="fincaturamargin" type="xs:int" minOccurs="0" />
               <xs:element name="idattach" type="xs:int" minOccurs="0" />
+              <xs:element name="idfincaturaposition" type="xs:int" minOccurs="0" />
               <xs:element name="idmimetype" type="xs:int" minOccurs="0" />
               <xs:element name="idprotocollodoc" type="xs:int" />
               <xs:element name="idprotocollorifkind" type="xs:int" />
@@ -103,13 +132,21 @@
       <xs:field xpath="mstns:protanno" />
       <xs:field xpath="mstns:protnumero" />
     </xs:unique>
-    <xs:unique name="protocollorifkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:protocollorifkind" />
-      <xs:field xpath="mstns:idprotocollorifkind" />
+    <xs:unique name="fincaturapositiondefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fincaturapositiondefaultview" />
+      <xs:field xpath="mstns:idfincaturaposition" />
     </xs:unique>
     <xs:unique name="attach_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attach" />
       <xs:field xpath="mstns:idattach" />
+    </xs:unique>
+    <xs:unique name="mimetypedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:mimetypedefaultview" />
+      <xs:field xpath="mstns:idmimetype" />
+    </xs:unique>
+    <xs:unique name="protocollorifkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:protocollorifkind" />
+      <xs:field xpath="mstns:idprotocollorifkind" />
     </xs:unique>
     <xs:unique name="protocollodoc_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:protocollodoc" />
@@ -123,8 +160,10 @@
       <msdata:Relationship name="FK_protocollodocelement_protocollodoc_idprotocollodoc-protanno-protnumero" msdata:parent="protocollodoc" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodoc protanno protnumero" msdata:childkey="idprotocollodoc protanno protnumero" />
       <msdata:Relationship name="FK_protocollodocelement_protocollodockind_idprotocollodockind" msdata:parent="protocollodockind" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodockind" msdata:childkey="idprotocollodockind" />
       <msdata:Relationship name="FK_protocollodocelement_protocollodocelement_alias1_idprotocollodocelement_primo" msdata:parent="protocollodocelement_alias1" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodocelement" msdata:childkey="idprotocollodocelement_primo" />
-      <msdata:Relationship name="FK_protocollodoc_protocollorifkind_idprotocollorifkind" msdata:parent="protocollorifkind" msdata:child="protocollodoc" msdata:parentkey="idprotocollorifkind" msdata:childkey="idprotocollorifkind" />
+      <msdata:Relationship name="FK_protocollodoc_fincaturapositiondefaultview_idfincaturaposition" msdata:parent="fincaturapositiondefaultview" msdata:child="protocollodoc" msdata:parentkey="idfincaturaposition" msdata:childkey="idfincaturaposition" />
       <msdata:Relationship name="FK_protocollodoc_attach_idattach" msdata:parent="attach" msdata:child="protocollodoc" msdata:parentkey="idattach" msdata:childkey="idattach" />
+      <msdata:Relationship name="FK_protocollodoc_mimetypedefaultview_idmimetype" msdata:parent="mimetypedefaultview" msdata:child="protocollodoc" msdata:parentkey="idmimetype" msdata:childkey="idmimetype" />
+      <msdata:Relationship name="FK_protocollodoc_protocollorifkind_idprotocollorifkind" msdata:parent="protocollorifkind" msdata:child="protocollodoc" msdata:parentkey="idprotocollorifkind" msdata:childkey="idprotocollorifkind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

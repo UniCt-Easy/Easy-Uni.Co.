@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -26,6 +25,33 @@ CREATE PROCEDURE [exp_flussicrediti_esse3]
 	@anno int = 2020 -- Anno Data contabile del bollettino
 AS
 BEGIN
+WITH FE AS (
+	Select
+		idflusso,
+		cf,
+		codicecausale,
+		codicecorsolaurea,
+		codicedipartimento,
+		codicesede,
+		codicetassa,
+		codicevoce,
+		competencystart,
+		competencystop,
+		datacontabile,
+		datascadenza,
+		forename,
+		iduniqueformcode,
+		importoversamento,
+		iuv,
+		surname,
+		annoedizione,
+		codicepercorsostudi,rata,email
+		from flussocreditidetail_esse3
+		where YEAR([datacontabile])= @anno
+		group by idflusso,		cf,		codicecausale,		codicecorsolaurea,		codicedipartimento,		codicesede,
+		codicetassa,		codicevoce,		competencystart,		competencystop,		datacontabile,		datascadenza,		forename,
+		iduniqueformcode,		importoversamento,		iuv,		surname,		annoedizione,		codicepercorsostudi,rata,email
+)
 SELECT FD.[idflusso] as 'ID flusso di credito',FD.[iddetail] 'Riga flusso di credito',ISNULL(FE.surname,R.[surname])  'Cognome',isnull(FE.forename,R.[forename]) 'Nome',FD.[importoversamento] 'Importo bollettino'
 	,FD.[iduniqueformcode] as CodiceBollettino ,isnull(FD.[IUV],FI.[IUV]) 'IUV',isnull(FD.[cf], R.CF) 'CF',FE.[codicecausale] 'Descrizione Esse3', FE.[codicecorsolaurea] 'Codice Corso Laurea'
 	,FE.[codicedipartimento] 'Codice Dipartimento', FE.[codicesede] 'Codice Sede',FE.[codicetassa] 'Codice Tassa', TA.Descrizione 'Tassa' ,FE.[codicevoce] 'Codice Voce', VO.Descrizione 'Voce'
@@ -64,7 +90,8 @@ SELECT FD.[idflusso] as 'ID flusso di credito',FD.[iddetail] 'Riga flusso di cre
 	,I3.transmissiondate as 'Data Distinta di Trasmissione'
 
   FROM flussocreditidetailview FD
-  LEFT JOIN [flussocreditidetail_esse3] FE ON FE.[idflusso] = FD.[idflusso] AND FE.[iddetail] = FD.[iddetail] 
+  LEFT JOIN  FE ON FE.[idflusso] = FD.[idflusso] 
+			AND FE.[iduniqueformcode] = FD.[iduniqueformcode] and  FE.[importoversamento] = FD.[importoversamento] 
   LEFT JOIN estimatedetail ED ON ED.idestimkind = FD.idestimkind AND ED.yestim = FD.yestim AND ED.nestim = FD.nestim AND ED.rownum = FD.rownum
   LEFT JOIN Incomeview I3 ON I3.parentidinc = ED.idinc_taxable
   LEFT JOIN Income I2 ON I2.idinc = ED.idinc_taxable
@@ -72,10 +99,10 @@ SELECT FD.[idflusso] as 'ID flusso di credito',FD.[iddetail] 'Riga flusso di cre
   RIGHT JOIN flussoincassidetailview FI on FI.iduniqueformcode = FD.iduniqueformcode
   LEFT JOIN stip_voce VO on VO.codicevoce = FE.codicevoce
   LEFT JOIN stip_tassa TA on TA.codicetassa = FE.codicetassa
-WHERE YEAR(FE.[datacontabile])= @anno OR YEAR(FI.[dataincasso])= @anno
+WHERE (YEAR(FE.[datacontabile])= @anno OR YEAR(FI.[dataincasso])= @anno)
 ORDER BY FD.iduniqueformcode desc
 
--- [Amministrazione].[exp_flussicrediti_esse3] 2021
+
 
 END
 
@@ -86,4 +113,6 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
+
+
 

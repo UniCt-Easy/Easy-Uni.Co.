@@ -3,20 +3,30 @@
   <xs:element name="dsmeta_richitesi_segistcons" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="geo_nation" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idnation" type="xs:int" />
+              <xs:element name="lang" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="tesikeyword" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="idistanza" type="xs:int" />
+              <xs:element name="idnation_lang" type="xs:int" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idrichitesi" type="xs:int" />
               <xs:element name="idtesi" type="xs:int" />
               <xs:element name="idtesikeyword" type="xs:int" />
               <xs:element name="keyword" type="xs:int" />
-              <xs:element name="lang" type="xs:string" />
+              <xs:element name="lang" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idnation_lang_geo_nation_lang" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -26,6 +36,13 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idtesikind" type="xs:int" />
               <xs:element name="tesikind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="tesikind_ct" type="xs:dateTime" />
+              <xs:element name="tesikind_cu" type="xs:string" />
+              <xs:element name="tesikind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="tesikind_lt" type="xs:dateTime" />
+              <xs:element name="tesikind_lu" type="xs:string" />
+              <xs:element name="tesikind_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -48,7 +65,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -175,6 +192,10 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:geo_nation" />
+      <xs:field xpath="mstns:idnation" />
+    </xs:unique>
+    <xs:unique name="tesikeyword_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:tesikeyword" />
       <xs:field xpath="mstns:idistanza" />
       <xs:field xpath="mstns:idreg" />
@@ -224,6 +245,7 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_tesi_richitesi_idistanza-idreg-idrichitesi" msdata:parent="richitesi" msdata:child="tesi" msdata:parentkey="idistanza idreg idrichitesi" msdata:childkey="idistanza idreg idrichitesi" />
       <msdata:Relationship name="FK_tesikeyword_tesi_idistanza-idreg-idrichitesi-idtesi" msdata:parent="tesi" msdata:child="tesikeyword" msdata:parentkey="idistanza idreg idrichitesi idtesi" msdata:childkey="idistanza idreg idrichitesi idtesi" />
+      <msdata:Relationship name="FK_tesikeyword_geo_nation_idnation_lang" msdata:parent="geo_nation" msdata:child="tesikeyword" msdata:parentkey="idnation" msdata:childkey="idnation_lang" />
       <msdata:Relationship name="FK_tesi_tesikinddefaultview_idtesikind" msdata:parent="tesikinddefaultview" msdata:child="tesi" msdata:parentkey="idtesikind" msdata:childkey="idtesikind" />
       <msdata:Relationship name="FK_tesi_insegndefaultview_idinsegn" msdata:parent="insegndefaultview" msdata:child="tesi" msdata:parentkey="idinsegn" msdata:childkey="idinsegn" />
       <msdata:Relationship name="FK_tesi_attach_idattach" msdata:parent="attach" msdata:child="tesi" msdata:parentkey="idattach" msdata:childkey="idattach" />

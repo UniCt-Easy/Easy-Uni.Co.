@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -384,8 +382,8 @@ namespace funzioni_configurazione {
             DataRow[] found = Expense.Select(QHC.CmpEq("idexp", idexp));
             if (found.Length == 0) {
                 if (phaseofIdexp.ContainsKey(idexp)) return phaseofIdexp[idexp];
-                //Non Ë in memoria---> deve essere sul db
-                //PuÚ fare la select direttamente.
+                //Non √® in memoria---> deve essere sul db
+                //Pu√≤ fare la select direttamente.
                 string filtermain = QHS.CmpEq("idexp", idexp);
                 //DataTable MainImp = Conn.RUN_SELECT("expensesorted", "*", null, filtermain, null, true);
                 object nphase = Conn.DO_READ_VALUE("expense", filtermain, "nphase");
@@ -403,8 +401,8 @@ namespace funzioni_configurazione {
             DataRow[] found = Income.Select(QHC.CmpEq("idinc", idinc));
             if (found.Length == 0) {
                 if (phaseofIdinc.ContainsKey(idinc)) return phaseofIdinc[idinc];
-                //Non Ë in memoria---> deve essere sul db
-                //PuÚ fare la select direttamente.
+                //Non √® in memoria---> deve essere sul db
+                //Pu√≤ fare la select direttamente.
                 string filtermain = QHS.CmpEq("idinc", idinc);
                 //DataTable MainImp = Conn.RUN_SELECT("expensesorted", "*", null, filtermain, null, true);
                 object nphase = Conn.DO_READ_VALUE("income", filtermain, "nphase");

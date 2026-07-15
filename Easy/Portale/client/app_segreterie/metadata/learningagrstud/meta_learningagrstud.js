@@ -34,8 +34,8 @@
 						objCalcFieldConfig['!idlearningagrkind_learningagrkind_title'] = { tableNameLookup:'learningagrkind', columnNameLookup:'title', columnNamekey:'idlearningagrkind' };
 						this.describeAColumn(table, '!idmobilityperiodtype_mobilityperiodtype_title', 'Periodo', null, 181, null);
 						objCalcFieldConfig['!idmobilityperiodtype_mobilityperiodtype_title'] = { tableNameLookup:'mobilityperiodtype', columnNameLookup:'title', columnNamekey:'idmobilityperiodtype' };
-						this.describeAColumn(table, '!idreg_istitutiesteri_registry_istitutiesteri_title', 'Istituto', null, 71, null);
-						objCalcFieldConfig['!idreg_istitutiesteri_registry_istitutiesteri_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_title', 'Istituto', null, 71, null);
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
 						this.describeAColumn(table, '!idstruttura_struttura_title', 'Denominazione Dipartimento locale', null, 171, null);
 						this.describeAColumn(table, '!idstruttura_struttura_idstrutturakind_title', 'Tipo Dipartimento locale', null, 170, null);
 						objCalcFieldConfig['!idstruttura_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idstruttura' };

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Jose;
 using Newtonsoft.Json;
@@ -60,23 +58,23 @@ namespace EasyPagamenti.Extra {
     public sealed class Principal :IPrincipal {
 
         /// <summary>
-        /// Identit‡ dell'utente.
+        /// Identit√† dell'utente.
         /// </summary>
         public IIdentity Identity { get; private set; }
 
         /// <summary>
         /// Costruttore primario.
         /// </summary>
-        /// <param name="identity">Identit‡ dell'utente.</param>
+        /// <param name="identity">Identit√† dell'utente.</param>
         public Principal(Identity identity) {
             Identity = identity;
         }
 
         /// <summary>
-        /// Controlla se l'utente puÚ svolgere un determinato ruolo.
+        /// Controlla se l'utente pu√≤ svolgere un determinato ruolo.
         /// </summary>
         /// <param name="role">Il ruolo.</param>
-        /// <returns>Vero se l'utente puÚ svolgere un determinato ruolo.</returns>
+        /// <returns>Vero se l'utente pu√≤ svolgere un determinato ruolo.</returns>
         public bool IsInRole(string role) {
             var identity = (Identity)Identity;
             return identity.Roles.Contains(role);
@@ -101,7 +99,7 @@ namespace EasyPagamenti.Extra {
         /// <param name="title">Denominazione dell'utente.</param>
         public Identity(string clientAddress, string name, string email, string title) {
             LoggedOn = DateTime.Now;
-            ExpiresOn = LoggedOn.AddMinutes(30); // 30 minuti di validit‡
+            ExpiresOn = LoggedOn.AddMinutes(30); // 30 minuti di validit√†
 
             Issuer = ISSUER;
             ClientAddress = clientAddress;
@@ -203,7 +201,7 @@ namespace EasyPagamenti.Extra {
     }
 
     /// <summary>
-    /// Utilit‡ per la creazione di chiavi di sicurezza.
+    /// Utilit√† per la creazione di chiavi di sicurezza.
     /// </summary>
     public static class KeyChain {
 
@@ -253,16 +251,16 @@ namespace EasyPagamenti.Extra {
     }
 
     /// <summary>
-    /// Utilit‡ per la gestione delle password.
+    /// Utilit√† per la gestione delle password.
     /// </summary>
     public static class Password {
 
         private static readonly int LENGTH_HASH = 20; // Numero di byte da generare per gli hash
 
         private static readonly string EMAIL_SUBJECT = "Password di accesso";
-        private static readonly string EMAIL_BODY = "Il tuo nome Ë utente Ë '{1}'. " + "\r\n"
-            + "La tua nuova password per l'accesso ai servizi Easy Pagamenti Ë '{0}'. " + "\r\n"
-            + "La password Ë sensibile al maiuscolo/minuscolo.";
+        private static readonly string EMAIL_BODY = "Il tuo nome √® utente √® '{1}'. " + "\r\n"
+            + "La tua nuova password per l'accesso ai servizi Easy Pagamenti √® '{0}'. " + "\r\n"
+            + "La password √® sensibile al maiuscolo/minuscolo.";
 
 		/// <summary>
 		/// Genera l'hash di una password.
@@ -375,14 +373,14 @@ namespace EasyPagamenti.Extra {
     
 
     /// <summary>
-    /// Utilit‡ per la gestione dell'attivazione degli account.
+    /// Utilit√† per la gestione dell'attivazione degli account.
     /// </summary>
     public static class Activation {
 
-        private static readonly short CODE_TTL = 15; // Numero di minuti di validit‡ del codice generato
+        private static readonly short CODE_TTL = 15; // Numero di minuti di validit√† del codice generato
 
         private static readonly string EMAIL_SUBJECT = "Attivazione account";
-        private static readonly string EMAIL_BODY = "Il codice di attivazione del tuo account per i servizi EasyPagamenti Ë '{0}'.";
+        private static readonly string EMAIL_BODY = "Il codice di attivazione del tuo account per i servizi EasyPagamenti √® '{0}'.";
 
         private static MemoryCache codeCache;
 
@@ -438,7 +436,7 @@ namespace EasyPagamenti.Extra {
         /// </summary>
         /// <param name="recipient">L'e-mail dell'utente.</param>
         /// <param name="code">Il codice di attivazione.</param>
-        /// <returns>Vero se il codice di attivazione Ë valido.</returns>
+        /// <returns>Vero se il codice di attivazione √® valido.</returns>
         public static bool Verify(string recipient, string code) {
             return codeCache.Contains(recipient) && codeCache.Get(recipient).Equals(code);
         }
@@ -446,7 +444,7 @@ namespace EasyPagamenti.Extra {
     }
 
     /// <summary>
-    /// Utilit‡ per la gestione dei token di autenticazione.
+    /// Utilit√† per la gestione dei token di autenticazione.
     /// </summary>
     public static class Token {
 

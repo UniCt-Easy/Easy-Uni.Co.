@@ -78,6 +78,15 @@
 						this.describeAColumn(table, '!idprova_prova_stop', 'Data e ora fine', 'g', 23, null);
 //$objCalcFieldConfig_aula$
 						break;
+					case 'aulapublic':
+						this.describeAColumn(table, '!idprova_prova_title', 'Denominazione', null, 22, null);
+						this.describeAColumn(table, '!idprova_prova_start', 'Data e ora inizio', 'g', 24, null);
+						this.describeAColumn(table, '!idprova_prova_stop', 'Data e ora fine', 'g', 23, null);
+						objCalcFieldConfig['!idprova_prova_title'] = { tableNameLookup:'prova', columnNameLookup:'title', columnNamekey:'idprova' };
+						objCalcFieldConfig['!idprova_prova_start'] = { tableNameLookup:'prova', columnNameLookup:'start', columnNamekey:'idprova' };
+						objCalcFieldConfig['!idprova_prova_stop'] = { tableNameLookup:'prova', columnNameLookup:'stop', columnNamekey:'idprova' };
+//$objCalcFieldConfig_aulapublic$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -86,7 +95,17 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'aulapublic':
+						table.columns["idaula"].caption = "Aula";
+						table.columns["idprova"].caption = "Prova";
+//$innerSetCaptionConfig_aulapublic$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_provaaula");

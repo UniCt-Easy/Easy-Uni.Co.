@@ -25,7 +25,7 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
 						this.describeAColumn(table, 'destmail', 'E-mail', null, 20, 512);
-						this.describeAColumn(table, 'destidamm', 'Amministrazione pubblica destinataria - Codice IPA', null, 30, 50);
+						this.describeAColumn(table, 'destidamm', 'Amministrazione pubblica destinataria - Codice IPA', null, 30, 1024);
 						this.describeAColumn(table, 'destcodiceaoo', 'Amministrazione pubblica destinataria - Codice IPA area organizzativa omogenea', null, 40, 50);
 						this.describeAColumn(table, '!idreg_dest_registry_title', 'Destinatario', null, 11, null);
 						objCalcFieldConfig['!idreg_dest_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_dest' };
@@ -39,7 +39,19 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["destcodiceaoo"].caption = "Amministrazione pubblica destinataria - Codice IPA area organizzativa omogenea";
+						table.columns["destidamm"].caption = "Amministrazione pubblica destinataria - Codice IPA";
+						table.columns["destmail"].caption = "E-mail";
+						table.columns["idreg_dest"].caption = "Destinatario";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_protocollodestinatario");

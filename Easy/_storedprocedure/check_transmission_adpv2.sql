@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[check_transmission_adpv2]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [check_transmission_adpv2]
@@ -47,7 +45,7 @@ CREATE    PROCEDURE [check_transmission_adpv2]
 	@idsor05 int = null	
 )
 AS BEGIN
--- exec check_transmission_adpv2  'C','I',2021, 1, 1000
+-- exec check_transmission_adpv2  'C','I',2024, 0, 0
 -- Estrazione di tutti gli incarichi che si cerca di trasmettere aventi come filtro solo la tipologia incaricati
 -- Dipendente o Consulente, esercizio e estremi incarico (da numero a numero)
  
@@ -427,7 +425,25 @@ OR  (s.employkind  IN('C', 'A') AND @rolekind = 'C')
 )
   
 --select * from serviceagency
- 
+
+-- 12) Inserimento incarico consulente deve escludere gli incarichi con anno di riferimento diverso all'anno della data conferimento
+ INSERT INTO #logerror
+(cod_errore, severity,tipologia_incarico, yservreg,nservreg,employkind, title,cf,description,errore,soluzione)
+SELECT  12, 'E', sk.description, s.yservreg, s.nservreg,
+s.employkind, s.title, s.cf, s.description, 
+'L''incarico a Consulente ' + convert(varchar(10), s.yservreg) + '/n°' + convert(varchar(10), s.nservreg) +
+' non si può trasmettere perchè l''anno di riferimento deve essere uguale all''anno della data conferimento'   ,
+' controllare che l''anno della data di conferimento dell''incarico sia uguale all''anno di riferimento dell''incarico'
+from #serviceregistry s
+LEFT OUTER JOIN serviceregistrykind sk ON sk.idserviceregistrykind = s.idserviceregistrykind
+where
+s.idserviceregistrykind is null OR s.idserviceregistrykind  in 
+	(select idserviceregistrykind from serviceregistrykind where (totransmit='S'))
+AND (is_delivered ='N' and is_annulled='N' and is_blocked = 'N' and  website_annulled = 'N') 
+AND	((codiceaooipa IS NOT NULL) OR (codiceuoipa IS NOT NULL))
+AND year(authorizationdate) <> yservreg 
+AND @transmissionkind  = 'I'
+AND(s.employkind<>'D') AND @rolekind = 'C'
 
  
 
@@ -459,7 +475,7 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
- exec check_transmission_adpv2  'D','I',2023, null, 0
+-- exec check_transmission_adpv2  'D','I',2023, null, 0
 
  
  --- testare 4 5 6 7

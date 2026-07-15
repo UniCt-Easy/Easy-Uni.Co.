@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Jose;
 using Newtonsoft.Json;
@@ -59,23 +57,23 @@ namespace Backend.Security {
     public sealed class Principal : IPrincipal {
 
         /// <summary>
-        /// Identit‡ dell'utente.
+        /// Identit√† dell'utente.
         /// </summary>
         public IIdentity Identity { get; private set; }
 
         /// <summary>
         /// Costruttore primario.
         /// </summary>
-        /// <param name="identity">Identit‡ dell'utente.</param>
+        /// <param name="identity">Identit√† dell'utente.</param>
         public Principal(Identity identity) {
             Identity = identity;
         }
 
         /// <summary>
-        /// Controlla se l'utente puÚ svolgere un determinato ruolo.
+        /// Controlla se l'utente pu√≤ svolgere un determinato ruolo.
         /// </summary>
         /// <param name="role">Il ruolo.</param>
-        /// <returns>Vero se l'utente puÚ svolgere un determinato ruolo.</returns>
+        /// <returns>Vero se l'utente pu√≤ svolgere un determinato ruolo.</returns>
         public bool IsInRole(string role) {
             var identity = (Identity)Identity;
             return identity.roles.Contains(role);
@@ -108,7 +106,7 @@ namespace Backend.Security {
             string idFlowChart,
             string nDetail) {
             loggedOn = DateTime.Now;
-            expiresOn = loggedOn.AddHours(24); // 1 giorno di validit‡
+            expiresOn = loggedOn.AddHours(24); // 1 giorno di validit√†
 
             issuer = ISSUER;
             this.clientAddress = clientAddress;
@@ -238,7 +236,7 @@ namespace Backend.Security {
         public IEnumerable<string> roles { get; private set; }
 
         /// <summary>
-        /// true se Ë una connessione con utente anonimo
+        /// true se √® una connessione con utente anonimo
         /// </summary>
         [JsonProperty("IsAnonymous")]
         public bool IsAnonymous { get; set; }
@@ -246,7 +244,7 @@ namespace Backend.Security {
     }
 
     /// <summary>
-    /// Utilit‡ per la creazione di chiavi di sicurezza.
+    /// Utilit√† per la creazione di chiavi di sicurezza.
     /// </summary>
     public static class KeyChain {
 
@@ -296,14 +294,14 @@ namespace Backend.Security {
     }
 
     /// <summary>
-    /// Utilit‡ per la gestione delle password.
+    /// Utilit√† per la gestione delle password.
     /// </summary>
     public static class Password {
 
         private static readonly int LengthHash = 20; // Numero di byte da generare per gli hash
 
         private static readonly string EmailSubject = "Password di accesso";
-        private static readonly string EmailBody = "La tua nuova password per l'accesso ai servizi EasyPay Ë '{0}'.";
+        private static readonly string EmailBody = "La tua nuova password per l'accesso ai servizi EasyPay √® '{0}'.";
 
         /// <summary>
         /// Genera l'hash di una password.
@@ -440,14 +438,14 @@ namespace Backend.Security {
     }
 
     /// <summary>
-    /// Utilit‡ per la gestione dell'attivazione degli account.
+    /// Utilit√† per la gestione dell'attivazione degli account.
     /// </summary>
     public static class Activation {
 
-        private static readonly short CodeTtl = 15; // Numero di minuti di validit‡ del codice generato
+        private static readonly short CodeTtl = 15; // Numero di minuti di validit√† del codice generato
 
         private static readonly string EmailSubject = "Attivazione account";
-        private static readonly string EmailBody = "Il codice di attivazione del tuo account per i servizi EasyPay Ë '{0}'.";
+        private static readonly string EmailBody = "Il codice di attivazione del tuo account per i servizi EasyPay √® '{0}'.";
 
         private static MemoryCache _codeCache;
 
@@ -456,7 +454,7 @@ namespace Backend.Security {
         }
 
         /// <summary>
-        /// Attiva una determinata email e restituisce il codice di attivazione (che scadr‡ dopo un po')
+        /// Attiva una determinata email e restituisce il codice di attivazione (che scadr√† dopo un po')
         /// </summary>
         /// <param name="recipient"></param>
         /// <returns></returns>
@@ -493,7 +491,7 @@ namespace Backend.Security {
         /// </summary>
         /// <param name="recipient">L'e-mail dell'utente.</param>
         /// <param name="code">Il codice di attivazione.</param>
-        /// <returns>Vero se il codice di attivazione Ë valido.</returns>
+        /// <returns>Vero se il codice di attivazione √® valido.</returns>
         public static bool verify(string recipient, string code) {
             return _codeCache.Contains(recipient) && _codeCache.Get(recipient).Equals(code);
         }

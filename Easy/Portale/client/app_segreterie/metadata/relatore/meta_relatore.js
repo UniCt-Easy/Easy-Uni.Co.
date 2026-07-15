@@ -24,11 +24,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segistcons':
+						this.describeAColumn(table, 'idreg_docenti', 'Relatore', null, 40, null);
+						this.describeAColumn(table, 'idrelatorekind', 'Tipologia', null, 50, null);
+						this.describeAColumn(table, '!idreg_docenti_registry_title', 'Relatore', null, 41, null);
+						objCalcFieldConfig['!idreg_docenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 						this.describeAColumn(table, '!idrelatorekind_relatorekind_title', 'Tipologia', null, 51, null);
 						objCalcFieldConfig['!idrelatorekind_relatorekind_title'] = { tableNameLookup:'relatorekind', columnNameLookup:'title', columnNamekey:'idrelatorekind' };
-						this.describeAColumn(table, '!idreg_docenti_registry_docenti_title', 'Relatore', null, 41, null);
-						objCalcFieldConfig['!idreg_docenti_registry_docenti_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
-						objCalcFieldConfig['!idreg_docenti_registry_docenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_docenti' };
 //$objCalcFieldConfig_segistcons$
 						break;
 //$objCalcFieldConfig$

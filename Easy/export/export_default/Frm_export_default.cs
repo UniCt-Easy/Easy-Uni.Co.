@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -27,6 +25,8 @@ using System.Windows.Forms;
 using System.Reflection;
 using funzioni_configurazione;
 using System.IO;
+using System.Collections.Generic;
+using System.Text;
 
 namespace export_default//ExportForm//
 {
@@ -49,6 +49,8 @@ namespace export_default//ExportForm//
 		string ExportTitle;
 		private DataAccess myDA;
 		private DataTable myPrymaryTable;
+        private List<DataTable> myExcelTables;
+        private Dictionary<string, string> customTypeSql;
 		private bool InsertMode;
 		string ExportDescription;
 		const string DummyPrimaryKey = "DummyPrimaryKeyField";
@@ -233,7 +235,9 @@ namespace export_default//ExportForm//
 		/// <param name="ReportParameters"></param>
 		void CreatePrimaryTable(string ProcedureName, DataRow[] ReportParameters, DataAccess conn){
 			myPrymaryTable = new DataTable("export");
-			DateTime dataContabile = (DateTime) conn.GetSys("datacontabile");
+            myExcelTables = new List<DataTable>();
+            customTypeSql = new Dictionary<string, string>();
+            DateTime dataContabile = (DateTime) conn.GetSys("datacontabile");
 			int esercizio = (int) conn.GetSys("esercizio");
 			//Create a dummy primary key
 			DataColumn DCPK = new DataColumn(DummyPrimaryKey,typeof(System.Int32));
@@ -248,6 +252,13 @@ namespace export_default//ExportForm//
 
             //Add parameters as primary table fields
 			foreach (DataRow Param in ReportParameters){
+                string selectionCode = Param["selectioncode"].ToString();
+
+                //il campo è gestito se è flag combo = 'S' o se 
+                //il campo selectioncode (manage/chhose) non è null
+                bool Gestito = ((Param["iscombobox"].ToString().ToUpper() == "S") ||
+                    (selectionCode != ""));
+                                                
                 System.Type ColType = GetTypeFromSysType(Param["systype"].ToString());
 				string ColName = Param["paramname"].ToString();
 				DataColumn Col = new DataColumn(ColName,ColType);
@@ -264,12 +275,7 @@ namespace export_default//ExportForm//
 //							"Dettaglio: "+E.Message,
 //							"Errore");
                 }
-
-                //il campo è gestito se è flag combo = 'S' o se 
-                //il campo selectioncode (manage/chhose) non è null
-                bool Gestito = ((Param["iscombobox"].ToString().ToUpper() == "S") ||
-                    (Param["selectioncode"].ToString() != ""));
-
+                
                 bool ConvertNullToPerc = (Gestito &&
                     (Param["noselectionforall"].ToString().ToUpper() == "S"));
 
@@ -277,7 +283,25 @@ namespace export_default//ExportForm//
 				///TODO: Verificare Gestione AllowDBNull
                 Col.AllowDBNull = (Param["hintkind"].ToString()=="NOHINT") || ConvertNullToPerc;
 
-				myPrymaryTable.Columns.Add(Col);
+                bool excel = false;
+
+                if (!string.IsNullOrEmpty(selectionCode))
+                {
+                    string[] codeSplit = selectionCode.Split('.');
+                    string tipo = codeSplit[0];
+                    excel = tipo.ToLower() == "excel";
+                    customTypeSql.Add(ColName, codeSplit[1]);
+                }
+
+                if (excel)
+                {
+                    DataTable excelTable = new DataTable(ColName);
+                    excelTable.Columns.Add(Col);
+                    myExcelTables.Add(excelTable);
+                    DS.Tables.Add(excelTable);
+                }
+                else
+                    myPrymaryTable.Columns.Add(Col);
 			}
             ControllaObbligatorietaResp();
             ControllaObbligatorietaUpb();
@@ -723,11 +747,109 @@ namespace export_default//ExportForm//
                     tb.ReadOnly = true;
                     if (!visible) return false;
                     break;
+
+                case "excel":
+                    //Inserisco un groupbox
+                    GroupBox grpExcel = InserisciGroupBox(param);
+                    
+                    //aggiungo un button
+                    Button btnExcel = new Button();
+                    btnExcel.Name = "btn" + paramname;
+                    btnExcel.Text = "Excel";
+                    btnExcel.Location = new Point(12, 14);
+                    btnExcel.Width = 62;
+                    btnExcel.Height = TextHeight - 9;
+					btnExcel.Click += new EventHandler(btnExcel_Click);
+                    grpExcel.Controls.Add(btnExcel);
+
+                    //aggiungo un combobox
+                    ComboBox cmbExcel = new ComboBox();
+                    cmbExcel.Name = "cmb" + paramname;
+                    cmbExcel.Location = new Point(btnExcel.Location.X + btnExcel.Width + 1, 14);
+                    cmbExcel.Width = ControlWidth - btnExcel.Width - 20;
+                    cmbExcel.DropDownStyle = ComboBoxStyle.DropDownList;
+                    cmbExcel.Enabled = true;
+                    cmbExcel.DataSource = DS.Tables[paramname];
+                    cmbExcel.ValueMember = paramname;
+                    cmbExcel.DisplayMember = paramname;
+                    grpExcel.Controls.Add(cmbExcel);
+
+                    break;
             }
             return true;
         }
 
-        
+		private void btnExcel_Click(object sender, EventArgs e)
+		{
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+                openFileDialog.Title = "Seleziona un file Excel";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        DataTable excelTable = null;
+                        Button btn = (Button)sender;
+
+                        excelTable = DS.Tables[btn.Name.Replace("btn", "")];
+                        if (excelTable == null) return;
+                        excelTable.Clear();
+                        excelTable.Columns.Add(new DataColumn("dummycolumn"));
+
+                        ExcelImport excelImport = new ExcelImport();
+                        excelImport.ImportTable(openFileDialog.FileName, excelTable, false, 1);
+                        excelTable.Columns.Remove("dummycolumn");
+
+                        RemoveDuplicateRows(excelTable, excelTable.Columns[0].ColumnName);
+                        excelTable.AcceptChanges();
+                        Cursor.Current = Cursors.Default;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Errore durante la lettura del file: {ex.Message}",
+                                        "Errore",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        public void RemoveDuplicateRows(DataTable dataTable, string columnName)
+        {
+            // Crea un HashSet per tenere traccia dei valori già incontrati
+            // StringComparer.OrdinalIgnoreCase rende il confronto case-insensitive
+            var existingValues = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            // Lista per memorizzare temporaneamente le righe da eliminare
+            // Non possiamo eliminarle durante l'iterazione perché modificheremmo la collezione
+            var rowsToRemove = new List<DataRow>();
+
+            // Scansiona tutte le righe del DataTable
+            foreach (DataRow row in dataTable.Rows)
+            {
+                // Ottieni il valore della colonna specificata per la riga corrente
+                string currentValue = row[columnName].ToString();
+
+                // Se il valore è già presente nel HashSet (duplicato)
+                // HashSet.Add restituisce false se l'elemento esiste già
+                if (!existingValues.Add(currentValue))
+                {
+                    // Aggiungi la riga alla lista di quelle da eliminare
+                    rowsToRemove.Add(row);
+                }
+            }
+
+            // Elimina tutte le righe duplicate trovate
+            foreach (var row in rowsToRemove)
+            {
+                dataTable.Rows.Remove(row);
+            }            
+        }
+
         /// <summary>
         /// Tabella parent da aggiungere al dataset in caso di AutoChoose/AutoManage
         /// </summary>
@@ -872,18 +994,25 @@ namespace export_default//ExportForm//
         System.Type GetTypeFromSysType(string systype) {
             systype = systype.ToUpper();
 
-            switch (systype) {
-                case "BYTE": return typeof(System.Byte);
-                case "INT16": return typeof(System.Int16);
-                case "INT32": return typeof(System.Int32);
-                case "DATETIME": return typeof(System.DateTime);
-                case "STRING": return typeof(System.String);
-                case "DECIMAL": return typeof(System.Decimal);
-                case "DOUBLE": return typeof(System.Double);
+            switch (systype)
+            {
+                case "BYTE":
+                    return typeof(Byte);
+                case "INT16":
+                    return typeof(Int16);
+                case "INT32":
+                    return typeof(Int32);
+                case "DATETIME":
+                    return typeof(DateTime);
+                case "STRING":
+                    return typeof(String);
+                case "DECIMAL":
+                    return typeof(Decimal);
+                case "DOUBLE":
+                    return typeof(Double);
                 default:
-                    return typeof(System.String);
+                    return typeof(String);
             }
-
         }
 
 		public void MetaData_AfterClear() {
@@ -1013,7 +1142,10 @@ namespace export_default//ExportForm//
 
             }
             else {
-                Out = Meta.Conn.CallSP(ExportName, ReportParams, false, timeout);
+                if (myExcelTables.Count > 0)
+                    Out = callSP(ReportParams, timeout);
+                else
+                    Out = Meta.Conn.CallSP(ExportName, ReportParams, false, timeout);
             }
 			if ((Out==null) ||( Out.Tables.Count==0)){
 				show("La stored procedure "+ExportName+
@@ -1066,6 +1198,118 @@ namespace export_default//ExportForm//
 			else 
 				CloseForm();
 		}
+
+        /// <summary>
+        /// Chiama una stored procedure passando i parametri e gestendo tabelle temporanee da Excel
+        /// </summary>
+        /// <param name="reportParam">Array di parametri da passare alla stored procedure</param>
+        /// <param name="timeout">Timeout per l'esecuzione del comando SQL</param>
+        /// <returns>DataSet contenente i risultati della stored procedure</returns>
+        public DataSet callSP(object[] reportParam, int timeout)
+        {
+            // StringBuilder per costruire lo script SQL
+            StringBuilder sb = new StringBuilder();
+
+            // Costruisce la lista dei parametri nell'ordine corretto
+            List<string> orderedParams = new List<string>();
+
+            Dictionary<string, string> excelParamsDict = new Dictionary<string, string>();
+
+            int currblockLen = 0;
+
+            // Elabora ogni tabella Excel definita in myExcelTables
+            foreach (DataTable excelT in myExcelTables)
+            {
+                // Crea un nome parametro basato sul nome della colonna della tabella dei valori letti dal file excel,
+                // che corrisponde al nome del parametro impostato in configurazione
+                string parName = $"@{excelT.Columns[0].ColumnName}";
+
+                if (!customTypeSql.TryGetValue(excelT.TableName, out string typeSql))
+                    return null;
+
+                // Dichiarazione della variabile di tabella
+                sb.AppendLine($"DECLARE {parName} AS {typeSql};");
+                currblockLen = 0;
+
+                // Inserisce i valori della tabella Excel nella variabile di tabella
+                foreach (DataRow row in excelT.Rows)
+                {
+                    // Aggiunge i valori, raggruppandoli in blocchi di 20 per ottimizzazione
+                    if (currblockLen == 0)
+                        sb.Append($"insert into {parName} values ({QueryCreator.quotedstrvalue(row[0], true)})");
+                    else
+                        sb.Append($",({QueryCreator.quotedstrvalue(row[0], true)})");
+
+                    currblockLen++;
+
+                    // Se raggiunto il limite di 20 valori, chiude l'istruzione
+                    if (currblockLen == 20)
+                    {
+                        sb.AppendLine(";");
+                        currblockLen = 0;
+                    }
+                }
+
+                // Chiude l'istruzione 
+                sb.AppendLine(";");
+
+                // Aggiungi il parametro al dizionario con il nome come chiave
+                excelParamsDict.Add(parName, parName);
+            }
+
+            int paramIndex = 0;
+
+            // Itera attraverso i parametri della stored procedure nell'ordine corretto
+            foreach (DataRow paramRow in sortedParams())
+            {
+                string paramName = $"@{paramRow[1].ToString()}";
+
+                if (excelParamsDict.ContainsKey(paramName))
+                {
+                    // È un parametro Excel
+                    orderedParams.Add(paramName);
+                    excelParamsDict.Remove(paramName);
+                }
+                else
+                {
+                    // È un parametro normale                    
+                    if (paramIndex < reportParam.Length)
+                    {
+                        orderedParams.Add(QueryCreator.quotedstrvalue(reportParam[paramIndex], true));
+                    }
+                    paramIndex++;
+                }
+            }
+
+            // Chiude l'ultima istruzione se ci sono valori rimanenti
+            if (currblockLen > 0) sb.AppendLine(";");
+
+            // Costruisce la stringa dei parametri nell'ordine corretto
+            string allParams = string.Join(", ", orderedParams);
+
+            // Aggiunge il comando per eseguire la stored procedure con tutti i parametri
+            sb.AppendLine($"exec {ExportName} {allParams}");
+
+            // Esegue lo script e restituisce i risultati in un DataSet
+            DataSet tempDS = new DataSet();
+            DataTable output = Conn.SQLRunner(sb.ToString(), false, timeout);
+            if (output != null)
+                tempDS.Tables.Add(output);
+            return tempDS;
+        }
+        
+        private DataRowCollection sortedParams()
+		{
+            DataTable table = ExportVista.Tables["exportfunctionparam"];
+
+            // ordina per numero parametro
+            table.DefaultView.Sort = table.Columns[7].ColumnName + " ASC";
+
+            // Ottieni una nuova DataTable ordinata
+            DataTable sortedTable = table.DefaultView.ToTable();
+
+            return sortedTable.Rows;
+        }
 
         private void CloseForm()
         {

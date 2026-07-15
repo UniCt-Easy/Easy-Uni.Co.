@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -46,13 +44,13 @@ namespace no_table_travasa_varinizialibudget {
         private void btnOK_Click(object sender, EventArgs e) {
             object datadiriferimento = HelpForm.GetObjectFromString(typeof(DateTime), txtData.Text, "x.y");
             if ((datadiriferimento == null) || (datadiriferimento == DBNull.Value)) {
-                show(this, "La data immessa non Ë valida, procedura interrotta", "Errore");
+                show(this, "La data immessa non √® valida, procedura interrotta", "Errore");
                 return;
             }
 
             string errMess =Conn.BeginTransaction(IsolationLevel.ReadCommitted);
             if (errMess != null) {
-                show("C'Ë gi‡ una transazione attiva, attendere il completamento dell'altra operazione in corso", "Errore");
+                show("C'√® gi√† una transazione attiva, attendere il completamento dell'altra operazione in corso", "Errore");
                 return;
             }
 
@@ -62,7 +60,7 @@ namespace no_table_travasa_varinizialibudget {
             if (errMess != null) {
                 Conn.RollBack();
                 show(this, "Errore nella chiamata della procedura che trasferisce le variazioni iniziali di Budget nel Budget del Conto." +
-                     "La transazione Ë stata interrotta\r\rContattare il servizio assistenza"
+                     "La transazione √® stata interrotta\r\rContattare il servizio assistenza"
                     + "\r\rDettaglio dell'errore :\r\r" + errMess, "Errore");
                
                 return;

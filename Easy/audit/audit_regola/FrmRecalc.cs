@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -23,6 +21,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 using metaeasylibrary;
 using System.Data;
+using System.Threading.Tasks;
 //using ViewError;//ViewError
 
 
@@ -49,6 +48,8 @@ namespace audit_regola//businessrule//
 		int tableexamined;
 		DataTable ToRecalc;
         string filterrule;
+
+		private volatile bool _pauseRequested = false;
 
 		public FrmRecalc(DataAccess Conn, DataTable ToRecalc,string filterrule) {
 			//
@@ -152,49 +153,156 @@ namespace audit_regola//businessrule//
 
 		}
 		#endregion
-
-		public void Run(){
+		
+		public async Task RunAsync()
+		{
 			if (Running) return;
-			Running=true;
-        
-			tableexamined=0;
-			foreach(DataRow R in ToRecalc.Rows){
 
-				if (MustStop) {
-					DialogResult = DialogResult.Cancel;
-					Close();
-					return;
-				}
+			Running = true;
+			MustStop = false;
+			_pauseRequested = false;
+			tableexamined = 0;
 
-				tableexamined++;
-				txtTable.Text = R["tablename"].ToString();
-
-				
-//				RecalcRule(Conn, R["dbtable"].ToString(), R["dboperation"].ToString());
-				string err = EasyAudits.RecalcAudit(Conn, R["tablename"].ToString(), R["opkind"].ToString(),filterrule);
-					if (err!=null) {
-						QueryCreator.ShowError(this,"Errore nella compilazione della s.p. "+
-										R["tablename"].ToString()+"("+R["opkind"].ToString()+").",
-										err);
+			try
+			{
+				foreach (DataRow R in ToRecalc.Rows)
+				{
+					// Controllo per pausa/interruzione
+					if (await CheckForPauseOrStopAsync())
+					{
+						DialogResult = DialogResult.Cancel;
+						Close();
+						return;
 					}
 
-				progBar.Value=tableexamined;
-				//Application.DoEvents();
+					tableexamined++;
+					await InvokeAsync(() => txtTable.Text = R["tablename"].ToString());
+										
+					// Esegui l'operazione in modo asincrono
+					string err = await Task.Run(() => EasyAudits.RecalcAudit(Conn, R["tablename"].ToString(), R["opkind"].ToString(), filterrule));
+
+					if (err != null)
+					{
+						await InvokeAsync(() => {
+							this.Focus();
+							QueryCreator.ShowError(this,
+								"Errore nella compilazione della s.p. " +
+								R["tablename"].ToString() + "(" + R["opkind"].ToString() + ").",
+								err);
+						});
+					}
+
+					await InvokeAsync(() => {
+						progBar.Value = tableexamined;
+						MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+					});
+				}
+
+				await InvokeAsync(() => {
+					this.Focus();
+					show("Ricompilazione eseguita con successo", "Info",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult = DialogResult.OK;
+					Close();
+				});
 			}
-			//MetaFactory.factory.getSingleton<IMessageShower>().Show("Ricompilazione eseguita con successo");
-			DialogResult = DialogResult.OK;
-			Close();
-
+			finally
+			{
+				Running = false;
+			}
 		}
 
+		// Metodo che gestisce sia la pausa che lo stop
+		private async Task<bool> CheckForPauseOrStopAsync()
+		{
+			if (MustStop)
+			{
+				_pauseRequested = true;
 
-		private void btnStop_Click(object sender, System.EventArgs e) {
-			if (show(this,"Si è sicuri di voler interrompere l'operazione?","Conferma operazione",
-				MessageBoxButtons.YesNo)== DialogResult.Yes) MustStop=true;
-				 
+				// Mostra il message box di conferma
+				var result = await InvokeAsync(() =>
+				show(this, "Si è sicuri di voler interrompere l'operazione?",
+					"Conferma operazione", MessageBoxButtons.YesNo));
+
+				if (result == DialogResult.Yes)
+				{
+					return true; // Termina l'elaborazione
+				}
+				else
+				{
+					// L'utente ha scelto "No", continua l'elaborazione
+					MustStop = false;
+					_pauseRequested = false;
+					return false;
+				}
+			}
+
+			return false;
 		}
 
+		private async void btnStop_Click(object sender, System.EventArgs e)
+		{
+			if (!Running) return;
 
+			// Disabilita temporaneamente il bottone per evitare click multipli
+			btnStop.Enabled = false;
 
+			try
+			{
+				MustStop = true;
+
+				// Aspetta che l'elaborazione si metta in pausa
+				await WaitForPauseAsync();
+
+				// Se l'elaborazione è ancora in corso, significa che è in pausa
+				// e sta aspettando la conferma
+				if (Running && _pauseRequested)
+				{
+					// Il message box verrà mostrato da CheckForPauseOrStopAsync
+					// Non dobbiamo fare nulla qui, aspetta la risposta dell'utente
+				}
+			}
+			finally
+			{
+				btnStop.Enabled = true;
+			}
+		}
+
+		// Metodo helper per aspettare che l'elaborazione vada in pausa
+		private async Task WaitForPauseAsync()
+		{
+			int timeout = 5000; // 5 secondi di timeout
+			int elapsed = 0;
+
+			while (!_pauseRequested && elapsed < timeout)
+			{
+				await Task.Delay(100);
+				elapsed += 100;
+			}
+		}
+
+		private async Task InvokeAsync(Action action)
+		{
+			if (this.InvokeRequired)
+			{
+				await Task.Run(() => this.Invoke(action));
+			}
+			else
+			{
+				action();
+			}
+		}
+
+		private async Task<T> InvokeAsync<T>(Func<T> func)
+		{
+			if (this.InvokeRequired)
+			{
+				return await Task.Run(() => (T)this.Invoke(func));
+			}
+			else
+			{
+				return func();
+			}
+		}
 	}
 }

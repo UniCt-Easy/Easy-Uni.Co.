@@ -59,6 +59,15 @@
 						this.describeAColumn(table, 'soloconisee', 'Applicabile solo con ISEE', null, 90, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 30, 50);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 40, 256);
+						this.describeAColumn(table, 'applunavolta', 'Applicabile una sola volta', null, 50, null);
+						this.describeAColumn(table, 'retroattivo', 'Retroattivo', null, 80, null);
+						this.describeAColumn(table, 'soloconisee', 'Applicabile solo con ISEE', null, 90, null);
+//$objCalcFieldConfig_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -78,6 +87,18 @@
 						table.columns["soloconisee"].caption = "Applicabile solo con ISEE";
 						table.columns["title"].caption = "Denominazione";
 //$innerSetCaptionConfig_titolostudio$
+						break;
+					case 'carriera':
+//$innerSetCaptionConfig_carriera$
+						break;
+					case 'disabil':
+//$innerSetCaptionConfig_disabil$
+						break;
+					case 'default':
+//$innerSetCaptionConfig_default$
+						break;
+					case 'stu':
+//$innerSetCaptionConfig_stu$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -108,6 +129,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "title asc ";
+					}
+					case "stu": {
 						return "title asc ";
 					}
 					//$getSortingin$

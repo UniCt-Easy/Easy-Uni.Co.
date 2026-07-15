@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -34,7 +32,7 @@ using Chat.Rocketchat.Exceptions;
 namespace Chat.Client {
 
     /// <summary>
-    /// Modalit‡ di embedding.
+    /// Modalit√† di embedding.
     /// </summary>
     public enum TEmbeddingMode {
         /// <summary>
@@ -77,7 +75,7 @@ namespace Chat.Client {
         private PersonalAccessToken user;
 
         /// <summary>
-        /// Modalit‡ di embedding.
+        /// Modalit√† di embedding.
         /// </summary>
         private TEmbeddingMode Mode = TEmbeddingMode.Channel;
 
@@ -92,7 +90,7 @@ namespace Chat.Client {
         public PersonalAccessToken User => user;
 
         /// <summary>
-        /// Indica se l'utente Ë loggato sulla chat.
+        /// Indica se l'utente √® loggato sulla chat.
         /// </summary>
         public bool UserIsLoggedIn => user != null;
 
@@ -122,20 +120,19 @@ namespace Chat.Client {
 
             client = new Api(endpoint, adminId, adminToken);
 
-            try {
-                Users = client.UsersList().Select(user => user.username.ToLowerInvariant()).ToList();
-                Channels = client.ChannelsList().Select(channel => channel.name.ToLowerInvariant()).ToList();
-            }
-            catch (Exception e) {
-                throw new ApiException($"Initialization error: {e.Message}", e);
-            }
+            Users = client.UsersList().Select(user => user.username.ToLowerInvariant()).ToList();
+            Channels = client.ChannelsList().Select(channel => channel.name.ToLowerInvariant()).ToList();
 
             if (!Users.Contains(username)) {
+
                 try {
+                    var userDetails = client.UserDetails(username);
+                }
+                catch (ApiException) {
                     client.UsersCreate(username, EasyNameInferrer);
                 }
                 catch (Exception e) {
-                    throw new ApiException($"Could not create user \"{username}\": {e.Message}", e);
+                    throw new Exception($"Could not initialize \"{GetType().Name}\": {e.Message}", e);
                 }
             }
 
@@ -233,11 +230,11 @@ namespace Chat.Client {
         }
 
         /// <summary>
-        /// Imposta la modalit‡ di embedding.
+        /// Imposta la modalit√† di embedding.
         /// </summary>
-        /// <param name="m">Modalit‡ di embedding.</param>
-        /// <param name="resourceName">Nome della risorsa da mostrare sulla versione embedded, il significato dipende dalla modalit‡ di embedding.</param>
-        /// <returns>Action che imposta la modalit‡ di embedding.</returns>
+        /// <param name="m">Modalit√† di embedding.</param>
+        /// <param name="resourceName">Nome della risorsa da mostrare sulla versione embedded, il significato dipende dalla modalit√† di embedding.</param>
+        /// <returns>Action che imposta la modalit√† di embedding.</returns>
         public static Action<WebChat> OptionEmbeddingMode(TEmbeddingMode m, string resourceName) {
 
             if (string.IsNullOrWhiteSpace(resourceName)) {

@@ -15,7 +15,22 @@
 
 			//$describeColumns$
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'tru_seg':
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idreg_istituti"].caption = "Istituto di destinazione";
+//$innerSetCaptionConfig_tru_seg$
+						break;
+					case 'tru_stu':
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idreg_istituti"].caption = "Istituto di destinazione";
+//$innerSetCaptionConfig_tru_stu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_tru");

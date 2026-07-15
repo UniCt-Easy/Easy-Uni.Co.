@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -129,7 +127,7 @@ public partial class webpayment_default : MetaPage {
 
         calcolaTotale();
         disabilitaInfoAnagrafica(false);
-        visualizzaInfo(false); //Questo metodo Ë stato creto in seguito alla richiesta di nascondere le info. Tuttavia, la gestione esistente Ë stata lasciata.
+        visualizzaInfo(false); //Questo metodo √® stato creto in seguito alla richiesta di nascondere le info. Tuttavia, la gestione esistente √® stata lasciata.
         var curr = DS.webpayment.First();
         var idStatus = CfgFn.GetNoNullInt32(curr["idwebpaymentstatus"]);
         //ShowClientMessage("AfterFill idStatus:" + idStatus.ToString(), "Avviso", System.Windows.Forms.MessageBoxButtons.OK);
@@ -180,12 +178,12 @@ public partial class webpayment_default : MetaPage {
         //2   Credito generato
         //3   Credito inviato alla banca
         //4   IUV ricevuto
-        //Se Ë stato gi‡ trasmesso il credito e generato lo IUV allora i seguenti pulsanti devono essere nascosti :
+        //Se √® stato gi√† trasmesso il credito e generato lo IUV allora i seguenti pulsanti devono essere nascosti :
         //Imposta Ricerca, Inserisci, Inserisci Copia, Salva, Info, Elimina, Cancella(dett), Correggi(dett) e Cataloghi(dett)
         if (idStatus >= 3) {
             Meta.searchEnabled = true;
-            //Meta.CanInsert = false;       //Ë gi‡ false nell'AfterLink
-            //Meta.CanInsertCopy = false;   //Ë gi‡ false nell'AfterLink
+            //Meta.CanInsert = false;       //√® gi√† false nell'AfterLink
+            //Meta.CanInsertCopy = false;   //√® gi√† false nell'AfterLink
             Meta.CanSave = false;
             //nascondere anche il button Info
 
@@ -196,13 +194,13 @@ public partial class webpayment_default : MetaPage {
             btnvetrina.Visible = false;
         }
 
-        //Se non Ë stato trasmesso il credito allora i seguenti pulsanti devono essere nascosti: 
+        //Se non √® stato trasmesso il credito allora i seguenti pulsanti devono essere nascosti: 
         //Imposta Ricerca, Inserisci, Inserisci Copia, Salva, Info.
         //Restano attivi i pulsanti Chiudi , Elimina, Cancella(dett), Correggi(dett) e Cataloghi(dett)
         if (idStatus == 2) {
             Meta.searchEnabled = true;
-            //Meta.CanInsert = false;       //Ë gi‡ false nell'AfterLink
-            //Meta.CanInsertCopy = false;   //Ë gi‡ false nell'AfterLink
+            //Meta.CanInsert = false;       //√® gi√† false nell'AfterLink
+            //Meta.CanInsertCopy = false;   //√® gi√† false nell'AfterLink
             Meta.CanSave = true; // Se posto a false, anche elimina viene nascosto
             //nascondere anche il button Info
             Meta.CanCancel = true;
@@ -252,7 +250,7 @@ public partial class webpayment_default : MetaPage {
     }
 
 
-    //PuÚ verificarsi che il credito venga inviato da Easy per cui deve aggiornare lo stato senza riprovare.
+    //Pu√≤ verificarsi che il credito venga inviato da Easy per cui deve aggiornare lo stato senza riprovare.
     private bool checkIfCreditoInviatoByEasy(DataRow curr) {
         string istransmitted = DS.flussocrediti.Rows[0]["istransmitted"].ToString().ToUpper();
         if (istransmitted == "S") {
@@ -302,7 +300,7 @@ public partial class webpayment_default : MetaPage {
                 }
                 else {
                     ProcediPagamento.Visible = false;
-                    ShowClientMessage("Acquisto gi‡ effettuato", "Attenzione",
+                    ShowClientMessage("Acquisto gi√† effettuato", "Attenzione",
                         System.Windows.Forms.MessageBoxButtons.OK);
                 }
 
@@ -346,17 +344,17 @@ public partial class webpayment_default : MetaPage {
     }
 
     //Bisogna costruire un url da passare al webservice di attiva credito
-    // Questo deve contenere in se un parametro (loginParam) che loginServizi interrogher‡
-    //   e dovr‡ contenere le seguenti componenti
+    // Questo deve contenere in se un parametro (loginParam) che loginServizi interrogher√†
+    //   e dovr√† contenere le seguenti componenti
     //     user password dep  expiringDate (Now+ 15 minuti) + idwebpayment + x (random) 
     // QUesto loginParam lo si passa alla funzione di Security
     //  che calcola un codice
     // Questo codice a sua volta va dato come parametro a loginServizi
-    //  l'url sar‡ del tipo loginServizi... ?logParam="....loginParam" & code="..codice"
-    //login servizi prender‡ questi due parametri e li verificher‡ e se tutto Ë ok
-    // effettuer‡ il login in automatico, e imposter‡ una var. di sessione ( Session["..."] , che
-    //  indicereport quando attivata legger‡,
-    //  e ove impostata provveder‡ a richiamare automaticamente la pagina aperta, alla riga desiderata
+    //  l'url sar√† del tipo loginServizi... ?logParam="....loginParam" & code="..codice"
+    //login servizi prender√† questi due parametri e li verificher√† e se tutto √® ok
+    // effettuer√† il login in automatico, e imposter√† una var. di sessione ( Session["..."] , che
+    //  indicereport quando attivata legger√†,
+    //  e ove impostata provveder√† a richiamare automaticamente la pagina aperta, alla riga desiderata
     private void btnProcediPagamentoOnLine_Click() {
         string username = Session["Utente"].ToString();
         string dip = Session["Dipartimento"].ToString();
@@ -379,7 +377,7 @@ public partial class webpayment_default : MetaPage {
             $"{strUrl}LoginServizi.aspx{paramsforcallabck}"; //http://localhost:2826/LoginServizi.aspx?... 52850
 
         //Response.Redirect(urlForCallback);//Solo per TEST sara
-        // Attiva la Richiesta di Pagamento Telematico RPT solo se si Ë in possesso dello IUV
+        // Attiva la Richiesta di Pagamento Telematico RPT solo se si √® in possesso dello IUV
         var iuv = "";
         if (DS.flussocreditidetail != null && DS.flussocreditidetail.Rows.Count > 0) {
             var rFlussocreditidetail = DS.flussocreditidetail.First();
@@ -416,7 +414,7 @@ public partial class webpayment_default : MetaPage {
         DataTable dt = Conn.RUN_SELECT("estimatekind", "idsor01, idsor02, idsor03, idsor04, idsor05", null, filter,
             null, false);
         if (dt == null || dt.Rows.Count == 0) {
-            errore = $"Il tipo contratto attivo '{idestimkind}' non Ë stato trovato.";
+            errore = $"Il tipo contratto attivo '{idestimkind}' non √® stato trovato.";
             return null;
         }
 
@@ -436,7 +434,7 @@ public partial class webpayment_default : MetaPage {
         DataTable dt = Conn.RUN_SELECT("invoicekind", "idsor01, idsor02, idsor03, idsor04, idsor05", null, filter,
             null, false);
         if (dt == null || dt.Rows.Count == 0) {
-            errore = $"Il tipo fatturao '{idinvkind}' non Ë stato trovato.";
+            errore = $"Il tipo fatturao '{idinvkind}' non √® stato trovato.";
             return null;
         }
 
@@ -954,7 +952,7 @@ public partial class webpayment_default : MetaPage {
         }
 
         //if (DS.flussocrediti.Rows.Count > 0 || DS.flussocreditidetail.Rows.Count>0) {
-        //    ShowClientMessage("I crediti sono stati gi‡ creati.", "Attenzione",
+        //    ShowClientMessage("I crediti sono stati gi√† creati.", "Attenzione",
         //        System.Windows.Forms.MessageBoxButtons.OK);
         //    return;
         //}
@@ -1134,7 +1132,7 @@ public partial class webpayment_default : MetaPage {
                 rFlussoCreditiDetail["idupb"] = idupb;// letto da store
             }
             else {
-                rFlussoCreditiDetail["idupb"] = r["idupb"];//Ë stato letto da showcasedetail
+                rFlussoCreditiDetail["idupb"] = r["idupb"];//√® stato letto da showcasedetail
             }
 
             rFlussoCreditiDetail["flag_showcase"] = r["flag_showcase"];
@@ -1314,7 +1312,7 @@ public partial class webpayment_default : MetaPage {
     }
 
     /// <summary>
-    /// Viene chiamata dal BeforeFill quando la vetrina Ë aperta a partire da QUESTA pagina
+    /// Viene chiamata dal BeforeFill quando la vetrina √® aperta a partire da QUESTA pagina
     /// </summary>
     public void alignDsWithSession() {
 
@@ -1326,7 +1324,7 @@ public partial class webpayment_default : MetaPage {
         QHS = Conn.GetQueryHelper();
 
         MetaData md = appState.Dispatcher.Get("webpaymentdetail");
-        string ErrMsg = "Alcune Voci selezionate sono state scartate perchÈ gi‡ presenti nella prenotazione";
+        string ErrMsg = "Alcune Voci selezionate sono state scartate perch√© gi√† presenti nella prenotazione";
         bool dispmessage = false;
         foreach (var t in ar) {
             var ci = (cartitem) t;
@@ -1442,7 +1440,7 @@ public partial class webpayment_default : MetaPage {
         webpaymentRow["ywebpayment"] = Conn.Security.GetEsercizio();
         QHS = Conn.GetQueryHelper();
         var MD = appState.Dispatcher.Get("webpaymentdetail");
-        string message = "Alcuni articoli prenotati sono stati scartati perchÈ gi‡ presenti nella prenotazione";
+        string message = "Alcuni articoli prenotati sono stati scartati perch√© gi√† presenti nella prenotazione";
         bool dispmessage = false;
 
         foreach (var t in ar) {

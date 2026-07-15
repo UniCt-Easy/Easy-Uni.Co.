@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 SET QUOTED_IDENTIFIER ON 
 GO
 SET ANSI_NULLS ON 
@@ -23,9 +21,10 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'[rebuild_epacctotal_idmov]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rebuild_epacctotal_idmov]
 GO
-
+--SETUSER 'amministrazione'
 CREATE PROCEDURE rebuild_epacctotal_idmov (
 	@ayear int =  NULL,
+	@insert char(1) = 'S',
 	@idmov int
 )
 AS BEGIN
@@ -38,6 +37,9 @@ AS BEGIN
 	12	Epilogo stato patrimoniale
 	*/
 	DECLARE @curryear int
+	
+	IF (@insert = 'S' )
+	BEGIN
 	DELETE from epacctotal where ( (@ayear is null)  OR ayear=@ayear) and idepacc= @idmov
 	
 	INSERT INTO epacctotal 
@@ -61,7 +63,13 @@ AS BEGIN
 					and epacctotal.ayear=sumvar.yvar
 					and ((@ayear is null)  OR epacctotal.ayear =@ayear)
 					and epacctotal.idepacc = @idmov 
-	;
+
+	END	;
+	
+	UPDATE epacctotal
+	SET credit = null, revenue = null, rateo = null 
+	WHERE ((@ayear is null)  OR epacctotal.ayear=@ayear) and epacctotal.idepacc = @idmov ;
+
 		with sumexptot(idepacc,ayear,amount,amount2,amount3,amount4,amount5) as
 		(select E.paridepacc, ET.ayear, SUM(ET.curramount),SUM(ET.curramount2),SUM(ET.curramount3),
 						SUM(ET.curramount4),SUM(ET.curramount5) 

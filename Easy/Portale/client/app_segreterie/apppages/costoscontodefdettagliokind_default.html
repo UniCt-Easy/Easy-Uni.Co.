@@ -6,12 +6,69 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_title">Tipologia</label>
-					<input id="costoscontodefdettagliokind_default_title" type="text" class="form-control" data-tag="costoscontodefdettagliokind.title"  />
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_title">Titolo</label>
+					<input id="costoscontodefdettagliokind_default_title" type="text" class="form-control" data-tag="costoscontodefdettagliokind.title?costoscontodefdettagliokinddefaultview.title"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_codice">Codice</label>
-					<input id="costoscontodefdettagliokind_default_codice" type="text" class="form-control" data-tag="costoscontodefdettagliokind.codice"  />
+					<input id="costoscontodefdettagliokind_default_codice" type="text" class="form-control" data-tag="costoscontodefdettagliokind.codice?costoscontodefdettagliokinddefaultview.costoscontodefdettagliokind_codice"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_active">Attivo</label>
+					<div class="custom-control custom-radio">
+						<input id="costoscontodefdettagliokind_default_activeSi" type="radio" name="costoscontodefdettagliokind_default_active" class="custom-control-input" data-tag="costoscontodefdettagliokind.active:S?costoscontodefdettagliokinddefaultview.costoscontodefdettagliokind_active:Si"  ><label for="costoscontodefdettagliokind_default_activeSi"> Si</label>
+						<input id="costoscontodefdettagliokind_default_activeNo" type="radio" name="costoscontodefdettagliokind_default_active" class="custom-control-input" data-tag="costoscontodefdettagliokind.active:N?costoscontodefdettagliokinddefaultview.costoscontodefdettagliokind_active:No"  ><label for="costoscontodefdettagliokind_default_activeNo"> No</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idaccmotivecredit">Casuale di credito che ci indica il conto di credito</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idaccmotivecredit" name="costoscontodefdettagliokind_default_idaccmotivecredit" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idaccmotiverevenue">Casuale di ricavo che ci indica il conto di ricavo</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idaccmotiverevenue" name="costoscontodefdettagliokind_default_idaccmotiverevenue" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview_alias1.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idaccmotiveundotax">Casuale di costo che ci indica il conto di costo per annullo tasse entro l'anno</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idaccmotiveundotax" name="costoscontodefdettagliokind_default_idaccmotiveundotax" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview_alias2.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idaccmotiveundotaxpost">Casuale di costo che ci indica il conto di costo per annullo tasse oltre l'anno</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idaccmotiveundotaxpost" name="costoscontodefdettagliokind_default_idaccmotiveundotaxpost" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="accmotivedefaultview_alias3.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idtassonomia">Tassonomia PagoPA</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idtassonomia" name="costoscontodefdettagliokind_default_idtassonomia" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="tassonomia_pagopa.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idfinmotive">Causale finanziaria che ci indica il capitolo di bilancio</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idfinmotive" name="costoscontodefdettagliokind_default_idfinmotive" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="finmotivedefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="costoscontodefdettagliokind_default_idfinmotive_iva">Causale finanziaria che ci indica il capitolo di bilancio per l'IVA</label>
+					<div>
+						<input id="costoscontodefdettagliokind_default_idfinmotive_iva" name="costoscontodefdettagliokind_default_idfinmotive_iva" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="finmotivedefaultview_alias1.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+					</div>
 				</div>
 			</div>
 </form>

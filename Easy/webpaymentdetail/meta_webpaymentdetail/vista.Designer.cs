@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -303,6 +301,17 @@ public class webpaymentdetailRow: MetaRow  {
 	public String descriptionOriginal { 
 		get {if (this["description",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["description",DataRowVersion.Original];}
 	}
+	public Int32? idshowcase{ 
+		get {if (this["idshowcase"]==DBNull.Value)return null; return  (Int32?)this["idshowcase"];}
+		set {if (value==null) this["idshowcase"]= DBNull.Value; else this["idshowcase"]= value;}
+	}
+	public object idshowcaseValue { 
+		get{ return this["idshowcase"];}
+		set {if (value==null|| value==DBNull.Value) this["idshowcase"]= DBNull.Value; else this["idshowcase"]= value;}
+	}
+	public Int32? idshowcaseOriginal { 
+		get {if (this["idshowcase",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idshowcase",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -334,6 +343,7 @@ public class webpaymentdetailTable : MetaTableBase<webpaymentdetailRow> {
 			{"idupb_iva",createColumn("idupb_iva",typeof(string),true,false)},
 			{"flag_showcase",createColumn("flag_showcase",typeof(int),true,false)},
 			{"description",createColumn("description",typeof(string),true,false)},
+			{"idshowcase",createColumn("idshowcase",typeof(int),true,false)},
 		};
 	}
 }

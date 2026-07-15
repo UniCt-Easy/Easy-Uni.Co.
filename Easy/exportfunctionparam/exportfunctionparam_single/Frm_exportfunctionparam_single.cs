@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -84,6 +82,10 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
         private GroupBox grpCheck;
         private Button btnCheck;
         private TextBox txtCheck;
+		private RadioButton rdoExcel;
+		private GroupBox grpExcel;
+		private TextBox txtTypeSql;
+
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -124,619 +126,657 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdbAltro = new System.Windows.Forms.RadioButton();
-            this.rdbEsercCorr = new System.Windows.Forms.RadioButton();
-            this.rdbDataCont = new System.Windows.Forms.RadioButton();
-            this.rdbUltimoGMese = new System.Windows.Forms.RadioButton();
-            this.rdbPrimoGMese = new System.Windows.Forms.RadioButton();
-            this.rdbUltimoGAnno = new System.Windows.Forms.RadioButton();
-            this.rdbPrimoGAnno = new System.Windows.Forms.RadioButton();
-            this.rdbNoValue = new System.Windows.Forms.RadioButton();
-            this.txtDefValue = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ckbFlagNoSelection = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cmbComboCodeField = new System.Windows.Forms.ComboBox();
-            this.DS = new exportfunctionparam_single.vistaForm();
-            this.label11 = new System.Windows.Forms.Label();
-            this.cmbComboDescField = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.cmbComboTable = new System.Windows.Forms.ComboBox();
-            this.ckbFlagCombo = new System.Windows.Forms.CheckBox();
-            this.txtNumber = new System.Windows.Forms.TextBox();
-            this.txtHelp = new System.Windows.Forms.TextBox();
-            this.txtFilter = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.btnAnnulla = new System.Windows.Forms.Button();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbTipo = new System.Windows.Forms.ComboBox();
-            this.txtDescrizione = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtNomePar = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.grpAbilitaCustom = new System.Windows.Forms.GroupBox();
-            this.grpRadio = new System.Windows.Forms.GroupBox();
-            this.btnRadio = new System.Windows.Forms.Button();
-            this.txtRadio = new System.Windows.Forms.TextBox();
-            this.grpCustom = new System.Windows.Forms.GroupBox();
-            this.cboCustom = new System.Windows.Forms.ComboBox();
-            this.rdoCustom = new System.Windows.Forms.RadioButton();
-            this.grpCostant = new System.Windows.Forms.GroupBox();
-            this.chkHidden = new System.Windows.Forms.CheckBox();
-            this.rdoCheck = new System.Windows.Forms.RadioButton();
-            this.rdoRadio = new System.Windows.Forms.RadioButton();
-            this.rdoCostant = new System.Windows.Forms.RadioButton();
-            this.chkAbilitaCustom = new System.Windows.Forms.CheckBox();
-            this.grpCheck = new System.Windows.Forms.GroupBox();
-            this.btnCheck = new System.Windows.Forms.Button();
-            this.txtCheck = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.grpAbilitaCustom.SuspendLayout();
-            this.grpRadio.SuspendLayout();
-            this.grpCustom.SuspendLayout();
-            this.grpCostant.SuspendLayout();
-            this.grpCheck.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rdbAltro);
-            this.groupBox1.Controls.Add(this.rdbEsercCorr);
-            this.groupBox1.Controls.Add(this.rdbDataCont);
-            this.groupBox1.Controls.Add(this.rdbUltimoGMese);
-            this.groupBox1.Controls.Add(this.rdbPrimoGMese);
-            this.groupBox1.Controls.Add(this.rdbUltimoGAnno);
-            this.groupBox1.Controls.Add(this.rdbPrimoGAnno);
-            this.groupBox1.Controls.Add(this.rdbNoValue);
-            this.groupBox1.Controls.Add(this.txtDefValue);
-            this.groupBox1.Location = new System.Drawing.Point(12, 174);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(168, 192);
-            this.groupBox1.TabIndex = 46;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Valore predefinito";
-            // 
-            // rdbAltro
-            // 
-            this.rdbAltro.Location = new System.Drawing.Point(8, 128);
-            this.rdbAltro.Name = "rdbAltro";
-            this.rdbAltro.Size = new System.Drawing.Size(152, 16);
-            this.rdbAltro.TabIndex = 7;
-            this.rdbAltro.Tag = "exportfunctionparam.hintkind:STRING";
-            this.rdbAltro.Text = "Altro";
-            this.rdbAltro.CheckedChanged += new System.EventHandler(this.rdbAltro_CheckedChanged);
-            // 
-            // rdbEsercCorr
-            // 
-            this.rdbEsercCorr.Location = new System.Drawing.Point(8, 112);
-            this.rdbEsercCorr.Name = "rdbEsercCorr";
-            this.rdbEsercCorr.Size = new System.Drawing.Size(152, 16);
-            this.rdbEsercCorr.TabIndex = 6;
-            this.rdbEsercCorr.Tag = "exportfunctionparam.hintkind:ACCOUNTYEAR";
-            this.rdbEsercCorr.Text = "Esercizio corrente";
-            // 
-            // rdbDataCont
-            // 
-            this.rdbDataCont.Location = new System.Drawing.Point(8, 96);
-            this.rdbDataCont.Name = "rdbDataCont";
-            this.rdbDataCont.Size = new System.Drawing.Size(152, 16);
-            this.rdbDataCont.TabIndex = 5;
-            this.rdbDataCont.Tag = "exportfunctionparam.hintkind:ACCOUNTDATE";
-            this.rdbDataCont.Text = "Data contabile";
-            // 
-            // rdbUltimoGMese
-            // 
-            this.rdbUltimoGMese.Location = new System.Drawing.Point(8, 80);
-            this.rdbUltimoGMese.Name = "rdbUltimoGMese";
-            this.rdbUltimoGMese.Size = new System.Drawing.Size(152, 16);
-            this.rdbUltimoGMese.TabIndex = 4;
-            this.rdbUltimoGMese.Tag = "exportfunctionparam.LASTDAY/CURRM";
-            this.rdbUltimoGMese.Text = "Ultimo giorno del mese";
-            // 
-            // rdbPrimoGMese
-            // 
-            this.rdbPrimoGMese.Location = new System.Drawing.Point(8, 48);
-            this.rdbPrimoGMese.Name = "rdbPrimoGMese";
-            this.rdbPrimoGMese.Size = new System.Drawing.Size(152, 16);
-            this.rdbPrimoGMese.TabIndex = 2;
-            this.rdbPrimoGMese.Tag = "exportfunctionparam.hintkind:1/CURRM";
-            this.rdbPrimoGMese.Text = "Primo giorno del mese";
-            // 
-            // rdbUltimoGAnno
-            // 
-            this.rdbUltimoGAnno.Location = new System.Drawing.Point(8, 64);
-            this.rdbUltimoGAnno.Name = "rdbUltimoGAnno";
-            this.rdbUltimoGAnno.Size = new System.Drawing.Size(152, 16);
-            this.rdbUltimoGAnno.TabIndex = 3;
-            this.rdbUltimoGAnno.Tag = "exportfunctionparam.hintkind:31/12";
-            this.rdbUltimoGAnno.Text = "Ultimo giorno dell\'anno";
-            // 
-            // rdbPrimoGAnno
-            // 
-            this.rdbPrimoGAnno.Location = new System.Drawing.Point(8, 32);
-            this.rdbPrimoGAnno.Name = "rdbPrimoGAnno";
-            this.rdbPrimoGAnno.Size = new System.Drawing.Size(152, 16);
-            this.rdbPrimoGAnno.TabIndex = 1;
-            this.rdbPrimoGAnno.Tag = "exportfunctionparam.hintkind:1/1";
-            this.rdbPrimoGAnno.Text = "Primo giorno dell\'anno";
-            // 
-            // rdbNoValue
-            // 
-            this.rdbNoValue.Location = new System.Drawing.Point(8, 16);
-            this.rdbNoValue.Name = "rdbNoValue";
-            this.rdbNoValue.Size = new System.Drawing.Size(152, 16);
-            this.rdbNoValue.TabIndex = 0;
-            this.rdbNoValue.Tag = "exportfunctionparam.hintkind:NOHINT";
-            this.rdbNoValue.Text = "Nessun valore predefinito";
-            // 
-            // txtDefValue
-            // 
-            this.txtDefValue.Location = new System.Drawing.Point(8, 160);
-            this.txtDefValue.Name = "txtDefValue";
-            this.txtDefValue.Size = new System.Drawing.Size(152, 20);
-            this.txtDefValue.TabIndex = 26;
-            this.txtDefValue.Tag = "exportfunctionparam.hint";
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(8, 112);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 24);
-            this.label9.TabIndex = 44;
-            this.label9.Text = "Guida:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.ckbFlagNoSelection);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.cmbComboCodeField);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.cmbComboDescField);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.cmbComboTable);
-            this.groupBox2.Controls.Add(this.ckbFlagCombo);
-            this.groupBox2.Location = new System.Drawing.Point(186, 174);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(304, 192);
-            this.groupBox2.TabIndex = 47;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Casella combinata";
-            // 
-            // ckbFlagNoSelection
-            // 
-            this.ckbFlagNoSelection.Location = new System.Drawing.Point(8, 162);
-            this.ckbFlagNoSelection.Name = "ckbFlagNoSelection";
-            this.ckbFlagNoSelection.Size = new System.Drawing.Size(288, 22);
-            this.ckbFlagNoSelection.TabIndex = 29;
-            this.ckbFlagNoSelection.Tag = "exportfunctionparam.noselectionforall:S:N";
-            this.ckbFlagNoSelection.Text = "Usa % per nessuna selezione";
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(8, 79);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(288, 16);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "Nome campo codice:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmbComboCodeField
-            // 
-            this.cmbComboCodeField.DataSource = this.DS.columntypes;
-            this.cmbComboCodeField.DisplayMember = "field";
-            this.cmbComboCodeField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComboCodeField.Location = new System.Drawing.Point(8, 95);
-            this.cmbComboCodeField.Name = "cmbComboCodeField";
-            this.cmbComboCodeField.Size = new System.Drawing.Size(288, 21);
-            this.cmbComboCodeField.TabIndex = 22;
-            this.cmbComboCodeField.Tag = "exportfunctionparam.valuemember";
-            this.cmbComboCodeField.ValueMember = "field";
-            // 
-            // DS
-            // 
-            this.DS.DataSetName = "vistaForm";
-            this.DS.EnforceConstraints = false;
-            this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(8, 119);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(288, 16);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Nome campo descrizione:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmbComboDescField
-            // 
-            this.cmbComboDescField.DataSource = this.DS.columntypescombodescfield;
-            this.cmbComboDescField.DisplayMember = "field";
-            this.cmbComboDescField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComboDescField.Location = new System.Drawing.Point(8, 135);
-            this.cmbComboDescField.Name = "cmbComboDescField";
-            this.cmbComboDescField.Size = new System.Drawing.Size(288, 21);
-            this.cmbComboDescField.TabIndex = 20;
-            this.cmbComboDescField.Tag = "exportfunctionparam.displaymember";
-            this.cmbComboDescField.ValueMember = "field";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(8, 39);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(288, 16);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Nome tabella:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cmbComboTable
-            // 
-            this.cmbComboTable.DataSource = this.DS.customobject;
-            this.cmbComboTable.DisplayMember = "objectname";
-            this.cmbComboTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComboTable.Location = new System.Drawing.Point(8, 55);
-            this.cmbComboTable.Name = "cmbComboTable";
-            this.cmbComboTable.Size = new System.Drawing.Size(288, 21);
-            this.cmbComboTable.TabIndex = 18;
-            this.cmbComboTable.Tag = "exportfunctionparam.datasource";
-            this.cmbComboTable.ValueMember = "objectname";
-            // 
-            // ckbFlagCombo
-            // 
-            this.ckbFlagCombo.Location = new System.Drawing.Point(8, 16);
-            this.ckbFlagCombo.Name = "ckbFlagCombo";
-            this.ckbFlagCombo.Size = new System.Drawing.Size(288, 16);
-            this.ckbFlagCombo.TabIndex = 28;
-            this.ckbFlagCombo.Tag = "exportfunctionparam.iscombobox:S:N";
-            this.ckbFlagCombo.Text = "Utilizza casella combinata";
-            this.ckbFlagCombo.CheckedChanged += new System.EventHandler(this.ckbFlagCombo_CheckedChanged);
-            // 
-            // txtNumber
-            // 
-            this.txtNumber.Location = new System.Drawing.Point(80, 56);
-            this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(48, 20);
-            this.txtNumber.TabIndex = 49;
-            this.txtNumber.Tag = "exportfunctionparam.number";
-            // 
-            // txtHelp
-            // 
-            this.txtHelp.Location = new System.Drawing.Point(80, 112);
-            this.txtHelp.Multiline = true;
-            this.txtHelp.Name = "txtHelp";
-            this.txtHelp.Size = new System.Drawing.Size(592, 56);
-            this.txtHelp.TabIndex = 45;
-            this.txtHelp.Tag = "exportfunctionparam.help";
-            // 
-            // txtFilter
-            // 
-            this.txtFilter.Location = new System.Drawing.Point(80, 80);
-            this.txtFilter.Multiline = true;
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(592, 24);
-            this.txtFilter.TabIndex = 43;
-            this.txtFilter.Tag = "exportfunctionparam.filter";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(8, 80);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 24);
-            this.label8.TabIndex = 42;
-            this.label8.Text = "Filtro:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnAnnulla
-            // 
-            this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAnnulla.Location = new System.Drawing.Point(597, 572);
-            this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
-            this.btnAnnulla.TabIndex = 41;
-            this.btnAnnulla.Text = "Annulla";
-            // 
-            // btnOK
-            // 
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(597, 540);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 40;
-            this.btnOK.Tag = "mainsave";
-            this.btnOK.Text = "OK";
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(24, 56);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 24);
-            this.label6.TabIndex = 37;
-            this.label6.Text = "Numero:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(368, 8);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 24);
-            this.label4.TabIndex = 33;
-            this.label4.Text = "Tipo:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbTipo
-            // 
-            this.cmbTipo.DataSource = this.DS.tmp_tipo;
-            this.cmbTipo.DisplayMember = "tipo";
-            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipo.Location = new System.Drawing.Point(424, 8);
-            this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(248, 21);
-            this.cmbTipo.TabIndex = 32;
-            this.cmbTipo.Tag = "";
-            this.cmbTipo.ValueMember = "codice";
-            // 
-            // txtDescrizione
-            // 
-            this.txtDescrizione.Location = new System.Drawing.Point(80, 32);
-            this.txtDescrizione.Name = "txtDescrizione";
-            this.txtDescrizione.Size = new System.Drawing.Size(280, 20);
-            this.txtDescrizione.TabIndex = 31;
-            this.txtDescrizione.Tag = "exportfunctionparam.description";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(8, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 24);
-            this.label3.TabIndex = 30;
-            this.label3.Text = "Descrizione:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNomePar
-            // 
-            this.txtNomePar.Location = new System.Drawing.Point(80, 8);
-            this.txtNomePar.Name = "txtNomePar";
-            this.txtNomePar.Size = new System.Drawing.Size(280, 20);
-            this.txtNomePar.TabIndex = 29;
-            this.txtNomePar.Tag = "exportfunctionparam.paramname";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(8, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 24);
-            this.label2.TabIndex = 28;
-            this.label2.Text = "Nome:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(368, 32);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 24);
-            this.label7.TabIndex = 50;
-            this.label7.Text = "Tag:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(424, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 20);
-            this.textBox1.TabIndex = 51;
-            this.textBox1.Tag = "exportfunctionparam.tag";
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(552, 40);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(120, 16);
-            this.label13.TabIndex = 52;
-            this.label13.Text = "usare year per gli anni";
-            // 
-            // grpAbilitaCustom
-            // 
-            this.grpAbilitaCustom.Controls.Add(this.grpRadio);
-            this.grpAbilitaCustom.Controls.Add(this.grpCustom);
-            this.grpAbilitaCustom.Controls.Add(this.rdoCustom);
-            this.grpAbilitaCustom.Controls.Add(this.grpCostant);
-            this.grpAbilitaCustom.Controls.Add(this.rdoCheck);
-            this.grpAbilitaCustom.Controls.Add(this.rdoRadio);
-            this.grpAbilitaCustom.Controls.Add(this.rdoCostant);
-            this.grpAbilitaCustom.Controls.Add(this.chkAbilitaCustom);
-            this.grpAbilitaCustom.Controls.Add(this.grpCheck);
-            this.grpAbilitaCustom.Location = new System.Drawing.Point(12, 372);
-            this.grpAbilitaCustom.Name = "grpAbilitaCustom";
-            this.grpAbilitaCustom.Size = new System.Drawing.Size(480, 232);
-            this.grpAbilitaCustom.TabIndex = 53;
-            this.grpAbilitaCustom.TabStop = false;
-            this.grpAbilitaCustom.Text = "Controllo personalizzato";
-            // 
-            // grpRadio
-            // 
-            this.grpRadio.Controls.Add(this.btnRadio);
-            this.grpRadio.Controls.Add(this.txtRadio);
-            this.grpRadio.Location = new System.Drawing.Point(128, 120);
-            this.grpRadio.Name = "grpRadio";
-            this.grpRadio.Size = new System.Drawing.Size(344, 48);
-            this.grpRadio.TabIndex = 9;
-            this.grpRadio.TabStop = false;
-            // 
-            // btnRadio
-            // 
-            this.btnRadio.Location = new System.Drawing.Point(312, 13);
-            this.btnRadio.Name = "btnRadio";
-            this.btnRadio.Size = new System.Drawing.Size(24, 23);
-            this.btnRadio.TabIndex = 2;
-            this.btnRadio.Text = "...";
-            this.btnRadio.Click += new System.EventHandler(this.btnRadio_Click);
-            // 
-            // txtRadio
-            // 
-            this.txtRadio.Location = new System.Drawing.Point(8, 16);
-            this.txtRadio.Name = "txtRadio";
-            this.txtRadio.ReadOnly = true;
-            this.txtRadio.Size = new System.Drawing.Size(304, 20);
-            this.txtRadio.TabIndex = 1;
-            // 
-            // grpCustom
-            // 
-            this.grpCustom.Controls.Add(this.cboCustom);
-            this.grpCustom.Location = new System.Drawing.Point(128, 168);
-            this.grpCustom.Name = "grpCustom";
-            this.grpCustom.Size = new System.Drawing.Size(344, 48);
-            this.grpCustom.TabIndex = 8;
-            this.grpCustom.TabStop = false;
-            // 
-            // cboCustom
-            // 
-            this.cboCustom.DataSource = this.DS.customselection;
-            this.cboCustom.DisplayMember = "selectionname";
-            this.cboCustom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCustom.Location = new System.Drawing.Point(8, 16);
-            this.cboCustom.Name = "cboCustom";
-            this.cboCustom.Size = new System.Drawing.Size(328, 21);
-            this.cboCustom.TabIndex = 0;
-            this.cboCustom.ValueMember = "selectioncode";
-            // 
-            // rdoCustom
-            // 
-            this.rdoCustom.Location = new System.Drawing.Point(24, 184);
-            this.rdoCustom.Name = "rdoCustom";
-            this.rdoCustom.Size = new System.Drawing.Size(80, 24);
-            this.rdoCustom.TabIndex = 7;
-            this.rdoCustom.Text = "Gestito";
-            this.rdoCustom.CheckedChanged += new System.EventHandler(this.rdoCustom_CheckedChanged);
-            // 
-            // grpCostant
-            // 
-            this.grpCostant.Controls.Add(this.chkHidden);
-            this.grpCostant.Location = new System.Drawing.Point(128, 32);
-            this.grpCostant.Name = "grpCostant";
-            this.grpCostant.Size = new System.Drawing.Size(344, 40);
-            this.grpCostant.TabIndex = 4;
-            this.grpCostant.TabStop = false;
-            // 
-            // chkHidden
-            // 
-            this.chkHidden.Location = new System.Drawing.Point(8, 16);
-            this.chkHidden.Name = "chkHidden";
-            this.chkHidden.Size = new System.Drawing.Size(216, 16);
-            this.chkHidden.TabIndex = 0;
-            this.chkHidden.Text = "Parametro non visibile";
-            // 
-            // rdoCheck
-            // 
-            this.rdoCheck.Location = new System.Drawing.Point(24, 88);
-            this.rdoCheck.Name = "rdoCheck";
-            this.rdoCheck.Size = new System.Drawing.Size(104, 24);
-            this.rdoCheck.TabIndex = 3;
-            this.rdoCheck.Text = "Check box";
-            this.rdoCheck.CheckedChanged += new System.EventHandler(this.rdoCheck_CheckedChanged);
-            // 
-            // rdoRadio
-            // 
-            this.rdoRadio.Location = new System.Drawing.Point(24, 136);
-            this.rdoRadio.Name = "rdoRadio";
-            this.rdoRadio.Size = new System.Drawing.Size(104, 24);
-            this.rdoRadio.TabIndex = 2;
-            this.rdoRadio.Text = "Radio button";
-            this.rdoRadio.CheckedChanged += new System.EventHandler(this.rdoRadio_CheckedChanged);
-            // 
-            // rdoCostant
-            // 
-            this.rdoCostant.Location = new System.Drawing.Point(24, 48);
-            this.rdoCostant.Name = "rdoCostant";
-            this.rdoCostant.Size = new System.Drawing.Size(104, 16);
-            this.rdoCostant.TabIndex = 1;
-            this.rdoCostant.Text = "Costante";
-            this.rdoCostant.CheckedChanged += new System.EventHandler(this.rdoCostant_CheckedChanged);
-            // 
-            // chkAbilitaCustom
-            // 
-            this.chkAbilitaCustom.Location = new System.Drawing.Point(8, 16);
-            this.chkAbilitaCustom.Name = "chkAbilitaCustom";
-            this.chkAbilitaCustom.Size = new System.Drawing.Size(200, 24);
-            this.chkAbilitaCustom.TabIndex = 0;
-            this.chkAbilitaCustom.Text = "Utilizza controllo personalizzato";
-            this.chkAbilitaCustom.CheckedChanged += new System.EventHandler(this.chkAbilitaCustom_CheckedChanged);
-            // 
-            // grpCheck
-            // 
-            this.grpCheck.Controls.Add(this.btnCheck);
-            this.grpCheck.Controls.Add(this.txtCheck);
-            this.grpCheck.Location = new System.Drawing.Point(128, 72);
-            this.grpCheck.Name = "grpCheck";
-            this.grpCheck.Size = new System.Drawing.Size(344, 48);
-            this.grpCheck.TabIndex = 5;
-            this.grpCheck.TabStop = false;
-            // 
-            // btnCheck
-            // 
-            this.btnCheck.Location = new System.Drawing.Point(312, 16);
-            this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(24, 23);
-            this.btnCheck.TabIndex = 1;
-            this.btnCheck.Text = "...";
-            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
-            // 
-            // txtCheck
-            // 
-            this.txtCheck.Location = new System.Drawing.Point(8, 16);
-            this.txtCheck.Name = "txtCheck";
-            this.txtCheck.ReadOnly = true;
-            this.txtCheck.Size = new System.Drawing.Size(304, 20);
-            this.txtCheck.TabIndex = 0;
-            // 
-            // Frm_exportfunctionparam_single
-            // 
-            this.AcceptButton = this.btnOK;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(680, 605);
-            this.Controls.Add(this.grpAbilitaCustom);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.txtNumber);
-            this.Controls.Add(this.txtHelp);
-            this.Controls.Add(this.txtFilter);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.btnAnnulla);
-            this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.cmbTipo);
-            this.Controls.Add(this.txtDescrizione);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtNomePar);
-            this.Controls.Add(this.label2);
-            this.Name = "Frm_exportfunctionparam_single";
-            this.Text = "frmexpstoredprocedureparam";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.grpAbilitaCustom.ResumeLayout(false);
-            this.grpRadio.ResumeLayout(false);
-            this.grpRadio.PerformLayout();
-            this.grpCustom.ResumeLayout(false);
-            this.grpCostant.ResumeLayout(false);
-            this.grpCheck.ResumeLayout(false);
-            this.grpCheck.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.rdbAltro = new System.Windows.Forms.RadioButton();
+			this.rdbEsercCorr = new System.Windows.Forms.RadioButton();
+			this.rdbDataCont = new System.Windows.Forms.RadioButton();
+			this.rdbUltimoGMese = new System.Windows.Forms.RadioButton();
+			this.rdbPrimoGMese = new System.Windows.Forms.RadioButton();
+			this.rdbUltimoGAnno = new System.Windows.Forms.RadioButton();
+			this.rdbPrimoGAnno = new System.Windows.Forms.RadioButton();
+			this.rdbNoValue = new System.Windows.Forms.RadioButton();
+			this.txtDefValue = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.ckbFlagNoSelection = new System.Windows.Forms.CheckBox();
+			this.label12 = new System.Windows.Forms.Label();
+			this.cmbComboCodeField = new System.Windows.Forms.ComboBox();
+			this.DS = new exportfunctionparam_single.vistaForm();
+			this.label11 = new System.Windows.Forms.Label();
+			this.cmbComboDescField = new System.Windows.Forms.ComboBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.cmbComboTable = new System.Windows.Forms.ComboBox();
+			this.ckbFlagCombo = new System.Windows.Forms.CheckBox();
+			this.txtNumber = new System.Windows.Forms.TextBox();
+			this.txtHelp = new System.Windows.Forms.TextBox();
+			this.txtFilter = new System.Windows.Forms.TextBox();
+			this.label8 = new System.Windows.Forms.Label();
+			this.btnAnnulla = new System.Windows.Forms.Button();
+			this.btnOK = new System.Windows.Forms.Button();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.cmbTipo = new System.Windows.Forms.ComboBox();
+			this.txtDescrizione = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.txtNomePar = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.grpAbilitaCustom = new System.Windows.Forms.GroupBox();
+			this.grpExcel = new System.Windows.Forms.GroupBox();
+			this.txtTypeSql = new System.Windows.Forms.TextBox();
+			this.rdoExcel = new System.Windows.Forms.RadioButton();
+			this.grpRadio = new System.Windows.Forms.GroupBox();
+			this.btnRadio = new System.Windows.Forms.Button();
+			this.txtRadio = new System.Windows.Forms.TextBox();
+			this.grpCustom = new System.Windows.Forms.GroupBox();
+			this.cboCustom = new System.Windows.Forms.ComboBox();
+			this.rdoCustom = new System.Windows.Forms.RadioButton();
+			this.grpCostant = new System.Windows.Forms.GroupBox();
+			this.chkHidden = new System.Windows.Forms.CheckBox();
+			this.rdoCheck = new System.Windows.Forms.RadioButton();
+			this.rdoRadio = new System.Windows.Forms.RadioButton();
+			this.rdoCostant = new System.Windows.Forms.RadioButton();
+			this.chkAbilitaCustom = new System.Windows.Forms.CheckBox();
+			this.grpCheck = new System.Windows.Forms.GroupBox();
+			this.btnCheck = new System.Windows.Forms.Button();
+			this.txtCheck = new System.Windows.Forms.TextBox();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+			this.grpAbilitaCustom.SuspendLayout();
+			this.grpExcel.SuspendLayout();
+			this.grpRadio.SuspendLayout();
+			this.grpCustom.SuspendLayout();
+			this.grpCostant.SuspendLayout();
+			this.grpCheck.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.rdbAltro);
+			this.groupBox1.Controls.Add(this.rdbEsercCorr);
+			this.groupBox1.Controls.Add(this.rdbDataCont);
+			this.groupBox1.Controls.Add(this.rdbUltimoGMese);
+			this.groupBox1.Controls.Add(this.rdbPrimoGMese);
+			this.groupBox1.Controls.Add(this.rdbUltimoGAnno);
+			this.groupBox1.Controls.Add(this.rdbPrimoGAnno);
+			this.groupBox1.Controls.Add(this.rdbNoValue);
+			this.groupBox1.Controls.Add(this.txtDefValue);
+			this.groupBox1.Location = new System.Drawing.Point(12, 174);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(168, 192);
+			this.groupBox1.TabIndex = 46;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Valore predefinito";
+			// 
+			// rdbAltro
+			// 
+			this.rdbAltro.Location = new System.Drawing.Point(8, 128);
+			this.rdbAltro.Name = "rdbAltro";
+			this.rdbAltro.Size = new System.Drawing.Size(152, 16);
+			this.rdbAltro.TabIndex = 7;
+			this.rdbAltro.Tag = "exportfunctionparam.hintkind:STRING";
+			this.rdbAltro.Text = "Altro";
+			this.rdbAltro.CheckedChanged += new System.EventHandler(this.rdbAltro_CheckedChanged);
+			// 
+			// rdbEsercCorr
+			// 
+			this.rdbEsercCorr.Location = new System.Drawing.Point(8, 112);
+			this.rdbEsercCorr.Name = "rdbEsercCorr";
+			this.rdbEsercCorr.Size = new System.Drawing.Size(152, 16);
+			this.rdbEsercCorr.TabIndex = 6;
+			this.rdbEsercCorr.Tag = "exportfunctionparam.hintkind:ACCOUNTYEAR";
+			this.rdbEsercCorr.Text = "Esercizio corrente";
+			// 
+			// rdbDataCont
+			// 
+			this.rdbDataCont.Location = new System.Drawing.Point(8, 96);
+			this.rdbDataCont.Name = "rdbDataCont";
+			this.rdbDataCont.Size = new System.Drawing.Size(152, 16);
+			this.rdbDataCont.TabIndex = 5;
+			this.rdbDataCont.Tag = "exportfunctionparam.hintkind:ACCOUNTDATE";
+			this.rdbDataCont.Text = "Data contabile";
+			// 
+			// rdbUltimoGMese
+			// 
+			this.rdbUltimoGMese.Location = new System.Drawing.Point(8, 80);
+			this.rdbUltimoGMese.Name = "rdbUltimoGMese";
+			this.rdbUltimoGMese.Size = new System.Drawing.Size(152, 16);
+			this.rdbUltimoGMese.TabIndex = 4;
+			this.rdbUltimoGMese.Tag = "exportfunctionparam.LASTDAY/CURRM";
+			this.rdbUltimoGMese.Text = "Ultimo giorno del mese";
+			// 
+			// rdbPrimoGMese
+			// 
+			this.rdbPrimoGMese.Location = new System.Drawing.Point(8, 48);
+			this.rdbPrimoGMese.Name = "rdbPrimoGMese";
+			this.rdbPrimoGMese.Size = new System.Drawing.Size(152, 16);
+			this.rdbPrimoGMese.TabIndex = 2;
+			this.rdbPrimoGMese.Tag = "exportfunctionparam.hintkind:1/CURRM";
+			this.rdbPrimoGMese.Text = "Primo giorno del mese";
+			// 
+			// rdbUltimoGAnno
+			// 
+			this.rdbUltimoGAnno.Location = new System.Drawing.Point(8, 64);
+			this.rdbUltimoGAnno.Name = "rdbUltimoGAnno";
+			this.rdbUltimoGAnno.Size = new System.Drawing.Size(152, 16);
+			this.rdbUltimoGAnno.TabIndex = 3;
+			this.rdbUltimoGAnno.Tag = "exportfunctionparam.hintkind:31/12";
+			this.rdbUltimoGAnno.Text = "Ultimo giorno dell\'anno";
+			// 
+			// rdbPrimoGAnno
+			// 
+			this.rdbPrimoGAnno.Location = new System.Drawing.Point(8, 32);
+			this.rdbPrimoGAnno.Name = "rdbPrimoGAnno";
+			this.rdbPrimoGAnno.Size = new System.Drawing.Size(152, 16);
+			this.rdbPrimoGAnno.TabIndex = 1;
+			this.rdbPrimoGAnno.Tag = "exportfunctionparam.hintkind:1/1";
+			this.rdbPrimoGAnno.Text = "Primo giorno dell\'anno";
+			// 
+			// rdbNoValue
+			// 
+			this.rdbNoValue.Location = new System.Drawing.Point(8, 16);
+			this.rdbNoValue.Name = "rdbNoValue";
+			this.rdbNoValue.Size = new System.Drawing.Size(152, 16);
+			this.rdbNoValue.TabIndex = 0;
+			this.rdbNoValue.Tag = "exportfunctionparam.hintkind:NOHINT";
+			this.rdbNoValue.Text = "Nessun valore predefinito";
+			// 
+			// txtDefValue
+			// 
+			this.txtDefValue.Location = new System.Drawing.Point(8, 160);
+			this.txtDefValue.Name = "txtDefValue";
+			this.txtDefValue.Size = new System.Drawing.Size(152, 20);
+			this.txtDefValue.TabIndex = 26;
+			this.txtDefValue.Tag = "exportfunctionparam.hint";
+			// 
+			// label9
+			// 
+			this.label9.Location = new System.Drawing.Point(8, 112);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(72, 24);
+			this.label9.TabIndex = 44;
+			this.label9.Text = "Guida:";
+			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.ckbFlagNoSelection);
+			this.groupBox2.Controls.Add(this.label12);
+			this.groupBox2.Controls.Add(this.cmbComboCodeField);
+			this.groupBox2.Controls.Add(this.label11);
+			this.groupBox2.Controls.Add(this.cmbComboDescField);
+			this.groupBox2.Controls.Add(this.label10);
+			this.groupBox2.Controls.Add(this.cmbComboTable);
+			this.groupBox2.Controls.Add(this.ckbFlagCombo);
+			this.groupBox2.Location = new System.Drawing.Point(186, 174);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(304, 192);
+			this.groupBox2.TabIndex = 47;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Casella combinata";
+			// 
+			// ckbFlagNoSelection
+			// 
+			this.ckbFlagNoSelection.Location = new System.Drawing.Point(8, 162);
+			this.ckbFlagNoSelection.Name = "ckbFlagNoSelection";
+			this.ckbFlagNoSelection.Size = new System.Drawing.Size(288, 22);
+			this.ckbFlagNoSelection.TabIndex = 29;
+			this.ckbFlagNoSelection.Tag = "exportfunctionparam.noselectionforall:S:N";
+			this.ckbFlagNoSelection.Text = "Usa % per nessuna selezione";
+			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(8, 79);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(288, 16);
+			this.label12.TabIndex = 23;
+			this.label12.Text = "Nome campo codice:";
+			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// cmbComboCodeField
+			// 
+			this.cmbComboCodeField.DataSource = this.DS.columntypes;
+			this.cmbComboCodeField.DisplayMember = "field";
+			this.cmbComboCodeField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbComboCodeField.Location = new System.Drawing.Point(8, 95);
+			this.cmbComboCodeField.Name = "cmbComboCodeField";
+			this.cmbComboCodeField.Size = new System.Drawing.Size(288, 21);
+			this.cmbComboCodeField.TabIndex = 22;
+			this.cmbComboCodeField.Tag = "exportfunctionparam.valuemember";
+			this.cmbComboCodeField.ValueMember = "field";
+			// 
+			// DS
+			// 
+			this.DS.DataSetName = "vistaForm";
+			this.DS.EnforceConstraints = false;
+			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
+			// 
+			// label11
+			// 
+			this.label11.Location = new System.Drawing.Point(8, 119);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(288, 16);
+			this.label11.TabIndex = 21;
+			this.label11.Text = "Nome campo descrizione:";
+			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// cmbComboDescField
+			// 
+			this.cmbComboDescField.DataSource = this.DS.columntypescombodescfield;
+			this.cmbComboDescField.DisplayMember = "field";
+			this.cmbComboDescField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbComboDescField.Location = new System.Drawing.Point(8, 135);
+			this.cmbComboDescField.Name = "cmbComboDescField";
+			this.cmbComboDescField.Size = new System.Drawing.Size(288, 21);
+			this.cmbComboDescField.TabIndex = 20;
+			this.cmbComboDescField.Tag = "exportfunctionparam.displaymember";
+			this.cmbComboDescField.ValueMember = "field";
+			// 
+			// label10
+			// 
+			this.label10.Location = new System.Drawing.Point(8, 39);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(288, 16);
+			this.label10.TabIndex = 19;
+			this.label10.Text = "Nome tabella:";
+			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// cmbComboTable
+			// 
+			this.cmbComboTable.DataSource = this.DS.customobject;
+			this.cmbComboTable.DisplayMember = "objectname";
+			this.cmbComboTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbComboTable.Location = new System.Drawing.Point(8, 55);
+			this.cmbComboTable.Name = "cmbComboTable";
+			this.cmbComboTable.Size = new System.Drawing.Size(288, 21);
+			this.cmbComboTable.TabIndex = 18;
+			this.cmbComboTable.Tag = "exportfunctionparam.datasource";
+			this.cmbComboTable.ValueMember = "objectname";
+			// 
+			// ckbFlagCombo
+			// 
+			this.ckbFlagCombo.Location = new System.Drawing.Point(8, 16);
+			this.ckbFlagCombo.Name = "ckbFlagCombo";
+			this.ckbFlagCombo.Size = new System.Drawing.Size(288, 16);
+			this.ckbFlagCombo.TabIndex = 28;
+			this.ckbFlagCombo.Tag = "exportfunctionparam.iscombobox:S:N";
+			this.ckbFlagCombo.Text = "Utilizza casella combinata";
+			this.ckbFlagCombo.CheckedChanged += new System.EventHandler(this.ckbFlagCombo_CheckedChanged);
+			// 
+			// txtNumber
+			// 
+			this.txtNumber.Location = new System.Drawing.Point(80, 56);
+			this.txtNumber.Name = "txtNumber";
+			this.txtNumber.Size = new System.Drawing.Size(48, 20);
+			this.txtNumber.TabIndex = 49;
+			this.txtNumber.Tag = "exportfunctionparam.number";
+			// 
+			// txtHelp
+			// 
+			this.txtHelp.Location = new System.Drawing.Point(80, 112);
+			this.txtHelp.Multiline = true;
+			this.txtHelp.Name = "txtHelp";
+			this.txtHelp.Size = new System.Drawing.Size(592, 56);
+			this.txtHelp.TabIndex = 45;
+			this.txtHelp.Tag = "exportfunctionparam.help";
+			// 
+			// txtFilter
+			// 
+			this.txtFilter.Location = new System.Drawing.Point(80, 80);
+			this.txtFilter.Multiline = true;
+			this.txtFilter.Name = "txtFilter";
+			this.txtFilter.Size = new System.Drawing.Size(592, 24);
+			this.txtFilter.TabIndex = 43;
+			this.txtFilter.Tag = "exportfunctionparam.filter";
+			// 
+			// label8
+			// 
+			this.label8.Location = new System.Drawing.Point(8, 80);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(72, 24);
+			this.label8.TabIndex = 42;
+			this.label8.Text = "Filtro:";
+			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// btnAnnulla
+			// 
+			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnAnnulla.Location = new System.Drawing.Point(597, 572);
+			this.btnAnnulla.Name = "btnAnnulla";
+			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
+			this.btnAnnulla.TabIndex = 41;
+			this.btnAnnulla.Text = "Annulla";
+			// 
+			// btnOK
+			// 
+			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnOK.Location = new System.Drawing.Point(597, 540);
+			this.btnOK.Name = "btnOK";
+			this.btnOK.Size = new System.Drawing.Size(75, 23);
+			this.btnOK.TabIndex = 40;
+			this.btnOK.Tag = "mainsave";
+			this.btnOK.Text = "OK";
+			// 
+			// label6
+			// 
+			this.label6.Location = new System.Drawing.Point(24, 56);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(56, 24);
+			this.label6.TabIndex = 37;
+			this.label6.Text = "Numero:";
+			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(368, 8);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(48, 24);
+			this.label4.TabIndex = 33;
+			this.label4.Text = "Tipo:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// cmbTipo
+			// 
+			this.cmbTipo.DataSource = this.DS.tmp_tipo;
+			this.cmbTipo.DisplayMember = "tipo";
+			this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbTipo.Location = new System.Drawing.Point(424, 8);
+			this.cmbTipo.Name = "cmbTipo";
+			this.cmbTipo.Size = new System.Drawing.Size(248, 21);
+			this.cmbTipo.TabIndex = 32;
+			this.cmbTipo.Tag = "";
+			this.cmbTipo.ValueMember = "codice";
+			// 
+			// txtDescrizione
+			// 
+			this.txtDescrizione.Location = new System.Drawing.Point(80, 32);
+			this.txtDescrizione.Name = "txtDescrizione";
+			this.txtDescrizione.Size = new System.Drawing.Size(280, 20);
+			this.txtDescrizione.TabIndex = 31;
+			this.txtDescrizione.Tag = "exportfunctionparam.description";
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 32);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(72, 24);
+			this.label3.TabIndex = 30;
+			this.label3.Text = "Descrizione:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// txtNomePar
+			// 
+			this.txtNomePar.Location = new System.Drawing.Point(80, 8);
+			this.txtNomePar.Name = "txtNomePar";
+			this.txtNomePar.Size = new System.Drawing.Size(280, 20);
+			this.txtNomePar.TabIndex = 29;
+			this.txtNomePar.Tag = "exportfunctionparam.paramname";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(8, 8);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(72, 24);
+			this.label2.TabIndex = 28;
+			this.label2.Text = "Nome:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label7
+			// 
+			this.label7.Location = new System.Drawing.Point(368, 32);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(48, 24);
+			this.label7.TabIndex = 50;
+			this.label7.Text = "Tag:";
+			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(424, 32);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(120, 20);
+			this.textBox1.TabIndex = 51;
+			this.textBox1.Tag = "exportfunctionparam.tag";
+			// 
+			// label13
+			// 
+			this.label13.Location = new System.Drawing.Point(552, 40);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(120, 16);
+			this.label13.TabIndex = 52;
+			this.label13.Text = "usare year per gli anni";
+			// 
+			// grpAbilitaCustom
+			// 
+			this.grpAbilitaCustom.Controls.Add(this.grpExcel);
+			this.grpAbilitaCustom.Controls.Add(this.rdoExcel);
+			this.grpAbilitaCustom.Controls.Add(this.grpRadio);
+			this.grpAbilitaCustom.Controls.Add(this.grpCustom);
+			this.grpAbilitaCustom.Controls.Add(this.rdoCustom);
+			this.grpAbilitaCustom.Controls.Add(this.grpCostant);
+			this.grpAbilitaCustom.Controls.Add(this.rdoCheck);
+			this.grpAbilitaCustom.Controls.Add(this.rdoRadio);
+			this.grpAbilitaCustom.Controls.Add(this.rdoCostant);
+			this.grpAbilitaCustom.Controls.Add(this.chkAbilitaCustom);
+			this.grpAbilitaCustom.Controls.Add(this.grpCheck);
+			this.grpAbilitaCustom.Location = new System.Drawing.Point(12, 372);
+			this.grpAbilitaCustom.Name = "grpAbilitaCustom";
+			this.grpAbilitaCustom.Size = new System.Drawing.Size(480, 232);
+			this.grpAbilitaCustom.TabIndex = 53;
+			this.grpAbilitaCustom.TabStop = false;
+			this.grpAbilitaCustom.Text = "Controllo personalizzato";
+			// 
+			// grpExcel
+			// 
+			this.grpExcel.Controls.Add(this.txtTypeSql);
+			this.grpExcel.Location = new System.Drawing.Point(128, 186);
+			this.grpExcel.Name = "grpExcel";
+			this.grpExcel.Size = new System.Drawing.Size(342, 40);
+			this.grpExcel.TabIndex = 11;
+			this.grpExcel.TabStop = false;
+			this.grpExcel.Text = "Tipo Custom SQL";
+			// 
+			// txtTypeSql
+			// 
+			this.txtTypeSql.Location = new System.Drawing.Point(8, 15);
+			this.txtTypeSql.Name = "txtTypeSql";
+			this.txtTypeSql.Size = new System.Drawing.Size(304, 20);
+			this.txtTypeSql.TabIndex = 0;
+			// 
+			// rdoExcel
+			// 
+			this.rdoExcel.AutoSize = true;
+			this.rdoExcel.Location = new System.Drawing.Point(24, 197);
+			this.rdoExcel.Name = "rdoExcel";
+			this.rdoExcel.Size = new System.Drawing.Size(51, 17);
+			this.rdoExcel.TabIndex = 10;
+			this.rdoExcel.TabStop = true;
+			this.rdoExcel.Text = "Excel";
+			this.rdoExcel.UseVisualStyleBackColor = true;
+			this.rdoExcel.CheckedChanged += new System.EventHandler(this.rdoExcel_CheckedChanged);
+			// 
+			// grpRadio
+			// 
+			this.grpRadio.Controls.Add(this.btnRadio);
+			this.grpRadio.Controls.Add(this.txtRadio);
+			this.grpRadio.Location = new System.Drawing.Point(128, 107);
+			this.grpRadio.Name = "grpRadio";
+			this.grpRadio.Size = new System.Drawing.Size(344, 40);
+			this.grpRadio.TabIndex = 9;
+			this.grpRadio.TabStop = false;
+			// 
+			// btnRadio
+			// 
+			this.btnRadio.Location = new System.Drawing.Point(312, 9);
+			this.btnRadio.Name = "btnRadio";
+			this.btnRadio.Size = new System.Drawing.Size(24, 23);
+			this.btnRadio.TabIndex = 2;
+			this.btnRadio.Text = "...";
+			this.btnRadio.Click += new System.EventHandler(this.btnRadio_Click);
+			// 
+			// txtRadio
+			// 
+			this.txtRadio.Location = new System.Drawing.Point(8, 12);
+			this.txtRadio.Name = "txtRadio";
+			this.txtRadio.ReadOnly = true;
+			this.txtRadio.Size = new System.Drawing.Size(304, 20);
+			this.txtRadio.TabIndex = 1;
+			// 
+			// grpCustom
+			// 
+			this.grpCustom.Controls.Add(this.cboCustom);
+			this.grpCustom.Location = new System.Drawing.Point(128, 145);
+			this.grpCustom.Name = "grpCustom";
+			this.grpCustom.Size = new System.Drawing.Size(344, 40);
+			this.grpCustom.TabIndex = 8;
+			this.grpCustom.TabStop = false;
+			// 
+			// cboCustom
+			// 
+			this.cboCustom.DataSource = this.DS.customselection;
+			this.cboCustom.DisplayMember = "selectionname";
+			this.cboCustom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboCustom.Location = new System.Drawing.Point(8, 12);
+			this.cboCustom.Name = "cboCustom";
+			this.cboCustom.Size = new System.Drawing.Size(328, 21);
+			this.cboCustom.TabIndex = 0;
+			this.cboCustom.ValueMember = "selectioncode";
+			// 
+			// rdoCustom
+			// 
+			this.rdoCustom.Location = new System.Drawing.Point(24, 154);
+			this.rdoCustom.Name = "rdoCustom";
+			this.rdoCustom.Size = new System.Drawing.Size(80, 24);
+			this.rdoCustom.TabIndex = 7;
+			this.rdoCustom.Text = "Gestito";
+			this.rdoCustom.CheckedChanged += new System.EventHandler(this.rdoCustom_CheckedChanged);
+			// 
+			// grpCostant
+			// 
+			this.grpCostant.Controls.Add(this.chkHidden);
+			this.grpCostant.Location = new System.Drawing.Point(128, 33);
+			this.grpCostant.Name = "grpCostant";
+			this.grpCostant.Size = new System.Drawing.Size(344, 35);
+			this.grpCostant.TabIndex = 4;
+			this.grpCostant.TabStop = false;
+			// 
+			// chkHidden
+			// 
+			this.chkHidden.Location = new System.Drawing.Point(8, 13);
+			this.chkHidden.Name = "chkHidden";
+			this.chkHidden.Size = new System.Drawing.Size(216, 16);
+			this.chkHidden.TabIndex = 0;
+			this.chkHidden.Text = "Parametro non visibile";
+			// 
+			// rdoCheck
+			// 
+			this.rdoCheck.Location = new System.Drawing.Point(24, 78);
+			this.rdoCheck.Name = "rdoCheck";
+			this.rdoCheck.Size = new System.Drawing.Size(104, 24);
+			this.rdoCheck.TabIndex = 3;
+			this.rdoCheck.Text = "Check box";
+			this.rdoCheck.CheckedChanged += new System.EventHandler(this.rdoCheck_CheckedChanged);
+			// 
+			// rdoRadio
+			// 
+			this.rdoRadio.Location = new System.Drawing.Point(24, 115);
+			this.rdoRadio.Name = "rdoRadio";
+			this.rdoRadio.Size = new System.Drawing.Size(104, 24);
+			this.rdoRadio.TabIndex = 2;
+			this.rdoRadio.Text = "Radio button";
+			this.rdoRadio.CheckedChanged += new System.EventHandler(this.rdoRadio_CheckedChanged);
+			// 
+			// rdoCostant
+			// 
+			this.rdoCostant.Location = new System.Drawing.Point(24, 44);
+			this.rdoCostant.Name = "rdoCostant";
+			this.rdoCostant.Size = new System.Drawing.Size(104, 16);
+			this.rdoCostant.TabIndex = 1;
+			this.rdoCostant.Text = "Costante";
+			this.rdoCostant.CheckedChanged += new System.EventHandler(this.rdoCostant_CheckedChanged);
+			// 
+			// chkAbilitaCustom
+			// 
+			this.chkAbilitaCustom.Location = new System.Drawing.Point(8, 14);
+			this.chkAbilitaCustom.Name = "chkAbilitaCustom";
+			this.chkAbilitaCustom.Size = new System.Drawing.Size(200, 24);
+			this.chkAbilitaCustom.TabIndex = 0;
+			this.chkAbilitaCustom.Text = "Utilizza controllo personalizzato";
+			this.chkAbilitaCustom.CheckedChanged += new System.EventHandler(this.chkAbilitaCustom_CheckedChanged);
+			// 
+			// grpCheck
+			// 
+			this.grpCheck.Controls.Add(this.btnCheck);
+			this.grpCheck.Controls.Add(this.txtCheck);
+			this.grpCheck.Location = new System.Drawing.Point(128, 66);
+			this.grpCheck.Name = "grpCheck";
+			this.grpCheck.Size = new System.Drawing.Size(344, 42);
+			this.grpCheck.TabIndex = 5;
+			this.grpCheck.TabStop = false;
+			// 
+			// btnCheck
+			// 
+			this.btnCheck.Location = new System.Drawing.Point(312, 13);
+			this.btnCheck.Name = "btnCheck";
+			this.btnCheck.Size = new System.Drawing.Size(24, 23);
+			this.btnCheck.TabIndex = 1;
+			this.btnCheck.Text = "...";
+			this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
+			// 
+			// txtCheck
+			// 
+			this.txtCheck.Location = new System.Drawing.Point(8, 13);
+			this.txtCheck.Name = "txtCheck";
+			this.txtCheck.ReadOnly = true;
+			this.txtCheck.Size = new System.Drawing.Size(304, 20);
+			this.txtCheck.TabIndex = 0;
+			// 
+			// Frm_exportfunctionparam_single
+			// 
+			this.AcceptButton = this.btnOK;
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(680, 605);
+			this.Controls.Add(this.grpAbilitaCustom);
+			this.Controls.Add(this.label13);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.label9);
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.txtNumber);
+			this.Controls.Add(this.txtHelp);
+			this.Controls.Add(this.txtFilter);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.btnAnnulla);
+			this.Controls.Add(this.btnOK);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.cmbTipo);
+			this.Controls.Add(this.txtDescrizione);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.txtNomePar);
+			this.Controls.Add(this.label2);
+			this.Name = "Frm_exportfunctionparam_single";
+			this.Text = "frmexpstoredprocedureparam";
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+			this.grpAbilitaCustom.ResumeLayout(false);
+			this.grpAbilitaCustom.PerformLayout();
+			this.grpExcel.ResumeLayout(false);
+			this.grpExcel.PerformLayout();
+			this.grpRadio.ResumeLayout(false);
+			this.grpRadio.PerformLayout();
+			this.grpCustom.ResumeLayout(false);
+			this.grpCostant.ResumeLayout(false);
+			this.grpCheck.ResumeLayout(false);
+			this.grpCheck.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 		#endregion
@@ -810,7 +850,12 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
                 SetCustomValue(R, "custom." + cboCustom.SelectedValue.ToString());
                 return;
             }
-        }
+			if (rdoExcel.Checked && txtTypeSql.Text.Trim() != "")
+			{
+				SetCustomValue(R, "excel." + txtTypeSql.Text.Trim());
+				return;
+			}
+		}
 
         private void SetCustomValue(DataRow R, object valore) {
             R["selectioncode"] = valore;
@@ -846,7 +891,11 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
                     rdoCustom.Checked = true;
                     HelpForm.SetComboBoxValue(cboCustom, valore);
                     break;
-            }
+				case "excel":
+					rdoExcel.Checked = true;
+					txtTypeSql.Text = valore;
+					break;
+			}
         }
 
         private void AbilitaDisabilitaControlliCustom(bool enable) {
@@ -905,6 +954,7 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
             grpCheck.Enabled = false;
             grpRadio.Enabled = false;
             grpCustom.Enabled = false;
+            grpExcel.Enabled = false;
         }
 
         private void rdoCheck_CheckedChanged(object sender, System.EventArgs e) {
@@ -912,6 +962,7 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
             grpCheck.Enabled = true;
             grpRadio.Enabled = false;
             grpCustom.Enabled = false;
+            grpExcel.Enabled = false;
         }
 
         private void rdoRadio_CheckedChanged(object sender, System.EventArgs e) {
@@ -919,6 +970,7 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
             grpCheck.Enabled = false;
             grpRadio.Enabled = true;
             grpCustom.Enabled = false;
+            grpExcel.Enabled = false;
         }
 
         private void rdoCustom_CheckedChanged(object sender, System.EventArgs e) {
@@ -926,6 +978,7 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
             grpCheck.Enabled = false;
             grpRadio.Enabled = false;
             grpCustom.Enabled = true;
+            grpExcel.Enabled = false;
         }
 
         private void chkAbilitaCustom_CheckedChanged(object sender, System.EventArgs e) {
@@ -945,5 +998,14 @@ namespace exportfunctionparam_single//expstoredprocedureparam//
             if (F.ShowDialog() != DialogResult.OK) return;
             txtRadio.Text = F.GetValue;
         }
+
+		private void rdoExcel_CheckedChanged(object sender, EventArgs e)
+		{
+			grpCostant.Enabled = false;
+			grpCheck.Enabled = false;
+			grpRadio.Enabled = false;
+			grpCustom.Enabled = false;
+			grpExcel.Enabled = true;
+		}
 	}
 }

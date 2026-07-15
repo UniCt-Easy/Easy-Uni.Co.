@@ -4,7 +4,7 @@
 
     function metaPage_registry() {
 		MetaPage.apply(this, ['registry', 'aziende', false]);
-        this.name = 'Enti e Aziende';
+        this.name = 'Enti, aziende e istituti';
 		this.defaultListType = 'aziende';
 		this.eventManager.subscribe(appMeta.EventEnum.stopMainRowSelectionEvent, this.rowSelected, this);
 		appMeta.globalEventManager.subscribe(appMeta.EventEnum.buttonClickEnd, this.buttonClickEnd, this);
@@ -93,6 +93,12 @@
 				this.state.DS.tables.registry.defaults({ 'idregistryclass': '21' });
 				this.state.DS.tables.registry.defaults({ 'idregistrykind': 4 });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
+				this.state.DS.tables.registry.defaults({ 'active': 'S' });
+				this.state.DS.tables.registry.defaults({ 'authorization_free': 'N' });
+				this.state.DS.tables.registry.defaults({ 'multi_cf': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flagbankitaliaproceeds': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flag_pa': 'N' });
+				this.state.DS.tables.registry.defaults({ 'sdi_norifamm': 'N' });
 				$("#btn_add_ccnlregistry_aziende_idccnl").on("click", _.partial(this.searchAndAssignccnl, self));
 				$("#btn_add_ccnlregistry_aziende_idccnl").prop("disabled", true);
 				appMeta.metaModel.insertFilter(this.getDataTable("registryclassaziendeview"), this.q.eq('registryclass_active', 'Si'));
@@ -144,6 +150,8 @@
 					columnSource: "idccnl",
 					columnToFill: "idccnl",
 					tableToFill: "ccnlregistry_aziende"
+,
+					filter: that.q.eq('ccnl_active', 'Si')
 				});
 			},
 

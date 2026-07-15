@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -130,8 +128,8 @@ public partial class showcase_easypagamenti_default :MetaPage {
                 null, false);
         object magazzinoscelto = Session["magazzinoscelto"];
         string f = QHS.CmpEq("store.idstore", magazzinoscelto);
-        // Se payment_ldap Ë configurato ad S, allora mostra solo le vetrine con la maschera compatibile ai servizi a cui l'utente loggato Ë autorizzato, 
-        // ossia se il CF dell'utente loggato Ë presente in LDAP
+        // Se payment_ldap √® configurato ad S, allora mostra solo le vetrine con la maschera compatibile ai servizi a cui l'utente loggato √® autorizzato, 
+        // ossia se il CF dell'utente loggato √® presente in LDAP
         DataTable webconfig = Conn.RUN_SELECT("web_config", "*", null, null, null, false);
         DataRow rwebconf = webconfig.Rows[0];
         bool pagamenti_ldap = (rwebconf["payment_ldap"].ToString().ToUpper() == "S");
@@ -139,18 +137,18 @@ public partial class showcase_easypagamenti_default :MetaPage {
         if (pagamenti_ldap) {
             string filter_maschera = "";
             if (mascheraServizi == 0) {
-                //se l'utente non Ë associato ad alcu servizio, e quindi la sua ldap_maschera resta 0, deve vedere tutte le vetrine col campo 0, ossia non associate ad alcun servizio...
+                //se l'utente non √® associato ad alcu servizio, e quindi la sua ldap_maschera resta 0, deve vedere tutte le vetrine col campo 0, ossia non associate ad alcun servizio...
                 filter_maschera = (" showcase.flagldapvisibility = 0 ");
                 }
             else {
-                //...diversamente vedr‡ solo le vetrine associate al SUO(o suoi) servizio
+                //...diversamente vedr√† solo le vetrine associate al SUO(o suoi) servizio
                 filter_maschera = (" (( showcase.flagldapvisibility & " + mascheraServizi + " <> 0) or (showcase.flagldapvisibility= 0 )) ");
                 }
             //var val = q.bitNot(0);
 
             // Deve aggiungere questo filtro: 
             //(showcase.flagldapvisibility == 0) or(showcase.flagldapvisibility & maschera != 0));
-            //mascheraServizi rappresenta tutti i servizi a cui la persona Ë stata associata
+            //mascheraServizi rappresenta tutti i servizi a cui la persona √® stata associata
             //flagldapvisibility rappresenta tutti i servizi per i quali quella vetrina debba essere visibile
             // se l'and bit a bit delle due maschere da un risultato diverso da 0, vuol dire che quella vetrina deve essere visibile, diversamente nascosta.
             //f = q.add(f, q.or(q.eq("showcase.flagldapvisibility", 0), q.fromString("showcase.flagldapvisibility & " + mascheraServizi + " <> 0"))); //q.cmpMask("showcase.flagldapvisibility",mascheraServizi, val))) ;
@@ -330,7 +328,7 @@ public partial class showcase_easypagamenti_default :MetaPage {
         outputstr += "<div class=\"row\">";
 
         outputstr += "<div class=\"col-8 col-sm-6\">";
-        outputstr += "<div class=\"rowlabel\">Quantit‡:" + "</div>";
+        outputstr += "<div class=\"rowlabel\">Quantit√†:" + "</div>";
         outputstr += "<div class=\"rowinput\"><input onfocus=\"document.getElementById(this.id).className='focused';\" onblur=\"document.getElementById(this.id).className='';\" id=\"quant" + field_to_match + "\" style=\"text-align:right;\"  type=\"text\" size=\"3\" value=\"1\">" + "</div>";
         outputstr += "</div>";
 

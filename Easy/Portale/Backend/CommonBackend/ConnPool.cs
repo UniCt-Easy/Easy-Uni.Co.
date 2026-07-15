@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using metadatalibrary;
 using metaeasylibrary;
@@ -36,7 +34,7 @@ namespace Backend.CommonBackend
 		public DateTime creationDate { get; set; }
 		
 		/// <summary>
-		/// Costruttore della connessione che Ë il j-esimo elemento del pool
+		/// Costruttore della connessione che √® il j-esimo elemento del pool
 		/// Nasce locked dal chiamante
 		/// Riceve una data di creazione che potrebbe servire per il riciclo
 		/// </summary>
@@ -53,7 +51,7 @@ namespace Backend.CommonBackend
 		public EasyConn(string DNS, string Server, string Database, string User, string Password, string Dipartimento, int Esercizio, DateTime DataContabile, out string error, out string detail)
 		{
 			eda = Easy_DataAccess.getEasyDataAccess(DNS, Server, Database, User, Password, Dipartimento, Esercizio, DataContabile, out error, out detail);
-            // la prima volta in assoluto Ë null.
+            // la prima volta in assoluto √® null.
             if (CacheMDLW.dbStructureCache != null) {
                 eda.setStructures(CacheMDLW.dbStructureCache);
             }
@@ -62,17 +60,17 @@ namespace Backend.CommonBackend
 		}
 
 		/// <summary>
-		/// La Connessione non viene nÈ chiusa nÈ distrutta ma viene messa a disposizione di altri utilizzatori
+		/// La Connessione non viene n√© chiusa n√© distrutta ma viene messa a disposizione di altri utilizzatori
 		/// </summary>
 		public void Release()
 		{
-            // salvo nella cache la struttura che sar‡ stata calcolata.
-            // -> in prod potrebbe non servire perchË gi‡ calcolata
+            // salvo nella cache la struttura che sar√† stata calcolata.
+            // -> in prod potrebbe non servire perch√® gi√† calcolata
             foreach (var k in eda.getStructures()) {
 	            if (CacheMDLW.dbStructureCache.ContainsKey(k.Key)) continue;
 	            CacheMDLW.dbStructureCache.Add(k.Key,k.Value);
             }
-            // ripulisco lastError e seguendo la lettura. poichË essa stessa esegue reset.
+            // ripulisco lastError e seguendo la lettura. poich√® essa stessa esegue reset.
             var lastError = eda.LastError;
             locked = false;
         }
@@ -104,9 +102,9 @@ namespace Backend.CommonBackend
 
 		/// <summary>
 		/// Prende la connessione dal Dictionary di connessioni
-		/// La chiave del Dictionary Ë la stringa "Server_Database_Dipartimento"
+		/// La chiave del Dictionary √® la stringa "Server_Database_Dipartimento"
 		/// Se non esiste una KeyValuePair nel Dictionary lo crea e lo aggiunge al Dictionary
-		/// creando un pool con almeno un EasyDataAccess che sar‡ locked perchË gi‡ in uso dal chiamante
+		/// creando un pool con almeno un EasyDataAccess che sar√† locked perch√® gi√† in uso dal chiamante
 		/// </summary>
 		/// <param name="DNS"></param>
 		/// <param name="Server"></param>
@@ -150,7 +148,7 @@ namespace Backend.CommonBackend
                                 EasyDataAccessDict[conn_key].Add(ec);
                             }
                           
-                            // metto lock sulla connessione, perchË se esiste l'ho presa dal pool in cui era ovviamente a false
+                            // metto lock sulla connessione, perch√® se esiste l'ho presa dal pool in cui era ovviamente a false
                             ec.locked = true;
                             return ec;
                     }  
@@ -179,7 +177,7 @@ namespace Backend.CommonBackend
         }
 
 		/// <summary>
-		/// Ad ogni passaggio cerca le connessioni pi˘ vecchie di un intervallo scelto e se non utilizzate (locked) le rimuove
+		/// Ad ogni passaggio cerca le connessioni pi√π vecchie di un intervallo scelto e se non utilizzate (locked) le rimuove
 		/// </summary>
 		[Obsolete]
 		private static void TryClear()
@@ -212,7 +210,7 @@ namespace Backend.CommonBackend
 		/// Calcola Connection Key con:
 		/// Server (IP)
 		/// Database (nome, es: unirc_easy)
-		/// Dipartimento (prima si avevano pi˘ dipartimenti per database, adesso (fine 2019) solo uno ma lo lasciamo per completezza)
+		/// Dipartimento (prima si avevano pi√π dipartimenti per database, adesso (fine 2019) solo uno ma lo lasciamo per completezza)
 		/// </summary>
 		/// <param name="DNS"></param>
 		/// <param name="Server"></param>

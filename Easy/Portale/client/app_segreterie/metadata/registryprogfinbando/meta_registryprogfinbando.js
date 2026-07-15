@@ -27,6 +27,7 @@
 						this.describeAColumn(table, 'title', 'Titolo', null, 20, 2048);
 						this.describeAColumn(table, 'number', 'Numero', null, 60, 2048);
 						this.describeAColumn(table, 'scadenza', 'Deadline of submission', null, 70, null);
+						this.describeAColumn(table, 'url', 'Indirizzo web', null, 120, 2048);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -44,6 +45,7 @@
 						table.columns["number"].caption = "Numero";
 						table.columns["scadenza"].caption = "Deadline of submission";
 						table.columns["title"].caption = "Titolo";
+						table.columns["url"].caption = "Indirizzo web";
 //$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$

@@ -250,7 +250,7 @@
 
 			getCostoArrivo: function (p) {
 				var ck = p.state.DS.tables['getcontrattikindview'];
-				var ckArrivo = $('#pcsassunzionisimulate_default_idposition').val();
+				var ckArrivo = $('#InvisibleTxtpositiondefaultview_alias1_pcsassunzionisimulate').val();
 				var CkArrivoRows = ck.select(p.q.eq('idposition', parseInt(ckArrivo)));
 				var costoCkArrivo = 0;
 				if (CkArrivoRows.length > 0)
@@ -264,7 +264,7 @@
 				var costoCkArrivo = p.getCostoArrivo(p);
 
 				var ck = p.state.DS.tables['getcontrattikindview'];
-				var ckPartenza = $('#pcsassunzionisimulate_default_idposition_start').val();
+				var ckPartenza = $('#InvisibleTxtpositiondefaultview_pcsassunzionisimulate').val();
 				var costoCkPartenzaRows = ck.select(p.q.eq('idposition', parseInt(ckPartenza)));
 				var costoCkPartenza = 0;
 				if (costoCkPartenzaRows.length > 0)

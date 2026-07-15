@@ -23,12 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Ambito', null, 20, 256);
-						this.describeAColumn(table, 'classescuola_sigla', 'Sigla Scuola / Classe di laurea', null, 30, 50);
-						this.describeAColumn(table, 'classescuola_title', 'Denominazione Scuola / Classe di laurea', null, 30, 256);
-						this.describeAColumn(table, 'tipoattform_title', 'Denominazione Tipo attività formativa', null, 40, 1);
-						this.describeAColumn(table, 'tipoattform_description', 'Descrizione Tipo attività formativa', null, 40, 256);
-						this.describeAColumn(table, 'ambitoareadisc_sortcode', 'Ordinamento', null, 60, null);
+						this.describeAColumn(table, 'title', 'Ambito', null, 2000, 256);
+						this.describeAColumn(table, 'classescuola_sigla', 'Sigla Scuola / Classe di laurea', null, 3100, 50);
+						this.describeAColumn(table, 'classescuola_title', 'Denominazione Scuola / Classe di laurea', null, 3200, 256);
+						this.describeAColumn(table, 'tipoattform_title', 'Denominazione Tipo attività formativa', null, 4200, 1);
+						this.describeAColumn(table, 'tipoattform_description', 'Descrizione Tipo attività formativa', null, 4300, 256);
+						this.describeAColumn(table, 'ambitoareadisc_sortcode', 'Ordinamento', null, 6000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

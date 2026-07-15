@@ -25,16 +25,41 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
 						this.describeAColumn(table, 'iddichiar', 'Dichiarazione', null, 10, null);
-						this.describeAColumn(table, '!iddichiar_annoaccademico_alias1_aa', 'Anno Accademico', null, 10, null);
-						this.describeAColumn(table, '!iddichiar_dichiarkind_title', 'Tipologia', null, 11, null);
-						this.describeAColumn(table, '!iddichiar_dichiar_date', 'Data', null, 13, null);
-						objCalcFieldConfig['!iddichiar_annoaccademico_alias1_aa'] = { tableNameLookup:'annoaccademico_alias1', columnNameLookup:'aa', columnNamekey:'iddichiar' };
-						objCalcFieldConfig['!iddichiar_dichiarkind_title'] = { tableNameLookup:'dichiarkind', columnNameLookup:'title', columnNamekey:'iddichiar' };
-						objCalcFieldConfig['!iddichiar_dichiar_date'] = { tableNameLookup:'dichiar', columnNameLookup:'date', columnNamekey:'iddichiar' };
-						this.describeAColumn(table, '!iddichiar_annoaccademico_alias1_aa', 'Anno Accademico', null, 11, null);
+						this.describeAColumn(table, '!iddichiar_annoaccademico_alias2_aa', 'Anno Accademico', null, 11, null);
 						this.describeAColumn(table, '!iddichiar_dichiarkind_title', 'Tipologia', null, 12, null);
 						this.describeAColumn(table, '!iddichiar_dichiar_date', 'Data', null, 16, null);
+						objCalcFieldConfig['!iddichiar_annoaccademico_alias2_aa'] = { tableNameLookup:'annoaccademico_alias2', columnNameLookup:'aa', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiarkind_title'] = { tableNameLookup:'dichiarkind', columnNameLookup:'title', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiar_date'] = { tableNameLookup:'dichiar', columnNameLookup:'date', columnNamekey:'iddichiar' };
 //$objCalcFieldConfig_seg$
+						break;
+					case 'seganagstu':
+						this.describeAColumn(table, 'iddichiar', 'Dichiarazione', null, 10, null);
+						this.describeAColumn(table, '!iddichiar_annoaccademico_alias2_aa', 'Anno Accademico', null, 11, null);
+						this.describeAColumn(table, '!iddichiar_dichiarkind_title', 'Tipologia', null, 12, null);
+						this.describeAColumn(table, '!iddichiar_dichiar_date', 'Data', null, 16, null);
+						objCalcFieldConfig['!iddichiar_annoaccademico_alias2_aa'] = { tableNameLookup:'annoaccademico_alias2', columnNameLookup:'aa', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiarkind_title'] = { tableNameLookup:'dichiarkind', columnNameLookup:'title', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiar_date'] = { tableNameLookup:'dichiar', columnNameLookup:'date', columnNamekey:'iddichiar' };
+//$objCalcFieldConfig_seganagstu$
+						break;
+					case 'seganagsturin':
+						this.describeAColumn(table, '!iddichiar_annoaccademico_alias2_aa', 'Anno Accademico', null, 11, null);
+						this.describeAColumn(table, '!iddichiar_dichiarkind_title', 'Tipologia', null, 12, null);
+						this.describeAColumn(table, '!iddichiar_dichiar_date', 'Data', null, 16, null);
+						objCalcFieldConfig['!iddichiar_annoaccademico_alias2_aa'] = { tableNameLookup:'annoaccademico_alias2', columnNameLookup:'aa', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiarkind_title'] = { tableNameLookup:'dichiarkind', columnNameLookup:'title', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiar_date'] = { tableNameLookup:'dichiar', columnNameLookup:'date', columnNamekey:'iddichiar' };
+//$objCalcFieldConfig_seganagsturin$
+						break;
+					case 'seganagstupre':
+						this.describeAColumn(table, '!iddichiar_annoaccademico_alias2_aa', 'Anno Accademico', null, 11, null);
+						this.describeAColumn(table, '!iddichiar_dichiarkind_title', 'Tipologia', null, 12, null);
+						this.describeAColumn(table, '!iddichiar_dichiar_date', 'Data', null, 16, null);
+						objCalcFieldConfig['!iddichiar_annoaccademico_alias2_aa'] = { tableNameLookup:'annoaccademico_alias2', columnNameLookup:'aa', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiarkind_title'] = { tableNameLookup:'dichiarkind', columnNameLookup:'title', columnNamekey:'iddichiar' };
+						objCalcFieldConfig['!iddichiar_dichiar_date'] = { tableNameLookup:'dichiar', columnNameLookup:'date', columnNamekey:'iddichiar' };
+//$objCalcFieldConfig_seganagstupre$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -44,7 +69,27 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["iddichiar"].caption = "Dichiarazione";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_seg$
+						break;
+					case 'seganagstu':
+//$innerSetCaptionConfig_seganagstu$
+						break;
+					case 'seganagsturin':
+//$innerSetCaptionConfig_seganagsturin$
+						break;
+					case 'seganagstupre':
+//$innerSetCaptionConfig_seganagstupre$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanzadichiar");
@@ -64,7 +109,25 @@
 
 			//$isValidFunction$
 
-			//$getStaticFilter$
+			getStaticFilter: function (listType) {
+				switch (listType) {
+					case "seganagstu": {
+						return "idistanzakind = 14";
+						break;
+					}
+				case "seganagsturin": {
+						return "idistanzakind = 15";
+						break;
+					}
+				case "seganagstupre": {
+						return "idistanzakind = 13";
+						break;
+					}
+				//$GetStaticFilterInner$
+				}
+				return this.superClass.getStaticFilter(listType);
+			},
+
 
 			//$getSorting$
 

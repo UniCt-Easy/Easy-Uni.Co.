@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -85,7 +83,9 @@ private void initClass() {
 	tmansionekind.defineColumn("lt", typeof(DateTime),false);
 	tmansionekind.defineColumn("lu", typeof(string),false);
 	tmansionekind.defineColumn("pesoateneo", typeof(decimal));
+	tmansionekind.defineColumn("pesocapacitatp", typeof(decimal));
 	tmansionekind.defineColumn("pesocomp", typeof(decimal));
+	tmansionekind.defineColumn("pesodiff", typeof(decimal));
 	tmansionekind.defineColumn("pesoindividuale", typeof(decimal));
 	tmansionekind.defineColumn("pesouo", typeof(decimal));
 	tmansionekind.defineColumn("title", typeof(string),false);

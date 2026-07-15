@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -204,8 +202,8 @@ namespace no_table_entry_verifica {
             btnGeneraTrasmPagamento.Visible = false;
 
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("paymenttransmDS");
                 DataTable T = Conn.RUN_SELECT("paymenttransmission", "*", null, QHS.CmpEq("kpaymenttransmission",r["kpaymenttransmission"]), null, false);
@@ -213,12 +211,12 @@ namespace no_table_entry_verifica {
                 D.Tables.Add(T);
                 txtCurrent.Text = "Elenco di trasmissione n." + r["npaymenttransmission"];
                 rigeneraScrittura(T.Rows[0], "paymenttransmission");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraTrasmPagamento.Visible = true;
         }
 
@@ -237,8 +235,8 @@ namespace no_table_entry_verifica {
             }
             btnGeneraTrasmIncasso.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("proceedstransmissionDS");
                 DataTable T = Conn.RUN_SELECT("proceedstransmission", "*", null, QHS.CmpEq("kproceedstransmission",r["kproceedstransmission"]), null, false);
@@ -246,12 +244,12 @@ namespace no_table_entry_verifica {
                 D.Tables.Add(T);
                 txtCurrent.Text = "Elenco di trasmissione n." + r["nproceedstransmission"];
                 rigeneraScrittura(T.Rows[0], "proceedstransmission");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraTrasmIncasso.Visible = true;
         }
 
@@ -300,13 +298,13 @@ namespace no_table_entry_verifica {
 
             generaCPassivi.Visible = false;
             int n = t.Select(filterCurr).Length;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             // Elaborazione riga per riga
             foreach (DataRow r in t.Select(filterCurr)) {
-                txtCurrent.Text = "Contratto passivo tipo " + r["idmankind"] + " n°" + r["nman"] + '/' + r["yman"];
-                progBar.Increment(1);
-                progBar.Update();
+                txtCurrent.Text = "Contratto passivo tipo " + r["idmankind"] + " nÂ°" + r["nman"] + '/' + r["yman"];
+                //progBar.Increment(1);
+                //progBar.Update();
 
                 DataSet D = new DataSet("mandateDS");
                 DataTable T = Conn.RUN_SELECT("mandate", "*", null, QHS.MCmp(r, "idmankind", "yman", "nman"), null, false);
@@ -320,7 +318,7 @@ namespace no_table_entry_verifica {
                 string adate = rv["adate"].ToString();
                 DateTime.TryParse(adate, out DateTime result);
                 // filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
-                // Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+                // Se la data contabile del cp Ã¨ dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
                 // Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
                 string filterCP = "";
                 // select * from mandatedetail
@@ -343,13 +341,13 @@ namespace no_table_entry_verifica {
 
 
             int n1 = t.Select(filterPrev).Length;
-            progBar.Maximum = n1;
-            progBar.Value = 0;
+            //progBar.Maximum = n1;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select(filterPrev)) {
 
-                txtCurrent.Text = "Contratto passivo anni prec. tipo " + r["idmankind"] + " n°" + r["nman"] + '/' + r["yman"];
-                progBar.Increment(1);
-                progBar.Update();
+                txtCurrent.Text = "Contratto passivo anni prec. tipo " + r["idmankind"] + " nÂ°" + r["nman"] + '/' + r["yman"];
+                //progBar.Increment(1);
+                //progBar.Update();
 
                 DataSet D = new DataSet("mandateDS");
                 DataTable T = Conn.RUN_SELECT("mandate", "*", null, QHS.MCmp(r, "idmankind", "yman", "nman"), null, false);
@@ -363,7 +361,7 @@ namespace no_table_entry_verifica {
                 string adate = rv["adate"].ToString();
                 DateTime.TryParse(adate, out DateTime result);
                 // filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
-                // Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+                // Se la data contabile del cp Ã¨ dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
                 // Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
                 string filterCP = "";
 
@@ -386,8 +384,8 @@ namespace no_table_entry_verifica {
             }
 
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             generaCPassivi.Visible = true;
         }
 
@@ -404,8 +402,8 @@ namespace no_table_entry_verifica {
             D.Tables.Add(T1);
             txtCurrent.Text = "Contratto attivo tipo " + r["idestimkind"] + ") n." + r["nestim"] + '/'+ r["estim"];
             rigeneraScrittura(T.Rows[0], "estimate");
-            progBar.Increment(1);
-            progBar.Update();
+            //progBar.Increment(1);
+            //progBar.Update();
         }
 
         void rigeneraContrattoPassivo(DataRow r) {
@@ -421,8 +419,8 @@ namespace no_table_entry_verifica {
             D.Tables.Add(T1);
             txtCurrent.Text = "Contratto passivo tipo " + r["idmankind"] + ") n." + r["nman"];
             rigeneraScrittura(T.Rows[0], "mandate");
-            progBar.Increment(1);
-            progBar.Update();
+            //progBar.Increment(1);
+            //progBar.Update();
         }
 
         private void generaCAttivi_Click(object sender, EventArgs e) {
@@ -477,14 +475,14 @@ namespace no_table_entry_verifica {
                 t.TableName = "estimate";
             }
             int n = t.Select(filterCurr).Length;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
 
             // Elaborazione riga per riga
             foreach (DataRow r in t.Select(filterCurr)) {
-				txtCurrent.Text = "Contratto attivo tipo " + r["idestimkind"] + " n°" + r["nestim"] + '/' + r["yestim"];
-				progBar.Increment(1);
-				progBar.Update();
+				txtCurrent.Text = "Contratto attivo tipo " + r["idestimkind"] + " nÂ°" + r["nestim"] + '/' + r["yestim"];
+				//progBar.Increment(1);
+				//progBar.Update();
 
 				DataSet D = new DataSet("estimateDS");
 				DataTable T = Conn.RUN_SELECT("estimate", "*", null, QHS.MCmp(r, "idestimkind", "yestim", "nestim"), null, false);
@@ -498,7 +496,7 @@ namespace no_table_entry_verifica {
 				string adate = rv["adate"].ToString();
 				DateTime.TryParse(adate, out DateTime result);
 				// filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
-				// Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+				// Se la data contabile del cp Ã¨ dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
 				// Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
 				string filterCA = "";
 				// select * from estimatedetail
@@ -520,13 +518,13 @@ namespace no_table_entry_verifica {
 			}
 
             int n1 = t.Select(filterPrev).Length;
-            progBar.Maximum = n1;
-            progBar.Value = 0;
+            //progBar.Maximum = n1;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select(filterPrev)) {
            
-                txtCurrent.Text = "Contratto attivo anni prec. tipo " + r["idestimkind"] + " n°" + r["nestim"] + '/' + r["yestim"];
-                progBar.Increment(1);
-                progBar.Update();
+                txtCurrent.Text = "Contratto attivo anni prec. tipo " + r["idestimkind"] + " nÂ°" + r["nestim"] + '/' + r["yestim"];
+                //progBar.Increment(1);
+                //progBar.Update();
 
                 DataSet D = new DataSet("estimateDS");
                 DataTable T = Conn.RUN_SELECT("estimate", "*", null, QHS.MCmp(r, "idestimkind", "yestim", "nestim"), null, false);
@@ -540,7 +538,7 @@ namespace no_table_entry_verifica {
                 string adate = rv["adate"].ToString();
                 DateTime.TryParse(adate, out DateTime result);
                 // filtro per selezionare i dettagli contratti passivi dell'esercizio corrente
-                // Se la data contabile del cp è dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
+                // Se la data contabile del cp Ã¨ dell'anno corrente prendo tutti i dettagli con start null o con start nell'anno corrente
                 // Altrimenti prendo i dettagli con start valorizzato con l'anno corrente
                 string filterCA = "";
       
@@ -563,8 +561,8 @@ namespace no_table_entry_verifica {
             }
 
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             generaCAttivi.Visible = true;
         }
 
@@ -588,20 +586,20 @@ namespace no_table_entry_verifica {
             }
 
             if (avviso) {
-                var res= show("Ci sono ratei associati alle scritture che saranno scollegati. Sarà " +
+                var res= show("Ci sono ratei associati alle scritture che saranno scollegati. SarÃ  " +
                                 "necessario ricollegarli a mano.", "Avviso", MessageBoxButtons.OKCancel);
                 if (res == DialogResult.Cancel) {
                     D.Tables.Remove(invkind);
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     return;
                 }
             }
             txtCurrent.Text = $"Fattura tipo {r["codeinvkind"]}({r["invoicekind"]}) n.{r["ninv"]}";
             rigeneraScrittura(T.Rows[0], "invoice",true);
             D.Tables.Remove(invkind);
-            progBar.Increment(1);
-            progBar.Update();
+            //progBar.Increment(1);
+            //progBar.Update();
         }
 
         private void generaFattAcquisto_Click(object sender, EventArgs e) {
@@ -626,14 +624,14 @@ namespace no_table_entry_verifica {
 
             DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select(filter)) {              
                 rigeneraFattura(r, invkind);
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             generaFattAcquisto.Visible = true;
         }
 
@@ -657,14 +655,14 @@ namespace no_table_entry_verifica {
             generaFVendita.Visible = false;
             DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select(filter)) {
                 rigeneraFattura(r, invkind);
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             generaFVendita.Visible = true;
         }
 
@@ -686,8 +684,8 @@ namespace no_table_entry_verifica {
             }
             btnGeneraOccasionale.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select()) {
                 DataTable T = Conn.RUN_SELECT("casualcontract", "*", null, QHS.CmpKey(r), null, false);
                 if (T.Rows.Count == 0) continue;
@@ -695,12 +693,12 @@ namespace no_table_entry_verifica {
                 D.Tables.Add(T);
                 txtCurrent.Text = "Contratto occasionale n. " + T.Rows[0]["ncon"] + " del " + T.Rows[0]["ycon"];
                 rigeneraScrittura(T.Rows[0], "casualcontract");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraOccasionale.Visible = true;
         }
 
@@ -723,8 +721,8 @@ namespace no_table_entry_verifica {
 
             btnGeneraMissioni.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select()) {
                 DataTable T = Conn.RUN_SELECT("itineration", "*", null, QHS.CmpKey(r), null, false);
                 if (T.Rows.Count == 0) continue;
@@ -734,12 +732,12 @@ namespace no_table_entry_verifica {
                 txtCurrent.Text = $@"Missione n. {T.Rows[0]["nitineration"]} del {T.Rows[0]["yitineration"]}";
                 rigeneraScrittura(T.Rows[0], "itineration");
 
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraMissioni.Visible = true;
         }
 
@@ -759,8 +757,8 @@ namespace no_table_entry_verifica {
             }
             btnGeneraDipendente.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
 
             foreach (DataRow r in t.Rows) {
                 DataTable T = Conn.RUN_SELECT("wageaddition", "*", null, QHS.CmpKey(r), null, false);
@@ -769,12 +767,12 @@ namespace no_table_entry_verifica {
                 D.Tables.Add(T);
                 txtCurrent.Text = "Compenso dipendenti n. " + T.Rows[0]["ncon"] + " del " + T.Rows[0]["ycon"];
                 rigeneraScrittura(T.Rows[0], "wageaddition");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraDipendente.Visible = true;
         }
 
@@ -1557,8 +1555,8 @@ namespace no_table_entry_verifica {
 
             btnGeneraCedolino.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataTable T = Conn.RUN_SELECT("payroll", "*", null, QHS.CmpKey(r), null, false);
                 if (T.Rows.Count == 0) continue;
@@ -1567,12 +1565,12 @@ namespace no_table_entry_verifica {
                 txtCurrent.Text = "Cedolino parasubordinati - Contratto " + T.Rows[0]["idcon"].ToString() +
                                   " ced. n. " + T.Rows[0]["npayroll"] + " del " + T.Rows[0]["fiscalyear"];
                 rigeneraScrittura(T.Rows[0], "payroll");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraCedolino.Visible = true;
 
         }
@@ -1594,17 +1592,17 @@ namespace no_table_entry_verifica {
             DataSet D = new DataSet("bankimportDS");
             D.Tables.Add(t);
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 txtCurrent.Text = "Importazione esiti -  " + r["idbankimport"] + " del " + r["adate"];
                 rigeneraScrittura(r, "bankimport");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
 
             btnEsiti.Visible = true;
         }
@@ -1931,8 +1929,8 @@ namespace no_table_entry_verifica {
         private void btnInvoice11_Click(object sender, EventArgs e) {
             string sql = "select I.codeinvkind as 'tipo fattura', I.yinv as 'eserc.fattura',I.ninv as 'n.fattura'," +
                          " P.ycon as 'anno.parcella',P.ncon as 'n.parcella' from entry E " +
-                         " join invoiceview I on E.idrelated = 'inv§' + convert(varchar(20), I.idinvkind) " +
-                         " + '§' + convert(varchar(4), I.yinv) + '§' + convert(varchar(20), I.ninv) " +
+                         " join invoiceview I on E.idrelated = 'invÂ§' + convert(varchar(20), I.idinvkind) " +
+                         " + 'Â§' + convert(varchar(4), I.yinv) + 'Â§' + convert(varchar(20), I.ninv) " +
                          " join profservice P on P.idinvkind = I.idinvkind and P.yinv = I.yinv and P.ninv = I.ninv " +
                          " where E.idrelated like 'inv%' " +
                          " and P.epkind = 'R' " +
@@ -1957,8 +1955,8 @@ namespace no_table_entry_verifica {
                          " ID.rownum as 'n.riga fattura',MK.description as 'tipo contratto', MD.yman as 'anno contratto'," +
                          " MD.nman as 'n.contratto',MD.rownum as 'n.riga contratto'" +
                          " from entry E " +
-                         " join invoiceview I on E.idrelated = 'inv§' + convert(varchar(20), I.idinvkind) + " +
-                         " '§' + convert(varchar(4), I.yinv) + '§' + convert(varchar(20), I.ninv) " +
+                         " join invoiceview I on E.idrelated = 'invÂ§' + convert(varchar(20), I.idinvkind) + " +
+                         " 'Â§' + convert(varchar(4), I.yinv) + 'Â§' + convert(varchar(20), I.ninv) " +
                          " join invoicedetail ID on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv and I.ninv = ID.ninv " +
                          " join mandatedetail MD on ID.idmankind = MD.idmankind and ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum " +
                          " join mandatekind MK on MD.idmankind = MK.idmankind " +
@@ -1985,8 +1983,8 @@ namespace no_table_entry_verifica {
                          " ID.rownum as 'n.riga fattura',MK.description as 'tipo contratto', MD.yestim as 'anno contratto'," +
                          " MD.nestim as 'n.contratto',MD.rownum as 'n.riga contratto'" +
                          " from entry E " +
-                         " join invoiceview I on E.idrelated = 'inv§' + convert(varchar(20), I.idinvkind) + " +
-                         " '§' + convert(varchar(4), I.yinv) + '§' + convert(varchar(20), I.ninv) " +
+                         " join invoiceview I on E.idrelated = 'invÂ§' + convert(varchar(20), I.idinvkind) + " +
+                         " 'Â§' + convert(varchar(4), I.yinv) + 'Â§' + convert(varchar(20), I.ninv) " +
                          " join invoicedetail ID on I.idinvkind = ID.idinvkind and I.yinv = ID.yinv and I.ninv = ID.ninv " +
                          " join estimatedetail MD on ID.idestimkind = MD.idestimkind and ID.yestim = MD.yestim and ID.nestim = MD.nestim " +
                          " and ID.estimrownum = MD.rownum " +
@@ -2146,22 +2144,22 @@ namespace no_table_entry_verifica {
             //D.Tables.Add(tVer);
 
 
-            progBar.Value = 0;
-            progBar.Maximum = All.Rows.Count;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Maximum = All.Rows.Count;
+            //progBar.Update();
             foreach (DataRow r in All.Rows) {
                 //D.Clear();
                 //Conn.RUN_SELECT_INTO_TABLE(D.Tables["csa_import"],null,QHS.CmpKey(r),null,false);
                 //Conn.RUN_SELECT_INTO_TABLE(D.Tables["csa_importriep"], null, QHS.CmpKey(r), null, false);
                 //Conn.RUN_SELECT_INTO_TABLE(D.Tables["csa_importver"], null, QHS.CmpKey(r), null, false);
-                txtCurrent.Text = "Importazione CSA Stipendi n° " + r["nimport"].ToString() + " del " + r["nimport"];
+                txtCurrent.Text = "Importazione CSA Stipendi nÂ° " + r["nimport"].ToString() + " del " + r["nimport"];
                 rigeneraScritturaCSA(r, null);
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraCSA.Visible = true;
         }
 
@@ -2213,22 +2211,22 @@ namespace no_table_entry_verifica {
             //D.Tables.Add(tRiep);
             //D.Tables.Add(tVer);
 
-            progBar.Value = 0;
-            progBar.Maximum = All.Rows.Count;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Maximum = All.Rows.Count;
+            //progBar.Update();
             foreach (DataRow r in All.Rows) {
                 //D.Clear();
                 //Conn.RUN_SELECT_INTO_TABLE(D.Tables["csa_import"], null, QHS.CmpKey(r), null, false);
                 //Conn.RUN_SELECT_INTO_TABLE(D.Tables["csa_importriep"], null, QHS.CmpKey(r), null, false);
                 //Conn.RUN_SELECT_INTO_TABLE(D.Tables["csa_importver"], null, QHS.CmpKey(r), null, false);
-                txtCurrent.Text = "Importazione CSA Stipendi n° " + r["nimport"].ToString() + " del " + r["nimport"];
+                txtCurrent.Text = "Importazione CSA Stipendi nÂ° " + r["nimport"].ToString() + " del " + r["nimport"];
                 rigeneraScritturaCSA(r, "debito");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnGeneraCSADebit.Visible = true;
         }
 
@@ -2273,7 +2271,7 @@ namespace no_table_entry_verifica {
 
             //Secondo controllo: Contratti senza movimenti di budget
             // Esportare tutte le righe di tutti i contratti attivi e passivi che hanno 
-            // il flag ‘utilizzabile per la contabilizzazione’ 
+            // il flag â€˜utilizzabile per la contabilizzazioneâ€™ 
 
             //          UNION
             //          SELECT 'Contratto Attivo' as 'Documento', estimateview.idestimkind as 'Tipo',  estimatedetailview.yestim as 'Esercizio', estimatedetailview.nestim as 'Numero',  
@@ -2352,9 +2350,9 @@ namespace no_table_entry_verifica {
                          " detaildescription as 'Descrizione dettaglio', rownum as '#Numero riga', " +
                          " adate as 'Data Contabile', registry as 'Anagrafica' " +
                          " from invoicedetailview where exists " +
-                         " (select * from epexp where idrelated = 'inv' + '§' + " +
-                         " convert(varchar(4), idinvkind) + '§' + " +
-                         " convert(varchar(4), yinv) + '§' + convert(varchar(14), ninv)) " +
+                         " (select * from epexp where idrelated = 'inv' + 'Â§' + " +
+                         " convert(varchar(4), idinvkind) + 'Â§' + " +
+                         " convert(varchar(4), yinv) + 'Â§' + convert(varchar(14), ninv)) " +
                          " AND NOT EXISTS(select * from profservice   where " +
                          " idinvkind = invoicedetailview.idinvkind " +
                          " AND  yinv = invoicedetailview.yinv " +
@@ -2389,9 +2387,9 @@ namespace no_table_entry_verifica {
                          " rownum as '#Numero riga', " +
                          " adate as 'Data Contabile', registry as 'Anagrafica' " +
                          " from invoicedetailview where exists " +
-                         " (select * from epexp where idrelated = 'inv' + '§' +  " +
-                         " convert(varchar(4), idinvkind) + '§' + " +
-                         " convert(varchar(4), yinv) + '§' + convert(varchar(14), ninv)) " +
+                         " (select * from epexp where idrelated = 'inv' + 'Â§' +  " +
+                         " convert(varchar(4), idinvkind) + 'Â§' + " +
+                         " convert(varchar(4), yinv) + 'Â§' + convert(varchar(14), ninv)) " +
                          " AND NOT EXISTS(select * from profservice   " +
                          " where idinvkind = invoicedetailview.idinvkind " +
                          " AND  yinv = invoicedetailview.yinv " +
@@ -2431,14 +2429,14 @@ namespace no_table_entry_verifica {
                          " amount as 'Importo' " +
                          " from pettycashoperationview where  not exists " +
                          " (select * from entry where idrelated = 'pettycashoperation' " +
-                         " + '§' + convert(varchar(4), idpettycash) + '§' + " +
-                         " convert(varchar(4), yoperation) + '§' + " +
+                         " + 'Â§' + convert(varchar(4), idpettycash) + 'Â§' + " +
+                         " convert(varchar(4), yoperation) + 'Â§' + " +
                          " convert(varchar(14), noperation)) " +
                          " and not exists " +
                          " (select * from epexp where idrelated = 'pettycashoperation' + " +
-                         " '§' +  " +
-                         " convert(varchar(4), idpettycash) + '§' + " +
-                         " convert(varchar(4), yoperation) + '§' +  " +
+                         " 'Â§' +  " +
+                         " convert(varchar(4), idpettycash) + 'Â§' + " +
+                         " convert(varchar(4), yoperation) + 'Â§' +  " +
                          " convert(varchar(14), noperation)) " +
                          " AND " + QHS.CmpEq("yoperation", Conn.GetEsercizio()) +
                          " AND pettycashoperationview.kind NOT IN('A', 'R', 'C') " +
@@ -2463,9 +2461,9 @@ namespace no_table_entry_verifica {
                Esportare tutte le fatture di acquisto che non sono collegate a contratto passivo per errore o dimenticanza. 
                Questo controllo si potrebbe basare sui movimenti finanziari, ovvero mostrare le fatture non collegate 
                a contratto passivo ma che sono state pagate a partire da un impegno finanziario sul quale 
-               è presente un contratto passivo (Come il pulsante presente nel dettaglio della fattura – 
-               collega a dettaglio contratto passivo). L’esportazione deve mostrare oltre al numero di riga fattura, 
-               fornitore ecc, anche la riga del pagamento al quale la riga è legata, l’impegno e il contratto passivo legato.
+               Ã¨ presente un contratto passivo (Come il pulsante presente nel dettaglio della fattura â€“ 
+               collega a dettaglio contratto passivo). Lâ€™esportazione deve mostrare oltre al numero di riga fattura, 
+               fornitore ecc, anche la riga del pagamento al quale la riga Ã¨ legata, lâ€™impegno e il contratto passivo legato.
              * */
             string sql = @"
 
@@ -2889,8 +2887,8 @@ WHERE
 
             btnBuoniCarico.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("assetloadDS");
                 DataTable T = Conn.RUN_SELECT("assetload", "*", null, QHS.CmpKey(r), null, false);
@@ -2902,12 +2900,12 @@ WHERE
                 D.Tables.Add(T1);
                 txtCurrent.Text = "Buono di carico tipo id " + r["idassetloadkind"] + " n." + r["nassetload"];
                 rigeneraScrittura(T.Rows[0], "assetload");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnBuoniCarico.Visible = true;
         }
 
@@ -2930,8 +2928,8 @@ WHERE
 
             btnBuoniScarico.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("assetunloadDS");
                 DataTable T = Conn.RUN_SELECT("assetunload", "*", null, QHS.CmpKey(r), null, false);
@@ -2946,12 +2944,12 @@ WHERE
 
                 txtCurrent.Text = "Buono di scarico tipo id " + r["idassetunloadkind"] + ") n." + r["nassetunload"];
                 rigeneraScrittura(T.Rows[0], "assetunload");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnBuoniScarico.Visible = true;
         }
 
@@ -2975,18 +2973,18 @@ WHERE
 
             btnTrg_evaluatearrearsepacc.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Select(filter)) {
                 txtCurrent.Text = "Ricalcolo Accertamento id " + r["idepacc"] + ") esercizio." + r["ayear"];
                 var param = new[] {r["idepacc"], Meta.GetSys("esercizio")};
                 Conn.CallSP("trg_evaluatearrearsepacc", param, true);
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnTrg_evaluatearrearsepacc.Visible = true;
         }
 
@@ -3004,11 +3002,11 @@ WHERE
                     " join account A on EA.idacc = A.idacc " +
                     " where " + //"A.flagenablebudgetprev = 'N' and EA.curramount <> 0 and \r\n\t\t" +
                     " not exists(select * from estimatedetailview ESTD  where EA.idrelated = " +
-                    " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' +  " +
-                    " convert(varchar(30), ESTD.yestim) + '§' +  " +
-                    " convert(varchar(30), ESTD.nestim) + '§' +  " +
+                    " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' +  " +
+                    " convert(varchar(30), ESTD.yestim) + 'Â§' +  " +
+                    " convert(varchar(30), ESTD.nestim) + 'Â§' +  " +
                     " convert(varchar(30), ESTD.rownum) ) " +
-                    " and EA.idrelated like 'estim§%'  " +
+                    " and EA.idrelated like 'estimÂ§%'  " +
                     " and EA.totcurramount> 0" +
                     " and EA.yepacc= "+esercizio +
                     " and EA.ayear = " + esercizio;
@@ -3041,11 +3039,11 @@ WHERE
                     " join account A on EA.idacc = A.idacc " +
                     " where " + //"A.flagenablebudgetprev = 'N' and EA.curramount <> 0 \r\n\t\t" +
                     "  not exists(select * from invoicedetailview INVD  where EA.idrelated = " +
-                    " 'inv§' + convert(varchar(30), INVD.idinvkind) + '§' + " +
-                    " convert(varchar(30), INVD.yinv) + '§' + " +
-                    " convert(varchar(30), INVD.ninv) + '§' + " +
+                    " 'invÂ§' + convert(varchar(30), INVD.idinvkind) + 'Â§' + " +
+                    " convert(varchar(30), INVD.yinv) + 'Â§' + " +
+                    " convert(varchar(30), INVD.ninv) + 'Â§' + " +
                     " convert(varchar(30), INVD.rownum) ) " +
-                    " and EA.idrelated like 'inv§%' " +
+                    " and EA.idrelated like 'invÂ§%' " +
                     " and EA.totcurramount> 0" +
                     " and EA.yepacc= " + esercizio +
                     " and EA.ayear = " + esercizio;
@@ -3077,9 +3075,9 @@ WHERE
                     " EA.codeacc as  \'Cod Conto EP\', EA.account  as \'Conto EP\' from epaccview EA  " +
                     " join account A on EA.idacc = A.idacc  " +
                     " join estimatedetailview ESTD  on  EA.idrelated =  " +
-                    " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' +  " +
-                    " convert(varchar(30), ESTD.yestim) + '§' +  " +
-                    " convert(varchar(30), ESTD.nestim) + '§' +  " +
+                    " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' +  " +
+                    " convert(varchar(30), ESTD.yestim) + 'Â§' +  " +
+                    " convert(varchar(30), ESTD.nestim) + 'Â§' +  " +
                     " convert(varchar(30), ESTD.rownum)  " +
                     " where A.flagenablebudgetprev = 'N' and EA.curramount <> 0 " +
                     " and EA.ayear = " + esercizio;
@@ -3099,7 +3097,7 @@ WHERE
         }
 
         /// <summary>
-        /// Scritture in pd di il cui accertamento collegato tramite chiave è diverso da quello dell'idrelated
+        /// Scritture in pd di il cui accertamento collegato tramite chiave Ã¨ diverso da quello dell'idrelated
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -3113,9 +3111,9 @@ WHERE
             //        " ED.ndetail, ED.lt,ED.lu \r\n\t\t" +
             //        " from entrydetail ED \r\n\t\t" +
             //        " left outer join estimatedetail ESTD on ED.idrelated = \r\n\t\t" +
-            //        " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + \r\n\t\t" +
-            //        " convert(varchar(30), ESTD.yestim) + '§' + \r\n\t\t" +
-            //        " convert(varchar(30), ESTD.nestim) + '§' + \r\n\t\t" +
+            //        " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + \r\n\t\t" +
+            //        " convert(varchar(30), ESTD.yestim) + 'Â§' + \r\n\t\t" +
+            //        " convert(varchar(30), ESTD.nestim) + 'Â§' + \r\n\t\t" +
             //        " convert(varchar(30), ESTD.rownum)\r\n\t\t " +
             //        " left outer join epacc E1 on  E1.idepacc = ED.idepacc \r\n\t\t" +
             //        " left outer join epaccyear EY1 on  EY1.idepacc = ED.idepacc and EY1.ayear = ED.yentry \r\n\t\t" +
@@ -3164,15 +3162,15 @@ WHERE
         }
 
         /// <summary>
-        /// Accertamenti di budget  collegati dall'inserisci copia a dettagli contratti attivi ma in realtà collegati ad altri dettagli
+        /// Accertamenti di budget  collegati dall'inserisci copia a dettagli contratti attivi ma in realtÃ  collegati ad altri dettagli
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAccertamentiBudget_1_Click(object sender, EventArgs e) {
             string sql = " select  " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) as 'ipotetico idrelated', " +
                          " E1.idrelated 'idrelated accertamento effettivo', * " +
                          " from estimatedetail ESTD " +
@@ -3181,13 +3179,13 @@ WHERE
                          " AMD.ayear = isnull(year(ESTD.start), ESTD.yestim)" +
                          " left outer join account A on AMD.idacc = A.idacc" +
                          " left outer join epaccview E2 on E2.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) and E2.nphase=E1.nphase and E2.ayear=E1.ayear " +
-                         " where isnull(E1.idrelated, '') <> 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " where isnull(E1.idrelated, '') <> 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum)" +
                          " and ESTD.stop is null and E1.nphase=2 " +
                          " and E1.ayear=" + esercizio;
@@ -3223,9 +3221,9 @@ WHERE
                          " *" +
                          " from epaccview EA " +
                          " join estimatedetailview ESTD  on EA.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " where  ( "+
                             "(EA.description <> ESTD.detaildescription)  " +
@@ -3259,9 +3257,9 @@ WHERE
 						 " *" +
 						 " from epexpview EP " +
 						 " join mandatedetailview MAND  on EP.idrelated = " +
-						 " 'man§' + convert(varchar(30), MAND.idmankind) + '§' + " +
-						 " convert(varchar(30), MAND.yman) + '§' + " +
-						 " convert(varchar(30), MAND.nman) + '§' + " +
+						 " 'manÂ§' + convert(varchar(30), MAND.idmankind) + 'Â§' + " +
+						 " convert(varchar(30), MAND.yman) + 'Â§' + " +
+						 " convert(varchar(30), MAND.nman) + 'Â§' + " +
 						 " convert(varchar(30), MAND.rownum) " +
 						 " where  ( "+
 							"(EP.description <> MAND.detaildescription)  " +
@@ -3336,9 +3334,9 @@ WHERE
             string sql = "select EA.idepacc,ESTD.idestimkind,ESTD.yestim, ESTD.nestim " +
                          " from epaccview EA " +
                          " join estimatedetailview ESTD  on EA.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " where  ((EA.description <> ESTD.detaildescription)  " +
                          "OR (EA.totcurramount <> ESTD.taxable_euro) or (isnull(EA.idreg,ESTD.idreg)<> isnull(ESTD.idreg,0)))  " +
@@ -3352,19 +3350,19 @@ WHERE
             if (elencoAccertamentiBudget.Rows.Count > 0) {
                 DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
 
-                progBar.Maximum = elencoAccertamentiBudget.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = elencoAccertamentiBudget.Rows.Count;
+                //progBar.Value = 0;
                 var cAttiviElaborati = new Dictionary<string, bool>();
                 foreach (DataRow rAccBudget in elencoAccertamentiBudget.Rows) {
-                    int lastVal = progBar.Value;
+                    //int lastVal = progBar.Value;
                     //Risalva il contratto attivo collegato
-                    string keyCattivo = $"{rAccBudget["idestimkind"]}§{rAccBudget["yestim"]}§{rAccBudget["nestim"]}§";
+                    string keyCattivo = $"{rAccBudget["idestimkind"]}Â§{rAccBudget["yestim"]}Â§{rAccBudget["nestim"]}Â§";
                     bool checkFatture = false;
                     if (!cAttiviElaborati.ContainsKey(keyCattivo)) {
                         cAttiviElaborati.Add(keyCattivo, true);
                         //Risalva il c.attivo in questione
                         rigeneraContrattoAttivo(rAccBudget);
-                        progBar.Value = lastVal;
+                        //progBar.Value = lastVal;
                         checkFatture = true;
 
                     }
@@ -3391,7 +3389,7 @@ WHERE
                                     QHS.MCmp(rFatt, "idinvkind", "yinv", "ninv"), null, false);
 
                                 rigeneraFattura(inv.Rows[0], invkind);
-                                progBar.Value = lastVal;
+                                //progBar.Value = lastVal;
                             }
                         }
                     }
@@ -3400,11 +3398,11 @@ WHERE
 
 
 
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
                 show(this, "Operazione terminata", "Avviso");
             }
@@ -3419,9 +3417,9 @@ WHERE
 			string sql = "select EP.idepexp,MAND.idmankind,MAND.yman, MAND.nman " +
 						 " from epexpview EP " +
 						 " join mandatedetailview MAND  on EP.idrelated = " +
-						 " 'man§' + convert(varchar(30), MAND.idmankind) + '§' + " +
-						 " convert(varchar(30), MAND.yman) + '§' + " +
-						 " convert(varchar(30), MAND.nman) + '§' + " +
+						 " 'manÂ§' + convert(varchar(30), MAND.idmankind) + 'Â§' + " +
+						 " convert(varchar(30), MAND.yman) + 'Â§' + " +
+						 " convert(varchar(30), MAND.nman) + 'Â§' + " +
 						 " convert(varchar(30), MAND.rownum) " +
 						 " where  ((EP.description <> MAND.detaildescription)  " +
 						 "OR (EP.totcurramount <> MAND.taxable_euro) or (isnull(EP.idreg,MAND.idreg)<> isnull(MAND.idreg,0)))  " +
@@ -3435,19 +3433,19 @@ WHERE
 			if (elencoImpegniBudget.Rows.Count > 0) {
 				DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
 
-				progBar.Maximum = elencoImpegniBudget.Rows.Count;
-				progBar.Value = 0;
+				//progBar.Maximum = elencoImpegniBudget.Rows.Count;
+				//progBar.Value = 0;
 				var cPassiviElaborati = new Dictionary<string, bool>();
 				foreach (DataRow rImpBudget in elencoImpegniBudget.Rows) {
-					int lastVal = progBar.Value;
+					//int lastVal = progBar.Value;
 					//Risalva il contratto attivo collegato
-					string keyCPassivo = $"{rImpBudget["idmankind"]}§{rImpBudget["yman"]}§{rImpBudget["nman"]}§";
+					string keyCPassivo = $"{rImpBudget["idmankind"]}Â§{rImpBudget["yman"]}Â§{rImpBudget["nman"]}Â§";
 					bool checkFatture = false;
 					if (!cPassiviElaborati.ContainsKey(keyCPassivo)) {
 						cPassiviElaborati.Add(keyCPassivo, true);
 						//Risalva il c.attivo in questione
 						rigeneraContrattoAttivo(rImpBudget);
-						progBar.Value = lastVal;
+						//progBar.Value = lastVal;
 						checkFatture = true;
 
 					}
@@ -3474,7 +3472,7 @@ WHERE
 									QHS.MCmp(rFatt, "idinvkind", "yinv", "ninv"), null, false);
 
 								rigeneraFattura(inv.Rows[0], invkind);
-								progBar.Value = lastVal;
+								//progBar.Value = lastVal;
 							}
 						}
 					}
@@ -3483,11 +3481,11 @@ WHERE
 
 
 
-					progBar.Increment(1);
-					progBar.Update();
+					//progBar.Increment(1);
+					//progBar.Update();
 					Application.DoEvents();
 				}
-				progBar.Value = 0;
+				//progBar.Value = 0;
 				txtCurrent.Text = "";
 				show(this, "Operazione terminata", "Avviso");
 			} else {
@@ -3575,17 +3573,17 @@ WHERE
                          " join account A on E.idacc = A.idacc " +
                          " join epexpyear EP on EP.idepexp = E.idepexp and E.yentry = EP.ayear " +
                          " join epexp EE on EE.idepexp = EP.idepexp  " +
-                         " left outer join invoicedetail ID on E.idrelated = 'inv§'+" +
-                          "convert(varchar(30),ID.idinvkind)+'§'+"+
-                         "convert(varchar(30),ID.yinv)+'§'+" +
-                         "convert(varchar(30),ID.ninv)+'§'+" +
+                         " left outer join invoicedetail ID on E.idrelated = 'invÂ§'+" +
+                          "convert(varchar(30),ID.idinvkind)+'Â§'+"+
+                         "convert(varchar(30),ID.yinv)+'Â§'+" +
+                         "convert(varchar(30),ID.ninv)+'Â§'+" +
                          "convert(varchar(30),ID.rownum) "+
                          " left outer join mandatedetail   MD on MD.idmankind=ID.idmankind and MD.yman=ID.yman and MD.nman=ID.nman and MD.rownum=ID.manrownum " +
                          " left outer join invoicekind ik on ik.idinvkind=ID.idinvkind "+
-                         " left outer join mandatedetail MD2 on E.idrelated = 'man§'+" +
-                         "convert(varchar(30),MD2.idmankind)+'§'+" +
-                         "convert(varchar(30),MD2.yman)+'§'+" +
-                         "convert(varchar(30),MD2.nman)+'§'+" +
+                         " left outer join mandatedetail MD2 on E.idrelated = 'manÂ§'+" +
+                         "convert(varchar(30),MD2.idmankind)+'Â§'+" +
+                         "convert(varchar(30),MD2.yman)+'Â§'+" +
+                         "convert(varchar(30),MD2.nman)+'Â§'+" +
                          "convert(varchar(30),MD2.rownum) " +
                          " join account A1 on A1.idacc=E.idacc " +
                          //join account A2 on A2.idacc=EP.idacc "+
@@ -3639,18 +3637,18 @@ WHERE
                          " join account A on E.idacc = A.idacc " +
                          " join epaccyear EP on EP.idepacc = E.idepacc and E.yentry = EP.ayear " +
                          " join epacc EE on EE.idepacc = EP.idepacc  " +
-                         " left outer join invoicedetail ID on E.idrelated = 'inv§'+" +
-                         "convert(varchar(30),ID.idinvkind)+'§'+" +
-                         "convert(varchar(30),ID.yinv)+'§'+" +
-                         "convert(varchar(30),ID.ninv)+'§'+" +
+                         " left outer join invoicedetail ID on E.idrelated = 'invÂ§'+" +
+                         "convert(varchar(30),ID.idinvkind)+'Â§'+" +
+                         "convert(varchar(30),ID.yinv)+'Â§'+" +
+                         "convert(varchar(30),ID.ninv)+'Â§'+" +
                          "convert(varchar(30),ID.rownum) " +
                          " left outer join estimatedetail   MD on MD.idestimkind=ID.idestimkind and "+
                                 "MD.yestim=ID.yestim and MD.nestim=ID.nestim and MD.rownum=ID.manrownum " +
                          " left outer join invoicekind ik on ik.idinvkind=ID.idinvkind " +
-                           " left outer join estimatedetail MD2 on E.idrelated = 'estim§'+" +
-                         "convert(varchar(30),MD2.idestimkind)+'§'+" +
-                         "convert(varchar(30),MD2.yestim)+'§'+" +
-                         "convert(varchar(30),MD2.nestim)+'§'+" +
+                           " left outer join estimatedetail MD2 on E.idrelated = 'estimÂ§'+" +
+                         "convert(varchar(30),MD2.idestimkind)+'Â§'+" +
+                         "convert(varchar(30),MD2.yestim)+'Â§'+" +
+                         "convert(varchar(30),MD2.nestim)+'Â§'+" +
                          "convert(varchar(30),MD2.rownum) " +
                          " join account A1 on A1.idacc=E.idacc " +
                          //join account A2 on A2.idacc=EP.idacc "+
@@ -3682,9 +3680,9 @@ WHERE
                     " from entrydetail ED \r\n\t\t" +
                     " left outer join account a on ED.idacc = a.idacc" +
                     " left outer join estimatedetail ESTD on ED.idrelated = \r\n\t\t" +
-                    " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + \r\n\t\t" +
-                    " convert(varchar(30), ESTD.yestim) + '§' + \r\n\t\t" +
-                    " convert(varchar(30), ESTD.nestim) + '§' + \r\n\t\t" +
+                    " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + \r\n\t\t" +
+                    " convert(varchar(30), ESTD.yestim) + 'Â§' + \r\n\t\t" +
+                    " convert(varchar(30), ESTD.nestim) + 'Â§' + \r\n\t\t" +
                     " convert(varchar(30), ESTD.rownum)\r\n\t\t " +
                     " left outer join epacc E1 on  E1.idepacc = ED.idepacc \r\n\t\t" +
                     " left outer join epaccyear EY1 on  EY1.idepacc = ED.idepacc and EY1.ayear = ED.yentry \r\n\t\t" +
@@ -3696,18 +3694,18 @@ WHERE
 
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t?.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rAccBudget in t.Rows) {
-                    int lastVal = progBar.Value;
+                    //int lastVal = progBar.Value;
                     //Risalva il contratto attivo collegato
                     //Risalva il c.attivo in questione
                     rigeneraContrattoAttivo(rAccBudget);
                    
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
 
             }
@@ -3732,11 +3730,11 @@ WHERE
                     " join entrydetail ED on ED.idepacc = EA.idepacc "+
                     " where " + //"A.flagenablebudgetprev = 'N' and EA.curramount <> 0 and \r\n\t\t" +
                     " not exists(select * from estimatedetailview ESTD  where EA.idrelated = " +
-                    " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' +  " +
-                    " convert(varchar(30), ESTD.yestim) + '§' +  " +
-                    " convert(varchar(30), ESTD.nestim) + '§' +  " +
+                    " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' +  " +
+                    " convert(varchar(30), ESTD.yestim) + 'Â§' +  " +
+                    " convert(varchar(30), ESTD.nestim) + 'Â§' +  " +
                     " convert(varchar(30), ESTD.rownum) ) " +
-                    " and EA.idrelated like 'estim§%'  " +
+                    " and EA.idrelated like 'estimÂ§%'  " +
                     " and ED.yentry = " + esercizio +
                     " and EA.ayear = " + esercizio;
           
@@ -3765,11 +3763,11 @@ WHERE
                     " join entrydetail ED on ED.idepacc = EA.idepacc " +
                     " where " + //"A.flagenablebudgetprev = 'N' and EA.curramount <> 0 \r\n\t\t" +
                     "  not exists(select * from invoicedetailview INVD  where EA.idrelated = " +
-                    " 'inv§' + convert(varchar(30), INVD.idinvkind) + '§' + " +
-                    " convert(varchar(30), INVD.yinv) + '§' + " +
-                    " convert(varchar(30), INVD.ninv) + '§' + " +
+                    " 'invÂ§' + convert(varchar(30), INVD.idinvkind) + 'Â§' + " +
+                    " convert(varchar(30), INVD.yinv) + 'Â§' + " +
+                    " convert(varchar(30), INVD.ninv) + 'Â§' + " +
                     " convert(varchar(30), INVD.rownum) ) " +
-                    " and EA.idrelated like 'inv§%' " +
+                    " and EA.idrelated like 'invÂ§%' " +
                     " and ED.yentry = " + esercizio +
                     " and EA.ayear = " + esercizio;
 
@@ -3791,12 +3789,12 @@ WHERE
             string sql = " select ES.adate as 'data contratto', E.adate as 'data scrittura', ESTD.stop as 'data annullamento', * from entrydetail ED " +
                          " join entry E on ED.yentry = E.yentry and ED.nentry = E.nentry " +
                          " join estimatedetail ESTD on ED.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " join estimate ES on ES.idestimkind = ESTD.idestimkind and ES.yestim = ESTD.yestim and ES.nestim = ESTD.nestim " +
-                         " where ED.idrelated like 'estim§%' " +
+                         " where ED.idrelated like 'estimÂ§%' " +
                          " and ESTD.start is null " +
                          " and ES.adate<> E.adate and (ESTD.stop is null or ESTD.stop<>E.adate) " +
                          " and ED.yentry = " + esercizio;                   
@@ -3819,12 +3817,12 @@ WHERE
             string sql = " select ESTD.start as 'data dettaglio', E.adate as 'data scrittura', ESTD.stop as 'data annullamento', * from entrydetail ED " +
                          " join entry E on ED.yentry = E.yentry and ED.nentry = E.nentry " +
                          " join estimatedetail ESTD on ED.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " join estimate ES on ES.idestimkind = ESTD.idestimkind and ES.yestim = ESTD.yestim and ES.nestim = ESTD.nestim " +
-                         " where ED.idrelated like 'estim§%' " +
+                         " where ED.idrelated like 'estimÂ§%' " +
                          " and ESTD.start is not null " +
                          " and ESTD.start <> E.adate and (ESTD.stop is null or ESTD.stop<>E.adate)" +
                          " and (ESTD.stop is null or ESTD.yestim<> year(ESTD.stop)) " +
@@ -3848,12 +3846,12 @@ WHERE
             string sql = " select ES.adate as 'data contratto', E.adate as 'data scrittura',ESTD.stop as 'data annullamento', * from entrydetail ED " +
                          " join entry E on ED.yentry = E.yentry and ED.nentry = E.nentry " +
                          " join mandatedetail ESTD on ED.idrelated = " +
-                         " 'mandate§' + convert(varchar(30), ESTD.idmankind) + '§' + " +
-                         " convert(varchar(30), ESTD.yman) + '§' + " +
-                         " convert(varchar(30), ESTD.nman) + '§' + " +
+                         " 'mandateÂ§' + convert(varchar(30), ESTD.idmankind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yman) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nman) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " join mandate ES on ES.idmankind = ESTD.idmankind and ES.yman = ESTD.yman and ES.nman = ESTD.nman " +
-                         " where ED.idrelated like 'man§%' " +
+                         " where ED.idrelated like 'manÂ§%' " +
                          " and ESTD.start is null " +
                          " and ES.adate<> E.adate and (ESTD.stop is null or ESTD.stop<>E.adate) " +
                          " and ED.yentry = " + esercizio;
@@ -3876,12 +3874,12 @@ WHERE
             string sql = " select ES.adate as 'data contratto', E.adate as 'data scrittura',ESTD.stop as 'data annullamento', * from entrydetail ED " +
                          " join entry E on ED.yentry = E.yentry and ED.nentry = E.nentry " +
                          " join mandatedetail ESTD on ED.idrelated = " +
-                         " 'mandate§' + convert(varchar(30), ESTD.idmankind) + '§' + " +
-                         " convert(varchar(30), ESTD.yman) + '§' + " +
-                         " convert(varchar(30), ESTD.nman) + '§' + " +
+                         " 'mandateÂ§' + convert(varchar(30), ESTD.idmankind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yman) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nman) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " join mandate ES on ES.idmankind = ESTD.idmankind and ES.yman = ESTD.yman and ES.nman = ESTD.nman " +
-                         " where ED.idrelated like 'man§%' " +
+                         " where ED.idrelated like 'manÂ§%' " +
                          " and ESTD.start is not null " +
                          " and ESTD.start<> E.adate and (ESTD.stop is null or ESTD.stop<>E.adate) " +
                          " and (ESTD.stop is null or ESTD.yman <> year(ESTD.stop)) " + 
@@ -3950,29 +3948,29 @@ WHERE
                          " join account A on ED.idacc = A.idacc " +
                          " join epaccyear EP on EP.idepacc = ED.idepacc and ED.yentry = EP.ayear " +
                          " join estimatedetail ESTD on ED.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " join estimate ES on ES.idestimkind = ESTD.idestimkind and ES.yestim = ESTD.yestim and ES.nestim = ESTD.nestim " +
-                         " where ED.idrelated like 'estim§%' " +
+                         " where ED.idrelated like 'estimÂ§%' " +
                          " AND (A.flagaccountusage & 128) <> 0 and isnull(A.flagenablebudgetprev, 'N') = 'S' " +
                          " and ED.idacc<> EP.idacc " +
                          " and ED.yentry= " + esercizio;
 
             DataTable t = Conn.SQLRunner(sql);
             if (t.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rEstim in t.Rows) {
                     //Risalva il contratto attivo collegato
                     //Risalva il c.attivo in questione
                     rigeneraContrattoAttivo(rEstim);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -3985,12 +3983,12 @@ WHERE
                          " join account A on ED.idacc = A.idacc " +
                          " join epaccyear EP on EP.idepacc = ED.idepacc and ED.yentry = EP.ayear " +
                          " join invoicedetail ESTD on ED.idrelated = " +
-                         " 'inv§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yinv) + '§' + " +
-                         " convert(varchar(30), ESTD.ninv) + '§' + " +
+                         " 'invÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yinv) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.ninv) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) " +
                          " join invoice ES on ES.idinvkind = ESTD.idinvkind and ES.yinv = ESTD.yinv and ES.ninv = ESTD.ninv " +
-                         " where ED.idrelated like 'inv§%' " +
+                         " where ED.idrelated like 'invÂ§%' " +
                          " AND (A.flagaccountusage & 128) <> 0 and isnull(A.flagenablebudgetprev, 'N') = 'S' " +
                          " and ED.idacc<> EP.idacc " +
                          " and ED.yentry= " + esercizio;
@@ -3998,17 +3996,17 @@ WHERE
             DataTable t = Conn.SQLRunner(sql);
             if (t.Rows.Count > 0) {
                 DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rEstim in t.Rows) {
                     //Risalva il contratto attivo collegato
                     //Risalva il c.attivo in questione
                     rigeneraFattura(rEstim, invkind);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4018,9 +4016,9 @@ WHERE
 
         private void BtncrgAccertamentiBudgetEstimate_Click(object sender, EventArgs e) {
             string sql = " select  " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) as 'idrelated', " +
                          //" E2.idrelated 'missing', E2.yepacc 'missing y' ,E2.nepacc 'missing n', " +
                          " E1.idrelated 'idrelated accertamento effettivo', " +
@@ -4031,13 +4029,13 @@ WHERE
                          " AMD.ayear = isnull(year(ESTD.start), ESTD.yestim)" +
                          " left outer join account A on AMD.idacc = A.idacc" +
                          " left outer join epaccview E2 on E2.idrelated = " +
-                         " 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum) and E2.nphase=E1.nphase and E2.ayear=E1.ayear " +
-                         " where isnull(E1.idrelated, '') <> 'estim§' + convert(varchar(30), ESTD.idestimkind) + '§' + " +
-                         " convert(varchar(30), ESTD.yestim) + '§' + " +
-                         " convert(varchar(30), ESTD.nestim) + '§' + " +
+                         " where isnull(E1.idrelated, '') <> 'estimÂ§' + convert(varchar(30), ESTD.idestimkind) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.yestim) + 'Â§' + " +
+                         " convert(varchar(30), ESTD.nestim) + 'Â§' + " +
                          " convert(varchar(30), ESTD.rownum)" +
                          " and ESTD.stop is null " +
                          " and AMD.ayear = E1.ayear " +
@@ -4050,14 +4048,14 @@ WHERE
                 t.TableName = "epacc"; DataSet d = new DataSet();
                 d.Tables.Add(t);
 
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
 
                 string prevContract = "";
                 DataTable estimDetail = Conn.CreateTableByName("estimatedetail", "*");
                 foreach (DataRow r in t.Rows) {
-                    var currContract = $"{r["idestimkind"]}§{r["yestim"]}§{r["nestim"]}";
-                    int oldval = progBar.Value;
+                    var currContract = $"{r["idestimkind"]}Â§{r["yestim"]}Â§{r["nestim"]}";
+                    //int oldval = progBar.Value;
                     if (currContract != prevContract) {
                         prevContract = currContract;
                         if (estimDetail.Rows.Count > 0) {
@@ -4065,13 +4063,13 @@ WHERE
                             estimDetail.Clear();
                         }
                     }
-                    progBar.Value = oldval;
+                    //progBar.Value = oldval;
                     //Set r.idepacc  to null
                     Conn.RUN_SELECT_INTO_TABLE(estimDetail, null,
                         QHS.MCmp(r, "idestimkind", "yestim", "nestim", "rownum"), null, false);
              
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     Application.DoEvents();
                 }
 
@@ -4080,7 +4078,7 @@ WHERE
                     scollegaDettagliContrattoAttivo(estimDetail);
                     estimDetail.Clear();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
 
             }
@@ -4139,8 +4137,8 @@ WHERE
                 rigeneraScrittura(cAttivo, "estimate");
             }
             
-            progBar.Increment(1);
-            progBar.Update();
+            //progBar.Increment(1);
+            //progBar.Update();
         }
 
         private void btnResiduiPassErrati_Click(object sender, EventArgs e) {
@@ -4158,18 +4156,18 @@ WHERE
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t?.Rows.Count > 0) {
             
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
 
                 foreach (DataRow r in t.Rows) {
                     for (int es = CfgFn.GetNoNullInt32(r["yepexp"]); es <= Conn.GetEsercizio(); es++) {
                         Conn.CallSP("trg_evaluatearrearsepexp", new[] { r["idepexp"], es });
                     }
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4191,18 +4189,18 @@ WHERE
 
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t?.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
 
                 foreach (DataRow r in t.Rows) {
                     for (int es = CfgFn.GetNoNullInt32(r["yepacc"]); es <= Conn.GetEsercizio(); es++) {
                         Conn.CallSP("trg_evaluatearrearsepacc", new[] { r["idepacc"], es });
                     }                     
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     Application.DoEvents();                   
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4258,8 +4256,8 @@ WHERE
             //Si correggono modificando la causale della fattura rendendola consona all'impegno di b.
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t?.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
 
                 foreach (DataRow r in t.Rows) {
@@ -4274,7 +4272,7 @@ WHERE
 
                     rigeneraFattura(r, invkind);
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
 
             }
@@ -4328,9 +4326,9 @@ WHERE
                     " from entrydetail ED \r\n\t\t" +
                     " left outer join account a on ED.idacc = a.idacc" +
                     " left outer join mandatedetail ESTD on ED.idrelated = \r\n\t\t" +
-                    " 'man§' + convert(varchar(30), ESTD.idmankind) + '§' + \r\n\t\t" +
-                    " convert(varchar(30), ESTD.yman) + '§' + \r\n\t\t" +
-                    " convert(varchar(30), ESTD.nman) + '§' + \r\n\t\t" +
+                    " 'manÂ§' + convert(varchar(30), ESTD.idmankind) + 'Â§' + \r\n\t\t" +
+                    " convert(varchar(30), ESTD.yman) + 'Â§' + \r\n\t\t" +
+                    " convert(varchar(30), ESTD.nman) + 'Â§' + \r\n\t\t" +
                     " convert(varchar(30), ESTD.rownum)\r\n\t\t " +
                     " left outer join epexp E1 on  E1.idepexp = ED.idepexp \r\n\t\t" +
                     " left outer join epexpyear EY1 on  EY1.idepexp = ED.idepexp and EY1.ayear = ED.yentry \r\n\t\t" +
@@ -4345,18 +4343,18 @@ WHERE
 
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t?.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rAccBudget in t.Rows) {
-                    int lastVal = progBar.Value;
+                    //int lastVal = progBar.Value;
                     //Risalva il contratto attivo collegato
                     //Risalva il c.attivo in questione
                     rigeneraContrattoPassivo(rAccBudget);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
 
             }
@@ -4372,8 +4370,8 @@ WHERE
                 idrelated,ed.description 'descrizione',m.idmankind 'id tipo contr.passivo'
                     ,m.yman 'anno c.passivo',m.nman 'n.c.passivo',ED.* from entrydetail ed 
 	        join account A on ED.idacc=A.idacc 
-	        left outer join mandate m on ed.idrelated like 'man§'+convert(varchar(30),m.idmankind)+'§'+
-                convert(varchar(30),m.yman)+'§'+convert(varchar(30),m.nman)+'§%'
+	        left outer join mandate m on ed.idrelated like 'manÂ§'+convert(varchar(30),m.idmankind)+'Â§'+
+                convert(varchar(30),m.yman)+'Â§'+convert(varchar(30),m.nman)+'Â§%'
 	        where ed.yentry={esercizio} and A.flagregistry='S' and ed.idreg is null
 		        order by nentry";
             DataTable t = Conn.SQLRunner(sql, false, 0);
@@ -4394,23 +4392,23 @@ WHERE
             string sql = $@"
             select distinct m.idmankind ,m.yman ,m.nman  from entrydetail ed 
 	            join account A on ED.idacc=A.idacc 
-	            join mandate m on ed.idrelated like 'man§'+convert(varchar(30),m.idmankind)+'§'+
-                        convert(varchar(30),m.yman)+'§'+convert(varchar(30),m.nman)+'§%'
+	            join mandate m on ed.idrelated like 'manÂ§'+convert(varchar(30),m.idmankind)+'Â§'+
+                        convert(varchar(30),m.yman)+'Â§'+convert(varchar(30),m.nman)+'Â§%'
 	            where ed.yentry={esercizio} and A.flagregistry='S' and ed.idreg is null 
 		       ";
             DataTable t = Conn.SQLRunner(sql,false,0);
             if (t.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rMan in t.Rows) {
                     //Risalva il contratto attivo collegato
                     //Risalva il c.attivo in questione
                     rigeneraContrattoPassivo(rMan);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4424,8 +4422,8 @@ WHERE
                 idrelated,ed.description 'descrizione',m.idmankind 'id tipo contr.passivo'
                     ,m.yman 'anno c.passivo',m.nman 'n.c.passivo',ED.* from entrydetail ed 
 	        join account A on ED.idacc=A.idacc 
-	        left outer join mandate m on ed.idrelated like 'man§'+convert(varchar(30),m.idmankind)+'§'+
-                convert(varchar(30),m.yman)+'§'+convert(varchar(30),m.nman)+'§%'
+	        left outer join mandate m on ed.idrelated like 'manÂ§'+convert(varchar(30),m.idmankind)+'Â§'+
+                convert(varchar(30),m.yman)+'Â§'+convert(varchar(30),m.nman)+'Â§%'
 	        where ed.yentry={esercizio} and A.flagupb='S' and ed.idupb is null
 		        order by nentry";
             DataTable t = Conn.SQLRunner(sql, false, 0);
@@ -4446,23 +4444,23 @@ WHERE
             string sql = $@"
             select distinct m.idmankind ,m.yman ,m.nman  from entrydetail ed 
 	            join account A on ED.idacc=A.idacc 
-	            join mandate m on ed.idrelated like 'man§'+convert(varchar(30),m.idmankind)+'§'+
-                        convert(varchar(30),m.yman)+'§'+convert(varchar(30),m.nman)+'§%'
+	            join mandate m on ed.idrelated like 'manÂ§'+convert(varchar(30),m.idmankind)+'Â§'+
+                        convert(varchar(30),m.yman)+'Â§'+convert(varchar(30),m.nman)+'Â§%'
 	            where ed.yentry={esercizio} and A.flagupb='S' and ed.idupb is null 
 		       ";
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rMan in t.Rows) {
                     //Risalva il contratto attivo collegato
                     //Risalva il c.attivo in questione
                     rigeneraContrattoPassivo(rMan);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4503,8 +4501,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 int maxEsercizioEP = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("account", null, "max(ayear)"));
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
 
                 foreach (DataRow rEpExp in t.Rows) {
                     object parid = Conn.DO_READ_VALUE("epexp", QHS.CmpEq("idepexp", rEpExp["idepexp"]), "paridepexp");
@@ -4522,12 +4520,12 @@ WHERE
                     
 
                     }
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     Application.DoEvents();
                 }
 
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
 
 
@@ -4570,8 +4568,8 @@ WHERE
                 DataSet d = new DataSet();
                 d.Tables.Add(t);
                 int maxEsercizioEP = CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("account", null, "max(ayear)"));
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
 
                 foreach (DataRow rEpAcc in t.Rows) {
                     object parid = Conn.DO_READ_VALUE("epacc", QHS.CmpEq("idepacc", rEpAcc["idepacc"]), "paridepacc");
@@ -4589,12 +4587,12 @@ WHERE
                        
 
                     }
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                     Application.DoEvents();
                 }
 
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
 
 
@@ -4617,7 +4615,7 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-			 join mandate pt on e1.idrelated= 'man§'+convert(varchar(30),pt.idmankind)+'§'+convert(varchar(30),pt.yman)+'§'+convert(varchar(30),pt.nman)
+			 join mandate pt on e1.idrelated= 'manÂ§'+convert(varchar(30),pt.idmankind)+'Â§'+convert(varchar(30),pt.yman)+'Â§'+convert(varchar(30),pt.nman)
 				where E1.identrykind= 1  and (A.flag & 16) =0 and E1.yentry={esercizio} and ED1.idepexp is null and ED1.idepacc is null 
                         and (A.flagaccountusage&48 <>0)      and(isnull(U.flag,0) & 4) =0  and isnull(AA.flagaccountusage,256)&(64+128+256)<>0
                     and ( pt.yman >= {primoAnnoBudget})
@@ -4625,16 +4623,16 @@ WHERE
             ";
             DataTable t = Conn.SQLRunner(sql, false, 0);
             if (t.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rMan in t.Rows) {
                     //Risalva il c.passivo in questione
                     rigeneraContrattoPassivo(rMan);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4676,7 +4674,7 @@ WHERE
                         and isnull(ed1.description,'') <> 'iva detraibile'
                         and isnull(ed1.description,'') <> 'iva detraibile split'
                         and isnull(ed1.description,'') <> 'iva detraibile intracom'
-                        and not isnull(e1.idrelated,'') like 'ivapay§%'
+                        and not isnull(e1.idrelated,'') like 'ivapayÂ§%'
                         and not isnull(ed1.description,'') like 'Ritenuta positiva su riga versamento %'
                         and not isnull(ed1.description,'') like 'Ritenuta negativa su riga versamento %'
                         and not ( isnull(ed1.description,'')  like 'Contributi positivi, Versamento,%'   and ed1.amount<0)
@@ -4718,7 +4716,7 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-			 join estimate pt on e1.idrelated= 'estim§'+convert(varchar(30),pt.idestimkind)+'§'+convert(varchar(30),pt.yestim)+'§'+convert(varchar(30),pt.nestim)
+			 join estimate pt on e1.idrelated= 'estimÂ§'+convert(varchar(30),pt.idestimkind)+'Â§'+convert(varchar(30),pt.yestim)+'Â§'+convert(varchar(30),pt.nestim)
 				where E1.identrykind= 1  and E1.yentry={esercizio} and ED1.idepexp is null and ED1.idepacc is null and (A.flagaccountusage&48 <>0)
                         and (A.flag & 16) =0  and(isnull(U.flag,0) & 4) =0       and isnull(AA.flagaccountusage,256)&(64+128+256)<>0
                         and ( pt.yestim >= {primoAnnoBudget})
@@ -4726,16 +4724,16 @@ WHERE
         ";
             DataTable t = Conn.SQLRunner(sql);
             if (t.Rows.Count > 0) {
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rEstim in t.Rows) {                    
                     //Risalva il c.attivo in questione
                     rigeneraContrattoAttivo(rEstim);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4752,7 +4750,7 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-			 join invoiceview pt on e1.idrelated= 'inv§'+convert(varchar(30),pt.idinvkind)+'§'+convert(varchar(30),pt.yinv)+'§'+convert(varchar(30),pt.ninv)
+			 join invoiceview pt on e1.idrelated= 'invÂ§'+convert(varchar(30),pt.idinvkind)+'Â§'+convert(varchar(30),pt.yinv)+'Â§'+convert(varchar(30),pt.ninv)
 				where E1.identrykind= 1  and E1.yentry={esercizio} and ED1.idepexp is null and ED1.idepacc is null and (A.flagaccountusage&48 <>0)
                             and (A.flag & 16) =0      and(isnull(U.flag,0) & 4) =0  and isnull(AA.flagaccountusage,256)&(64+128+256)<>0
 				order by pt.idinvkind,pt.yinv,pt.ninv
@@ -4760,16 +4758,16 @@ WHERE
             DataTable t = Conn.SQLRunner(sql);
             if (t.Rows.Count > 0) {
                 DataTable invkind = Conn.RUN_SELECT("invoicekind", "*", null, null, null, false);
-                progBar.Maximum = t.Rows.Count;
-                progBar.Value = 0;
+                //progBar.Maximum = t.Rows.Count;
+                //progBar.Value = 0;
                 foreach (DataRow rInv in t.Rows) {
                     //Risalva la fatt.
                     rigeneraFattura(rInv, invkind);
 
-                    progBar.Update();
+                    //progBar.Update();
                     Application.DoEvents();
                 }
-                progBar.Value = 0;
+                //progBar.Value = 0;
                 txtCurrent.Text = "";
             }
             else {
@@ -4791,8 +4789,8 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-			 join paymenttransmission pt on e1.idrelated= 'paytrans§'+convert(varchar(30),pt.ypaymenttransmission)+'§'+convert(varchar(30),pt.npaymenttransmission) 
-                    join expense pagamento on ED1.idrelated ='expense§'+convert(varchar(20),pagamento.idexp)+'§debit'
+			 join paymenttransmission pt on e1.idrelated= 'paytransÂ§'+convert(varchar(30),pt.ypaymenttransmission)+'Â§'+convert(varchar(30),pt.npaymenttransmission) 
+                    join expense pagamento on ED1.idrelated ='expenseÂ§'+convert(varchar(20),pagamento.idexp)+'Â§debit'
                     left outer join expenselink EL on EL.idchild=pagamento.idexp  and EL.nlevel = {contabPhaseExp}        
                     left outer join expense impegno on impegno.idexp = EL.idparent                    
                     left outer   join expensemandate on impegno.idexp=expensemandate.idexp                 
@@ -4805,8 +4803,8 @@ WHERE
             DataTable t = Conn.SQLRunner(sql);
             if (t.Rows.Count > 0) {
                 int n = t.Rows.Count;
-                progBar.Maximum = n;
-                progBar.Value = 0;
+                //progBar.Maximum = n;
+                //progBar.Value = 0;
                 foreach (DataRow r in t.Rows) {
                     DataSet D = new DataSet("paymenttransmDS");
                     DataTable T = Conn.RUN_SELECT("paymenttransmission", "*", null, QHS.CmpEq("kpaymenttransmission",r["kpaymenttransmission"]), null, false);
@@ -4814,12 +4812,12 @@ WHERE
                     D.Tables.Add(T);
                     txtCurrent.Text = "Elenco di trasmissione n." + r["npaymenttransmission"];
                     rigeneraScrittura(T.Rows[0], "paymenttransmission");
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                 }
                 txtCurrent.Text = "";
-                progBar.Value = 0;
-                progBar.Update();
+                //progBar.Value = 0;
+                //progBar.Update();
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4840,8 +4838,8 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-			 join proceedstransmission pt on e1.idrelated= 'protrans§'+convert(varchar(30),pt.yproceedstransmission)+'§'+convert(varchar(30),pt.nproceedstransmission) 
-                     left outer join income incasso on ED1.idrelated ='income§'+convert(varchar(20),incasso.idinc)+'§credit'
+			 join proceedstransmission pt on e1.idrelated= 'protransÂ§'+convert(varchar(30),pt.yproceedstransmission)+'Â§'+convert(varchar(30),pt.nproceedstransmission) 
+                     left outer join income incasso on ED1.idrelated ='incomeÂ§'+convert(varchar(20),incasso.idinc)+'Â§credit'
                     left outer join incomelink EL2 on EL2.idchild=incasso.idinc  and EL2.nlevel = {contabPhaseInc}    
                     left outer join income accertamento on accertamento.idinc = EL2.idparent            
                     left outer   join incomeestimate on accertamento.idinc=incomeestimate.idinc
@@ -4850,7 +4848,7 @@ WHERE
                         and isnull(ed1.description,'') <> 'iva detraibile'
                         and isnull(ed1.description,'') <> 'iva detraibile split'
                         and isnull(ed1.description,'') <> 'iva detraibile intracom'
-                        and not isnull(e1.idrelated,'') like 'ivapay§%'
+                        and not isnull(e1.idrelated,'') like 'ivapayÂ§%'
                         and not isnull(ed1.description,'') like 'Ritenuta positiva su riga versamento %'
                         and not isnull(ed1.description,'') like 'Ritenuta negativa su riga versamento %'
                         and not ( isnull(ed1.description,'')  like 'Contributi positivi, Versamento,%'   and ed1.amount<0)
@@ -4865,8 +4863,8 @@ WHERE
             DataTable t = Conn.SQLRunner(sql);
             if (t.Rows.Count > 0) {
                 int n = t.Rows.Count;
-                progBar.Maximum = n;
-                progBar.Value = 0;
+                //progBar.Maximum = n;
+                //progBar.Value = 0;
                 foreach (DataRow r in t.Rows) {
                     DataSet D = new DataSet("proceedstransmDS");
                     DataTable T = Conn.RUN_SELECT("proceedstransmission", "*", null, QHS.CmpEq("kproceedstransmission", r["kproceedstransmission"]), null, false);
@@ -4874,12 +4872,12 @@ WHERE
                     D.Tables.Add(T);
                     txtCurrent.Text = "Elenco di trasmissione n." + r["nproceedstransmission"];
                     rigeneraScrittura(T.Rows[0], "proceedstransmission");
-                    progBar.Increment(1);
-                    progBar.Update();
+                    //progBar.Increment(1);
+                    //progBar.Update();
                 }
                 txtCurrent.Text = "";
-                progBar.Value = 0;
-                progBar.Update();
+                //progBar.Value = 0;
+                //progBar.Update();
             }
             else {
                 show(this, "Nessun problema riscontrato", "Avviso");
@@ -4917,7 +4915,7 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-                    join expense pagamento on ED1.idrelated ='expense§'+convert(varchar(20),pagamento.idexp)+'§debit'
+                    join expense pagamento on ED1.idrelated ='expenseÂ§'+convert(varchar(20),pagamento.idexp)+'Â§debit'
                     left outer join expenselink EL on EL.idchild=pagamento.idexp  and EL.nlevel = {contabPhaseExp}        
                     left outer join expense impegno on impegno.idexp = EL.idparent                    
                     left outer   join expensemandate on impegno.idexp=expensemandate.idexp
@@ -4926,7 +4924,7 @@ WHERE
                         and isnull(ed1.description,'') <> 'iva detraibile'
                         and isnull(ed1.description,'') <> 'iva detraibile split'
                         and isnull(ed1.description,'') <> 'iva detraibile intracom'
-                        and not isnull(e1.idrelated,'') like 'ivapay§%'
+                        and not isnull(e1.idrelated,'') like 'ivapayÂ§%'
                         and not isnull(ed1.description,'') like 'Ritenuta positiva su riga versamento %'
                         and not isnull(ed1.description,'') like 'Ritenuta negativa su riga versamento %'
                         and not ( isnull(ed1.description,'')  like 'Contributi positivi, Versamento,%'   and ed1.amount<0)
@@ -4988,7 +4986,7 @@ WHERE
                     left outer join accmotivedetail AM on ED1.idaccmotive=AM.idaccmotive and AM.ayear=ED1.yentry
                     left outer join accmotive AMM on ED1.idaccmotive=AMM.idaccmotive 
                     left outer join account AA on AA.idacc=AM.idacc 
-                    join income incasso on ED1.idrelated ='income§'+convert(varchar(20),incasso.idinc)+'§credit'
+                    join income incasso on ED1.idrelated ='incomeÂ§'+convert(varchar(20),incasso.idinc)+'Â§credit'
                     left outer join incomelink EL2 on EL2.idchild=incasso.idinc  and EL2.nlevel = {contabPhaseInc}    
                     left outer join income accertamento on accertamento.idinc = EL2.idparent            
                     left outer   join incomeestimate on accertamento.idinc=incomeestimate.idinc
@@ -4997,7 +4995,7 @@ WHERE
                         and isnull(ed1.description,'') <> 'iva detraibile'
                         and isnull(ed1.description,'') <> 'iva detraibile split'
                         and isnull(ed1.description,'') <> 'iva detraibile intracom'
-                        and not isnull(e1.idrelated,'') like 'ivapay§%'
+                        and not isnull(e1.idrelated,'') like 'ivapayÂ§%'
                         and not isnull(ed1.description,'') like 'Ritenuta positiva su riga versamento %'
                         and not isnull(ed1.description,'') like 'Ritenuta negativa su riga versamento %'
                         and not ( isnull(ed1.description,'')  like 'Contributi positivi, Versamento,%'   and ed1.amount<0)
@@ -5038,10 +5036,10 @@ WHERE
 	join entry E on ED.yentry=E.yentry and ED.nentry=E.nentry
 	join account A on A.idacc=ED.idacc and A.flagaccountusage & 16  <>0  --debito
 	left outer join epexp EE on EE.idepexp=ED.idepexp
-	left outer join mandatedetail  md on EE.idrelated = 'man§'+
-                         convert(varchar(30),MD.idmankind)+'§'+ 
-                         convert(varchar(30),MD.yman)+'§'+
-                         convert(varchar(30),MD.nman)+'§'+
+	left outer join mandatedetail  md on EE.idrelated = 'manÂ§'+
+                         convert(varchar(30),MD.idmankind)+'Â§'+ 
+                         convert(varchar(30),MD.yman)+'Â§'+
+                         convert(varchar(30),MD.nman)+'Â§'+
                          convert(varchar(30),MD.rownum) 
 	where ED.amount>0 ---avere
 		and (EE.idepexp is null or EE.flagvariation='N')
@@ -5071,10 +5069,10 @@ WHERE
 	join entry E on ED.yentry=E.yentry and ED.nentry=E.nentry
 	join account A on A.idacc=ED.idacc and A.flagaccountusage & 16  <>0  --debito
 	 join epexp EE on EE.idepexp=ED.idepexp
-	left outer join mandatedetail  md on EE.idrelated = 'man§'+
-                         convert(varchar(30),MD.idmankind)+'§'+ 
-                         convert(varchar(30),MD.yman)+'§'+
-                         convert(varchar(30),MD.nman)+'§'+
+	left outer join mandatedetail  md on EE.idrelated = 'manÂ§'+
+                         convert(varchar(30),MD.idmankind)+'Â§'+ 
+                         convert(varchar(30),MD.yman)+'Â§'+
+                         convert(varchar(30),MD.nman)+'Â§'+
                          convert(varchar(30),MD.rownum) 
 	where ED.amount<0 ---dare
 		and (EE.flagvariation='S')
@@ -5104,10 +5102,10 @@ WHERE
 	join entry E on ED.yentry=E.yentry and ED.nentry=E.nentry
 	join account A on A.idacc=ED.idacc and A.flagaccountusage & 32  <>0  --credito
 	left outer join epacc EE on EE.idepacc=ED.idepacc
-	left outer join estimatedetail  md on EE.idrelated = 'estim§'+
-                         convert(varchar(30),MD.idestimkind)+'§'+ 
-                         convert(varchar(30),MD.yestim)+'§'+
-                         convert(varchar(30),MD.nestim)+'§'+
+	left outer join estimatedetail  md on EE.idrelated = 'estimÂ§'+
+                         convert(varchar(30),MD.idestimkind)+'Â§'+ 
+                         convert(varchar(30),MD.yestim)+'Â§'+
+                         convert(varchar(30),MD.nestim)+'Â§'+
                          convert(varchar(30),MD.rownum) 
 	where ED.amount<0 ---dare
 		and (EE.idepacc is null or EE.flagvariation='N')
@@ -5137,10 +5135,10 @@ WHERE
 	join entry E on ED.yentry=E.yentry and ED.nentry=E.nentry
 	join account A on A.idacc=ED.idacc and A.flagaccountusage & 32  <>0  --credito
 	join epacc EE on EE.idepacc=ED.idepacc
-	left outer join estimatedetail  md on EE.idrelated = 'estim§'+
-                         convert(varchar(30),MD.idestimkind)+'§'+ 
-                         convert(varchar(30),MD.yestim)+'§'+
-                         convert(varchar(30),MD.nestim)+'§'+
+	left outer join estimatedetail  md on EE.idrelated = 'estimÂ§'+
+                         convert(varchar(30),MD.idestimkind)+'Â§'+ 
+                         convert(varchar(30),MD.yestim)+'Â§'+
+                         convert(varchar(30),MD.nestim)+'Â§'+
                          convert(varchar(30),MD.rownum) 
 	where ED.amount>0 ---avere
 		and ( EE.flagvariation='S')
@@ -5182,8 +5180,8 @@ WHERE
 
             btnRigeneraLiqIva.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("ivaPayDS");
                 DataTable T = Conn.RUN_SELECT("ivapay", "*", null, QHS.CmpKey(r), null, false);
@@ -5193,12 +5191,12 @@ WHERE
                 D.Tables.Add(T);               
                 txtCurrent.Text = "Liquidazione iva n." + r["nivapay"];
                 rigeneraScrittura(T.Rows[0], "ivapay");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnRigeneraLiqIva.Visible = true;
         }
 
@@ -5207,10 +5205,10 @@ WHERE
             string sql =
                 "select  e1.phase as 'Fase',e1.yepexp as 'Anno imp.',e1.nepexp as 'N.',e1.description as 'descrizione'," +
                 " e1.totamount 'importo totale',invd.invoicekind 'tipo fatt.',invd.yinv 'anno fatt.', invd.ninv 'n.fatt.' from epexpview e1 " +
-                "  join invoicedetailview invd on E1.idrelated = 'inv§'+" +
-                "convert(varchar(30),invd.idinvkind)+'§'+" +
-                "convert(varchar(30),invd.yinv)+'§'+" +
-                "convert(varchar(30),invd.ninv)+'§'+" +
+                "  join invoicedetailview invd on E1.idrelated = 'invÂ§'+" +
+                "convert(varchar(30),invd.idinvkind)+'Â§'+" +
+                "convert(varchar(30),invd.yinv)+'Â§'+" +
+                "convert(varchar(30),invd.ninv)+'Â§'+" +
                 "convert(varchar(30),invd.rownum) " +
                 " where e1.totcurramount <> 0 " +
                 " and invd.idmankind  is not null and invd.yman>="+primoAnnoBudget+
@@ -5253,8 +5251,8 @@ WHERE
 
             btnSpeseFondoEconomale.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("pettycashoperationDS");
                 DataTable T = Conn.RUN_SELECT("pettycashoperation", "*", null,
@@ -5263,12 +5261,12 @@ WHERE
                 D.Tables.Add(T);
                 txtCurrent.Text = $@"Piccola spesa {r["pettycode"]} n.{r["noperation"]}, fondo {r["pettycash"]}";
                 rigeneraScrittura(T.Rows[0], "pettycashoperation");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnSpeseFondoEconomale.Visible = true;
         }
 
@@ -5401,8 +5399,8 @@ WHERE
 
             btnRigeneraLiqImposte.Visible = false;
             int n = t.Rows.Count;
-            progBar.Maximum = n;
-            progBar.Value = 0;
+            //progBar.Maximum = n;
+            //progBar.Value = 0;
             foreach (DataRow r in t.Rows) {
                 DataSet D = new DataSet("taxPayDS");
                 DataTable T = Conn.RUN_SELECT("taxpay", "*", null, QHS.CmpKey(r), null, false);
@@ -5412,12 +5410,12 @@ WHERE
                 D.Tables.Add(T);
                 txtCurrent.Text = "Liquidazione imposte n." + r["ntaxpay"];
                 rigeneraScrittura(T.Rows[0], "taxpay");
-                progBar.Increment(1);
-                progBar.Update();
+                //progBar.Increment(1);
+                //progBar.Update();
             }
             txtCurrent.Text = "";
-            progBar.Value = 0;
-            progBar.Update();
+            //progBar.Value = 0;
+            //progBar.Update();
             btnRigeneraLiqImposte.Visible = true;
         }
 

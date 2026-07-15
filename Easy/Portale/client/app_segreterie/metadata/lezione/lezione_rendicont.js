@@ -22,16 +22,16 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
+			if (self.isNullOrMinDate(parentRow.start))
+				parentRow.start = new Date();
+			if (self.isNullOrMinDate(parentRow.stop))
+				parentRow.stop = new Date();
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -50,7 +50,21 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#lezione_rendicont_idcorsostudio'), true);
+				this.enableControl($('#lezione_rendicont_iddidprog'), true);
+				this.enableControl($('#lezione_rendicont_iddidprogcurr'), true);
+				this.enableControl($('#lezione_rendicont_iddidprogori'), true);
+				this.enableControl($('#lezione_rendicont_iddidproganno'), true);
+				this.enableControl($('#lezione_rendicont_iddidprogporzanno'), true);
+				this.enableControl($('#lezione_rendicont_idattivform'), true);
+				this.enableControl($('#lezione_rendicont_idcanale'), true);
+				this.enableControl($('#lezione_rendicont_idaffidamento'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -142,10 +156,10 @@
 				$('#lezione_rendicont_iddidprogporzanno').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
 				$('#lezione_rendicont_iddidprogporzanno').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idattivform);
 				if (t.name === "attivformdefaultview" && r !== null) {
-					this.state.DS.tables.canale.staticFilter(window.jsDataQuery.eq("idattivform", r.idattivform));
-					if (this.state.DS.tables.canale.rows.length)
-						if (this.state.DS.tables.canale.rows[0].idattivform !== r.idattivform) {
-							this.state.DS.tables.canale.clear();
+					this.state.DS.tables.canaledefaultview.staticFilter(window.jsDataQuery.eq("idattivform", r.idattivform));
+					if (this.state.DS.tables.canaledefaultview.rows.length)
+						if (this.state.DS.tables.canaledefaultview.rows[0].idattivform !== r.idattivform) {
+							this.state.DS.tables.canaledefaultview.clear();
 							$('#lezione_rendicont_idcanale').val('');
 						}
 				}
@@ -208,6 +222,8 @@
 			},
 
 			//beforePost
+
+			//afterPost
 
 			children: ['rendicontlezionestud'],
 			haveChildren: function () {

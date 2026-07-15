@@ -829,6 +829,15 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idsor1" type="xs:int" minOccurs="0" />
+              <xs:element name="sortcode1" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor2" type="xs:int" minOccurs="0" />
+              <xs:element name="sortcode2" type="xs:string" minOccurs="0" />
+              <xs:element name="idsor3" type="xs:int" minOccurs="0" />
+              <xs:element name="sortcode3" type="xs:string" minOccurs="0" />
+              <xs:element name="idcostpartition" type="xs:int" minOccurs="0" />
+              <xs:element name="costpartitioncode" type="xs:string" minOccurs="0" />
+              <xs:element name="underwritingkind_desc" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -960,6 +969,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1172,7 +1182,6 @@
       <msdata:Relationship name="upb_autoexpensesorting" msdata:parent="upb" msdata:child="autoexpensesorting" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="sortingkind_autoexpensesorting" msdata:parent="sortingkind" msdata:child="autoexpensesorting" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
       <msdata:Relationship name="sorting_autoexpensesorting" msdata:parent="sorting" msdata:child="autoexpensesorting" msdata:parentkey="idsor" msdata:childkey="idsor" />
-      <msdata:Relationship name="managerupb" msdata:parent="manager" msdata:child="upb" msdata:parentkey="idman" msdata:childkey="idman" />
       <msdata:Relationship name="underwriterupb" msdata:parent="underwriter" msdata:child="upb" msdata:parentkey="idunderwriter" msdata:childkey="idunderwriter" />
       <msdata:Relationship name="upbupb" msdata:parent="upb" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="paridupb" />
       <msdata:Relationship name="sorting2upb" msdata:parent="sorting02" msdata:child="upb" msdata:parentkey="idsor" msdata:childkey="idsor02" />
@@ -1186,6 +1195,7 @@
       <msdata:Relationship name="FK_upb_upbyear" msdata:parent="upb" msdata:child="upbyear" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="upb_capofila_upb" msdata:parent="upb_capofila" msdata:child="upb" msdata:parentkey="idupb" msdata:childkey="idupb_capofila" />
       <msdata:Relationship name="FK_treasurer_upb" msdata:parent="treasurer" msdata:child="upb" msdata:parentkey="idtreasurer" msdata:childkey="idtreasurer" />
+      <msdata:Relationship name="managerupb" msdata:parent="manager" msdata:child="upb" msdata:parentkey="idman" msdata:childkey="idman" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

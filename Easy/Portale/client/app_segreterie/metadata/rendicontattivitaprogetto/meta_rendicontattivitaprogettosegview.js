@@ -23,12 +23,16 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'registry_title', 'Partecipante', null, 1300, 101);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_surname', 'Cognome Partecipante', null, 1100, 50);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_forename', 'Nome Partecipante', null, 1200, 50);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_extmatricula', 'Matricola Partecipante', null, 1300, 40);
+						this.describeAColumn(table, 'getregistrydocentiamministrativi_contratto', 'Contratto Partecipante', null, 1500, 50);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 3000, -1);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_orepreventivate', 'Numero di ore preventivate', null, 7000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_datainizioprevista', 'Data inizio prevista', null, 11000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_stop', 'Data fine prevista', null, 12000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogettokind_title', 'Tipo di attività', null, 13200, 255);
+						this.describeAColumn(table, 'rendicontattivitaprogetto_rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 14000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

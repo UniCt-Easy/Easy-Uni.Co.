@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_rendicontlezionestud_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_rendicontlezionestud_default: DataSet {
+public partial class dsmeta_rendicontlezionestud_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -89,11 +87,23 @@ private void initClass() {
 	tregistrystudentiview.defineColumn("registry_foreigncf", typeof(string));
 	tregistrystudentiview.defineColumn("registry_forename", typeof(string));
 	tregistrystudentiview.defineColumn("registry_gender", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idaccmotivecredit", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idaccmotivedebit", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idanpr", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idateco", typeof(int));
 	tregistrystudentiview.defineColumn("registry_idcategory", typeof(string));
 	tregistrystudentiview.defineColumn("registry_idcentralizedcategory", typeof(string));
 	tregistrystudentiview.defineColumn("registry_idexternal", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idfonteindicebibliometrico", typeof(int));
 	tregistrystudentiview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idnace", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idnaturagiur", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idnumerodip", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idreg_istituti", typeof(int));
 	tregistrystudentiview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idsasd", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idstruttura", typeof(int));
+	tregistrystudentiview.defineColumn("registry_indicebibliometrico", typeof(int));
 	tregistrystudentiview.defineColumn("registry_ipa_fe", typeof(string));
 	tregistrystudentiview.defineColumn("registry_ipa_perlapa", typeof(string));
 	tregistrystudentiview.defineColumn("registry_location", typeof(string));
@@ -103,25 +113,19 @@ private void initClass() {
 	tregistrystudentiview.defineColumn("registry_multi_cf", typeof(string));
 	tregistrystudentiview.defineColumn("registry_p_iva", typeof(string));
 	tregistrystudentiview.defineColumn("registry_pec_fe", typeof(string));
+	tregistrystudentiview.defineColumn("registry_pic", typeof(string));
+	tregistrystudentiview.defineColumn("registry_ricevimento", typeof(string));
 	tregistrystudentiview.defineColumn("registry_rtf", typeof(Byte[]));
 	tregistrystudentiview.defineColumn("registry_sdi_defrifamm", typeof(string));
 	tregistrystudentiview.defineColumn("registry_sdi_norifamm", typeof(string));
-	tregistrystudentiview.defineColumn("registry_studenti_authinps", typeof(string));
-	tregistrystudentiview.defineColumn("registry_studenti_ct", typeof(DateTime),false);
-	tregistrystudentiview.defineColumn("registry_studenti_cu", typeof(string),false);
-	tregistrystudentiview.defineColumn("registry_studenti_idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("registry_studenti_idstuddirittokind", typeof(int));
-	tregistrystudentiview.defineColumn("registry_studenti_idstudprenotkind", typeof(int),false);
-	tregistrystudentiview.defineColumn("registry_studenti_lt", typeof(DateTime),false);
-	tregistrystudentiview.defineColumn("registry_studenti_lu", typeof(string),false);
+	tregistrystudentiview.defineColumn("registry_soggiorno", typeof(string));
 	tregistrystudentiview.defineColumn("registry_surname", typeof(string));
+	tregistrystudentiview.defineColumn("registry_title_en", typeof(string));
 	tregistrystudentiview.defineColumn("registry_toredirect", typeof(int));
 	tregistrystudentiview.defineColumn("registry_txt", typeof(string));
 	tregistrystudentiview.defineColumn("registryclass_description", typeof(string));
 	tregistrystudentiview.defineColumn("residence", typeof(int),false);
 	tregistrystudentiview.defineColumn("residence_description", typeof(string));
-	tregistrystudentiview.defineColumn("studdirittokind_title", typeof(string));
-	tregistrystudentiview.defineColumn("studprenotkind_title", typeof(string));
 	tregistrystudentiview.defineColumn("title", typeof(string),false);
 	tregistrystudentiview.defineColumn("title_description", typeof(string));
 	Tables.Add(tregistrystudentiview);

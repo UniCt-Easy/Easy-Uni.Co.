@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using metadatalibrary;
 using metaeasylibrary;
@@ -60,7 +58,7 @@ namespace Backend.Extensions {
         /// <param name="conn">La connessione da utilizzare per caricare i dati dal database.</param>
         /// <param name="tableName">Il nome della tabella primaria.</param>
         /// <param name="filter">Il filtro sulla chiave primaria.</param>
-        /// <returns>Vero se l'operazione Ë stata eseguita senza problemi.</returns>
+        /// <returns>Vero se l'operazione √® stata eseguita senza problemi.</returns>
         public static void fill(this DataSet ds, IDataAccess conn, string tableName, string filter) {
             var getData = new GetData();
             getData.InitClass(ds, conn, tableName);
@@ -210,7 +208,7 @@ namespace Backend.Extensions {
 
 
                     table.Add(row);
-                    //se la riga non Ë stata modificata
+                    //se la riga non √® stata modificata
                     if (row1.GetValue(Stateoriginal) != null) {
                         table.Add(row1);
                     }
@@ -259,7 +257,7 @@ namespace Backend.Extensions {
                     //riga che costruisco
                     DataRow dr;
 
-                    //caso in cui la riga Ë Original
+                    //caso in cui la riga √® Original
                     if (row.Property(StatePropertyName) == null) {
                         continue;
                     }

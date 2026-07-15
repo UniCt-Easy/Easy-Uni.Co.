@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_riepilogo_coep_upb]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_riepilogo_coep_upb]
@@ -204,6 +202,7 @@ end
 
 --select * from #data
 SELECT   
+	s.description as [Centro di Costo],
 	upb.codeupb as 'Cod. Upb',
 	upb.title as 'Upb',
 	epupbkind.title as 'Tipo upb',
@@ -221,7 +220,7 @@ SELECT
 	end as 'Tipo assestamento Capogruppo',
 	capofila.stop as 'Data Fine Capogruppo',
 
-	treasurer.description as 'Cassiere',
+	treasurer.description as 'Conto Corrente',
 	case 
 		when upb.flagactivity = 1 then 'Istituzionale'
 		when upb.flagactivity = 2 then 'Commerciale'
@@ -282,9 +281,9 @@ LEFT OUTER JOIN epupbkindyear ON epupbkindyear.idepupbkind = upb.idepupbkind and
 
 LEFT OUTER JOIN epupbkind KindCapofila ON KindCapofila.idepupbkind = capofila.idepupbkind
 LEFT OUTER JOIN epupbkindyear KindyearCapofila ON KindyearCapofila.idepupbkind = capofila.idepupbkind and KindyearCapofila.ayear=@ayear
-
+LEFT OUTER JOIN sorting s on s.idsor = upb.idsor01
 GROUP BY #data.idupb,	upb.codeupb,	upb.title,upb.start,upb.stop,
-	upb.printingorder ,treasurer.description,
+	upb.printingorder ,s.description,	treasurer.description,
 	manager.title,epupbkind.title, upb.flagactivity,epupbkindyear.adjustmentkind,
 	capofila.codeupb,	KindCapofila.title,	KindyearCapofila.adjustmentkind,	capofila.stop
 	

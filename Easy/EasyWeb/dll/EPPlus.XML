@@ -11998,7 +11998,7 @@
                  zip.AddFile("ReadMe.txt")
                  ZipEntry e1= zip.AddFile("2008-Regional-Sales-Report.pdf");
                  e1.Encryption= EncryptionAlgorithm.WinZipAes256;
-                 e1.Password= "Top.Secret.No.Peeking!";
+                 e1.Password = "YOUR_SECRET";
                  zip.Save("EncryptedArchive.zip");
              }
             
@@ -12008,7 +12008,7 @@
              {
                  // Specify the password that is used during extraction, for
                  // all entries that require a password:
-                 zip.Password= "Top.Secret.No.Peeking!";
+                 zip.Password = "YOUR_SECRET";
                  zip.ExtractAll("extractDirectory");
              }
              </code>
@@ -12020,7 +12020,7 @@
                  Dim e1 as ZipEntry
                  e1= zip.AddFile("2008-Regional-Sales-Report.pdf")
                  e1.Encryption= EncryptionAlgorithm.WinZipAes256
-                 e1.Password= "Top.Secret.No.Peeking!"
+                 e1.Password = "YOUR_SECRET"
                  zip.Save("EncryptedArchive.zip")
              End Using
             
@@ -12029,7 +12029,7 @@
              Using (zip as ZipFile = ZipFile.Read("EncryptedArchive.zip"))
                  ' Specify the password that is used during extraction, for
                  ' all entries that require a password:
-                 zip.Password= "Top.Secret.No.Peeking!"
+                 zip.Password = "YOUR_SECRET"
                  zip.ExtractAll("extractDirectory")
              End Using
              </code>
@@ -12132,9 +12132,9 @@
              {
                  ZipEntry entry;
                  entry= zip.AddFile("Declaration.txt");
-                 entry.Password= "123456!";
+                 entry.Password = "YOUR_SECRET";
                  entry = zip.AddFile("Report.xls");
-                 entry.Password= "1Secret!";
+                 entry.Password = "YOUR_SECRET";
                  zip.Save("EncryptedArchive.zip");
              }
             
@@ -12143,10 +12143,10 @@
              {
                  ZipEntry entry;
                  entry = zip["Declaration.txt"];
-                 entry.Password = "123456!";
+                 entry.Password = "YOUR_SECRET";
                  entry.Extract("extractDir");
                  entry = zip["Report.xls"];
-                 entry.Password = "1Secret!";
+                 entry.Password = "YOUR_SECRET";
                  entry.Extract("extractDir");
              }
             
@@ -12156,9 +12156,9 @@
              Using zip As New ZipFile
                  Dim entry as ZipEntry
                  entry= zip.AddFile("Declaration.txt")
-                 entry.Password= "123456!"
+                 entry.Password = "YOUR_SECRET"
                  entry = zip.AddFile("Report.xls")
-                 entry.Password= "1Secret!"
+                 entry.Password = "YOUR_SECRET"
                  zip.Save("EncryptedArchive.zip")
              End Using
             
@@ -12167,10 +12167,10 @@
              Using (zip as ZipFile = ZipFile.Read("EncryptedArchive.zip"))
                  Dim entry as ZipEntry
                  entry = zip("Declaration.txt")
-                 entry.Password = "123456!"
+                 entry.Password = "YOUR_SECRET"
                  entry.Extract("extractDir")
                  entry = zip("Report.xls")
-                 entry.Password = "1Secret!"
+                 entry.Password = "YOUR_SECRET"
                  entry.Extract("extractDir")
              End Using
             
@@ -13663,7 +13663,7 @@
                  zip.AddFile("c:\\photos\\personal\\7440-N49th.png", "images");
                  // the following will result in a password-protected file called
                  // files\\docs\\2008-Regional-Sales-Report.pdf  in the archive.
-                 zip.Password = "EncryptMe!";
+                 zip.Password = "YOUR_SECRET";
                  zip.AddFile("c:\\Desktop\\2008-Regional-Sales-Report.pdf", "files\\docs");
                  zip.Save("Archive.zip");
                }
@@ -13683,7 +13683,7 @@
                        zip.AddFile("c:\photos\personal\7440-N49th.png", "images")
                        ' the following will result in a password-protected file called
                        ' files\\docs\\2008-Regional-Sales-Report.pdf  in the archive.
-                       zip.Password = "EncryptMe!"
+                       zip.Password = "YOUR_SECRET"
                        zip.AddFile("c:\Desktop\2008-Regional-Sales-Report.pdf", "files\documents")
                        zip.Save("Archive.zip")
                    End Using
@@ -16461,7 +16461,7 @@
              using (ZipFile zip = new ZipFile())
              {
                  zip.AddFile("ReadMe.txt");
-                 zip.Password= "!Secret1";
+                 zip.Password = "YOUR_SECRET";
                  zip.AddFile("MapToTheSite-7440-N49th.png");
                  zip.AddFile("2008-Regional-Sales-Report.pdf");
                  zip.Save("EncryptedArchive.zip");
@@ -16470,7 +16470,7 @@
              // extract entries that use encryption
              using (ZipFile zip = ZipFile.Read("EncryptedArchive.zip"))
              {
-                 zip.Password= "!Secret1";
+                 zip.Password = "YOUR_SECRET";
                  zip.ExtractAll("extractDir");
              }
             
@@ -16479,9 +16479,9 @@
              <code lang="VB">
              Using zip As New ZipFile
                  zip.AddFile("ReadMe.txt")
-                 zip.Password = "123456!"
+                 zip.Password = "YOUR_SECRET"
                  zip.AddFile("MapToTheSite-7440-N49th.png")
-                 zip.Password= "!Secret1";
+                 zip.Password = "YOUR_SECRET";
                  zip.AddFile("2008-Regional-Sales-Report.pdf")
                  zip.Save("EncryptedArchive.zip")
              End Using
@@ -16489,7 +16489,7 @@
             
              ' extract entries that use encryption
              Using (zip as ZipFile = ZipFile.Read("EncryptedArchive.zip"))
-                 zip.Password= "!Secret1"
+                 zip.Password = "YOUR_SECRET"
                  zip.ExtractAll("extractDir")
              End Using
             
@@ -16695,7 +16695,7 @@
              {
                  zip.AddFile("ReadMe.txt");
                  zip.Encryption= EncryptionAlgorithm.WinZipAes256;
-                 zip.Password= "Top.Secret.No.Peeking!";
+                 zip.Password = "YOUR_SECRET";
                  zip.AddFile("7440-N49th.png");
                  zip.AddFile("2008-Regional-Sales-Report.pdf");
                  zip.Save("EncryptedArchive.zip");
@@ -16705,7 +16705,7 @@
              // You do not need to specify the algorithm during extraction.
              using (ZipFile zip = ZipFile.Read("EncryptedArchive.zip"))
              {
-                 zip.Password= "Top.Secret.No.Peeking!";
+                 zip.Password = "YOUR_SECRET";
                  zip.ExtractAll("extractDirectory");
              }
              </code>
@@ -16714,7 +16714,7 @@
              ' Create a zip that uses Encryption.
              Using zip As New ZipFile()
                  zip.Encryption= EncryptionAlgorithm.WinZipAes256
-                 zip.Password= "Top.Secret.No.Peeking!"
+                 zip.Password = "YOUR_SECRET"
                  zip.AddFile("ReadMe.txt")
                  zip.AddFile("7440-N49th.png")
                  zip.AddFile("2008-Regional-Sales-Report.pdf")
@@ -16724,7 +16724,7 @@
              ' Extract a zip archive that uses AES Encryption.
              ' You do not need to specify the algorithm during extraction.
              Using (zip as ZipFile = ZipFile.Read("EncryptedArchive.zip"))
-                 zip.Password= "Top.Secret.No.Peeking!"
+                 zip.Password = "YOUR_SECRET"
                  zip.ExtractAll("extractDirectory")
              End Using
              </code>
@@ -19597,7 +19597,7 @@
              using (var zip = new Ionic.Zip.ZipFile())
              {
                  zip.CompressionLevel= Ionic.Zlib.CompressionLevel.BestCompression;
-                 zip.Password = "VerySecret.";
+                 zip.Password = "YOUR_SECRET";
                  zip.Encryption = EncryptionAlgorithm.WinZipAes128;
                  zip.AddFile(sourceFileName);
                  MemoryStream output = new MemoryStream();
@@ -21531,7 +21531,7 @@
                  {
                      using (var output= new ZipOutputStream(raw))
                      {
-                         output.Password = "VerySecret!";
+                         output.Password = "YOUR_SECRET";
                          output.Encryption = EncryptionAlgorithm.WinZipAes256;
             
                          foreach (string inputFileName in filesToZip)
@@ -21563,7 +21563,7 @@
                  Else
                      Using raw As FileStream = File.Open(outputFileName, FileMode.Create, FileAccess.ReadWrite)
                          Using output As ZipOutputStream = New ZipOutputStream(raw)
-                             output.Password = "VerySecret!"
+                             output.Password = "YOUR_SECRET"
                              output.Encryption = EncryptionAlgorithm.WinZipAes256
                              Dim inputFileName As String
                              For Each inputFileName In filesToZip
@@ -21615,7 +21615,7 @@
             
                  using (var output= new ZipOutputStream(outputFileName))
                  {
-                     output.Password = "VerySecret!";
+                     output.Password = "YOUR_SECRET";
                      output.Encryption = EncryptionAlgorithm.WinZipAes256;
             
                      foreach (string inputFileName in filesToZip)
@@ -21646,7 +21646,7 @@
                      Console.WriteLine("Nothing to do.")
                  Else
                      Using output As ZipOutputStream = New ZipOutputStream(outputFileName)
-                         output.Password = "VerySecret!"
+                         output.Password = "YOUR_SECRET"
                          output.Encryption = EncryptionAlgorithm.WinZipAes256
                          Dim inputFileName As String
                          For Each inputFileName In filesToZip
@@ -22384,7 +22384,7 @@
                  {
                      using (var output= new ZipOutputStream(fs))
                      {
-                         output.Password = "VerySecret!";
+                         output.Password = "YOUR_SECRET";
                          output.Encryption = EncryptionAlgorithm.WinZipAes256;
                          output.PutNextEntry("entry1.txt");
                          byte[] buffer= System.Text.Encoding.ASCII.GetBytes("This is the content for entry #1.");

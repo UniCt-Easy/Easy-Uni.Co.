@@ -53,6 +53,8 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#aula_default_idsede'), true);
+				this.enableControl($('#aula_default_idedificio'), true);
 				this.helpForm.filter($('#aula_default_idstruttura'), null);
 				//afterClearin
 				
@@ -69,7 +71,7 @@
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
 					$('#calendar22').fullCalendar('rerenderEvents');
 				});
-				this.state.DS.tables.sededefaultview.staticFilter(window.jsDataQuery.eq("sede_idreg", self.idreg_istituto));
+				this.state.DS.tables.sededefaultview.staticFilter(window.jsDataQuery.eq("idreg", self.idreg_istituto));
 				appMeta.metaModel.insertFilter(this.getDataTable("aulakinddefaultview"), this.q.eq('aulakind_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -148,7 +146,20 @@ namespace meta_accountvardetailview
                 DescribeAColumn(T, "amount4", (++eserc).ToString(), nPos++);
                 DescribeAColumn(T, "amount5", (++eserc).ToString(), nPos++);
                 DescribeAColumn(T, "underwritingkind_desc", "Fonte finanziamento", nPos++);
-     
+                DescribeAColumn(T, "costpartitioncode", "Codice Ripartizione", nPos++);
+                if (sorkind1 != "")
+                {
+                    DescribeAColumn(T, "sortcode1", sorkind1, nPos++);
+                }
+                if (sorkind2 != "")
+                {
+                    DescribeAColumn(T, "sortcode2", sorkind2, nPos++);
+                }
+                if (sorkind3 != "")
+                {
+                    DescribeAColumn(T, "sortcode3", sorkind3, nPos++);
+                }
+
                 FilterRows(T);
             }
             if (ListingType == "account") {

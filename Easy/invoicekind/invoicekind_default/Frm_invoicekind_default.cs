@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -130,7 +128,7 @@ namespace invoicekind_default {//tipodocumentoiva//
         public TextBox txtCodice01;
         public Button btnCodice01;
         private TextBox txtDenom01;
-        private Label label6;
+        private Label lblRegistriAssociati;
         private CheckBox chkAutofattura;
         private RichTextBox richTextBox1;
         private ComboBox cmbipa;
@@ -206,7 +204,7 @@ namespace invoicekind_default {//tipodocumentoiva//
 			this.DS = new invoicekind_default.vistaForm();
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.chkAutofattura = new System.Windows.Forms.CheckBox();
-			this.label6 = new System.Windows.Forms.Label();
+			this.lblRegistriAssociati = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.cboTipo_Auto = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -405,7 +403,7 @@ namespace invoicekind_default {//tipodocumentoiva//
 			this.tabGenerale.Controls.Add(this.cmbipa);
 			this.tabGenerale.Controls.Add(this.richTextBox1);
 			this.tabGenerale.Controls.Add(this.chkAutofattura);
-			this.tabGenerale.Controls.Add(this.label6);
+			this.tabGenerale.Controls.Add(this.lblRegistriAssociati);
 			this.tabGenerale.Controls.Add(this.label4);
 			this.tabGenerale.Controls.Add(this.cboTipo_Auto);
 			this.tabGenerale.Controls.Add(this.label1);
@@ -548,14 +546,14 @@ namespace invoicekind_default {//tipodocumentoiva//
 			this.chkAutofattura.Tag = "invoicekind.flag:3";
 			this.chkAutofattura.Text = "Autofattura";
 			// 
-			// label6
+			// lblRegistriAssociati
 			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(6, 114);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(86, 13);
-			this.label6.TabIndex = 44;
-			this.label6.Text = "Registri associati";
+			this.lblRegistriAssociati.AutoSize = true;
+			this.lblRegistriAssociati.Location = new System.Drawing.Point(6, 114);
+			this.lblRegistriAssociati.Name = "lblRegistriAssociati";
+			this.lblRegistriAssociati.Size = new System.Drawing.Size(86, 13);
+			this.lblRegistriAssociati.TabIndex = 44;
+			this.lblRegistriAssociati.Text = "Registri associati";
 			// 
 			// label4
 			// 
@@ -1957,10 +1955,12 @@ namespace invoicekind_default {//tipodocumentoiva//
           GetData.SetStaticFilter(DS.accountunabatable_intra, filteresercizio);
           GetData.SetStaticFilter(DS.accountunabatable_split, filteresercizio);
           GetData.SetStaticFilter(DS.account, filteresercizio);
-          //Meta.CanInsertCopy = false;
-
-
-          GetData.SetStaticFilter(DS.invoicekindyear, filteresercizio);
+			//Meta.CanInsertCopy = false;
+		  if (Meta.editType == "default")
+			{
+				GetData.SetStaticFilter(DS.ivaregisterkind, qhc.CmpEq("active", 'S'));
+			}
+		  GetData.SetStaticFilter(DS.invoicekindyear, filteresercizio);
 
           DataAccess.SetTableForReading(DS.sorting01, "sorting");
           DataAccess.SetTableForReading(DS.sorting02, "sorting");
@@ -1968,8 +1968,11 @@ namespace invoicekind_default {//tipodocumentoiva//
           DataAccess.SetTableForReading(DS.sorting04, "sorting");
           DataAccess.SetTableForReading(DS.sorting05, "sorting");
 
-          DataTable tUniConfig = Conn.RUN_SELECT("uniconfig", "*", null,
-            null, null, null, true);
+
+		  lblRegistriAssociati.Text = (Meta.editType == "history") ? "Registri IVA attivi e non attivi associati" : "Registri IVA attivi associati";
+
+		  DataTable tUniConfig = Conn.RUN_SELECT("uniconfig", "*", null,
+          null, null, null, true);
           if ((tUniConfig != null) && (tUniConfig.Rows.Count > 0)) {
               DataRow r = tUniConfig.Rows[0];
               object idsorkind1 = r["idsorkind01"];

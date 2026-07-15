@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,14 +25,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_pianostudio_seganagstusing"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_pianostudio_seganagstusing: DataSet {
+public partial class dsmeta_pianostudio_seganagstusing: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
+	public MetaTable sostenimentoesito 		=> (MetaTable)Tables["sostenimentoesito"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
+	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attivform 		=> (MetaTable)Tables["attivform"];
@@ -76,25 +74,26 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_pianostudio_seganagstusing.xsd";
 
 	#region create DataTables
+	//////////////////// SOSTENIMENTOESITO /////////////////////////////////
+	var tsostenimentoesito= new MetaTable("sostenimentoesito");
+	tsostenimentoesito.defineColumn("active", typeof(string),false);
+	tsostenimentoesito.defineColumn("idsostenimentoesito", typeof(int),false);
+	tsostenimentoesito.defineColumn("title", typeof(string),false);
+	Tables.Add(tsostenimentoesito);
+	tsostenimentoesito.defineKey("idsostenimentoesito");
+
 	//////////////////// SOSTENIMENTO /////////////////////////////////
 	var tsostenimento= new MetaTable("sostenimento");
-	tsostenimento.defineColumn("idappello", typeof(int),false);
-	tsostenimento.defineColumn("idattivform", typeof(int));
-	tsostenimento.defineColumn("idprova", typeof(int),false);
+	tsostenimento.defineColumn("data", typeof(DateTime),false);
+	tsostenimento.defineColumn("idiscrizione", typeof(int),false);
 	tsostenimento.defineColumn("idreg", typeof(int),false);
 	tsostenimento.defineColumn("idsostenimento", typeof(int),false);
+	tsostenimento.defineColumn("idsostenimentoesito", typeof(int),false);
 	tsostenimento.defineColumn("voto", typeof(decimal));
 	tsostenimento.defineColumn("votolode", typeof(string));
 	tsostenimento.defineColumn("votosu", typeof(int));
 	Tables.Add(tsostenimento);
-	tsostenimento.defineKey("idappello", "idprova", "idreg", "idsostenimento");
-
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
+	tsostenimento.defineKey("idiscrizione", "idreg", "idsostenimento");
 
 	//////////////////// ATTIVFORM /////////////////////////////////
 	var tattivform= new MetaTable("attivform");
@@ -129,11 +128,11 @@ private void initClass() {
 	tpianostudioattivform_alias1.defineColumn("lt", typeof(DateTime),false);
 	tpianostudioattivform_alias1.defineColumn("lu", typeof(string),false);
 	tpianostudioattivform_alias1.defineColumn("!idattivform_attivform_title", typeof(string));
+	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_data", typeof(DateTime));
 	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_voto", typeof(decimal));
 	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_votosu", typeof(int));
 	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_votolode", typeof(string));
-	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_idattivform_title", typeof(string));
-	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_idreg_title", typeof(string));
+	tpianostudioattivform_alias1.defineColumn("!idsostenimento_sostenimento_idsostenimentoesito_title", typeof(string));
 	tpianostudioattivform_alias1.ExtendedProperties["TableForReading"]="pianostudioattivform";
 	Tables.Add(tpianostudioattivform_alias1);
 	tpianostudioattivform_alias1.defineKey("idiscrizione", "idpianostudio", "idpianostudioattivform", "idreg");
@@ -142,6 +141,12 @@ private void initClass() {
 	var tpianostudiostatusdefaultview= new MetaTable("pianostudiostatusdefaultview");
 	tpianostudiostatusdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tpianostudiostatusdefaultview.defineColumn("idpianostudiostatus", typeof(int),false);
+	tpianostudiostatusdefaultview.defineColumn("pianostudiostatus_active", typeof(string));
+	tpianostudiostatusdefaultview.defineColumn("pianostudiostatus_description", typeof(string));
+	tpianostudiostatusdefaultview.defineColumn("pianostudiostatus_lt", typeof(DateTime),false);
+	tpianostudiostatusdefaultview.defineColumn("pianostudiostatus_lu", typeof(string),false);
+	tpianostudiostatusdefaultview.defineColumn("pianostudiostatus_sortcode", typeof(int),false);
+	tpianostudiostatusdefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tpianostudiostatusdefaultview);
 	tpianostudiostatusdefaultview.defineKey("idpianostudiostatus");
 
@@ -180,13 +185,9 @@ private void initClass() {
 	cChild = new []{pianostudioattivform_alias1.Columns["idsostenimento"]};
 	Relations.Add(new DataRelation("FK_pianostudioattivform_alias1_sostenimento_idsostenimento",cPar,cChild,false));
 
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{sostenimento.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_sostenimento_registry_idreg",cPar,cChild,false));
-
-	cPar = new []{attivform.Columns["idattivform"]};
-	cChild = new []{sostenimento.Columns["idattivform"]};
-	Relations.Add(new DataRelation("FK_sostenimento_attivform_idattivform",cPar,cChild,false));
+	cPar = new []{sostenimentoesito.Columns["idsostenimentoesito"]};
+	cChild = new []{sostenimento.Columns["idsostenimentoesito"]};
+	Relations.Add(new DataRelation("FK_sostenimento_sostenimentoesito_idsostenimentoesito",cPar,cChild,false));
 
 	cPar = new []{attivform.Columns["idattivform"]};
 	cChild = new []{pianostudioattivform_alias1.Columns["idattivform"]};

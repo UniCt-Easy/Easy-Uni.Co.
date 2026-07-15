@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -62,12 +60,12 @@ namespace meta_proceedspartview//meta_assegnazioneincassiview//
                 DescribeAColumn(T, "finance", "Denom. bil", nPos++);
                 DescribeAColumn(T, "codeupb", "Cod. UPB", nPos++);
                 DescribeAColumn(T, "upb", "UPB", nPos++);
-                DescribeAColumn(T, "treasurer", "Cassiere progetto finanziato", nPos++);
+                DescribeAColumn(T, "treasurer", "Conto Corrente progetto finanziato", nPos++);
                 DescribeAColumn(T, "amount", "Importo", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "codeupbincome", "Cod. UPB Entrata", nPos++);
                 DescribeAColumn(T, "upbincome", "UPB Entrata", nPos++);
-                DescribeAColumn(T, "treasurerproceeds", "Cassiere Reversale", nPos++);
+                DescribeAColumn(T, "treasurerproceeds", "Conto Corrente Reversale", nPos++);
                 DescribeAColumn(T, "financeincome", "Bil. Entrata", nPos++);
                 DescribeAColumn(T, "allocatedamount", "Importo destinato", nPos++);
                 DescribeAColumn(T, "moneytotransfer", "Importo da Girofondare", nPos++);
