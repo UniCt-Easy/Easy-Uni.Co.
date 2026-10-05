@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tipologiastudente_seg_idcorsostudiokind">Tipologia del corso a cui è iscritto</label>
-					<select id="tipologiastudente_seg_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-custom-control="combo" data-tag="tipologiastudente.idcorsostudiokind"   > </select>
+					<select id="tipologiastudente_seg_idcorsostudiokind" class="custom-select d-block w-100"  data-source-name="corsostudiokinddefaultview" data-value-member="idcorsostudiokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="tipologiastudente.idcorsostudiokind"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="tipologiastudente_seg_abbreviazione">Iscritto con una abbreviazione di corso</label>
@@ -43,13 +43,8 @@
 					<input id="tipologiastudente_seg_annoiscr" type="text" class="form-control" data-tag="tipologiastudente.annoiscr"  />
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#graduatoriaesiti_seg_datachiusura").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="graduatoriaesiti_seg_datachiusura">Data di chiusura</label>
-					<input id="graduatoriaesiti_seg_datachiusura" type="text" class="form-control" data-tag="graduatoriaesiti.datachiusura.g" data-subentity  />
+					<input id="graduatoriaesiti_seg_datachiusura" type="text" class="form-control" data-tag="graduatoriaesiti.datachiusura.g" data-subentity   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
@@ -95,16 +90,16 @@
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabtipologiastudente_seg_1" role="tabpanel">
-				<div class="gridx" id="grid_bandodsserviziorequisito_seg" data-tag="bandodsserviziorequisito.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_bandodsserviziorequisito_seg" data-tag="bandodsserviziorequisito.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabtipologiastudente_seg_6" role="tabpanel">
-				<div class="gridx" id="grid_graduatoriaesitipos_seg" data-tag="graduatoriaesitipos.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_graduatoriaesitipos_seg" data-tag="graduatoriaesitipos.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabtipologiastudente_seg_2" role="tabpanel">
-				<div class="gridx" id="grid_bandodsservizioattach_seg" data-tag="bandodsservizioattach.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_bandodsservizioattach_seg" data-tag="bandodsservizioattach.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabtipologiastudente_seg_3" role="tabpanel">
-				<div class="gridx" id="grid_bandodsserviziodatepres_seg" data-tag="bandodsserviziodatepres.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_bandodsserviziodatepres_seg" data-tag="bandodsserviziodatepres.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabtipologiastudente_seg_4" role="tabpanel">
 		<div id="grid_tipologiastudentestruttura_seg" data-tag="struttura.default.default" data-custom-control="checklist"  ></div>

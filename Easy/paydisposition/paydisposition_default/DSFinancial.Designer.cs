@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -112,6 +110,9 @@ public partial class DSFinancial: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenselastmandatedetail 		=> Tables["expenselastmandatedetail"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable mandatedetail 		=> Tables["mandatedetail"];
 
 	#endregion
 
@@ -1293,6 +1294,92 @@ private void initClass() {
 	texpenselastmandatedetail.PrimaryKey =  new DataColumn[]{texpenselastmandatedetail.Columns["idexp"], texpenselastmandatedetail.Columns["idmankind"], texpenselastmandatedetail.Columns["yman"], texpenselastmandatedetail.Columns["nman"], texpenselastmandatedetail.Columns["rownum"]};
 
 
+	//////////////////// MANDATEDETAIL /////////////////////////////////
+	var tmandatedetail= new DataTable("mandatedetail");
+	C= new DataColumn("idmankind", typeof(string));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	C= new DataColumn("yman", typeof(short));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	C= new DataColumn("nman", typeof(int));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	C= new DataColumn("rownum", typeof(int));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	tmandatedetail.Columns.Add( new DataColumn("detaildescription", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("annotations", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("number", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("taxable", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("taxrate", typeof(double)));
+	tmandatedetail.Columns.Add( new DataColumn("discount", typeof(double)));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	tmandatedetail.Columns.Add( new DataColumn("idinv", typeof(int)));
+	C= new DataColumn("assetkind", typeof(string));
+	C.AllowDBNull=false;
+	tmandatedetail.Columns.Add(C);
+	tmandatedetail.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tmandatedetail.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tmandatedetail.Columns.Add( new DataColumn("idexp_iva", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idexp_taxable", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idupb", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("toinvoice", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idsor1", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idsor2", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idsor3", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("!codeupb", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("tax", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("!registry", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idgroup", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("unabatable", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("competencystart", typeof(DateTime)));
+	tmandatedetail.Columns.Add( new DataColumn("competencystop", typeof(DateTime)));
+	tmandatedetail.Columns.Add( new DataColumn("idivakind", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("flagmixed", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("ninvoiced", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("flagactivity", typeof(short)));
+	tmandatedetail.Columns.Add( new DataColumn("!totaleriga", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("va3type", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idlist", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idpackage", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idunit", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("npackage", typeof(decimal)));
+	tmandatedetail.Columns.Add( new DataColumn("cupcode", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("cigcode", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("unitsforpackage", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("epkind", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("flagto_unload", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idcostpartition", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idpccdebitmotive", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idpccdebitstatus", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("expensekind", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idepexp", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idlocation", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idupb_iva", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("!codeupb_iva", typeof(string)));
+	tmandatedetail.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("rownum_main", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idepexp_pre", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	tmandatedetail.Columns.Add( new DataColumn("idaccmotiveannulment", typeof(string)));
+	Tables.Add(tmandatedetail);
+	tmandatedetail.PrimaryKey =  new DataColumn[]{tmandatedetail.Columns["idmankind"], tmandatedetail.Columns["yman"], tmandatedetail.Columns["nman"], tmandatedetail.Columns["rownum"]};
+
+
 	#endregion
 
 
@@ -1380,6 +1467,10 @@ private void initClass() {
 	cPar = new []{expense.Columns["idexp"]};
 	cChild = new []{expenselastmandatedetail.Columns["idexp"]};
 	Relations.Add(new DataRelation("expense_expenselastmandatedetail",cPar,cChild,false));
+
+	cPar = new []{mandatedetail.Columns["idexp_taxable"]};
+	cChild = new []{expense.Columns["idexp"]};
+	Relations.Add(new DataRelation("mandatedetail_expense",cPar,cChild,false));
 
 	#endregion
 

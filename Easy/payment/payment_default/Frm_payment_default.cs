@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -260,6 +258,11 @@ namespace payment_default{//documentopagamento//
 			Meta = MetaData.GetMetaData(this);
 			AfterLinkBody();
             GetData.SetStaticFilter(DS.payment, QHS.CmpEq("ypay", Meta.GetSys("esercizio")));
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.paymentattachment, true);
         }
 
 		#region Windows Form Designer generated code
@@ -313,21 +316,21 @@ namespace payment_default{//documentopagamento//
 			this.label10 = new System.Windows.Forms.Label();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabAllegati = new System.Windows.Forms.TabPage();
 			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
 			this.btnDelAtt = new System.Windows.Forms.Button();
 			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
-			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.gboxRigaMandato.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox3.SuspendLayout();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPage1.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -496,7 +499,7 @@ namespace payment_default{//documentopagamento//
 			this.btnIstitutoCassiere.TabIndex = 7;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// cmbCodiceIstituto
@@ -782,16 +785,27 @@ namespace payment_default{//documentopagamento//
 			this.tabControl1.Size = new System.Drawing.Size(377, 356);
 			this.tabControl1.TabIndex = 25;
 			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.groupBox3);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(369, 330);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "Mandato";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
 			// tabAllegati
 			// 
 			this.tabAllegati.Controls.Add(this.dataGridAllegati);
 			this.tabAllegati.Controls.Add(this.btnDelAtt);
 			this.tabAllegati.Controls.Add(this.btnEditAtt);
 			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
 			this.tabAllegati.Name = "tabAllegati";
 			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
+			this.tabAllegati.Size = new System.Drawing.Size(369, 330);
 			this.tabAllegati.TabIndex = 15;
 			this.tabAllegati.Text = "Allegati";
 			this.tabAllegati.UseVisualStyleBackColor = true;
@@ -806,7 +820,7 @@ namespace payment_default{//documentopagamento//
 			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
 			this.dataGridAllegati.Name = "dataGridAllegati";
 			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
+			this.dataGridAllegati.Size = new System.Drawing.Size(354, 282);
 			this.dataGridAllegati.TabIndex = 23;
 			this.dataGridAllegati.Tag = "paymentattachment.lista.detail";
 			// 
@@ -836,17 +850,6 @@ namespace payment_default{//documentopagamento//
 			this.btnInsAtt.TabIndex = 20;
 			this.btnInsAtt.Tag = "insert.detail";
 			this.btnInsAtt.Text = "Inserisci...";
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.groupBox3);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(369, 330);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Mandato";
-			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// Frm_payment_default
 			// 

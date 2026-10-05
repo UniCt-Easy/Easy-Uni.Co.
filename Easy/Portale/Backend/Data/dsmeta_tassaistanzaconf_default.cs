@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_tassaistanzaconf_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_tassaistanzaconf_default: DataSet {
+public partial class dsmeta_tassaistanzaconf_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -71,6 +69,14 @@ private void initClass() {
 	var tistanzakinddefaultview= new MetaTable("istanzakinddefaultview");
 	tistanzakinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tistanzakinddefaultview.defineColumn("idistanzakind", typeof(int),false);
+	tistanzakinddefaultview.defineColumn("istanzakind_active", typeof(string));
+	tistanzakinddefaultview.defineColumn("istanzakind_ct", typeof(DateTime),false);
+	tistanzakinddefaultview.defineColumn("istanzakind_cu", typeof(string),false);
+	tistanzakinddefaultview.defineColumn("istanzakind_description", typeof(string));
+	tistanzakinddefaultview.defineColumn("istanzakind_lt", typeof(DateTime),false);
+	tistanzakinddefaultview.defineColumn("istanzakind_lu", typeof(string),false);
+	tistanzakinddefaultview.defineColumn("istanzakind_sortcode", typeof(int),false);
+	tistanzakinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tistanzakinddefaultview);
 	tistanzakinddefaultview.defineKey("idistanzakind");
 

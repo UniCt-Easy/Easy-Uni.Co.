@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -73,6 +71,12 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable entryattachment 		=> Tables["entryattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable epexp 		=> Tables["epexp"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable epacc 		=> Tables["epacc"];
 
 	#endregion
 
@@ -188,6 +192,10 @@ private void initClass() {
 	tentrydetail.Columns.Add( new DataColumn("idrelated", typeof(string)));
 	tentrydetail.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tentrydetail.Columns.Add( new DataColumn("idepacc", typeof(int)));
+	tentrydetail.Columns.Add( new DataColumn("!yepexp", typeof(int)));
+	tentrydetail.Columns.Add( new DataColumn("!nepexp", typeof(int)));
+	tentrydetail.Columns.Add( new DataColumn("!yepacc", typeof(int)));
+	tentrydetail.Columns.Add( new DataColumn("!nepacc", typeof(int)));
 	Tables.Add(tentrydetail);
 	tentrydetail.PrimaryKey =  new DataColumn[]{tentrydetail.Columns["yentry"], tentrydetail.Columns["nentry"], tentrydetail.Columns["ndetail"]};
 
@@ -750,8 +758,105 @@ private void initClass() {
 	tentryattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	tentryattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tentryattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	tentryattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tentryattachment);
 	tentryattachment.PrimaryKey =  new DataColumn[]{tentryattachment.Columns["nentry"], tentryattachment.Columns["yentry"], tentryattachment.Columns["idattachment"]};
+
+
+	//////////////////// EPEXP /////////////////////////////////
+	var tepexp= new DataTable("epexp");
+	C= new DataColumn("idepexp", typeof(int));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	tepexp.Columns.Add( new DataColumn("doc", typeof(string)));
+	tepexp.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tepexp.Columns.Add( new DataColumn("idman", typeof(int)));
+	tepexp.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tepexp.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("nepexp", typeof(int));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(short));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	tepexp.Columns.Add( new DataColumn("paridepexp", typeof(int)));
+	tepexp.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tepexp.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tepexp.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tepexp.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("yepexp", typeof(short));
+	C.AllowDBNull=false;
+	tepexp.Columns.Add(C);
+	tepexp.Columns.Add( new DataColumn("flagvariation", typeof(string)));
+	tepexp.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	Tables.Add(tepexp);
+	tepexp.PrimaryKey =  new DataColumn[]{tepexp.Columns["idepexp"]};
+
+
+	//////////////////// EPACC /////////////////////////////////
+	var tepacc= new DataTable("epacc");
+	C= new DataColumn("idepacc", typeof(int));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("adate", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	tepacc.Columns.Add( new DataColumn("doc", typeof(string)));
+	tepacc.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tepacc.Columns.Add( new DataColumn("idman", typeof(int)));
+	tepacc.Columns.Add( new DataColumn("idreg", typeof(int)));
+	tepacc.Columns.Add( new DataColumn("idrelated", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("nepacc", typeof(int));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	C= new DataColumn("nphase", typeof(short));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	tepacc.Columns.Add( new DataColumn("paridepacc", typeof(int)));
+	tepacc.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tepacc.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tepacc.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tepacc.Columns.Add( new DataColumn("txt", typeof(string)));
+	C= new DataColumn("yepacc", typeof(short));
+	C.AllowDBNull=false;
+	tepacc.Columns.Add(C);
+	tepacc.Columns.Add( new DataColumn("flagvariation", typeof(string)));
+	tepacc.Columns.Add( new DataColumn("idaccmotive", typeof(string)));
+	Tables.Add(tepacc);
+	tepacc.PrimaryKey =  new DataColumn[]{tepacc.Columns["idepacc"]};
 
 
 	#endregion
@@ -809,6 +914,14 @@ private void initClass() {
 	cPar = new []{entry.Columns["nentry"], entry.Columns["yentry"]};
 	cChild = new []{entryattachment.Columns["nentry"], entryattachment.Columns["yentry"]};
 	Relations.Add(new DataRelation("entry_entryattachment",cPar,cChild,false));
+
+	cPar = new []{epexp.Columns["idepexp"]};
+	cChild = new []{entrydetail.Columns["idepexp"]};
+	Relations.Add(new DataRelation("epexp_entrydetail",cPar,cChild,false));
+
+	cPar = new []{epacc.Columns["idepacc"]};
+	cChild = new []{entrydetail.Columns["idepacc"]};
+	Relations.Add(new DataRelation("epacc_entrydetail",cPar,cChild,false));
 
 	#endregion
 

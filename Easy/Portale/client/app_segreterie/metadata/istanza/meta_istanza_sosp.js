@@ -37,7 +37,18 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'sosp_seg':
+						table.columns["idreg"].caption = "Studente";
+						table.columns["start"].caption = "Data di Inizio";
+						table.columns["stop"].caption = "Data di fine";
+//$innerSetCaptionConfig_sosp_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_sosp");

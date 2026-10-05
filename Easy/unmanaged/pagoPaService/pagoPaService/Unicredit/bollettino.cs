@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -50,7 +48,7 @@ namespace UnicreditService
             }
             else
             {
-                throw new ArgumentException($"Non Ë possibile scaricare il documento perchË il template pdf non Ë stato trovato\r\n");
+                throw new ArgumentException($"Non √® possibile scaricare il documento perch√® il template pdf non √® stato trovato\r\n");
             }
         }
 
@@ -327,7 +325,7 @@ namespace UnicreditService
                     };
                     var textEntePosition = new XPoint(xLogoEnte + logoImage.PointWidth,
                                 yLogoEnte);
-                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //10  Ë il font in point
+                    grTextEnte.DrawString(ente, new Font("Times New Roman", 10), //10  √® il font in point
                             Brushes.Black, new Rectangle(0, 0, txtEnteImage.Width, txtEnteImage.Height),
                             format);
                     grTextEnte.Flush();
@@ -429,7 +427,7 @@ namespace UnicreditService
             catch (Exception e)
             {
                 /* QueryCreator.ShowError(this, "E*/
-                // rrore salvando il file, probabilmente il file Ë gi‡ aperto.", e.ToString());
+                // rrore salvando il file, probabilmente il file √® gi√† aperto.", e.ToString());
             }
 
             //Process p = new Process();
@@ -446,7 +444,7 @@ namespace UnicreditService
         public string Indirizzo1;
         public string Indirizzo2;
         public string CAP;
-        public string Localit‡;
+        public string Localit√†;
         public string Provincia;
 
     }

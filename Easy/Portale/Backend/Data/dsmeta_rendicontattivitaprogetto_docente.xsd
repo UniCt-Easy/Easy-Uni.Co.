@@ -304,6 +304,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="orepreventivate" type="xs:int" />
+              <xs:element name="rendicontatutto" type="xs:string" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>

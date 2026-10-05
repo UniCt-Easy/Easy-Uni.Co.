@@ -25,7 +25,8 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'acronimo', 'Acronimo', null, 10, 50);
-						this.describeAColumn(table, 'codiceammipa', 'Codiceammipa', null, 20, 50);
+						this.describeAColumn(table, 'tipoente', 'Tipologia di ente', null, 100, null);
+						this.describeAColumn(table, 'codiceerasmus', 'Codice Erasmus', null, 120, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -36,23 +37,36 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["codiceerasmus"].caption = "Codice Erasmus";
+						table.columns["idistitutokind"].caption = "Sottotipologia di ente";
+						table.columns["idreg_dir"].caption = "Direttore";
+						table.columns["idreg_diramm"].caption = "Direttore Amministrativo";
+						table.columns["subtipoente"].caption = "Sottotipologia di ente";
+						table.columns["tipoente"].caption = "Tipologia di ente";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_istitutoprinc");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_istitutoprinc");
 
 				//$getNewRowInside$
 
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

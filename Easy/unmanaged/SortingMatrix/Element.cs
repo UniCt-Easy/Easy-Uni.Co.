@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -22,10 +20,10 @@ using System.Windows.Forms;
 namespace SortingMatrix {
 
     /// <summary>
-    /// Rappresenta una coppia di controlli che esprimono la descrizione e il valore di una entit‡.
-    /// La descrizione Ë espressa tramite una Label.
+    /// Rappresenta una coppia di controlli che esprimono la descrizione e il valore di una entit√†.
+    /// La descrizione √® espressa tramite una Label.
     /// </summary>
-    /// <typeparam name="TControl">Tipo di controllo contenente il valore dell'entit‡.</typeparam>
+    /// <typeparam name="TControl">Tipo di controllo contenente il valore dell'entit√†.</typeparam>
     public class Element<TControl> where TControl : Control, new() {
 
         /// <summary>
@@ -49,17 +47,17 @@ namespace SortingMatrix {
         private int width = new TControl().Width;
 
         /// <summary>
-        /// Label contenente la descrizione dell'entit‡.
+        /// Label contenente la descrizione dell'entit√†.
         /// </summary>
         public Label DescriptionContainer { get; }
 
         /// <summary>
-        /// Controllo contenente il valore dell'entit‡.
+        /// Controllo contenente il valore dell'entit√†.
         /// </summary>
         public TControl ValueContainer { get; }
 
         /// <summary>
-        /// Posizione della coppia di controlli. La Label Ë posta sul controllo che contiene il valore, e determina questa posizione.
+        /// Posizione della coppia di controlli. La Label √® posta sul controllo che contiene il valore, e determina questa posizione.
         /// </summary>
         public Point Location => DescriptionContainer.Location;
         
@@ -78,9 +76,9 @@ namespace SortingMatrix {
         }
 
         /// <summary>
-        /// Inizializza una coppia di controlli e ne imposta le propriet‡ in base ad un nome entit‡, un descrittore delle caratteristiche ed una serie di opzioni.
+        /// Inizializza una coppia di controlli e ne imposta le propriet√† in base ad un nome entit√†, un descrittore delle caratteristiche ed una serie di opzioni.
         /// </summary>
-        /// <param name="entityName">Nome dell'entit‡, utilizzato per la creazione del tag del controllo che gestisce il valore.</param>
+        /// <param name="entityName">Nome dell'entit√†, utilizzato per la creazione del tag del controllo che gestisce il valore.</param>
         /// <param name="id">Identificatore della coppia di controlli.</param>
         /// <param name="features">Descrittore delle caratteristiche della coppia di controlli.</param>
         /// <param name="options">Opzioni per la creazione della coppia di controlli.</param>

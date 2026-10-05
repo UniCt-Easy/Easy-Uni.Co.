@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -43,6 +41,15 @@ public partial class dsmeta_canale_erogata: DataSet {
 	public MetaTable mutuazione 		=> (MetaTable)Tables["mutuazione"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registry_alias2 		=> (MetaTable)Tables["registry_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable annoaccademico 		=> (MetaTable)Tables["annoaccademico"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable iscrizione 		=> (MetaTable)Tables["iscrizione"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable affidamentoattach 		=> (MetaTable)Tables["affidamentoattach"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -67,7 +74,7 @@ public partial class dsmeta_canale_erogata: DataSet {
 	public MetaTable affidamentocaratteristica 		=> (MetaTable)Tables["affidamentocaratteristica"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
+	public MetaTable registry_alias1 		=> (MetaTable)Tables["registry_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable erogazkind 		=> (MetaTable)Tables["erogazkind"];
@@ -79,7 +86,10 @@ public partial class dsmeta_canale_erogata: DataSet {
 	public MetaTable affidamento 		=> (MetaTable)Tables["affidamento"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sede 		=> (MetaTable)Tables["sede"];
+	public MetaTable registry 		=> (MetaTable)Tables["registry"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable canaleregistry 		=> (MetaTable)Tables["canaleregistry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable canale 		=> (MetaTable)Tables["canale"];
@@ -200,6 +210,40 @@ private void initClass() {
 	tmutuazione.defineColumn("!idcanale_from_canale_title", typeof(string));
 	Tables.Add(tmutuazione);
 	tmutuazione.defineKey("aa", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idmutuazione");
+
+	//////////////////// REGISTRY_ALIAS2 /////////////////////////////////
+	var tregistry_alias2= new MetaTable("registry_alias2");
+	tregistry_alias2.defineColumn("active", typeof(string),false);
+	tregistry_alias2.defineColumn("idreg", typeof(int),false);
+	tregistry_alias2.defineColumn("title", typeof(string),false);
+	tregistry_alias2.ExtendedProperties["TableForReading"]="registry";
+	Tables.Add(tregistry_alias2);
+	tregistry_alias2.defineKey("idreg");
+
+	//////////////////// ANNOACCADEMICO /////////////////////////////////
+	var tannoaccademico= new MetaTable("annoaccademico");
+	tannoaccademico.defineColumn("aa", typeof(string),false);
+	Tables.Add(tannoaccademico);
+	tannoaccademico.defineKey("aa");
+
+	//////////////////// ISCRIZIONE /////////////////////////////////
+	var tiscrizione= new MetaTable("iscrizione");
+	tiscrizione.defineColumn("aa", typeof(string),false);
+	tiscrizione.defineColumn("anno", typeof(int));
+	tiscrizione.defineColumn("ct", typeof(DateTime),false);
+	tiscrizione.defineColumn("cu", typeof(string),false);
+	tiscrizione.defineColumn("data", typeof(DateTime));
+	tiscrizione.defineColumn("idcorsostudio", typeof(int),false);
+	tiscrizione.defineColumn("iddidprog", typeof(int),false);
+	tiscrizione.defineColumn("idiscrizione", typeof(int),false);
+	tiscrizione.defineColumn("idreg", typeof(int),false);
+	tiscrizione.defineColumn("lt", typeof(DateTime),false);
+	tiscrizione.defineColumn("lu", typeof(string),false);
+	tiscrizione.defineColumn("matricola", typeof(string));
+	tiscrizione.defineColumn("!idreg_registry_title", typeof(string));
+	tiscrizione.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tiscrizione);
+	tiscrizione.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
 
 	//////////////////// AFFIDAMENTOATTACH /////////////////////////////////
 	var taffidamentoattach= new MetaTable("affidamentoattach");
@@ -342,13 +386,14 @@ private void initClass() {
 	Tables.Add(taffidamentocaratteristica);
 	taffidamentocaratteristica.defineKey("aa", "idaffidamento", "idaffidamentocaratteristica", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
 
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
+	//////////////////// REGISTRY_ALIAS1 /////////////////////////////////
+	var tregistry_alias1= new MetaTable("registry_alias1");
+	tregistry_alias1.defineColumn("active", typeof(string),false);
+	tregistry_alias1.defineColumn("idreg", typeof(int),false);
+	tregistry_alias1.defineColumn("title", typeof(string),false);
+	tregistry_alias1.ExtendedProperties["TableForReading"]="registry";
+	Tables.Add(tregistry_alias1);
+	tregistry_alias1.defineKey("idreg");
 
 	//////////////////// EROGAZKIND /////////////////////////////////
 	var terogazkind= new MetaTable("erogazkind");
@@ -411,15 +456,98 @@ private void initClass() {
 	Tables.Add(taffidamento);
 	taffidamento.defineKey("aa", "idaffidamento", "idattivform", "idcanale", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno");
 
-	//////////////////// SEDE /////////////////////////////////
-	var tsede= new MetaTable("sede");
-	tsede.defineColumn("idsede", typeof(int),false);
-	tsede.defineColumn("title", typeof(string));
-	Tables.Add(tsede);
-	tsede.defineKey("idsede");
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("acronim", typeof(string));
+	tregistry.defineColumn("active", typeof(string),false);
+	tregistry.defineColumn("annotation", typeof(string));
+	tregistry.defineColumn("authorization_free", typeof(string));
+	tregistry.defineColumn("badgecode", typeof(string));
+	tregistry.defineColumn("birthdate", typeof(DateTime),false);
+	tregistry.defineColumn("ccp", typeof(string));
+	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("code", typeof(string));
+	tregistry.defineColumn("codicemiur", typeof(string));
+	tregistry.defineColumn("codiceustat", typeof(string));
+	tregistry.defineColumn("ct", typeof(DateTime),false);
+	tregistry.defineColumn("cu", typeof(string),false);
+	tregistry.defineColumn("email_fe", typeof(string));
+	tregistry.defineColumn("extension", typeof(string));
+	tregistry.defineColumn("extmatricula", typeof(string));
+	tregistry.defineColumn("flag_pa", typeof(string));
+	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
+	tregistry.defineColumn("foreigncf", typeof(string));
+	tregistry.defineColumn("forename", typeof(string),false);
+	tregistry.defineColumn("gender", typeof(string),false);
+	tregistry.defineColumn("idaccmotivecredit", typeof(string));
+	tregistry.defineColumn("idaccmotivedebit", typeof(string));
+	tregistry.defineColumn("idanpr", typeof(string));
+	tregistry.defineColumn("idateco", typeof(int));
+	tregistry.defineColumn("idcategory", typeof(string));
+	tregistry.defineColumn("idcentralizedcategory", typeof(string));
+	tregistry.defineColumn("idcity", typeof(int));
+	tregistry.defineColumn("idexternal", typeof(int));
+	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistry.defineColumn("idistitutokind", typeof(int));
+	tregistry.defineColumn("idmaritalstatus", typeof(string));
+	tregistry.defineColumn("idnace", typeof(string));
+	tregistry.defineColumn("idnation", typeof(int));
+	tregistry.defineColumn("idnaturagiur", typeof(int));
+	tregistry.defineColumn("idnumerodip", typeof(int));
+	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("idreg_istituti", typeof(int));
+	tregistry.defineColumn("idregistryclass", typeof(string));
+	tregistry.defineColumn("idregistrykind", typeof(int));
+	tregistry.defineColumn("idsasd", typeof(int));
+	tregistry.defineColumn("idstruttura", typeof(int));
+	tregistry.defineColumn("idtitle", typeof(string));
+	tregistry.defineColumn("indicebibliometrico", typeof(int));
+	tregistry.defineColumn("institutionalcode", typeof(string));
+	tregistry.defineColumn("ipa_fe", typeof(string));
+	tregistry.defineColumn("ipa_perlapa", typeof(string));
+	tregistry.defineColumn("location", typeof(string));
+	tregistry.defineColumn("lt", typeof(DateTime),false);
+	tregistry.defineColumn("lu", typeof(string),false);
+	tregistry.defineColumn("maritalsurname", typeof(string));
+	tregistry.defineColumn("multi_cf", typeof(string));
+	tregistry.defineColumn("p_iva", typeof(string));
+	tregistry.defineColumn("pec_fe", typeof(string));
+	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("referencenumber", typeof(string));
+	tregistry.defineColumn("residence", typeof(int),false);
+	tregistry.defineColumn("ricevimento", typeof(string));
+	tregistry.defineColumn("rtf", typeof(Byte[]));
+	tregistry.defineColumn("sdi_defrifamm", typeof(string));
+	tregistry.defineColumn("sdi_norifamm", typeof(string));
+	tregistry.defineColumn("soggiorno", typeof(string));
+	tregistry.defineColumn("surname", typeof(string),false);
+	tregistry.defineColumn("title", typeof(string),false);
+	tregistry.defineColumn("title_en", typeof(string));
+	tregistry.defineColumn("toredirect", typeof(int));
+	tregistry.defineColumn("txt", typeof(string));
+	Tables.Add(tregistry);
+	tregistry.defineKey("idreg");
+
+	//////////////////// CANALEREGISTRY /////////////////////////////////
+	var tcanaleregistry= new MetaTable("canaleregistry");
+	tcanaleregistry.defineColumn("ct", typeof(DateTime),false);
+	tcanaleregistry.defineColumn("cu", typeof(string),false);
+	tcanaleregistry.defineColumn("idcanale", typeof(int),false);
+	tcanaleregistry.defineColumn("idreg", typeof(int),false);
+	tcanaleregistry.defineColumn("lt", typeof(DateTime),false);
+	tcanaleregistry.defineColumn("lu", typeof(string),false);
+	tcanaleregistry.defineColumn("!idreg_registry_surname", typeof(string));
+	tcanaleregistry.defineColumn("!idreg_registry_forename", typeof(string));
+	tcanaleregistry.defineColumn("!idreg_registry_cf", typeof(string));
+	tcanaleregistry.defineColumn("!idreg_registry_extmatricula", typeof(string));
+	tcanaleregistry.defineColumn("!idreg_registry_active", typeof(string));
+	tcanaleregistry.ExtendedProperties["NotEntityChild"]="true";
+	Tables.Add(tcanaleregistry);
+	tcanaleregistry.defineKey("idcanale", "idreg");
 
 	//////////////////// CANALE /////////////////////////////////
 	var tcanale= new MetaTable("canale");
+	tcanale.defineColumn("!filtrostud", typeof(string));
 	tcanale.defineColumn("aa", typeof(string),false);
 	tcanale.defineColumn("ct", typeof(DateTime),false);
 	tcanale.defineColumn("cu", typeof(string),false);
@@ -461,6 +589,18 @@ private void initClass() {
 	cChild = new []{mutuazione.Columns["idcanale_from"]};
 	Relations.Add(new DataRelation("FK_mutuazione_canale_alias1_idcanale_from",cPar,cChild,false));
 
+	cPar = new []{canale.Columns["iddidprog"]};
+	cChild = new []{iscrizione.Columns["iddidprog"]};
+	Relations.Add(new DataRelation("FK_iscrizione_canale_iddidprog",cPar,cChild,false));
+
+	cPar = new []{registry_alias2.Columns["idreg"]};
+	cChild = new []{iscrizione.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_iscrizione_registry_alias2_idreg",cPar,cChild,false));
+
+	cPar = new []{annoaccademico.Columns["aa"]};
+	cChild = new []{iscrizione.Columns["aa"]};
+	Relations.Add(new DataRelation("FK_iscrizione_annoaccademico_aa",cPar,cChild,false));
+
 	cPar = new []{canale.Columns["aa"], canale.Columns["idattivform"], canale.Columns["idcanale"], canale.Columns["idcorsostudio"], canale.Columns["iddidprog"], canale.Columns["iddidproganno"], canale.Columns["iddidprogcurr"], canale.Columns["iddidprogori"], canale.Columns["iddidprogporzanno"]};
 	cChild = new []{affidamento.Columns["aa"], affidamento.Columns["idattivform"], affidamento.Columns["idcanale"], affidamento.Columns["idcorsostudio"], affidamento.Columns["iddidprog"], affidamento.Columns["iddidproganno"], affidamento.Columns["iddidprogcurr"], affidamento.Columns["iddidprogori"], affidamento.Columns["iddidprogporzanno"]};
 	Relations.Add(new DataRelation("FK_affidamento_canale_aa-idattivform-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno",cPar,cChild,false));
@@ -497,9 +637,9 @@ private void initClass() {
 	cChild = new []{affidamentocaratteristica.Columns["idambitoareadisc"]};
 	Relations.Add(new DataRelation("FK_affidamentocaratteristica_ambitoareadisc_idambitoareadisc",cPar,cChild,false));
 
-	cPar = new []{registry.Columns["idreg"]};
+	cPar = new []{registry_alias1.Columns["idreg"]};
 	cChild = new []{affidamento.Columns["idreg_docenti"]};
-	Relations.Add(new DataRelation("FK_affidamento_registry_idreg_docenti",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_affidamento_registry_alias1_idreg_docenti",cPar,cChild,false));
 
 	cPar = new []{erogazkind.Columns["iderogazkind"]};
 	cChild = new []{affidamento.Columns["iderogazkind"]};
@@ -509,9 +649,13 @@ private void initClass() {
 	cChild = new []{affidamento.Columns["idaffidamentokind"]};
 	Relations.Add(new DataRelation("FK_affidamento_affidamentokind_idaffidamentokind",cPar,cChild,false));
 
-	cPar = new []{sede.Columns["idsede"]};
-	cChild = new []{canale.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_canale_sede_idsede",cPar,cChild,false));
+	cPar = new []{canale.Columns["idcanale"]};
+	cChild = new []{canaleregistry.Columns["idcanale"]};
+	Relations.Add(new DataRelation("FK_canaleregistry_canale_idcanale",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{canaleregistry.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_canaleregistry_registry_idreg",cPar,cChild,false));
 
 	#endregion
 

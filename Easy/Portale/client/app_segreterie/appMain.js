@@ -3,8 +3,7 @@
 
     var loc;
     function appMain() {
-        if (appMeta.appMainConfig.setTheme &&
-            appMeta.appMainConfig.cssTheme) {
+        if (appMeta.appMainConfig && appMeta.appMainConfig.setTheme && appMeta.appMainConfig.cssTheme) {
             appMeta.appMainConfig.setTheme(appMeta.appMainConfig.cssTheme);
         }
     }
@@ -61,6 +60,7 @@
 
 			//TEST registrazone
 			//appMeta.currApp.callPage('registrationuser', 'usr', false);
+            // se utente è gia loggato entro sulla app
             this.tryAutomaticLogin();
 
         },
@@ -360,6 +360,7 @@
          */
         doActionsAfterLoginSuccess:function () {
             var self = this;
+            appMeta.currApp.registerDynamicMetapages();
             // inizializza il menù da db
             this.initMenuWeb().then(function () {
 			    appMeta.authManager.setSystemInfo();
@@ -393,6 +394,10 @@
             if (!!searchon && searchon === "on") {
                 metaPage.cmdMainDoSearch();
             }
+        },
+
+        setUrlVarsAsExtraParameters: function (metaPage) {
+            Object.entries(this.getUrlVars()).forEach(([key, value]) => metaPage.state.setCallingParameter(key, value));
         },
 
         doLoginLDAP:function(that) {
@@ -511,7 +516,7 @@
             this.menuBuilder.clearMenu();
 
             this.showWaitingIndicator(loc.menuLoading);
-            return appMeta.getData.runSelect("menuweb" , "*" , null, null)
+            return appMeta.getData.runSelect("menuwebview" , "*" , null, null)
                 .then(function (dtMenuWeb) {
                     // salvo in una variabile sotto security, perchè poi la utizzo nella gestione dei bottone nelle pagine base
                     appMeta.security.dtMenuWeb = dtMenuWeb;
@@ -542,8 +547,13 @@
             appMeta.routing.builderConnObj("cryptSystemConfig", 'POST', 'admin', false, true);
 
             //metodi custom per modulo segreterie
+            appMeta.routing.builderConnObj("getMailList", 'GET', 'segreterie', false, true);
             appMeta.routing.builderConnObj("protocolla", 'POST', 'segreterie', false, true);
-
+            appMeta.routing.builderConnObj("aggiornaprotocollo", 'POST', 'segreterie', false, true);
+            appMeta.routing.builderConnObj("generaCrediti", 'POST', 'segreterie', false, true);
+            appMeta.routing.builderConnObj("scaricaAvvisoPagamento", 'POST', 'segreterie', false, true);
+            appMeta.routing.builderConnObj("ProcediPagamento", 'POST', 'segreterie', false, true);
+            
             //metodi custom per modulo progetti
             appMeta.routing.builderConnObj("calculateAmmortamento", 'POST', 'progetti', false, true);
             appMeta.routing.builderConnObj("calculateCostiProgetto", 'POST', 'progetti', false, true);
@@ -559,6 +569,9 @@
             //web service per la signature aruba
             appMeta.routing.builderConnObj("signFileAruba", 'POST', 'signature', false, true);
 
+            //web service per la fincatura dei pdf
+            appMeta.routing.builderConnObj("FincHashSign", 'POST', 'pdfutil', false, true);
+
             //web services per la signature usign
             appMeta.routing.builderConnObj("createProcessUSign", 'POST', 'signature', false, true);
             appMeta.routing.builderConnObj("uploadFileUSign", 'POST', 'signature', false, true);
@@ -570,6 +583,12 @@
 
             //web services del costo orario del personale Wis-Per
             appMeta.routing.builderConnObj("getCostoOrario", 'POST', 'admin', false, true); 
+
+            appMeta.routing.methodEnum.getMapping = "getMapping";
+            appMeta.routing.builderConnObj("getMapping", 'GET', 'data', false, true);
+
+            appMeta.routing.methodEnum.generateExport = "generateExport";
+            appMeta.routing.builderConnObj("generateExport", 'POST', 'data', false, true);
 
             //logger errori
             appMeta.routing.builderConnObj("logError", 'POST', 'data', false, true); 
@@ -648,7 +667,8 @@
             } else {
                 if (currPageShowing.detailPage) return this.disableMenu();
                 this.enableMenu();
-				this.checkSearchOnOpening(currPageShowing);
+                this.checkSearchOnOpening(currPageShowing);
+                this.setUrlVarsAsExtraParameters(currPageShowing);
             }
         },
 

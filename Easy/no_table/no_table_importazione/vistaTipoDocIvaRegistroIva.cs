@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,194 +13,174 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace notable_importazione {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaTipoDocIvaRegistroIva: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable invoicekind{get { return Tables["invoicekind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable ivaregisterkind{get { return Tables["ivaregisterkind"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable invoicekindregisterkind{get { return Tables["invoicekindregisterkind"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace notable_importazione {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaTipoDocIvaRegistroIva"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaTipoDocIvaRegistroIva: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoicekind 		=> Tables["invoicekind"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable ivaregisterkind 		=> Tables["ivaregisterkind"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable invoicekindregisterkind 		=> Tables["invoicekindregisterkind"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaTipoDocIvaRegistroIva(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaTipoDocIvaRegistroIva";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaTipoDocIvaRegistroIva.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaTipoDocIvaRegistroIva (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaTipoDocIvaRegistroIva";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaTipoDocIvaRegistroIva.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("invoicekind");
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// INVOICEKIND /////////////////////////////////
+	var tinvoicekind= new DataTable("invoicekind");
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("codeinvkind", typeof(System.String), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("codeinvkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinvkind", typeof(System.Int32), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("flag", typeof(System.Byte), "");
+	tinvoicekind.Columns.Add(C);
+	C= new DataColumn("flag", typeof(byte));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tinvoicekind.Columns.Add(C);
+	tinvoicekind.Columns.Add( new DataColumn("flag_autodocnumbering", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("formatstring", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("active", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("idinvkind_auto", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("printingcode", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	tinvoicekind.Columns.Add( new DataColumn("address", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("header", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("notes1", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("notes2", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("notes3", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("ipa_fe", typeof(string)));
+	tinvoicekind.Columns.Add( new DataColumn("riferimento_amministrazione", typeof(string)));
+	Tables.Add(tinvoicekind);
+	tinvoicekind.PrimaryKey =  new DataColumn[]{tinvoicekind.Columns["idinvkind"]};
 
-	T.Columns.Add(new DataColumn("flag_autodocnumbering", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("formatstring", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idinvkind_auto", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("printingcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("address", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("header", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("notes1", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("notes2", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("notes3", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ipa_fe", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("riferimento_amministrazione", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idinvkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("ivaregisterkind");
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// IVAREGISTERKIND /////////////////////////////////
+	var tivaregisterkind= new DataTable("ivaregisterkind");
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("registerclass", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("registerclass", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idivaregisterkindunified", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagactivity", typeof(System.Int16), ""));
-	C= new DataColumn("codeivaregisterkind", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("idivaregisterkindunified", typeof(string)));
+	tivaregisterkind.Columns.Add( new DataColumn("flagactivity", typeof(short)));
+	C= new DataColumn("codeivaregisterkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idivaregisterkind", typeof(System.Int32), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("idivaregisterkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("compensation", typeof(string)));
+	tivaregisterkind.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tivaregisterkind.Columns.Add( new DataColumn("emails", typeof(string)));
+	Tables.Add(tivaregisterkind);
+	tivaregisterkind.PrimaryKey =  new DataColumn[]{tivaregisterkind.Columns["idivaregisterkind"]};
 
-	T.Columns.Add(new DataColumn("compensation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idtreasurer", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idivaregisterkind"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("invoicekindregisterkind");
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// INVOICEKINDREGISTERKIND /////////////////////////////////
+	var tinvoicekindregisterkind= new DataTable("invoicekindregisterkind");
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tinvoicekindregisterkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tinvoicekindregisterkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tinvoicekindregisterkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idinvkind", typeof(System.Int32), "");
+	tinvoicekindregisterkind.Columns.Add(C);
+	C= new DataColumn("idinvkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idivaregisterkind", typeof(System.Int32), "");
+	tinvoicekindregisterkind.Columns.Add(C);
+	C= new DataColumn("idivaregisterkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idinvkind"], 	T.Columns["idivaregisterkind"]};
-	T.PrimaryKey = key;
+	tinvoicekindregisterkind.Columns.Add(C);
+	Tables.Add(tinvoicekindregisterkind);
+	tinvoicekindregisterkind.PrimaryKey =  new DataColumn[]{tinvoicekindregisterkind.Columns["idinvkind"], tinvoicekindregisterkind.Columns["idivaregisterkind"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["ivaregisterkind"];
-TChild= Tables["invoicekindregisterkind"];
-CPar = new DataColumn[1]{TPar.Columns["idivaregisterkind"]};
-CChild = new DataColumn[1]{TChild.Columns["idivaregisterkind"]};
-Relations.Add(new DataRelation("ivaregisterkind_invoicekindregisterkind",CPar,CChild));
+	#endregion
 
-TPar= Tables["invoicekind"];
-TChild= Tables["invoicekindregisterkind"];
-CPar = new DataColumn[1]{TPar.Columns["idinvkind"]};
-CChild = new DataColumn[1]{TChild.Columns["idinvkind"]};
-Relations.Add(new DataRelation("invoicekind_invoicekindregisterkind",CPar,CChild));
+
+	#region DataRelation creation
+	var cPar = new []{ivaregisterkind.Columns["idivaregisterkind"]};
+	var cChild = new []{invoicekindregisterkind.Columns["idivaregisterkind"]};
+	Relations.Add(new DataRelation("ivaregisterkind_invoicekindregisterkind",cPar,cChild,false));
+
+	cPar = new []{invoicekind.Columns["idinvkind"]};
+	cChild = new []{invoicekindregisterkind.Columns["idinvkind"]};
+	Relations.Add(new DataRelation("invoicekind_invoicekindregisterkind",cPar,cChild,false));
+
+	#endregion
 
 }
 }

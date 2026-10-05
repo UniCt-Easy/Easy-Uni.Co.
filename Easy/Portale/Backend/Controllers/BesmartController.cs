@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,29 +13,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+using Backend.CommonBackend;
+using Backend.Models;
+using Backend.Security;
+using metadatalibrary;
+using metaeasylibrary;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Net;
+using System.Web;
+using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Backend.CommonBackend;
-using System;
-using System.Data;
-using Backend.Security;
-using System.Web.Configuration;
-using Newtonsoft.Json.Linq;
-using metaeasylibrary;
 using q = metadatalibrary.MetaExpression;
-using Newtonsoft.Json;
-using metadatalibrary;
-using System.Collections.Generic;
-using System.Web;
-using Backend.Models;
-using System.Linq;
-using Backend.Extensions;
-using Microsoft.Win32;
-using System.IO;
-using System.Globalization;
-using Castle.Components.DictionaryAdapter.Xml;
 
 namespace Backend.Controllers
 {
@@ -150,7 +143,7 @@ namespace Backend.Controllers
 
             //if ((rendicontazioneDocente.didatticheFrontali.Count() + rendicontazioneDocente.didatticheIntegrative.Count() + rendicontazioneDocente.altreAttivita.Count()) > 1)
             //{
-            //    logErr = $"RendicontazioneDocente deve avere una sola didatticaFrontale o una sola didatticaIntegrativa o una sola altraAttivit‡; ne sono presenti: " +
+            //    logErr = $"RendicontazioneDocente deve avere una sola didatticaFrontale o una sola didatticaIntegrativa o una sola altraAttivit√†; ne sono presenti: " +
             //             $"didatticheFrontali = {rendicontazioneDocente.didatticheFrontali.Count()}, " +
             //             $"didatticheIntegrative = {rendicontazioneDocente.didatticheIntegrative.Count()}, " +
             //             $"altreAttivita = {rendicontazioneDocente.altreAttivita.Count()}";
@@ -160,7 +153,7 @@ namespace Backend.Controllers
             //}
 
             // REQUEST LOG
-            common.logInfo("request", $"Besmart > rendicontaDocente > rendicontazioneDocente: {JsonConvert.SerializeObject(rendicontazioneDocente)}");
+            common.logInfo("request", $"Besmart > rendicontaDocente > rendicontazioneDocente: {JsonConvert.SerializeObject(rendicontazioneDocenteList)}");
 
             // Creo la connessione
             var dispatcher = new Dispatcher();
@@ -209,7 +202,7 @@ namespace Backend.Controllers
                         }
                     }
 
-                    // Salvo le didattiche altre attivit‡
+                    // Salvo le didattiche altre attivit√†
                     foreach (Erogazione di in rendicontazioneDocente.altreAttivita)
                     {
                         if (di.erogazioneTipoAttivita.Length > 2048)
@@ -259,7 +252,7 @@ namespace Backend.Controllers
 
 						qryIns = "";
 
-						// Salvo le didattiche altre attivit‡
+						// Salvo le didattiche altre attivit√†
 						foreach (Erogazione di in rendicontazioneDocente.altreAttivita)
                         {
                             if (di.erogazioneOreComplessive >= 0)
@@ -267,14 +260,14 @@ namespace Backend.Controllers
                                 string result = AddErogazione(conn, di, idreg, out qryIns);
 
                                 if (result != "")
-                                    error += $" - Errore di inserimento Altre attivit‡, CF: {CF}, Data: {di.erogazioneData}, Ore: {di.erogazioneOreComplessive}. Errore: {result}\r\n";
+                                    error += $" - Errore di inserimento Altre attivit√†, CF: {CF}, Data: {di.erogazioneData}, Ore: {di.erogazioneOreComplessive}. Errore: {result}\r\n";
 								else
 									totalQry += qryIns;
 							}
                         }
 
-                        // Se arrivo qui, Ë OK, vuol dire che i dati sono buoni
-                        // Tuttavia possono esserci delle righe gi‡ scritte che non fanno scrivere nulla
+                        // Se arrivo qui, √® OK, vuol dire che i dati sono buoni
+                        // Tuttavia possono esserci delle righe gi√† scritte che non fanno scrivere nulla
                         // if (error == "")
 						error = AddDidattica(conn, totalQry);
                     }
@@ -369,17 +362,6 @@ namespace Backend.Controllers
 
             EliminaRendicontazioneDocente eliminaRendicontazioneDocente = eliminaRendicontazioneDocenteList.First();
 
-            if ((eliminaRendicontazioneDocente.didatticheFrontali.Count() + eliminaRendicontazioneDocente.didatticheIntegrative.Count() + eliminaRendicontazioneDocente.altreAttivita.Count()) > 1)
-            {
-                logErr = $"RendicontazioneDocente deve avere una sola didatticaFrontale o una sola didatticaIntegrativa o una sola altraAttivit‡; ne sono presenti: " +
-                         $"didatticheFrontali = {eliminaRendicontazioneDocente.didatticheFrontali.Count()}, " +
-                         $"didatticheIntegrative = {eliminaRendicontazioneDocente.didatticheIntegrative.Count()}, " +
-                         $"altreAttivita = {eliminaRendicontazioneDocente.altreAttivita.Count()}";
-
-                common.logInfo("request", $"Besmart > eliminaRendicontazioneDocente > {logErr}");
-                return Content(HttpStatusCode.BadRequest, logErr);
-            }
-
             // REQUEST LOG
             common.logInfo("request", $"Besmart > eliminaRendicontaDocente > eliminaRendicontaDocente: {JsonConvert.SerializeObject(eliminaRendicontazioneDocente)}");
 
@@ -428,13 +410,13 @@ namespace Backend.Controllers
                             error += $" - Errore di eliminazione Didattica Integrativa, CF: {CF}, Data: {di.erogazioneData}, Ore: {di.erogazioneOreComplessive}. Errore: {result}\r\n";
                     }
 
-                    // Salvo le didattiche altre attivit‡
+                    // Salvo le didattiche altre attivit√†
                     foreach (DelErogazione di in eliminaRendicontazioneDocente.altreAttivita)
                     {
                         string result = DelErogazione(conn, di, idreg);
 
                         if (result != "")
-                            error += $" - Errore di eliminazione Altre attivit‡, CF: {CF}, Data: {di.erogazioneData}, Ore: {di.erogazioneOreComplessive}. Errore: {result}\r\n";
+                            error += $" - Errore di eliminazione Altre attivit√†, CF: {CF}, Data: {di.erogazioneData}, Ore: {di.erogazioneOreComplessive}. Errore: {result}\r\n";
                     }
                 }
                 else
@@ -480,7 +462,7 @@ namespace Backend.Controllers
                 DateTime.TryParse(df.erogazioneDataOraInizio, out DateTime start);
                 DateTime.TryParse(df.erogazioneDataOraFine, out DateTime stop);
 
-                // Controllo che non sia gi‡ stata inserita
+                // Controllo che non sia gi√† stata inserita
                 string qry = string.Format(CountRendicontdidattica, start.ToString("dd/MM/yyyy HH:mm:ss"), stop.ToString("dd/MM/yyyy HH:mm:ss"), idreg);
                 DataTable count = conn.SQLRunner(qry);
                 int cnt = 0;
@@ -492,13 +474,13 @@ namespace Backend.Controllers
                 }
                 catch { }        
 
-                // Se Ë stata gi‡ inserita restituisco errore
+                // Se √® stata gi√† inserita restituisco errore
                 if (cnt != 0)
-                    return "gi‡ inserita";
+                    return "gi√† inserita";
 
-				// Se non Ë stata gi‡ inserita la inserisco
+				// Se non √® stata gi√† inserita la inserisco
 				qryIns = string.Format(InsRendicontdidattica, start.ToString("dd/MM/yyyy HH:mm:ss"), stop.ToString("dd/MM/yyyy HH:mm:ss"), title.Replace("'", "''"), idreg, idsede);
-                // conn.SQLRunner(qry);
+                conn.SQLRunner(qry);
             }
             catch (Exception Ex)
             {
@@ -523,7 +505,7 @@ namespace Backend.Controllers
 
 				int idrendicontaltrokind = GetRendicontAltroKind(conn, di.erogazioneTipoAttivita);
 
-				// Controllo che non sia gi‡ stata inserita
+				// Controllo che non sia gi√† stata inserita
 				string qry = string.Format(CountRendicontaltro, aa, idreg, dataErogazione.ToString("dd/MM/yyyy"), idrendicontaltrokind);
 				DataTable count = conn.SQLRunner(qry);
 
@@ -538,14 +520,13 @@ namespace Backend.Controllers
                 catch { }
                 
 
-                // Se Ë stata gi‡ inserita restituisco errore
+                // Se √® stata gi√† inserita restituisco errore
                 if (cnt != 0)
-                    return "gi‡ inserita";
+                    return "gi√† inserita";
 
-				// Se non Ë stata gi‡ inserita la inserisco
+				// Se non √® stata gi√† inserita la inserisco
 				qryIns = string.Format(InsRendicontaltro, aa, idreg, dataErogazione, idrendicontaltrokind, ore);
-
-				// conn.SQLRunner(qry);
+				conn.SQLRunner(qry);
 			}
             catch (Exception Ex)
             {
@@ -563,22 +544,36 @@ namespace Backend.Controllers
                 DateTime.TryParse(df.erogazioneDataOraInizio, out DateTime start);
                 DateTime.TryParse(df.erogazioneDataOraFine, out DateTime stop);
 
-                // Controllo che non sia gi‡ stata inserita
+                string qryCheckConsolidamenti = string.Format(CountConsolidamenti, idreg, start.Year, start.Month, start.Day);
+                DataTable dtCountConsolidamenti = conn.SQLRunner(qryCheckConsolidamenti);
+                int cntConsolidamenti = 0;
+                try
+                {
+                    if (dtCountConsolidamenti.Rows != null)
+                        if (dtCountConsolidamenti.Rows.Count > 0)
+                            int.TryParse(dtCountConsolidamenti.Rows[0][0].ToString(), out cntConsolidamenti);
+                }
+                catch { }
+
+                if (cntConsolidamenti > 0)
+                    return "Didattica frontale gi√† consolidata";
+
+                // Controllo che non sia gi√† stata inserita
                 string qry = string.Format(CountRendicontdidattica, start.ToString("dd/MM/yyyy HH:mm:ss"), stop.ToString("dd/MM/yyyy HH:mm:ss"), idreg);
-                DataTable count = conn.SQLRunner(qry);
+                DataTable dt = conn.SQLRunner(qry);
                 int cnt = 0;
                 try
                 {
-                    if (count.Rows != null)
-                        if (count.Rows.Count > 0)
-                            int.TryParse(count.Rows[0][0].ToString(), out cnt);
+                    if (dt.Rows != null)
+                        if (dt.Rows.Count > 0)
+                            int.TryParse(dt.Rows[0][0].ToString(), out cnt);
                 }
                 catch { }
                 
 
                 // Non esiste restituisco errore
                 if (cnt == 0)
-                    return "inesistente";
+                    return "Didattica frontale inesistente";
 
                 // Se esiste la elimino
                 qry = string.Format(DelRendicontdidattica, idreg, start.ToString("dd/MM/yyyy HH:mm:ss"), stop.ToString("dd/MM/yyyy HH:mm:ss"));
@@ -649,7 +644,7 @@ namespace Backend.Controllers
 
 		private int GetSede(IDataAccess conn, ErogazioneLuogo erogazioneLuogo, int idreg)
 		{
-            int idsede = (int)(conn.DO_READ_VALUE("sede", $"title = '{erogazioneLuogo.luogoNome}'", "idsede") ?? 0);
+            int idsede = (int)(conn.DO_READ_VALUE("sede", $"title = '{erogazioneLuogo.luogoNome.Replace("'", "''")}'", "idsede") ?? 0);
 
             if (idsede == 0)
             {
@@ -660,7 +655,7 @@ namespace Backend.Controllers
 
 				if (!string.IsNullOrEmpty(erogazioneLuogo.luogoNome))
 				{
-					DataTable geo = conn.SQLRunner($"select idcity, cap, title from geo_city_codeview where title = '{erogazioneLuogo.luogoNome}'");
+					DataTable geo = conn.SQLRunner($"select idcity, cap, title from geo_city_codeview where title = '{erogazioneLuogo.luogoNome.Replace("'", "''")}'");
                     if (geo != null)
                     {
                         if (geo.Rows != null)
@@ -729,7 +724,7 @@ namespace Backend.Controllers
 
 		private int GetRendicontAltroKind(IDataAccess conn, string tipoAttivita)
 		{
-			int idrendicontaltrokind = (int)(conn.DO_READ_VALUE("rendicontaltrokind", $"title = '{tipoAttivita}'", "idrendicontaltrokind") ?? 0);
+			int idrendicontaltrokind = (int)(conn.DO_READ_VALUE("rendicontaltrokind", $"title = '{tipoAttivita.Replace("'", "''")}'", "idrendicontaltrokind") ?? 0);
 
 			if (idrendicontaltrokind == 0)
             {
@@ -815,7 +810,7 @@ namespace Backend.Controllers
 
             string rows = JsonConvert.SerializeObject(dt);
             // la SerializeObject crea "\chiave"\:"\valore"\, con gli slash. La parse toglie gli slash
-            // cosÏ al client arriva un json "pulito" cioË { "chiave": "valore"} senza gli slash prima dei doppi apici
+            // cos√¨ al client arriva un json "pulito" cio√® { "chiave": "valore"} senza gli slash prima dei doppi apici
             var rowsParsed = JToken.Parse(rows);
             result = new JObject {
                     {"rows", rowsParsed},
@@ -826,15 +821,17 @@ namespace Backend.Controllers
             return Content(HttpStatusCode.OK, result);
 		}
 
-		// ========================================================================================================================
-		// Rendicontdidattica
-		// ========================================================================================================================
-		string CountRendicontdidattica = "SET DATEFORMAT dmy; select count(idrendicontdidattica) from rendicontdidattica where start = '{0}' AND stop = '{1}' AND idreg = {2}; ";
+        // ========================================================================================================================
+        // Rendicontdidattica
+        // ========================================================================================================================
+        string CountConsolidamenti = "SELECT Count(c.idconsolidamento) FROM consolidamento c WHERE c.idreg = {0} AND DATEFROMPARTS({1}, {2}, {3}) BETWEEN c.start AND c.stop";
+
+        string CountRendicontdidattica = "SET DATEFORMAT dmy; select count(idrendicontdidattica) from rendicontdidattica where start = '{0}' AND stop = '{1}' AND idreg = {2}; ";
 
 		string InsRendicontdidattica = "SET DATEFORMAT dmy; INSERT INTO rendicontdidattica (idrendicontdidattica, start, stop, ct, cu, lt, lu, title, idreg, idsede) " +
 									   "VALUES ((select isnull(max(idrendicontdidattica), 0) + 1 from rendicontdidattica), '{0}', '{1}', getdate(), 'ApiBesmart', getdate(), 'ApiBesmart', '{2}', {3}, {4}); ";
 
-        string DelRendicontdidattica = "SET DATEFORMAT dmy; DELETE rendicontdidattica WHERE idreg = {0} AND start = {1} AND stop = {2}; ";
+        string DelRendicontdidattica = "SET DATEFORMAT dmy; DELETE rendicontdidattica WHERE idreg = {0} AND start = '{1}' AND stop = '{2}'; ";
 
         // ========================================================================================================================
         // Erogazione
@@ -846,7 +843,7 @@ namespace Backend.Controllers
 
         string CountDelRendicontaltro = "SET DATEFORMAT dmy; select count(idrendicontaltro) from rendicontaltro where aa = '{0}' AND idreg_docenti = '{1}' AND data = '{2}'; ";
 
-        string DelRendicontaltro = "SET DATEFORMAT dmy; DELETE rendicontaltro WHERE idreg_docenti = {0} AND data = {1} AND ore = {2}; ";
+        string DelRendicontaltro = "SET DATEFORMAT dmy; DELETE rendicontaltro WHERE idreg_docenti = {0} AND data = '{1}' AND ore = {2}; ";
 
         // ========================================================================================================================
         // RendicontaltroKind

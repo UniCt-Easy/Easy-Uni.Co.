@@ -477,9 +477,13 @@
               <xs:element name="_x0021_budgetcalcolato" type="xs:decimal" minOccurs="0" />
               <xs:element name="autoassociazione" type="xs:string" minOccurs="0" />
               <xs:element name="budget" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="datablocco" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idprogetto" type="xs:int" />
               <xs:element name="idsal" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />

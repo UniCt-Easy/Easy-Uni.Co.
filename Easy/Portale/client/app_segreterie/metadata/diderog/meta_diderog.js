@@ -25,7 +25,7 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
 						this.describeAColumn(table, 'aa', 'Anno Accademico', null, 20, 9);
-						this.describeAColumn(table, 'inesaurimento', 'Inesaurimento', null, 40, null);
+						this.describeAColumn(table, 'inesaurimento', 'In esaurimento', null, 40, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -41,6 +41,10 @@
 					case 'default':
 						table.columns["aa"].caption = "Anno Accademico";
 						table.columns["idcorsostudio"].caption = "Corso di studio";
+						table.columns["idcorsostudiokind"].caption = "Tipologia";
+						table.columns["idcorsostudiolivello"].caption = "Livello";
+						table.columns["idsede"].caption = "Sede";
+						table.columns["inesaurimento"].caption = "In esaurimento";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Text;
@@ -161,10 +159,10 @@ namespace pagoPaService {
             //9.GetRicevutaTelematica
             //Consente di  recuperare una singola ricevuta telematica a fronte di uno IUV e CREDITORE
 
-            //La chiamata REST(con basic authentication) è:
+            //La chiamata REST(con basic authentication) Ã¨:
             //< url_end_point_PMPAY >/ ricevutatelematica / get ? creditore =< creditore > &IUV =< IUV >| FileRisposta
 
-            //L’operazione restituisce il file XML di ricevuta telematica come ricevuto da nodo SPC o messaggio di errore nel caso di operazione non andata a buon fine
+            //Lâ€™operazione restituisce il file XML di ricevuta telematica come ricevuto da nodo SPC o messaggio di errore nel caso di operazione non andata a buon fine
 
             var wc = new WebClient();
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
@@ -214,9 +212,9 @@ namespace pagoPaService {
         public FlussoRiversamento
             GetRendicontazione(string codiceAzienda, string id_Rendicontazione, out string errore) {
             errore = null;
-            //La chiamata REST(con basic authentication) è:
+            //La chiamata REST(con basic authentication) Ã¨:
             //< url_end_point_PMPAY >/ rendicontazioni / get ? idTrasmissione =< ID_RESTITUITO_DA_OPERAZIONE 12 >| FileRisposta
-            //L’operazione restituisce il file XML di rendicontazione come ricevuto da nodo SPC o messaggio di errore nel caso di operazione non andata a buon fine.
+            //Lâ€™operazione restituisce il file XML di rendicontazione come ricevuto da nodo SPC o messaggio di errore nel caso di operazione non andata a buon fine.
 
             var wc = new WebClient();
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
@@ -281,14 +279,14 @@ namespace pagoPaService {
 
         public allineamentopendenze GetInformativaPagamentoRendicontati(string idTrasmissione, out string errore) {
             errore = null;
-            // Consente di  recuperare i pagamenti effettuati sulla piattaforma PMPAY , per i quali vi è
+            // Consente di  recuperare i pagamenti effettuati sulla piattaforma PMPAY , per i quali vi Ã¨
             //una rendicontazione, che devono essere aggiornate su app Client a copertura delle partite aperte.
-            //La chiamata REST(con basic authentication) è:
+            //La chiamata REST(con basic authentication) Ã¨:
             //< url_end_point_PMPAY >/ informativapagamentirendicontati / get ? idTrasmissione =< id_trasmissione >| FileRisposta
-            //Il parametro idTrasmissione è l'id della trasmissione che identifica il flusso di pagamenti da scaricare 
-            //sul sistema Client (è il campo IdTrasmissione del file xml ritornato dal metodo  informativapagamentirendicontati /list del punto precedente.
-            //Il FileRisposta è un file in formato CSV  con codifica UTF - 8.
-            //Ogni linea è costituita da 21 campi delimitati dal carattere '|'(pipe) e il formato è lo stesso formato CSV di SendAllineamentoPendenze utilizzato per inviare le pendenze.
+            //Il parametro idTrasmissione Ã¨ l'id della trasmissione che identifica il flusso di pagamenti da scaricare 
+            //sul sistema Client (Ã¨ il campo IdTrasmissione del file xml ritornato dal metodo  informativapagamentirendicontati /list del punto precedente.
+            //Il FileRisposta Ã¨ un file in formato CSV  con codifica UTF - 8.
+            //Ogni linea Ã¨ costituita da 21 campi delimitati dal carattere '|'(pipe) e il formato Ã¨ lo stesso formato CSV di SendAllineamentoPendenze utilizzato per inviare le pendenze.
             CultureInfo MyCultureInfo = new CultureInfo("en-US");
 
              var wc = new WebClient();
@@ -454,11 +452,11 @@ namespace pagoPaService {
 
 
         public List<string> GetElencoInformativePagamentiRendicontati(string codiceAzienda, out string errore) {
-            //Consente di  recuperare la lista delle trasmissioni di informative pagamenti presenti su PMPAY , per i quali è stata ricevuta rendicontazione.
-            //La chiamata REST(con basic authentication) è:
+            //Consente di  recuperare la lista delle trasmissioni di informative pagamenti presenti su PMPAY , per i quali Ã¨ stata ricevuta rendicontazione.
+            //La chiamata REST(con basic authentication) Ã¨:
             //< url_end_point_PMPAY >/ informativapagamentirendicontati / list ? CFDebitore =< cf del debitore > &creditore =< CODICE_ENTE_CREDITORE >| FileRisposta
 
-            //Il FileRisposta è un file in formato XML.
+            //Il FileRisposta Ã¨ un file in formato XML.
             //< InformativaPagamentiList >
 
             //    < InformativaPagamenti >
@@ -472,10 +470,10 @@ namespace pagoPaService {
             //       </ InformativaPagamenti >
             //   </ InformativaPagamentiList >
 
-            //La funzione prende in esame i pagamenti ESEGUITI con successo, per i quali vi è una rendicontazione, che non sono ancora stati presi in considerazione da una richiesta GetElencoInformativePagamentiRendicontati(dello stesso tipo dove la discriminante del tipo è la presenza o meno di cfdebitore), raggruppati per ente.
+            //La funzione prende in esame i pagamenti ESEGUITI con successo, per i quali vi Ã¨ una rendicontazione, che non sono ancora stati presi in considerazione da una richiesta GetElencoInformativePagamentiRendicontati(dello stesso tipo dove la discriminante del tipo Ã¨ la presenza o meno di cfdebitore), raggruppati per ente.
             //Verranno presi in considerazione solamente gli enti per i quali effettivamente sono presenti pagamenti che corrispondano al criterio di estrazione.
             //Se viene fornito in ingresso il parametro opzionale CFDebitore la ricerca riguarda solamente le pratiche associate al debitore indicato.
-            //Il parametro in ingresso creditore che limita la ricerca ad un determinato ente è facoltativo.
+            //Il parametro in ingresso creditore che limita la ricerca ad un determinato ente Ã¨ facoltativo.
 
             List<string> listId_Trasmissione = new List<string>();
             errore = "";
@@ -538,7 +536,7 @@ namespace pagoPaService {
         }
 
         public List<string> GetElencoRendicontazioni(DateTime start, DateTime stop, string codiceAzienda, out string errore) {
-            //La chiamata REST(con basic authentication) è:
+            //La chiamata REST(con basic authentication) Ã¨:
             //< url_end_point_PMPAY >/ rendicontazioni / list ? parametri descritti nella sezione Input | FileRisposta
 
             //La funzione consente di recuperare una lista di identificativi rappresentanti le rendicontazioni presenti in archivio che rispettano i criteri di filtro.

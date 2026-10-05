@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using metadatalibrary;
 using metaeasylibrary;
@@ -146,7 +144,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
         string ErroreDepConn;
         var DepConn = AccessKit.GetDepartmentConn(depcode_given, Page, out ErroreDepConn);
 
-        // Dati dell'università
+        // Dati dell'universitÃ 
         string Query = "SELECT a.Agency, a.Address1, a.Cap, a.Country, a.P_Iva, b.Title from license a left outer join geo_city b on a.idcity = b.idcity ";
         DataTable tLicence = DataAccess.SQLRunner(DepConn as DataAccess, Query);
 
@@ -235,12 +233,12 @@ public partial class RegistraAccount : System.Web.UI.Page {
             }
 
             if (!isValidEmail(Email)) {
-                lblMessaggio.Text = "la Email non è valida.";
+                lblMessaggio.Text = "la Email non Ã¨ valida.";
                 return;
             }
 
             if (!isValidEmail(Pec) && Pec != "") {
-                lblMessaggio.Text = "la Pec non è valida.";
+                lblMessaggio.Text = "la Pec non Ã¨ valida.";
                 return;
             }
 
@@ -306,13 +304,13 @@ public partial class RegistraAccount : System.Web.UI.Page {
 
                 if (tipoNascita == "I") {
                     if (string.IsNullOrEmpty(LuogoNascita)) {
-                        lblMessaggio.Text = "Il campo Città nascita deve essere compilato.";
+                        lblMessaggio.Text = "Il campo CittÃ  nascita deve essere compilato.";
                         return;
                     }
 
                     idcityNascita = idCityFromString(DepConn, LuogoNascita);
                     if (idcityNascita == null) {
-                        lblMessaggio.Text = "Il campo Città nascita deve essere selezionato dall'elenco.";
+                        lblMessaggio.Text = "Il campo CittÃ  nascita deve essere selezionato dall'elenco.";
                         return;
                     }
                 }
@@ -333,13 +331,13 @@ public partial class RegistraAccount : System.Web.UI.Page {
 
             if (rdbtiporesidenza.SelectedValue == "I") {
                 if (string.IsNullOrEmpty(LuogoIndirizzo)) {
-                    lblMessaggio.Text = "Il campo Città indirizzo deve essere compilato.";
+                    lblMessaggio.Text = "Il campo CittÃ  indirizzo deve essere compilato.";
                     return;
                 }
 
                 idcityIndirizzo = idCityFromString(DepConn, LuogoIndirizzo);
                 if (idcityIndirizzo == null) {
-                    lblMessaggio.Text = "Il campo Città Indirizzo deve essere selezionato dall'elenco.";
+                    lblMessaggio.Text = "Il campo CittÃ  Indirizzo deve essere selezionato dall'elenco.";
                     return;
                 }
 
@@ -397,7 +395,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
                 if (personafisica) {
                     errori = CodiceFiscale.CheckCF(cf);
                     if (!string.IsNullOrEmpty(errori)) {
-                        lblMessaggio.Text = "Il codice fiscale non è valido: " + errori;
+                        lblMessaggio.Text = "Il codice fiscale non Ã¨ valido: " + errori;
                         return;
                     }
                 }
@@ -410,7 +408,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
                         if ((!IsValid) || (lastchar != cf[cf.Length - 1].ToString())) {
                             lblMessaggio.Text = "Ultimo carattere del Codice Fiscale non valido";
                             return;
-                            // Non c'è il return, è solo un essaggio informativo Nino: lo rimetto, non vedo lo scopo di inserire un CF errato
+                            // Non c'Ã¨ il return, Ã¨ solo un essaggio informativo Nino: lo rimetto, non vedo lo scopo di inserire un CF errato
                         }
                     }
                 }
@@ -421,7 +419,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
                 QHS.CmpEq("idregistryclass", idregistryclass), null, false);
             if (tRegistryclassregistry == null || tRegistryclassregistry.Rows.Count == 0) return;
             string flagp_iva_forced = tRegistryclassregistry.Rows[0]["flagp_iva_forced"].ToString();
-            //Se Persona Giuridica, residente in Italia con P.iva ogglibatoria nella config. della tipologia ==> Piva obbligatoria (Altrimenti è sufficiente il CF)
+            //Se Persona Giuridica, residente in Italia con P.iva ogglibatoria nella config. della tipologia ==> Piva obbligatoria (Altrimenti Ã¨ sufficiente il CF)
             if (!personafisica && rdbtiporesidenza.SelectedValue == "I" && (flagp_iva_forced == "S")) {
                 if (string.IsNullOrEmpty(piva)) {
                     lblMessaggio.Text = "Il campo partita iva deve essere compilato.";
@@ -433,7 +431,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
             if (!string.IsNullOrEmpty(piva)) {
                 errori = PartitaIVA.ControllaPartitaIva(piva);
                 if (!string.IsNullOrEmpty(errori)) {
-                    lblMessaggio.Text = "La partita iva non è valida: " + errori;
+                    lblMessaggio.Text = "La partita iva non Ã¨ valida: " + errori;
                     return;
                 }
             }
@@ -475,14 +473,14 @@ public partial class RegistraAccount : System.Web.UI.Page {
             int nEmail = DepConn.count("registryreference",
                 q.eq("email", Email) & q.isNotNull("userweb"));
             if (nEmail > 0) {
-                lblMessaggio.Text = "indirizzo di mail già in uso per un altro contatto.";
+                lblMessaggio.Text = "indirizzo di mail giÃ  in uso per un altro contatto.";
                 PulisciCampi();
                 return;
             }
 
             int nUserweb = DepConn.count("registryreference", q.eq("userweb", NomeUtente));
             if (nUserweb > 0) {
-                lblMessaggio.Text = "Nome utente già in uso per un altro contatto.";
+                lblMessaggio.Text = "Nome utente giÃ  in uso per un altro contatto.";
                 PulisciCampi();
                 return;
             }
@@ -550,7 +548,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
                 getData.DO_GET(false, registryRow);
             }
 
-            // Crea un nuovo contatto o riutilizza quello già esistente
+            // Crea un nuovo contatto o riutilizza quello giÃ  esistente
             var filterByEmail = QHC.CmpEq("email", Email);
             var referenceRow = ds.registryreference.First(filterByEmail);
             if (referenceRow == null) {
@@ -567,13 +565,13 @@ public partial class RegistraAccount : System.Web.UI.Page {
                 }
 
                 if (!referenceRow.IsNull("passwordweb")) {
-                    lblMessaggio.Text = "Utente già registrato";
+                    lblMessaggio.Text = "Utente giÃ  registrato";
                     PulisciCampi();
                     return;
                 }
             }
 
-            // Imposta il contatto di default in caso non ce ne sia già uno
+            // Imposta il contatto di default in caso non ce ne sia giÃ  uno
             var filterDefault = QHC.CmpEq("flagdefault", "S");
             var defaultReferenceRow = ds.registryreference.First(filterDefault);
             if (defaultReferenceRow == null) {
@@ -631,7 +629,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
                             match = currAddressRow.flagforeign == "S" & currAddressRow.idnation.ToString() == idnationIndirizzo.ToString();
                         }
                     }
-                    //14767 All'atto della registrazione ha creato un secondo indirizzo di residenza predefinito a quanto pare in tutto simile a quello già esistente
+                    //14767 All'atto della registrazione ha creato un secondo indirizzo di residenza predefinito a quanto pare in tutto simile a quello giÃ  esistente
                     if (!match) {
                         var oldAddressRow = currAddressRow;
                         oldAddressRow.stop = fineAnnoPrec;
@@ -639,7 +637,7 @@ public partial class RegistraAccount : System.Web.UI.Page {
                     }
                 } else {
                     if (currAddressRow.start.Year == DateTime.Now.Year) {
-                        //Se c'è match di città e cap, aggiorna l'indirizzo e pace 
+                        //Se c'Ã¨ match di cittÃ  e cap, aggiorna l'indirizzo e pace 
                         bool match = true;
                         var cap = string.IsNullOrEmpty(txtCAP.Text)
                             ? DBNull.Value
@@ -818,100 +816,100 @@ public partial class RegistraAccount : System.Web.UI.Page {
 
     public string privacy = @"
                             <p>
-                                Informativa di cui all’art. 13 del Regolamento EU 2016/679 che regola Codice in materia di protezione dei dati personali Privacy
+                                Informativa di cui allâ€™art. 13 del Regolamento EU 2016/679 che regola Codice in materia di protezione dei dati personali Privacy
                             </p>
                             <br />
 
                             <p>
                                 <b>Art. 1 - Titolare del trattamento</b><br />
-                                Il titolare dei trattamenti dei dati raccolti ai sensi e per gli effetti dell’art. 13 del Regolamento EU 2016/679,
-                                è <u>{0}</u> iscritta al Registro delle Imprese di {4} con Codice Fiscale e Partita IVA {3} con sede legale ed amministrativa
+                                Il titolare dei trattamenti dei dati raccolti ai sensi e per gli effetti dellâ€™art. 13 del Regolamento EU 2016/679,
+                                Ã¨ <u>{0}</u> iscritta al Registro delle Imprese di {4} con Codice Fiscale e Partita IVA {3} con sede legale ed amministrativa
                                 in {1} - {2} - {4} ({5}).
                             </p>
                             <br />
 
                             <p>
                                 <b>Art. 2 - Natura facoltativa o obbligatoria del conferimento dei dati</b><br />
-                                I dati dell’ utente conferiti al sito <u>{0}</u> possono essere necessari ai fini dell’utilizzo,
-                                oppure rivestire carattere facoltativo. La natura obbligatoria o facoltativa del conferimento è specificata di volta in volta con la segnalazione del carattere (*) per individuare
-                                l’obbligatorietà dell’informazione. La mancata comunicazione di dati obbligatori può rendere impossibile la prosecuzione e la conclusione della finalità perseguita dalla raccolta dei dati corrispondente.
-                                Ad esempio la mancata indicazione dell’indirizzo di spedizione rende impossibile la conclusione dell’acquisto. A tal proposito si vuole evidenziare che l’eventuale comunicazione assente o non corretta di
-                                una delle informazioni obbligatorie, può causare l’impossibilità per <u>{0}</u> di garantire la congruità del trattamento stesso e rende <u>{0}</u> non responsabile per conseguenze
+                                I dati dellâ€™ utente conferiti al sito <u>{0}</u> possono essere necessari ai fini dellâ€™utilizzo,
+                                oppure rivestire carattere facoltativo. La natura obbligatoria o facoltativa del conferimento Ã¨ specificata di volta in volta con la segnalazione del carattere (*) per individuare
+                                lâ€™obbligatorietÃ  dellâ€™informazione. La mancata comunicazione di dati obbligatori puÃ² rendere impossibile la prosecuzione e la conclusione della finalitÃ  perseguita dalla raccolta dei dati corrispondente.
+                                Ad esempio la mancata indicazione dellâ€™indirizzo di spedizione rende impossibile la conclusione dellâ€™acquisto. A tal proposito si vuole evidenziare che lâ€™eventuale comunicazione assente o non corretta di
+                                una delle informazioni obbligatorie, puÃ² causare lâ€™impossibilitÃ  per <u>{0}</u> di garantire la congruitÃ  del trattamento stesso e rende <u>{0}</u> non responsabile per conseguenze
                                 scaturenti da tale comunicazione non corretta. Per garantire che i dati personali siano sempre esatti ed aggiornati, la preghiamo di segnalarci ogni modifica intervenuta via mail.
-                                Tra i casi di conferimento facoltativi 	dei dati dell’utente citiamo quelli per scopi di marketing diretto, ma anche in questo caso sarà richiesto uno specifico consenso.
+                                Tra i casi di conferimento facoltativi 	dei dati dellâ€™utente citiamo quelli per scopi di marketing diretto, ma anche in questo caso sarÃ  richiesto uno specifico consenso.
                             </p>
                             <br />
 
                             <p>
-                                <b>Art. 3 - Finalità del trattamento</b><br />
-                                I dati personali sono raccolti e trattati da <u>{0}</u> per finalità strettamente connesse all’uso del sito web, dei suoi servizi e all’acquisto di prodotti
+                                <b>Art. 3 - FinalitÃ  del trattamento</b><br />
+                                I dati personali sono raccolti e trattati da <u>{0}</u> per finalitÃ  strettamente connesse allâ€™uso del sito web, dei suoi servizi e allâ€™acquisto di prodotti
                                 tramite il sito web, ad esempio durante le fasi di:Procedura di acquisto dei prodotti su  <u>{0}</u>; Registrazione per la ricezione della Newsletter per posta elettronica;Fornitura dei servizi
-                                di assistenza clienti. I dati personali saranno conservati nella forma che consenta la identificazione per il tempo strettamente necessario alla finalità per cui i dati sono stati raccolti e trattati e,
-                                in ogni caso, entro i limiti di legge. I dati personali non saranno comunicati a terzi per scopi non consentiti dalla legge o senza espresso consenso e potranno essere comunicati a terzi solo quando ciò
-                                sia necessario per dare seguito alla conclusione del contratto. Inoltre i dati potranno essere comunicati a forze di polizia o all’autorità giudiziaria, in conformità alla legge e previa richiesta formale
-                                da parte di tali soggetti, ad esempio nell’ambito dei servizi antifrode. Può accadere che <u>{0}</u> si trovi a trattare dati personali di terzi soggetti comunicati direttamente dai propri utenti
-                                a <u>{0}</u>, per esempio nel caso in cui l’utente abbia acquistato un prodotto da recapitare ad un amico ovvero quando il soggetto che corrisponde il prezzo per l’acquisto del prodotto sia diverso
-                                dal soggetto cui il prodotto è destinato, ovvero ancora quando l’utente intenda segnalare ad un amico un servizio <u>{0}</u> o l’offerta in vendita di un particolare prodotto. In tutti questi
-                                casi <u>{0}</u> farà pervenire al soggetto terzo l’informativa prescritta dall’art. 13 del Regolamento EU 2016/679 nel momento in cui registra nel proprio archivio i suoi dati, ma resta l’obbligo
-                                dell’utente di ottenere il consenso della persona cui i dati si riferiscono prima di comunicarli a <u>{0}</u> e di informarlo circa questa Privacy Policy, perché sarà l’unico ed il solo responsabile
+                                di assistenza clienti. I dati personali saranno conservati nella forma che consenta la identificazione per il tempo strettamente necessario alla finalitÃ  per cui i dati sono stati raccolti e trattati e,
+                                in ogni caso, entro i limiti di legge. I dati personali non saranno comunicati a terzi per scopi non consentiti dalla legge o senza espresso consenso e potranno essere comunicati a terzi solo quando ciÃ²
+                                sia necessario per dare seguito alla conclusione del contratto. Inoltre i dati potranno essere comunicati a forze di polizia o allâ€™autoritÃ  giudiziaria, in conformitÃ  alla legge e previa richiesta formale
+                                da parte di tali soggetti, ad esempio nellâ€™ambito dei servizi antifrode. PuÃ² accadere che <u>{0}</u> si trovi a trattare dati personali di terzi soggetti comunicati direttamente dai propri utenti
+                                a <u>{0}</u>, per esempio nel caso in cui lâ€™utente abbia acquistato un prodotto da recapitare ad un amico ovvero quando il soggetto che corrisponde il prezzo per lâ€™acquisto del prodotto sia diverso
+                                dal soggetto cui il prodotto Ã¨ destinato, ovvero ancora quando lâ€™utente intenda segnalare ad un amico un servizio <u>{0}</u> o lâ€™offerta in vendita di un particolare prodotto. In tutti questi
+                                casi <u>{0}</u> farÃ  pervenire al soggetto terzo lâ€™informativa prescritta dallâ€™art. 13 del Regolamento EU 2016/679 nel momento in cui registra nel proprio archivio i suoi dati, ma resta lâ€™obbligo
+                                dellâ€™utente di ottenere il consenso della persona cui i dati si riferiscono prima di comunicarli a <u>{0}</u> e di informarlo circa questa Privacy Policy, perchÃ© sarÃ  lâ€™unico ed il solo responsabile
                                 per la comunicazione di informazioni e di dati relativi a terzi soggetti, senza che questi abbiano espresso il loro consenso e per il loro uso non corretto o contrario alla legge. Il consenso di queste
-                                persone non è necessario solo quando i dati di questo soggetto sono comunicati a <u>{0}</u> per la conclusione del contratto con <u>{0}</u> a suo esclusivo favore.
+                                persone non Ã¨ necessario solo quando i dati di questo soggetto sono comunicati a <u>{0}</u> per la conclusione del contratto con <u>{0}</u> a suo esclusivo favore.
                             </p>
                             <br />
 
                             <p>
-                                <b>Art. 4 - Modalità del trattamento</b><br />
-                                Il trattamento dei dati può avvenire in varie forme: elettroniche, cartacee, telematiche, etc. Ogni trattamento avviene nel rispetto delle modalità
-                                di cui agli artt. 11, 31 e ss. del Codice della Privacy e mediante l’adozione, nei modi previsti dal disciplinare tecnico in materia di misure minime di sicurezza contenuto nell’allegato B,
-                                delle misure minime di sicurezza disciplinate dall’art. 35 del Codice della Privacy. Con l’accettazione, l’interessato presta espresso consenso al trattamento dei dati secondo le modalità suddette,
-                                dunque in ogni forma e modo, ivi compresa la cessione dei dati a qualsiasi titolo a soggetti terzi. <u>{0}</u> acquisisce ogni più ampia facoltà e diritto di utilizzo dei dati medesimi,
-                                compreso l’uso a fini commerciali, anche con riferimento alle banche dati nei quali i dati siano stati eventualmente inseriti e ogni e qualsiasi altro utilizzo.
+                                <b>Art. 4 - ModalitÃ  del trattamento</b><br />
+                                Il trattamento dei dati puÃ² avvenire in varie forme: elettroniche, cartacee, telematiche, etc. Ogni trattamento avviene nel rispetto delle modalitÃ 
+                                di cui agli artt. 11, 31 e ss. del Codice della Privacy e mediante lâ€™adozione, nei modi previsti dal disciplinare tecnico in materia di misure minime di sicurezza contenuto nellâ€™allegato B,
+                                delle misure minime di sicurezza disciplinate dallâ€™art. 35 del Codice della Privacy. Con lâ€™accettazione, lâ€™interessato presta espresso consenso al trattamento dei dati secondo le modalitÃ  suddette,
+                                dunque in ogni forma e modo, ivi compresa la cessione dei dati a qualsiasi titolo a soggetti terzi. <u>{0}</u> acquisisce ogni piÃ¹ ampia facoltÃ  e diritto di utilizzo dei dati medesimi,
+                                compreso lâ€™uso a fini commerciali, anche con riferimento alle banche dati nei quali i dati siano stati eventualmente inseriti e ogni e qualsiasi altro utilizzo.
                             </p>
                             <br />
 
                             <p>
                                 <b>Art. 5 - Comunicazione</b><br />
                                 I dati saranno trattati dal personale e/o dai collaboratori di <u>{0}</u>. I dati saranno comunicati a terzi soltanto previo consenso espresso,
-                                salvo i casi in cui la comunicazione sia obbligatoria per legge o sia necessaria per finalità previste dalla legge per il perseguimento delle quali non sia richiesto il consenso dell’interessato
+                                salvo i casi in cui la comunicazione sia obbligatoria per legge o sia necessaria per finalitÃ  previste dalla legge per il perseguimento delle quali non sia richiesto il consenso dellâ€™interessato
                                 (ad esempio, nel caso di richiesta avanzata dalle forze di polizia o dalla magistratura o altri enti competenti oppure per eseguire obblighi derivanti dal contratto concluso).
                             </p>
                             <br />
 
                             <p>
-                                <b>Art. 6 - Diritti dell’Interessato</b><br />
-                                Scrivendoci via mail ogni momento l’interessato potrà esercitare i diritti riconosciuti dall’art. 13 del Regolamento EU 2016/679:l’aggiornamento,
-                                la rettificazione oppure, quando vi ha interesse, l’integrazione dei dati;la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli
-                                di cui non è necessaria la conservazione in relazione agli scopi per i quali i dati sono stati raccolti o successivamente trattati;l’attestazione che le operazioni di cui alle lettere a) e b) sono
+                                <b>Art. 6 - Diritti dellâ€™Interessato</b><br />
+                                Scrivendoci via mail ogni momento lâ€™interessato potrÃ  esercitare i diritti riconosciuti dallâ€™art. 13 del Regolamento EU 2016/679:lâ€™aggiornamento,
+                                la rettificazione oppure, quando vi ha interesse, lâ€™integrazione dei dati;la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli
+                                di cui non Ã¨ necessaria la conservazione in relazione agli scopi per i quali i dati sono stati raccolti o successivamente trattati;lâ€™attestazione che le operazioni di cui alle lettere a) e b) sono
                                 state portate a conoscenza, anche per quanto riguarda il loro contenuto, di coloro ai quali i dati sono stati comunicati o diffusi, eccettuato il caso in cui tale adempimento si rivela impossibile
-                                o comporta un impiego di mezzi manifestamente sproporzionato rispetto al diritto tutelato. L’interessato ha anche il diritto di opporsi in tutto o in parte al trattamento dei propri dati personali:
-                                per motivi legittimi al trattamento dei dati personali che lo riguardano, ancorché pertinenti allo scopo della raccolta;al trattamento di dati personali che lo riguardano a fini di invio di materiale
-                                pubblicitario o di vendita diretta o per il compimento di ricerche di mercato o di comunicazione commerciale. In qualsiasi momento l’utente può ottenere un elenco aggiornato dei responsabili del trattamento
+                                o comporta un impiego di mezzi manifestamente sproporzionato rispetto al diritto tutelato. Lâ€™interessato ha anche il diritto di opporsi in tutto o in parte al trattamento dei propri dati personali:
+                                per motivi legittimi al trattamento dei dati personali che lo riguardano, ancorchÃ© pertinenti allo scopo della raccolta;al trattamento di dati personali che lo riguardano a fini di invio di materiale
+                                pubblicitario o di vendita diretta o per il compimento di ricerche di mercato o di comunicazione commerciale. In qualsiasi momento lâ€™utente puÃ² ottenere un elenco aggiornato dei responsabili del trattamento
                                 scrivendoci via mail
                             </p>
                             <br />
 
                             <p>
                                 <b>Art. 7. - Modifiche e aggiornamenti della Privacy Policy.</b><br />
-                                Il titolare potrà modificare o semplicemente aggiornare, in tutto o in parte, la Privacy Policy di <u>{0}</u> anche
+                                Il titolare potrÃ  modificare o semplicemente aggiornare, in tutto o in parte, la Privacy Policy di <u>{0}</u> anche
                                 in considerazione della modifica delle norme di legge o di regolamento che regolano questa materia e proteggono i propri diritti. Le modifiche e gli aggiornamenti della Privacy Policy di <u>{0}</u>
-                                saranno notificati agli utenti nella Home Page di <u>{0}</u> non appena adottati e saranno vincolanti non appena pubblicati sul sito web in questa stessa sezione. L’utente è pregato ad accedere con
-                                regolarità a questa sezione per verificare la pubblicazione della più recente ed aggiornata Privacy Policy di <u>{0}</u>
+                                saranno notificati agli utenti nella Home Page di <u>{0}</u> non appena adottati e saranno vincolanti non appena pubblicati sul sito web in questa stessa sezione. Lâ€™utente Ã¨ pregato ad accedere con
+                                regolaritÃ  a questa sezione per verificare la pubblicazione della piÃ¹ recente ed aggiornata Privacy Policy di <u>{0}</u>
                             </p>
                             <br />
 
                             <p>
                                 <b>Art. 8 - Misure di sicurezza</b><br />
                                 <u>{0}</u> adotta le misure di sicurezza adeguate al fine minimizzare i rischi di:distruzione perdita dei dati accesso non autorizzato trattamento non consentito
-                                o non conforme alle finalità indicate nella nostra Privacy Policy. <u>{0}</u> peraltro, non può garantire che tali misure per la sicurezza del sito escludano qualsiasi rischio di accesso non consentito
-                                di dispersione dei dati da parte di dispositivi di pertinenza dell’utente. A tal fine consigliamo l’utente di verificare l’esistenza sul proprio computer di software adeguati per la protezione della
+                                o non conforme alle finalitÃ  indicate nella nostra Privacy Policy. <u>{0}</u> peraltro, non puÃ² garantire che tali misure per la sicurezza del sito escludano qualsiasi rischio di accesso non consentito
+                                di dispersione dei dati da parte di dispositivi di pertinenza dellâ€™utente. A tal fine consigliamo lâ€™utente di verificare lâ€™esistenza sul proprio computer di software adeguati per la protezione della
                                 trasmissione in rete di dati, e che il fornitore di servizi Internet abbia adottato misure idonee per la sicurezza della trasmissione di dati in rete.
                             </p>
                             <br />
 
                             <p>
                                 <b>Art. 9 - Legge applicabile e rinvio alla normativa</b><br />
-                                Il rapporto in materia di protezione dei dati personali tra <u>{0}</u> e l’utente è regolato dalla normativa italiana ed in particolare
-                                dall’art. 13 del Regolamento EU 2016/679. L’utente può far riferimento al sito web del Garante per la protezione dei dati personali all’indirizzo http://www.garanteprivacy.it/, per conoscere i propri
-                                diritti ed avere l’aggiornamento sulla normativa in materia di tutela delle persone rispetto al trattamento dei dati personali.
+                                Il rapporto in materia di protezione dei dati personali tra <u>{0}</u> e lâ€™utente Ã¨ regolato dalla normativa italiana ed in particolare
+                                dallâ€™art. 13 del Regolamento EU 2016/679. Lâ€™utente puÃ² far riferimento al sito web del Garante per la protezione dei dati personali allâ€™indirizzo http://www.garanteprivacy.it/, per conoscere i propri
+                                diritti ed avere lâ€™aggiornamento sulla normativa in materia di tutela delle persone rispetto al trattamento dei dati personali.
                             </p>";
 }

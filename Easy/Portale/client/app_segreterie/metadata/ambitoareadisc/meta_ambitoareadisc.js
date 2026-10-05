@@ -36,7 +36,20 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["idclassescuola"].caption = "Scuola / Classe di laurea";
+						table.columns["idtipoattform"].caption = "Tipo attività formativa";
+						table.columns["indicecineca"].caption = "Id cineca";
+						table.columns["sortcode"].caption = "Ordinamento";
+						table.columns["title"].caption = "Ambito";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_ambitoareadisc");

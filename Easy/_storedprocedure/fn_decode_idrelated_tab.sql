@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,13 +13,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 -- setuser 'amministrazione'
 if not exists (select * from systypes where name = 'idrelated_list') begin 
 	CREATE TYPE dbo.idrelated_list AS TABLE      ( idrel varchar(150))  
 end
 GO	
-	
+-- setuser 'amministrazione'	
 if exists (select * from dbo.sysobjects where id = object_id(N'[fn_decode_idrelated_tab]') )
 drop function [fn_decode_idrelated_tab]
 GO
@@ -30,29 +28,28 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 --declare @lista_id dbo.idrelated_list 
-----insert into  @lista_id values ('estim§CA_SISEST§2021§7§34')
-----insert into  @lista_id values ('inv§283§2017§29§8')
-----insert into  @lista_id values ('inv§283§2017§29§1')
-----insert into @lista_id  select 'inv§283§2017§29§2' 
-----insert into @lista_id  select 'cascon§2016§1'
-----insert into @lista_id  select 'cascon§2016§14§RITEN§17'
-----insert into @lista_id  select 'cascon§2016§15§RITEN§17§21552'
-----insert into @lista_id  select 'payroll§556'
-----insert into @lista_id  select 'man§SOFRE_GEN§2021§37§1'
-----insert into @lista_id  select 'payroll§26100§RITEN§14'
-----insert into @lista_id  select 'payroll§26100§RITEN§14'
+--insert into  @lista_id values ('estim§CA_SISEST§2021§7§34')
+--insert into  @lista_id values ('inv§283§2017§29§8')
+--insert into  @lista_id values ('inv§283§2017§29§1')
+--insert into @lista_id  select 'inv§283§2017§29§2' 
+--insert into @lista_id  select 'cascon§2016§1'
+--insert into @lista_id  select 'cascon§2016§14§RITEN§17'
+--insert into @lista_id  select 'cascon§2016§15§RITEN§17§21552'
+--insert into @lista_id  select 'payroll§556'
+--insert into @lista_id  select 'man§SOFRE_GEN§2021§37§1'
+--insert into @lista_id  select 'payroll§26100§RITEN§14'
 --insert into @lista_id  select 'csaimport§1§RIEP§5'
 --insert into @lista_id  select 'csaimport§1§RIEP§4'
 --insert into @lista_id  select 'csaimport§1§RIEP§6'
 --insert into @lista_id  select 'csaimport§1§RIEP§7'
 --insert into @lista_id  select 'csaimport§1§RIEP§8'
 
---select * from [fn_decode_idrelated_tab] (@lista_id)
+--select * from [fn_decode_idrelated_tab1] (@lista_id)
 CREATE FUNCTION  [fn_decode_idrelated_tab]
 (
 	@lista_id dbo.idrelated_list  READONLY -- = 'inv§283§2017§29§8',
 ) 
-RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),	kind varchar(max), rifdoc varchar(max), docdate datetime, daterif datetime) 
+RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON),	kind varchar(max), rifdoc varchar(max), rifdoccollegato varchar(max),docdate datetime, daterif datetime) 
 -- RETURNS  @result_set TABLE (idrelated varchar(150) PRIMARY KEY WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON), col1 varchar(20), col2 varchar(20), col3 varchar(20), col4 varchar(20), col5 varchar(20), col6 varchar(20), col7 varchar(20),col8 varchar(20))
   AS BEGIN
   DECLARE   @string_value varchar(150)
@@ -71,6 +68,7 @@ RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_IND
 
   DECLARE	@kind varchar(max)
   DECLARE	@rifdoc varchar(max)
+  DECLARE	@rifdoccollegato varchar(max)
   DECLARE	@adate datetime
   DECLARE	@daterif datetime
   DECLARE   @maxincomephase  int
@@ -202,7 +200,7 @@ RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_IND
 		  --print 8
 		  BEGIN
 			  SELECT @kind = 'Cedolino parasub',@rifdoc = 'Cedolino parasub n° ' + convert(varchar(14), D.npayroll) + ' anno fisc.' + convert(varchar(4), D.fiscalyear) + '- Contr. ' + convert (varchar(4),P.ncon) +   '/' + convert (varchar(4), P.ycon), 
-			  @adate = P.start, @daterif = D.disbursementdate
+			  @adate = P.start, @daterif = null-- D.disbursementdate
 			  FROM @result_set R
 			  JOIN payroll D ON idpayroll = isnull(R.col2,'')
 			  JOIN parasubcontract P ON P.idcon = D.idcon
@@ -212,7 +210,7 @@ RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_IND
 		  BEGIN
 			  SELECT @kind = 'Cedolino parasub',@rifdoc = 'Riten. ' + T.taxref + ' su cedolino parasub. n° ' + convert(varchar(14), D.npayroll) + ' anno fisc.' + 
 							 convert(varchar(4), D.fiscalyear) + '- Contr. ' + convert (varchar(4),P.ncon) +   '/' + convert (varchar(4), P.ycon), 
-			  @adate = P.start, @daterif = D.disbursementdate
+			  @adate = P.start, @daterif = null-- D.disbursementdate
 			  FROM @result_set R
 			  JOIN payroll D ON idpayroll = isnull(R.col2,'')
 			  JOIN parasubcontract P ON P.idcon = D.idcon
@@ -221,8 +219,34 @@ RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_IND
 		  END
 		  IF (@kind is   null)	
 		  BEGIN
-			  SELECT @kind = 'Fattura', @rifdoc = 'Fatt. ' + IK.description +' n° ' +  convert (varchar(4),I.ninv) +   '/' + convert (varchar(4), I.yinv ) +  
-			  CASE WHEN isnull(R.col5,'') <>'' THEN ' dett.' + isnull(R.col5,'')  ELSE '' END  ,  
+			  SELECT @kind = 'Fattura', @rifdoc = 'Fatt. ' + IK.description +' n° ' +  convert (varchar(4),I.ninv) +   '/' + convert (varchar(4), I.yinv ) +  ';' +
+			  CASE WHEN isnull(I.doc, '') <> '' THEN ' Documendo ' + I.doc + 
+				CASE WHEN I.docdate is not null THEN ' del ' + convert (varchar(10), I.docdate, 105) ELSE '' END
+			  ELSE '' END + ';' +
+			  CASE WHEN isnull(R.col5,'') <>'' THEN ' dett.' + isnull(R.col5,'')  ELSE '' END,
+			  @rifdoccollegato = 
+					CASE WHEN D.yman  IS NOT NULL THEN (SELECT 'Collegato C. Passivo ' + isnull(MD.idmankind,'') + '-' + isnull(MD.mankind,'')  + '/' +  
+														  convert(varchar(4),isnull(MD.yman,''))  + ' n° ' +
+														  convert(varchar(4),isnull(MD.nman,''))  + ' dett. ' + 
+														  convert(varchar(4),isnull(MD.rownum,'')) + ': ' +
+														  MD.description
+												  FROM mandatedetailview MD 
+												  WHERE MD.idmankind = D.idmankind
+												  AND MD.yman = D.yman
+												  AND MD.nman = D.nman
+												  AND MD.rownum = D.manrownum)  
+					WHEN D.yestim IS NOT NULL THEN (SELECT  'Collegato a C. Attivo ' + isnull(ED.idestimkind,'') + '-' + isnull(ED.estimkind,'')  + '/' +  
+														  convert(varchar(4),isnull(ED.yestim,''))  + ' n° ' +
+														  convert(varchar(4),isnull(ED.nestim,''))  + ' dett. ' + 
+														  convert(varchar(4),isnull(ED.rownum,''))  + ': ' +
+														  ED.description
+												  FROM estimatedetailview ED 
+												  WHERE ED.idestimkind = D.idestimkind
+												  AND ED.yestim = D.yestim
+												  AND ED.nestim = D.nestim
+												  AND ED.rownum = D.estimrownum) 
+					ELSE '' 
+			  END,  
 			  @adate = I.adate, @daterif =  I.adate
 			  FROM @result_set R
 			  LEFT OUTER JOIN invoicedetail D ON D.idinvkind =  isnull(R.col2,'') and yinv =isnull(R.col3,'') and ninv = isnull(R.col4,'')   and rownum = isnull(R.col5,'') 
@@ -369,8 +393,8 @@ RETURNS @result TABLE (idrelated varchar(150) NOT NULL PRIMARY KEY WITH (PAD_IND
 		  IF (@kind is not null)	
 		  BEGIN 
 			  SET @col1 = null SET @col2 = null SET @col3 = null SET @col4 = null SET @col5 = null SET @col6 = null SET @col7 = null SET @col8 = null
-			  INSERT INTO @result (idrelated,kind,rifdoc,docdate, daterif)   SELECT @string_value, @kind, @rifdoc, @adate,@daterif
-			  SET @kind = NULL   SET @string_value = NULL  SET @rifdoc = NULL SET @adate = NULL SET @daterif = NULL
+			  INSERT INTO @result (idrelated,kind,rifdoc,rifdoccollegato, docdate, daterif)   SELECT @string_value, @kind, @rifdoc,@rifdoccollegato, @adate,@daterif
+			  SET @kind = NULL   SET @string_value = NULL  SET @rifdoc = NULL SET @rifdoccollegato = NULL SET @adate = NULL SET @daterif = NULL
 		  END
 		  FETCH NEXT FROM cursore INTO @string_value 
 

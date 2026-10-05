@@ -5,8 +5,8 @@
 
     <div class="row">
         <div class="col-md-5">
-            <cc1:hwPanel GroupingText="Vetrine Disponibili" CssClass="gbox scheduler-border form-group" Style="text-align: center;" ID="grpVetrina" runat="server" Tag="">
-                <div class="row">
+            <cc1:hwPanel GroupingText="Vetrine Disponibili" CssClass="gbox scheduler-border vetrina" Style="text-align: center;" ID="grpVetrina" runat="server" Tag="">
+                <div class="row mb-4">
                     <div class="col-md-12">
                         <cc1:hwLabel runat="server" ID="lbl01" Text="Cliccare sul nome della vetrina per selezionarla:"></cc1:hwLabel>
                     </div>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="col-md-7">
-            <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border form-group" Style="text-align: center;" ID="HwPanel1" runat="server" Tag="">
+            <cc1:hwPanel GroupingText="" CssClass="gbox scheduler-border vetrina" Style="text-align: center;" ID="HwPanel1" runat="server" Tag="">
                 <div class="row">
                     <div class="col-md-12">
                         <cc1:hwLabel runat="server" ID="titoloVetrina" Text="Selezionare una vetrina dall'elenco"></cc1:hwLabel>

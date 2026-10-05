@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_export_siope]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_export_siope]
@@ -46,7 +44,7 @@ ELSE
 	declare @idsorkind_siope int
 	select  @idsorkind_siope = idsorkind from sortingkind where codesorkind=@codesorkind_siopespese
 
-	IF EXISTS (SELECT * FROM license WHERE ISNULL(p_iva, CF)='02044190615')
+	IF EXISTS (SELECT * FROM license WHERE ISNULL(p_iva, CF) in ('02044190615','02133971008'))
 	Begin
 		select  @ayear as 'Anno',
 			S.sortcode as 'Codice SIOPE',

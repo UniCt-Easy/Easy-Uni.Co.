@@ -1,0 +1,76 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="VistaEasyJournaling" targetNamespace="metadata" xmlns:mstns="metadata" xmlns="metadata" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="VistaEasyJournaling" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tableop">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="journaltablesetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="journalfieldsetup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="dbfield" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="journal">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="operationdatetime" type="xs:dateTime" />
+              <xs:element name="tablename" type="xs:string" />
+              <xs:element name="opkind" type="xs:string" />
+              <xs:element name="fieldname" type="xs:string" />
+              <xs:element name="primarykey" type="xs:string" />
+              <xs:element name="value" type="xs:string" minOccurs="0" />
+              <xs:element name="computername" type="xs:string" minOccurs="0" />
+              <xs:element name="computeruser" type="xs:string" minOccurs="0" />
+              <xs:element name="dbuser" type="xs:string" minOccurs="0" />
+              <xs:element name="notes" type="xs:string" minOccurs="0" />
+              <xs:element name="olenotes" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="oldvalue" type="xs:string" minOccurs="0" />
+              <xs:element name="iddbdepartment" type="xs:string" />
+              <xs:element name="idflowchart" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tableop" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+    </xs:unique>
+    <xs:unique name="journaltablesetup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:journaltablesetup" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+    </xs:unique>
+    <xs:unique name="journalfieldsetup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:journalfieldsetup" />
+      <xs:field xpath="mstns:tablename" />
+      <xs:field xpath="mstns:opkind" />
+      <xs:field xpath="mstns:dbfield" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="journaltablesetupjournalfieldsetup" msdata:parent="journaltablesetup" msdata:child="journalfieldsetup" msdata:parentkey="tablename opkind" msdata:childkey="tablename opkind" />
+      <msdata:Relationship name="tableopjournaltablesetup" msdata:parent="tableop" msdata:child="journaltablesetup" msdata:parentkey="tablename opkind" msdata:childkey="tablename opkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

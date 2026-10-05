@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -34,6 +32,7 @@ namespace meta_itinerationlap//meta_missionetappa//
 			base(Conn, Dispatcher, "itinerationlap") {
 			EditTypes.Add("default");
 			ListingTypes.Add("default");
+			EditTypes.Add("webdefault");
 			Name = "Tappa";
 			//----------------------------------instm-------------------------------begin
 			EditTypes.Add("instm_instmuser");
@@ -49,9 +48,13 @@ namespace meta_itinerationlap//meta_missionetappa//
 			//estraggo dal formname i paramtri e li passo al form
 
 			if (FormName == "default") {
-				//DefaultListType="default";
 				Name = "Tappa";
-				return MetaData.GetFormByDllName("itinerationlap_default");//PinoRana
+				return MetaData.GetFormByDllName("itinerationlap_default");
+			}
+
+			if (FormName == "webdefault") {
+				Name = "Tappa";
+				return MetaData.GetFormByDllName("itinerationlap_webdefault");//PinoRana
 			}
 			return null;
 		}
@@ -132,6 +135,20 @@ namespace meta_itinerationlap//meta_missionetappa//
 					//$DescribeAColumn$
 				//----------------------------------instm-------------------------------end
 				case "default": {
+						DescribeAColumn(T, "!italiaestero", "Italia/estero", nPos++);
+						DescribeAColumn(T, "starttime", "Inizio", nPos++);
+						DescribeAColumn(T, "stoptime", "Termine", nPos++);
+						DescribeAColumn(T, "days", "Giorni", nPos++);
+						DescribeAColumn(T, "hours", "Ore", nPos++);
+						DescribeAColumn(T, "!localita", "Località", "foreigncountry.description", nPos++);
+						DescribeAColumn(T, "description", "Descrizione", nPos++);
+						DescribeAColumn(T, "!indennita", "Indennita totale Euro", nPos++);
+						DescribeAColumn(T, "!indennitalorda", "Indennita lorda", nPos++);
+						ComputeRowsAs(T, "default");
+						break;
+					}
+					
+				case "webdefault": {
 						DescribeAColumn(T, "!italiaestero", "Italia/estero", nPos++);
 						DescribeAColumn(T, "starttime", "Inizio", nPos++);
 						DescribeAColumn(T, "stoptime", "Termine", nPos++);

@@ -34,7 +34,7 @@
                         <asp:ContentPlaceHolder ID="CPH_A0" runat="server">
                             <table border="0" width="100%" id="table5" cellspacing="0" cellpadding="0" height="87">
                                 <tr>
-                                    <td style="background-image: url('Immagini/Intestazione_Left.jpg'); background-repeat: no-repeat; background-position: left top;" width="32">&nbsp;</td>
+                                    <td style="background-color:#f6f7f9; padding-top:7px; -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);" width="32">&nbsp;</td>
                                     <td width="140">
                                         <img src="Logo/Logo.jpg" alt="logo" border="0" height="80" id="ImgLogoUniversita" tabindex="-1"/>
                                     </td>
@@ -50,7 +50,7 @@
                         <asp:ContentPlaceHolder ID="CPH_MainMenu" runat="server">
                             <table border="0" width="100%" id="table3" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td style="background-image: url('Immagini/Fondo_Barra_Strumenti.jpg'); background-size: 100% 100%; background-repeat: repeat-x; background-position: left top; height: 36px;">
+                                    <td style="background-color:#f6f7f9; -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);height:36px">
                                         <table border="0" tabindex="-1" width="100%" id="table6" cellspacing="0" cellpadding="0">
                                             <tr>
                                                 <td align="left">
@@ -71,11 +71,8 @@
                                                 </td>
                                                 <td style="padding-right: 10px;" align="right">
                                                     <asp:ContentPlaceHolder ID="CPH_InfoUtente" runat="server">
-                                                        Utente:
-                                                        <asp:Label ID="lblNomeUtente" runat="server" Text=""></asp:Label>
-                                                        &nbsp; &nbsp; Ruolo:
-                                                        <asp:Label ID="lblRuolo" runat="server" Text=""></asp:Label>
-                                                        &nbsp; &nbsp; <div runat="server" id="helpLinks"><a href="GuidaEasyWeb.pdf" tabindex="-1" onclick="window.open(this.href);return false;" title="Manuale">Help</a></div>
+                                                        <asp:Label ID="lblNomeUtente" runat="server" Text=""></asp:Label> <asp:Label ID="lblRuolo" runat="server" Text=""></asp:Label>
+														<div runat="server" id="helpLinks" style="float: right; margin-left: 20px;"><a href="GuidaEasyWeb.pdf" tabindex="-1" onclick="window.open(this.href);return false;" title="Manuale">Help</a></div>
                                                     </asp:ContentPlaceHolder>
                                                 </td>
                                             </tr>
@@ -90,7 +87,7 @@
             </table>
         </div>
 
-        <div id="CHP_PC_DIV" style="border-style: groove; margin: 0px auto; width: 960px; text-align: left;" runat="server">
+        <div id="CHP_PC_DIV" style="margin:12px auto; width: 960px; text-align: left;" runat="server">
             <asp:ContentPlaceHolder ID="CHP_PC" runat="server">
 
             </asp:ContentPlaceHolder>

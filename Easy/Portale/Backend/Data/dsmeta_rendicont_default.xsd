@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_rendicont_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_rendicont_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_rendicont_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -66,7 +66,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="lezione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="lezione_alias1" msprop:TableForReading="lezione" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="_x0021_title" type="xs:string" minOccurs="0" />
@@ -149,8 +149,8 @@
       <xs:field xpath="mstns:idreg_studenti" />
       <xs:field xpath="mstns:idsede" />
     </xs:unique>
-    <xs:unique name="lezione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:lezione" />
+    <xs:unique name="lezione_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:lezione_alias1" />
       <xs:field xpath="mstns:aa" />
       <xs:field xpath="mstns:idaffidamento" />
       <xs:field xpath="mstns:idattivform" />
@@ -181,8 +181,8 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_rendicontaltro_rendicont_aa-idreg_docenti" msdata:parent="rendicont" msdata:child="rendicontaltro" msdata:parentkey="aa idreg_docenti" msdata:childkey="aa idreg_docenti" />
       <msdata:Relationship name="FK_rendicontaltro_rendicontaltrokind_idrendicontaltrokind" msdata:parent="rendicontaltrokind" msdata:child="rendicontaltro" msdata:parentkey="idrendicontaltrokind" msdata:childkey="idrendicontaltrokind" />
-      <msdata:Relationship name="FK_lezione_rendicont_aa-idreg_docenti" msdata:parent="rendicont" msdata:child="lezione" msdata:parentkey="aa idreg_docenti" msdata:childkey="aa idreg_docenti" />
-      <msdata:Relationship name="FK_rendicontlezionestud_lezione_aa-idaffidamento-idattivform-idaula-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idedificio-idlezione-idreg_docenti-idsede" msdata:parent="lezione" msdata:child="rendicontlezionestud" msdata:parentkey="aa idaffidamento idattivform idaula idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idedificio idlezione idreg_docenti idsede" msdata:childkey="aa idaffidamento idattivform idaula idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idedificio idlezione idreg_docenti idsede" />
+      <msdata:Relationship name="FK_lezione_alias1_rendicont_aa-idreg_docenti" msdata:parent="rendicont" msdata:child="lezione_alias1" msdata:parentkey="aa idreg_docenti" msdata:childkey="aa idreg_docenti" />
+      <msdata:Relationship name="FK_rendicontlezionestud_lezione_alias1_aa-idaffidamento-idattivform-idaula-idcanale-idcorsostudio-iddidprog-iddidproganno-iddidprogcurr-iddidprogori-iddidprogporzanno-idedificio-idlezione-idreg_docenti-idsede" msdata:parent="lezione_alias1" msdata:child="rendicontlezionestud" msdata:parentkey="aa idaffidamento idattivform idaula idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idedificio idlezione idreg_docenti idsede" msdata:childkey="aa idaffidamento idattivform idaula idcanale idcorsostudio iddidprog iddidproganno iddidprogcurr iddidprogori iddidprogporzanno idedificio idlezione idreg_docenti idsede" />
       <msdata:Relationship name="FK_rendicont_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="rendicont" msdata:parentkey="aa" msdata:childkey="aa" />
     </xs:appinfo>
   </xs:annotation>

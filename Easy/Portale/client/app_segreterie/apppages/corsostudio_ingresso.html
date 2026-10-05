@@ -24,38 +24,38 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="corsostudio_ingresso_title">Denominazione</label>
-					<input id="corsostudio_ingresso_title" type="text" class="form-control" data-tag="corsostudio.title?corsostudioingressoview.title" data-subentity  />
-					<input hidden id="didprog_ingresso_title" type="text" class="form-control" data-tag="didprog.title" />
+					<input id="corsostudio_ingresso_title" type="text" class="form-control" data-tag="corsostudio.title?corsostudioingressoview.title"  />
+					<input hidden id="didprog_ingresso_title" type="text" class="form-control" data-tag="didprog.title?corsostudioingressoview.didprog_title" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="corsostudio_ingresso_title_en">Denominazione (EN)</label>
-					<input id="corsostudio_ingresso_title_en" type="text" class="form-control" data-tag="corsostudio.title_en?corsostudioingressoview.corsostudio_title_en" data-subentity  />
+					<input id="corsostudio_ingresso_title_en" type="text" class="form-control" data-tag="corsostudio.title_en?corsostudioingressoview.corsostudio_title_en"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_ingresso_aa">Anno accademico</label>
-					<select id="didprog_ingresso_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="" data-custom-control="combo" data-tag="didprog.aa?corsostudioingressoview.didprog_aa" data-subentity   > </select>
-					<input hidden id="didprog_ingresso_title_en" type="text" class="form-control" data-tag="didprog.title_en" />
+					<select id="didprog_ingresso_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="aa" data-custom-control="combo" data-tag="didprog.aa?corsostudioingressoview.didprog_aa" data-subentity   > </select>
+					<input hidden id="didprog_ingresso_title_en" type="text" class="form-control" data-tag="didprog.title_en?corsostudioingressoview.didprog_title_en" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="corsostudio_ingresso_codice">Codice</label>
-					<input id="corsostudio_ingresso_codice" type="text" class="form-control" data-tag="corsostudio.codice?corsostudioingressoview.corsostudio_codice" data-subentity  />
+					<input id="corsostudio_ingresso_codice" type="text" class="form-control" data-tag="corsostudio.codice?corsostudioingressoview.corsostudio_codice"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="corsostudio_ingresso_idstruttura">Struttura di riferimento</label>
 					<div>
-						<input id="corsostudio_ingresso_idstruttura" name="corsostudio_ingresso_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="corsostudio_ingresso_idstruttura" name="corsostudio_ingresso_idstruttura" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="strutturadefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_ingresso_iddidprognumchiusokind">Numero chiuso</label>
-					<select id="didprog_ingresso_iddidprognumchiusokind" class="custom-select d-block w-100"  data-source-name="didprognumchiusokind" data-value-member="iddidprognumchiusokind" data-display-member="title" data-sort-member="" data-custom-control="combo" data-tag="didprog.iddidprognumchiusokind?corsostudioingressoview.didprog_iddidprognumchiusokind" data-subentity   > </select>
+					<select id="didprog_ingresso_iddidprognumchiusokind" class="custom-select d-block w-100"  data-source-name="didprognumchiusokind" data-value-member="iddidprognumchiusokind" data-display-member="title" data-sort-member="title" data-custom-control="combo" data-tag="didprog.iddidprognumchiusokind?corsostudioingressoview.didprog_iddidprognumchiusokind" data-subentity   > </select>
 				</div>
 			</div>
-					<input hidden id="didprog_ingresso_iddidprogsuddannokind" type="text" class="form-control" data-tag="didprog.iddidprogsuddannokind" />
+					<input hidden id="didprog_ingresso_iddidprogsuddannokind" type="text" class="form-control" data-tag="didprog.iddidprogsuddannokind?corsostudioingressoview.didprog_iddidprogsuddannokind" data-subentity  />
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_ingresso_idgraduatoria">Graduatoria</label>
@@ -101,7 +101,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_ingresso_idtitolokind">Titolo di studi</label>
-					<select id="didprog_ingresso_idtitolokind" class="custom-select d-block w-100"  data-source-name="titolokinddefaultview" data-value-member="idtitolokind" data-display-member="dropdown_title" data-sort-member="" data-custom-control="combo" data-tag="didprog.idtitolokind?corsostudioingressoview.didprog_idtitolokind" data-subentity   > </select>
+					<select id="didprog_ingresso_idtitolokind" class="custom-select d-block w-100"  data-source-name="titolokinddefaultview" data-value-member="idtitolokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="didprog.idtitolokind?corsostudioingressoview.didprog_idtitolokind" data-subentity   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="didprog_ingresso_utenzasost">Utenza sostenibile</label>
@@ -150,22 +150,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#didprog_ingresso_startiscrizioni").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="didprog_ingresso_startiscrizioni">Data di inizio delle iscrizioni</label>
-					<input id="didprog_ingresso_startiscrizioni" type="text" class="form-control" data-tag="didprog.startiscrizioni.g?corsostudioingressoview.didprog_startiscrizioni.g" data-subentity  />
+					<input id="didprog_ingresso_startiscrizioni" type="text" class="form-control" data-tag="didprog.startiscrizioni.g?corsostudioingressoview.didprog_startiscrizioni.g" data-subentity   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#didprog_ingresso_stopiscrizioni").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="didprog_ingresso_stopiscrizioni">Data di fine delle Iscrizioni</label>
-					<input id="didprog_ingresso_stopiscrizioni" type="text" class="form-control" data-tag="didprog.stopiscrizioni.g?corsostudioingressoview.didprog_stopiscrizioni.g" data-subentity  />
+					<input id="didprog_ingresso_stopiscrizioni" type="text" class="form-control" data-tag="didprog.stopiscrizioni.g?corsostudioingressoview.didprog_stopiscrizioni.g" data-subentity   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">

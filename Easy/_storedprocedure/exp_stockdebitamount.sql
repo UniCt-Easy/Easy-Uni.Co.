@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_stockdebitamount]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_stockdebitamount]
 GO
@@ -24,8 +22,7 @@ CREATE  PROCEDURE [exp_stockdebitamount](
 	@idivaregisterkind 	int,
 	@idinvkind int, 	  
 	--@start datetime,
-	@stop datetime,	
-	@stoppay datetime,	
+	@stop datetime,
 	@unified  char(1),
 	@kind char(1), --- Tipo vista D: dettagliata C: consolidata su codice fiscale fornitore
 	@idsor01 int=null,
@@ -37,7 +34,7 @@ CREATE  PROCEDURE [exp_stockdebitamount](
 )  
 -- setuser 'amm'
 -- setuser 'amministrazione'
--- exec exp_stockdebitamount 2022,null,null, '2022-12-31', '2023-02-20','S','D',null,null,null,null,null,'N'
+-- exec exp_stockdebitamount '2024', null, '463', {d '2024-09-04'}, 'N', 'D', null, null, null, null, null, 'N'
  
  
 
@@ -114,16 +111,22 @@ AS BEGIN
 			then - isnull((select sum(taxable_euro) 
 							from invoicedetailview ID 
 							where  I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv 
-							and isnull(ID.idpccdebitmotive,'') <>'CONT' 
+							and ((isnull(ID.idpccdebitmotive,'') <>'CONT' 
 							--Aggiungo i nuovi stati ma lascio le condizioni esistenti per esportare fatture pregresse
-							and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg')
+								and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg'))
+							--Aggiungo il caso in cui in una fattura NOLIQ, i dettagli vengano impostati come LIQ o LIQdaNL e pagati, task 19567
+							or ((isnull(ID.idpccdebitmotive,'') = 'CONT' 
+								and isnull(ID.idpccdebitstatus,'') in ('LIQ', 'LIQdaNL'))))
 							),0) /*task 15343*/
 			else isnull((select sum(taxable_euro) 
 						from invoicedetailview ID 
 						where  I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv 
-						and isnull(ID.idpccdebitmotive,'') <>'CONT' 
+						and ((isnull(ID.idpccdebitmotive,'') <>'CONT' 
 						--Aggiungo i nuovi stati ma lascio le condizioni esistenti per esportare fatture pregresse
-						and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg')
+							and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg'))
+						--Aggiungo il caso in cui in una fattura NOLIQ, i dettagli vengano impostati come LIQ o LIQdaNL e pagati, task 19567
+						or ((isnull(ID.idpccdebitmotive,'') = 'CONT' 
+							and isnull(ID.idpccdebitstatus,'') in ('LIQ', 'LIQdaNL'))))
 						),0) /*task 15343*/
 		end,
 		-- IVA, rientra nell'ammontare del debito solo se la Fattura non è INTRA -EXTRA UE. In questi casi, la cosiddetta iva di integrazione non rientra
@@ -132,16 +135,22 @@ AS BEGIN
 			then - isnull((select sum(iva_euro) 
 							from invoicedetailview ID 
 							where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv 
-							and isnull(ID.idpccdebitmotive,'') <>'CONT' 
+							and ((isnull(ID.idpccdebitmotive,'') <>'CONT' 
 							--Aggiungo i nuovi stati ma lascio le condizioni esistenti per esportare fatture pregresse
-							and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg')
+								and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg'))
+							--Aggiungo il caso in cui in una fattura NOLIQ, i dettagli vengano impostati come LIQ o LIQdaNL e pagati, task 19567
+							or ((isnull(ID.idpccdebitmotive,'') = 'CONT' 
+								and isnull(ID.idpccdebitstatus,'') in ('LIQ', 'LIQdaNL'))))
 							),0)  /*per le  NC */			
 			else isnull((select sum(iva_euro) 
 							from invoicedetailview ID 
 							where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv 
-							and isnull(ID.idpccdebitmotive,'') <>'CONT' 
+							and ((isnull(ID.idpccdebitmotive,'') <>'CONT' 
 							--Aggiungo i nuovi stati ma lascio le condizioni esistenti per esportare fatture pregresse
-							and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg')
+								and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg'))
+							--Aggiungo il caso in cui in una fattura NOLIQ, i dettagli vengano impostati come LIQ o LIQdaNL e pagati, task 19567
+							or ((isnull(ID.idpccdebitmotive,'') = 'CONT' 
+								and isnull(ID.idpccdebitstatus,'') in ('LIQ', 'LIQdaNL'))))
 							),0) /*per le fatture */						
 		end,
 		--- IVA SPLIT, rientra nell'ammontare del debito
@@ -150,17 +159,23 @@ AS BEGIN
 				then - isnull((select sum(iva_euro) 
 						from invoicedetailview ID 
 						where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv 
-						and isnull(ID.idpccdebitmotive,'') <>'CONT' 
+						and ((isnull(ID.idpccdebitmotive,'') <>'CONT' 
 						--Aggiungo i nuovi stati ma lascio le condizioni esistenti per esportare fatture pregresse
-						and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg')
+							and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg'))
+						--Aggiungo il caso in cui in una fattura NOLIQ, i dettagli vengano impostati come LIQ o LIQdaNL e pagati, task 19567
+						or ((isnull(ID.idpccdebitmotive,'') = 'CONT' 
+							and isnull(ID.idpccdebitstatus,'') in ('LIQ', 'LIQdaNL'))))
 						),0)
 			 when (I.flag_enable_split_payment='S' OR (@recuperosplit='S' AND I.flagintracom<>'N')) and ((IK.flag&4)=0) 
 				then isnull((select sum(iva_euro) 
 							from invoicedetailview ID 
 							where I.idinvkind = ID.idinvkind AND I.yinv = ID.yinv  AND I.ninv = ID.ninv 
-							and isnull(ID.idpccdebitmotive,'') <>'CONT' 
+							and ((isnull(ID.idpccdebitmotive,'') <>'CONT' 
 							--Aggiungo i nuovi stati ma lascio le condizioni esistenti per esportare fatture pregresse
-							and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg')
+								and isnull(ID.idpccdebitstatus,'') not in ('SOSP','NLdaLIQ','NLdaSOSP','NOLIQ','SospCnst','SospContz','SOSPdaLIQ','SOSPdaNL','SospEsReg'))
+							--Aggiungo il caso in cui in una fattura NOLIQ, i dettagli vengano impostati come LIQ o LIQdaNL e pagati, task 19567
+							or ((isnull(ID.idpccdebitmotive,'') = 'CONT' 
+								and isnull(ID.idpccdebitstatus,'') in ('LIQ', 'LIQdaNL'))))
 							),0)			 
 			 else 0
 		end,
@@ -220,7 +235,7 @@ SELECT
 	JOIN payment P	ON	P.kpay = ELAST.kpay
 	JOIN paymenttransmission PT ON	P.kpaymenttransmission = PT.kpaymenttransmission
 	JOIN #invoicedebitamount 	ON EI.idinvkind=#invoicedebitamount.idinvkind 	AND EI.yinv=#invoicedebitamount.yinv AND EI.ninv=#invoicedebitamount.ninv
-	WHERE  PT.transmissiondate <= @stoppay and isnull(#invoicedebitamount.kind,0) = 1 AND #invoicedebitamount.flagvariation = 'N'
+	WHERE  PT.transmissiondate <= @stop and isnull(#invoicedebitamount.kind,0) = 1 AND #invoicedebitamount.flagvariation = 'N'
 	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,#invoicedebitamount.iva_euro_split_payment,EI.idexp,
 	#invoicedebitamount.flagvariation 
 
@@ -244,7 +259,7 @@ SELECT
 		ON EI.idinvkind=#invoicedebitamount.idinvkind 
 		AND EI.yinv=#invoicedebitamount.yinv 
 		AND EI.ninv=#invoicedebitamount.ninv
-	WHERE  PT.transmissiondate <=@stoppay and isnull(#invoicedebitamount.kind,0) = 1
+	WHERE  PT.transmissiondate <=@stop and isnull(#invoicedebitamount.kind,0) = 1
 		AND EV.idinvkind IS NULL -- deve prendere solo le var. del movimento, NON le contabilizzazioni delle NC
 	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,
 	#invoicedebitamount.flagvariation 
@@ -267,7 +282,7 @@ SELECT
 		ON EI.idinvkind=#invoicedebitamount.idinvkind 
 		AND EI.yinv=#invoicedebitamount.yinv 
 		AND EI.ninv=#invoicedebitamount.ninv
-	WHERE  PT.transmissiondate <= @stoppay and isnull(#invoicedebitamount.kind,0) = 1
+	WHERE  PT.transmissiondate <= @stop and isnull(#invoicedebitamount.kind,0) = 1
 	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,
 	#invoicedebitamount.flagvariation 
 
@@ -305,7 +320,7 @@ SELECT
 	JOIN #invoicedebitamount ON PCOP.idinvkind=#invoicedebitamount.idinvkind 
 		AND PCOP.yinv=#invoicedebitamount.yinv 
 		AND PCOP.ninv=#invoicedebitamount.ninv
-	WHERE   PCO.adate <= @stoppay and isnull(#invoicedebitamount.kind,0) = 1	
+	WHERE   PCO.adate <= @stop and isnull(#invoicedebitamount.kind,0) = 1	
 	group by 	#invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv,
 	#invoicedebitamount.idreg,#invoicedebitamount.iva_euro_split_payment,#invoicedebitamount.flagvariation 
 
@@ -337,7 +352,7 @@ JOIN expenseyear EY on ELAST.idexp=EY.idexp
 JOIN expensetotal ET on EY.idexp=ET.idexp
 JOIN payment P	ON	P.kpay = ELAST.kpay
 JOIN paymenttransmission PT ON	P.kpaymenttransmission = PT.kpaymenttransmission
-WHERE   PT.transmissiondate  <= @stoppay and isnull(#invoicedebitamount.kind,0) = 1
+WHERE   PT.transmissiondate  <= @stop and isnull(#invoicedebitamount.kind,0) = 1
 and I.docdate < {ts '2017-07-01 00:00:00'} 
 and not exists(select * from #invoicedebitamount Q where Q.idinvkind = I.idinvkind	 AND	Q.ninv = I.ninv	 	 AND	Q.yinv = I.yinv	 and Q.kind>1)
 GROUP BY #invoicedebitamount.idinvkind ,#invoicedebitamount.yinv, #invoicedebitamount.ninv, #invoicedebitamount.idreg,#invoicedebitamount.iva_euro_split_payment,

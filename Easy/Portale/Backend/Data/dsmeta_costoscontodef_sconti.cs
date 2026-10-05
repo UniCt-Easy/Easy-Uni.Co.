@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,9 +25,12 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_costoscontodef_sconti"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_costoscontodef_sconti: DataSet {
+public partial class dsmeta_costoscontodef_sconti: DataSet {
 
 	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable costoscontodef_alias1 		=> (MetaTable)Tables["costoscontodef_alias1"];
+
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable ratadef 		=> (MetaTable)Tables["ratadef"];
 
@@ -41,9 +42,6 @@ public class dsmeta_costoscontodef_sconti: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costoscontodefdettaglio 		=> (MetaTable)Tables["costoscontodefdettaglio"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable costoscontodef_alias1 		=> (MetaTable)Tables["costoscontodef_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable costoscontodef 		=> (MetaTable)Tables["costoscontodef"];
@@ -73,6 +71,14 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_costoscontodef_sconti.xsd";
 
 	#region create DataTables
+	//////////////////// COSTOSCONTODEF_ALIAS1 /////////////////////////////////
+	var tcostoscontodef_alias1= new MetaTable("costoscontodef_alias1");
+	tcostoscontodef_alias1.defineColumn("idcostoscontodef", typeof(int),false);
+	tcostoscontodef_alias1.defineColumn("title", typeof(string));
+	tcostoscontodef_alias1.ExtendedProperties["TableForReading"]="costoscontodef";
+	Tables.Add(tcostoscontodef_alias1);
+	tcostoscontodef_alias1.defineKey("idcostoscontodef");
+
 	//////////////////// RATADEF /////////////////////////////////
 	var tratadef= new MetaTable("ratadef");
 	tratadef.defineColumn("idcostoscontodef", typeof(int),false);
@@ -92,6 +98,7 @@ private void initClass() {
 
 	//////////////////// COSTOSCONTODEFDETTAGLIOKIND /////////////////////////////////
 	var tcostoscontodefdettagliokind= new MetaTable("costoscontodefdettagliokind");
+	tcostoscontodefdettagliokind.defineColumn("active", typeof(string));
 	tcostoscontodefdettagliokind.defineColumn("idcostoscontodefdettagliokind", typeof(int),false);
 	tcostoscontodefdettagliokind.defineColumn("title", typeof(string));
 	Tables.Add(tcostoscontodefdettagliokind);
@@ -120,14 +127,6 @@ private void initClass() {
 	Tables.Add(tcostoscontodefdettaglio);
 	tcostoscontodefdettaglio.defineKey("idcostoscontodef", "idcostoscontodefdettaglio", "idfasciaiseedef", "idratadef");
 
-	//////////////////// COSTOSCONTODEF_ALIAS1 /////////////////////////////////
-	var tcostoscontodef_alias1= new MetaTable("costoscontodef_alias1");
-	tcostoscontodef_alias1.defineColumn("idcostoscontodef", typeof(int),false);
-	tcostoscontodef_alias1.defineColumn("title", typeof(string));
-	tcostoscontodef_alias1.ExtendedProperties["TableForReading"]="costoscontodef";
-	Tables.Add(tcostoscontodef_alias1);
-	tcostoscontodef_alias1.defineKey("idcostoscontodef");
-
 	//////////////////// COSTOSCONTODEF /////////////////////////////////
 	var tcostoscontodef= new MetaTable("costoscontodef");
 	tcostoscontodef.defineColumn("ct", typeof(DateTime));
@@ -145,8 +144,12 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{costoscontodef.Columns["idcostoscontodef"]};
-	var cChild = new []{costoscontodefdettaglio.Columns["idcostoscontodef"]};
+	var cPar = new []{costoscontodef_alias1.Columns["idcostoscontodef"]};
+	var cChild = new []{costoscontodef.Columns["paridcostoscontodef"]};
+	Relations.Add(new DataRelation("FK_costoscontodef_costoscontodef_alias1_paridcostoscontodef",cPar,cChild,false));
+
+	cPar = new []{costoscontodef.Columns["idcostoscontodef"]};
+	cChild = new []{costoscontodefdettaglio.Columns["idcostoscontodef"]};
 	Relations.Add(new DataRelation("FK_costoscontodefdettaglio_costoscontodef_idcostoscontodef",cPar,cChild,false));
 
 	cPar = new []{ratadef.Columns["idratadef"]};
@@ -160,10 +163,6 @@ private void initClass() {
 	cPar = new []{costoscontodefdettagliokind.Columns["idcostoscontodefdettagliokind"]};
 	cChild = new []{costoscontodefdettaglio.Columns["idcostoscontodefdettagliokind"]};
 	Relations.Add(new DataRelation("FK_costoscontodefdettaglio_costoscontodefdettagliokind_idcostoscontodefdettagliokind",cPar,cChild,false));
-
-	cPar = new []{costoscontodef_alias1.Columns["idcostoscontodef"]};
-	cChild = new []{costoscontodef.Columns["paridcostoscontodef"]};
-	Relations.Add(new DataRelation("FK_costoscontodef_costoscontodef_alias1_paridcostoscontodef",cPar,cChild,false));
 
 	#endregion
 

@@ -2,7 +2,7 @@
  * dragtable - jquery ui widget to re-order table columns 
  * version 3.0
  * 
- * Copyright (c) 2010, Jesse Baird <jebaird@gmail.com>
+ * Copyright (c) 2010, Jesse Baird <your-email@example.com>
  * 12/2/2010
  * https://github.com/jebaird/dragtable
  * 
@@ -11,7 +11,7 @@
  * 
  * 
  * 
- * Forked from https://github.com/akottr/dragtable - Andres Koetter akottr@gmail.com
+ * Forked from https://github.com/akottr/dragtable - Andres Koetter your-email@example.com
  * 
  *
  * 

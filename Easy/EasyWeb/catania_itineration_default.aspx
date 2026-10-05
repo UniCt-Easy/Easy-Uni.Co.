@@ -842,6 +842,18 @@
 		</div>
 
 	</div>
+	<%
+		string outval = "accordion";
+		try {
+			outval = this.GetType().Name;
+		}
+		catch {}
+	%>
+
+	<script type="text/javascript" src="js/cookiemgr.js?v=30"></script>
+	<script>var cookiePageName = "<%= outval %>";</script>
+	<script type="text/javascript" src="js/scrollpositionmgr.js?v=40"></script>
+
 	<script type="text/javascript">
 
 		function CalcTotAPiedi() {
@@ -886,58 +898,11 @@
 		}
 	</script>
 
-	<script type="text/javascript" src="js/cookiemgr.js?v=30"></script>
-	<script type="text/javascript" src="js/scrollpositionmgr.js?v=30"></script>
-
 	<!-- chiude tab-content	-->
 
 	<style>
-		/* ====================================================================================*/
-		/*                                TEST - BOOTSTRAP SIZE                                */
-		/* ====================================================================================*/
-		body::after {
-			content: 'XS';
-			position: fixed;
-			color: white;
-			background-color: #000;
-			right: 16px;
-			bottom: 16px;
-			text-align: center;
-			z-index: 10000;
-			display: block;
-			overflow: hidden;
-			font-size: 16px;
-			font-weight: bold;
-			padding: 2px 10px 4px;
-		}
-
-		@media (min-width: 576px) {
-			body::after {
-				content: 'SM'
-			}
-		}
-
-		@media (min-width: 768px) {
-			body::after {
-				content: 'MD'
-			}
-		}
-
-		@media (min-width: 992px) {
-			body::after {
-				content: 'LG'
-			}
-		}
-
-		@media (min-width: 1200px) {
-			body::after {
-				content: 'XL'
-			}
-		}
-		/*@media (min-width: 1400px) { body::after {content: 'XXL'} }*/
-
 		.rowContBlue {
-			border: 2px solid #3686ac;
+			border: 2px solid #0049a9;
 			border-radius: 10px;
 			padding: 10px 20px;
 			margin: 15px 15px 30px;

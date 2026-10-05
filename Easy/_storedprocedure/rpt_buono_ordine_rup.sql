@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_buono_ordine_RUP]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_buono_ordine_RUP]
 GO
@@ -23,10 +21,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
+ 
+ --select  * from invoicekind order by codeinvkind
 --setuser'amministrazione'
---setuser'amm'
---rpt_buono_ordine_RUP 2021, 9, 'ACQCOMM' , '2022-17-10'
-CREATE PROCEDURE rpt_buono_ordine_RUP
+-- exec rpt_buono_ordine_RUP 2025, 1, 'ACQISTEXTRAUE-Amm', {ts '2025-10-06 00:00:00'}
+
+  
+CREATE PROCEDURE rpt_buono_ordine_RUP 
     @ayear INT,
     @ninv INT,
     @codeinvkind VARCHAR(20),
@@ -60,7 +61,7 @@ BEGIN
     BEGIN
         SET @ayear = '1900';
     END;
-	
+	--
     -- Fatture
     SELECT DISTINCT i.idreg, i.idinvkind,
            i.yman,
@@ -73,6 +74,8 @@ BEGIN
 		   i.idepexp,
 		   m.idreg_rupanac,
 		   rupanac.title as rup,
+		   m.idman,
+		   manager.title as manager,
 		   m.cigcode,
 		   m.description as descordine,
            m.adate as dataordine,  
@@ -81,8 +84,10 @@ BEGIN
            i.taxable, --  prezzounitario
            tax,
            rate AS iva,
-           Imponibile = number * i.taxable - (number * i.taxable) * ISNULL(i.discount, 0),
-           CONVERT(DECIMAL(19, 2), number * i.taxable - (number * i.taxable) * ISNULL(i.discount, 0) + i.tax) AS ImpTotale,
+           Imponibile = 
+						round((number * i.taxable - (number * i.taxable) * convert(decimal(19,6),ISNULL(i.discount, 0))),2),
+		  round((number * i.taxable - (number * i.taxable) * convert(decimal(19,6),ISNULL(i.discount, 0))+ i.tax),2)
+			  AS ImpTotale,
            i.discount AS Sconto,
            inv.arrivalprotocolnum,
            inv.protocoldate,
@@ -114,11 +119,14 @@ BEGIN
 				AND i.yman = m.yman 
 				AND i.nman = m.nman 
 		LEFT OUTER JOIN registry rupanac on 
-		m.idreg_rupanac = rupanac.idreg
+				m.idreg_rupanac = rupanac.idreg
+		LEFT OUTER JOIN manager   on 
+		m.idman = manager.idman
     WHERE
          (i.yinv = @ayear)
         AND i.ninv = @ninv
         AND codeinvkind = @codeinvkind
+		AND isnull(i.idpccdebitstatus,'') <> 'NOLIQ'
     ORDER BY i.codeinvkind,
              i.nman;
 
@@ -194,6 +202,8 @@ BEGIN
 		   EPX_iva.idupb as idupb_iva ,
            EPX_iva.codeupb as codeupb_iva,
 		   EPX_iva.upb as upb_iva,
+		   EPX.phase,
+		   EPX_iva.phase as iva_phase,
 		   MD.yexpimpo,
            MD.nexpimpo,
 		   MD.yexpiva,
@@ -224,6 +234,12 @@ BEGIN
            #impegnifinanziari.finance AS finance,
 		   #impegnifinanziari.codefin_iva AS codefin_iva,
            #impegnifinanziari.finance_iva AS finance_iva,
+		   #impegnifinanziari.phase,
+		   #impegnifinanziari.yexpimpo,
+           #impegnifinanziari.nexpimpo,
+		   #impegnifinanziari.iva_phase,
+		   #impegnifinanziari.yexpiva,
+           #impegnifinanziari.nexpiva,
            @durcdoc AS durcdoc,
            case when @durcstart is not null then  CONVERT(VARCHAR, @durcstart, 103) 
 		   else null
@@ -232,6 +248,7 @@ BEGIN
 		   else null 
 		   end AS durcstop,
            rup,
+		   manager,
            #fatture.idreg,
            #fatture.yman,
            #fatture.nman,
@@ -289,10 +306,17 @@ BEGIN
         '' AS finance,
 		'' AS codefin_iva,
         '' AS  finance_iva,
+		'' AS phase,
+		'' AS yexpimpo,
+        '' AS nexpimpo,
+		'' AS iva_phase,
+		'' AS yexpiva,
+        '' AS nexpiva,
         @durcdoc AS durcdoc,
-       NULL AS  durcstart,
+		NULL AS  durcstart,
         NULL AS  durcstop,
         '' AS   rup,
+		'' AS   manager,
         NULL AS idreg,
         NULL AS yman,
 		NULL AS nman,
@@ -317,6 +341,7 @@ BEGIN
        NULL AS   protocoldate,
 	   NULL  AS  adate,
        NULL AS rownum,
+	 
        '' AS codeacc,
        '' AS account,
        '' AS idrelated,
@@ -337,5 +362,3 @@ GO
 
  
 
-
- 

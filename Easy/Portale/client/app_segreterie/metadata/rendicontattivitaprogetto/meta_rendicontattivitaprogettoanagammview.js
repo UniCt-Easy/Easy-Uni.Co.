@@ -24,6 +24,7 @@
 						return this.superClass.describeColumns(table, listType);
 					case 'anagamm':
 						this.describeAColumn(table, 'progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 1100, 2048);
+						this.describeAColumn(table, 'progetto_idprogetto', 'Codice interno Progetto', null, 1200, null);
 						this.describeAColumn(table, 'workpackage_raggruppamento', 'Raggruppamento Workpackage', null, 2100, 2048);
 						this.describeAColumn(table, 'workpackage_title', 'Titolo Workpackage', null, 2200, 2048);
 						this.describeAColumn(table, 'workpackage_start', 'Data di inizio Workpackage', null, 3000, null);
@@ -35,6 +36,7 @@
 						this.describeAColumn(table, 'rendicontattivitaprogetto_datainizioprevista', 'Data inizio prevista', null, 11000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogetto_stop', 'Data fine prevista', null, 12000, null);
 						this.describeAColumn(table, 'rendicontattivitaprogettokind_title', 'Tipo di attività', null, 13200, 255);
+						this.describeAColumn(table, 'rendicontattivitaprogetto_rendicontatutto', 'Rendiconta automaticamente tutte le ore sulla attività', null, 14000, null);
 //$objCalcFieldConfig_anagamm$
 						break;
 //$objCalcFieldConfig$

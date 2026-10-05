@@ -52,7 +52,17 @@
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.setDenyNull("sospensione","idsede");
+				this.setDenyNull("sospensione","idreg");
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

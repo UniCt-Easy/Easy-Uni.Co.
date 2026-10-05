@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -44,7 +42,7 @@ namespace meta_webpaymentdetail {
                 int nPos = 1;
 
                 DescribeAColumn(T, "!list", "Articolo", "list.description", nPos++);
-                DescribeAColumn(T, "number", "Quantit‡", nPos++);
+                DescribeAColumn(T, "number", "Quantit√†", nPos++);
 
 				DescribeAColumn(T, "price", "Imponibile unitario", nPos++);
 				DescribeAColumn(T, "tax", "Iva totale", nPos++);
@@ -102,24 +100,24 @@ namespace meta_webpaymentdetail {
             if (!base.IsValid(R, out errmess, out errfield)) return false;
 
             if (CfgFn.GetNoNullInt32(R["idlist"]) == 0) {
-                errmess = "Il campo 'Articolo' Ë obbligatorio";
+                errmess = "Il campo 'Articolo' √® obbligatorio";
                 errfield = "idlist";
                 return false;
             }
 
             if (CfgFn.GetNoNullDecimal(R["number"]) == 0) {
-                errmess = "Il campo 'Quantit‡' Ë obbligatorio";
+                errmess = "Il campo 'Quantit√†' √® obbligatorio";
                 errfield = "number";
                 return false;
             }
             if (CfgFn.GetNoNullDecimal(R["price"]) == 0) {
-                errmess = "Il campo 'Prezzo unitario' non puÚ essere zero";
+                errmess = "Il campo 'Prezzo unitario' non pu√≤ essere zero";
                 errfield = "price";
                 return false;
             }
 
             if (CfgFn.GetNoNullDecimal(R["number"]) < 0) {
-                errmess = "Il campo 'Quantit‡' dev'essere positivo";
+                errmess = "Il campo 'Quantit√†' dev'essere positivo";
                 errfield = "number";
                 return false;
             }

@@ -23,43 +23,32 @@
 
 			//afterGetFormData
 			
-			beforeFill: function () {
-				//parte sincrona
-				var self = this;
-				var parentRow = self.state.currentRow;
-				
-				if (!parentRow.idreg)
-					parentRow.idreg = self.idreg_istituto;
-				//beforeFillFilter
-				
-				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-sede_default");
-				var arraydef = [];
-				
-				//beforeFillInside
-				
-				$.when.apply($, arraydef)
-					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
-					});
-				return def.promise();
-			},
+			//beforeFill
 
 			afterClear: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('sede'), this.getDataTable('sospensione'));
+				//parte sincrona
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('sede'), this.getDataTable('edificio'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('sede'), this.getDataTable('sospensione'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('sede'), this.getDataTable('edificio'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.sede.defaults({ 'idreg': self.idreg_istituto });
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -70,6 +59,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

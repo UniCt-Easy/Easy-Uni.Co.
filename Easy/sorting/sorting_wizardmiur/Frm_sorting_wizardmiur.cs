@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -419,14 +417,14 @@ namespace sorting_wizardmiur {
 
             FrmMeter FM2 = new FrmMeter("Imputazione della Classificazione");
 
-            FM2.pBar.Maximum = view.Count;
+            //FM2.pBar.Maximum = view.Count;
             createForm(FM2, null);
             FM2.Show();
             Cursor.Current = Cursors.WaitCursor;
 
             for (int i = 0; i < view.Count; i++) {
                 
-                FM2.pBar.Increment(1);
+                //FM2.pBar.Increment(1);
                 if ((i % 10) == 0) {
                     Application.DoEvents();
                 }
@@ -467,7 +465,7 @@ namespace sorting_wizardmiur {
         private void copiaClassificazioniEsistenti(DataTable tExpenseSorted) {
             FrmMeter FM = new FrmMeter("Ricopiatura classificazioni esistenti");
 
-            FM.pBar.Maximum = tExpenseSorted.Rows.Count;
+            //FM.pBar.Maximum = tExpenseSorted.Rows.Count;
             createForm(FM, null);
             FM.Show();
             Cursor.Current = Cursors.WaitCursor;
@@ -478,7 +476,7 @@ namespace sorting_wizardmiur {
                 metaExpensesorted.SetDefaults(dataTableExpensesortedOrIncomesorted);
                 DataRow r = metaExpensesorted.Get_New_Row(null, dataTableExpensesortedOrIncomesorted);
                 foreach (DataColumn c in tExpenseSorted.Columns) {
-                    FM.pBar.Increment(1);
+                    //FM.pBar.Increment(1);
                     nRow++;
                     if ((nRow % 10) == 0) {
                         Application.DoEvents();

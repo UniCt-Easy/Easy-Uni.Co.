@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -26,18 +24,12 @@ using System.Runtime.Serialization;
 namespace report_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Configurazione delle stampe
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable report 		=> Tables["report"];
 
-	///<summary>
-	///Parametro del prospetto
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable reportparameter 		=> Tables["reportparameter"];
 
@@ -130,6 +122,7 @@ private void initClass() {
 	treportparameter.Columns.Add( new DataColumn("lu", typeof(string)));
 	treportparameter.Columns.Add( new DataColumn("help2", typeof(string)));
 	treportparameter.Columns.Add( new DataColumn("selectioncode", typeof(string)));
+	treportparameter.Columns.Add( new DataColumn("master", typeof(string)));
 	Tables.Add(treportparameter);
 	treportparameter.PrimaryKey =  new DataColumn[]{treportparameter.Columns["reportname"], treportparameter.Columns["paramname"]};
 

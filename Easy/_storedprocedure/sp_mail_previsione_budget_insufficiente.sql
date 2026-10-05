@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,8 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[sp_mail_previsione_budget_insufficiente]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [sp_mail_previsione_budget_insufficiente]
@@ -270,7 +267,7 @@ SET @StringSql =@StringSelect + @StringFrom
 declare @separatore char(1)
 set @separatore = char(9)
 declare @mittente varchar(100)
-set @mittente = 'notifiche@temposrl.com' -- unitus
+set @mittente = 'your-email@example.com' -- unitus
 IF ( exists (select * from license where cf ='02044190615' ) or exists (select * from license where cf ='94021400026' ))
 Begin
 	-- unina2 e PO
@@ -281,7 +278,7 @@ End
 
 EXEC msdb.dbo.sp_send_dbmail
  @profile_name = @mittente
-, @recipients = @email -- 'assistenzasw@temposrl.com'--'saradeca@inwind.it'--; carmela.luise@unicampania.it; Giovanni.RUSSO@unicampania.it; francesco.capruzzi@temposrl.com'
+, @recipients = @email -- 'your-email@example.com'--'your-email@example.com'--; your-email@example.com; your-email@example.com; your-email@example.com'
 , @subject = @message_subject
 , @body = @body_contratti
 , @body_format = 'HTML'
@@ -301,5 +298,5 @@ END
 
 go
 
-	  --exec sp_mail_previsione_budget_insufficiente 'assistenzasw@temposrl.com'
+	  --exec sp_mail_previsione_budget_insufficiente 'your-email@example.com'
 	  

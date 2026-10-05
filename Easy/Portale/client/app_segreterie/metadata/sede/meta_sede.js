@@ -49,7 +49,26 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["address"].caption = "Indirizzo";
+						table.columns["annotations"].caption = "Note";
+						table.columns["cap"].caption = "CAP";
+						table.columns["idcity"].caption = "Comune";
+						table.columns["idnation"].caption = "Nazione";
+						table.columns["idreg"].caption = "Istituto o Ente";
+						table.columns["idsede"].caption = "Codice";
+						table.columns["idsedemiur"].caption = "Identificativo MIUR";
+						table.columns["latitude"].caption = "Latitudine";
+						table.columns["longitude"].caption = "Longitudine";
+						table.columns["title"].caption = "Denominazione";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_sede");

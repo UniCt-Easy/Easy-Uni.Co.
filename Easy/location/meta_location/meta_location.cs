@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -69,7 +67,7 @@ namespace meta_location
 				
 		override public DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
             DataTable Levels;
-            // modifica portale. in cui il DataTablenon ha la propriet‡ associata DataSet, quindi leggla tabella a dB
+            // modifica portale. in cui il DataTablenon ha la propriet√† associata DataSet, quindi leggla tabella a dB
             if (T.DataSet == null) {
                 Levels = dbConn.RUN_SELECT("locationlevel", "*", null, null, null, false);
             } else if (T.DataSet.Tables["locationlevel"] == null) {
@@ -139,7 +137,7 @@ namespace meta_location
 			int len = CfgFn.GetNoNullInt32(codelen);
 			if (len == 0) return true;
 
-            // sulla getNewRow popola ExtendedProperties["length"] della tabella.quindi su portale, serializzo propriet‡ lenght sulla colonna
+            // sulla getNewRow popola ExtendedProperties["length"] della tabella.quindi su portale, serializzo propriet√† lenght sulla colonna
             // e qui sulla isValid() la rileggo.
             int lunghezza =(int)R.Table.Columns["locationcode"].ExtendedProperties["length"];
             if (R["locationcode"].ToString().Length != lunghezza) {
@@ -148,7 +146,7 @@ namespace meta_location
 				return false;
 			}
 
-            // Il seguento check stava sulla getNewRow(). Lo abbiamo  passato sulla isValid() per compatibilit‡ con portale web
+            // Il seguento check stava sulla getNewRow(). Lo abbiamo  passato sulla isValid() per compatibilit√† con portale web
             DataTable Levels = dbConn.RUN_SELECT("locationlevel", "*", null, null, null, false);
             if (Levels == null) {
                 errmess = "La tabella locationlevel non ha nessun livello";
@@ -158,7 +156,7 @@ namespace meta_location
             int level = Convert.ToInt32(R["nlevel"]);
             int levelmax = CfgFn.GetNoNullInt32(Levels.Compute("max(nlevel)", null));
             if (level > levelmax){
-                errmess = "Non Ë possibile inserire un livello inferiore a quello selezionato";
+                errmess = "Non √® possibile inserire un livello inferiore a quello selezionato";
                 errfield = "nlevel";
                 return false;
             }
@@ -243,7 +241,7 @@ namespace meta_location
 						DescribeAColumn(T, "!idcity_geo_city_title", "Comune", nPos++);
 						DescribeAColumn(T, "!idnation_geo_nation_title", "Nazione", nPos++);
 						DescribeAColumn(T, "latitude", "Latitudine", nPos++);
-						DescribeAColumn(T, "location", "Localit‡", nPos++);
+						DescribeAColumn(T, "location", "Localit√†", nPos++);
 						DescribeAColumn(T, "longitude", "Longitudine", nPos++);
 						break;
 					}

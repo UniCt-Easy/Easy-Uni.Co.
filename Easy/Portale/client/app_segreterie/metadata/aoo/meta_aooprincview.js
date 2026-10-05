@@ -23,9 +23,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'princ':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 1024);
-						this.describeAColumn(table, 'aoo_codiceaooipa', 'Codice IPA', null, 30, 50);
-						this.describeAColumn(table, 'sede_title', 'Sede', null, 40, 1024);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 2000, 1024);
+						this.describeAColumn(table, 'aoo_codiceaooipa', 'Codice IPA', null, 3000, 50);
+						this.describeAColumn(table, 'sede_title', 'Sede', null, 4200, 1024);
 //$objCalcFieldConfig_princ$
 						break;
 //$objCalcFieldConfig$

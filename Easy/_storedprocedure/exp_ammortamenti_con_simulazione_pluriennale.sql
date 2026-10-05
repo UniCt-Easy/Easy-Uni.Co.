@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 /****** Object:  StoredProcedure [exp_ammortamenti_con_simulazione_pluriennale]    Script Date: 09/09/2021 09:15:49 ******/
 SET ANSI_NULLS ON
@@ -127,7 +125,7 @@ DECLARE rowcursor INSENSITIVE CURSOR FOR
 SELECT A.idasset,A.idpiece, ISNULL( A.historical,A.cost), A.currentvalue , A.idinv, A.idupb
 FROM   assetview A
 WHERE (@codeinv is null or A.codeinv like @codeinv+'%') 
-AND   (@idupb IS NULL  OR A.idupb like '%' )
+AND   (@idupb IS NULL  OR A.idupb like @idupb +'%' )
 AND   (A.is_loaded='S') AND (A.is_unloaded='N')
 AND A.currentvalue<>0
 AND (@idsor01 IS NULL OR A.idsor01 = @idsor01)

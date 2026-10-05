@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 namespace f24ordinario_default
@@ -242,7 +240,7 @@ namespace f24ordinario_default
 			this.groupBox3.Size = new System.Drawing.Size(670, 52);
 			this.groupBox3.TabIndex = 27;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Modalit‡ di versamento";
+			this.groupBox3.Text = "Modalit√† di versamento";
 			// 
 			// txtContoDiAddebito
 			// 

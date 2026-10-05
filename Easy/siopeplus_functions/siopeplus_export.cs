@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -40,7 +38,7 @@ namespace siopeplus_functions {
         //int limiteOPIinKb = 180;
         int limiteOPIinByte = 184320;
 		// bool stop = false;
-        /*Se configurato indica il trattamento spese da utilizzare nei mandati multipli in caso di più pagamenti a carico ente/beneficiario per lo stesso beneficiario*/
+        /*Se configurato indica il trattamento spese da utilizzare nei mandati multipli in caso di piÃ¹ pagamenti a carico ente/beneficiario per lo stesso beneficiario*/
 		pagamenti.mandatoInformazioni_beneficiarioSpese tratt_spese_mandati_multipli;
 		public siopeplus_export(DataAccess Conn) {
             this.Conn = Conn;
@@ -332,7 +330,7 @@ namespace siopeplus_functions {
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="T">tabella output della SP (contiene uno o più movimenti)</param>
+		/// <param name="T">tabella output della SP (contiene uno o piÃ¹ movimenti)</param>
 		/// <param name="R">Pagamento considerato</param>
 		/// <returns></returns>
 		/// 
@@ -379,7 +377,7 @@ namespace siopeplus_functions {
 				}
 				else {
 					//2) trattamento spese non esente,
-					// Filtro a parità di anagrafica i trattamenti spese già considerati
+					// Filtro a paritÃ  di anagrafica i trattamenti spese giÃ  considerati
 
 				List<pagamenti.mandatoInformazioni_beneficiarioSpese> lista_TrattSpese = trattamentoSpesePerAnagrafica[anagrafica];
 				bool trovato = false;
@@ -387,7 +385,7 @@ namespace siopeplus_functions {
 					 if (singoloTratt.soggetto_destinatario_delle_spese.ToString() == R["soggetto_destinatario_delle_spese"].ToString())
 						 trovato = true;
 				}
-				//  se per l'anagrafica è il primo di quella tipologia non esente lasciamo quello
+				//  se per l'anagrafica Ã¨ il primo di quella tipologia non esente lasciamo quello
 				if (!trovato) {
 					RSpese.soggetto_destinatario_delle_spese = ToForcedEnum<pagamenti.mandatoInformazioni_beneficiarioSpeseSoggetto_destinatario_delle_spese>(
 					R["soggetto_destinatario_delle_spese"].ToString());
@@ -396,7 +394,7 @@ namespace siopeplus_functions {
 					return RSpese;
 				}
 				else
-				// per quell'anagrafica, è stata già introdotta quella tipologia di  pagamento non esente,  la cambiamo in quella  predefinita esente configurata
+				// per quell'anagrafica, Ã¨ stata giÃ  introdotta quella tipologia di  pagamento non esente,  la cambiamo in quella  predefinita esente configurata
 				{
 						RSpese = tratt_spese_mandati_multipli;
 				}
@@ -743,7 +741,7 @@ namespace siopeplus_functions {
 	            var infoBenef = beneficiario.Value;
 	            if (infoBenef.sospeso?.Count > 1000) {
 		            MetaFactory.factory.getSingleton<IMessageShower>().Show(
-			            $" Invio non eseguibile!\r\n Il pagamento da {infoBenef.beneficiario.anagrafica_beneficiario} ha più di 1000 sospesi.");
+			            $" Invio non eseguibile!\r\n Il pagamento da {infoBenef.beneficiario.anagrafica_beneficiario} ha piÃ¹ di 1000 sospesi.");
 		            return null;
 	            }
             }
@@ -1209,7 +1207,7 @@ namespace siopeplus_functions {
 	            var infoVersante = versante.Value;
 	            if (infoVersante.sospeso?.Count  > 1000) {
 		            MetaFactory.factory.getSingleton<IMessageShower>().Show(
-			            $" Invio non eseguibile!\r\n Il L'incasso da {infoVersante.versante.anagrafica_versante} ha più di 1000 sospesi.");
+			            $" Invio non eseguibile!\r\n Il L'incasso da {infoVersante.versante.anagrafica_versante} ha piÃ¹ di 1000 sospesi.");
 		            return null;
 	            }
             }

@@ -29,21 +29,18 @@
 
 			//afterFill
 
-			//afterLink
-
-			afterRowSelect: function (t, r) {
-				var def = appMeta.Deferred("afterRowSelect-convalidato_segistrein");
-				if (t.name === "didprog" && r !== null) {
-					this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprog", r.iddidprog));
-					if (this.state.DS.tables.attivformdefaultview.rows.length)
-						if (this.state.DS.tables.attivformdefaultview.rows[0].iddidprog !== r.iddidprog) {
-							this.state.DS.tables.attivformdefaultview.clear();
-							$('#convalidato_segistrein_idattivform').val('');
-						}
-				}
-				//afterRowSelectin
-				return def.resolve();
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprog", this.state.callerState.currentRow.iddidprog));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
 			},
+
+			//afterRowSelect
 
 			//afterActivation
 

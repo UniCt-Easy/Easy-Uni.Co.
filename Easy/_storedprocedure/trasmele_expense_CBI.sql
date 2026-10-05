@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
  --setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_cbi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -32,7 +30,7 @@ CREATE        PROCEDURE [trasmele_expense_cbi]
 )
 AS BEGIN
 -- setuser'amministrazione'
---[trasmele_expense_cbi] 2023, 305
+--	[trasmele_expense_cbi] 2025, 15
 -------------------------------------------------------------------------------
 ---  STORED PROCEDURE PER LA TRASMISSIONE DEI MANDATI SECONDO TRACCIATO CBI ---
 -------------------------------------------------------------------------------
@@ -101,14 +99,16 @@ DECLARE @desc_dept varchar(150)
 DECLARE @address_dept varchar(30)
 DECLARE @cap_dept varchar(30)
 DECLARE @location_dept varchar(35)
+DECLARE @TownName_dept	varchar(35)
+DECLARE @Country_dept varchar(2)
 
 SELECT  @cf_dept = ISNULL(cf,p_iva),
 @desc_dept =  ISNULL(agencyname,''),
 @address_dept = ISNULL(address1,''),
-@location_dept = ISNULL(location,'') ,
-@cap_dept = ISNULL(cap, '')
+@TownName_dept = ISNULL(location,'') ,
+@cap_dept = ISNULL(cap, ''),
+@Country_dept ='IT'
 FROM license
-
 
 DECLARE @lenCC_vincolato int
 SET @lenCC_vincolato = 7
@@ -145,11 +145,13 @@ PGSP			TRA				Disposizione di pagamento spontaneo pagoPA con Esito all’Ordinante
 DECLARE @cod_department varchar(12) -- Codice dell'ente da esportare
 DECLARE @ABI_department varchar(5)
 DECLARE @IBAN_department varchar(50)
+DECLARE @BIC_department varchar(15)
 SELECT  @cod_department = ISNULL(RTRIM(agencycodefortransmission),''),
 	@ABI_department = SUBSTRING(REPLICATE('0',@len_ABI),1,@len_ABI - DATALENGTH(ISNULL(idbank,'')))+ ISNULL(idbank,''),
 	@cc_vincolato = SUBSTRING(REPLICATE('0',@lenCC_vincolato),1,@lenCC_vincolato - 
 					DATALENGTH(CONVERT(varchar(7),ISNULL(trasmcode,'0')))) + CONVERT(varchar(7),ISNULL(trasmcode,'0')),
-	@IBAN_department = iban
+	@IBAN_department = iban			,
+	@BIC_department = bic		
 FROM treasurer WHERE idtreasurer = @idtreasurer
 
 CREATE TABLE #error (message varchar(400))
@@ -181,7 +183,7 @@ BEGIN
 END
 IF (@error = 'S')
 BEGIN
-	SET @message = @message + ' Andare nella maschera CONFIGURAZIONE - CASSIERE - CASSIERE ed inserire i dati'
+	SET @message = @message + ' Andare nella maschera OPZIONI - BANCA - CONTO CORRENTE ed inserire i dati'
 	INSERT INTO #error VALUES(@message)
 END
 
@@ -257,6 +259,36 @@ WHERE paymentcommunicated.ypaymenttransmission = @y
 	AND paymentcommunicated.npaymenttransmission = @n
 	AND paymethod.methodbankcode NOT IN ('02','SEPA','PGPA','PGSP','BONIFICOESTERO') ------------------------------DA RIMUOVERE LO 02 ---------------------------------------*****************************************************************************************************************************************************************************
 )
+
+
+-- CONTROLLO N. 10. 
+-- Se i primi due carettere dell' IBAN sono di un Pease appartenente al circuito Sepa, va usato il bonifico Sepa
+-- Se i primi due carettere dell' IBAN NON sono di un Pease appartenente al circuito Sepa, va usato il bonifico Estero
+
+INSERT INTO #error (message)
+(SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' è stata usata la modalità di pagamento Bonifico Estero. Trattandosi di un Paese appartenente al circuito Sepa, va usato il bonifico Sepa.'
+FROM paymentcommunicated
+	JOIN paymethod
+	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
+WHERE paymentcommunicated.ypaymenttransmission = @y
+	AND paymentcommunicated.npaymenttransmission = @n
+	AND paymethod.methodbankcode  = 'BONIFICOESTERO'
+	and substring(paymentcommunicated.iban, 1,2) in (select value from geo_nation_agency where idagency= 7 ) /*Paese Circuito Sepa*/
+)
+
+INSERT INTO #error (message)
+(SELECT 'Nel movimento n.' + CONVERT(varchar(6),paymentcommunicated.nmov) 
++ '/' + CONVERT(varchar(4),paymentcommunicated.ymov) + ' è stata usata la modalità di pagamento Bonifico SEPA. Trattandosi di un Paese non appartenente al circuito Sepa, va usato il bonifico Estero.'
+FROM paymentcommunicated
+	JOIN paymethod
+	ON paymentcommunicated.idpaymethod = paymethod.idpaymethod
+WHERE paymentcommunicated.ypaymenttransmission = @y
+	AND paymentcommunicated.npaymenttransmission = @n
+	AND paymethod.methodbankcode  = 'SEPA'
+	and substring(paymentcommunicated.iban, 1,2) not in (select value from geo_nation_agency where idagency= 7 ) /*Paese Circuito Sepa*/
+)
+
 
 ----------------------------		COMMENTO PER CBI		---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -396,6 +428,7 @@ CREATE TABLE #payment
 	bank varchar(150),
 	iban varchar(50),
 	biccode varchar(20), 
+	isbonificoestero char(1),
 	id_end_to_end varchar(35),
 	code varchar(4),
 	proprietary varchar(35),
@@ -511,12 +544,14 @@ INSERT INTO #payment
 	flagcr, curramount,  
     idreg, expense_adate, payment_adate, transmissiondate, 	
 	idpaymethodTRS, 
-	ABI, CAB, cc, cin_iban, cin, codice_paese, bank, iban, biccode, id_end_to_end , 
+	ABI, CAB, cc, cin_iban, cin, codice_paese, bank, iban, biccode, isbonificoestero, id_end_to_end , 
 	code, proprietary,
 	title_ben, cf_ben, pi_ben , 
 	paymentdescr, expenselast_paymentdescr, 
 	extracode, iddeputy, refexternaldoc, nbill, idpay, 
-    idpaydisposition,iddetail,  txt
+    idpaydisposition,iddetail,  txt,
+	cupcodefin,cupcodeupb,cupcodeexpense, cigcodeexpense, --txt,
+	cupcodedetail, cigcodemandate 
 )
 SELECT
 	t.ypaymenttransmission, t.npaymenttransmission, d.ypay, d.npay, s.idexp,  
@@ -549,6 +584,7 @@ SELECT
 	substring(bank.description,1,@len_bank),
 	ISNULL(el.iban,''),
 	el.biccode,
+	case when m.methodbankcode IN ('BONIFICOESTERO') then 'S' else 'N'  end,
 	null,
 	null,
 	null,
@@ -598,7 +634,12 @@ SELECT
 			  THEN pd.iddetail 
 	ELSE 0
 	END,
-	ltrim(rtrim(substring(s.txt, 1, 200)))
+	ltrim(rtrim(substring(s.txt, 1, 200))),
+	ltrim(rtrim(finlast.cupcode))  ,
+	ltrim(rtrim(u.cupcode)),
+	ltrim(rtrim(RegPhase.cupcode)),
+	ltrim(rtrim(RegPhase.cigcode)), 
+	null,null 
 FROM expense s
 JOIN expenselast el
 	ON S.idexp = el.idexp
@@ -612,6 +653,12 @@ JOIN payment d
 	ON d.kpay = el.kpay
 JOIN paymenttransmission t
 	ON t.kpaymenttransmission = d.kpaymenttransmission
+JOIN upb u								
+	ON u.idupb = y.idupb
+JOIN fin f1								
+	ON f1.idfin = y.idfin
+JOIN finlast							
+	ON finlast.idfin = f1.idfin
 LEFT OUTER JOIN paymethod m
 	ON el.idpaymethod = m.idpaymethod
 JOIN expenselink as RegPhaseELK	-- Dobbiamo risalire alla fase del creditore per recuperare CUP e CIG
@@ -636,8 +683,75 @@ WHERE t.ypaymenttransmission = @y
 	AND t.npaymenttransmission = @n
 	
 
+	-- Valorizza codice cup da eventuali -----
+-- contabilizzazioni di dettagli ordine --
+UPDATE #payment SET cupcodedetail = 
+	   (SELECT MAX( ltrim(rtrim(cupcode)) )
+		  FROM mandatedetail
+		 WHERE (idexp_taxable IN (SELECT EL1.idparent 
+									FROM expenselink EL1
+								   WHERE EL1.idchild = #payment.idexp and EL1.nlevel=@fasecontrattopassivo) 
+			OR idexp_iva IN (SELECT EL2.idparent 
+							   FROM expenselink EL2
+							  WHERE EL2.idchild = #payment.idexp and EL2.nlevel=@fasecontrattopassivo))
+		   AND cupcode IS NOT NULL)
+	where cupcodeexpense is null
 
+-- Valorizza il codice CGI eventualmente presente del contratto passivo
+UPDATE #payment SET cigcodemandate = 
+	   (SELECT ltrim(rtrim(mandate.cigcode))
+			FROM mandate 
+				JOIN expensemandate ON expensemandate.idmankind = mandate.idmankind AND 
+					 expensemandate.yman = mandate.yman AND
+					expensemandate.nman = mandate.nman
+		 WHERE (expensemandate.idexp  = (SELECT idparent 
+									       FROM expenselink 
+								          WHERE idchild = #payment.idexp and nlevel=@fasecontrattopassivo) 
+		 ))
+		where cigcodeexpense is null
 
+-- Valorizza il codice CIG eventualmente presente nella fattura
+UPDATE #payment SET cigcodemandate = 
+	   (SELECT MAX( invoicedetail.cigcode )
+			FROM invoicedetail 
+		WHERE invoicedetail.cigcode<>replicate('0',10) --a volte scrivono i dieci 0
+			and (invoicedetail.idexp_taxable = #payment.idexp
+				OR invoicedetail.idexp_iva = #payment.idexp)
+
+		)
+where cigcodeexpense is null and cigcodemandate is null		 
+
+-- Valorizza il codice CUP eventualmente presente nella fattura
+UPDATE #payment SET cupcodedetail = 
+	   (SELECT MAX( ltrim(rtrim(invoicedetail.cupcode)) )
+			FROM invoicedetail 
+		 WHERE (invoicedetail.idexp_taxable = #payment.idexp
+				OR invoicedetail.idexp_iva =#payment.idexp)
+		)	
+where cupcodeexpense is null and cupcodedetail is null		
+
+UPDATE #payment SET CIG = ISNULL(cigcodeexpense,ISNULL(cigcodemandate,''))  --Codice CIG
+UPDATE #payment SET CUP = ISNULL(cupcodeexpense,ISNULL(cupcodedetail, ISNULL(cupcodeupb, ISNULL(cupcodefin,'')))) --Codice CUP
+
+UPDATE #payment SET paymentdescr = (SELECT
+CASE
+	-- CUP CIG  e DESCRIZIONE
+			WHEN ((		DATALENGTH(isnull(CUP,'')) >0
+					AND DATALENGTH(isnull(CIG,'')) >0) )
+			THEN 'CUP:' + isnull(CUP,'') +';CIG:'+isnull(CIG,'') + '; '+ ISNULL(paymentdescr, '') 
+	-- CIG  e DESCRIZIONE
+			WHEN ( (	DATALENGTH(isnull(CIG,'')) >0) )
+			THEN 'CIG:'+isnull(CIG,'') + '; '+ISNULL(paymentdescr, '') 
+	-- CUP  e DESCRIZIONE
+			WHEN ( (DATALENGTH(isnull(CUP,'')) >0 )) 
+			THEN 'CUP:'+isnull(CUP,'') + '; '+ISNULL(paymentdescr, '') 
+	-- DESCRIZIONE
+			ELSE ISNULL(paymentdescr, '') 
+	END 
+	)
+	FROM #payment
+
+	--select * from #payment
 -- Inserimento delle trattenute (vengono inseriti ritenute, quest'ultime solo dipendenti). Non inserisce i recuperi
 INSERT INTO #tax
 (
@@ -1224,7 +1338,10 @@ CREATE TABLE #trace
 	Debtor_AddressType varchar(4),						-- <AdrTp>	Tipo indirizzo 
 	Debtor_StreetName  varchar(70),						-- <StrtNm>	Via/Piazza
 	Debtor_PostalCode  varchar(16),						-- <PstCd>	Codice postale
-	Debtor_IBAN varchar(27),							-- <IBAN>  IBAN
+	Debtor_TownName	varchar(35), --<TwnNm> Città
+	Debtor_Country varchar(2),	--<Ctry> Stato
+	Debtor_IBAN varchar(50),							-- <IBAN>  IBAN
+	Debtor_BIC varchar(15),							-- <BIC>  BIC
 	Debtor_abi varchar(5),								-- <MmbId>	Member Id => Codice ABI
 	Debtor_ChargeBearer	varchar(4),						-- <ChrgBr>	Tipologia Commissioni: assume il solo valore SLEV
 
@@ -1252,12 +1369,13 @@ CREATE TABLE #trace
 	Creditor_Country varchar(2),	--<Ctry> Stato
 	--BICOrBEI OR OrganisationIdentification
 	Creditor_OrganisationIdentification_BICOrBEI varchar(15), -- <BICOrBEI> BIC
+	isbonificoestero char(1),
 	Creditor_OrganisationIdentification_Id varchar(35), -- <Id>
 	Creditor_OrganisationIdentification_Issuer varchar(35), -- <Issuer>
 	
 	Creditor_PrivateIdentification_Id varchar(35), -- <Id>
 	Creditor_PrivateIdentification_Issuer varchar(35), -- <Issuer>Creditor_
-	Creditor_IBAN varchar(27),
+	Creditor_IBAN varchar(50),
 	----------------------------------------------------- Creditore effettivo -----------------------------------------------------
 	-------------------------------------------------------------------------------------------------------------------------------------
 	UltimateCreditor_Nome  varchar(70),-- <Nm> Nome
@@ -1336,7 +1454,10 @@ INSERT INTO #trace(
 					Debtor_AddressType,
 					Debtor_StreetName,
 					Debtor_PostalCode,
+					Debtor_TownName	,
+					Debtor_Country ,
 					Debtor_IBAN,
+					Debtor_BIC,
 					Debtor_abi,
 					Debtor_ChargeBearer
 					)
@@ -1355,14 +1476,15 @@ SELECT  distinct
 				   'ADDR',
 				   @address_dept,
 				   @cap_dept,
+				   @TownName_dept	,
+					@Country_dept ,
 				   @IBAN_department,
+				   @BIC_department,
 				   @ABI_department,
 				   'SLEV'
 FROM #payment
 join #GroupPaymetInformation
 on #payment.idpaymethodTRS = #GroupPaymetInformation.methodbankcode
-
-
 
 INSERT INTO #trace(
 					kind,
@@ -1380,6 +1502,7 @@ INSERT INTO #trace(
 					Creditor_TownName,
 					Creditor_Country,
 					Creditor_OrganisationIdentification_BICOrBEI,
+					isbonificoestero,
 					Creditor_OrganisationIdentification_Id,
 					Creditor_OrganisationIdentification_Issuer,
 					Creditor_PrivateIdentification_Id,  -- DA RIVEDERE
@@ -1406,8 +1529,8 @@ SELECT
 				   --idpaymethodTRS
 				    case WHEN idpaymethodTRS='BONIFICOESTERO' then 'TRF' else idpaymethodTRS end,
 
-				   CONVERT(varchar(10), ndoc) +'_' + CONVERT(varchar(10), idpay),
-				   CONVERT(varchar(10), ndoc) +'_' + CONVERT(varchar(10), idpay),
+				   CONVERT(varchar(10), ndoc) +'000' + CONVERT(varchar(10), idpay),
+				   CONVERT(varchar(10), ndoc) +'000' + CONVERT(varchar(10), idpay),
 				   'SUPP',
 				   sum(saldo),--SUM(curramount),
 				   ----------------- beneficiario --------------
@@ -1425,6 +1548,7 @@ SELECT
 				   -- Stato_beneficiario
 				   iso_code_ben,
 				   biccode,
+				   isbonificoestero,
 				   isnull(pi_ben,  cf_ben),
 				   'ADE',
 					isnull(pi_ben,  cf_ben),
@@ -1458,14 +1582,14 @@ LEFT JOIN #deputy
 		ABI, CAB, cc, cin_iban, cin,codice_paese, bank, iban,biccode,id_end_to_end,code, proprietary,
 		paymentdescr, stamphandling, stamp_charge, exemption_stamp_motive, 
 		refexternaldoc,expenselast_paymentdescr,  chargehandling,exemption_charge_payment_kind,
-		exemption_charge_motive
+		exemption_charge_motive, isbonificoestero
 ORDER BY #payment.ndoc, #payment.idpay
 
 
 
 
 
---SELECT * FROM #trace 
+
 SELECT kind , 
 	-------------------------------------------------------------------------------------------------------------------------------------
 	----------------------------------------------------- Group Header--------------------------------------------------------
@@ -1493,7 +1617,10 @@ SELECT kind ,
 	Debtor_AddressType as Debtor_AdrTp,						-- <AdrTp>	Tipo indirizzo 
 	Debtor_StreetName  as Debtor_StrtNm,						-- <StrtNm>	Via/Piazza
 	Debtor_PostalCode  as Debtor_PstCd,						-- <PstCd>	Codice postale
+	Debtor_TownName	as Debtor_TwnNm ,	--<TwnNm> Città
+	Debtor_Country as Debtor_Ctry ,		--<Ctry> Stato
 	Debtor_IBAN ,							-- <IBAN>  IBAN
+	Debtor_BIC,
 	Debtor_abi as Debtor_MmbId,								-- <MmbId>	Member Id => Codice ABI
 	Debtor_ChargeBearer	as Debtor_ChrgBr,						-- <ChrgBr>	Tipologia Commissioni: assume il solo valore SLEV
 
@@ -1517,10 +1644,11 @@ SELECT kind ,
 	-- <PstlAdr> Indirizzo Postale
 	Creditor_StreetName	as Creditor_StrtNm ,	 --<StrtNm> Via/Piazza
 	Creditor_PostalCode	as Creditor_PstCd ,	 --<PstCd> Codice postale
-	Creditor_TownName	as Creditor_TwnNm ,	--<TwnNm> Città
+	ltrim(rtrim(Creditor_TownName))	as Creditor_TwnNm ,	--<TwnNm> Città
 	Creditor_Country as Creditor_Ctry ,		--<Ctry> Stato
 	--BICOrBEI OR OrganisationIdentification
 	Creditor_OrganisationIdentification_BICOrBEI as Creditor_BICOrBEI , -- <BICOrBEI> BIC
+	isbonificoestero,
 	Creditor_OrganisationIdentification_Id  , -- <Id>
 	Creditor_OrganisationIdentification_Issuer, -- <Issuer>
 	
@@ -1562,6 +1690,3 @@ GO
 
 
 
-
- 
- 

@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace GeneraLiveUpdateForServices {
     partial class Frm_GeneraLiveUpdateForServices {
@@ -50,6 +48,7 @@ namespace GeneraLiveUpdateForServices {
 			this.icons = new System.Windows.Forms.ImageList(this.components);
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.btnToClipBoard = new System.Windows.Forms.Button();
 			this.cmbTipoAggiornamento = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtDirUff_main = new System.Windows.Forms.TextBox();
@@ -80,6 +79,7 @@ namespace GeneraLiveUpdateForServices {
 			this.btnSelAll = new System.Windows.Forms.Button();
 			this.checkList = new System.Windows.Forms.CheckedListBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.btnNonAggiornati = new System.Windows.Forms.Button();
 			this.nonaggiornati = new System.Windows.Forms.CheckedListBox();
 			this.DS = new GeneraLiveUpdateForServices.genconfig();
 			this.contextMenuStrip1.SuspendLayout();
@@ -139,11 +139,12 @@ namespace GeneraLiveUpdateForServices {
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1254, 797);
+			this.tabControl1.Size = new System.Drawing.Size(744, 797);
 			this.tabControl1.TabIndex = 42;
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.btnToClipBoard);
 			this.tabPage1.Controls.Add(this.cmbTipoAggiornamento);
 			this.tabPage1.Controls.Add(this.label1);
 			this.tabPage1.Controls.Add(this.txtDirUff_main);
@@ -170,10 +171,20 @@ namespace GeneraLiveUpdateForServices {
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(1246, 771);
+			this.tabPage1.Size = new System.Drawing.Size(736, 771);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "DLL/Report";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// btnToClipBoard
+			// 
+			this.btnToClipBoard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnToClipBoard.Location = new System.Drawing.Point(598, 439);
+			this.btnToClipBoard.Name = "btnToClipBoard";
+			this.btnToClipBoard.Size = new System.Drawing.Size(112, 32);
+			this.btnToClipBoard.TabIndex = 55;
+			this.btnToClipBoard.Text = "Copia in ClipBoard";
+			this.btnToClipBoard.Click += new System.EventHandler(this.btnToClipBoard_Click);
 			// 
 			// cmbTipoAggiornamento
 			// 
@@ -181,7 +192,7 @@ namespace GeneraLiveUpdateForServices {
 			this.cmbTipoAggiornamento.FormattingEnabled = true;
 			this.cmbTipoAggiornamento.Location = new System.Drawing.Point(13, 32);
 			this.cmbTipoAggiornamento.Name = "cmbTipoAggiornamento";
-			this.cmbTipoAggiornamento.Size = new System.Drawing.Size(499, 21);
+			this.cmbTipoAggiornamento.Size = new System.Drawing.Size(494, 21);
 			this.cmbTipoAggiornamento.TabIndex = 54;
 			// 
 			// label1
@@ -200,7 +211,7 @@ namespace GeneraLiveUpdateForServices {
 			this.txtDirUff_main.Location = new System.Drawing.Point(120, 120);
 			this.txtDirUff_main.Name = "txtDirUff_main";
 			this.txtDirUff_main.ReadOnly = true;
-			this.txtDirUff_main.Size = new System.Drawing.Size(393, 20);
+			this.txtDirUff_main.Size = new System.Drawing.Size(387, 20);
 			this.txtDirUff_main.TabIndex = 51;
 			// 
 			// txtWeb_main
@@ -209,13 +220,13 @@ namespace GeneraLiveUpdateForServices {
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtWeb_main.Location = new System.Drawing.Point(120, 94);
 			this.txtWeb_main.Name = "txtWeb_main";
-			this.txtWeb_main.Size = new System.Drawing.Size(393, 20);
+			this.txtWeb_main.Size = new System.Drawing.Size(387, 20);
 			this.txtWeb_main.TabIndex = 49;
 			// 
 			// btnDirUff_main
 			// 
 			this.btnDirUff_main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnDirUff_main.Location = new System.Drawing.Point(519, 119);
+			this.btnDirUff_main.Location = new System.Drawing.Point(528, 119);
 			this.btnDirUff_main.Name = "btnDirUff_main";
 			this.btnDirUff_main.Size = new System.Drawing.Size(24, 23);
 			this.btnDirUff_main.TabIndex = 52;
@@ -246,13 +257,13 @@ namespace GeneraLiveUpdateForServices {
 			this.txtDirDiff.Location = new System.Drawing.Point(120, 65);
 			this.txtDirDiff.Name = "txtDirDiff";
 			this.txtDirDiff.ReadOnly = true;
-			this.txtDirDiff.Size = new System.Drawing.Size(393, 20);
+			this.txtDirDiff.Size = new System.Drawing.Size(387, 20);
 			this.txtDirDiff.TabIndex = 34;
 			// 
 			// btnDirTemp
 			// 
 			this.btnDirTemp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnDirTemp.Location = new System.Drawing.Point(521, 65);
+			this.btnDirTemp.Location = new System.Drawing.Point(530, 65);
 			this.btnDirTemp.Name = "btnDirTemp";
 			this.btnDirTemp.Size = new System.Drawing.Size(24, 23);
 			this.btnDirTemp.TabIndex = 35;
@@ -270,7 +281,7 @@ namespace GeneraLiveUpdateForServices {
 			// txtNThread
 			// 
 			this.txtNThread.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtNThread.Location = new System.Drawing.Point(1120, 627);
+			this.txtNThread.Location = new System.Drawing.Point(598, 600);
 			this.txtNThread.Name = "txtNThread";
 			this.txtNThread.ReadOnly = true;
 			this.txtNThread.Size = new System.Drawing.Size(100, 20);
@@ -300,7 +311,7 @@ namespace GeneraLiveUpdateForServices {
 			// btnSync
 			// 
 			this.btnSync.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSync.Location = new System.Drawing.Point(1120, 719);
+			this.btnSync.Location = new System.Drawing.Point(578, 726);
 			this.btnSync.Name = "btnSync";
 			this.btnSync.Size = new System.Drawing.Size(120, 24);
 			this.btnSync.TabIndex = 38;
@@ -319,7 +330,7 @@ namespace GeneraLiveUpdateForServices {
 			this.groupBox3.Controls.Add(this.labVersioneSW);
 			this.groupBox3.Location = new System.Drawing.Point(4, 683);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(1106, 80);
+			this.groupBox3.Size = new System.Drawing.Size(550, 80);
 			this.groupBox3.TabIndex = 39;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Aggiornamento versioni";
@@ -384,7 +395,7 @@ namespace GeneraLiveUpdateForServices {
 			// 
 			this.btnCopia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCopia.ForeColor = System.Drawing.Color.Red;
-			this.btnCopia.Location = new System.Drawing.Point(1120, 687);
+			this.btnCopia.Location = new System.Drawing.Point(578, 694);
 			this.btnCopia.Name = "btnCopia";
 			this.btnCopia.Size = new System.Drawing.Size(120, 24);
 			this.btnCopia.TabIndex = 36;
@@ -425,7 +436,7 @@ namespace GeneraLiveUpdateForServices {
 			// lblNumero
 			// 
 			this.lblNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblNumero.Location = new System.Drawing.Point(1120, 498);
+			this.lblNumero.Location = new System.Drawing.Point(610, 498);
 			this.lblNumero.Name = "lblNumero";
 			this.lblNumero.Size = new System.Drawing.Size(88, 56);
 			this.lblNumero.TabIndex = 27;
@@ -433,7 +444,7 @@ namespace GeneraLiveUpdateForServices {
 			// btnDeselAll
 			// 
 			this.btnDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnDeselAll.Location = new System.Drawing.Point(1120, 463);
+			this.btnDeselAll.Location = new System.Drawing.Point(598, 375);
 			this.btnDeselAll.Name = "btnDeselAll";
 			this.btnDeselAll.Size = new System.Drawing.Size(112, 32);
 			this.btnDeselAll.TabIndex = 26;
@@ -443,7 +454,7 @@ namespace GeneraLiveUpdateForServices {
 			// btnSelAll
 			// 
 			this.btnSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSelAll.Location = new System.Drawing.Point(1120, 421);
+			this.btnSelAll.Location = new System.Drawing.Point(598, 337);
 			this.btnSelAll.Name = "btnSelAll";
 			this.btnSelAll.Size = new System.Drawing.Size(112, 32);
 			this.btnSelAll.TabIndex = 25;
@@ -456,23 +467,35 @@ namespace GeneraLiveUpdateForServices {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.checkList.CheckOnClick = true;
-			this.checkList.Location = new System.Drawing.Point(9, 196);
+			this.checkList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.checkList.Location = new System.Drawing.Point(17, 195);
 			this.checkList.Name = "checkList";
-			this.checkList.Size = new System.Drawing.Size(1105, 424);
+			this.checkList.Size = new System.Drawing.Size(548, 424);
 			this.checkList.Sorted = true;
 			this.checkList.TabIndex = 24;
 			this.checkList.ThreeDCheckBoxes = true;
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.btnNonAggiornati);
 			this.tabPage3.Controls.Add(this.nonaggiornati);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(1246, 771);
+			this.tabPage3.Size = new System.Drawing.Size(736, 771);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Meno aggiornati del sito";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// btnNonAggiornati
+			// 
+			this.btnNonAggiornati.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnNonAggiornati.Location = new System.Drawing.Point(616, 24);
+			this.btnNonAggiornati.Name = "btnNonAggiornati";
+			this.btnNonAggiornati.Size = new System.Drawing.Size(112, 32);
+			this.btnNonAggiornati.TabIndex = 56;
+			this.btnNonAggiornati.Text = "Copia in ClipBoard";
+			this.btnNonAggiornati.Click += new System.EventHandler(this.btnToClipBoard_Click);
 			// 
 			// nonaggiornati
 			// 
@@ -480,9 +503,10 @@ namespace GeneraLiveUpdateForServices {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.nonaggiornati.CheckOnClick = true;
+			this.nonaggiornati.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.nonaggiornati.Location = new System.Drawing.Point(8, 24);
 			this.nonaggiornati.Name = "nonaggiornati";
-			this.nonaggiornati.Size = new System.Drawing.Size(538, 484);
+			this.nonaggiornati.Size = new System.Drawing.Size(602, 484);
 			this.nonaggiornati.Sorted = true;
 			this.nonaggiornati.TabIndex = 25;
 			this.nonaggiornati.ThreeDCheckBoxes = true;
@@ -495,7 +519,7 @@ namespace GeneraLiveUpdateForServices {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1254, 797);
+			this.ClientSize = new System.Drawing.Size(744, 797);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Frm_GeneraLiveUpdateForServices";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -555,5 +579,7 @@ namespace GeneraLiveUpdateForServices {
         private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.ComboBox cmbTipoAggiornamento;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button btnToClipBoard;
+		private System.Windows.Forms.Button btnNonAggiornati;
 	}
 }

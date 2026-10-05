@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace no_table_entry_verifica {
     partial class frmEntry_Verifica {
@@ -299,7 +297,8 @@ namespace no_table_entry_verifica {
 			this.btnCheckMovBudget = new System.Windows.Forms.Button();
 			this.txtCheckMovBudget = new System.Windows.Forms.TextBox();
 			this.DS = new no_table_entry_verifica.vistaForm();
-			this.progBar = new System.Windows.Forms.ProgressBar();
+			// Rimuovo la progress bar, se dovesse servire bisogna farla async
+			//this.progBar = new System.Windows.Forms.ProgressBar();
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtCurrent = new System.Windows.Forms.TextBox();
 			this.btnCopy = new System.Windows.Forms.Button();
@@ -753,7 +752,7 @@ namespace no_table_entry_verifica {
 			this.txtGene13.ReadOnly = true;
 			this.txtGene13.Size = new System.Drawing.Size(611, 40);
 			this.txtGene13.TabIndex = 35;
-			this.txtGene13.Text = "Elenco dei conti EP operativi non associati nË a Stato Patrimoniale e nË Conto Ec" +
+			this.txtGene13.Text = "Elenco dei conti EP operativi non associati n√® a Stato Patrimoniale e n√® Conto Ec" +
     "onomico o collegate a voci non foglia dello stato patrimoniale o conto economico" +
     "";
 			// 
@@ -2260,7 +2259,7 @@ namespace no_table_entry_verifica {
 			this.txtAccertamentiBudget_1.Size = new System.Drawing.Size(623, 20);
 			this.txtAccertamentiBudget_1.TabIndex = 20;
 			this.txtAccertamentiBudget_1.Text = "Accertamenti di Budget  collegati dall\'inserisci copia a dettagli contratti attiv" +
-    "i ma in realt‡ collegati ad altri dettagli";
+    "i ma in realt√† collegati ad altri dettagli";
 			// 
 			// btnAccertamentiBudget_1
 			// 
@@ -2467,7 +2466,7 @@ namespace no_table_entry_verifica {
 			this.txtImpegniFattDuplicati.ReadOnly = true;
 			this.txtImpegniFattDuplicati.Size = new System.Drawing.Size(590, 20);
 			this.txtImpegniFattDuplicati.TabIndex = 43;
-			this.txtImpegniFattDuplicati.Text = "Impegni su fatture gi‡ generati in fase di c.passivo. Da cancellare.";
+			this.txtImpegniFattDuplicati.Text = "Impegni su fatture gi√† generati in fase di c.passivo. Da cancellare.";
 			// 
 			// btnImpegniFattDuplicati
 			// 
@@ -2789,7 +2788,7 @@ namespace no_table_entry_verifica {
 			this.txtImpegniIncoerentiIdrelated.ReadOnly = true;
 			this.txtImpegniIncoerentiIdrelated.Size = new System.Drawing.Size(693, 20);
 			this.txtImpegniIncoerentiIdrelated.TabIndex = 50;
-			this.txtImpegniIncoerentiIdrelated.Text = "Scritture in pd di il cui impegno collegato tramite chiave Ë diverso da quello de" +
+			this.txtImpegniIncoerentiIdrelated.Text = "Scritture in pd di il cui impegno collegato tramite chiave √® diverso da quello de" +
     "ll\'idrelated";
 			// 
 			// crgFattureCPassiviContoIncoerente
@@ -2932,7 +2931,7 @@ namespace no_table_entry_verifica {
 			this.txtAccertamentiIncoerentiIdrelated.ReadOnly = true;
 			this.txtAccertamentiIncoerentiIdrelated.Size = new System.Drawing.Size(693, 20);
 			this.txtAccertamentiIncoerentiIdrelated.TabIndex = 18;
-			this.txtAccertamentiIncoerentiIdrelated.Text = "Scritture in pd di il cui accertamento collegato tramite chiave Ë diverso da quel" +
+			this.txtAccertamentiIncoerentiIdrelated.Text = "Scritture in pd di il cui accertamento collegato tramite chiave √® diverso da quel" +
     "lo dell\'idrelated";
 			// 
 			// btnEntryVarDataWrong
@@ -3313,12 +3312,12 @@ namespace no_table_entry_verifica {
 			// 
 			// progBar
 			// 
-			this.progBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.progBar.Location = new System.Drawing.Point(15, 538);
-			this.progBar.Name = "progBar";
-			this.progBar.Size = new System.Drawing.Size(922, 23);
-			this.progBar.TabIndex = 4;
+			//this.progBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progBar.Location = new System.Drawing.Point(15, 538);
+			//this.progBar.Name = "progBar";
+			//this.progBar.Size = new System.Drawing.Size(922, 23);
+			//this.progBar.TabIndex = 4;
 			// 
 			// label3
 			// 
@@ -3400,7 +3399,7 @@ namespace no_table_entry_verifica {
 			this.Controls.Add(this.btnCopy);
 			this.Controls.Add(this.txtCurrent);
 			this.Controls.Add(this.label3);
-			this.Controls.Add(this.progBar);
+			//this.Controls.Add(this.progBar);
 			this.Controls.Add(this.tabMovBudget);
 			this.Controls.Add(this.label1);
 			this.Name = "frmEntry_Verifica";
@@ -3445,7 +3444,7 @@ namespace no_table_entry_verifica {
         private System.Windows.Forms.TabPage tabRigenerazione;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnGeneraTrasmPagamento;
-        private System.Windows.Forms.ProgressBar progBar;
+        //private System.Windows.Forms.ProgressBar progBar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCurrent;
         private System.Windows.Forms.Button btnGeneraTrasmIncasso;

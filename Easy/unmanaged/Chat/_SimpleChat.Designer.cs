@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 namespace QAClient {
@@ -65,7 +63,7 @@ namespace QAClient {
             this.btnGetAnswer.Name = "btnGetAnswer";
             this.btnGetAnswer.Size = new System.Drawing.Size(75, 23);
             this.btnGetAnswer.TabIndex = 1;
-            this.btnGetAnswer.Text = "??";
+            this.btnGetAnswer.Text = "↩️";
             this.btnGetAnswer.UseVisualStyleBackColor = true;
             this.btnGetAnswer.Click += new System.EventHandler(this.btnSend_Click);
             // 
@@ -75,7 +73,7 @@ namespace QAClient {
             this.btnLogGood.Name = "btnLogGood";
             this.btnLogGood.Size = new System.Drawing.Size(45, 23);
             this.btnLogGood.TabIndex = 3;
-            this.btnLogGood.Text = "??";
+            this.btnLogGood.Text = "👍";
             this.btnLogGood.UseVisualStyleBackColor = true;
             this.btnLogGood.Click += new System.EventHandler(this.btnGood_Click);
             // 
@@ -85,7 +83,7 @@ namespace QAClient {
             this.btnLogBad.Name = "btnLogBad";
             this.btnLogBad.Size = new System.Drawing.Size(45, 23);
             this.btnLogBad.TabIndex = 4;
-            this.btnLogBad.Text = "??";
+            this.btnLogBad.Text = "👎";
             this.btnLogBad.UseVisualStyleBackColor = true;
             this.btnLogBad.Click += new System.EventHandler(this.btnBad_Click);
             // 

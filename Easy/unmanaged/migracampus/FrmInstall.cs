@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -1889,7 +1887,7 @@ namespace Install{//Install//
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(584, 40);
             this.label71.TabIndex = 6;
-            this.label71.Text = "Potete fare riferimento all\'indirizzo assistenzahw@swandmore.it per informazioni " +
+            this.label71.Text = "Potete fare riferimento all\'indirizzo your-email@example.com per informazioni " +
                 "tecniche sull\'installazione del prodotto.";
             // 
             // label70
@@ -1898,7 +1896,7 @@ namespace Install{//Install//
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(592, 40);
             this.label70.TabIndex = 5;
-            this.label70.Text = "Potete scrivere all\'indirizzo sviluppo@swandmore.it per segnalare eventuali imper" +
+            this.label70.Text = "Potete scrivere all\'indirizzo your-email@example.com per segnalare eventuali imper" +
                 "fezioni del  prodotto, oppure per richiedere lo sviluppo di nuove funzionalità.";
             // 
             // label69

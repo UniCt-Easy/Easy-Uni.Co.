@@ -71,6 +71,8 @@
 						this.describeAColumn(table, '!idworkpackage_workpackage_title', 'Titolo Workpackage', null, 22, null);
 						objCalcFieldConfig['!idworkpackage_workpackage_raggruppamento'] = { tableNameLookup:'workpackage', columnNameLookup:'raggruppamento', columnNamekey:'idworkpackage' };
 						objCalcFieldConfig['!idworkpackage_workpackage_title'] = { tableNameLookup:'workpackage', columnNameLookup:'title', columnNamekey:'idworkpackage' };
+						this.describeAColumn(table, '!idprogetto_progetto_idprogetto', 'Codice interno Progetto', null, 14, null);
+						objCalcFieldConfig['!idprogetto_progetto_idprogetto'] = { tableNameLookup:'progetto', columnNameLookup:'idprogetto', columnNamekey:'idprogetto' };
 //$objCalcFieldConfig_personale$
 						break;
 					case 'personalecosto':
@@ -79,9 +81,11 @@
 						this.describeAColumn(table, '!idprogetto_progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 11, null);
 						this.describeAColumn(table, '!idprogetto_progetto_start', 'Data di inizio Progetto', null, 12, null);
 						this.describeAColumn(table, '!idprogetto_progetto_stop', 'Data di fine Progetto', null, 13, null);
+						this.describeAColumn(table, '!idprogetto_progetto_idprogetto', 'Codice interno Progetto', null, 14, null);
 						objCalcFieldConfig['!idprogetto_progetto_titolobreve'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'titolobreve', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_start'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'start', columnNamekey:'idprogetto' };
 						objCalcFieldConfig['!idprogetto_progetto_stop'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'stop', columnNamekey:'idprogetto' };
+						objCalcFieldConfig['!idprogetto_progetto_idprogetto'] = { tableNameLookup:'progetto_alias2', columnNameLookup:'idprogetto', columnNamekey:'idprogetto' };
 						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_description', 'Descrizione Attività', null, 32, null);
 						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_orepreventivate', 'Numero di ore preventivate Attività', null, 33, null);
 						this.describeAColumn(table, '!idrendicontattivitaprogetto_rendicontattivitaprogetto_datainizioprevista', 'Data inizio prevista Attività', null, 34, null);

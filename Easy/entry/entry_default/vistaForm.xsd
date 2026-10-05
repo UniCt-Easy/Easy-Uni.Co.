@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
@@ -62,6 +62,10 @@
               <xs:element name="idrelated" type="xs:string" minOccurs="0" />
               <xs:element name="idepexp" type="xs:int" minOccurs="0" />
               <xs:element name="idepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_nepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_yepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_nepacc" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -464,6 +468,63 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epexp">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepexp" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nepexp" type="xs:int" />
+              <xs:element name="nphase" type="xs:short" />
+              <xs:element name="paridepexp" type="xs:int" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="yepexp" type="xs:short" />
+              <xs:element name="flagvariation" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epacc">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepacc" type="xs:int" />
+              <xs:element name="adate" type="xs:dateTime" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idman" type="xs:int" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" minOccurs="0" />
+              <xs:element name="idrelated" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nepacc" type="xs:int" />
+              <xs:element name="nphase" type="xs:short" />
+              <xs:element name="paridepacc" type="xs:int" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="start" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="yepacc" type="xs:short" />
+              <xs:element name="flagvariation" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -539,6 +600,14 @@
       <xs:field xpath="mstns:yentry" />
       <xs:field xpath="mstns:idattachment" />
     </xs:unique>
+    <xs:unique name="epexp_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epexp" />
+      <xs:field xpath="mstns:idepexp" />
+    </xs:unique>
+    <xs:unique name="epacc_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epacc" />
+      <xs:field xpath="mstns:idepacc" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -555,6 +624,8 @@
       <msdata:Relationship name="FK_sorting04_entry" msdata:parent="sorting04" msdata:child="entry" msdata:parentkey="idsor" msdata:childkey="idsor04" />
       <msdata:Relationship name="FK_sorting05_entry" msdata:parent="sorting05" msdata:child="entry" msdata:parentkey="idsor" msdata:childkey="idsor05" />
       <msdata:Relationship name="entry_entryattachment" msdata:parent="entry" msdata:child="entryattachment" msdata:parentkey="nentry yentry" msdata:childkey="nentry yentry" />
+      <msdata:Relationship name="epexp_entrydetail" msdata:parent="epexp" msdata:child="entrydetail" msdata:parentkey="idepexp" msdata:childkey="idepexp" />
+      <msdata:Relationship name="epacc_entrydetail" msdata:parent="epacc" msdata:child="entrydetail" msdata:parentkey="idepacc" msdata:childkey="idepacc" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

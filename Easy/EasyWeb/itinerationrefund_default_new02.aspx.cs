@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -116,7 +114,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             ParentMissione = Meta.SourceRow.GetParentRow("itineration_itinerationrefund_balance");
             filterKind = QHS.CmpEq("flagbalance", "S");
             //GetData.SetStaticFilter(DS.itinerationrefundkind, QHS.CmpEq("flagbalance", "S"));
-            // Se stiamo nella fase Saldo, e lo stato Ë diverso da Bozza o Da correggere, le spese
+            // Se stiamo nella fase Saldo, e lo stato √® diverso da Bozza o Da correggere, le spese
             // a rendiconto devono essere consultabili
             if ((CfgFn.GetNoNullInt32(ParentMissione["iditinerationstatus"]) != 1) && (CfgFn.GetNoNullInt32(ParentMissione["iditinerationstatus"]) != 3)) {
                 EnableDisableControls(false, true);
@@ -200,10 +198,10 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             N += Meta.Conn.RUN_SELECT_COUNT("pettycashoperationitineration", ff, false);
             if (N > 0)
                 ShowClientMessage(
-                    "Avendo gi‡ contabilizzato l'anticipo di questa missione, le modifiche alle spese " +
+                    "Avendo gi√† contabilizzato l'anticipo di questa missione, le modifiche alle spese " +
                     "non saranno tenute in considerazione ai fini del calcolo dell'anticipo della missione.", "Avviso");
         }
-        abilitaCheckTaxableExpense();
+       
     }
 
     void nascondiSezioni(int flagVisible) {
@@ -244,7 +242,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         //inizio e fine
         grpDataInizioFine.Visible=(flagVisible & 2) == 0;
 
-        //localit‡
+        //localit√†
         grpLocalita.Visible = (flagVisible & 4) == 0;
 
         // importo non rendicontabile
@@ -296,7 +294,9 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         if (T.TableName == "foreigncountry" && CommFun.DrawStateIsDone){
             AbilitaDisabilitaGrpLocalita(Curr, R);
             AggiornaRimborsoForfettario();
+            AggiornaLimite(R);
         }
+ 
         abilitaCheckTaxableExpense();
     }
 
@@ -325,7 +325,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         if (PState.EditMode && PState.IsFirstFillForThisRow)
             AbilitadisabilitaArea(Curr);
         //txtImportoEffettivoValuta.ReadOnly = IsRimborsoForfettario();
-
+        abilitaCheckTaxableExpense();
         object idforeigncountry = Curr["idforeigncountry"];
         if (idforeigncountry == DBNull.Value) {
             return;
@@ -334,7 +334,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             DataRow[] fc = DS.foreigncountry.Select(QHC.CmpEq("idforeigncountry", idforeigncountry));
             AbilitaDisabilitaGrpLocalita(Curr, fc[0]);
         }
-        abilitaCheckTaxableExpense();
+        
     }
 
     void AbilitaDisabilitaGrpLocalita(DataRow Ritinerationrefund, DataRow Rforeigncountry) {
@@ -369,8 +369,8 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         }
 
         DataRow rRefundKind = RefundKind[0];
-        //Se Ë una spesa di tipo rimborso forfettario oppure
-        //Se Ë una spesa di tipo Vitto in localit‡ Ue oExtraUe verr‡ abilitato il combo delle localit‡
+        //Se √® una spesa di tipo rimborso forfettario oppure
+        //Se √® una spesa di tipo Vitto in localit√† Ue oExtraUe verr√† abilitato il combo delle localit√†
         if ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 5)
         || ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 1) && (!(rdoItaly.Checked)))) {
             cmbArea.Visible = true;
@@ -486,6 +486,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     }
     bool msgattr = false;
     void AggiornaLimite(DataRow R) {
+        decimal limite;
         if (R == null) {
             txtLimiteMax.Text = "";
             return;
@@ -501,14 +502,28 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         if (AttribRow == null) {
             txtLimiteMax.Text = "";
             if (!esisteConf && !msgattr) {
-                msgattr = true;
-                ShowClientMessage("Le informazioni relative agli attributi " +
-                    "di classificazione delle spese sono incomplete o mancanti.",
-                    "Avviso");
+                //msgattr = true;
+                //ShowClientMessage("Le informazioni relative agli attributi " +
+                //    "di classificazione delle spese sono incomplete o mancanti.",
+                //    "Avviso");
+            }
+            //return;
+        }
+        else {
+            txtLimiteMax.Text = CfgFn.GetNoNullDecimal(AttribRow["limit"]).ToString();
+            return;
+        }
+        AttribRow = ottieniRigaRegolamentoSpesaVittoEstero(out esisteConf, out limite);
+        if (AttribRow == null) {
+            txtLimiteMax.Text = "";
+            if (!esisteConf) {
+                //ShowClientMessage("Le informazioni relative agli attributi " +
+                //     "delle spese di vitto all'estero sono incomplete o mancanti.",
+                //     "Avviso");
             }
             return;
         }
-        txtLimiteMax.Text = CfgFn.GetNoNullDecimal(AttribRow["limit"]).ToString();
+        txtLimiteMax.Text = "Giornaliero " + limite.ToString("c") + " - Area " + AttribRow["codemacroareaboard"];
     }
 
     void AggiornaPerc(DataRow R) {
@@ -528,9 +543,9 @@ public partial class itinerationrefund_default_new02 : MetaPage {
             ClearPerc();
             if (!esisteConf && !msgattr) {
                 msgattr = true;
-                ShowClientMessage("Le informazioni relative agli attributi " +
-                    "di classificazione delle spese sono incomplete o mancanti.",
-                    "Avviso");
+                //ShowClientMessage("Le informazioni relative agli attributi " +
+                //    "di classificazione delle spese sono incomplete o mancanti.",
+                //    "Avviso");
             }
             return;
         }
@@ -597,6 +612,74 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         return tRuleDetail.Rows[0];
     }
 
+
+    private DataRow ottieniRigaRegolamentoSpesaVittoEstero(out bool esisteConf, out decimal amount) {
+        esisteConf = true;
+        amount = 0;
+        DataRow Curr = DS.itinerationrefund.Rows[0];
+        object dataInizio = HelpForm.GetObjectFromString(typeof(DateTime), txtDataInizio.Text, txtDataInizio.Tag.ToString());
+        object dataFine = HelpForm.GetObjectFromString(typeof(DateTime), txtDataFine.Text, txtDataFine.Tag.ToString());
+
+
+        string f = QHC.CmpEq("iditinerationrefundkind", Curr["iditinerationrefundkind"]);
+        DataRow[] RefundKind = DS.itinerationrefundkind.Select(f);
+        if (RefundKind.Length == 0) {
+            esisteConf = false;
+            return null;
+        }
+
+        DataRow rRefundKind = RefundKind[0];
+
+        if ((rdoItaly.Checked) && rRefundKind["description"].ToString().ToUpper() == "VITTO") {
+            esisteConf = false;
+            return null;
+        }
+
+        // Ricerca nella tabella MacroAreaBoard
+        DataTable tMacroAreaBoard = DataAccess.CreateTableByName(Meta.Conn, "macroareaboard", "*");
+
+        //classe estera per il rimborso forfettario o per il Vitto 
+        string IF_class = Cfg.foreignclass;
+        object idforeigncountry = cmbArea.SelectedValue;
+        if (idforeigncountry == DBNull.Value) {
+            esisteConf = false;
+            return null;
+        }
+
+        DataRow[] fc = DS.foreigncountry.Select(QHC.CmpEq("idforeigncountry", idforeigncountry));
+        if (fc.Length == 0) {
+            esisteConf = false;
+            return null;
+        }
+        object idmacroarea = fc[0]["idmacroarea"];
+        if (idmacroarea == DBNull.Value) {
+            esisteConf = false;
+            return null;
+        }
+
+
+        string fMacroAreaBoard = QHC.CmpEq("idmacroareaboard", idmacroarea);
+
+        if ((IF_class.ToLower() != "1") && (IF_class.ToLower() != "2")) {
+            esisteConf = false;
+            return null;
+        }
+        string field = "amount_" + IF_class.ToLower();
+
+        DataTable tRule = DataAccess.CreateTableByName(Meta.Conn, "macroareaboard", "*");
+        DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tRule, "idmacroareaboard",
+        fMacroAreaBoard, null, false);
+        if ((tRule.Rows.Count == 0) || (tRule == null)) {
+            esisteConf = false;
+            return null;
+        }
+        else {
+            DataRow RuleDetail = tRule.Rows[0];
+            amount = CfgFn.GetNoNullDecimal(RuleDetail[field]);
+            return tRule.Rows[0];
+        }
+
+    }
     void AggiornaValuta(DataRow ValutaRow) {
         if (ValutaRow == null) {
             txtCambio.Text = "";
@@ -935,7 +1018,7 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         else {
             AggiornaPerc(RefundKind[0]);
         }
-        RicalcolaAnticipo();//Chiamato implicitamente da AggiornaPerc(). Se non cambia la % puÚ cambiare l'importo 
+        RicalcolaAnticipo();//Chiamato implicitamente da AggiornaPerc(). Se non cambia la % pu√≤ cambiare l'importo 
         //RicalcolaImportoEffettivoValuta();
         //CheckLimiteAnticipo();
 
@@ -960,6 +1043,18 @@ public partial class itinerationrefund_default_new02 : MetaPage {
     protected void txtDataFine_TextChanged(object sender, EventArgs e) {
         AggiornaRimborsoForfettario();
     }
+    private bool SpesaPrecedente2025(DataRow Spesa) {
+        DateTime Start;
+        if (Spesa["starttime"] != DBNull.Value) {
+            Start = (DateTime)Spesa["starttime"];
+            int esercizionspesa = Start.Year;
+            if (esercizionspesa < 2025) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     private void abilitaCheckTaxableExpense() {
         if (DS.itinerationrefund.Rows.Count == 0) return;
         if (Meta.edit_type == "advancenew02") {
@@ -972,6 +1067,11 @@ public partial class itinerationrefund_default_new02 : MetaPage {
         }
 
         DataRow Curr = DS.itinerationrefund.Rows[0];
+        if (SpesaPrecedente2025(Curr)) {
+            chkTaxableExpense.Enabled = false;
+            return;
+        }
+
         string filter = QHC.CmpEq("iditinerationrefundkind", Curr["iditinerationrefundkind"]);
         DataRow[] RefundKind = DS.itinerationrefundkind.Select(filter);
 

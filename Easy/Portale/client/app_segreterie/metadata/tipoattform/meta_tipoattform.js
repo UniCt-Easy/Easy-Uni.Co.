@@ -30,6 +30,7 @@
 					case 'default':
 						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 1);
 						this.describeAColumn(table, 'description', 'Descrizione', null, 30, 256);
+						this.describeAColumn(table, 'tipoente', 'Tipologia di ente', null, 60, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -44,11 +45,11 @@
 				switch (edittype) {
 					case 'solosigla':
 						table.columns["description"].caption = "Descrizione";
+						table.columns["tipoente"].caption = "Tipologia di ente";
 						table.columns["title"].caption = "Denominazione";
 //$innerSetCaptionConfig_solosigla$
 						break;
 					case 'default':
-						table.columns["description"].caption = "Descrizione";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$
@@ -75,7 +76,17 @@
 
 			//$isValidFunction$
 
-			//$getStaticFilter$
+			getStaticFilter: function (listType) {
+				switch (listType) {
+				case "solosigla": {
+						return "LEFT(tipoattform_tipoente,1) = (select top 1 tipoente from istitutoprinc)";
+						break;
+					}
+				//$GetStaticFilterInner$
+				}
+				return this.superClass.getStaticFilter(listType);
+			},
+
 
 			getSorting: function (listType) {
 				switch (listType) {

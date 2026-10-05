@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_diniego_seganagstupre"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_diniego_seganagstupre: DataSet {
+public partial class dsmeta_diniego_seganagstupre: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -63,8 +61,8 @@ private void initClass() {
 	tdiniego.defineColumn("ct", typeof(DateTime),false);
 	tdiniego.defineColumn("cu", typeof(string),false);
 	tdiniego.defineColumn("data", typeof(DateTime),false);
-	tdiniego.defineColumn("idcorsostudio", typeof(int));
-	tdiniego.defineColumn("iddidprog", typeof(int));
+	tdiniego.defineColumn("idcorsostudio", typeof(int),false);
+	tdiniego.defineColumn("iddidprog", typeof(int),false);
 	tdiniego.defineColumn("iddiniego", typeof(int),false);
 	tdiniego.defineColumn("idiscrizione", typeof(int));
 	tdiniego.defineColumn("idistanza", typeof(int),false);
@@ -75,7 +73,7 @@ private void initClass() {
 	tdiniego.defineColumn("protanno", typeof(int));
 	tdiniego.defineColumn("protnumero", typeof(int));
 	Tables.Add(tdiniego);
-	tdiniego.defineKey("iddiniego", "idistanza", "idistanzakind", "idreg");
+	tdiniego.defineKey("idcorsostudio", "iddidprog", "iddiniego", "idistanza", "idistanzakind", "idreg");
 
 	#endregion
 

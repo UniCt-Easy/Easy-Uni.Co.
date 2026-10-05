@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -122,7 +120,7 @@ namespace mandatecig_detail {
                 decimal R_quantitaConfezioni = CfgFn.GetNoNullDecimal(R["npackage"]);
                 //decimal R_imposta = CfgFn.GetNoNullDecimal(R["tax"]);
                 decimal R_sconto = RoundDecimal6(CfgFn.GetNoNullDecimal(R["discount"]));
-                //imposta += CfgFn.RoundValuta(R_imposta); //ora consideriamo l'iva gi‡ in euro e non in valuta
+                //imposta += CfgFn.RoundValuta(R_imposta); //ora consideriamo l'iva gi√† in euro e non in valuta
                 totimponibile_currgroup += R_imponibile;
                 lastexpr = CfgFn.RoundValuta((totimponibile_currgroup * R_quantitaConfezioni * (1 - R_sconto)) * exchangerate);
                 }

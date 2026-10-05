@@ -23,19 +23,18 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'imm_seg':
-						this.describeAColumn(table, 'sede_title', 'Denominazione Sede', null, 190, 1024);
-						this.describeAColumn(table, 'sede_idsede', 'Sede Sede', null, 190, null);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 20, 101);
-						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 30, null);
-						this.describeAColumn(table, 'statuskind_title', 'Status', null, 80, 50);
-						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 510, 1024);
-						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 510, 9);
-						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 610, null);
-						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 620, null);
-						this.describeAColumn(table, 'didprogcurr_title', 'Curriculum', null, 520, 256);
-						this.describeAColumn(table, 'didprogori_title', 'Corso e orientamento', null, 530, 256);
-						this.describeAColumn(table, 'istanza_imm_parttime', 'Iscrizione Part-Time', null, 570, null);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 2300, 101);
+						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 3000, null);
+						this.describeAColumn(table, 'statuskind_title', 'Status', null, 8200, 50);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 51100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 51200, 9);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 51320, 1024);
+						this.describeAColumn(table, 'didprogcurr_title', 'Curriculum', null, 52200, 256);
+						this.describeAColumn(table, 'didprogori_title', 'Corso e orientamento', null, 53200, 256);
+						this.describeAColumn(table, 'istanza_imm_parttime', 'Iscrizione Part-Time', null, 57000, null);
+						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 61000, null);
+						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 62000, null);
 //$objCalcFieldConfig_imm_seg$
 						break;
 //$objCalcFieldConfig$

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,260 +13,230 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace voce8000lookup_default {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable voce8000{get { return Tables["voce8000"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable voce8000lookup{get { return Tables["voce8000lookup"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable tax{get { return Tables["tax"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable voce8000_impon{get { return Tables["voce8000_impon"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable voce8000_quotaesente{get { return Tables["voce8000_quotaesente"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace voce8000lookup_default {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable voce8000 		=> Tables["voce8000"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable voce8000lookup 		=> Tables["voce8000lookup"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable tax 		=> Tables["tax"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable voce8000_impon 		=> Tables["voce8000_impon"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable voce8000_quotaesente 		=> Tables["voce8000_quotaesente"];
+
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("voce8000");
-	C= new DataColumn("voce", typeof(System.String), "");
+	//////////////////// VOCE8000 /////////////////////////////////
+	var tvoce8000= new DataTable("voce8000");
+	C= new DataColumn("voce", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("kind", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tvoce8000.Columns.Add(C);
+	tvoce8000.Columns.Add( new DataColumn("description", typeof(string)));
+	tvoce8000.Columns.Add( new DataColumn("active", typeof(string)));
+	tvoce8000.Columns.Add( new DataColumn("kind", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tvoce8000.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tvoce8000.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tvoce8000.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tvoce8000.Columns.Add(C);
+	tvoce8000.Columns.Add( new DataColumn("capitolo", typeof(string)));
+	tvoce8000.Columns.Add( new DataColumn("flag_geo", typeof(string)));
+	Tables.Add(tvoce8000);
+	tvoce8000.PrimaryKey =  new DataColumn[]{tvoce8000.Columns["voce"]};
 
-	T.Columns.Add(new DataColumn("capitolo", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["voce"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("voce8000lookup");
-	C= new DataColumn("idvoce", typeof(System.Int32), "");
+	//////////////////// VOCE8000LOOKUP /////////////////////////////////
+	var tvoce8000lookup= new DataTable("voce8000lookup");
+	C= new DataColumn("idvoce", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("conto", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tvoce8000lookup.Columns.Add(C);
+	tvoce8000lookup.Columns.Add( new DataColumn("conto", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tvoce8000lookup.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tvoce8000lookup.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tvoce8000lookup.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tvoce8000lookup.Columns.Add(C);
+	tvoce8000lookup.Columns.Add( new DataColumn("servicekind", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("taxref", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("voce", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("taxcode", typeof(int)));
+	tvoce8000lookup.Columns.Add( new DataColumn("voceimponibile", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("flagcsausability", typeof(int)));
+	tvoce8000lookup.Columns.Add( new DataColumn("vocequotaesente", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("capitolovoce", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("capitoloimponibile", typeof(string)));
+	tvoce8000lookup.Columns.Add( new DataColumn("capitoloquotaesente", typeof(string)));
+	Tables.Add(tvoce8000lookup);
+	tvoce8000lookup.PrimaryKey =  new DataColumn[]{tvoce8000lookup.Columns["idvoce"]};
 
-	T.Columns.Add(new DataColumn("servicekind", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("taxref", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("voce", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("taxcode", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("voceimponibile", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagcsausability", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("vocequotaesente", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("capitolovoce", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("capitoloimponibile", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("capitoloquotaesente", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idvoce"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("tax");
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("appliancebasis", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// TAX /////////////////////////////////
+	var ttax= new DataTable("tax");
+	ttax.Columns.Add( new DataColumn("active", typeof(string)));
+	ttax.Columns.Add( new DataColumn("appliancebasis", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("fiscaltaxcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagunabatable", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("geoappliance", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idaccmotive_cost", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idaccmotive_debit", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idaccmotive_pay", typeof(System.String), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("fiscaltaxcode", typeof(string)));
+	ttax.Columns.Add( new DataColumn("flagunabatable", typeof(string)));
+	ttax.Columns.Add( new DataColumn("geoappliance", typeof(string)));
+	ttax.Columns.Add( new DataColumn("idaccmotive_cost", typeof(string)));
+	ttax.Columns.Add( new DataColumn("idaccmotive_debit", typeof(string)));
+	ttax.Columns.Add( new DataColumn("idaccmotive_pay", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("taxablecode", typeof(System.String), ""));
-	C= new DataColumn("taxref", typeof(System.String), "");
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("taxablecode", typeof(string)));
+	C= new DataColumn("taxref", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("taxcode", typeof(System.Int32), "");
+	ttax.Columns.Add(C);
+	C= new DataColumn("taxcode", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("maintaxcode", typeof(System.Int32), ""));
-	C= new DataColumn("taxkind", typeof(System.Int16), "");
+	ttax.Columns.Add(C);
+	ttax.Columns.Add( new DataColumn("maintaxcode", typeof(int)));
+	C= new DataColumn("taxkind", typeof(short));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	ttax.Columns.Add(C);
+	Tables.Add(ttax);
+	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["taxcode"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("voce8000_impon");
-	C= new DataColumn("voce", typeof(System.String), "");
+	//////////////////// VOCE8000_IMPON /////////////////////////////////
+	var tvoce8000_impon= new DataTable("voce8000_impon");
+	C= new DataColumn("voce", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("kind", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tvoce8000_impon.Columns.Add(C);
+	tvoce8000_impon.Columns.Add( new DataColumn("description", typeof(string)));
+	tvoce8000_impon.Columns.Add( new DataColumn("active", typeof(string)));
+	tvoce8000_impon.Columns.Add( new DataColumn("kind", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tvoce8000_impon.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tvoce8000_impon.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tvoce8000_impon.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tvoce8000_impon.Columns.Add(C);
+	tvoce8000_impon.Columns.Add( new DataColumn("flag_geo", typeof(string)));
+	Tables.Add(tvoce8000_impon);
+	tvoce8000_impon.PrimaryKey =  new DataColumn[]{tvoce8000_impon.Columns["voce"]};
 
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["voce"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("voce8000_quotaesente");
-	C= new DataColumn("voce", typeof(System.String), "");
+	//////////////////// VOCE8000_QUOTAESENTE /////////////////////////////////
+	var tvoce8000_quotaesente= new DataTable("voce8000_quotaesente");
+	C= new DataColumn("voce", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("kind", typeof(System.String), ""));
-	C= new DataColumn("cu", typeof(System.String), "");
+	tvoce8000_quotaesente.Columns.Add(C);
+	tvoce8000_quotaesente.Columns.Add( new DataColumn("description", typeof(string)));
+	tvoce8000_quotaesente.Columns.Add( new DataColumn("active", typeof(string)));
+	tvoce8000_quotaesente.Columns.Add( new DataColumn("kind", typeof(string)));
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tvoce8000_quotaesente.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tvoce8000_quotaesente.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tvoce8000_quotaesente.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["voce"]};
-	T.PrimaryKey = key;
+	tvoce8000_quotaesente.Columns.Add(C);
+	tvoce8000_quotaesente.Columns.Add( new DataColumn("flag_geo", typeof(string)));
+	Tables.Add(tvoce8000_quotaesente);
+	tvoce8000_quotaesente.PrimaryKey =  new DataColumn[]{tvoce8000_quotaesente.Columns["voce"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["voce8000_impon"];
-TChild= Tables["voce8000lookup"];
-CPar = new DataColumn[1]{TPar.Columns["voce"]};
-CChild = new DataColumn[1]{TChild.Columns["voceimponibile"]};
-Relations.Add(new DataRelation("voce8000_impon_voce8000lookup",CPar,CChild));
+	#endregion
 
-TPar= Tables["tax"];
-TChild= Tables["voce8000lookup"];
-CPar = new DataColumn[2]{TPar.Columns["taxcode"], TPar.Columns["taxref"]};
-CChild = new DataColumn[2]{TChild.Columns["taxcode"], TChild.Columns["taxref"]};
-Relations.Add(new DataRelation("FK_tax_voce8000lookup",CPar,CChild));
 
-TPar= Tables["voce8000"];
-TChild= Tables["voce8000lookup"];
-CPar = new DataColumn[1]{TPar.Columns["voce"]};
-CChild = new DataColumn[1]{TChild.Columns["voce"]};
-Relations.Add(new DataRelation("FK_voce8000_voce8000lookup",CPar,CChild));
+	#region DataRelation creation
+	var cPar = new []{voce8000_impon.Columns["voce"]};
+	var cChild = new []{voce8000lookup.Columns["voceimponibile"]};
+	Relations.Add(new DataRelation("voce8000_impon_voce8000lookup",cPar,cChild,false));
 
-TPar= Tables["voce8000_quotaesente"];
-TChild= Tables["voce8000lookup"];
-CPar = new DataColumn[1]{TPar.Columns["voce"]};
-CChild = new DataColumn[1]{TChild.Columns["vocequotaesente"]};
-Relations.Add(new DataRelation("voce8000_quotaesente_voce8000lookup",CPar,CChild));
+	cPar = new []{tax.Columns["taxcode"], tax.Columns["taxref"]};
+	cChild = new []{voce8000lookup.Columns["taxcode"], voce8000lookup.Columns["taxref"]};
+	Relations.Add(new DataRelation("FK_tax_voce8000lookup",cPar,cChild,false));
+
+	cPar = new []{voce8000.Columns["voce"]};
+	cChild = new []{voce8000lookup.Columns["voce"]};
+	Relations.Add(new DataRelation("FK_voce8000_voce8000lookup",cPar,cChild,false));
+
+	cPar = new []{voce8000_quotaesente.Columns["voce"]};
+	cChild = new []{voce8000lookup.Columns["vocequotaesente"]};
+	Relations.Add(new DataRelation("voce8000_quotaesente_voce8000lookup",cPar,cChild,false));
+
+	#endregion
 
 }
 }

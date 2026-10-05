@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -57,7 +55,7 @@ namespace avcptrasmission_default {
         public FrmNoTable_AvcpTrasmission() {
             InitializeComponent();
             folderAsk = createFolderBrowserDialog(_folderAsk);
-            folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente gi‡ presenti saranno sovrascritti.";
+            folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente gi√† presenti saranno sovrascritti.";
         }
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
@@ -116,27 +114,27 @@ namespace avcptrasmission_default {
             DataTable tLotti = Conn.RUN_SELECT("mandatecig", "*", null, QHS.CmpEq("yman", esercizio), null, false);
             DataTable tLottiProf = Conn.RUN_SELECT("profservicecig", "*", null, QHS.CmpEq("ycon", esercizio), null, false);
 
-            foreach (DataRow r in tLotti.Select()) {
-                //Salta i lotti di importo 0 collegati solo a dettagli  annullati
-                if (CfgFn.GetNoNullDecimal(r["contractamount"]) == 0) {
-                    if (Conn.RUN_SELECT_COUNT("mandatedetail",
-                            QHS.AppAnd(QHS.IsNull("stop"), QHS.MCmp(r, "idmankind", "yman", "nman", "cigcode")), false) == 0)
-                        r.Delete();
-                        continue;
-                }
-                lotti.Add(GetLotto(rAvcp, r));
-            }
-            tLotti.AcceptChanges();
+			foreach (DataRow r in tLotti.Select(/*QHC.CmpEq("cigcode","B7D9C23704")*/)) {
+				//Salta i lotti di importo 0 collegati solo a dettagli  annullati
+				if (CfgFn.GetNoNullDecimal(r["contractamount"]) == 0) {
+					if (Conn.RUN_SELECT_COUNT("mandatedetail",
+							QHS.AppAnd(QHS.IsNull("stop"), QHS.MCmp(r, "idmankind", "yman", "nman", "cigcode")), false) == 0)
+						r.Delete();
+					continue;
+				}
+				lotti.Add(GetLotto(rAvcp, r));
+			}
+			tLotti.AcceptChanges();
 
-            foreach (DataRow r in tLottiProf.Select()) {
-                //Salta i lotti di importo 0 
-                if (CfgFn.GetNoNullDecimal(r["contractamount"]) == 0) {
-                        r.Delete();
-                    continue;
-                }
-                lotti.Add(GetLottoProf(rAvcp, r));
-            }
-            tLottiProf.AcceptChanges();
+			foreach (DataRow r in tLottiProf.Select(/*QHC.CmpEq("cigcode", "B1B38B2178")*/)) {
+				//Salta i lotti di importo 0 
+				if (CfgFn.GetNoNullDecimal(r["contractamount"]) == 0) {
+					r.Delete();
+					continue;
+				}
+				lotti.Add(GetLottoProf(rAvcp, r));
+			}
+			tLottiProf.AcceptChanges();
 
             int nlotti = tLotti.Rows.Count + tLottiProf.Rows.Count;
             show("Lotti trovati:" + nlotti, "Avviso");
@@ -396,7 +394,7 @@ namespace avcptrasmission_default {
                     "select a.* from mandateavcp a "+
                     "join mandateavcpdetail d "
                     + " on a.idmankind=d.idmankind and a.yman=d.yman and a.nman=d.nman "
-                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo Ë da considerarsi in blocco
+                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo √® da considerarsi in blocco
                     " where " + QHS.AppAnd(QHS.CmpEq("d.idmankind", rManCig["idmankind"]),
                                     QHS.CmpEq("d.yman", rManCig["yman"]),
                                     QHS.CmpEq("d.nman", rManCig["nman"]),
@@ -423,7 +421,7 @@ namespace avcptrasmission_default {
                     "select a.* from profserviceavcp a " +
                     "join profserviceavcpdetail d "
                     + " on a.ycon = d.ycon and a.ncon = d.ncon "
-                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo Ë da considerarsi in blocco
+                    + "and isnull(a.idmain_avcp,a.idavcp)=d.idavcp " +       //10256 tutto il gruppo √® da considerarsi in blocco
                     " where " + QHS.AppAnd(QHS.CmpEq("d.ycon", rProfCig["ycon"]),
                                     QHS.CmpEq("d.ncon", rProfCig["ncon"]),
                                     QHS.CmpEq("d.cigcode", cigcode)), false);
@@ -479,7 +477,7 @@ namespace avcptrasmission_default {
         }
         string getListaAggiudicatari(DataRow rManCig, DataTable Partecipanti) {
             StringBuilder s = new StringBuilder();
-            //Stabilisce chi Ë l'aggiudicatario
+            //Stabilisce chi √® l'aggiudicatario
             object idavcp = rManCig["idavcp"];
             DataRow []found = Partecipanti.Select(QHC.CmpEq("idavcp", idavcp));
             if (found.Length == 0) {
@@ -522,22 +520,59 @@ namespace avcptrasmission_default {
             " FROM mandatedetail " +
             " where " + QHS.AppAnd(QHS.CmpEq("idmankind", rManCig["idmankind"]), QHS.CmpEq("yman", rManCig["yman"]), QHS.CmpEq("nman", rManCig["nman"]),
             QHS.CmpEq("cigcode", rManCig["cigcode"]), QHS.IsNotNull("idexp_taxable"));
-            DataTable tImpegni = Meta.Conn.SQLRunner(MyQuery);
+
+            // In regime Monofase considero nel liquidato i pagamenti di fatture collegate ai contratti passivi
+            int maxExpensePhase = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
+            String MyQueryInvoiceDet = "";
+
+            if ( maxExpensePhase == 1) {
+                MyQueryInvoiceDet = 
+                " " +
+                " UNION " +
+                " SELECT distinct ID.idexp_taxable " +
+                " FROM mandatedetail MD join invoicedetail ID on ID.idmankind = MD.idmankind AND ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum " +
+                " where " + QHS.AppAnd(QHS.CmpEq("MD.idmankind", rManCig["idmankind"]), QHS.CmpEq("MD.yman", rManCig["yman"]), QHS.CmpEq("MD.nman", rManCig["nman"]),
+                QHS.CmpEq("MD.cigcode", rManCig["cigcode"]), QHS.IsNotNull("ID.idexp_taxable"), QHS.IsNull("MD.stop"));
+            }
+
+
+            DataTable tImpegni = Meta.Conn.SQLRunner(MyQuery + MyQueryInvoiceDet);
             object esercizio = Meta.GetSys("esercizio");
             foreach (DataRow R in tImpegni.Rows) {
-                // A : importo corrente degli impegni che contabilizzano i dettagli in questione
-                object ImportoImpegnato = Meta.Conn.DO_READ_VALUE("expenseview",
-                    QHS.AppAnd(QHS.CmpEq("ayear", rManCig["yman"]), QHS.CmpEq("idexp", R["idexp_taxable"])), "curramount");
-                string FilterDettcontabilizzati = QHS.AppAnd(QHS.CmpEq("idmankind", rManCig["idmankind"]), QHS.CmpEq("yman", rManCig["yman"]), QHS.CmpEq("nman", rManCig["nman"]),
-                        QHS.CmpEq("cigcode", rManCig["cigcode"]), QHS.CmpEq("idexp_taxable", R["idexp_taxable"]));
+                // A : importo corrente degli impegni che contabilizzano i dettagli in questione, ma solo per la parte di imponibile...
+
+                string FilterDettcontabilizzati = QHS.AppAnd(QHS.CmpEq("MD.idmankind", rManCig["idmankind"]), QHS.CmpEq("MD.yman", rManCig["yman"]),
+                        QHS.CmpEq("MD.nman", rManCig["nman"]),
+
+                       QHS.CmpEq("MD.cigcode", rManCig["cigcode"]),
+                       QHS.DoPar(
+                           QHS.AppOr(
+                               QHS.CmpEq("MD.idexp_taxable", R["idexp_taxable"]),
+                               " EXISTS (SELECT * FROM invoicedetail ID WHERE ID.idmankind = MD.idmankind AND ID.yman = MD.yman and ID.nman = MD.nman " +
+                               " and ID.manrownum = MD.rownum " +
+                               " and " + QHS.CmpEq("ID.idexp_taxable", R["idexp_taxable"]) + " AND " + QHS.CmpEq(maxExpensePhase.ToString(), 1) + ")"
+                           )
+                       )
+                    ); // AppOR/DoPar/ AppAnd
+
+                String MyQueryImpon =
+                " SELECT sum(MD.taxable_euro) as  taxable_euro " +
+                " FROM mandatedetailview MD" +
+                " where " + FilterDettcontabilizzati;
+                object ImponibileOrdine = 0;
+
+                DataTable tImponTotale = Meta.Conn.SQLRunner(MyQueryImpon);
                 // B : imponibile di tutti i dettagli che finiscono in tali impegni
-                object ImponibileOrdine = Meta.Conn.DO_READ_VALUE("mandatedetailview", FilterDettcontabilizzati, "sum(taxable_euro)");
-                // C : Pagato per il singolo impegno
-                object QuotaPagata = PagatoDelSingoloImpegno(R["idexp_taxable"]);
-                if (CfgFn.GetNoNullDecimal(ImportoImpegnato) > 0) {
-                    tot = tot + (CfgFn.GetNoNullDecimal(QuotaPagata) * CfgFn.GetNoNullDecimal(ImponibileOrdine) / CfgFn.GetNoNullDecimal(ImportoImpegnato));
-                }
-                }
+
+                if ((tImponTotale != null) && (tImponTotale.Rows.Count > 0))
+                    ImponibileOrdine = tImponTotale.Rows[0]["taxable_euro"];
+
+                // C : Pagato per il singolo impegno su CIG 
+                object QuotaPagata = PagatoDelSingoloImpegno(R["idexp_taxable"], rManCig["cigcode"]);
+
+                tot += CfgFn.GetNoNullDecimal(QuotaPagata);  
+  
+            }
             return tot;
         }
 
@@ -546,46 +581,139 @@ namespace avcptrasmission_default {
             String MyQuery =
             " SELECT distinct EP.idexp " +
             " FROM expenseprofservice EP" +
-            " join expense E "+
-            " on E.idexp = EP.idexp "+
+            " join profservicecig PC on PC.ycon = EP.ycon and PC.ncon = EP.ncon " +
             " where " + QHS.AppAnd(QHS.CmpEq("EP.ycon", rManCig["ycon"]), QHS.CmpEq("EP.ncon", rManCig["ncon"]),
-            QHS.CmpEq("E.cigcode", rManCig["cigcode"]));
-            DataTable tImpegni = Meta.Conn.SQLRunner(MyQuery);
+            QHS.CmpEq("PC.cigcode", rManCig["cigcode"]));
+
+
+            // In regime Monofase considero nel liquidato i pagamenti di fatture collegate alle parcelle
+            int maxExpensePhase = CfgFn.GetNoNullInt32(Meta.GetSys("maxexpensephase"));
+            String MyQueryInvoiceDet = "";
+
+            if (maxExpensePhase == 1) {
+                MyQueryInvoiceDet =
+                " " +
+                " UNION " +
+                " SELECT distinct ID.idexp_taxable as idexp " +
+                " FROM invoicedetail ID " + 
+                " join profservicecig PC on PC.ycon = ID.ycon and PC.ncon = ID.ncon " +
+                " where " + QHS.AppAnd(QHS.CmpEq("ID.ycon", rManCig["ycon"]), QHS.CmpEq("ID.ncon", rManCig["ncon"]),
+                QHS.CmpEq("PC.cigcode", rManCig["cigcode"]), QHS.IsNotNull("ID.idexp_taxable"));
+            }
+
+            DataTable tImpegni = Meta.Conn.SQLRunner(MyQuery + MyQueryInvoiceDet);
             object esercizio = Meta.GetSys("esercizio");
             foreach (DataRow R in tImpegni.Rows) {
                 // A : importo corrente degli impegni che contabilizzano il contratto in questione
-                object ImportoImpegnato = Meta.Conn.DO_READ_VALUE("expenseview",
-                    QHS.AppAnd(QHS.CmpEq("ayear", rManCig["ycon"]), QHS.CmpEq("idexp", R["idexp"])), "curramount");
-                string Filtercontabilizzati = QHS.AppAnd(QHS.CmpEq("ycon", rManCig["ycon"]), QHS.CmpEq("ncon", rManCig["ncon"]),
-                        QHS.CmpEq("cigcode", rManCig["cigcode"]));
-                // B : imponibile di tutti i dettagli che finiscono in tali impegni
-                object ImponibileContratto = Meta.Conn.DO_READ_VALUE("profservicecig", Filtercontabilizzati, "contractamount");
-                // C : Pagato per il singolo impegno
-                object QuotaPagata = PagatoDelSingoloImpegno(R["idexp"]);
-                if (CfgFn.GetNoNullDecimal(ImportoImpegnato) > 0) {
-                    tot = tot + (CfgFn.GetNoNullDecimal(QuotaPagata) * CfgFn.GetNoNullDecimal(ImponibileContratto) / CfgFn.GetNoNullDecimal(ImportoImpegnato));
-                }
+                
+
+				string FilterDettcontabilizzati = QHS.AppAnd(QHS.CmpEq("PR.ycon", rManCig["ycon"]), QHS.CmpEq("PR.ncon", rManCig["ncon"]),
+						QHS.CmpEq("PR.cigcode", rManCig["cigcode"]),
+
+					  QHS.DoPar(
+						  QHS.AppOr(
+							  QHS.CmpEq("EP.idexp", R["idexp"]),
+							  " EXISTS (SELECT * FROM invoicedetail ID WHERE ID.ycon = PR.ycon AND ID.ncon = PR.ncon " +
+							  " AND " + QHS.CmpEq("ID.idexp_taxable", R["idexp"]) + " AND " + QHS.CmpEq(maxExpensePhase.ToString(), 1) + ")"
+						  )
+					  )
+				   ); // AppOR/DoPar/ AppAnd
+
+				String MyQueryImpon =
+                " SELECT sum(PR.contractamount) as  contractamount " +
+                " FROM profservicecig PR" +
+                " LEFT OUTER JOIN expenseprofservice EP  ON PR.ycon = EP.ycon AND PR.ncon = EP.ncon " +
+                " where " + FilterDettcontabilizzati;
+                object ImponibileContratto = 0;
+
+                DataTable tImponTotale = Meta.Conn.SQLRunner(MyQueryImpon);
+                // B : imponibile di tutte le parcelle che finiscono in tali impegni
+              
+                if ((tImponTotale != null) && (tImponTotale.Rows.Count > 0))
+                    ImponibileContratto = tImponTotale.Rows[0]["contractamount"];
+
+       
+                // C : Quota Pagato per il singolo impegno su CIG
+                object QuotaPagata = PagatoDelSingoloImpegno(R["idexp"], rManCig["cigcode"]);
+                tot += CfgFn.GetNoNullDecimal(QuotaPagata);
+      
             }
             return tot;
         }
-        decimal PagatoDelSingoloImpegno(object idexp) {
-        decimal Pagato = 0;
-            object esercizio = Meta.GetSys("esercizio");
-            string MyQuery =
-                " select isnull(sum(ET.curramount),0) as curramount" +
-                " from expense E " +
-                " 	JOIN expenselink ELK " +
-                " 		ON ELK.idparent = E.idexp  " +
-                " 	JOIN expenselast EL " +
-                " 		on  ELK.idchild = EL.idexp " +
-                " 	join expensetotal ET " +
-                " 		ON ET.idexp = EL.idexp " +
-                " WHERE  " + QHS.CmpEq("E.idexp", idexp);
-            DataTable tPagato = Meta.Conn.SQLRunner(MyQuery);
-            if ((tPagato != null) && (tPagato.Rows.Count > 0)) {
-            Pagato = CfgFn.GetNoNullDecimal(tPagato.Rows[0]["curramount"]);
+        decimal PagatoDelSingoloImpegno(object idexp, object cigcode) {
+            /*
+			DECLARE @maxnphase_expense int
+            SELECT  @maxnphase_expense = max(nphase) FROM expensephase
+            */
+
+          
+            decimal totPagatoImpegnoSuCig = 0;
+            
+            string MyQueryPagamenti =
+                  " select EL.idexp as idexp" +
+                  " from expense E " +
+                  " 	JOIN expenselink ELK " +
+                  " 		ON ELK.idparent = E.idexp  " +
+                  " 	JOIN expenselast EL " +
+                  " 		on  ELK.idchild = EL.idexp " +
+                  " 	join expensetotal ET " +
+                  " 		ON ET.idexp = EL.idexp " +
+                  " WHERE  " + QHS.CmpEq("E.idexp", idexp);
+ 
+            DataTable tPagamenti = Meta.Conn.SQLRunner(MyQueryPagamenti);
+            if ((tPagamenti != null) && (tPagamenti.Rows.Count > 0)) {
+                foreach (DataRow R in tPagamenti.Rows) {
+                    // per Parcelle e Contratti Passivi collegabili a fatture calcolo la quota totale pagata su CIG come imponile totale fatture pagate
+                    // Non √® detto che sui dettagli fatture collegati a
+                    // contratti passivi o a parcelle sia stato riportato il CIG, a volte c'√® a volte no
+                    string MyQuery = " SELECT sum(ID.taxable_euro) as  taxable_euro " +
+                         " FROM invoicedetailview ID" +
+                         " where " + QHS.AppAnd(QHS.CmpEq("ID.idexp_taxable", R["idexp"]),
+                          QHS.DoPar(
+                          QHS.AppOr(
+                              QHS.CmpEq("ID.cigcode", cigcode),  // CIG impostato sul dettaglio della fattura
+                              // oppure
+                              // CIG impostato sulla parcella collegata a fattura
+                              " EXISTS (SELECT * FROM profservicecig PR WHERE ID.ycon = PR.ycon AND ID.ncon = PR.ncon " +
+                              " AND " + QHS.CmpEq("PR.cigcode", cigcode) + ")",
+                              // oppure
+                              // CIG impostato sul dettaglio contratto passivo collegato a fattura
+                              " EXISTS (SELECT * FROM mandatedetail MD WHERE ID.idmankind = MD.idmankind AND ID.yman = MD.yman AND ID.nman = MD.nman " +
+                              " AND ID.manrownum = MD.rownum " +
+                              " AND " + QHS.CmpEq("MD.cigcode", cigcode) + " AND " + QHS.IsNull("MD.stop") + ")"   
+                          )
+                      )
+                    );
+              
+                    DataTable tImponibilePagato = Meta.Conn.SQLRunner(MyQuery);
+                    if ((tImponibilePagato != null) && (tImponibilePagato.Rows.Count > 0)) {
+                        totPagatoImpegnoSuCig += CfgFn.GetNoNullDecimal(tImponibilePagato.Rows[0]["taxable_euro"]);
+                    }
+                    else {
+                        // Se non ci sono dettagli fatture pagati con riferimento al CIG, o direttamente, o indirettamente mediante CP o Parcella
+                        // assumo come quota pagata l'importo corrente dei pagamenti
+                        // che derivano dall'impegno (penso all'ipotesi di contratti non collegabili a fattura pur avendo CIG(??)
+                        // oppure pagamenti diretti di parcelle(??), casi che comunque non dovrebbero presentarsi)
+                        string MyQueryCurramount =
+                         " select sum(ET.curramount) as curramount" +
+                         " from expense E " +
+                         " 	JOIN expenselink ELK " +
+                         " 		ON ELK.idparent = E.idexp  " +
+                         " 	JOIN expenselast EL " +
+                         " 		on  ELK.idchild = EL.idexp " +
+                         " 	join expensetotal ET " +
+                         " 		ON ET.idexp = EL.idexp " +
+                         " WHERE  " + QHS.CmpEq("E.idexp", idexp);
+
+                        DataTable tPagato = Meta.Conn.SQLRunner(MyQueryCurramount);
+                        if ((tPagato != null) && (tPagato.Rows.Count > 0)) {
+                            totPagatoImpegnoSuCig += CfgFn.GetNoNullDecimal(tPagato.Rows[0]["curramount"]);
+                        }
+
+                    }
                 }
-            return Pagato;
+            }
+            return totPagatoImpegnoSuCig;
             }
 
 

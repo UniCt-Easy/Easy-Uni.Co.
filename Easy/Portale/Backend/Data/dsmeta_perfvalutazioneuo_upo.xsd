@@ -77,10 +77,14 @@
         <xs:element name="perfobiettiviuoattach" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="idperfobiettiviuo" type="xs:int" />
               <xs:element name="idperfobiettiviuoattach" type="xs:int" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
@@ -109,6 +113,7 @@
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="forzapunteggio" type="xs:string" minOccurs="0" />
               <xs:element name="idperfobiettiviuo" type="xs:int" />
               <xs:element name="idperfvalutazionepersonale" type="xs:int" minOccurs="0" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
@@ -116,6 +121,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="note" type="xs:string" minOccurs="0" />
               <xs:element name="peso" type="xs:decimal" minOccurs="0" />
+              <xs:element name="punteggio" type="xs:int" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
               <xs:element name="valorenumerico" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_perfobiettiviuosoglia" type="xs:string" minOccurs="0" />
@@ -133,7 +139,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -299,6 +305,7 @@
               <xs:element name="idperfprogetto" type="xs:int" />
               <xs:element name="idperfvalutazioneuo" type="xs:int" />
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
+              <xs:element name="peso" type="xs:int" />
               <xs:element name="progetto_title" type="xs:string" minOccurs="0" />
               <xs:element name="risultato" type="xs:decimal" minOccurs="0" />
               <xs:element name="year" type="xs:int" />
@@ -330,7 +337,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfvalutazioneuostatuschanges" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfvalutazioneuostatuschanges" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="changedate" type="xs:dateTime" minOccurs="0" />

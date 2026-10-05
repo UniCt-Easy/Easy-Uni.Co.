@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -1153,16 +1151,18 @@ public class serviceregistryTable : MetaTableBase<serviceregistryRow> {
 			{"idsor02",createColumn("idsor02",typeof(int),true,false)},
 			{"idsor03",createColumn("idsor03",typeof(int),true,false)},
 			{"idsor04",createColumn("idsor04",typeof(int),true,false)},
-			{"codicepaipa",createColumn("codicepaipa",typeof(string),true,false)},
+            {"idsor05",createColumn("idsor05",typeof(int),true,false)},
+            {"certinterestconflicts",createColumn("certinterestconflicts",typeof(string),true,false)},
+            {"website_annulled",createColumn("website_annulled",typeof(string),true,false)},
+            {"perla_error",createColumn("perla_error",typeof(string),true,false)},
+            {"dichiarazione_incarichi",createColumn("dichiarazione_incarichi",typeof(Byte[]),true,false)},
+            {"codicepaipa",createColumn("codicepaipa",typeof(string),true,false)},
 			{"codiceaooipa",createColumn("codiceaooipa",typeof(string),true,false)},
 			{"codiceuoipa",createColumn("codiceuoipa",typeof(string),true,false)},
-			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
-			{"certinterestconflicts",createColumn("certinterestconflicts",typeof(string),true,false)},
-			{"website_annulled",createColumn("website_annulled",typeof(string),true,false)},
-			{"perla_error",createColumn("perla_error",typeof(string),true,false)},
-			{"idpublicinstitutionservice",createColumn("idpublicinstitutionservice",typeof(int),true,false)},
-			{"idthematicscope",createColumn("idthematicscope",typeof(int),true,false)},
-		};
+            {"idthematicscope",createColumn("idthematicscope",typeof(int),true,false)},
+            {"idpublicinstitutionservice",createColumn("idpublicinstitutionservice",typeof(int),true,false)},
+            {"idfilestorage",createColumn("idfilestorage",typeof(int),true,false)},
+        };
 	}
 }
 }

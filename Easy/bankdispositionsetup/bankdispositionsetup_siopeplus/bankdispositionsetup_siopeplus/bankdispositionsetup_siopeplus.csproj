@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -83,6 +84,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\sdi_acquisto\sdi_acquisto_default\sdi_acquisto_default.csproj">
+      <Project>{81F1BFAE-EBBE-40EA-97AC-44E24A9C0CF8}</Project>
+      <Name>sdi_acquisto_default</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\siopeplus_functions\siopeplus_functions.csproj">
       <Project>{7d85344b-860d-48e2-b073-a8cfef78bf07}</Project>
       <Name>siopeplus_functions</Name>

@@ -1,4 +1,5 @@
-﻿<!--header-->
+﻿<div class="p-2 custom_lng_div" data-langkey="pageheader316" >Qualora l'importo fosse proporzionato in base all'ISEE, inserire i parametri A,B,C,D che saranno applicati secondo la formula [A * (ISEE - B) + C] * D </div>
+
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 		
@@ -7,51 +8,47 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_idfasciaiseedef">Fascia ISEE</label>
-					<div>
-						<input id="costoscontodefdettaglio_riepilogo_idfasciaiseedef" name="costoscontodefdettaglio_riepilogo_idfasciaiseedef" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="fasciaiseedefdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
-					</div>
+					<select id="costoscontodefdettaglio_riepilogo_idfasciaiseedef" class="custom-select d-block w-100"  data-source-name="fasciaiseedefdefaultview" data-value-member="idfasciaiseedef" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idfasciaiseedef?costoscontodefdettaglioriepilogoview.idfasciaiseedef"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_idratadef">Rata</label>
-					<div>
-						<input id="costoscontodefdettaglio_riepilogo_idratadef" name="costoscontodefdettaglio_riepilogo_idratadef" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="ratadefdefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." data-mandatory />
-					</div>
+					<select id="costoscontodefdettaglio_riepilogo_idratadef" class="custom-select d-block w-100"  data-source-name="ratadefdefaultview" data-value-member="idratadef" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idratadef?costoscontodefdettaglioriepilogoview.idratadef"  data-mandatory  data-master="fasciaiseedefdefaultview"> </select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_idcostoscontodefdettagliokind">Voce di dettaglio</label>
-					<select id="costoscontodefdettaglio_riepilogo_idcostoscontodefdettagliokind" class="custom-select d-block w-100"  data-source-name="costoscontodefdettagliokind" data-value-member="idcostoscontodefdettagliokind" data-display-member="title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idcostoscontodefdettagliokind"   > </select>
+					<select id="costoscontodefdettaglio_riepilogo_idcostoscontodefdettagliokind" class="custom-select d-block w-100"  data-source-name="costoscontodefdettagliokinddefaultview" data-value-member="idcostoscontodefdettagliokind" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="costoscontodefdettaglio.idcostoscontodefdettagliokind?costoscontodefdettaglioriepilogoview.idcostoscontodefdettagliokind"   > </select>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_importo">Importo</label>
-					<input id="costoscontodefdettaglio_riepilogo_importo" type="text" class="form-control" data-tag="costoscontodefdettaglio.importo.fixed.2"  />
+					<input id="costoscontodefdettaglio_riepilogo_importo" type="text" class="form-control" data-tag="costoscontodefdettaglio.importo.fixed.2?costoscontodefdettaglioriepilogoview.costoscontodefdettaglio_importo"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_parama">Parametro A</label>
-					<input id="costoscontodefdettaglio_riepilogo_parama" type="text" class="form-control" data-tag="costoscontodefdettaglio.parama.fixed.2"  />
+					<input id="costoscontodefdettaglio_riepilogo_parama" type="text" class="form-control" data-tag="costoscontodefdettaglio.parama.fixed.9?costoscontodefdettaglioriepilogoview.costoscontodefdettaglio_parama"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_paramb">Parametro B</label>
-					<input id="costoscontodefdettaglio_riepilogo_paramb" type="text" class="form-control" data-tag="costoscontodefdettaglio.paramb.fixed.2"  />
+					<input id="costoscontodefdettaglio_riepilogo_paramb" type="text" class="form-control" data-tag="costoscontodefdettaglio.paramb.fixed.2?costoscontodefdettaglioriepilogoview.costoscontodefdettaglio_paramb"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_paramc">Parametro C</label>
-					<input id="costoscontodefdettaglio_riepilogo_paramc" type="text" class="form-control" data-tag="costoscontodefdettaglio.paramc.fixed.2"  />
+					<input id="costoscontodefdettaglio_riepilogo_paramc" type="text" class="form-control" data-tag="costoscontodefdettaglio.paramc.fixed.2?costoscontodefdettaglioriepilogoview.costoscontodefdettaglio_paramc"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_paramd">Parametro D</label>
-					<input id="costoscontodefdettaglio_riepilogo_paramd" type="text" class="form-control" data-tag="costoscontodefdettaglio.paramd.fixed.2"  />
+					<input id="costoscontodefdettaglio_riepilogo_paramd" type="text" class="form-control" data-tag="costoscontodefdettaglio.paramd.fixed.9?costoscontodefdettaglioriepilogoview.costoscontodefdettaglio_paramd"  />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="costoscontodefdettaglio_riepilogo_percentuale">Percentuale</label>
-					<input id="costoscontodefdettaglio_riepilogo_percentuale" type="text" class="form-control" data-tag="costoscontodefdettaglio.percentuale.fixed.2"  />
+					<input id="costoscontodefdettaglio_riepilogo_percentuale" type="text" class="form-control" data-tag="costoscontodefdettaglio.percentuale.fixed.2?costoscontodefdettaglioriepilogoview.costoscontodefdettaglio_percentuale"  />
 				</div>
 			</div>
 </form>

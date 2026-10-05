@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -79,7 +77,7 @@ namespace notable_scriptcomuni {
 			var rr = DS.geo_city_codeview.f_Eq("nazionale", nazionale).ToList();
 			if (rr.Count() == 1) return rr[0]["idcity"];
 
-			//Prima vede se c'Ë uno con datastart valorizzata e prima di start fornito
+			//Prima vede se c'√® uno con datastart valorizzata e prima di start fornito
 			var rrwithStart = rr.f_isNotNull("start")._Filter(q.le("start", start)).OrderByDescending(x => x["start"]).ToList();
 			if (rrwithStart.Count > 0) return rrwithStart[0]["idcity"];
 			
@@ -239,12 +237,12 @@ namespace notable_scriptcomuni {
 			listaComuni: Comune BAJARDO trovato come BAIARDO
 			listaComuni: Comune CASTELNUOVO DI VAL DI CECINA trovato come CASTELNUOVO VAL DI CECINA
 			listaComuni: Comune EMARE'SE trovato come EMARESE
-			listaComuni: Comune F…NIS trovato come FENIS
+			listaComuni: Comune F√âNIS trovato come FENIS
 			listaComuni: Comune NOICA'TTARO trovato come NOICATTARO
 			listaComuni: Comune REGGIO CALABRIA trovato come REGGIO DI CALABRIA
 			listaComuni: Comune REGGIO EMILIA trovato come REGGIO NELL'EMILIA
 			listaComuni: Comune ROCCA D'ARCE trovato come ROCCADARCE
-			listaComuni: Comune SAINT RH…MY EN BOSSES trovato come SAINT-RHEMY-EN-BOSSES
+			listaComuni: Comune SAINT RH√âMY EN BOSSES trovato come SAINT-RHEMY-EN-BOSSES
 			listaComuni: Comune SAN DORLIGO DELLA VALLE   DOLINA trovato come SAN DORLIGO DELLA VALLE
 			listaComuni: Comune TERZO D'AQUILEIA trovato come TERZO DI AQUILEIA
 			listaComuni: Comune VERRE'S trovato come VERRES
@@ -254,20 +252,20 @@ namespace notable_scriptcomuni {
 				{ "BAJARDO","BAIARDO"},
 				{ "CASTELNUOVO DI VAL DI CECINA","CASTELNUOVO VAL DI CECINA"},
 				{ "EMARE'SE","EMARESE"},
-				{ "F…NIS","BAIARDO"},
+				{ "F√âNIS","BAIARDO"},
 				{ "NOICA'TTARO","NOICATTARO"},
 				{ "REGGIO CALABRIA","REGGIO DI CALABRIA"},
 				{ "REGGIO EMILIA","REGGIO NELL'EMILIA"},
 			
-				{ "SAINT RH…MY EN BOSSES","SAINT RHEMY EN BOSSES"},
+				{ "SAINT RH√âMY EN BOSSES","SAINT RHEMY EN BOSSES"},
 				{ "SAN DORLIGO DELLA VALLE   DOLINA","SAN DORLIGO DELLA VALLE"},
 				{ "TERZO D'AQUILEIA","TERZO DI AQUILEIA"},
 				{ "VERRE'S","VERRES"},
 
 
 				{ "VODO CADORE","VODO DI CADORE"},
-				{ "ZAN»","ZANE'"},
-				{ "ZERBOL“","ZERBOLO''"},
+				{ "ZAN√à","ZANE'"},
+				{ "ZERBOL√í","ZERBOLO''"},
 				{"GODIASCO", "GODIASCO SALICE TERME"},
 				{"PUEGNAGO SUL GARDA", "PUEGNAGO DEL GARDA"},
 				{"SANTO STINO DI LIVENZA", "SAN STINO DI LIVENZA"},
@@ -296,8 +294,8 @@ namespace notable_scriptcomuni {
 
 		string pulisciNome(string title) {
 			title = title.ToUpperInvariant();
-			title = title.Replace("√", "A").Replace("»","E'").Replace("¿","A'").Replace("Ã","I'").Replace("“","O'").Replace("-"," ");
-			title = title.Replace("…", "E").Replace("Ã","I'").Replace("Ÿ","U'");
+			title = title.Replace("√É", "A").Replace("√à","E'").Replace("√Ä","A'").Replace("√å","I'").Replace("√í","O'").Replace("-"," ");
+			title = title.Replace("√â", "E").Replace("√å","I'").Replace("√ô","U'");
 			if (title.Contains('*')) {
 				title = title.Split('*')[0].Trim();
 			}
@@ -363,19 +361,19 @@ namespace notable_scriptcomuni {
 
 		decimal getImportoFromStringa(string importo) {
 			if (importo.EndsWith(".")||importo.EndsWith(",")) importo = importo.Substring(0, importo.Length - 1);
-			importo = importo.Replace("Ä", "");
+			importo = importo.Replace("‚Ç¨", "");
 			importo = importo.Trim();
 			int dotPos = importo.IndexOf('.');
 			int lastDotPos = importo.LastIndexOf('.');
 			if (lastDotPos != dotPos) {
-				//rimuove la prima occorrenza del punto  se ce ne sono due o pi˘
+				//rimuove la prima occorrenza del punto  se ce ne sono due o pi√π
 				return getImportoFromStringa(importo.Remove(dotPos, 1));
 			}
 
 			int commaPos = importo.IndexOf(',');
 			int lastCommaPos = importo.LastIndexOf(',');
 			if (lastCommaPos != commaPos) {
-				//rimuove la prima occorrenza della virgola  se ce ne sono due o pi˘
+				//rimuove la prima occorrenza della virgola  se ce ne sono due o pi√π
 				return getImportoFromStringa(importo.Remove(commaPos, 1));
 			}
 
@@ -389,13 +387,13 @@ namespace notable_scriptcomuni {
 				return getImportoFromStringa(importo.Replace(",", ""));
 			}
 
-			//c'Ë uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
+			//c'√® uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
 			if (commaPos >= 0) return getImportoFromStringa(importo.Replace(',', '.'));
 
-			//A questo punto c'Ë solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
+			//A questo punto c'√® solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
 			//Lo consideriamo un punto decimale se seguito da 1 o due cifre numeriche
 			if (dotPos < importo.Length - 3) {
-				//Altrimenti Ë un punto/virgola delle migliaia e lo togliamo
+				//Altrimenti √® un punto/virgola delle migliaia e lo togliamo
 				importo = importo.Replace(".", "");
 			}
 			
@@ -540,7 +538,7 @@ namespace notable_scriptcomuni {
 			{"ROCCADARCE", "ROCCA D'ARCE"},
 			{"BARI SARDO", "BARISARDO"},
 			{"VODO CADORE" ,"VODO DI CADORE"},
-			{"SAàN JAN DI FASSA","SAN JAN DI FASSA"  }
+			{"SAÀÜN JAN DI FASSA","SAN JAN DI FASSA"  }
 
 		};
 
@@ -811,7 +809,7 @@ namespace notable_scriptcomuni {
 					rCity=DS.geo_city.Filter(filter).FirstOrDefault();
 					if (rCity != null) {
 						r["idcity"] = rCity["idcity"];
-						//sb.AppendLine($"variazioneComuni: Comune {titleCity} trovato ma Ë da sopprimere");
+						//sb.AppendLine($"variazioneComuni: Comune {titleCity} trovato ma √® da sopprimere");
 						continue;
 					}
 				}
@@ -821,7 +819,7 @@ namespace notable_scriptcomuni {
 					rCity=DS.geo_city.Filter(filter).FirstOrDefault();
 					if (rCity != null) {
 						r["idcity"] = rCity["idcity"];
-						//sb.AppendLine($"variazioneComuni: Comune {titleCity} trovato ma Ë da sopprimere");
+						//sb.AppendLine($"variazioneComuni: Comune {titleCity} trovato ma √® da sopprimere");
 						continue;
 					}
 				}
@@ -891,7 +889,7 @@ namespace notable_scriptcomuni {
 					filter = q.eq("title", titleCity);
 					rCity=DS.geo_city.Filter(filter).FirstOrDefault();
 					if (rCity != null) {
-						r["idcity"] = rCity["idcity"]; //trovato, soppresso ma Ë normale qui
+						r["idcity"] = rCity["idcity"]; //trovato, soppresso ma √® normale qui
 						continue;
 					}
 				}
@@ -1103,10 +1101,10 @@ namespace notable_scriptcomuni {
 
 					var rigaCorrente = DS.geo_city_codeview.Filter(q.eq("idcity", r["idcity"])).FirstOrDefault();
 					if (rigaCorrente["newcity"].Equals(newCity)) {
-						continue; //Ë stato gi‡ soppresso come richiesto dalla riga
+						continue; //√® stato gi√† soppresso come richiesto dalla riga
 					}
 					if (rigaCorrente["newcity"]!=DBNull.Value) {
-						continue; //Ë stato gi‡ modificato
+						continue; //√® stato gi√† modificato
 					}
 
 					sb.AppendLine(sopprimiComune(r["idcity"],newCity, r["data"]));
@@ -1119,19 +1117,19 @@ namespace notable_scriptcomuni {
 					var idcountry = rc["idcountry"];
 					
 					var rigaCorrente = DS.geo_city_codeview.Filter(q.eq("idcity", r["idcity"])).FirstOrDefault();
-					if (rigaCorrente["newcity"]!=DBNull.Value) continue; //Ë stato gi‡ operato il cambio di provincia
+					if (rigaCorrente["newcity"]!=DBNull.Value) continue; //√® stato gi√† operato il cambio di provincia
 
 					sb.AppendLine(cambiaProvincia(r["idcity"],r["data"],idcountry));
 				}
 
-				//CDE		Nuova denominazione: SAN GIOVANNI DI FASSA/S√àN JAN
+				//CDE		Nuova denominazione: SAN GIOVANNI DI FASSA/S√ÉÀÜN JAN
 				if (tipoVariazione == "CDE") {
 					string nuovaDenominazione = info.Split(':')[1].Split('/')[0].Trim();
 					nuovaDenominazione = pulisciNome(nuovaDenominazione);
 					if (nuovaDenominazione == r["title"].ToString()) continue;
 					var rigaCorrente = DS.geo_city_codeview.Filter(q.eq("idcity", r["idcity"])).FirstOrDefault();
 					if (rigaCorrente["newcity"]!=DBNull.Value) {
-						continue; //Ë stato gi‡ modificato
+						continue; //√® stato gi√† modificato
 					}
 
 					sb.AppendLine($"/** Title:{r["title"]} info: {r["Info"]} **/");
@@ -1330,14 +1328,14 @@ namespace notable_scriptcomuni {
 			//Prende le informazioni da quelle correnti 
 			var rAe = listaComuniAE._Filter(q.eq("nazionale", nazionale) & q.eq("SiglaProvincia",province) ).FirstOrDefault();
 			if (rAe == null) {
-				//Il comune non Ë pi˘ attivo, non facciamo nessuna verifica in questo caso
+				//Il comune non √® pi√π attivo, non facciamo nessuna verifica in questo caso
 				return string.Empty;
 			}
 
 			//in rAe la riga dell'agenzia delle entrate arricchita con il cap 
 			var r = DS.geo_city_codeview.Filter(q.eq("nazionale", nazionale)& q.eq("provincecode",province) &q.eq("newcity",null)).FirstOrDefault();
 			if (r == null) {
-				show($"Il codice nazionale {nazionale} non Ë stato trovato in geo_city_codeview", "Errore");
+				show($"Il codice nazionale {nazionale} non √® stato trovato in geo_city_codeview", "Errore");
 				return string.Empty;
 			}
 
@@ -1392,7 +1390,7 @@ namespace notable_scriptcomuni {
 			}
 
 			if (!riconosciuto) {
-				show($"Errore nella stringa {info}, il messaggio non Ë conforme allo standard.", "Errore");
+				show($"Errore nella stringa {info}, il messaggio non √® conforme allo standard.", "Errore");
 				idcity = null;
 				return $">>Errore nella stringa {info}";
 			}
@@ -1405,14 +1403,14 @@ namespace notable_scriptcomuni {
 					var comune = DS.geo_city_codeview.Filter(q.eq("nazionale", nazionale) & q.isNotNull("newcity")).FirstOrDefault();
 					if (comune != null) {
 						idcity = comune["idcity"];
-						return string.Empty;//Il comune gi‡ esiste nei vecchi comuni
+						return string.Empty;//Il comune gi√† esiste nei vecchi comuni
 					}
 					if (istituiti.Contains(title)) {
 						//E' da creare e poi rimuovere
 						comune = DS.geo_city_codeview.Filter(q.eq("nazionale", nazionale) & q.eq("newcity",null)).FirstOrDefault();
 						if (comune != null) {
 							idcity = comune["idcity"];
-							return string.Empty;//Il comune gi‡ esiste nei vecchi comuni
+							return string.Empty;//Il comune gi√† esiste nei vecchi comuni
 						}
 					}
 
@@ -1421,18 +1419,18 @@ namespace notable_scriptcomuni {
 				var comune = DS.geo_city_codeview.Filter(q.eq("nazionale", nazionale)  & q.isNull("newcity")).FirstOrDefault();
 				if (comune != null) {
 					idcity = comune["idcity"];
-					return string.Empty; //Il comune gi‡ esiste nei comuni attuali
+					return string.Empty; //Il comune gi√† esiste nei comuni attuali
 				}
 			}
 
-			//Il comune Ë da creare
+			//Il comune √® da creare
 			//Estrae i dati dall'elenco comuni attuali
 			var rCurr = listaComuniAE._Filter(q.eq("nazionale", nazionale)).FirstOrDefault();
 			if (rCurr == null) {
-				//Potrebbe mancare perchË nel mentre soppresso
+				//Potrebbe mancare perch√® nel mentre soppresso
 				if (!soppressi.Contains(title)) {
 					show(
-						$"Il comune con codice nazionale {nazionale} non Ë stato trovato nella lista comuni dell'A.E.",
+						$"Il comune con codice nazionale {nazionale} non √® stato trovato nella lista comuni dell'A.E.",
 						"Errore");
 				}
 				return string.Empty;
@@ -1513,7 +1511,7 @@ namespace notable_scriptcomuni {
 
 				if (rDb["newcity"] != DBNull.Value ) {
 					show(
-						$"Il comune id:{rDb["idcity"]} {titleAe} ({nazionaleAe})  ({provinciaAe}) nel db Ë stato sostituito con un altro, ma non avrebbe dovuto accadere ",
+						$"Il comune id:{rDb["idcity"]} {titleAe} ({nazionaleAe})  ({provinciaAe}) nel db √® stato sostituito con un altro, ma non avrebbe dovuto accadere ",
 						"Errore");
 				}
 				bool differences = false;
@@ -1557,7 +1555,7 @@ namespace notable_scriptcomuni {
 					var rigaCorrente = DS.geo_city_codeview.Filter(q.eq("idcity", rAe["idcity"])).FirstOrDefault();
 					if (rigaCorrente["newcity"] != DBNull.Value) {
 						show(
-							$"La provincia Ë cambiata ma il comune era stato gi‡ soppresso, qualcosa non va. idcity={rAe["idcity"]}");
+							$"La provincia √® cambiata ma il comune era stato gi√† soppresso, qualcosa non va. idcity={rAe["idcity"]}");
 						continue;
 					}
 					
@@ -1581,13 +1579,13 @@ namespace notable_scriptcomuni {
 					//Cerca una corrispondenza in AE
 					if (!listaAECity.Contains(idcity)) {
 						sb.AppendLine(
-							$"Il comune id:{rDb["idcity"]} {titleDb} ({nazionale})  ({provincia}) nel db non Ë stato trovato nella lista AE ");
+							$"Il comune id:{rDb["idcity"]} {titleDb} ({nazionale})  ({provincia}) nel db non √® stato trovato nella lista AE ");
 					}
 				}
 				else {
 					if (listaAECity.Contains(idcity)) {
 						sb.AppendLine(
-							$"Il comune id:{rDb["idcity"]} {titleDb} ({nazionale})  ({provincia}) nel db  Ë stato trovato nella lista AE ma non avrebbe dovuto");
+							$"Il comune id:{rDb["idcity"]} {titleDb} ({nazionale})  ({provincia}) nel db  √® stato trovato nella lista AE ma non avrebbe dovuto");
 					}
 				}
 			}
@@ -1605,7 +1603,7 @@ namespace notable_scriptcomuni {
 					
 			var rigaCorrente = DS.geo_city_codeview.Filter(q.eq("idcity", idcity)).FirstOrDefault();
 			if (rigaCorrente["newcity"]!=DBNull.Value) {
-				show("Il comune indicato Ë stato gi‡ sostituito da altri", "Errore");
+				show("Il comune indicato √® stato gi√† sostituito da altri", "Errore");
 				return;
 			}
 
@@ -1701,7 +1699,7 @@ namespace notable_scriptcomuni {
 				update add2018 set fascia = replace(fascia,',','.') where  fascia like 'esenzione per redditi fino a euro%' and fascia like '%,99'				
 				update add2018 set fascia = fascia +'0' where  fascia like '%.0'
 				
-				--ripetere pi˘ volte
+				--ripetere pi√π volte
 				update add2018 set fascia = replace(fascia,'  ',' ') 
 			 */
 
@@ -1778,7 +1776,7 @@ namespace notable_scriptcomuni {
 					string fascia = r["FASCIA_1"].ToString().Trim().ToLowerInvariant();
 					string esente = r["IMPORTO_ESENTE"].ToString().Trim();
 					if (esente == "") {
-						continue; //Per es. Ë "fascia unica" senza esenzione
+						continue; //Per es. √® "fascia unica" senza esenzione
 					}
 
 					string esenteInt = esente.Substring(0, esente.Length - 3);
@@ -2053,7 +2051,7 @@ namespace notable_scriptcomuni {
 				sb.AppendLine($"Il comune {r["title"]}, fascia={r["FASCIA_1"]} non dovrebbe avere esente=0 ");
 			}
 
-			//--se c'Ë un'esenzione e poi un'aliquota ordinaria, applichiamo l'aliquota su tutto ma poi imposteremo l'esenzione nella struttura
+			//--se c'√® un'esenzione e poi un'aliquota ordinaria, applichiamo l'aliquota su tutto ma poi imposteremo l'esenzione nella struttura
 			//update add2018 set limit1 = 0,limit2 =0,rate=rate2, rate2=0 where esente>0 and fascia_2= 'Aliquota unica' and limit1 is null
 			//foreach (DataRow r in dtToImport.Rows) {
 			//	string fascia2 = r["FASCIA_2"].ToString().Trim().ToLowerInvariant();
@@ -2116,10 +2114,10 @@ namespace notable_scriptcomuni {
 			}
 			
 			//Calcola le varie fasce, in particolare:
-			//Se inizia con "esenzione", vai avanti, Ë una gestione gi‡ fatta nei passi precedenti 
-			//se finisce con "fino ad euro" si intende che il limite superiore Ë quello dopo tale  espressione. Quello inferiore Ë il superiore prec.
-			//Se inizia con "da euro " si intende che quel che segue Ë il limite inferiore+1cent, che dovrebbe essere iug
-			//se finisce con "oltre euro" si intende che il limite superiore non Ë presente. Quello inferiore Ë il superiore prec.
+			//Se inizia con "esenzione", vai avanti, √® una gestione gi√† fatta nei passi precedenti 
+			//se finisce con "fino ad euro" si intende che il limite superiore √® quello dopo tale  espressione. Quello inferiore √® il superiore prec.
+			//Se inizia con "da euro " si intende che quel che segue √® il limite inferiore+1cent, che dovrebbe essere iug
+			//se finisce con "oltre euro" si intende che il limite superiore non √® presente. Quello inferiore √® il superiore prec.
 			foreach (DataRow r in dtToImport.Rows) {
 				decimal esente = CfgFn.GetNoNullDecimal(r["esente"]);
 				decimal limitePrecedente = 0;
@@ -2226,7 +2224,7 @@ namespace notable_scriptcomuni {
 
 						if (ultimaFasciaValorizzata == 0) {
 							if (importoDA!=0 && Math.Abs(importoDA-esente)>0.02M &&  importoDA!= esente+1M) {
-								sb.AppendLine($"Il comune {r["title"]} ha un limite inferiore (DA) ma non c'Ë una fascia precedente. fascia_{i} = {fasciaOriginale}");
+								sb.AppendLine($"Il comune {r["title"]} ha un limite inferiore (DA) ma non c'√® una fascia precedente. fascia_{i} = {fasciaOriginale}");
 							}
 						}
 						else {
@@ -2246,8 +2244,8 @@ namespace notable_scriptcomuni {
 					if (_a_position < 0) _a_position = fascia.IndexOf(" fino ");
 					if (_a_position < 0) _a_position = fascia.IndexOf(" ad euro ");
 					if (_a_position < 0) _a_position = fascia.IndexOf(" ed euro ");
-					if (_a_position < 0) _a_position = fascia.IndexOf(" ad ‚Ä ");
-					if (_a_position < 0) _a_position = fascia.IndexOf(" ad Ä ");
+					if (_a_position < 0) _a_position = fascia.IndexOf(" ad √¢‚Ç¨ ");
+					if (_a_position < 0) _a_position = fascia.IndexOf(" ad ‚Ç¨ ");
 					if (_a_position >= 0) {
 						string importoAStr;
 						int posImportoA = getFirstImportoDontSkipEuro(fascia.Substring(_a_position), out importoAStr);
@@ -2293,7 +2291,7 @@ namespace notable_scriptcomuni {
 							esenzioniAggiuntive[CfgFn.GetNoNullInt32(r["idcity"])] = r;
 						}
 
-						sb.AppendLine($"Il comune {r["title"]} ({r["nazionale"]}) esenzione:{r["esente"]} idcity={r["idcity"]} Ë del tutto senza fasce");
+						sb.AppendLine($"Il comune {r["title"]} ({r["nazionale"]}) esenzione:{r["esente"]} idcity={r["idcity"]} √® del tutto senza fasce");
 						continue;
 					}
 
@@ -2498,7 +2496,7 @@ namespace notable_scriptcomuni {
 				if (!dbRows.ContainsKey(idCity)) {
 					sb.AppendLine($"/*** Nuovo Comune {newRow["city"]} idcity:{idCity} ****/");
 					sb.AppendLine($"/*** dati: {currStart} {sinthNew} {newRow["annotations"]} ***/");
-					//sb.AppendLine($"La citt‡ {newRow["city"]}  id {idCity} non Ë stata trovata nelle aliquote presenti nel db");
+					//sb.AppendLine($"La citt√† {newRow["city"]}  id {idCity} non √® stata trovata nelle aliquote presenti nel db");
 					sb.AppendLine(getScriptNewCityStart(newRow));
 					continue;
 				}

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_situazioneupbaccount]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_situazioneupbaccount]
 GO
@@ -23,14 +21,23 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON  
 GO
---setuser'amm'
---setuser 'amministrazione'
--- exp_situazioneupbaccount 2017, {ts '2017-12-31 00:00:00'}, 'C','%','N','N', '%','S'
--- exp_situazioneupbaccount 2017, {ts '2017-12-31 00:00:00'}, 'R','%','17000400010001000200010001','N', '%','S','N'
 
--- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', 33, '%','N','N' -- @multiannual, @showonlyavailable
--- exp_situazioneupbaccount 2019, {ts '2019-05-27 00:00:00'}, 'C','%','S','N', '%','S','N' -- @multiannual, @showonlyavailable
--- exp_situazioneupbaccount 2023, {ts '2023-05-27 00:00:00'}, 'C','%','S','N', '%','S','N' -- @multiannual, @showonlyavailable
+
+-- exp_situazioneupbaccount 2024, {ts '2024-12-31 00:00:00'},C, '000100010006','S','S',null,'%','N','N','S','S',null,null,null,null,null
+-- exp_situazioneupbaccount 2024, {ts '2024-02-28 00:00:00'},C, '%','S','S',null,'%','N','N','S','S',null,null,null,null,null
+ --exec exp_situazioneupbaccount 2024, {ts '2024-12-31 00:00:00'},C, '00010001000800020033','S','S',null,'CN1.1.01.01','N','N','S','S',null,null,null,null,null
+
+-- exec exp_situazioneupbaccount 2024, {ts '2024-12-31 00:00:00'},C, '00010002000300020786','S','S',null,'PA1.2.03.01','N','N','S','S',null,null,null,null,null
+
+--select idupb from upb  where codeupb='AILdprfSTIPENDI' --> 00010001000800010027
+--select idacc from account where codeacc='CN1.2.05.01.003' --> 24000200010002000500010003 
+ 
+
+ --sull'UPB RIEgaidanogAIRC22_23 e conto CN1.2.05.01.003 nel 2024 YOUR_PASSWORD_test c'è la scrittura 2756 per costi 3314,74
+--Perchè se faccio la situazione budget mi dà scritture di costo/immobilizzazione zero? Ho verificato i flag sul conto e c'è Costi e Abilita previsione di budget. Perchè nn vede l'importo?
+--Tra l'altro l'importo di 3314,74 mi esce correttamente nei costi pagati
+
+
 CREATE  PROCEDURE  [exp_situazioneupbaccount]
 (
 	@ayear int,
@@ -43,6 +50,8 @@ CREATE  PROCEDURE  [exp_situazioneupbaccount]
 	@codeacc varchar(50),   --- codeacc
 	@multiannual char(1),
 	@showonlyavailable char(1), -- Mostra solo disponibilità
+	@suppressifblank char(1), -- Nascondi le voci inutilizzate
+	@showcostpayed char(1), -- Mostra colonna COSTI PAGATI
 	@idsor01 int=null,
 	@idsor02 int=null,
 	@idsor03 int=null,
@@ -113,7 +122,8 @@ CREATE TABLE #situazione_upb_account
 	available3  decimal(19,2),
 	available4  decimal(19,2),
 	available5  decimal(19,2) ,
-	entryamount decimal(19,2)
+	entryamount decimal(19,2),
+	payed decimal(19,2)		--> COSTI PAGATI
 )
 
 		--PREVISIONI INIZIALI 
@@ -144,7 +154,7 @@ IF @budgetpart = 'C'
 		join account A on accountyear.idacc=A.idacc 
 		JOIN upb ON upb.idupb = accountyear.idupb  
 		WHERE prevision IS NOT NULL AND accountyear.ayear = @ayear
-			and A.flagaccountusage&320<>0  
+			and ( A.flagaccountusage&320<>0  OR (A.flagaccountusage & 131072)<>0 ) /*costi 64 , immobilizzazioni 256 o ammortamento 131072*/
 		AND A.nlevel = @nlevel
 		AND (upb.idman = @idman or @idman is null)
 		and  (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
@@ -228,8 +238,7 @@ IF @budgetpart = 'C'
 			AND (upb.idupb like @idupb OR @idupb = '%') 
 			AND (D.idacc like @idacc OR @idacc is null)
 			and  V.idaccountvarstatus = 5 and V.variationkind <> 5  AND V.yvar = @ayear AND V.adate<= @adate  
-				and A.flagaccountusage&320<>0  --costi e immobilizzaz.
-					  
+			and ( A.flagaccountusage&320<>0  OR (A.flagaccountusage & 131072)<>0 ) /*costi 64 , immobilizzazioni 256 o ammortamento 131072*/					  
 			AND A.nlevel = @nlevel
 			AND (upb.idman = @idman or @idman is null)
 			group by D.idupb, D.idacc, upb.idman
@@ -626,7 +635,7 @@ IF @budgetpart = 'R'
 		JOIN epaccyear AY			ON AY.ayear = AV.yvar AND AY.idepacc = AV.idepacc
 		JOIN account PARENT				ON PARENT.idacc = SUBSTRING(AY.idacc, 1, @lenminlevel)
 		JOIN epacc A				ON A.idepacc = AY.idepacc
-	   JOIN upb ON upb.idupb = AY.idupb  
+	    JOIN upb ON upb.idupb = AY.idupb  
 	  WHERE  (@idsor01 IS NULL OR upb.idsor01 = @idsor01) 
 			AND (@idsor02 IS NULL OR upb.idsor02 = @idsor02) 
 			AND (@idsor03 IS NULL OR upb.idsor03 = @idsor03) 
@@ -637,6 +646,7 @@ IF @budgetpart = 'R'
 			AND (upb.idman = @idman or @idman is null)
 		and A.nphase = 1 AND AY.ayear = @ayear AND A.adate <= @adate AND AV.adate<= @adate  AND @budgetpart = 'R' 
 		group by AY.idupb, PARENT.idacc, upb.idman
+
 
 IF @budgetpart = 'C'
 	INSERT INTO #situazione_upb_account
@@ -672,9 +682,10 @@ IF @budgetpart = 'C'
 			AND (upb.idman = @idman or @idman is null)
 		and entrydetail.yentry = @ayear
 			and entry.adate<=@adate
-			and  PARENT.flagaccountusage & 320 <>0  
+			and ( PARENT.flagaccountusage&320<>0  OR (PARENT.flagaccountusage & 131072)<>0 ) /*costi 64 , immobilizzazioni 256 o ammortamento 131072*/
 		and entry.identrykind NOT IN (6,7,11,12)
 		group by  entrydetail.idupb, PARENT.idacc, upb.idman
+
 ELSE
 	INSERT INTO #situazione_upb_account
 	(
@@ -712,6 +723,7 @@ ELSE
 			and  PARENT.flagaccountusage & 128 <>0 
 		and entry.identrykind<>11
 		group by  entrydetail.idupb, PARENT.idacc, upb.idman
+
 
 IF @budgetpart = 'R'
 INSERT INTO #situazione_upb_account
@@ -789,9 +801,10 @@ INSERT INTO #situazione_upb_account
 		AND (upb.idman = @idman or @idman is null)
 		and  A.nphase = 2 AND AY.ayear = @ayear AND A.adate<= @adate AND AV.adate<= @adate  AND @budgetpart = 'R'
 	group by AY.idupb, PARENT.idacc, upb.idman
-		
+ 
 
 DECLARE @StringSelect nvarchar(max)
+DECLARE @StringHaving nvarchar(max)
 DECLARE @NomeFase_1 nvarchar(30)
 DECLARE @NomeFase_2 nvarchar(30)
 DECLARE @ayearStr nvarchar(20)
@@ -802,12 +815,16 @@ DECLARE @ayear5Str nvarchar(20)
 DECLARE @NomeScritture nvarchar(40)
 DECLARE @Preimp_NomeScritture nvarchar(150)
 DECLARE @adateStr nvarchar(30)
-SET @ayearStr   = CONVERT(nvarchar(4), @ayear)
+SET @ayearStr  = CONVERT(nvarchar(4), @ayear)
 SET @ayear2Str = CONVERT(nvarchar(4), @ayear +1)
 SET @ayear3Str = CONVERT(nvarchar(4), @ayear +2)
 SET @ayear4Str = CONVERT(nvarchar(4), @ayear +3)
 SET @ayear5Str = CONVERT(nvarchar(4), @ayear +4)
-SET @adateStr =  CONVERT(nvarchar(30), @adate, 113)
+SET @adateStr  = CONVERT(nvarchar(30), @adate, 113)
+
+--- SE SI SCEGLIE SOLO DI VISUALIZZARE LE RIGHE CON IMPORTI SIGNIFICATIVI
+--- LA CONDIZIONE HAVING VA VALORIZZATA CASO PER CASO
+SET @StringHaving  = ''
 IF (ISNULL(@budgetpart,'C') = 'R')
 BEGIN
 	SET @NomeFase_1 = 'Preaccertamenti Budg. '
@@ -823,6 +840,44 @@ BEGIN
 	SET @NomeScritture = 'Scritture di Costi\Immobilizzazioni'
 	SET @Preimp_NomeScritture = '(Preimpegnato - Scritture di Costi\Imm.)'
 END
+
+create table  #costipagati (		
+				codeupb varchar(50),
+				codeacc varchar(50),
+				account varchar(150),
+				payed decimal(19,2),
+				idacc varchar(50), idupb varchar(36) 
+			)
+-- Se la persona ha deciso di vedere anche la colonna dei Costi pagati, eseguiamo la sp per determinare il valore
+if(@budgetpart= 'C' and @showcostpayed = 'S')
+Begin
+		-- ATTENZIONE :  non modificare le colonne della tabella  #costipagati perchè corrispondono all'output della sp chiamata.
+			INSERT INTO #costipagati (		
+				codeupb,
+				codeacc,
+				account,
+				payed,
+				idupb, idacc
+			)
+			EXEC  exp_budgetcostipagati @ayear, @adate, @idupb, @codeacc, 'R'
+
+		
+		
+
+			insert into #situazione_upb_account(
+					idacc ,	idupb,	idman,
+					payed
+ 					)
+			SELECT  
+				PARENT.idacc , CP.idupb , U.idman, 
+				isnull( sum(payed),0) 
+			FROM #costipagati CP
+			join upb U on CP.idupb = U.idupb
+			JOIN account PARENT	 ON PARENT.idacc = SUBSTRING(CP.idacc, 1, @lenminlevel)
+			group by  PARENT.idacc , CP.idupb , U.idman
+		
+End
+
 
 IF (isnull(@showonlyavailable,'N')='N')
 Begin
@@ -913,9 +968,66 @@ Begin
 						','+
 						'  isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0) as  ''TOTALE '+ @Preimp_NomeScritture +''''
 		
+				--- SE SI SCEGLIE SOLO DI VISUALIZZARE LE RIGHE CON IMPORTI SIGNIFICATIVI
+				--- LA CONDIZIONE HAVING VA VALORIZZATA SUGLI IMPORTI CALCOLATI
+				IF  (@suppressifblank = 'S')
+				BEGIN
+					SET @StringHaving  = ' HAVING ' +
+										 ' NOT(isnull(sum(T.prevision),0) = 0 AND ' +
+										 ' isnull(sum(T.varprev),0)   = 0 AND  '+
+										 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0))   = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc),0)   = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc_res),0)  = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc_comp),0)  = 0 AND  '+
+										 ' isnull(sum(T.imp_acc),0) = 0 AND  '+ 
+										 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - ' +
+										 ' isnull(sum(T.preimp_acc),0)) = 0 AND '+
+										 ' isnull(sum(T.entryamount),0) = 0 AND  '+ 
+										 ' (isnull(sum(T.preimp_acc),0) - isnull(sum(T.entryamount),0)) = 0 AND  '+
+										 ' isnull(sum(T.prevision2),0) = 0 AND  '+
+										 ' isnull(sum(T.varprev2),0) = 0 AND  '+
+										 ' (isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0)) = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc2),0) = 0 AND '+
+										 ' isnull(sum(T.imp_acc2),0) = 0 AND  '+  
+										 ' (isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) - '+
+										 ' isnull(sum(T.preimp_acc2),0))= 0 AND '+
+										 ' isnull(sum(T.prevision3),0) = 0 AND  '+
+										 ' isnull(sum(T.varprev3),0) = 0 AND  '+
+										 ' (isnull(sum(T.prevision3),0)+ isnull(sum(T.varprev3),0)) = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc3),0)  = 0 AND  '+
+										 ' isnull(sum(T.imp_acc3),0) = 0 AND  '+  
+										 ' (isnull(sum(T.prevision3),0)+ isnull(sum(T.varprev3),0) - ' +
+										 ' isnull(sum(T.preimp_acc3),0)) = 0 AND '+
+ 
+										 ' isnull(sum(T.prevision4),0) = 0 AND  '+
+										 ' isnull(sum(T.varprev4),0)= 0 AND  '+
+										 ' (isnull(sum(T.prevision4),0)+ isnull(sum(T.varprev4),0)) = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc4),0)= 0 AND  '+
+										 ' isnull(sum(T.imp_acc4),0) = 0 AND  '+   
+										 ' (isnull(sum(T.prevision4),0)+ isnull(sum(T.varprev4),0) - ' +
+										 ' isnull(sum(T.preimp_acc4),0)) = 0 AND  '+
+ 
+										 ' isnull(sum(T.prevision5),0) = 0 AND  '+
+										 ' isnull(sum(T.varprev5),0)= 0 AND  '+
+										 ' (isnull(sum(T.prevision5),0)+ isnull(sum(T.varprev5),0)) = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc5),0) = 0 AND  '+
+										 ' isnull(sum(T.imp_acc5),0) = 0 AND  '+  
+										 ' (isnull(sum(T.prevision5),0)+ isnull(sum(T.varprev5),0) - ' +
+										 ' isnull(sum(T.preimp_acc5),0)) = 0 AND  ' +
+								--TOTALE Budget  Disp. Pluriennale (Budget corrente- Preimpegni Budg. )
+										' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - isnull(sum(T.preimp_acc),0) '+
+										' + isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) -isnull(sum(T.preimp_acc2),0) '+
+										' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
+										' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
+										' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0)) '+
+										'  = 0 AND  '+
+										' (isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+ ' +
+										' isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0)) = 0) '
+					END
 				END 
 				ELSE
 				BEGIN
+				-->	@multiannual = N
 					SET @StringSelect = ' SELECT ' +
 						' account.codeacc AS ''Codice Conto'',' +
 						' account.title as ''Conto'','+
@@ -966,8 +1078,41 @@ Begin
 							' as ''TOTALE Budget  Disp. Pluriennale  (Budget corrente- ' + @NomeFase_1 + ')'''
 						+','+
 						'  isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0)  as  ''TOTALE '+ @Preimp_NomeScritture +''''
+						
+				if (@budgetpart= 'C' and @showcostpayed = 'S')
+				Begin
+					SET @StringSelect = @StringSelect +
+					', isnull(sum(payed),0) as CostiPagati'
+				End
 
-	
+
+
+				--- SE SI SCEGLIE SOLO DI VISUALIZZARE LE RIGHE CON IMPORTI SIGNIFICATIVI
+				--- LA CONDIZIONE HAVING VA VALORIZZATA SUGLI IMPORTI CALCOLATI
+				IF  (@suppressifblank = 'S')
+				BEGIN
+					SET @StringHaving  = ' HAVING ' +
+										 ' NOT(isnull(sum(T.prevision),0) = 0 AND ' +
+										 ' isnull(sum(T.varprev),0)   = 0 AND  '+
+										 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0))   = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc),0)   = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc_res),0)  = 0 AND  '+
+										 ' isnull(sum(T.preimp_acc_comp),0)  = 0 AND  '+
+										 ' isnull(sum(T.imp_acc),0) = 0 AND  '+ 
+										 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - ' +
+										 ' isnull(sum(T.preimp_acc),0))= 0 AND '+
+										 ' isnull(sum(T.entryamount),0) = 0 AND  '+ 
+										 ' (isnull(sum(T.preimp_acc),0) - isnull(sum(T.entryamount),0)) = 0 AND  '+ 
+										 --TOTALE Budget  Disp. Pluriennale (Budget corrente- Preimpegni Budg. )
+										 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - isnull(sum(T.preimp_acc),0) '+
+										 ' + isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) -isnull(sum(T.preimp_acc2),0) '+
+										 ' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
+										 ' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
+										 ' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0)) '+
+										 '  = 0 AND  '+
+										 ' (isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+ ' +
+										 ' isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0)) = 0) '
+					END
 				END
  
 End
@@ -1005,10 +1150,36 @@ Begin
 						'  as ''TOTALE Budget  Disp. Pluriennale  (Budget corrente- ' + @NomeFase_1 + ')'''+
 						','+
 						'  isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0) as  ''TOTALE '+ @Preimp_NomeScritture +''''
-		
+						
+						--- SE SI SCEGLIE SOLO DI VISUALIZZARE LE RIGHE CON IMPORTI SIGNIFICATIVI
+						--- LA CONDIZIONE HAVING VA VALORIZZATA SUGLI IMPORTI CALCOLATI
+						IF  (@suppressifblank = 'S')
+						BEGIN
+							SET @StringHaving  = ' HAVING ' +
+												 ' NOT((isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - ' +
+												 ' isnull(sum(T.preimp_acc),0))= 0 AND '+
+												 ' (isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) - ' +
+												 ' isnull(sum(T.preimp_acc2),0))= 0 AND '+
+												 ' (isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) - ' +
+												 ' isnull(sum(T.preimp_acc3),0))= 0 AND '+
+												 ' (isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) - ' +
+												 ' isnull(sum(T.preimp_acc4),0))= 0 AND '+
+												 ' (isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) - ' +
+												 ' isnull(sum(T.preimp_acc5),0))= 0 AND '+
+												 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - isnull(sum(T.preimp_acc),0) '+
+												 ' + isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) -isnull(sum(T.preimp_acc2),0) '+
+												 ' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
+												 ' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
+												 ' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0)) '+
+												 '  = 0 AND  '+
+												 ' (isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+ ' +
+												 ' isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0)) = 0) '
+							END
+
 				END 
 				ELSE
 				BEGIN
+				-- @multiannual = N
 					SET @StringSelect = ' SELECT ' +
 						' account.codeacc AS ''Codice Conto'',' +
 						' account.title as ''Conto'',' + 
@@ -1033,6 +1204,29 @@ Begin
 						' isnull(sum(T.preimp_acc),0) - isnull(sum(T.entryamount),0) as '''+@Preimp_NomeScritture + /* new*/+''''+
 						+','+
 						' isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0) as  ''TOTALE '+ @Preimp_NomeScritture +''''
+
+						if (@budgetpart= 'C' and @showcostpayed = 'S')
+						Begin
+							SET @StringSelect = @StringSelect +
+							', isnull(sum(payed),0) as CostiPagati'
+						End
+						--- SE SI SCEGLIE SOLO DI VISUALIZZARE LE RIGHE CON IMPORTI SIGNIFICATIVI
+						--- LA CONDIZIONE HAVING VA VALORIZZATA SUGLI IMPORTI CALCOLATI
+						IF  (@suppressifblank = 'S')
+						BEGIN
+							SET @StringHaving  = ' HAVING ' +
+												 ' NOT ((isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - ' +
+												 ' isnull(sum(T.preimp_acc),0))= 0 AND ' +
+												 ' (isnull(sum(T.prevision),0) + isnull(sum(T.varprev),0) - isnull(sum(T.preimp_acc),0) '+
+												 ' + isnull(sum(T.prevision2),0) + isnull(sum(T.varprev2),0) -isnull(sum(T.preimp_acc2),0) '+
+												 ' + isnull(sum(T.prevision3),0) + isnull(sum(T.varprev3),0) -isnull(sum(T.preimp_acc3),0) '+
+												 ' + isnull(sum(T.prevision4),0) + isnull(sum(T.varprev4),0) -isnull(sum(T.preimp_acc4),0) '+
+												 ' + isnull(sum(T.prevision5),0) + isnull(sum(T.varprev5),0) -isnull(sum(T.preimp_acc5),0)) '+
+												 '  = 0 AND  '+
+												 ' (isnull(sum(T.preimp_acc),0) - isnull(sum(T.entryamount),0)) = 0 AND  '+ 
+												 ' (isnull(sum(T.preimp_acc),0)+isnull(sum(T.preimp_acc2),0)+isnull(sum(T.preimp_acc3),0)+ ' +
+												 ' isnull(sum(T.preimp_acc4),0)+isnull(sum(T.preimp_acc5),0) - isnull(sum(T.entryamount),0)) = 0) '
+							END
 
 				END
 End
@@ -1076,10 +1270,12 @@ IF (@showupb ='S')
 		PRINT   @StringSelect
 		PRINT   @StringFrom
 		DECLARE @StringSql NVARCHAR(max) 
-		SET @StringSql =@StringSelect + @StringFrom
+		SET @StringSql =@StringSelect + @StringFrom + @StringHaving 
 		EXEC sp_executesql 
 		@stmt = @StringSql
-		
+
+
+
 END
 
 
@@ -1087,3 +1283,7 @@ GO
 
 
 
+
+
+ 
+ 

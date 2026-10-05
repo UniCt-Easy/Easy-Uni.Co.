@@ -26,6 +26,18 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+								if (self.isNullOrMinDate(parentRow.ct))
+					parentRow.ct = new Date();
+;
+				if (!parentRow.cu )
+					parentRow.cu = appMeta.security.sysEnv.idcustomuser;
+;
+								if (self.isNullOrMinDate(parentRow.lt))
+					parentRow.lt = new Date();
+;
+				if (!parentRow.lu )
+					parentRow.lu = appMeta.security.sysEnv.idcustomuser;
+;
 				//afterGetFormDataFilter
 				
 				//parte asincrona
@@ -44,16 +56,31 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#iscrizione_seganagstuacc_iddidprog'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				$('#grid_sostenimento_alias2_seganagstuacc').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-iscrizione_seganagstuacc");
-				$('#iscrizione_seganagstuacc_iddidprog').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#iscrizione_seganagstuacc_iddidprog').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#iscrizione_seganagstuacc_iddidprog').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
+				$('#iscrizione_seganagstuacc_iddidprog').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.iddidprog);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -71,6 +98,8 @@
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
 
 			children: ['sostenimento_alias2'],
 			haveChildren: function () {

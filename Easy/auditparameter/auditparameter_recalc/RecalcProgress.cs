@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -24,6 +22,8 @@ using metadatalibrary;
 using metaeasylibrary;
 using System.Data;
 using ViewError;//ViewError
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace auditparameter_recalc//parameterrecalc//
 {
@@ -50,7 +50,9 @@ namespace auditparameter_recalc//parameterrecalc//
 		bool Running;
 		int counttables;
 		int tableexamined;
-       
+
+		private volatile bool _pauseRequested = false;
+
 		public RecalcProgress(DataAccess Conn, ListView LTables, ListView LOperations, string filterrule)
 		{
 			//
@@ -64,6 +66,7 @@ namespace auditparameter_recalc//parameterrecalc//
             this.filterrule = filterrule;
 			MustStop=false;
 			Running=false;
+
 
 			counttables=0;
 			foreach (ListViewItem LT in LTables.Items) {
@@ -160,56 +163,174 @@ namespace auditparameter_recalc//parameterrecalc//
 
 		}
 		#endregion
-
-		public void Run(){
+		
+		public async Task RunAsync()
+		{
 			if (Running) return;
-			Running=true;
-			tableexamined=0;
-			foreach(ListViewItem LT in LTables.Items){
-				if (!LT.Checked){
-					continue;
-				}
-				tableexamined++;
-				txtTable.Text = LT.Text;
 
-				foreach(ListViewItem LO in LOperations.Items){
-					if (MustStop) {
+			Running = true;
+			MustStop = false;
+			_pauseRequested = false;
+			tableexamined = 0;
+
+			try
+			{
+				foreach (ListViewItem LT in LTables.Items)
+				{
+					if (!LT.Checked) continue;
+
+					// Controllo per pausa/interruzione
+					if (await CheckForPauseOrStopAsync())
+					{
 						DialogResult = DialogResult.Cancel;
 						Close();
 						return;
 					}
-					if (!LO.Checked)continue;
-					string err = EasyAudits.RecalcAudit(Conn, LT.Text, LO.Tag.ToString(),filterrule);
-					if (err!=null) {
-						this.Focus();
-						QueryCreator.ShowError(this,
-										"Errore nella compilazione della s.p. "+
-										LT.Text +"("+ LO.Tag.ToString()+").",
-										err);
+
+					tableexamined++;
+					await InvokeAsync(() => txtTable.Text = LT.Text);
+
+					foreach (ListViewItem LO in LOperations.Items)
+					{
+						if (!LO.Checked) continue;
+
+						// Controllo per pausa/interruzione anche nel loop interno
+						if (await CheckForPauseOrStopAsync())
+						{
+							DialogResult = DialogResult.Cancel;
+							Close();
+							return;
+						}
+
+						// Esegui l'operazione in modo asincrono
+						string err = await Task.Run(() => EasyAudits.RecalcAudit(Conn, LT.Text, LO.Tag.ToString(), filterrule));
+
+						if (err != null)
+						{
+							await InvokeAsync(() =>
+							{
+								this.Focus();
+								QueryCreator.ShowError(this,
+									"Errore nella compilazione della s.p. " +
+									LT.Text + "(" + LO.Tag.ToString() + ").",
+									err);
+							});
+						}
 					}
-				}				
-				progBar.Value=tableexamined;
-				//Application.DoEvents();
 
+					await InvokeAsync(() => {
+						progBar.Value = tableexamined;
+						MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
+					});
+				}
 
+				await InvokeAsync(() =>
+				{
+					this.Focus();
+					show("Ricompilazione eseguita con successo", "Info",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult = DialogResult.OK;
+					Close();
+				});
 			}
-			this.Focus();
-			show("Ricompilazione eseguita con successo", "Info",
-				MessageBoxButtons.OK, MessageBoxIcon.Information);
-			DialogResult = DialogResult.OK;
-			Close();
-
+			finally
+			{
+				Running = false;
+			}
 		}
 
+		// Metodo che gestisce sia la pausa che lo stop
+		private async Task<bool> CheckForPauseOrStopAsync()
+		{
+			if (MustStop)
+			{
+				_pauseRequested = true;
 
-		private void btnStop_Click(object sender, System.EventArgs e) {
-			if (show(this,"Si è sicuri di voler interrompere l'operazione?","Conferma operazione",
-				 MessageBoxButtons.YesNo)== DialogResult.Yes) MustStop=true;
-				 
+				// Mostra il message box di conferma
+				var result = await InvokeAsync(() =>
+				show(this, "Si è sicuri di voler interrompere l'operazione?",
+					"Conferma operazione", MessageBoxButtons.YesNo));
+
+				if (result == DialogResult.Yes)
+				{
+					return true; // Termina l'elaborazione
+				}
+				else
+				{
+					// L'utente ha scelto "No", continua l'elaborazione
+					MustStop = false;
+					_pauseRequested = false;
+					return false;
+				}
+			}
+
+			return false;
 		}
 
+		private async void btnStop_Click(object sender, System.EventArgs e)
+		{
+			if (!Running) return;
 
+			// Disabilita temporaneamente il bottone per evitare click multipli
+			btnStop.Enabled = false;
 
+			try
+			{
+				MustStop = true;
+
+				// Aspetta che l'elaborazione si metta in pausa
+				await WaitForPauseAsync();
+
+				// Se l'elaborazione è ancora in corso, significa che è in pausa
+				// e sta aspettando la conferma
+				if (Running && _pauseRequested)
+				{
+					// Il message box verrà mostrato da CheckForPauseOrStopAsync
+					// Non dobbiamo fare nulla qui, aspetta la risposta dell'utente
+				}
+			}
+			finally
+			{
+				btnStop.Enabled = true;
+			}
+		}
+
+		// Metodo helper per aspettare che l'elaborazione vada in pausa
+		private async Task WaitForPauseAsync()
+		{
+			int timeout = 5000; // 5 secondi di timeout
+			int elapsed = 0;
+
+			while (!_pauseRequested && elapsed < timeout)
+			{
+				await Task.Delay(100);
+				elapsed += 100;
+			}
+		}
+
+		private async Task InvokeAsync(Action action)
+		{
+			if (this.InvokeRequired)
+			{
+				await Task.Run(() => this.Invoke(action));
+			}
+			else
+			{
+				action();
+			}
+		}
+
+		private async Task<T> InvokeAsync<T>(Func<T> func)
+		{
+			if (this.InvokeRequired)
+			{
+				return await Task.Run(() => (T)this.Invoke(func));
+			}
+			else
+			{
+				return func();
+			}
+		}
 
 	}
 }

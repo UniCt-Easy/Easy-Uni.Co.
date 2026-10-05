@@ -23,34 +23,38 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
 				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				//beforeFillFilter
+				parentRow.data = new Date();
+				//afterGetFormDataFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-diniego_seganagstupre");
+				var def = appMeta.Deferred("afterGetFormData-diniego_seganagstupre");
 				var arraydef = [];
 				
-				//beforeFillInside
+				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
+						return def.resolve();
 					});
 				return def.promise();
 			},
+			
+			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#diniego_seganagstupre_protanno'), true);
+				this.enableControl($('#diniego_seganagstupre_protnumero'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#diniego_seganagstupre_protanno'), false);

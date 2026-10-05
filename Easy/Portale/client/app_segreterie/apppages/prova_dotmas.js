@@ -59,6 +59,7 @@
 				this.setDenyNull("prova","title");
 				this.setDenyNull("prova","start");
 				this.setDenyNull("prova","stop");
+				appMeta.metaModel.insertFilter(this.getDataTable("valutazionekind"), this.q.eq('active', 'S'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -76,6 +77,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

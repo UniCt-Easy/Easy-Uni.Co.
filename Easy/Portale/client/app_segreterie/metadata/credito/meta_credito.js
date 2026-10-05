@@ -24,7 +24,7 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'autorizzato', 'Autorizzato', null, 20, null);
+						this.describeAColumn(table, 'autorizzato', 'Autorizzato', null, 50, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -35,7 +35,17 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'seg':
+						table.columns["iddebito"].caption = "Debito che ha generato il pagamento";
+						table.columns["idpagamento"].caption = "Pagamento che ha generato il credito";
+//$innerSetCaptionConfig_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_credito");

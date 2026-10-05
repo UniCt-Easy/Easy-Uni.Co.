@@ -23,12 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seganagstusonpre':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 30, null);
-						this.describeAColumn(table, 'istanzakind_title', 'Tipologia', null, 60, 50);
-						this.describeAColumn(table, 'statuskind_title', 'Status', null, 80, 50);
-						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 100, null);
-						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 110, null);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'istanza_data', 'Data', 'g', 3000, null);
+						this.describeAColumn(table, 'istanzakind_title', 'Tipologia', null, 6200, 50);
+						this.describeAColumn(table, 'statuskind_title', 'Status', null, 8200, 50);
+						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 10000, null);
+						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 11000, null);
 //$objCalcFieldConfig_seganagstusonpre$
 						break;
 //$objCalcFieldConfig$

@@ -35,7 +35,17 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'cert_seg':
+						table.columns["idcertkind"].caption = "Tipologia di certificato";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_cert_seg$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_cert");

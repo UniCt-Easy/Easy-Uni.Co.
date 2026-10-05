@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -47,7 +45,16 @@ namespace flussocreditidetail_default {
 
         public void MetaData_AfterFill() {
             enableControls(false);
-        }
+			DataRow Curr = DS.flussocreditidetail.Rows[0];
+			btnRicevuta.Visible = (Curr["iuv"] != DBNull.Value);
+			var obj = Conn.DO_READ_VALUE("partner_config", QHS.CmpEq("attivo", "S"), "code");
+			if (obj != null) {
+				partner = obj.ToString().ToLower();
+			}
+			btnRicevutaEng.Visible = partner.Contains("unicredit") && (Curr["iuv"] != DBNull.Value);
+
+
+		}
 
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
@@ -98,15 +105,7 @@ namespace flussocreditidetail_default {
             if (idsorkind1 == DBNull.Value && idsorkind2 == DBNull.Value && idsorkind3 == DBNull.Value) {
                 tabControl1.TabPages.Remove(tabAnalitico);
             }
-            var obj = Conn.DO_READ_VALUE("partner_config", QHS.CmpEq("attivo", "S"), "code");
-            if (obj != null) {
-                partner = obj.ToString().ToLower();
-			}
-            if (partner.Contains("unicredit")) {
-                btnRicevutaEng.Visible = true;
-                return;
-            }
-            btnRicevutaEng.Visible = false;
+;
         }
 
         public void MetaData_AfterClear() {
@@ -153,8 +152,8 @@ namespace flussocreditidetail_default {
             txtUnivoco.ReadOnly = ReadOnly;
             checkBox1.Enabled = !ReadOnly;
             checkBox2.Enabled = !ReadOnly;
-            btnRicevuta.Enabled = !abilita;
-            btnRicevutaEng.Enabled = !abilita;
+            btnRicevuta.Visible = false;
+            btnRicevutaEng.Visible = false;
         }
 
         private void btnRicevuta_Click(object sender, EventArgs e) {
@@ -200,7 +199,7 @@ namespace flussocreditidetail_default {
             if (DS.flussocreditidetail.Rows.Count != 0) {
                 curr = DS.flussocreditidetail.Rows[0];
                 if (curr["iuv"] == DBNull.Value) {
-                    show(this, @"Non Ë presente lo IUV per il credito, non Ë possibile interrogare la banca.",
+                    show(this, @"Non √® presente lo IUV per il credito, non √® possibile interrogare la banca.",
                         @"Avviso");
                     return;
                 }
@@ -218,7 +217,7 @@ namespace flussocreditidetail_default {
             if (Incassi.Rows.Count > 0) {
                 DataRow rIncasso = Incassi.Rows[0];
                 show(this,
-                    $@"E' gi‡ presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
+                    $@"E' gi√† presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
                     "Avviso");
                 //return;
             }
@@ -273,7 +272,7 @@ namespace flussocreditidetail_default {
 
             string cc = config.Rows[0]["email_cc"].ToString();
             //if (cc.Trim() == "") {
-            //    show("Non Ë stato configurato un indirizzo email in copia conoscenza");
+            //    show("Non √® stato configurato un indirizzo email in copia conoscenza");
             //    return;
             //}
             
@@ -282,7 +281,7 @@ namespace flussocreditidetail_default {
             Dictionary<string, AvvisoPagamento> cert = new Dictionary<string, AvvisoPagamento>();
             foreach (var r in DS.flussocreditidetail) {
                 if (r.iuv == null) {
-                    listaErrori.Add("» necessario avere lo IUV per inviare l'email");
+                    listaErrori.Add("√à necessario avere lo IUV per inviare l'email");
                     continue;
                 }
                 if (cert.ContainsKey(r.iuv)) continue;

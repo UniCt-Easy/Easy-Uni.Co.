@@ -29,7 +29,16 @@
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("tassaconfkinddefaultview"), this.q.eq('tassaconfkind_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -40,6 +49,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

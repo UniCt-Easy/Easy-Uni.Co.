@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -46,6 +44,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tipologiaruolo 		=> Tables["tipologiaruolo"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registry 		=> Tables["registry"];
 
 	#endregion
 
@@ -266,6 +267,55 @@ private void initClass() {
 	ttipologiaruolo.PrimaryKey =  new DataColumn[]{ttipologiaruolo.Columns["idtipologiaruolo"]};
 
 
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new DataTable("registry");
+	C= new DataColumn("idreg", typeof(int));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("cf", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("p_iva", typeof(string)));
+	C= new DataColumn("residence", typeof(int));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("annotation", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("birthdate", typeof(DateTime)));
+	tregistry.Columns.Add( new DataColumn("gender", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("surname", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("forename", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("foreigncf", typeof(string)));
+	C= new DataColumn("active", typeof(string));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	tregistry.Columns.Add(C);
+	tregistry.Columns.Add( new DataColumn("badgecode", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcategory", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcentralizedcategory", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idmaritalstatus", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idtitle", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idregistryclass", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("maritalsurname", typeof(string)));
+	tregistry.Columns.Add( new DataColumn("idcity", typeof(int)));
+	tregistry.Columns.Add( new DataColumn("extmatricula", typeof(string)));
+	Tables.Add(tregistry);
+	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
+
+
 	#endregion
 
 
@@ -289,6 +339,10 @@ private void initClass() {
 	cPar = new []{tipologiaruolo.Columns["idtipologiaruolo"]};
 	cChild = new []{registrylegalstatus.Columns["idtipologiaruolo"]};
 	Relations.Add(new DataRelation("tipologiaruolo_registrylegalstatus",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{registrylegalstatus.Columns["idreg"]};
+	Relations.Add(new DataRelation("registry_registrylegalstatus",cPar,cChild,false));
 
 	#endregion
 

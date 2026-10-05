@@ -52,6 +52,9 @@
 	<li class="nav-item">
 		<a href="#tabregistry_docenti_16" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_docenti_16"><i class="fa fa-hand-holding-usd mr-1"></i>Costo orario</a>
 	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_docenti_17" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_docenti_17"><i class="fa fa-paperclip mr-1"></i>Fascicolo docente</a>
+	</li>
 
 	</ul>
 	<form>
@@ -81,22 +84,22 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_gender">Sesso (M/F)</label>
 					<div class="custom-control custom-radio">
-						<input id="registry_docenti_genderM" type="radio" name="registry_docenti_gender" class="custom-control-input" data-tag="registry.gender:M?registrydocentiview.registry_gender:Maschio"  data-mandatory ><label for="registry_docenti_genderM"> Maschio</label>
-						<input id="registry_docenti_genderF" type="radio" name="registry_docenti_gender" class="custom-control-input" data-tag="registry.gender:F?registrydocentiview.registry_gender:Femmina"  data-mandatory ><label for="registry_docenti_genderF"> Femmina</label>
+						<div class="radio-option-wrapper"><input id="registry_docenti_genderM" type="radio" name="registry_docenti_gender" class="custom-control-input" data-tag="registry.gender:M?registrydocentiview.registry_gender:Maschio"  data-mandatory ><label for="registry_docenti_genderM"> Maschio</label></div>
+						<div class="radio-option-wrapper"><input id="registry_docenti_genderF" type="radio" name="registry_docenti_gender" class="custom-control-input" data-tag="registry.gender:F?registrydocentiview.registry_gender:Femmina"  data-mandatory ><label for="registry_docenti_genderF"> Femmina</label></div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_birthdate">Data di nascita</label>
-					<input id="registry_docenti_birthdate" type="text" class="form-control" data-tag="registry.birthdate?registrydocentiview.registry_birthdate"   data-datePickerFormat="dd/mm/yy"/>
+					<input id="registry_docenti_birthdate" type="text" class="form-control" data-tag="registry.birthdate?registrydocentiview.registry_birthdate"  data-mandatory  data-datePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
+					<input hidden id="registry_docenti_title" type="text" class="form-control" data-tag="registry.title?registrydocentiview.title"  />
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idcity">Comune di nascita</label>
 					<div>
 						<input id="registry_docenti_idcity" name="registry_docenti_idcity" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="geo_city.title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
-					<input hidden id="registry_docenti_title" type="text" class="form-control" data-tag="registry.title?registrydocentiview.title"  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idnation">Nazionalità</label>
@@ -112,7 +115,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idmaritalstatus">Stato civile</label>
-					<select id="registry_docenti_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatus" data-value-member="idmaritalstatus" data-display-member="description" data-sort-member="description" data-custom-control="combo" data-tag="registry.idmaritalstatus?registrydocentiview.registry_idmaritalstatus"   > </select>
+					<select id="registry_docenti_idmaritalstatus" class="custom-select d-block w-100"  data-source-name="maritalstatusdefaultview" data-value-member="idmaritalstatus" data-display-member="dropdown_title" data-sort-member="dropdown_title" data-custom-control="combo" data-tag="registry.idmaritalstatus?registrydocentiview.registry_idmaritalstatus"   > </select>
 				</div>
 			</div>
 			<div class="row">
@@ -167,7 +170,7 @@
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_docenti_idreg_istituti">Istituto, Ente o Azienda</label>
 					<div>
-						<input id="registry_docenti_idreg_istituti" name="registry_docenti_idreg_istituti" type="text" data-listtype="istituti"  class="form-control" data-minchar="2" data-tag="registryistitutiview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
+						<input id="registry_docenti_idreg_istituti" name="registry_docenti_idreg_istituti" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="registrydefaultview.dropdown_title" data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
 				</div>
 			</div>
@@ -206,6 +209,12 @@
 					<input id="registry_docenti_idanpr" type="text" class="form-control" data-tag="registry.idanpr?registrydocentiview.registry_idanpr" />
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelregistry_default_XXregistrymultikindregistry" >Anagrafica-Tipo anagrafica</div>
+		<div id="grid_registrymultikindregistry_default" data-tag="registrymultikind.default.default" data-custom-control="checklist"  ></div>
+				</div>
+			</div>
 	</div>
 	<div class="tab-pane fade" id="tabregistry_docenti_2" role="tabpanel">
 			<div class="row">
@@ -228,7 +237,7 @@
 	<hr>
 		<div class="row">
 			<div class="col-md-12">
-				<div id="calendar62" data-tag="sospensione.default.default" data-custom-control="calendar"  data-mdltitlecolumnname="motivo"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop"   data-mdlmaincolor="Gold"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
+				<div id="calendar69" data-tag="sospensione.default.default" data-custom-control="calendar"  data-mdltitlecolumnname="motivo"   data-mdlstartcolumnname="start"   data-mdlstopcolumnname="stop"   data-mdlmaincolor="Gold"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdldragdrop ></div>
 			</div>
 		</div>
 	</div>
@@ -324,7 +333,10 @@
 	</div>
 	<div class="tab-pane fade" id="tabregistry_docenti_16" role="tabpanel">
 	<div class="custom_lng_div" data-langkey="tablabelregistry_docenti_16" >Il costo orario è stato calcolato su base annuale di 1500 ore lavorative.</div>
-				<div class="gridx" id="grid_costoorario_default" data-tag="costoorario.default.default" data-custom-control="gridx" ></div>
+				<div class="gridx" id="grid_costoorario_default" data-tag="costoorario.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_docenti_17" role="tabpanel">
+				<div class="gridx" id="grid_registryattach_default" data-tag="registryattach.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

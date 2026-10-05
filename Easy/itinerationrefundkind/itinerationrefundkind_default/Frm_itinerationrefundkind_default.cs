@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -70,6 +68,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 		private CheckBox chkTraceability;
 		private GroupBox groupBox1;
 		private ComboBox comboTipo;
+		private CheckBox chkAutocompletamentoDate;
 		private System.ComponentModel.IContainer components;
 
 		public Frm_itinerationrefundkind_default() {
@@ -136,6 +135,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.comboTipo = new System.Windows.Forms.ComboBox();
+			this.chkAutocompletamentoDate = new System.Windows.Forms.CheckBox();
 			this.grpTracciabilità.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -170,7 +170,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.grpTracciabilità.Controls.Add(this.chkAttachmentNotBlocking);
 			this.grpTracciabilità.Controls.Add(this.chkAttachmentBlocking);
 			this.grpTracciabilità.Controls.Add(this.chkTraceability);
-			this.grpTracciabilità.Location = new System.Drawing.Point(14, 346);
+			this.grpTracciabilità.Location = new System.Drawing.Point(14, 367);
 			this.grpTracciabilità.Name = "grpTracciabilità";
 			this.grpTracciabilità.Size = new System.Drawing.Size(684, 159);
 			this.grpTracciabilità.TabIndex = 11;
@@ -250,7 +250,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.groupBox4.Controls.Add(this.checkBox6);
 			this.groupBox4.Controls.Add(this.checkBox5);
 			this.groupBox4.Controls.Add(this.checkBox4);
-			this.groupBox4.Location = new System.Drawing.Point(336, 210);
+			this.groupBox4.Location = new System.Drawing.Point(336, 222);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(362, 133);
 			this.groupBox4.TabIndex = 10;
@@ -355,6 +355,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.checkBox4.Tag = "itinerationrefundkind.flagvisible:0";
 			this.checkBox4.Text = "Documento";
 			this.checkBox4.UseVisualStyleBackColor = true;
+			this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
 			// 
 			// groupBox3
 			// 
@@ -366,9 +367,9 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.groupBox3.Controls.Add(this.radioButton3);
 			this.groupBox3.Controls.Add(this.radioButton2);
 			this.groupBox3.Controls.Add(this.radioButton1);
-			this.groupBox3.Location = new System.Drawing.Point(14, 210);
+			this.groupBox3.Location = new System.Drawing.Point(14, 222);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(290, 130);
+			this.groupBox3.Size = new System.Drawing.Size(304, 136);
 			this.groupBox3.TabIndex = 9;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Mezzo di Trasporto";
@@ -518,9 +519,9 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.groupBox2.Controls.Add(this.textBox5);
 			this.groupBox2.Controls.Add(this.txtCodiceCausale);
 			this.groupBox2.Controls.Add(this.button2);
-			this.groupBox2.Location = new System.Drawing.Point(363, 111);
+			this.groupBox2.Location = new System.Drawing.Point(336, 81);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(335, 89);
+			this.groupBox2.Size = new System.Drawing.Size(356, 89);
 			this.groupBox2.TabIndex = 5;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Tag = "AutoManage.txtCodiceCausale.tree";
@@ -529,7 +530,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			// textBox5
 			// 
 			this.textBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.textBox5.Location = new System.Drawing.Point(123, 16);
+			this.textBox5.Location = new System.Drawing.Point(134, 16);
 			this.textBox5.Multiline = true;
 			this.textBox5.Name = "textBox5";
 			this.textBox5.ReadOnly = true;
@@ -541,7 +542,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			// txtCodiceCausale
 			// 
 			this.txtCodiceCausale.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.txtCodiceCausale.Location = new System.Drawing.Point(11, 48);
+			this.txtCodiceCausale.Location = new System.Drawing.Point(22, 48);
 			this.txtCodiceCausale.Name = "txtCodiceCausale";
 			this.txtCodiceCausale.Size = new System.Drawing.Size(104, 20);
 			this.txtCodiceCausale.TabIndex = 1;
@@ -550,7 +551,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			// button2
 			// 
 			this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.button2.Location = new System.Drawing.Point(11, 16);
+			this.button2.Location = new System.Drawing.Point(22, 16);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(104, 23);
 			this.button2.TabIndex = 0;
@@ -576,7 +577,7 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.textBox2.Location = new System.Drawing.Point(14, 75);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(323, 71);
+			this.textBox2.Size = new System.Drawing.Size(304, 71);
 			this.textBox2.TabIndex = 2;
 			this.textBox2.Tag = "itinerationrefundkind.description";
 			// 
@@ -592,9 +593,9 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.comboTipo);
-			this.groupBox1.Location = new System.Drawing.Point(357, 27);
+			this.groupBox1.Location = new System.Drawing.Point(336, 27);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(298, 48);
+			this.groupBox1.Size = new System.Drawing.Size(319, 48);
 			this.groupBox1.TabIndex = 12;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Tipo";
@@ -611,10 +612,22 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			this.comboTipo.Tag = "itinerationrefundkind.iditinerationrefundkindgroup";
 			this.comboTipo.ValueMember = "iditinerationrefundkindgroup";
 			// 
+			// chkAutocompletamentoDate
+			// 
+			this.chkAutocompletamentoDate.AutoSize = true;
+			this.chkAutocompletamentoDate.Location = new System.Drawing.Point(336, 187);
+			this.chkAutocompletamentoDate.Name = "chkAutocompletamentoDate";
+			this.chkAutocompletamentoDate.Size = new System.Drawing.Size(345, 17);
+			this.chkAutocompletamentoDate.TabIndex = 13;
+			this.chkAutocompletamentoDate.Tag = "itinerationrefundkind.flagautofill:0";
+			this.chkAutocompletamentoDate.Text = "Non compilare automaticamente la data della spesa(agisce sul web)";
+			this.chkAutocompletamentoDate.UseVisualStyleBackColor = true;
+			// 
 			// Frm_itinerationrefundkind_default
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(711, 511);
+			this.ClientSize = new System.Drawing.Size(711, 539);
+			this.Controls.Add(this.chkAutocompletamentoDate);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.grpTracciabilità);
 			this.Controls.Add(this.groupBox4);
@@ -873,5 +886,9 @@ namespace itinerationrefundkind_default {//ClassSpeseMissione//
 			}
 		}
 		#endregion
+
+		private void checkBox4_CheckedChanged(object sender, EventArgs e) {
+
+		}
 	}
 }

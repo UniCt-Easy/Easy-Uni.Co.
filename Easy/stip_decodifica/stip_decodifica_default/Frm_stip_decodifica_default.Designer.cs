@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace stip_decodifica_default {
     partial class Frm_stip_decodifica_default {
@@ -75,6 +73,7 @@ namespace stip_decodifica_default {
 			this.label6 = new System.Windows.Forms.Label();
 			this.grpTassa = new System.Windows.Forms.GroupBox();
 			this.grpVoce = new System.Windows.Forms.GroupBox();
+			this.chkEscludiElaborazione = new System.Windows.Forms.CheckBox();
 			this.DS = new stip_decodifica_default.vistaForm();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -425,7 +424,7 @@ namespace stip_decodifica_default {
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(179, 13);
 			this.label1.TabIndex = 118;
-			this.label1.Text = "Tipo contratto attivo che sar� creato";
+			this.label1.Text = "Tipo contratto attivo che sarà creato";
 			// 
 			// button5
 			// 
@@ -476,6 +475,17 @@ namespace stip_decodifica_default {
 			this.grpVoce.TabStop = false;
 			this.grpVoce.Tag = "AutoChoose.txtVoce.default";
 			// 
+			// chkEscludiElaborazione
+			// 
+			this.chkEscludiElaborazione.AutoSize = true;
+			this.chkEscludiElaborazione.Location = new System.Drawing.Point(137, 14);
+			this.chkEscludiElaborazione.Name = "chkEscludiElaborazione";
+			this.chkEscludiElaborazione.Size = new System.Drawing.Size(118, 17);
+			this.chkEscludiElaborazione.TabIndex = 124;
+			this.chkEscludiElaborazione.Tag = "stip_decodifica.flag:0";
+			this.chkEscludiElaborazione.Text = "Ignora in contabilità";
+			this.chkEscludiElaborazione.UseVisualStyleBackColor = true;
+			// 
 			// DS
 			// 
 			this.DS.DataSetName = "vistaForm";
@@ -484,6 +494,7 @@ namespace stip_decodifica_default {
 			// Frm_stip_decodifica_default
 			// 
 			this.ClientSize = new System.Drawing.Size(789, 576);
+			this.Controls.Add(this.chkEscludiElaborazione);
 			this.Controls.Add(this.grpVoce);
 			this.Controls.Add(this.grpTassa);
 			this.Controls.Add(this.txtImporto);
@@ -559,5 +570,6 @@ namespace stip_decodifica_default {
         private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.GroupBox grpTassa;
 		private System.Windows.Forms.GroupBox grpVoce;
+		private System.Windows.Forms.CheckBox chkEscludiElaborazione;
 	}
 }

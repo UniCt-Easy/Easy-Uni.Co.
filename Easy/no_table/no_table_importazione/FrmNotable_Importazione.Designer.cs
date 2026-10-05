@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace notable_importazione {
     partial class FrmNotable_Importazione {
@@ -603,7 +601,7 @@ namespace notable_importazione {
             this.btnModPagamento.Size = new System.Drawing.Size(203, 23);
             this.btnModPagamento.TabIndex = 17;
             this.btnModPagamento.Tag = "1.2";
-            this.btnModPagamento.Text = "1.2 Modalit‡ di pagamento";
+            this.btnModPagamento.Text = "1.2 Modalit√† di pagamento";
             this.btnModPagamento.UseVisualStyleBackColor = true;
             this.btnModPagamento.Click += new System.EventHandler(this.btnModPagamento_Click);
             // 
@@ -625,7 +623,7 @@ namespace notable_importazione {
             this.chkEsistenza.Name = "chkEsistenza";
             this.chkEsistenza.Size = new System.Drawing.Size(556, 19);
             this.chkEsistenza.TabIndex = 15;
-            this.chkEsistenza.Text = "Non importare anagrafiche di cui Ë gi‡ presente sul db un\'atra avente pari denomi" +
+            this.chkEsistenza.Text = "Non importare anagrafiche di cui √® gi√† presente sul db un\'atra avente pari denomi" +
     "nazione, CF o P.Iva";
             this.chkEsistenza.UseVisualStyleBackColor = true;
             this.chkEsistenza.CheckedChanged += new System.EventHandler(this.chkEsistenza_CheckedChanged);
@@ -649,7 +647,7 @@ namespace notable_importazione {
             this.label1.Size = new System.Drawing.Size(956, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "L\'anagrafica  ha chiave intera, e il file da importare deve contenere valori di t" +
-    "ale chiave che non vadano in conflitto con altre anagrafiche eventualmente gi‡ p" +
+    "ale chiave che non vadano in conflitto con altre anagrafiche eventualmente gi√† p" +
     "resenti nel programma.";
             // 
             // btnAnagrafiche
@@ -970,7 +968,7 @@ namespace notable_importazione {
             this.label2.Size = new System.Drawing.Size(681, 15);
             this.label2.TabIndex = 0;
             this.label2.Text = "E\' necessario effetuare le importazioni nell\'ordine indicato dai gruppi seguenti." +
-    " Inoltre Ë necessario importare PRIMA l\'anagrafica";
+    " Inoltre √® necessario importare PRIMA l\'anagrafica";
             // 
             // tabPage3
             // 
@@ -1174,7 +1172,7 @@ namespace notable_importazione {
             this.label9.Size = new System.Drawing.Size(729, 15);
             this.label9.TabIndex = 6;
             this.label9.Text = "Attenzione, nel file i movimenti devono essere ordinati per anno creazione, fase." +
-    " Inoltre Ë meglio non inframezzare le entrate con le spese.";
+    " Inoltre √® meglio non inframezzare le entrate con le spese.";
             // 
             // btnManReve
             // 
@@ -1516,7 +1514,7 @@ namespace notable_importazione {
             this.label14.Size = new System.Drawing.Size(932, 15);
             this.label14.TabIndex = 18;
             this.label14.Text = "Selezionando l\'opzione \"Importa Fatture\", saranno preservati i numeri di fattura " +
-    "presenti nel file. Attenzione. Controllare che non siano gi‡ presenti fatture co" +
+    "presenti nel file. Attenzione. Controllare che non siano gi√† presenti fatture co" +
     "n lo stesso numero.";
             // 
             // btnCreaFatture

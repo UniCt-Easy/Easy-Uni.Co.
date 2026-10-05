@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_perfobiettiviuo_onlyprestazionali"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_perfobiettiviuo_onlyprestazionali: DataSet {
+public partial class dsmeta_perfobiettiviuo_onlyprestazionali: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -66,10 +64,14 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// PERFOBIETTIVIUOATTACH /////////////////////////////////
 	var tperfobiettiviuoattach= new MetaTable("perfobiettiviuoattach");
+	tperfobiettiviuoattach.defineColumn("ct", typeof(DateTime));
+	tperfobiettiviuoattach.defineColumn("cu", typeof(string));
 	tperfobiettiviuoattach.defineColumn("idattach", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfobiettiviuo", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfobiettiviuoattach", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("lt", typeof(DateTime));
+	tperfobiettiviuoattach.defineColumn("lu", typeof(string));
 	tperfobiettiviuoattach.defineColumn("title", typeof(string),false);
 	tperfobiettiviuoattach.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfobiettiviuoattach);
@@ -98,6 +100,7 @@ private void initClass() {
 	tperfobiettiviuo.defineColumn("ct", typeof(DateTime));
 	tperfobiettiviuo.defineColumn("cu", typeof(string));
 	tperfobiettiviuo.defineColumn("description", typeof(string));
+	tperfobiettiviuo.defineColumn("forzapunteggio", typeof(string));
 	tperfobiettiviuo.defineColumn("idperfobiettiviuo", typeof(int),false);
 	tperfobiettiviuo.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfobiettiviuo.defineColumn("idperfvalutazioneuo", typeof(int),false);
@@ -105,6 +108,7 @@ private void initClass() {
 	tperfobiettiviuo.defineColumn("lu", typeof(string));
 	tperfobiettiviuo.defineColumn("note", typeof(string));
 	tperfobiettiviuo.defineColumn("peso", typeof(decimal));
+	tperfobiettiviuo.defineColumn("punteggio", typeof(int));
 	tperfobiettiviuo.defineColumn("title", typeof(string));
 	tperfobiettiviuo.defineColumn("valorenumerico", typeof(decimal));
 	Tables.Add(tperfobiettiviuo);

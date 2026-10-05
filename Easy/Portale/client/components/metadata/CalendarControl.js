@@ -174,13 +174,11 @@
 				(objConfig.color === 'color' ? row.color : objConfig.color) //se ho passato come colore 'color' vuol dire che il colore è sulla riga
 				: this.mainColor;
 			evObj.allDay = !evObj.end || (evObj.start.getHours() === 0 && evObj.start.getMinutes() === 0 && evObj.end.getHours() === 0 && evObj.end.getMinutes() === 0);
-			evObj.mine = !objConfig;
 
-			//se è un evento allday ma è di più giorni (se è un giorno solo va bene così) viene rappresentato senza l'ultimo gionro perchè lui valuta le 00:00 e quindi tronca l'ultimo giorno
-			if (evObj.allDay && evObj.end && (evObj.end.getDay() -1 != evObj.start.getDay()) ) {
-				//aggiungo un giorno alla fine che poi toglierò in visualizzazzione sul fumetto di dettaglio
-				evObj.end.setDate(evObj.end.getDate() + 1);
-			}
+			//se non è un evento all day e non ha un titolo lo metto come spazio altrimenti non vengono visualizzate nemmeno le ore inizio e fine
+			if (!evObj.allDay && !evObj.title) evObj.title = ' ';
+
+			evObj.mine = !objConfig;
 
 			return evObj;
 		},
@@ -263,7 +261,7 @@
 				navLinks: true, // can click day/week names to navigate views
 				eventLimit: true, // allow "more" link when too many events
 
-				// quando è Calendar normale al click sull'evdento mostro dialog con altri pulsanti e info varie
+				// quando è Calendar normale al click sull'evento mostro dialog con altri pulsanti e info varie
 				// altrimenti in ricerca gestisco il lcick e doppio click per selezionare la riga dalla lista
 				eventClick: function (calEvent, jsEvent, view) {
 					if (!self.isListManager) self.infoClick(calEvent);
@@ -288,6 +286,21 @@
 					// rimuove l'img info che appare nel giorno attuale (solo in bootstrap4). la mette lui di defualt sul css
 					if ($(".alert-info").length > 0) $(".alert-info").css('background-image', 'none');
 					self.toggleIconWeekendButtons();
+				},
+
+				//gestisce la visualizzazione degli eventi che durano più giorni e sono tutto il giorno:
+				//anche se il giorno finale viene inserito con ore 0:00 lui lo mostra pieno come se fosse fino alle 24:00
+				eventDataTransform: function (eventData) {
+					// Clona l'evento per non modificare l'originale
+					var e = Object.assign({}, eventData);
+
+					if (e.allDay && e.end /*&& (e.end.getDate() - 1 != e.start.getDate())*/) {
+						// Aggiungi un giorno alla data di fine SOLO per la visualizzazione
+						var endDate = new Date(e.end);
+						endDate.setDate(endDate.getDate() + 1);
+						e.end = endDate;
+					}
+					return e;
 				},
 
 			};
@@ -372,7 +385,15 @@
 		getEventTime: function (event) {
 			try {
 				if (!event.allDay) {
-					return event.start.hours() + ":" + _.padStart(event.start.minutes(), 2, '0');
+					if (event.end) {
+						let diff = event.end.diff(event.start, 'minutes');
+						//mostro il numero di ore davanti alle ore
+						let hours = Math.floor(diff / 60);
+						let mins = diff % 60;
+						return 'Ore: ' + hours + (mins?':' + mins :'') + '; ' +  event.start.hours() + ":" + _.padStart(event.start.minutes(), 2, '0') + "-" + event.end.hours() + ":" + _.padStart(event.end.minutes(), 2, '0');
+					}
+					else
+                        return event.start.hours() + ":" + _.padStart(event.start.minutes(), 2, '0');
 				}
 				return '';
 			} catch (e) {
@@ -540,6 +561,10 @@
 			var start = event.start;
 			// se end non esiste , metto default 1 ora dallo start
 			var end = event.end ? event.end : event.start.add(moment.duration(1, 'hours'));
+			if (event.allDay && !start.isSame(end, 'day')) {
+				//se è un evento tutto il giorno tolgo un giorno alla fine (a valle del trascinamento nella proprietà _d) perchè per rappresentralo bene l'avevo aggiunto prima in quanto la sua ora sono le 0:00
+				end._d.setDate(end._d.getDate() - 1);
+			}
 
 			return this.metaPage.showMessageOkCancel(localResource.getDoYouWantModifyEvent(event.title, start.format("DD/MM/YYYY HH:mm"), end.format("DD/MM/YYYY HH:mm")))
 				.then(function (res) {
@@ -796,23 +821,14 @@
 			}
 
 			// mostra data fine
-			if (/*this.stopColumnName &&*/ event.end) {
+			if (event.end) {
 
 				let end = new Date(event.end);
-				//siccome nell'evento la data è memorizzata come ora al fuso di greenwich covertendolo in data javascript la rappresenta nel nostro fuso e quindi aggiunge un'ora
-				//quindi calcolo il fuso e lo riapplico alla variabile per ottenere l'ora che avevo al greenweech (cioè l'ora che era stata salvata in origine) ma nel fuso nostro.
-				//end.setMinutes(end.getMinutes() + new Date().getTimezoneOffset()); 
-
-				//se è un evento allday ma è di più giorni (uno solo va bene) viene rappresentato senza l'ultimo giorno perchè lui valuta le 00:00 e quindi tronca l'ultimo giorno
-				if (event.allDay && event.end && (new Date(event.end).getDay() - 1 != new Date(event.start).getDay())) {
-					//siccome ho aggiunto un giorno alla fine per rappresentarlo bene, ora lo tolgo in visualizzazzione sul fumetto di dettaglio per non mostrarlo nei dettagli
-					end.setDate(end.getDate() -1);
-				}
-
 				let stopdate = "";
 				if (event.allDay) {
 					//solo se è di più giorni mostro lo stop
-					if (new Date(event.end).getDay() - 1 != new Date(event.start).getDay())
+					end.setDate(end.getDate() - 1);
+					if (new Date(end).getDate() != new Date(event.start).getDate())
 						stopdate = moment(end).format("DD/MM/YYYY");
 				} else {
 					stopdate = moment(end).format("DD/MM/YYYY HH:mm");

@@ -197,7 +197,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

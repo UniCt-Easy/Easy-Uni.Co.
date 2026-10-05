@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sostenimento_ingresso"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sostenimento_ingresso: DataSet {
+public partial class dsmeta_sostenimento_ingresso: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -72,39 +70,31 @@ private void initClass() {
 	tsostenimentoesitodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tsostenimentoesitodefaultview.defineColumn("idsostenimentoesito", typeof(int),false);
 	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_active", typeof(string));
-	tsostenimentoesitodefaultview.ExtendedProperties["NotEntityChild"]="true";
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_description", typeof(string),false);
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lt", typeof(DateTime));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_lu", typeof(string));
+	tsostenimentoesitodefaultview.defineColumn("sostenimentoesito_sortcode", typeof(int),false);
+	tsostenimentoesitodefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tsostenimentoesitodefaultview);
 	tsostenimentoesitodefaultview.defineKey("idsostenimentoesito");
 
 	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
 	var tregistrydefaultview= new MetaTable("registrydefaultview");
 	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrydefaultview.defineColumn("idaccmotivecredit", typeof(string));
-	tregistrydefaultview.defineColumn("idaccmotivedebit", typeof(string));
-	tregistrydefaultview.defineColumn("idcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcentralizedcategory", typeof(string));
-	tregistrydefaultview.defineColumn("idcity", typeof(int));
-	tregistrydefaultview.defineColumn("idnation", typeof(int));
 	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
-	tregistrydefaultview.defineColumn("idregistryclass", typeof(string));
-	tregistrydefaultview.defineColumn("idtitle", typeof(string));
 	tregistrydefaultview.defineColumn("registry_active", typeof(string));
-	tregistrydefaultview.defineColumn("residence", typeof(int),false);
-	tregistrydefaultview.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tregistrydefaultview);
 	tregistrydefaultview.defineKey("idreg");
 
 	//////////////////// ISCRIZIONESEGANAGSTUVIEW /////////////////////////////////
 	var tiscrizioneseganagstuview= new MetaTable("iscrizioneseganagstuview");
-	tiscrizioneseganagstuview.defineColumn("aa", typeof(string),false);
 	tiscrizioneseganagstuview.defineColumn("dropdown_title", typeof(string),false);
-	tiscrizioneseganagstuview.defineColumn("idcorsostudio", typeof(int));
-	tiscrizioneseganagstuview.defineColumn("iddidprog", typeof(int));
+	tiscrizioneseganagstuview.defineColumn("idcorsostudio", typeof(int),false);
+	tiscrizioneseganagstuview.defineColumn("iddidprog", typeof(int),false);
 	tiscrizioneseganagstuview.defineColumn("idiscrizione", typeof(int),false);
 	tiscrizioneseganagstuview.defineColumn("idreg", typeof(int),false);
-	tiscrizioneseganagstuview.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tiscrizioneseganagstuview);
-	tiscrizioneseganagstuview.defineKey("idiscrizione");
+	tiscrizioneseganagstuview.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
 
 	//////////////////// SOSTENIMENTO /////////////////////////////////
 	var tsostenimento= new MetaTable("sostenimento");
@@ -135,7 +125,6 @@ private void initClass() {
 	tsostenimento.defineColumn("voto", typeof(decimal));
 	tsostenimento.defineColumn("votolode", typeof(string));
 	tsostenimento.defineColumn("votosu", typeof(int));
-	tsostenimento.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tsostenimento);
 	tsostenimento.defineKey("idcorsostudio", "iddidprog", "idprova", "idreg", "idsostenimento");
 

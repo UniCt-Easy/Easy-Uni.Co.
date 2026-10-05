@@ -28,6 +28,7 @@
 						this.describeAColumn(table, 'numero', 'Numero', null, 30, null);
 						this.describeAColumn(table, 'redditomin', 'Reddito Minimo', 'fixed.2', 40, null);
 						this.describeAColumn(table, 'redditomax', 'Reddito massimo', 'fixed.2', 50, null);
+						this.describeAColumn(table, 'active', 'Attivo', null, 100, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -41,6 +42,7 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
+						table.columns["active"].caption = "Attivo";
 						table.columns["redditomax"].caption = "Reddito massimo";
 						table.columns["redditomin"].caption = "Reddito Minimo";
 						table.columns["title"].caption = "Denominazione";

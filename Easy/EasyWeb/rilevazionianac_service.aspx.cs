@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using funzioni_configurazione;
 using metadatalibrary;
@@ -82,22 +80,35 @@ namespace EasyWebReport {
                 QHS.CmpEq("idattachment", idattachment)
             );
 
-            DataTable tAttachments = DepConn.RUN_SELECT("mandateattachment", "filename, attachment", null, filter, "1", false);
+            DataTable tAttachments = DepConn.RUN_SELECT("mandateattachment", "filename, attachment, idfilestorage", null, filter, "1", false);
             if (tAttachments.Rows.Count == 0) {
-                Error("L'allegato specificato non è presente in archivio.");
+                Error("L'allegato specificato non Ã¨ presente in archivio.");
                 return;
             }
 
             DataRow rAttachment = tAttachments.Rows[0];
-            if (DBNull.Value.Equals(rAttachment["attachment"])) {
-                Error("L'allegato specificato non è presente in archivio.");
+            if (rAttachment["attachment"] == DBNull.Value && rAttachment["idfilestorage"] == DBNull.Value) {
+                Error("L'allegato specificato non Ã¨ presente in archivio.");
                 return;
             }
 
             string filename = rAttachment["filename"].ToString();
-            byte[] attachment = (byte[])rAttachment["attachment"];
 
-            WriteBinary(filename, attachment);
+            // File preso dall'attachment o dal MongoDb
+            byte[] ByteArray = { };
+
+            if (rAttachment["attachment"] != DBNull.Value)
+            {
+                // Attachment
+                ByteArray = (byte[])rAttachment["attachment"];
+            }
+            else
+            {
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(DepConn, tAttachments.TableName, rAttachment["idfilestorage"].ToString()).GetAwaiter().GetResult();
+            }
+
+            WriteBinary(filename, ByteArray);
         }
 
         string GetAlignForColumn(DataColumn C) {
@@ -154,7 +165,7 @@ namespace EasyWebReport {
                             XmlDocument doc = new XmlDocument();
                             doc.LoadXml(R[C].ToString());
 
-                            string[] fields = R["ID"].ToString().Split('§');
+                            string[] fields = R["ID"].ToString().Split('Â§');
 
                             foreach (XmlElement allegato in doc.DocumentElement.ChildNodes) {
                                 string idattachment = allegato.Attributes["id"].Value;
@@ -211,7 +222,7 @@ namespace EasyWebReport {
                 return;
             }
 
-            // Se c'è il parametro idattachment allora è una richiesta di allegato
+            // Se c'Ã¨ il parametro idattachment allora Ã¨ una richiesta di allegato
             if (Request.Params["idattachment"] != null && Request.Params["idattachment"] != "") {
                 GestisciRichiestaAllegato(DepConn);
                 return;
@@ -265,7 +276,7 @@ namespace EasyWebReport {
                 return null;
             }
             if (CodDip.Rows.Count > 1) {
-                //Attenzione nel DB non è garantita l'unicità dei dati.
+                //Attenzione nel DB non Ã¨ garantita l'unicitÃ  dei dati.
                 Error("Attenzione !!! Duplicazione di codici per " + dep);
                 return null;
             }
@@ -302,7 +313,7 @@ namespace EasyWebReport {
             writer.WriteStartArray();
 
             foreach (DataRow r in T.Rows) {
-                string[] idField = r["ID"].ToString().Split('§');
+                string[] idField = r["ID"].ToString().Split('Â§');
 
                 writer.WriteStartObject();
 
@@ -373,7 +384,7 @@ namespace EasyWebReport {
             foreach (DataRow r in T.Rows) {
                 XmlElement rilevazione = doc.CreateElement("Rilevazione");
 
-                string[] idField = r["ID"].ToString().Split('§');
+                string[] idField = r["ID"].ToString().Split('Â§');
 
                 foreach (DataColumn c in T.Columns) {
                     if (DBNull.Value.Equals(r[c])) continue;

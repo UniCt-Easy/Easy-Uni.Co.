@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace no_table_wizardmerge {
     partial class FrmNoTable_wizardmerge {
@@ -685,7 +683,7 @@ namespace no_table_wizardmerge {
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(514, 15);
 			this.label13.TabIndex = 8;
-			this.label13.Text = "Una volta eseguita l\'importazione Ë importante non aggiungere pi˘ dati nel databa" +
+			this.label13.Text = "Una volta eseguita l\'importazione √® importante non aggiungere pi√π dati nel databa" +
     "se secondario";
 			// 
 			// label12
@@ -753,7 +751,7 @@ namespace no_table_wizardmerge {
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(643, 15);
 			this.label9.TabIndex = 1;
-			this.label9.Text = "Le anagrafiche saranno tutte trasferite, ma sar‡ poi possibile, in un secondo mom" +
+			this.label9.Text = "Le anagrafiche saranno tutte trasferite, ma sar√† poi possibile, in un secondo mom" +
     "ento, raffinarle con apposite procedure.";
 			// 
 			// label6
@@ -763,7 +761,7 @@ namespace no_table_wizardmerge {
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(342, 15);
 			this.label6.TabIndex = 0;
-			this.label6.Text = "Si puÚ adesso procedere alla importazione delle tabelle comuni.";
+			this.label6.Text = "Si pu√≤ adesso procedere alla importazione delle tabelle comuni.";
 			// 
 			// tabCopyNonDBO
 			// 
@@ -833,7 +831,7 @@ namespace no_table_wizardmerge {
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(377, 15);
 			this.label14.TabIndex = 1;
-			this.label14.Text = "Si puÚ adesso procedere alla importazione di tutte le tabelle rimanenti.";
+			this.label14.Text = "Si pu√≤ adesso procedere alla importazione di tutte le tabelle rimanenti.";
 			// 
 			// btnCancel
 			// 

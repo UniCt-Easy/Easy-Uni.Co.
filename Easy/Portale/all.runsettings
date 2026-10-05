@@ -46,8 +46,8 @@
     <!-- Parameters used by tests at runtime -->
     <TestRunParameters>
         <Parameter name="webAppUrl" value="http://localhost" />
-        <Parameter name="webAppUserName" value="Admin" />
-        <Parameter name="webAppPassword" value="Password" />
+        <Parameter name="webAppUserName" value="YOUR_USERNAME" />
+        <Parameter name="webAppPassword" value="YOUR_PASSWORD" />
     </TestRunParameters>
 
     <!-- Adapter Specific sections -->

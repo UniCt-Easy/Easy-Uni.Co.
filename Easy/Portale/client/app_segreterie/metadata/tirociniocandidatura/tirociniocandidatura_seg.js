@@ -57,19 +57,32 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#tirociniocandidatura_seg_idreg_studenti'), true);
 				this.helpForm.filter($('#tirociniocandidatura_seg_idreg_studenti'), null);
 				this.helpForm.filter($('#tirociniocandidatura_seg_idreg_docenti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("tirociniocandidaturakinddefaultview"), this.q.eq('tirociniocandidaturakind_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-tirociniocandidatura_seg");
-				$('#tirociniocandidatura_seg_idreg_studenti').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#tirociniocandidatura_seg_idreg_studenti').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#tirociniocandidatura_seg_idreg_studenti').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
+				$('#tirociniocandidatura_seg_idreg_studenti').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
 				//afterRowSelectin
 				return def.resolve();
 			},

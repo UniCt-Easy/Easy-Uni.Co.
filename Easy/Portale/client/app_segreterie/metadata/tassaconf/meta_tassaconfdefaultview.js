@@ -23,10 +23,10 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'title', 'Titolo', null, 30, 2024);
-						this.describeAColumn(table, 'costoscontodef_title', 'Costo', null, 40, 2024);
-						this.describeAColumn(table, 'tassaconfkind_title', 'Tipo di tassa', null, 50, 50);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'title', 'Titolo', null, 3000, 2024);
+						this.describeAColumn(table, 'costoscontodef_title', 'Costo', null, 4200, 2024);
+						this.describeAColumn(table, 'tassaconfkind_title', 'Tipo di tassa', null, 5200, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

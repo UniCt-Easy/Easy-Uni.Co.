@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -218,6 +216,11 @@ public partial class mandate_default_new02 : MetaPage {
 
         btnAvanzaStato.Enabled = false;
         btnStampaOrdine.Enabled = false;
+
+        // ===============================================================================
+        // La InsertCopy non deve copiare le tabelle degli allegati
+        // ===============================================================================
+        QueryCreator.setSkipInsertCopy(DS.mandateattachment, true);
     }
 
     void ShowHideExtConsip(bool show) {
@@ -661,7 +664,7 @@ public partial class mandate_default_new02 : MetaPage {
         else {
             if (DS.currency.Select(QHC.CmpEq("idcurrency", codicevaluta)).Length == 0) {
                 ShowClientMessage(
-                    "La modalit‡ di pagamento standard del percipiente Ë associata ad una valuta non valida.",
+                    "La modalit√† di pagamento standard del percipiente √® associata ad una valuta non valida.",
                     "Avviso", System.Windows.Forms.MessageBoxButtons.OK);
             }
             else {
@@ -790,8 +793,8 @@ public partial class mandate_default_new02 : MetaPage {
             int oldStatus = CfgFn.GetNoNullInt32(DS.mandate.Rows[0]["idmandatestatus", DataRowVersion.Original]);
             int newStatus = CfgFn.GetNoNullInt32(DS.mandate.Rows[0]["idmandatestatus"]);
             if (oldStatus != 2 && newStatus == 2 && RunningCommand()!="mainsave") {
-                //c'Ë stato un errore nell'invio della richiesta
-                //durante un save perÚ non deve agire altrimenti se ci sono regole ignorabili annulla le modifiche precedenti
+                //c'√® stato un errore nell'invio della richiesta
+                //durante un save per√≤ non deve agire altrimenti se ci sono regole ignorabili annulla le modifiche precedenti
                 DS.mandate.Rows[0]["idmandatestatus"] = oldStatus;
             }
         }
@@ -807,7 +810,7 @@ public partial class mandate_default_new02 : MetaPage {
         fillConsipLabels();
         PState.var["lastValidConsipExtIndex"] = cmbConsipExt.SelectedIndex;
         PState.var["lastValidConsipIndex"] = cmbConsip.SelectedIndex;
-        //Solo se c'Ë da chiamare la SP ed il salvataggio Ë andato a buon fine
+        //Solo se c'√® da chiamare la SP ed il salvataggio √® andato a buon fine
         if (PState.var["notifyStatusChangeParams"] != null && !DS.HasChanges()) {
             object[] parametri = (object[])PState.var["notifyStatusChangeParams"];
             Conn.CallSP("notifyStatusChange", parametri, true, 3000);
@@ -1191,7 +1194,7 @@ public partial class mandate_default_new02 : MetaPage {
 			//	object idreg_rupanac_selected = (R == null ? DBNull.Value : R["idreg_rupanac"]);
 			//	DataRow Curr = DS.mandate.Rows[0];
 			//	if (idreg_rupanac_selected != DBNull.Value) {
-   //                 // Solo se Ë valorizzato, lo inserisce nel form. Diversamente lascia quello che sta.
+   //                 // Solo se √® valorizzato, lo inserisce nel form. Diversamente lascia quello che sta.
 			//		Curr["idreg_rupanac"] = idreg_rupanac_selected;
 			//		CommFun.FreshPage(true, false);
 			//	}
@@ -1250,7 +1253,7 @@ public partial class mandate_default_new02 : MetaPage {
                         if (idmankind.SelectedIndex > 0) {
                             if (idmankind.SelectedValue.ToString() == RR["idman"].ToString())
                                 return;
-                            ShowClientMessage("Il responsabile dell'ordine Ë stato reimpostato come da UPB", "Avviso");
+                            ShowClientMessage("Il responsabile dell'ordine √® stato reimpostato come da UPB", "Avviso");
                         }
                         CommFun.HMW.SetCombo(idmankind, DS.mandatekind, "idmankind", RR["idman"]);
                     }
@@ -1344,9 +1347,9 @@ public partial class mandate_default_new02 : MetaPage {
                 btnStampaOrdine.Enabled = true;
                 break;
             default:
-                // Chiama la SP se restituisce zero righe, assume il comportamento attuale, cioË blocca tutto,
+                // Chiama la SP se restituisce zero righe, assume il comportamento attuale, cio√® blocca tutto,
                 // Se restituisce 1 riga, mette come label del buttun Nome dello stato e tra parentesi l'ufficio
-                //Se restuisce n righe, con n>1, ci sar‡ il comportamento di "Avanza Stato"
+                //Se restuisce n righe, con n>1, ci sar√† il comportamento di "Avanza Stato"
                 DataTable Tsp = OutGetNextOffice();
                 if (Tsp == null || Tsp.Rows.Count == 0) {
                     // Blocca tutto
@@ -1571,7 +1574,7 @@ public partial class mandate_default_new02 : MetaPage {
 
         string S = "";
         S += "Descrizione: " + R["detaildescription"].ToString() + "\r\n";
-        S += "Quantit‡: " + quantita.ToString() + "\r\n";
+        S += "Quantit√†: " + quantita.ToString() + "\r\n";
         S += "Imponibile unitario: " + imponibile.ToString("n") + "\r\n";
         if (tassocambio != 1) {
             S += "Imponibile totale: " + imponibiletot.ToString("n") + "\r\n";

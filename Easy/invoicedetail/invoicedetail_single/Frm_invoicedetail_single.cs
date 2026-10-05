@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit√† degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -685,7 +683,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblPercIndeduc.Name = "lblPercIndeduc";
 			this.lblPercIndeduc.Size = new System.Drawing.Size(88, 16);
 			this.lblPercIndeduc.TabIndex = 39;
-			this.lblPercIndeduc.Text = "% Indetraibilit√†";
+			this.lblPercIndeduc.Text = "% Indetraibilit‡";
 			this.lblPercIndeduc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// grpValoreTotaleInEuro
@@ -819,7 +817,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblidpackage.Name = "lblidpackage";
 			this.lblidpackage.Size = new System.Drawing.Size(78, 17);
 			this.lblidpackage.TabIndex = 18;
-			this.lblidpackage.Text = "Quantit√†:";
+			this.lblidpackage.Text = "Quantit‡:";
 			this.lblidpackage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// grpValoreUnitInValuta
@@ -2200,7 +2198,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(444, 16);
 			this.label24.TabIndex = 40;
-			this.label24.Text = "Massa netta in Kilogrammi (solo se √® presente una unit√† di misura supplementare)";
+			this.label24.Text = "Massa netta in Kilogrammi (solo se Ë presente una unit‡ di misura supplementare)";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// gboxIntrastatCode
@@ -2237,7 +2235,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.labUnitaMisura.Name = "labUnitaMisura";
 			this.labUnitaMisura.Size = new System.Drawing.Size(167, 16);
 			this.labUnitaMisura.TabIndex = 44;
-			this.labUnitaMisura.Text = "Unit√† di misura supplementare:";
+			this.labUnitaMisura.Text = "Unit‡ di misura supplementare:";
 			this.labUnitaMisura.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtIntrastatDescription
@@ -2452,7 +2450,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.grpComunicazioni.Size = new System.Drawing.Size(400, 95);
 			this.grpComunicazioni.TabIndex = 1;
 			this.grpComunicazioni.TabStop = false;
-			this.grpComunicazioni.Text = "Tipologia per le operazioni con Paesi a fiscalit√† privilegiata";
+			this.grpComunicazioni.Text = "Tipologia per le operazioni con Paesi a fiscalit‡ privilegiata";
 			// 
 			// rdbNonSpec
 			// 
@@ -2618,7 +2616,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.rdbVarStorno.Size = new System.Drawing.Size(100, 17);
 			this.rdbVarStorno.TabIndex = 8;
 			this.rdbVarStorno.Tag = "invoicedetail.leasing:D";
-			this.rdbVarStorno.Text = "Unit√† da diporto ";
+			this.rdbVarStorno.Text = "Unit‡ da diporto ";
 			// 
 			// rdbVarAssestamento
 			// 
@@ -2743,7 +2741,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(169, 13);
 			this.label11.TabIndex = 0;
-			this.label11.Text = "Escludi, il dettaglio fattura, perch√®:";
+			this.label11.Text = "Escludi, il dettaglio fattura, perchË:";
 			// 
 			// tabFatturaElettronica
 			// 
@@ -3312,7 +3310,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblidunit.Name = "lblidunit";
 			this.lblidunit.Size = new System.Drawing.Size(111, 17);
 			this.lblidunit.TabIndex = 20;
-			this.lblidunit.Text = "Totale Quantit√†:";
+			this.lblidunit.Text = "Totale Quantit‡:";
 			this.lblidunit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// gboxListino
@@ -3402,7 +3400,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.lblIcmbdpackage.Name = "lblIcmbdpackage";
 			this.lblIcmbdpackage.Size = new System.Drawing.Size(106, 13);
 			this.lblIcmbdpackage.TabIndex = 21;
-			this.lblIcmbdpackage.Text = "U.t√† di misura imballo";
+			this.lblIcmbdpackage.Text = "U.t‡ di misura imballo";
 			// 
 			// label27
 			// 
@@ -3412,7 +3410,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(71, 13);
 			this.label27.TabIndex = 23;
-			this.label27.Text = "U.t√† di misura";
+			this.label27.Text = "U.t‡ di misura";
 			// 
 			// cmbUnitaMisuraCS
 			// 
@@ -3863,7 +3861,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 if (!controller.DrawStateIsDone) return;
                 if (controller.IsEmpty) return;
                 if (R == null) {
-                    lblidpackage.Text = "Q.t√†";
+                    lblidpackage.Text = "Q.t‡";
                     //lblImportoUnitario.Text = "Importo unitario";
                     return;
                 }
@@ -4546,7 +4544,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             object idunit = Curr["idunit"];
 
             if (idpackage == null || idpackage == DBNull.Value) {
-                lblidpackage.Text = "Q.t√†";
+                lblidpackage.Text = "Q.t‡";
                 //lblImportoUnitario.Text = "Importo unitario";
             }
             else {
@@ -4584,7 +4582,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
         private void adeguaQuantitaTotale() {
             if (txtCoeffConversione.Text == "") {
-                // Se cancello il Coeff. di Conversione, la q.t√† totale sar√† uguale alla q.t√† per l'imballo.
+                // Se cancello il Coeff. di Conversione, la q.t‡ totale sar‡ uguale alla q.t‡ per l'imballo.
                 double npackage = CfgFn.GetNoNullDouble(txtQuantitaConfezioni.Text);
                 txtQuantita.Text = HelpForm.StringValue(npackage, "x.y");
                 return;
@@ -5148,7 +5146,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 }
             }
             enableDisableQuantita(Curr);
-            // Il check √® sempre Abilitato, √® il metodo a valutare se agire o meno.
+            // Il check Ë sempre Abilitato, Ë il metodo a valutare se agire o meno.
             //object ResiduoDettOrdine =  CalcolaResiduiDettaglioOrdine(Curr);
             //if (Meta.EditMode && EsisteContabilizzazioneDettOrdine(Curr) && CfgFn.GetNoNullDecimal(ResiduoDettOrdine) > 0) {
             //    chkResiduoOrdine.Enabled = true;
@@ -5157,7 +5155,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             //    chkResiduoOrdine.Enabled = false;
             //}
             if ((AV != null) && (AV.ToString().ToUpper() == "V")) {
-                cmbTipocessioneprestazione.Enabled = true; // √® abilitato solo per le fatture di vendita
+                cmbTipocessioneprestazione.Enabled = true; // Ë abilitato solo per le fatture di vendita
                 txtRiferimentoNormativo.ReadOnly = false;
             }
             else {
@@ -5263,7 +5261,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 }
                 else return "";
             }
-            // Filtro quantit√† campo residual
+            // Filtro quantit‡ campo residual
             decimal number = CfgFn.GetNoNullDecimal(Curr["number"]);
             string filternumber = QHS.CmpGe("residual", number);
 
@@ -5283,7 +5281,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             }
 
             if (Curr["idmankind"] != DBNull.Value && CfgFn.GetNoNullInt32(Curr["yman"]) >= minimoAnnoImpegniDiBudget) {
-                //Se la fattura √® collegata a dettaglio C.P., prenderemo l'impegno di budget di quel dettaglio.
+                //Se la fattura Ë collegata a dettaglio C.P., prenderemo l'impegno di budget di quel dettaglio.
                 string filterManDet = QHS.AppAnd(QHS.CmpEq("idmankind", Curr["idmankind"]), QHS.CmpEq("yman", Curr["yman"]),
                     QHS.CmpEq("nman", Curr["nman"]));
                 DataTable MandateDetail = Conn.RUN_SELECT("mandatedetail", "idepexp", null, filterManDet, null, true);
@@ -5356,7 +5354,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             int nphase = 2; // Accertamento
             string Filterbase = QHS.AppAnd(QHS.CmpEq("ayear", security.GetEsercizio()), QHS.CmpEq("nphase", nphase));
 
-            //Se la fattura √® collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.
+            //Se la fattura Ë collegata a dettaglio C.A., prenderemo l'accertamento di budget di quel dettaglio.
             if (Curr["idestimkind"] != DBNull.Value && CfgFn.GetNoNullInt32(Curr["yestim"]) >= minimoAnnoImpegniDiBudget) {
                 string filterEstimDet = QHS.AppAnd(QHS.CmpEq("idestimkind", Curr["idestimkind"]),
                 QHS.CmpEq("yestim", Curr["yestim"]),
@@ -5430,7 +5428,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
                 }
                 else return "";
             }
-            // Filtro quantit√† campo residual
+            // Filtro quantit‡ campo residual
             decimal number = CfgFn.GetNoNullDecimal(Curr["number"]);
             string filternumber = QHS.CmpGe("residual", number);
 
@@ -5678,12 +5676,12 @@ namespace invoicedetail_single //dettdocumentoivasingle//
             MetaData.GetFormData(this, true);
 
             if (Curr["idmankind"] != DBNull.Value) {
-                show("Non √® previsto associare un preimpegno a fatture collegate a contratti", "Avviso");
+                show("Non Ë previsto associare un preimpegno a fatture collegate a contratti", "Avviso");
                 return;
             }
 
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'impegno di budget",
+                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -5709,7 +5707,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
             DataRow Curr = DS.invoicedetail.Rows[0];
             if (Curr["idepexp"] != DBNull.Value) {
-                show("Non √® possibile scollegare un preimpegno avendo gi√† generato l'impegno di budget",
+                show("Non Ë possibile scollegare un preimpegno avendo gi‡ generato l'impegno di budget",
                     "Errore");
                 return;
             }
@@ -5756,7 +5754,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 
 				//	string listaidaccmotive = QHS.DistinctVal(invdetail_accmotive.Select(), "idaccmotive");
 
-				//	// L'utente pu√≤ scegliere la causale desiderata da un elenco 
+				//	// L'utente puÚ scegliere la causale desiderata da un elenco 
 				//	MetaData accmotive = MetaData.GetMetaData(this, "accmotive");
 				//	accmotive.DS = DS.Clone();
 				//	accmotive.FilterLocked = true;
@@ -5939,7 +5937,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			// http://deepblue:4545/siope/acquisti		5|entrate
 			DataTable SIOPE_EndPoint = Conn.RUN_SELECT("app_config", "param", null, QHS.CmpEq("code", $"SIOPEURL_{av_type}"), null, true);
 
-			// Se non ci sono righe il servizio di AI non √® configurato
+			// Se non ci sono righe il servizio di AI non Ë configurato
 			if (SIOPE_EndPoint.Rows.Count <= 0)
 				return list;
 
@@ -5952,7 +5950,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 			if (par.Length > 2)
 			{
 				// http://deepblue:4545/siope/acquisti
-				// http://10.10.10.183:4545/siope/acquisti;
+				// http://your-db-server:4545/siope/acquisti;
 				api_url = par[0];
 				// N
 				int nr = 0;
@@ -5990,7 +5988,7 @@ namespace invoicedetail_single //dettdocumentoivasingle//
 				catch (Exception Ex) {
 					// error = Ex.Message;
 					//Se il servizio per qualche motivo non risponde, esce. Non fornisce alcun messaggio all'utente, ma cosa deve essere trasparente.
-					error = $"{"Il serviziodi Intelligenza Artificiale non √® attivo."}";
+					error = $"{"Il serviziodi Intelligenza Artificiale non Ë attivo."}";
 					return list;
 				}
 
@@ -6128,4 +6126,5 @@ ORDER BY ISNULL(priority, 100), codemotive";
 
  
  
+
 

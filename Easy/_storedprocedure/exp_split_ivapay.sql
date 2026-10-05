@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_split_ivapay]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_split_ivapay]
@@ -59,10 +57,10 @@ AS BEGIN
 		curramount decimal(19,2), 
 		ymov_iva_split int,
 		nmov_iva_split int,
-		phase_taxable varchar(30),
+		phase_taxable varchar(50),
 		ymov_taxable int, 
 		nmov_taxable int  ,
-		phase_iva  varchar(30),
+		phase_iva  varchar(50),
 		ymov_iva   int,
 		nmov_iva   int,
 		kpay_taxable int,
@@ -83,11 +81,15 @@ AS BEGIN
 		npaytransmission_taxable int,
 		npaytransmission_iva int,
 		transmissiondate_taxable  datetime,
+		treasurer_taxable varchar(150),
 	    transmissiondate_iva  datetime,
+		treasurer_iva varchar(150),
 	    kproceedstransmission_iva_split int,
 		yproceedstransmission_iva_split  int,
 		nproceedstransmission_iva_split int,
 		transmissiondate_iva_split	datetime,
+		treasurer_iva_split varchar(150),
+
 		no_clawback char(1),
 		doc varchar(35),
 		docdate smalldatetime
@@ -159,7 +161,7 @@ AS BEGIN
 		)
 
 	)
-	  
+	  		
 	-- Sezione 2.1 IVA Differita a DEBITO (fatt.vendita) - DATA REVERSALE
 	-- Vengono inseriti tutti i dettagli delle fatture di vendita  (incluse note di variazione)
 	-- 	la cui REVERSALE associata è stata EMESSA nel range di date fornito in input alla SP
@@ -484,11 +486,13 @@ AS BEGIN
 		kpaymenttransmission_taxable = paymentview.kpaymenttransmission,
 		ypaytransmission_taxable = paymentview.ypaymenttransmission,
 		npaytransmission_taxable = paymentview.npaymenttransmission,
-		transmissiondate_taxable = paymentview.transmissiondate
+		transmissiondate_taxable = paymentview.transmissiondate,
+		treasurer_taxable  = treasurer.header
 	FROM expenselastview 
 	JOIN paymentview ON expenselastview.kpay = paymentview.kpay
+	LEFT OUTER JOIN treasurer ON treasurer.idtreasurer = paymentview.idtreasurer
 	WHERE expenselastview.idexp = idexp_taxable
-	
+ 
 	UPDATE #invoice SET 
 		kpay_iva = expenselastview.kpay,
 		ypay_iva = expenselastview.ypay,
@@ -500,11 +504,14 @@ AS BEGIN
 		kpaymenttransmission_iva = paymentview.kpaymenttransmission,
 		ypaytransmission_iva = paymentview.ypaymenttransmission,
 		npaytransmission_iva = paymentview.npaymenttransmission,
-		transmissiondate_iva = paymentview.transmissiondate
+		transmissiondate_iva = paymentview.transmissiondate,
+		treasurer_iva= treasurer.header
 	FROM expenselastview 
 	JOIN paymentview ON expenselastview.kpay = paymentview.kpay
+	LEFT OUTER JOIN treasurer ON treasurer.idtreasurer = paymentview.idtreasurer
 	WHERE expenselastview.idexp = idexp_iva AND isnull(#invoice.idexp_taxable,0) <> isnull(#invoice.idexp_iva,0)
  
+
  	UPDATE #invoice SET 
 		idinc_iva        = incomelastview.idinc,
 		curramount       = incomelastview.curramount,
@@ -517,11 +524,13 @@ AS BEGIN
 		kproceedstransmission_iva_split  = proceedstransmission.kproceedstransmission,
 		yproceedstransmission_iva_split  = proceedstransmission.yproceedstransmission,
 		nproceedstransmission_iva_split  = proceedstransmission.nproceedstransmission,
-		transmissiondate_iva_split		 = proceedstransmission.transmissiondate
+		transmissiondate_iva_split		 = proceedstransmission.transmissiondate,
+		treasurer_iva_split = treasurer.header
 	FROM  incomelastview 
 	LEFT OUTER JOIN proceeds ON incomelastview.kpro = proceeds.kpro
 	LEFT OUTER JOIN proceedstransmission ON proceeds.kproceedstransmission = proceedstransmission.kproceedstransmission 
 	JOIN  #invoice ON incomelastview.idpayment = #invoice.idexp_taxable
+	LEFT OUTER JOIN treasurer ON treasurer.idtreasurer = proceedstransmission.idtreasurer
 	WHERE incomelastview.autokind = 6 
 	-- select * from #invoice where kproceedstransmission_iva_split is not null and idexp_taxable <> idexp_iva
 	UPDATE #invoice SET 
@@ -536,16 +545,18 @@ AS BEGIN
 		kproceedstransmission_iva_split  = proceedstransmission.kproceedstransmission,
 		yproceedstransmission_iva_split  = proceedstransmission.yproceedstransmission,
 		nproceedstransmission_iva_split  = proceedstransmission.nproceedstransmission,
-		transmissiondate_iva_split		 = proceedstransmission.transmissiondate
+		transmissiondate_iva_split		 = proceedstransmission.transmissiondate,
+		treasurer_iva_split = treasurer.header
 	FROM  incomelastview 
 	LEFT OUTER JOIN proceeds
 		ON incomelastview.kpro = proceeds.kpro
 	LEFT OUTER JOIN proceedstransmission 
 		ON proceeds.kproceedstransmission = proceedstransmission.kproceedstransmission 
 	JOIN  #invoice ON incomelastview.idpayment = #invoice.idexp_iva
+	LEFT OUTER JOIN treasurer ON treasurer.idtreasurer = proceedstransmission.idtreasurer
 	WHERE incomelastview.autokind = 6 AND idinc_iva is null
 	
-	
+	--SELECT * FROM #invoice 
 	UPDATE #invoice set no_clawback = 'S' 
 	FROM #invoice 
 	WHERE EXISTS 
@@ -622,13 +633,15 @@ AS BEGIN
 		   ypaytransmission_taxable as 'Elenco Trasm. Eserc.',
 		   npaytransmission_taxable as 'Elenco Trasm. n°', 
 		   transmissiondate_taxable as 'Trasmissione del ',
+		   treasurer_taxable as 'Conto Corrente',
 		   phase_iva  + ' ' + CONVERT(varchar(4),ymov_iva) + '/' + CONVERT(varchar(10),nmov_iva)  as 'Contabilizzazione IVA', 
 		   ypay_iva as 'Eserc. Mandato',
 		   npay_iva as 'Num. Mandato',
 		   paymentadate_iva as  'Emesso il ', 
 		   ypaytransmission_iva as 'Elenco Trasm. Eserc.',
 		   npaytransmission_iva as 'Elenco Trasm. n°', 
-		   transmissiondate_iva as 'Trasmissione del',
+		   transmissiondate_iva  as 'Trasmissione del',
+		   treasurer_iva as 'Conto Corrente',
 		   curramount as 'Importo Iva Split Payment',
 	       phase_iva  as 'Fase',
 		   ymov_iva_split as 'Esercizio Mov. Split',
@@ -637,7 +650,8 @@ AS BEGIN
 		   npro_iva   as 'Num. Reversale Split',
 		   yproceedstransmission_iva_split as 'Elenco Trasm. Split Eserc.',
 		   nproceedstransmission_iva_split as 'Elenco Trasm. N° Split', 
-		   transmissiondate_iva_split as 'Trasmissione Split del'
+		   transmissiondate_iva_split as 'Trasmissione Split del',
+		   treasurer_iva_split as 'Conto Corrente  Trasm. Split'  
 	 FROM #invoice
 		JOIN invoicekind
 			ON invoicekind.idinvkind = #invoice.idinvkind

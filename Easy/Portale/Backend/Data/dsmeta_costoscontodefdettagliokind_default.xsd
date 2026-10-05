@@ -1,15 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="dsmeta_costoscontodefdettagliokind_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="dsmeta_costoscontodefdettagliokind_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="dsmeta_costoscontodefdettagliokind_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="finmotivedefaultview_alias1" msprop:TableForReading="finmotivedefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="finmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="finmotivedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="finmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tassonomia_pagopa" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="causale" type="xs:string" />
+              <xs:element name="idtassonomia" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotivedefaultview_alias3" msprop:TableForReading="accmotivedefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotivedefaultview_alias2" msprop:TableForReading="accmotivedefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotivedefaultview_alias1" msprop:TableForReading="accmotivedefaultview" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="accmotivedefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="accmotive_active" type="xs:string" minOccurs="0" />
+              <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="costoscontodefdettagliokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="codice" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
               <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotivecredit" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiverevenue" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveundotax" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccmotiveundotaxpost" type="xs:string" minOccurs="0" />
               <xs:element name="idcostoscontodefdettagliokind" type="xs:int" />
+              <xs:element name="idfinmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="idfinmotive_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="idtassonomia" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
@@ -19,8 +90,47 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotivedefaultview_alias1" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="finmotivedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:finmotivedefaultview" />
+      <xs:field xpath="mstns:idfinmotive" />
+    </xs:unique>
+    <xs:unique name="tassonomia_pagopa_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tassonomia_pagopa" />
+      <xs:field xpath="mstns:idtassonomia" />
+    </xs:unique>
+    <xs:unique name="accmotivedefaultview_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview_alias3" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="accmotivedefaultview_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview_alias2" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="accmotivedefaultview_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview_alias1" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="accmotivedefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:accmotivedefaultview" />
+      <xs:field xpath="mstns:idaccmotive" />
+    </xs:unique>
+    <xs:unique name="costoscontodefdettagliokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:costoscontodefdettagliokind" />
       <xs:field xpath="mstns:idcostoscontodefdettagliokind" />
     </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_finmotivedefaultview_alias1_idfinmotive_iva" msdata:parent="finmotivedefaultview_alias1" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive_iva" />
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_finmotivedefaultview_idfinmotive" msdata:parent="finmotivedefaultview" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idfinmotive" msdata:childkey="idfinmotive" />
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_tassonomia_pagopa_idtassonomia" msdata:parent="tassonomia_pagopa" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idtassonomia" msdata:childkey="idtassonomia" />
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_accmotivedefaultview_alias3_idaccmotiveundotaxpost" msdata:parent="accmotivedefaultview_alias3" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveundotaxpost" />
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_accmotivedefaultview_alias2_idaccmotiveundotax" msdata:parent="accmotivedefaultview_alias2" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiveundotax" />
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_accmotivedefaultview_alias1_idaccmotiverevenue" msdata:parent="accmotivedefaultview_alias1" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotiverevenue" />
+      <msdata:Relationship name="FK_costoscontodefdettagliokind_accmotivedefaultview_idaccmotivecredit" msdata:parent="accmotivedefaultview" msdata:child="costoscontodefdettagliokind" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

@@ -23,14 +23,14 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
-						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 10, 101);
-						this.describeAColumn(table, 'iscrizione_anno', 'Anno di corso Iscrizione', null, 20, null);
-						this.describeAColumn(table, 'iscrizione_iddidprog', 'Didattica programmata Iscrizione', null, 20, null);
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 30, 9);
-						this.describeAColumn(table, 'decadenza_data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'decadenza_protanno', 'Anno di protocollo', null, 60, null);
-						this.describeAColumn(table, 'decadenza_protnumero', 'Numero di protocollo', null, 70, null);
-						this.describeAColumn(table, 'annoaccademico_aa', 'Anno accademico', null, 10, 9);
+						this.describeAColumn(table, 'registrystudenti_title', 'Studente', null, 1300, 101);
+						this.describeAColumn(table, 'iscrizione_aa', 'Anno accademico Iscrizione', null, 2100, 9);
+						this.describeAColumn(table, 'iscrizione_anno', 'Anno di corso Iscrizione', null, 2300, null);
+						this.describeAColumn(table, 'iscrizione_iddidprog', 'Didattica programmata Iscrizione', null, 2500, null);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 3000, 9);
+						this.describeAColumn(table, 'decadenza_data', 'Data', 'g', 4000, null);
+						this.describeAColumn(table, 'decadenza_protanno', 'Anno di protocollo', null, 5000, null);
+						this.describeAColumn(table, 'decadenza_protnumero', 'Numero di protocollo', null, 6000, null);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -54,6 +54,9 @@
 				switch (listType) {
 					case "seg": {
 						return "registrystudenti_title asc , iscrizione_anno asc , iscrizione_iddidprog asc ";
+					}
+					case "seg": {
+						return "registrystudenti_title asc , iscrizione_aa asc , iscrizione_anno asc , iscrizione_iddidprog asc ";
 					}
 					//$getSortingin$
 				}

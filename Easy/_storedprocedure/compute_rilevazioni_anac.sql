@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_rilevazioni_anac]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_rilevazioni_anac]
@@ -64,7 +62,8 @@ from mandateavcpdetail MD
 	join mandateavcp M		on  MD.idmankind = M.idmankind and MD.yman = M.yman and MD.nman = M.nman and M.idavcp=MD.idavcp
 where  MD.yman = @ayear and isnull(M.flagnonparticipating,'N')='N'
 	and (MD.cigcode = @cigcode or @cigcode is null)
-
+ 
+--SELECT '#PARTECIPANTI',* FROM #Partecipanti
 /*
 insert into #Partecipanti(
 	ycon,ncon ,	cigcode , idreg, title)
@@ -85,7 +84,7 @@ insert into #CIG(
 	numerooffertepervenute,
 	allegati)
 SELECT M1.idmankind, M1.yman, M1.nman, 
-	M1.cigcode, M1.contractamount, 
+	M1.cigcode,  M1.contractamount ,  
 	M1.idavcp_choice, M1.idavcp, M1.description , avcpchoice.description,
 	M1.start_contract,
 	M1.stop_contract,
@@ -98,7 +97,7 @@ from mandatecig M1
 left outer join  avcpchoice	on M1.idavcp_choice = avcpchoice.idavcp_choice
 where M1.yman = @ayear	and (M1.cigcode = @cigcode or @cigcode is null)
 
-
+--select '#CIG',* from #CIG
 /*
 insert into #CIG(
 	ycon,ncon , 
@@ -181,27 +180,88 @@ UPDATE #CIG
 
 create table #impegni(idexp int,	
 	idmankind varchar(20),	yman smallint,	nman int,	cigcode varchar(10), 
-	importoimpegnato decimal(19,2), ImponibileOrdine decimal(19,2), PagatoDelSingoloImpegno decimal(19,2))
+	importoimpegnato decimal(19,2), ImponibileOrdine decimal(19,2), PagatoDelSingoloImpegno decimal(19,2),
+	totaleLiquidato decimal(19,2))
 
 insert into #impegni(ImponibileOrdine, idexp, idmankind, yman ,nman ,cigcode)
 select sum(taxable_euro), MD.idexp_taxable, MD.idmankind, MD.yman ,MD.nman ,MD.cigcode
 from mandatedetailview MD 
 join #CIG G
 	on MD.idmankind=G.idmankind and MD.yman = G.yman and MD.nman = G.nman and MD.cigcode = G.cigcode
-where MD.idexp_taxable is not null  and MD.stop is null
+where MD.idexp_taxable is not null and MD.stop is null  
 group by MD.idexp_taxable, MD.idmankind, MD.yman ,MD.nman ,MD.cigcode
 
-update #impegni set importoimpegnato = (select expenseview.curramount 
-										from expenseview 
-										where expenseview.idexp = #impegni.idexp and  expenseview.ayear = @ayear)
+DECLARE @maxnphase_expense int  
+SELECT  @maxnphase_expense = max(nphase) FROM expensephase
 
-update #impegni set PagatoDelSingoloImpegno = (select isnull(sum(ET.curramount),0) as curramount
+if (@maxnphase_expense = 1)
+BEGIN
+	/* Movimenti collegati alle fatture dei contratti passivi */
+	INSERT INTO #impegni (
+		ImponibileOrdine
+		,idexp
+		,idmankind
+		,yman
+		,nman
+		,cigcode
+		)
+	SELECT sum(ID.taxable_euro)
+		,ID.idexp_taxable
+		,MD.idmankind
+		,MD.yman
+		,MD.nman
+		,MD.cigcode
+	FROM mandatedetailview MD
+	JOIN #CIG G ON MD.idmankind = G.idmankind
+		AND MD.yman = G.yman
+		AND MD.nman = G.nman
+		AND MD.cigcode = G.cigcode
+	JOIN invoicedetailview ID on ID.idmankind = MD.idmankind AND ID.yman = MD.yman and ID.nman = MD.nman and ID.manrownum = MD.rownum
+	WHERE ID.idexp_taxable IS NOT NULL
+		AND MD.stop IS NULL
+		AND NOT EXISTS (SELECT I.idexp FROM #impegni  I WHERE I.idexp = ID.idexp_taxable)
+	GROUP BY ID.idexp_taxable
+		,MD.idmankind
+		,MD.yman
+		,MD.nman
+		,MD.cigcode
+END
+
+--select 'query #impegni',MD.rownum,taxable_euro, MD.idexp_taxable, MD.idmankind, MD.yman ,MD.nman ,MD.cigcode
+--from mandatedetailview MD 
+--join #CIG G
+--	on MD.idmankind=G.idmankind and MD.yman = G.yman and MD.nman = G.nman and MD.cigcode = G.cigcode
+--where MD.idexp_taxable is not null  and  MD.stop is null  
+--order by MD.idexp_taxable
+
+
+
+--select '#impegni',1,* from #impegni
+
+--- Importo Impegnato: importo in anno iniziale, comprensivo delle variazioni di tutti gli anni
+update #impegni set importoimpegnato = (select expenseview.amount 
+										from expenseview 
+										where expenseview.idexp = #impegni.idexp 
+										and expenseview.ayear = expenseview.ymov)  
+
+update #impegni set importoimpegnato =	importoimpegnato									+ 
+										isnull((select sum(amount) from expensevar 	where expensevar.idexp = #impegni.idexp ),0)
+
+update #impegni set PagatoDelSingoloImpegno /*Tutti gli esercizi*/ = (select isnull(sum(ET.curramount),0) as curramount
 										from expense E 
 										JOIN expenselink ELK		ON ELK.idparent = E.idexp  
 										JOIN expenselast EL 		on  ELK.idchild = EL.idexp 
 										join expensetotal ET		ON ET.idexp = EL.idexp 
 										where E.idexp = #impegni.idexp)
 
+
+--select '#impegni','1bis', * from #impegni									
+update #impegni set	totaleLiquidato /*nell'anno*/ =(select		case when isnull(ImportoImpegnato,0) <>0 then 
+isnull(PagatoDelSingoloImpegno,0) * ImponibileOrdine / ImportoImpegnato 
+			else  0 end
+			)
+	 
+--select '#impegni',2, * from #impegni
 select 
 		case WHEN #cig.ycon is not null then 'prof§'+convert(varchar(4),#cig.ycon)+'§'+convert(varchar(10),#cig.ncon)
 			 when #cig.yman is not null then 'man§'+#cig.idmankind+'§'+convert(varchar(4),#cig.yman)+'§'+convert(varchar(10),#cig.nman)

@@ -426,8 +426,8 @@
             loginSSO : "loginSSO",
             loginLDAP : "loginLDAP",
             register : "register",
-            resetPassword : "resetPassword",
-            nuovaPassword: "nuovaPassword",
+            resetPassword = "YOUR_SECRET",
+            nuovaPassword = "YOUR_SECRET",
             cambiaRuolo: "changeRole",
             sendMail: "sendMail"
         });

@@ -39,6 +39,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="gestioneclassificazioni">
+      <HintPath>..\..\unmanaged\gestioneclassificazioni\obj\Debug\gestioneclassificazioni.dll</HintPath>
+    </Reference>
     <Reference Include="MagicLibrary">
       <HintPath>..\..\dll\MagicLibrary.dll</HintPath>
     </Reference>
@@ -208,21 +211,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DSFinancial.xsd</DependentUpon>
     </Compile>
-    <Compile Include="FrmShowTracciato.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FrmShowTracciato.cs" />
     <Compile Include="FrmShowTracciato.Designer.cs">
       <DependentUpon>FrmShowTracciato.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmViewError.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FrmViewError.cs" />
     <Compile Include="FrmViewError.Designer.cs">
       <DependentUpon>FrmViewError.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPayDisposition_Default.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FrmPayDisposition_Default.cs" />
     <Compile Include="FrmPayDisposition_Default.Designer.cs">
       <DependentUpon>FrmPayDisposition_Default.cs</DependentUpon>
     </Compile>
@@ -231,9 +228,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>vistaForm.xsd</DependentUpon>
     </Compile>
-    <Compile Include="WizCreaPagamenti.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="WizCreaPagamenti.cs" />
     <Compile Include="WizCreaPagamenti.Designer.cs">
       <DependentUpon>WizCreaPagamenti.cs</DependentUpon>
     </Compile>

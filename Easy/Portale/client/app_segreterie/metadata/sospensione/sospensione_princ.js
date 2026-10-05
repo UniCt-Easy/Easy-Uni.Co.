@@ -64,6 +64,8 @@
 
 			//insertClick
 
+			//beforePost
+
 			//buttons
         });
 

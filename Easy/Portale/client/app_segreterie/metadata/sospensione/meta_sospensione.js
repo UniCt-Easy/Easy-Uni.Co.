@@ -33,6 +33,9 @@
 						this.describeAColumn(table, 'start', 'Inizio', 'g', 20, null);
 						this.describeAColumn(table, 'stop', 'Fine', 'g', 30, null);
 						this.describeAColumn(table, 'motivo', 'Motivo', null, 40, 1024);
+						this.describeAColumn(table, 'idsospensionekind', 'Tipo', null, 50, null);
+						this.describeAColumn(table, '!idsospensionekind_sospensionekind_title', 'Tipo', null, 51, null);
+						objCalcFieldConfig['!idsospensionekind_sospensionekind_title'] = { tableNameLookup:'sospensionekind', columnNameLookup:'title', columnNamekey:'idsospensionekind' };
 //$objCalcFieldConfig_default$
 						break;
 					case 'edifici':
@@ -47,6 +50,18 @@
 						this.describeAColumn(table, 'motivo', 'Motivo', null, 40, 1024);
 //$objCalcFieldConfig_aula$
 						break;
+					case 'sedi':
+						this.describeAColumn(table, 'start', 'Inizio', 'g', 20, null);
+						this.describeAColumn(table, 'stop', 'Fine', 'g', 30, null);
+						this.describeAColumn(table, 'motivo', 'Motivo', null, 40, 1024);
+//$objCalcFieldConfig_sedi$
+						break;
+					case 'aulapublic':
+						this.describeAColumn(table, 'start', 'Inizio', 'g', 20, null);
+						this.describeAColumn(table, 'stop', 'Fine', 'g', 30, null);
+						this.describeAColumn(table, 'motivo', 'Motivo', null, 40, 1024);
+//$objCalcFieldConfig_aulapublic$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -55,7 +70,33 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["idaula"].caption = "Aula";
+						table.columns["idedificio"].caption = "Edificio";
+						table.columns["idreg"].caption = "Docente, Studente o Istituto";
+						table.columns["idsede"].caption = "Sede";
+						table.columns["idsospensione"].caption = "Codice";
+						table.columns["idsospensionekind"].caption = "Tipo";
+						table.columns["start"].caption = "Inizio";
+						table.columns["stop"].caption = "Fine";
+//$innerSetCaptionConfig_default$
+						break;
+					case 'princ':
+						table.columns["idaula"].caption = "Aula";
+//$innerSetCaptionConfig_princ$
+						break;
+					case 'sedi':
+//$innerSetCaptionConfig_sedi$
+						break;
+					case 'aulapublic':
+//$innerSetCaptionConfig_aulapublic$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_sospensione");
@@ -87,6 +128,12 @@
 						return "start desc";
 					}
 					case "aula": {
+						return "start desc";
+					}
+					case "sedi": {
+						return "start asc ";
+					}
+					case "aulapublic": {
 						return "start desc";
 					}
 					//$getSortingin$

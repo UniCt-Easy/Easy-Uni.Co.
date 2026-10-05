@@ -23,17 +23,38 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				this.calcDescription();
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-prova_default");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
+				this.calcDescription();
+			if (self.isNullOrMinDate(parentRow.start))
+				parentRow.start = new Date();
+			if (self.isNullOrMinDate(parentRow.stop))
+				parentRow.stop = new Date();
+				this.state.DS.tables.attivformappelloview.staticFilter(this.state.callerState.currentRow?.aa != null && !this.state.currentRow?.idattivform ? this.q.eq('aa', this.state.callerState.currentRow.aa) : null);
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#commiss_default_idreg_docenti'), null);
 				} else {
@@ -89,9 +110,10 @@
 				$("#btn_add_commissregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_commissregistry_docenti_idreg_docenti").prop("disabled", true);
 				this.setDenyNull("prova","title");
+				this.setDenyNull("prova","idattivform");
 				this.setDenyNull("prova","start");
 				this.setDenyNull("prova","stop");
-				appMeta.metaModel.insertFilter(this.getDataTable("valutazionekind"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("valutazionekinddefaultview"), this.q.eq('valutazionekind_active', 'Si'));
 				$('#grid_sostenimento_default').data('mdlconditionallookup', 'livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -128,6 +150,19 @@
 
 			//beforePost
 
+			//afterPost
+
+			calcDescription: function() {
+				if (this.state.currentRow && !this.state.currentRow.title && this.state.currentRow.idattivform && this.getDataTable('attivformappelloview').rows.length) {
+					let att = this.getDataTable('attivformappelloview').rows.find(r => r.idattivform === this.state.currentRow.idattivform);
+					if (att) {
+						this.state.currentRow.title = 'Prova per ' + att.insegn_denominazione + ', AA: ' + att.aa;
+						if (!this.state.callerState.currentRow.description)
+							this.state.callerState.currentRow.description = 'Appello per ' + att.insegn_denominazione + ', AA: ' + att.aa;
+					}
+				}
+			},
+
 			searchAndAssignaula: function (that) {
 				return that.searchAndAssign({
 					tableName: "aula",
@@ -138,6 +173,7 @@
 					columnSource: "idaula",
 					columnToFill: "idaula",
 					tableToFill: "provaaula"
+
 				});
 			},
 
@@ -152,6 +188,9 @@
 					columnToFill: "idreg_docenti",
 					tableToFill: "commissregistry_docenti",
 					parentRow: that.state.DS.tables.commiss.rows[0]
+
+,
+					filter: that.q.eq('registry_active', 'Si')
 				});
 			},
 

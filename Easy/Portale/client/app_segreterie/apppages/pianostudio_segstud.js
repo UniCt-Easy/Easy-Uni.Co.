@@ -42,18 +42,51 @@
 					});
 				return def.promise();
 			},
-			
-			//beforeFill
 
-			//afterClear
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#pianostudio_segstud_idreg'), null);
+				} else {
+					this.helpForm.filter($('#pianostudio_segstud_idreg'), this.q.eq('registry_active', 'Si'));
+				}
+				//beforeFillFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("beforeFill-pianostudio_segstud");
+				var arraydef = [];
+				
+				//beforeFillInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return self.superClass.beforeFill.call(self)
+							.then(function () {
+								return def.resolve();
+							});
+					});
+				return def.promise();
+			},
+
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pianostudio_segstud_idreg'), true);
+				this.helpForm.filter($('#pianostudio_segstud_idreg'), null);
+				this.enableControl($('#pianostudio_segstud_idiscrizione'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
 			afterLink: function () {
 				var self = this;
 				this.setDenyNull("pianostudio","idiscrizione");
-				appMeta.metaModel.cachedTable(this.getDataTable("iscrizionesegview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("iscrizionesegview"));
+				appMeta.metaModel.insertFilter(this.getDataTable("pianostudiostatusdefaultview"), this.q.eq('pianostudiostatus_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -63,26 +96,15 @@
 			},
 
 			afterRowSelect: function (t, r) {
-				$('#pianostudio_segstud_idreg').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#pianostudio_segstud_idreg').prop("readonly", this.state.isEditState() || this.haveChildren());
-				$('#pianostudio_segstud_idiscrizione').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#pianostudio_segstud_idiscrizione').prop("readonly", this.state.isEditState() || this.haveChildren());
+				var def = appMeta.Deferred("afterRowSelect-pianostudio_segstud");
+				$('#pianostudio_segstud_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#pianostudio_segstud_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
+				$('#pianostudio_segstud_idiscrizione').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
+				$('#pianostudio_segstud_idiscrizione').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
+				$('#pianostudio_segstud_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
+				$('#pianostudio_segstud_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idiscrizione);
 				//afterRowSelectin
-				var arraydef = [];
-				var self = this;
-				if (t.name === "registrystudentiview" && r !== null) {
-					appMeta.metaModel.cachedTable(this.getDataTable("iscrizionesegview"), false);
-					var pianostudio_segstud_idiscrizioneCtrl = $('#pianostudio_segstud_idiscrizione').data("customController");
-					arraydef.push(pianostudio_segstud_idiscrizioneCtrl.filteredPreFillCombo(window.jsDataQuery.eq("idreg", r ? r.idreg : null), null, true)
-						.then(function (dt) {
-							if (self.state.currentRow && self.state.currentRow.idiscrizione)
-								pianostudio_segstud_idiscrizioneCtrl.fillControl(null, self.state.currentRow.idiscrizione);
-							return true;
-						})
-);
-				}
-				//afterRowSelectAsincIn
-				return $.when.apply($, arraydef);
+				return def.resolve();
 			},
 
 			//afterActivation
@@ -101,6 +123,10 @@
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
+
+			//afterPost
 
 			children: ['pianostudioattivform'],
 			haveChildren: function () {

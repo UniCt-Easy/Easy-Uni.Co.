@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -42,7 +40,7 @@ namespace no_table_import_anagrafiche_csa {
         DataSet D = new vistaAnagrafica();
         DataAccess Conn;
         private GroupBox grpConferma;
-        private Label label3;
+        private Label lblAnagrafica;
         private Button btnImporta;
         DataTable TanagraficheError = new DataTable("TanagraficheError");
         DataTable Tqualifichenonmappate = new DataTable("Tqualifichenonmappate");
@@ -67,17 +65,25 @@ namespace no_table_import_anagrafiche_csa {
 
         DataTable Position;
         Hashtable HPosition;
-        private ProgressBar progressBar1;
+        DataTable LinkedServerAccess;
+        object ComputeStop;
+        object LinkedServerName;
+        object DBServerName;
+
+        // Rimuovo la progress bar, se dovesse servire bisogna farla async
+        //private ProgressBar progressBar1;
         private Label label16;
         private TextBox txt_matricola_a;
         private TextBox txt_matricola_da;
         private Label label5;
         private Label label6;
+		private GroupBox grpInquadramenti;
+		private Label lblInquadramenti;
 
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.Container components = null;
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.Container components = null;
 
         public FrmNoTable_import_anagrafiche_csa() {
             //
@@ -113,23 +119,26 @@ namespace no_table_import_anagrafiche_csa {
 			this.btnAnnulla = new System.Windows.Forms.Button();
 			this.DS = new no_table_import_anagrafiche_csa.vistaForm();
 			this.grpConferma = new System.Windows.Forms.GroupBox();
-			this.label3 = new System.Windows.Forms.Label();
+			this.lblAnagrafica = new System.Windows.Forms.Label();
 			this.btnImporta = new System.Windows.Forms.Button();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			//this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.label16 = new System.Windows.Forms.Label();
 			this.txt_matricola_a = new System.Windows.Forms.TextBox();
 			this.txt_matricola_da = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
+			this.grpInquadramenti = new System.Windows.Forms.GroupBox();
+			this.lblInquadramenti = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.grpConferma.SuspendLayout();
+			this.grpInquadramenti.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// btnAnnulla
 			// 
 			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnAnnulla.Location = new System.Drawing.Point(450, 322);
+			this.btnAnnulla.Location = new System.Drawing.Point(450, 346);
 			this.btnAnnulla.Name = "btnAnnulla";
 			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
 			this.btnAnnulla.TabIndex = 6;
@@ -144,32 +153,31 @@ namespace no_table_import_anagrafiche_csa {
 			// 
 			// grpConferma
 			// 
-			this.grpConferma.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.grpConferma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.grpConferma.Controls.Add(this.label3);
+			this.grpConferma.Controls.Add(this.lblAnagrafica);
 			this.grpConferma.Location = new System.Drawing.Point(12, 8);
 			this.grpConferma.Name = "grpConferma";
-			this.grpConferma.Size = new System.Drawing.Size(518, 219);
+			this.grpConferma.Size = new System.Drawing.Size(518, 173);
 			this.grpConferma.TabIndex = 10;
 			this.grpConferma.TabStop = false;
 			this.grpConferma.Text = "Operazioni sull\'anagrafica";
 			// 
-			// label3
+			// lblAnagrafica
 			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.lblAnagrafica.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.label3.Location = new System.Drawing.Point(6, 27);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(506, 186);
-			this.label3.TabIndex = 73;
-			this.label3.Text = resources.GetString("label3.Text");
+			this.lblAnagrafica.Location = new System.Drawing.Point(6, 20);
+			this.lblAnagrafica.Name = "lblAnagrafica";
+			this.lblAnagrafica.Size = new System.Drawing.Size(506, 150);
+			this.lblAnagrafica.TabIndex = 73;
+			this.lblAnagrafica.Text = resources.GetString("lblAnagrafica.Text");
 			// 
 			// btnImporta
 			// 
 			this.btnImporta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnImporta.Location = new System.Drawing.Point(377, 241);
+			this.btnImporta.Location = new System.Drawing.Point(379, 265);
 			this.btnImporta.Name = "btnImporta";
 			this.btnImporta.Size = new System.Drawing.Size(150, 37);
 			this.btnImporta.TabIndex = 76;
@@ -179,17 +187,17 @@ namespace no_table_import_anagrafiche_csa {
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(12, 284);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(518, 23);
-			this.progressBar1.TabIndex = 77;
+			//this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBar1.Location = new System.Drawing.Point(12, 308);
+			//this.progressBar1.Name = "progressBar1";
+			//this.progressBar1.Size = new System.Drawing.Size(518, 23);
+			//this.progressBar1.TabIndex = 77;
 			// 
 			// label16
 			// 
 			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label16.Location = new System.Drawing.Point(10, 252);
+			this.label16.Location = new System.Drawing.Point(10, 276);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(58, 20);
 			this.label16.TabIndex = 82;
@@ -198,7 +206,7 @@ namespace no_table_import_anagrafiche_csa {
 			// txt_matricola_a
 			// 
 			this.txt_matricola_a.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txt_matricola_a.Location = new System.Drawing.Point(240, 251);
+			this.txt_matricola_a.Location = new System.Drawing.Point(240, 275);
 			this.txt_matricola_a.Name = "txt_matricola_a";
 			this.txt_matricola_a.Size = new System.Drawing.Size(102, 20);
 			this.txt_matricola_a.TabIndex = 80;
@@ -206,7 +214,7 @@ namespace no_table_import_anagrafiche_csa {
 			// txt_matricola_da
 			// 
 			this.txt_matricola_da.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txt_matricola_da.Location = new System.Drawing.Point(109, 250);
+			this.txt_matricola_da.Location = new System.Drawing.Point(109, 274);
 			this.txt_matricola_da.Name = "txt_matricola_da";
 			this.txt_matricola_da.Size = new System.Drawing.Size(97, 20);
 			this.txt_matricola_da.TabIndex = 78;
@@ -214,7 +222,7 @@ namespace no_table_import_anagrafiche_csa {
 			// label5
 			// 
 			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label5.Location = new System.Drawing.Point(198, 251);
+			this.label5.Location = new System.Drawing.Point(198, 275);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(36, 16);
 			this.label5.TabIndex = 81;
@@ -224,24 +232,48 @@ namespace no_table_import_anagrafiche_csa {
 			// label6
 			// 
 			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label6.Location = new System.Drawing.Point(66, 250);
+			this.label6.Location = new System.Drawing.Point(66, 274);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(37, 16);
 			this.label6.TabIndex = 79;
 			this.label6.Text = "Da:";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// grpInquadramenti
+			// 
+			this.grpInquadramenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.grpInquadramenti.Controls.Add(this.lblInquadramenti);
+			this.grpInquadramenti.Location = new System.Drawing.Point(13, 187);
+			this.grpInquadramenti.Name = "grpInquadramenti";
+			this.grpInquadramenti.Size = new System.Drawing.Size(518, 72);
+			this.grpInquadramenti.TabIndex = 83;
+			this.grpInquadramenti.TabStop = false;
+			this.grpInquadramenti.Text = "Configurazione del Servizio in caso di Ruoli CSA contemporanei";
+			// 
+			// lblInquadramenti
+			// 
+			this.lblInquadramenti.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblInquadramenti.Location = new System.Drawing.Point(6, 20);
+			this.lblInquadramenti.Name = "lblInquadramenti";
+			this.lblInquadramenti.Size = new System.Drawing.Size(506, 46);
+			this.lblInquadramenti.TabIndex = 73;
+			// 
 			// FrmNoTable_import_anagrafiche_csa
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnAnnulla;
-			this.ClientSize = new System.Drawing.Size(538, 350);
+			this.ClientSize = new System.Drawing.Size(538, 374);
+			this.Controls.Add(this.grpInquadramenti);
 			this.Controls.Add(this.label16);
 			this.Controls.Add(this.txt_matricola_a);
 			this.Controls.Add(this.txt_matricola_da);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label6);
-			this.Controls.Add(this.progressBar1);
+			//this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.btnImporta);
 			this.Controls.Add(this.grpConferma);
 			this.Controls.Add(this.btnAnnulla);
@@ -250,6 +282,7 @@ namespace no_table_import_anagrafiche_csa {
 			this.Text = "Importa Anagrafiche da CSA";
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.grpConferma.ResumeLayout(false);
+			this.grpInquadramenti.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -318,18 +351,43 @@ namespace no_table_import_anagrafiche_csa {
             Position = Conn.RUN_SELECT("position", "*", null, null, null, false);
             HPosition = new Hashtable();
             foreach (DataRow RPOS in Position.Select()) HPosition[RPOS["codeposition"]] = RPOS["idposition"];
+
+            LinkedServerAccess = Conn.RUN_SELECT("linkedserveraccess", "*", null, null, null, false);
+
+            if ((LinkedServerAccess == null)|| (LinkedServerAccess.Rows.Count == 0)){
+                show(this,
+                    "Non è stato trovato né il nome del LinkedServer né il nome del DB da cui leggere le Anagrafiche.",
+                    "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblInquadramenti.Text = "Servizio non configurato";
+                btnImporta.Enabled = false;
+            }
+            else {
+                LinkedServerName = LinkedServerAccess.Rows[0]["linkedservername"];
+                DBServerName = LinkedServerAccess.Rows[0]["DBServerName"];
+                ComputeStop = LinkedServerAccess.Rows[0]["computestop"];
+
+                if (ComputeStop.ToString().ToUpper() == "S") {
+                    lblInquadramenti.Text = "Non è ammessa la concomitanza di più ruoli CSA attivi. Il programma valorizza automaticamente la data fine sui ruoli meno recenti. " +
+                    "Per modificare tale impostazione, contattare il servizio assistenza.";
+                }
+                else {
+                    lblInquadramenti.Text = "La concomitanza di più ruoli CSA attivi è consentita. " +
+                    "Per modificare tale impostazione, contattare il servizio assistenza.";
+                }
+                btnImporta.Enabled = true;
+            }
+
+
         }
 
         private void btnImporta_Click(object sender, EventArgs e) {
-            object LinkedServerName = Conn.DO_READ_VALUE("linkedserveraccess", null, "linkedservername");
-            object DBServerName = Conn.DO_READ_VALUE("linkedserveraccess", null, "dbservername");
             if ((LinkedServerName == null) && (DBServerName == null)) {
                 show(this,
                     "Non è stato trovato né il nome del LinkedServer né il nome del DB da cui leggere le Anagrafiche.",
                     "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            progressBar1.Value = 0;
+            //progressBar1.Value = 0;
             // Chiama la sp di check per verificare se vi siano Matricole la cui qualifica CSA non sia mappata in Easy
             CheckMappaturaQualifiche(LinkedServerName, DBServerName);
 
@@ -497,10 +555,10 @@ namespace no_table_import_anagrafiche_csa {
             Tavviso.Clear();
             Tqualifichenonmappate.Clear();
             Dictionary<string, DataRow> regs = new Dictionary<string, DataRow>();
-            progressBar1.Maximum = Out.Rows.Count;
+            //progressBar1.Maximum = Out.Rows.Count;
             foreach (DataRow rCSA in Out.Select()) {
                 string filterMatricola =  QHC.CmpEq("matricola", rCSA["matricola"]);
-                progressBar1.Value++;
+                //progressBar1.Value++;
                 avviso = false;
                 filterAnagrafica = QHS.AppAnd(QHS.CmpEq("active", "S"), QHS.CmpEq("cf", rCSA["cf"]));
                 bool inMemory = regs.ContainsKey(rCSA["cf"].ToString().ToUpper());
@@ -614,18 +672,17 @@ namespace no_table_import_anagrafiche_csa {
 
             ShowError(Tavviso, TanagraficheError, Tcatastale, countavviso, counterr);
 
+            // Disattiva le righe di registrylegalstatus aventi inquadramento null. Agisce sulle matricole oggetto di questa elaborazione
+            Meta.Conn.CallSP("compute_inquadranagrafiche_csa",
+                new object[] { matricola_da, matricola_a }, 10000, out errMess);
+
             // Valorizza la data termine della riga di Rgistrylegalstatus
-            object computestop = Conn.DO_READ_VALUE("linkedserveraccess", null, "computestop");
-            if (computestop.ToString() == "S") {
+            if (ComputeStop.ToString() == "S") {
                 show(this, "Valorizza data termine", "Informazione", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 Meta.Conn.CallSP("compute_stopregistrylegalstatus",
                      new object[] { matricola_da, matricola_a }, 10000, out errMess);
             }
-            // Qui deve sistemare il campo Active e lo fa tramite la sp che agisce sulle matricole oggetto di questa elaborazione
-            string disattivariga = "S";
-             Meta.Conn.CallSP("compute_inquadranagrafiche_csa",
-                 new object[] { matricola_da, matricola_a, disattivariga }, 10000, out errMess);
 
             return true;
         }
@@ -1055,6 +1112,13 @@ namespace no_table_import_anagrafiche_csa {
                             QHS.CmpEq("value", codice),
                             QHS.IsNull("stop")
                             ), "idnation", null);
+                    //Se non trova un Codice Fiscale attivo( stop is null), prende l'ultimo codice fiscale attivo
+                    if (idnation == null) {
+                        idnation = Conn.DO_READ_VALUE("geo_nation_agencyview",
+                            QHS.AppAnd(QHS.CmpEq("codename", "fiscale"),
+                                QHS.CmpEq("value", codice)
+                                ), "idnation", "stop desc");
+                    }
                     if (idnation == null) {
                         idnation = DBNull.Value;
                         ////////show("Codice catastale :" + codice.ToString() +
@@ -1364,7 +1428,7 @@ namespace no_table_import_anagrafiche_csa {
                 filterinqC = QHC.CmpEq("csa_class", rCSADati["inquadramento"]);
             }
             object idReg = Reg["idreg"];
-            
+            //bool rigaPresente = false;
             string filterkey = QHS.AppAnd(QHS.CmpEq("idreg", idReg), filterinq,
                 QHS.CmpEq("csa_compartment", rCSADati["comparto"]), QHS.CmpEq("csa_role", rCSADati["ruolo"]),
                 QHS.CmpEq("start", rCSADati["in_vigore_giur"]), QHS.CmpEq("incomeclass", rCSADati["classestipendiale"]));
@@ -1379,6 +1443,7 @@ namespace no_table_import_anagrafiche_csa {
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrylegalstatus"], null, filterkey, null, true);
                 DataRow[] rFound = D.Tables["registrylegalstatus"].Select(filterkeyC);
                 R = rFound[0];
+                //rigaPresente = true;
             }
             else {
 	            bool foundprec = false;
@@ -1400,7 +1465,8 @@ namespace no_table_import_anagrafiche_csa {
 		            if (rFound.Length > 0) {
 			            R = rFound[0];
 			            foundprec = true;
-		            }
+                        //rigaPresente = true;
+                    }
 	            }
 	            if (!foundprec) {
 		            // Inserisce un nuovo inquadramento, perchè nel DB non ne esiste uno con quei campi.
@@ -1408,6 +1474,7 @@ namespace no_table_import_anagrafiche_csa {
 		            R["idreg"] = idReg;
 		            R["start"] = rCSADati["in_vigore_giur"];
                     R["flagdefault"] = "N";
+                    R["active"] = "S";
                     R["livello"] = rCSADati["livello"];
                     R["cu"]= "importazioneCSA";
                 }
@@ -1415,17 +1482,20 @@ namespace no_table_import_anagrafiche_csa {
                     //vuol dire che ha trovato un inquadramento con gli stessi campi MA con termine null, ossia l'inquadramento è stato rinnovato
                     R["stop"] = rCSADati["termine"];
                 }
+
             }
 
 
             //R["stop"] = rCSADati["termine"];
             // Nella sp,  se legge Termine year = 2222 , restituisce null
             
-            if (rCSADati["termine"] != DBNull.Value) {
+            //if (rCSADati["termine"] != DBNull.Value) {
                 //Stiamo assegnando una VERA data termine
-                R["stop"] = rCSADati["termine"];
-            }
-            R["active"] = "S";
+            R["stop"] = rCSADati["termine"];
+            //}
+            //if(rigaPresente) // era stato fatto per unicampania quando sono stati sistemati tutti gli inquadramenti.
+            //     R["active"] = "S";//Stiamo riattivando una riga perchè prensente in CSA.
+
             R["idposition"] = idposition;
             R["idinquadramento"] = rCSADati["codiceinquadramento"];// Sono i codici in Easy letti dalla tabella di mappatura
             R["tempdef"] = rCSADati["tempdef"];
@@ -1434,6 +1504,7 @@ namespace no_table_import_anagrafiche_csa {
             R["csa_compartment"] = rCSADati["comparto"];
             R["csa_role"] = rCSADati["ruolo"];
             R["csa_class"] = rCSADati["inquadramento"];
+
             R["lt"] = DateTime.Now;
             R["lu"] = "UPimportazioneCSA";
             return true;
@@ -1463,24 +1534,30 @@ namespace no_table_import_anagrafiche_csa {
 	            decimal redditoPrecedente = CfgFn.GetNoNullDecimal(ReddPres.Rows[0]["supposedincome"]);
 	            if (redditoPrecedente == supposedincome) return false; //Non c'è bisogno di aggiornarlo
 
+                // Se esiste una sola riga con uguale start e diverso reddito presunto, lo disattiva temporaneamente, 
+                // la recupererà dopo in memoria se necessario
                 DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrytaxablestatus"], "start DESC",
 								QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start", start)), "1", false);
                 string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", start));
                 DataRow[] rFound = D.Tables["registrytaxablestatus"].Select(filterkeyDS);
                 if (rFound.Length > 0) {
-	                var RR = rFound[0];
-	                RR["active"] = "N";
+                    R = rFound[0];
+	                R["active"] = "N";
                 }
             }
             else {
-	            var precRedd = ReddPres.Select(QHC.CmpLe("start", start), "start desc");
+                // Esistono diverse righe di reddito con minore o uguale start  
+                // cerca il più recente con un reddito uguale anche se con data precedente e se c'è lo lascia attivo
+                var precRedd = ReddPres.Select(QHC.CmpLe("start", start), "start desc");
+                // prende la più recente sebbene inferiore a start
 	            if (precRedd.Length > 1) {
 		            object startFound = precRedd[0]["start"];
-		            //Esiste un reddito precedente attivo
+		            //Esiste un reddito precedente attivo e non c'è bisogno di creare una nuova riga
 		            decimal redditoPrecedente = CfgFn.GetNoNullDecimal(precRedd[0]["supposedincome"]);
 		            if (redditoPrecedente == supposedincome) return false; //Non c'è bisogno di aggiornarlo
 
-                    //Crea il nuovo e rende il precedente non attivo
+                    // Invece il reddito della riga con data più recente inferiore a start e reddito diverso DISATTIVA QUESTA, creerà una NUOVA riga
+                    // con start IN INPUT, ATTIVA e il nuovo importo
 		            DataAccess.RUN_SELECT_INTO_TABLE(Conn, D.Tables["registrytaxablestatus"], "start DESC",
 			            QHS.AppAnd(QHS.CmpEq("idreg", idReg), QHS.CmpEq("start",startFound )), "1", false);
 		            string filterkeyDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", startFound));
@@ -1493,8 +1570,8 @@ namespace no_table_import_anagrafiche_csa {
             }
 
             if (R == null) {
-                // Inserisce una nuova riga, perchè nel DB non ne esiste uno con quei campi chiave.
-                // Controlla che non esista già in memoria:
+                // Inserisce una nuova riga con data START oppure
+                // Controlla che non esista già in memoria, in questo caso ne aggiorna l'importo e la RIATTIVA se era stata disattivata:
                 string filterDS = QHC.AppAnd(QHC.CmpEq("idreg", idReg), QHC.CmpEq("start", start));
                 DataRow[] rDSFound = D.Tables["registrytaxablestatus"].Select(filterDS);
                 if (rDSFound.Length > 0) return false;//non effettua l'aggiornamento
@@ -1503,7 +1580,7 @@ namespace no_table_import_anagrafiche_csa {
                 R["idreg"] = Reg["idreg"];
             }
 
-            R["start"] = start;
+            R["start"] = start; 
             R["supposedincome"] = supposedincome;
             R["active"] = "S";
             R["lt"] = DateTime.Now;

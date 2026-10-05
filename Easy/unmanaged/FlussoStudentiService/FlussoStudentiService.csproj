@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C4C040E-9969-4961-8F60-1BFBECA23750}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FlussoStudentiService</RootNamespace>
+    <AssemblyName>FlussoStudentiService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ep_functions">
+      <HintPath>..\ep_functions\bin\Debug\ep_functions.dll</HintPath>
+    </Reference>
+    <Reference Include="FlussoStudentiCryptoHelper">
+      <HintPath>..\..\..\progetti\FlussoStudentiServices\FlussoStudentiCryptoHelper\bin\Debug\FlussoStudentiCryptoHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="funzioni_configurazione">
+      <HintPath>..\funzioni_configurazione\bin\Debug\funzioni_configurazione.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="gestioneclassificazioni">
+      <HintPath>..\gestioneclassificazioni\bin\Debug\gestioneclassificazioni.dll</HintPath>
+    </Reference>
+    <Reference Include="manage_automatismi">
+      <HintPath>..\manage_automatismi\bin\Debug\manage_automatismi.dll</HintPath>
+    </Reference>
+    <Reference Include="metadatalibrary">
+      <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="meta_config">
+      <HintPath>..\..\config\meta_config\bin\Debug\meta_config.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_entry">
+      <HintPath>..\..\entry\meta_entry\bin\Debug\meta_entry.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_entrydetail">
+      <HintPath>..\..\entrydetail\meta_entrydetail\bin\Debug\meta_entrydetail.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epacc">
+      <HintPath>..\..\epacc\meta_epeacc\bin\Debug\meta_epacc.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epaccsorting">
+      <HintPath>..\..\epaccsorting\meta_epaccsorting\bin\Debug\meta_epaccsorting.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epaccvar">
+      <HintPath>..\..\epaccvar\meta_epaccvar\bin\Debug\meta_epaccvar.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epaccyear">
+      <HintPath>..\..\epaccyear\meta_epaccyear\bin\Debug\meta_epaccyear.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epexp">
+      <HintPath>..\..\epexp\meta_epexp\bin\Debug\meta_epexp.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epexpsorting">
+      <HintPath>..\..\epexpsorting\meta_epexpsorting\bin\Debug\meta_epexpsorting.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epexpvar">
+      <HintPath>..\..\epexpvar\meta_epexpvar\bin\Debug\meta_epexpvar.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_epexpyear">
+      <HintPath>..\..\epexpyear\meta_epexpyear\bin\Debug\meta_epexpyear.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_flussoincassi">
+      <HintPath>..\..\flussoincassi\meta_flussoincassi\bin\Debug\meta_flussoincassi.dll</HintPath>
+    </Reference>
+    <Reference Include="meta_ivaregister">
+      <HintPath>..\..\ivaregister\meta_ivaregister\bin\Debug\meta_ivaregister.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_estimatedetail">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_estimatedetail</Name>
+      <HintPath>..\..\estimatedetail\meta_estimatedetail\bin\Debug\meta_estimatedetail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_registry">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registry</Name>
+      <HintPath>..\..\registry\meta_registry\bin\Debug\meta_registry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_estimatekind">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_estimatekind</Name>
+      <HintPath>..\..\estimatekind\meta_estimatekind\bin\Debug\meta_estimatekind.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_estimate">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_estimate</Name>
+      <HintPath>..\..\estimate\meta_estimate\bin\Debug\meta_estimate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomelast">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomelast</Name>
+      <HintPath>..\..\incomelast\meta_incomelast\bin\Debug\meta_incomelast.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomesorted">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomesorted</Name>
+      <HintPath>..\..\incomesorted\meta_incomesorted\bin\Debug\meta_incomesorted.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_income">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_income</Name>
+      <HintPath>..\..\income\meta_income\bin\Debug\meta_income.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomeyear">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomeyear</Name>
+      <HintPath>..\..\incomeyear\meta_incomeyear\bin\Debug\meta_incomeyear.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_upb">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_upb</Name>
+      <HintPath>..\..\upb\meta_upb\bin\Debug\meta_upb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_fin">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_fin</Name>
+      <HintPath>..\..\fin\meta_fin\bin\Debug\meta_fin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_incomevar">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_incomevar</Name>
+      <HintPath>..\..\incomevar\meta_incomevar\bin\Debug\meta_incomevar.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_invoice">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoice</Name>
+      <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_invoicedetail">
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicedetail</Name>
+      <HintPath>..\..\invoicedetail\meta_invoicedetail\bin\Debug\meta_invoicedetail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_flussocrediti">
+      <HintPath>..\..\flussocrediti\meta_flussocrediti\bin\Debug\meta_flussocrediti.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocrediti</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_flussocreditidetail">
+      <HintPath>..\..\flussocreditidetail\meta_flussocreditidetail\bin\Debug\meta_flussocreditidetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussocreditidetail</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_flussoincassidetail">
+      <HintPath>..\..\flussoincassidetail\meta_flussoincassidetail\bin\Debug\meta_flussoincassidetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_flussoincassidetail</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_registryreference">
+      <HintPath>..\..\registryreference\meta_registryreference\bin\Debug\meta_registryreference.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_registryreference</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_invoicekind">
+      <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_invoicekind</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_list">
+      <HintPath>..\..\list\meta_list\bin\Debug\meta_list.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_list</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_ivaregisterkind">
+      <HintPath>..\..\ivaregisterkind\meta_ivaregisterkind\bin\Debug\meta_ivaregisterkind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_ivaregisterkind</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_webpayment">
+      <HintPath>..\..\webpayment\meta_webpayment\bin\Debug\meta_webpayment.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_webpayment</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="meta_ivakind">
+      <HintPath>..\..\ivakind\meta_ivakind\bin\Debug\meta_ivakind.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Name>meta_ivakind</Name>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="movimentofunctions">
+      <HintPath>..\movimentofunctions\bin\debug\movimentofunctions.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Easy_PostData_NoBLNoTimeStamp.cs" />
+    <Compile Include="EmailSender.cs" />
+    <Compile Include="EncryptedConfigHelper.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FlussoStudentiPostData.cs" />
+    <Compile Include="FlussoStudentiPostDataService.cs" />
+    <Compile Include="FlussoStudentiService.cs" />
+    <Compile Include="IEmailSender.cs" />
+    <Compile Include="IFlussoStudentiPostData.cs" />
+    <Compile Include="IManageForm.cs" />
+    <Compile Include="IMessageLogger.cs" />
+    <Compile Include="infoCreaIncassi.cs" />
+    <Compile Include="infoIncasso.cs" />
+    <Compile Include="IUiOperations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="vistaForm.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vistaForm.xsc">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+    <None Include="vistaForm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>HDSGene</Generator>
+      <LastGenOutput>vistaForm.cs</LastGenOutput>
+    </None>
+    <None Include="vistaForm.xss">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

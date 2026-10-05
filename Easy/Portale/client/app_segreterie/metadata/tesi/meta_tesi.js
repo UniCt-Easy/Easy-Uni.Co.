@@ -29,6 +29,9 @@
 						this.describeAColumn(table, 'abstract', 'Abstract', null, 40, -1);
 						this.describeAColumn(table, 'abstract_en', 'Abstract in inglese', null, 50, -1);
 						this.describeAColumn(table, 'filestatus', 'Stato del file allegato', null, 60, null);
+						this.describeAColumn(table, 'idattach', 'file allegato', null, 70, null);
+						this.describeAColumn(table, 'idinsegn', 'Insegnamento di riferimento', null, 90, null);
+						this.describeAColumn(table, 'idtesikind', 'Tipologia', null, 100, null);
 						this.describeAColumn(table, 'title_en', 'Titolo in inglese', null, 110, -1);
 //$objCalcFieldConfig_segistcons$
 						break;
@@ -40,7 +43,24 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'segistcons':
+						table.columns["aa"].caption = "Anno accademico";
+						table.columns["abstract_en"].caption = "Abstract in inglese";
+						table.columns["filestatus"].caption = "Stato del file allegato";
+						table.columns["idattach"].caption = "file allegato";
+						table.columns["idinsegn"].caption = "Insegnamento di riferimento";
+						table.columns["idreg"].caption = "Studente";
+						table.columns["idtesikind"].caption = "Tipologia";
+						table.columns["title"].caption = "Titolo";
+						table.columns["title_en"].caption = "Titolo in inglese";
+//$innerSetCaptionConfig_segistcons$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_tesi");

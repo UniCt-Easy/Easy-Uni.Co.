@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -137,7 +135,26 @@ namespace funzioni_configurazione {
                 string attachmentsFilter = qHelper.AppAnd(andParameters);
 
                 DataTable temp = Conn.RUN_SELECT(attachmentsTablename, "*", null, attachmentsFilter, null, false);
-          
+
+                // Per ogni riga del datatabel leggo da MongoDB l'attachment della tabella attachmentsTablename
+                foreach (DataRow row in temp.Rows)
+                {
+                    if (row["attachment"] == DBNull.Value)
+                    {
+                        if (row["idfilestorage"] != null)
+                        {
+                            // Leggo da MongoDb
+                            byte[] byteArray = HttpFileStorage.DownloadFile(Conn, attachmentsTablename, row["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (byteArray == null)
+                            {
+                                MetaFactory.factory.getSingleton<IMessageShower>()?.Show("Servizio Download degli Allegati non disponibile");
+                                return;
+                            }
+                            row["attachment"] = byteArray;
+                        }
+                    }
+                }
+
                 attachmentsTable.Merge(temp);
             }
         }
@@ -241,7 +258,8 @@ namespace funzioni_configurazione {
 			}
         }
 
-        public bool stampaFatturaFEvendita(DataAccess Conn, string FilePath, DataRow Rsdi_venditaext, out string errmess) {
+        public bool stampaFatturaFEvendita(DataAccess Conn, string FilePath, DataRow Rsdi_venditaext, out string errmess)
+        {
             errmess = "";
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
             string tempFileName = "fevendita_" + Rsdi_venditaext["idsdi_vendita"].ToString() + ".htm";
@@ -249,15 +267,33 @@ namespace funzioni_configurazione {
 
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
+
+            if (Rsdi_venditaext["xml"] == null)
+            {
+                if (Rsdi_venditaext["idfilestorage"] != null)
+                {
+                    // Leggo da MongoDb
+                    byte[] byteArray = HttpFileStorage.DownloadFile(Conn, "sdi_vendita", Rsdi_venditaext["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (byteArray == null)
+                    {
+                        MetaFactory.factory.getSingleton<IMessageShower>()?.Show("Servizio Download degli Allegati non disponibile");
+                        return false;
+                    }
+                    Rsdi_venditaext["xml"] = byteArray;
+                }
+            }
+
             doc.LoadXml(Rsdi_venditaext["xml"].ToString());
             string versione = doc.DocumentElement.Attributes["versione"].Value;
             DateTime dataCont = (DateTime)Conn.GetSys("datacontabile");
             DateTime dataOttobre2020 = new DateTime(2020, 10, 1);
             string xsl = "";
             bool isPA = Rsdi_venditaext["ipa_ven_cliente"].ToString().Length == 6;
-            
-            try {
-                if (dataCont != null && dataCont > dataOttobre2020) {
+
+            try
+            {
+                if (dataCont != null && dataCont > dataOttobre2020)
+                {
                     //PRENDO I NUOVI FILE XSLT CHE VANNO IN VIGORE DAL 1/10/2020
                     string xslNew = isPA ? "fatturapa_v1.2.1.xslt" : "fatturaordinaria_v1.2.1.xslt";
                     xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : xslNew;
@@ -266,12 +302,14 @@ namespace funzioni_configurazione {
                     xsltransform.Transform(doc, null, xw);
                     xw.Flush();
                     xw.Close();
-                    if (File.Exists(FilePath + tempFileName)) {
+                    if (File.Exists(FilePath + tempFileName))
+                    {
                         File.Delete(FilePath + tempFileName);
                     }
                     File.Move(AppDomain.CurrentDomain.BaseDirectory + tempFileName, FilePath + tempFileName);
                 }
-                else {
+                else
+                {
                     string xslNew = isPA ? "fatturapa_v1.2.xslt" : "fatturaordinaria_v1.2.xslt";
                     xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : xslNew;
 
@@ -281,7 +319,8 @@ namespace funzioni_configurazione {
                     xsltransform.Transform(doc, null, xw);
                     xw.Flush();
                     xw.Close();
-                    if (File.Exists(FilePath + tempFileName)) {
+                    if (File.Exists(FilePath + tempFileName))
+                    {
                         File.Delete(FilePath + tempFileName);
                     }
 
@@ -290,7 +329,8 @@ namespace funzioni_configurazione {
 
                 MetaFactory.factory.getSingleton<IProcessRunner>()?.start(FilePath + tempFileName, false);
             }
-            catch (Exception ee) {
+            catch (Exception ee)
+            {
                 errmess = "Errore nella creazione del file FE " + ee;
                 return false;
             }
@@ -304,92 +344,156 @@ namespace funzioni_configurazione {
                 MetaFactory.factory.getSingleton<IProcessRunner>()?.start(fileName, false);
             }
         }
-        public bool stampaXML_FEacquisto(DataAccess Conn, string FilePath, DataRow Rsdi_acquisto, out string errmess) {
+        public bool stampaXML_FEacquisto(DataAccess Conn, string FilePath, DataRow Rsdi_acquisto, out string errmess)
+        {
             errmess = "";
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
             string tempFileName = "feacquisto_xml_" + Rsdi_acquisto["idsdi_acquisto"].ToString() + ".xml";
 
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
+
+            if (Rsdi_acquisto["xml"] == null)
+            {
+                if (Rsdi_acquisto["idfilestorage"] != null)
+                {
+                    // Leggo da MongoDb
+                    byte[] byteArray = HttpFileStorage.DownloadFile(Conn, "sdi_acquisto", Rsdi_acquisto["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (byteArray == null)
+                    {
+                        MetaFactory.factory.getSingleton<IMessageShower>()?.Show("Servizio Download degli Allegati non disponibile");
+                        return false;
+                    }
+                    Rsdi_acquisto["xml"] = byteArray;
+                }
+            }
+
             doc.LoadXml(Rsdi_acquisto["xml"].ToString());
-            try {
-                if (doc != null) {
+            try
+            {
+                if (doc != null)
+                {
                     string nomeFileXml = Path.Combine(FilePath, tempFileName);
-                    if (File.Exists(nomeFileXml)) {
+                    if (File.Exists(nomeFileXml))
+                    {
                         File.Delete(nomeFileXml);
                     }
                     writeToFile(nomeFileXml, doc);
-                  
+
                 }
             }
-            catch (Exception ee) {
+            catch (Exception ee)
+            {
                 errmess = "Errore nella creazione del file FE " + ee;
                 return false;
             }
             return true;
         }
 
-        public bool stampaXML_FEvendita(DataAccess Conn, string FilePath, DataRow Rsdi_vendita, out string errmess) {
+        public bool stampaXML_FEvendita(DataAccess Conn, string FilePath, DataRow Rsdi_vendita, out string errmess)
+        {
             errmess = "";
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
             string tempFileName = "fevendita_xml_" + Rsdi_vendita["idsdi_vendita"].ToString() + ".xml";
 
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
+
+            if (Rsdi_vendita["xml"] == null)
+            {
+                if (Rsdi_vendita["idfilestorage"] != null)
+                {
+                    // Leggo da MongoDb
+                    byte[] byteArray = HttpFileStorage.DownloadFile(Conn, "sdi_vendita", Rsdi_vendita["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (byteArray == null)
+                    {
+                        MetaFactory.factory.getSingleton<IMessageShower>()?.Show("Servizio Download degli Allegati non disponibile");
+                        return false;
+                    }
+                    Rsdi_vendita["xml"] = byteArray;
+                }
+            }
+
             doc.LoadXml(Rsdi_vendita["xml"].ToString());
-            try {
-                if (doc != null) {
+            try
+            {
+                if (doc != null)
+                {
                     string nomeFileXml = Path.Combine(FilePath, tempFileName);
-                    if (File.Exists(nomeFileXml)) {
+                    if (File.Exists(nomeFileXml))
+                    {
                         File.Delete(nomeFileXml);
                     }
                     writeToFile(nomeFileXml, doc);
 
                 }
             }
-            catch (Exception ee) {
+            catch (Exception ee)
+            {
                 errmess = "Errore nella creazione del file FE " + ee;
                 return false;
             }
             return true;
         }
-        public bool stampaFatturaFEacquisto(DataAccess Conn, string FilePath, DataRow Rsdi_acquisto, out string errmess) {
+        public bool stampaFatturaFEacquisto(DataAccess Conn, string FilePath, DataRow Rsdi_acquisto, out string errmess)
+        {
             errmess = "";
             if (!FilePath.EndsWith("\\")) FilePath += "\\";
-            string tempFileName = "feacquisto_" + Rsdi_acquisto["idsdi_acquisto"].ToString()+ ".htm";
-             //Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
+            string tempFileName = "feacquisto_" + Rsdi_acquisto["idsdi_acquisto"].ToString() + ".htm";
+            //Path.GetFileNameWithoutExtension(Path.GetTempFileName()) + ".htm";
 
             XmlWriter xw = XmlWriter.Create(tempFileName);
             XmlDocument doc = new XmlDocument();
+
+            if (Rsdi_acquisto["xml"] == null)
+            {
+                if (Rsdi_acquisto["idfilestorage"] != null)
+                {
+                    // Leggo da MongoDb
+                    byte[] byteArray = HttpFileStorage.DownloadFile(Conn, "sdi_acquisto", Rsdi_acquisto["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (byteArray == null)
+                    {
+                        MetaFactory.factory.getSingleton<IMessageShower>()?.Show("Servizio Download degli Allegati non disponibile");
+                        return false;
+                    }
+                    Rsdi_acquisto["xml"] = byteArray;
+                }
+            }
+
             doc.LoadXml(Rsdi_acquisto["xml"].ToString());
             string versione = doc.DocumentElement.Attributes["versione"].Value;
             string xsl;
             DateTime dataCont = (DateTime)Conn.GetSys("datacontabile");
             DateTime dataOttobre2020 = new DateTime(2020, 10, 1);
 
-            if (dataCont != null && dataCont > dataOttobre2020) {
+            if (dataCont != null && dataCont > dataOttobre2020)
+            {
                 xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.1.xslt";
             }
-            else {
+            else
+            {
                 xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.xslt";
             }
 
-            try {
+            try
+            {
                 XslCompiledTransform xsltransform = new XslCompiledTransform();
                 xsltransform.Load(AppDomain.CurrentDomain.BaseDirectory + xsl);//FilePath + xsl
 
                 xsltransform.Transform(doc, null, xw);
                 xw.Flush();
                 xw.Close();
-                if (File.Exists(FilePath + tempFileName)) {
+                if (File.Exists(FilePath + tempFileName))
+                {
                     File.Delete(FilePath + tempFileName);
                 }
-                File.Move(AppDomain.CurrentDomain.BaseDirectory + tempFileName, FilePath+ tempFileName);
+                File.Move(AppDomain.CurrentDomain.BaseDirectory + tempFileName, FilePath + tempFileName);
 
                 MetaFactory.factory.getSingleton<IProcessRunner>()?.start(FilePath + tempFileName, false);
             }
-            catch (Exception ee) {
-                errmess= "Errore nella creazione del file FE " + ee;
+            catch (Exception ee)
+            {
+                errmess = "Errore nella creazione del file FE " + ee;
                 return false;
             }
             return true;
@@ -592,10 +696,12 @@ namespace funzioni_configurazione {
             // Provo a leggerlo dalla configurazione
             int.TryParse(ServiceParam, out timeout);
 
+            string db = Conn.Security.GetSys("database").ToString();// Meta.Dispatcher.security.GetSys("database").ToString();
+
             try
             {
                 WebClient client = new WebClient(ServiceUrl, timeout); // mettere in configurazione
-                reportContents = client.Generate(moduleReport, Params);
+                reportContents = client.Generate(db, moduleReport, Params);
             }
             catch (Exception ex)
             {
@@ -672,7 +778,7 @@ namespace funzioni_configurazione {
                 }
                 else
                 {
-                    errmess = "Non Ë possibile stabilire la connessione con " + HubServiceUrl;
+                    errmess = "Non √® possibile stabilire la connessione con " + HubServiceUrl;
                     return false;
                 }
             }
@@ -703,9 +809,29 @@ namespace funzioni_configurazione {
             }
 
 		    foreach (DataRow attachmentRow in attachmentsTable.Rows) {
-                if (attachmentRow["attachment"] == DBNull.Value) continue;
-                byte[] fileContents = (byte[])attachmentRow["attachment"];
-				string fileName = attachmentRow["filename"].ToString();
+                if (attachmentRow["attachment"] == DBNull.Value && attachmentRow["idfilestorage"] == DBNull.Value) continue;
+                
+                // File preso dall'attachment o dal MongoDb
+                byte[] fileContents = { };
+
+                if (attachmentRow["attachment"] != DBNull.Value)
+                {
+                    // Attachment
+                    fileContents = (byte[])attachmentRow["attachment"];
+                }
+                else
+                {
+                    // MongoDb
+                    fileContents = metaeasylibrary.HttpFileStorage.DownloadFile(Conn, attachmentsTable.TableName, attachmentRow["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (fileContents == null)
+                    {
+                        MetaFactory.factory.getSingleton<IMessageShower>().Show("Servizio Download degli Allegati non disponibile");
+                        continue;
+                    }
+                }
+
+
+                string fileName = attachmentRow["filename"].ToString();
 				string dstPath = Path.Combine (dstDir, FilePrefixLookupDict[docType] + "_" + attachmentRow["idattachment"].ToString() + "_" + fileName);
 
 				try {

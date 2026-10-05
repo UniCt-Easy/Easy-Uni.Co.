@@ -68,6 +68,7 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#iscrizionebmi_seg_idreg'), true);
 				this.helpForm.filter($('#iscrizionebmi_seg_idreg'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizionebmi'), this.getDataTable('cefrlanglevel'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('learningagrstud'), this.getDataTable('convalida'));
@@ -158,6 +159,7 @@
 					columnSource: "idattach",
 					columnToFill: "idattach",
 					tableToFill: "iscrizionebmiattach"
+
 				});
 			},
 
@@ -171,6 +173,7 @@
 					columnSource: "idiscrizionebmi",
 					columnToFill: "idiscrizionebmi",
 					tableToFill: "iscrizionebmirequisito"
+
 				});
 			},
 

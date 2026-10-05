@@ -6,7 +6,7 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="valutazionekind_seg_child_idvalutazionekind">Codice</label>
+					<label class="col-form-label col-md-12" for="valutazionekind_seg_child_idvalutazionekind">Identificativo</label>
 					<input id="valutazionekind_seg_child_idvalutazionekind" type="text" class="form-control" data-tag="valutazionekind.idvalutazionekind"  data-mandatory />
 				</div>
 				<div class="col-md-6">
@@ -21,12 +21,15 @@
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="valutazionekind_seg_child_active">Attivo</label>
-					<input id="valutazionekind_seg_child_active" type="text" class="form-control" data-tag="valutazionekind.active"  data-mandatory />
+					<div class="custom-control custom-radio">
+						<input id="valutazionekind_seg_child_activeSi" type="radio" name="valutazionekind_seg_child_active" class="custom-control-input" data-tag="valutazionekind.active:S"  data-mandatory ><label for="valutazionekind_seg_child_activeSi"> Si</label>
+						<input id="valutazionekind_seg_child_activeNo" type="radio" name="valutazionekind_seg_child_active" class="custom-control-input" data-tag="valutazionekind.active:N"  data-mandatory ><label for="valutazionekind_seg_child_activeNo"> No</label>
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="valutazionekind_seg_child_sortcode">Sortcode</label>
+					<label class="col-form-label col-md-12" for="valutazionekind_seg_child_sortcode">Ordinamento</label>
 					<input id="valutazionekind_seg_child_sortcode" type="text" class="form-control" data-tag="valutazionekind.sortcode"  data-mandatory />
 				</div>
 			</div>

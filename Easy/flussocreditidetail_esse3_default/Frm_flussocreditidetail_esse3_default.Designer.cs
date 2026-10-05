@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace flussocreditidetail_esse3_default {
     partial class Frm_flussocreditidetail_esse3_default {
@@ -278,7 +276,7 @@ namespace flussocreditidetail_esse3_default {
             this.lblFlusso.Name = "lblFlusso";
             this.lblFlusso.Size = new System.Drawing.Size(69, 17);
             this.lblFlusso.TabIndex = 53;
-            this.lblFlusso.Text = "N° Flusso";
+            this.lblFlusso.Text = "NÂ° Flusso";
             this.lblFlusso.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblDettaglio
@@ -289,7 +287,7 @@ namespace flussocreditidetail_esse3_default {
             this.lblDettaglio.Name = "lblDettaglio";
             this.lblDettaglio.Size = new System.Drawing.Size(84, 17);
             this.lblDettaglio.TabIndex = 58;
-            this.lblDettaglio.Text = "N° Dettaglio";
+            this.lblDettaglio.Text = "NÂ° Dettaglio";
             this.lblDettaglio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCodicePercorsoStudi

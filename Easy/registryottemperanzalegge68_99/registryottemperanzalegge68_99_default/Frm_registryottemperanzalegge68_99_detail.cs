@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +20,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using funzioni_configurazione;
 using metadatalibrary;
@@ -65,12 +62,31 @@ namespace registryottemperanzalegge68_99_default {
             }
             DataRow Curr = DS.registryottemperanzalegge68_99.Rows[0];
 
-            if (Curr["ottemperanzacertification"] != DBNull.Value) {
+            if (Curr["ottemperanzacertification"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value) {
                 btnAllegaOttemperanzaLegge.Enabled = false;
                 btnVisualizzaOttemperanzaLegge.Enabled = true;
                 btnRimuoviOttemperanzaLegge.Enabled = true;
-                byte[] B = (byte[])Curr["ottemperanzacertification"];
-                labVisuraFileName.Text = GetFileName(B);
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (Curr["ottemperanzacertification"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])Curr["ottemperanzacertification"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                    {
+                        show("Servizio Download degli Allegati non disponibile");
+                        return;
+                    }
+                }
+
+                labVisuraFileName.Text = GetFileName(ByteArray);
             }
             else {
                 btnAllegaOttemperanzaLegge.Enabled = true;
@@ -109,7 +125,7 @@ namespace registryottemperanzalegge68_99_default {
 
 
         private void VisualizzaAllegato(string certification) {
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWMOREOTTEMPERANZA";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -120,7 +136,7 @@ namespace registryottemperanzalegge68_99_default {
                 catch { }
             }
 
-            //sw Ë il nome del file temporaneo che hai creato
+            //sw √® il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
             DataRow Curr = DS.registryottemperanzalegge68_99.Rows[0];
@@ -151,9 +167,9 @@ namespace registryottemperanzalegge68_99_default {
             catch (Exception E) {
                 QueryCreator.ShowException(E);
             }
-
         }
-
+       
+      
         void ScriviFile(string sw, byte[] documento, int offset) {
             // Legge il documento memorizzato nel DB e lo scrive nel file temp.
             if (Meta.IsEmpty) return;
@@ -225,7 +241,14 @@ namespace registryottemperanzalegge68_99_default {
         }
 
         private void btnRimuoviVisura_Click(object sender, EventArgs e) {
-            DS.registryottemperanzalegge68_99.Rows[0]["ottemperanzacertification"] = DBNull.Value;
+            if (DS.registryottemperanzalegge68_99.Rows[0]["idfilestorage"] != DBNull.Value)
+            {
+                DS.registryottemperanzalegge68_99.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registryottemperanzalegge68_99.Rows[0]["ottemperanzacertification"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
         }
 

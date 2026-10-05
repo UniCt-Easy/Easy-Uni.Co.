@@ -32,12 +32,7 @@
 				
 				appMeta.metaModel.getTemporaryValues(this.getDataTable('flowchartrestrictedfunction'));
 				appMeta.metaModel.getTemporaryValues(this.getDataTable('flowchartuser'));
-				if (!parentRow.nlevel)
-					parentRow.nlevel = 1;
-				if (!parentRow.paridflowchart)
-					parentRow.paridflowchart = (new Date()).getFullYear().toString().substr(2, 3);
-				if (!parentRow.printingorder)
-					parentRow.printingorder = 1;
+				appMeta.metaModel.getTemporaryValues(this.getDataTable('exportdefinitionflowchart'));
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -56,7 +51,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#flowchart_segamm_idflowchart'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#flowchart_segamm_idflowchart'), false);
@@ -64,7 +65,18 @@
 				return this.superClass.afterFill.call(this);
 			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.state.DS.tables.flowchart.defaults({ 'nlevel': 1 });
+				this.state.DS.tables.flowchart.defaults({ 'paridflowchart': (new Date()).getFullYear().toString().substr(2, 3) });
+				this.state.DS.tables.flowchart.defaults({ 'printingorder': 1 });
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

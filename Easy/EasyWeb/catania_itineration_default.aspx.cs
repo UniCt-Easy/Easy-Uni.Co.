@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -317,7 +315,7 @@ public partial class catania_itineration_default :MetaPage {
             }
         }
         else {
-            //Non è stato richiesto l'anticipo, deve cancellare le spese di anticipo(viaggio, alloggio e vitto)precedentemente inserite.
+            //Non Ã¨ stato richiesto l'anticipo, deve cancellare le spese di anticipo(viaggio, alloggio e vitto)precedentemente inserite.
             //Cicla nel DS, e cancella solo le spese di Anticipo DIVERSE da Tipo Altro
             foreach (DataRow r in DS.itinerationrefund_advance.Select(QHC.CmpNe("iditinerationrefundkind", iditinerationrefundkind_Altro))) {
                 //ShowClientMessage("Elimino le spese inserite di Anticipo", "Avviso");
@@ -471,7 +469,7 @@ public partial class catania_itineration_default :MetaPage {
         //EnableDisableControls(txtResiduoDaErogare, true);
         //EnableDisableControls(txtTotaleErogato, true);
 
-        //EnableDisableControls(txtapplierannotation, false); //Commento perchè è stato rimossa la sezione del pagamento
+        //EnableDisableControls(txtapplierannotation, false); //Commento perchÃ¨ Ã¨ stato rimossa la sezione del pagamento
 
         EnableDisableControls(btnAnnullaMissione, true);  
 
@@ -630,7 +628,7 @@ public partial class catania_itineration_default :MetaPage {
                 }
             }
         }
-        //Se il filtro è stato valorizzato vuol dire che alcune spese sono in cancellazione, quindi calcella gli allegati ad esse associati.
+        //Se il filtro Ã¨ stato valorizzato vuol dire che alcune spese sono in cancellazione, quindi calcella gli allegati ad esse associati.
         if ((filterAttachment != "") && DS.itinerationrefundattachment.Rows.Count > 0) {
             foreach (var Ritinerationrefundattachment in DS.itinerationrefundattachment.Select(filterAttachment)) {
                 if (Ritinerationrefundattachment.RowState != DataRowState.Deleted)
@@ -704,7 +702,7 @@ public partial class catania_itineration_default :MetaPage {
         */
         //EnableDisableControls(btnitinerationhistory, true);
         switch (status) {
-            case 1: //bozza. Da bozza può diventare una richiesta (attesa di autorizzazione se direct_auth)
+            case 1: //bozza. Da bozza puÃ² diventare una richiesta (attesa di autorizzazione se direct_auth)
                 Meta.CanSave = true;
                 if (!PState.InsertMode) {
                     if (DirectAuth) {
@@ -740,7 +738,7 @@ public partial class catania_itineration_default :MetaPage {
                     //EnableDisableControls(btnitinerationhistory, true);
 
                     if (ApprovatadaTutti()) {
-                        //Se tutti hanno approvato, non si può più Annullare.
+                        //Se tutti hanno approvato, non si puÃ² piÃ¹ Annullare.
                         EnableDisableControls(btnAnnullaMissione, true);
                     }
                     else {
@@ -750,7 +748,7 @@ public partial class catania_itineration_default :MetaPage {
                 }
 
                 break;
-            case 2: //richiesta, può essere riportata a bozza 
+            case 2: //richiesta, puÃ² essere riportata a bozza 
                 btnStatus.Text = "Modifica";
                 LockUnLockControls(true);
                 btnStatus.Visible = true;
@@ -764,7 +762,7 @@ public partial class catania_itineration_default :MetaPage {
                 Meta.CanCancel = true;
 
                 break;
-            case 3://da correggere, può passare a richiesta o Autorizzazione
+            case 3://da correggere, puÃ² passare a richiesta o Autorizzazione
                 btnStatus.Visible = true;
                 if (DirectAuth) {
                     btnStatus.Text = "Ufficializza";
@@ -799,7 +797,7 @@ public partial class catania_itineration_default :MetaPage {
                 //EnableDisableControls(btnitinerationhistory, true);
 
                 if (ApprovatadaTutti()) {
-                    //Se tutti hanno approvato, non si può più Annullare.
+                    //Se tutti hanno approvato, non si puÃ² piÃ¹ Annullare.
                     EnableDisableControls(btnAnnullaMissione, true);
                 }
                 else {
@@ -810,12 +808,12 @@ public partial class catania_itineration_default :MetaPage {
                 Meta.CanSave = true;
                 Meta.CanCancel = true;
                 break;
-            case 5: //Da autorizzazione può passare a bozza solo se DirectAuth
+            case 5: //Da autorizzazione puÃ² passare a bozza solo se DirectAuth
             case 8:
                 LockUnLockControls(true);
                 EnableDisableControls(btnStatus, false);
                 EnableDisableControls(btnEditAtt, false);
-                //EnableDisableControls(txtadditionalannotation, true); //task 9451 Commento perchè è stato rimossa la sezione del pagamento
+                //EnableDisableControls(txtadditionalannotation, true); //task 9451 Commento perchÃ¨ Ã¨ stato rimossa la sezione del pagamento
                 EnableDisableControls(HwTextBox2, true);
                 EnableDisableControls(HwCheckClause, true);
                 EnableDisableControls(txtMotivazione, true);
@@ -838,7 +836,7 @@ public partial class catania_itineration_default :MetaPage {
 
                 break;
 
-            case 4: //Inserita , è tutto bloccato 
+            case 4: //Inserita , Ã¨ tutto bloccato 
                 // Blocca tutto
                 btnStatus.Visible = false;
                 LockUnLockControls(true);
@@ -906,7 +904,7 @@ public partial class catania_itineration_default :MetaPage {
                 break;
         }
         if (Meta.edit_type == "myteamnew02") {
-            //EnableDisableControls(txtapplierannotation, false);//Commento perchè è stato rimossa la sezione del pagamento
+            //EnableDisableControls(txtapplierannotation, false);//Commento perchÃ¨ Ã¨ stato rimossa la sezione del pagamento
         }
     }
 
@@ -1218,7 +1216,7 @@ public partial class catania_itineration_default :MetaPage {
 
     /// <summary>
     /// bool: indica che il metodo viene chiamato dal Leave del numero pasti, i quel caso aggiorna il costo tot. pasti
-    /// diversamente no, perchè c'è anche la possibilità di inserire manualmente
+    /// diversamente no, perchÃ¨ c'Ã¨ anche la possibilitÃ  di inserire manualmente
     /// </summary>
     /// <param name="Curr"></param>
     /// <param name="fromNpasti"></param>
@@ -1260,7 +1258,7 @@ public partial class catania_itineration_default :MetaPage {
     }
 
     private string calcolaFiltroApplicazioneGeo() {
-        //Questo metodo è diverso da quello originale
+        //Questo metodo Ã¨ diverso da quello originale
         if (DS.itineration.Rows.Count == 0)
             return null;
         DataRow Curr = DS.itineration.Rows[0];
@@ -1477,7 +1475,7 @@ public partial class catania_itineration_default :MetaPage {
 
         bool faseanticipo = getFaseAnticipoMissione();
         bool dativalidi = DataMissioneValida() && cmbAuthModel.SelectedIndex > 0;
-        //in bozza ed in "da rivedere" è possibile inserire le spese (rendiconto o anticipo a seconda dello stato)
+        //in bozza ed in "da rivedere" Ã¨ possibile inserire le spese (rendiconto o anticipo a seconda dello stato)
         if (currentstatus == 1 || currentstatus == 3) {
             //btnInsertSpesa.Visible = faseanticipo && dativalidi;
             //btnEditSpesa.Visible = dativalidi;
@@ -1733,8 +1731,8 @@ public partial class catania_itineration_default :MetaPage {
         if ((PState.InsertMode) || (PState.EditMode)) {
             if (showResponsabile) {
                 if (AutorizzataDaAgente())
-                    return;// non deve pulire l'upb se c'è un Agente Autorizzativo che ha autorizzato la missione
-                // Azzera l' UPB perchè  se 'showResponsabile' = true dobbiamo specificare il Resp. e nascondere la Sezione UPB
+                    return;// non deve pulire l'upb se c'Ã¨ un Agente Autorizzativo che ha autorizzato la missione
+                // Azzera l' UPB perchÃ¨  se 'showResponsabile' = true dobbiamo specificare il Resp. e nascondere la Sezione UPB
                 txtUpbDisponibile.Text = "";
                 txtCodiceUPB.Text = "";
                 if (Curr["idupb"] != DBNull.Value) {
@@ -1742,8 +1740,8 @@ public partial class catania_itineration_default :MetaPage {
                 }
                 int idman = CfgFn.GetNoNullInt32(Session["CodiceResponsabile"]);
                 if (CfgFn.GetNoNullInt32(Curr["idman"]) == idman) {
-                    //solo se il responsabile del text è uguale a se stessi,
-                    //pulisce il text perchè se 'showResponsabile' = true vuol dire che stiamo usando fondi di altri Resp. che dobbiamo specificare
+                    //solo se il responsabile del text Ã¨ uguale a se stessi,
+                    //pulisce il text perchÃ¨ se 'showResponsabile' = true vuol dire che stiamo usando fondi di altri Resp. che dobbiamo specificare
                     txtResponsabile.Text = "";
                     DS.itineration.Columns["idman"].DefaultValue = DBNull.Value;
                     Curr["idman"] = DBNull.Value;
@@ -1871,7 +1869,7 @@ public partial class catania_itineration_default :MetaPage {
                     curr["advancepercentagefood"] = CfgFn.GetNoNullDouble(AttribRow["advancepercentage"]);
                     txtPercAnticipoPasti.Text = HelpForm.StringValue(curr["advancepercentagefood"], txtPercAnticipoPasti.Tag.ToString());
                 }
-                txtPercAnticipoCorso.Text = "0";// per il momento valorizziamo costante a 0. Il campo è invisibile.
+                txtPercAnticipoCorso.Text = "0";// per il momento valorizziamo costante a 0. Il campo Ã¨ invisibile.
             }
             HwRdbAnticipoNo.Checked = false;
             VisualizzaSezioniRichiestaAnticipo(true);
@@ -2004,7 +2002,8 @@ public partial class catania_itineration_default :MetaPage {
 
         string filteresercizio = QHS.CmpEq("ayear", Conn.GetSys("esercizio"));
         GetData.CacheTable(DS.config, filteresercizio, null, false);
-        GetData.SetStaticFilter(DS.upbitinerationavailable, filteresercizio);
+        string filterUpbNonscadute = QHS.AppAnd(filteresercizio, QHS.NullOrGe("expiration", Meta.GetSys("datacontabile")));
+        GetData.SetStaticFilter(DS.upbitinerationavailable, filterUpbNonscadute);
         string filterEpOperationSF = QHS.CmpEq("idepoperation", "missioni");
         string filterEpOperationEP = QHS.CmpEq("idepoperation", "missioni");
 
@@ -2068,11 +2067,11 @@ public partial class catania_itineration_default :MetaPage {
 
         //HwTextBoxTappespese.Text = "Il/La sottoscritto/a, titolare della missione di cui si presenta rendiconto per il rimborso, "
         //    + "dichiara che i documenti contabili allegati alla presente richiesta e riportanti i propri estremi identificativi "
-        //    + "sono conservati in originale presso l’emittente del documento in quanto, ai sensi del CAD, è «possibile risalire "
+        //    + "sono conservati in originale presso lâ€™emittente del documento in quanto, ai sensi del CAD, Ã¨ Â«possibile risalire "
         //    + "al loro contenuto attraverso altre scritture o documenti di cui sia obbligatoria la conservazione, anche se in "
-        //    + "possesso di terzi».\r"
+        //    + "possesso di terziÂ».\r"
         //    + "I documenti contabili allegati non individuati nominativamente sono conservati dallo stesso dichiarante.\r"
-        //    + "Si dichiara, inoltre, che la presente documentazione di spesa non è stata presentata ad altri enti per il rimborso.";
+        //    + "Si dichiara, inoltre, che la presente documentazione di spesa non Ã¨ stata presentata ad altri enti per il rimborso.";
         /* ORIGINALE
                 if (askitinerationclause == false) {
                     HideReqClause();
@@ -2179,8 +2178,8 @@ public partial class catania_itineration_default :MetaPage {
         lblPercAnticipo.Visible = false;
         lblPercAnticipoCorso.Visible = false;
         txtPercAnticipoCorso.Visible = false;// l'abbiamo aggiunto alla pagina casomai domani chiedono di 
-        // valorizzare la % di anticipo, ma per ora sarà invisibile e con valore 0% perchè la spesa
-        //per iscrizioni a corsi e convegni non è soggetta ad anticipo.
+        // valorizzare la % di anticipo, ma per ora sarÃ  invisibile e con valore 0% perchÃ¨ la spesa
+        //per iscrizioni a corsi e convegni non Ã¨ soggetta ad anticipo.
     }
 
     public override void DoCommand(string command) {
@@ -2352,7 +2351,7 @@ public partial class catania_itineration_default :MetaPage {
             //OR
             //start <=data fine e stop >= data fine, valida a cavallo della data fine, deve essere valida prima e dopo la data fine
             // OR
-            //start >=data inizio e stop null o <= data fine. Con questa condizione mostriamo anche i ruoli che nascono e muoiono durante la missione(è un caso remoto ma è meglio mostrarli)
+            //start >=data inizio e stop null o <= data fine. Con questa condizione mostriamo anche i ruoli che nascono e muoiono durante la missione(Ã¨ un caso remoto ma Ã¨ meglio mostrarli)
             filter = QHS.AppAnd(QHS.CmpEq("idreg", codicecreddeb), QHS.CmpEq("active", "S"),
                 QHS.DoPar(QHS.AppOr(
                     QHS.AppAnd(QHS.CmpLe("start", datainizio), QHS.NullOrGe("stop", datainizio)),
@@ -2396,7 +2395,7 @@ public partial class catania_itineration_default :MetaPage {
                 ShowClientMessage(
                     "I dati relativi alla posizione giuridica dell'incaricato sono incompleti o mancanti.", "Avviso");
                 //show(
-                //	"Non è stato possibile individuare una Posizione giuridica dell'incaricato. Cliccare ''Seleziona Ruolo'' per sceglierne uno adeguato.", "Avviso");
+                //	"Non Ã¨ stato possibile individuare una Posizione giuridica dell'incaricato. Cliccare ''Seleziona Ruolo'' per sceglierne uno adeguato.", "Avviso");
             }
             ClearPosGiuridica();
             LastFilterPosGiuridica = filter;
@@ -2749,7 +2748,7 @@ public partial class catania_itineration_default :MetaPage {
             EnableDisableControls(txtsaldoaccordato, true);
             EnableDisableControls(txtsaldorichiesto, true);
             //EnableDisableControls(txtanticipoaccordato, true);
-            //EnableDisableControls(txtapplierannotation, false);//Commento perchè è stato rimossa la sezione del pagamento
+            //EnableDisableControls(txtapplierannotation, false);//Commento perchÃ¨ Ã¨ stato rimossa la sezione del pagamento
 
             EnableDisableControls(btnAnnullaMissione, true);
 
@@ -2777,7 +2776,7 @@ public partial class catania_itineration_default :MetaPage {
             if (DT != null && DT.Rows.Count != 0)
                 Curr["idser"] = DT.Rows[0]["idser"];
             //Resetta  la variabile :
-            //PState.var["inserted"] = null;// Ho rimosso questa istruzione per far sì che facendo Annulla, in fase di inserimento, appaia Inserisci e Chiudi
+            //PState.var["inserted"] = null;// Ho rimosso questa istruzione per far sÃ¬ che facendo Annulla, in fase di inserimento, appaia Inserisci e Chiudi
 
         }
         if (PState.EditMode && PState.IsFirstFillForThisRow) {
@@ -2978,7 +2977,7 @@ public partial class catania_itineration_default :MetaPage {
         if (PState.IsEmpty)
             return false;
         bool phase = false;
-        // non più data contabile ma data di sistema
+        // non piÃ¹ data contabile ma data di sistema
         //DateTime datacontabile = (DateTime)Meta.GetSys("datacontabile");
         object datainizioOrario;
         DataRow Curr = DS.itineration.Rows[0];
@@ -3100,7 +3099,7 @@ public partial class catania_itineration_default :MetaPage {
         }
 
         if ((datainizio == DBNull.Value) || (((DateTime)datainizio) == QueryCreator.EmptyDate())) {
-            // se datainizio, ossia starttime, è null, vuol dire che la missione non è stata inserita da web, potrebbe trattarsi di missioni correlate(quelle che hanno valorizzato iditineration_rif)
+            // se datainizio, ossia starttime, Ã¨ null, vuol dire che la missione non Ã¨ stata inserita da web, potrebbe trattarsi di missioni correlate(quelle che hanno valorizzato iditineration_rif)
             // e cmq essendo null non deve eseguire il codice che segue.
             return;
 		}
@@ -3198,7 +3197,7 @@ public partial class catania_itineration_default :MetaPage {
             "start, italianexemption,foreignexemption",
             sorting, filter, "1", false);
         if (Generalita.Rows.Count == 0) {
-            //MessageBox.Show("In Generalità Missioni non è stata trovata alcuna informazione", "Avviso");
+            //MessageBox.Show("In GeneralitÃ  Missioni non Ã¨ stata trovata alcuna informazione", "Avviso");
             MyCfg.italianexemption = 0;
             MyCfg.foreignexemption = 0;
             MyCfg.foreignhours = 0;
@@ -3280,7 +3279,7 @@ public partial class catania_itineration_default :MetaPage {
             "start, italianexemption,foreignexemption",
             sorting, filter, "1", false);
         if (Generalita.Rows.Count == 0) {
-            //MessageBox.Show("In Generalità Missioni non è stata trovata alcuna informazione", "Avviso");
+            //MessageBox.Show("In GeneralitÃ  Missioni non Ã¨ stata trovata alcuna informazione", "Avviso");
             return;
         }
         DataRow RowGen = Generalita.Rows[0];
@@ -3369,7 +3368,7 @@ public partial class catania_itineration_default :MetaPage {
             int status = CfgFn.GetNoNullInt32(CurrentRow["iditinerationstatus"]);
 
             switch (status) {
-                case 1://se è in bozza o da correggere passa in richiesta o stato di autorizzazione a seconda del tipo di gestione
+                case 1://se Ã¨ in bozza o da correggere passa in richiesta o stato di autorizzazione a seconda del tipo di gestione
                 case 3:
                     if (DirectAuth) {
                         PoniInAutorizzazione();
@@ -3382,14 +3381,14 @@ public partial class catania_itineration_default :MetaPage {
                         CommFun.DoMainCommand("mainsave");
                     }
                     break;
-                case 2:// se è in richiesta passa in bozza
+                case 2:// se Ã¨ in richiesta passa in bozza
                     CurrentRow["iditinerationstatus"] = 1;
                     managingstatus = true;
                     CommFun.FreshPage(false, false);
                     managingstatus = false;
                     CommFun.DoMainCommand("mainsave");
                     break;
-                case 6:// se è approvata passa in bozza
+                case 6:// se Ã¨ approvata passa in bozza
                     CurrentRow["iditinerationstatus"] = 1;
                     managingstatus = true;
                     CommFun.FreshPage(false, false);
@@ -3684,11 +3683,11 @@ public partial class catania_itineration_default :MetaPage {
     public bool ApprovatadaTutti() {
         
         if ((DS.itinerationauthagency.Rows.Count > 0) &&  //Se ci sono agenti autorizzativi
-           (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione già approvata da tutti, non vi sono righe con flagstatus<>S
+           (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione giÃ  approvata da tutti, non vi sono righe con flagstatus<>S
             return true;
         }
         else {
-            // Se la missione non prevede Agenti autorizzativi oppre mancano delle approvazioni, la missione si può annullare.
+            // Se la missione non prevede Agenti autorizzativi oppre mancano delle approvazioni, la missione si puÃ² annullare.
             return false;
         }
 
@@ -3707,7 +3706,7 @@ public partial class catania_itineration_default :MetaPage {
         }
 
         if ((DS.itinerationauthagency.Select().Length == 0) ||  //non ci sono agenti autorizzativi
-            (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione già approvata devo inserire il saldo
+            (DS.itinerationauthagency.Select(QHC.CmpNe("flagstatus", "S")).Length == 0)) { // missione giÃ  approvata devo inserire il saldo
             curr["iditinerationstatus"] = 6;//Approvata
             if (getFaseAnticipoMissione() == false) {
                 curr["completed"] = "S";
@@ -3872,9 +3871,9 @@ public partial class catania_itineration_default :MetaPage {
         /*if (idman != null && idman != DBNull.Value) {
             filter_upb = QHS.AppAnd(filter_upb, QHS.NullOrEq("idman", idman));
         }*/
-        //Se sono fondi propri S(o null) ed è la sessione responsabile, filtro sui miei fondi
+        //Se sono fondi propri S(o null) ed Ã¨ la sessione responsabile, filtro sui miei fondi
         // se non sono fondi propri, o non sono con la sessione responsabile, devo prendere tutte le upb
-        // perchè non ho modo di discrimiare l'idman.
+        // perchÃ¨ non ho modo di discrimiare l'idman.
         if ((r["flagownfunds"].ToString() != "N") && Session["CodiceResponsabile"] != null) {
             idman = CfgFn.GetNoNullInt32(Session["CodiceResponsabile"]);
             filter_upb = QHS.AppAnd(filter_upb, QHS.NullOrEq("idman", idman));
@@ -3929,7 +3928,7 @@ public partial class catania_itineration_default :MetaPage {
             return;
 
         bool res = ShowClientMessage("Sei sicuro di voler annullare la missione? " +
-            "Se si procede con l’annullamento, la missione non sarà più processabile e sarà necessario reinserirla.", "Avviso", System.Windows.Forms.MessageBoxButtons.YesNo);
+            "Se si procede con lâ€™annullamento, la missione non sarÃ  piÃ¹ processabile e sarÃ  necessario reinserirla.", "Avviso", System.Windows.Forms.MessageBoxButtons.YesNo);
 
         if (!res)
             return;

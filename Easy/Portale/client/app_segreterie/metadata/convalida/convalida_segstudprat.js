@@ -25,11 +25,34 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('convalida'), this.getDataTable('convalidante'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('convalida'), this.getDataTable('convalidato'));
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
-			//afterFill
+			afterFill: function () {
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('convalida'), this.getDataTable('convalidante'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('convalida'), this.getDataTable('convalidato'));
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				this.setDenyNull("convalida","idreg");
+				appMeta.metaModel.insertFilter(this.getDataTable("convalidakinddefaultview"), this.q.eq('convalidakind_active', 'Si'));
+				$('#grid_convalidante_segstudprat').data('mdlconditionallookup', 'changes,S,Si;changes,N,No;');
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 
@@ -40,6 +63,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

@@ -220,7 +220,7 @@
         serverErrorExpiredSession  : "Sessione scaduta, rieffettuare l'accesso",
         serverErrorBadCredential: "Credenziali non corrette, riprovare l'inserimento di utente e/o password",
         serverErrorLDAPServerUnavailable: "Server LDAP non disponibile, riprovare più tardi.",
-        serverErrorTokenEmpty : "E' stato effettuato il logout",
+        serverErrorTokenEmpty = "YOUR_SECRET",
         serverErrorUserNotSecurity: "Utente fuori dalla gestione di sicurezza. " +
             "1. Contatta gli amministratori per l'inserimento dell'utente, e l'inserimento nell'Organigramma (Organigramma ->  profilo -> tab utenti). " +
             "2. Potrebbe essere necessario eseguire la chiusura dell'anno precedente e generare il nuovo organigramma per l'anno nuovo.  ",

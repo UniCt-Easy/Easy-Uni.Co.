@@ -60,7 +60,7 @@
                 };
             }
             else {
-                let AnonymousToken = "**********";
+                let AnonymousToken = "YOUR_SECRET";
                 options["headers"] = {
                     'Authorization': "Bearer " + AnonymousToken,
                     "language": appMeta.localResource.currLng

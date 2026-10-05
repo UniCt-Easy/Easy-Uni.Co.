@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_bandodsiscr_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_bandodsiscr_seg: DataSet {
+public partial class dsmeta_bandodsiscr_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -35,6 +33,9 @@ public class dsmeta_bandodsiscr_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable bandodsiscresito 		=> (MetaTable)Tables["bandodsiscresito"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable iscrizionedefaultview 		=> (MetaTable)Tables["iscrizionedefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registrystudentiview 		=> (MetaTable)Tables["registrystudentiview"];
@@ -72,8 +73,16 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// BANDODSISCRESITOKINDDEFAULTVIEW /////////////////////////////////
 	var tbandodsiscresitokinddefaultview= new MetaTable("bandodsiscresitokinddefaultview");
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_active", typeof(string));
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_ct", typeof(DateTime),false);
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_cu", typeof(string),false);
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_description", typeof(string),false);
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_lt", typeof(DateTime),false);
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_lu", typeof(string),false);
+	tbandodsiscresitokinddefaultview.defineColumn("bandodsiscresitokind_sortcode", typeof(int),false);
 	tbandodsiscresitokinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tbandodsiscresitokinddefaultview.defineColumn("idbandodsiscresitokind", typeof(int),false);
+	tbandodsiscresitokinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tbandodsiscresitokinddefaultview);
 	tbandodsiscresitokinddefaultview.defineKey("idbandodsiscresitokind");
 
@@ -93,21 +102,47 @@ private void initClass() {
 	Tables.Add(tbandodsiscresito);
 	tbandodsiscresito.defineKey("idbandods", "idbandodsiscr", "idbandodsiscresito", "idbandodsservizio", "idiscrizione", "idreg_studenti");
 
+	//////////////////// ISCRIZIONEDEFAULTVIEW /////////////////////////////////
+	var tiscrizionedefaultview= new MetaTable("iscrizionedefaultview");
+	tiscrizionedefaultview.defineColumn("aa", typeof(string),false);
+	tiscrizionedefaultview.defineColumn("anno", typeof(int));
+	tiscrizionedefaultview.defineColumn("didprog_aa", typeof(string));
+	tiscrizionedefaultview.defineColumn("didprog_idsede", typeof(int));
+	tiscrizionedefaultview.defineColumn("didprog_title", typeof(string));
+	tiscrizionedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tiscrizionedefaultview.defineColumn("idcorsostudio", typeof(int),false);
+	tiscrizionedefaultview.defineColumn("iddidprog", typeof(int),false);
+	tiscrizionedefaultview.defineColumn("idiscrizione", typeof(int),false);
+	tiscrizionedefaultview.defineColumn("idreg", typeof(int),false);
+	tiscrizionedefaultview.defineColumn("iscrizione_ct", typeof(DateTime),false);
+	tiscrizionedefaultview.defineColumn("iscrizione_cu", typeof(string),false);
+	tiscrizionedefaultview.defineColumn("iscrizione_data", typeof(DateTime));
+	tiscrizionedefaultview.defineColumn("iscrizione_lt", typeof(DateTime),false);
+	tiscrizionedefaultview.defineColumn("iscrizione_lu", typeof(string),false);
+	tiscrizionedefaultview.defineColumn("iscrizione_matricola", typeof(string));
+	tiscrizionedefaultview.defineColumn("registry_title", typeof(string));
+	tiscrizionedefaultview.defineColumn("sede_title", typeof(string));
+	Tables.Add(tiscrizionedefaultview);
+	tiscrizionedefaultview.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idreg");
+
 	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
 	var tregistrystudentiview= new MetaTable("registrystudentiview");
 	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
 	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
+	tregistrystudentiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrystudentiview);
 	tregistrystudentiview.defineKey("idreg");
 
 	//////////////////// ACCREDITOKIND /////////////////////////////////
 	var taccreditokind= new MetaTable("accreditokind");
+	taccreditokind.defineColumn("active", typeof(string),false);
+	taccreditokind.defineColumn("ct", typeof(DateTime),false);
+	taccreditokind.defineColumn("cu", typeof(string),false);
+	taccreditokind.defineColumn("description", typeof(string));
 	taccreditokind.defineColumn("idaccreditokind", typeof(int),false);
+	taccreditokind.defineColumn("lt", typeof(DateTime),false);
+	taccreditokind.defineColumn("lu", typeof(string),false);
+	taccreditokind.defineColumn("sortcode", typeof(int),false);
 	taccreditokind.defineColumn("title", typeof(string),false);
 	Tables.Add(taccreditokind);
 	taccreditokind.defineKey("idaccreditokind");
@@ -139,6 +174,10 @@ private void initClass() {
 	cPar = new []{bandodsiscresitokinddefaultview.Columns["idbandodsiscresitokind"]};
 	cChild = new []{bandodsiscresito.Columns["idbandodsiscresitokind"]};
 	Relations.Add(new DataRelation("FK_bandodsiscresito_bandodsiscresitokinddefaultview_idbandodsiscresitokind",cPar,cChild,false));
+
+	cPar = new []{iscrizionedefaultview.Columns["idiscrizione"]};
+	cChild = new []{bandodsiscr.Columns["idiscrizione"]};
+	Relations.Add(new DataRelation("FK_bandodsiscr_iscrizionedefaultview_idiscrizione",cPar,cChild,false));
 
 	cPar = new []{registrystudentiview.Columns["idreg"]};
 	cChild = new []{bandodsiscr.Columns["idreg_studenti"]};

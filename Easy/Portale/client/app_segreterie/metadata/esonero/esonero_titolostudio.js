@@ -28,6 +28,11 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#esonero_titolostudio_default_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#esonero_titolostudio_default_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -59,11 +64,26 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#esonero_titolostudio_default_idstruttura'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("esoneroanskind"), this.q.eq('active', 'S'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

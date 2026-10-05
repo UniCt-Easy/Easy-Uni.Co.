@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace sdi_vendita_default {
     partial class Frm_sdi_vendita_default {
@@ -763,7 +761,7 @@ namespace sdi_vendita_default {
             this.chkAT_attestazione.Size = new System.Drawing.Size(228, 30);
             this.chkAT_attestazione.TabIndex = 28;
             this.chkAT_attestazione.Tag = "sdi_vendita.flag_unseen:5";
-            this.chkAT_attestazione.Text = "Attestazione di avvenuta trasmissione della\r\nfattura al SdI con impossibilit‡ di " +
+            this.chkAT_attestazione.Text = "Attestazione di avvenuta trasmissione della\r\nfattura al SdI con impossibilit√† di " +
     "recapito";
             this.chkAT_attestazione.UseVisualStyleBackColor = true;
             // 

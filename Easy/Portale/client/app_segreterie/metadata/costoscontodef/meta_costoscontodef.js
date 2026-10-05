@@ -51,6 +51,12 @@
 						table.columns["title"].caption = "Titolo";
 //$innerSetCaptionConfig_more$
 						break;
+					case 'sconti':
+//$innerSetCaptionConfig_sconti$
+						break;
+					case 'default':
+//$innerSetCaptionConfig_default$
+						break;
 //$innerSetCaptionConfig$
 				}
 			},
@@ -75,7 +81,17 @@
 
 			//$isValidFunction$
 
-			//$getStaticFilter$
+			getStaticFilter: function (listType) {
+				switch (listType) {
+				case "default": {
+					return window.jsDataQuery.eq('idcostoscontodefkind', 1); 
+					break;
+				}
+				//$GetStaticFilterInner$
+				}
+				return this.superClass.getStaticFilter(listType);
+			},
+
 
 			getSorting: function (listType) {
 				switch (listType) {

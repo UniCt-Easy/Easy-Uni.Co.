@@ -23,9 +23,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'dotmas':
-						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 40, null);
-						this.describeAColumn(table, 'registry_title', 'Studente', null, 60, 101);
-						this.describeAColumn(table, 'matricola', 'Matricola', null, 70, 50);
+						this.describeAColumn(table, 'iscrizione_data', 'Data', 'g', 4000, null);
+						this.describeAColumn(table, 'registry_title', 'Studente', null, 6300, 101);
+						this.describeAColumn(table, 'matricola', 'Matricola', null, 7000, 50);
 //$objCalcFieldConfig_dotmas$
 						break;
 //$objCalcFieldConfig$

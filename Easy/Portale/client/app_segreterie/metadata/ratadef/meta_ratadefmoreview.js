@@ -23,9 +23,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'more':
-						this.describeAColumn(table, 'idratakind', 'Tipologia', null, 10, 50);
-						this.describeAColumn(table, 'ratadef_decorrenza', 'Decorrenza', 'g', 20, null);
-						this.describeAColumn(table, 'ratadef_scadenza', 'Scadenza', 'g', 60, null);
+						this.describeAColumn(table, 'idratakind', 'Tipologia', null, 1000, 50);
+						this.describeAColumn(table, 'ratadef_decorrenza', 'Decorrenza', 'g', 2000, null);
+						this.describeAColumn(table, 'ratadef_scadenza', 'Scadenza', 'g', 6000, null);
 //$objCalcFieldConfig_more$
 						break;
 //$objCalcFieldConfig$

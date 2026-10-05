@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitbilancio_entrata]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitbilancio_entrata]
@@ -41,7 +39,7 @@ CREATE   PROCEDURE  [exp_sitbilancio_entrata]
 	@idsor05			int 
 	AS
 	BEGIN/* Versione 1.0.3 del 30/06/2008 ultima modifica: PIERO */
--- exec [exp_sitbilancio_entrata] 2013, {ts '2013-12-31 00:00:00'}, 3, 'S', '%', 'S', 'N', 'S',null
+-- exec [exp_sitbilancio_entrata] 2013, {ts '2013-12-31 00:00:00'}, 3, 'S', '%', 'N', 'N', 'S',null,null,null,null,null, null
 
 /*
 Per le entrate
@@ -75,6 +73,18 @@ SELECT  @levelusable = MIN(nlevel)
 FROM 	finlevel
 WHERE 	ayear =@ayear and (flag&2)<>0
 
+DECLARE @assessmentphase    	tinyint
+SELECT  @assessmentphase = assessmentphasecode
+FROM 	config
+WHERE 	ayear = @ayear
+IF 	@assessmentphase IS NULL
+BEGIN
+	SELECT @assessmentphase = incomefinphase FROM uniconfig
+END
+
+DECLARE @desc_assessment_phase varchar(50)
+SELECT  @desc_assessment_phase=description
+FROM    incomephase WHERE nphase=@assessmentphase
 
 	CREATE TABLE #fin_situation
 	(
@@ -121,11 +131,8 @@ WHERE 	ayear =@ayear and (flag&2)<>0
 	DECLARE @idupboriginal 		varchar(36)
 	SET @idupboriginal= @idupb
 	IF (@showchildupb = 'S') set @idupb=@idupb+'%' 
-	
-	DECLARE @assessmentphase	tinyint
-	SELECT  @assessmentphase = assessmentphasecode
-	FROM    config
-	WHERE   ayear = @ayear
+
+ 
 	DECLARE @phasemax		tinyint
 	SELECT  @phasemax = MAX(nphase)
 	FROM    incomephase
@@ -551,7 +558,17 @@ BEGIN
 				isnull(max_ph_resid,0) =0 AND isnull(var_max_ph_resid,0) =0   
 			AND nlevel >=2)
 END
-		
+	
+ CREATE TABLE #Captions (
+    CapKey    sysname not null,
+    Caption   nvarchar(200) not null,
+    PRIMARY KEY ( CapKey)
+);
+
+-- popolamento   (it-IT)
+INSERT INTO #Captions (CapKey, Caption) VALUES
+('Accertamenti', @desc_assessment_phase) ;
+
 --SELECT * FROM #fin_situation ORDER BY idupb, idfin	
 IF (@showupb = 'N') 
 BEGIN
@@ -582,21 +599,22 @@ BEGIN
 			(SELECT TOP 1 codeupb
 			FROM upb	
 			WHERE idupb = @idupboriginal)
-	end
-
+	end;
+	WITH Base AS (
 	SELECT 
 		finlevel.description					as 'Livello',
-		fin.codefin								as 'Cod. Bilancio',	
+		fin.codefin								as 'Cod_bilancio',	
 		fin.title								as 'Bilancio',	
+		fin.printingorder						as 'Printingorder',
 		manager.title							as 'Responsabile',
-		sum(isnull(initialprevision,0.0)) 		as 'Previsione iniziale principale',	
-		sum(isnull(var_prevision,0.0)) 			as 'Variazioni previsione principale',
-		sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) as 'Previsione principale definitiva',
+		sum(isnull(initialprevision,0.0)) 		as 'Previsione_iniziale_principale',	
+		sum(isnull(var_prevision,0.0)) 			as 'Variazioni_previsione_principale',
+		sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) as 'Previsione_principale_definitiva',
 		sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0))	   as 'Accertamenti',
-		(sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) ) - (sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0)) ) as 'Disponibile ad Accertare',
+		(sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) ) - (sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0)) ) as 'Disponibile_ad_accertare',
 		sum(isnull(proceeds,0.0))  + sum(isnull(var_proceeds,0.0)) 		   as 'Incassi',
 		sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) -
-		(sum(isnull(proceeds,0.0))   +  sum(isnull(var_proceeds,0.0)) ) as 'Previsione Disponibile ad Incassare'
+		(sum(isnull(proceeds,0.0))   +  sum(isnull(var_proceeds,0.0)) ) as 'Previsione_disponibile_per_incassi'
 	FROM #fin_situation 
 		JOIN fin ON #fin_situation.idfin = fin.idfin	
 		LEFT OUTER JOIN finlast on #fin_situation.idfin = finlast.idfin  
@@ -609,26 +627,52 @@ BEGIN
 		fin.nlevel,
 		flagconsider,
 		finprintingorder
-		ORDER BY  
-		finprintingorder,fin.printingorder
+		--ORDER BY  
+		--finprintingorder,fin.printingorder
+		)
+		SELECT 
+			b.Livello ,
+			b.Cod_bilancio,	
+			b.Bilancio,	
+			b.Responsabile ,
+			b.Previsione_iniziale_principale,
+			b.Variazioni_previsione_principale ,
+			b.Previsione_principale_definitiva,
+			c.Caption AS [Fase],
+			v.Valore  AS [Importo],
+			b.Disponibile_ad_accertare,
+			b.Incassi, 
+			b.Previsione_disponibile_per_incassi	 
+			FROM Base b
+CROSS APPLY (
+    VALUES
+      ('Accertamenti',    b.Accertamenti) 
+ 
+) v(CapKey, Valore)
+JOIN #Captions c
+  ON   c.CapKey = v.CapKey
+  order by b.Printingorder
 	END
 ELSE
 BEGIN
-SELECT 
+WITH Base AS (
+	SELECT 
 			finlevel.description					as 'Livello',
-			fin.codefin								as 'Cod. Bilancio',	
+			fin.codefin								as 'Cod_bilancio',	
 			fin.title								as 'Bilancio',	
+			fin.printingorder						as 'Printingorder',
+			upb.printingorder						as 'UPB_printingorder',
 			manager.title							as 'Responsabile',
-			upb.codeupb								as 'Cod. UPB',
+			upb.codeupb								as 'Cod_UPB',
 			upb.title								as 'UPB',
-			sum(isnull(initialprevision,0.0)) 		as 'Previsione iniziale principale',	
-			sum(isnull(var_prevision,0.0)) 			as 'Variazioni previsione principale',
-			sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) as 'Previsione principale definitiva',
+			sum(isnull(initialprevision,0.0)) 		as 'Previsione_iniziale_principale',	
+			sum(isnull(var_prevision,0.0)) 			as 'Variazioni_previsione_principale',
+			sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) as 'Previsione_principale_definitiva',
 			sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0))	   as 'Accertamenti',
-			(sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) ) - (sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0)) ) as 'Disponibile ad Accertare',
+			(sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) ) - (sum(isnull(assessments,0.0)) + sum(isnull(var_assessments,0.0)) ) as 'Disponibile_ad_accertare',
 			sum(isnull(proceeds,0.0))  + sum(isnull(var_proceeds,0.0)) 		   as 'Incassi',
 			sum(isnull(initialprevision,0.0)) + sum(isnull(var_prevision,0.0)) -
-			(sum(isnull(proceeds,0.0))   +  sum(isnull(var_proceeds,0.0)) ) as 'Previsione Disponibile ad Incassare'
+			(sum(isnull(proceeds,0.0))   +  sum(isnull(var_proceeds,0.0)) ) as 'Previsione_disponibile_per_incassi'
 
 	FROM #fin_situation
 	JOIN fin 
@@ -640,7 +684,32 @@ SELECT
 	join finlevel on fin.nlevel = finlevel.nlevel and finlevel.ayear = @ayear
 	group by finlevel.description, 	fin.codefin,	fin.title,
 	manager.title, upb.codeupb, upb.title,upb.printingorder,fin.printingorder
-	ORDER BY upb.printingorder,fin.printingorder
+	--ORDER BY upb.printingorder,fin.printingorder
+	)
+			SELECT 
+			b.Livello ,
+			b.Cod_bilancio,	
+			b.Bilancio,	
+			b.Responsabile ,
+			b.Cod_UPB,
+			b.UPB,
+			b.Previsione_iniziale_principale,
+			b.Variazioni_previsione_principale ,
+			b.Previsione_principale_definitiva,
+			c.Caption AS [Fase],
+			v.Valore  AS [Importo],
+			b.Disponibile_ad_accertare,
+			b.Incassi, 
+			b.Previsione_disponibile_per_incassi 	 
+			FROM Base b
+CROSS APPLY (
+    VALUES
+      ('Accertamenti',    b.Accertamenti) 
+ 
+) v(CapKey, Valore)
+JOIN #Captions c
+  ON   c.CapKey = v.CapKey
+  order by b.UPB_printingorder,b.Printingorder
 	END
 
  

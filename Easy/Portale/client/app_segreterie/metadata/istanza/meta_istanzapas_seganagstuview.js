@@ -23,14 +23,14 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'pas_seganagstu':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'data', 'Data', 'g', 30, null);
-						this.describeAColumn(table, 'statuskind_title', 'Status', null, 80, 50);
-						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 100, null);
-						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 110, null);
-						this.describeAColumn(table, 'iscrizionefrom_anno', 'Anno di corso Iscrizione di partenza', null, 510, null);
-						this.describeAColumn(table, 'iscrizionefrom_iddidprog', 'Didattica programmata Iscrizione di partenza', null, 510, null);
-						this.describeAColumn(table, 'iscrizionefrom_aa', 'Anno accademico Iscrizione di partenza', null, 510, 9);
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 1000, 9);
+						this.describeAColumn(table, 'data', 'Data', 'g', 3000, null);
+						this.describeAColumn(table, 'statuskind_title', 'Status', null, 8200, 50);
+						this.describeAColumn(table, 'istanza_protnumero', 'Numero di protocollo', null, 10000, null);
+						this.describeAColumn(table, 'istanza_protanno', 'Anno di protocollo', null, 11000, null);
+						this.describeAColumn(table, 'iscrizionefrom_aa', 'Anno accademico Iscrizione di partenza', null, 51100, 9);
+						this.describeAColumn(table, 'iscrizionefrom_anno', 'Anno di corso Iscrizione di partenza', null, 51300, null);
+						this.describeAColumn(table, 'iscrizionefrom_iddidprog', 'Didattica programmata Iscrizione di partenza', null, 51500, null);
 //$objCalcFieldConfig_pas_seganagstu$
 						break;
 //$objCalcFieldConfig$

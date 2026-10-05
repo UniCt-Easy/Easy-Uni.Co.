@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_iscrizione_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_iscrizione_seg: DataSet {
+public partial class dsmeta_iscrizione_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -98,6 +96,7 @@ private void initClass() {
 	tiscrizioneanno.defineColumn("aa", typeof(string),false);
 	tiscrizioneanno.defineColumn("anno", typeof(int),false);
 	tiscrizioneanno.defineColumn("annofc", typeof(int));
+	tiscrizioneanno.defineColumn("annopt", typeof(int));
 	tiscrizioneanno.defineColumn("ct", typeof(DateTime),false);
 	tiscrizioneanno.defineColumn("cu", typeof(string),false);
 	tiscrizioneanno.defineColumn("data", typeof(DateTime),false);
@@ -118,12 +117,8 @@ private void initClass() {
 	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
 	var tregistrystudentiview= new MetaTable("registrystudentiview");
 	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
 	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
+	tregistrystudentiview.defineColumn("registry_active", typeof(string));
 	Tables.Add(tregistrystudentiview);
 	tregistrystudentiview.defineKey("idreg");
 
@@ -166,9 +161,9 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("didprogsuddannokind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tdidprogdefaultview.defineColumn("erogazkind_title", typeof(string));
-	tdidprogdefaultview.defineColumn("geo_nationlang_title", typeof(string));
-	tdidprogdefaultview.defineColumn("geo_nationlang2_title", typeof(string));
-	tdidprogdefaultview.defineColumn("geo_nationlangvis_title", typeof(string));
+	tdidprogdefaultview.defineColumn("geo_nationlang_lang", typeof(string));
+	tdidprogdefaultview.defineColumn("geo_nationlang2_lang", typeof(string));
+	tdidprogdefaultview.defineColumn("geo_nationlangvis_lang", typeof(string));
 	tdidprogdefaultview.defineColumn("graduatoria_title", typeof(string));
 	tdidprogdefaultview.defineColumn("idareadidattica", typeof(int));
 	tdidprogdefaultview.defineColumn("idconvenzione", typeof(int));
@@ -182,13 +177,14 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("idsessione", typeof(int));
 	tdidprogdefaultview.defineColumn("registrydocenti_title", typeof(string));
 	tdidprogdefaultview.defineColumn("sede_title", typeof(string));
+	tdidprogdefaultview.defineColumn("sessione_idsessionekind", typeof(int));
 	tdidprogdefaultview.defineColumn("sessione_start", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("sessione_stop", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("sessionekind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("title", typeof(string));
 	tdidprogdefaultview.defineColumn("titolokind_title", typeof(string));
 	Tables.Add(tdidprogdefaultview);
-	tdidprogdefaultview.defineKey("iddidprog");
+	tdidprogdefaultview.defineKey("idcorsostudio", "iddidprog");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");

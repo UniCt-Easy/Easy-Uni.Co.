@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,13 +13,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
  
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_certificazioneunica_percipienti_h_24]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_certificazioneunica_percipienti_h_24]
 GO
  --setuser'amministrazione'
---exec exp_certificazioneunica_percipienti_h_24  PRSRCC87R11H224K
+--exec exp_certificazioneunica_percipienti_h_24  TSSNLS78S53D976S
 CREATE PROCEDURE [exp_certificazioneunica_percipienti_h_24]
 (
 	@cf varchar(20)
@@ -199,7 +197,17 @@ SELECT #expense2023.idexp FROM #expense2023
 join expenselink el on el.idchild = #expense2023.idexp 
 join expenseprofservice ep on el.idparent = ep.idexp
 join profservice p on p.ycon = ep.ycon and p.ncon = ep.ncon
-where (ISNULL(p.flagexcludefromcertificate,'N') = 'S'))
+where (ISNULL(p.flagexcludefromcertificate,'N') = 'S')) and @maxexpensephase > 1
+
+-- rimuovo i pagamenti dei contratti professionali da non trasmettere
+-- per i monofase dato che non viene fatta la insert in expenseprofservice
+delete from #expense2023 where idexp in( 
+SELECT #expense2023.idexp FROM #expense2023
+join expenselink el on el.idchild = #expense2023.idexp 
+join expenseinvoice ei on el.idparent = ei.idexp
+join invoicedetail id on id.ninv = ei.ninv and id.yinv = ei.yinv and id.idinvkind = ei.idinvkind
+join profservice p on p.ycon = id.ycon and p.ncon = id.ncon
+where (ISNULL(p.flagexcludefromcertificate,'N') = 'S')) and @maxexpensephase = 1
 
 --rimuovo i pagamenti dei contratti dipendenti da non trasmettere
 --cioè con flagexcludefromcertificate = S

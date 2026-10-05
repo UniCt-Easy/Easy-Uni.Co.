@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System.Data;
 using metadatalibrary;
@@ -57,8 +55,8 @@ namespace meta_geo_nation
 					
 			switch (ListingType) {
 				case "default": {
-						DescribeAColumn(T, "start", "Inizio validit‡", nPos++);
-						DescribeAColumn(T, "stop", "Fine validit‡", nPos++);
+						DescribeAColumn(T, "start", "Inizio validit√†", nPos++);
+						DescribeAColumn(T, "stop", "Fine validit√†", nPos++);
 						DescribeAColumn(T, "title", "Nazione", nPos++);
 						break;
 					}
@@ -70,8 +68,8 @@ namespace meta_geo_nation
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
 						DescribeAColumn(T, "!idcontinent_geo_continent_title", "Continente", nPos++);
 						DescribeAColumn(T, "lang", "Lingua", nPos++);
-						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa Ë confluita", nPos++);
-						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  Ë confluita", nPos++);
+						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa √® confluita", nPos++);
+						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  √® confluita", nPos++);
 						DescribeAColumn(T, "start", "data inizio", nPos++);
 						DescribeAColumn(T, "stop", "data fine", nPos++);
 						break;
@@ -79,8 +77,8 @@ namespace meta_geo_nation
 				case "segchild": {
 						DescribeAColumn(T, "title", "Denominazione", nPos++);
 						DescribeAColumn(T, "lang", "Lingua", nPos++);
-						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa Ë confluita", nPos++);
-						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  Ë confluita", nPos++);
+						DescribeAColumn(T, "!newnation_geo_nation_title", "nazione in cui questa √® confluita", nPos++);
+						DescribeAColumn(T, "!oldnation_geo_nation_title", "nazione da cui questa  √® confluita", nPos++);
 						DescribeAColumn(T, "start", "data inizio", nPos++);
 						DescribeAColumn(T, "stop", "data fine", nPos++);
 						break;

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -47,7 +45,7 @@ namespace BancaSondrioFlusso {
             }
 
             flusso = null;
-            return "Il file selezionato non esiste o non Ë accessibile.";
+            return "Il file selezionato non esiste o non √® accessibile.";
         }
 
         private string Elabora(string filename) {
@@ -168,7 +166,7 @@ namespace BancaSondrioFlusso {
                         case "40":
                         disposizione.Debitore.Indirizzo1 = ElaboraAlfanumerico(riga, 10, 30);
                         disposizione.Debitore.CAP = ElaboraAlfanumerico(riga, 40, 5);
-                        disposizione.Debitore.Localit‡ = ElaboraAlfanumerico(riga, 45, 25);
+                        disposizione.Debitore.Localit√† = ElaboraAlfanumerico(riga, 45, 25);
                         disposizione.Debitore.Indirizzo2 = ElaboraAlfanumerico(riga, 70, 28);
                         disposizione.Debitore.Nazione = ElaboraAlfanumerico(riga, 98, 2);
 
@@ -201,8 +199,8 @@ namespace BancaSondrioFlusso {
                         disposizione.TRNBonificoVersamento = ElaboraAlfanumerico(riga, 49, 30);
                         disposizione.TipoBollettino = ElaboraAlfanumerico(riga, 93, 1);
                         disposizione.ChiaviControllo = ElaboraAlfanumerico(riga, 100, 20);
-                        disposizione.DataInizioValidit‡ = ElaboraDataLunga(riga, 104, 8);
-                        disposizione.DataFineValidit‡ = ElaboraDataLunga(riga, 112, 8);
+                        disposizione.DataInizioValidit√† = ElaboraDataLunga(riga, 104, 8);
+                        disposizione.DataFineValidit√† = ElaboraDataLunga(riga, 112, 8);
 
                         break;
                     }
@@ -275,7 +273,7 @@ namespace BancaSondrioFlusso {
         /// Campo di libera composizione da parte dell'Azienda Mittente
         /// </summary>
         /// <remarks>
-        /// Dev'essere univoco nell'ambito della data di creazione e a parit‡ di mittente e ricevente.
+        /// Dev'essere univoco nell'ambito della data di creazione e a parit√† di mittente e ricevente.
         /// </remarks>
         public string NomeSupporto { get; set; }
 
@@ -330,7 +328,7 @@ namespace BancaSondrioFlusso {
         /// Campo di libera composizione da parte dell'Azienda Mittente
         /// </summary>
         /// <remarks>
-        /// Dev'essere univoco nell'ambito della data di creazione e a parit‡ di mittente e ricevente.
+        /// Dev'essere univoco nell'ambito della data di creazione e a parit√† di mittente e ricevente.
         /// </remarks>
         public string NomeSupporto { get; set; }
 
@@ -378,7 +376,7 @@ namespace BancaSondrioFlusso {
         public string Indirizzo1 { get; set; }
         public string Indirizzo2 { get; set; }
         public string CAP { get; set; }
-        public string Localit‡ { get; set; }
+        public string Localit√† { get; set; }
         public string Nazione { get; set; }
 
     }
@@ -415,8 +413,8 @@ namespace BancaSondrioFlusso {
         public string NumeroProvvisorio { get; set; }
         public string CodiceAvviso { get; set; }
         public string TRNBonificoVersamento { get; set; }
-        public DateTime? DataInizioValidit‡ { get; set; }
-        public DateTime? DataFineValidit‡ { get; set; }
+        public DateTime? DataInizioValidit√† { get; set; }
+        public DateTime? DataFineValidit√† { get; set; }
 
         public string IUV {
             get {
@@ -567,7 +565,7 @@ namespace BancaSondrioFlusso {
         public static string ImportaFile_RT(string filename, out RicevutaTelematica RT) {
             RT = new RicevutaTelematica();
             if (!(File.Exists(filename))) {
-                return "Il file selezionato non esiste o non Ë accessibile.";
+                return "Il file selezionato non esiste o non √® accessibile.";
             }
             XmlDocument X = new XmlDocument();
             try {
@@ -679,7 +677,7 @@ namespace BancaSondrioFlusso {
                     DateTime MAXdataEsitoSingoloPagamento = empyDate;
                     foreach (XmlNode Xinfo_datiSingoloPagamento in CurrNode.ChildNodes) {
                         if (Xinfo_datiSingoloPagamento.Name == PreRoot + "datiSingoloPagamento") {
-                            //Prendiamo la max date laddove vi fossero pi˘ pagamenti
+                            //Prendiamo la max date laddove vi fossero pi√π pagamenti
                             DateTime dataEsitoSingoloPagamento = XmlHelper.AsDate(Xinfo_datiSingoloPagamento, PreRoot + "dataEsitoSingoloPagamento");
                             if (MAXdataEsitoSingoloPagamento < dataEsitoSingoloPagamento) {
                                 MAXdataEsitoSingoloPagamento = dataEsitoSingoloPagamento;

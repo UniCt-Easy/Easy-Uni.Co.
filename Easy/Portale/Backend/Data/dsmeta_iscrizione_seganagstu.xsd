@@ -3,14 +3,85 @@
   <xs:element name="dsmeta_iscrizione_seganagstu" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivform_alias3" msprop:TableForReading="attivform" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sostenimento_alias2" msprop:TableForReading="sostenimento" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idappello" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
+              <xs:element name="idprova" type="xs:int" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idsostenimento" type="xs:int" />
+              <xs:element name="voto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="votolode" type="xs:string" minOccurs="0" />
+              <xs:element name="votosu" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivform_alias2" msprop:TableForReading="attivform" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attivform_alias1" msprop:TableForReading="attivform" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+              <xs:element name="idattivform" type="xs:int" />
+              <xs:element name="idcorsostudio" type="xs:int" />
+              <xs:element name="iddidprog" type="xs:int" />
+              <xs:element name="iddidproganno" type="xs:int" />
+              <xs:element name="iddidprogcurr" type="xs:int" />
+              <xs:element name="iddidprogori" type="xs:int" />
+              <xs:element name="iddidprogporzanno" type="xs:int" />
+              <xs:element name="idsede" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="pianostudioattivform" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="anno" type="xs:int" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="idattivform" type="xs:int" />
-              <xs:element name="idattivform_scelta" type="xs:int" />
+              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
+              <xs:element name="idattivform_scelta" type="xs:int" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" />
               <xs:element name="idiscrizione" type="xs:int" />
@@ -21,6 +92,13 @@
               <xs:element name="idsostenimento" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
+              <xs:element name="_x0021_idattivform_attivform_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idattivform_scelta_attivform_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_voto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_votosu" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_votolode" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_idattivform_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_idreg_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -46,7 +124,7 @@
               <xs:element name="aa" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-              <xs:element name="idcorsostudio" type="xs:int" minOccurs="0" />
+              <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" minOccurs="0" />
               <xs:element name="idiscrizione" type="xs:int" />
               <xs:element name="idiscrizionebmi" type="xs:int" minOccurs="0" />
@@ -56,6 +134,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="_x0021_idpianostudiostatus_pianostudiostatus_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_pianostudioattivform" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -63,10 +142,17 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="areadidattica_title" type="xs:string" minOccurs="0" />
               <xs:element name="convenzione_title" type="xs:string" minOccurs="0" />
               <xs:element name="corsostudio_annoistituz" type="xs:int" minOccurs="0" />
+              <xs:element name="corsostudio_idcorsostudiokind" type="xs:int" minOccurs="0" />
+              <xs:element name="corsostudio_idcorsostudiolivello" type="xs:int" minOccurs="0" />
               <xs:element name="corsostudio_title" type="xs:string" minOccurs="0" />
+              <xs:element name="corsostudiokind_didprog_title" type="xs:string" minOccurs="0" />
+              <xs:element name="corsostudiokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="corsostudiolivello_didprog_title" type="xs:string" minOccurs="0" />
+              <xs:element name="corsostudiolivello_title" type="xs:string" minOccurs="0" />
               <xs:element name="didprog_annosolare" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_attribdebiti" type="xs:string" minOccurs="0" />
               <xs:element name="didprog_ciclo" type="xs:int" minOccurs="0" />
@@ -74,6 +160,8 @@
               <xs:element name="didprog_codicemiur" type="xs:string" minOccurs="0" />
               <xs:element name="didprog_dataconsmaxiscr" type="xs:dateTime" minOccurs="0" />
               <xs:element name="didprog_freqobbl" type="xs:string" minOccurs="0" />
+              <xs:element name="didprog_idcorsostudiokind" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_idcorsostudiolivello" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_iddidprognumchiusokind" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_iddidprogsuddannokind" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_iderogazkind" type="xs:int" minOccurs="0" />
@@ -115,6 +203,7 @@
               <xs:element name="idsessione" type="xs:int" minOccurs="0" />
               <xs:element name="registrydocenti_title" type="xs:string" minOccurs="0" />
               <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="sessione_idappellokind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_idsessionekind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessione_stop" type="xs:dateTime" minOccurs="0" />
@@ -232,6 +321,7 @@
               <xs:element name="aa" type="xs:string" />
               <xs:element name="anno" type="xs:int" />
               <xs:element name="annofc" type="xs:int" minOccurs="0" />
+              <xs:element name="annopt" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="data" type="xs:dateTime" />
@@ -310,6 +400,53 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="attivform_alias3_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivform_alias3" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="sostenimento_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sostenimento_alias2" />
+      <xs:field xpath="mstns:idappello" />
+      <xs:field xpath="mstns:idprova" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idsostenimento" />
+    </xs:unique>
+    <xs:unique name="attivform_alias2_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivform_alias2" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="attivform_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attivform_alias1" />
+      <xs:field xpath="mstns:aa" />
+      <xs:field xpath="mstns:idattivform" />
+      <xs:field xpath="mstns:idcorsostudio" />
+      <xs:field xpath="mstns:iddidprog" />
+      <xs:field xpath="mstns:iddidproganno" />
+      <xs:field xpath="mstns:iddidprogcurr" />
+      <xs:field xpath="mstns:iddidprogori" />
+      <xs:field xpath="mstns:iddidprogporzanno" />
+      <xs:field xpath="mstns:idsede" />
+    </xs:unique>
+    <xs:unique name="pianostudioattivform_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pianostudioattivform" />
       <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
@@ -328,6 +465,7 @@
     </xs:unique>
     <xs:unique name="pianostudio_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:pianostudio" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:idiscrizione" />
       <xs:field xpath="mstns:idpianostudio" />
       <xs:field xpath="mstns:idreg" />
@@ -409,7 +547,12 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_pianostudio_iscrizione_idcorsostudio-iddidprog-idiscrizione-idreg" msdata:parent="iscrizione" msdata:child="pianostudio" msdata:parentkey="idcorsostudio iddidprog idiscrizione idreg" msdata:childkey="idcorsostudio iddidprog idiscrizione idreg" />
-      <msdata:Relationship name="FK_pianostudioattivform_pianostudio_idiscrizione-idpianostudio-idreg" msdata:parent="pianostudio" msdata:child="pianostudioattivform" msdata:parentkey="idiscrizione idpianostudio idreg" msdata:childkey="idiscrizione idpianostudio idreg" />
+      <msdata:Relationship name="FK_pianostudioattivform_pianostudio_idcorsostudio-idiscrizione-idpianostudio-idreg" msdata:parent="pianostudio" msdata:child="pianostudioattivform" msdata:parentkey="idcorsostudio idiscrizione idpianostudio idreg" msdata:childkey="idcorsostudio idiscrizione idpianostudio idreg" />
+      <msdata:Relationship name="FK_pianostudioattivform_sostenimento_alias2_idsostenimento" msdata:parent="sostenimento_alias2" msdata:child="pianostudioattivform" msdata:parentkey="idsostenimento" msdata:childkey="idsostenimento" />
+      <msdata:Relationship name="FK_sostenimento_alias2_registry_idreg" msdata:parent="registry" msdata:child="sostenimento_alias2" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_sostenimento_alias2_attivform_alias3_idattivform" msdata:parent="attivform_alias3" msdata:child="sostenimento_alias2" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
+      <msdata:Relationship name="FK_pianostudioattivform_attivform_alias2_idattivform_scelta" msdata:parent="attivform_alias2" msdata:child="pianostudioattivform" msdata:parentkey="idattivform" msdata:childkey="idattivform_scelta" />
+      <msdata:Relationship name="FK_pianostudioattivform_attivform_alias1_idattivform" msdata:parent="attivform_alias1" msdata:child="pianostudioattivform" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
       <msdata:Relationship name="FK_pianostudio_pianostudiostatus_idpianostudiostatus" msdata:parent="pianostudiostatus" msdata:child="pianostudio" msdata:parentkey="idpianostudiostatus" msdata:childkey="idpianostudiostatus" />
       <msdata:Relationship name="FK_pianostudio_annoaccademico_alias3_aa" msdata:parent="annoaccademico_alias3" msdata:child="pianostudio" msdata:parentkey="aa" msdata:childkey="aa" />
       <msdata:Relationship name="FK_iscrizione_didprogdefaultview_iddidprog" msdata:parent="didprogdefaultview" msdata:child="iscrizione" msdata:parentkey="iddidprog" msdata:childkey="iddidprog" />

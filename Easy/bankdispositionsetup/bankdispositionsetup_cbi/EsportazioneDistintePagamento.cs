@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -83,7 +81,7 @@ namespace bankdispositionsetup_cbi {
             _CdtTrfTxInf.PmtId = _PmtId;
             bool isbonificoEstero = R["isbonificoEstero"].ToString() =="S";
             if (!isbonificoEstero) {
-                //2.12.2   	PmtTpInf - Payment Type Information	 - Informazioni sul tipo di transazione
+                //2.12.2Â Â Â 	PmtTpInf - Payment Type Information	 - Informazioni sul tipo di transazione
                 CBIPaymentTypeInformation2 _PmtTpInf = new CBIPaymentTypeInformation2();
                 //2.12.2.3    CtgyPurp Category Purpose Causale bancaria CategoryPurpose1Choice
                 CategoryPurpose1Choice _CtgyPurp = new CategoryPurpose1Choice();

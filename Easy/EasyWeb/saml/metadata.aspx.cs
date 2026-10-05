@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using ComponentSpace.SAML2;
 using ComponentSpace.SAML2.Configuration;
@@ -64,7 +62,7 @@ public partial class saml_Metadata : Page {
         catch (Exception ex) {
             Response.ContentType = "text/html";
 
-            Response.Write("<p>Si Ë verificato un errore nel tentativo di estrazione dei metadati dal service provider.</p>");
+            Response.Write("<p>Si √® verificato un errore nel tentativo di estrazione dei metadati dal service provider.</p>");
             Response.Write("<p>" + ex.Message + "</p>");
             Response.Write("<blockquote>" + ex.StackTrace + "</blockquote>");
         }

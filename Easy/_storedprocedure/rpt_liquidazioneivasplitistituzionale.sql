@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_liquidazioneivasplitistituzionale]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure rpt_liquidazioneivasplitistituzionale
@@ -30,7 +28,7 @@ CREATE PROCEDURE rpt_liquidazioneivasplitistituzionale
 	@official char(1)
 )
 AS BEGIN
-
+-- setuser 'amministrazione'
 -- exec rpt_liquidazioneivasplitistituzionale 2015,6 ,'N'
 CREATE TABLE #ivapayed
 (
@@ -64,11 +62,12 @@ DECLARE @prorata float
 DECLARE @refundamount decimal(19,2)
 DECLARE @paymentamount decimal(19,2)
 DECLARE @flag tinyint
+
 SELECT @start_period = start,
 	@stop_period = stop,
 	@paymentdetails = paymentdetails,
 	@refundamount = ISNULL(refundamount, 0),
-	@paymentamount = ISNULL(paymentamount, 0),
+	@paymentamount = ISNULL(paymentamountsplit, 0),
 	@flag = ISNULL(flag,3)
 FROM ivapay
 WHERE yivapay = @ayear
@@ -77,6 +76,8 @@ WHERE yivapay = @ayear
 DECLARE @saldo_iniziale_split decimal (19,2)
 SELECT @saldo_iniziale_split = ISNULL(-startivabalancesplit,0) from config where ayear = @ayear
 
+--select '@saldo_iniziale_split', @saldo_iniziale_split
+
 DECLARE @prev_debitcredit_split decimal(19,2)
 SELECT
 	 @prev_debitcredit_split = ISNULL(SUM(totaldebitsplit),0) - ISNULL(SUM(paymentamountsplit),0) 
@@ -84,14 +85,18 @@ FROM ivapay
 WHERE yivapay = @ayear
 	AND nivapay < @number
 
+--select @prev_debitcredit_split, '@prev_debitcredit_split'
 -- Ora il saldo precedente viene memorizzato e quindi letto direttamente dalla tabella.
 -- ove non memorizzato, per i dati pregressi, continuiamo a calcolarlo.
+
 DECLARE @saldo_precedente_split decimal (19,2)
 select @saldo_precedente_split = prev_debitsplit from ivapay where yivapay = @ayear AND nivapay = @number
 if (@saldo_precedente_split is null)
 Begin
 	SET @saldo_precedente_split = @saldo_iniziale_split + @prev_debitcredit_split
 End
+
+--select '@saldo_precedente_split', @saldo_precedente_split
 --select @saldo_precedente_split as  saldo_precedente_split
 
 DECLARE @ivadelperiodosplit decimal (19,2)
@@ -104,6 +109,10 @@ DECLARE @nuovosaldosplit decimal(19,2)
 set @nuovosaldosplit = @saldo_precedente_split + @ivadelperiodosplit - @paymentamountsplit
 --select @nuovosaldosplit as nuovosaldosplit  
 
+--select '@ivadelperiodosplit',@ivadelperiodosplit
+--select '@paymentamountsplit',@paymentamountsplit
+--select '@nuovosaldosplit',@nuovosaldosplit
+
 INSERT INTO #ivapayed
 (
 	idivapayperiodicity,
@@ -112,6 +121,8 @@ INSERT INTO #ivapayed
 	start,
 	stop,
 	description,
+	paymentdetails,
+	paymentamount,
 	motive,
 	ivasplit,
 	ivasplitdeferred
@@ -123,8 +134,10 @@ SELECT
 	@start_period,
 	@stop_period,
 	ivaregisterkind.description,
+	@paymentdetails,
+	@paymentamount,
 	'IVA detraibile su acquisti',
-	null,--ISNULL(ivapaydetail.iva,0),
+	ISNULL(ivapaydetail.iva,0),
 	ISNULL(ivapaydetail.ivadeferred,0)
 FROM ivapaydetail
 JOIN ivaregisterkind
@@ -134,6 +147,7 @@ WHERE ivaregisterkind.registerclass = 'A' AND flagactivity = 1
 	AND ivapaydetail.nivapay = @number
 	AND (ISNULL(ivapaydetail.ivanet,0) <> 0 OR ISNULL(ivapaydetail.ivanetdeferred,0) <> 0)
 
+--SELECT '#ivapayed',* FROM #ivapayed
 
 UPDATE #ivapayed
 SET currentdebit = @nuovosaldosplit,
@@ -148,6 +162,8 @@ SELECT
 	stop,
 	description,
 	motive,
+	paymentdetails,
+	paymentamount,
 	ISNULL(ivasplit,0) as debitamount,
 	ISNULL(ivasplitdeferred,0) as debitamountdeferred,
 	@nuovosaldosplit as currentdebit,

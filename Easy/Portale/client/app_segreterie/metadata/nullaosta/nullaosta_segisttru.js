@@ -24,18 +24,21 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				if (!parentRow.extension)
+			if (self.isNullOrMinDate(parentRow.data))
+				parentRow.data = new Date();
+				if (this.isNull(parentRow.extension))
 					parentRow.extension = "tru";
-				if (!parentRow.idistanzakind)
+				if (this.isNull(parentRow.idistanzakind) || parentRow.idistanzakind == 0)
 					parentRow.idistanzakind = 8;
+				this.state.currentRow.idcorsostudio = this.state.callerState.currentRow.idcorsostudio;
+this.state.currentRow.iddidprog = this.state.callerState.currentRow.iddidprog ;
+this.state.currentRow.idiscrizione = this.state.callerState.currentRow.idiscrizione;
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -54,7 +57,14 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#nullaosta_segisttru_protnumero'), true);
+				this.enableControl($('#nullaosta_segisttru_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#nullaosta_segisttru_protnumero'), false);
@@ -97,6 +107,10 @@
 
 
 			//insertClick
+
+			//beforePost
+
+			//afterPost
 
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.idreg_istituto;

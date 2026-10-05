@@ -23,9 +23,7 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
@@ -48,6 +46,26 @@
 					parentRow.withworkpackage = 'S';
 				if (this.isNull(parentRow.year))
 					parentRow.year = new Date().getFullYear();
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-progettotimesheet_default");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
+			
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -68,9 +86,19 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
-			//afterFill
+			afterFill: function () {
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('progettotimesheet'), this.getDataTable('progettotimesheetprogetto'));
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			
 			afterRowSelect: function (t, r) {
@@ -152,6 +180,7 @@
 					})));
 				$("#timesheetReport").on("click", _.partial(this.firetimesheetReport, this));
 				$("#timesheetReport").prop("disabled", true);
+				appMeta.metaModel.insertFilter(this.getDataTable("timesheettemplatedefaultview"), this.q.eq('timesheettemplate_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

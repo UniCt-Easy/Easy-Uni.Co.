@@ -7,7 +7,7 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-4" ViewPortY="0" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:ivaregister" ZOrder="13" X="70" Y="70" Height="214" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
-    <Shape ID="DesignTable:ivaregisterkind" ZOrder="12" X="290" Y="871" Height="146" Width="151" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:ivaregisterkind" ZOrder="12" X="290" Y="871" Height="200" Width="153" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="142" />
     <Shape ID="DesignTable:invoicekind" ZOrder="11" X="290" Y="672" Height="129" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:invoice" ZOrder="10" X="290" Y="70" Height="231" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
     <Shape ID="DesignTable:registry" ZOrder="9" X="510" Y="70" Height="231" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
@@ -15,6 +15,46 @@
     <Shape ID="DesignTable:ivakind" ZOrder="7" X="730" Y="371" Height="163" Width="161" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
   </Shapes>
   <Connectors>
+    <Connector ID="DesignRelation:ivakindinvoicedetail" ZOrder="2" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>730</X>
+          <Y>452</Y>
+        </Point>
+        <Point>
+          <X>660</X>
+          <Y>452</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:invoiceinvoicedetail" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>423</X>
+          <Y>301</Y>
+        </Point>
+        <Point>
+          <X>423</X>
+          <Y>388</Y>
+        </Point>
+        <Point>
+          <X>510</X>
+          <Y>388</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:registryinvoice" ZOrder="3" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>510</X>
+          <Y>185</Y>
+        </Point>
+        <Point>
+          <X>440</X>
+          <Y>185</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
     <Connector ID="DesignRelation:invoiceivaregister" ZOrder="6" LineWidth="11">
       <RoutePoints>
         <Point>
@@ -56,46 +96,6 @@
         <Point>
           <X>195</X>
           <Y>284</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:registryinvoice" ZOrder="3" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>510</X>
-          <Y>185</Y>
-        </Point>
-        <Point>
-          <X>440</X>
-          <Y>185</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:ivakindinvoicedetail" ZOrder="2" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>730</X>
-          <Y>452</Y>
-        </Point>
-        <Point>
-          <X>660</X>
-          <Y>452</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:invoiceinvoicedetail" ZOrder="1" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>423</X>
-          <Y>301</Y>
-        </Point>
-        <Point>
-          <X>423</X>
-          <Y>388</Y>
-        </Point>
-        <Point>
-          <X>510</X>
-          <Y>388</Y>
         </Point>
       </RoutePoints>
     </Connector>

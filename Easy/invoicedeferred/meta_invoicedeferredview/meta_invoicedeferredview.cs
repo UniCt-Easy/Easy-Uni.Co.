@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -116,14 +114,14 @@ namespace meta_invoicedeferredview{
 			}
             
             if (list_type=="fatture_acquisti_ist_intraextra") {
-                // Acquisto e Istituzionale e Intracom, e non Spli perchË li prendo dopo
+                // Acquisto e Istituzionale e Intracom, e non Spli perch√® li prendo dopo
                 if ((R["registerclass"].ToString() == "A") && (R["flagactivity"].ToString() == "1") && (R["flagintracom"].ToString() != "N") && (R["flag_enable_split_payment"].ToString() == "N")) {
                     return true;
                 }
 				return false;
 			}
             if (list_type=="fatture_acquisti_ist_split") {
-                // Acquisto Istituzionale e soggetta a Split , e non intracom perchË li ho presi prima
+                // Acquisto Istituzionale e soggetta a Split , e non intracom perch√® li ho presi prima
                 if ((R["registerclass"].ToString() == "A") && (R["flagactivity"].ToString() == "1") && (R["flag_enable_split_payment"].ToString() == "S") && (R["flagintracom"].ToString() == "N")) {
                     return true;
                 }

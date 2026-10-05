@@ -32,6 +32,7 @@
 						this.describeAColumn(table, 'perfruolo_valuta', 'Valuta il completamento degli obiettivi', null, 13000, null);
 						this.describeAColumn(table, 'perfruolo_approva', 'Approva le schede', null, 14000, null);
 						this.describeAColumn(table, 'perfruolo_escluso', 'Non utilizzabile nelle schede', null, 16000, null);
+						this.describeAColumn(table, 'XXperfruolomansionekind', 'Mansioni su cui può intervenire', null, 22000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

@@ -787,7 +787,9 @@ SOSTITUZIONE</xs:documentation>
                   REGOLARIZZAZIONE
                   ADDEBITO PREAUTORIZZATO DISPOSIZIONE DOCUMENTO ESTERNO
                   COMPENSAZIONE
-                  BONIFICO ESTERO EURO</xs:documentation>
+                  BONIFICO ESTERO EURO
+                  SEPA INSTANT CREDIT TRANSFER
+                </xs:documentation>
               </xs:annotation>
               <xs:simpleType>
                 <xs:restriction base="xs:string">
@@ -806,6 +808,7 @@ SOSTITUZIONE</xs:documentation>
                   <xs:enumeration value="COMPENSAZIONE"/>
                   <xs:enumeration value="BONIFICO ESTERO EURO"/>
                   <xs:enumeration value="AVVISO PAGOPA"/>
+                  <xs:enumeration value="SEPA INSTANT CREDIT TRANSFER"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>

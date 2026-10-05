@@ -23,10 +23,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
-						this.describeAColumn(table, 'costoscontodefkind_description', 'Descrizione', null, 30, 256);
-						this.describeAColumn(table, 'costoscontodefkind_active', 'Attivo', null, 40, null);
-						this.describeAColumn(table, 'costoscontodefkind_sortcode', 'Sortcode', null, 50, null);
+						this.describeAColumn(table, 'title', 'Titolo', null, 2000, 50);
+						this.describeAColumn(table, 'costoscontodefkind_description', 'Descrizione', null, 3000, 256);
+						this.describeAColumn(table, 'costoscontodefkind_active', 'Attivo', null, 4000, null);
+						this.describeAColumn(table, 'costoscontodefkind_sortcode', 'Ordinamento', null, 5000, null);
+						this.describeAColumn(table, 'estimatekind_description', 'Tipo di contratto attivo', null, 10100, 150);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -50,6 +51,9 @@
 				switch (listType) {
 					case "default": {
 						return "title asc ";
+					}
+					case "default": {
+						return "title asc , costoscontodefkind_sortcode desc";
 					}
 					//$getSortingin$
 				}

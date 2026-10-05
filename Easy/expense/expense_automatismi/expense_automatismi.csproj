@@ -80,11 +80,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MagicLibrary">
-      <Name>MagicLibrary</Name>
-      <HintPath>..\..\dll\MagicLibrary.DLL</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>

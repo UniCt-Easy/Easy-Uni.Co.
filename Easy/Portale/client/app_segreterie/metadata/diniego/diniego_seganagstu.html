@@ -6,13 +6,8 @@
 	<form>
 			<div class="row">
 				<div class="col-md-12">
-<script>
-  $( function () {
-    $("#diniego_seganagstu_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="diniego_seganagstu_data">Data</label>
-					<input id="diniego_seganagstu_data" type="text" class="form-control" data-tag="diniego.data.g"  data-mandatory />
+					<input id="diniego_seganagstu_data" type="text" class="form-control" data-tag="diniego.data.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
@@ -25,9 +20,9 @@
 					<input id="diniego_seganagstu_protnumero" type="text" class="form-control" data-tag="diniego.protnumero"  />
 				</div>
 			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
+		<button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-stamp mr-1" ></i>Protocolla
+		</button>
 </form>
 
 </div>

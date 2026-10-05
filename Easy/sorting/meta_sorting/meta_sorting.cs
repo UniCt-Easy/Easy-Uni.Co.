@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using metadatalibrary;
@@ -229,8 +227,13 @@ namespace meta_sorting{//meta_classmovimenti//
             }
             if (ListingType == "treeall") return base.SelectOne(ListingType, filter, "sortingall", Exclude);
             if (ListingType == "tree5") {
-                int maxLevel = this.ExtraParameter != null ? CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortinglevel", this.ExtraParameter.ToString(), "max(nlevel)")) : 5;
-                filter = QHS.AppAnd(filter, QHS.CmpEq("nlevel", maxLevel));
+                string filterLevel = QHS.AppAnd(this.ExtraParameter.ToString(), QHS.BitSet("flag", 1));
+
+                int levelOp = this.ExtraParameter != null ? CfgFn.GetNoNullInt32(Conn.DO_READ_VALUE("sortinglevel", filterLevel, "min(nlevel)")) : 5;
+
+                string filtersorting = "not exists (select 1 from sorting s1 where s1.paridsor = sorting.idsor)";
+
+                filter = QHS.AppAnd(filter, QHS.CmpGe("nlevel", levelOp), filtersorting);
             } 
             return base.SelectOne(ListingType, filter, "sorting", Exclude);
         }	

@@ -29,6 +29,7 @@
 						this.describeAColumn(table, 'active', 'Attivo', null, 40, null);
 						this.describeAColumn(table, 'ans', 'Ans', null, 50, 10);
 						this.describeAColumn(table, 'sortcode', 'Ordinamento', null, 60, null);
+						this.describeAColumn(table, 'title_en', 'Descrizione inglese', null, 90, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -39,7 +40,16 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["title_en"].caption = "Descrizione inglese";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_erogazkind");

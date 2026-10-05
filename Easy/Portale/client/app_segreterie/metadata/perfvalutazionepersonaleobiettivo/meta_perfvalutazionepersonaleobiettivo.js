@@ -59,6 +59,13 @@
 						this.describeAColumn(table, '!perfvalutazionepersonalesoglia', 'Soglie', null, 50, null);
 //$objCalcFieldConfig_conattivita$
 						break;
+					case 'unibas':
+						this.describeAColumn(table, 'title', 'Obiettivo', null, 10, 2048);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'punteggio', 'Punteggio', null, 30, null);
+						this.describeAColumn(table, 'note', 'Note', null, 40, -1);
+//$objCalcFieldConfig_unibas$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -94,6 +101,11 @@
 						table.columns["idperfprogettoobiettivoattivita"].caption = "Attività collegata";
 //$innerSetCaptionConfig_conattivita$
 						break;
+					case 'unibas':
+						table.columns["forzapunteggio"].caption = "Punteggio personalizzato";
+						table.columns["punteggio"].caption = "Punteggio";
+//$innerSetCaptionConfig_unibas$
+						break;
 //$innerSetCaptionConfig$
 				}
 			},
@@ -128,6 +140,9 @@
 						return "title asc ";
 					}
 					case "conattivita": {
+						return "title asc ";
+					}
+					case "unibas": {
 						return "title asc ";
 					}
 					//$getSortingin$

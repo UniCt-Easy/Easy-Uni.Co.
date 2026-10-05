@@ -23,7 +23,27 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (self.isNullOrMinDate(parentRow.data))
+				parentRow.data = new Date();
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-delibera_seg");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
@@ -37,8 +57,11 @@
 				var finalfilterdeliberapratica13 = window.jsDataQuery.and([fatherfilterdeliberapratica13, filterGrididistanzakind13]);
 				deliberapratica.rows =  _.filter(deliberapratica.rows, function(r) {return finalfilterdeliberapratica13(r)});
 				$("#grid_deliberapratica_seg").data("customParentRelation", finalfilterdeliberapratica13);
-				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#delibera_seg_idstruttura'), null);
+				} else {
+					this.helpForm.filter($('#delibera_seg_idstruttura'), this.q.eq('struttura_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -57,7 +80,15 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.helpForm.filter($('#delibera_seg_idstruttura'), null);
+				this.enableControl($('#delibera_seg_protnumero'), true);
+				this.enableControl($('#delibera_seg_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#delibera_seg_protnumero'), false);
@@ -76,7 +107,7 @@
 				$("#GetApprove").prop("disabled", true);
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
-				this.state.DS.tables.statuskind.staticFilter(window.jsDataQuery.eq('istanze', 'S'));
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq("statuskind_delibera",'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -125,7 +156,8 @@
 					columnNameText: "idistanzakind",
 					columnSource: "idistanza",
 					columnToFill: "idistanza",
-					tableToFill: "deliberaistanza"
+					tableToFill: "deliberaistanza",
+					filter: that.q.eq("istanza_idstatuskind", 5)
 				});
 			},
 
@@ -138,13 +170,51 @@
 					columnNameText: "idreg",
 					columnSource: "idpratica",
 					columnToFill: "idpratica",
-					tableToFill: "deliberapratica"
+					tableToFill: "deliberapratica",
+					filter: that.q.eq("pratica_idstatuskind", 5)
 				});
 			},
 
 			fireGetApprove:function(that) {
-            	// se la delibera è relativa a convalide le rende definitive
-		
+				// se la delibera è relativa a convalide le rende definitive
+				that.hasUnsavedChanges()
+					.then(function (result) {
+						if (result) {
+							return that.showMessageOk("Prima devi salvare la pagina");
+						} else {
+							var waitingHandler = that.showWaitingIndicator(appMeta.localResource.modalLoader_wait_waiting);
+							appMeta.getData.launchCustomServerMethod("callSP", {
+								spname: "sp_setapproveddelibera",
+								prm1: that.state.currentRow.iddelibera,
+								prm2: appMeta.security.usrEnv.userweb
+							}).then(function (res) {
+								var msg = "OK. Le istanze e le pratiche sono state deliberate.";
+								if (res.err) {
+									msg = "KO " + res.err;
+								}
+								else {
+									msg = res.ds.tables.Table.rows[0].curr.Column1;
+								}
+								var filter = window.jsDataQuery.eq("iddelibera", that.state.currentRow.iddelibera);
+								var selBuilderArray = [];
+								var tableToRefresh = ['deliberaistanza', 'deliberapratica'];
+								_.forEach(tableToRefresh, function (tname) {
+									selBuilderArray.push({ filter: filter, top: null, tableName: tname, table: that.state.DS.tables[tname] });
+								});
+								appMeta.getData.multiRunSelect(selBuilderArray)
+									.then(function () {
+										$('#delibera_seg_idstatuskind').val(6);
+										that.state.currentRow.idstatuskind = 6;
+										that.cmdMainSave()
+										//that.freshForm(false, false)
+											.then(function () {
+												that.hideWaitingIndicator(waitingHandler);
+												alert(msg);
+											});
+									});
+							});
+						}
+					});
 
 			},
 

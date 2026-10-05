@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -246,11 +244,11 @@ namespace csa_contract_annulment {
 			}
 			if (chkKeepAlive.Checked)
 			{
-				message = "Si Ë scelto di disattivare tutte le Regole Selezionate?";
+				message = "Si √® scelto di disattivare tutte le Regole Selezionate?";
 			}
 			else
 			{
-				message = "Si Ë scelto di riattivare tutte le Regole Selezionate?";
+				message = "Si √® scelto di riattivare tutte le Regole Selezionate?";
 			}
 			if (show(this, message,
 					"Conferma", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -293,7 +291,7 @@ namespace csa_contract_annulment {
 					}
 					else
 					{
-						show(this, "Si Ë verificato un errore, le Regole non sono state disattivate");
+						show(this, "Si √® verificato un errore, le Regole non sono state disattivate");
 					}
 				}
 

@@ -21,17 +21,37 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (self.isNullOrMinDate(parentRow.start))
+				parentRow.start = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.stop))
+				parentRow.stop = new Date();
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-learningagrstud_seg");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
-				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#learningagrstud_seg_idreg_istitutiesteri'), null);
 				} else {

@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -15,6 +15,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="capitolo" type="xs:string" minOccurs="0" />
+              <xs:element name="flag_geo" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -75,6 +76,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="flag_geo" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -89,6 +91,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="flag_geo" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -106,11 +109,6 @@
       <xs:selector xpath=".//mstns:tax" />
       <xs:field xpath="mstns:taxcode" />
     </xs:unique>
-    <xs:unique name="Constraint2">
-      <xs:selector xpath=".//mstns:tax" />
-      <xs:field xpath="mstns:taxcode" />
-      <xs:field xpath="mstns:taxref" />
-    </xs:unique>
     <xs:unique name="voce8000_impon_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:voce8000_impon" />
       <xs:field xpath="mstns:voce" />
@@ -119,22 +117,13 @@
       <xs:selector xpath=".//mstns:voce8000_quotaesente" />
       <xs:field xpath="mstns:voce" />
     </xs:unique>
-    <xs:keyref name="voce8000_quotaesente_voce8000lookup" refer="voce8000_quotaesente_Constraint1">
-      <xs:selector xpath=".//mstns:voce8000lookup" />
-      <xs:field xpath="mstns:vocequotaesente" />
-    </xs:keyref>
-    <xs:keyref name="FK_voce8000_voce8000lookup" refer="Constraint1">
-      <xs:selector xpath=".//mstns:voce8000lookup" />
-      <xs:field xpath="mstns:voce" />
-    </xs:keyref>
-    <xs:keyref name="FK_tax_voce8000lookup" refer="Constraint2">
-      <xs:selector xpath=".//mstns:voce8000lookup" />
-      <xs:field xpath="mstns:taxcode" />
-      <xs:field xpath="mstns:taxref" />
-    </xs:keyref>
-    <xs:keyref name="voce8000_impon_voce8000lookup" refer="voce8000_impon_Constraint1">
-      <xs:selector xpath=".//mstns:voce8000lookup" />
-      <xs:field xpath="mstns:voceimponibile" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="voce8000_impon_voce8000lookup" msdata:parent="voce8000_impon" msdata:child="voce8000lookup" msdata:parentkey="voce" msdata:childkey="voceimponibile" />
+      <msdata:Relationship name="FK_tax_voce8000lookup" msdata:parent="tax" msdata:child="voce8000lookup" msdata:parentkey="taxcode taxref" msdata:childkey="taxcode taxref" />
+      <msdata:Relationship name="FK_voce8000_voce8000lookup" msdata:parent="voce8000" msdata:child="voce8000lookup" msdata:parentkey="voce" msdata:childkey="voce" />
+      <msdata:Relationship name="voce8000_quotaesente_voce8000lookup" msdata:parent="voce8000_quotaesente" msdata:child="voce8000lookup" msdata:parentkey="voce" msdata:childkey="vocequotaesente" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

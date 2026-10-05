@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitgirofondiiva]
@@ -86,7 +84,7 @@ select @idtreasurerdest = idtreasurer from treasurer where flagdefault = 'S'
 if (@showdetail = 'S')
 Begin
 		SELECT 
-			isnull(T.header, T.description) as 'Cassiere Dipartimento',
+			isnull(T.header, T.description) as 'Conto Corrente Dipartimento',
 			D.yivapay as 'Eserc.Liquidazione iva',
 			D.nivapay as 'Num.Liquidazione iva',
 			D.ivaadate as 'Data Liquidazione',
@@ -105,7 +103,7 @@ Begin
 
 
 		SELECT 
-			isnull(T.header, T.description) as 'Cassiere Dipartimento',
+			isnull(T.header, T.description) as 'Conto Corrente Dipartimento',
 			sum(D.ivaamount) as 'Iva Liquidata',
 			sum(D.transferamount) as 'Importo Girofondato dal Dipartimento',
 			sum(isnull(D.ivaamount,0) - isnull(D.transferamount,0)) as 'Importo da Girofondare'

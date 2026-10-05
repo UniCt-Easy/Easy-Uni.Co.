@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,11 +13,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using ReportGen;
 using ReportGen.Models;
 using RestSharp;
 using System;
+using System.Collections;
 using System.Data;
 
 
@@ -36,7 +35,7 @@ namespace ReportGenClient {
         /// Istanzia un client per il servizio di generazione report.
         /// </summary>
         /// <param name="endpointUrl">Endpoint del servizio di generazione report</param>
-        /// <param name="timeoutSeconds">Timeout della richiesta in secondi, il client non accetter‡ risposte oltre questo intervallo di tempo.</param>
+        /// <param name="timeoutSeconds">Timeout della richiesta in secondi, il client non accetter√† risposte oltre questo intervallo di tempo.</param>
         public WebClient(string endpointUrl, int timeoutSeconds) {
             try {
                 endpoint = new Uri(endpointUrl);
@@ -48,23 +47,53 @@ namespace ReportGenClient {
         }
 
         /// <summary>
-        /// Richiede al servizio di generazione report la creazione di un report generato in pdf.
+        /// Crea la richiesta al servizio di generazione report per la creazione di un report generato in pdf.
         /// </summary>
         /// <param name="moduleReport">DataRow che descrive il report richiesto.</param>
         /// <param name="parameters">DataRow che descrive i parametri del report richiesto.</param>
         /// <returns>Contenuto del report generato.</returns>
-        public byte[] Generate(DataRow moduleReport, DataRow parameters) {
+        [Obsolete("Usare la versione del metodo che utilizza i parametri come IDictionary")]
+        public byte[] Generate(string db, DataRow moduleReport, DataRow parameters) {
 
             // creazione del body richiesta
             ReportRequest rr = new ReportRequest() {
+                database = db,
                 Report = moduleReport.ToHashtable(), // conversione della DataRow in Hashtable
                 ReportParameter = parameters.ToHashtable(), // conversione della DataRow in Hashtable
             };
 
+            return Execute(rr);
+        }
+
+        /// <summary>
+        /// Crea la richiesta al servizio di generazione report per la creazione di un report generato in pdf.
+        /// </summary>
+        /// <param name="db">Database a cui connettersi</param>
+        /// <param name="moduleReport">DataRow che descrive il report richiesto.</param>
+        /// <param name="parameters">Parametri del report richiesto.</param>
+        /// <returns>Contenuto del report generato.</returns>
+        public byte[] Generate(string db, DataRow moduleReport, IDictionary parameters) {
+
+            ReportRequest rr = new ReportRequest() {
+                database = db,
+                Report = moduleReport.ToHashtable(),
+                ReportParameter = new Hashtable(parameters),
+            };
+
+            return Execute(rr);
+        }
+
+        /// <summary>
+        /// Invia la richiesta fornita al servizio di generazione report.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private byte[] Execute(ReportRequest data) {
+
             RestRequest request;
 
             try {
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(rr); // serializzazione del body richiesta
+                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data); // serializzazione del body richiesta
 
                 request = new RestRequest("generate") { // richiesta della route /generate sull'endpoint
                     Timeout = timeout.Milliseconds,
@@ -83,6 +112,74 @@ namespace ReportGenClient {
             }
 
             return response.RawBytes; // lettura del contenuto del body della risposta e passaggio al chiamante
+        }
+
+        public ReportAnalysis Analysis(string db, string reportName)
+		{
+            RestRequest request;
+
+            try
+            {
+                AnalysisRequest ar = new AnalysisRequest() {
+                    database = db,
+                    reportPath = reportName,
+				};
+
+                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(ar);
+
+                request = new RestRequest("analysis") { // richiesta della route /analysis sull'endpoint
+                    Timeout = timeout.Milliseconds,
+                };
+                request.AddJsonBody(jsonData); // aggiunta del contenuto del body della richiesta
+            }
+            catch (Exception e)
+            {
+                throw new Exception("errore durante la creazione della richiesta", e);
+            }
+
+            RestClient client = new RestClient(endpoint);   // istanziazione del client di RestSharp
+            IRestResponse response = client.Post(request);  // ricezione della risposta alla richiesta
+
+            if (!response.IsSuccessful())
+            {
+                throw new Exception(string.Join(": ", "esito negativo sulla chiamata al server", response.StatusDescription, response.Content), response.ErrorException);
+            }
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ReportAnalysis>(response.Content);
+        }
+
+        public string GeneraScript(string db, string reportName)
+		{
+            RestRequest request;
+
+            try
+            {
+                AnalysisRequest ar = new AnalysisRequest() {
+                    database = db,
+                    reportPath = reportName,
+                };
+
+                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(ar);
+
+                request = new RestRequest("generatescript") { // richiesta della route /generatescript sull'endpoint
+                    Timeout = timeout.Milliseconds,
+                };
+                request.AddJsonBody(jsonData); // aggiunta del contenuto del body della richiesta
+            }
+            catch (Exception e)
+            {
+                throw new Exception("errore durante la creazione della richiesta", e);
+            }
+
+            RestClient client = new RestClient(endpoint);   // istanziazione del client di RestSharp
+            IRestResponse response = client.Post(request);  // ricezione della risposta alla richiesta
+
+            if (!response.IsSuccessful())
+            {
+                throw new Exception(string.Join(": ", "esito negativo sulla chiamata al server", response.StatusDescription, response.Content), response.ErrorException);
+            }
+
+            return response.Content;
         }
     }
 }

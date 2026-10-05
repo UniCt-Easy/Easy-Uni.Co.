@@ -28,6 +28,7 @@
 						this.describeAColumn(table, 'publicaz_annopub', 'Anno pubblicazione', null, 4000, null);
 						this.describeAColumn(table, 'publicaz_editore', 'Editore', null, 5000, 150);
 						this.describeAColumn(table, 'progetto_titolobreve', 'Titolo breve o acronimo Progetto', null, 6100, 2048);
+						this.describeAColumn(table, 'progetto_idprogetto', 'Codice interno Progetto', null, 6200, null);
 						this.describeAColumn(table, 'progetto_start', 'Data di inizio Progetto', null, 9000, null);
 						this.describeAColumn(table, 'progetto_stop', 'Data di fine Progetto', null, 9100, null);
 //$objCalcFieldConfig_default$

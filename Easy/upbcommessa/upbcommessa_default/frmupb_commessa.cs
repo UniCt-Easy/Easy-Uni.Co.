@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -105,7 +103,7 @@ namespace upbcommessa_default {
                 else {
                     labelNoCommessaCompletata.Text = "Elaborazione progetto pluriennale ancora APERTO";
                     if (!DoAssestamentoCommessaCompletata(tEntryDetail1, noRows, false)) {
-                        //La seguene show si potrebbe anche omettere perchË nella DoAssestamentoCommessaCompletata i "return false"
+                        //La seguene show si potrebbe anche omettere perch√® nella DoAssestamentoCommessaCompletata i "return false"
                         // sono corredati di messaggio che giustifica il false
                         show(this, "ERRORE nel processo di rettifica per il progetti pluriennali ancora APERTO", "Errore");
                     }
@@ -128,7 +126,7 @@ namespace upbcommessa_default {
                     else {
                         labelNoCommessaCompletata.Text = "Elaborazione progetti pluriennali in chiusura";
                         if (!DoAssestamentoCommessaCompletata(tEntryDetail2, noRows, true)) {
-                            //La seguente show si potrebbe anche omettere perchË nella DoAssestamentoCommessaCompletata i "return false"
+                            //La seguente show si potrebbe anche omettere perch√® nella DoAssestamentoCommessaCompletata i "return false"
                             // sono corredati di messaggio che giustifica il false
                             show(this,
                                 "ERRORE nel processo di rettifica per il progetto pluriennale in CHIUSURA", "Errore");
@@ -164,11 +162,11 @@ namespace upbcommessa_default {
                     }
                 }
             }
-            // NB: Per il momento commento l'Else perchË solo il PO esegue l'elaborazione ottieniAmmmortamentiFuturiUPB() per cui gli altri utenti,
+            // NB: Per il momento commento l'Else perch√® solo il PO esegue l'elaborazione ottieniAmmmortamentiFuturiUPB() per cui gli altri utenti,
             // non avendolo configurato vedranno sempre questo messaggio, che potrebbe risulare noiso ed equivoco.
 
             //else {
-            //    string noRows = "Progetti pluriennali in chiusura - Risconti su Ammortamenti futuri: si Ë scelto di non rettificare " +
+            //    string noRows = "Progetti pluriennali in chiusura - Risconti su Ammortamenti futuri: si √® scelto di non rettificare " +
             //                    "(vedere Configurazione annuale EP di Ratei e Risconti)";
             //    show(this, noRows, "Avvertimento");
             //}
@@ -208,7 +206,7 @@ namespace upbcommessa_default {
                 //progBar.Update();
                 Application.DoEvents();
                 string idupb = Curr["idupb"].ToString();
-                // in modalit‡ modifica non 
+                // in modalit√† modifica non 
                 DataRow rCommessa = DS.upbcommessa.Rows[0];
                 rCommessa["idacc_revenue"] = Curr["idacc_revenue"];
                 rCommessa["idacc_cost"] = Curr["idacc_cost"];
@@ -278,7 +276,7 @@ namespace upbcommessa_default {
 
 
                         //genera scrittura COSTO A RATEO ATTIVO  
-                        // Questo perchË tutti i ratei attivi di un progetto chiuso devono essere portati a costo nell'anno di chiusura
+                        // Questo perch√® tutti i ratei attivi di un progetto chiuso devono essere portati a costo nell'anno di chiusura
                
                         #endregion
                     }
@@ -303,7 +301,7 @@ namespace upbcommessa_default {
                         // task 7515 Se costi superano ricavi +riserve, devono essere  create delle scritture:
                         //      RATEO ATTIVO a RICAVO
                         //  per la parte di costo che supera ricavi +riserve
-                        //  Il conto di ricavo sar‡ un conto predefinito per quel progetto, 
+                        //  Il conto di ricavo sar√† un conto predefinito per quel progetto, 
                         //                  idem il rateo ma il rateo attivo ove assente prendere il rateo di config
                         decimal importoRateo = costi - (ricavi + riserve);
  
@@ -378,7 +376,7 @@ namespace upbcommessa_default {
                     #endregion
 
                 }
-                // cancello la riga di UPB commessa in mancanza di dati affinchË non sia salvata su DB
+                // cancello la riga di UPB commessa in mancanza di dati affinch√® non sia salvata su DB
                 // non cancello... deve farlo l'utente in modo esplicito cliccando elimina
                 if ((CfgFn.GetNoNullDecimal(rCommessa["accruals"]) == 0) &&
                     (CfgFn.GetNoNullDecimal(rCommessa["cost"]) == 0) &&
@@ -454,7 +452,7 @@ namespace upbcommessa_default {
             // Questo metodo vale solo per UPB in chiusura (in corso d'anno) a commessa completata ed effettua un calcolo opzionale.
             // Se vi sono ammortamenti futuri genera risconti sulla base degli ammortamenti futuri
             // Questo vale SOLO per le UPB i cui RICAVI sono superiori ai COSTI. 
-            // Questo calcolo Ë opzionale, diversamente gli UPB in questione 
+            // Questo calcolo √® opzionale, diversamente gli UPB in questione 
             // genereranno utile o perdita, se non hanno ratei aperti.
 
             int currYear = (int)Meta.GetSys("esercizio");
@@ -522,7 +520,7 @@ namespace upbcommessa_default {
             var r = DS.upbcommessa[0];
             
 
-                if (rAmmFuturi != null) // la stima degli ammortamenti futuri cespiti Ë calcolata a parte
+                if (rAmmFuturi != null) // la stima degli ammortamenti futuri cespiti √® calcolata a parte
                 {
                     r["assetamortization"] = CfgFn.GetNoNullDecimal(rAmmFuturi["amm_futuricespiti"]);
                 }
@@ -667,7 +665,7 @@ namespace upbcommessa_default {
 
 
           //La scrittura sui ratei va fatta comunque prima di capire se i costi hanno superato  i ricavi, ossia bisogna portare i ratei attivi a costo
-        // Infatti questa scrittura Ë fatta nell'anno della chiusura, mentre l'utile/perdita sar‡ valutato l'anno successivo
+        // Infatti questa scrittura √® fatta nell'anno della chiusura, mentre l'utile/perdita sar√† valutato l'anno successivo
         DataTable ottieniRateiApertiProgettiInChiusura(object idupb) {
             int currAyear = (int)Meta.GetSys("esercizio");
             string strYear = QHS.quote(currAyear);

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_convalidato_segstudprat"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_convalidato_segstudprat: DataSet {
+public partial class dsmeta_convalidato_segstudprat: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -69,9 +67,16 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// CHANGESKINDDEFAULTVIEW /////////////////////////////////
 	var tchangeskinddefaultview= new MetaTable("changeskinddefaultview");
+	tchangeskinddefaultview.defineColumn("changes_title", typeof(string));
+	tchangeskinddefaultview.defineColumn("changeskind_active", typeof(string));
+	tchangeskinddefaultview.defineColumn("changeskind_description", typeof(string));
 	tchangeskinddefaultview.defineColumn("changeskind_idchanges", typeof(int));
+	tchangeskinddefaultview.defineColumn("changeskind_lt", typeof(DateTime),false);
+	tchangeskinddefaultview.defineColumn("changeskind_lu", typeof(string),false);
+	tchangeskinddefaultview.defineColumn("changeskind_sortcode", typeof(int),false);
 	tchangeskinddefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tchangeskinddefaultview.defineColumn("idchangeskind", typeof(int),false);
+	tchangeskinddefaultview.defineColumn("title", typeof(string),false);
 	Tables.Add(tchangeskinddefaultview);
 	tchangeskinddefaultview.defineKey("idchangeskind");
 
@@ -118,7 +123,7 @@ private void initClass() {
 	tattivformdefaultview.defineColumn("insegninteg_denominazione", typeof(string));
 	tattivformdefaultview.defineColumn("title", typeof(string));
 	Tables.Add(tattivformdefaultview);
-	tattivformdefaultview.defineKey("idattivform");
+	tattivformdefaultview.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// CONVALIDATO /////////////////////////////////
 	var tconvalidato= new MetaTable("convalidato");

@@ -188,6 +188,10 @@
 				return MetaPage.prototype.afterLink.call(this);
 			},
 
+			manageValidResult: function (rowToCheck) {
+				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
+
 			checkDisableInputFile:function (){
 				var disable = this.state.isSearchState();
 				_.forEach($("[type=file]"), function (inputFile) {
