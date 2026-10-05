@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:apii="http://perlapa.gov.it/anagrafeprestazioni_2018_incarichi"
+    targetNamespace="http://perlapa.gov.it/anagrafeprestazioni_2018_incarichi"
+		elementFormDefault="qualified"
+	 attributeFormDefault="unqualified" xml:lang="it">
+
+  <!--
+		ELEMENTO PER WSDL
+  <xs:element name="comunicazione">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element  name="incarico" type="apii:operazioni"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>-->
+
+
+
+    <!--
+		DGS:TIPO DI DATO PRINCIPALE
+	-->
+
+  <xs:element name="comunicazione"  >
+   <xs:complexType>
+     <xs:choice >
+      <xs:element name="inserimentoincaricodipendente" type="apii:inserimento_incarico_dipendente_type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="variazioneincaricodipendente" type="apii:variazione_incarico_dipendente_type" minOccurs="1" maxOccurs="1" />
+      <xs:element name="inserimentoincaricoconsulente" type="apii:inserimento_incarico_consulente_type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="variazioneincaricococonsulente" type="apii:variazione_incarico_consulente_type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="cancellazioneincarico" type="apii:cancellazioneincarico_incarico_type" minOccurs="1" maxOccurs="1" />
+ </xs:choice>
+      </xs:complexType>
+    
+  </xs:element>
+
+      <!--<xs:element name="comunicazione">
+   <xs:complexType>
+     <xs:choice >
+      <xs:element name="inserimentoincaricodipendente" type="apii:inserimento_incarico_dipendente_type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="variazioneincaricodipendente" type="apii:variazione_incarico_dipendente_type" minOccurs="1" maxOccurs="1" />
+      <xs:element name="inserimentoincaricoconsulente" type="apii:inserimento_incarico_consulente_type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="variazioneincaricococonsulente" type="apii:variazione_incarico_consulente_type" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="cancellazioneincarico" type="apii:cancellazioneincarico_incarico_type" minOccurs="1" maxOccurs="1" />
+ </xs:choice>
+      </xs:complexType>
+    
+  </xs:element>-->
+
+
+  <!--
+				DGS:INSERIMNETO INCARICO DIPENDENTE
+		-->
+
+  <xs:complexType name="inserimento_incarico_dipendente_type">
+    <xs:sequence>
+
+      <xs:element name="amministrazionedichiarante" type="apii:amministrazione_dichiarante_type" minOccurs ="1" maxOccurs ="1" />
+
+      <xs:element name="percettore" minOccurs ="1" maxOccurs ="1">
+        <xs:complexType>
+          <xs:attribute name="codiceFiscale" type="apii:CodiceFiscalePF" use="required"/>
+          <xs:attribute name="cognome" type="apii:String50" use="required"/>
+          <xs:attribute name="nome" type="apii:String50" use="required"/>
+          <xs:attribute name="genere" type="apii:Sesso" use="required"/>
+          <xs:attribute name="dataNascita" type="xs:date" use="required"/>
+          <xs:attribute name="comuneNascita" type="apii:CodiceCatastaleComune" use="required"/>
+          <xs:attribute name="qualifica" type="apii:String6" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="conferente" type="apii:conferente_type" minOccurs ="1" maxOccurs ="1"  />
+      <xs:element name="datiincarico" type="apii:dati_incarico_dipendente_inserimento_type"  minOccurs ="1" maxOccurs ="1" />
+      <xs:element name="riferimentonormativo" type="apii:riferimentonormativo_type" minOccurs="0" maxOccurs ="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <!--
+				DGS:VARIAZIONE INCARICO DIPENDENTE
+		-->
+  
+  
+   <xs:complexType name="variazione_incarico_dipendente_type">
+    <xs:sequence>
+      <xs:element  name="amministrazionedichiarante" type="apii:amministrazione_dichiarante_type" minOccurs ="1" maxOccurs ="1" />
+      <xs:element name="percettore" minOccurs="0" maxOccurs ="1">
+        <xs:complexType>
+           <xs:attribute name="qualifica" type="apii:String6" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="conferente" type="apii:conferente_type"  minOccurs ="0" maxOccurs ="1" />
+      <xs:element name="datiincarico" type="apii:dati_incarico_dipendente_variazione_type" minOccurs ="1" maxOccurs ="1" />
+      <xs:element name="riferimentonormativo" type="apii:riferimentonormativo_type" minOccurs="0" maxOccurs ="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  
+    <!--
+				DGS:INSERIMNETO INCARICO CONSULENTE
+		-->
+
+   <xs:complexType name="inserimento_incarico_consulente_type">
+    <xs:sequence>
+      <xs:element  name="amministrazionedichiarante" type="apii:amministrazione_dichiarante_type"  minOccurs="1" maxOccurs ="1" />
+      <xs:element name="percettore" minOccurs="1" maxOccurs ="1">
+        <xs:complexType>
+          <xs:choice maxOccurs="1" minOccurs="1">
+            <xs:element name="percettorepf" maxOccurs="1" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="estero" type="apii:yesNo" use="required"/>
+                <xs:attribute name="codiceFiscale" type="apii:CodiceFiscalePF" use="optional"/>
+                <xs:attribute name="cognome" type="apii:String50" use="required"/>
+                <xs:attribute name="nome" type="apii:String50" use="required"/>
+                <xs:attribute name="genere" type="apii:Sesso" use="required"/>
+                <xs:attribute name="dataNascita" type="xs:date" use="required"/>
+                <xs:attribute name="comuneNascita" type="apii:CodiceCatastaleComune" use="optional"/>
+              </xs:complexType>
+            </xs:element>
+           <xs:element name="percettorepg" maxOccurs="1" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="estero" type="apii:yesNo" use="required"/>
+                <xs:attribute name="codiceFiscale" type="apii:CodiceFiscale" use="optional"/>
+                <xs:attribute name="denominazione" type="apii:String255" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+           <xs:attribute name="tipologia" type="apii:tipoConsulente" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="datiincarico" type="apii:dati_incarico_consulente_inserimento_type" minOccurs="1" maxOccurs ="1"/>
+      <xs:element name="riferimentonormativo" type="apii:riferimentonormativo_type" minOccurs="0" maxOccurs ="1" />
+      <xs:element name="allegati" minOccurs="0" maxOccurs ="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="fileCv" minOccurs="1" maxOccurs ="1" />
+            <xs:element name="fileDichiarazioneIncarichi"  minOccurs="1" maxOccurs ="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+   <!--
+				DGS:VARIAZIONE INCARICO CONSULENTE
+		-->
+
+   <xs:complexType name="variazione_incarico_consulente_type">
+    <xs:sequence>
+      <xs:element  name="amministrazionedichiarante" type="apii:amministrazione_dichiarante_type"  minOccurs="1" maxOccurs ="1" />
+      <xs:element name="datiincarico" type="apii:dati_incarico_consulente_variazione_type"  minOccurs="1" maxOccurs ="1" />
+      <xs:element name="riferimentonormativo" type="apii:riferimentonormativo_type" minOccurs="0" maxOccurs ="1" />
+     <xs:element name="allegati" minOccurs ="0" maxOccurs ="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="fileCv" minOccurs ="0" maxOccurs ="1"/>
+            <xs:element name="fileDichiarazioneIncarichi" minOccurs ="0" maxOccurs ="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  <!--
+				DGS:INSERIMNETO INCARICO DIPENDENTE
+		-->
+  
+   <xs:complexType name="cancellazioneincarico_incarico_type">
+    <xs:sequence>
+      <xs:element  name="amministrazionedichiarante" type="apii:amministrazione_dichiarante_type" />
+      <xs:element name="datiincarico">
+         <xs:complexType>
+               <xs:attribute name="idIncarico" type="xs:unsignedLong" use="required"/>
+           </xs:complexType>
+      </xs:element >
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!--
+        DGS: AMMINISTRAZIONE DICHIARATE
+        -->
+
+  
+    <xs:complexType name="amministrazione_dichiarante_type">
+      <xs:attribute name="codicePaIpa" type="apii:String100" use="required"/>
+      <xs:attribute name="codiceFiscalePa" type="apii:CodiceFiscale" use="required"/>
+      <xs:attribute name="codiceAooIpa" type="apii:String100" use="optional"/>
+      <xs:attribute name="codiceUoIpa" type="apii:String100" use="optional"/>
+    </xs:complexType>
+
+
+  <!--
+        DGS: CONFERENTE
+        -->
+  
+  <xs:complexType name="conferente_type">
+    <xs:choice maxOccurs="1" minOccurs="1">
+        <xs:element name="conferentepubblico" type="apii:conferentepubblico_type" minOccurs ="0" maxOccurs ="1" />
+      <xs:element name="conferentepf" type="apii:conferentepf_type"  minOccurs ="0" maxOccurs ="1"/>
+      <xs:element name="conferentepg" type="apii:conferentepg_type"  minOccurs ="0" maxOccurs ="1"/>
+    </xs:choice>
+    <xs:attribute name="tipologia" type="apii:TipologiaConferente" use="required"/>
+  </xs:complexType>
+
+
+  <!--
+        DGS: CONFERENTE PUBBLICO
+        -->
+   <!--<xs:complexType name="conferentepubblico_type">
+    <xs:sequence>
+
+      <xs:element name="conferentepubblico">
+        <xs:complexType>
+          <xs:attribute name="codicePaIpa" type="apii:String100" use="required"/>
+          <xs:attribute name="codiceFiscalePa" type="apii:CodiceFiscale" use="required"/>
+        </xs:complexType>
+      </xs:element>
+   
+    </xs:sequence>
+  </xs:complexType>-->
+  
+   <xs:complexType name="conferentepubblico_type">
+   
+            <xs:attribute name="codicePaIpa" type="apii:String100" use="required"/>
+          <xs:attribute name="codiceFiscalePa" type="apii:CodiceFiscale" use="required"/>
+    
+  </xs:complexType>
+  
+  <!--
+        DGS: CONFERENTE PF
+        -->
+  <!--<xs:complexType name="conferentepf_type">
+    <xs:sequence>
+
+      <xs:element name="conferentepf">
+        <xs:complexType>
+          <xs:attribute name="codiceFiscale" type="apii:CodiceFiscalePF" use="optional"/>
+          <xs:attribute name="cognome" type="apii:String50" use="required"/>
+          <xs:attribute name="nome" type="apii:String50" use="required"/>
+          <xs:attribute name="genere" type="apii:Sesso" use="required"/>
+          <xs:attribute name="dataNascita" type="xs:date" use="required"/>
+          <xs:attribute name="comuneNascita" type="apii:CodiceCatastaleComune" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>-->
+  <xs:complexType name="conferentepf_type">
+ 
+          <xs:attribute name="codiceFiscale" type="apii:CodiceFiscalePF" use="optional"/>
+          <xs:attribute name="cognome" type="apii:String50" use="required"/>
+          <xs:attribute name="nome" type="apii:String50" use="required"/>
+          <xs:attribute name="genere" type="apii:Sesso" use="required"/>
+          <xs:attribute name="dataNascita" type="xs:date" use="required"/>
+          <xs:attribute name="comuneNascita" type="apii:CodiceCatastaleComune" use="optional"/>
+       
+  </xs:complexType>
+  <!--
+        DGS: CONFERENTE PG
+        -->
+  <!--<xs:complexType name="conferentepg_type">
+    <xs:sequence>
+
+      <xs:element name="conferentepg">
+        <xs:complexType>
+          <xs:attribute name="codiceFiscale" type="apii:CodiceFiscale" use="optional"/>
+          <xs:attribute name="denominazione" type="apii:String255" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>-->
+  <xs:complexType name="conferentepg_type">
+  
+          <xs:attribute name="codiceFiscale" type="apii:CodiceFiscale" use="optional"/>
+          <xs:attribute name="denominazione" type="apii:String255" use="required"/>
+
+  </xs:complexType>
+
+   <!--
+        DATI INCARICO DIPENDENTE INSERIMENTO 
+        -->
+
+  <xs:complexType name="dati_incarico_dipendente_inserimento_type">
+    <xs:sequence>
+      <xs:element name="dateconomici" type="apii:dati_economici_incarico_dipendente_inserimento_type" minOccurs ="1" maxOccurs ="1"/>
+     </xs:sequence>
+    <xs:attribute name="oggettoIncarico" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="dataAutorizzazioneConferimento" type="xs:date" use="required"/>
+    <xs:attribute name="dataInizio" type="xs:date" use="required"/>
+    <xs:attribute name="doveriUfficio" type="apii:yesNo" use="required"/>
+    <xs:attribute name="sitoWebTrasparenza" type="apii:sitoWeb" use="required"/>
+  </xs:complexType>
+  
+
+  
+  <xs:complexType name="dati_economici_incarico_dipendente_inserimento_type" >
+    <xs:attribute name="tipoCompenso" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="compenso" type="apii:Euro" use="required"/>
+    <xs:attribute name="ammontareErogato" type="apii:Euro" use="required"/>
+    <xs:attribute name="incaricoSaldato" type="apii:yesNo" use="required"/>
+    <xs:attribute name="dataFine" type="xs:date" use="optional"/>
+
+  </xs:complexType>
+        
+   <!--
+        DATI INCARICO DIPENDENTE VARIAZIONE 
+        -->
+  
+  <xs:complexType name="dati_incarico_dipendente_variazione_type">
+    <xs:sequence>
+      <xs:element name="dateconomici" type="apii:dati_economici_incarico_dipendente_variazione_type" minOccurs ="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="idIncarico" type="xs:unsignedLong" use="required"/>
+    <xs:attribute name="oggettoIncarico" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="doveriUfficio" type="apii:yesNo" use="optional"/>
+    <xs:attribute name="sitoWebTrasparenza" type="apii:sitoWeb" use="optional"/>
+    <xs:attribute name="dataRevoca" type="xs:date" use="optional"/>
+  </xs:complexType>
+          
+  <xs:complexType name="dati_economici_incarico_dipendente_variazione_type">
+    <xs:attribute name="tipoCompenso" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="compenso" type="apii:Euro" use="required"/>
+    <xs:attribute name="ammontareErogato" type="apii:Euro" use="required"/>
+    <xs:attribute name="incaricoSaldato" type="apii:yesNo" use="required"/>
+    <xs:attribute name="dataFine" type="xs:date" use="optional"/>
+  </xs:complexType> 
+
+   <!--
+        DATI INCARICO CONSULENTE INSERIMENTO 
+        -->
+  
+    
+  <xs:complexType name="dati_incarico_consulente_inserimento_type">
+    <xs:sequence>
+      <xs:element name="dateconomici" type="apii:dati_economici_incarico_consulente_inserimento_type" minOccurs ="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="oggettoIncarico" type="apii:String200" use="required"/>
+    <xs:attribute name="dataConferimento" type="xs:date" use="required"/>
+    <xs:attribute name="dataInizio" type="xs:date" use="required"/>
+    <xs:attribute name="estremiAttoConferimento" type="apii:String200" use="required"/>
+    <xs:attribute name="serviziIstituzioniPubbliche" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="tipoRapporto" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="naturaConferimento" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="attestazioneVerificaInsussistenza" type="apii:yesNo" use="optional"/>
+    <xs:attribute name="sitoWebTrasparenza" type="apii:sitoWeb" use="required"/>
+    <xs:attribute name="riferimentoRegolamento" type="apii:yesNo" use="required"/>
+  </xs:complexType>   
+    
+  <xs:complexType name="dati_economici_incarico_consulente_inserimento_type" >
+    <xs:attribute name="tipoCompenso" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="compenso" type="apii:Euro" use="required"/>
+    <xs:attribute name="componentiVariabilCompenso" type="apii:yesNo" use="required"/>
+    <xs:attribute name="ammontareErogato" type="apii:Euro" use="required"/>
+    <xs:attribute name="incaricoSaldato" type="apii:yesNo" use="required"/>
+    <xs:attribute name="dataFine" type="xs:date" use="optional"/>
+  </xs:complexType>
+  
+   <!--
+        DATI INCARICO CONSULENTE INSERIMENTO 
+        -->
+  
+    
+  <xs:complexType name="dati_incarico_consulente_variazione_type">
+    <xs:sequence>
+      <xs:element name="dateconomici" type="apii:dati_economici_incarico_consulente_variazione_type"  minOccurs ="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="idIncarico" type="xs:unsignedLong" use="required"/>
+    <xs:attribute name="oggettoIncarico" type="apii:String200" use="optional"/>
+    <xs:attribute name="estremiAttoConferimento" type="apii:String200" use="optional"/>
+    <xs:attribute name="serviziIstituzioniPubbliche" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="tipoRapporto" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="naturaConferimento" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="attestazioneVerificaInsussistenza" type="apii:yesNo" use="optional"/>
+    <xs:attribute name="sitoWebTrasparenza" type="apii:sitoWeb" use="optional"/>
+    <xs:attribute name="riferimentoRegolamento" type="apii:yesNo" use="optional"/>  
+    <xs:attribute name="dataRevoca" type="xs:date" use="optional"/>  
+ </xs:complexType>   
+    
+  <xs:complexType name="dati_economici_incarico_consulente_variazione_type" >
+    <xs:attribute name="tipoCompenso" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="compenso" type="apii:Euro" use="required"/>
+    <xs:attribute name="componentiVariabilCompenso" type="apii:yesNo" use="required"/>
+    <xs:attribute name="ammontareErogato" type="apii:Euro" use="required"/>
+    <xs:attribute name="incaricoSaldato" type="apii:yesNo" use="required"/>
+    <xs:attribute name="dataFine" type="xs:date" use="optional"/>
+  </xs:complexType>
+    <!--
+        DATI RIFERIMNETO NORMATIVO
+        -->
+  <xs:complexType name="riferimentonormativo_type">
+          <xs:attribute name="riferimento" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="numero" type="apii:String50" use="required"/>
+          <xs:attribute name="articolo" type="apii:String50" use="required"/>
+          <xs:attribute name="comma" type="apii:String50Comma" use="optional"/>
+          <xs:attribute name="data" type="xs:date" use="required"/>
+    </xs:complexType>
+  <!--
+		*********************
+		***** DGS TIPI BASE *****
+		*********************
+	-->
+  <xs:simpleType name="CodiceFiscale">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{11}"/>
+      <xs:pattern value="[A-Z]{6}[0-9A-Z][0-9LMNPQRSTUV][ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][09LMNPQRSTUV]{3}[A-Z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--<xs:simpleType name="CodiceFiscalePF">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]{6}[0-9A-Z][0-9LMNPQRSTUV][ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][09LMNPQRSTUV]{3}[A-Z]"/>      
+    </xs:restriction>
+  </xs:simpleType>-->
+  <xs:simpleType name="CodiceFiscalePF">
+    <xs:restriction base="xs:string">
+        <xs:pattern value="[A-Z]{6}[0-9]{2}[ABCDEHLMPRST]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}" />   
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Sesso">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="M" />
+      <xs:enumeration value="F" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--<xs:simpleType name="CodiceCatastaleComune">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][09LMNPQRSTUV]{3}"/>
+    </xs:restriction>
+  </xs:simpleType>-->
+  <xs:simpleType name="CodiceCatastaleComune">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]{1}[0-9]{3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TipologiaConferente">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sitoWeb">
+    <xs:restriction base="xs:anyURI">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="500"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="yesNo">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Y" />
+      <xs:enumeration value="N" />
+    </xs:restriction>
+  </xs:simpleType>
+
+   <xs:simpleType name="tipoConsulente">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="F" />
+      <xs:enumeration value="G" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--<xs:simpleType name="Euro">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2"/>
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>-->
+
+  <xs:simpleType name="Euro">
+    <xs:restriction base="xs:decimal">
+      <xs:pattern value="[0-9]{1,12}\.{1}[0-9]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="String6">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+       <xs:maxLength value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="String50">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="String50Comma">
+    <xs:restriction base="xs:string">
+     <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+ 
+  <xs:simpleType name="String100">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  
+  <xs:simpleType name="String200">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="String255">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
