@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{461C3BE5-7227-4E42-B772-78878555B7D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ANP2018</RootNamespace>
+    <AssemblyName>ANP2018</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ANP2018.designer.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Service References\ServicePerla\Reference.cs" />
+    <Compile Include="Service References\ServicePerla\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\service\Reference.cs" />
+    <Compile Include="Service References\service\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServizioPerla.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ANP2018.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.config" />
+    <None Include="Service References\ServicePerla\anp2018.wsdl" />
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.cancellazioneIncaricoResponse.datasource" />
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.inserimentoIncarico_ConsulenteResponse.datasource" />
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.inserimentoIncarico_DipendenteResponse.datasource" />
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.variazioneIncarico_ConsulenteResponse.datasource" />
+    <None Include="Service References\ServicePerla\servicetrasmission_default.ServicePerla.variazioneIncarico_DipendenteResponse.datasource" />
+    <None Include="Service References\service\AnagrafePrestazioniService.wsdl" />
+    <None Include="Service References\service\servicetrasmission_default.service.InserimentoIncarichiResponse1.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Service References\ServicePerla\configuration.svcinfo" />
+    <Content Include="Service References\ServicePerla\configuration91.svcinfo" />
+    <Content Include="Service References\ServicePerla\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\service\configuration.svcinfo" />
+    <Content Include="Service References\service\configuration91.svcinfo" />
+    <Content Include="Service References\service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
