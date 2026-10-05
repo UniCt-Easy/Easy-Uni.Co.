@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -271,7 +269,7 @@ namespace TesseraSanitaria {
         /// Identificativo univoco dell'operazione effettuata.
         /// </summary>
         /// <remarks>
-        /// Valorizzato solo se l'operazione Ë stata effettuata con successo.
+        /// Valorizzato solo se l'operazione √® stata effettuata con successo.
         /// </remarks>
         [XmlElement("protocollo", Order = 1)]
         public string Protocollo { get; set; }
@@ -280,7 +278,7 @@ namespace TesseraSanitaria {
         /// Messaggi d'errore.
         /// </summary>
         /// <remarks>
-        /// Valorizzato solo se l'operazione Ë fallita.
+        /// Valorizzato solo se l'operazione √® fallita.
         /// </remarks>
         [XmlArray(Order = 2)]
         [XmlArrayItem("messaggio", IsNullable = false)]
@@ -528,7 +526,7 @@ namespace TesseraSanitaria {
         /// </summary>
         /// <remarks>
         /// Il codice dev'essere univoco nell'ambito della data.
-        /// Solitamente Ë univoco per giornata (scontrini) oppure per anno (fattura).
+        /// Solitamente √® univoco per giornata (scontrini) oppure per anno (fattura).
         /// </remarks>
         [XmlElement("numDocumento", Order = 1)]
         public string NumeroDocumento { get; set; }
@@ -699,7 +697,7 @@ namespace TesseraSanitaria {
         public DateTime DataPagamento { get; set; }
 
         /// <summary>
-        /// Indica che la spesa Ë stat sostenuta dal cittadino in data antecedente
+        /// Indica che la spesa √® stat sostenuta dal cittadino in data antecedente
         /// alla data di emissione del documento fiscale.
         /// </summary>
         [XmlElement("flagPagamentoAnticipato", Order = 2)]

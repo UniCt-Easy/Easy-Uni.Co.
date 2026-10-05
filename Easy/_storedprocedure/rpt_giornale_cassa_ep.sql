@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_giornale_cassa_ep]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure rpt_giornale_cassa_ep
@@ -35,10 +33,15 @@ create  PROCEDURE [rpt_giornale_cassa_ep]
 	@documentiesitati	char(1),--Considera tutti i mandati e reversali dell'esercizio esitati nell'esercizio
 	@includenextyearop	char(1) --Considera  storni e copertura bollette di quest'anno effettuate in anno successivo
 AS
-BEGIN
----setuser 'amm'
+BEGIN 
+---setuser 'amministrazione'
 -- Per ulteriori dettagli in merito a questa modifica leggere la Documentazione del task n.4077
 -- exec rpt_giornale_cassa_ep 2020, {ts '2020-12-30 00:00:00'}, {ts '2020-12-31 00:00:00'}, 'N','N', 2 , 'N','N'
+	DECLARE @cashvaliditykind 	tinyint
+	SELECT	@cashvaliditykind = cashvaliditykind
+	FROM 	config
+	WHERE 	ayear = @ayear
+
 	DECLARE @floatfund		decimal(19,2)
 	if(@idtreasurer is null)
 	Begin
@@ -61,12 +64,25 @@ BEGIN
 	SET @31dicCurr = CONVERT(datetime,'31-12-' + CONVERT(varchar(4),@ayear),105)
 
 	DECLARE @tot_payment_comp	decimal(19,2)
-	SELECT 	@tot_payment_comp = SUM(amount)
-	FROM 	historypaymentview 
-	WHERE 	competencydate < @start
-		AND ymov = @ayear
-		AND ( (totflag & 1) =0)-- Competenza
-		AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+	if (@cashvaliditykind = 4 )
+	begin
+			SELECT 	@tot_payment_comp = SUM(amount)
+				FROM 	historypaymentbankview 
+				WHERE 	competencydate < @start
+					AND ymov = @ayear
+					AND ( (totflag & 1) =0) -- Competenza
+					AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+	end
+	else
+	begin
+			SELECT 	@tot_payment_comp = SUM(amount)
+			FROM 	historypaymentview 
+			WHERE 	competencydate < @start
+						AND ymov = @ayear
+						AND ( (totflag & 1) =0) -- Competenza
+						AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+	end
+
 
 	DECLARE @tot_proceeds_comp	decimal(19,2)
 	SELECT 	@tot_proceeds_comp = SUM(amount)
@@ -120,6 +136,7 @@ BEGIN
 		AND ((EV.autokind = 11)OR(EV.autokind = 10)) 
 	) 
 	)
+	AND @cashvaliditykind <> 4 
 
 	DECLARE @codphase_proceeds tinyint
 	SELECT 	@codphase_proceeds = MAX(nphase) FROM incomephase
@@ -146,15 +163,27 @@ BEGIN
 			) 
 		)
 	
-
+	AND @cashvaliditykind <> 4 
 	
 	DECLARE @tot_payment_resid	decimal(19,2)
-	SELECT 	@tot_payment_resid = SUM(amount)
-	FROM 	historypaymentview 
-	WHERE 	competencydate < @start
-		AND ( (totflag & 1) =1)-- Residuo
-		AND ymov = @ayear
-		AND (idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+	if (@cashvaliditykind = 4 )
+	begin
+		SELECT 	@tot_payment_resid = SUM(amount)
+		FROM 	historypaymentbankview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =1) --Residuo
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end
+	else
+	Begin
+		SELECT 	@tot_payment_resid = SUM(amount)
+		FROM 	historypaymentview 
+		WHERE 	competencydate < @start
+			AND ymov = @ayear
+			AND ( (totflag & 1) =1) --Residuo
+			AND (idtreasurer = @idtreasurer		 or @idtreasurer is null)		
+	end	
 	
 	DECLARE @tot_proceeds_resid	decimal(19,2)
 	SELECT 	@tot_proceeds_resid = SUM(amount)
@@ -185,6 +214,7 @@ BEGIN
 			AND (   (EV.autokind = 11)OR(EV.autokind = 10)  ) 
 		) 
 	)
+	AND @cashvaliditykind <> 4 
 
 	DECLARE @var_proceeds_resid	decimal(19,2)
 	SELECT 	@var_proceeds_resid = SUM(IV.amount)
@@ -207,6 +237,7 @@ BEGIN
 			AND ((IV.autokind = 11)OR(IV.autokind = 10)  ) 
 		) 
 	)
+	AND @cashvaliditykind <> 4 
 
 	DECLARE @girofondi_pay	decimal(19,2)
 	DECLARE @girofondi_pro	decimal(19,2)
@@ -270,10 +301,7 @@ BEGIN
 		esitato				char(1)
 	)
 	
-	DECLARE @cashvaliditykind 	tinyint
-	SELECT	@cashvaliditykind = cashvaliditykind
-	FROM 	config
-	WHERE 	ayear = @ayear
+ 
 
 
 	INSERT INTO #journal
@@ -380,7 +408,7 @@ Begin
 		ON registry.idreg = HPV.idreg
 	JOIN upb
 		ON upb.idupb = HPV.idupb
-	WHERE  year(HPV.competencydate ) = @newxayear -- Considera gli incassi esitati l'anno successivo, come incassi esitati l'anno corrente affinchÃ¨ influiscano sulla cassa dell'anno corrente
+	WHERE  year(HPV.competencydate ) = @newxayear -- Considera gli incassi esitati l'anno successivo, come incassi esitati l'anno corrente affinchÃƒÂ¨ influiscano sulla cassa dell'anno corrente
 		AND HPV.ymov = @ayear
 		AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)	
 end
@@ -457,7 +485,66 @@ end
 				AND ((IV.autokind = 11) OR (IV.autokind = 10)) 
 				))
 	END
-
+if ( @cashvaliditykind = 4 )
+Begin
+	INSERT INTO #journal
+	(
+		adate,
+		nmov,
+		npro,
+		docdate,
+		registry,
+		description,
+		doc,
+		codefin,idfin,
+		codeupb,
+		competency_payment,
+		residual_payment,
+		idmov,
+		operationorder,
+		esitato
+	)
+	SELECT							
+		HPV.adate,
+		HPV.nmov,
+		HPV.npay,
+		HPV.competencydate,
+		registry.title,
+		HPV.description,
+		CASE
+			WHEN HPV.doc IS NOT NULL AND 
+				HPV.docdate IS NULL THEN
+				'Pag. ' + HPV.doc
+			WHEN HPV.doc IS NOT NULL AND
+				HPV.docdate IS NOT NULL THEN
+				'Pag. ' + HPV.doc + 
+				' del ' + CONVERT(varchar(20), HPV.docdate, 105)
+			ELSE
+		(NULL)
+		END,
+		fin.codefin,HPV.idfin,
+		upb.codeupb,
+		CASE WHEN ( (totflag & 1) =0) then sum(HPV.amount)  ELSE NULL END,
+		CASE WHEN ( (totflag & 1) =1) then sum(HPV.amount)  ELSE NULL END,
+		HPV.idexp,
+		4,
+		'N'
+		FROM historypaymentbankview HPV
+		JOIN fin
+			ON fin.idfin = HPV.idfin
+		JOIN registry
+			ON registry.idreg = HPV.idreg
+		JOIN upb
+			ON upb.idupb = HPV.idupb
+		WHERE HPV.competencydate BETWEEN @start AND @stop
+			AND HPV.ymov  = @ayear
+			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)		
+		group by HPV.adate,		HPV.idexp, HPV.nmov,HPV.npay,
+			HPV.competencydate,	registry.title,		HPV.description, HPV.doc,	HPV.docdate ,
+			fin.codefin,	HPV.idfin,	upb.codeupb,	HPV.totflag
+End
+Else
+Begin
 	INSERT INTO #journal
 	(
 		adate,
@@ -511,6 +598,8 @@ end
 			AND HPV.ymov  = @ayear
 			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)		
 
+End
+
 if ( @cashvaliditykind = 4 and @documentiesitati='S')
 Begin
 	INSERT INTO #journal
@@ -562,7 +651,7 @@ Begin
 			ON registry.idreg = HPV.idreg
 		JOIN upb
 			ON upb.idupb = HPV.idupb
-		WHERE  year(HPV.competencydate ) = @newxayear -- Considera i pagamenti esitati l'anno successivo, come pagamenti esitati l'anno corrente affinchÃ¨ influiscano sulla cassa dell'anno corrente
+		WHERE  year(HPV.competencydate ) = @newxayear -- Considera i pagamenti esitati l'anno successivo, come pagamenti esitati l'anno corrente affinchÃƒÂ¨ influiscano sulla cassa dell'anno corrente
 			AND HPV.ymov  = @ayear
 			AND (HPV.idtreasurer = @idtreasurer	 or @idtreasurer is null)	
 End	
@@ -667,7 +756,7 @@ Begin
 	--> Girofondi - 
 	INSERT INTO #journal
 	(
-		adate,docdate,-- devo per forza valorizzare docdate perchÃ¨ il report raggruppa e quindi ordina per docdate, se non la valorizziamo,i girofondi sarnno sempre le prime op. del report
+		adate,docdate,-- devo per forza valorizzare docdate perchÃƒÂ¨ il report raggruppa e quindi ordina per docdate, se non la valorizziamo,i girofondi sarnno sempre le prime op. del report
 		npro,
 		description,
 		competency_payment,
@@ -863,7 +952,7 @@ End
 		@floatfund,null,null
 	)
 
-		--Aggiungo i girofondi, perchÃ¨ non hanno bilancio/upb
+		--Aggiungo i girofondi, perchÃƒÂ¨ non hanno bilancio/upb
 	INSERT INTO #journalcompact(
 		operationorder,description,
 		npro, 
@@ -924,7 +1013,7 @@ End
 
 		 SELECT  @esitato_partite_pendenti_attive = 
 			SUM(isnull(billtransaction.amount,0))
-			FROM billtransaction join bill on bill.ybill = billtransaction.ybill and bill.nbill = billtransaction.nbill  and bill.billkind = billtransaction.billkind 
+			FROM billtransaction join bill on bill.ybill = billtransaction.ybilltran and bill.nbill = billtransaction.nbill  and bill.billkind = billtransaction.kind 
 			WHERE bill.ybill = @ayear 
 				AND bill.billkind='C' 
 				AND bill.active = 'S'
@@ -1050,7 +1139,7 @@ End
 
 		 SELECT  @esitato_partite_pendenti_passive = 
 			SUM(isnull(billtransaction.amount,0))
-			FROM billtransaction join bill on bill.ybill = billtransaction.ybill and bill.nbill = billtransaction.nbill  and bill.billkind = billtransaction.billkind 
+			FROM billtransaction join bill on bill.ybill = billtransaction.ybilltran and bill.nbill = billtransaction.nbill  and bill.billkind = billtransaction.kind 
 			WHERE bill.ybill = @ayear 
 				AND bill.billkind='D' 
 				AND bill.active = 'S'
@@ -1250,6 +1339,7 @@ End
 		docdate ASC,
 		operationorder ASC,
 		npro ASC
+ 
 
 END
 

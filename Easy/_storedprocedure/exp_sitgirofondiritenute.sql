@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondiritenute]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -83,7 +81,7 @@ select @idtreasurerdest = idtreasurer from treasurer where flagdefault = 'S'
 if (@showdetail = 'S')
 Begin
 		SELECT 
-			isnull(T.header, T.description) as 'Cassiere Dipartimento',
+			isnull(T.header, T.description) as 'Conto Corrente Dipartimento',
 			D.ytaxpay as 'Eserc.Liquidazione Imposte',
 			D.ntaxpay as 'Num.Liquidazione Imposte',
 			D.datetaxpay as 'Data Liquidazione Imposte',
@@ -102,7 +100,7 @@ End
 Else
 Begin
 		SELECT 
-			isnull(T.header, T.description) as 'Cassiere Dipartimento',
+			isnull(T.header, T.description) as 'Conto Corrente Dipartimento',
 			sum(isnull(D.admintax,0) + isnull(D.employtax,0)) as 'Imposte Liquidate',
 			sum(D.transferamount) as 'Importo Girofondato dal Dipartimento',
 			sum(isnull(D.admintax,0)+ isnull(D.employtax,0)- isnull(D.transferamount,0)) as 'Importo da Girofondare'

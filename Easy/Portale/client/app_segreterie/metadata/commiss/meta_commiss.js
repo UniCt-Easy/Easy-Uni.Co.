@@ -27,6 +27,14 @@
 						this.describeAColumn(table, 'idreg_docenti', 'Verbalizzante', null, 50, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'ingresso':
+						this.describeAColumn(table, 'idreg_docenti', 'Verbalizzante', null, 50, null);
+//$objCalcFieldConfig_ingresso$
+						break;
+					case 'doc':
+						this.describeAColumn(table, 'idreg_docenti', 'Verbalizzante', null, 50, null);
+//$objCalcFieldConfig_doc$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -42,8 +50,10 @@
 //$innerSetCaptionConfig_ingresso$
 						break;
 					case 'default':
-						table.columns["idreg_docenti"].caption = "Verbalizzante";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'doc':
+//$innerSetCaptionConfig_doc$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -77,6 +87,9 @@
 						return "idcommiss asc ";
 					}
 					case "default": {
+						return "idcommiss asc ";
+					}
+					case "doc": {
 						return "idcommiss asc ";
 					}
 					//$getSortingin$

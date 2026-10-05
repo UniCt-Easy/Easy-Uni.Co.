@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,8 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
- --setuser 'amministrazione'
+ --setuser setuser 'amministrazione'
 if exists (select * from dbo.sysobjects where id = object_id(N'[trasmele_expense_unicredit_abi36_ins]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [trasmele_expense_unicredit_abi36_ins]
 GO
@@ -31,16 +29,24 @@ CREATE        PROCEDURE [trasmele_expense_unicredit_abi36_ins]
 	@n int
 )
 AS BEGIN
---
---[trasmele_expense_unicredit_abi36_ins] 2023,183
+-- setuser 'amministrazione'
+--[trasmele_expense_unicredit_abi36_ins] 2025,157
 --------------------------------------------------------------
 ---  STORED PROCEDURE PER LA TRASMISSIONE DEI MANDATI PER  ---
 ------------------------ BANCA UNICREDIT ABI 36---------------
 --------------------------------------------------------------
 DECLARE @abi_bancodisardegna varchar(5) = '01015'
 DECLARE @ABI_bpbari varchar(5) = '05424'
-DECLARE @codetreasurer_bpbari varchar(20) = 'BPB_PNRR'
+DECLARE @ABI_bppb varchar(5) = '05385'-- Banca Popolare di Puglia e Basilicata spa
+
+DECLARE @codetreasurer_bpbari varchar(20)   = 'BPB_PNRR'
 DECLARE @codetreasurer_bpbfacil varchar(20) = 'BPB_FACIL'
+DECLARE @codetreasurer_bpbnativ varchar(20) = 'BPPB_NATIV'
+
+DECLARE @codetreasurer_bdm varchar(20)		 = 'BdM_PNRR'
+DECLARE @codetreasurer_bdmfacil varchar(20)  = 'BdM_FACIL'
+DECLARE @codetreasurer_bdmnativ varchar(20)  = 'BdM_NATIVI'
+
 DECLARE @istreasurer_pnrr char(1) = 'N'
 declare @fasecontrattopassivo int
 select  @fasecontrattopassivo = expensephase from config where ayear=@y
@@ -112,6 +118,12 @@ SELECT  @cf_dept = ISNULL(cf,p_iva),
 @location_dept = ISNULL(location,'') 
 FROM license
 
+--- ENTI PARTICOLARI CHE NON GESTISCONO LA TRASMISSIONE SIOPE
+--- ARPAL
+DECLARE @nosiope char(1) = 'N'
+if (@cf_dept ='93497660725')  SET @nosiope = 'S'
+
+
 DECLARE @opkind varchar(20) 
 --Può assumere i valori 
 --INSERIMENTO– Inserimento  Ordinativo 
@@ -142,21 +154,25 @@ FROM treasurer WHERE idtreasurer = @idtreasurer
 
 
 if (isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbari or
-	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbfacil or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bpbnativ or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bdm or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bdmfacil or
+	isnull(@treasurer_codetreasurer, '')  = @codetreasurer_bdmnativ 
 	)
 BEGIN
 		SET @istreasurer_pnrr = 'S'
 END
 
 
--- Per la banca popolare di bari - pnrr il tag conto_evidenza deve essere di due caratteri
+-- Per la banca popolare di bari  - banca del Mediterraneo o banca popolare pugliese conti vincolati PNRR  il tag conto_evidenza deve essere di due caratteri
 -- quindi se trasmcode è maggiore di due caratteri restituisco un errore
 -- altrimenti valorizzo lenCC_vincolato a 2 invece di 7
-if (isnull(@treasurer_idbank, '') = @ABI_bpbari and   ISNULL(@istreasurer_pnrr,'N') = 'S')
+if ((isnull(@treasurer_idbank, '') = @ABI_bpbari  OR isnull(@treasurer_idbank, '') = @ABI_bppb )  and   ISNULL(@istreasurer_pnrr,'N') = 'S')
 BEGIN
 	IF (DATALENGTH(CONVERT(varchar(7),ISNULL(@treasurer_trasmcode,'0'))) > 2)
 	BEGIN
-		SELECT 'Il codice conto tesoreria del tesoriere ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
+		SELECT 'Il codice conto tesoreria del conto corrente ' + (@treasurer_description) + ' deve essere di due caratteri.' as Errore
 		RETURN
 	END
 
@@ -219,11 +235,23 @@ può assumere i valori
 
 DECLARE @cod_department varchar(12) -- Codice dell'ente da esportare
 DECLARE @ABI_code varchar(5)
+DECLARE @destinazione varchar(20)
+
+
 SELECT  @cod_department = ISNULL(RTRIM(agencycodefortransmission),''),
 	@ABI_code = SUBSTRING(REPLICATE('0',@len_ABI),1,@len_ABI - DATALENGTH(ISNULL(idbank,'')))+ ISNULL(idbank,''),
 	@cc_vincolato = SUBSTRING(REPLICATE('0',@lenCC_vincolato),1,@lenCC_vincolato - 
-					DATALENGTH(CONVERT(varchar(7),ISNULL(trasmcode,'0')))) + CONVERT(varchar(7),ISNULL(trasmcode,'0'))
+					DATALENGTH(CONVERT(varchar(7),ISNULL(trasmcode,'0')))) + CONVERT(varchar(7),ISNULL(trasmcode,'0')),
+	@destinazione = (case 
+						when ( (flag & 4 )<>0 and @ABI_code in ( @ABI_bppb, @abi_bancodisardegna) )then null
+						when ( (flag & 4 )<>0 and @ABI_code not in ( @ABI_bppb, @abi_bancodisardegna)   )then 'VINCOLATA' 
+						
+						when ((flag & 4 = 0) and @ABI_code in ( @ABI_bppb, @abi_bancodisardegna)  )then null
+						when ((flag & 4 = 0) and @ABI_code not in ( @ABI_bppb, @abi_bancodisardegna)   )then 'LIBERA' 
+						
+						end )
 FROM treasurer WHERE idtreasurer = @idtreasurer
+
 
 CREATE TABLE #error (message varchar(400))
 
@@ -254,7 +282,7 @@ BEGIN
 END
 IF (@error = 'S')
 BEGIN
-	SET @message = @message + ' Andare nella maschera CONFIGURAZIONE - CASSIERE - CASSIERE ed inserire i dati'
+	SET @message = @message + ' Andare nella maschera OPZIONI - BANCA - CONTO CORRENTE ed inserire i dati'
 	INSERT INTO #error VALUES(@message)
 END
 
@@ -532,7 +560,7 @@ CREATE TABLE #payment
 	extracode varchar(7),
 	paymentdescr varchar(370),
 	txt varchar(200), 
-	expenselast_paymentdescr varchar(150),
+	expenselast_paymentdescr varchar(150),  --db
 	fulfilled char(1),
 	chargehandling varchar(50),
 	exemption_charge_payment_kind varchar(100),
@@ -718,14 +746,8 @@ SELECT
 	CASE WHEN ((tb.flag&0) = 0)/* esente */ AND (( el.flag & 1)<>0) /*a regolarizzazione*/ THEN 'DOCUMENTO A REGOLARIZZAZIONE DI PROVVISORI/SOSPESI'
 		 ELSE ISNULL(tb.handlingbankcode,'')  -- causale esenzione bollo 
 	END,  
-	CASE
-		WHEN  (@ABI_code = @ABI_bpbari and ISNULL(@istreasurer_pnrr,'N') = 'S') THEN 'VINCOLATA'
-		WHEN ((el.paymethod_flag & 256) <> 0) THEN 'LIBERA' -- (girofondi ordinari TABELLA A)
-		WHEN ((el.paymethod_flag & 512) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA A)
-		WHEN ((el.paymethod_flag & 1024) <> 0) THEN 'LIBERA' --(girofondi ordinari TABELLA B) 
-		WHEN ((el.paymethod_flag & 2048) <> 0) THEN 'VINCOLATA' --(girofondi vincolati TABELLA B) 
-		ELSE  CASE  WHEN (@ABI_code = @abi_bancodisardegna) THEN NULL ELSE 'LIBERA'  END
-	END, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU,non obbligatoria se Ente non in TU
+	
+	@destinazione, -- informazione destinazione (LIBERA/VINCOLATA) obbligatoria perchè l'Ente è in regime TU	
 	CASE
 		WHEN (m.abi_label   not in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP'))  THEN NULL
 		WHEN (m.abi_label   in ('ACCREDITOTESORERIAPROVINCIALESTATOPERTABA','ACCREDITOTESORERIAPROVINCIALESTATOPERTABB','FE4EP')  AND ((el.paymethod_flag & 4096) = 0)) THEN 'INFRUTTIFERA'  
@@ -890,7 +912,7 @@ WHERE t.ypaymenttransmission = @y
 	AND t.npaymenttransmission = @n
 	--AND  p.idpaydisposition IS NULL
 
-
+ 
 -- Valorizza codice cup da eventuali -----
 -- contabilizzazioni di dettagli ordine --
 UPDATE #payment SET cupcodedetail = 
@@ -904,7 +926,7 @@ UPDATE #payment SET cupcodedetail =
 							  WHERE EL2.idchild = #payment.idexp and EL2.nlevel=@fasecontrattopassivo))
 		   AND cupcode IS NOT NULL)
 	where cupcodeexpense is null
-
+ 
 -- Valorizza il codice CGI eventualmente presente del contratto passivo
 UPDATE #payment SET cigcodemandate = 
 	   (SELECT MAX(ltrim(rtrim(mandate.cigcode)) )
@@ -923,7 +945,7 @@ UPDATE #payment SET cigcodemandate =
 
 		where cigcodeexpense is null
 
-
+ 
 -- Valorizza il codice CIG eventualmente presente nella fattura
 UPDATE #payment SET cigcodemandate = 
 	   (SELECT MAX( invoicedetail.cigcode )
@@ -937,7 +959,7 @@ where cigcodeexpense is null and cigcodemandate is null
 
 UPDATE #payment SET CIG = ISNULL(cigcodeexpense,ISNULL(cigcodemandate,''))  --Codice CIG
 UPDATE #payment SET CUP = ISNULL(cupcodeexpense,ISNULL(cupcodedetail, ISNULL(cupcodeupb, ISNULL(cupcodefin,'')))) --Codice CUP
-
+ 
 UPDATE #payment SET paymentdescr = (SELECT
 CASE
 	-- CUP CIG  e DESCRIZIONE
@@ -955,7 +977,8 @@ CASE
 	END 
 	)
 	FROM #payment
-
+	
+ 
 -- Valorizzo l'identificativo End to End per i Bonifici SEPA
 UPDATE #payment SET id_end_to_end =SUBSTRING(CONVERT(VARCHAR(4),ydoc) + '_'+ CONVERT(VARCHAR(4),ndoc) +'_'+ CONVERT(VARCHAR(4),idpay),1,35)
 WHERE ((idpaymethodTRS = '03') AND (fulfilled = 'N')) 
@@ -1353,7 +1376,7 @@ BEGIN
 	RETURN
 END
 --select * from #address
-
+ 
 
 -- Unificazione descrizioni di pagamento per movimenti di spesa che sono stati accorpati
 -- L'unificazione della descrizione è necessaria in quanto nella group by finale viene inserita anche la descrizione
@@ -1516,6 +1539,7 @@ SELECT  @codeclassSIOPE  =
 CASE  
 	WHEN  (@y<= 2006) THEN  'SIOPE'
 	WHEN  (@y BETWEEN 2007 AND 2017) THEN  '07U_SIOPE'
+	WHEN  @nosiope = 'S' THEN NULL
 	ELSE   'SIOPE_U_18'
 END
 
@@ -1555,6 +1579,8 @@ GROUP BY #payment.ypaymenttransmission, #payment.npaymenttransmission, #payment.
 	#payment.exp_curramount, #payment.curramount,
 	#payment.cupcodeexpense, #payment.cupcodedetail,#payment.cupcodeupb, #payment.cupcodefin
 HAVING SUM(expensesorted.amount) <> 0
+
+--SELECT * FROM #siope 
 -- Calcolo del progressivo SIOPE
 -- Anche la classificazione ha un suo progressivo che è pari al numero di codici classificazione distinti precedente al corrente,
 -- legati allo stesso progressivo percipiente.
@@ -1696,6 +1722,9 @@ DECLARE @riferimento_ente varchar(30)
 DECLARE @esercizio int
 SET @esercizio = @y -- esercizio finanziario
 SET @codice_ABI_BT = @ABI_code 
+
+
+
 ---------------------------------------------
 ----- fine testata flusso -------------------
 ---------------------------------------------
@@ -1845,7 +1874,7 @@ CREATE TABLE #trace
 	---------- informazioni aggiuntive-------------
 	-----------------------------------------------
 	lingua varchar(10),
-	riferimento_documento_esterno varchar(50),
+	riferimento_documento_esterno varchar(400),
 	note varchar(400),
 
 	--------------------------------------------------------------------------------------------------------------------------------------
@@ -1910,6 +1939,7 @@ CREATE TABLE #trace
 ---------- testata flusso -------------------
 ---------------------------------------------
 
+ 
 INSERT INTO #trace(kind,
 				   codice_ABI_BT,
 				   identificativo_flusso,
@@ -1956,7 +1986,8 @@ SELECT
 FROM #payment
 GROUP BY #payment.ndoc,payment_adate
 ORDER BY #payment.ndoc
-
+ 
+ 
 INSERT INTO #trace(
 				   kind,
 				   ndoc,
@@ -2103,32 +2134,35 @@ SELECT
 				   iso_code_ben,
 				   pi_ben,
 				   cf_ben, 
+				   ---------------------------------------------
+				   ----------------- delegato ------------------
+				   ---------------------------------------------
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03')  THEN  SUBSTRING(#deputy.title_deputy,1,60)
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN  SUBSTRING(#deputy.title_deputy,1,60)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03')   THEN SUBSTRING(#deputy.address_deputy,1,30)
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN SUBSTRING(#deputy.address_deputy,1,30)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03')   THEN #deputy.cap_deputy
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN #deputy.cap_deputy
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03') THEN  SUBSTRING(#deputy.location_deputy,1,30)
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN  SUBSTRING(#deputy.location_deputy,1,30)
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03') THEN  #deputy.province_deputy
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN  #deputy.province_deputy
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03') THEN  #deputy.nation_deputy
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN  #deputy.nation_deputy
 						ELSE NULL
 				   END,
 				   CASE 
-						WHEN (ISNULL(idpaymethodTRS, '01') <> '03') THEN  #deputy.cf_deputy
+						WHEN (ISNULL(idpaymethodTRS, '01') NOT IN ( '14' /*COMPENSAZIONE*/,'03'/*SEPA CREDIT TRANSFER*/)) THEN  #deputy.cf_deputy
 						ELSE NULL
 				   END,
 				   -----------------------------------------------------------
@@ -2174,35 +2208,14 @@ SELECT
   				   chargehandling,
 				   exemption_charge_payment_kind,
 				   exemption_charge_motive,
-  				   -- PIAZZATURA --
-  				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N'))  THEN  ABI
-						ELSE NULL
-				   END,
-  				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N')) THEN  CAB
-						ELSE NULL
-				   END,
-  				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N')) THEN  cc
-						ELSE NULL
-				   END, 
-				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N')) THEN  cin_iban
-						ELSE NULL
-				   END,
-				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N')) THEN  cin
-						ELSE NULL
-				   END,
-				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N')) THEN  codice_paese
-						ELSE NULL
-				   END,
-  				   CASE 
-						WHEN ((deny_bank_details <> 'S')  AND (ISNULL(idpaymethodTRS, '01') <> '03') AND (fulfilled = 'N')) THEN  SUBSTRING(bank,1,50)
-						ELSE NULL
-				   END,
+				  -- PIAZZATURA --
+				   NULL,  -- ABI
+				   NULL,  -- CAB
+				   NULL,  -- cc
+				   NULL,  -- cin_iban
+				   NULL,  -- cin
+				   NULL,  -- codice_paese
+				   NULL,   -- bank
   				   -- SEPA CREDIT TRANSFER --
   				   CASE 
 						WHEN ((idpaymethodTRS = '03') AND (fulfilled = 'N')) THEN  iban
@@ -2318,6 +2331,7 @@ FROM #admintax
 GROUP BY  #admintax.ndoc,#admintax.idpay, #admintax.npro, #admintax.idpro		 
 HAVING sum(curramount) > 0 	 
 ORDER BY  #admintax.ndoc,#admintax.idpay, #admintax.npro, #admintax.idpro
+ 
 
 -- RECORD CHE DEVE ESSERE GESTITO PER QUEI 
 -- PAGAMENTI ACCESSORI RELATIVI A INCASSI DA REGOLARIZZARE CON SOSPESO PARI ALLA DIFFERENZA TRA INCASSO REALE E SPESA
@@ -2340,8 +2354,7 @@ SELECT
 				   idpro + 1    	
 FROM #pendingincome
 GROUP BY  #pendingincome.ndoc, #pendingincome.idpay, #pendingincome.npro, #pendingincome.idpro		 
-
-
+ 
 INSERT INTO #trace(
 				   kind,
 				   ndoc,
@@ -2373,3 +2386,4 @@ GO
 
 
 
+--[trasmele_expense_unicredit_abi36_ins] 2024, 26

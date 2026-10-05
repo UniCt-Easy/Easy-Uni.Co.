@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -2176,11 +2174,11 @@ namespace expense_levels { //spesemovimenti//
 			this.txtDescrUPB.Location = new System.Drawing.Point(175, 9);
 			this.txtDescrUPB.Multiline = true;
 			this.txtDescrUPB.Name = "txtDescrUPB";
-			this.txtDescrUPB.ReadOnly = true;
 			this.txtDescrUPB.Size = new System.Drawing.Size(229, 62);
 			this.txtDescrUPB.TabIndex = 4;
 			this.txtDescrUPB.TabStop = false;
-			this.txtDescrUPB.Tag = "upb.title";
+            this.txtDescrUPB.ReadOnly = true;
+            this.txtDescrUPB.Tag = "upb.title";
 			// 
 			// btnUPBCode
 			// 
@@ -4591,7 +4589,12 @@ namespace expense_levels { //spesemovimenti//
             int accountingMinYear = CfgFn.GetNoNullInt32(MyConn.DO_READ_VALUE("accountingyear", null, "MIN(ayear)"));
 			if (accountingMinYear == currEsercizio) {
 				isNumEserEdit = true;
-			}
+            }
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.expenseattachment, true);
         }
 
         /// <summary>
@@ -5305,7 +5308,6 @@ namespace expense_levels { //spesemovimenti//
             txtEsercizioMovimento.ReadOnly = false;
             txtNumeroMovimento.ReadOnly = false;
             SubEntity_txtImportoMovimento.ReadOnly = false;
-
             ClearPrestazioni();
 
             ClearGridsData();

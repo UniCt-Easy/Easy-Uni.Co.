@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_istanza_imm_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_istanza_imm_seg: DataSet {
+public partial class dsmeta_istanza_imm_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -37,19 +35,25 @@ public class dsmeta_istanza_imm_seg: DataSet {
 	public MetaTable dichiarkind 		=> (MetaTable)Tables["dichiarkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable annoaccademico_alias2 		=> (MetaTable)Tables["annoaccademico_alias2"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable dichiar 		=> (MetaTable)Tables["dichiar"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable istanzadichiar 		=> (MetaTable)Tables["istanzadichiar"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable statuskind_alias1 		=> (MetaTable)Tables["statuskind_alias1"];
+	public MetaTable statuskind 		=> (MetaTable)Tables["statuskind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable istanzakind 		=> (MetaTable)Tables["istanzakind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable annoaccademico_alias1 		=> (MetaTable)Tables["annoaccademico_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable istanza_alias14 		=> (MetaTable)Tables["istanza_alias14"];
+	public MetaTable istanza_alias1 		=> (MetaTable)Tables["istanza_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable nullaosta 		=> (MetaTable)Tables["nullaosta"];
@@ -70,13 +74,13 @@ public class dsmeta_istanza_imm_seg: DataSet {
 	public MetaTable didprogcurr 		=> (MetaTable)Tables["didprogcurr"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable statuskind 		=> (MetaTable)Tables["statuskind"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registrystudentiview 		=> (MetaTable)Tables["registrystudentiview"];
+	public MetaTable statuskinddefaultview 		=> (MetaTable)Tables["statuskinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable didprogdefaultview 		=> (MetaTable)Tables["didprogdefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrystudentiview 		=> (MetaTable)Tables["registrystudentiview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable annoaccademico 		=> (MetaTable)Tables["annoaccademico"];
@@ -117,8 +121,8 @@ private void initClass() {
 	tdiniego_alias2.defineColumn("ct", typeof(DateTime),false);
 	tdiniego_alias2.defineColumn("cu", typeof(string),false);
 	tdiniego_alias2.defineColumn("data", typeof(DateTime),false);
-	tdiniego_alias2.defineColumn("idcorsostudio", typeof(int));
-	tdiniego_alias2.defineColumn("iddidprog", typeof(int));
+	tdiniego_alias2.defineColumn("idcorsostudio", typeof(int),false);
+	tdiniego_alias2.defineColumn("iddidprog", typeof(int),false);
 	tdiniego_alias2.defineColumn("iddiniego", typeof(int),false);
 	tdiniego_alias2.defineColumn("idiscrizione", typeof(int));
 	tdiniego_alias2.defineColumn("idistanza", typeof(int),false);
@@ -130,14 +134,22 @@ private void initClass() {
 	tdiniego_alias2.defineColumn("protnumero", typeof(int));
 	tdiniego_alias2.ExtendedProperties["TableForReading"]="diniego";
 	Tables.Add(tdiniego_alias2);
-	tdiniego_alias2.defineKey("iddiniego", "idistanza", "idistanzakind", "idreg");
+	tdiniego_alias2.defineKey("idcorsostudio", "iddidprog", "iddiniego", "idistanza", "idistanzakind", "idreg");
 
 	//////////////////// DICHIARKIND /////////////////////////////////
 	var tdichiarkind= new MetaTable("dichiarkind");
+	tdichiarkind.defineColumn("active", typeof(string),false);
 	tdichiarkind.defineColumn("iddichiarkind", typeof(int),false);
 	tdichiarkind.defineColumn("title", typeof(string),false);
 	Tables.Add(tdichiarkind);
 	tdichiarkind.defineKey("iddichiarkind");
+
+	//////////////////// ANNOACCADEMICO_ALIAS2 /////////////////////////////////
+	var tannoaccademico_alias2= new MetaTable("annoaccademico_alias2");
+	tannoaccademico_alias2.defineColumn("aa", typeof(string),false);
+	tannoaccademico_alias2.ExtendedProperties["TableForReading"]="annoaccademico";
+	Tables.Add(tannoaccademico_alias2);
+	tannoaccademico_alias2.defineKey("aa");
 
 	//////////////////// DICHIAR /////////////////////////////////
 	var tdichiar= new MetaTable("dichiar");
@@ -168,19 +180,35 @@ private void initClass() {
 	tistanzadichiar.defineColumn("idreg", typeof(int),false);
 	tistanzadichiar.defineColumn("lt", typeof(DateTime),false);
 	tistanzadichiar.defineColumn("lu", typeof(string),false);
-	tistanzadichiar.defineColumn("!iddichiar_annoaccademico_alias1_aa", typeof(string));
+	tistanzadichiar.defineColumn("!iddichiar_annoaccademico_alias2_aa", typeof(string));
 	tistanzadichiar.defineColumn("!iddichiar_dichiarkind_title", typeof(string));
 	tistanzadichiar.defineColumn("!iddichiar_dichiar_date", typeof(DateTime));
 	Tables.Add(tistanzadichiar);
 	tistanzadichiar.defineKey("idcorsostudio", "iddichiar", "iddidprog", "idistanza", "idistanzakind", "idreg");
 
-	//////////////////// STATUSKIND_ALIAS1 /////////////////////////////////
-	var tstatuskind_alias1= new MetaTable("statuskind_alias1");
-	tstatuskind_alias1.defineColumn("idstatuskind", typeof(int),false);
-	tstatuskind_alias1.defineColumn("title", typeof(string),false);
-	tstatuskind_alias1.ExtendedProperties["TableForReading"]="statuskind";
-	Tables.Add(tstatuskind_alias1);
-	tstatuskind_alias1.defineKey("idstatuskind");
+	//////////////////// STATUSKIND /////////////////////////////////
+	var tstatuskind= new MetaTable("statuskind");
+	tstatuskind.defineColumn("ct", typeof(DateTime),false);
+	tstatuskind.defineColumn("cu", typeof(string),false);
+	tstatuskind.defineColumn("delibera", typeof(string),false);
+	tstatuskind.defineColumn("idstatuskind", typeof(int),false);
+	tstatuskind.defineColumn("istanze", typeof(string),false);
+	tstatuskind.defineColumn("istanzedelibera", typeof(string),false);
+	tstatuskind.defineColumn("lt", typeof(DateTime),false);
+	tstatuskind.defineColumn("lu", typeof(string),false);
+	tstatuskind.defineColumn("pratica", typeof(string),false);
+	tstatuskind.defineColumn("sortcode", typeof(int),false);
+	tstatuskind.defineColumn("title", typeof(string),false);
+	Tables.Add(tstatuskind);
+	tstatuskind.defineKey("idstatuskind");
+
+	//////////////////// ISTANZAKIND /////////////////////////////////
+	var tistanzakind= new MetaTable("istanzakind");
+	tistanzakind.defineColumn("active", typeof(string),false);
+	tistanzakind.defineColumn("idistanzakind", typeof(int),false);
+	tistanzakind.defineColumn("title", typeof(string),false);
+	Tables.Add(tistanzakind);
+	tistanzakind.defineKey("idistanzakind");
 
 	//////////////////// ANNOACCADEMICO_ALIAS1 /////////////////////////////////
 	var tannoaccademico_alias1= new MetaTable("annoaccademico_alias1");
@@ -189,29 +217,30 @@ private void initClass() {
 	Tables.Add(tannoaccademico_alias1);
 	tannoaccademico_alias1.defineKey("aa");
 
-	//////////////////// ISTANZA_ALIAS14 /////////////////////////////////
-	var tistanza_alias14= new MetaTable("istanza_alias14");
-	tistanza_alias14.defineColumn("aa", typeof(string),false);
-	tistanza_alias14.defineColumn("ct", typeof(DateTime),false);
-	tistanza_alias14.defineColumn("cu", typeof(string),false);
-	tistanza_alias14.defineColumn("data", typeof(DateTime),false);
-	tistanza_alias14.defineColumn("extension", typeof(string));
-	tistanza_alias14.defineColumn("idcorsostudio", typeof(int),false);
-	tistanza_alias14.defineColumn("iddidprog", typeof(int),false);
-	tistanza_alias14.defineColumn("idiscrizione", typeof(int));
-	tistanza_alias14.defineColumn("idistanza", typeof(int),false);
-	tistanza_alias14.defineColumn("idistanzakind", typeof(int),false);
-	tistanza_alias14.defineColumn("idreg_studenti", typeof(int),false);
-	tistanza_alias14.defineColumn("idstatuskind", typeof(int));
-	tistanza_alias14.defineColumn("lt", typeof(DateTime),false);
-	tistanza_alias14.defineColumn("lu", typeof(string),false);
-	tistanza_alias14.defineColumn("paridistanza", typeof(int),false);
-	tistanza_alias14.defineColumn("protanno", typeof(int),false);
-	tistanza_alias14.defineColumn("protnumero", typeof(int),false);
-	tistanza_alias14.defineColumn("!idstatuskind_statuskind_title", typeof(string));
-	tistanza_alias14.ExtendedProperties["TableForReading"]="istanza";
-	Tables.Add(tistanza_alias14);
-	tistanza_alias14.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti", "paridistanza");
+	//////////////////// ISTANZA_ALIAS1 /////////////////////////////////
+	var tistanza_alias1= new MetaTable("istanza_alias1");
+	tistanza_alias1.defineColumn("aa", typeof(string),false);
+	tistanza_alias1.defineColumn("ct", typeof(DateTime),false);
+	tistanza_alias1.defineColumn("cu", typeof(string),false);
+	tistanza_alias1.defineColumn("data", typeof(DateTime),false);
+	tistanza_alias1.defineColumn("extension", typeof(string));
+	tistanza_alias1.defineColumn("idcorsostudio", typeof(int),false);
+	tistanza_alias1.defineColumn("iddidprog", typeof(int),false);
+	tistanza_alias1.defineColumn("idiscrizione", typeof(int));
+	tistanza_alias1.defineColumn("idistanza", typeof(int),false);
+	tistanza_alias1.defineColumn("idistanzakind", typeof(int),false);
+	tistanza_alias1.defineColumn("idreg_studenti", typeof(int),false);
+	tistanza_alias1.defineColumn("idstatuskind", typeof(int));
+	tistanza_alias1.defineColumn("lt", typeof(DateTime),false);
+	tistanza_alias1.defineColumn("lu", typeof(string),false);
+	tistanza_alias1.defineColumn("paridistanza", typeof(int),false);
+	tistanza_alias1.defineColumn("protanno", typeof(int));
+	tistanza_alias1.defineColumn("protnumero", typeof(int));
+	tistanza_alias1.defineColumn("!idistanzakind_istanzakind_title", typeof(string));
+	tistanza_alias1.defineColumn("!idstatuskind_statuskind_title", typeof(string));
+	tistanza_alias1.ExtendedProperties["TableForReading"]="istanza";
+	Tables.Add(tistanza_alias1);
+	tistanza_alias1.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti", "paridistanza");
 
 	//////////////////// NULLAOSTA /////////////////////////////////
 	var tnullaosta= new MetaTable("nullaosta");
@@ -282,49 +311,48 @@ private void initClass() {
 	tdidprogoridefaultview.defineColumn("iddidprogcurr", typeof(int),false);
 	tdidprogoridefaultview.defineColumn("iddidprogori", typeof(int),false);
 	Tables.Add(tdidprogoridefaultview);
-	tdidprogoridefaultview.defineKey("iddidprogori");
+	tdidprogoridefaultview.defineKey("idcorsostudio", "iddidprog", "iddidprogcurr", "iddidprogori");
 
 	//////////////////// DIDPROGCURR /////////////////////////////////
 	var tdidprogcurr= new MetaTable("didprogcurr");
-	tdidprogcurr.defineColumn("codice", typeof(string));
-	tdidprogcurr.defineColumn("codicemiur", typeof(string));
-	tdidprogcurr.defineColumn("ct", typeof(DateTime),false);
-	tdidprogcurr.defineColumn("cu", typeof(string),false);
 	tdidprogcurr.defineColumn("idcorsostudio", typeof(int),false);
 	tdidprogcurr.defineColumn("iddidprog", typeof(int),false);
 	tdidprogcurr.defineColumn("iddidprogcurr", typeof(int),false);
-	tdidprogcurr.defineColumn("lt", typeof(DateTime),false);
-	tdidprogcurr.defineColumn("lu", typeof(string),false);
 	tdidprogcurr.defineColumn("title", typeof(string));
 	Tables.Add(tdidprogcurr);
 	tdidprogcurr.defineKey("idcorsostudio", "iddidprog", "iddidprogcurr");
 
-	//////////////////// STATUSKIND /////////////////////////////////
-	var tstatuskind= new MetaTable("statuskind");
-	tstatuskind.defineColumn("idstatuskind", typeof(int),false);
-	tstatuskind.defineColumn("title", typeof(string),false);
-	Tables.Add(tstatuskind);
-	tstatuskind.defineKey("idstatuskind");
-
-	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
-	var tregistrystudentiview= new MetaTable("registrystudentiview");
-	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
-	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
-	Tables.Add(tregistrystudentiview);
-	tregistrystudentiview.defineKey("idreg");
+	//////////////////// STATUSKINDDEFAULTVIEW /////////////////////////////////
+	var tstatuskinddefaultview= new MetaTable("statuskinddefaultview");
+	tstatuskinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("idstatuskind", typeof(int),false);
+	tstatuskinddefaultview.defineColumn("statuskind_ct", typeof(DateTime),false);
+	tstatuskinddefaultview.defineColumn("statuskind_cu", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("statuskind_delibera", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_istanze", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_istanzedelibera", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_lt", typeof(DateTime),false);
+	tstatuskinddefaultview.defineColumn("statuskind_lu", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("statuskind_pratica", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_sortcode", typeof(int),false);
+	tstatuskinddefaultview.defineColumn("title", typeof(string),false);
+	Tables.Add(tstatuskinddefaultview);
+	tstatuskinddefaultview.defineKey("idstatuskind");
 
 	//////////////////// DIDPROGDEFAULTVIEW /////////////////////////////////
 	var tdidprogdefaultview= new MetaTable("didprogdefaultview");
 	tdidprogdefaultview.defineColumn("aa", typeof(string));
+	tdidprogdefaultview.defineColumn("appellokind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("areadidattica_title", typeof(string));
 	tdidprogdefaultview.defineColumn("convenzione_title", typeof(string));
 	tdidprogdefaultview.defineColumn("corsostudio_annoistituz", typeof(int));
+	tdidprogdefaultview.defineColumn("corsostudio_idcorsostudiokind", typeof(int));
+	tdidprogdefaultview.defineColumn("corsostudio_idcorsostudiolivello", typeof(int));
 	tdidprogdefaultview.defineColumn("corsostudio_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiokind_didprog_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiokind_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiolivello_didprog_title", typeof(string));
+	tdidprogdefaultview.defineColumn("corsostudiolivello_title", typeof(string));
 	tdidprogdefaultview.defineColumn("didprog_annosolare", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_attribdebiti", typeof(string));
 	tdidprogdefaultview.defineColumn("didprog_ciclo", typeof(int));
@@ -332,6 +360,8 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("didprog_codicemiur", typeof(string));
 	tdidprogdefaultview.defineColumn("didprog_dataconsmaxiscr", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("didprog_freqobbl", typeof(string));
+	tdidprogdefaultview.defineColumn("didprog_idcorsostudiokind", typeof(int));
+	tdidprogdefaultview.defineColumn("didprog_idcorsostudiolivello", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_iddidprognumchiusokind", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_iddidprogsuddannokind", typeof(int));
 	tdidprogdefaultview.defineColumn("didprog_iderogazkind", typeof(int));
@@ -357,9 +387,9 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("didprogsuddannokind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tdidprogdefaultview.defineColumn("erogazkind_title", typeof(string));
-	tdidprogdefaultview.defineColumn("geo_nationlang_title", typeof(string));
-	tdidprogdefaultview.defineColumn("geo_nationlang2_title", typeof(string));
-	tdidprogdefaultview.defineColumn("geo_nationlangvis_title", typeof(string));
+	tdidprogdefaultview.defineColumn("geo_nationlang_lang", typeof(string));
+	tdidprogdefaultview.defineColumn("geo_nationlang2_lang", typeof(string));
+	tdidprogdefaultview.defineColumn("geo_nationlangvis_lang", typeof(string));
 	tdidprogdefaultview.defineColumn("graduatoria_title", typeof(string));
 	tdidprogdefaultview.defineColumn("idareadidattica", typeof(int));
 	tdidprogdefaultview.defineColumn("idconvenzione", typeof(int));
@@ -373,13 +403,94 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("idsessione", typeof(int));
 	tdidprogdefaultview.defineColumn("registrydocenti_title", typeof(string));
 	tdidprogdefaultview.defineColumn("sede_title", typeof(string));
+	tdidprogdefaultview.defineColumn("sessione_idappellokind", typeof(int));
+	tdidprogdefaultview.defineColumn("sessione_idsessionekind", typeof(int));
 	tdidprogdefaultview.defineColumn("sessione_start", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("sessione_stop", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("sessionekind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("title", typeof(string));
 	tdidprogdefaultview.defineColumn("titolokind_title", typeof(string));
 	Tables.Add(tdidprogdefaultview);
-	tdidprogdefaultview.defineKey("iddidprog");
+	tdidprogdefaultview.defineKey("idcorsostudio", "iddidprog");
+
+	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
+	var tregistrystudentiview= new MetaTable("registrystudentiview");
+	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
+	tregistrystudentiview.defineColumn("geo_city_title", typeof(string));
+	tregistrystudentiview.defineColumn("geo_nation_title", typeof(string));
+	tregistrystudentiview.defineColumn("idcity", typeof(int));
+	tregistrystudentiview.defineColumn("idnation", typeof(int));
+	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
+	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
+	tregistrystudentiview.defineColumn("idtitle", typeof(string));
+	tregistrystudentiview.defineColumn("maritalstatus_description", typeof(string));
+	tregistrystudentiview.defineColumn("registry_acronim", typeof(string));
+	tregistrystudentiview.defineColumn("registry_active", typeof(string));
+	tregistrystudentiview.defineColumn("registry_annotation", typeof(string));
+	tregistrystudentiview.defineColumn("registry_authorization_free", typeof(string));
+	tregistrystudentiview.defineColumn("registry_badgecode", typeof(string));
+	tregistrystudentiview.defineColumn("registry_birthdate", typeof(DateTime));
+	tregistrystudentiview.defineColumn("registry_ccp", typeof(string));
+	tregistrystudentiview.defineColumn("registry_cf", typeof(string));
+	tregistrystudentiview.defineColumn("registry_code", typeof(string));
+	tregistrystudentiview.defineColumn("registry_codicemiur", typeof(string));
+	tregistrystudentiview.defineColumn("registry_codiceustat", typeof(string));
+	tregistrystudentiview.defineColumn("registry_ct", typeof(DateTime),false);
+	tregistrystudentiview.defineColumn("registry_cu", typeof(string),false);
+	tregistrystudentiview.defineColumn("registry_email_fe", typeof(string));
+	tregistrystudentiview.defineColumn("registry_extension", typeof(string));
+	tregistrystudentiview.defineColumn("registry_extmatricula", typeof(string));
+	tregistrystudentiview.defineColumn("registry_flag_pa", typeof(string));
+	tregistrystudentiview.defineColumn("registry_flagbankitaliaproceeds", typeof(string));
+	tregistrystudentiview.defineColumn("registry_foreigncf", typeof(string));
+	tregistrystudentiview.defineColumn("registry_forename", typeof(string));
+	tregistrystudentiview.defineColumn("registry_gender", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idaccmotivecredit", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idaccmotivedebit", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idanpr", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idateco", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idcategory", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idcentralizedcategory", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idexternal", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idfonteindicebibliometrico", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idistitutokind", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idmaritalstatus", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idnace", typeof(string));
+	tregistrystudentiview.defineColumn("registry_idnaturagiur", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idnumerodip", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idreg_istituti", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idregistrykind", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idsasd", typeof(int));
+	tregistrystudentiview.defineColumn("registry_idstruttura", typeof(int));
+	tregistrystudentiview.defineColumn("registry_indicebibliometrico", typeof(int));
+	tregistrystudentiview.defineColumn("registry_institutionalcode", typeof(string));
+	tregistrystudentiview.defineColumn("registry_ipa_fe", typeof(string));
+	tregistrystudentiview.defineColumn("registry_ipa_perlapa", typeof(string));
+	tregistrystudentiview.defineColumn("registry_location", typeof(string));
+	tregistrystudentiview.defineColumn("registry_lt", typeof(DateTime),false);
+	tregistrystudentiview.defineColumn("registry_lu", typeof(string),false);
+	tregistrystudentiview.defineColumn("registry_maritalsurname", typeof(string));
+	tregistrystudentiview.defineColumn("registry_multi_cf", typeof(string));
+	tregistrystudentiview.defineColumn("registry_p_iva", typeof(string));
+	tregistrystudentiview.defineColumn("registry_pec_fe", typeof(string));
+	tregistrystudentiview.defineColumn("registry_pic", typeof(string));
+	tregistrystudentiview.defineColumn("registry_referencenumber", typeof(string));
+	tregistrystudentiview.defineColumn("registry_ricevimento", typeof(string));
+	tregistrystudentiview.defineColumn("registry_rtf", typeof(Byte[]));
+	tregistrystudentiview.defineColumn("registry_sdi_defrifamm", typeof(string));
+	tregistrystudentiview.defineColumn("registry_sdi_norifamm", typeof(string));
+	tregistrystudentiview.defineColumn("registry_soggiorno", typeof(string));
+	tregistrystudentiview.defineColumn("registry_surname", typeof(string));
+	tregistrystudentiview.defineColumn("registry_title_en", typeof(string));
+	tregistrystudentiview.defineColumn("registry_toredirect", typeof(int));
+	tregistrystudentiview.defineColumn("registry_txt", typeof(string));
+	tregistrystudentiview.defineColumn("registryclass_description", typeof(string));
+	tregistrystudentiview.defineColumn("residence", typeof(int),false);
+	tregistrystudentiview.defineColumn("residence_description", typeof(string));
+	tregistrystudentiview.defineColumn("title", typeof(string),false);
+	tregistrystudentiview.defineColumn("title_description", typeof(string));
+	Tables.Add(tregistrystudentiview);
+	tregistrystudentiview.defineKey("idreg");
 
 	//////////////////// ANNOACCADEMICO /////////////////////////////////
 	var tannoaccademico= new MetaTable("annoaccademico");
@@ -404,8 +515,8 @@ private void initClass() {
 	tistanza.defineColumn("lt", typeof(DateTime),false);
 	tistanza.defineColumn("lu", typeof(string),false);
 	tistanza.defineColumn("paridistanza", typeof(int));
-	tistanza.defineColumn("protanno", typeof(int),false);
-	tistanza.defineColumn("protnumero", typeof(int),false);
+	tistanza.defineColumn("protanno", typeof(int));
+	tistanza.defineColumn("protnumero", typeof(int));
 	Tables.Add(tistanza);
 	tistanza.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti");
 
@@ -419,22 +530,22 @@ private void initClass() {
 	tistanza_imm.defineColumn("iddidprogori", typeof(int));
 	tistanza_imm.defineColumn("idistanza", typeof(int),false);
 	tistanza_imm.defineColumn("idistanzakind", typeof(int),false);
-	tistanza_imm.defineColumn("idreg", typeof(int),false);
+	tistanza_imm.defineColumn("idreg_studenti", typeof(int),false);
 	tistanza_imm.defineColumn("lt", typeof(DateTime),false);
 	tistanza_imm.defineColumn("lu", typeof(string),false);
 	tistanza_imm.defineColumn("motivrit", typeof(string));
 	tistanza_imm.defineColumn("parttime", typeof(string));
 	tistanza_imm.defineColumn("pre", typeof(string));
 	Tables.Add(tistanza_imm);
-	tistanza_imm.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg");
+	tistanza_imm.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{istanza.Columns["idcorsostudio"], istanza.Columns["iddidprog"], istanza.Columns["idistanza"], istanza.Columns["idistanzakind"], istanza.Columns["idreg_studenti"]};
-	var cChild = new []{diniego_alias2.Columns["idcorsostudio"], diniego_alias2.Columns["iddidprog"], diniego_alias2.Columns["idistanza"], diniego_alias2.Columns["idistanzakind"], diniego_alias2.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_diniego_alias2_istanza_idcorsostudio-iddidprog-idistanza-idistanzakind-idreg",cPar,cChild,false));
+	var cPar = new []{istanza.Columns["idistanza"], istanza.Columns["idreg_studenti"], istanza.Columns["idcorsostudio"], istanza.Columns["iddidprog"], istanza.Columns["idistanzakind"]};
+	var cChild = new []{diniego_alias2.Columns["idistanza"], diniego_alias2.Columns["idreg"], diniego_alias2.Columns["idcorsostudio"], diniego_alias2.Columns["iddidprog"], diniego_alias2.Columns["idistanzakind"]};
+	Relations.Add(new DataRelation("FK_diniego_alias2_istanza_idistanza-idreg-idcorsostudio-iddidprog-idistanzakind",cPar,cChild,false));
 
 	cPar = new []{istanza.Columns["idcorsostudio"], istanza.Columns["iddidprog"], istanza.Columns["idistanza"], istanza.Columns["idistanzakind"], istanza.Columns["idreg_studenti"]};
 	cChild = new []{istanzadichiar.Columns["idcorsostudio"], istanzadichiar.Columns["iddidprog"], istanzadichiar.Columns["idistanza"], istanzadichiar.Columns["idistanzakind"], istanzadichiar.Columns["idreg"]};
@@ -448,21 +559,25 @@ private void initClass() {
 	cChild = new []{dichiar.Columns["iddichiarkind"]};
 	Relations.Add(new DataRelation("FK_dichiar_dichiarkind_iddichiarkind",cPar,cChild,false));
 
-	cPar = new []{annoaccademico_alias1.Columns["aa"]};
+	cPar = new []{annoaccademico_alias2.Columns["aa"]};
 	cChild = new []{dichiar.Columns["aa"]};
-	Relations.Add(new DataRelation("FK_dichiar_annoaccademico_alias1_aa",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_dichiar_annoaccademico_alias2_aa",cPar,cChild,false));
 
-	cPar = new []{istanza.Columns["idcorsostudio"], istanza.Columns["iddidprog"], istanza.Columns["idistanza"], istanza.Columns["idistanzakind"], istanza.Columns["idreg_studenti"]};
-	cChild = new []{istanza_alias14.Columns["idcorsostudio"], istanza_alias14.Columns["iddidprog"], istanza_alias14.Columns["paridistanza"], istanza_alias14.Columns["idistanzakind"], istanza_alias14.Columns["idreg_studenti"]};
-	Relations.Add(new DataRelation("FK_istanza_alias14_istanza_idcorsostudio-iddidprog-paridistanza-idistanzakind-idreg_studenti-",cPar,cChild,false));
+	cPar = new []{istanza.Columns["idistanza"], istanza.Columns["idreg_studenti"]};
+	cChild = new []{istanza_alias1.Columns["paridistanza"], istanza_alias1.Columns["idreg_studenti"]};
+	Relations.Add(new DataRelation("FK_istanza_alias1_istanza_paridistanza-idreg_studenti",cPar,cChild,false));
 
-	cPar = new []{statuskind_alias1.Columns["idstatuskind"]};
-	cChild = new []{istanza_alias14.Columns["idstatuskind"]};
-	Relations.Add(new DataRelation("FK_istanza_alias14_statuskind_alias1_idstatuskind",cPar,cChild,false));
+	cPar = new []{statuskind.Columns["idstatuskind"]};
+	cChild = new []{istanza_alias1.Columns["idstatuskind"]};
+	Relations.Add(new DataRelation("FK_istanza_alias1_statuskind_idstatuskind",cPar,cChild,false));
+
+	cPar = new []{istanzakind.Columns["idistanzakind"]};
+	cChild = new []{istanza_alias1.Columns["idistanzakind"]};
+	Relations.Add(new DataRelation("FK_istanza_alias1_istanzakind_idistanzakind",cPar,cChild,false));
 
 	cPar = new []{annoaccademico_alias1.Columns["aa"]};
-	cChild = new []{istanza_alias14.Columns["aa"]};
-	Relations.Add(new DataRelation("FK_istanza_alias14_annoaccademico_alias1_aa",cPar,cChild,false));
+	cChild = new []{istanza_alias1.Columns["aa"]};
+	Relations.Add(new DataRelation("FK_istanza_alias1_annoaccademico_alias1_aa",cPar,cChild,false));
 
 	cPar = new []{istanza.Columns["idcorsostudio"], istanza.Columns["iddidprog"], istanza.Columns["idistanza"], istanza.Columns["idistanzakind"], istanza.Columns["idreg_studenti"]};
 	cChild = new []{nullaosta.Columns["idcorsostudio"], nullaosta.Columns["iddidprog"], nullaosta.Columns["idistanza"], nullaosta.Columns["idistanzakind"], nullaosta.Columns["idreg"]};
@@ -492,25 +607,29 @@ private void initClass() {
 	cChild = new []{istanza_imm.Columns["iddidprogcurr"]};
 	Relations.Add(new DataRelation("FK_istanza_imm_didprogcurr_iddidprogcurr",cPar,cChild,false));
 
-	cPar = new []{statuskind.Columns["idstatuskind"]};
-	cChild = new []{istanza.Columns["idstatuskind"]};
-	Relations.Add(new DataRelation("FK_istanza_statuskind_idstatuskind",cPar,cChild,false));
+	cPar = new []{didprogdefaultview.Columns["iddidprog"]};
+	cChild = new []{didprogcurr.Columns["iddidprog"]};
+	Relations.Add(new DataRelation("FK_didprogcurr_didprogdefaultview_iddidprog",cPar,cChild,false));
 
-	cPar = new []{registrystudentiview.Columns["idreg"]};
-	cChild = new []{istanza.Columns["idreg_studenti"]};
-	Relations.Add(new DataRelation("FK_istanza_registrystudentiview_idreg_studenti",cPar,cChild,false));
+	cPar = new []{statuskinddefaultview.Columns["idstatuskind"]};
+	cChild = new []{istanza.Columns["idstatuskind"]};
+	Relations.Add(new DataRelation("FK_istanza_statuskinddefaultview_idstatuskind",cPar,cChild,false));
 
 	cPar = new []{didprogdefaultview.Columns["iddidprog"]};
 	cChild = new []{istanza.Columns["iddidprog"]};
 	Relations.Add(new DataRelation("FK_istanza_didprogdefaultview_iddidprog",cPar,cChild,false));
+
+	cPar = new []{registrystudentiview.Columns["idreg"]};
+	cChild = new []{istanza.Columns["idreg_studenti"]};
+	Relations.Add(new DataRelation("FK_istanza_registrystudentiview_idreg_studenti",cPar,cChild,false));
 
 	cPar = new []{annoaccademico.Columns["aa"]};
 	cChild = new []{istanza.Columns["aa"]};
 	Relations.Add(new DataRelation("FK_istanza_annoaccademico_aa",cPar,cChild,false));
 
 	cPar = new []{istanza.Columns["idcorsostudio"], istanza.Columns["iddidprog"], istanza.Columns["idistanza"], istanza.Columns["idistanzakind"], istanza.Columns["idreg_studenti"]};
-	cChild = new []{istanza_imm.Columns["idcorsostudio"], istanza_imm.Columns["iddidprog"], istanza_imm.Columns["idistanza"], istanza_imm.Columns["idistanzakind"], istanza_imm.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_istanza_imm_istanza_idcorsostudio-iddidprog-idistanza-idistanzakind-idreg-",cPar,cChild,false));
+	cChild = new []{istanza_imm.Columns["idcorsostudio"], istanza_imm.Columns["iddidprog"], istanza_imm.Columns["idistanza"], istanza_imm.Columns["idistanzakind"], istanza_imm.Columns["idreg_studenti"]};
+	Relations.Add(new DataRelation("FK_istanza_imm_istanza_idcorsostudio-iddidprog-idistanza-idistanzakind-idreg_studenti",cPar,cChild,false));
 
 	#endregion
 

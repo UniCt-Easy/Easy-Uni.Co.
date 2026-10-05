@@ -24,9 +24,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'erogata':
+						this.describeAColumn(table, '!filtrostud', 'Filtra gli studenti per', null, 0, null);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 60, 256);
 						this.describeAColumn(table, 'CUIN', 'CUIN', null, 70, 9);
-						this.describeAColumn(table, '!idattivform_attivform_title', 'Attività formativa', null, 51, null);
+						this.describeAColumn(table, '!idattivform_attivform_aa', 'Identificativo Attività formativa', null, 51, null);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'Attività formativa', null, 52, null);
+						objCalcFieldConfig['!idattivform_attivform_aa'] = { tableNameLookup:'attivform_alias2', columnNameLookup:'aa', columnNamekey:'idattivform' };
 						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias2', columnNameLookup:'title', columnNamekey:'idattivform' };
 						this.describeAColumn(table, '!iddidproganno_didproganno_title', 'Anno', null, 31, null);
 						objCalcFieldConfig['!iddidproganno_didproganno_title'] = { tableNameLookup:'didproganno_alias1', columnNameLookup:'title', columnNamekey:'iddidproganno' };
@@ -37,10 +40,11 @@
 						this.describeAColumn(table, '!iddidprogporzanno_didprogporzanno_title', 'Porzione d\'anno', null, 41, null);
 						objCalcFieldConfig['!iddidprogporzanno_didprogporzanno_title'] = { tableNameLookup:'didprogporzanno_alias1', columnNameLookup:'title', columnNamekey:'iddidprogporzanno' };
 						this.describeAColumn(table, '!mutuazione', 'Mutuazione o fruizione', null, 160, null);
-						this.describeAColumn(table, '!affidamento', 'Affidamento', null, 150, null);
+						this.describeAColumn(table, '!affidamento', 'Affidamenti ai docenti', null, 150, null);
 //$objCalcFieldConfig_erogata$
 						break;
 					case 'default':
+						this.describeAColumn(table, '!filtrostud', 'Filtra gli studenti per', null, 0, null);
 						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 256);
 						this.describeAColumn(table, 'CUIN', 'CUIN', null, 30, 9);
 						this.describeAColumn(table, 'sortcode', 'Posizione', null, 60, null);
@@ -57,15 +61,16 @@
 			setCaption: function (table, edittype) {
 				switch (edittype) {
 					case 'default':
-						table.columns["idattivform"].caption = "Attività formativa";
 						table.columns["idcanale"].caption = "Canale";
+						table.columns["title"].caption = "Denominazione";
+						table.columns["idattivform"].caption = "Attività formativa";
 						table.columns["iddidproganno"].caption = "Anno";
 						table.columns["iddidprogcurr"].caption = "Curriculum";
 						table.columns["iddidprogori"].caption = "Orientamento";
 						table.columns["iddidprogporzanno"].caption = "Porzione d'anno";
 						table.columns["numerostud"].caption = "Numero di studenti";
 						table.columns["sortcode"].caption = "Posizione";
-						table.columns["title"].caption = "Denominazione";
+						table.columns["!filtrostud"].caption = "Filtra gli studenti per";
 //$innerSetCaptionConfig_default$
 						break;
 					case 'erogata':
@@ -104,6 +109,9 @@
 					}
 					case "default": {
 						return "sortcode";
+					}
+					case "default": {
+						return "sortcode asc ";
 					}
 					//$getSortingin$
 				}

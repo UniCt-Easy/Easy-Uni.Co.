@@ -23,25 +23,49 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (self.isNullOrMinDate(parentRow.startcandidature))
+				parentRow.startcandidature = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.startgraduatoria))
+				parentRow.startgraduatoria = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.startpresentazione))
+				parentRow.startpresentazione = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.stopcadidature))
+				parentRow.stopcadidature = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.stopgraduatoria))
+				parentRow.stopgraduatoria = new Date();
+;
+				if (self.isNullOrMinDate(parentRow.stoppresentazione))
+				parentRow.stoppresentazione = new Date();
+;
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-bandomi_seg");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.startcandidature))
-					parentRow.startcandidature = new Date();
-				if (self.isNullOrMinDate(parentRow.startgraduatoria))
-					parentRow.startgraduatoria = new Date();
-				if (self.isNullOrMinDate(parentRow.startpresentazione))
-					parentRow.startpresentazione = new Date();
-				if (self.isNullOrMinDate(parentRow.stopcadidature))
-					parentRow.stopcadidature = new Date();
-				if (self.isNullOrMinDate(parentRow.stopgraduatoria))
-					parentRow.stopgraduatoria = new Date();
-				if (self.isNullOrMinDate(parentRow.stoppresentazione))
-					parentRow.stoppresentazione = new Date();
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#bandomi_seg_idresidence'), null);
 				} else {
@@ -108,7 +132,7 @@
 				$("#btn_add_bandomistrutturefrom_idstruttura").prop("disabled", true);
 				$("#btn_add_bandomistruttureto_idstruttura").on("click", _.partial(this.searchAndAssignstruttura_alias1, self));
 				$("#btn_add_bandomistruttureto_idstruttura").prop("disabled", true);
-				$("#btn_add_bandomiistitutiesteri_idreg_istitutiesteri").on("click", _.partial(this.searchAndAssignregistry_istitutiesteri, self));
+				$("#btn_add_bandomiistitutiesteri_idreg_istitutiesteri").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_bandomiistitutiesteri_idreg_istitutiesteri").prop("disabled", true);
 				$("#btn_add_bandomiallegati_idbandomiallegati").on("click", _.partial(this.searchAndAssignbandomiallegati_alias1, self));
 				$("#btn_add_bandomiallegati_idbandomiallegati").prop("disabled", true);
@@ -180,6 +204,7 @@
 					columnSource: "iddidprog",
 					columnToFill: "iddidprog",
 					tableToFill: "bandomididprogto"
+
 				});
 			},
 
@@ -193,6 +218,7 @@
 					columnSource: "iddidprog",
 					columnToFill: "iddidprog",
 					tableToFill: "bandomididprogfrom"
+
 				});
 			},
 
@@ -206,6 +232,7 @@
 					columnSource: "idinsegn",
 					columnToFill: "idinsegn",
 					tableToFill: "bandomipropedeut"
+
 				});
 			},
 
@@ -219,6 +246,7 @@
 					columnSource: "idinsegn",
 					columnToFill: "idinsegn",
 					tableToFill: "bandomiinsegn"
+
 				});
 			},
 
@@ -232,6 +260,8 @@
 					columnSource: "idstruttura",
 					columnToFill: "idstruttura",
 					tableToFill: "bandomistrutturefrom"
+,
+					filter: that.q.eq('struttura_active', 'Si')
 				});
 			},
 
@@ -245,19 +275,23 @@
 					columnSource: "idstruttura",
 					columnToFill: "idstruttura",
 					tableToFill: "bandomistruttureto"
+,
+					filter: that.q.eq('struttura_active', 'Si')
 				});
 			},
 
-			searchAndAssignregistry_istitutiesteri: function (that) {
+			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
-					listType: "istitutiesteri",
+					listType: "default",
 					idControl: "txt_bandomiistitutiesteri_idreg_istitutiesteri",
-					tagSearch: "registryistitutiesteriview.dropdown_title",
+					tagSearch: "registrydefaultview.dropdown_title",
 					columnNameText: "title",
 					columnSource: "idreg",
 					columnToFill: "idreg_istitutiesteri",
 					tableToFill: "bandomiistitutiesteri"
+,
+					filter: that.q.eq('registry_active', 'Si')
 				});
 			},
 
@@ -271,6 +305,7 @@
 					columnSource: "idbandomiallegati",
 					columnToFill: "idbandomiallegati",
 					tableToFill: "bandomiallegati"
+
 				});
 			},
 
@@ -284,6 +319,7 @@
 					columnSource: "idrequisito",
 					columnToFill: "idrequisito",
 					tableToFill: "bandomirequisito"
+
 				});
 			},
 

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -174,6 +172,12 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry_istituti 		=> (MetaTable)Tables["registry_istituti"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrypaymethodattachment 		=> (MetaTable)Tables["registrypaymethodattachment"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable attachmentkind 		=> (MetaTable)Tables["attachmentkind"];
 
 	#endregion
 
@@ -397,6 +401,8 @@ private void initClass() {
 	tregistrypaymethod.defineColumn("ccdedicato_cf", typeof(Byte[]));
 	tregistrypaymethod.defineColumn("requested_doc", typeof(int));
 	tregistrypaymethod.defineColumn("ccdedicato_stop", typeof(DateTime));
+	tregistrypaymethod.defineColumn("idfilestorage", typeof(string));
+	tregistrypaymethod.defineColumn("idfilestorage2", typeof(string));
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.defineKey("idreg", "idregistrypaymethod");
 
@@ -708,6 +714,8 @@ private void initClass() {
 	tregistrydurc.defineColumn("txt", typeof(string));
 	tregistrydurc.defineColumn("rtf", typeof(Byte[]));
 	tregistrydurc.defineColumn("flagirregular", typeof(string));
+	tregistrydurc.defineColumn("idfilestorage", typeof(string));
+	tregistrydurc.defineColumn("idfilestorage2", typeof(string));
 	Tables.Add(tregistrydurc);
 	tregistrydurc.defineKey("idregistrydurc", "idreg");
 
@@ -729,6 +737,7 @@ private void initClass() {
 	tregistrycvattachment.defineColumn("lt", typeof(DateTime),false);
 	tregistrycvattachment.defineColumn("lu", typeof(string),false);
 	tregistrycvattachment.defineColumn("referencedate", typeof(DateTime));
+	tregistrycvattachment.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistrycvattachment);
 	tregistrycvattachment.defineKey("idreg", "idregistrycvattachment");
 
@@ -779,6 +788,7 @@ private void initClass() {
 	tregistryvisura.defineColumn("ct", typeof(DateTime),false);
 	tregistryvisura.defineColumn("lu", typeof(string),false);
 	tregistryvisura.defineColumn("lt", typeof(DateTime),false);
+	tregistryvisura.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistryvisura);
 	tregistryvisura.defineKey("idregistryvisura", "idreg");
 
@@ -793,6 +803,7 @@ private void initClass() {
 	tregistrycasellariogiudiziale.defineColumn("ct", typeof(DateTime),false);
 	tregistrycasellariogiudiziale.defineColumn("lu", typeof(string),false);
 	tregistrycasellariogiudiziale.defineColumn("lt", typeof(DateTime),false);
+	tregistrycasellariogiudiziale.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistrycasellariogiudiziale);
 	tregistrycasellariogiudiziale.defineKey("idregistrycasellariogiudiziale", "idreg");
 
@@ -807,6 +818,7 @@ private void initClass() {
 	tregistrycasellarioamministrativo.defineColumn("ct", typeof(DateTime),false);
 	tregistrycasellarioamministrativo.defineColumn("lu", typeof(string),false);
 	tregistrycasellarioamministrativo.defineColumn("lt", typeof(DateTime),false);
+	tregistrycasellarioamministrativo.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistrycasellarioamministrativo);
 	tregistrycasellarioamministrativo.defineKey("idregistrycasellarioamministrativo", "idreg");
 
@@ -821,6 +833,7 @@ private void initClass() {
 	tregistryottemperanzalegge68_99.defineColumn("ct", typeof(DateTime),false);
 	tregistryottemperanzalegge68_99.defineColumn("lu", typeof(string),false);
 	tregistryottemperanzalegge68_99.defineColumn("lt", typeof(DateTime),false);
+	tregistryottemperanzalegge68_99.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistryottemperanzalegge68_99);
 	tregistryottemperanzalegge68_99.defineKey("idregistryottemperanzalegge", "idreg");
 
@@ -835,6 +848,7 @@ private void initClass() {
 	tregistryregolaritafiscale.defineColumn("ct", typeof(DateTime),false);
 	tregistryregolaritafiscale.defineColumn("lu", typeof(string),false);
 	tregistryregolaritafiscale.defineColumn("lt", typeof(DateTime),false);
+	tregistryregolaritafiscale.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistryregolaritafiscale);
 	tregistryregolaritafiscale.defineKey("idregistryregolaritafiscale", "idreg");
 
@@ -849,6 +863,7 @@ private void initClass() {
 	tregistryverificaanac.defineColumn("ct", typeof(DateTime),false);
 	tregistryverificaanac.defineColumn("lu", typeof(string),false);
 	tregistryverificaanac.defineColumn("lt", typeof(DateTime),false);
+	tregistryverificaanac.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistryverificaanac);
 	tregistryverificaanac.defineKey("idregistryverificaanac", "idreg");
 
@@ -863,6 +878,7 @@ private void initClass() {
 	tregistryattachment.defineColumn("lu", typeof(string));
 	tregistryattachment.defineColumn("lt", typeof(DateTime));
 	tregistryattachment.defineColumn("idattachmentkind", typeof(int));
+	tregistryattachment.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistryattachment);
 	tregistryattachment.defineKey("idreg", "idattachment");
 
@@ -877,6 +893,7 @@ private void initClass() {
 	tregistrypattointegrita.defineColumn("start", typeof(DateTime));
 	tregistrypattointegrita.defineColumn("stop", typeof(DateTime));
 	tregistrypattointegrita.defineColumn("pattointegritacertification", typeof(Byte[]));
+	tregistrypattointegrita.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(tregistrypattointegrita);
 	tregistrypattointegrita.defineKey("idregistrypattointegrita", "idreg");
 
@@ -941,6 +958,34 @@ private void initClass() {
 	Tables.Add(tregistry_istituti);
 	tregistry_istituti.defineKey("idreg");
 
+	//////////////////// REGISTRYPAYMETHODATTACHMENT /////////////////////////////////
+	var tregistrypaymethodattachment= new MetaTable("registrypaymethodattachment");
+	tregistrypaymethodattachment.defineColumn("idreg", typeof(int),false);
+	tregistrypaymethodattachment.defineColumn("idregistrypaymethod", typeof(int),false);
+	tregistrypaymethodattachment.defineColumn("idattachment", typeof(int),false);
+	tregistrypaymethodattachment.defineColumn("attachment", typeof(Byte[]));
+	tregistrypaymethodattachment.defineColumn("ct", typeof(DateTime),false);
+	tregistrypaymethodattachment.defineColumn("cu", typeof(string),false);
+	tregistrypaymethodattachment.defineColumn("filename", typeof(string));
+	tregistrypaymethodattachment.defineColumn("idattachmentkind", typeof(int));
+	tregistrypaymethodattachment.defineColumn("lt", typeof(DateTime),false);
+	tregistrypaymethodattachment.defineColumn("lu", typeof(string),false);
+	tregistrypaymethodattachment.defineColumn("idfilestorage", typeof(string));
+	Tables.Add(tregistrypaymethodattachment);
+	tregistrypaymethodattachment.defineKey("idreg", "idregistrypaymethod", "idattachment");
+
+	//////////////////// ATTACHMENTKIND /////////////////////////////////
+	var tattachmentkind= new MetaTable("attachmentkind");
+	tattachmentkind.defineColumn("idattachmentkind", typeof(int),false);
+	tattachmentkind.defineColumn("title", typeof(string));
+	tattachmentkind.defineColumn("active", typeof(string));
+	tattachmentkind.defineColumn("ct", typeof(DateTime),false);
+	tattachmentkind.defineColumn("lu", typeof(string),false);
+	tattachmentkind.defineColumn("lt", typeof(DateTime),false);
+	tattachmentkind.defineColumn("cu", typeof(string),false);
+	Tables.Add(tattachmentkind);
+	tattachmentkind.defineKey("idattachmentkind");
+
 	#endregion
 
 
@@ -1004,6 +1049,7 @@ private void initClass() {
 	this.defineRelation("ateco_registry_aziende","ateco","registry","idateco");
 	this.defineRelation("numerodip_registry","numerodip","registry","idnumerodip");
 	this.defineRelation("naturagiur_registry","naturagiur","registry","idnaturagiur");
+	this.defineRelation("registrypaymethod_registrypaymethodattachment","registrypaymethod","registrypaymethodattachment","idreg","idregistrypaymethod");
 	#endregion
 
 }

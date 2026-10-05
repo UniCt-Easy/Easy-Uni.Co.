@@ -3,25 +3,26 @@
   <xs:element name="dsmeta_pianostudio_seganagstusing" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sostenimento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="sostenimentoesito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="idappello" type="xs:int" />
-              <xs:element name="idattivform" type="xs:int" minOccurs="0" />
-              <xs:element name="idprova" type="xs:int" />
-              <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idsostenimento" type="xs:int" />
-              <xs:element name="voto" type="xs:decimal" minOccurs="0" />
-              <xs:element name="votolode" type="xs:string" minOccurs="0" />
-              <xs:element name="votosu" type="xs:int" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idsostenimentoesito" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="sostenimento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="data" type="xs:dateTime" />
+              <xs:element name="idiscrizione" type="xs:int" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
+              <xs:element name="idsostenimento" type="xs:int" />
+              <xs:element name="idsostenimentoesito" type="xs:int" />
+              <xs:element name="voto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="votolode" type="xs:string" minOccurs="0" />
+              <xs:element name="votosu" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -60,11 +61,11 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="_x0021_idattivform_attivform_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_data" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsostenimento_sostenimento_voto" type="xs:decimal" minOccurs="0" />
               <xs:element name="_x0021_idsostenimento_sostenimento_votosu" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idsostenimento_sostenimento_votolode" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idsostenimento_sostenimento_idattivform_title" type="xs:string" minOccurs="0" />
-              <xs:element name="_x0021_idsostenimento_sostenimento_idreg_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idsostenimento_sostenimento_idsostenimentoesito_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -73,6 +74,12 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idpianostudiostatus" type="xs:int" />
+              <xs:element name="pianostudiostatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="pianostudiostatus_description" type="xs:string" minOccurs="0" />
+              <xs:element name="pianostudiostatus_lt" type="xs:dateTime" />
+              <xs:element name="pianostudiostatus_lu" type="xs:string" />
+              <xs:element name="pianostudiostatus_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -104,15 +111,14 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sostenimentoesito" />
+      <xs:field xpath="mstns:idsostenimentoesito" />
+    </xs:unique>
+    <xs:unique name="sostenimento_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sostenimento" />
-      <xs:field xpath="mstns:idappello" />
-      <xs:field xpath="mstns:idprova" />
+      <xs:field xpath="mstns:idiscrizione" />
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idsostenimento" />
-    </xs:unique>
-    <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry" />
-      <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="attivform_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:attivform" />
@@ -152,8 +158,7 @@
     <xs:appinfo>
       <msdata:Relationship name="FK_pianostudioattivform_alias1_pianostudio_idiscrizione-idpianostudio-idreg" msdata:parent="pianostudio" msdata:child="pianostudioattivform_alias1" msdata:parentkey="idiscrizione idpianostudio idreg" msdata:childkey="idiscrizione idpianostudio idreg" />
       <msdata:Relationship name="FK_pianostudioattivform_alias1_sostenimento_idsostenimento" msdata:parent="sostenimento" msdata:child="pianostudioattivform_alias1" msdata:parentkey="idsostenimento" msdata:childkey="idsostenimento" />
-      <msdata:Relationship name="FK_sostenimento_registry_idreg" msdata:parent="registry" msdata:child="sostenimento" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_sostenimento_attivform_idattivform" msdata:parent="attivform" msdata:child="sostenimento" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
+      <msdata:Relationship name="FK_sostenimento_sostenimentoesito_idsostenimentoesito" msdata:parent="sostenimentoesito" msdata:child="sostenimento" msdata:parentkey="idsostenimentoesito" msdata:childkey="idsostenimentoesito" />
       <msdata:Relationship name="FK_pianostudioattivform_alias1_attivform_idattivform" msdata:parent="attivform" msdata:child="pianostudioattivform_alias1" msdata:parentkey="idattivform" msdata:childkey="idattivform" />
       <msdata:Relationship name="FK_pianostudio_pianostudiostatusdefaultview_idpianostudiostatus" msdata:parent="pianostudiostatusdefaultview" msdata:child="pianostudio" msdata:parentkey="idpianostudiostatus" msdata:childkey="idpianostudiostatus" />
       <msdata:Relationship name="FK_pianostudio_annoaccademico_aa" msdata:parent="annoaccademico" msdata:child="pianostudio" msdata:parentkey="aa" msdata:childkey="aa" />

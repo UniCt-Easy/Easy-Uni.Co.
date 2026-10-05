@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -181,7 +179,7 @@ namespace ct_finyear_asscred_reset
                     }
                 }
                 if (amountVar == 0) {
-                    // Se il saldo Ë zero, cancella le righe dalla tabella Errore, che mostrer‡ dopo nel formettino
+                    // Se il saldo √® zero, cancella le righe dalla tabella Errore, che mostrer√† dopo nel formettino
                     foreach (DataRow RR in Tdett_previsioniError.Select(QHC.AppAnd(QHC.CmpEq("idupb", idupb), QHC.CmpEq("prevision", prevision)))) {
                         RR.Delete();
                         Tdett_previsioniError.AcceptChanges();
@@ -278,7 +276,7 @@ namespace ct_finyear_asscred_reset
             DataRow[] Mov_SelectedRows = GetGridSelectedRows(gridDettagli);
             if ((Mov_SelectedRows == null) || (Mov_SelectedRows.Length == 0))
             {
-                show("Non Ë stato selezionato alcun movimento da annullare.");
+                show("Non √® stato selezionato alcun movimento da annullare.");
                 return;
             }
             Azzera(Mov_SelectedRows);

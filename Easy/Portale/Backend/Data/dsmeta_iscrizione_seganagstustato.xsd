@@ -6,6 +6,7 @@
         <xs:element name="sostenimentoesito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idsostenimentoesito" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
@@ -93,6 +94,7 @@
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsessione" type="xs:int" minOccurs="0" />
               <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="sessione_idsessionekind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessione_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessionekind_title" type="xs:string" minOccurs="0" />
@@ -143,6 +145,7 @@
     </xs:unique>
     <xs:unique name="didprogstatoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogstatoview" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
     </xs:unique>
     <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

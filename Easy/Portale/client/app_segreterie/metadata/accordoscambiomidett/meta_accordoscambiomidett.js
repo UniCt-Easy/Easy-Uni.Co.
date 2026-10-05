@@ -42,6 +42,8 @@
 						this.describeAColumn(table, '!idtorkind_torkind_description', 'Descrizione Modalità di invio del trascript of record', null, 52, null);
 						objCalcFieldConfig['!idtorkind_torkind_title'] = { tableNameLookup:'torkind', columnNameLookup:'title', columnNamekey:'idtorkind' };
 						objCalcFieldConfig['!idtorkind_torkind_description'] = { tableNameLookup:'torkind', columnNameLookup:'description', columnNamekey:'idtorkind' };
+						this.describeAColumn(table, '!idreg_istitutiesteri_registry_title', 'Istituto estero', null, 11, null);
+						objCalcFieldConfig['!idreg_istitutiesteri_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_istitutiesteri' };
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$

@@ -25,9 +25,19 @@
 			
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#registryreference_persone_userweb'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
-			//afterFill
+			afterFill: function () {
+				this.enableControl($('#registryreference_persone_userweb'), false);
+				//afterFillin
+				return this.superClass.afterFill.call(this);
+			},
 
 			//afterLink
 

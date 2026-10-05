@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,24 +13,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using Backend.Components;
 using Backend.Data;
 using Backend.Extensions;
+using Backend.Extra;
+using export_default;
 using metadatalibrary;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http;
-using System.Web.Script.Serialization;
+using System.Web.Routing;
+using System.Web.UI.WebControls;
+using static Backend.Controllers.DataController;
 
 namespace Backend.CommonBackend
 {
@@ -304,8 +308,8 @@ namespace Backend.CommonBackend
         }
 
         /// <summary>
-        /// Gestisce la valorizzazione delle propriet‡ lette da colDescr.
-        /// In particolare legge dalla cache se gi‡ Ë stata letta e per ogni caption valorizza la rispettiva propriet‡ caption della colonna
+        /// Gestisce la valorizzazione delle propriet√† lette da colDescr.
+        /// In particolare legge dalla cache se gi√† √® stata letta e per ogni caption valorizza la rispettiva propriet√† caption della colonna
         /// </summary>
         /// <param name="dtToDescribe">DataTable</param>
         public static void manageColDescr(DataTable dtToDescribe) {
@@ -317,7 +321,7 @@ namespace Backend.CommonBackend
             string tableName = dtToDescribe.tableForReading();
             DataTable colDescr = null;
             CacheMDLW.colDescrCache.TryGetValue(tableName, out colDescr);
-            // 2. popolo se non c'Ë ed inserisco sulla cache
+            // 2. popolo se non c'√® ed inserisco sulla cache
             if (colDescr == null) {
                 var filter = (qh.CmpEq("tablename", tableName));
                 colDescr = conn.RUN_SELECT("coldescr", "*", null, filter, null, false);
@@ -345,22 +349,31 @@ namespace Backend.CommonBackend
         /// <param name="editType">Edit type</param>
         /// <returns>Empty DataSet with schema</returns>
         public static DataSet createDataSet(string tableName, string editType) {
-                // Il nome del meta e l'edit-type fanno parte del namespace.
-                // Il DataSet deve avere nome "Vista".
-                var dsName = $"Backend.Data.dsmeta_{tableName}_{editType}";
-                var type = Type.GetType(dsName, false, true);
-                if (type == null) return null;
 
-                var ds = Activator.CreateInstance(type) as DataSet;
+            var isExportViewer = ExportViewerManager.IsExportViewer(tableName);
 
-                if (ds == null) return null;
-                ds.DataSetName = $"{tableName}_{editType}";
+            // Il nome del meta e l'edit-type fanno parte del namespace.
+            // Il DataSet deve avere nome "Vista".
+            var dsName = $"Backend.Data.dsmeta_{tableName}_{(!isExportViewer ? editType : "default")}";
+            var type = Type.GetType(dsName, false, true);
+            if (type == null) return null;
 
-                // imposto propriet‡ specifiche per il dataset, invocando il metodo "initCustom"
-                var dispatcher = HttpContext.Current.getDataDispatcher();
-                if (ds is IDataSetInit ids)  ids.initCustom(dispatcher);
+            var ds = Activator.CreateInstance(type) as DataSet;
 
-                return ds;
+            if (ds == null) return null;
+            ds.DataSetName = $"{tableName}_{editType}";
+
+            // imposto propriet√† specifiche per il dataset, invocando il metodo "initCustom"
+            var dispatcher = HttpContext.Current.getDataDispatcher();
+            if (ds is IDataSetInit ids)  ids.initCustom(dispatcher);
+
+            if (isExportViewer) {
+
+                var evm = new ExportViewerManager(dispatcher, editType);
+                evm.InitDataset(ds);
+            }
+
+            return ds;
         }
 
         /// <summary>
@@ -399,7 +412,7 @@ namespace Backend.CommonBackend
                 scannedTable = new Dictionary<string, bool> { [parent.tableForReading()] = true };//creates a congruent start condition
             }
             setDefaults(parent, editType);
-            // propaga sulle tabelle child. Quindi conseidero le ChilRelation, cioË quelle in cui parent Ë tabella parent
+            // propaga sulle tabelle child. Quindi conseidero le ChilRelation, cio√® quelle in cui parent √® tabella parent
             foreach (DataRelation r in parent.ChildRelations)
             {
                 DataTable child = r.ChildTable;

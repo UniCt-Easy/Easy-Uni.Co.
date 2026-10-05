@@ -24,8 +24,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 1024);
+						this.describeAColumn(table, 'title', 'Titolo', null, 20, 1024);
 						this.describeAColumn(table, 'codice', 'Codice', null, 30, 50);
+						this.describeAColumn(table, 'active', 'Attivo', null, 80, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -36,24 +37,41 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["active"].caption = "Attivo";
+						table.columns["codice"].caption = "Codice";
+						table.columns["idaccmotivecredit"].caption = "Casuale di credito che ci indica il conto di credito";
+						table.columns["idaccmotiverevenue"].caption = "Casuale di ricavo che ci indica il conto di ricavo";
+						table.columns["idaccmotiveundotax"].caption = "Casuale di costo che ci indica il conto di costo per annullo tasse entro l'anno";
+						table.columns["idaccmotiveundotaxpost"].caption = "Casuale di costo che ci indica il conto di costo per annullo tasse oltre l'anno";
+						table.columns["idfinmotive"].caption = "Causale finanziaria che ci indica il capitolo di bilancio";
+						table.columns["idfinmotive_iva"].caption = "Causale finanziaria che ci indica il capitolo di bilancio per l'IVA";
+						table.columns["idtassonomia"].caption = "Tassonomia PagoPA";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_default$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_costoscontodefdettagliokind");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_costoscontodefdettagliokind");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idcostoscontodefdettagliokind', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

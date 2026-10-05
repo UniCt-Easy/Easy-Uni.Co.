@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL"
+  boundary="---------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F"
 
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -64,6 +64,12 @@ D>
     <TD valign=3D"middle"><FONT size=3D"2">Trasmissione CS</FONT></TD>
     <TD><FONT size=3D"2">04/10/2022</FONT></TD>
   </TR>
+  <TR>
+    <TD><FONT size=3D"2">v 1.6</FONT></TD>
+    <TD valign=3D"middle"><FONT size=3D"2">Trasmissione CO di NC</FONT></=
+TD>
+    <TD><FONT size=3D"2">24/10/2022</FONT></TD>
+  </TR>
 </TABLE>
 </DIV>
 <DIV align=3D"left">&nbsp;</DIV>
@@ -75,7 +81,7 @@ ne Crediti</FONT></STRONG></DIV>
 <DIV align=3D"left"><EM><FONT size=3D"4">(IVA&gt; PCC &gt; Genera file XM=
 L per PCC)</FONT></EM></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:A52S48J00JCUZK8J2BPB15M1"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:A073N0L8G1PG19KCOM7LT09C1"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><STRONG><EM><FONT size=3D"5">2.1: Tipologia File da G=
@@ -155,26 +161,45 @@ CIG o CUP nei dettagli.</FONT></DIV>
 zazione (stati CO e CF, ed eventuale impegno di spesa), alla scadenza (CS=
 ) e <U>al pagamento per le sole fatture cartacee</U>.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"justify"><STRONG><FONT size=3D"4">NB</STRONG>: <STRONG>Per =
-tutte le fatture pagate a partire dal 01/01/2019, il pagamento non viene =
-pi=C3=B9 trasmesso mediante il file xml generato da Easy, </STRONG>ma avv=
-iene automaticamente per il tramite del nuovo sistema di pagamento OPI/SI=
-OPE+.</FONT></DIV>
-<DIV align=3D"justify"><FONT size=3D"4">Per coloro invece i cui pagamenti=
- non transitano in OPI, la fase del pagamento verr=C3=A0 estratta<STRONG>=
- </STRONG>per la successiva comunicazione in PCC.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"justify"><FONT size=3D"4">Le fasi di contabilizzazione e sc=
-adenza non vengono pi=C3=B9 estratte se =C3=A8 presente il pagamento dell=
-a fattura, questo perch=C3=A8 altrimenti la PCC scarta il file della comu=
-nicazione della contabilizzazione o scadenza, qualora la fattura risulti =
-gi=C3=A0 pagata.</FONT></DIV>
-<DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:12RYWRHKDEMF31DPR8UNL6H2VB"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:3S0IIQINKPRUD19Y319VNPQJ"></DIV>
+<DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Per una stessa fattura le operazi=
 oni di comunicazione Contabilizzazione e Scadenza non saranno estratte in=
  un unico file.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">CONTABILIZZAZIONE</FONT><=
+/STRONG></DIV>
+<DIV align=3D"justify"><FONT size=3D"4">Sono escluse dalla comunicazione =
+delle fasi CONTABILIZZAZIONE e SCADENZA le fatture e le note di credito c=
+he per mancata compensazione di dettagli negativi con dettagli positivi, =
+presentano un importo nella colonna O (Importo del movimento) del file ch=
+e viene generato null o negativo. </FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV><FONT size=3D"4">Esempio:</FONT></DIV>
+<DIV><FONT size=3D"4">Fattura con dettaglio 1 &nbsp;&nbsp;&nbsp;&nbsp;100=
+ =E2=82=AC + iva 22%</FONT></DIV>
+<DIV><FONT size=3D"4"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dettaglio 2 &nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;-10 =E2=82=AC fuori campo iva</FONT></DIV>
+<DIV align=3D"justify"><FONT size=3D"4">A causa della differenza di aliqu=
+ota iva, &nbsp;non pu=C3=B2 essere consentita la &nbsp;compensasione tra =
+le due righe, quindi la comunicazione di contabilizzazione e scadenza and=
+ranno in errore per importo contabilizzazione negativo.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><FONT size=3D"4">Per coloro che sono in regime OPI=
+/SIOPE+ sono escluse anche le fatture il cui pagamento risulta gi=C3=A0 t=
+rasmesso.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">SCADENZA</STRONG></FONT><=
+/STRONG></DIV>
+<DIV align=3D"justify"><FONT size=3D"4">Per la comunicazione della scaden=
+za sar=C3=A0 necessario estrarre un nuovo file da inviare alla PCC dopo a=
+ver inviato la contabilizzazione. In caso contrario infatti se non si ris=
+petta la cronologia delle operazioni, la PCC restituisce il messaggio <EM=
+>&quot;Fattura non in stato di lavorazione&quot;.</FONT></EM></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Le condizioni affinch=C3=A8 su un=
 a fattura venga estratta la <STRONG>Comunicazione Scadenza</STRONG> sono =
@@ -186,28 +211,38 @@ le seguenti:</FONT></DIV>
 <LI><FONT size=3D"4">non deve avere uno dei seguenti stati: NOLIQ, NLdaLI=
 Q, NLdaSOSP;</FONT></LI>
 <LI><FONT size=3D"4">la data in cui si effettua l'estrazione non deve ave=
-r supertao il 15=C2=B0 gg successivo rispettp la data scadenza.</FONT></L=
+r superato il 15=C2=B0 gg successivo rispetto la data scadenza.</FONT></L=
 I></UL>
 
 <DIV>&nbsp;</DIV>
-<DIV align=3D"justify"><FONT size=3D"4">Per la comunicazione scadenza sar=
-=C3=A0 necessario estrarre un nuovo file da inviare alla PCC dopo aver in=
-viato la contabilizzazione. In caso contrario infatti se non si rispetta =
-la cronologia delle operazioni, la PCC restituisce il messaggio <EM>&quot=
-;Fattura non in stato di lavorazione&quot;.</FONT></EM></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><STRONG><FONT size=3D"4">PAGAMENTO</FONT></STRONG></DIV>
+<DIV align=3D"justify"><STRONG><FONT size=3D"4">Per tutte le fatture paga=
+te a partire dal 01/01/2019, il pagamento non viene pi=C3=B9 trasmesso me=
+diante il file xml generato da Easy, </STRONG>ma avviene automaticamente =
+per il tramite del nuovo sistema di pagamento OPI/SIOPE+.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=3D"justify"><FONT size=3D"4">Per coloro invece i cui pagamenti=
+ non transitano in OPI, la fase del pagamento verr=C3=A0 estratta<STRONG>=
+ </STRONG>per la successiva comunicazione in PCC.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=3D"justify"><STRONG><U><FONT size=3D"4">Le fasi di contabilizz=
+azione e scadenza non vengono pi=C3=B9 estratte se =C3=A8 presente il pag=
+amento della fattura,</U></STRONG> questo perch=C3=A8 altrimenti la PCC s=
+carta il file della comunicazione della contabilizzazione o scadenza, qua=
+lora la fattura risulti gi=C3=A0 pagata.</FONT></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"justify"><FONT size=3D"4">Inoltre dopo avere inviato la sca=
-denza non =C3=A8 pi=C3=B9 possibile inviare un nuovo stato di contabilizz=
-azione in quanto la PCC lo rifiuta.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><STRONG><FONT size=3D"4">FATTURE ESTERE</FONT></STRONG></DIV>
+<DIV align=3D"justify"><FONT size=3D"4">Da Luglio 2022, con l'obbligo del=
+l'invio delle fatture estere tramite SDI, le <STRONG>fatture di acquisto =
+estere inviate elettronicamente</STRONG>, saranno estratte </FONT><U>solo=
+</U><FONT size=3D"4"> nelle <EM>Operazioni su fatture precaricate</EM> di=
+ contabilizzazione o scadenza solo nel momento in cui avranno acquisito l=
+'identificativo SDI e qualora non abbiano una notifica di scarto.</FONT><=
+/DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"justify"><STRONG><EM><FONT size=3D"4">NOTA BENE</EM></STRON=
-G>: Le <STRONG>fatture di acquisto estere inviate elettronicamente</STRON=
-G>, saranno estratte </FONT><U>solo</U><FONT size=3D"4"> nelle <EM>Operaz=
-ioni su fatture precaricate</EM> di contabilizzazione o scadenza solo nel=
- momento in cui avranno acquisito l'identificativo SDI e qualora non abbi=
-ano una notifica di scarto.</FONT></DIV>
-<DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1IDWOTUK5KW2R1XQAX70J147VT"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:144IPPWJJPJA8LNARW7LBNF1K"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">L'invio in PCC delle suddette fat=
@@ -227,14 +262,14 @@ a 29/09/2020 devo effettuare l'invio del gruppo fatture emesse dal 01/07/=
 2014 al 31/07/2020; devo modificare la data contabile (doppio click sulla=
  data indicata in figura):</FONT></EM></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:5854M6LL70DE1VYYF08ZKIRA"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1RWR8EAJH8JLJGOLV9Y180A7RW"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><FONT size=3D"4">Modifico la data contabile indicando=
  il 31/07/2020:</FONT></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:OU1N89M4RXFFMUOIWI1ANJ68U"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:RFTMTKLT6WHF1QZNPGJ1K647AN"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><STRONG><EM><FONT size=3D"4">2.2: Utente che trasmett=
@@ -247,7 +282,7 @@ sposizioni ministeriali, il nome del file oggetto di invio deve indicare =
 il codice fiscale del responsabile della trasmissione e che quindi ha acc=
 esso alla PCC.</FONT></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:DM0WD4LB3WU0Y5F4P11CQZ8I3"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:183WC9FLLN7HH1JY4716MBBG38"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><FONT size=3D"4">Il programma permette di prelevare i=
@@ -263,7 +298,7 @@ artella</FONT></EM></STRONG></DIV>
 a cartella del proprio PC in cui salvare il file da inviare alla PCC.</FO=
 NT></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:9JH2F6KJE6D2EXRIC914VOSHJ"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:PCGJS5KLYI4HRSC1OV1EAS8XV"></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><STRONG><EM><FONT size=3D"4">Nota Bene: </EM></STRONG=
 >Si consiglia di avere due cartelle distinte per tipologia operazioni, un=
@@ -287,7 +322,7 @@ are il file;</FONT></DIV></LI></OL>
 <DIV align=3D"left"><FONT size=3D"4">possiamo proseguire con la procedura=
  di generazione file; click su avanti.</FONT></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:189M0W6LE0I5B1AFYZ6DXIMED0"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:12AFU3II1SJUG1X2O7M712YWO56"></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><FONT size=3D"4">Verranno indicati in tabella le righ=
 e delle fatture che rientreranno nella comunicazione alla PCC; di default=
@@ -297,12 +332,12 @@ zionare solo alcune di esse.</FONT></DIV>
 elezionati dal programma possiamo andare olte cliccando sul pulsante &quo=
 t;Avanti&quot;.</FONT></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1D88ZJEJHAQC414O7NOAWR8TWX"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1R6D3GFJ0V0TJ13IDOY11BX750E"></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"left"><FONT size=3D"4">Al click sul pulsante &quot;Fine&quo=
 t; verr=C3=A0 generato il file oggetto di comunicazione</FONT></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:172C9XJL2CHX71TYOQ7CDUUY45"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:100VWP7IZXEYP1J8B0DJINM7CM"></DIV>
 <DIV align=3D"left">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center"><A href=3D"pcc_wizard_calcolo.mht"><STRONG><FONT si=
@@ -328,9 +363,9 @@ umenti comunicati &gt;&gt;&gt;&gt;</A></FONT></STRONG></DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <A52S48J00JCUZK8J2BPB15M1>
+Content-Id: <A073N0L8G1PG19KCOM7LT09C1>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/invpcc.png
 
@@ -809,9 +844,9 @@ HNIhAAAAHNIhAAAAHNIhAAAAHNIhAAAAHNIhAAAAnLbpUNQDAABADz3t+AnSIQAA
 AAzSIQAAABzSIQAAABzSIQAAABzSIQAAAJxEOhRFAAAA6K04HbKxsbGxsbGxsfV8
 c+kQAAAA2Dj2jf8fNS9gYri37+kAAAAASUVORK5CYII==
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <12RYWRHKDEMF31DPR8UNL6H2VB>
+Content-Id: <3S0IIQINKPRUD19Y319VNPQJ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/precar.png
 
@@ -1297,9 +1332,9 @@ QNZq46A4AAAAgAw9/fgJ4iAAAEC+iIMAAABZIw4CAABkjTgIAACQNeIgAABA1mQc
 FP8DAABAtubY2NjY2NjY2Niy3jaO3QsAAIBMHbv3/wcdVKAoun5cUQAAAABJRU5E
 rkJggg===
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <1IDWOTUK5KW2R1XQAX70J147VT>
+Content-Id: <144IPPWJJPJA8LNARW7LBNF1K>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/cinzia.vino/Downloads/idsdi.png
 
@@ -1543,9 +1578,9 @@ MZoxAACDF6MZAwAweDGaMQAAgxejGQMAMHgxmjEAAIMXoxkDADB4MZoxAACDF6MZ
 AwAweDGaMQAAgxejGQMAMHgx19CMv/OD/w/6gyx6hCrbJgAAAABJRU5ErkJggg==
 =
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <5854M6LL70DE1VYYF08ZKIRA>
+Content-Id: <1RWR8EAJH8JLJGOLV9Y180A7RW>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/clp.png
 
@@ -1601,9 +1636,9 @@ lwZ0/xq4rO5/S0D3gTUheuQFUeijt46wNaIGrgjoPnAOoPvAmjA9CsoYKDm3gtB8
 xS8G+S1KhtgSsmTxkyGUBCHlSKavQyJmUfJIHT8kyiwLEa1sWMI7xU82fYpUytAM
 +qQcSbbiNlFyzE/2q/uH/wEYPL9aVR9SEQAAAABJRU5ErkJggg===
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <OU1N89M4RXFFMUOIWI1ANJ68U>
+Content-Id: <RFTMTKLT6WHF1QZNPGJ1K647AN>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/data.png
 
@@ -1787,9 +1822,9 @@ YAPAegAAsAFgPQAA2ACwHgAAbABYDwAANgCsBwAAGwDWAwCADQDrAQDABoD1AABg
 A8B6AACwAWA9AADYALAeAABsAFgPAACSU1Ly/6avv2wmke/nAAAAAElFTkSuQmCC
 =
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <DM0WD4LB3WU0Y5F4P11CQZ8I3>
+Content-Id: <183WC9FLLN7HH1JY4716MBBG38>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/ute.png
 
@@ -1835,9 +1870,9 @@ gTcDAAD4Am8GAADwBd4MAADgiz/y5tAZAAAAzk5juJYj3gwAAACvDN4MAADgC7wZ
 AADAF3gzAACAL/BmAAAAX+DNAAAAvsCbAQAAPPH8/B/qTVHqtwLa7gAAAABJRU5E
 rkJggg===
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <9JH2F6KJE6D2EXRIC914VOSHJ>
+Content-Id: <PCGJS5KLYI4HRSC1OV1EAS8XV>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/cart.png
 
@@ -1881,9 +1916,9 @@ AGCLJL83vsHM1kiczFZHAABsKTJbiZXZAADoJeXMVkdaIbMBADtAapkNAAC2Cu8b
 BwBAD2Q2AAB6ILMBANADmQ0AgB7IbAAA9EBmAwCgBzIbAAA9kNkAAOhAiP8BctCd
 vn8EsI0AAAAASUVORK5CYII==
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <189M0W6LE0I5B1AFYZ6DXIMED0>
+Content-Id: <12AFU3II1SJUG1X2O7M712YWO56>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/succ.png
 
@@ -2838,9 +2873,9 @@ CCGEkEuHipAQQggh5NJpKUK0EUIIIYSQC+Qz3/ReKkJCCCGEkIuGipAQQggh5NKh
 IiSEEEIIuXSoCAkhhBBCLh0qQkIIIYSQSycoQvw/QgghhBBysThFSKPRaDQajUa7
 XLu6+v8DA7+XDG58hIsAAAAASUVORK5CYII==
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <1D88ZJEJHAQC414O7NOAWR8TWX>
+Content-Id: <1R6D3GFJ0V0TJ13IDOY11BX750E>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/proc.png
 
@@ -3038,9 +3073,9 @@ GgIAEKQhAABBGgIAEKQhAABBGgIAEKQhAABBGgIAEKQhAAChVRqmQQAATKC9b90o
 DQEAyEhDAACCNAQAIEhDAACCNAQAIFTTMH0OAMDE6ktDm81ms9lsNtukb3kaAgAw
 6VY98P8BFpJL5PmlJcgAAAAASUVORK5CYII==
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F
 Content-Type: image/x-png
-Content-Id: <172C9XJL2CHX71TYOQ7CDUUY45>
+Content-Id: <100VWP7IZXEYP1J8B0DJINM7CM>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/Cinzia/Downloads/salv.png
 
@@ -3201,4 +3236,4 @@ Ao6EDwAAIOBI+AAAAAKOhA8AACDgSPgAAAACjoQPAAAg4Ej4AAAAAo6EDwAAIOBI
 +AAAAAKOhA8AACDgSPgAAAACjoQPAAAg4Ej4AAAAAo6EDwAAIOBI+AAAAAKOhA8A
 ACDQLOv/AZEWoIDm+155AAAAAElFTkSuQmCC=
 
------------blocknote.net--J53RJFLQ41X01L0M1LF11HF3BL--
+-----------blocknote.net--1XWCG6MK18QAT1R4PTX4RS354F--

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,18 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using metadatalibrary;
 using metaeasylibrary;
 using System.IO;
 
@@ -38,8 +26,12 @@ namespace EasyWebReport {
             string fname = Session["AttachmentFileName"] as string;
             object AttachmentFile = Session["AttachmentFile"];
             
-            if ((cmd == null) && (AttachmentFile == null)) return;
-            byte[] ByteArray = (byte[])AttachmentFile;
+            if ((cmd == null) && (AttachmentFile == null || AttachmentFile == DBNull.Value)) return;
+
+            byte[] ByteArray = null;
+
+            if (AttachmentFile != null || AttachmentFile != DBNull.Value)
+                ByteArray = (byte[])AttachmentFile;
 
             string MyGuid = Session.SessionID.ToString();
             string str;
@@ -57,7 +49,6 @@ namespace EasyWebReport {
                 prefix += "-" + Session["CodiceResponsabile"].ToString();
             }
 
-
             prefix = GetVars.GetUsrVar(this, "CodiceDipartimento").ToString() + "-" + prefix + "-";
             prefix = prefix.Replace("\\", "");
             prefix = prefix.Replace("/", "");
@@ -66,25 +57,44 @@ namespace EasyWebReport {
             prefix = prefix.Replace("$", "");
             prefix = prefix.Replace("%", "");
 
-
             FileName = prefix +  "-" + System.Guid.NewGuid().ToString() + fname;
 
-            string errmess;
-
             Easy_DataAccess Conn = GetVars.GetUserConn(this);
-            if (cmd != null){
+
+            if (cmd != null)
+            {
                 object doc = Conn.DO_SYS_CMD(cmd, true);
 
+                if (doc == null || doc == DBNull.Value)
+                {
+                    if (cmd.StartsWith("select attachment"))
+                    {
+                        cmd = cmd.Replace("select attachment", "select idfilestorage");
+                        doc = Conn.DO_SYS_CMD(cmd, true);
+                    }
 
-                if (doc == null || doc == DBNull.Value){
-                    Session["Messaggio"] = "Documento non trovato";
-                    Session["CloseWindow"] = true;
-                    Session["AttachmentCommand"] = null;
-                    Session["AttachmentFileName"] = null;
-                    Response.Redirect("Messaggio.aspx");
-                    return;
+                    if (doc == null || doc == DBNull.Value)
+                    {
+                        Session["Messaggio"] = "Documento non trovato";
+                        Session["CloseWindow"] = true;
+                        Session["AttachmentCommand"] = null;
+                        Session["AttachmentFileName"] = null;
+                        Response.Redirect("Messaggio.aspx");
+                        return;
+                    }
+                    else
+                    {
+                        int fromPos = cmd.IndexOf("from") + 5;
+                        int len = cmd.IndexOf("where") - fromPos;
+                        
+                        string TableName = cmd.Substring(fromPos, len).Trim();
+                        ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(Conn, TableName, doc.ToString()).GetAwaiter().GetResult();
+                    }
                 }
-                ByteArray = (byte[])doc;
+                else
+                {
+                    ByteArray = (byte[])doc;
+                }                
             }
 
             // Restituisce il percorso fisico locale della cartella ReportPDF  ex: c:\inetpub\wwwroot\.....

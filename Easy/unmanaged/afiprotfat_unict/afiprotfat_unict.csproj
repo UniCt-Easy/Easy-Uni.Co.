@@ -34,6 +34,9 @@
     <Reference Include="metadatalibrary">
       <HintPath>..\..\dll\metadatalibrary.dll</HintPath>
     </Reference>
+    <Reference Include="metaeasylibrary">
+      <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
+    </Reference>
     <Reference Include="meta_invoice">
       <HintPath>..\..\invoice\meta_invoice\bin\Debug\meta_invoice.dll</HintPath>
     </Reference>
@@ -63,7 +66,9 @@
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\DatiFatt.cs" />
+    <Compile Include="Models\InvoiceParameters.cs" />
     <Compile Include="Models\ProtResponse.cs" />
+    <Compile Include="Models\RegistryParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

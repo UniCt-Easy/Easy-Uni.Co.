@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -206,7 +204,7 @@ namespace flussocreditidetail_single {
         private void btnCheckIncassi_Click(object sender, EventArgs e) {
             DataRow curr = DS.flussocreditidetail.Rows[0];
             if (curr["iuv"] == DBNull.Value) {
-                show(this, @"Non Ë presente lo IUV per il credito, non Ë possibile interrogare la banca.",
+                show(this, @"Non √® presente lo IUV per il credito, non √® possibile interrogare la banca.",
                     @"Avviso");
                 return;
             }
@@ -216,7 +214,7 @@ namespace flussocreditidetail_single {
             if (Incassi.Rows.Count > 0) {
                 DataRow rIncasso = Incassi.Rows[0];
                 show(this,
-                    $@"E' gi‡ presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
+                    $@"E' gi√† presente un incasso collegato, nel flusso di codice {rIncasso["codiceflusso"]}.",
                     "Avviso");
                 //return;
             }
@@ -245,7 +243,7 @@ namespace flussocreditidetail_single {
         private void button5_Click(object sender, EventArgs e) {
             DataRow curr = DS.flussocreditidetail.Rows[0];
             if (curr["iuv"] == DBNull.Value) {
-                show(this, @"Non Ë presente lo IUV per il credito, non Ë possibile interrogare la banca.",
+                show(this, @"Non √® presente lo IUV per il credito, non √® possibile interrogare la banca.",
                     @"Avviso");
                 return;
             }
@@ -270,7 +268,7 @@ namespace flussocreditidetail_single {
 
             string cc = config.Rows[0]["email_cc"].ToString();
             //if (cc.Trim() == "") {
-            //    show("Non Ë stato configurato un indirizzo email in copia conoscenza");
+            //    show("Non √® stato configurato un indirizzo email in copia conoscenza");
             //    return;
             //}
             

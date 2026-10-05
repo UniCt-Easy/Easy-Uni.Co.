@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace avcptrasmission_default {
     partial class FrmNoTable_AvcpTrasmission {
@@ -163,7 +161,7 @@ namespace avcptrasmission_default {
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(264, 13);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Data dell’ultima modifica della pubblicazione dell’indice";
+            this.label5.Text = "Data dellâ€™ultima modifica della pubblicazione dellâ€™indice";
             // 
             // textBox6
             // 
@@ -270,7 +268,7 @@ namespace avcptrasmission_default {
             // 
             // folderAsk
             // 
-    //        this.folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente già presenti sara" +
+    //        this.folderAsk.Description = "Selezione della cartella dove creare i file. File eventualmente giÃ  presenti sara" +
     //"nno sovrascritti.";
             // 
             // tabMain

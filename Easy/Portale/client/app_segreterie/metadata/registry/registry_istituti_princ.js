@@ -10,7 +10,6 @@
 		this.canInsert = false;
 		this.canInsertCopy = false;
 		this.canCancel = false;
-		this.canShowLast = false;
 		this.firstSearchFilter = window.jsDataQuery.constant(true);
 		//pageHeaderDeclaration
     }
@@ -27,32 +26,49 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-registry_istituti_princ");
+				var arraydef = [];
+				
+				arraydef.push(this.manageregistry_istituti_princ_idistitutokind());
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				this.manageregistry_istituti_princ_idistitutokind();
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#istitutoprinc_default_idreg_dir'), null);
+				} else {
+					this.helpForm.filter($('#istitutoprinc_default_idreg_dir'), this.q.eq('getregistrydocentiamministrativi_active', 'Si'));
+				}
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#istitutoprinc_default_idreg_diramm'), null);
+				} else {
+					this.helpForm.filter($('#istitutoprinc_default_idreg_diramm'), this.q.eq('getregistrydocentiamministrativi_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-registry_istituti_istituti_princ");
+				var def = appMeta.Deferred("beforeFill-registry_istituti_princ");
 				var arraydef = [];
 				
-				var dt = this.state.DS.tables["registry_istituti"];
-				if (dt.rows.length === 0) {
-					var meta = appMeta.getMeta("registry_istituti");
-					meta.setDefaults(dt);
-					var defregistry_istituti = meta.getNewRow(parentRow.getRow(), dt, self.editType).then(
-						function (currentRowistituti) {
-							//defaultExtendingObject
-							return true;
-						}
-					);
-					arraydef.push(defregistry_istituti);
-				}
-
 				var dtistitutoprinc = this.state.DS.tables["istitutoprinc"];
 				if (dtistitutoprinc.rows.length === 0) {
 					var metaistitutoprinc = appMeta.getMeta("istitutoprinc");
@@ -80,6 +96,8 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.helpForm.filter($('#istitutoprinc_default_idreg_dir'), null);
+				this.helpForm.filter($('#istitutoprinc_default_idreg_diramm'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('aoo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('registry'), this.getDataTable('struttura'));
 				//afterClearin
@@ -120,6 +138,10 @@
 			//insertClick
 
 			//beforePost
+
+			manageregistry_istituti_princ_idistitutokind: function () {
+this.state.currentRow.idistitutokind = this.state.DS.tables.istitutoprinc.rows[0].idistitutokind ;
+			},
 
 			//buttons
         });

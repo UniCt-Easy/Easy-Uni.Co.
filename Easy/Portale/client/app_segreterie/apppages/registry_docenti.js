@@ -21,15 +21,29 @@
                return this.name;
 			},
 
-			//isValidFunction
+			manageValidResult: function (rowToCheck) {
+				var loc = appMeta.localResource;
+				var def = appMeta.Deferred("isValid-registry_docenti");
+				var firstErrorObj;
+
+				if (rowToCheck.table.dataset.tables["registrymultikindregistry"] && this.getNotDeletedRows(rowToCheck.table.dataset.tables["registrymultikindregistry"]).length < 1) {
+					firstErrorObj = { warningMsg: "", errMsg: loc.getMinNumRowRequired("", 1), errField: "XXregistrymultikindregistry", row: rowToCheck, outCaption: "Tipo anagrafica" };
+					return def.resolve(firstErrorObj);
+				}
+				//$isValid$
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+			},
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+			if (self.isNullOrMinDate(parentRow.birthdate))
+				parentRow.birthdate = new Date();
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_docenti_idstruttura'), null);
 				} else {
@@ -72,6 +86,7 @@
 				//parte sincrona
 				this.helpForm.filter($('#registry_docenti_idstruttura'), null);
 				this.helpForm.filter($('#registry_docenti_idreg_istituti'), null);
+				this.enableControl($('#registry_docenti_idreg'), true);
 				this.helpForm.filter($('#registry_docenti_idaccmotivedebit'), null);
 				this.helpForm.filter($('#registry_docenti_idaccmotivecredit'), null);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('affidamento'), this.getDataTable('affidamentocaratteristica'));
@@ -89,19 +104,28 @@
 				this.configureDependencies();
 				this.state.DS.tables.registry.defaults({ 'extension': 'docenti' });
 				this.state.DS.tables.registry.defaults({ 'idcentralizedcategory': '01' });
+				this.state.DS.tables.registry.defaults({ 'idnation': 1 });
 				this.state.DS.tables.registry.defaults({ 'idregistryclass': '22' });
 				this.state.DS.tables.registry.defaults({ 'idregistrykind': 8 });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
+				this.state.DS.tables.registry.defaults({ 'active': 'S' });
+				this.state.DS.tables.registry.defaults({ 'residence': 1 });
+				this.state.DS.tables.registry.defaults({ 'authorization_free': 'N' });
+				this.state.DS.tables.registry.defaults({ 'multi_cf': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flagbankitaliaproceeds': 'N' });
+				this.state.DS.tables.registry.defaults({ 'flag_pa': 'N' });
+				this.state.DS.tables.registry.defaults({ 'sdi_norifamm': 'N' });
 				$("#btn_add_publicazregistry_docenti_idpublicaz").on("click", _.partial(this.searchAndAssignpublicaz, self));
 				$("#btn_add_publicazregistry_docenti_idpublicaz").prop("disabled", true);
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar62').fullCalendar('rerenderEvents');
+					$('#calendar69').fullCalendar('rerenderEvents');
 				});
 				this.setDenyNull("registry","surname");
 				this.setDenyNull("registry","forename");
 				this.setDenyNull("registry","gender");
+				this.setDenyNull("registry","birthdate");
 				appMeta.metaModel.insertFilter(this.getDataTable("title"), this.q.eq('active', 'S'));
-				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatus"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("maritalstatusdefaultview"), this.q.eq('maritalstatus_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("registryclasspersoneview"), this.q.eq('registryclass_active', 'Si'));
 				appMeta.metaModel.insertFilter(this.getDataTable("residence"), this.q.eq('active', 'S'));
 				$('#grid_registrylegalstatus_default').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagdefault,S,Si;flagdefault,N,No;tempdef,S,Si;tempdef,N,No;tempindet,S,Si;tempindet,N,No;');
@@ -109,6 +133,7 @@
 				$('#grid_registryaddress_seg').data('mdlconditionallookup', 'active,S,Si;active,N,No;flagforeign,S,Si;flagforeign,N,No;');
 				$('#grid_registryreference_persone').data('mdlconditionallookup', 'flagdefault,S,Si;flagdefault,N,No;');
 				$('#grid_affidamento_seg').data('mdlconditionallookup', 'freqobbl,S,Si;freqobbl,N,No;gratuito,S,Si;gratuito,N,No;riferimento,S,Si;riferimento,N,No;');
+				$('#grid_rendicontattivitaprogetto_anag').data('mdlconditionallookup', 'rendicontatutto,S,Si;rendicontatutto,N,No;');
 				$('#grid_progettotimesheet_default').data('mdlconditionallookup', 'multilinetype,S,Si;multilinetype,N,No;output,P,PDF;output,F,PDF firmato;output,X,Excel;');
 				var grid_affidamento_segChildsTables = [
 					{ tablename: 'affidamentocaratteristica', edittype: 'seg', columnlookup: 'json', columncalc: '!affidamentocaratteristica'},
@@ -154,6 +179,8 @@
 				this.getDataTable('contrattostipendioview').acceptChanges();
 				//innerBeforePost
 			},
+
+			//afterPost
 
 			configureDependencies:function () {
 				var p1 = $("input[data-tag='registry.surname?registrydocentiview.registry_surname']");
@@ -203,6 +230,7 @@
 					columnSource: "idpublicaz",
 					columnToFill: "idpublicaz",
 					tableToFill: "publicazregistry_docenti"
+
 				});
 			},
 

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -75,6 +73,12 @@ private void initClass() {
 	tsalelenchiview.defineColumn("dropdown_title", typeof(string),false);
 	tsalelenchiview.defineColumn("idprogetto", typeof(int),false);
 	tsalelenchiview.defineColumn("idsal", typeof(int),false);
+	tsalelenchiview.defineColumn("numerosal", typeof(int));
+	tsalelenchiview.defineColumn("sal_autoassociazione", typeof(string));
+	tsalelenchiview.defineColumn("sal_budget", typeof(decimal));
+	tsalelenchiview.defineColumn("sal_datablocco", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_start", typeof(DateTime));
+	tsalelenchiview.defineColumn("sal_stop", typeof(DateTime));
 	Tables.Add(tsalelenchiview);
 	tsalelenchiview.defineKey("idprogetto", "idsal");
 
@@ -86,7 +90,6 @@ private void initClass() {
 	trendicontattivitaprogettopersonaleview.defineColumn("idrendicontattivitaprogetto", typeof(int),false);
 	trendicontattivitaprogettopersonaleview.defineColumn("idrendicontattivitaprogettokind", typeof(int));
 	trendicontattivitaprogettopersonaleview.defineColumn("idworkpackage", typeof(int),false);
-	trendicontattivitaprogettopersonaleview.defineColumn("registry_title", typeof(string));
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_ct", typeof(DateTime),false);
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_cu", typeof(string),false);
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_datainizioprevista", typeof(DateTime));
@@ -94,6 +97,7 @@ private void initClass() {
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_lt", typeof(DateTime),false);
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_lu", typeof(string),false);
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_orepreventivate", typeof(int));
+	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_rendicontatutto", typeof(string));
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogetto_stop", typeof(DateTime));
 	trendicontattivitaprogettopersonaleview.defineColumn("rendicontattivitaprogettokind_title", typeof(string));
 	Tables.Add(trendicontattivitaprogettopersonaleview);

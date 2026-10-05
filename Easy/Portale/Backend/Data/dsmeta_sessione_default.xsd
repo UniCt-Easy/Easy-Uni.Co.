@@ -9,6 +9,13 @@
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idsessionekind" type="xs:int" />
               <xs:element name="sessionekind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="sessionekind_ct" type="xs:dateTime" />
+              <xs:element name="sessionekind_cu" type="xs:string" />
+              <xs:element name="sessionekind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="sessionekind_lt" type="xs:dateTime" />
+              <xs:element name="sessionekind_lu" type="xs:string" />
+              <xs:element name="sessionekind_sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -16,8 +23,13 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="appellokind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_description" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_lt" type="xs:dateTime" />
+              <xs:element name="appellokind_lu" type="xs:string" />
+              <xs:element name="appellokind_sortcode" type="xs:int" />
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idappellokind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

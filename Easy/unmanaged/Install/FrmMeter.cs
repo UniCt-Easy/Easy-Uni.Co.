@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -29,7 +27,8 @@ namespace Install//Install//
 	/// </summary>
 	public class FrmMeter : MetaDataForm
 	{
-		public System.Windows.Forms.ProgressBar pBar;
+		// Rimuovo la progress bar, se dovesse servire bisogna farla async
+		//public System.Windows.Forms.ProgressBar pBar;
 		private System.Windows.Forms.Label label1;
 		/// <summary>
 		/// Required designer variable.
@@ -72,20 +71,20 @@ namespace Install//Install//
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.pBar = new System.Windows.Forms.ProgressBar();
+			//this.pBar = new System.Windows.Forms.ProgressBar();
 			this.label1 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// pBar
 			// 
-			this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.pBar.Location = new System.Drawing.Point(0, 8);
-			this.pBar.Name = "pBar";
-			this.pBar.Size = new System.Drawing.Size(528, 23);
-			this.pBar.Step = 1;
-			this.pBar.TabIndex = 1;
+			//this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			//	| System.Windows.Forms.AnchorStyles.Left) 
+			//	| System.Windows.Forms.AnchorStyles.Right)));
+			//this.pBar.Location = new System.Drawing.Point(0, 8);
+			//this.pBar.Name = "pBar";
+			//this.pBar.Size = new System.Drawing.Size(528, 23);
+			//this.pBar.Step = 1;
+			//this.pBar.TabIndex = 1;
 			// 
 			// label1
 			// 
@@ -100,7 +99,7 @@ namespace Install//Install//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(536, 61);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.pBar);
+			//this.Controls.Add(this.pBar);
 			this.Name = "FrmMeter";
 			this.Text = "Copia del database in corso";
 			this.TopMost = true;

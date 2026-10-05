@@ -5,10 +5,16 @@
 		<a href="#tabcanale_erogata_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_0"><i class="fa fa-chart-pie mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcanale_erogata_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_1"><i class="fa fa-arrows-alt-h mr-1"></i>Mutuazione o fruizione</a>
+		<a href="#tabcanale_erogata_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_2"><i class="fa fa-arrows-alt-h mr-1"></i>Mutuazione o fruizione</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabcanale_erogata_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_2"><i class="fa fa-chalkboard-teacher mr-1"></i>Affidamento</a>
+		<a href="#tabcanale_erogata_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_1"><i class="fa fa-people-arrows mr-1"></i>Studenti inseriti nel canale</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcanale_erogata_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_3"><i class="fa fa-chalkboard-teacher mr-1"></i>Affidamenti ai docenti</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabcanale_erogata_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabcanale_erogata_4"><i class="fa fa-file-signature mr-1"></i>Tutti gli iscritti inseribili nel canale</a>
 	</li>
 
 	</ul>
@@ -37,11 +43,42 @@
 			</div>
 					<input hidden id="canale_erogata_idsede" type="text" class="form-control" data-tag="canale.idsede?canaleerogataview.canale_idsede"  />
 	</div>
-	<div class="tab-pane fade" id="tabcanale_erogata_1" role="tabpanel">
+	<div class="tab-pane fade" id="tabcanale_erogata_2" role="tabpanel">
 				<div class="gridx" id="grid_mutuazione_default" data-tag="mutuazione.default.default" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabcanale_erogata_2" role="tabpanel">
+	<div class="tab-pane fade" id="tabcanale_erogata_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-12">
+					<label class="col-form-label col-md-12" for="canale_erogata_filtrostud">Filtra gli studenti per</label>
+					<div class="custom-control custom-radio">
+						<div class="radio-option-wrapper"><input id="canale_erogata_filtrostudT" type="radio" name="canale_erogata_filtrostud" class="custom-control-input" data-tag="canale.!filtrostud:T?canaleerogataview.!filtrostud:Tutti"  ><label for="canale_erogata_filtrostudT"> Tutti</label></div>
+						<div class="radio-option-wrapper"><input id="canale_erogata_filtrostudI" type="radio" name="canale_erogata_filtrostud" class="custom-control-input" data-tag="canale.!filtrostud:I?canaleerogataview.!filtrostud:Solo studenti iscritti alla didattica programmata"  ><label for="canale_erogata_filtrostudI"> Solo studenti iscritti alla didattica programmata</label></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="custom_lng_div" data-langkey="fieldlabelcanale_default_XXcanaleregistry" >Studenti inseriti nel canale</div>
+			<div class="row">
+				<div class="col-md-9">
+					<input id="txt_canaleregistry_idreg" type="text" class="form-control" placeholder="..." aria-label="Search" />
+				</div>
+				<div class="col-md-3">
+					<button id="btn_add_canaleregistry_idreg" type="button" class="btn btn-primary p-2 mt-1">
+						<i class="fas fa-search-plus mr-1"></i> Cerca e aggiungi Studenti inseriti nel canale
+					</button>
+				</div>
+			</div>
+			<hr>
+				<div class="gridx" id="grid_canaleregistry_default" data-tag="canaleregistry.default.default" data-custom-control="gridx" data-mdlbuttondelete data-mdlbuttonedit  ></div>
+				</div>
+			</div>
+	</div>
+	<div class="tab-pane fade" id="tabcanale_erogata_3" role="tabpanel">
 				<div class="gridx" id="grid_affidamento_default" data-tag="affidamento.default.default" data-custom-control="gridxchild"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+	<div class="tab-pane fade" id="tabcanale_erogata_4" role="tabpanel">
+				<div class="gridx" id="grid_iscrizione_diderog" data-tag="iscrizione.diderog.diderog" data-custom-control="gridx" ></div>
 	</div>
 </div>
 </form>

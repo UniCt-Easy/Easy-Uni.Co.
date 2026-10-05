@@ -28,16 +28,34 @@
 
 			//isValidFunction
 
-			//afterGetFormData
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				if (self.isNullOrMinDate(parentRow.birthdate))
+				parentRow.birthdate = new Date();
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-registry_docenti_docente");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
 			
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.birthdate))
-					parentRow.birthdate = new Date();
-								_.forEach(this.getDataTable("rendicontaltro").rows, function (r) {
+				_.forEach(this.getDataTable("rendicontaltro").rows, function (r) {
 					var title = r.ore + ' ore';
 					if(r.idrendicontaltrokind) {
 						var tipoRows = self.getDataTable("rendicontaltrokind").select(self.q.eq('idrendicontaltrokind', r.idrendicontaltrokind));
@@ -46,7 +64,8 @@
 						}
 					}
 					r['!title'] = title;
-				});				if (this.state.isSearchState()) {
+				});
+				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#registry_docenti_docente_idtitle'), null);
 				} else {
 					this.helpForm.filter($('#registry_docenti_docente_idtitle'), this.q.eq('active', 'S'));
@@ -135,10 +154,10 @@
 				this.state.DS.tables.registry.defaults({ 'idregistrykind': 8 });
 				this.state.DS.tables.registry.defaults({ 'residence': 1 });
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar61').fullCalendar('rerenderEvents');
+					$('#calendar68').fullCalendar('rerenderEvents');
 				});
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar62').fullCalendar('rerenderEvents');
+					$('#calendar69').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);
@@ -281,7 +300,7 @@
 							{
 								endDate: stop,
 								minDateValue: start,
-								maxHours: 1500, //massimo ore lavorabili per docente per anno
+								//maxHours: 1500, //massimo ore lavorabili per docente per anno
 								tableNameSchedule: 'rendicontaltro',
 								columnDate: 'data',
 								columnOre: 'ore',

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -35,9 +33,6 @@ public partial class dsmeta_learningagrstud_seg: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidante 		=> (MetaTable)Tables["convalidante"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable convalidakind 		=> (MetaTable)Tables["convalidakind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalida 		=> (MetaTable)Tables["convalida"];
@@ -73,7 +68,7 @@ public partial class dsmeta_learningagrstud_seg: DataSet {
 	public MetaTable eqf 		=> (MetaTable)Tables["eqf"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registryistitutiesteriview 		=> (MetaTable)Tables["registryistitutiesteriview"];
+	public MetaTable registrydefaultview 		=> (MetaTable)Tables["registrydefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable learningagrkinddefaultview 		=> (MetaTable)Tables["learningagrkinddefaultview"];
@@ -157,14 +152,6 @@ private void initClass() {
 	Tables.Add(tconvalidante);
 	tconvalidante.defineKey("idconvalida", "idconvalidante", "idiscrizionebmi", "idlearningagrstud", "idreg");
 
-	//////////////////// CONVALIDAKIND /////////////////////////////////
-	var tconvalidakind= new MetaTable("convalidakind");
-	tconvalidakind.defineColumn("active", typeof(string),false);
-	tconvalidakind.defineColumn("idconvalidakind", typeof(int),false);
-	tconvalidakind.defineColumn("title", typeof(string),false);
-	Tables.Add(tconvalidakind);
-	tconvalidakind.defineKey("idconvalidakind");
-
 	//////////////////// CONVALIDA /////////////////////////////////
 	var tconvalida= new MetaTable("convalida");
 	tconvalida.defineColumn("cf", typeof(decimal));
@@ -189,7 +176,6 @@ private void initClass() {
 	tconvalida.defineColumn("voto", typeof(decimal));
 	tconvalida.defineColumn("votolode", typeof(string));
 	tconvalida.defineColumn("votosu", typeof(int));
-	tconvalida.defineColumn("!idconvalidakind_convalidakind_title", typeof(string));
 	tconvalida.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tconvalida);
 	tconvalida.defineKey("idconvalida", "idiscrizionebmi", "idlearningagrstud", "idreg");
@@ -328,13 +314,13 @@ private void initClass() {
 	Tables.Add(teqf);
 	teqf.defineKey("ideqf");
 
-	//////////////////// REGISTRYISTITUTIESTERIVIEW /////////////////////////////////
-	var tregistryistitutiesteriview= new MetaTable("registryistitutiesteriview");
-	tregistryistitutiesteriview.defineColumn("dropdown_title", typeof(string),false);
-	tregistryistitutiesteriview.defineColumn("idreg", typeof(int),false);
-	tregistryistitutiesteriview.defineColumn("registry_active", typeof(string));
-	Tables.Add(tregistryistitutiesteriview);
-	tregistryistitutiesteriview.defineKey("idreg");
+	//////////////////// REGISTRYDEFAULTVIEW /////////////////////////////////
+	var tregistrydefaultview= new MetaTable("registrydefaultview");
+	tregistrydefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tregistrydefaultview.defineColumn("idreg", typeof(int),false);
+	tregistrydefaultview.defineColumn("registry_active", typeof(string));
+	Tables.Add(tregistrydefaultview);
+	tregistrydefaultview.defineKey("idreg");
 
 	//////////////////// LEARNINGAGRKINDDEFAULTVIEW /////////////////////////////////
 	var tlearningagrkinddefaultview= new MetaTable("learningagrkinddefaultview");
@@ -387,10 +373,6 @@ private void initClass() {
 	cChild = new []{convalidante.Columns["idconvalida"], convalidante.Columns["idiscrizionebmi"], convalidante.Columns["idlearningagrstud"], convalidante.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalidante_convalida_idconvalida-idiscrizionebmi-idlearningagrstud-idreg",cPar,cChild,false));
 
-	cPar = new []{convalidakind.Columns["idconvalidakind"]};
-	cChild = new []{convalida.Columns["idconvalidakind"]};
-	Relations.Add(new DataRelation("FK_convalida_convalidakind_idconvalidakind",cPar,cChild,false));
-
 	cPar = new []{learningagrstud.Columns["idiscrizionebmi"], learningagrstud.Columns["idlearningagrstud"]};
 	cChild = new []{cefrlanglevel.Columns["idiscrizionebmi"], cefrlanglevel.Columns["idlearningagrstud"]};
 	Relations.Add(new DataRelation("FK_cefrlanglevel_learningagrstud_idiscrizionebmi-idlearningagrstud",cPar,cChild,false));
@@ -431,9 +413,9 @@ private void initClass() {
 	cChild = new []{learningagrstud.Columns["ideqf"]};
 	Relations.Add(new DataRelation("FK_learningagrstud_eqf_ideqf",cPar,cChild,false));
 
-	cPar = new []{registryistitutiesteriview.Columns["idreg"]};
+	cPar = new []{registrydefaultview.Columns["idreg"]};
 	cChild = new []{learningagrstud.Columns["idreg_istitutiesteri"]};
-	Relations.Add(new DataRelation("FK_learningagrstud_registryistitutiesteriview_idreg_istitutiesteri",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_learningagrstud_registrydefaultview_idreg_istitutiesteri",cPar,cChild,false));
 
 	cPar = new []{learningagrkinddefaultview.Columns["idlearningagrkind"]};
 	cChild = new []{learningagrstud.Columns["idlearningagrkind"]};

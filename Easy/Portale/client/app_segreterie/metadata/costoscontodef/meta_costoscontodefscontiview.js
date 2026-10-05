@@ -23,8 +23,8 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'sconti':
-						this.describeAColumn(table, 'title', 'Titolo', null, 20, 2024);
-						this.describeAColumn(table, 'costoscontodefparent_title', 'Relativo al costo', null, 40, 2024);
+						this.describeAColumn(table, 'title', 'Titolo', null, 2000, 2024);
+						this.describeAColumn(table, 'costoscontodefparent_title', 'Relativo al costo', null, 4200, 2024);
 //$objCalcFieldConfig_sconti$
 						break;
 //$objCalcFieldConfig$

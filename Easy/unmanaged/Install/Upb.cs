@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using metadatalibrary;
@@ -2292,7 +2290,9 @@ namespace Install
                 //int nFondiSforati = CfgFn.GetNoNullInt32(SourceConn.DO_SYS_CMD(query, true));
                 DataTable tFondiSforati = SourceConn.SQLRunner(query, true, TIMEOUT);
                 if (tFondiSforati.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(tFondiSforati, "Le seguenti suddivisioni hanno una previsione negativa:", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(tFondiSforati, "Le seguenti suddivisioni hanno una previsione negativa:", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if (dr != DialogResult.Yes) return false;
                 }
 
@@ -2474,7 +2474,9 @@ namespace Install
 
                 DataTable tCapitoloCalderoneConPrevNegativa_S = SourceConn.SQLRunner(query, true, TIMEOUT);
                 if (tCapitoloCalderoneConPrevNegativa_S.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(tCapitoloCalderoneConPrevNegativa_S, "I seguenti capitoli di spesa non hanno sufficiente previsione per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(tCapitoloCalderoneConPrevNegativa_S, "I seguenti capitoli di spesa non hanno sufficiente previsione per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if (dr != DialogResult.Yes) return false;
                 }
 
@@ -2653,7 +2655,9 @@ namespace Install
                 }
                 DataTable tCapitoloCalderoneConPrevNegativa_E = SourceConn.SQLRunner(query, true, TIMEOUT);
                 if (tCapitoloCalderoneConPrevNegativa_E.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(tCapitoloCalderoneConPrevNegativa_E, "I seguenti capitoli di entrata non hanno sufficiente previsione per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(tCapitoloCalderoneConPrevNegativa_E, "I seguenti capitoli di entrata non hanno sufficiente previsione per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if (dr != DialogResult.Yes) return false;
                 }
 
@@ -2663,8 +2667,10 @@ namespace Install
                         "  isnull(E.importo,0)<>isnull(I.importo,0)";
                 DataTable EntrateConImpEsercizioIncoerente = SourceConn.SQLRunner(query, true, TIMEOUT);
                 if(EntrateConImpEsercizioIncoerente.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(EntrateConImpEsercizioIncoerente, 
-                        "I seguenti mov. di entrata risultano avere un importo esercizio incoerente con quello della prima imputazione", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(EntrateConImpEsercizioIncoerente,
+						"I seguenti mov. di entrata risultano avere un importo esercizio incoerente con quello della prima imputazione", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if(dr != DialogResult.Yes) return false;
                 }
 
@@ -2720,7 +2726,9 @@ namespace Install
                     " HAVING ISNULL(AVG(TB.totvarcrediti),0) + ISNULL(AVG(TB.totasscrediti),0) - SUM(tab.differenza) < 0";
                 DataTable tCapitoloCalderoneConCreditiNegativi = SourceConn.SQLRunner(qCrediti, true, TIMEOUT);
                 if (tCapitoloCalderoneConCreditiNegativi.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(tCapitoloCalderoneConCreditiNegativi, "I seguenti capitoli di spesa non hanno sufficienti crediti per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(tCapitoloCalderoneConCreditiNegativi, "I seguenti capitoli di spesa non hanno sufficienti crediti per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if (dr != DialogResult.Yes) return false;
                 }
 
@@ -2775,7 +2783,9 @@ namespace Install
                     " HAVING ISNULL(AVG(TB.totvarcassa),0) + ISNULL(AVG(TB.totasscassa),0) - SUM(tab.differenza) < 0";
                 DataTable tCapitoloCalderoneConIncassiNegativi = SourceConn.SQLRunner(qIncassi, true, TIMEOUT);
                 if (tCapitoloCalderoneConIncassiNegativi.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(tCapitoloCalderoneConIncassiNegativi, "I seguenti capitoli di entrata non hanno sufficiente incassi per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(tCapitoloCalderoneConIncassiNegativi, "I seguenti capitoli di entrata non hanno sufficiente incassi per stornare i fondi se si procedesse si avrebbero questi valori:", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if (dr != DialogResult.Yes) return false;
                 }
 
@@ -2785,8 +2795,10 @@ namespace Install
                        "  isnull(S.importo,0)<>isnull(I.importo,0)";
                 DataTable SpeseConImpEsercizioIncoerente = SourceConn.SQLRunner(query, true, TIMEOUT);
                 if(SpeseConImpEsercizioIncoerente.Rows.Count > 0) {
-                    DialogResult dr = new FrmErrore(SpeseConImpEsercizioIncoerente,
-                        "I seguenti mov. di spesa risultano avere un importo esercizio incoerente con quello della prima imputazione", "Si vuole proseguire?").ShowDialog(form);
+					FrmErrore fe = new FrmErrore(SpeseConImpEsercizioIncoerente,
+						"I seguenti mov. di spesa risultano avere un importo esercizio incoerente con quello della prima imputazione", "Si vuole proseguire?");
+					MetaFactory.factory.getSingleton<IFormCreationListener>().create(fe, null);
+					DialogResult dr = fe.ShowDialog(form);
                     if(dr != DialogResult.Yes) return false;
                 }
 

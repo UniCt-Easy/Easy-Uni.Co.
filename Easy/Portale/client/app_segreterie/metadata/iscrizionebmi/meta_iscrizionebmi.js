@@ -26,7 +26,7 @@
 					case 'seg':
 						this.describeAColumn(table, 'data', 'Data', 'g', 20, null);
 						this.describeAColumn(table, '!idiscrizione_iscrizione_anno', 'Anno di corso Iscrizione', null, 51, null);
-						this.describeAColumn(table, '!idiscrizione_iscrizione_aa', 'Anno accademico Iscrizione', null, 53, null);
+						this.describeAColumn(table, '!idiscrizione_iscrizione_aa', 'Anno accademico Iscrizione', null, 52, null);
 						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Denominazione Iscrizione', null, 51, null);
 						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_aa', 'Anno accademico Iscrizione', null, 52, null);
 						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_idsede', 'Sede Iscrizione', null, 53, null);

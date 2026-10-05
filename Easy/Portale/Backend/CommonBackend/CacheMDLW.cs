@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using Backend.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -26,6 +24,19 @@ using System.Web;
 
 namespace Backend.CommonBackend {
     public static class CacheMDLW {
+
+        private static bool _securityCacheEnabled = false;
+        private static bool _metadataCacheEnabled = true;
+
+        public static bool SecurityCacheEnabled {
+            get => _securityCacheEnabled;
+            set => _securityCacheEnabled = value;
+        }
+
+        public static bool MetadataCacheEnabled {
+            get => _metadataCacheEnabled;
+            set => _metadataCacheEnabled = value;
+        }
 
         /// <summary>
         /// Object address for sys_user, cointains the securitycondition and the counter, of the user that have that sec cond.
@@ -77,7 +88,7 @@ namespace Backend.CommonBackend {
 
         /// <summary>
         /// dbStructureCache rappresenta la cache con la struttura delle tabelle.
-        /// per ogni chiave nome tabella sar� associato un dataset con le tabelle di strututra
+        /// per ogni chiave nome tabella sarà associato un dataset con le tabelle di strututra
         /// </summary>
         public static Dictionary<string, dbstructure> dbStructureCache { get; set; }
 
@@ -114,13 +125,14 @@ namespace Backend.CommonBackend {
         /// <param name="sys_user"></param> string. the key of the dictionary. is the sys_user on virtual user table
         /// <param name="groupOperations"></param> SecurityConditions.
         public static void addUtilizer(string sys_user, string idreg, SecurityConditions groupOperations) {
+            if (!SecurityCacheEnabled) return; // non fare niente se disabilitata
             securityConditionResource secCondResource;
             sys_user = normalizeSysUser(sys_user);
             if (groupOperationsDictCache.ContainsKey(sys_user)) {
                 // leggo dalla cache per aumentare il num di utilizzatori
                 secCondResource = groupOperationsDictCache[sys_user];
             } else {
-                // non � presente, aggiungo in cache
+                // non è presente, aggiungo in cache
                 secCondResource = new securityConditionResource(groupOperations);
                 groupOperationsDictCache[sys_user] = secCondResource;
             }
@@ -146,6 +158,7 @@ namespace Backend.CommonBackend {
         /// <param name="sys_user"></param>
         /// <returns></returns>
         public static SecurityConditions getGroupOperations(string sys_user) {
+            if (!SecurityCacheEnabled) return null; // non fare niente se disabilitata
             sys_user = normalizeSysUser(sys_user);
             if (groupOperationsDictCache.ContainsKey(sys_user)) {
                 securityConditionResource secCondResource = groupOperationsDictCache[sys_user];
@@ -155,6 +168,7 @@ namespace Backend.CommonBackend {
         }
 
         public static void removeUserFromGroupOperationsDictCache(string sys_user) {
+            if (!SecurityCacheEnabled) return; // non fare niente se disabilitata
             sys_user = normalizeSysUser(sys_user);
             groupOperationsDictCache.Remove(sys_user);
         }
@@ -165,6 +179,7 @@ namespace Backend.CommonBackend {
             /// </summary>
             /// <param name="sys_user"></param>
         public static void removeUtilizer(string sys_user, string idreg) {
+            if (!SecurityCacheEnabled) return; // non fare niente se disabilitata
             sys_user = normalizeSysUser(sys_user);
             if (groupOperationsDictCache.ContainsKey(sys_user)) {
                 securityConditionResource res = groupOperationsDictCache[sys_user];
@@ -175,11 +190,16 @@ namespace Backend.CommonBackend {
         }
 
         public static void manageMetaDataPortaleCache(IEasyDataAccess conn) {
+            // se la cache è disabilitata, popoliamo sempre
+            // se la cache è abilitata, popoliamo solo se non è già popolata
+            bool shouldPopulate = !MetadataCacheEnabled ||
+                metaDataCache_tablesManaged == null || metaDataCache_tablesManaged.Count == 0 ||
+                metaDataCache_primaryKey == null || metaDataCache_primaryKey.Count == 0 ||
+                metaDataCache_staticFilter == null || metaDataCache_staticFilter.Count == 0 ||
+                metaDataCache_sorting == null || metaDataCache_sorting.Count == 0;
 
-            // Eseguo le query per popolare la cache con
-            // 1. tabella con le tabelle gestite con metadato portale
-            // 2. tabella con le primary key dei metadati
-            // 3. tabella con le stringhe degli static filter.
+            if (!shouldPopulate) return;
+
             DataSet ds = new dsmeta_metadatamanagedtable();
             var selList = new List<SelectBuilder>();
             string managedtable = "metadatamanagedtable";
@@ -197,28 +217,25 @@ namespace Backend.CommonBackend {
             selList.Add(sbsorting);
             conn.MULTI_RUN_SELECT(selList);
 
-            // dichiaro le colonne da accedere, per indicizzare le dictionary
             string col_tablename = "tablename";
             string col_primarykey = "primarykey";
             string col_listtype = "listtype";
             string col_staticfilter = "staticfilter";
             string col_sorting = "sorting";
 
-            // carico le dictionary a partire dal dataset
-            CacheMDLW.metaDataCache_tablesManaged = ds.Tables[managedtable].AsEnumerable()
-                .ToDictionary<DataRow, string, string>(row => row.Field<string>(col_tablename), row => row.Field<string>(col_tablename));
+            metaDataCache_tablesManaged = ds.Tables[managedtable].AsEnumerable()
+                .ToDictionary(row => row.Field<string>(col_tablename), row => row.Field<string>(col_tablename));
 
-            CacheMDLW.metaDataCache_primaryKey = ds.Tables[primarykey].AsEnumerable()
-                .ToDictionary<DataRow, string, string>(row => row.Field<string>(col_tablename), row => row.Field<string>(col_primarykey));
+            metaDataCache_primaryKey = ds.Tables[primarykey].AsEnumerable()
+                .ToDictionary(row => row.Field<string>(col_tablename), row => row.Field<string>(col_primarykey));
 
-            CacheMDLW.metaDataCache_staticFilter = ds.Tables[staticfilter].AsEnumerable()
-                .ToDictionary<DataRow, (string, string), string>(row => (row.Field<string>(col_tablename), row.Field<string>(col_listtype)),
+            metaDataCache_staticFilter = ds.Tables[staticfilter].AsEnumerable()
+                .ToDictionary(row => (row.Field<string>(col_tablename), row.Field<string>(col_listtype)),
                 row => row.Field<string>(col_staticfilter));
 
-            CacheMDLW.metaDataCache_sorting = ds.Tables[sorting].AsEnumerable()
-                .ToDictionary<DataRow, (string, string), string>(row => (row.Field<string>(col_tablename), row.Field<string>(col_listtype)),
+            metaDataCache_sorting = ds.Tables[sorting].AsEnumerable()
+                .ToDictionary(row => (row.Field<string>(col_tablename), row.Field<string>(col_listtype)),
                 row => row.Field<string>(col_sorting));
-
         }
    
 

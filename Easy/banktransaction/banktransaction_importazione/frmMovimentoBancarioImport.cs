@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -52,7 +50,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 		private System.Windows.Forms.Button buttonOpenFile;
 		private System.Windows.Forms.Label labelFileImportato;
 		private System.Windows.Forms.DataGrid dataGridMovimentoBancario;
-		private System.Windows.Forms.ProgressBar progressBar1;
+		//private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Button buttonInterrompi;
 		private System.Windows.Forms.Button buttonScriviSulDB;
 		private System.Windows.Forms.Button buttonLegenda;
@@ -101,7 +99,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 			this.buttonOpenFile = new System.Windows.Forms.Button();
 			this.labelFileImportato = new System.Windows.Forms.Label();
 			this.dataGridMovimentoBancario = new System.Windows.Forms.DataGrid();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			//this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.buttonInterrompi = new System.Windows.Forms.Button();
 			this.buttonScriviSulDB = new System.Windows.Forms.Button();
 			this.buttonLegenda = new System.Windows.Forms.Button();
@@ -149,13 +147,13 @@ namespace banktransaction_importazione//movimentobancario_import//
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(8, 256);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(400, 23);
-			this.progressBar1.TabIndex = 10;
-			this.progressBar1.Visible = false;
+			//this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			//	| System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBar1.Location = new System.Drawing.Point(8, 256);
+			//this.progressBar1.Name = "progressBar1";
+			//this.progressBar1.Size = new System.Drawing.Size(400, 23);
+			//this.progressBar1.TabIndex = 10;
+			//this.progressBar1.Visible = false;
 			// 
 			// buttonInterrompi
 			// 
@@ -195,7 +193,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 			this.Controls.Add(this.buttonLegenda);
 			this.Controls.Add(this.buttonScriviSulDB);
 			this.Controls.Add(this.buttonInterrompi);
-			this.Controls.Add(this.progressBar1);
+			//this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.dataGridMovimentoBancario);
 			this.Controls.Add(this.labelFileImportato);
 			this.Controls.Add(this.buttonOpenFile);
@@ -266,7 +264,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 			buttonScriviSulDB.Visible = false;
 			buttonInterrompi.Enabled = false;
 			buttonInterrompi.Visible = true;
-			progressBar1.Visible = true;
+			//progressBar1.Visible = true;
 			Cursor = Cursors.WaitCursor;
 			dataGridMovimentoBancario.DataSource = null;
 			elencoDocumenti = new ArrayList();
@@ -274,13 +272,13 @@ namespace banktransaction_importazione//movimentobancario_import//
 			this.Refresh();
 
 			Stream stream = openFileDialog1.OpenFile();
-			progressBar1.Maximum = (int) stream.Length;
+			//progressBar1.Maximum = (int) stream.Length;
 			StreamReader sr = new StreamReader(stream); 
 			String line;
 			int contaLinee = 0;
 			while ((line = sr.ReadLine()) != null) 
 			{
-				progressBar1.Value = (int) stream.Position;
+				//progressBar1.Value = (int) stream.Position;
 				if (line!="") 
 				{
 					contaLinee ++;
@@ -288,7 +286,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 					{
 						Cursor = null;
 						buttonInterrompi.Visible = false;
-						progressBar1.Visible = false;
+						//progressBar1.Visible = false;
 						return;
 					}
 				} 
@@ -307,7 +305,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 					if (dialogResult == DialogResult.Cancel) 
 					{
 						buttonInterrompi.Visible = false;
-						progressBar1.Visible = false;
+						//progressBar1.Visible = false;
 						return;
 					}
 				}
@@ -315,8 +313,8 @@ namespace banktransaction_importazione//movimentobancario_import//
 			
 
 			labelFileImportato.Text = contaLinee+" righe lette dal file "+openFileDialog1.FileName;
-			progressBar1.Value = 0;
-			progressBar1.Maximum = elencoDocumenti.Count;
+			//progressBar1.Value = 0;
+			//progressBar1.Maximum = elencoDocumenti.Count;
 			interruzione = false;
 			buttonInterrompi.Enabled = true;
 			int contatore = 0;
@@ -334,12 +332,12 @@ namespace banktransaction_importazione//movimentobancario_import//
 
 				riempiLog(contatore);
 
-				progressBar1.Value ++;
+				//progressBar1.Value ++;
 				contatore ++;
 				Application.DoEvents();
 			}
 			buttonInterrompi.Visible = false;
-			progressBar1.Visible = false;
+			//progressBar1.Visible = false;
 			buttonScriviSulDB.Enabled = true;
 			buttonScriviSulDB.Visible = true;
 			mostraFogliExcel();
@@ -1161,11 +1159,11 @@ namespace banktransaction_importazione//movimentobancario_import//
 			DS.log.Clear();
 			MetaData meta = MetaData.GetMetaData(this); 
 
-			progressBar1.Value = 0;
-			progressBar1.Maximum = elencoDocumenti.Count;
+			//progressBar1.Value = 0;
+			//progressBar1.Maximum = elencoDocumenti.Count;
 			buttonScriviSulDB.Visible = false;
 			buttonInterrompi.Visible = true;
-			progressBar1.Visible = true;
+			//progressBar1.Visible = true;
 			interruzione = false;
 			int contaDocumenti = 0;
 			int contaScritture = 0;
@@ -1181,7 +1179,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 
 				esitaUnDocumento(rDocumentoDaImportare);
 
-				progressBar1.Value ++;
+				//progressBar1.Value ++;
 				contaDocumenti ++;
 				Application.DoEvents();
 
@@ -1201,7 +1199,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 					{
 						buttonScriviSulDB.Enabled = false;
 						buttonInterrompi.Visible = false;
-						progressBar1.Visible = false;
+						//progressBar1.Visible = false;
 						buttonScriviSulDB.Visible = true;
 						return;
 					}
@@ -1209,7 +1207,7 @@ namespace banktransaction_importazione//movimentobancario_import//
 			}
 			buttonScriviSulDB.Enabled = false;
 			buttonInterrompi.Visible = false;
-			progressBar1.Visible = false;
+			//progressBar1.Visible = false;
 			buttonScriviSulDB.Visible = true;
 			show(this, contaScritture+" su "+contaDocumenti+" documenti aggiornati");
 		}

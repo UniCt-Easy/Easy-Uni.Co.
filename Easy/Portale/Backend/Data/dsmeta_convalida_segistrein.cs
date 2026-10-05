@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,17 +25,14 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_convalida_segistrein"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_convalida_segistrein: DataSet {
+public partial class dsmeta_convalida_segistrein: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable changes 		=> (MetaTable)Tables["changes"];
+	public MetaTable attivform_alias1 		=> (MetaTable)Tables["attivform_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidato 		=> (MetaTable)Tables["convalidato"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
@@ -46,7 +41,7 @@ public class dsmeta_convalida_segistrein: DataSet {
 	public MetaTable attivform 		=> (MetaTable)Tables["attivform"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable changeskind 		=> (MetaTable)Tables["changeskind"];
+	public MetaTable sostenimento 		=> (MetaTable)Tables["sostenimento"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable convalidante 		=> (MetaTable)Tables["convalidante"];
@@ -79,12 +74,21 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_convalida_segistrein.xsd";
 
 	#region create DataTables
-	//////////////////// CHANGES /////////////////////////////////
-	var tchanges= new MetaTable("changes");
-	tchanges.defineColumn("idchanges", typeof(int),false);
-	tchanges.defineColumn("title", typeof(string),false);
-	Tables.Add(tchanges);
-	tchanges.defineKey("idchanges");
+	//////////////////// ATTIVFORM_ALIAS1 /////////////////////////////////
+	var tattivform_alias1= new MetaTable("attivform_alias1");
+	tattivform_alias1.defineColumn("aa", typeof(string),false);
+	tattivform_alias1.defineColumn("idattivform", typeof(int),false);
+	tattivform_alias1.defineColumn("idcorsostudio", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprog", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidproganno", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprogcurr", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprogori", typeof(int),false);
+	tattivform_alias1.defineColumn("iddidprogporzanno", typeof(int),false);
+	tattivform_alias1.defineColumn("idsede", typeof(int),false);
+	tattivform_alias1.defineColumn("title", typeof(string));
+	tattivform_alias1.ExtendedProperties["TableForReading"]="attivform";
+	Tables.Add(tattivform_alias1);
+	tattivform_alias1.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
 	//////////////////// CONVALIDATO /////////////////////////////////
 	var tconvalidato= new MetaTable("convalidato");
@@ -109,26 +113,12 @@ private void initClass() {
 	tconvalidato.defineColumn("lt", typeof(DateTime),false);
 	tconvalidato.defineColumn("lu", typeof(string),false);
 	tconvalidato.defineColumn("!idattivform_attivform_title", typeof(string));
-	tconvalidato.defineColumn("!idchanges_changes_title", typeof(string));
-	tconvalidato.defineColumn("!idchangeskind_changeskind_title", typeof(string));
 	Tables.Add(tconvalidato);
 	tconvalidato.defineKey("idconvalida", "idconvalidato", "idreg");
 
-	//////////////////// SOSTENIMENTO /////////////////////////////////
-	var tsostenimento= new MetaTable("sostenimento");
-	tsostenimento.defineColumn("idappello", typeof(int),false);
-	tsostenimento.defineColumn("idattivform", typeof(int));
-	tsostenimento.defineColumn("idprova", typeof(int),false);
-	tsostenimento.defineColumn("idreg", typeof(int),false);
-	tsostenimento.defineColumn("idsostenimento", typeof(int),false);
-	tsostenimento.defineColumn("voto", typeof(decimal));
-	tsostenimento.defineColumn("votolode", typeof(string));
-	tsostenimento.defineColumn("votosu", typeof(int));
-	Tables.Add(tsostenimento);
-	tsostenimento.defineKey("idappello", "idprova", "idreg", "idsostenimento");
-
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("idreg", typeof(int),false);
 	tregistry.defineColumn("title", typeof(string),false);
 	Tables.Add(tregistry);
@@ -149,12 +139,18 @@ private void initClass() {
 	Tables.Add(tattivform);
 	tattivform.defineKey("aa", "idattivform", "idcorsostudio", "iddidprog", "iddidproganno", "iddidprogcurr", "iddidprogori", "iddidprogporzanno", "idsede");
 
-	//////////////////// CHANGESKIND /////////////////////////////////
-	var tchangeskind= new MetaTable("changeskind");
-	tchangeskind.defineColumn("idchangeskind", typeof(int),false);
-	tchangeskind.defineColumn("title", typeof(string),false);
-	Tables.Add(tchangeskind);
-	tchangeskind.defineKey("idchangeskind");
+	//////////////////// SOSTENIMENTO /////////////////////////////////
+	var tsostenimento= new MetaTable("sostenimento");
+	tsostenimento.defineColumn("idappello", typeof(int),false);
+	tsostenimento.defineColumn("idattivform", typeof(int));
+	tsostenimento.defineColumn("idprova", typeof(int),false);
+	tsostenimento.defineColumn("idreg", typeof(int),false);
+	tsostenimento.defineColumn("idsostenimento", typeof(int),false);
+	tsostenimento.defineColumn("voto", typeof(decimal));
+	tsostenimento.defineColumn("votolode", typeof(string));
+	tsostenimento.defineColumn("votosu", typeof(int));
+	Tables.Add(tsostenimento);
+	tsostenimento.defineKey("idappello", "idprova", "idreg", "idsostenimento");
 
 	//////////////////// CONVALIDANTE /////////////////////////////////
 	var tconvalidante= new MetaTable("convalidante");
@@ -179,7 +175,6 @@ private void initClass() {
 	tconvalidante.defineColumn("idtirocinioprogetto", typeof(int));
 	tconvalidante.defineColumn("lt", typeof(DateTime),false);
 	tconvalidante.defineColumn("lu", typeof(string),false);
-	tconvalidante.defineColumn("!idchangeskind_changeskind_title", typeof(string));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_voto", typeof(decimal));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_votosu", typeof(int));
 	tconvalidante.defineColumn("!idsostenimento_sostenimento_votolode", typeof(string));
@@ -223,17 +218,9 @@ private void initClass() {
 	var cChild = new []{convalidato.Columns["idconvalida"], convalidato.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_convalidato_convalida_idconvalida-idreg",cPar,cChild,false));
 
-	cPar = new []{changeskind.Columns["idchangeskind"]};
-	cChild = new []{convalidato.Columns["idchangeskind"]};
-	Relations.Add(new DataRelation("FK_convalidato_changeskind_idchangeskind",cPar,cChild,false));
-
-	cPar = new []{changes.Columns["idchanges"]};
-	cChild = new []{convalidato.Columns["idchanges"]};
-	Relations.Add(new DataRelation("FK_convalidato_changes_idchanges",cPar,cChild,false));
-
-	cPar = new []{attivform.Columns["idattivform"]};
+	cPar = new []{attivform_alias1.Columns["idattivform"]};
 	cChild = new []{convalidato.Columns["idattivform"]};
-	Relations.Add(new DataRelation("FK_convalidato_attivform_idattivform",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_convalidato_attivform_alias1_idattivform",cPar,cChild,false));
 
 	cPar = new []{convalida.Columns["idconvalida"], convalida.Columns["idreg"]};
 	cChild = new []{convalidante.Columns["idconvalida"], convalidante.Columns["idreg"]};
@@ -250,10 +237,6 @@ private void initClass() {
 	cPar = new []{attivform.Columns["idattivform"]};
 	cChild = new []{sostenimento.Columns["idattivform"]};
 	Relations.Add(new DataRelation("FK_sostenimento_attivform_idattivform",cPar,cChild,false));
-
-	cPar = new []{changeskind.Columns["idchangeskind"]};
-	cChild = new []{convalidante.Columns["idchangeskind"]};
-	Relations.Add(new DataRelation("FK_convalidante_changeskind_idchangeskind",cPar,cChild,false));
 
 	#endregion
 

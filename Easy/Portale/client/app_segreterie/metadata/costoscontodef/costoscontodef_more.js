@@ -71,7 +71,7 @@
 			
 			insertClick: function (that, grid) {
 				if (this.state.isInsertState() && grid.dataSourceName === "costoscontodefdettaglio") {
-					return this.showMessageOk("Devi prima salvare la mora o indennizzo, e creare gli oggetti: fascia isee, rata etc...");
+					return this.showMessageOk("Devi prima salvare il costo, e creare gli oggetti: fascia isee, rata etc...");
 				} else {
 					return this.superClass.insertClick(that, grid);
 				}

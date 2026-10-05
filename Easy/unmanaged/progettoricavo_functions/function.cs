@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -80,7 +78,7 @@ namespace progettoricavo_functions {
         public bool ElaboraRendicontattivitaprogetto(vistaForm ds, object idprogetto, out string errore) {
             errore = string.Empty;
             var idprogettoricavo = MetaData.MaxFromColumn(ds.progettoricavo, "idprogettoricavo");
-            if (idprogettoricavo < 990000000) idprogettoricavo = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettoricavo < 990000000) idprogettoricavo = 990000000; // sar√† valorizzato in fase di salvataggio
 
             string query = @"select ( ore * 
 	            CASE WHEN isnull(ricavoorario, 0) <> 0 THEN ricavoorario
@@ -105,7 +103,7 @@ namespace progettoricavo_functions {
                     rProgettoricavo["idprogettoricavo"] = idprogettoricavo;
                     rProgettoricavo["idprogetto"] = R["idprogetto"];
                     rProgettoricavo["idprogettotipocosto"] = R["idprogettotipocosto"];// Letto da progettotiporicavocontrattokind
-                    //Valorizzati a null per il Rendiconto Attivit‡
+                    //Valorizzati a null per il Rendiconto Attivit√†
                     rProgettoricavo["idinc"] = DBNull.Value;
                     rProgettoricavo["amount"] = R["amount"];
                     rProgettoricavo["idposition"] = R["idposition"];
@@ -123,7 +121,7 @@ namespace progettoricavo_functions {
                 }
             }
             else {
-                errore = "Non vi sono Rendiconto attivita progetto da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Rendiconto attivita progetto da elaborare"; //Non √® un errore...
             }
 
             return true;
@@ -131,7 +129,7 @@ namespace progettoricavo_functions {
 
         public bool ElaboraContrattiAttivi(vistaForm ds, object idprogetto, out string errore) {
             var idprogettoricavo = MetaData.MaxFromColumn(ds.progettoricavo, "idprogettoricavo");// + 1;
-            if (idprogettoricavo < 990000000) idprogettoricavo = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettoricavo < 990000000) idprogettoricavo = 990000000; // sar√† valorizzato in fase di salvataggio
             errore = string.Empty;
             string filterInv = filterForEstimatedetail(idprogetto);
 
@@ -161,14 +159,14 @@ namespace progettoricavo_functions {
                 }
             }
             else {
-                errore = "Non vi sono Contratti Attivi da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Contratti Attivi da elaborare"; //Non √® un errore...
             }
             return true;
         }
 
         public bool ElaboraFattureVendita(vistaForm ds, object idprogetto, out string errore) {
             var idprogettoricavo = MetaData.MaxFromColumn(ds.progettoricavo, "idprogettoricavo");// + 1;
-            if (idprogettoricavo < 990000000) idprogettoricavo = 990000000; // sar‡ valorizzato in fase di salvataggio
+            if (idprogettoricavo < 990000000) idprogettoricavo = 990000000; // sar√† valorizzato in fase di salvataggio
             errore = string.Empty;
             string filterInv = filterForInvoicedetail(idprogetto);
             
@@ -198,7 +196,7 @@ namespace progettoricavo_functions {
                 }
             }
             else {
-                errore = "Non vi sono Fatture di Acquisto da elaborare"; //Non Ë un errore...
+                errore = "Non vi sono Fatture di Acquisto da elaborare"; //Non √® un errore...
             }
             return true;
         }

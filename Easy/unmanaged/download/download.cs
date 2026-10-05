@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Net;
@@ -82,7 +80,7 @@ namespace download//download//
                     client.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)");
                     client.BaseAddress = path;
 					client.Credentials = CredentialCache.DefaultCredentials;
-					//controllo accessibilit‡ web site
+					//controllo accessibilit√† web site
 					try {
 						//System.Diagnostics.Debug.WriteLine("Tentativo di collegamento a ["+client.BaseAddress+ getVersionFileName() + "]\r");
 						client.DownloadData(getVersionFileName());
@@ -116,7 +114,7 @@ namespace download//download//
 					}
 				}
 				else {
-					//controllo accessibilit‡ folder
+					//controllo accessibilit√† folder
 					try {
 						if (!path.EndsWith(@"\")) path+=@"\";
 						DirectoryInfo d = new DirectoryInfo(path);
@@ -188,7 +186,7 @@ namespace download//download//
 		/// Esegue il download del file webfilename e lo memorizza in localfilename
 		/// </summary>
 		/// <param name="webfilename">Path relativo del file da scaricare</param>
-		/// <param name="localfilename">Nome del file con il quale verr‡ memorizzato</param>
+		/// <param name="localfilename">Nome del file con il quale verr√† memorizzato</param>
 		/// <returns>True se va a buon fine</returns>
 		public bool DownloadFile(string webfilename, string filename) {
 			string msg="";
@@ -450,7 +448,7 @@ namespace download//download//
 		}
 
 		/// <summary>
-		/// Scarica il file dopo aver eliminato propriet‡ di sola lettura
+		/// Scarica il file dopo aver eliminato propriet√† di sola lettura
 		/// </summary>
 		/// <param name="localPath">Nome completo del file di destinazione</param>
 		/// <param name="remoteFile">nome del file da scaricare</param>
@@ -652,7 +650,7 @@ namespace download//download//
 	    public bool checkDirectoryFtpCompleta(string remotedir) {
             if (remotedir == "" || remotedir == @"/") return true;
 	        List<string> segmenti = remotedir.Split('/').ToList();
-	        if (segmenti.Count == 0) return true; //non puÚ creare niente
+	        if (segmenti.Count == 0) return true; //non pu√≤ creare niente
             if (segmenti[segmenti.Count-1]=="")segmenti.RemoveAt(segmenti.Count-1);
             if (segmenti.Count == 1) return CheckDir(segmenti[0]);
 

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,20 +13,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 
 namespace AskCurrencyExchange {
     class Errors {
         public static string NoData(DateTime referenceDate, uint previousDays, string codeCurrency) {
             return string.Format(
-                "Nessun tasso di cambio disponibile per {0} o per i {1} giorni precedenti per {2}. Il valore del tasso di cambio non Ë stato modificato.", 
+                "Nessun tasso di cambio disponibile per {0} o per i {1} giorni precedenti per {2}. Il valore del tasso di cambio non √® stato modificato.", 
                 referenceDate.Date.ToString("D"), 
                 previousDays, 
                 codeCurrency
             );
         }
 
-        public static string Unrecoverable() { return string.Format("Errore durante la comunicazione col servizio, il valore del tasso di cambio non Ë stato modificato."); }
+        public static string Unrecoverable() { return string.Format("Errore durante la comunicazione col servizio, il valore del tasso di cambio non √® stato modificato."); }
     }
 }

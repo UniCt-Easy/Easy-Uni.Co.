@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[closeyear_flowchartcopy_copymissingrow]') 
 and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [closeyear_flowchartcopy_copymissingrow]
@@ -25,8 +23,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
--- exec closeyear_flowchartcopy_copymissingrow 2023, 2024
+-- setuser 'amministrazione'
+-- exec closeyear_flowchartcopy_copymissingrow 2025, 2026
 
 CREATE  PROCEDURE [closeyear_flowchartcopy_copymissingrow]
 (
@@ -127,13 +125,45 @@ INSERT INTO flowchart
 			sorkind03_withchilds,
 			sorkind04_withchilds,
 			sorkind05_withchilds
-			FROM flowchartuser
-			WHERE idflowchart like SUBSTRING(@startayearstr, 3, 2) + '%'
-			and SUBSTRING(@stopayearstr, 3, 2) + SUBSTRING(idflowchart, 3, 32) not in 
-						(	SELECT f2.idflowchart 
-							FROM flowchartuser f2 
-								WHERE f2.idflowchart like SUBSTRING(@stopayearstr, 3, 2) + '%'
-								and f2.idcustomuser = flowchartuser.idcustomuser)
+			FROM flowchartuser fc
+			WHERE  -- prendi solo le righe dell'anno di partenza (es. '24%')
+				fc.idflowchart LIKE CONCAT(SUBSTRING(@startayearstr, 3, 2), '%')
+				-- escludi quelle che esistono già nell'anno di arrivo per stessa terna(idflowchart, idcustomuser, ndetail)
+				AND NOT EXISTS (
+						SELECT 1
+						FROM flowchartuser AS f2
+						WHERE f2.idcustomuser = fc.idcustomuser
+						  AND f2.ndetail     = fc.ndetail
+						  AND f2.idflowchart = CONCAT(SUBSTRING(@stopayearstr, 3, 2), SUBSTRING(fc.idflowchart, 3, LEN(fc.idflowchart) - 2))
+					) 
+				-- escludi quelle che esistono già nell'anno di arrivo per stessa coppia (idflowchart, idcustomuser) ed hanno tutti i parametri identici anche 
+				-- se differiscono solo per ndetail
+			  	AND NOT EXISTS (
+						SELECT 1
+						FROM flowchartuser AS f2
+						WHERE f2.idcustomuser = fc.idcustomuser
+						  AND f2.idflowchart = CONCAT(SUBSTRING(@stopayearstr, 3, 2), SUBSTRING(fc.idflowchart, 3, LEN(fc.idflowchart) - 2))
+						 --- flagdefault: se differiscono solo per flagdefaul non ribalto la riga, va sistemato a mano il flag eventualmente
+						  AND ISNULL(f2.start,'1900-01-01') = ISNULL(fc.start,'1900-01-01')
+						  AND ISNULL(f2.stop,'9999-12-31') = ISNULL(fc.stop,'9999-12-31')
+						  AND ISNULL(f2.all_sorkind01,'N') =  ISNULL(fc.all_sorkind01,'N')
+						  AND ISNULL(f2.all_sorkind02,'N') =  ISNULL(fc.all_sorkind02,'N')
+						  AND ISNULL(f2.all_sorkind03,'N') =  ISNULL(fc.all_sorkind03,'N')
+						  AND ISNULL(f2.all_sorkind04,'N') =  ISNULL(fc.all_sorkind04,'N')
+						  AND ISNULL(f2.all_sorkind05,'N') =  ISNULL(fc.all_sorkind05,'N')
+						  AND ISNULL(f2.idsor01,0) =  ISNULL(fc.idsor01,0)
+						  AND ISNULL(f2.idsor02,0) =  ISNULL(fc.idsor02,0)
+						  AND ISNULL(f2.idsor03,0) =  ISNULL(fc.idsor03,0)
+						  AND ISNULL(f2.idsor04,0) =  ISNULL(fc.idsor04,0)
+						  AND ISNULL(f2.idsor05,0) =  ISNULL(fc.idsor05,0)
+						  AND ISNULL(f2.sorkind01_withchilds,'N') =  ISNULL(fc.sorkind01_withchilds,'N')
+						  AND ISNULL(f2.sorkind02_withchilds,'N') =  ISNULL(fc.sorkind02_withchilds,'N')
+						  AND ISNULL(f2.sorkind03_withchilds,'N') =  ISNULL(fc.sorkind03_withchilds,'N')
+						  AND ISNULL(f2.sorkind04_withchilds,'N') =  ISNULL(fc.sorkind04_withchilds,'N')
+						  AND ISNULL(f2.sorkind05_withchilds,'N') =  ISNULL(fc.sorkind05_withchilds,'N')
+					);
+
+
 
 --- Trasferisce configurazioni sicurezza stampe nel nuovo esercizio
 	INSERT INTO flowchartexportmodule

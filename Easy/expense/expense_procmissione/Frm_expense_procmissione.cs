@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,15 +13,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
-using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
 using System.Linq;
-using metaeasylibrary;
 using metadatalibrary;
 using SituazioneViewer;//SituazioneViewer
 using funzioni_configurazione;//funzioni_configurazione
@@ -236,7 +231,7 @@ namespace expense_procmissione { //spesaproceduramissione//
         private System.Windows.Forms.Button btnModificaRecuperi;
         private System.Windows.Forms.Button btnInserisciRecuperi;
         public dsmeta DS;
-        private Crownwood.Magic.Controls.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.TextBox txtDocumento;
         private System.Windows.Forms.Label label10;
@@ -633,7 +628,7 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.btnEliminaRecuperi = new System.Windows.Forms.Button();
 			this.btnModificaRecuperi = new System.Windows.Forms.Button();
 			this.btnInserisciRecuperi = new System.Windows.Forms.Button();
-			this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabMovFin = new System.Windows.Forms.TabPage();
 			this.gboxBolletta = new System.Windows.Forms.GroupBox();
@@ -1104,7 +1099,7 @@ namespace expense_procmissione { //spesaproceduramissione//
 			this.btnIstitutoCassiere.TabIndex = 39;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-			this.btnIstitutoCassiere.Text = "Cassiere";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			// 
 			// btnBollo
 			// 
@@ -1841,10 +1836,9 @@ namespace expense_procmissione { //spesaproceduramissione//
 			// 
 			this.tabPage1.Location = new System.Drawing.Point(0, 25);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Selected = false;
 			this.tabPage1.Size = new System.Drawing.Size(664, 551);
 			this.tabPage1.TabIndex = 9;
-			this.tabPage1.Title = "Documento Collegato";
+			this.tabPage1.Text = "Documento Collegato";
 			// 
 			// tabControl1
 			// 
@@ -4471,6 +4465,11 @@ namespace expense_procmissione { //spesaproceduramissione//
         public void MetaData_AfterLink() {
             Meta = MetaData.GetMetaData(this);
             AfterLinkBody();
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.expenseattachment, true);
         }
 
 

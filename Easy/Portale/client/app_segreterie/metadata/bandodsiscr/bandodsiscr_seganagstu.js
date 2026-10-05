@@ -28,6 +28,11 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (this.state.isSearchState()) {
+					this.helpForm.filter($('#bandodsiscr_seganagstu_idreg_studenti'), null);
+				} else {
+					this.helpForm.filter($('#bandodsiscr_seganagstu_idreg_studenti'), this.q.eq('registry_active', 'Si'));
+				}
 				//beforeFillFilter
 				
 				//parte asincrona
@@ -59,7 +64,14 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#bandodsiscr_seganagstu_idreg_studenti'), true);
+				this.helpForm.filter($('#bandodsiscr_seganagstu_idreg_studenti'), null);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			//afterFill
 
@@ -67,6 +79,7 @@
 				var self = this;
 				appMeta.metaModel.computeRowsAs(this.state.DS.tables.bandodsiscresito, "seganagstu", this.superClass.calculateFields);
 				this.helpForm.addExtraEntity("bandodsiscresito");
+				appMeta.metaModel.insertFilter(this.getDataTable("accreditokind"), this.q.eq('active', 'S'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -77,8 +90,8 @@
 
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-bandodsiscr_seganagstu");
-				$('#bandodsiscr_seganagstu_idreg_studenti').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#bandodsiscr_seganagstu_idreg_studenti').prop("readonly", this.state.isEditState() || this.haveChildren());
+				$('#bandodsiscr_seganagstu_idreg_studenti').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
+				$('#bandodsiscr_seganagstu_idreg_studenti').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg_studenti);
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -96,6 +109,8 @@
 				//insertClickin
 				return this.superClass.insertClick(that, grid);
 			},
+
+			//beforePost
 
 			children: ['bandodsiscresito'],
 			haveChildren: function () {

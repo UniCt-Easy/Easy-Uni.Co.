@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoicecheck]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoicecheck]
 GO
@@ -24,7 +22,7 @@ GO
 SET ANSI_NULLS ON 
 GO
  
-
+ 
 --setuser 'amministrazione'
 
 CREATE procedure exp_electronicinvoicecheck (@yelectronicinvoice smallint=null, @nelectronicinvoice int=null, @yinv int=null,	@ninv int=null,	@idinvkind int=null) as
@@ -60,6 +58,14 @@ join registry R
 	on I.idreg = R.idreg
 where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind 
 	and R.ipa_fe is null and R.email_fe is null and R.pec_fe is null
+
+--- ipa_ven_emittente CONTROLLO SENZA electronicinvoice
+INSERT INTO #error(message)
+select 'Fattura di Vendita senza Codice IPA dell''Ente Mittente (Scheda Fattura Elettronica - Mittente della FE Vendita - Codice IPA ):' + convert(varchar(50), I.invoicekind) + ' ' + convert(varchar(10),I.yinv)
+		+ ' N.'+convert(varchar(10),I.ninv) 
+from invoiceview I 
+where I.yinv = @yinv and I.ninv = @ninv and I.idinvkind = @idinvkind and I.flagbuysell = 'V'
+	/*and I.flagintracom in ('I')*/ and I.ipa_ven_emittente  IS NULL 
 
 -- Se l'aliquota è 0, va trasmessa la natura dell'operazione se non rientra tra quelle imponibili (il campo 2.2.1.12 deve essere valorizzato a zero)
 INSERT INTO #error(message)

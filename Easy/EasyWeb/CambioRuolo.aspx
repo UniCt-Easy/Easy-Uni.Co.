@@ -16,15 +16,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-7">
-        </div>
-        <div class="col-md-1">
+        <div class="col-6" style="text-align: right">
             <cc1:hwButton runat="server" ID="btnok" Text="Ok" class="btn btn-primary" OnClick="btnok_Click" />
         </div>
-        <div class="col-md-1">
+        <div class="col-6" style="text-align: left">
             <cc1:hwButton runat="server" ID="btncancel" Text="Annulla" class="btn btn-danger" OnClick="btncancel_Click" />
-        </div>
-        <div class="col-md-3">
         </div>
     </div>
 

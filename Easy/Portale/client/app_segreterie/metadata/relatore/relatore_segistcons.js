@@ -52,13 +52,25 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#relatore_segistcons_idreg_docenti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
 
-			//afterLink
+			afterLink: function () {
+				var self = this;
+				appMeta.metaModel.insertFilter(this.getDataTable("relatorekinddefaultview"), this.q.eq('relatorekind_active', 'Si'));
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
 
 			//afterRowSelect
 

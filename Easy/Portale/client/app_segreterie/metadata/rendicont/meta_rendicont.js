@@ -39,8 +39,8 @@
 				switch (edittype) {
 					case 'default':
 						table.columns["aa"].caption = "Anno accademico";
-						table.columns["idreg_docenti"].caption = "Docente";
 						table.columns["title"].caption = "Denominazione";
+						table.columns["idreg_docenti"].caption = "Docente";
 //$innerSetCaptionConfig_default$
 						break;
 //$innerSetCaptionConfig$

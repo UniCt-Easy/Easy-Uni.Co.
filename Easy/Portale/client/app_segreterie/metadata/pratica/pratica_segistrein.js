@@ -28,8 +28,13 @@
 			//beforeFill
 
 			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pratica_segistrein_protnumero'), true);
+				this.enableControl($('#pratica_segistrein_protanno'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('pratica'), this.getDataTable('convalida'));
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			afterFill: function () {
@@ -44,6 +49,11 @@
 				var self = this;
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
+				this.state.DS.tables.dichiarsegview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.iscrizionedefaultview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.titolostudiodocentiview.staticFilter(window.jsDataQuery.eq("idreg", this.state.callerState.currentRow.idreg_studenti));
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq("statuskind_pratica",'Si'));
+				$('#grid_convalida_segistrein').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
@@ -80,7 +90,7 @@
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.state.currentRow.idreg_studenti;
 				var idreg_destinazione = that.idreg_istituto;				
-				
+
 				var oggetto = 'Pratica del ' + that.stringFromDate_ddmmyyyy(new Date());
 				var idprotocollodockind = 3;
 				var arrayTablesToProtocol = ['pratica'];

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -172,6 +170,7 @@ private void initClass() {
 	tperfvalutazionepersonaleobiettivo.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("cu", typeof(string),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("description", typeof(string));
+	tperfvalutazionepersonaleobiettivo.defineColumn("forzapunteggio", typeof(string));
 	tperfvalutazionepersonaleobiettivo.defineColumn("idperfprogettoobiettivoattivita", typeof(int));
 	tperfvalutazionepersonaleobiettivo.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("idperfvalutazionepersonaleobiettivo", typeof(int),false);
@@ -180,6 +179,7 @@ private void initClass() {
 	tperfvalutazionepersonaleobiettivo.defineColumn("lu", typeof(string),false);
 	tperfvalutazionepersonaleobiettivo.defineColumn("note", typeof(string));
 	tperfvalutazionepersonaleobiettivo.defineColumn("peso", typeof(decimal));
+	tperfvalutazionepersonaleobiettivo.defineColumn("punteggio", typeof(int));
 	tperfvalutazionepersonaleobiettivo.defineColumn("title", typeof(string));
 	tperfvalutazionepersonaleobiettivo.defineColumn("valorenumerico", typeof(decimal));
 	tperfvalutazionepersonaleobiettivo.defineColumn("!perfvalutazionepersonalesoglia", typeof(string));
@@ -206,10 +206,14 @@ private void initClass() {
 
 	//////////////////// PERFOBIETTIVIUOATTACH /////////////////////////////////
 	var tperfobiettiviuoattach= new MetaTable("perfobiettiviuoattach");
+	tperfobiettiviuoattach.defineColumn("ct", typeof(DateTime));
+	tperfobiettiviuoattach.defineColumn("cu", typeof(string));
 	tperfobiettiviuoattach.defineColumn("idattach", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfobiettiviuo", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfobiettiviuoattach", typeof(int),false);
 	tperfobiettiviuoattach.defineColumn("idperfvalutazioneuo", typeof(int),false);
+	tperfobiettiviuoattach.defineColumn("lt", typeof(DateTime));
+	tperfobiettiviuoattach.defineColumn("lu", typeof(string));
 	tperfobiettiviuoattach.defineColumn("title", typeof(string),false);
 	tperfobiettiviuoattach.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfobiettiviuoattach);
@@ -221,6 +225,7 @@ private void initClass() {
 	tperfobiettiviuo.defineColumn("ct", typeof(DateTime));
 	tperfobiettiviuo.defineColumn("cu", typeof(string));
 	tperfobiettiviuo.defineColumn("description", typeof(string));
+	tperfobiettiviuo.defineColumn("forzapunteggio", typeof(string));
 	tperfobiettiviuo.defineColumn("idperfobiettiviuo", typeof(int),false);
 	tperfobiettiviuo.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfobiettiviuo.defineColumn("idperfvalutazioneuo", typeof(int),false);
@@ -228,6 +233,7 @@ private void initClass() {
 	tperfobiettiviuo.defineColumn("lu", typeof(string));
 	tperfobiettiviuo.defineColumn("note", typeof(string));
 	tperfobiettiviuo.defineColumn("peso", typeof(decimal));
+	tperfobiettiviuo.defineColumn("punteggio", typeof(int));
 	tperfobiettiviuo.defineColumn("title", typeof(string));
 	tperfobiettiviuo.defineColumn("valorenumerico", typeof(decimal));
 	tperfobiettiviuo.defineColumn("!perfobiettiviuosoglia", typeof(string));
@@ -258,11 +264,15 @@ private void initClass() {
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVIDEFAULTVIEW /////////////////////////////////
 	var tgetregistrydocentiamministratividefaultview= new MetaTable("getregistrydocentiamministratividefaultview");
 	tgetregistrydocentiamministratividefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_areadidattica", typeof(string));
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_categoria", typeof(string),false);
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
+	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_macroareadidattica", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
 	tgetregistrydocentiamministratividefaultview.defineColumn("idreg", typeof(int),false);
@@ -295,6 +305,7 @@ private void initClass() {
 	tperfvalutazionepersonale.defineColumn("ct", typeof(DateTime),false);
 	tperfvalutazionepersonale.defineColumn("cu", typeof(string),false);
 	tperfvalutazionepersonale.defineColumn("idafferenza", typeof(int),false);
+	tperfvalutazionepersonale.defineColumn("idperfgiudizio_captec", typeof(int));
 	tperfvalutazionepersonale.defineColumn("idperfschedastatus", typeof(int));
 	tperfvalutazionepersonale.defineColumn("idperfvalutazionepersonale", typeof(int),false);
 	tperfvalutazionepersonale.defineColumn("idreg", typeof(int),false);
@@ -309,10 +320,13 @@ private void initClass() {
 	tperfvalutazionepersonale.defineColumn("motivazione", typeof(string));
 	tperfvalutazionepersonale.defineColumn("percateneo", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("perccomportamenti", typeof(decimal));
+	tperfvalutazionepersonale.defineColumn("percgradodiff", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("percobiettivi", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("percperfuo", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("pesoateneo", typeof(decimal));
+	tperfvalutazionepersonale.defineColumn("pesocaptec", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("pesocomportamenti", typeof(decimal));
+	tperfvalutazionepersonale.defineColumn("pesogradodiff", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("pesoobiettivi", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("pesoperfuo", typeof(decimal));
 	tperfvalutazionepersonale.defineColumn("risultato", typeof(decimal));

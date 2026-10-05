@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K"
+  boundary="---------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV"
 
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -31,6 +31,11 @@ Content-Transfer-Encoding: quoted-printable
     <META name=3D"source">
     <META name=3D"source">
     <META name=3D"source">
+    <META name=3D"source">
+    <META name=3D"source" content=3D"https://mail.google.com/mail/u/0/?sh=
+va=3D1#sent/CllgCJNvMtvkSkcHDRFGhTnqPzGnhDRCvLfnKpNJWFqWHnPBbsTZQFZrcKTsh=
+jmjsggkQTxhwSq?compose=3DxQTrnnWJVFKLcRSZwFbcbdHNTdcSKlxxdpGKcjwCbJLnmFZV=
+dLXZSMHgChzrvSzFpHKXQDWqrGHRMHBmVKjfMxPgWWRkPkhklzJlWPjjcCnlrvgGrkzfp">
     <BASEFONT face=3D"Times New Roman" size=3D"3">
     <TITLE></TITLE><STYLE>BODY { FONT-FAMILY:Times New Roman; FONT-SIZE:1=
 2pt }
@@ -54,16 +59,25 @@ NG></TD>
 ">v. 1.1</FONT></STRONG></TD>
     <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">12/06=
 /2020</FONT></STRONG></TD>
-    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
-">Utilizzo conto per bolla doganale</FONT></STRONG></TD>
+    <TD nowrap valign=3D"middle"><STRONG><FONT size=3D"2">Utilizzo conto =
+per bolla doganale</FONT></STRONG></TD>
   </TR>
   <TR>
     <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
 ">v. 1.2</FONT></STRONG></TD>
     <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">18/11=
 /2021</FONT></STRONG></TD>
+    <TD nowrap valign=3D"middle"><STRONG><FONT size=3D"2">Nuovo flag Appl=
+ica limiti di costo</FONT></STRONG></TD>
+  </TR>
+  <TR>
     <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
-">Nuovo flag Applica limiti di costo</FONT></STRONG></TD>
+">v. 1.3</FONT></STRONG></TD>
+    <TD valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2">28/02=
+/2024</FONT></STRONG></TD>
+    <TD nowrap valign=3D"middle" align=3D"center"><STRONG><FONT size=3D"2=
+">Operazioni di Inizio esercizio e Operazioni di assestamento</FONT></STR=
+ONG></TD>
   </TR>
 </TABLE>
 </DIV>
@@ -80,6 +94,24 @@ ti</FONT></STRONG></DIV>
 <DIV><A href=3D"#Riepilogo"><FONT size=3D"4">scheda Riepilogo</FONT></A><=
 /FONT></DIV><HR>
 <DIV><FONT size=3D"4">Link guide correlate:</FONT></DIV>
+<DIV><A href=3D"patrimony_default.mht"><FONT size=3D"4">Stato Patrimonial=
+e</FONT></A> (schema per la stampa ufficiale)</DIV>
+<DIV align=3D"justify"><A href=3D"placcount_default.mht"><FONT size=3D"4"=
+>Conto economico</FONT></A> (schema per la stampa ufficiale)</DIV>
+<DIV align=3D"justify"><A href=3D"accountlevel_default.mht"><FONT size=3D=
+"4">Livelli del Piano dei conti</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"accountkind_default.mht"><FONT size=3D"=
+4">Tipo conto</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"entry_default.mht"><FONT size=3D"4">Scr=
+itture</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"accountvar_default.mht"><FONT size=3D"4=
+">Variazioni di Budget</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"exp_upbmonthlycap.mht"><FONT size=3D"4"=
+>Monitoraggio limiti di costo</FONT></A></FONT></DIV><HR>
+<DIV><STRONG><FONT size=3D"4">OPERAZIONI DI QUADRATURA E CHIUSURA BILANCI=
+O EP</FONT></STRONG></DIV>
+<DIV><A href=3D"#Inizio esercizio"><STRONG><FONT size=3D"4">Operazioni di=
+ Inizio esercizio</A></FONT></STRONG></DIV>
 <DIV><A href=3D"#Quadratura mastrini"><STRONG><FONT size=3D"4">Quadratura=
  mastrini</FONT></STRONG></A></FONT></STRONG></DIV>
 <BLOCKQUOTE>
@@ -112,21 +144,9 @@ erciale</FONT></A></FONT></DIV>
 <DIV><A href=3D"#L"><FONT size=3D"4">Quadratura conto Cassa Economale (de=
 ve chiudere a zero se i Fondi sono chiusi)</FONT></A></FONT></DIV></BLOCK=
 QUOTE>
-<HR>
-<DIV><A href=3D"patrimony_default.mht"><FONT size=3D"4">Stato Patrimonial=
-e</FONT></A> (schema per la stampa ufficiale)</DIV>
-<DIV align=3D"justify"><A href=3D"placcount_default.mht"><FONT size=3D"4"=
->Conto economico</FONT></A> (schema per la stampa ufficiale)</DIV>
-<DIV align=3D"justify"><A href=3D"accountlevel_default.mht"><FONT size=3D=
-"4">Livelli del Piano dei conti</FONT></A></FONT></DIV>
-<DIV align=3D"justify"><A href=3D"accountkind_default.mht"><FONT size=3D"=
-4">Tipo conto</FONT></A></FONT></DIV>
-<DIV align=3D"justify"><A href=3D"entry_default.mht"><FONT size=3D"4">Scr=
-itture</FONT></A></FONT></DIV>
-<DIV align=3D"justify"><A href=3D"accountvar_default.mht"><FONT size=3D"4=
-">Variazioni di Budget</FONT></A></FONT></DIV>
-<DIV align=3D"justify"><A href=3D"exp_upbmonthlycap.mht"><FONT size=3D"4"=
->Monitoraggio limiti di costo</FONT></A></FONT></DIV><HR>
+
+<DIV><A href=3D"#Assestamento"><STRONG><FONT size=3D"4">Operazioni di ass=
+estamento</A></FONT></STRONG></DIV><HR>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il form consente di definire e visualizzare il Pian=
 o dei Conti in base alle specifiche esigenze dell'Ente.</FONT></DIV>
@@ -147,7 +167,7 @@ lo 4 e cio=C3=A8 su &quot;Acquisto altri materiali&quot;. Questo agevola =
 la redazione del Budget, che altrimenti dovrebbe essere estremamente dett=
 agliato e potrebbe non essere attendibile.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:110LHQMHXC8C7THKHWF1HCHT0Y"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:6BBH7EIEJ8O91EYRV6X1RK51Q6"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Elenchiamo i campi presenti nella=
  scheda </FONT><A name=3D"principale"><STRONG><FONT size=3D"5">Principale=
@@ -435,8 +455,8 @@ risulta movimentato il conto in oggetto.</FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><FONT size=3D"4"> </FONT><IMG src=3D"cid:90PJNNI6PV=
-2O69EIZGPEIOAS"></DIV>
+<DIV align=3D"center"><FONT size=3D"4"> </FONT><IMG src=3D"cid:ZOD13VL9R4=
+GC1JUP6KJIE27NF"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Cliccando sul pulsante <STRONG><EM>Situazione Budge=
 t</EM></STRONG>, si ottiene il prospetto che riporta i dati del Budget de=
@@ -451,13 +471,13 @@ le scritture movimentate sul conto stesso.</FONT></DIV>
 <DIV><FONT size=3D"4">Cliccando sui singoli pulsanti accanto a ciascun ca=
 mpo, si apriranno i rispettivi elenchi.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1IZF956I0F2YIG2A9PR18AT0Z4"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:6NUOOVJEJ7U2NJGKU9UYL8IK"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><STRONG><FONT size=3D"4">Pulsante SITUAZIONE:</STR=
 ONG> apre un prospetto sintetico che riporta i totali scrittura e il Sald=
 o complessivo del conto.</FONT></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:15BOYMIQIGG519RHZ7QVCYY7L"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:WWSVBIIKGORJI8E36V1RXN2SV"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">La scheda </FONT><A name=3D"Budge=
 t"><STRONG><FONT size=3D"5">Budget</A> </FONT></STRONG><FONT size=3D"4">=C3=
@@ -473,7 +493,7 @@ approvate, ricopiarle automaticamente nella</FONT><STRONG><FONT size=3D"5=
 verso la procedura <STRONG>Opzioni-Chiusura-EP-Copia Var. di Budget nel B=
 udget</FONT></STRONG></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:112YHJ6ISE4W11B54OTSZ0JE7M"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1IQQF54KBZ0WXK2CJ3EUY7Z7G"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">La seconda sezione <STRONG>Variaz=
 ioni Budget</STRONG> riporta i dettagli delle Variazioni di budget presen=
@@ -491,7 +511,7 @@ i. Ad esempio potrebbero servire per riclassificare il Bilancio ai fini d=
 el calcolo di indicatori o riclassificarlo in base ai Principi contabili =
 internazionali.</FONT></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:15DQRF2L2KFR51XNHZF110BTQE5"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:144PNPBL4S0RBOGY3DE1MFG4GM"></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Nella scheda </FONT><A name=3D"Ri=
 epilogo"><STRONG><FONT size=3D"5">Riepilogo</FONT></STRONG></A><FONT size=
@@ -502,15 +522,53 @@ e scritture movimentate sul conto stesso.</FONT></DIV>
 <DIV><FONT size=3D"4">Cliccando sui singoli pulsanti accanto a ciascun ca=
 mpo, si apriranno i rispettivi elenchi.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1B5UMHKIJZ6161S56E291E6JMZX"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:K0F651LFEIJPXHMTUB91HEM4"></DIV><HR=
+>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
+<DIV align=3D"justify"><A name=3D"Inizio esercizio"><STRONG><FONT size=3D=
+"6">Operazioni di Inizio esercizio</A></FONT></STRONG></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><FONT size=3D"4">Prima di procedere con le quadrat=
+ure dei mastrini, occorre verificare di aver eseguito correttamente le sc=
+ritture di inizio esercizio e in particolare:</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><FONT size=3D"4">- <STRONG>Scrittura di apertura</=
+STRONG> (menu <STRONG>Opzioni-Chiusura-EP-Inizio esercizio-Apertura</STRO=
+NG>): per verificare di aver generato correttamente la scrittura di Apert=
+ura =C3=A8 necessario effettuare la stampa dello Stato patrimoniale (Stam=
+pe-Economico patrimoniale-Ufficiali-Stato Patrimoniale) impostando il fla=
+g &quot;Stampa solo le scritture di apertura&quot; e verificare che la co=
+lonna delle Differenze con l'esercizio precedente sia vuota.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><A name=3D"integrazione risconti"><STRONG><FONT si=
+ze=3D"4">-Integrazione dei risconti </A>(</STRONG>menu <STRONG>Opzioni-Ch=
+iusura-EP-Inizio esercizio-Integrazione risconti): </STRONG>per verificar=
+e di aver generato correttamente la scrittura di Integrazione dei Riscont=
+i si deve verificare che i Risconti aperti allo Stato Patrimoniale di Ape=
+rtura, si chiudano a zero con la scrittura di Integrazione. La procedura =
+chiude sia i Risconti attivi e passivi generati sui Contratti e Fatture, =
+aperti nell'anno precedente con la procedura <A href=3D"#Risconti rettifi=
+ca">Risconti Rettifica</A>, sia i Risconti passivi per progetti di ricerc=
+a pluriennali, aperti nell'anno precedente con l'<A href=3D"#progetti plu=
+riennali">Assestamento Progetti Pluriennali Cost to cos</A>t. La scrittur=
+a di Integrazione infatti chiude i Risconti Attivi e Passivi e li gira ri=
+spettivamente a Costi e Ricavi dell'esercizio.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
+<DIV align=3D"justify"><FONT size=3D"4">- <STRONG>Riparto Risultato d'ese=
+rcizio (</STRONG>menu <STRONG>Opzioni-Chiusura-EP-Inizio esercizio-Ripart=
+o Risultato d'esercizio)</STRONG>: per verificare di aver generato corret=
+tamente la scrittura di Riparto Risultato d'esercizio, occorre verificare=
+ che il mastrino del conto Risultato d'esercizio sia a zero, perch=C3=A8 =
+viene girato a Riserve o a Risultati di esercizi precedenti e lascia spaz=
+io al Risultato d'Esercizio dell'anno in corso.</FONT></DIV>
+<DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify"><A name=3D"Quadratura mastrini"><STRONG><FONT size=
 =3D"6">Quadratura mastrini</FONT></STRONG></A></FONT></STRONG></DIV>
 <DIV>I<FONT size=3D"4">l presente documento ha lo scopo di fornire indica=
 zioni utili alle operazioni di quadratura e verifica dei mastrini di cont=
-abilit=C3=A0 generale, dei conti di Debito e Credito movimentati da Easy =
-nelle procedure automatiche.</FONT></DIV>
+abilit=C3=A0 generale, dei conti di Debito e Credito movimentati da <EM>E=
+asy</EM> nelle procedure automatiche.</FONT></DIV>
 <DIV><FONT size=3D"4">Le operazioni elencate in questo documento non sono=
  esaustive e non garantiscono la completezza delle possibili operazioni d=
 i verifica da effettuare sul bilancio economico-patrimoniale nel suo comp=
@@ -555,7 +613,7 @@ saldo finale della Banca coincida con l=E2=80=99Avanzo di amministrazione=
  calcolato sulla Situazione finanziaria effettiva</FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:VZP7TBL7XQ3S1AEMXZO1NS3KKI"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1KW9T68IBXHYF5ETZ0YP320NN"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Verificare che tut=
 ti i pagamenti e tutti gli incassi siano inseriti in Mandati e Reversali<=
@@ -577,7 +635,7 @@ ine esercizio-Epilogo </STRONG>e cliccando sui 3 pulsanti visualizzati in=
  immagine, che compaiono in modo sequenziale, dopo aver elaborato i prece=
 denti.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:VRM3G9LODTLZ1I0ARA710JZADT"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:175FIF0HTXOZY10VTKF8UV432S"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Ogni pulsante genera una Scrittura che avr=C3=A0 co=
@@ -609,7 +667,7 @@ V>
 <DIV><FONT size=3D"4">4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ignora Chiave EP</=
 FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1FXE5GQJU30QUT3F3CR1WNMZQD"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:KPWT9LM2PS31Y7BJXHYNE3DJ"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ignora cliente/for=
 nitore</FONT></DIV>
@@ -750,7 +808,7 @@ re). </STRONG>Pertanto prima di procedere assicuratevi di aver provveduto=
 siti e sospesi</STRONG> accedendo al menu <STRONG>Opzioni-Diagnostica scr=
 itture-Rigenerazioni.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1BFYG5EI9O7FG1OMEOQG191N4T5"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:GRKR3ALY331M1HGFKX91QF4ZYF"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Se il saldo del mastrino in <EM>Easy</EM> non quadr=
 a con il saldo banca a fine anno, i passaggi da seguire per la quadratura=
@@ -772,7 +830,7 @@ re) </STRONG>abbiano data importazione con esercizio pari a quello di qua=
 dratura. In caso contrario occorre modificare la data e salvare, per far =
 s=C3=AC che Easy generi correttamente la scrittura nell=E2=80=99anno in q=
 uestione.</FONT></DIV>
-<DIV align=3D"center"><IMG src=3D"cid:KA6FRVJM5Y7OFNEUGAFXI6BN"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1ESCW5VJSM4Z715M6Y6SO5BYWA"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se dopo il punto 2=
  il mastrino ancora non quadra, eseguire l=E2=80=99esportazione da <STRON=
@@ -791,7 +849,7 @@ esiti e sospesi (menu Tesoriere). </STRONG>Per questi casi <EM>Easy</EM> =
 non genera una scrittura automatica, che va quindi inserita in <EM>Easy</=
 EM> a mano.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:W9VCEIIX3HR8SN34K1FF5J9L"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1NHSDVJKMU7QB1GYJ8N41H6RLFP"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><A name=3D"C"><STRONG><FONT size=3D"5">Quadratura conto Transitorio =
@@ -801,7 +859,7 @@ ONG></A></FONT></STRONG></DIV>
  <STRONG>Opzioni-Configurazione-Configurazione annuale, </STRONG>nella sc=
 heda EP.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1VA40U3HV4PR21CRR448RNS0QG"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:RDC33EI5C8811BSIETUBIGJBE"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto transitorio reversali si movimenta nelle s=
 critture delle Distinte di Trasmissione Reversali (<STRONG>menu Tesoriere=
@@ -811,7 +869,7 @@ NG>Importazioni esiti e sospesi (menu Tesoriere). </STRONG>Pertanto prima=
  le scritture accedendo al menu <STRONG>Opzioni-Diagnostica scritture-Rig=
 enerazioni.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1WBU9GRICJ5HJTTO5GL1S017H7"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1FNYV0XJ6KLUN1UIFTEPLTT1N8"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><STRONG><U><FONT size=3D"4">NB! Se tutte le Reversali dell=E2=80=99e=
@@ -825,7 +883,7 @@ TE le Distinte di Trasmissione abbiano generato scritture, eseguendo l=E2=
 =80=99Esportazione al menu <STRONG>Stampe-Esportazioni-EP-Documenti senza=
  scritture</STRONG> e selezionando la voce <STRONG>Elenchi di Trasmission=
 e Mandati e Reversali.</FONT></STRONG></DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1IWRE8MK5SVAQ1C4ZY53ZIWWPR"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:B06NA3IPI2WDRO8QT316R0O0P"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Se l=E2=80=99esportazione non restituisce nulla, vu=
 ol dire che non ci sono Distinte di Trasmissione senza scrittura. Se inve=
@@ -857,7 +915,7 @@ G></A></FONT></STRONG></DIV>
 STRONG>Opzioni-Configurazione-Configurazione annuale, </STRONG>nella sche=
 da EP.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1ABU0BBJ7N3SM1S00XAJ1SZKBJN"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:CI5VZ0L2O5RK1J9XV2V1K24LNM"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto transitorio mandati si movimenta nelle scr=
 itture delle Distinte di Trasmissione Mandati (<STRONG>menu Tesoriere-Pag=
@@ -867,7 +925,7 @@ i procedere assicuratevi di aver provveduto alla Rigenerazione di tutte l=
 e scritture accedendo al menu <STRONG>Opzioni-Diagnostica scritture-Rigen=
 erazioni.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:N2Z408J6ZWDTDNWUQ18Z1FPF"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:ZUXRLKIAVE5J12J5CJ882JN32"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><STRONG><U><FONT size=3D"4">NB! Se tutti i Mandati dell=E2=80=99eser=
@@ -882,7 +940,7 @@ TE le Distinte di Trasmissione abbiano generato scritture, eseguendo l=E2=
 re e selezionando la voce <STRONG>Elenchi di Trasmissione Mandati e Rever=
 sali.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1IWRE8MK5SVAQ1C4ZY53ZIWWPR"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:B06NA3IPI2WDRO8QT316R0O0P"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Se l=E2=80=99esportazione non restituisce nulla, vu=
 ol dire che non ci sono Distinte di Trasmissione senza scrittura. Se inve=
@@ -914,7 +972,7 @@ ontributi su Compensi</FONT></STRONG></A></FONT></STRONG></DIV>
 li stipendi e quindi su <STRONG>Compensi Occasionali, Parasubordinati e A=
 ltri compensi</STRONG>.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:1AUDIDCL6FBXX14SYIED1Y7WF64"></DIV>
+<DIV><IMG src=3D"cid:191MLNFIIZBC11BOUG7CYGKJ9R"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Dal punto di vista della contabilit=C3=A0 generale,=
  i contributi muovono 2 tipologie di conti:</FONT></DIV>
@@ -924,7 +982,7 @@ o al menu <STRONG>Opzioni-Compensi-Imposte-Tipi di imposta </STRONG>e ind=
 icando la Causale EP desiderata (a sua volta associata al conto di Debito=
 ).</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:16OTAJAKZQ0TA1RH0FCROHF8NK"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1NTUVZL0AM03VRNNAF4TB8RP"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto di Debito Transitorio, a fine anno resta a=
@@ -943,7 +1001,7 @@ tinta di trasmissione del mandato del Contributo.</FONT></DIV>
 ni-Compensi-Imposte-Tipi di imposta </STRONG>e indicando la Causale EP de=
 siderata (a sua volta associata al conto di Debito).</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:OUO2ZFJBCTC01RISSQQWSZV1P"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:14Y0HKAJCNZS31KY9RXVHSNYG2"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto di Debito verso Ente, a fine anno resta ap=
 erto in Avere, per l=E2=80=99importo dei contributi liquidati nell=E2=80=99=
@@ -967,14 +1025,14 @@ itenute su Compensi</FONT></STRONG></A></FONT></STRONG></DIV>
 ersi dagli stipendi e quindi su Compensi Occasionali, Parasubordinati e A=
 ltri compensi.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:1Y16M5WKY3DSF102OCQOHP3463"></DIV>
+<DIV><IMG src=3D"cid:1L25FU6K3G0EKX3G9MAMJ4Q92"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto di Debito verso Ente per ritenute si confi=
 gura in <EM>Easy</EM> accedendo al menu <STRONG>Opzioni-Compensi-Imposte-=
 Tipi di imposta </STRONG>e indicando la Causale EP desiderata (a sua volt=
 a associata al conto di Debito).</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1M6R7W4LZKCQQ1WOTU38AA9F3B"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:NUBV2BLP1ZZL2PJ6IF1UTCTE3"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto di Debito verso Ente, a fine anno resta ap=
@@ -1000,7 +1058,7 @@ ntabilizzazione Stipendi</FONT></STRONG></A></FONT></STRONG></DIV>
 enti finanziari che <EM>Easy</EM> genera automaticamente sulla procedura =
 di contabilizzazione degli Stipendi.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:1TD6CAMKE4ZR61EXSKA8BCHPFR"></DIV>
+<DIV><IMG src=3D"cid:143YWCQK3XHP81MQTW9VXO2JJS"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
@@ -1009,10 +1067,10 @@ dei conti di Debito e Credito movimentati dalla procedura di contabilizza=
 zione degli Stipendi e dalle relative distinte di trasmissione.</FONT></D=
 IV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:15FQ7MKJ6WG4W1RA5KI1Y2JSCT"></DIV>
-<DIV><IMG src=3D"cid:1JKEMRTI9TV1QQFX0HR9RALOF"></DIV>
-<DIV><IMG src=3D"cid:13LUCIMLCTBG51QFVMAJ1QKSVN0"></DIV>
-<DIV><IMG src=3D"cid:4OYK2FIKCX5H1P4LKSW16D5O33"></DIV>
+<DIV><IMG src=3D"cid:1QUOQHJJVESJO1OP2379ESPZG2"></DIV>
+<DIV><IMG src=3D"cid:1KUATJ0L2DFP81P4QYS89OX508"></DIV>
+<DIV><IMG src=3D"cid:W38GWYK26W1E1MJ9NDNJNSTVX"></DIV>
+<DIV><IMG src=3D"cid:WQ9J1GM30MTB1P9ABHRV19MDM"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
@@ -1032,7 +1090,7 @@ onale Split Payment</FONT></STRONG></A></FONT></STRONG></DIV>
 =99impatto contabile dell=E2=80=99IVA split payment istituzionale.</FONT>=
 </DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:ZAX2JOIKNFZ7DXJAU25D7OBG"></DIV>
+<DIV><IMG src=3D"cid:15F9JNGL9I5SP1X83I4RCP7YTH"></DIV>
 <DIV><FONT size=3D"4">Dal punto di vista della contabilit=C3=A0 generale,=
  il ciclo dell=E2=80=99IVA istituzionale split payment, movimenta 2 tipol=
 ogie di conti:</FONT></DIV>
@@ -1046,7 +1104,7 @@ are entrambi i conti accedendo al menu <STRONG>Opzioni-Configurazione-Con=
 figurazione annuale =E2=80=93 scheda EP-IVA istituzionale split</FONT></S=
 TRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:119AXOQK8S3BFQ48A6WNPXXY7"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:AMNNN8JOWHACTWY3DLU5YQ6T"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV><FONT size=3D"4">Per movimentare correttamente il conto <STRONG>Cont=
 o Debito IVA split istituzionale</STRONG> nella scrittura della Distinta =
@@ -1055,7 +1113,7 @@ ccorre configurare tale conto nella Causale EP da impostare nel Recupero,=
  accedendo al menu <STRONG>Opzioni-Compensi-Recuperi-Automatismi dei recu=
 peri.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:V56GZNI4PF1I14QSPLJTJF0RJ"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1EAC9M9HSDQR41MT7JWSU06P3H"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Per visualizzare e verificare i dettagli scrittura =
 che rimangono aperti, si dovr=C3=A0 eseguire l=E2=80=99esportazione da <S=
@@ -1075,7 +1133,7 @@ a configurazione di un apposito Recupero.</FONT></DIV>
 =99impatto contabile dell=E2=80=99IVA istituzionale Intra ed Extra UE.</F=
 ONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:1CWOND6J6UYIQ11830JULZAQOI"></DIV>
+<DIV><IMG src=3D"cid:1L10WVNJ1W3FHLAKA771GJZ3BG"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Dal punto di vista della contabilit=C3=A0 generale,=
  il ciclo dell=E2=80=99IVA istituzionale estera movimenta 2 tipologie di =
@@ -1088,14 +1146,14 @@ ebito verso Erario per IVA estera istituzionale</FONT></STRONG></DIV>
 uzionale, accedendo al menu <STRONG>Opzioni-Compensi-Recuperi-Automatismi=
  dei recuperi.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:K37UU0JLW4OAVMM85B1DBYAFH"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:183KNMCLN01V81TP7MAT1ONWNOF"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il secondo si configura accedendo al menu <STRONG>O=
 pzioni-Configurazione-Configurazione annuale =E2=80=93 scheda EP-IVA INTR=
 A e Extra UE</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:SNFET4LDRSQW179BO2Y3RIYPB"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:OBNINBI50VR41P4PE3AN334VT"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
@@ -1116,7 +1174,7 @@ ale</FONT></STRONG></A></FONT></STRONG></DIV>
 =99impatto contabile dell=E2=80=99IVA istituzionale Intra ed Extra UE.</F=
 ONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:1D7427HK8DBHWW782391CKX5W1"></DIV>
+<DIV><IMG src=3D"cid:T8IO72KM0SNT19UPRR319KNIMW"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Dal punto di vista della contabilit=C3=A0 generale,=
  il ciclo dell=E2=80=99IVA istituzionale estera movimenta 2 tipologie di =
@@ -1129,13 +1187,13 @@ ebito verso Erario per IVA split commerciale</FONT></STRONG></DIV>
 t commerciale, accedendo al menu <STRONG>Opzioni-Compensi-Recuperi-Automa=
 tismi dei recuperi.</FONT></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:N7H38RJGE3HZ11FZ1YCR9KE4C"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:LQVEYMJC68YT7BHWVCTR7QV8"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il secondo si configura accedendo al menu <STRONG>O=
 pzioni-Configurazione-Configurazione annuale =E2=80=93 scheda EP-IVA</FON=
 T></STRONG></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1XX9YSCJGPKAH1V9F1DK1PSWTYB"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:156MRHJZ35RH10J7IY21M5XODU"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Per visualizzare e verificare i dettagli scrittura =
 che rimangono aperti, si dovr=C3=A0 eseguire l=E2=80=99esportazione da <S=
@@ -1154,18 +1212,18 @@ ngono movimentati in <EM>Easy</EM> i conti transitori IVA a credito e IVA=
  a debito, che rilevano l=E2=80=99IVA detraibile e indetraibile su Fattur=
 e commerciali attive e passive.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:TOWMJ2JRPZ1DX78KON1VUALAP"></DIV>
+<DIV><IMG src=3D"cid:1X2IZG1J818FOKCUDN512W6ENI"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">I conti IVA a credito e IVA a debito si configurano=
  nei Tipi documento IVA commerciali, nella scheda EP.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1E3LCBVI68WRGCXGUXLPHR7VI"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:WRG47QLK4MNF1OIH30Z1EQFV34"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:WA2C3ULD0X4Q1UTJJY416EXMOX"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:JGUYEGM1AGR61VULKTO16P5B1O"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:5CHP94JH4JT8160OCJO13FJOFH"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:ZX8DJRKQ8N9LTPZO2EJ2IEGK"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV><FONT size=3D"4">Per visualizzare e verificare i dettagli scrittura =
 che rimangono aperti, si dovr=C3=A0 eseguire l=E2=80=99esportazione da <S=
@@ -1183,12 +1241,12 @@ NT></STRONG></DIV>
 <DIV><FONT size=3D"4">Riassumiamo nell=E2=80=99immagine che segue come vi=
 ene movimentato in <EM>Easy </EM>il conto Cassa Economale.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV><IMG src=3D"cid:VTOHGKJCS1L81O60XHC1WK9XT4"></DIV>
+<DIV><IMG src=3D"cid:1HVJBLVIQQJULU9QWFU112U9Q3"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV><FONT size=3D"4">Il conto si configura accedendo al menu <STRONG>Opz=
 ioni-Fondo economale-Configurazione</STRONG>.</FONT></DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:13JKXCGLIV8511KRYKRP1BWNFBS"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1358RRXLK9F4A1PQ6KS71RQI6DL"></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
@@ -1199,7 +1257,7 @@ udere a saldo zero. Per verificare occorre accedere al menu <STRONG>Fondo=
 re su <STRONG>Situazione</STRONG>.</FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:TZFAB7IWQHES1SRDNKH1U8ZBMX"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:NMO6K3K53MRLME8NTN1IRDX63"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV><FONT size=3D"4">Si dovr=C3=A0 eseguire l=E2=80=99esportazione da <S=
 TRONG>Stampe-Esportazioni-EP-Stato patrimoniale (dettagliato)</STRONG> im=
@@ -1207,14 +1265,51 @@ postando il conto Cassa Economale e impostando il parametro &quot;Raggrup=
 pa per codice dettaglio scrittura&quot;. Le righe dell'esportazione che r=
 iportano un Saldo diverso da zero vanno analizzate per capire i motivi de=
 lla squadratura.</FONT></DIV>
+<DIV>&nbsp;</DIV><HR>
+<DIV><A name=3D"Assestamento"><STRONG><FONT size=3D"6">Operazioni di asse=
+stamento</STRONG></A></FONT></STRONG></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT size=3D"4">Dopo aver fatto tutte le opportune quadrature dei m=
+astrini, si deve procedere a generare le scritture di assestamento accede=
+ndo al menu visualizzato nell'immagine e lanciando in ordine:</FONT></DIV=
+>
+<DIV>&nbsp;</DIV>
+<DIV><FONT size=3D"4">1- <A name=3D"Risconti rettifica"><STRONG>Assestame=
+nto (Risconti-Rettifica)</A> </STRONG>(menu <STRONG>Opzioni-Chiusura-EP-F=
+ine esercizio-Risconti Rettifica</STRONG>):<STRONG> </STRONG>questa proce=
+dura genera una scrittura di Tipo Risconto rettifica che apre i Risconti =
+attivi/passivi sui dettagli contratto passivo/attivo che riportano date d=
+i competenza a cavallo di esercizio. Il programma in questo caso calcola =
+la quota di costo/ricavo da stornare nell'esercizio in corso e riportare =
+all'esercizio successivo. I Risconti cos=C3=AC aperti, devono essere Inte=
+grati nell'esercizio successivo con la procedura di <A href=3D"#integrazi=
+one risconti">Integrazione Risconti</A>.</FONT></DIV>
 <DIV>&nbsp;</DIV>
 <DIV>&nbsp;</DIV>
+<DIV><STRONG><FONT size=3D"4">2- Ratei e fatture da ricevere/emettere</ST=
+RONG> (menu <STRONG>Opzioni-Chiusura-EP-Fine esercizio-Ratei e fatture da=
+ ricevere/emettere: </STRONG>questa procedura genera automaticamente su c=
+iascun Contratto attivo/passivo la scrittura di Rateo attivo/Passivo o di=
+ Fattura da ricevere, su tutti i dettagli contratto che hanno nella sched=
+a EP le apposite Opzioni.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><STRONG><FONT size=3D"4">3- <A name=3D"progetti pluriennali">Assesta=
+mento Progetti Pluriennali Cost to Cost</A> </STRONG>(menu <STRONG>Opzion=
+i-Chiusura-EP-Fine esercizio-Ratei e fatture da ricevere/emettere: </STRO=
+NG>questa procedura genera una scrittura di Tipo Assestamento Commessa Co=
+mpletata che apre i Risconti passivi per progetti pluriennali. Prima di l=
+anciare tale procedura occorre verificare che tutte le UPB di progetto ab=
+biano valorizzato il Tipo UPB nella scheda Altro e la Data fine nella sch=
+eda Principale. E' indispensabile che anche i Tipi UPB siano correttament=
+e configurati. I Risconti cos=C3=AC aperti, devono essere Integrati nell'=
+esercizio successivo con la procedura di <A href=3D"#integrazione riscont=
+i">Integrazione Risconti</A>.</FONT></DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <110LHQMHXC8C7THKHWF1HCHT0Y>
+Content-Id: <6BBH7EIEJ8O91EYRV6X1RK51Q6>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/LIMITI COSTO/PdC.png
 
@@ -2881,9 +2976,9 @@ IiIiIiIi3rnEH4iIiIiIiIh45xJ/ICIiIiIiIuKdS/yBiIiIiIiIiHduPf6QUkRE
 RERERETEu7ESf0gRAAAAAAAAAMA94eKP77///wGgvZD9LKybdwAAAABJRU5ErkJg
 gg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <90PJNNI6PV2O69EIZGPEIOAS>
+Content-Id: <ZOD13VL9R4GC1JUP6KJIE27NF>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/suddivisione UPB.png
 
@@ -4389,9 +4484,9 @@ sryYLYCQEdcGxgFCCCGE0DBhHADA9JHlxWwBhIy4NjAOEEIIIYSGCeMAAKaPLC9m
 CyBkxLWBcYAQQgghNEwYBwAwfWR5MVsAISOujQ7j4K77/z8X21u8ItGTeQAAAABJ
 RU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1IZF956I0F2YIG2A9PR18AT0Z4>
+Content-Id: <6NUOOVJEJ7U2NJGKU9UYL8IK>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Suddivisione UPB-Riepilogo.png
 
@@ -5625,9 +5720,9 @@ ZiHt6mZheg4AAADr/v1//s8spAlmIQAATDILaYVZCAAAk8xCWmEWAgDAJLOQVpiF
 AAAwySykFWYhAABMMgtpRXqgp4c7AACwzSykCemBLkmSJOmxbv/7f/8fJjzkp7WH
 p2QAAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <15BOYMIQIGG519RHZ7QVCYY7L>
+Content-Id: <WWSVBIIKGORJI8E36V1RXN2SV>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Situazione.png
 
@@ -7143,9 +7238,9 @@ onG2+RufpWE3H4ZcxN/mJXnHzr7+3r7es1+ePPrbrOV8a0ciIqfnR7kMAAAQSGj4
 QIOIHCCgjUZELhcAAPwEfeTgjn/7yM/biJyQ/x9lPyZ4AevAIgAAAABJRU5ErkJg
 gg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <112YHJ6ISE4W11B54OTSZ0JE7M>
+Content-Id: <1IQQF54KBZ0WXK2CJ3EUY7Z7G>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Scheda Budget 2.png
 
@@ -9341,9 +9436,9 @@ dioNWA7CAwAAgGNYDv/zm99oFwAAAMDORmE5/INaDgAAAAAAAABQFeytBAAAAAAA
 AKgNLAcAAAAAAABAbWA5AAAAAAAAAGoDywEAAAAAAABQG1gOAAAAAAAAgNq0Hfjf
 J+ISAAAAAAAAAJQQ8v8kWb5ReedCfgAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <15DQRF2L2KFR51XNHZF110BTQE5>
+Content-Id: <144PNPBL4S0RBOGY3DE1MFG4GM>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Scheda Classificazioni.png
 
@@ -10903,9 +10998,9 @@ AAAAAAAAPpIvpn/8+U+//Fnsmf5w8v2v9779yXh481xGo5HYAridUqmU2IIP4/79
 YAAAAAAAALB0uAsiAAAAAADAR4IADAAAAAAA4CNBAAYAAAAAAPBREPL/Ax8JQNaO
 mlpDAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1B5UMHKIJZ6161S56E291E6JMZX>
+Content-Id: <K0F651LFEIJPXHMTUB91HEM4>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Scheda Ripeilogo.png
 
@@ -12290,9 +12385,9 @@ AHYC40sBAAAAADXQfwgA2Fqu/kPeYAEAwI7byPNL9QoAAPfHjg95gwUAAA0iKD6c
 l/EhAAAAAOBBder/+5z5hwAAAAAAhfgQAAAAACCEEP8/armnQebdQUcAAAAASUVO
 RK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <VZP7TBL7XQ3S1AEMXZO1NS3KKI>
+Content-Id: <1KW9T68IBXHYF5ETZ0YP320NN>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/Situazione effettiva finanziaria.png
 
@@ -12984,9 +13079,9 @@ jur7n5ovfCByAQAAAEBj68c3Lz82Hd//BAAAAGAa4icAAAAAcxA/AQAAAJiD+AkA
 AADAHMRPAAAAAOb4P383+41rIgsAAAAADInP3xH6PxFCAQAAAMCQTra6/n/bkNNf
 4E64ZgAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <VRM3G9LODTLZ1I0ARA710JZADT>
+Content-Id: <175FIF0HTXOZY10VTKF8UV432S>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/Epilogo.png
 
@@ -13155,9 +13250,9 @@ cgAAQBkoBwAAlIFyAADAYP7JmC2jHAAAMBiUAwAAhgflAACALP6rhi8oUA4AAMji
 BcMXFCgHAACUgXIAAEAT/w0jLihQDgAAaOJ1Ii4oUA4AACgD5QAAgBLW1/8fKN8/
 tUGHWkkAAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1FXE5GQJU30QUT3F3CR1WNMZQD>
+Content-Id: <KPWT9LM2PS31Y7BJXHYNE3DJ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/PdC flag epilogo.png
 
@@ -15293,9 +15388,9 @@ AAAAAzLyrz64J3cBAAAAAAAAAAAAAAAAHgEjlco/yl2Ao/fkk//8wYMH8kV3zp49
 /s9D+brmyd85I/caPT4yoqzd+e7zNvl6CGANGAAAAAAAwEAQ8v8Bl7PT5y4ln2UA
 AAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1BFYG5EI9O7FG1OMEOQG191N4T5>
+Content-Id: <GRKR3ALY331M1HGFKX91QF4ZYF>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Rigenerazione esiti.png
 
@@ -15934,9 +16029,9 @@ AAAAUoZwHAAAAEiZrO8eD/4MEAAAAIDk+G+f/vKfy/IZHQcAAABShnAcAAAASBnC
 cQAAACBlCMcBAACAlCEcBwAAAFIm69e7+swqAAAAgCT657L8/x//L6cPyS4OEAAA
 AABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <KA6FRVJM5Y7OFNEUGAFXI6BN>
+Content-Id: <1ESCW5VJSM4Z715M6Y6SO5BYWA>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Importazioni esiti e sosp.png
 
@@ -20869,9 +20964,9 @@ qMRJ750qUXPAb8lY3h/MH/ra5iuNZJnCuRS07sDyBCAzcfrH12u0IInOwgDkk6Gu
 2Ls6uT8o4c1vy1sNpIDhOK3y1LuTk5IiI0dsyqRiCLO14Mu3R4ASEpf/3ISamheI
 3JS5buaQGFmv2Inf3qRb5JdI8i9f/n/zo637i3NAOAAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <W9VCEIIX3HR8SN34K1FF5J9L>
+Content-Id: <1NHSDVJKMU7QB1GYJ8N41H6RLFP>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Esitazioni bancarie.png
 
@@ -22463,9 +22558,9 @@ JSucTcUfOoFlPYea4HgXTYCnywAAAIBBdBJvfQEArCBcBgAAAAAAwJUWF2O89a1v
 lRsAAAAAAAD4l1bC5Ub7AAAAAAAA8BGthMsAAAAAAAAEBKxdBgAAAAAAwBWEywAA
 AAAAALhAyP8P/3CDLWqiRhYAAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1VA40U3HV4PR21CRR448RNS0QG>
+Content-Id: <RDC33EI5C8811BSIETUBIGJBE>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/account.mht/Config transitorio reversali.png
 
@@ -26228,9 +26323,9 @@ HT3q4e3dtmfPQ1u2OO32+N69K0pKsk6c8AsJievU6ewr64li/aVNAAAAAK4SNE0J
 FFV1rU4XkO5IRhSvyekfv8VKOpChaY7jGI4EbIrlODKRd5Xr8uQcw5JjkDNQ1P8B
 gzl4H6HWjo4AAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1WBU9GRICJ5HJTTO5GL1S017H7>
+Content-Id: <1FNYV0XJ6KLUN1UIFTEPLTT1N8>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Rigenera scritture distinta reversali.png
 
@@ -26878,9 +26973,9 @@ eN+ySxsLxO9QUSrln96Y9re/ZpYp633TVl0wz/FbzcNFLe/cZVYq8qwzfufg9Nbg
 7WJwUPxoaGhobW19vGqrSgv6lY+lPbrq9/7/9yiXk684xywAAAAASUVORK5CYII=
 =
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1IWRE8MK5SVAQ1C4ZY53ZIWWPR>
+Content-Id: <B06NA3IPI2WDRO8QT316R0O0P>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Esportazione documenti senza scritture.png
 
@@ -27552,9 +27647,9 @@ WzvVeGak6V97L0J+/PHHXr3o/9IE/2vd3j//+bGnIkMG9pWSDefOB2ONVU/Q0NAQ
 HDhcJExv3M2bd0UaoAP69fNW/QOjmv9x95Ff/pxuqP6jQdF/fmILrBs+fLi3t/f/
 H+BJCZWm2QFTAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1ABU0BBJ7N3SM1S00XAJ1SZKBJN>
+Content-Id: <CI5VZ0L2O5RK1J9XV2V1K24LNM>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Config Transitorio mandati.png
 
@@ -28262,9 +28357,9 @@ j+7chmLxsT+CwgMAAJgxIoaKJDjTblB4bkOxuPfee2ULAAAA5kigikoiONNulBIq
 1YIz7QN/8RgAAABgfrgndvGGAoUHAAAAMD+cnos33r979/8Hp/qCd4txxasAAAAA
 SUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <N2Z408J6ZWDTDNWUQ18Z1FPF>
+Content-Id: <ZUXRLKIAVE5J12J5CJ882JN32>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Rigenera scritture distinta mandati.png
 
@@ -28912,9 +29007,9 @@ s9dNwFL1Hl686uB9n9K5QxQozd+os/mr2GWV6QLD3Dru+5SzQI9muApU1QHJJvDs
 9jAwIH7U1dU1Nzc/XrFVpwX8wsdSHl31W/8/fp7Xqtx5YLcAAAAASUVORK5CYII=
 =
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1AUDIDCL6FBXX14SYIED1Y7WF64>
+Content-Id: <191MLNFIIZBC11BOUG7CYGKJ9R>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide contributo c.e..png
 
@@ -30668,9 +30763,9 @@ AAAAAABAtDEiGgAAAAAAINqIyAAAAAAAAEQbERkAAAAAAIBoIyIDAAAAAAAQbURk
 AAAAAAAAoo2IDAAAAAAAQLQRkQEAAAAAAIg2IjIAAAAAAADR5fH8fwq4aCMg0SOi
 AAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <16OTAJAKZQ0TA1RH0FCROHF8NK>
+Content-Id: <1NTUVZL0AM03VRNNAF4TB8RP>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Quadrature EP/Contributo C.E. no stipendi Conto Transitorio.png
 
@@ -31738,9 +31833,9 @@ JrzPdPyRDyodyEVFJAZRJMOEpsYkZPG9e+pJWUVXVPcmj4hNZHsAgMxg/6Mvu33V
 76sMoMnsoLKCjA4iROgFWWwKp4tNVB1JxYnpug3ZlH03bdr/A4HpuqDxMoMGAAAA
 AElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <OUO2ZFJBCTC01RISSQQWSZV1P>
+Content-Id: <14Y0HKAJCNZS31KY9RXVHSNYG2>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Quadrature EP/Contributo C.E. no stipendi.png
 
@@ -32819,9 +32914,9 @@ fTXORwKAISODiggyMYjsoBuy23TeIDZR60gqRdyg9yF3NXdBhigzarx3W3r0V8Q3
 ERDEUlSxwaSHuUvTo38e2dLsBgAQJO6BPzLgK7JlkoJYkklCkz+T39x+uSjXlpdy
 yVxEihB6l7qRL8f5f1HZf5oxQo8NAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1Y16M5WKY3DSF102OCQOHP3463>
+Content-Id: <1L25FU6K3G0EKX3G9MAMJ4Q92>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide ritenute.png
 
@@ -34309,9 +34404,9 @@ AAAAAAAEA1EYAAAAAACAYCAKAwAAAAAAEAxEYQAAAAAAAIKBKAwAAAAAAEAwEIUB
 AAAAAAAIBqIwAAAAAAAAwUAUBgAAAAAAIBiIwgAAAAAAAAQDURgAAAAAAIBgIAoD
 AAAAAADQ+Vyu/w8TutX+FSwMWgAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1M6R7W4LZKCQQ1WOTU38AA9F3B>
+Content-Id: <NUBV2BLP1ZZL2PJ6IF1UTCTE3>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Quadrature EP/Ritenuta conto dip no stipendi.png
 
@@ -35313,9 +35408,9 @@ HBSF/WLh1da/LHwAAGoVisfjsoS+7BRR4tblPaJwa5EqnITxplAoJJJJ91kAAKoU
 2n61J0toyk0MTnKwidJJDqUWhdOweP36YH9/3z5Fs1h8/nzN/YcAAFTLMP4HsDzz
 nlMg0igAAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1TD6CAMKE4ZR61EXSKA8BCHPFR>
+Content-Id: <143YWCQK3XHP81MQTW9VXO2JJS>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide mov fin STIPENDI.png
 
@@ -37595,9 +37690,9 @@ AHgOaj0AAAAAAACeg1oPAAAAAACA56DWAwAAAAAA4Dmo9QAAAAAAAHgOaj0AAAAA
 AACeg1oPAAAAAACA56DWAwAAAAAA4Dmo9QAAAAAAAHgOaj0AAAAAAACeg1oPAAAA
 AACAp7DZ/j9wq2GJeWCNRwAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <15FQ7MKJ6WG4W1RA5KI1Y2JSCT>
+Content-Id: <1QUOQHJJVESJO1OP2379ESPZG2>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide scritture LORDII.png
 
@@ -38599,9 +38694,9 @@ AIAUiDIAAAAAKRBlAAAAAFIgygAAAACkQJQBAAAASIEoAwAAAJACUQYAAAAgBaIM
 AAAAQApEGQAAAIAUiDIAAAAAKRBlAAAAAFIgygAAAACkQJQBAAAASIEoAwAAAJC4
 SZP+H3k6VIjsKGdYAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1JKEMRTI9TV1QQFX0HR9RALOF>
+Content-Id: <1KUATJ0L2DFP81P4QYS89OX508>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide scritture RECUPERI.png
 
@@ -39619,9 +39714,9 @@ AIDiqq2ell/kMTdfZ65prK6c7m6AWIg10TnbM3jsTF/y2jswEj5HmmjvwLu515Es
 AAAQEfc4AQAAAERErAEAAACIiFgDAAAAEBGxBgAAACAiYg0AAABARMQaAAAAgIiI
 NQAAAAAREWsAAAAAIiLWAAAAAERjypT/D9gHmaYrtiqDAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <13LUCIMLCTBG51QFVMAJ1QKSVN0>
+Content-Id: <W38GWYK26W1E1MJ9NDNJNSTVX>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide scritture CONTRIBUTI.png
 
@@ -40671,9 +40766,9 @@ ACBFwhcAAACAFAlfAAAAAFIkfAEAAABIkfAFAAAAIEXCFwAAAIAUCV8AAAAAUiR8
 AQAAAEiR8AUAAAAgRcIXAAAAgBQJXwAAAABSJHwBAAAASJHwBQAAACBFwhcAAACA
 FAlfAAAAAFIzadL/A2fmsqpxms73AAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <4OYK2FIKCX5H1P4LKSW16D5O33>
+Content-Id: <WQ9J1GM30MTB1P9ABHRV19MDM>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide scritture RITENUTE.png
 
@@ -42112,9 +42207,9 @@ AAAAf6COAwAAAAAA4A/UcQAAAAAAAPyBOg4AAAAAAIA/UMcBAAAAAADwB+o4AAAA
 AAAA/kAdBwAAAAAAwB+o4wAAAAAAAPgDdRwAAAAAAAB/oI4DAAAAAADgD9RxAAAA
 AAAA/CAh4f8Bl8FRo2Wrc+wAAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <ZAX2JOIKNFZ7DXJAU25D7OBG>
+Content-Id: <15F9JNGL9I5SP1X83I4RCP7YTH>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide IVA split istituzionale.png
 
@@ -44042,9 +44137,9 @@ pgWcIAAAAAAAAACAaQEnCAAAAAAAAABgWsAJAgAAAAAAAACYFnCCAAAAAAAAAACm
 BZwgAAAAAAAAAIBpAScIAAAAAAAAAGBawAkCAAAAAAAAAJgO3njj/wPMys4G16RR
 OQAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <119AXOQK8S3BFQ48A6WNPXXY7>
+Content-Id: <AMNNN8JOWHACTWY3DLU5YQ6T>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Config Annuale IVA split.png
 
@@ -44458,9 +44553,9 @@ fL8dAACAdxDbAQAAeAexHQAAgHcQ2wEAAHgHsR0AAIB3pIvz53USAAAASS5ddOig
 kwAAAEhyjMkCAAB4B7EdAACAdxDbAQAAeEd63Wc6BQAAgGSXfuLk33QSAAAASU2I
 /x/uhwSGlaPB6AAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <V56GZNI4PF1I14QSPLJTJF0RJ>
+Content-Id: <1EAC9M9HSDQR41MT7JWSU06P3H>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Recupero split istituzionale.png
 
@@ -44775,9 +44870,9 @@ BbgCAAAU4AoAAFCAKwAAQAGuAAAABbgCAAAUdOsKEgcAAGPIqfccxBUAACADVwAA
 gAJcAQAACnAFAAAowBUAAKAg4QrSBQAAY4t2BYQQQmOuwhV8CwAAAFcAAIACXAEA
 AHJu/8H/B30XtYhKfCnMAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1CWOND6J6UYIQ11830JULZAQOI>
+Content-Id: <1L10WVNJ1W3FHLAKA771GJZ3BG>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide IVA estera istituzionale.png
 
@@ -46695,9 +46790,9 @@ PCAAAAAAAAAAgP6DBwQAAAAAAAAA0H/wgAAAAAAAAAAA+g8eEAAAAAAAAABA/8ED
 AgAAAAAAAADoP3hAAAAAAAAAAAD9Bw8IAAAAAAAAAKD/4AEBAAAAAAAAAPQfPCAA
 AAAAAAAAgL7z61//vydXXPoDsuuyAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <K37UU0JLW4OAVMM85B1DBYAFH>
+Content-Id: <183KNMCLN01V81TP7MAT1ONWNOF>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Recupero IVA estera istituzionale 2.png
 
@@ -47078,9 +47173,9 @@ RAIAAL1DJAAA0DtEAgAAvfOorKz8/lC5WAMAAD2ZcePqsf5eGBMAAOgdIgEAgN4h
 EgAA6B0iAQCA3iESAADonYd/1mmRBAAA/TnW3+v/ASy/Nvmvr3NdAAAAAElFTkSu
 QmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <SNFET4LDRSQW179BO2Y3RIYPB>
+Content-Id: <OBNINBI50VR41P4PE3AN334VT>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Recupero IVA estera istituzionale.png
 
@@ -47403,9 +47498,9 @@ DwAAAMBuEOEBAAAA2A0iPAAAAAC7QYQHAAAAYDeI8AAAAADsBhEeAAAAgN0gwgMA
 AACwG0R4AAAAAHaDCA8AAADAbhDhAQAAANgNIjwAAAAAu0GEBwAAAGA3iPAAAAAA
 7IWQ/w+67qxLdaHJxAAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1D7427HK8DBHWW782391CKX5W1>
+Content-Id: <T8IO72KM0SNT19UPRR319KNIMW>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide IVA split commerciale.png
 
@@ -49789,9 +49884,9 @@ AAAAxD+eswIAAAAAAIh/5IAAAAAAAADiHzkgAAAAAACA+EcOCAAAAAAAIP6RAwIA
 AAAAAIh/5IAAAAAAAADiHzkgAAAAAACA+EcOCAAAAAAAIP6RAwIAAAAAAIh/5IAA
 AAAAAADiHzkgAAAAAACAeOfx/P9KFDEjfKYrGgAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <N7H38RJGE3HZ11FZ1YCR9KE4C>
+Content-Id: <LQVEYMJC68YT7BHWVCTR7QV8>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/RecuperoIVA split commerciale.png
 
@@ -50174,9 +50269,9 @@ GsIAAICuGf6794xMAgCAnky7dulQ/84YDQAA6BrCAACAriEMAADoGsIAAICuIQwA
 AOiaoWfuSZkEAACdOdS/s0wBAIA+Gb7JKJRJAADQHzwbAADQNYQBAAAdI+T/AdXr
 HucZZDiPAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1XX9YSCJGPKAH1V9F1DK1PSWTYB>
+Content-Id: <156MRHJZ35RH10J7IY21M5XODU>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Config IVa split commerciale.png
 
@@ -50513,9 +50608,9 @@ T123VjzUUr2b33/TlEPiDVZ+uVcei7HgZHX79lYo2XS8reWWmwZVXbZ+tuauXtO3
 faF9h44tR3kQh349iJ9RMBfMXFceX14+lXZTohwBCL+YOLVvSZ+bvH+QZ6p8GFF3
 RvNVKOd1h6n5WdN5ujWcyAAQLIT8f9xdVaSybcE8AAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <TOWMJ2JRPZ1DX78KON1VUALAP>
+Content-Id: <1X2IZG1J818FOKCUDN512W6ENI>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Iva a credito e a debito.png
 
@@ -51728,9 +51823,9 @@ S/0FAAAAoL/UXwAAAAD6S/0FAAAAoL/UXwAAAAD6S/0FAAAAoL/UXwAAAAD6S/0F
 AAAAoL/UXwAAAAD6S/0FAAAAoL/UXwAAAAD6S/0FAAAAoJ9+//v/By+ZOisFwYdJ
 AAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <1E3LCBVI68WRGCXGUXLPHR7VI>
+Content-Id: <WRG47QLK4MNF1OIH30Z1EQFV34>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Tipo doc IVA vendita.png
 
@@ -52207,9 +52302,9 @@ AwAAjGXCXA4sJ//ZTi4HAAALJ8/lFJVOkcsBAMDCIZdTCRa5HAAALBwJKBSVYJmF
 AADzRy4HAAAA5m/tXC4jAAAAAMzYCx94lFwOAAAAzBm5HAAAAJg/cjkAAAAwf+Ry
 AAAAYP7I5QAAAMD8hVx+79f/f53NblvI7GDTAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <WA2C3ULD0X4Q1UTJJY416EXMOX>
+Content-Id: <JGUYEGM1AGR61VULKTO16P5B1O>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Tipo doc IVA acq comm.png
 
@@ -52864,9 +52959,9 @@ AO8gvgcAAAC8g/geAAAA8A7iewAAAMA7iO8BAAAA7yC+BwAAALyD+B4AAADwDuJ7
 AAAAwDuI7wEAAADvIL4HAAAAvIP4HgAAAPAO4nsAAADAKzTt/wcl9WhlhK6YKwAA
 AABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <5CHP94JH4JT8160OCJO13FJOFH>
+Content-Id: <ZX8DJRKQ8N9LTPZO2EJ2IEGK>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Tipo doc IVA acq comm estera.png
 
@@ -53639,9 +53734,9 @@ XqlmAADxgf57AAAAwD2I7wEAAAD3IL4HAAAA3IPx9wCAUK3ZfUqlAADxiv57AAAA
 wD2I7wEAAAD3IL4HAAAA3IP4HgAAAHAP4nsAAADAPXh+DgAgJFk7j6sUACBuadr/
 B4P2keI/4a5XAAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <VTOHGKJCS1L81O60XHC1WK9XT4>
+Content-Id: <1HVJBLVIQQJULU9QWFU112U9Q3>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Slide Fondo economale.png
 
@@ -55104,9 +55199,9 @@ O6RBDfNpAAAAqDQIxwAAAAAAAPgUc6EBAAAAAAB8inAMAAAAAACATxGOAQAAAAAA
 8CnCMQAAAAAAAD5FOAYAAAAAAMCnCMcAAAAAAAD4FOEYAAAAAAAAnyIcAwAAAAAA
 4FOEYwAAAAAAAHzI4fj/TBsK3M9Txw0AAAAASUVORK5CYII==
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <13JKXCGLIV8511KRYKRP1BWNFBS>
+Content-Id: <1358RRXLK9F4A1PQ6KS71RQI6DL>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Config fondo econ.png
 
@@ -55805,9 +55900,9 @@ gKUhVAMAAFgaQjUAAIClIVQDAABYGkI1AACApSFUAwAAWBpCNQAAgKUhVAMAAFga
 QjUAAIClIVQDAABYWthHx76QSQAAALAe9KoBAAAsDaEaAADA0hCqAQAALIyQ/w9Z
 tH7vVsEeOwAAAABJRU5ErkJggg===
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV
 Content-Type: image/x-png
-Content-Id: <TZFAB7IWQHES1SRDNKH1U8ZBMX>
+Content-Id: <NMO6K3K53MRLME8NTN1IRDX63>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/Situazione fondo econ.png
 
@@ -56749,4 +56844,4 @@ ADVKs5yYCOEu9vUXDIfVvpfs6JvS26u09C4LgJo1qwvzHNwjBcSdiNgFw+4r3SI2
 PLMBQL0uVqvm6sXr2ILFa9v+/6x0L/1q227bbb9Mn92ie9luN5vNdrNe39z8dfW8
 Pw4AavPRx5/+C099iDFX69R2AAAAAElFTkSuQmCC=
 
------------blocknote.net--SJU9LHITP4PD14IMSGB12JIC9K--
+-----------blocknote.net--US68GQKGWK6VV0ZLVOKLL4GV--

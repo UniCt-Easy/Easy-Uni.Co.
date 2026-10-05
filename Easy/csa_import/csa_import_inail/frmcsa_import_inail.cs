@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -108,7 +106,7 @@ namespace csa_import_inail {
 
 		string getHash(DataRow r, string[] listaCampi) {
 			if ((listaCampi != null) && (listaCampi.Length > 0))
-				return string.Join("ß", (from field in listaCampi select r[field].ToString()).ToArray());
+				return string.Join("¬ß", (from field in listaCampi select r[field].ToString()).ToArray());
 
 			string[] fields = null;
 			if ((r.Table.TableName.ToString() == "csa_importver_partition_expenseview") ||
@@ -116,7 +114,7 @@ namespace csa_import_inail {
 				fields = new[] {"idcsa_import", "idver"};
 			}
 
-			return string.Join("ß", (from field in fields select r[field].ToString()).ToArray());
+			return string.Join("¬ß", (from field in fields select r[field].ToString()).ToArray());
 		}
 
 
@@ -387,7 +385,7 @@ namespace csa_import_inail {
 			bool res = ga.GeneraAutomatismiAfterPost(true);
 			if (!res) {
 				show(this,
-					"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+					"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
 				return false;
 			}
 			else {
@@ -399,7 +397,7 @@ namespace csa_import_inail {
 					}
 					else {
 						show(this,
-							"Si Ë verificato un errore o si Ë deciso di non salvare! L'operazione sar‡ terminata");
+							"Si √® verificato un errore o si √® deciso di non salvare! L'operazione sar√† terminata");
 						return false;
 					}
 				}
@@ -497,7 +495,7 @@ namespace csa_import_inail {
 				QHS.CmpEq("idcsa_agencypaymethod", idcsa_agencypaymethod));
 			DataTable AgencyPagam = Conn.RUN_SELECT("csa_agencypaymethod", "*", null, filtro, null, true);
 			if (AgencyPagam.Rows.Count == 0) {
-				// cerco la modalit‡ di pagamento di defualt 
+				// cerco la modalit√† di pagamento di defualt 
 				__myModPagam[key] = CfgFn.ModalitaPagamentoDefault(Conn, idreg_agency);
 				return __myModPagam[key];
 			}
@@ -511,7 +509,7 @@ namespace csa_import_inail {
 
 
 			if (ModPagam.Rows.Count == 0) {
-				// cerco la modalit‡ di pagamento di defualt 
+				// cerco la modalit√† di pagamento di defualt 
 				__myModPagam[key] = CfgFn.ModalitaPagamentoDefault(Conn, idreg_agency);
 				return __myModPagam[key];
 			}
@@ -580,7 +578,7 @@ namespace csa_import_inail {
 			string kind = (IoE == "I") ? "Entrata" : "Spesa";
 			Dictionary<int, List<DataRow>> classDict = (IoE == "I") ? ClassEntrateLast : ClassSpeseLast;
 			DataRow[] RUnGrouped;
-			//nriga Ë sempre l'indice della riga stessa
+			//nriga √® sempre l'indice della riga stessa
 			RUnGrouped = new DataRow[] {SP_Result.Rows[index]}; //penso che potesse andare bene anche con la vecchia
 			if (RUnGrouped.Length == 0) return;
 			MetaData MetaSortedMov = Meta.Dispatcher.Get(tMainSorted);
@@ -621,8 +619,8 @@ namespace csa_import_inail {
 
 		/// <summary>
 		/// Aggiunge i finanziamenti alla riga NewMovRow, corrispondente alla riga  raggruppata di spesa (di fase 1) di indice index
-		///     questa parte NON viene utilizzata quando al movimento Ë associato un impegno, visto che in quel caso la fase 1 
-		///     non Ë da generare. Aggiunge un finanziamento (eventualmente accorpandoli) per ogni riga non raggruppata  associata al
+		///     questa parte NON viene utilizzata quando al movimento √® associato un impegno, visto che in quel caso la fase 1 
+		///     non √® da generare. Aggiunge un finanziamento (eventualmente accorpandoli) per ogni riga non raggruppata  associata al
 		///     movimento in fase di generazione
 		/// </summary>
 		/// <param name="index">indice della riga di spesa raggruppata</param>
@@ -637,7 +635,7 @@ namespace csa_import_inail {
 				RUnGrouped = OutTable.Select(QHC.AppAnd(QHC.CmpEq("nriga", index), QHC.CmpEq("kind", kind)));
 			}
 			else {
-				//nriga Ë sempre l'indice della riga stessa
+				//nriga √® sempre l'indice della riga stessa
 				RUnGrouped = new DataRow[] {SP_Result.Rows[index]}; //penso che potesse andare bene anche con la vecchia
 			}
 
@@ -870,7 +868,7 @@ namespace csa_import_inail {
 		/// Ricerca i finanziamenti disponibili per la coppia bilancio/upb considerata nei casi in cui non ci siano finanziamenti 
 		///  in fase di impegno.
 		/// La ricerca riguarda quindi solo la previsione e non i finanziamenti. Le previsioni sono prese in ordine crescente 
-		///  di disponibilit‡.
+		///  di disponibilit√†.
 		/// </summary>
 		/// <param name="idfin">IDfin per la riga da considerare</param>
 		/// <param name="idupb">IDupb per la riga da considerare</param>
@@ -883,7 +881,7 @@ namespace csa_import_inail {
 			//object idupb = Curr["idupb"];
 
 			//Legge l'elenco di tutti i finanziamenti aventi previsione disponibile per il pagamento
-			//  per la voce upb/bilancio del movimento di spesa, in ordine crescente di disponibilit‡
+			//  per la voce upb/bilancio del movimento di spesa, in ordine crescente di disponibilit√†
 			DataTable F = Conn.RUN_SELECT("upbunderwritingyearview", "*", fieldtouse + " asc",
 				QHS.AppAnd(QHS.CmpEq("idfin", idfin), QHS.CmpEq("idupb", idupb), QHS.CmpGt(fieldtouse, 0)), null,
 				false);
@@ -908,7 +906,7 @@ namespace csa_import_inail {
 				decimal available = CfgFn.GetNoNullDecimal(Rf[fieldtouse]);
 
 				if (dsFinancial.Tables["underwritingpayment"].Select(filterunderwriting).Length == 0) {
-					//in available la disponibilit‡ a pagare                    
+					//in available la disponibilit√† a pagare                    
 					MetaUA.SetDefaults(dsFinancial.Tables["underwritingpayment"]);
 					DataRow toadd = MetaUA.Get_New_Row(Curr, dsFinancial.Tables["underwritingpayment"]);
 					toadd["idunderwriting"] = idunderwriting_found;
@@ -1033,7 +1031,7 @@ namespace csa_import_inail {
 		}
 		/*
 		 * topay = finanziamenti impegnato e non pagati
-		 *          Ossia quanto Ë stato finanziato in fase di impegno ma non ancora portato in pagamento
+		 *          Ossia quanto √® stato finanziato in fase di impegno ma non ancora portato in pagamento
 		 * paymentprevavailable = prev. di cassa disponibile
 		 *          Ossia quanto hai previsto di PAGARE e non hai ancora PAGATO
 		 * proceedsavailable  = CASSA disponibile
@@ -1041,11 +1039,11 @@ namespace csa_import_inail {
 		 */
 
 		/// <summary>
-		/// Inserisce i finanziamenti sul pagamento cercando di fare il meglio che puÚ. In particolare:
-		///  - 1 se l'utente non usa crediti o competenza associa i finanziamenti sulla semplice disponibilit‡ che trova a finanziare
+		/// Inserisce i finanziamenti sul pagamento cercando di fare il meglio che pu√≤. In particolare:
+		///  - 1 se l'utente non usa crediti o competenza associa i finanziamenti sulla semplice disponibilit√† che trova a finanziare
 		///  - 2 se ci sono righe non raggruppate associate con dei finanziamenti espliciti, usa quelli 
-		///  - 3 se l'impegno non Ë associato a dei finanziamenti o questi non hanno disponibilit‡, vale il caso 1
-		///  - Altrimenti usa i finanziamenti dell'impegno con disponibilit‡, considerando in particolarei finanziamenti associati in fase 
+		///  - 3 se l'impegno non √® associato a dei finanziamenti o questi non hanno disponibilit√†, vale il caso 1
+		///  - Altrimenti usa i finanziamenti dell'impegno con disponibilit√†, considerando in particolarei finanziamenti associati in fase 
 		///     di impegno e non associati a pagamenti, prendendoli in ordine di:
 		///      * previsione disponibile a pagare  se uno non usa le assegazioni di cassa
 		///      * assegnazioni disponibili di cassa se uno usa le assegnazioni di cassa 
@@ -1056,8 +1054,8 @@ namespace csa_import_inail {
 		void CercaFinanziamentoCassa(int index, DataRow Curr) {
 
 			DataRow R = SP_Result.Rows[index];
-			//Se non usa i crediti e nemmeno la competenza, la disponibilit‡ a pagare non puÚ essere ricercata considerando l'impegno
-			//  sar‡ dunque effettuata sulla semplice base della coppia upb/bilancio in uscita (considerando tutti i finanziamenti presenti)
+			//Se non usa i crediti e nemmeno la competenza, la disponibilit√† a pagare non pu√≤ essere ricercata considerando l'impegno
+			//  sar√† dunque effettuata sulla semplice base della coppia upb/bilancio in uscita (considerando tutti i finanziamenti presenti)
 			// Questa parte quindi prescinde dal fatto che uno abbia o meno selezionato un impegno
 			if (!(UsaCrediti() || UsaPrevCompetenza())) {
 				FillUnderwritingPayment(index, Curr);
@@ -1078,8 +1076,8 @@ namespace csa_import_inail {
 
 			object parentidexp = R["parentidexp"];
 
-			//Se usa i crediti o la competenza ->  si presume ci siano uno pi˘ finanziamenti associati all'impegno .
-			//La disponibilit‡ sar‡ considerata nell'ambito del pagato relativo a tali finanziamenti e non esclusivamente 
+			//Se usa i crediti o la competenza ->  si presume ci siano uno pi√π finanziamenti associati all'impegno .
+			//La disponibilit√† sar√† considerata nell'ambito del pagato relativo a tali finanziamenti e non esclusivamente 
 			// sulla coppia bilancio/upb in uscita
 
 			string fieldtouse = "paymentsavailable";
@@ -1088,7 +1086,7 @@ namespace csa_import_inail {
 				fieldtouse = "proceedsavailable"; //incassi disponibili (cassa assegnata e non utilizzata nei pagamenti)
 			}
 
-			//Prende prima le righe aventi disponibilit‡ nei sensi di fieldtouse e POI quelle che non ce l'hanno
+			//Prende prima le righe aventi disponibilit√† nei sensi di fieldtouse e POI quelle che non ce l'hanno
 			DataTable F = Conn.RUN_SELECT("expensecreditproceedsview", "*", fieldtouse + " asc",
 				QHS.AppAnd(QHS.CmpEq("idexp", GetIDImpegno(parentidexp)), QHS.CmpEq("ayear", Conn.GetSys("esercizio")),
 					QHS.CmpGt(fieldtouse, 0), QHS.CmpGt("topay", 0)), null, false);
@@ -1365,7 +1363,7 @@ namespace csa_import_inail {
 				int NRIGA = CfgFn.GetNoNullInt32(R["nriga"]);
 				AddVociCollegate(R);
 				DataRow ParentR = null;
-				object parentidmov = DBNull.Value; //All'inizio il movimento parent corrente Ë null
+				object parentidmov = DBNull.Value; //All'inizio il movimento parent corrente √® null
 				int movkind = CfgFn.GetNoNullInt32(R["movkind"]);
 				// Genera tutte le fasi oppure si ferma alla fase residui a seconda dell'opzione scelta nel tab precedente
 				int faseIniziale = 1;
@@ -1388,7 +1386,7 @@ namespace csa_import_inail {
 						ExpenseToPreserve.Add(CfgFn.GetNoNullInt32(NewMovRow["idexp"]), true);
 					}
 
-					//Imposta il movimento parent tramite il livsupid. Il movimento parent Ë quello generato nella fase precedente
+					//Imposta il movimento parent tramite il livsupid. Il movimento parent √® quello generato nella fase precedente
 					NewMovRow[idParMovField] = parentidmov;
 					parentidmov = NewMovRow[idMovField];
 					ParentR = NewMovRow;
@@ -1414,7 +1412,7 @@ namespace csa_import_inail {
 						NewMovRow["autocode"] = R["idcsa_agency"]; // anagrafiche distinte
 					}
 
-					//Se c'Ë la configurazione apposita e se  il movimento Ë di entrata, lo collega alla spesa corrispondente 
+					//Se c'√® la configurazione apposita e se  il movimento √® di entrata, lo collega alla spesa corrispondente 
 					// al campo "indice" della tabella raggruppata
 
 					if ((IoE == "I") && (csa_flaglinktoexp.ToString() == "S")) {
@@ -1515,7 +1513,7 @@ namespace csa_import_inail {
 							if (ModPagam != null && regolarizzazioneEffettuata == false) {
 								#region riempimento mod. pagamento
 
-								//aggiungere le informazioni della modalit‡ di pagamento
+								//aggiungere le informazioni della modalit√† di pagamento
 								NewLastRow["idregistrypaymethod"] = ModPagam["idregistrypaymethod"];
 								NewLastRow["idpaymethod"] = ModPagam["idpaymethod"];
 								NewLastRow["iban"] = ModPagam["iban"];
@@ -1606,7 +1604,7 @@ namespace csa_import_inail {
 						DataRow NewImportMovPlusRow = ImportMovVerPlus.NewRow();
 						rQuota.mov["amount"] = rQuota.quota;
 						FillImportMov((azzeraUltimaFase&&(faseCorrente==fasemax)), NewImportMovPlusRow, rQuota.mov, idcsaImport);
-						NewImportMovPlusRow[idMovField] =R["idmovimento"]; //R["idmovimento"];//R Ë la stessa della riga di spesa collegata alla riga della sp in oggetto
+						NewImportMovPlusRow[idMovField] =R["idmovimento"]; //R["idmovimento"];//R √® la stessa della riga di spesa collegata alla riga della sp in oggetto
 						ImportMovVerPlus.Rows.Add(NewImportMovPlusRow);
 					}
 
@@ -1883,7 +1881,7 @@ namespace csa_import_inail {
 		}
 
 		private void scollegaEntratedaSpese() {
-			// Questo metodo scollega le entrate collegate alle spese se il loro importo Ë superiore
+			// Questo metodo scollega le entrate collegate alle spese se il loro importo √® superiore
 			// in quanto potrebbe derminare dei mandati a netto negativo
 			int faseentratamax = getIntSys("maxincomephase");
 			int fasespesamax = getIntSys("maxexpensephase");
@@ -1948,7 +1946,7 @@ namespace csa_import_inail {
 		private Hashtable vocecsaPerIndice = new Hashtable();
 
 		/// <summary>
-		/// Conta le righe di riepilogo e versamento e restituisce true se ve n'Ë almeno una
+		/// Conta le righe di riepilogo e versamento e restituisce true se ve n'√® almeno una
 		/// </summary>
 		/// <returns></returns>
 
@@ -1967,10 +1965,10 @@ namespace csa_import_inail {
 			//Meta.GetFormData(true);
 			string fEsercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
 			//if (show(
-			//	    " Attenzione: È necessario verificare preventivamente le singole importazioni dell'anno " + "\r\n" +
+			//	    " Attenzione: √© necessario verificare preventivamente le singole importazioni dell'anno " + "\r\n" +
 			//	    " per rilevare e correggere possibili errori nell'individuazione di Anagrafiche, Contratti, Enti. " +
 			//	    "\r\n" +
-			//	    " Premere OK per continuare lo stesso, in caso si sia gi‡ provveduto, oppure " + "\r\n" +
+			//	    " Premere OK per continuare lo stesso, in caso si sia gi√† provveduto, oppure " + "\r\n" +
 			//	    " premere ANNULLA per interrompere l'elaborazione.", "Avviso", MessageBoxButtons.OKCancel) ==
 			//    DialogResult.Cancel) return;
 
@@ -2013,7 +2011,7 @@ namespace csa_import_inail {
 
 				clearHashTabelleCollegate();
 
-				// Filtra OUTTABLE in base alle righe versamenti gi‡ elaborate,  
+				// Filtra OUTTABLE in base alle righe versamenti gi√† elaborate,  
 				QueryCreator.MarkEvent("Prima della delete:"+OutTable.Rows.Count+" righe");
 				foreach (DataRow rVer in OutTable.Rows) {
 					string keyRow = getHash(rVer, new[] {"idcsa_import", "idver"});
@@ -2189,8 +2187,8 @@ namespace csa_import_inail {
 			}
 
 			if (chkAzzeraUltimaFase.Checked)
-				message = "Si Ë scelto di generare i movimenti finanziari esclusa l'ultima fase?";
-			else message = "Si Ë scelto di generare tutte le fasi di spesa (fino all'ultima fase)?";
+				message = "Si √® scelto di generare i movimenti finanziari esclusa l'ultima fase?";
+			else message = "Si √® scelto di generare tutte le fasi di spesa (fino all'ultima fase)?";
 			if (show(this, message,
 				    "Conferma", MessageBoxButtons.YesNo) == DialogResult.No) {
 				executing = false;
@@ -2575,7 +2573,7 @@ namespace csa_import_inail {
 		private void btnInputSospesi_Click(object sender, EventArgs e) {
 			DialogResult dr = openInputFileDlg.ShowDialog();
 			if (dr != DialogResult.OK) {
-				show("Non Ë stato scelto alcun file");
+				show("Non √® stato scelto alcun file");
 				return;
 			}
 
@@ -2646,7 +2644,7 @@ namespace csa_import_inail {
 					gridrow = GetGridRow(dgrVersamentiAnnuali, i);
 					//if (!(alreadyselected(gridrow, Ver_SelectedRowsbk)))
 					//	continue;
-					//deve de-selezionare ciÚ che era selezionato
+					//deve de-selezionare ci√≤ che era selezionato
 					SelectGridRowsIdemGroup(gridrow, dgrVersamentiAnnuali, false);
 				}
 			}

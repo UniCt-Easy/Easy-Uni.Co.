@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -31,6 +29,15 @@ public partial class dsmeta_registry_servizi: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrymultikind 		=> (MetaTable)Tables["registrymultikind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrymultikindregistry 		=> (MetaTable)Tables["registrymultikindregistry"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable sospensionekind 		=> (MetaTable)Tables["sospensionekind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sospensione 		=> (MetaTable)Tables["sospensione"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -43,13 +50,16 @@ public partial class dsmeta_registry_servizi: DataSet {
 	public MetaTable registrykind 		=> (MetaTable)Tables["registrykind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable category 		=> (MetaTable)Tables["category"];
+	public MetaTable categorydefaultview 		=> (MetaTable)Tables["categorydefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registryclassdefaultview 		=> (MetaTable)Tables["registryclassdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable maritalstatus 		=> (MetaTable)Tables["maritalstatus"];
+	public MetaTable sasddefaultview 		=> (MetaTable)Tables["sasddefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable maritalstatusdefaultview 		=> (MetaTable)Tables["maritalstatusdefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable serviziriepilogoview 		=> (MetaTable)Tables["serviziriepilogoview"];
@@ -136,6 +146,38 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_registry_servizi.xsd";
 
 	#region create DataTables
+	//////////////////// REGISTRYMULTIKIND /////////////////////////////////
+	var tregistrymultikind= new MetaTable("registrymultikind");
+	tregistrymultikind.defineColumn("active", typeof(string));
+	tregistrymultikind.defineColumn("ct", typeof(DateTime));
+	tregistrymultikind.defineColumn("cu", typeof(string));
+	tregistrymultikind.defineColumn("description", typeof(string));
+	tregistrymultikind.defineColumn("idregistrymultikind", typeof(int),false);
+	tregistrymultikind.defineColumn("lt", typeof(DateTime));
+	tregistrymultikind.defineColumn("lu", typeof(string));
+	tregistrymultikind.defineColumn("title", typeof(string));
+	Tables.Add(tregistrymultikind);
+	tregistrymultikind.defineKey("idregistrymultikind");
+
+	//////////////////// REGISTRYMULTIKINDREGISTRY /////////////////////////////////
+	var tregistrymultikindregistry= new MetaTable("registrymultikindregistry");
+	tregistrymultikindregistry.defineColumn("ct", typeof(DateTime));
+	tregistrymultikindregistry.defineColumn("cu", typeof(string));
+	tregistrymultikindregistry.defineColumn("idreg", typeof(int),false);
+	tregistrymultikindregistry.defineColumn("idregistrymultikind", typeof(int),false);
+	tregistrymultikindregistry.defineColumn("lt", typeof(DateTime));
+	tregistrymultikindregistry.defineColumn("lu", typeof(string));
+	Tables.Add(tregistrymultikindregistry);
+	tregistrymultikindregistry.defineKey("idreg", "idregistrymultikind");
+
+	//////////////////// SOSPENSIONEKIND /////////////////////////////////
+	var tsospensionekind= new MetaTable("sospensionekind");
+	tsospensionekind.defineColumn("active", typeof(string),false);
+	tsospensionekind.defineColumn("idsospensionekind", typeof(int),false);
+	tsospensionekind.defineColumn("title", typeof(string),false);
+	Tables.Add(tsospensionekind);
+	tsospensionekind.defineKey("idsospensionekind");
+
 	//////////////////// SOSPENSIONE /////////////////////////////////
 	var tsospensione= new MetaTable("sospensione");
 	tsospensione.defineColumn("ct", typeof(DateTime),false);
@@ -145,11 +187,13 @@ private void initClass() {
 	tsospensione.defineColumn("idreg", typeof(int),false);
 	tsospensione.defineColumn("idsede", typeof(int));
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
 	tsospensione.defineColumn("start", typeof(DateTime),false);
 	tsospensione.defineColumn("stop", typeof(DateTime));
+	tsospensione.defineColumn("!idsospensionekind_sospensionekind_title", typeof(string));
 	Tables.Add(tsospensione);
 	tsospensione.defineKey("idreg", "idsospensione");
 
@@ -183,17 +227,17 @@ private void initClass() {
 	Tables.Add(tregistrykind);
 	tregistrykind.defineKey("idregistrykind");
 
-	//////////////////// CATEGORY /////////////////////////////////
-	var tcategory= new MetaTable("category");
-	tcategory.defineColumn("active", typeof(string));
-	tcategory.defineColumn("ct", typeof(DateTime),false);
-	tcategory.defineColumn("cu", typeof(string),false);
-	tcategory.defineColumn("description", typeof(string),false);
-	tcategory.defineColumn("idcategory", typeof(string),false);
-	tcategory.defineColumn("lt", typeof(DateTime),false);
-	tcategory.defineColumn("lu", typeof(string),false);
-	Tables.Add(tcategory);
-	tcategory.defineKey("idcategory");
+	//////////////////// CATEGORYDEFAULTVIEW /////////////////////////////////
+	var tcategorydefaultview= new MetaTable("categorydefaultview");
+	tcategorydefaultview.defineColumn("category_active", typeof(string));
+	tcategorydefaultview.defineColumn("category_ct", typeof(DateTime),false);
+	tcategorydefaultview.defineColumn("category_cu", typeof(string),false);
+	tcategorydefaultview.defineColumn("category_lt", typeof(DateTime),false);
+	tcategorydefaultview.defineColumn("category_lu", typeof(string),false);
+	tcategorydefaultview.defineColumn("description", typeof(string),false);
+	tcategorydefaultview.defineColumn("idcategory", typeof(string),false);
+	Tables.Add(tcategorydefaultview);
+	tcategorydefaultview.defineKey("idcategory");
 
 	//////////////////// REGISTRYCLASSDEFAULTVIEW /////////////////////////////////
 	var tregistryclassdefaultview= new MetaTable("registryclassdefaultview");
@@ -235,17 +279,24 @@ private void initClass() {
 	Tables.Add(tregistryclassdefaultview);
 	tregistryclassdefaultview.defineKey("idregistryclass");
 
-	//////////////////// MARITALSTATUS /////////////////////////////////
-	var tmaritalstatus= new MetaTable("maritalstatus");
-	tmaritalstatus.defineColumn("active", typeof(string));
-	tmaritalstatus.defineColumn("ct", typeof(DateTime),false);
-	tmaritalstatus.defineColumn("cu", typeof(string),false);
-	tmaritalstatus.defineColumn("description", typeof(string),false);
-	tmaritalstatus.defineColumn("idmaritalstatus", typeof(string),false);
-	tmaritalstatus.defineColumn("lt", typeof(DateTime),false);
-	tmaritalstatus.defineColumn("lu", typeof(string),false);
-	Tables.Add(tmaritalstatus);
-	tmaritalstatus.defineKey("idmaritalstatus");
+	//////////////////// SASDDEFAULTVIEW /////////////////////////////////
+	var tsasddefaultview= new MetaTable("sasddefaultview");
+	tsasddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tsasddefaultview.defineColumn("idsasd", typeof(int),false);
+	Tables.Add(tsasddefaultview);
+	tsasddefaultview.defineKey("idsasd");
+
+	//////////////////// MARITALSTATUSDEFAULTVIEW /////////////////////////////////
+	var tmaritalstatusdefaultview= new MetaTable("maritalstatusdefaultview");
+	tmaritalstatusdefaultview.defineColumn("description", typeof(string),false);
+	tmaritalstatusdefaultview.defineColumn("idmaritalstatus", typeof(string),false);
+	tmaritalstatusdefaultview.defineColumn("maritalstatus_active", typeof(string));
+	tmaritalstatusdefaultview.defineColumn("maritalstatus_ct", typeof(DateTime),false);
+	tmaritalstatusdefaultview.defineColumn("maritalstatus_cu", typeof(string),false);
+	tmaritalstatusdefaultview.defineColumn("maritalstatus_lt", typeof(DateTime),false);
+	tmaritalstatusdefaultview.defineColumn("maritalstatus_lu", typeof(string),false);
+	Tables.Add(tmaritalstatusdefaultview);
+	tmaritalstatusdefaultview.defineKey("idmaritalstatus");
 
 	//////////////////// SERVIZIRIEPILOGOVIEW /////////////////////////////////
 	var tserviziriepilogoview= new MetaTable("serviziriepilogoview");
@@ -669,13 +720,18 @@ private void initClass() {
 	//////////////////// TITLE /////////////////////////////////
 	var ttitle= new MetaTable("title");
 	ttitle.defineColumn("active", typeof(string));
+	ttitle.defineColumn("ct", typeof(DateTime),false);
+	ttitle.defineColumn("cu", typeof(string),false);
 	ttitle.defineColumn("description", typeof(string),false);
 	ttitle.defineColumn("idtitle", typeof(string),false);
+	ttitle.defineColumn("lt", typeof(DateTime),false);
+	ttitle.defineColumn("lu", typeof(string),false);
 	Tables.Add(ttitle);
 	ttitle.defineKey("idtitle");
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("acronim", typeof(string));
 	tregistry.defineColumn("active", typeof(string),false);
 	tregistry.defineColumn("annotation", typeof(string));
 	tregistry.defineColumn("authorization_free", typeof(string));
@@ -683,6 +739,9 @@ private void initClass() {
 	tregistry.defineColumn("birthdate", typeof(DateTime));
 	tregistry.defineColumn("ccp", typeof(string));
 	tregistry.defineColumn("cf", typeof(string));
+	tregistry.defineColumn("code", typeof(string));
+	tregistry.defineColumn("codicemiur", typeof(string));
+	tregistry.defineColumn("codiceustat", typeof(string));
 	tregistry.defineColumn("ct", typeof(DateTime),false);
 	tregistry.defineColumn("cu", typeof(string),false);
 	tregistry.defineColumn("email_fe", typeof(string));
@@ -702,6 +761,7 @@ private void initClass() {
 	tregistry.defineColumn("idcity", typeof(int));
 	tregistry.defineColumn("idexternal", typeof(int));
 	tregistry.defineColumn("idfonteindicebibliometrico", typeof(int));
+	tregistry.defineColumn("idistitutokind", typeof(int));
 	tregistry.defineColumn("idmaritalstatus", typeof(string));
 	tregistry.defineColumn("idnace", typeof(string));
 	tregistry.defineColumn("idnation", typeof(int));
@@ -715,6 +775,7 @@ private void initClass() {
 	tregistry.defineColumn("idstruttura", typeof(int));
 	tregistry.defineColumn("idtitle", typeof(string));
 	tregistry.defineColumn("indicebibliometrico", typeof(int));
+	tregistry.defineColumn("institutionalcode", typeof(string));
 	tregistry.defineColumn("ipa_fe", typeof(string));
 	tregistry.defineColumn("ipa_perlapa", typeof(string));
 	tregistry.defineColumn("location", typeof(string));
@@ -725,6 +786,7 @@ private void initClass() {
 	tregistry.defineColumn("p_iva", typeof(string));
 	tregistry.defineColumn("pec_fe", typeof(string));
 	tregistry.defineColumn("pic", typeof(string));
+	tregistry.defineColumn("referencenumber", typeof(string));
 	tregistry.defineColumn("residence", typeof(int),false);
 	tregistry.defineColumn("ricevimento", typeof(string));
 	tregistry.defineColumn("rtf", typeof(Byte[]));
@@ -744,8 +806,20 @@ private void initClass() {
 
 	#region DataRelation creation
 	var cPar = new []{registry.Columns["idreg"]};
-	var cChild = new []{sospensione.Columns["idreg"]};
+	var cChild = new []{registrymultikindregistry.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_registrymultikindregistry_registry_idreg",cPar,cChild,false));
+
+	cPar = new []{registrymultikind.Columns["idregistrymultikind"]};
+	cChild = new []{registrymultikindregistry.Columns["idregistrymultikind"]};
+	Relations.Add(new DataRelation("FK_registrymultikindregistry_registrymultikind_idregistrymultikind",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{sospensione.Columns["idreg"]};
 	Relations.Add(new DataRelation("FK_sospensione_registry_idreg",cPar,cChild,false));
+
+	cPar = new []{sospensionekind.Columns["idsospensionekind"]};
+	cChild = new []{sospensione.Columns["idsospensionekind"]};
+	Relations.Add(new DataRelation("FK_sospensione_sospensionekind_idsospensionekind",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{registryattach.Columns["idreg"]};
@@ -759,17 +833,21 @@ private void initClass() {
 	cChild = new []{registry.Columns["idregistrykind"]};
 	Relations.Add(new DataRelation("FK_registry_registrykind_idregistrykind",cPar,cChild,false));
 
-	cPar = new []{category.Columns["idcategory"]};
+	cPar = new []{categorydefaultview.Columns["idcategory"]};
 	cChild = new []{registry.Columns["idcategory"]};
-	Relations.Add(new DataRelation("FK_registry_category_idcategory",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_registry_categorydefaultview_idcategory",cPar,cChild,false));
 
 	cPar = new []{registryclassdefaultview.Columns["idregistryclass"]};
 	cChild = new []{registry.Columns["idregistryclass"]};
 	Relations.Add(new DataRelation("FK_registry_registryclassdefaultview_idregistryclass",cPar,cChild,false));
 
-	cPar = new []{maritalstatus.Columns["idmaritalstatus"]};
+	cPar = new []{sasddefaultview.Columns["idsasd"]};
+	cChild = new []{registry.Columns["idsasd"]};
+	Relations.Add(new DataRelation("FK_registry_sasddefaultview_idsasd",cPar,cChild,false));
+
+	cPar = new []{maritalstatusdefaultview.Columns["idmaritalstatus"]};
 	cChild = new []{registry.Columns["idmaritalstatus"]};
-	Relations.Add(new DataRelation("FK_registry_maritalstatus_idmaritalstatus",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_registry_maritalstatusdefaultview_idmaritalstatus",cPar,cChild,false));
 
 	cPar = new []{serviziriepilogoview.Columns["idreg"]};
 	cChild = new []{registry.Columns["idreg"]};

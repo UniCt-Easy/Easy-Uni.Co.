@@ -16,8 +16,6 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idclassescuola" type="xs:int" />
-              <xs:element name="idclassescuolaarea" type="xs:int" minOccurs="0" />
-              <xs:element name="idcorsostudionorma" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

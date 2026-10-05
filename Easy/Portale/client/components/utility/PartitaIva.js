@@ -95,7 +95,10 @@
                 return def.promise();
             }
 
-            if ((PartitaIva.substr(0, 1) >= '0') && (PartitaIva.substr(0, 1) <= '9') && (PartitaIva.substr(1, 2) >= '0') && (PartitaIva.substr(1, 2) <= '9')) {
+            if (
+                (PartitaIva[0] >= '0' && PartitaIva[0] <= '9') &&
+                (PartitaIva[1] >= '0' && PartitaIva[1] <= '9')
+            ) {
                 var errorePIvaIt = this.controllaPartitaIvaItaliana(PartitaIva, 'F');
                 if (errorePIvaIt != 0) {
                     //ritorna false + errore letto dall'array errorepiva descritto sopra.

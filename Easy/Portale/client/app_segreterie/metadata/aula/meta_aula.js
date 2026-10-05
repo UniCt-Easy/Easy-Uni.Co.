@@ -43,6 +43,13 @@
 						this.describeAColumn(table, 'capienzadis', 'Capienza disabili', null, 60, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'public':
+						this.describeAColumn(table, 'title', 'Denominazione', null, 10, 1024);
+						this.describeAColumn(table, 'code', 'Codice', null, 20, 128);
+						this.describeAColumn(table, 'capienza', 'Capienza', null, 50, null);
+						this.describeAColumn(table, 'capienzadis', 'Capienza disabili', null, 60, null);
+//$objCalcFieldConfig_public$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -73,6 +80,23 @@
 					case 'seg_child':
 						table.columns["address"].caption = "Indirizzo";
 //$innerSetCaptionConfig_seg_child$
+						break;
+					case 'public':
+						table.columns["address"].caption = "Indirizzo";
+						table.columns["cap"].caption = "CAP";
+						table.columns["capienzadis"].caption = "Capienza disabili";
+						table.columns["code"].caption = "Codice";
+						table.columns["idaulakind"].caption = "Tipologia";
+						table.columns["idcity"].caption = "Città";
+						table.columns["idedificio"].caption = "Edificio";
+						table.columns["idnation"].caption = "Nazione";
+						table.columns["idsede"].caption = "Sede";
+						table.columns["idstruttura"].caption = "Struttura didattica di afferenza";
+						table.columns["latitude"].caption = "latitudine";
+						table.columns["location"].caption = "Località";
+						table.columns["longitude"].caption = "Longitudine";
+						table.columns["title"].caption = "Denominazione";
+//$innerSetCaptionConfig_public$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -106,6 +130,9 @@
 						return "title asc ";
 					}
 					case "default": {
+						return "title asc ";
+					}
+					case "public": {
 						return "title asc ";
 					}
 					//$getSortingin$

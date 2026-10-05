@@ -8,6 +8,13 @@
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idratakind" type="xs:string" />
+              <xs:element name="ratakind_active" type="xs:string" minOccurs="0" />
+              <xs:element name="ratakind_ct" type="xs:dateTime" />
+              <xs:element name="ratakind_cu" type="xs:string" />
+              <xs:element name="ratakind_lt" type="xs:dateTime" />
+              <xs:element name="ratakind_lu" type="xs:string" />
+              <xs:element name="ratakind_sortcode" type="xs:int" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

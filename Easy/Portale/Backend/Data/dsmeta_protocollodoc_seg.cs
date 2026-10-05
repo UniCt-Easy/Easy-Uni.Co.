@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_protocollodoc_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_protocollodoc_seg: DataSet {
+public partial class dsmeta_protocollodoc_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -40,10 +38,16 @@ public class dsmeta_protocollodoc_seg: DataSet {
 	public MetaTable protocollodocelement 		=> (MetaTable)Tables["protocollodocelement"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable protocollorifkind 		=> (MetaTable)Tables["protocollorifkind"];
+	public MetaTable fincaturapositiondefaultview 		=> (MetaTable)Tables["fincaturapositiondefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attach 		=> (MetaTable)Tables["attach"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable mimetypedefaultview 		=> (MetaTable)Tables["mimetypedefaultview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable protocollorifkind 		=> (MetaTable)Tables["protocollorifkind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable protocollodoc 		=> (MetaTable)Tables["protocollodoc"];
@@ -75,7 +79,9 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// PROTOCOLLODOCKIND /////////////////////////////////
 	var tprotocollodockind= new MetaTable("protocollodockind");
+	tprotocollodockind.defineColumn("active", typeof(string),false);
 	tprotocollodockind.defineColumn("idprotocollodockind", typeof(int),false);
+	tprotocollodockind.defineColumn("kind", typeof(string),false);
 	tprotocollodockind.defineColumn("title", typeof(string),false);
 	Tables.Add(tprotocollodockind);
 	tprotocollodockind.defineKey("idprotocollodockind");
@@ -96,7 +102,7 @@ private void initClass() {
 	tprotocollodocelement.defineColumn("cu", typeof(string));
 	tprotocollodocelement.defineColumn("idprotocollodoc", typeof(int),false);
 	tprotocollodocelement.defineColumn("idprotocollodocelement", typeof(int),false);
-	tprotocollodocelement.defineColumn("idprotocollodocelement_primo", typeof(int),false);
+	tprotocollodocelement.defineColumn("idprotocollodocelement_primo", typeof(int));
 	tprotocollodocelement.defineColumn("idprotocollodockind", typeof(int),false);
 	tprotocollodocelement.defineColumn("lt", typeof(DateTime));
 	tprotocollodocelement.defineColumn("lu", typeof(string));
@@ -108,15 +114,21 @@ private void initClass() {
 	tprotocollodocelement.defineColumn("!idprotocollodocelement_primo_protocollodocelement_protnumero", typeof(int));
 	tprotocollodocelement.defineColumn("!idprotocollodocelement_primo_protocollodocelement_protanno", typeof(int));
 	tprotocollodocelement.defineColumn("!idprotocollodockind_protocollodockind_title", typeof(string));
+	tprotocollodocelement.defineColumn("!idprotocollodockind_protocollodockind_kind", typeof(string));
 	Tables.Add(tprotocollodocelement);
 	tprotocollodocelement.defineKey("idprotocollodoc", "idprotocollodocelement", "protanno", "protnumero");
 
-	//////////////////// PROTOCOLLORIFKIND /////////////////////////////////
-	var tprotocollorifkind= new MetaTable("protocollorifkind");
-	tprotocollorifkind.defineColumn("idprotocollorifkind", typeof(int),false);
-	tprotocollorifkind.defineColumn("title", typeof(string),false);
-	Tables.Add(tprotocollorifkind);
-	tprotocollorifkind.defineKey("idprotocollorifkind");
+	//////////////////// FINCATURAPOSITIONDEFAULTVIEW /////////////////////////////////
+	var tfincaturapositiondefaultview= new MetaTable("fincaturapositiondefaultview");
+	tfincaturapositiondefaultview.defineColumn("description", typeof(string));
+	tfincaturapositiondefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tfincaturapositiondefaultview.defineColumn("fincaturaposition_active", typeof(string));
+	tfincaturapositiondefaultview.defineColumn("fincaturaposition_lt", typeof(DateTime));
+	tfincaturapositiondefaultview.defineColumn("fincaturaposition_lu", typeof(string));
+	tfincaturapositiondefaultview.defineColumn("fincaturaposition_title", typeof(string));
+	tfincaturapositiondefaultview.defineColumn("idfincaturaposition", typeof(int),false);
+	Tables.Add(tfincaturapositiondefaultview);
+	tfincaturapositiondefaultview.defineKey("idfincaturaposition");
 
 	//////////////////// ATTACH /////////////////////////////////
 	var tattach= new MetaTable("attach");
@@ -128,16 +140,35 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
+
+	//////////////////// MIMETYPEDEFAULTVIEW /////////////////////////////////
+	var tmimetypedefaultview= new MetaTable("mimetypedefaultview");
+	tmimetypedefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tmimetypedefaultview.defineColumn("idmimetype", typeof(int),false);
+	tmimetypedefaultview.defineColumn("mimetype_active", typeof(string));
+	Tables.Add(tmimetypedefaultview);
+	tmimetypedefaultview.defineKey("idmimetype");
+
+	//////////////////// PROTOCOLLORIFKIND /////////////////////////////////
+	var tprotocollorifkind= new MetaTable("protocollorifkind");
+	tprotocollorifkind.defineColumn("active", typeof(string),false);
+	tprotocollorifkind.defineColumn("idprotocollorifkind", typeof(int),false);
+	tprotocollorifkind.defineColumn("title", typeof(string),false);
+	Tables.Add(tprotocollorifkind);
+	tprotocollorifkind.defineKey("idprotocollorifkind");
 
 	//////////////////// PROTOCOLLODOC /////////////////////////////////
 	var tprotocollodoc= new MetaTable("protocollodoc");
 	tprotocollodoc.defineColumn("ct", typeof(DateTime));
 	tprotocollodoc.defineColumn("cu", typeof(string));
+	tprotocollodoc.defineColumn("datadoc", typeof(DateTime));
 	tprotocollodoc.defineColumn("filename", typeof(string));
+	tprotocollodoc.defineColumn("fincaturamargin", typeof(int));
 	tprotocollodoc.defineColumn("idattach", typeof(int));
+	tprotocollodoc.defineColumn("idfincaturaposition", typeof(int));
 	tprotocollodoc.defineColumn("idmimetype", typeof(int));
 	tprotocollodoc.defineColumn("idprotocollodoc", typeof(int),false);
 	tprotocollodoc.defineColumn("idprotocollorifkind", typeof(int),false);
@@ -164,13 +195,21 @@ private void initClass() {
 	cChild = new []{protocollodocelement.Columns["idprotocollodocelement_primo"]};
 	Relations.Add(new DataRelation("FK_protocollodocelement_protocollodocelement_alias1_idprotocollodocelement_primo",cPar,cChild,false));
 
-	cPar = new []{protocollorifkind.Columns["idprotocollorifkind"]};
-	cChild = new []{protocollodoc.Columns["idprotocollorifkind"]};
-	Relations.Add(new DataRelation("FK_protocollodoc_protocollorifkind_idprotocollorifkind",cPar,cChild,false));
+	cPar = new []{fincaturapositiondefaultview.Columns["idfincaturaposition"]};
+	cChild = new []{protocollodoc.Columns["idfincaturaposition"]};
+	Relations.Add(new DataRelation("FK_protocollodoc_fincaturapositiondefaultview_idfincaturaposition",cPar,cChild,false));
 
 	cPar = new []{attach.Columns["idattach"]};
 	cChild = new []{protocollodoc.Columns["idattach"]};
 	Relations.Add(new DataRelation("FK_protocollodoc_attach_idattach",cPar,cChild,false));
+
+	cPar = new []{mimetypedefaultview.Columns["idmimetype"]};
+	cChild = new []{protocollodoc.Columns["idmimetype"]};
+	Relations.Add(new DataRelation("FK_protocollodoc_mimetypedefaultview_idmimetype",cPar,cChild,false));
+
+	cPar = new []{protocollorifkind.Columns["idprotocollorifkind"]};
+	cChild = new []{protocollodoc.Columns["idprotocollorifkind"]};
+	Relations.Add(new DataRelation("FK_protocollodoc_protocollorifkind_idprotocollorifkind",cPar,cChild,false));
 
 	#endregion
 

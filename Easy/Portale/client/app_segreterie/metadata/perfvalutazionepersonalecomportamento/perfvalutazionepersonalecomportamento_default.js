@@ -47,6 +47,9 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				if (!parentRow.peso)
+					parentRow.peso = 1;                              
+
 				this.EnableControl();
 				this.manageperfvalutazionepersonalecomportamento_default_completamento();
 				//beforeFillFilter
@@ -55,6 +58,7 @@
 				var def = appMeta.Deferred("beforeFill-perfvalutazionepersonalecomportamento_default");
 				var arraydef = [];
 				
+				arraydef.push(this.insertSoglie());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -122,7 +126,31 @@
             var completamentoCtrl = $('#perfvalutazionepersonalecomportamento_default_completamento');
             this.registerFormula(completamentoCtrl, this.manageperfvalutazionepersonalecomportamento_default_completamento.bind(this));
             this.addDependencies(valorenumericoCtrl, completamentoCtrl);
-            },			
+			},
+
+			insertSoglie: function (prm) {
+
+				if (this.state.currentRow.idperfcomportamento) {
+					var filterYear = this.q.and(this.q.eq('idperfcomportamento', this.state.currentRow.idperfcomportamento), this.q.eq('year', this.state.callerState.currentRow.year));
+
+					var message = null;
+					if (this.getDataTable("perfvalutazionepersonalecomportamentosoglia").rows.length > 0) {
+						message = false;
+					}
+					var grid_perfvalutazionepersonalecomportamentosoglia_default = $('#grid_perfvalutazionepersonalecomportamentosoglia_default').data("customController");
+					return this.superClass.insertSoglie({
+						table: "perfvalutazionepersonalecomportamentosoglia", tableSoglie: "perfcomportamentosoglia", keyColumns: "idperfvalutazionepersonalecomportamento,idperfvalutazionepersonale", columnValueName: "valore", filter: filterYear, desMessage: message
+					})
+					.then(function () {
+						//ripulisco 
+						return grid_perfvalutazionepersonalecomportamentosoglia_default.clearControl();
+					})
+					.then(function () {
+						//faccio il fill control 
+						return grid_perfvalutazionepersonalecomportamentosoglia_default.fillControl($('#grid_perfvalutazionepersonalecomportamentosoglia_default'));
+					})
+				}
+			},			
 
 			EnableControl: function () {
 				if (this.state.callerPage.crea !== true) {

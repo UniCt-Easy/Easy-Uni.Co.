@@ -48,14 +48,14 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
+				this.managepianostudioattivform_seganagstu_idcorsostudio();
+				this.managepianostudioattivform_seganagstu_iddidprog();
 				//beforeFillFilter
 				
 				//parte asincrona
 				var def = appMeta.Deferred("beforeFill-pianostudioattivform_seganagstu");
 				var arraydef = [];
 				
-				arraydef.push(this.managepianostudioattivform_seganagstu_idcorsostudio());
-				arraydef.push(this.managepianostudioattivform_seganagstu_iddidprog());
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -68,7 +68,13 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pianostudioattivform_seganagstu_idsostenimento'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#pianostudioattivform_seganagstu_idsostenimento'), false);
@@ -87,6 +93,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			managepianostudioattivform_seganagstu_idcorsostudio: function () {
 this.state.currentRow.idcorsostudio = this.state.callerState.currentRow.idcorsostudio

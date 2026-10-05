@@ -7,13 +7,89 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-35" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:expensetaxcorrige" ZOrder="11" X="392" Y="242" Height="266" Width="187" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="262" />
-    <Shape ID="DesignTable:expenseview" ZOrder="10" X="681" Y="79" Height="198" Width="161" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="194" />
+    <Shape ID="DesignTable:expenseview" ZOrder="10" X="681" Y="79" Height="257" Width="176" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:incomeview" ZOrder="9" X="685" Y="348" Height="231" Width="154" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="227" />
     <Shape ID="DesignTable:tax" ZOrder="6" X="248" Y="527" Height="275" Width="160" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="271" />
     <Shape ID="DesignTable:fiscaltaxregion" ZOrder="2" X="359" Y="-25" Height="181" Width="166" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
     <Shape ID="DesignTable:geo_cityview" ZOrder="4" X="106" Y="195" Height="274" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="270" />
   </Shapes>
   <Connectors>
+    <Connector ID="DesignRelation:fiscaltaxregionexpensetaxcorrige" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>359</X>
+          <Y>6</Y>
+        </Point>
+        <Point>
+          <X>300</X>
+          <Y>6</Y>
+        </Point>
+        <Point>
+          <X>300</X>
+          <Y>389</Y>
+        </Point>
+        <Point>
+          <X>392</X>
+          <Y>389</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:geo_cityviewexpensetaxcorrige" ZOrder="3" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>106</X>
+          <Y>225</Y>
+        </Point>
+        <Point>
+          <X>50</X>
+          <Y>225</Y>
+        </Point>
+        <Point>
+          <X>50</X>
+          <Y>162</Y>
+        </Point>
+        <Point>
+          <X>341</X>
+          <Y>162</Y>
+        </Point>
+        <Point>
+          <X>341</X>
+          <Y>441</Y>
+        </Point>
+        <Point>
+          <X>392</X>
+          <Y>441</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:taxexpensetaxcorrige" ZOrder="5" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>248</X>
+          <Y>743</Y>
+        </Point>
+        <Point>
+          <X>196</X>
+          <Y>743</Y>
+        </Point>
+        <Point>
+          <X>196</X>
+          <Y>486</Y>
+        </Point>
+        <Point>
+          <X>373</X>
+          <Y>486</Y>
+        </Point>
+        <Point>
+          <X>373</X>
+          <Y>310</Y>
+        </Point>
+        <Point>
+          <X>392</X>
+          <Y>310</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
     <Connector ID="DesignRelation:incomeviewexpensetaxcorrige" ZOrder="7" LineWidth="11">
       <RoutePoints>
         <Point>
@@ -51,82 +127,6 @@
         <Point>
           <X>579</X>
           <Y>429</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:taxexpensetaxcorrige" ZOrder="5" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>248</X>
-          <Y>743</Y>
-        </Point>
-        <Point>
-          <X>196</X>
-          <Y>743</Y>
-        </Point>
-        <Point>
-          <X>196</X>
-          <Y>486</Y>
-        </Point>
-        <Point>
-          <X>373</X>
-          <Y>486</Y>
-        </Point>
-        <Point>
-          <X>373</X>
-          <Y>310</Y>
-        </Point>
-        <Point>
-          <X>392</X>
-          <Y>310</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:geo_cityviewexpensetaxcorrige" ZOrder="3" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>106</X>
-          <Y>225</Y>
-        </Point>
-        <Point>
-          <X>50</X>
-          <Y>225</Y>
-        </Point>
-        <Point>
-          <X>50</X>
-          <Y>162</Y>
-        </Point>
-        <Point>
-          <X>341</X>
-          <Y>162</Y>
-        </Point>
-        <Point>
-          <X>341</X>
-          <Y>441</Y>
-        </Point>
-        <Point>
-          <X>392</X>
-          <Y>441</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:fiscaltaxregionexpensetaxcorrige" ZOrder="1" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>359</X>
-          <Y>6</Y>
-        </Point>
-        <Point>
-          <X>300</X>
-          <Y>6</Y>
-        </Point>
-        <Point>
-          <X>300</X>
-          <Y>389</Y>
-        </Point>
-        <Point>
-          <X>392</X>
-          <Y>389</Y>
         </Point>
       </RoutePoints>
     </Connector>

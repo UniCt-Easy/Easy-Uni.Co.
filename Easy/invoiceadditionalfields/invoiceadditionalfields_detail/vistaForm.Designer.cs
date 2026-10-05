@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -119,6 +117,7 @@ private void initClass() {
 	tinvoiceadditionalfields.Columns.Add( new DataColumn("valuefield5int", typeof(int)));
 	tinvoiceadditionalfields.Columns.Add( new DataColumn("valuefield5str", typeof(string)));
 	tinvoiceadditionalfields.Columns.Add( new DataColumn("documentkind", typeof(string)));
+	tinvoiceadditionalfields.Columns.Add( new DataColumn("tabname", typeof(string)));
 	Tables.Add(tinvoiceadditionalfields);
 	tinvoiceadditionalfields.PrimaryKey =  new DataColumn[]{tinvoiceadditionalfields.Columns["idadditionalfields"], tinvoiceadditionalfields.Columns["idinvkind"], tinvoiceadditionalfields.Columns["yinv"], tinvoiceadditionalfields.Columns["ninv"]};
 
@@ -132,6 +131,9 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tinvoicemultifieldkind.Columns.Add(C);
 	C= new DataColumn("allownull", typeof(string));
+	C.AllowDBNull=false;
+	tinvoicemultifieldkind.Columns.Add(C);
+	C= new DataColumn("documentkind", typeof(string));
 	C.AllowDBNull=false;
 	tinvoicemultifieldkind.Columns.Add(C);
 	C= new DataColumn("fieldcode", typeof(string));
@@ -153,9 +155,7 @@ private void initClass() {
 	tinvoicemultifieldkind.Columns.Add(C);
 	tinvoicemultifieldkind.Columns.Add( new DataColumn("tabname", typeof(string)));
 	tinvoicemultifieldkind.Columns.Add( new DataColumn("tag", typeof(string)));
-	C= new DataColumn("documentkind", typeof(string));
-	C.AllowDBNull=false;
-	tinvoicemultifieldkind.Columns.Add(C);
+	tinvoicemultifieldkind.Columns.Add( new DataColumn("notes", typeof(string)));
 	Tables.Add(tinvoicemultifieldkind);
 	tinvoicemultifieldkind.PrimaryKey =  new DataColumn[]{tinvoicemultifieldkind.Columns["idmultifieldkind"]};
 

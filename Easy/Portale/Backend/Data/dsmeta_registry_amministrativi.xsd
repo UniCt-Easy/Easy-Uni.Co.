@@ -3,6 +3,15 @@
   <xs:element name="dsmeta_registry_amministrativi" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sospensionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="idsospensionekind" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="sospensione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -13,11 +22,13 @@
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsospensione" type="xs:int" />
+              <xs:element name="idsospensionekind" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="motivo" type="xs:string" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idsospensionekind_sospensionekind_title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -98,10 +109,12 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="orepreventivate" type="xs:int" />
+              <xs:element name="rendicontatutto" type="xs:string" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" />
               <xs:element name="_x0021_idprogetto_progetto_titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogetto_progetto_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idprogetto_progetto_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idprogetto_progetto_idprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idrendicontattivitaprogettokind_rendicontattivitaprogettokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idworkpackage_workpackage_raggruppamento" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idworkpackage_workpackage_title" type="xs:string" minOccurs="0" />
@@ -137,6 +150,32 @@
               <xs:element name="txt" type="xs:string" minOccurs="0" />
               <xs:element name="userweb" type="xs:string" minOccurs="0" />
               <xs:element name="website" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrymultikind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idregistrymultikind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrymultikindregistry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrymultikind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -225,7 +264,10 @@
         <xs:element name="timesheettemplate" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idtimesheettemplate" type="xs:string" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -238,15 +280,6 @@
               <xs:element name="numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="rendicontaltrokind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="active" type="xs:string" />
-              <xs:element name="idrendicontaltrokind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -297,11 +330,13 @@
               <xs:element name="_x0021_idprogetto_progetto_titolobreve" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_idprogetto_progetto_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idprogetto_progetto_stop" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="_x0021_idrendicontaltrokind_rendicontaltrokind_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idprogetto_progetto_idprogetto" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_numerosal" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="_x0021_idsal_sal_datablocco" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="_x0021_idtimesheettemplate_timesheettemplate_title" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_idtimesheettemplate_timesheettemplate_description" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -477,16 +512,16 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="category" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="categorydefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
+              <xs:element name="category_active" type="xs:string" minOccurs="0" />
+              <xs:element name="category_ct" type="xs:dateTime" />
+              <xs:element name="category_cu" type="xs:string" />
+              <xs:element name="category_lt" type="xs:dateTime" />
+              <xs:element name="category_lu" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idcategory" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -546,16 +581,16 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="maritalstatus" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="maritalstatusdefaultview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="active" type="xs:string" minOccurs="0" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="idmaritalstatus" type="xs:string" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
+              <xs:element name="maritalstatus_active" type="xs:string" minOccurs="0" />
+              <xs:element name="maritalstatus_ct" type="xs:dateTime" />
+              <xs:element name="maritalstatus_cu" type="xs:string" />
+              <xs:element name="maritalstatus_lt" type="xs:dateTime" />
+              <xs:element name="maritalstatus_lu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -764,6 +799,7 @@
         <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="acronim" type="xs:string" minOccurs="0" />
               <xs:element name="active" type="xs:string" />
               <xs:element name="annotation" type="xs:string" minOccurs="0" />
               <xs:element name="authorization_free" type="xs:string" minOccurs="0" />
@@ -771,6 +807,9 @@
               <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="ccp" type="xs:string" minOccurs="0" />
               <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+              <xs:element name="codicemiur" type="xs:string" minOccurs="0" />
+              <xs:element name="codiceustat" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="email_fe" type="xs:string" minOccurs="0" />
@@ -790,6 +829,7 @@
               <xs:element name="idcity" type="xs:int" minOccurs="0" />
               <xs:element name="idexternal" type="xs:int" minOccurs="0" />
               <xs:element name="idfonteindicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="idistitutokind" type="xs:int" minOccurs="0" />
               <xs:element name="idmaritalstatus" type="xs:string" minOccurs="0" />
               <xs:element name="idnace" type="xs:string" minOccurs="0" />
               <xs:element name="idnation" type="xs:int" minOccurs="0" />
@@ -803,6 +843,7 @@
               <xs:element name="idstruttura" type="xs:int" minOccurs="0" />
               <xs:element name="idtitle" type="xs:string" minOccurs="0" />
               <xs:element name="indicebibliometrico" type="xs:int" minOccurs="0" />
+              <xs:element name="institutionalcode" type="xs:string" minOccurs="0" />
               <xs:element name="ipa_fe" type="xs:string" minOccurs="0" />
               <xs:element name="ipa_perlapa" type="xs:string" minOccurs="0" />
               <xs:element name="location" type="xs:string" minOccurs="0" />
@@ -813,6 +854,7 @@
               <xs:element name="p_iva" type="xs:string" minOccurs="0" />
               <xs:element name="pec_fe" type="xs:string" minOccurs="0" />
               <xs:element name="pic" type="xs:string" minOccurs="0" />
+              <xs:element name="referencenumber" type="xs:string" minOccurs="0" />
               <xs:element name="residence" type="xs:int" />
               <xs:element name="ricevimento" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
@@ -830,6 +872,10 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sospensionekind" />
+      <xs:field xpath="mstns:idsospensionekind" />
+    </xs:unique>
+    <xs:unique name="sospensione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sospensione" />
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idsospensione" />
@@ -874,6 +920,15 @@
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idregistryreference" />
     </xs:unique>
+    <xs:unique name="registrymultikind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrymultikind" />
+      <xs:field xpath="mstns:idregistrymultikind" />
+    </xs:unique>
+    <xs:unique name="registrymultikindregistry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrymultikindregistry" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrymultikind" />
+    </xs:unique>
     <xs:unique name="position_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:position" />
       <xs:field xpath="mstns:idposition" />
@@ -905,10 +960,6 @@
       <xs:selector xpath=".//mstns:sal" />
       <xs:field xpath="mstns:idprogetto" />
       <xs:field xpath="mstns:idsal" />
-    </xs:unique>
-    <xs:unique name="rendicontaltrokind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:rendicontaltrokind" />
-      <xs:field xpath="mstns:idrendicontaltrokind" />
     </xs:unique>
     <xs:unique name="progetto_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:progetto_alias1" />
@@ -985,8 +1036,8 @@
       <xs:selector xpath=".//mstns:registrykind" />
       <xs:field xpath="mstns:idregistrykind" />
     </xs:unique>
-    <xs:unique name="category_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:category" />
+    <xs:unique name="categorydefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:categorydefaultview" />
       <xs:field xpath="mstns:idcategory" />
     </xs:unique>
     <xs:unique name="registryclassdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -998,8 +1049,8 @@
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idtimbratura" />
     </xs:unique>
-    <xs:unique name="maritalstatus_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:maritalstatus" />
+    <xs:unique name="maritalstatusdefaultview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:maritalstatusdefaultview" />
       <xs:field xpath="mstns:idmaritalstatus" />
     </xs:unique>
     <xs:unique name="costoorario_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -1079,13 +1130,16 @@
   <xs:annotation>
     <xs:appinfo>
       <msdata:Relationship name="FK_sospensione_registry_idreg" msdata:parent="registry" msdata:child="sospensione" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_sospensione_sospensionekind_idsospensionekind" msdata:parent="sospensionekind" msdata:child="sospensione" msdata:parentkey="idsospensionekind" msdata:childkey="idsospensionekind" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_registry_idreg" msdata:parent="registry" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_idrendicontattivitaprogetto-idworkpackage-idprogetto" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="idrendicontattivitaprogetto idworkpackage idprogetto" msdata:childkey="idrendicontattivitaprogetto idworkpackage idprogetto" />
-      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idrendicontattivitaprogetto-idworkpackage-idprogetto-idreg" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idrendicontattivitaprogetto idworkpackage idprogetto idreg" msdata:childkey="idrendicontattivitaprogetto idworkpackage idprogetto idreg" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoitineration_rendicontattivitaprogetto_idprogetto-idworkpackage-idrendicontattivitaprogetto" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoitineration" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto" />
+      <msdata:Relationship name="FK_rendicontattivitaprogettoora_rendicontattivitaprogetto_idprogetto-idworkpackage-idrendicontattivitaprogetto-idreg" msdata:parent="rendicontattivitaprogetto" msdata:child="rendicontattivitaprogettoora" msdata:parentkey="idprogetto idworkpackage idrendicontattivitaprogetto idreg" msdata:childkey="idprogetto idworkpackage idrendicontattivitaprogetto idreg" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_workpackage_alias1_idworkpackage" msdata:parent="workpackage_alias1" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idworkpackage" msdata:childkey="idworkpackage" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_rendicontattivitaprogettokind_idrendicontattivitaprogettokind" msdata:parent="rendicontattivitaprogettokind" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idrendicontattivitaprogettokind" msdata:childkey="idrendicontattivitaprogettokind" />
       <msdata:Relationship name="FK_rendicontattivitaprogetto_progetto_alias2_idprogetto" msdata:parent="progetto_alias2" msdata:child="rendicontattivitaprogetto" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_registryreference_registry_idreg" msdata:parent="registry" msdata:child="registryreference" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registrymultikindregistry_registry_idreg" msdata:parent="registry" msdata:child="registrymultikindregistry" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="FK_registrymultikindregistry_registrymultikind_idregistrymultikind" msdata:parent="registrymultikind" msdata:child="registrymultikindregistry" msdata:parentkey="idregistrymultikind" msdata:childkey="idregistrymultikind" />
       <msdata:Relationship name="FK_registrylegalstatus_registry_idreg" msdata:parent="registry" msdata:child="registrylegalstatus" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_registrylegalstatus_position_idposition" msdata:parent="position" msdata:child="registrylegalstatus" msdata:parentkey="idposition" msdata:childkey="idposition" />
       <msdata:Relationship name="FK_registrylegalstatus_inquadramento_idinquadramento" msdata:parent="inquadramento" msdata:child="registrylegalstatus" msdata:parentkey="idinquadramento" msdata:childkey="idinquadramento" />
@@ -1094,7 +1148,6 @@
       <msdata:Relationship name="FK_progettotimesheet_year_alias2_year" msdata:parent="year_alias2" msdata:child="progettotimesheet" msdata:parentkey="year" msdata:childkey="year" />
       <msdata:Relationship name="FK_progettotimesheet_timesheettemplate_idtimesheettemplate" msdata:parent="timesheettemplate" msdata:child="progettotimesheet" msdata:parentkey="idtimesheettemplate" msdata:childkey="idtimesheettemplate" />
       <msdata:Relationship name="FK_progettotimesheet_sal_idsal" msdata:parent="sal" msdata:child="progettotimesheet" msdata:parentkey="idsal" msdata:childkey="idsal" />
-      <msdata:Relationship name="FK_progettotimesheet_rendicontaltrokind_idrendicontaltrokind" msdata:parent="rendicontaltrokind" msdata:child="progettotimesheet" msdata:parentkey="idrendicontaltrokind" msdata:childkey="idrendicontaltrokind" />
       <msdata:Relationship name="FK_progettotimesheet_progetto_alias1_idprogetto" msdata:parent="progetto_alias1" msdata:child="progettotimesheet" msdata:parentkey="idprogetto" msdata:childkey="idprogetto" />
       <msdata:Relationship name="FK_progettotimesheet_mese_alias1_idmese" msdata:parent="mese_alias1" msdata:child="progettotimesheet" msdata:parentkey="idmese" msdata:childkey="idmese" />
       <msdata:Relationship name="FK_assetdiary_registry_idreg" msdata:parent="registry" msdata:child="assetdiary" msdata:parentkey="idreg" msdata:childkey="idreg" />
@@ -1111,10 +1164,10 @@
       <msdata:Relationship name="FK_registry_accmotivedefaultview_idaccmotivedebit" msdata:parent="accmotivedefaultview" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit" />
       <msdata:Relationship name="FK_registry_residence_residence" msdata:parent="residence" msdata:child="registry" msdata:parentkey="idresidence" msdata:childkey="residence" />
       <msdata:Relationship name="FK_registry_registrykind_idregistrykind" msdata:parent="registrykind" msdata:child="registry" msdata:parentkey="idregistrykind" msdata:childkey="idregistrykind" />
-      <msdata:Relationship name="FK_registry_category_idcategory" msdata:parent="category" msdata:child="registry" msdata:parentkey="idcategory" msdata:childkey="idcategory" />
+      <msdata:Relationship name="FK_registry_categorydefaultview_idcategory" msdata:parent="categorydefaultview" msdata:child="registry" msdata:parentkey="idcategory" msdata:childkey="idcategory" />
       <msdata:Relationship name="FK_registry_registryclassdefaultview_idregistryclass" msdata:parent="registryclassdefaultview" msdata:child="registry" msdata:parentkey="idregistryclass" msdata:childkey="idregistryclass" />
       <msdata:Relationship name="FK_timbratura_registry_idreg" msdata:parent="registry" msdata:child="timbratura" msdata:parentkey="idreg" msdata:childkey="idreg" />
-      <msdata:Relationship name="FK_registry_maritalstatus_idmaritalstatus" msdata:parent="maritalstatus" msdata:child="registry" msdata:parentkey="idmaritalstatus" msdata:childkey="idmaritalstatus" />
+      <msdata:Relationship name="FK_registry_maritalstatusdefaultview_idmaritalstatus" msdata:parent="maritalstatusdefaultview" msdata:child="registry" msdata:parentkey="idmaritalstatus" msdata:childkey="idmaritalstatus" />
       <msdata:Relationship name="FK_costoorario_registry_idreg" msdata:parent="registry" msdata:child="costoorario" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_registrycongiunto_registry_idreg" msdata:parent="registry" msdata:child="registrycongiunto" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_registrycongiunto_registry_alias1_idreg_parente" msdata:parent="registry_alias1" msdata:child="registrycongiunto" msdata:parentkey="idreg" msdata:childkey="idreg_parente" />

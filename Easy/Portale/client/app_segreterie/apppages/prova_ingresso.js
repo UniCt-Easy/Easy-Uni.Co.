@@ -23,17 +23,35 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
 				if (self.isNullOrMinDate(parentRow.start))
-					parentRow.start = new Date();
+				parentRow.start = new Date();
 				if (self.isNullOrMinDate(parentRow.stop))
-					parentRow.stop = new Date();
+				parentRow.stop = new Date();
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-prova_ingresso");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
+
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#commiss_ingresso_idreg_docenti'), null);
 				} else {
@@ -71,8 +89,11 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#commiss_ingresso_idreg_docenti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill
@@ -83,11 +104,12 @@
 				this.helpForm.addExtraEntity("commiss");
 				$("#btn_add_provaaula_idaula").on("click", _.partial(this.searchAndAssignaula, self));
 				$("#btn_add_provaaula_idaula").prop("disabled", true);
-				$("#btn_add_commissregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry_docenti, self));
+				$("#btn_add_commissregistry_docenti_idreg_docenti").on("click", _.partial(this.searchAndAssignregistry, self));
 				$("#btn_add_commissregistry_docenti_idreg_docenti").prop("disabled", true);
 				this.setDenyNull("prova","title");
 				this.setDenyNull("prova","start");
 				this.setDenyNull("prova","stop");
+				appMeta.metaModel.insertFilter(this.getDataTable("valutazionekinddefaultview"), this.q.eq('valutazionekind_active', 'Si'));
 				$('#grid_sostenimento_ingresso').data('mdlconditionallookup', 'votolode,S,Si;votolode,N,No;');
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
@@ -124,6 +146,8 @@
 
 			//beforePost
 
+			//afterPost
+
 			searchAndAssignaula: function (that) {
 				return that.searchAndAssign({
 					tableName: "aula",
@@ -134,10 +158,11 @@
 					columnSource: "idaula",
 					columnToFill: "idaula",
 					tableToFill: "provaaula"
+
 				});
 			},
 
-			searchAndAssignregistry_docenti: function (that) {
+			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
 					listType: "docenti",
@@ -148,6 +173,9 @@
 					columnToFill: "idreg_docenti",
 					tableToFill: "commissregistry_docenti",
 					parentRow: that.state.DS.tables.commiss.rows[0]
+
+,
+					filter: that.q.eq('registry_active', 'Si')
 				});
 			},
 

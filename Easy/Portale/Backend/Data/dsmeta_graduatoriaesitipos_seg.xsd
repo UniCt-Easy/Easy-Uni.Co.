@@ -3,17 +3,12 @@
   <xs:element name="dsmeta_graduatoriaesitipos_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="registry_studenti" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="registrystudentiview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="authinps" type="xs:string" />
-              <xs:element name="ct" type="xs:dateTime" />
-              <xs:element name="cu" type="xs:string" />
+              <xs:element name="dropdown_title" type="xs:string" />
               <xs:element name="idreg" type="xs:int" />
-              <xs:element name="idstuddirittokind" type="xs:int" minOccurs="0" />
-              <xs:element name="idstudprenotkind" type="xs:int" />
-              <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="lu" type="xs:string" />
+              <xs:element name="registry_active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -37,7 +32,7 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:registry_studenti" />
+      <xs:selector xpath=".//mstns:registrystudentiview" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="graduatoriaesitipos_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -48,7 +43,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_graduatoriaesitipos_registry_studenti_idreg_studenti" msdata:parent="registry_studenti" msdata:child="graduatoriaesitipos" msdata:parentkey="idreg" msdata:childkey="idreg_studenti" />
+      <msdata:Relationship name="FK_graduatoriaesitipos_registrystudentiview_idreg_studenti" msdata:parent="registrystudentiview" msdata:child="graduatoriaesitipos" msdata:parentkey="idreg" msdata:childkey="idreg_studenti" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

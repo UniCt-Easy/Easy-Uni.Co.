@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -64,12 +62,31 @@ namespace registryvisura_anagraficadetail {
             }
             DataRow Curr = DS.registryvisura.Rows[0];
 
-            if (Curr["visuracertification"] != DBNull.Value) {
+            if (Curr["visuracertification"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value) {
                 btnAllegaVisura.Enabled = false;
                 btnVisualizzaVisura.Enabled = true;
                 btnRimuoviVisura.Enabled = true;
-                byte[] B = (byte[])Curr["visuracertification"];
-                labDurcFileName.Text = GetFileName(B);
+
+                // File preso dall'attachment o dal MongoDb
+                byte[] ByteArray = { };
+
+                if (Curr["visuracertification"] != DBNull.Value)
+                {
+                    // Attachment
+                    ByteArray = (byte[])Curr["visuracertification"];
+                }
+                else
+                {
+                    // MongoDb
+                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    if (ByteArray == null)
+                    {
+                        show("Servizio Download degli Allegati non disponibile");
+                        return;
+                    }
+                }
+
+                labDurcFileName.Text = GetFileName(ByteArray);
             }
             else {
                 btnAllegaVisura.Enabled = true;
@@ -144,7 +161,7 @@ namespace registryvisura_anagraficadetail {
 
         private void VisualizzaAllegato(string certification) {
             if (Meta.IsEmpty) return;
-            string FilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string FilePath = Path.GetTempPath();
             string prefix = "SWMOREVISU";
             string filenametodelete = FilePath + prefix + "*.*";
             string[] existingreports = System.IO.Directory.GetFiles(FilePath, prefix + "*.*");
@@ -155,13 +172,33 @@ namespace registryvisura_anagraficadetail {
                 catch { }
             }
 
-            //sw Ë il nome del file temporaneo che hai creato
+            //sw √® il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
 
             DataRow Curr = DS.registryvisura.Rows[0];
 
-            byte[] ByteArray = (byte[])Curr[certification];
+            // byte[] ByteArray = (byte[])Curr[certification];
+
+            // File preso dall'attachment o dal MongoDb
+            byte[] ByteArray = { };
+
+            if (Curr["visuracertification"] != DBNull.Value)
+            {
+                // Attachment
+                ByteArray = (byte[])Curr["visuracertification"];
+            }
+            else
+            {
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (ByteArray == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+            }
+
             int offset = GetOffsetForData(ByteArray);
             string fname = GetFileName(ByteArray);
             string estensione = Path.GetExtension(fname).Trim(); ;
@@ -187,7 +224,6 @@ namespace registryvisura_anagraficadetail {
             catch (Exception E) {
                 QueryCreator.ShowException(E);
             }
-
         }
 
         void ScriviFile(string sw, byte[] documento, int offset) {
@@ -217,6 +253,14 @@ namespace registryvisura_anagraficadetail {
 
         private void btnRimuoviDurc_Click(object sender, EventArgs e) {
             DS.registryvisura.Rows[0]["visuracertification"] = DBNull.Value;
+            if (DS.registryvisura.Rows[0]["idfilestorage"] != DBNull.Value)
+            {
+                DS.registryvisura.Rows[0]["idfilestorage"] = DBNull.Value;
+            }
+            else
+            {
+                DS.registryvisura.Rows[0]["visuracertification"] = DBNull.Value;
+            }
             AbilitaDisabilitaAllegati();
         }
 

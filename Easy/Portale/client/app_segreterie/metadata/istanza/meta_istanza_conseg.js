@@ -29,6 +29,12 @@
 						this.describeAColumn(table, 'posizione', 'Posizione', null, 580, 50);
 //$objCalcFieldConfig_conseg_seg$
 						break;
+					case 'conseg_stu':
+						this.describeAColumn(table, 'datacompalmalaur', 'Data di compilazione del questionario su Almalaurea', null, 510, null);
+						this.describeAColumn(table, 'fascicolo', 'Fascicolo', null, 520, 50);
+						this.describeAColumn(table, 'posizione', 'Posizione', null, 580, 50);
+//$objCalcFieldConfig_conseg_stu$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -46,6 +52,9 @@
 						table.columns["idreg"].caption = "Studenti";
 						table.columns["idrichitesi"].caption = "Richiesta tesi";
 //$innerSetCaptionConfig_conseg_seg$
+						break;
+					case 'conseg_stu':
+//$innerSetCaptionConfig_conseg_stu$
 						break;
 //$innerSetCaptionConfig$
 				}

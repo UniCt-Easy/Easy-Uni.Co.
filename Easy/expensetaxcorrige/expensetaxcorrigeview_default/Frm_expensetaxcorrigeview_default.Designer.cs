@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace expensetaxcorrigeview_default
 {
@@ -88,6 +86,8 @@ namespace expensetaxcorrigeview_default
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -225,12 +225,14 @@ namespace expensetaxcorrigeview_default
             // 
             this.txtCreDeb.Location = new System.Drawing.Point(8, 16);
             this.txtCreDeb.Name = "txtCreDeb";
-            this.txtCreDeb.Size = new System.Drawing.Size(456, 20);
+            this.txtCreDeb.Size = new System.Drawing.Size(286, 20);
             this.txtCreDeb.TabIndex = 1;
             this.txtCreDeb.Tag = "registry.title?expensetaxcorrigeview.registry";
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.textBox5);
             this.groupBox5.Controls.Add(this.txtCreDeb);
             this.groupBox5.Location = new System.Drawing.Point(12, 149);
             this.groupBox5.Name = "groupBox5";
@@ -496,6 +498,23 @@ namespace expensetaxcorrigeview_default
             this.label6.Text = "Data Pagamento:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(329, 17);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(135, 20);
+            this.textBox5.TabIndex = 2;
+            this.textBox5.Tag = "registry.cf?expensetaxcorrigeview.cf";
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(300, 14);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(23, 23);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "CF";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Frm_expensetaxcorrigeview_default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -588,6 +607,7 @@ namespace expensetaxcorrigeview_default
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label6;
-
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }

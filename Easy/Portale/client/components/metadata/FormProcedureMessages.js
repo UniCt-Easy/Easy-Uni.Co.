@@ -180,8 +180,11 @@
 
                 // inserisco valori, leggendo l'array di colonne, che corrispondono ai campi (visibili) dell'oggetto DbProcedureMessage
                 _.forEach(self.columnNames, function (cName) {
+                    const content = (cName === "id" && m.audit)
+                        ? `(${m.audit}) ${m[cName]}`
+                        : m[cName];
                     var $td = $("<td nowrap>");
-                    $tr.append($td.html(m[cName]));
+                    $tr.append($td.html(content));
                 });
 
                 //if ((index % 2) === 1) {

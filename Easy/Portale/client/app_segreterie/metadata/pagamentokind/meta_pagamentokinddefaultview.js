@@ -23,9 +23,9 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Tipologia', null, 20, 50);
-						this.describeAColumn(table, 'pagamentokind_active', 'Attivo', null, 30, null);
-						this.describeAColumn(table, 'pagamentokind_sortcode', 'Sortcode', null, 40, null);
+						this.describeAColumn(table, 'title', 'Tipologia', null, 2000, 50);
+						this.describeAColumn(table, 'pagamentokind_active', 'Attivo', null, 3000, null);
+						this.describeAColumn(table, 'pagamentokind_sortcode', 'Ordinamento', null, 4000, null);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -49,6 +49,9 @@
 				switch (listType) {
 					case "default": {
 						return "title asc ";
+					}
+					case "default": {
+						return "title asc , pagamentokind_sortcode desc";
 					}
 					//$getSortingin$
 				}

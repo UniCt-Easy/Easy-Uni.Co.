@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -126,7 +124,7 @@ namespace Backend.Components {
         /// <param name="rows">JToken with the data of the rows</param>
         /// <param name="table">DataTable where add the rows</param>
         private static void addRows(JToken rows, DataTable table) {
-            // TODO vedere se Ë stato considerato tutto.
+            // TODO vedere se √® stato considerato tutto.
             var sRows = rows.ToString();
 
             try {
@@ -152,7 +150,7 @@ namespace Backend.Components {
                         getRowData(currRow, objRow["curr"]);
                         getRowData(currRow, objRow["old"]);
                         table.Rows.Add(currRow);
-                        currRow.AcceptChanges();  // mette i valori originali, quindi Ë nello stato Unchanged
+                        currRow.AcceptChanges();  // mette i valori originali, quindi √® nello stato Unchanged
                     }
                     if (currRowState == "unchanged" ) {
                         getRowData(currRow, objRow["curr"]);
@@ -183,14 +181,14 @@ namespace Backend.Components {
         }
 
         /// <summary>
-        /// Mette i valori correnti a null ove c'Ë un valore in objRowOld ma non c'Ë in objRowCurr
+        /// Mette i valori correnti a null ove c'√® un valore in objRowOld ma non c'√® in objRowCurr
         /// </summary>
         /// <param name="row">row to check, it must be in modified state</param>
         /// <param name="objRowOld">obj of old field with value</param>
         /// <param name="objRowCurr">obj of curr field with value</param>
         private static void checkNullInModifiedRow(DataRow row, object objRowOld, object objRowCurr) {
 
-            // tutti i campi che erano in old e non sono in curr e se lo stato Ë modified allora passano  a null
+            // tutti i campi che erano in old e non sono in curr e se lo stato √® modified allora passano  a null
             var dataFieldOLD = objRowOld.ToString();
             var objOLDRow = (JObject) JsonConvert.DeserializeObject(dataFieldOLD);
             var columns = row.Table.Columns;
@@ -202,7 +200,7 @@ namespace Backend.Components {
             foreach (var dataRowValue in objOLDRow) {
                 var field = dataRowValue.Key;
                 var rowValue = dataRowValue.Value;
-                // sulla collection dei curr non trovo pi˘ quel campo, allora lo metto a null
+                // sulla collection dei curr non trovo pi√π quel campo, allora lo metto a null
                 if (objCurrRow[field] == null) row[field] = DBNull.Value;
             }
         }
@@ -227,7 +225,7 @@ namespace Backend.Components {
         private static void addKeys(JToken keys, DataTable t) {
             string[] stringSeparators = {","};
             var keysArray = keys.ToString().Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
-            // costrusico array di stringhe che poi traformerÚ in array di DataColumn
+            // costrusico array di stringhe che poi traformer√≤ in array di DataColumn
             if (keysArray.Length > 0) {
                 // trasfromo in DataColumn[]
                 t.PrimaryKey = keysArray._Map(c => t.Columns[c]);
@@ -277,7 +275,7 @@ namespace Backend.Components {
                         c.Caption = (string) value;
                         break;
                     case "expression":
-                        // TODO Modificare se sar‡ implementato un  QueryCreator.SetMetaExpression();
+                        // TODO Modificare se sar√† implementato un  QueryCreator.SetMetaExpression();
                         if (value is JValue) {
                             c.ExtendedProperties.Add(IsTempColumn, value.ToString());
                         }
@@ -329,11 +327,11 @@ namespace Backend.Components {
         /// <param name="autoincrements"></param>
         /// <param name="table"></param>
         private static void addAutoIncrementProperties(JToken autoincrements, DataTable table) {
-            // N.B autoincrements lato js viene sempre ser. Quindi c'Ë di solito un un jtoken autoincrement ma sar‡ senza valori,
-            // cioË senza colonne autoincremento
+            // N.B autoincrements lato js viene sempre ser. Quindi c'√® di solito un un jtoken autoincrement ma sar√† senza valori,
+            // cio√® senza colonne autoincremento
             if (autoincrements.HasValues) {
                 var obj = (JObject) JsonConvert.DeserializeObject(autoincrements.ToString());
-                // Per ogni colonna autoIncremento presente nel JToken invoco la funz che ne setta le proproet‡
+                // Per ogni colonna autoIncremento presente nel JToken invoco la funz che ne setta le proproet√†
                 obj.Properties()._forEach(col =>
                     setAutoIncrementColumnProperties(table, table.Columns[col.Name], col.Value));
             }
@@ -352,7 +350,7 @@ namespace Backend.Components {
             var obj = (JObject) JsonConvert.DeserializeObject(sColumn);
 
 
-            // ovviamente se sto qui seignifica che Ë un autoincrement 
+            // ovviamente se sto qui seignifica che √® un autoincrement 
             dc.ExtendedProperties[AutoIncrement] = "s";
 
             // Dichiaro array di selettori e selcetorMask da popolare e succesivamente farne il loop
@@ -360,8 +358,8 @@ namespace Backend.Components {
             var selectorsMask = new List<UInt64>();
 
             // N.B per ora utilizzo le prop ExtProp , non il metodo  RowChange.MarkAsAutoincrement(..),
-            // poichË delle porp potrebbero non esserci e mandare in errore il successivo codice. Ad
-            // esempio middleConst nel caso isNumber non c'Ë di proposito perchË lato js Ë grstito in questo
+            // poich√® delle porp potrebbero non esserci e mandare in errore il successivo codice. Ad
+            // esempio middleConst nel caso isNumber non c'√® di proposito perch√® lato js √® grstito in questo
             // modo e se passo nulla a MarkAsAutoincrement poi ottengo errore. allora faccio il set una per una
             foreach (var p in obj) {
                 var key = p.Key;
@@ -385,7 +383,7 @@ namespace Backend.Components {
                         break;
                     case "selector":
 
-                        // popolo una lista di appoggio , poichË poi devo settare insieme al mask
+                        // popolo una lista di appoggio , poich√® poi devo settare insieme al mask
                         foreach (var cname in value.Children()) {
                             //var cnameString = (JObject)JsonConvert.DeserializeObject(cname.ToString());
                             var cnameString = cname.ToString();
@@ -396,7 +394,7 @@ namespace Backend.Components {
 
                     case "selectorMask":
 
-                        // popolo una lista di appoggio , poichË poi devo settare insieme ai selectors
+                        // popolo una lista di appoggio , poich√® poi devo settare insieme ai selectors
                         foreach (var mask in value.Children()) {
                             var maskUInt64 = (UInt64) mask;
                             selectorsMask.Add(maskUInt64);
@@ -409,7 +407,7 @@ namespace Backend.Components {
 
             // Ciclo sulla lista dei selettori e invoco metodo opportuno per settare selettore e 
             // mask specifico di colonna. Selettori e mask sono ordinati in maniera posizionale.
-            // Non ci sar‡ pi˘ distinzione tra selettori generici e specifici, diventano dopo la ser c# -> js tutti
+            // Non ci sar√† pi√π distinzione tra selettori generici e specifici, diventano dopo la ser c# -> js tutti
             // specifici e quindi in questo caso js->c# ritrovo tutti specifici, ma tutto continua a funzionare nel backend
             /*if (selectors.Count != selectorsMask.Count)
             {
@@ -419,12 +417,12 @@ namespace Backend.Components {
             // TODO capire meglio lato client come serializzare l'ordine
             // dei selettori e  dei selector mask
             for (var i = 0; i < selectors.Count; i++) {
-                ulong mask = 1;
+                ulong mask = 0;
                 if (selectorsMask.Count > 0 && i < selectorsMask.Count) {
                     mask = (ulong) selectorsMask[i];
                 }
 
-                RowChange.SetSelector(table, selectors[i], mask);
+                RowChange.SetMySelector(dc, selectors[i], mask);
             }
 
         }
@@ -472,7 +470,7 @@ namespace Backend.Components {
                 var table = new MetaTable(name);
                 
                 if (deserializeStructure) {
-                    // deserializzo gli oggetti colonna, ogni oggetto colonna  a sua volta (il col.Value) Ë un oggetto con varie propriet‡
+                    // deserializzo gli oggetti colonna, ogni oggetto colonna  a sua volta (il col.Value) √® un oggetto con varie propriet√†
                     if (jObj["columns"] != null) {
                         var obj = (JObject)jObj["columns"] ; //JsonConvert.DeserializeObject(jObj["columns"].ToString());
                         obj.Properties()._forEach(col => {
@@ -485,8 +483,8 @@ namespace Backend.Components {
                     if (jObj["autoIncrementColumns"] != null)
                         addAutoIncrementProperties(jObj["autoIncrementColumns"], table);
 
-                    //  Deserializza la propriet‡ di default.
-                    //  Per ogni DataColumn del DataTable, nella propriet‡ DefaultValue, mette il valore della propriet‡ 
+                    //  Deserializza la propriet√† di default.
+                    //  Per ogni DataColumn del DataTable, nella propriet√† DefaultValue, mette il valore della propriet√† 
                     //  di pari nome nell'oggetto default del jsDataTable, saltando quelle null 
                     if (jObj["defaults"] != null)
                         addColumnDefaults(jObj["defaults"], table);
@@ -523,7 +521,7 @@ namespace Backend.Components {
                         QueryCreator.SetTableForPosting(table, tableName);
 
 
-                    // isCached. inizializzo propriet‡ tabella
+                    // isCached. inizializzo propriet√† tabella
                     GetData.UnCacheTable(table);
                     if (jObj["isCached"] != null) {
                         if (jObj["isCached"].ToString() == "0")
@@ -544,8 +542,8 @@ namespace Backend.Components {
                         }
                     }
 
-                    // skypSecurity Ë settato/ritornato dalle funz in setSkipSecurity/isSkipSecurity su metaModel
-                    // va bene anche cosÏ, ma capire se si possono utilizzare i emtodi in MetaModel
+                    // skypSecurity √® settato/ritornato dalle funz in setSkipSecurity/isSkipSecurity su metaModel
+                    // va bene anche cos√¨, ma capire se si possono utilizzare i emtodi in MetaModel
                     if (jObj["skipSecurity"] != null) {
                         if ((Boolean)jObj["skipSecurity"]) {
                             table.ExtendedProperties["SkipSecurity"] = true;
@@ -565,7 +563,7 @@ namespace Backend.Components {
                         }
                     }
 
-                    // realTable. utilizzo delle ext prop RealTableName perchË poi quelleutili realTable e viewTable saranno tabelle vere e proprie prese dal dataset
+                    // realTable. utilizzo delle ext prop RealTableName perch√® poi quelleutili realTable e viewTable saranno tabelle vere e proprie prese dal dataset
                     if (jObj["realTable"] != null) {
                         table.ExtendedProperties["RealTableName"] = (string)jObj["realTable"];
                     }
@@ -832,8 +830,8 @@ namespace Backend.Components {
 
 
             // N.B:
-            // AutoIncrement gi‡ insita nel fatto sia un autoIncrement, quindi IsAutoIncrement della funz chiamante
-            // CustomAutoIncrement non Ë serailizzabile, dovrebbe esser gestita come autoincremento generico
+            // AutoIncrement gi√† insita nel fatto sia un autoIncrement, quindi IsAutoIncrement della funz chiamante
+            // CustomAutoIncrement non √® serailizzabile, dovrebbe esser gestita come autoincremento generico
             // PrefixField, MiddleConst, IDLength : li prendo da ext prop
             // Selector, SelectorMask : costruisco array prendendo i MySelector + MySelectorMask + quelly generici selector + selectorMask
 
@@ -851,7 +849,7 @@ namespace Backend.Components {
                 selectorsMask.Add(genericSelMask);
             }
 
-            // 2. recupero le propriet‡ specifiche dei selettori di colonna
+            // 2. recupero le propriet√† specifiche dei selettori di colonna
             string mySelector = dc.ExtendedProperties[MySelector] != null
                 ? dc.ExtendedProperties[MySelector].ToString()
                 : null;
@@ -865,8 +863,8 @@ namespace Backend.Components {
                 var arrayOfMySelectors = mySelector.Split(',');
                 var arrayOfMySelectorsMask = mySelectorMask.Split(',');
 
-                // ciclo sulle posizioni dei selector e aggiungo nell'array finale solo se gi‡ non esiste
-                // TODO, capire per quelle che esistono gi‡ nei genrici il quale mask va considerato
+                // ciclo sulle posizioni dei selector e aggiungo nell'array finale solo se gi√† non esiste
+                // TODO, capire per quelle che esistono gi√† nei genrici il quale mask va considerato
                 for (int i = 0; i < arrayOfMySelectors.Length; i++) {
                     var mySel = arrayOfMySelectors[i];
                     if (!selectors.Contains(mySel)) {
@@ -919,7 +917,7 @@ namespace Backend.Components {
         /// <param name="rowValue">object that contains the value</param>
         /// <returns>an object that represents the value</returns>
         private static object getRowColumnValue(object rowValue) {
-            // se Ë data applico la formattazione
+            // se √® data applico la formattazione
             if (rowValue is DateTime) return ((DateTime) rowValue).ToString(c_data_format);
 
             return rowValue;
@@ -1036,8 +1034,9 @@ namespace Backend.Components {
 
             // ***************************************** Serializzo lo staticFilter come jsDataQuery **************************
             JObject staticFilter = null;
-            if (dt.ExtendedProperties["filterMetaExpression"] != null) {
-                staticFilter = MetaExpressionSerializer.serialize(dt.ExtendedProperties["filterMetaExpression"]);
+            if (dt.ExtendedProperties["filter"] != null) {
+                var me = MetaExpressionParser.From(dt.ExtendedProperties["filter"].ToString());
+                staticFilter = MetaExpressionSerializer.serialize(me);
             }
 
             //********************************* Costrusice entry per la tabella attuale ***************************************
@@ -1062,17 +1061,17 @@ namespace Backend.Components {
 
             // *********************************** Popolo struttura per colonne ****************************************
 
-            // Primo ciclo per calcolare array di selector generici, cioË vede se la colonna Ë un selector generico
-            // e l'aggiunge nella lista. poichË poi sar‡ aggiunta nell'array pecifico per colonna nella getColumnDictAutoincrementProperties()
+            // Primo ciclo per calcolare array di selector generici, cio√® vede se la colonna √® un selector generico
+            // e l'aggiunge nella lista. poich√® poi sar√† aggiunta nell'array pecifico per colonna nella getColumnDictAutoincrementProperties()
             List<string> listOfSelector = new List<string>();
             List<string> listOfSelectorMask = new List<string>();
 
             foreach (DataColumn c in dt.Columns) {
-                // TODO l'if Ë == "y" o basta sia !=null ??????
+                // TODO l'if √® == "y" o basta sia !=null ??????
                 if (c.ExtendedProperties[Selector] != null) {
                     listOfSelector.Add(c.ColumnName);
 
-                    // Default Ë 0
+                    // Default √® 0
                     var selectorMask = "0";
                     if (c.ExtendedProperties[SelectorMask] != null) {
                         selectorMask = c.ExtendedProperties[SelectorMask].ToString();
@@ -1089,7 +1088,7 @@ namespace Backend.Components {
             foreach (DataColumn c in dt.Columns) {
                 myColumns.Add(c.ColumnName, getColumnProperties(c));
 
-                // ******************************* propriet‡ autoincremento *********************************************
+                // ******************************* propriet√† autoincremento *********************************************
                 if (RowChange.IsAutoIncrement(c)) {
                     myAutoIncrementColumns.Add(c.ColumnName,
                         getColumnDictAutoincrementProperties(c, listOfSelector, listOfSelectorMask));
@@ -1220,10 +1219,10 @@ namespace Backend.Components {
                         message.Add(TablePropertyName, getJTokenFromObject(pm.TableName));
                     }
 
-                    // booleano Ë sempre diverso da null
+                    // booleano √® sempre diverso da null
                     message.Add(CanIgnorePropertyName, getJTokenFromObject(pm.CanIgnore));
 
-                    // serializzo informazione che lato client identifico con id. Non servir‡ deserializzare
+                    // serializzo informazione che lato client identifico con id. Non servir√† deserializzare
                     var id = "";
                     string pre_post = pm.PostMsgs ? "post" : "pre";
                     if (pm.TableName == null || pm.Operation == null || pm.EnforcementNumber == null) {

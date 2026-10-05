@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -288,6 +286,7 @@ private void initClass() {
 	//////////////////// DIDPROGDEFAULTVIEW /////////////////////////////////
 	var tdidprogdefaultview= new MetaTable("didprogdefaultview");
 	tdidprogdefaultview.defineColumn("aa", typeof(string));
+	tdidprogdefaultview.defineColumn("appellokind_title", typeof(string));
 	tdidprogdefaultview.defineColumn("areadidattica_title", typeof(string));
 	tdidprogdefaultview.defineColumn("convenzione_title", typeof(string));
 	tdidprogdefaultview.defineColumn("corsostudio_annoistituz", typeof(int));
@@ -340,6 +339,7 @@ private void initClass() {
 	tdidprogdefaultview.defineColumn("idsessione", typeof(int));
 	tdidprogdefaultview.defineColumn("registrydocenti_title", typeof(string));
 	tdidprogdefaultview.defineColumn("sede_title", typeof(string));
+	tdidprogdefaultview.defineColumn("sessione_idappellokind", typeof(int));
 	tdidprogdefaultview.defineColumn("sessione_idsessionekind", typeof(int));
 	tdidprogdefaultview.defineColumn("sessione_start", typeof(DateTime));
 	tdidprogdefaultview.defineColumn("sessione_stop", typeof(DateTime));
@@ -473,11 +473,13 @@ private void initClass() {
 	tappellodefaultview.defineColumn("appello_surmanestop", typeof(string));
 	tappellodefaultview.defineColumn("appello_surnamestart", typeof(string));
 	tappellodefaultview.defineColumn("appelloazionekind_title", typeof(string));
+	tappellodefaultview.defineColumn("appellokind_sessione_title", typeof(string));
 	tappellodefaultview.defineColumn("appellokind_title", typeof(string));
 	tappellodefaultview.defineColumn("description", typeof(string));
 	tappellodefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tappellodefaultview.defineColumn("idappello", typeof(int),false);
 	tappellodefaultview.defineColumn("idsessione", typeof(int));
+	tappellodefaultview.defineColumn("sessione_idappellokind", typeof(int));
 	tappellodefaultview.defineColumn("sessione_idsessionekind", typeof(int));
 	tappellodefaultview.defineColumn("sessione_start", typeof(DateTime));
 	tappellodefaultview.defineColumn("sessione_stop", typeof(DateTime));

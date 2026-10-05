@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -103,17 +101,17 @@ namespace pagoPaService {
 
 
 
-		//	Per ottenere un token di sicurezza per líaccesso ai servizi, Ë necessario possedere le seguenti informazioni:
-		//ï	Utenza tecnica
-		//ï	Password tecnica
-		//ï	Codice ABI col quale Ë stato convenzionato il fruitore del servizio
-		//ï	Codice ente interno alla procedura EasyPA
-		//ï	Identificativo univoco dellíente (chiave univoca calcolata dalla procedura EasyPA)
-		//ï	Dominio dellíente (codifica AgID)
+		//	Per ottenere un token di sicurezza per l‚Äôaccesso ai servizi, √® necessario possedere le seguenti informazioni:
+		//‚Ä¢	Utenza tecnica
+		//‚Ä¢	Password tecnica
+		//‚Ä¢	Codice ABI col quale √® stato convenzionato il fruitore del servizio
+		//‚Ä¢	Codice ente interno alla procedura EasyPA
+		//‚Ä¢	Identificativo univoco dell‚Äôente (chiave univoca calcolata dalla procedura EasyPA)
+		//‚Ä¢	Dominio dell‚Äôente (codifica AgID)
 
 		//Tutte le informazioni sopra elencate dovranno essere richieste a UniCredit S.p.A.
 
-		//ï	Richiesta del token per la gestione della sicurezza
+		//‚Ä¢	Richiesta del token per la gestione della sicurezza
 		//URL da invocare: https://tst.pasemplice.eu/connettorenodo/services/oauth/token
 		//Http-Method: POST
 		//Request Content-Type: application/x-www-form-urlencoded
@@ -122,10 +120,10 @@ namespace pagoPaService {
 
 		// parametri INPUT TUTTI OBBLIGATORI
 		//grant_type	    Alfanumerico(8)	 Tipologia di autenticazione (valorizzare fisso a password)
-		//codiceIstituto	Alfanumerico(5)	 Codice ABI col quale Ë stato convenzionato il fruitore del servizio
+		//codiceIstituto	Alfanumerico(5)	 Codice ABI col quale √® stato convenzionato il fruitore del servizio
 		//codiceEnte	    Alfanumerico(7)	 Codice ente interno alla procedura EasyPA. Deve essere sempre preceduto da zeri fino a raggiungere i 7 bytes.
-		//idEnte	        Alfanumerico(35) Identificativo interno generato da UniCredit Services S.C.p.A. ed assegnato allíente per la gestione della sicurezza
-		//idDominio	        Alfanumerico(35) Dominio dellíente (codifica AgID)
+		//idEnte	        Alfanumerico(35) Identificativo interno generato da UniCredit Services S.C.p.A. ed assegnato all‚Äôente per la gestione della sicurezza
+		//idDominio	        Alfanumerico(35) Dominio dell‚Äôente (codifica AgID)
 
 
 		//OUTPUT
@@ -133,7 +131,7 @@ namespace pagoPaService {
 		//Payload:
 		//{"access_token":"ed778aeda2903046aeaa372cbd318fa3",
 		// "token_type":"bearer",
-		// "expires_in":3600  Il parametro di output expires_in indica la validit‡ temporale del token espressa in secondi.
+		// "expires_in":3600  Il parametro di output expires_in indica la validit√† temporale del token espressa in secondi.
 		//}
 
 		/// <summary>
@@ -238,7 +236,7 @@ namespace pagoPaService {
 		}
 
 		/*
-		 * ï	Elenco RPT associate allíente creditore
+		 * ‚Ä¢	Elenco RPT associate all‚Äôente creditore
 		  URL da invocare: 
 		  https://tst.pasemplice.eu/connettorenodo/services/rest/rpt/lista/
 		  Http-Method: POST
@@ -258,12 +256,12 @@ namespace pagoPaService {
 		  Parametri	Formato	Obbligatorio	Descrizione
 		  pageNumber	Numerico	NO	Numero di pagina desiderata
 		  rowForPage	Numerico	NO	Numero di righe per pagina
-		  orderCriteria	Alfanumerico	NO	Nome della colonna sulla quale si desidera effettuare líordinamento
-		  orderDirection	Alfanumerico(4)	NO	Di default Ë impostato ad ìascî altrimenti impostare ìdescî
+		  orderCriteria	Alfanumerico	NO	Nome della colonna sulla quale si desidera effettuare l‚Äôordinamento
+		  orderDirection	Alfanumerico(4)	NO	Di default √® impostato ad ‚Äúasc‚Äù altrimenti impostare ‚Äúdesc‚Äù
 		  identificativoUnivocoVersamento	Alfanumerico(35)	NO	IUV
-		  stato	Alfanumerico(45)	NO	Stato dellíRPT. PuÚ valere: RPT_ACCETTATA, RPT_RIFIUTATA, RPT_DA_VERIFICARE, RPT_DA_INVIARE, RT_ACCETTATA_PA
-		  dataCreazioneDa	Data(dd/MM/yyyy)	NO	Data creazione dellíRPT
-		  dataCreazioneA	Data(dd/MM/yyyy)	NO	Data creazione dellíRPT
+		  stato	Alfanumerico(45)	NO	Stato dell‚ÄôRPT. Pu√≤ valere: RPT_ACCETTATA, RPT_RIFIUTATA, RPT_DA_VERIFICARE, RPT_DA_INVIARE, RT_ACCETTATA_PA
+		  dataCreazioneDa	Data(dd/MM/yyyy)	NO	Data creazione dell‚ÄôRPT
+		  dataCreazioneA	Data(dd/MM/yyyy)	NO	Data creazione dell‚ÄôRPT
   
 		  OUTPUT
 		  Response JSON
@@ -305,7 +303,7 @@ namespace pagoPaService {
 			out string error, out string esito) {
 			error = null;
 			var wc = new WebClient();
-			//string accessToken = "645272c974a86081352a3a5ce9ad70ff";
+			//string accessToken = "YOUR_SECRET";
 
 
 			wc.Headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
@@ -351,7 +349,7 @@ namespace pagoPaService {
 		}
 
 		/*
-		 * ï	Elenco RT associate allíente creditore
+		 * ‚Ä¢	Elenco RT associate all‚Äôente creditore
 		    URL da invocare: https://tst.pasemplice.eu/connettorenodo/services/rest/rt/lista/
 		    Http-Method: POST
 		    Request Content-Type: application/x-www-form-urlencoded; charset=UTF-8
@@ -367,17 +365,17 @@ namespace pagoPaService {
 
 		    INPUT
 		    Parametri	Formato	Obbligatorio	Descrizione
-		    pageNumber	Numerico	NO	Numero di pagina desiderata (Es. Se impostato a 2 e parametro ìrowForPageî = 10 verranno restituiti i records dallí11∞ al 20∞)
+		    pageNumber	Numerico	NO	Numero di pagina desiderata (Es. Se impostato a 2 e parametro ‚ÄúrowForPage‚Äù = 10 verranno restituiti i records dall‚Äô11¬∞ al 20¬∞)
 		    rowForPage	Numerico	NO	Numero di righe per pagina
-		    orderCriteria	Alfanumerico	NO	Nome del campo sul quale si desidera effettuare líordinamento (Es. ìidentificativoUnivocoVersamentoî). Líordinamento puÚ essere effettuato su tutti i campi restituiti in output
-		    orderDirection	Alfanumerico(4)	NO	Tipo di ordinamento che si intende effettuare sulla colonna indicata nel parametro ìorderCriteriaî. PuÚ valere ìascî oppure ìdescî
+		    orderCriteria	Alfanumerico	NO	Nome del campo sul quale si desidera effettuare l‚Äôordinamento (Es. ‚ÄúidentificativoUnivocoVersamento‚Äù). L‚Äôordinamento pu√≤ essere effettuato su tutti i campi restituiti in output
+		    orderDirection	Alfanumerico(4)	NO	Tipo di ordinamento che si intende effettuare sulla colonna indicata nel parametro ‚ÄúorderCriteria‚Äù. Pu√≤ valere ‚Äúasc‚Äù oppure ‚Äúdesc‚Äù
 		    iuv	Alfanumerico(35)	NO	Identificativo univoco del versamento
-		    stato	Alfanumerico(45)	NO	Stato dellíRT. PuÚ valere: RT_RICEVUTA, RT_REVOCATA, RT_STORNATA
-		    dataCreazioneDa	Data(dd/MM/yyyy)	NO	Data creazione, da parte del PSP, dellíXML RT
-		    dataCreazioneA	Data(dd/MM/yyyy)	NO	Data creazione, da parte del PSP, dellíXML RT
-		    dataInserimentoDa	Data(dd/MM/yyyy HH:mm:ss)	NO	Data inserimento dellíRT su database EasyPA
-		    dataInserimentoA	Data(dd/MM/yyyy HH:mm:ss)	NO	Data inserimento dellíRT su database EasyPA
-		    codiceEsitoPagamento	Alfanumerico(1)	NO	Codice esito del pagamento. PuÚ valere:
+		    stato	Alfanumerico(45)	NO	Stato dell‚ÄôRT. Pu√≤ valere: RT_RICEVUTA, RT_REVOCATA, RT_STORNATA
+		    dataCreazioneDa	Data(dd/MM/yyyy)	NO	Data creazione, da parte del PSP, dell‚ÄôXML RT
+		    dataCreazioneA	Data(dd/MM/yyyy)	NO	Data creazione, da parte del PSP, dell‚ÄôXML RT
+		    dataInserimentoDa	Data(dd/MM/yyyy HH:mm:ss)	NO	Data inserimento dell‚ÄôRT su database EasyPA
+		    dataInserimentoA	Data(dd/MM/yyyy HH:mm:ss)	NO	Data inserimento dell‚ÄôRT su database EasyPA
+		    codiceEsitoPagamento	Alfanumerico(1)	NO	Codice esito del pagamento. Pu√≤ valere:
 		    0 Pagamento eseguito 
 		    1 Pagamento non eseguito 
 		    2 Pagamento parzialmente eseguito 
@@ -431,7 +429,7 @@ namespace pagoPaService {
                                     4 Decorrenza termini parziale */, out string error, out string esito) {
 			error = null;
 			var wc = new WebClient();
-			//string accessToken = "645272c974a86081352a3a5ce9ad70ff";
+			//string accessToken = "YOUR_SECRET";
 
 
 			wc.Headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
@@ -486,7 +484,7 @@ namespace pagoPaService {
 		}
 
 		/*
-		 * ï	Download RT per IUV
+		 * ‚Ä¢	Download RT per IUV
 		        URL da invocare: 
 		        https://tst.pasemplice.eu/connettorenodo/services/rest/rt/iuv/download
 		        Http-Method: POST
@@ -494,7 +492,7 @@ namespace pagoPaService {
 		        Response Content-Type: application/xml
 		        Content-Disposition=[attachment; filename=Rt_dominioIuv.xml]
 
-		        N.B. Il servizio ìDownload RT per IUVî restituisce líunica RT di eseguito. Per ottenere tutte le RT Ë necessario invocare i servizi ìElenco RT associate allíente creditoreî e ìDownload RT per idî.
+		        N.B. Il servizio ‚ÄúDownload RT per IUV‚Äù restituisce l‚Äôunica RT di eseguito. Per ottenere tutte le RT √® necessario invocare i servizi ‚ÄúElenco RT associate all‚Äôente creditore‚Äù e ‚ÄúDownload RT per id‚Äù.
 
 		        HEADER
 		        Parametri di input	Descrizione
@@ -507,7 +505,7 @@ namespace pagoPaService {
 		        INPUT
 		        Parametri	Formato	Obbligatorio	Descrizione
 		        iuv	Alfanumerico(35)	SI	Identificativo Univoco Versamento
-		        filename	Alfanumerico(50)	NO	Tramite questo parametro Ë possibile indicare il nome file da assegnare allíXML da scaricare. Se non specificato il servizio assegner‡ un nome di default
+		        filename	Alfanumerico(50)	NO	Tramite questo parametro √® possibile indicare il nome file da assegnare all‚ÄôXML da scaricare. Se non specificato il servizio assegner√† un nome di default
 		        OUTPUT
 		        Response XML
 		        --- Binary Content ---
@@ -523,7 +521,7 @@ namespace pagoPaService {
 			out string esito) {
 			error = null;
 			var wc = new WebClient();
-			//string accessToken = "645272c974a86081352a3a5ce9ad70ff";
+			//string accessToken = "YOUR_SECRET";
 
 
 			wc.Headers["Content-Type"] = "application/x-www-form-urlencoded";

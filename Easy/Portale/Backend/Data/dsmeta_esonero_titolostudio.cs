@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_esonero_titolostudio"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_esonero_titolostudio: DataSet {
+public partial class dsmeta_esonero_titolostudio: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -76,8 +74,13 @@ private void initClass() {
 	//////////////////// ESONEROANSKIND /////////////////////////////////
 	var tesoneroanskind= new MetaTable("esoneroanskind");
 	tesoneroanskind.defineColumn("active", typeof(string),false);
+	tesoneroanskind.defineColumn("ct", typeof(DateTime),false);
+	tesoneroanskind.defineColumn("cu", typeof(string),false);
 	tesoneroanskind.defineColumn("description", typeof(string),false);
 	tesoneroanskind.defineColumn("idesoneroanskind", typeof(int),false);
+	tesoneroanskind.defineColumn("lt", typeof(DateTime),false);
+	tesoneroanskind.defineColumn("lu", typeof(string),false);
+	tesoneroanskind.defineColumn("sortcode", typeof(int),false);
 	tesoneroanskind.defineColumn("title", typeof(string),false);
 	Tables.Add(tesoneroanskind);
 	tesoneroanskind.defineKey("idesoneroanskind");
@@ -86,7 +89,6 @@ private void initClass() {
 	var tcostoscontodefscontiview= new MetaTable("costoscontodefscontiview");
 	tcostoscontodefscontiview.defineColumn("dropdown_title", typeof(string),false);
 	tcostoscontodefscontiview.defineColumn("idcostoscontodef", typeof(int),false);
-	tcostoscontodefscontiview.defineColumn("paridcostoscontodef", typeof(int));
 	Tables.Add(tcostoscontodefscontiview);
 	tcostoscontodefscontiview.defineKey("idcostoscontodef");
 
@@ -94,8 +96,7 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 

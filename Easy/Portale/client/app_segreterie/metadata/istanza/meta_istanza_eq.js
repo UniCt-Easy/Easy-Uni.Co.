@@ -35,7 +35,24 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'eq_seg':
+						table.columns["iddichiar_titolo_seg"].caption = "Dichiarazione del titolo di studio";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_eq_seg$
+						break;
+					case 'eq_stu':
+						table.columns["iddichiar_titolo_seg"].caption = "Dichiarazione del titolo di studio";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_eq_stu$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_eq");

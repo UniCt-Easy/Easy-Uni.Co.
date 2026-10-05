@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -189,6 +187,15 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable itinerationrefundattachmentkind 		=> (MetaTable)Tables["itinerationrefundattachmentkind"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable itinerationrefundkindgroup_balance 		=> (MetaTable)Tables["itinerationrefundkindgroup_balance"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable itinerationrefundkindgroup_advance 		=> (MetaTable)Tables["itinerationrefundkindgroup_advance"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable itinerationamountdetail 		=> (MetaTable)Tables["itinerationamountdetail"];
+
 	#endregion
 
 
@@ -216,7 +223,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// ITINERATION /////////////////////////////////
 	var titineration= new itinerationTable();
-	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","datecompleted","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref","supposedtravel","supposedliving","supposedfood","nfood","flagownfunds","idforeigncountry","advancepercentage","supposedamount","idregistrypaymethod","flagmove","flagoutside","advanceapplied","iddaliarecruitmentmotive","starttime","stoptime","iddalia_dipartimento","iddalia_funzionale","idcostpartition","advancepercentageliving","advancepercentagetravel","advancepercentagefood","supposedcourse","advancepercentagecourse");
+	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","datecompleted","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref","supposedtravel","supposedliving","supposedfood","nfood","flagownfunds","idforeigncountry","advancepercentage","supposedamount","idregistrypaymethod","flagmove","flagoutside","advanceapplied","iddaliarecruitmentmotive","starttime","stoptime","iddalia_dipartimento","iddalia_funzionale","idcostpartition","advancepercentageliving","advancepercentagetravel","advancepercentagefood","supposedcourse","advancepercentagecourse","flagexcludefromcertificate");
 	Tables.Add(titineration);
 	titineration.defineKey("iditineration");
 
@@ -554,6 +561,7 @@ private void initClass() {
 	titinerationattachment.defineColumn("description", typeof(string));
 	titinerationattachment.defineColumn("active", typeof(string));
 	titinerationattachment.defineColumn("idattachmentkind", typeof(int));
+	titinerationattachment.defineColumn("idfilestorage", typeof(string));
 	titinerationattachment.defineColumn("!attachmentkind", typeof(string));
 	Tables.Add(titinerationattachment);
 	titinerationattachment.defineKey("iditineration", "idattachment");
@@ -765,9 +773,10 @@ private void initClass() {
 	titinerationrefundattachment.defineColumn("cu", typeof(string),false);
 	titinerationrefundattachment.defineColumn("ct", typeof(DateTime),false);
 	titinerationrefundattachment.defineColumn("lu", typeof(string),false);
-	titinerationrefundattachment.defineColumn("lt", typeof(string),false);
+	titinerationrefundattachment.defineColumn("lt", typeof(DateTime),false);
 	titinerationrefundattachment.defineColumn("active", typeof(string));
 	titinerationrefundattachment.defineColumn("iditinerationrefundattachmentkind", typeof(int));
+	titinerationrefundattachment.defineColumn("idfilestorage", typeof(string));
 	Tables.Add(titinerationrefundattachment);
 	titinerationrefundattachment.defineKey("idattachment", "iditineration", "nrefund");
 
@@ -810,6 +819,52 @@ private void initClass() {
 	titinerationrefundattachmentkind.defineColumn("flag", typeof(int));
 	Tables.Add(titinerationrefundattachmentkind);
 	titinerationrefundattachmentkind.defineKey("iditinerationrefundattachmentkind");
+
+	//////////////////// ITINERATIONREFUNDKINDGROUP_BALANCE /////////////////////////////////
+	var titinerationrefundkindgroup_balance= new MetaTable("itinerationrefundkindgroup_balance");
+	titinerationrefundkindgroup_balance.defineColumn("iditinerationrefundkindgroup", typeof(int),false);
+	titinerationrefundkindgroup_balance.defineColumn("description", typeof(string),false);
+	titinerationrefundkindgroup_balance.defineColumn("ct", typeof(DateTime),false);
+	titinerationrefundkindgroup_balance.defineColumn("cu", typeof(string),false);
+	titinerationrefundkindgroup_balance.defineColumn("lt", typeof(DateTime),false);
+	titinerationrefundkindgroup_balance.defineColumn("lu", typeof(string),false);
+	Tables.Add(titinerationrefundkindgroup_balance);
+	titinerationrefundkindgroup_balance.defineKey("iditinerationrefundkindgroup");
+
+	//////////////////// ITINERATIONREFUNDKINDGROUP_ADVANCE /////////////////////////////////
+	var titinerationrefundkindgroup_advance= new MetaTable("itinerationrefundkindgroup_advance");
+	titinerationrefundkindgroup_advance.defineColumn("iditinerationrefundkindgroup", typeof(int),false);
+	titinerationrefundkindgroup_advance.defineColumn("description", typeof(string),false);
+	titinerationrefundkindgroup_advance.defineColumn("ct", typeof(DateTime),false);
+	titinerationrefundkindgroup_advance.defineColumn("cu", typeof(string),false);
+	titinerationrefundkindgroup_advance.defineColumn("lt", typeof(DateTime),false);
+	titinerationrefundkindgroup_advance.defineColumn("lu", typeof(string),false);
+	Tables.Add(titinerationrefundkindgroup_advance);
+	titinerationrefundkindgroup_advance.defineKey("iditinerationrefundkindgroup");
+
+	//////////////////// ITINERATIONAMOUNTDETAIL /////////////////////////////////
+	var titinerationamountdetail= new MetaTable("itinerationamountdetail");
+	titinerationamountdetail.defineColumn("iditineration", typeof(int),false);
+	titinerationamountdetail.defineColumn("ndetail", typeof(int),false);
+	titinerationamountdetail.defineColumn("totspesepreventivateanticipo", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("totspesesostenute", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("totspesedaconsiderare", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("indennsupplementare", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("indennkm", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("indennlordatrasfertait", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("indennlordatrasfertaestero", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("importolordo", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("contributiassicurativi", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("contributiprevidenziali", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("importoanticipo", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("quotaesente", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("imponibile", typeof(decimal),false);
+	titinerationamountdetail.defineColumn("ct", typeof(DateTime));
+	titinerationamountdetail.defineColumn("cu", typeof(string));
+	titinerationamountdetail.defineColumn("lt", typeof(DateTime));
+	titinerationamountdetail.defineColumn("lu", typeof(string));
+	Tables.Add(titinerationamountdetail);
+	titinerationamountdetail.defineKey("iditineration", "ndetail");
 
 	#endregion
 
@@ -889,11 +944,14 @@ private void initClass() {
 	this.defineRelation("dalia_recruitmentmotive_itineration","dalia_recruitmentmotive","itineration","iddaliarecruitmentmotive");
 	this.defineRelation("dalia_funzionale_itineration","dalia_funzionale","itineration","iddalia_funzionale");
 	this.defineRelation("dalia_dipartimento_itineration","dalia_dipartimento","itineration","iddalia_dipartimento");
-	this.defineRelation("itinerationrefund_advance_itinerationrefundattachment","itinerationrefund_advance","itinerationrefundattachment","iditineration","nrefund");
-	this.defineRelation("itinerationrefund_balance_itinerationrefundattachment","itinerationrefund_balance","itinerationrefundattachment","iditineration","nrefund");
 	this.defineRelation("costpartition_itineration","costpartition","itineration","idcostpartition");
 	this.defineRelation("itinerationattachmentkind_itinerationattachment","itinerationattachmentkind","itinerationattachment","idattachmentkind");
 	this.defineRelation("itinerationrefundattachmentkind_itinerationrefundattachment","itinerationrefundattachmentkind","itinerationrefundattachment","iditinerationrefundattachmentkind");
+	this.defineRelation("itinerationrefundkindgroup_balance_itinerationrefundkind_balance","itinerationrefundkindgroup_balance","itinerationrefundkind_balance","iditinerationrefundkindgroup");
+	this.defineRelation("itinerationrefundkindgroup_advance_itinerationrefundkind_advance","itinerationrefundkindgroup_advance","itinerationrefundkind_advance","iditinerationrefundkindgroup");
+	this.defineRelation("itinerationrefund_advance_itinerationrefundattachment","itinerationrefund_advance","itinerationrefundattachment","iditineration","nrefund");
+	this.defineRelation("itinerationrefund_balance_itinerationrefundattachment","itinerationrefund_balance","itinerationrefundattachment","iditineration","nrefund");
+	this.defineRelation("itineration_itinerationamountdetail","itineration","itinerationamountdetail","iditineration");
 	#endregion
 
 }

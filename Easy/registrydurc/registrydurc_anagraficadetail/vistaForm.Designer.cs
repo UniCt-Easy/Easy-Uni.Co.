@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace registrydurc_anagraficadetail {
 using System;
@@ -85,6 +83,12 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
 	T.Columns.Add(new DataColumn("flagirregular", typeof(System.String), ""));
+	C = new DataColumn("idfilestorage", typeof(string));
+	C.AllowDBNull=true;
+    T.Columns.Add(C);
+	C = new DataColumn("idfilestorage2", typeof(string));
+	C.AllowDBNull=true;
+    T.Columns.Add(C);
 	Tables.Add(T);
 //Primary Key
 	key = new DataColumn[2]{

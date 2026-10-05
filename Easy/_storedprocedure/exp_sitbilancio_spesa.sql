@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitbilancio_spesa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitbilancio_spesa]
 GO
@@ -23,8 +21,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
--- exec [exp_sitbilancio_spesa] 2013, {ts '2013-12-31 00:00:00'}, 4, 'N', '%', 'S', 'N', 'S',null
+ 
+--SETUSER'amministrazione'
 
 CREATE  PROCEDURE [exp_sitbilancio_spesa]
 	@ayear			int,
@@ -104,6 +102,10 @@ IF 	@appropriationphase IS NULL
 BEGIN
 	SELECT @appropriationphase = expensefinphase FROM uniconfig
 END
+
+DECLARE @desc_appropriation_phase varchar(50)
+SELECT  @desc_appropriation_phase=description
+FROM    expensephase WHERE nphase=@appropriationphase 
 
 DECLARE @fin_phase  tinyint -- fase accantonamento precedente alla fase di impegno, Modifica Sara
 SELECT 	@fin_phase = expensefinphase FROM uniconfig
@@ -1017,44 +1019,51 @@ BEGIN
 			isnull(var_fin_ph_resid,0.0) =0 AND 			
 			(select nlevel from fin FFF where FFF.idfin= #situation_fin.idfin)>=2)
 END
+
+ CREATE TABLE #Captions (
+    CapKey    sysname not null,
+    Caption   nvarchar(200) not null,
+    PRIMARY KEY ( CapKey)
+);
+
+-- popolamento   (it-IT)
+INSERT INTO #Captions (CapKey, Caption) VALUES
+('Impegni', @desc_appropriation_phase) ;
+ 
+
 IF (@showupb <>'S') 
 BEGIN
-	
+	WITH Base AS (
 	SELECT 
 		finlevel.description					as 'Livello',
-		fin.codefin								as 'Cod. Bilancio',	
+		fin.codefin								as 'Cod_bilancio',	
 		fin.title								as 'Bilancio',	
+		fin.printingorder						as 'Printingorder',
 		manager.title							as 'Responsabile',
-		--codeupb									as 'Cod. UPB',
-		--upb										as 'UPB',
-		sum(isnull(main_initial_prevision,0.0)) as 'Previsione iniziale principale',
-		sum(isnull(var_main_prevision,0.0)) 	as 'Variazioni previsione principale',
-		sum(isnull(main_initial_prevision,0.0)) + sum(isnull(var_main_prevision,0.0))	as 'Previsione principale definitiva',
-		sum(isnull(appropriations,0.0)) + sum(isnull(var_appropriations,0.0))	   as 'Impegni',
-		(isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) ) - (isnull(appropriations,0)	 + isnull(var_appropriations,0) )as 'Disponibile ad Impegnare',
-		sum(isnull(max_ph_comp,0.0)) + 	sum(isnull(max_ph_resid,0.0))  + 
-		sum(isnull(var_max_ph_comp,0.0)) + sum(isnull(var_max_ph_resid,0.0))  as 'Pagamenti ', 
-		sum(isnull(main_initial_prevision,0.0)) + sum(isnull(var_main_prevision,0.0))  - 
-		(sum(isnull(max_ph_comp,0.0))  + sum(isnull(max_ph_resid,0.0)) + sum(isnull(var_max_ph_comp,0.0)) + 
-		sum(isnull(var_max_ph_resid,0.0)))  as 'Previsione Disponibile per Pagamenti',
-		--sum(isnull(sec_initial_prevision,0.0))as 'Previsione inziale secondaria',
-		--sum(isnull(varprevsec,0.0)) 			as 'Variazioni previsione secondaria',
-		sum(isnull(var_assign_cash,0.0)) 		as 'Dotazione iniziale cassa',
-		sum(isnull(assign_cash,0.0)) 			as 'Assegnazioni Cassa e Storni',
+		isnull(sum(main_initial_prevision),0.0) as 'Previsione_iniziale_principale',
+		isnull(sum(var_main_prevision),0.0) 	as 'Variazioni_previsione_principale',
+		isnull(sum(main_initial_prevision),0.0) + isnull(sum(var_main_prevision),0.0)	as 'Previsione_principale_definitiva',
+		isnull(sum(appropriations),0.0) + isnull(sum(var_appropriations),0.0)	   as 'Impegni',
+		isnull(sum(main_initial_prevision),0) +  isnull(sum(var_main_prevision),0)  - ( isnull(sum(appropriations),0)	 + isnull(sum(var_appropriations),0) ) as 'Disponibile_ad_impegnare',
+		isnull(sum(max_ph_comp),0.0) + 	isnull(sum(max_ph_resid),0.0)  + 
+		isnull(sum(var_max_ph_comp),0.0) + isnull(sum(var_max_ph_resid),0.0)  as 'Pagamenti ', 
+		isnull(sum(main_initial_prevision),0.0) + isnull(sum(var_main_prevision),0.0)  - 
+		(isnull(sum(max_ph_comp),0.0)  + isnull(sum(max_ph_resid),0.0) + isnull(sum(var_max_ph_comp),0.0) + 
+		isnull(sum(var_max_ph_resid),0.0))  as 'Previsione_disponibile_per_pagamenti',
+		--isnull(sum(sec_initial_prevision),0.0)as 'Previsione inziale secondaria',
+		--isnull(sum(varprevsec),0.0) 			as 'Variazioni previsione secondaria',
+		isnull(sum(var_assign_cash),0.0) 		as 'Dotazione_iniziale_cassa',
+		isnull(sum(assign_cash),0.0) 			as 'Assegnazioni_cassa_e_storni',
 		-- cassa finale: dotazione iniziale + assegnazioni di cassa e storni - pagamenti
-		sum(isnull(var_assign_cash,0.0)) + sum(isnull(assign_cash,0.0)) - 
-		(sum(isnull(max_ph_comp,0.0)) + sum(isnull(max_ph_resid,0.0)) +sum(isnull(var_max_ph_comp,0.0)) + 	sum(isnull(var_max_ph_resid,0.0)) 	 )	as 'Cassa Finale'
+		isnull(sum(var_assign_cash),0.0) + isnull(sum(assign_cash),0.0) - 
+		(isnull(sum(max_ph_comp),0.0) + isnull(sum(max_ph_resid),0.0) +isnull(sum(var_max_ph_comp),0.0) + 	isnull(sum(var_max_ph_resid),0.0) 	 )	as 'Cassa_finale'
 	 	FROM #situation_fin 
 		JOIN fin 
 			ON #situation_fin.idfin = fin.idfin		
 		left outer join finlast on #situation_fin.idfin = finlast.idfin  
 		left outer join manager on manager.idman = finlast.idman
 		join finlevel on fin.nlevel = finlevel.nlevel and finlevel.ayear = @ayear
-		GROUP BY --idupb,
-			--#situation_fin.idfin,
-			--codeupb,
-			--upb,
-			--upbprintingorder,
+		GROUP BY 
 			finprintingorder,
 			fin.printingorder,
 			fin.codefin,	
@@ -1065,39 +1074,101 @@ BEGIN
 			flag_assign_credit,
 			flag_assign_cash,
 			flagconsider			
-		ORDER BY --upbprintingorder,
-			fin.printingorder
+		--ORDER BY --upbprintingorder,
+		--	fin.printingorder
+			) 
+
+			SELECT 
+			b.Livello ,
+			b.Cod_bilancio,	
+			b.Bilancio,	
+			b.Responsabile ,
+			b.Previsione_iniziale_principale,
+			b.Variazioni_previsione_principale ,
+			b.Previsione_principale_definitiva,
+			c.Caption AS [Fase],
+			v.Valore  AS [Importo],
+			b.Disponibile_ad_impegnare,
+			b.Pagamenti, 
+			b.Previsione_disponibile_per_pagamenti 	,
+			b.Dotazione_iniziale_cassa ,
+			b.Assegnazioni_cassa_e_storni --,
+		-- cassa finale: dotazione iniziale + assegnazioni di cassa e storni - pagamenti
+			--b.Cassa_finale
+			FROM Base b
+CROSS APPLY (
+    VALUES
+      ('Impegni',    b.Impegni) 
+ 
+) v(CapKey, Valore)
+JOIN #Captions c
+  ON   c.CapKey = v.CapKey
+  order by b.Printingorder
 END 
 	ELSE
-		SELECT 
-			finlevel.description	as 'Livello',
-			fin.codefin				as 'Cod. Bilancio',	
-			fin.title				as 'Bilancio',	
-			manager.title			as 'Responsabile',
-			upb.codeupb					as 'Cod. UPB',
-			upb.title						as 'UPB',
-			main_initial_prevision  as 'Previsione iniziale principale',
-			var_main_prevision		as 'Variazioni previsione principale',
-			isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) as 'Previsione principale definitiva',
-			isnull(appropriations,0)	 + isnull(var_appropriations,0) as 'Impegni',
-			(isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) ) - (isnull(appropriations,0)	 + isnull(var_appropriations,0) )as 'Disponibile ad Impegnare',
-			isnull(max_ph_comp,0.0) +  isnull(max_ph_resid,0.0)  + 
-			isnull(var_max_ph_comp,0.0) + isnull(var_max_ph_resid,0.0)  as 'Pagamenti ', 
-			isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0) -
-			(isnull(max_ph_comp,0) + isnull(max_ph_resid,0)	 + isnull(var_max_ph_comp,0)	+ isnull(var_max_ph_resid,0)) as 'Previsione disponibile per Pagamenti',
-			var_assign_cash			as 'Donazione iniziale cassa',
-			assign_cash				as 'Assegnazioni cassa e storni',
-			-- cassa finale: dotazione iniziale + assegnazioni di cassa e storni - pagamenti
-			isnull(var_assign_cash,0) + isnull(assign_cash,0) - 
-			(isnull(max_ph_comp,0) + isnull(max_ph_resid,0)	+  isnull(var_max_ph_comp,0)	+ isnull(var_max_ph_resid,0)  ) as 'Cassa finale'
-		 	FROM #situation_fin 
+	WITH Base AS (
+	SELECT 
+		finlevel.description					as 'Livello',
+		fin.codefin								as 'Cod_bilancio',	
+		fin.title								as 'Bilancio',	
+		fin.printingorder						as 'Printingorder',
+		upb.printingorder						as 'UPB_printingorder',
+		manager.title							as 'Responsabile',
+		upb.codeupb								as 'Cod_UPB',
+		upb.title								as 'UPB',
+		isnull(main_initial_prevision,0.0) as 'Previsione_iniziale_principale',
+		isnull(var_main_prevision,0.0) 	as 'Variazioni_previsione_principale',
+		isnull(main_initial_prevision,0.0) + isnull(var_main_prevision,0.0)	as 'Previsione_principale_definitiva',
+		isnull(appropriations,0.0) + isnull(var_appropriations,0.0)	   as 'Impegni',
+		isnull(main_initial_prevision,0) +  isnull(var_main_prevision,0)  - ( isnull(appropriations,0)	 + isnull(var_appropriations,0) ) as 'Disponibile_ad_impegnare',
+		isnull(max_ph_comp,0.0) + 	isnull(max_ph_resid,0.0)  + 
+		isnull(var_max_ph_comp,0.0) + isnull(var_max_ph_resid,0.0)  as 'Pagamenti ', 
+		isnull(main_initial_prevision,0.0) + isnull(var_main_prevision,0.0)  - 
+		(isnull(max_ph_comp,0.0)  + isnull(max_ph_resid,0.0) + isnull(var_max_ph_comp,0.0) + 
+		isnull(var_max_ph_resid,0.0))  as 'Previsione_disponibile_per_pagamenti',
+		isnull(var_assign_cash,0.0) 		as 'Dotazione_iniziale_cassa',
+		isnull(assign_cash,0.0) 			as 'Assegnazioni_cassa_e_storni',
+		-- cassa finale: dotazione iniziale + assegnazioni di cassa e storni - pagamenti
+		isnull(var_assign_cash,0.0) + isnull(assign_cash,0.0) - 
+		(isnull(max_ph_comp,0.0) + isnull(max_ph_resid,0.0) +isnull(var_max_ph_comp,0.0) + 	isnull(var_max_ph_resid,0.0) 	 )	as 'Cassa_finale'
+		FROM #situation_fin 
 			JOIN fin on #situation_fin.idfin = fin.idfin
 			join upb
 				ON #situation_fin.idupb = upb.idupb
 			left outer join finlast on #situation_fin.idfin = finlast.idfin  
 			left outer join manager on manager.idman = isnull(finlast.idman, upb.idman)
 			join finlevel on fin.nlevel = finlevel.nlevel and finlevel.ayear = @ayear
-			ORDER BY upb.printingorder,fin.printingorder
+			) 
+			SELECT 
+			b.Livello ,
+			b.Cod_bilancio,	
+			b.Bilancio,	
+			b.Responsabile ,
+			b.Cod_UPB,
+			b.UPB,
+			b.Previsione_iniziale_principale,
+			b.Variazioni_previsione_principale ,
+			b.Previsione_principale_definitiva,
+			c.Caption AS [Fase],
+			v.Valore  AS [Importo],
+			b.Disponibile_ad_impegnare,
+			b.Pagamenti, 
+			b.Previsione_disponibile_per_pagamenti 	,
+			b.Dotazione_iniziale_cassa ,
+			b.Assegnazioni_cassa_e_storni --,
+		-- cassa finale: dotazione iniziale + assegnazioni di cassa e storni - pagamenti
+			--b.Cassa_finale
+			FROM Base b
+CROSS APPLY (
+    VALUES
+      ('Impegni',    b.Impegni) 
+ 
+) v(CapKey, Valore)
+JOIN #Captions c
+  ON   c.CapKey = v.CapKey
+  order by b.UPB_printingorder,b.Printingorder
+
+		 
 END
 
 GO
@@ -1108,3 +1179,5 @@ GO
 
 
 
+
+ 

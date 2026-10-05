@@ -22,10 +22,16 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			//beforeFill
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#pianostudioattivform_segstud_idsostenimento'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#pianostudioattivform_segstud_idsostenimento'), false);
@@ -33,24 +39,9 @@
 				return this.superClass.afterFill.call(this);
 			},
 
-			afterLink: function () {
-				var self = this;
-				this.setDenyNull("pianostudioattivform","idattivform_scelta");
-				//fireAfterLink
-				return this.superClass.afterLink.call(this).then(function () {
-					var arraydef = [];
-					//fireAfterLinkAsinc
-					return $.when.apply($, arraydef);
-				});
-			},
+			//afterLink
 
-			afterRowSelect: function (t, r) {
-				var def = appMeta.Deferred("afterRowSelect-pianostudioattivform_segstud");
-				$('#pianostudioattivform_segstud_idattivform_scelta').prop("disabled", this.state.isEditState() || this.haveChildren());
-				$('#pianostudioattivform_segstud_idattivform_scelta').prop("readonly", this.state.isEditState() || this.haveChildren());
-				//afterRowSelectin
-				return def.resolve();
-			},
+			//afterRowSelect
 
 			//afterActivation
 
@@ -58,24 +49,11 @@
 
 			//buttonClickEnd
 
-			insertClick: function (that, grid) {
-				if (!$('#pianostudioattivform_segstud_idattivform_scelta').val() && this.children.includes(grid.dataSourceName)) {
-					return this.showMessageOk('Prima devi selezionare un valore per il campo Attività formativa che lo studente svolgerà');
-				}
-				//insertClickin
-				return this.superClass.insertClick(that, grid);
-			},
+			//insertClick
 
-			children: [''],
-			haveChildren: function () {
-				var self = this;
-				return _.some(this.children, function (child) {
-					if (child !== '')
-						return !!self.getDataTable(child).rows.length;
-					else
-						return false;
-				});
-			},
+			//beforePost
+
+			//afterPost
 
 			//buttons
         });

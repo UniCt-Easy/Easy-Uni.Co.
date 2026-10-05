@@ -23,36 +23,39 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.data))
+				if (this.isNull(parentRow.aa))
+					parentRow.aa = this.getAAByDate();
+;
+								if (self.isNullOrMinDate(parentRow.data))
 					parentRow.data = new Date();
-				if (!parentRow.idistanzakind)
+;
+				if (this.isNull(parentRow.idistanzakind) || parentRow.idistanzakind == 0)
 					parentRow.idistanzakind = 13;
-				if (!parentRow.idstatuskind)
+;
+				if (this.isNull(parentRow.idstatuskind))
 					parentRow.idstatuskind = 1;
-				//beforeFillFilter
+;
+				//afterGetFormDataFilter
 				
 				//parte asincrona
-				var def = appMeta.Deferred("beforeFill-istanza_seganagstusonpre");
+				var def = appMeta.Deferred("afterGetFormData-istanza_seganagstusonpre");
 				var arraydef = [];
 				
-				//beforeFillInside
+				//afterGetFormDataInside
 				
 				$.when.apply($, arraydef)
 					.then(function () {
-						return self.superClass.beforeFill.call(self)
-							.then(function () {
-								return def.resolve();
-							});
+						return def.resolve();
 					});
 				return def.promise();
 			},
+			
+			//beforeFill
 
 			//afterClear
 
@@ -63,6 +66,7 @@
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
 				this.setDenyNull("istanza","paridistanza");
+				this.state.DS.tables.statuskinddefaultview.staticFilter(window.jsDataQuery.eq('statuskind_istanze', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];

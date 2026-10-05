@@ -41,14 +41,11 @@
 						this.describeAColumn(table, 'referencename', 'Nome Contatto', null, 10, 50);
 						this.describeAColumn(table, 'flagdefault', 'Contatto predefinito', null, 30, null);
 						this.describeAColumn(table, 'email', 'Email', null, 40, 200);
-						this.describeAColumn(table, 'skypenumber', 'Skype No.', null, 60, 50);
-						this.describeAColumn(table, 'msnnumber', 'MSN No.', null, 70, 50);
 						this.describeAColumn(table, 'phonenumber', 'Numero tel.', null, 80, 50);
-						this.describeAColumn(table, 'faxnumber', 'Numero fax.', null, 90, 50);
 						this.describeAColumn(table, 'mobilenumber', 'Num. cellulare', null, 100, 20);
 						this.describeAColumn(table, 'pec', 'Pec', null, 110, 200);
-						this.describeAColumn(table, 'userweb', 'login web', null, 110, 40);
-						this.describeAColumn(table, 'passwordweb', 'password per accesso web', null, 120, 40);
+						this.describeAColumn(table, 'userweb', 'login web', null, 110, 100);
+						this.describeAColumn(table, 'passwordweb', 'password per accesso web', null, 120, 200);
 						this.describeAColumn(table, 'registryreferencerole', 'Funzione contatto', null, 130, 50);
 						this.describeAColumn(table, 'website', 'Website', null, 200, 512);
 //$objCalcFieldConfig_persone$
@@ -57,13 +54,11 @@
 						this.describeAColumn(table, 'referencename', 'Nome Contatto', null, 10, 50);
 						this.describeAColumn(table, 'flagdefault', 'Contatto predefinito', null, 30, null);
 						this.describeAColumn(table, 'email', 'Email', null, 40, 200);
-						this.describeAColumn(table, 'skypenumber', 'Skype No.', null, 60, 50);
-						this.describeAColumn(table, 'msnnumber', 'MSN No.', null, 70, 50);
 						this.describeAColumn(table, 'phonenumber', 'Numero tel.', null, 80, 50);
 						this.describeAColumn(table, 'faxnumber', 'Numero fax.', null, 90, 50);
 						this.describeAColumn(table, 'mobilenumber', 'Num. cellulare', null, 100, 20);
 						this.describeAColumn(table, 'pec', 'Pec', null, 110, 200);
-						this.describeAColumn(table, 'website', 'Website', null, 200, 512);
+						this.describeAColumn(table, 'website', 'Sito WEB', null, 200, 512);
 //$objCalcFieldConfig_seg$
 						break;
 //$objCalcFieldConfig$
@@ -112,6 +107,11 @@
 						table.columns["txt"].caption = "note testuali";
 						table.columns["userweb"].caption = "login web";
 //$innerSetCaptionConfig_persone$
+						break;
+					case 'seg':
+						table.columns["txt"].caption = "Note testuali";
+						table.columns["website"].caption = "Sito WEB";
+//$innerSetCaptionConfig_seg$
 						break;
 //$innerSetCaptionConfig$
 				}

@@ -24,26 +24,27 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'seg':
+						this.describeAColumn(table, 'idreg_studenti', 'Studente', null, 40, null);
 						this.describeAColumn(table, 'pos', 'Posizione', null, 60, null);
 						this.describeAColumn(table, 'punteggio', 'Punteggio', 'fixed.2', 70, null);
-						this.describeAColumn(table, '!idreg_studenti_registry_studenti_idreg_studenti_title', 'Studente', null, 41, null);
-						objCalcFieldConfig['!idreg_studenti_registry_studenti_idreg_studenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
-						this.describeAColumn(table, '!idreg_studenti_registry_studenti_title', 'Studente', null, 41, null);
-						objCalcFieldConfig['!idreg_studenti_registry_studenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
+						this.describeAColumn(table, '!idreg_studenti_registry_title', 'Studente', null, 41, null);
+						objCalcFieldConfig['!idreg_studenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
 //$objCalcFieldConfig_seg$
 						break;
 					case 'stato':
+						this.describeAColumn(table, 'idreg_studenti', 'Studente', null, 50, null);
 						this.describeAColumn(table, 'pos', 'Posizione', null, 70, null);
 						this.describeAColumn(table, 'punteggio', 'Punteggio', 'fixed.2', 80, null);
-						this.describeAColumn(table, '!idreg_studenti_registry_studenti_idreg_studenti_title', 'Studente', null, 51, null);
-						objCalcFieldConfig['!idreg_studenti_registry_studenti_idreg_studenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
+						this.describeAColumn(table, '!idreg_studenti_registry_title', 'Studente', null, 51, null);
+						objCalcFieldConfig['!idreg_studenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
 //$objCalcFieldConfig_stato$
 						break;
 					case 'default':
+						this.describeAColumn(table, 'idreg_studenti', 'Studente', null, 50, null);
 						this.describeAColumn(table, 'pos', 'Posizione', null, 70, null);
 						this.describeAColumn(table, 'punteggio', 'Punteggio', 'fixed.2', 80, null);
-						this.describeAColumn(table, '!idreg_studenti_registry_studenti_idreg_studenti_title', 'Studente', null, 51, null);
-						objCalcFieldConfig['!idreg_studenti_registry_studenti_idreg_studenti_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
+						this.describeAColumn(table, '!idreg_studenti_registry_title', 'Studente', null, 51, null);
+						objCalcFieldConfig['!idreg_studenti_registry_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idreg_studenti' };
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$
@@ -54,13 +55,31 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["idcorsostudio"].caption = "Corso di studio";
+						table.columns["idreg_studenti"].caption = "Studente";
+						table.columns["pos"].caption = "Posizione";
+//$innerSetCaptionConfig_default$
+						break;
+					case 'seg':
+//$innerSetCaptionConfig_seg$
+						break;
+					case 'stato':
+						table.columns["idcorsostudio"].caption = "Corso di studio";
+//$innerSetCaptionConfig_stato$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_graduatoriaesitipos");
 
 				var realParentObjectRow = parentRow;
-					if (editType === "seg") {
+				if (editType === "seg") {
 					var realParentTableName = "graduatoriaesiti";
 					var realParentTable = dt.dataset.tables["graduatoriaesiti"];
 					if (!realParentTable) {
@@ -84,6 +103,9 @@
 						return def.resolve(dtRow);
 					});
 			},
+
+
+
 
 
 

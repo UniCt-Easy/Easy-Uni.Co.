@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -87,7 +85,7 @@ private void initClass() {
 
 	//////////////////// SERVICEREGISTRY /////////////////////////////////
 	var tserviceregistry= new serviceregistryTable();
-	tserviceregistry.addBaseColumns("yservreg","nservreg","id_service","employkind","iddepartment","is_annulled","is_delivered","is_changed","idconsultingkind","p_iva","cf","flagforeign","title","codcity","surname","forename","birthdate","gender","referencesemester","pa_code","idacquirekind","idapcontractkind","idfinancialactivity","description","start","stop","servicevariation","expectedamount","payment","ypay","idapmanager","idapregistrykind","idapactivitykind","pa_cf","pa_title","authorizationdate","officeduty","annotation","referencerule","ct","cu","lt","lu","rtf","txt","idreg","idcity","idrelated","is_blocked","regulation","paragraph","article","articlenumber","referencedate","idreferencerule","idapfinancialactivity","rulespecifics","expectationsdate","senderreporting","flaghuman","conferring_piva","conferring_forename","conferring_surname","conferring_flagforeign","conferring_birthdate","conferring_gender","conferring_codcity","conferring_idcity","idconferring","conferringstructure","ordinancelink","authorizingstructure","authorizinglink","actreference","announcementlink","otherservice","professionalservice","componentsvariable","idserviceregistrykind","employtime","notes","idsor01","idsor02","idsor03","idsor04","idsor05","certinterestconflicts","website_annulled");
+	tserviceregistry.addBaseColumns("yservreg", "nservreg", "id_service", "employkind", "iddepartment", "is_annulled", "is_delivered", "is_changed", "idconsultingkind", "p_iva", "cf", "flagforeign", "title", "codcity", "surname", "forename", "birthdate", "gender", "referencesemester", "pa_code", "idacquirekind", "idapcontractkind", "idfinancialactivity", "description", "start", "stop", "servicevariation", "expectedamount", "payment", "ypay", "idapmanager", "idapregistrykind", "idapactivitykind", "pa_cf", "pa_title", "authorizationdate", "officeduty", "annotation", "referencerule", "ct", "cu", "lt", "lu", "rtf", "txt", "idreg", "idcity", "idrelated", "is_blocked", "regulation", "paragraph", "article", "articlenumber", "referencedate", "idreferencerule", "idapfinancialactivity", "rulespecifics", "expectationsdate", "senderreporting", "flaghuman", "conferring_piva", "conferring_forename", "conferring_surname", "conferring_flagforeign", "conferring_birthdate", "conferring_gender", "conferring_codcity", "conferring_idcity", "idconferring", "conferringstructure", "ordinancelink", "authorizingstructure", "authorizinglink", "actreference", "announcementlink", "otherservice", "professionalservice", "componentsvariable", "idserviceregistrykind", "employtime", "notes", "idsor01", "idsor02", "idsor03", "idsor04", "idsor05", "certinterestconflicts", "website_annulled", "perla_error", "dichiarazione_incarichi", "codicepaipa", "codiceaooipa", "codiceuoipa", "idthematicscope", "idpublicinstitutionservice", "idfilestorage");
 	Tables.Add(tserviceregistry);
 	tserviceregistry.defineKey("yservreg", "nservreg");
 

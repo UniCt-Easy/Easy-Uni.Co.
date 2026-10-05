@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/vistaForm.xsd" xmlns:mstns="http://tempuri.org/vistaForm.xsd" xmlns="http://tempuri.org/vistaForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -52,10 +52,12 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="description" type="xs:string" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="registerclass" type="xs:string" />
               <xs:element name="idivaregisterkindunified" type="xs:string" />
+              <xs:element name="emails" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -101,10 +103,6 @@
       <xs:selector xpath=".//mstns:ivaregisterkind" />
       <xs:field xpath="mstns:idivaregisterkind" />
     </xs:unique>
-    <xs:unique name="Constraint2">
-      <xs:selector xpath=".//mstns:ivaregisterkind" />
-      <xs:field xpath="mstns:idivaregisterkindunified" />
-    </xs:unique>
     <xs:unique name="unifiedivapaydetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:unifiedivapaydetail" />
       <xs:field xpath="mstns:yunifiedivapay" />
@@ -112,23 +110,13 @@
       <xs:field xpath="mstns:idivaregisterkindunified" />
       <xs:field xpath="mstns:iddepartment" />
     </xs:unique>
-    <xs:keyref name="ivaregisterkindunifiedivapaydetail" refer="Constraint2">
-      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
-      <xs:field xpath="mstns:idivaregisterkindunified" />
-    </xs:keyref>
-    <xs:keyref name="unifiedivapayunifiedivapaydetail" refer="Constraint1">
-      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
-      <xs:field xpath="mstns:yunifiedivapay" />
-      <xs:field xpath="mstns:nunifiedivapay" />
-      <xs:field xpath="mstns:iddepartment" />
-    </xs:keyref>
-    <xs:keyref name="departmentunifiedivapaydetail" refer="department_Constraint1">
-      <xs:selector xpath=".//mstns:unifiedivapaydetail" />
-      <xs:field xpath="mstns:iddepartment" />
-    </xs:keyref>
-    <xs:keyref name="departmentunifiedivapay" refer="department_Constraint1">
-      <xs:selector xpath=".//mstns:unifiedivapay" />
-      <xs:field xpath="mstns:iddepartment" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="ivaregisterkindunifiedivapaydetail" msdata:parent="ivaregisterkind" msdata:child="unifiedivapaydetail" msdata:parentkey="idivaregisterkindunified" msdata:childkey="idivaregisterkindunified" />
+      <msdata:Relationship name="unifiedivapayunifiedivapaydetail" msdata:parent="unifiedivapay" msdata:child="unifiedivapaydetail" msdata:parentkey="yunifiedivapay nunifiedivapay iddepartment" msdata:childkey="yunifiedivapay nunifiedivapay iddepartment" />
+      <msdata:Relationship name="departmentunifiedivapaydetail" msdata:parent="department" msdata:child="unifiedivapaydetail" msdata:parentkey="iddepartment" msdata:childkey="iddepartment" />
+      <msdata:Relationship name="departmentunifiedivapay" msdata:parent="department" msdata:child="unifiedivapay" msdata:parentkey="iddepartment" msdata:childkey="iddepartment" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

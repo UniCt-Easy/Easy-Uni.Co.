@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Data;
 using System.Linq;
@@ -25,7 +23,7 @@ using metadatalibrary;
 namespace Translator {
 	/// <summary>
 	/// Traduce oggetti associati a un parametro X e un parametro Y, tipicamente <typeparamref name="Enum">Enum</typeparamref>.
-	/// Il parametro X Ë associato a una tabella di traduzione presente su un database mentre il parametro Y a una colonna della tabella associata a X.
+	/// Il parametro X √® associato a una tabella di traduzione presente su un database mentre il parametro Y a una colonna della tabella associata a X.
 	/// </summary>
 	/// <typeparam name="X">Tipo del parametro associato alla tabella</typeparam>
 	/// <typeparam name="Y">Tipo del parametro associato alla colonna</typeparam>
@@ -93,7 +91,7 @@ namespace Translator {
 		/// </summary>
 		/// <param name="xValue">Valore di X al quale associare una tabella di traduzione</param>
 		/// <param name="translationTable">Nome della tabella di traduzione</param>
-		/// <returns>true se l'aggiunta Ë andata a buon fine, false in caso contrario</returns>
+		/// <returns>true se l'aggiunta √® andata a buon fine, false in caso contrario</returns>
 		public bool AddTableAssociation(X xValue, string translationTable) {
 			DataTable tmpTable;
 
@@ -113,7 +111,7 @@ namespace Translator {
 		/// </summary>
 		/// <param name="parameters">Coppia di valori di X e Y alla quale associare una colonna della tabella di traduzione</param>
 		/// <param name="translationColumn">Nome della colonna della tabella di traduzione</param>
-		/// <returns>true se l'aggiunta Ë andata a buon fine, false in caso contrario</returns>
+		/// <returns>true se l'aggiunta √® andata a buon fine, false in caso contrario</returns>
 		public bool AddColumnAssociation(KeyValuePair<X, Y>parameters, string translationColumn) {
 			if (tableReferences.ContainsKey(parameters.Key) && tableReferences[parameters.Key].Columns.Contains(translationColumn)) {
 				columnReferences.Add(parameters, translationColumn);
@@ -143,7 +141,7 @@ namespace Translator {
 					var tableKeys = translationTable.Columns["id"+translationTable.TableName];
 					var tableValues = translationTable.Columns[translationColumnName];
 					
-					// proiettiamo le due colonne in un dictionary che conterr‡ i valori da tradurre (key) e i valori tradotti (value)
+					// proiettiamo le due colonne in un dictionary che conterr√† i valori da tradurre (key) e i valori tradotti (value)
 					var translation = translationTable.AsEnumerable()
 						.Select(r => new { key = r["id" + translationTable.TableName], value = r[translationColumnName] }) // proiezione di due colonne
 						.Where(r => r.value.ToString() != string.Empty) // filtriamo i valori vuoti

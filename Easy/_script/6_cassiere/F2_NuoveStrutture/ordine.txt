@@ -1,0 +1,6 @@
+1. upd_itinerationlap.sql
+2. tax_taxkind.sql
+3. set_movkind.sql
+4. sortingkind.sql
+5. config.sql
+6. pettycash.sql

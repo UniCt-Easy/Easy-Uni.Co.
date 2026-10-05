@@ -33,6 +33,16 @@
 						objCalcFieldConfig['!idstruttura_struttura_idstrutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
 //$objCalcFieldConfig_default$
 						break;
+					case 'unibas':
+						this.describeAColumn(table, 'idstruttura', 'Unità organizzativa', null, 10, null);
+						this.describeAColumn(table, 'afferenza', 'Peso', 'fixed.2', 20, null);
+						this.describeAColumn(table, 'punteggio', 'Punteggio', 'fixed.2', 30, null);
+						this.describeAColumn(table, '!idstruttura_struttura_title', 'Denominazione Unità organizzativa', null, 11, null);
+						this.describeAColumn(table, '!idstruttura_struttura_idstrutturakind_title', 'Tipo Unità organizzativa', null, 10, null);
+						objCalcFieldConfig['!idstruttura_struttura_title'] = { tableNameLookup:'struttura', columnNameLookup:'title', columnNamekey:'idstruttura' };
+						objCalcFieldConfig['!idstruttura_struttura_idstrutturakind_title'] = { tableNameLookup:'strutturakind', columnNameLookup:'title', columnNamekey:'idstruttura' };
+//$objCalcFieldConfig_unibas$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -50,6 +60,14 @@
 						table.columns["punteggio"].caption = "Punteggio";
 						table.columns["punteggiopesato"].caption = "Punteggio pesato";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'unibas':
+						table.columns["afferenza"].caption = "Peso";
+						table.columns["idstruttura"].caption = "Unità organizzativa";
+						table.columns["peso"].caption = "Peso";
+						table.columns["punteggio"].caption = "Punteggio";
+						table.columns["punteggiopesato"].caption = "Punteggio pesato";
+//$innerSetCaptionConfig_unibas$
 						break;
 //$innerSetCaptionConfig$
 				}

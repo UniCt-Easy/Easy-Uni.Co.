@@ -21,9 +21,7 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
-			beforeFill: function () {
+			afterGetFormData: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
@@ -31,7 +29,27 @@
 				if (this.isNull(parentRow.conseguito) || parentRow.conseguito == '')
 					parentRow.conseguito = 'N';
 				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
+				parentRow.data = new Date();
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-titolostudio_docenti");
+				var arraydef = [];
+				
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
+			
+			beforeFill: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
 				if (this.state.isSearchState()) {
 					this.helpForm.filter($('#titolostudio_docenti_idreg_istituti'), null);
 				} else {
@@ -56,8 +74,11 @@
 			},
 
 			afterClear: function () {
+				//parte sincrona
 				this.helpForm.filter($('#titolostudio_docenti_idreg_istituti'), null);
 				//afterClearin
+				
+				//afterClearInAsyncBase
 			},
 
 			//afterFill

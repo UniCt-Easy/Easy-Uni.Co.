@@ -23,7 +23,7 @@
 
 			manageValidResult: function (rowToCheck) {
 				var loc = appMeta.localResource;
-				var def = appMeta.Deferred("isValid-meta_rendicontattivitaprogetto");
+				var def = appMeta.Deferred("isValid-rendicontattivitaprogetto_anagamm");
 				var firstErrorObj;
 
 				let wpStop = this.state.DS.tables.workpackageelenchiview.select(this.q.eq('idworkpackage', this.state.currentRow.idworkpackage))[0].workpackage_stop;
@@ -157,8 +157,8 @@
 
 				def.resolve(true);
 				//$isValid$
-
-				return MetaPage.prototype.manageValidResult.call(this, rowToCheck);
+				
+				return  MetaPage.prototype.manageValidResult.call(this, rowToCheck);
 			},
 
 			afterGetFormData: function () {
@@ -191,6 +191,8 @@
 					parentRow.datainizioprevista = new Date();
 				if (this.isNull(parentRow.idrendicontattivitaprogettokind))
 					parentRow.idrendicontattivitaprogettokind = 1;
+				if (this.isNull(parentRow.rendicontatutto) || parentRow.rendicontatutto == '')
+					parentRow.rendicontatutto = 'N';
 				if (self.isNullOrMinDate(parentRow.stop))
 					parentRow.stop = new Date();
 				this.managerendicontattivitaprogetto_anagamm_orerendicont();
@@ -215,6 +217,8 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#rendicontattivitaprogetto_anagamm_idprogetto'), true);
+				this.enableControl($('#rendicontattivitaprogetto_anagamm_idworkpackage'), true);
 				this.enableControl($('#rendicontattivitaprogetto_anagamm_orerendicont'), true);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('rendicontattivitaprogetto'), this.getDataTable('rendicontattivitaprogettoitineration'));
 				//afterClearin
@@ -289,7 +293,7 @@
 				var self = this;
 				this.setFilterRendicontattivitaprogettoItineration();
 				$('.nav-tabs').on('shown.bs.tab', function (e) {
-					$('#calendar14').fullCalendar('rerenderEvents');
+					$('#calendar15').fullCalendar('rerenderEvents');
 				});
 				$("#OpenScheduleConfig").on("click", _.partial(this.fireOpenScheduleConfig, this));
 				$("#OpenScheduleConfig").prop("disabled", true);

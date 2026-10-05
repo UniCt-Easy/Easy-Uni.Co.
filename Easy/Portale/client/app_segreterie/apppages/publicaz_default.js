@@ -98,7 +98,8 @@
 					columnNameText: "title",
 					columnSource: "idpublicazkind",
 					columnToFill: "idpublicazkind",
-					tableToFill: "publicazkindpublicaz"
+					tableToFill: "publicazkindpublicaz",
+					filter: that.q.eq('publicazkind_active', 'Si')
 				});
 			},
 
@@ -111,7 +112,8 @@
 					columnNameText: "title",
 					columnSource: "idreg",
 					columnToFill: "idreg_aziende",
-					tableToFill: "publicazregistry_aziende"
+					tableToFill: "publicazregistry_aziende",
+					filter: that.q.eq('registry_active', 'Si')
 				});
 			},
 
@@ -124,7 +126,8 @@
 					columnNameText: "title",
 					columnSource: "idreg",
 					columnToFill: "idreg_docenti",
-					tableToFill: "publicazregistry_docenti"
+					tableToFill: "publicazregistry_docenti",
+					filter: that.q.eq('registry_active', 'Si')
 				});
 			},
 

@@ -285,6 +285,8 @@
               <xs:element name="ccdedicato_cf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="requested_doc" type="xs:int" minOccurs="0" />
               <xs:element name="ccdedicato_stop" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage2" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -684,6 +686,8 @@
               <xs:element name="txt" type="xs:string" minOccurs="0" />
               <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="flagirregular" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage2" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -707,6 +711,7 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="referencedate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -761,6 +766,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -776,6 +782,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -791,6 +798,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -806,6 +814,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -821,6 +830,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -836,6 +846,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -851,6 +862,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -866,6 +878,7 @@
               <xs:element name="start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="pattointegritacertification" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -932,6 +945,36 @@
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="comune" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrypaymethodattachment" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrypaymethod" type="xs:int" />
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attachmentkind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachmentkind" type="xs:int" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1145,6 +1188,16 @@
       <xs:selector xpath=".//mstns:registry_istituti" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
+    <xs:unique name="registrypaymethodattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrypaymethodattachment" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrypaymethod" />
+      <xs:field xpath="mstns:idattachment" />
+    </xs:unique>
+    <xs:unique name="attachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:attachmentkind" />
+      <xs:field xpath="mstns:idattachmentkind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1192,6 +1245,7 @@
       <msdata:Relationship name="ateco_registry_aziende" msdata:parent="ateco" msdata:child="registry" msdata:parentkey="idateco" msdata:childkey="idateco" />
       <msdata:Relationship name="numerodip_registry" msdata:parent="numerodip" msdata:child="registry" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
       <msdata:Relationship name="naturagiur_registry" msdata:parent="naturagiur" msdata:child="registry" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
+      <msdata:Relationship name="registrypaymethod_registrypaymethodattachment" msdata:parent="registrypaymethod" msdata:child="registrypaymethodattachment" msdata:parentkey="idreg idregistrypaymethod" msdata:childkey="idreg idregistrypaymethod" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

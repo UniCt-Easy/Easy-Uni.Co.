@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -36,8 +34,18 @@ namespace meta_itinerationrefund//meta_missionespesa//
 			EditTypes.Add("default");
 			EditTypes.Add("advance");
 			EditTypes.Add("balance");
+			
+			EditTypes.Add("webadvance");
+			EditTypes.Add("webbalance");
+
+			EditTypes.Add("lista");
+			EditTypes.Add("webdefault");
 			ListingTypes.Add("advance");
 			ListingTypes.Add("balance");
+			ListingTypes.Add("lista");
+
+			ListingTypes.Add("webadvance");
+			ListingTypes.Add("webbalance");
 			//----------------------------------instm-------------------------------begin
 			EditTypes.Add("instmuseradvance");
 			ListingTypes.Add("instmuseradvance");
@@ -48,10 +56,9 @@ namespace meta_itinerationrefund//meta_missionespesa//
 			EditTypes.Add("aidbalance");
 			ListingTypes.Add("aidbalance");
 			ListingTypes.Add("refundbalance_ref");
-			
+
 			//$EditTypes$
 			//----------------------------------instm-------------------------------end
-
 		}
 
 		protected override Form GetForm(string FormName) {
@@ -64,9 +71,31 @@ namespace meta_itinerationrefund//meta_missionespesa//
 				Name = "Spesa su Anticipo";
 				return MetaData.GetFormByDllName("itinerationrefund_default");
 			}
+			if (FormName == "webadvance") {
+				Name = "Spesa su Anticipo";
+				DefaultListType = "webdefault";
+				return MetaData.GetFormByDllName("itinerationrefund_webdefault");
+			}
+
 			if (FormName == "balance") {
 				Name = "Spesa su Saldo";
 				return MetaData.GetFormByDllName("itinerationrefund_default");
+			}
+			if (FormName == "webbalance") {
+				Name = "Spesa su Saldo";
+				DefaultListType = "webdefault";
+				return MetaData.GetFormByDllName("itinerationrefund_webdefault");
+			}
+			if (FormName == "lista")
+			{
+				Name = "Spesa";
+				DefaultListType = "lista";
+				return MetaData.GetFormByDllName("itinerationrefund_lista");
+			}
+			if (FormName == "webdefault") {
+				Name = "Spesa";
+				DefaultListType = "webdefault";
+				return MetaData.GetFormByDllName("itinerationrefund_webdefault");
 			}
 			return null;
 		}
@@ -198,21 +227,31 @@ namespace meta_itinerationrefund//meta_missionespesa//
 
 			switch (ListingType) {
 
-				case "advance": {
+				case "advance":
+				case "webadvance": {
 						DescribeAColumn(T, "!nrefund", "Num.Spesa", nPos++);
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_advance.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
+						DescribeAColumn(T, "starttime", "Data inizio", nPos++);
+						if (T.Columns.Contains("starttime")) T.Columns["starttime"].ExtendedProperties["format"] = "g";
+						DescribeAColumn(T, "stoptime", "Data fine", nPos++);
+						if (T.Columns.Contains("stoptime")) T.Columns["stoptime"].ExtendedProperties["format"] = "g";
 						DescribeAColumn(T, "docdate", "Data", nPos++);
 						DescribeAColumn(T, "nrefund", ".Num.Spesa", -1);
 						ComputeRowsAs(T, "advance");
 						break;
 					}
-				case "balance": {
+				case "balance":
+				case "webbalance": {
 						DescribeAColumn(T, "!nrefund", "Num.Spesa", nPos++);
 						DescribeAColumn(T, "!classificazione", "Classificazione", "itinerationrefundkind_balance.description", nPos++);
 						DescribeAColumn(T, "amount", "Accordato (EURO)", nPos++);
 						DescribeAColumn(T, "requiredamount", "Richiesto", nPos++);
+						DescribeAColumn(T, "starttime", "Data inizio", nPos++); 
+						if (T.Columns.Contains("starttime")) T.Columns["starttime"].ExtendedProperties["format"] = "g";
+						DescribeAColumn(T, "stoptime", "Data fine", nPos++);
+						if (T.Columns.Contains("stoptime")) T.Columns["stoptime"].ExtendedProperties["format"] = "g";
 						DescribeAColumn(T, "docdate", "Data", nPos++);
 						DescribeAColumn(T, "nrefund", ".Num.Spesa", -1);
 						ComputeRowsAs(T, "balance");
@@ -245,6 +284,16 @@ namespace meta_itinerationrefund//meta_missionespesa//
 					}
 			}
 
+		}
+
+		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable ToMerge)
+		{
+			if (ListingType == "lista")
+			{
+				return base.SelectOne(ListingType, filter, "itinerationrefundview", ToMerge);
+			}
+
+			return base.SelectOne(ListingType, filter, searchtable, ToMerge);
 		}
 
 	}

@@ -3,6 +3,21 @@
   <xs:element name="dsmeta_sospensione_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="sospensionekind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="idsospensionekind" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="sospensione" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -13,6 +28,7 @@
               <xs:element name="idreg" type="xs:int" />
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsospensione" type="xs:int" />
+              <xs:element name="idsospensionekind" type="xs:int" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="motivo" type="xs:string" minOccurs="0" />
@@ -24,9 +40,18 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:sospensionekind" />
+      <xs:field xpath="mstns:idsospensionekind" />
+    </xs:unique>
+    <xs:unique name="sospensione_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sospensione" />
       <xs:field xpath="mstns:idreg" />
       <xs:field xpath="mstns:idsospensione" />
     </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_sospensione_sospensionekind_idsospensionekind" msdata:parent="sospensionekind" msdata:child="sospensione" msdata:parentkey="idsospensionekind" msdata:childkey="idsospensionekind" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

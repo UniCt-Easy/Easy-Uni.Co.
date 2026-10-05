@@ -2,10 +2,10 @@ MIME-Version: 1.0
 Date: Thu, 1 Jan 1970 01:00:00 +0100 (ora solare Europa occidentale)
 X-Unsent: 1
 Content-Type: Multipart/related;
-  boundary="---------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N"
+  boundary="---------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW"
 
 
------------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N
+-----------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW
 Content-Type: Text/HTML;
   charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
@@ -51,16 +51,16 @@ e di incasso</FONT></STRONG></DIV><HR>
 <DIV align=3D"justify"><FONT size=3D"4">Link guide correlate:</FONT></DIV=
 >
 <DIV align=3D"justify"><A href=3D"proceeds_default.mht"><FONT size=3D"4">=
-Reversale singola (solo inserimento)</A></FONT></DIV>
+Reversale singola (solo inserimento)</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"proceeds_generazioneautomatica.mht"><FO=
-NT size=3D"4">Generazione automatica delle reversali</A></FONT></DIV>
+NT size=3D"4">Generazione automatica delle reversali</FONT></A></FONT></D=
+IV>
 <DIV align=3D"justify"><A href=3D"paymenttransmission_default.mht"><FONT =
 size=3D"4">Distinta di trasmissione</FONT></A></FONT></DIV>
-<DIV><A href=3D"paymenttransmission_default.mht#Distinta di Annullo"><FON=
-T size=3D"4">Distinta di Annullo</FONT></A></FONT></DIV>
-<DIV align=3D"justify"><A href=3D"paymenttransmission_default.mht#Distint=
-a di Variazione"><FONT size=3D"4">Distinta di Variazione</FONT></A></FONT=
-></DIV>
+<DIV><A href=3D"distinta_annullo.mht"><FONT size=3D"4">Distinta di Annull=
+o</FONT></A></FONT></DIV>
+<DIV align=3D"justify"><A href=3D"distinta_variazione.mht"><FONT size=3D"=
+4">Distinta di Variazione</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"bankdispositionsetup_siopeplus.mht"><FO=
 NT size=3D"4">Trasmissione SIOPE+</FONT></A></FONT></DIV>
 <DIV align=3D"justify"><A href=3D"paymenttransmission_generazioneautomati=
@@ -116,7 +116,7 @@ tomaticamente da <EM>Easy</EM>, che riporta l'importo di tutti i pagament=
 i inseriti nel mandato, al lordo di eventuali reversali collegate.</FONT>=
 </P>
 <P>&nbsp;</P>
-<P align=3D"center"><IMG src=3D"cid:O8RGZ8I11II61EQ7QTD1FGA3LS"></P>
+<P align=3D"center"><IMG src=3D"cid:CVZT43ILJ8U3HQQQI97QDVBJ"></P>
 <P align=3D"justify">&nbsp;</P>
 <P>&nbsp;</P>
 <P><STRONG><FONT size=3D"6">Scheda Principale</FONT></STRONG></P>
@@ -197,12 +197,12 @@ gni incasso contenuto nella reversale rappresenta un &quot;sub-ordinativo=
 &quot; nel file OPI ed =C3=A8 numerato prograssivamente. In <EM>Easy</EM>=
  il numero di ciascun &quot;sub-ordinativo&quot; pu=C3=B2 essere visualiz=
 zato nel campo <STRONG>Num. Mov. bancario.</FONT></STRONG></P>
-<P align=3D"center"><IMG src=3D"cid:R8TOZDKXTPCN1W2B53F11YNLJ8"></P>
+<P align=3D"center"><IMG src=3D"cid:DPYC1SJMA7CJ1GS38AFONOLGT"></P>
 <P align=3D"justify"><FONT size=3D"4">La <U>seconda sezione</U> riporta i=
  dati relativi alle esitazioni e per gli Enti che hanno la gestione autom=
 atizzata dell'Importazione esiti e sospesi, viene compilata automaticamen=
 te al salvataggio dell'importazione dei Giornali di cassa.</FONT></P>
-<DIV align=3D"center"><IMG src=3D"cid:6HUISZM2NP591PBGAZ01XILAJE"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:V3WHAVJ4K02510UKGPZ178RWAL"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify"><FONT size=3D"4">Solo gli Enti che non hanno la ge=
 stione automatizzata delle esitazioni, dovranno inserire le esitazioni a =
@@ -222,7 +222,7 @@ nfigurati in <EM>Easy</EM> con quel determinato attributo o con poteri di=
 postato di default in base a quello presente sulla configurazione dell'ut=
 ente che sta inserendo la Reversale.</FONT></DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
-<DIV align=3D"center"><IMG src=3D"cid:1MGQE97JEY0LS1OXXRQWDQXC2Q"></DIV>
+<DIV align=3D"center"><IMG src=3D"cid:1WX533MIGW97N1CEHI981AROYRX"></DIV>
 <DIV align=3D"center">&nbsp;</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
 <DIV align=3D"justify">&nbsp;</DIV>
@@ -232,9 +232,9 @@ ente che sta inserendo la Reversale.</FONT></DIV>
 </BODY>
 </HTML>
 
------------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N
+-----------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW
 Content-Type: image/x-png
-Content-Id: <O8RGZ8I11II61EQ7QTD1FGA3LS>
+Content-Id: <CVZT43ILJ8U3HQQQI97QDVBJ>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/reversale.png
 
@@ -1455,9 +1455,9 @@ AAYJsjgAAAAAAIBBgiwOAAAAAABgkMhfGvg/j56J5wAAAAAAANDPcC4OAAAAAABg
 kCCLAwAAAAAAGCTI4gAAAAAAAAYJsjgAAAAAAIBBgiwOAAAAAABgcDjO/wcU60tZ
 Bg9aKQAAAABJRU5ErkJggg===
 
------------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N
+-----------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW
 Content-Type: image/x-png
-Content-Id: <R8TOZDKXTPCN1W2B53F11YNLJ8>
+Content-Id: <DPYC1SJMA7CJ1GS38AFONOLGT>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/reversale banca.png
 
@@ -2278,9 +2278,9 @@ NCTukQMAAACAwCOQAwAAAICAIZADAAAAgIAhkAMAAACAgCGQAwAAAICAIZADAAAA
 gIDRf35gzc7jahkAAAAAkOTokQMAAACAgCGQAwAAAICAIZADAAAAgIAhkAMAAACA
 QDGM/x/1hFNNzLVzJgAAAABJRU5ErkJggg===
 
------------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N
+-----------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW
 Content-Type: image/x-png
-Content-Id: <6HUISZM2NP591PBGAZ01XILAJE>
+Content-Id: <V3WHAVJ4K02510UKGPZ178RWAL>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/reversale banca esit.png
 
@@ -3097,9 +3097,9 @@ Rw4AAAAAAo9ADgAAAAAChkAOAAAAAAKGQA4AAAAAAoZADgAAAAAChkAOAAAAAAJG
 //zAmp1H1TQAAAAAIMXRIgcAAAAAAUMgBwAAAAABQyAHAAAAAAFDIAcAAAAAgWIY
 /z8AL5gwhRIb+gAAAABJRU5ErkJggg===
 
------------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N
+-----------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW
 Content-Type: image/x-png
-Content-Id: <1MGQE97JEY0LS1OXXRQWDQXC2Q>
+Content-Id: <1WX533MIGW97N1CEHI981AROYRX>
 Content-Transfer-Encoding: base64
 Content-Location: file://C:/Users/emilia.moretti/Desktop/Guide MHT in lavorazione/IMMAGINI per MHT/revesale attributi.png
 
@@ -3583,4 +3583,4 @@ AwAAyAwRDgAAIDNEOAAAgMwQ4QAAADJDhAMAAMiM9EMF7l+8MVkGAACgbBmFAwAA
 yAwRDgAAIDNEOAAAgMwQ4QAAADJDhAMAAMiIIPj/JJSOevwzmQ8AAAAASUVORK5C
 YII==
 
------------blocknote.net--1G4JWF9ICB2IN1NBCM8C1EVYU8N--
+-----------blocknote.net--U8JE1EIUUZBZTUBN2A14F35MW--

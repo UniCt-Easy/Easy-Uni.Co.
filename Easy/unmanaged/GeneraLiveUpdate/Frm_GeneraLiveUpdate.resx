@@ -144,7 +144,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 113</value>
@@ -171,7 +171,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="radioReport.Location" type="System.Drawing.Point, System.Drawing">
     <value>32, 64</value>
@@ -243,7 +243,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="txtWeb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -268,7 +268,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;txtWeb.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="btnDiff.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 198</value>
@@ -292,7 +292,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnDiff.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="btnXMLFile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -322,7 +322,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnXMLFile.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="lblDiff.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -346,7 +346,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;lblDiff.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="lblFileXML.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -375,11 +375,14 @@
   <data name="checkList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="checkList.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
   <data name="checkList.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 258</value>
   </data>
   <data name="checkList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>538, 244</value>
+    <value>538, 238</value>
   </data>
   <data name="checkList.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -394,16 +397,16 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;checkList.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="btnSelAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="btnSelAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>577, 228</value>
+    <value>553, 228</value>
   </data>
   <data name="btnSelAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 32</value>
+    <value>112, 32</value>
   </data>
   <data name="btnSelAll.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -421,7 +424,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnSelAll.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="btnDeselAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -448,16 +451,16 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnDeselAll.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="lblNumero.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="lblNumero.Location" type="System.Drawing.Point, System.Drawing">
-    <value>577, 331</value>
+    <value>553, 331</value>
   </data>
   <data name="lblNumero.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 56</value>
+    <value>112, 56</value>
   </data>
   <data name="lblNumero.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -472,7 +475,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;lblNumero.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="chkSP.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -502,7 +505,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;chkSP.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="btnDirUff.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -529,7 +532,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnDirUff.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="txtDirUff.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -553,7 +556,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;txtDirUff.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>23</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 168</value>
@@ -580,7 +583,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="btnDirTemp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -607,7 +610,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnDirTemp.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="txtDirDiff.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -631,7 +634,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;txtDirDiff.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>22</value>
   </data>
   <metadata name="DS.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -664,7 +667,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnCopia.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -916,7 +919,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -943,7 +946,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;btnSync.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="txtVerSWNew.Location" type="System.Drawing.Point, System.Drawing">
     <value>304, 22</value>
@@ -1222,7 +1225,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="txtNThread.Location" type="System.Drawing.Point, System.Drawing">
     <value>476, 431</value>
@@ -1247,6 +1250,36 @@
   </data>
   <data name="&gt;&gt;txtNThread.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="btnToClipBoard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnToClipBoard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnToClipBoard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>553, 435</value>
+  </data>
+  <data name="btnToClipBoard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 32</value>
+  </data>
+  <data name="btnToClipBoard.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="btnToClipBoard.Text" xml:space="preserve">
+    <value>Copia in clipboard</value>
+  </data>
+  <data name="&gt;&gt;btnToClipBoard.Name" xml:space="preserve">
+    <value>btnToClipBoard</value>
+  </data>
+  <data name="&gt;&gt;btnToClipBoard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnToClipBoard.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;btnToClipBoard.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="NFileSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1273,7 +1306,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;NFileSelected.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="chkFiltraGiornalieri.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1303,7 +1336,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;chkFiltraGiornalieri.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1652,7 +1685,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACO
-        CAAAAk1TRnQBSQFMAgEBAgEAAeABAQHgAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAgEAAfgBAQH4AQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1844,6 +1877,36 @@
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btnNonAggiornati.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnNonAggiornati.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnNonAggiornati.Location" type="System.Drawing.Point, System.Drawing">
+    <value>559, 53</value>
+  </data>
+  <data name="btnNonAggiornati.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 32</value>
+  </data>
+  <data name="btnNonAggiornati.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="btnNonAggiornati.Text" xml:space="preserve">
+    <value>Copia in clipboard</value>
+  </data>
+  <data name="&gt;&gt;btnNonAggiornati.Name" xml:space="preserve">
+    <value>btnNonAggiornati</value>
+  </data>
+  <data name="&gt;&gt;btnNonAggiornati.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnNonAggiornati.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;btnNonAggiornati.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="nonaggiornati.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1866,7 +1929,7 @@
     <value>tabPage3</value>
   </data>
   <data name="&gt;&gt;nonaggiornati.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1983,6 +2046,6 @@
     <value>frmGeneraLiveUpdate</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>metadatalibrary.MetaDataForm, metadatalibrary, Version=2.4.13.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Windows.Forms;
@@ -105,6 +103,11 @@ namespace meta_entrydetail {//meta_dettvarbilancio//
                 DescribeAColumn(T, "!docdate", "data", "entry.docdate", pos++);
                 DescribeAColumn(T, "description", "Descrizione dettaglio", pos++);
 				DescribeAColumn(T, "idrelated", "Chiave EP", pos++);
+				DescribeAColumn(T, "!yepacc", "Eserc. accertamento di budget", "epacc.yepacc", pos++);
+				DescribeAColumn(T, "!nepacc", "Num. accertamento di budget", "epacc.nepacc", pos++);
+				DescribeAColumn(T, "!yepexp", "Eserc. impegno di budget", "epexp.yepexp", pos++);
+				DescribeAColumn(T, "!nepexp", "Num. impegno di budget", "epexp.nepexp", pos++);
+
 				ComputeRowsAs(T, listtype);
 			}
             if (listtype == "importflow") {

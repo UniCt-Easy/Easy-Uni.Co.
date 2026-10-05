@@ -23,11 +23,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'title', 'Denominazione', null, 20, 1024);
-						this.describeAColumn(table, 'sede_idsedemiur', 'Identificativo MIUR', null, 30, null);
-						this.describeAColumn(table, 'sede_address', 'Indirizzo', null, 40, 100);
-						this.describeAColumn(table, 'sede_cap', 'CAP', null, 50, 20);
-						this.describeAColumn(table, 'geo_city_title', 'Comune', null, 60, 65);
+						this.describeAColumn(table, 'title', 'Denominazione', null, 2000, 1024);
+						this.describeAColumn(table, 'sede_idsedemiur', 'Identificativo MIUR', null, 3000, null);
+						this.describeAColumn(table, 'sede_address', 'Indirizzo', null, 4000, 100);
+						this.describeAColumn(table, 'sede_cap', 'CAP', null, 5000, 20);
+						this.describeAColumn(table, 'geo_city_title', 'Comune', null, 6100, 65);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

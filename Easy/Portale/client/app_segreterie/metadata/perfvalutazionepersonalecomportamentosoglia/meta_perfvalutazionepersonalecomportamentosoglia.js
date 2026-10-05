@@ -31,6 +31,12 @@
 						this.describeAColumn(table, 'description', 'Descrizione', null, 50, -1);
 //$objCalcFieldConfig_default$
 						break;
+					case 'giudizio':
+						this.describeAColumn(table, 'idperfsogliakind', 'Tipo ', null, 20, 50);
+						this.describeAColumn(table, 'valore', 'Valore % soglia', 'fixed.2', 30, null);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 50, -1);
+//$objCalcFieldConfig_giudizio$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -48,6 +54,9 @@
 						table.columns["valorenumerico"].caption = "Valore numerico soglia";
 						table.columns["year"].caption = "Anno solare";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'giudizio':
+//$innerSetCaptionConfig_giudizio$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -77,6 +86,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "valore asc ";
+					}
+					case "giudizio": {
 						return "valore asc ";
 					}
 					//$getSortingin$

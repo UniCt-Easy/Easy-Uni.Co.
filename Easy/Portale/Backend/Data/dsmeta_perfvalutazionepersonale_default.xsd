@@ -31,7 +31,7 @@
               <xs:element name="idattach" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="size" type="xs:int" />
+              <xs:element name="size" type="xs:long" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -223,7 +223,13 @@
         <xs:element name="perfcomportamento" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
               <xs:element name="idperfcomportamento" type="xs:int" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="peso" type="xs:decimal" minOccurs="0" />
               <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -309,7 +315,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="perfvalutazionepersonalestatuschanges" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="perfvalutazionepersonalestatuschanges" msprop:NotEntityChild="true" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="changedate" type="xs:dateTime" minOccurs="0" />
@@ -350,11 +356,15 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="dropdown_title" type="xs:string" />
+              <xs:element name="getregistrydocentiamministrativi_active" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_areadidattica" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_categoria" type="xs:string" />
               <xs:element name="getregistrydocentiamministrativi_cf" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_contratto" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_extmatricula" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_forename" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_istituto" type="xs:string" minOccurs="0" />
+              <xs:element name="getregistrydocentiamministrativi_macroareadidattica" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_ssd" type="xs:string" minOccurs="0" />
               <xs:element name="getregistrydocentiamministrativi_struttura" type="xs:string" minOccurs="0" />
               <xs:element name="idreg" type="xs:int" />

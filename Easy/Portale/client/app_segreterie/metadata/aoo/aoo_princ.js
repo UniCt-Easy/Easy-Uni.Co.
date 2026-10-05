@@ -28,7 +28,7 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.idreg)
+				if (this.isNull(parentRow.idreg))
 					parentRow.idreg = this.idreg_istituto;
 				//beforeFillFilter
 				
@@ -63,6 +63,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

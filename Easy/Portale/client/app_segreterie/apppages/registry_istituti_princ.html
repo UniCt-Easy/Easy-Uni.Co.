@@ -2,55 +2,48 @@
 <div id="externalTab" class="container" data-custom-container="bootstrapTab">
 	<ul class="nav nav-tabs">
 			<li class="nav-item">
-		<a href="#tabregistry_istituti_istituti_princ_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_istituti_princ_0"><i class="fa fa-university mr-1"></i>Principale</a>
+		<a href="#tabregistry_istituti_princ_0" class="nav-link active show" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_0"><i class="fa fa-university mr-1"></i>Principale</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_istituti_istituti_princ_2" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_istituti_princ_2"><i class="fa fa-pause-circle mr-1"></i>Chiusure</a>
+		<a href="#tabregistry_istituti_princ_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_3"><i class="fa fa-pause-circle mr-1"></i>Chiusure</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_istituti_istituti_princ_3" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_istituti_princ_3"><i class="fa fa-warehouse mr-1"></i>Strutture</a>
+		<a href="#tabregistry_istituti_princ_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_4"><i class="fa fa-warehouse mr-1"></i>Strutture</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_istituti_istituti_princ_4" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_istituti_princ_4"><i class="fa fa-circle mr-1"></i>Aree organizzative omogenee</a>
+		<a href="#tabregistry_istituti_princ_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_5"><i class="fa fa-circle mr-1"></i>Aree organizzative omogenee</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_istituti_istituti_princ_5" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_istituti_princ_5"><i class="fa fa-at mr-1"></i>Recapiti</a>
+		<a href="#tabregistry_istituti_princ_6" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_6"><i class="fa fa-at mr-1"></i>Recapiti</a>
 	</li>
 	<li class="nav-item">
-		<a href="#tabregistry_istituti_istituti_princ_6" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_istituti_princ_6"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+		<a href="#tabregistry_istituti_princ_7" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_7"><i class="fa fa-map-marked-alt mr-1"></i>Indirizzi</a>
+	</li>
+	<li class="nav-item">
+		<a href="#tabregistry_istituti_princ_1" class="nav-link" data-bs-toggle="pill" data-bs-target="#tabregistry_istituti_princ_1"><i class="fa fa-globe-americas mr-1"></i>Mobilità internazionale</a>
 	</li>
 
 	</ul>
 	<form>
 <div class="tab-content mt-2">
-	<div class="tab-pane fade active show" id="tabregistry_istituti_istituti_princ_0" role="tabpanel">
+	<div class="tab-pane fade active show" id="tabregistry_istituti_princ_0" role="tabpanel">
 			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_acronim">Acronimo</label>
+					<input id="registry_istituti_princ_acronim" type="text" class="form-control" data-tag="registry.acronim?registryistituti_princview.registry_acronim"  />
+				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_title">Denominazione</label>
 					<input id="registry_istituti_princ_title" type="text" class="form-control" data-tag="registry.title?registryistituti_princview.title"  data-mandatory />
 				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_codicemiur">Codice MIUR</label>
-					<input id="registry_istituti_princ_codicemiur" type="text" class="form-control" data-tag="registry_istituti.codicemiur?registryistituti_princview.registry_istituti_codicemiur" data-subentity  />
-				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istitutoprinc_default_acronimo">Acronimo</label>
-					<input id="istitutoprinc_default_acronimo" type="text" class="form-control" data-tag="istitutoprinc.acronimo?registryistituti_princview.istitutoprinc_acronimo" data-subentity  />
-				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_active">attivo</label>
 					<div class="custom-control custom-radio">
 						<input id="registry_istituti_princ_activeSi" type="radio" name="registry_istituti_princ_active" class="custom-control-input" data-tag="registry.active:S?registryistituti_princview.registry_active:Si"  data-mandatory ><label for="registry_istituti_princ_activeSi"> Si</label>
 						<input id="registry_istituti_princ_activeNo" type="radio" name="registry_istituti_princ_active" class="custom-control-input" data-tag="registry.active:N?registryistituti_princview.registry_active:No"  data-mandatory ><label for="registry_istituti_princ_activeNo"> No</label>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_codiceustat">Codice USTAT</label>
-					<input id="registry_istituti_princ_codiceustat" type="text" class="form-control" data-tag="registry_istituti.codiceustat?registryistituti_princview.registry_istituti_codiceustat" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_annotation">Annotazioni</label>
@@ -59,40 +52,20 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_idistitutokind">Tipologia</label>
-					<select id="registry_istituti_princ_idistitutokind" class="custom-select d-block w-100"  data-source-name="istitutokind" data-value-member="idistitutokind" data-display-member="tipoistituto" data-custom-control="combo" data-tag="registry_istituti.idistitutokind?registryistituti_princview.registry_istituti_idistitutokind" data-subentity  data-mandatory  > </select>
-				</div>
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_idistitutoustat">Codice USTAT</label>
-					<input id="registry_istituti_princ_idistitutoustat" type="text" class="form-control" data-tag="registry_istituti.idistitutoustat?registryistituti_princview.registry_istituti_idistitutoustat" data-subentity />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_ccp">Conto corrente postale di Riscossione</label>
 					<input id="registry_istituti_princ_ccp" type="text" class="form-control" data-tag="registry.ccp?registryistituti_princview.registry_ccp"  />
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_nome">Denominazione breve</label>
-					<input id="registry_istituti_princ_nome" type="text" class="form-control" data-tag="registry_istituti.nome?registryistituti_princview.registry_istituti_nome" data-subentity  />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_cf">Codice fiscale</label>
 					<input id="registry_istituti_princ_cf" type="text" class="form-control" data-tag="registry.cf?registryistituti_princview.registry_cf"  />
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="istitutoprinc_default_idreg_dir">Direttore</label>
 					<div>
 						<input id="istitutoprinc_default_idreg_dir" name="istitutoprinc_default_idreg_dir" type="text" data-listtype="default"  class="form-control" data-minchar="2" data-tag="getregistrydocentiamministratividefaultview.dropdown_title" data-subentity data-custom-control="dropdowngrid" autocomplete="off" placeholder="..." />
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="registry_istituti_princ_title_en">Denominazione (ENG)</label>
-					<input id="registry_istituti_princ_title_en" type="text" class="form-control" data-tag="registry_istituti.title_en?registryistituti_princview.registry_istituti_title_en" data-subentity  />
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="registry_istituti_princ_idcity">Comune</label>
@@ -135,25 +108,58 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label class="col-form-label col-md-12" for="istitutoprinc_default_codiceerasmus">Codice Erasmus</label>
-					<input id="istitutoprinc_default_codiceerasmus" type="text" class="form-control" data-tag="istitutoprinc.codiceerasmus?registryistituti_princview.istitutoprinc_codiceerasmus" data-subentity  />
+					<label class="col-form-label col-md-12" for="istitutoprinc_default_idistitutokind">Sottotipologia di ente</label>
+					<select id="istitutoprinc_default_idistitutokind" class="custom-select d-block w-100"  data-source-name="istitutokind" data-value-member="idistitutokind" data-display-member="tipoistituto" data-sort-member="tipoistituto" data-custom-control="combo" data-tag="istitutoprinc.idistitutokind?registryistituti_princview.istitutoprinc_idistitutokind" data-subentity   > </select>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_codicemiur">Codice MIUR</label>
+					<input id="registry_istituti_princ_codicemiur" type="text" class="form-control" data-tag="registry.codicemiur?registryistituti_princview.registry_codicemiur"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_codiceustat">Codice USTAT</label>
+					<input id="registry_istituti_princ_codiceustat" type="text" class="form-control" data-tag="registry.codiceustat?registryistituti_princview.registry_codiceustat"  />
+				</div>
+			</div>
+					<input hidden id="registry_istituti_princ_idistitutokind" type="text" class="form-control" data-tag="registry.idistitutokind?registryistituti_princview.registry_idistitutokind"  />
 	</div>
-	<div class="tab-pane fade" id="tabregistry_istituti_istituti_princ_2" role="tabpanel">
+	<div class="tab-pane fade" id="tabregistry_istituti_princ_3" role="tabpanel">
 				<div class="gridx" id="grid_sospensione_princ" data-tag="sospensione.princ.princ" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabregistry_istituti_istituti_princ_3" role="tabpanel">
+	<div class="tab-pane fade" id="tabregistry_istituti_princ_4" role="tabpanel">
 				<div class="gridx" id="grid_struttura_princ" data-tag="struttura.princ.princ" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabregistry_istituti_istituti_princ_4" role="tabpanel">
+	<div class="tab-pane fade" id="tabregistry_istituti_princ_5" role="tabpanel">
 				<div class="gridx" id="grid_aoo_princ" data-tag="aoo.princ.princ" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabregistry_istituti_istituti_princ_5" role="tabpanel">
+	<div class="tab-pane fade" id="tabregistry_istituti_princ_6" role="tabpanel">
 				<div class="gridx" id="grid_registryreference_seg" data-tag="registryreference.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
-	<div class="tab-pane fade" id="tabregistry_istituti_istituti_princ_6" role="tabpanel">
+	<div class="tab-pane fade" id="tabregistry_istituti_princ_7" role="tabpanel">
 				<div class="gridx" id="grid_registryaddress_seg" data-tag="registryaddress.seg.seg" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
+	</div>
+	<div class="tab-pane fade" id="tabregistry_istituti_princ_1" role="tabpanel">
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_title_en">Denominazione in inglese</label>
+					<input id="registry_istituti_princ_title_en" type="text" class="form-control" data-tag="registry.title_en?registryistituti_princview.registry_title_en"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_code">Code</label>
+					<input id="registry_istituti_princ_code" type="text" class="form-control" data-tag="registry.code?registryistituti_princview.registry_code"  />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_institutionalcode">Institutionalcode</label>
+					<input id="registry_istituti_princ_institutionalcode" type="text" class="form-control" data-tag="registry.institutionalcode?registryistituti_princview.registry_institutionalcode"  />
+				</div>
+				<div class="col-md-6">
+					<label class="col-form-label col-md-12" for="registry_istituti_princ_referencenumber">Referencenumber</label>
+					<input id="registry_istituti_princ_referencenumber" type="text" class="form-control" data-tag="registry.referencenumber?registryistituti_princview.registry_referencenumber"  />
+				</div>
+			</div>
 	</div>
 </div>
 </form>

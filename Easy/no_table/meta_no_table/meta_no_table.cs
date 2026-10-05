@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -103,6 +101,9 @@ namespace meta_no_table {
             EditTypes.Add("trasfdocmandato");
             EditTypes.Add("emisti");
             EditTypes.Add("imp_prontoperloscarico");
+            EditTypes.Add("fin_mef_afam");
+            EditTypes.Add("reportpb");
+            EditTypes.Add("itinerationamountdetail");
         }
         public override void DescribeColumns(System.Data.DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
@@ -422,6 +423,21 @@ namespace meta_no_table {
                 case "imp_prontoperloscarico": {
                         Name = "Impostazione massiva 'Pronto per lo scarico'";
                         return GetFormByDllName("no_table_imp_prontoperloscarico");
+                    }
+                case "fin_mef_afam":
+                    {
+                        Name = "Bilancio Enti MEF (Afam)";
+                        return GetFormByDllName("no_table_fin_mef_afam");
+                    }
+
+                case "reportpowerbi": {
+                        Name = "Report Power bi";
+                        return GetFormByDllName("no_table_reportpowerbi");
+                    }
+                    
+                case "itinerationamountdetail": {
+                        Name = "Inserimento riepilogo importi missione";
+                        return GetFormByDllName("no_table_itinerationamountdetail");
                     }
                     
 

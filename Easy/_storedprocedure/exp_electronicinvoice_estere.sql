@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,8 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-	if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice_estere]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_electronicinvoice_estere]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_electronicinvoice_estere]
 GO
 
@@ -23,7 +21,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
-
+--EXEC exp_electronicinvoice_estere 2025,4,9
 --setuser 'amministrazione'
 -- La sp viene chiamata dal form della fattura, per creare la riga in sdi_acquisto_estere e quindi il file xml
 CREATE procedure exp_electronicinvoice_estere(
@@ -221,19 +219,13 @@ select
 --<CedentePrestatore>  è il fornitore inserito in fattura		
 	case when RR.coderesidence = 'I' then 'IT' 
 		 when RR.coderesidence = 'J' then #SedeFornitore.nation
-		 --se i primi due caratteri sono stringa dovrebbero essere la sigla della Nazione e quindi mettiamo quella,
-		 -- diversamente leggiamo la sigla della nazione da #SedeFornitore.nation. 
-		 when (RR.coderesidence = 'X' and  substring(R.foreigncf,1,2) LIKE '[a-zA-Z][a-zA-Z]%')  then substring(R.foreigncf,1,2) 
-		 when (RR.coderesidence = 'X' and  substring(R.foreigncf,1,2) not LIKE '[a-zA-Z][a-zA-Z]%')  then #SedeFornitore.nation
+		 when RR.coderesidence = 'X' then #SedeFornitore.nation
 		 else null
 		 end
 	as 'IdFiscaleIvaPaeseFornitore'	,
-	case when RR.coderesidence = 'I' then R.p_iva
-		 when RR.coderesidence = 'J' then R.p_iva
-		 -- se i primi due caratteri sono stringa dovrebbero essere la sigla della Nazione quindi non non lieggiamo,
-		 -- diversamente leggiamo tutta il campo 'foreigncf'
-		 when (RR.coderesidence = 'X' and  substring(R.foreigncf,1,2) LIKE '[a-zA-Z][a-zA-Z]%') then substring(R.foreigncf,3,28)
-		 when (RR.coderesidence = 'X' and  substring(R.foreigncf,1,2) not LIKE '[a-zA-Z][a-zA-Z]%') then substring(R.foreigncf,1,28)
+	case when RR.coderesidence = 'I' then  Replace(R.p_iva,'IT','')
+		 when RR.coderesidence = 'J' then  Replace(isnull(R.p_iva,'0000000'), #SedeFornitore.nation,'')
+		 when RR.coderesidence = 'X' then  Replace(isnull(substring(R.foreigncf,1,28),'0000000'),  #SedeFornitore.nation,'')
 		 else null
 		 end
 	as 'IdFiscaleIvaCodiceFornitore'	,
@@ -372,9 +364,9 @@ select
 	end as 'iban',
 	I.idstampkind,
 	case when (R.flagbankitaliaproceeds='S' AND I.idfepaymethod in ('MP05','MP15')) 
-		then 'CODICE DI TESORERIA PER IL GIROCONTO: '+(select substring(iban_f24,len(iban_f24)-6,7 ) from config where ayear = @yinv)
+		then 'IBAN PER IL GIROCONTO: '+ (select iban_f24  from config where ayear = @yinv)
 		else null
-	end as 'CodicePagamento'
+	end as 'CodicePagamento'  
 from invoiceview I 
 join fedocumentkind FEkind on FEkind.idfedocumentkind = I.idfedocumentkind
 join invoicekind IK				ON IK.idinvkind = I.idinvkind

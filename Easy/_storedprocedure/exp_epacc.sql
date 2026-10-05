@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_epacc]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_epacc]
@@ -135,9 +133,20 @@ CREATE TABLE #epacc (
 	idsor02 int,
 	idsor03 int,
 	idsor04 int,
-	idsor05 int, 
+	idsor05 int,
+	descrsor01 varchar(200),
+	descrsor02 varchar(200),
+	descrsor03 varchar(200),
+	descrsor04 varchar(200),
+	descrsor05 varchar(200),
 	cf varchar(16), 
-	p_iva varchar(15)
+	p_iva varchar(15),
+	ct datetime,
+	cu varchar(64),
+	lt datetime,
+	lu varchar(64),
+	lt_year datetime,
+	lu_year varchar(64)
 )
 
 INSERT INTO #epacc (
@@ -169,7 +178,14 @@ INSERT INTO #epacc (
 	fixedassets,freeusesurplus,captiveusesurplus,reserve,provision,
 	idaccmotive,
 	codemotive,
-	idsor01,idsor02,idsor03,idsor04,idsor05, cf, p_iva
+	idsor01,idsor02,idsor03,idsor04,idsor05, 
+	descrsor01,
+	descrsor02,
+	descrsor03,
+	descrsor04,
+	descrsor05,
+	cf, p_iva,
+	ct, cu, lt, lu, lt_year, lu_year
 )
 SELECT 
 	epacc.idepacc,epacc.yepacc,epacc.nepacc,epacc.nphase,
@@ -266,7 +282,10 @@ SELECT
 	CASE    when (( A.flagaccountusage & 4096) = 0) then 'N' ELSE 'N' END, /*Accantonamento*/
 	accmotive.idaccmotive,
 	accmotive.codemotive,
-	U.idsor01,U.idsor02,U.idsor03,U.idsor04,U.idsor05, registry.cf, registry.p_iva
+	U.idsor01,U.idsor02,U.idsor03,U.idsor04,U.idsor05, 
+	s1.description, s2.description, s3.description, s4.description, s5.description,
+	registry.cf, registry.p_iva,
+	epacc.ct, epacc.cu, epacc.lt, epacc.lu, EY.lt, EY.lu
 FROM epacc
 left outer JOIN registry ON epacc.idreg= registry.idreg
 join epaccyear EY on epacc.idepacc= EY.idepacc
@@ -276,6 +295,11 @@ join upb U on U.idupb=EY.idupb
 left outer join epacc par on epacc.paridepacc=par.idepacc
 left outer join manager on manager.idman= epacc.idman
 LEFT OUTER JOIN accmotive   on accmotive.idaccmotive = epacc.idaccmotive
+left join sorting s1 on s1.idsor = U.idsor01
+left join sorting s2 on s2.idsor = U.idsor02
+left join sorting s3 on s3.idsor = U.idsor03
+left join sorting s4 on s4.idsor = U.idsor04
+left join sorting s5 on s5.idsor = U.idsor05
 WHERE epacc.yepacc = @yepacc
 AND EY.ayear = @ayear
 AND (epacc.nphase = @nphase or @nphase is null)
@@ -336,6 +360,32 @@ set @ayear3_text = CONVERT(nvarchar(4), @ayear + 2)
 set @ayear4_text = CONVERT(nvarchar(4), @ayear + 3)
 set @ayear5_text = CONVERT(nvarchar(4), @ayear + 4)
 
+declare @descr_sor01 varchar(50)
+declare @descr_sor02 varchar(50)
+declare @descr_sor03 varchar(50)
+declare @descr_sor04 varchar(50)
+declare @descr_sor05 varchar(50)
+
+select @descr_sor01 = s.description
+from sortingkind s
+join uniconfig u on s.idsorkind = u.idsorkind01
+
+select @descr_sor02 = s.description
+from sortingkind s
+join uniconfig u on s.idsorkind = u.idsorkind02
+
+select @descr_sor03 = s.description
+from sortingkind s
+join uniconfig u on s.idsorkind = u.idsorkind03
+
+select @descr_sor04 = s.description
+from sortingkind s
+join uniconfig u on s.idsorkind = u.idsorkind04
+
+select @descr_sor05 = s.description
+from sortingkind s
+join uniconfig u on s.idsorkind = u.idsorkind05
+
 declare @StringQuery nvarchar(max)
 
 SET @StringQuery = 
@@ -372,7 +422,16 @@ SET @StringQuery =
 	'#epacc.totalcredit as ''Crediti Totali'',' +
 	'#epacc.totamount as ''Tolale Iniziale Pluriennale'',' +
 	'#epacc.totavailable as ''Totale Disp. Pluriennale'',' +
-	'#epacc.totcurramount as ''Totale Corrente Pluriennale'' ' +
+	'#epacc.totcurramount as ''Totale Corrente Pluriennale'',' +
+	case when (@descr_sor01 is not null) then '#epacc.descrsor01 as ''' + @descr_sor01 + ''',' else '' end +
+	case when (@descr_sor02 is not null) then '#epacc.descrsor02 as ''' + @descr_sor02 + ''',' else '' end +
+	case when (@descr_sor03 is not null) then '#epacc.descrsor03 as ''' + @descr_sor03 + ''',' else '' end +
+	case when (@descr_sor04 is not null) then '#epacc.descrsor04 as ''' + @descr_sor04 + ''',' else '' end +
+	case when (@descr_sor05 is not null) then '#epacc.descrsor05 as ''' + @descr_sor05 + ''',' else '' end +
+	'#epacc.ct as ''Data Creazione'',' +
+	'#epacc.cu as ''Creato da'',' +
+	'CASE WHEN (#epacc.lt > #epacc.lt_year) THEN #epacc.lt ELSE #epacc.lt_year END AS ''Data Modifica'',' +
+	'CASE WHEN (#epacc.lt > #epacc.lt_year) THEN #epacc.lu ELSE #epacc.lu_year END AS ''Modificato da'' ' +
 'FROM #epacc ' +
 'left join #Tdrel on #epacc.idrelated = #Tdrel.idrelated ' +
 'left join estimate E  ON E.idestimkind =  isnull(#Tdrel.col2,'''') and E.yestim =isnull(#Tdrel.col3,'''') and E.nestim = isnull(#Tdrel.col4,'''')  ' +

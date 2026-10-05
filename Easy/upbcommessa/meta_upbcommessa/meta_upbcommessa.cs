@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -63,10 +61,10 @@ namespace meta_upbcommessa {
         }
 
         public override DataRow Get_New_Row(DataRow ParentRow, DataTable T) {
-            //RowChange.SetMySelector(T.Columns["nupbcommessa"], "nphase", 0);  //campo nphase  Ë selettore per calcolo di nupbcommessa
-            //RowChange.SetMySelector(T.Columns["nupbcommessa"], "yupbcommessa", 0);//campo yupbcommessa  Ë selettore per calcolo di nupbcommessa
-            //RowChange.MarkAsAutoincrement(T.Columns["nupbcommessa"], null, null, 0);  //nupbcommessa Ë campo ad autoincremento
-            //RowChange.MarkAsAutoincrement(T.Columns["idupbcommessa"], null, null, 0);  //idupbcommessa Ë campo ad autoincremento
+            //RowChange.SetMySelector(T.Columns["nupbcommessa"], "nphase", 0);  //campo nphase  √® selettore per calcolo di nupbcommessa
+            //RowChange.SetMySelector(T.Columns["nupbcommessa"], "yupbcommessa", 0);//campo yupbcommessa  √® selettore per calcolo di nupbcommessa
+            //RowChange.MarkAsAutoincrement(T.Columns["nupbcommessa"], null, null, 0);  //nupbcommessa √® campo ad autoincremento
+            //RowChange.MarkAsAutoincrement(T.Columns["idupbcommessa"], null, null, 0);  //idupbcommessa √® campo ad autoincremento
 
             //RowChange.setMinimumTempValue(T.Columns["idupbcommessa"], 999900000);     //Da impostare  in caso di pericolo di conflitto
             DataRow R = base.Get_New_Row(ParentRow, T);

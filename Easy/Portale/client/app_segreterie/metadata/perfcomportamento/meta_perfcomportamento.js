@@ -29,6 +29,12 @@
 						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 90, null);
 //$objCalcFieldConfig_default$
 						break;
+					case 'titolodesc':
+						this.describeAColumn(table, 'title', 'Titolo', null, 20, 2048);
+						this.describeAColumn(table, 'description', 'Descrizione', null, 30, -1);
+						this.describeAColumn(table, 'peso', 'Peso', 'fixed.2', 90, null);
+//$objCalcFieldConfig_titolodesc$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -43,6 +49,11 @@
 						table.columns["description"].caption = "Descrizione";
 						table.columns["title"].caption = "Titolo";
 //$innerSetCaptionConfig_default$
+						break;
+					case 'titolodesc':
+						table.columns["description"].caption = "Descrizione";
+						table.columns["title"].caption = "Titolo";
+//$innerSetCaptionConfig_titolodesc$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -72,6 +83,9 @@
 			getSorting: function (listType) {
 				switch (listType) {
 					case "default": {
+						return "title desc";
+					}
+					case "titolodesc": {
 						return "title desc";
 					}
 					//$getSortingin$

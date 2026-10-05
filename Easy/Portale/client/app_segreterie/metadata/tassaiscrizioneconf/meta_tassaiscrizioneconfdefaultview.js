@@ -23,20 +23,29 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'default':
-						this.describeAColumn(table, 'aa', 'Anno accademico', null, 10, 9);
-						this.describeAColumn(table, 'title', 'Title', null, 30, 2024);
-						this.describeAColumn(table, 'aamax', 'Anno accademico massimo', null, 40, 9);
-						this.describeAColumn(table, 'aamin', 'Anno accademico minimo', null, 50, 9);
-						this.describeAColumn(table, 'tassaiscrizioneconf_annofcmax', 'Anno di iscrizione fuori corso massimo', null, 60, null);
-						this.describeAColumn(table, 'tassaiscrizioneconf_annofcmin', 'Anno di iscrizione fuori corso minimo', null, 70, null);
-						this.describeAColumn(table, 'tassaiscrizioneconf_annomax', 'Anno di iscrizione massimo', null, 80, null);
-						this.describeAColumn(table, 'tassaiscrizioneconf_annomin', 'Anno di iscrizione minimo', null, 90, null);
-						this.describeAColumn(table, 'tassaiscrizioneconf_codice_corsostudio', 'Codice del corso di studio', null, 100, 50);
-						this.describeAColumn(table, 'tassaiscrizioneconf_codice_didprog', 'Codice della didattica programmata', null, 110, 50);
-						this.describeAColumn(table, 'tassaiscrizioneconf_codice_didprogcurr', 'Codice del curriculum', null, 120, 50);
-						this.describeAColumn(table, 'tassaiscrizioneconf_codice_didprogori', 'Codice dell\'orientamento', null, 130, 50);
-						this.describeAColumn(table, 'tassaiscrizioneconf_corsisingoli', 'Corsi singoli', null, 140, null);
-						this.describeAColumn(table, 'costoscontodef_title', 'Costo', null, 150, 2024);
+						this.describeAColumn(table, 'title', 'Titolo', null, 3000, 2024);
+						this.describeAColumn(table, 'aamax', 'Anno accademico massimo', null, 4000, 9);
+						this.describeAColumn(table, 'aamin', 'Anno accademico minimo', null, 5000, 9);
+						this.describeAColumn(table, 'tassaiscrizioneconf_annofcmax', 'Anno di iscrizione fuori corso massimo', null, 6000, null);
+						this.describeAColumn(table, 'tassaiscrizioneconf_annofcmin', 'Anno di iscrizione fuori corso minimo', null, 7000, null);
+						this.describeAColumn(table, 'tassaiscrizioneconf_annomax', 'Anno di iscrizione massimo', null, 8000, null);
+						this.describeAColumn(table, 'tassaiscrizioneconf_annomin', 'Anno di iscrizione minimo', null, 9000, null);
+						this.describeAColumn(table, 'tassaiscrizioneconf_codice_corsostudio', 'Codice del corso di studio', null, 10000, 50);
+						this.describeAColumn(table, 'tassaiscrizioneconf_codice_didprog', 'Codice della didattica programmata', null, 11000, 50);
+						this.describeAColumn(table, 'tassaiscrizioneconf_codice_didprogcurr', 'Codice del curriculum', null, 12000, 50);
+						this.describeAColumn(table, 'tassaiscrizioneconf_codice_didprogori', 'Codice dell\'orientamento', null, 13000, 50);
+						this.describeAColumn(table, 'tassaiscrizioneconf_corsisingoli', 'Corsi singoli', null, 14000, null);
+						this.describeAColumn(table, 'costoscontodef_title', 'Costo', null, 15200, 2024);
+						this.describeAColumn(table, 'corsostudio_title', 'Denominazione Corso di studi', null, 20100, 1024);
+						this.describeAColumn(table, 'corsostudio_annoistituz', 'Anno accademico di istituzione Corso di studi', null, 20600, null);
+						this.describeAColumn(table, 'corsostudiokind_title', 'Tipo di corso', null, 21200, 50);
+						this.describeAColumn(table, 'didprog_title', 'Denominazione Didattica programmata', null, 22100, 1024);
+						this.describeAColumn(table, 'didprog_aa', 'Anno accademico Didattica programmata', null, 22200, 9);
+						this.describeAColumn(table, 'sede_title', 'Denominazione Sede Didattica programmata', null, 22320, 1024);
+						this.describeAColumn(table, 'didprogcurr_title', 'Curriculum', null, 23200, 256);
+						this.describeAColumn(table, 'didprogori_title', 'orientamento', null, 24200, 256);
+						this.describeAColumn(table, 'struttura_title', 'Denominazione Dipartimento - Scuola', null, 25100, 1024);
+						this.describeAColumn(table, 'strutturakind_title', 'Tipologia Tipo Dipartimento - Scuola', null, 25220, 50);
 //$objCalcFieldConfig_default$
 						break;
 //$objCalcFieldConfig$

@@ -23,22 +23,20 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segistrein':
-						this.describeAColumn(table, 'dichiarkind_title', 'Tipologia Tipologia', null, 10, 50);
-						this.describeAColumn(table, 'dichiarkind_iddichiarkind', 'Tipologia Tipologia', null, 10, null);
-						this.describeAColumn(table, 'dichiar_aa', 'Anno Accademico Dichiarazione da convalidare', null, 30, 9);
-						this.describeAColumn(table, 'dichiar_date', 'Data Dichiarazione da convalidare', null, 30, null);
-						this.describeAColumn(table, 'iscrizionefrom_anno', 'Anno di corso Iscrizione da cui si vogliono convalidare i sostenimenti', null, 60, null);
-						this.describeAColumn(table, 'iscrizionefrom_iddidprog', 'Didattica programmata Iscrizione da cui si vogliono convalidare i sostenimenti', null, 60, null);
-						this.describeAColumn(table, 'iscrizionefrom_aa', 'Anno accademico Iscrizione da cui si vogliono convalidare i sostenimenti', null, 60, 9);
-						this.describeAColumn(table, 'statuskind_title', 'Stato', null, 100, 50);
-						this.describeAColumn(table, 'titolostudio_voto', 'Voto Titolo studio da cui si vogliono convalidare i sostenimenti', null, 110, null);
-						this.describeAColumn(table, 'titolostudio_votosu', 'Su Titolo studio da cui si vogliono convalidare i sostenimenti', null, 110, null);
-						this.describeAColumn(table, 'titolostudio_votolode', 'Lode Titolo studio da cui si vogliono convalidare i sostenimenti', null, 110, null);
-						this.describeAColumn(table, 'titolostudio_aa', 'Anno accademco Titolo studio da cui si vogliono convalidare i sostenimenti', null, 110, 9);
-						this.describeAColumn(table, 'pratica_protanno', 'Anno di protocollo', null, 120, null);
-						this.describeAColumn(table, 'pratica_protnumero', 'Numero di protocollo', null, 130, null);
-						this.describeAColumn(table, 'istattitolistudio_titolo', 'Titolo di studio Titolo ISTAT', null, 10, 1024);
-						this.describeAColumn(table, 'istattitolistudio_idistattitolistudio', 'Titolo ISTAT Titolo ISTAT', null, 10, null);
+						this.describeAColumn(table, 'dichiar_aa', 'Anno Accademico Dichiarazione da convalidare', null, 3100, 9);
+						this.describeAColumn(table, 'dichiarkind_title', 'Tipologia Tipologia Dichiarazione da convalidare', null, 3120, 50);
+						this.describeAColumn(table, 'dichiar_date', 'Data Dichiarazione da convalidare', null, 3300, null);
+						this.describeAColumn(table, 'iscrizionefrom_aa', 'Anno accademico Iscrizione da cui si vogliono convalidare i sostenimenti', null, 6100, 9);
+						this.describeAColumn(table, 'iscrizionefrom_anno', 'Anno di corso Iscrizione da cui si vogliono convalidare i sostenimenti', null, 6300, null);
+						this.describeAColumn(table, 'iscrizionefrom_iddidprog', 'Didattica programmata Iscrizione da cui si vogliono convalidare i sostenimenti', null, 6500, null);
+						this.describeAColumn(table, 'istattitolistudio_titolo', 'Titolo di studio Titolo ISTAT Titolo studio da cui si vogliono convalidare i sostenimenti', null, 9120, 1024);
+						this.describeAColumn(table, 'titolostudio_aa', 'Anno accademico Titolo studio da cui si vogliono convalidare i sostenimenti', null, 9300, 9);
+						this.describeAColumn(table, 'titolostudio_voto', 'Voto Titolo studio da cui si vogliono convalidare i sostenimenti', null, 9700, null);
+						this.describeAColumn(table, 'titolostudio_votosu', 'Su Titolo studio da cui si vogliono convalidare i sostenimenti', null, 9800, null);
+						this.describeAColumn(table, 'titolostudio_votolode', 'Lode Titolo studio da cui si vogliono convalidare i sostenimenti', null, 9900, null);
+						this.describeAColumn(table, 'statuskind_title', 'Stato', null, 10200, 50);
+						this.describeAColumn(table, 'pratica_protanno', 'Anno di protocollo', null, 12000, null);
+						this.describeAColumn(table, 'pratica_protnumero', 'Numero di protocollo', null, 13000, null);
 //$objCalcFieldConfig_segistrein$
 						break;
 //$objCalcFieldConfig$

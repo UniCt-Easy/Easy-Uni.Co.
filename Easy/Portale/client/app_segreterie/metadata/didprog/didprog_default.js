@@ -23,8 +23,27 @@
 
 			//isValidFunction
 
-			//afterGetFormData
-			
+			afterGetFormData: function () {
+				//parte sincrona
+				var self = this;
+				var parentRow = self.state.currentRow;
+				
+				//afterGetFormDataFilter
+				
+				//parte asincrona
+				var def = appMeta.Deferred("afterGetFormData-didprog_default");
+				var arraydef = [];
+				
+				arraydef.push(this.manageCouses());
+				//afterGetFormDataInside
+				
+				$.when.apply($, arraydef)
+					.then(function () {
+						return def.resolve();
+					});
+				return def.promise();
+			},
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
@@ -46,6 +65,9 @@
 				var def = appMeta.Deferred("beforeFill-didprog_default");
 				var arraydef = [];
 				
+				arraydef.push(this.manageCouses());
+				arraydef.push(appMeta.getData.runSelectIntoTable(self.getDataTable("didproggrupp"), window.jsDataQuery.eq("iddidprog", self.state.currentRow.iddidprog), null));
+				arraydef.push(appMeta.getData.runSelectIntoTable(self.getDataTable("didprogcurr"), window.jsDataQuery.eq("iddidprog", self.state.currentRow.iddidprog), null));
 				//beforeFillInside
 				
 				$.when.apply($, arraydef)
@@ -58,73 +80,41 @@
 				return def.promise();
 			},
 
-			afterClear: function () {
-				//parte sincrona
-				this.helpForm.filter($('#didprog_default_idareadidattica'), null);
-				this.helpForm.filter($('#didprog_default_idreg_docenti'), null);
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
-				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
-				//afterClearin
-				
-				//afterClearInAsyncBase
-			},
-
+			
 			afterFill: function () {
 				this.enableControl($("#XXdidproggrupp"), this.state.isEditState());
 				this.enableControl($("#XXdidprogcurr"), this.state.isEditState());
+				this.enableControl($('#didprog_default_idcorsostudiokind'), false);
+				this.enableControl($('#didprog_default_idcorsostudiolivello'), false);
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('canale'), this.getDataTable('canaleregistry'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizioneanno'), this.getDataTable('parttimeinfo'));
 				//afterFillin
 				return this.superClass.afterFill.call(this);
 			},
 
-			afterLink: function () {
-				var self = this;
-				this.state.DS.tables.didprog.defaults({ 'freqobbl': "S" });
-				this.state.DS.tables.didprog.defaults({ 'iddidprognumchiusokind': 1 });
-				this.state.DS.tables.didprog.defaults({ 'iddidprogsuddannokind': 5 });
-				this.state.DS.tables.didprog.defaults({ 'iderogazkind': 1 });
-				this.state.DS.tables.didprog.defaults({ 'idnation_lang': 1 });
-				this.state.DS.tables.didprog.defaults({ 'idnation_langvis': 1 });
-				this.state.DS.tables.didprog.defaults({ 'idtitolokind': 1 });
-				this.state.DS.tables.didprog.defaults({ 'immatoltreauth': "S" });
-				this.state.DS.tables.didprog.defaults({ 'preimmatoltreauth': "S" });
-				$("#btn_add_didprogclassconsorsuale_idclassconsorsuale").on("click", _.partial(this.searchAndAssignclassconsorsuale, self));
-				$("#btn_add_didprogclassconsorsuale_idclassconsorsuale").prop("disabled", true);
-				$("#btn_add_didprograppstud_idreg_studenti").on("click", _.partial(this.searchAndAssignregistry, self));
-				$("#btn_add_didprograppstud_idreg_studenti").prop("disabled", true);
-				$("#XXdidproggrupp").prop("disabled", true);
-				$("#XXdidprogcurr").prop("disabled", true);
-				$("#GenerateDidProgCurricula").on("click", _.partial(this.fireGenerateDidProgCurricula, this));
-				$("#GenerateDidProgCurricula").prop("disabled", true);
-				this.setDenyNull("didprog","aa");
-				this.setDenyNull("didprog","iddidprogsuddannokind");
-				appMeta.metaModel.insertFilter(this.getDataTable("didprognumchiusokind"), this.q.eq('active', 'S'));
-				appMeta.metaModel.insertFilter(this.getDataTable("didprogsuddannokinddefaultview"), this.q.eq('didprogsuddannokind_active', 'Si'));
-				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
-				appMeta.metaModel.insertFilter(this.getDataTable("titolokinddefaultview"), this.q.eq('titolokind_active', 'Si'));
-				$('#grid_attivform_default').data('mdlconditionallookup', 'tipovalutaz,P,Profitto;tipovalutaz,I,Idoneità;');
-				$('#grid_didprogclassconsorsuale_didprog').data('mdlconditionallookup', '!idclassconsorsuale_classconsorsuale_active,S,Si;!idclassconsorsuale_classconsorsuale_active,N,No;!idclassconsorsuale_classconsorsuale_tipoente,U,Università;!idclassconsorsuale_classconsorsuale_tipoente,A,AFAM;');
-				$('#grid_didprograppstud_default').data('mdlconditionallookup', '!idreg_registry_active,S,Si;!idreg_registry_active,N,No;');
-				var grid_attivform_defaultChildsTables = [
-					{ tablename: 'canale', edittype: 'default', columnlookup: 'title', columncalc: '!canale'},
-					{ tablename: 'attivformcaratteristica', edittype: 'default', columnlookup: 'cf', columncalc: '!attivformcaratteristica'},
-				];
-				$('#grid_attivform_default').data('childtables', grid_attivform_defaultChildsTables);
-				//fireAfterLink
-				return this.superClass.afterLink.call(this).then(function () {
-					var arraydef = [];
-					//fireAfterLinkAsinc
-					return $.when.apply($, arraydef);
-				});
-			},
-
+			
 			afterRowSelect: function (t, r) {
 				var def = appMeta.Deferred("afterRowSelect-didprog_default");
 				$('#didprog_default_idcorsostudio').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
 				$('#didprog_default_idcorsostudio').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idcorsostudio);
+				if (t.name === "annoaccademico" && r !== null) {
+					return this.manageaa(this).then(function () {
+						return def.resolve();
+					});
+				}
+				if (t.name === "corsostudiokinddefaultview" && r !== null) {
+					return this.manageidcorsostudiokind(this).then(function () {
+						return def.resolve();
+					});
+				}
+				if (t.name === "corsostudiolivellodefaultview" && r !== null) {
+					return this.manageidcorsostudiolivello(this).then(function () {
+						return def.resolve();
+					});
+				}
 				//afterRowSelectin
 				return def.resolve();
 			},
@@ -160,6 +150,8 @@
 
 			
 			
+			//afterPost
+
 			insertClick: function (that, grid) {
 				if (this.state.isInsertState() && grid.dataSourceName === "attivform") {
 					return this.showMessageOk("Devi prima salvare la didattica, e creare gli oggetti: curriculum etc...");
@@ -211,6 +203,129 @@
 				return def.promise();
 			},
 
+			searchAndAssignregistry: function (that) {
+				return that.searchAndAssign({
+					tableName: "registry",
+					listType: "studenti",
+					idControl: "txt_didprograppstud_idreg_studenti",
+					tagSearch: "registrystudentiview.dropdown_title",
+					columnNameText: "title",
+					columnSource: "idreg",
+					columnToFill: "idreg_studenti",
+					tableToFill: "didprograppstud",
+					filter: that.q.and(that.q.eq('registry_active', 'Si'), that.q.eq('registry_extension', 'studenti'))
+				});
+			},
+
+			afterClear: function () {
+				//parte sincrona
+				const annoCorrente = this.getAAByDate(new Date());
+				$('#didprog_default_aa').val(annoCorrente).trigger('change');
+
+				this.enableControl($('#didprog_default_idcorsostudiokind'), true);
+				this.enableControl($('#didprog_default_idcorsostudiolivello'), true);
+				this.helpForm.filter($('#didprog_default_idareadidattica'), null);
+				this.enableControl($('#didprog_default_idcorsostudio'), true);
+				this.helpForm.filter($('#didprog_default_idreg_docenti'), null);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('canale'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('canale'), this.getDataTable('canaleregistry'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformcaratteristica'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('attivform'), this.getDataTable('attivformproped'));
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('iscrizioneanno'), this.getDataTable('parttimeinfo'));
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
+
+			afterLink: function () {
+				var self = this;
+				this.getDataTable("corsostudioelenchiprogerogview").staticFilter(this.q.eq('idcorsostudio', 0));
+
+				this.state.DS.tables.didprog.defaults({ 'freqobbl': "S" });
+				this.state.DS.tables.didprog.defaults({ 'iddidprognumchiusokind': 1 });
+				this.state.DS.tables.didprog.defaults({ 'iddidprogsuddannokind': 5 });
+				this.state.DS.tables.didprog.defaults({ 'iderogazkind': 1 });
+				this.state.DS.tables.didprog.defaults({ 'idnation_lang': 1 });
+				this.state.DS.tables.didprog.defaults({ 'idnation_langvis': 1 });
+				this.state.DS.tables.didprog.defaults({ 'idtitolokind': 1 });
+				this.state.DS.tables.didprog.defaults({ 'immatoltreauth': "S" });
+				this.state.DS.tables.didprog.defaults({ 'preimmatoltreauth': "S" });
+				$("#btn_add_didprogclassconsorsuale_idclassconsorsuale").on("click", _.partial(this.searchAndAssignclassconsorsuale, self));
+				$("#btn_add_didprogclassconsorsuale_idclassconsorsuale").prop("disabled", true);
+				$("#btn_add_didprograppstud_idreg_studenti").on("click", _.partial(this.searchAndAssignregistry, self));
+				$("#btn_add_didprograppstud_idreg_studenti").prop("disabled", true);
+				$("#XXdidproggrupp").prop("disabled", true);
+				appMeta.metaModel.cachedTable(this.getDataTable("didproggrupp"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("didproggrupp"));
+				$("#XXdidprogcurr").prop("disabled", true);
+				appMeta.metaModel.cachedTable(this.getDataTable("didprogcurr"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("didprogcurr"));
+				$("#GenerateDidProgCurricula").on("click", _.partial(this.fireGenerateDidProgCurricula, this));
+				$("#GenerateDidProgCurricula").prop("disabled", true);
+				this.setDenyNull("didprog","aa");
+				this.setDenyNull("didprog","iddidprogsuddannokind");
+				this.setDenyNull("didprog","idsede");
+				appMeta.metaModel.insertFilter(this.getDataTable("corsostudiokinddefaultview"), this.q.eq('corsostudiokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("didprognumchiusokind"), this.q.eq('active', 'S'));
+				appMeta.metaModel.insertFilter(this.getDataTable("didprogsuddannokinddefaultview"), this.q.eq('didprogsuddannokind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("erogazkinddefaultview"), this.q.eq('erogazkind_active', 'Si'));
+				appMeta.metaModel.insertFilter(this.getDataTable("titolokinddefaultview"), this.q.eq('titolokind_active', 'Si'));
+				$('#grid_attivform_default').data('mdlconditionallookup', 'tipovalutaz,P,Profitto;tipovalutaz,I,Idoneità;');
+				$('#grid_didprogclassconsorsuale_didprog').data('mdlconditionallookup', '!idclassconsorsuale_classconsorsuale_active,S,Si;!idclassconsorsuale_classconsorsuale_active,N,No;!idclassconsorsuale_classconsorsuale_tipoente,U,Università;!idclassconsorsuale_classconsorsuale_tipoente,A,AFAM;');
+				$('#grid_didprograppstud_default').data('mdlconditionallookup', '!idreg_registry_active,S,Si;!idreg_registry_active,N,No;');
+				var grid_attivform_defaultChildsTables = [
+					{ tablename: 'canale', edittype: 'default', columnlookup: 'title', columncalc: '!canale'},
+					{ tablename: 'attivformcaratteristica', edittype: 'default', columnlookup: 'cf', columncalc: '!attivformcaratteristica'},
+				];
+				$('#grid_attivform_default').data('childtables', grid_attivform_defaultChildsTables);
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
+
+			manageCouses: function(){
+				if (!this.state.isSearchState()) {
+					let def = appMeta.Deferred("manageCouses");
+					return def.resolve();
+				}
+
+				let aa = $('#didprog_default_aa').val();
+				let idcorsostudiokind = $('#didprog_default_idcorsostudiokind').val();
+				let idcorsostudiolivello = $('#didprog_default_idcorsostudiolivello').val();
+				let filterDidProg = this.q.and(
+					...(aa ? [this.q.eq("aa", aa)] : []),
+					...(idcorsostudiokind ? [this.q.eq("idcorsostudiokind", idcorsostudiokind)] : []),
+					...(idcorsostudiolivello ? [this.q.eq("idcorsostudiolivello", idcorsostudiolivello)] : [])
+				);
+
+				//query su progettoresponsabiliview con il filtro calcolato
+				let self = this;
+				return appMeta.getData.runSelect("didprog", "iddidprog,idcorsostudio", filterDidProg)
+					.then(function (dt) {
+						let filterCorsi = self.q.isIn('idcorsostudio',
+							_.map(dt.rows, function (r) {
+								return r.idcorsostudio;
+							}));
+						self.getDataTable('corsostudioelenchiprogerogview').clear();
+						var selBuilderArray = [];
+						//faccio la query su sql e aggiorno contemporaneamente il dataset
+						selBuilderArray.push({ filter: filterCorsi, top: null, tableName: 'corsostudioelenchiprogerogview', table: self.getDataTable('corsostudioelenchiprogerogview') });
+
+						return appMeta.getData.multiRunSelect(selBuilderArray)
+							.then(function () {
+								var csCtrl = $('#didprog_default_idcorsostudio').data("customController");
+								return csCtrl.clearControl();
+							})
+							.then(function () {
+								var csCtrl = $('#didprog_default_idcorsostudio').data("customController");
+								return csCtrl.fillControl($('#didprog_default_idcorsostudio'));
+							});
+					});
+			},
+
 			searchAndAssignclassconsorsuale: function (that) {
 				return that.searchAndAssign({
 					tableName: "classconsorsuale",
@@ -221,19 +336,23 @@
 					columnSource: "idclassconsorsuale",
 					columnToFill: "idclassconsorsuale",
 					tableToFill: "didprogclassconsorsuale"
+,
+					filter: that.q.eq('classconsorsuale_active', 'Si')
 				});
 			},
 
 			searchAndAssignregistry: function (that) {
 				return that.searchAndAssign({
 					tableName: "registry",
-					listType: "default",
+					listType: "studenti",
 					idControl: "txt_didprograppstud_idreg_studenti",
-					tagSearch: "registrydefaultview.dropdown_title",
+					tagSearch: "registrystudentiview.dropdown_title",
 					columnNameText: "title",
 					columnSource: "idreg",
 					columnToFill: "idreg_studenti",
 					tableToFill: "didprograppstud"
+,
+					filter: that.q.eq('registry_active', 'Si')
 				});
 			},
 
@@ -275,6 +394,31 @@
 					else
 						return false;
 				});
+			},
+
+			manageaa: function(that) { 
+				var def = appMeta.Deferred("manageYearfilter");
+				this.manageCouses().then(function(){ 
+					return def.resolve();
+				});
+				return def.promise();
+			},
+
+			manageidcorsostudiokind: function(that) { 
+				var def = appMeta.Deferred("managetypefilter");
+				this.manageCouses().then(function(){ 
+					return def.resolve();
+				});
+				return def.promise();
+			},
+
+			manageidcorsostudiolivello: function(that) { 
+				var def = appMeta.Deferred("manageLevelfilter");
+				this.manageCouses().then(function(){ 
+					return def.resolve();
+				});
+				return def.promise();
+
 			},
 
 			//buttons

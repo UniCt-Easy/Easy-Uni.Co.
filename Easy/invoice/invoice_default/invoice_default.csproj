@@ -108,8 +108,10 @@
       <HintPath>..\..\dll\metaeasylibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="meta_invoicekind">
+    <Reference Include="meta_invoicekind, Version=1.0.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\invoicekind\meta_invoicekind\bin\Debug\meta_invoicekind.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="meta_ivakind, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

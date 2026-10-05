@@ -46,24 +46,40 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'default':
+						table.columns["datachiusura"].caption = "Data di chiusura";
+						table.columns["idgraduatoria"].caption = "Calcolo su cui è basata";
+//$innerSetCaptionConfig_default$
+						break;
+					case 'seg':
+//$innerSetCaptionConfig_seg$
+						break;
+					case 'stato':
+						table.columns["datachiusura"].caption = "Data di chiusura";
+//$innerSetCaptionConfig_stato$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
-				var def = appMeta.Deferred("getNewRow-meta_graduatoriaesiti");
-				var realParentObjectRow = parentRow ? parentRow.current : undefined;
+               var def = appMeta.Deferred("getNewRow-meta_graduatoriaesiti");
 
 				//$getNewRowInside$
 
 				dt.autoIncrement('idgraduatoriaesiti', { minimum: 99990001 });
 
 				// metto i default
-				var objRow = dt.newRow({
-					//$getNewRowDefault$
-				}, realParentObjectRow);
-
-				// torno la dataRow creata
-				return def.resolve(objRow.getRow());
+				return this.superClass.getNewRow(parentRow, dt, editType)
+					.then(function (dtRow) {
+						//$getNewRowDefault$
+						return def.resolve(dtRow);
+					});
 			},
+
 
 
 			//$isValidFunction$

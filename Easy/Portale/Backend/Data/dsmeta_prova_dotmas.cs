@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_prova_dotmas"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_prova_dotmas: DataSet {
+public partial class dsmeta_prova_dotmas: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -66,7 +64,14 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// VALUTAZIONEKIND /////////////////////////////////
 	var tvalutazionekind= new MetaTable("valutazionekind");
+	tvalutazionekind.defineColumn("active", typeof(string),false);
+	tvalutazionekind.defineColumn("ct", typeof(DateTime),false);
+	tvalutazionekind.defineColumn("cu", typeof(string),false);
+	tvalutazionekind.defineColumn("description", typeof(string));
 	tvalutazionekind.defineColumn("idvalutazionekind", typeof(int),false);
+	tvalutazionekind.defineColumn("lt", typeof(DateTime),false);
+	tvalutazionekind.defineColumn("lu", typeof(string),false);
+	tvalutazionekind.defineColumn("sortcode", typeof(int),false);
 	tvalutazionekind.defineColumn("title", typeof(string),false);
 	Tables.Add(tvalutazionekind);
 	tvalutazionekind.defineKey("idvalutazionekind");

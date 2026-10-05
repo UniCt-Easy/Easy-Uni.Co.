@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -253,6 +251,7 @@ private void initClass() {
 	tserviceregistry.Columns.Add( new DataColumn("codiceuoipa", typeof(string)));
 	tserviceregistry.Columns.Add( new DataColumn("idthematicscope", typeof(int)));
 	tserviceregistry.Columns.Add( new DataColumn("idpublicinstitutionservice", typeof(int)));
+	tserviceregistry.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tserviceregistry);
 	tserviceregistry.PrimaryKey =  new DataColumn[]{tserviceregistry.Columns["yservreg"], tserviceregistry.Columns["nservreg"]};
 
@@ -1228,6 +1227,7 @@ private void initClass() {
 	tserviceregistryattachment.Columns.Add( new DataColumn("lu", typeof(string)));
 	tserviceregistryattachment.Columns.Add( new DataColumn("lt", typeof(DateTime)));
 	tserviceregistryattachment.Columns.Add( new DataColumn("idattachmentkind", typeof(int)));
+	tserviceregistryattachment.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
 	Tables.Add(tserviceregistryattachment);
 	tserviceregistryattachment.PrimaryKey =  new DataColumn[]{tserviceregistryattachment.Columns["nservreg"],tserviceregistryattachment.Columns["yservreg"], tserviceregistryattachment.Columns["idattachment"]};
 	

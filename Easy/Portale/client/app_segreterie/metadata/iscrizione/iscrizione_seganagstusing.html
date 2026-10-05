@@ -18,30 +18,25 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="iscrizione_seganagstusing_aa">Anno accademico</label>
-					<select id="iscrizione_seganagstusing_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-custom-control="combo" data-tag="iscrizione.aa?iscrizioneseganagstusingview.aa" data-subentity  data-mandatory  > </select>
+					<select id="iscrizione_seganagstusing_aa" class="custom-select d-block w-100"  data-source-name="annoaccademico" data-value-member="aa" data-display-member="aa" data-sort-member="aa" data-custom-control="combo" data-tag="iscrizione.aa?iscrizioneseganagstusingview.aa"  data-mandatory  > </select>
 				</div>
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#iscrizione_seganagstusing_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="iscrizione_seganagstusing_data">Data</label>
-					<input id="iscrizione_seganagstusing_data" type="text" class="form-control" data-tag="iscrizione.data.g?iscrizioneseganagstusingview.iscrizione_data.g" data-subentity  />
+					<input id="iscrizione_seganagstusing_data" type="text" class="form-control" data-tag="iscrizione.data.g?iscrizioneseganagstusingview.iscrizione_data.g"   data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="iscrizione_seganagstusing_matricola">Matricola</label>
-					<input id="iscrizione_seganagstusing_matricola" type="text" class="form-control" data-tag="iscrizione.matricola?iscrizioneseganagstusingview.iscrizione_matricola" data-subentity  />
+					<input id="iscrizione_seganagstusing_matricola" type="text" class="form-control" data-tag="iscrizione.matricola?iscrizioneseganagstusingview.iscrizione_matricola"  />
 				</div>
 			</div>
 	</div>
 	<div class="tab-pane fade" id="tabiscrizione_seganagstusing_1" role="tabpanel">
-				<div class="gridx" id="grid_pianostudio_alias1_seganagstusing" data-tag="pianostudio_alias1.seganagstusing.seganagstusing" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete  ></div>
+				<div class="gridx" id="grid_pianostudio_alias1_seganagstusing" data-tag="pianostudio_alias1.seganagstusing.seganagstusing" data-custom-control="gridxchild"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 	<div class="tab-pane fade" id="tabiscrizione_seganagstusing_2" role="tabpanel">
-				<div class="gridx" id="grid_sostenimento_alias1_seganagstusing" data-tag="sostenimento_alias1.seganagstusing.seganagstusing" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete data-mdlconditionallookup="livello,A,A ;livello,B,B ;livello,C,C ;livello,D,D ;votolode,S,Si;votolode,N,No;" ></div>
+				<div class="gridx" id="grid_sostenimento_alias1_seganagstusing" data-tag="sostenimento_alias1.seganagstusing.seganagstusing" data-custom-control="gridx"  data-mdlbuttoninsert data-mdlbuttonedit data-mdlbuttondelete ></div>
 	</div>
 </div>
 </form>

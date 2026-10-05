@@ -24,6 +24,11 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'classe':
+						this.describeAColumn(table, 'idtipoattform', 'Tipo di attività formativa', null, 10, null);
+						this.describeAColumn(table, 'idtipoattform_2', 'Tipo della seconda attività formativa', null, 20, null);
+						this.describeAColumn(table, 'idambitoareadisc', 'Ambito o area disciplinare', null, 30, null);
+						this.describeAColumn(table, 'idsasdgruppo', 'Gruppo', null, 40, null);
+						this.describeAColumn(table, 'idsasd', 'SASD', null, 50, null);
 						this.describeAColumn(table, 'cf', 'Crediti', 'fixed.2', 60, null);
 						this.describeAColumn(table, 'cfmin', 'Crediti min', 'fixed.2', 60, null);
 						this.describeAColumn(table, 'cfmax', 'Crediti max', 'fixed.2', 70, null);

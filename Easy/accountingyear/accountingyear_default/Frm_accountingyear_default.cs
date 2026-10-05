@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -218,7 +216,7 @@ namespace accountingyear_default//esercizio_creazione//
             if (Esercizio.Length == 0) return;
             DataRow Curr = Esercizio[0];
             bool abilita =( (CfgFn.GetNoNullInt32(Curr["flag"]) & 0x0F )  >= 2 )&&
-                            ( (CfgFn.GetNoNullInt32(Curr["flag"]) & 0x0F )  <= 3 );
+                            ( (CfgFn.GetNoNullInt32(Curr["flag"]) & 0x0F )  <= 5 );
             btnManuale.Enabled = abilita;
         }
 
@@ -1815,9 +1813,9 @@ namespace accountingyear_default//esercizio_creazione//
                 " END ";
 
                 Meta.Conn.DO_SYS_CMD(script, false);
-                show("Copia eseguita per il cassiere: " + R["description"].ToString());
             }
-        }
+			show("Copia eseguita per tutti i cassieri", "Operazione eseguita");
+		}
 
 		private void abilitaTrasfOrganigramma()
 		{

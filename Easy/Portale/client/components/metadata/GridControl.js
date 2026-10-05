@@ -1275,6 +1275,12 @@
             return html;
         },
 
+        convertDecimalSeparator: function (htmlString) {
+            return htmlString.replace(/>(\d+\.\d+)</g, (match, number) => {
+                return `>${number.replace('.', ',')}<`;
+            });
+        },
+
         /**
          * @method gridHtmlToExcel
          * @private
@@ -1283,7 +1289,12 @@
          */
         gridHtmlToExcel:function (that) {
 
+            //converto i caratteri accentati e speciali con la codifica html
             var gridhtml = that.replaceSpecialCharacters(that.mytable.html());
+            //converto i decimali con la , anzichè il .
+            gridhtml = convertDecimalSeparator(gridhtml);
+            gridhtml = gridhtml.replace(/>'(.*?)'<\/td>/g, ">$1</td>");
+
             //that.replaceSpecialCharatcters(gridhtml);
             var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
             tab_text = tab_text + '<head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';

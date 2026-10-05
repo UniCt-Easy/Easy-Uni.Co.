@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invoicescadenza]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invoicescadenza]
 GO
@@ -25,7 +23,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 --setuser 'amministrazione'
  
--- exp_invoicescadenza '2020', {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, {ts '2020-12-31 00:00:00'}, 'N','N', NULL, NULL, NULL, NULL, NULL
+-- exp_invoicescadenza '2024', {ts '2024-12-31 00:00:00'}, {ts '2024-12-31 00:00:00'}, {ts '2024-01-01 00:00:00'}, {ts '2024-12-31 00:00:00'}, 'S','N'
 CREATE  PROCEDURE [exp_invoicescadenza](
 	@year 			int,  --,
 	@data_pagamento	datetime, -- Per le fatture pagate con fondo economale è la data di registrazione dell'operazione
@@ -34,11 +32,11 @@ CREATE  PROCEDURE [exp_invoicescadenza](
 	@data_emissione_stop	datetime,
 	@flag_nascondi_pagate	varchar,	
 	@flag_nascondi_noliq	varchar,	
-	@idsor01 int,
-	@idsor02 int,
-	@idsor03 int,
-	@idsor04 int,
-	@idsor05 int
+	@idsor01 int = null,
+	@idsor02 int = null,
+	@idsor03 int = null,
+	@idsor04 int = null,
+	@idsor05 int = null
 ) 
 AS BEGIN
 
@@ -175,7 +173,7 @@ SELECT distinct
 					ON v.idexp = mov.idexp
 					WHERE mov.ycon = profservice.ycon
 					AND mov.ncon = profservice.ncon
-					AND v.autokind<>4
+					AND ISNULL(v.autokind,0)<>4
 					--AND s.nphase = (SELECT expensephase FROM expensesetup WHERE ayear=s.ycreation)
 					)
 				,0) +
@@ -302,7 +300,9 @@ SELECT distinct
 						AND mov.ncon = profservice.ncon
 						AND pt.transmissiondate <= @data_pagamento
 				)
-				,0) +
+				,0)
+				
+				+
 				ISNULL(
 					(SELECT SUM(v.amount)
 					FROM expenseprofservice mov
@@ -312,10 +312,11 @@ SELECT distinct
 					ON v.idexp = mov.idexp
 					WHERE mov.ycon = profservice.ycon
 					AND mov.ncon = profservice.ncon
-					AND v.autokind<>4
+					AND ISNULL(v.autokind,0)<>4
 					--AND s.nphase = (SELECT expensephase FROM expensesetup WHERE ayear=s.ycreation)
 					)
-				,0) +
+				,0) 
+				+
 				ISNULL(
 					(SELECT SUM(p.amount)
 					FROM pettycashoperationprofservice mov
@@ -715,6 +716,23 @@ AND(
 						,0)
 
 					END)
+				-- sottraggo i dettagli NOLIQ (solo se richiesto)
+				- CONVERT(decimal(23,5),
+					ISNULL(
+						CASE @flag_nascondi_noliq 
+							WHEN 'S' THEN 
+								(SELECT SUM(det.rowtotal)
+								 FROM invoicedetailview det
+								 WHERE det.idinvkind = totinvoiceview.idinvkind
+								   AND det.yinv      = totinvoiceview.yinv
+								   AND det.ninv      = totinvoiceview.ninv
+								   AND ISNULL(det.idpccdebitstatus,'N') IN ('NOLIQ','NLdaLIQ','NLdaSOSP')
+								)
+							ELSE 0
+						END
+					,0)
+				  )
+
 	-- devo fare il calcolo del residuo da pagare della prestazione professionale
 	WHEN (profservice.idinvkind is NOT null) THEN
 
@@ -744,7 +762,6 @@ AND(
 					WHERE mov.ycon = profservice.ycon
 						AND mov.ncon = profservice.ncon
 						AND pt.transmissiondate <= @data_pagamento
-					--AND s.nphase = (SELECT expensephase FROM expensesetup WHERE ayear=s.ycreation)
 				)
 				,0) +
 				ISNULL(
@@ -756,8 +773,7 @@ AND(
 					ON v.idexp = mov.idexp
 					WHERE mov.ycon = profservice.ycon
 					AND mov.ncon = profservice.ncon
-					AND v.autokind<>4
-					--AND s.nphase = (SELECT expensephase FROM expensesetup WHERE ayear=s.ycreation)
+					AND ISNULL(v.autokind,0)<>4
 					)
 				,0) +
 				ISNULL(
@@ -779,7 +795,8 @@ AND(
 (CASE
 	WHEN @flag_nascondi_pagate='S' THEN 0
 	WHEN @flag_nascondi_pagate='N' THEN 1
-END)  > 0  
+END)  > 0
+
 
 AND invoice.docdate between @data_emissione_start and @data_emissione_stop
 AND (@idsor01 IS NULL OR invoice.idsor01 = @idsor01)
@@ -799,4 +816,3 @@ SET QUOTED_IDENTIFIER OFF
 GO
 SET ANSI_NULLS ON 
 GO
- 

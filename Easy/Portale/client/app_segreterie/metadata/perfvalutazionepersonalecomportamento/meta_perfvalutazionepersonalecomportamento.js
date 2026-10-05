@@ -40,6 +40,15 @@
 						this.describeAColumn(table, '!perfvalutazionepersonalecomportamentosoglia', 'Soglie', null, 40, null);
 //$objCalcFieldConfig_giudizio$
 						break;
+					case 'unibas':
+						this.describeAColumn(table, 'idperfgiudizio', 'Giudizio', null, 60, null);
+						this.describeAColumn(table, 'note', 'Note', null, 90, -1);
+						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_title', 'Titolo Comportamento', null, 11, null);
+						this.describeAColumn(table, '!idperfcomportamento_perfcomportamento_description', 'Descrizione Comportamento', null, 12, null);
+						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_title'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'title', columnNamekey:'idperfcomportamento' };
+						objCalcFieldConfig['!idperfcomportamento_perfcomportamento_description'] = { tableNameLookup:'perfcomportamento', columnNameLookup:'description', columnNamekey:'idperfcomportamento' };
+//$objCalcFieldConfig_unibas$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -64,6 +73,10 @@
 						table.columns["valorenumerico"].caption = "Valore numerico raggiunto";
 						table.columns["idperfgiudizio"].caption = "Giudizio";
 //$innerSetCaptionConfig_giudizio$
+						break;
+					case 'unibas':
+						table.columns["!perfcomportamento"].caption = "Comportamento";
+//$innerSetCaptionConfig_unibas$
 						break;
 //$innerSetCaptionConfig$
 				}

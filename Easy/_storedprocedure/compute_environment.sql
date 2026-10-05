@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[compute_environment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [compute_environment]
 GO
@@ -23,8 +21,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON 
 GO
+--setuser 'amministrazione'
 --compute_environment 2017,'bianco','1700010012',1
---compute_environment 2017,'nino'
+--compute_environment 2024,'nino'
 --setuser 'amm'
 
 CREATE  PROCEDURE compute_environment
@@ -83,8 +82,10 @@ declare @titlesortingkind3 varchar(200)
 declare @codesorkind_siopespese varchar(20)
 declare @codesorkind_siopeentrate varchar(20)
 declare @attachment_max_size_mb int
-
-
+declare @cfagency varchar(20)
+declare @p_ivaagency varchar(20)
+declare @agency varchar(150)
+declare @iddb  int
 declare @flagproceeds char(1)
 
 select  @fin_kind= fin_kind, @flagcredit=upper(flagcredit), @flagproceeds=upper(flagproceeds),
@@ -196,6 +197,13 @@ select @expensefinphase=expensefinphase,
 		left outer join sortingkind sortingkind4 on sortingkind4.idsorkind=uniconfig.idsorkind04
 		left outer join sortingkind sortingkind5 on sortingkind5.idsorkind=uniconfig.idsorkind05
 
+SELECT 
+  @cfagency = cf,   
+  @p_ivaagency = p_iva, 
+  @agency = agency,
+  @iddb = iddb
+FROM license
+
 declare @finusablelevel tinyint
 select @finusablelevel=MIN(nlevel) from finlevel where ayear=@ayear and ((flag & 2)<>0)
 
@@ -207,12 +215,13 @@ declare @idsor02 int
 declare @idsor03 int
 declare @idsor04 int
 declare @idsor05 int
+declare @rulename varchar(150) = 'Admin'
 
 select	@idsor01=idsor01, @all_value01=all_sorkind01, @withchilds_01= sorkind01_withchilds,
 		@idsor02=idsor02, @all_value02=all_sorkind02, @withchilds_02= sorkind02_withchilds,
 		@idsor03=idsor03, @all_value03=all_sorkind03, @withchilds_03= sorkind03_withchilds,
 		@idsor04=idsor04, @all_value04=all_sorkind04, @withchilds_04= sorkind04_withchilds,
-		@idsor05=idsor05, @all_value05=all_sorkind05, @withchilds_05= sorkind05_withchilds
+		@idsor05=idsor05, @all_value05=all_sorkind05, @withchilds_05= sorkind05_withchilds, @rulename = title
 	from flowchartuser where idflowchart=@idflowchart and ndetail=@ndetail and idcustomuser= @idcustomuser
 
 declare  @defaultdepmail varchar(300)
@@ -246,17 +255,13 @@ select  @idflowchart as idflowchart, @ndetail as ndetail,
 					 isnull(@idsor04,0) as idsor04, isnull(@idsor05,0) as idsor05,
 			@defaultdepmail as defaultdepmail,
 			@codesorkind_siopespese as codesorkind_siopespese ,	@codesorkind_siopeentrate as codesorkind_siopeentrate,
-			@attachment_max_size_mb as attachment_max_size_mb
-			
-
-
-
-
-
-
-
-
-
+			@attachment_max_size_mb as attachment_max_size_mb,
+			@cfagency as cfagency,   
+			@p_ivaagency as p_ivaagency, 
+			@agency as agency,
+			@iddb as iddb,
+			@rulename as rulename
+ 
 declare @allvar varchar(30)
 set @allvar=null
 
@@ -299,7 +304,7 @@ end
 
 insert into #myouttable (variablename, kind, value) select variablename, kind, value	
 	 from userenvironment where idcustomuser=@idcustomuser and kind='K'
---le costanti sono già a posto (kind=K)
+--le costanti sono giï¿½ a posto (kind=K)
 
 --kind=S sono le stored procedures, distinguiamo le compute_set dalla compute_set_withndet
 insert into #myouttable (variablename, kind, value,mustquote) 

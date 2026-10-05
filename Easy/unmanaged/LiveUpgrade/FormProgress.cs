@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using Microsoft.Deployment.WindowsInstaller;
 using System;
@@ -46,7 +44,7 @@ namespace LiveUpgrade {
         /// </summary>
         /// <param name="name">Nome del file da scaricare.</param>
         /// <param name="url">Indirizzo web.</param>
-        /// <returns>Il percorso dove il file Ë stato scaricato.</returns>
+        /// <returns>Il percorso dove il file √® stato scaricato.</returns>
         public void Download(string name, string url, string path) {
             progressUpgrade.Style = ProgressBarStyle.Continuous;
             progressUpgrade.Value = progressUpgrade.Minimum;
@@ -83,7 +81,7 @@ namespace LiveUpgrade {
                     }
                     catch (Exception ex) {
                         string caption = "Errore";
-                        string message = @"Si Ë verificato un errore critico e l'aggiornamento Ë stato interrotto. Contattare il supporto tecnico.";
+                        string message = @"Si √® verificato un errore critico e l'aggiornamento √® stato interrotto. Contattare il supporto tecnico.";
                         MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         Log.Critical(ex);
@@ -129,7 +127,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ë verificato un errore critico e l'aggiornamento Ë stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si √® verificato un errore critico e l'aggiornamento √® stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -163,7 +161,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ë verificato un errore critico e l'aggiornamento Ë stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si √® verificato un errore critico e l'aggiornamento √® stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -211,7 +209,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ë verificato un errore critico e l'aggiornamento Ë stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si √® verificato un errore critico e l'aggiornamento √® stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);
@@ -232,7 +230,7 @@ namespace LiveUpgrade {
             }
             catch (Exception ex) {
                 string caption = "Errore";
-                string message = @"Si Ë verificato un errore critico e l'aggiornamento Ë stato interrotto. Contattare il supporto tecnico.";
+                string message = @"Si √® verificato un errore critico e l'aggiornamento √® stato interrotto. Contattare il supporto tecnico.";
                 MessageBox.Show(this, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Log.Critical(ex);

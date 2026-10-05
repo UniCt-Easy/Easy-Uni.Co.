@@ -25,7 +25,7 @@
 				var def = appMeta.Deferred("isValid-meta_perfprogettoobiettivoattivita");
 				var firstErrorObj;
 
-                if (this.getChildren("perfprogettoobiettivoattivita", rowToCheck.current.idperfprogettoobiettivoattivita, "paridperfprogettoobiettivoattivita", true).length == 0) {
+				if (this.getChildren("perfprogettoobiettivoattivita_alias3", rowToCheck.current.idperfprogettoobiettivoattivita, "paridperfprogettoobiettivoattivita",true).length == 0) {
                if (!rowToCheck.current.datainizioprevista)
                   firstErrorObj = { warningMsg: "", errMsg: "Prima devi inserire una data inizio prevista", errField: "datainizioprevista", row: rowToCheck };
                else if (!rowToCheck.current.datafineprevista)
@@ -171,7 +171,7 @@
 			manageperfprogettoobiettivoattivita_default_completamento: function () {
 				//campo calcolato
 				this.enableControl($('#perfprogettoobiettivoattivita_default_completamento'), false);
-				if (this.state.formState === "insert" || this.getChildren("perfprogettoobiettivoattivita", this.state.currentRow.idperfprogettoobiettivoattivita, "paridperfprogettoobiettivoattivita", true).length == 0) {
+				if (this.state.formState === "insert" || this.getChildren("perfprogettoobiettivoattivita_alias3", this.state.currentRow.idperfprogettoobiettivoattivita, "paridperfprogettoobiettivoattivita",true).length == 0) {
 				   this.enableControl($('#perfprogettoobiettivoattivita_default_completamento'), true);
 				}
 			},

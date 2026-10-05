@@ -77,6 +77,7 @@
 				
 				this.calculateRisultatoPerc();
 								appMeta.metaModel.getTemporaryValues(this.getDataTable('perfvalutazionepersonalestatuschanges'));
+				//this.getDataTable('perfcomportamento') //per far caricare tutte le colonne
 				this.manageperfvalutazionepersonale_default_percperfuo();
 				this.manageperfvalutazionepersonale_default_perccomportamenti();
 				this.manageperfvalutazionepersonale_default_percobiettivi();
@@ -100,6 +101,8 @@
 
 			afterClear: function () {
 				//parte sincrona
+				this.enableControl($('#perfvalutazionepersonale_default_idreg'), true);
+				this.enableControl($('#perfvalutazionepersonale_default_idafferenza'), true);
 				this.enableControl($('#perfvalutazionepersonale_default_risultato'), true);
 				this.enableControl($('#perfvalutazionepersonale_default_pesoateneo'), true);
 				this.enableControl($('#perfvalutazionepersonale_default_percateneo'), true);
@@ -112,6 +115,7 @@
 				this.enableControl($('#perfvalutazionepersonale_default_idreg_comp'), true);
 				this.enableControl($('#perfvalutazionepersonale_default_idreg_val'), true);
 				this.enableControl($('#perfvalutazionepersonale_default_idreg_appr'), true);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonalestatuschanges'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonaleateneo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonaleuo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonalecomportamento'));
@@ -125,49 +129,7 @@
 			},
 
 			
-			afterLink: function () {
-				var self = this;
-
-				//solo se NON sono amministratore
-				if (appMeta.security.usrEnv.progetti_performance != '\'S\'') {
-					this.canInsert = false;
-					this.canInsertCopy = false;
-					this.canCancel = false;
-				}
-
-				this.state.DS.tables.perfvalutazionepersonale.defaults({ 'year': new Date().getFullYear() });
-				$("#XXperfinterazioni").prop("disabled", true);
-				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year',2020),this.q.lt('year', (new Date().getFullYear()) +1 )));
-				appMeta.metaModel.insertFilter(this.getDataTable("perfschedastatusdefaultview"), this.q.eq('perfschedastatus_active', 'Si'));
-				appMeta.metaModel.cachedTable(this.getDataTable("getregistrydocentiamministrativinomcognview"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("getregistrydocentiamministrativinomcognview"));
-				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"));
-				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias5"), true);
-				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias5"));
-				$('#perfvalutazionepersonale_default_pesocomportamenti').on("change", _.partial(this.managepesocomportamenti, self));
-				$('#perfvalutazionepersonale_default_pesoobiettivi').on("change", _.partial(this.managepesoobiettivi, self));
-				$('#perfvalutazionepersonale_default_pesoperfuo').on("change", _.partial(this.managepesoperfuo, self));
-				var grid_perfvalutazionepersonalecomportamento_defaultChildsTables = [
-					{ tablename: 'perfvalutazionepersonalecomportamentosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazionepersonalecomportamentosoglia'},
-				];
-				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtables', grid_perfvalutazionepersonalecomportamento_defaultChildsTables);
-				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtablesadd', false);
-				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtablesedit', false);
-				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtablesdelete', false);
-				var grid_perfvalutazionepersonaleobiettivo_defaultChildsTables = [
-					{ tablename: 'perfvalutazionepersonalesoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazionepersonalesoglia'},
-				];
-				$('#grid_perfvalutazionepersonaleobiettivo_default').data('childtables', grid_perfvalutazionepersonaleobiettivo_defaultChildsTables);
-				//fireAfterLink
-				return this.superClass.afterLink.call(this).then(function () {
-					var arraydef = [];
-					//fireAfterLinkAsinc
-					arraydef.push(self.freshToolBar());
-					return $.when.apply($, arraydef);
-				});
-			},
-
+			
 			afterRowSelect: function (t, r) {
 				$('#perfvalutazionepersonale_default_idreg').prop("disabled", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
 				$('#perfvalutazionepersonale_default_idreg').prop("readonly", (this.state.isEditState() || this.haveChildren()) && this.state.currentRow.idreg);
@@ -219,7 +181,7 @@
 
 					//recupero tutti i responsabili/valutatori della persona selezionata, compreso l'utente loggato
 					var filterValutato = self.q.eq('afferenza_idreg', r.idreg);
-					var filterYear = self.q.eq('year', (self.state.currentRow ? self.state.currentRow.year : $('#perfvalutazionepersonale_default_year').val()));
+					var filterYear = self.q.eq('year', $('#perfvalutazionepersonale_default_year').val());
 					//var filterObiettivi = self.q.or(self.q.eq('obiettivi_individuali', 'S'), self.q.eq('obiettivi_comportamentali', 'S'))
 					var filterAll = self.q.and(filterYear, filterValutato/*, filterObiettivi*/);
 
@@ -279,7 +241,7 @@
 						.then(function () {
 							//recupero tutti i responsabili/valutatori della persona selezionata, compreso l'utente loggato
 							var filterValutato = self.q.eq('idafferenza', r.idafferenza);
-							var filterYear = self.q.eq('year', (self.state.currentRow ? self.state.currentRow.year : $('#perfvalutazionepersonale_default_year').val()));
+							var filterYear = self.q.eq('year', $('#perfvalutazionepersonale_default_year').val());
 							//var filterObiettivi = self.q.or(self.q.eq('obiettivi_individuali', 'S'), self.q.eq('obiettivi_comportamentali', 'S'))
 							var filterAll = self.q.and(filterYear, filterValutato/*, filterObiettivi*/);
 							return self.calcDiritti(filterAll)
@@ -331,6 +293,53 @@
 			
 			//beforePost
 
+			afterLink: function () {
+				var self = this;
+
+				//solo se NON sono amministratore
+				if (appMeta.security.usrEnv.progetti_performance != '\'S\'') {
+					this.canInsert = false;
+					this.canInsertCopy = false;
+					this.canCancel = false;
+				}
+
+				this.state.DS.tables.perfvalutazionepersonale.defaults({ 'year': new Date().getFullYear() });
+				$("#XXperfinterazioni").prop("disabled", true);
+				this.state.DS.tables.year.staticFilter(window.jsDataQuery.and(this.q.gt('year',2020),this.q.lt('year', 2026 )));
+				appMeta.metaModel.insertFilter(this.getDataTable("perfschedastatusdefaultview"), this.q.eq('perfschedastatus_active', 'Si'));
+				appMeta.metaModel.cachedTable(this.getDataTable("getregistrydocentiamministrativinomcognview"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("getregistrydocentiamministrativinomcognview"));
+				appMeta.metaModel.insertFilter(this.getDataTable("getregistrydocentiamministrativinomcognview"), this.q.eq('getregistrydocentiamministrativi_active', 'Si'));
+				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias4"));
+				appMeta.metaModel.cachedTable(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias5"), true);
+				appMeta.metaModel.lockRead(this.getDataTable("getdocentiamministrativiresponsabilinomcognview_alias5"));
+				$('#perfvalutazionepersonale_default_pesocomportamenti').on("change", _.partial(this.managepesocomportamenti, self));
+				$('#perfvalutazionepersonale_default_pesoobiettivi').on("change", _.partial(this.managepesoobiettivi, self));
+				$('#perfvalutazionepersonale_default_pesoperfuo').on("change", _.partial(this.managepesoperfuo, self));
+				var grid_perfvalutazionepersonalecomportamento_defaultChildsTables = [
+					{ tablename: 'perfvalutazionepersonalecomportamentosoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazionepersonalecomportamentosoglia'},
+				];
+				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtables', grid_perfvalutazionepersonalecomportamento_defaultChildsTables);
+				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtablesadd', false);
+				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtablesedit', false);
+				$('#grid_perfvalutazionepersonalecomportamento_default').data('childtablesdelete', false);
+				var grid_perfvalutazionepersonaleobiettivo_defaultChildsTables = [
+					{ tablename: 'perfvalutazionepersonalesoglia', edittype: 'default', columnlookup: 'description', columncalc: '!perfvalutazionepersonalesoglia'},
+				];
+				$('#grid_perfvalutazionepersonaleobiettivo_default').data('childtables', grid_perfvalutazionepersonaleobiettivo_defaultChildsTables);
+				$('#grid_perfvalutazionepersonaleobiettivo_default').data('childtablesadd', false);
+				$('#grid_perfvalutazionepersonaleobiettivo_default').data('childtablesedit', false);
+				$('#grid_perfvalutazionepersonaleobiettivo_default').data('childtablesdelete', false);
+
+				//fireAfterLink
+				return this.superClass.afterLink.call(this).then(function () {
+					var arraydef = [];
+					//fireAfterLinkAsinc
+					return $.when.apply($, arraydef);
+				});
+			},
+
 			afterFill: function () {
 				this.comportamentiGiaCalcolati = false;
 				this.enableControl($("#XXperfinterazioni"), this.state.isEditState());
@@ -346,6 +355,7 @@
 				this.enableControl($('#perfvalutazionepersonale_default_idreg_comp'), false);
 				this.enableControl($('#perfvalutazionepersonale_default_idreg_val'), false);
 				this.enableControl($('#perfvalutazionepersonale_default_idreg_appr'), false);
+				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonalestatuschanges'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonaleateneo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonaleuo'));
 				appMeta.metaModel.addNotEntityChild(this.getDataTable('perfvalutazionepersonale'), this.getDataTable('perfvalutazionepersonalecomportamento'));
@@ -480,7 +490,7 @@
 				if (goi) {
 					if (this.valuta_ind !== true && this.aggiorna_ind !== true) {
 						goi.removeEvents();
-					} 
+					}
 				}
 
 				//se non ci può lavorare disabilito i comportamenti
@@ -488,7 +498,7 @@
 				if (gc) {
 					if (this.valuta_co !== true && this.aggiorna_co !== true) {
 						gc.removeEvents();
-					} 
+					}
 				}
 
 				//se ha un cambio stato impostato lo faccio salvare

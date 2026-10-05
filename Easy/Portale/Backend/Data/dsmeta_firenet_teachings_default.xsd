@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="dsmeta_firenet_teachings_default" targetNamespace="http://tempuri.org/vista.xsd" xmlns:mstns="http://tempuri.org/vista.xsd" xmlns="http://tempuri.org/vista.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="dsmeta_firenet_teachings_default" msdata:IsDataSet="true" msdata:Locale="it-IT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="annoaccademico" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="firenet_teachings" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="aa" type="xs:int" minOccurs="0" />
+              <xs:element name="accumulo_ore" type="xs:int" minOccurs="0" />
+              <xs:element name="area_disciplinare" type="xs:string" minOccurs="0" />
+              <xs:element name="attivo" type="xs:string" minOccurs="0" />
+              <xs:element name="bibliografia" type="xs:string" minOccurs="0" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="competenze_uscita" type="xs:string" minOccurs="0" />
+              <xs:element name="created" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="creda" type="xs:int" minOccurs="0" />
+              <xs:element name="credb" type="xs:int" minOccurs="0" />
+              <xs:element name="credc" type="xs:int" minOccurs="0" />
+              <xs:element name="credd" type="xs:int" minOccurs="0" />
+              <xs:element name="crede" type="xs:int" minOccurs="0" />
+              <xs:element name="credf" type="xs:int" minOccurs="0" />
+              <xs:element name="debiti" type="xs:string" minOccurs="0" />
+              <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+              <xs:element name="edit_operator_user_id" type="xs:string" minOccurs="0" />
+              <xs:element name="english" type="xs:string" minOccurs="0" />
+              <xs:element name="esame_abilitazione" type="xs:string" minOccurs="0" />
+              <xs:element name="fit_area_id" type="xs:string" minOccurs="0" />
+              <xs:element name="frequenza_minima" type="xs:string" minOccurs="0" />
+              <xs:element name="frequenza_minima_debito" type="xs:string" minOccurs="0" />
+              <xs:element name="id" type="xs:int" />
+              <xs:element name="idoneita" type="xs:string" minOccurs="0" />
+              <xs:element name="iterabile" type="xs:string" minOccurs="0" />
+              <xs:element name="livello" type="xs:string" minOccurs="0" />
+              <xs:element name="modalita" type="xs:string" minOccurs="0" />
+              <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="mutuabile" type="xs:string" minOccurs="0" />
+              <xs:element name="name" type="xs:string" minOccurs="0" />
+              <xs:element name="obiettivi" type="xs:string" minOccurs="0" />
+              <xs:element name="operator_user_id" type="xs:int" minOccurs="0" />
+              <xs:element name="ore" type="xs:string" minOccurs="0" />
+              <xs:element name="programma" type="xs:string" minOccurs="0" />
+              <xs:element name="scelta_docente" type="xs:string" minOccurs="0" />
+              <xs:element name="settore" type="xs:string" minOccurs="0" />
+              <xs:element name="sitografia" type="xs:string" minOccurs="0" />
+              <xs:element name="teachingtype_id" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:annoaccademico" />
+      <xs:field xpath="mstns:aa" />
+    </xs:unique>
+    <xs:unique name="firenet_teachings_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:firenet_teachings" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

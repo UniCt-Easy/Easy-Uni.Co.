@@ -6,6 +6,7 @@
         <xs:element name="sostenimentoesito" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="active" type="xs:string" />
               <xs:element name="idsostenimentoesito" type="xs:int" />
               <xs:element name="title" type="xs:string" />
             </xs:sequence>
@@ -49,6 +50,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="aa" type="xs:string" minOccurs="0" />
+              <xs:element name="appellokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="corsostudio_annoistituz" type="xs:int" minOccurs="0" />
               <xs:element name="corsostudio_title" type="xs:string" minOccurs="0" />
               <xs:element name="didprog_annosolare" type="xs:int" minOccurs="0" />
@@ -60,6 +62,8 @@
               <xs:element name="didprog_freqobbl" type="xs:string" minOccurs="0" />
               <xs:element name="didprog_idareadidattica" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_idconvenzione" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_idcorsostudiokind" type="xs:int" minOccurs="0" />
+              <xs:element name="didprog_idcorsostudiolivello" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_iddidprognumchiusokind" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_iddidprogsuddannokind" type="xs:int" minOccurs="0" />
               <xs:element name="didprog_iderogazkind" type="xs:int" minOccurs="0" />
@@ -83,9 +87,9 @@
               <xs:element name="didprog_website" type="xs:string" minOccurs="0" />
               <xs:element name="didprognumchiusokind_title" type="xs:string" minOccurs="0" />
               <xs:element name="dropdown_title" type="xs:string" />
-              <xs:element name="geo_nationlang_title" type="xs:string" minOccurs="0" />
-              <xs:element name="geo_nationlang2_title" type="xs:string" minOccurs="0" />
-              <xs:element name="geo_nationlangvis_title" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nationlang_lang" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nationlang2_lang" type="xs:string" minOccurs="0" />
+              <xs:element name="geo_nationlangvis_lang" type="xs:string" minOccurs="0" />
               <xs:element name="graduatoria_title" type="xs:string" minOccurs="0" />
               <xs:element name="idcorsostudio" type="xs:int" />
               <xs:element name="iddidprog" type="xs:int" />
@@ -96,6 +100,8 @@
               <xs:element name="idsede" type="xs:int" minOccurs="0" />
               <xs:element name="idsessione" type="xs:int" minOccurs="0" />
               <xs:element name="sede_title" type="xs:string" minOccurs="0" />
+              <xs:element name="sessione_idappellokind" type="xs:int" minOccurs="0" />
+              <xs:element name="sessione_idsessionekind" type="xs:int" minOccurs="0" />
               <xs:element name="sessione_start" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessione_stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="sessionekind_title" type="xs:string" minOccurs="0" />
@@ -146,6 +152,7 @@
     </xs:unique>
     <xs:unique name="didprogingressoview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:didprogingressoview" />
+      <xs:field xpath="mstns:idcorsostudio" />
       <xs:field xpath="mstns:iddidprog" />
     </xs:unique>
     <xs:unique name="annoaccademico_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">

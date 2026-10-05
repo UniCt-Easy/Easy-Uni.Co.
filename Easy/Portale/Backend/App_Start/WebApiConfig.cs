@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,9 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-using Backend.CommonBackend;
-using Backend.Security;
 using System;
 using System.Net;
 using System.Threading;
@@ -26,15 +22,17 @@ using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using System.Web.Http.Controllers;
+using System.Collections;
 using System.Linq;
 using System.Net.Http;
-using Backend.Extensions;
+
 using metaeasylibrary;
-using System.Collections;
-using Backend.Data;
-using System.Data;
 using metadatalibrary;
-using System.Collections.Generic;
+
+using Backend.CommonBackend;
+using Backend.Security;
+using Backend.Extensions;
+using Backend.Extra;
 
 namespace Backend {
 
@@ -50,7 +48,7 @@ namespace Backend {
         public const string ExpiredSession = "ExpiredSession";
         public const string BadCredential = "BadCredential";
         public const string DataNotPermitted = "DataNotPermitted";
-        public const string TokenEmpty = "TokenEmpty";
+        public const string TokenEmpty = "YOUR_SECRET";
         public const string UserNotSecurity = "UserNotSecurity";
         public const string DataContabileMissing = "DataContabileMissing";
         public const string AnonymousNotPermitted = "AnonymousNotPermitted";
@@ -88,7 +86,7 @@ namespace Backend {
             );
 
 
-            //Di questo non c'è bisogno se si usa il routing tramite gli attributi   (attributi Route dei controllers)
+            //Di questo non c'Ã¨ bisogno se si usa il routing tramite gli attributi   (attributi Route dei controllers)
             // config.Routes.MapHttpRoute(
             //    name: "Default",
             //    routeTemplate: "static/{filename}",
@@ -107,13 +105,21 @@ namespace Backend {
             // viene cachata ogni volta sulla release della connessione nel pool
             //----> usrConn.readStructuresFromDb();
             var dbs = usrConn.getStructures();
-            CacheMDLW.dbStructureCache = dbs;
 
+            CacheMDLW.SecurityCacheEnabled = bool.TryParse(WebConfigurationManager.AppSettings["enableSecurityCache"], out var securityResult) && securityResult;
+            CacheMDLW.MetadataCacheEnabled = !(!bool.TryParse(WebConfigurationManager.AppSettings["enableMetadataCache"], out var metadataResult) || !metadataResult);
+            CacheMDLW.dbStructureCache = dbs;
             // popola le strutture dati per i metadati gestiti centralizzati da portale
             CacheMDLW.manageMetaDataPortaleCache(usrConn);
-         
-        }
 
+            var rootLogger = new BackendLogger(dispatcher, BackendLogger.LogLevel.Trace);
+            BackendLoggerService.Initialize(rootLogger);
+
+            ProtocollerService.Initialize(dispatcher);
+
+            ProtocolLogPreserver.Initialize(dispatcher);
+            //ProtocolLogPreserver.Instance?.HandleDailyLog(new DateTime(2026, 1, 28));  // debug
+        }
     }
 
     /// <summary>
@@ -122,7 +128,7 @@ namespace Backend {
     public class EasyAuthenticationFilter : IAuthenticationFilter {
 
         /// <summary>
-        /// Indica se è possibile avere più istanze del filtro nella stessa applicazione.
+        /// Indica se Ã¨ possibile avere piÃ¹ istanze del filtro nella stessa applicazione.
         /// </summary>
         public bool AllowMultiple { get { return false; } }
 
@@ -167,7 +173,7 @@ namespace Backend {
             }
 
             // recuperare il guid per la sessione e  popolare le var di ambiente 
-            // a partire dalla cache. Troverò qui anche idreg, aggiunta in fase di login
+            // a partire dalla cache. TroverÃ² qui anche idreg, aggiunta in fase di login
             var gsession = identity.guidsession;
             var sessionInfo = SessionMDLW.getAndUseSessionFromGuid(gsession);
 
@@ -199,14 +205,14 @@ namespace Backend {
                     sec.SetUsr(pair.Key.ToString(), pair.Value);
                 }
 
-                // leggo da cache sessione il GroupOperations che è preso dalla cache e lo applico alla sicurezza
+                // leggo da cache sessione il GroupOperations che Ã¨ preso dalla cache e lo applico alla sicurezza
                 sec.groupOperations = CacheMDLW.getGroupOperations(sessionInfo.sys_user);
             }
             
-            // set della var anonymous. dovrò configurare su user e flowchart un identity.Name = Security.Role.Anonymous
+            // set della var anonymous. dovrÃ² configurare su user e flowchart un identity.Name = Security.Role.Anonymous
             sec.SetUsr("anonymous", identity.IsAnonymous);
                                     
-            // 3. salvo sul contesto http il dispatcher per la connessione, così lo posso utilizzare per la logica di business del metodo
+            // 3. salvo sul contesto http il dispatcher per la connessione, cosÃ¬ lo posso utilizzare per la logica di business del metodo
             HttpContext.Current.Items["DataDispatcher"] = dispatcher;
             HttpContext.Current.Items["SessionInfo"] = sessionInfo;
             HttpContext.Current.Items["Identity"] = identity;
@@ -220,7 +226,7 @@ namespace Backend {
         }
 
         /// <summary>
-        /// Contesta la richiesta se l'autenticazione non è stata completata correttamente. 
+        /// Contesta la richiesta se l'autenticazione non Ã¨ stata completata correttamente. 
         /// </summary>
         /// <param name="context">Contesto dell'autenticazione HTTP.</param>
         /// <param name="cancellationToken">Token per l'annullamento del thread.</param>
@@ -247,7 +253,9 @@ namespace Backend {
                 var firstState = modelState.Values.First();
                 var firstError = firstState.Errors.First();
 
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, firstError.ErrorMessage);
+                var message = string.IsNullOrWhiteSpace( firstState.Errors.First().ErrorMessage) ? firstState.Errors.First().Exception.Message : firstState.Errors.First().ErrorMessage;
+
+                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
             }
         }
 
@@ -279,7 +287,7 @@ namespace Backend {
         /// <param name="e">Argomenti dell'evento.</param>
         private void Context_BeginRequest(object sender, EventArgs e) {
 
-            // DEPRECATO non lo fa più qua, ma sulla login , calcola la sicurezza e mette sul token i prm nDetail e idflowChart
+            // DEPRECATO non lo fa piÃ¹ qua, ma sulla login , calcola la sicurezza e mette sul token i prm nDetail e idflowChart
 
           /*  var dispatcher = new Dispatcher(
                     "EasyPay",

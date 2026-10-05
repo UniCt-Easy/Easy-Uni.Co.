@@ -3,14 +3,6 @@
   <xs:element name="dsmeta_protocollodocelement_seg" msdata:IsDataSet="true" msdata:Locale="it-IT">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="protocollodockind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="idprotocollodockind" type="xs:int" />
-              <xs:element name="title" type="xs:string" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="protocollodocelement_alias1" msprop:TableForReading="protocollodocelement" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -21,6 +13,20 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="protocollodockind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="idprotocollodockind" type="xs:int" />
+              <xs:element name="kind" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="sortcode" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="protocollodocelement" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -28,7 +34,7 @@
               <xs:element name="cu" type="xs:string" minOccurs="0" />
               <xs:element name="idprotocollodoc" type="xs:int" />
               <xs:element name="idprotocollodocelement" type="xs:int" />
-              <xs:element name="idprotocollodocelement_primo" type="xs:int" />
+              <xs:element name="idprotocollodocelement_primo" type="xs:int" minOccurs="0" />
               <xs:element name="idprotocollodockind" type="xs:int" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="lu" type="xs:string" minOccurs="0" />
@@ -43,15 +49,15 @@
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:protocollodockind" />
-      <xs:field xpath="mstns:idprotocollodockind" />
-    </xs:unique>
-    <xs:unique name="protocollodocelement_alias1_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:protocollodocelement_alias1" />
       <xs:field xpath="mstns:idprotocollodoc" />
       <xs:field xpath="mstns:idprotocollodocelement" />
       <xs:field xpath="mstns:protanno" />
       <xs:field xpath="mstns:protnumero" />
+    </xs:unique>
+    <xs:unique name="protocollodockind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:protocollodockind" />
+      <xs:field xpath="mstns:idprotocollodockind" />
     </xs:unique>
     <xs:unique name="protocollodocelement_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:protocollodocelement" />
@@ -63,8 +69,8 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_protocollodocelement_protocollodockind_idprotocollodockind" msdata:parent="protocollodockind" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodockind" msdata:childkey="idprotocollodockind" />
       <msdata:Relationship name="FK_protocollodocelement_protocollodocelement_alias1_idprotocollodocelement_primo" msdata:parent="protocollodocelement_alias1" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodocelement" msdata:childkey="idprotocollodocelement_primo" />
+      <msdata:Relationship name="FK_protocollodocelement_protocollodockind_idprotocollodockind" msdata:parent="protocollodockind" msdata:child="protocollodocelement" msdata:parentkey="idprotocollodockind" msdata:childkey="idprotocollodockind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

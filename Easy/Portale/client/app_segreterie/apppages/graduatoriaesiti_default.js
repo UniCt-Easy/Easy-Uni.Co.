@@ -28,7 +28,7 @@
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (!parentRow.provvisoria)
+				if (this.isNull(parentRow.provvisoria) || parentRow.provvisoria == '')
 					parentRow.provvisoria = "S";
 				//beforeFillFilter
 				
@@ -63,6 +63,8 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
 
 			//buttons
         });

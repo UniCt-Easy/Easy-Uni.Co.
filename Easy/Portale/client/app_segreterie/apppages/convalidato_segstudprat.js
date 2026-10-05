@@ -29,21 +29,8 @@
 
 			//afterFill
 
-			//afterLink
-
-			afterRowSelect: function (t, r) {
-				var def = appMeta.Deferred("afterRowSelect-convalidato_segstudprat");
-				if (t.name === "didprog" && r !== null) {
-					this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprog", r.iddidprog));
-					if (this.state.DS.tables.attivformdefaultview.rows.length)
-						if (this.state.DS.tables.attivformdefaultview.rows[0].iddidprog !== r.iddidprog) {
-							this.state.DS.tables.attivformdefaultview.clear();
-							$('#convalidato_segstudprat_idattivform').val('');
-						}
-				}
-				//afterRowSelectin
-				return def.resolve();
-			},
+			
+			//afterRowSelect
 
 			//afterActivation
 
@@ -52,6 +39,30 @@
 			//buttonClickEnd
 
 			//insertClick
+
+			//beforePost
+
+			afterLink: function () {
+	var self = this;
+
+	appMeta.metaModel.insertFilter(this.getDataTable("changeskinddefaultview"), this.q.eq('changeskind_active', 'Si'));
+	this.state.DS.tables.attivformdefaultview.staticFilter(window.jsDataQuery.eq("iddidprog", this.state.callerState.currentRow.iddidprog));
+				//fireAfterLink
+	return this.superClass.afterLink.call(this).then(function () {
+		var arraydef = [];
+
+		arraydef.push(
+			self.getAttivformByIscrizione(self.state.callerState.currentRow.idiscrizione)
+				.then(function (idattivforms) {
+					var selBuilderArray = [];
+					selBuilderArray.push({ filter: self.q.isIn('idattivform', idattivforms), top: null, tableName: 'attivformdefaultview', table: self.getDataTable('attivformdefaultview') });
+					return appMeta.getData.multiRunSelect(selBuilderArray);
+				})
+		);
+		//fireAfterLinkAsinc
+		return $.when.apply($, arraydef);
+	});
+},
 
 			//buttons
         });

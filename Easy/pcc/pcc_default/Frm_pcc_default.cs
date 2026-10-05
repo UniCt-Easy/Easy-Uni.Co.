@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -166,7 +164,7 @@ namespace pcc_default {
                                 " where " + filterAll;
                 DataTable tRegistry = Conn.SQLRunner(script, true);
                 if (tRegistry == null || tRegistry.Rows.Count == 0) {
-                    show(this, "Non Ë stato trovata una Angrafica con CF o P.iva, uguali a quelli indicati nella licenza");
+                    show(this, "Non √® stato trovata una Angrafica con CF o P.iva, uguali a quelli indicati nella licenza");
                     return;
                 }
                 idreg = tRegistry.Rows[0]["idreg"];
@@ -232,7 +230,7 @@ namespace pcc_default {
                                 " where " + filterAll;
                 DataTable tRegistry = Conn.SQLRunner(script, true);
                 if (tRegistry == null || tRegistry.Rows.Count == 0) {
-                    show(this, "Non Ë stato trovata una Angrafica con CF o P.iva, uguali a quelli indicati nella licenza");
+                    show(this, "Non √® stato trovata una Angrafica con CF o P.iva, uguali a quelli indicati nella licenza");
                     return;
                 }
                 idreg = tRegistry.Rows[0]["idreg"];
@@ -320,7 +318,7 @@ namespace pcc_default {
             string variabile = "";
             foreach (DataRow r in DT.Rows) {
                 foreach (DataColumn C in DT.Columns) {
-                    // quando  lo stato della fattura Ë diversa da LIQ, LIQDASOSP LIQDANL (ovvero tutti gli stati che determinano la liquidabilit‡ della fattura) 
+                    // quando  lo stato della fattura √® diversa da LIQ, LIQDASOSP LIQDANL (ovvero tutti gli stati che determinano la liquidabilit√† della fattura) 
                     //  la natura della spesa deve essere sovrascritta con il codice NAII  (task 6178)
                     //Cambiate le cose col task 8424: solo per gli stati elencati la natura di spesa va sovrascritta con NA
                     if (DT.Columns.Contains("statodeldebito") && DT.Columns.Contains("naturadispesa_co")) {
@@ -347,7 +345,7 @@ namespace pcc_default {
 
 
                     if (C.ColumnName == "aliquotaiva") {
-                        //se natura non Ë stringa vuota o Ë NA, allora non Ë ammessa l'aliquota
+                        //se natura non √® stringa vuota o √® NA, allora non √® ammessa l'aliquota
                         if (r["natura"].ToString() != "" && r["natura"].ToString().ToUpper() != "NA") {
                             variabile = format("NA");
                         }
@@ -407,8 +405,8 @@ namespace pcc_default {
                         "Versione del modello;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                         "Utente che trasmette il file (Codice Fiscale);" + CFTrasmittente + ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                         "DATI AMMINISTRAZIONE (SDI 1.4 CessionarioCommittente);;;DATI FORNITORE (SDI 1.2 CedentePrestatore);;;LOTTO;DATI FATTURA;;;;;;;;;;;;;;;;;;;;;;ESITO ELABORAZIONE;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-                        "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario);Denominazione Amministrazione* - Specificare la denominazione dell'Amministrazione destinataria del documento (SDI 1.4.1.3 Anagrafica); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Denominazione Fornitore* - Specificare la denominazione del Fornitore che ha emesso il documento (SDI 1.2.1.3 Anagrafica);Descrizione distinta o lotto* - Specificare una descrizione o numero relativo all'invio  (SDI 1.1.2 ProgressivoInvio);DATI GENERALI (SDI 2.1 DatiGenerali);;;;;;;;RIEPILOGO ALIQUOTE (SDI 2.2.2 DatiRiepilogo);;;;DISTRIBUZIONE PER CIG/CUP (SDI 2.2.1 DettaglioLinee);;;DETTAGLIO PAGAMENTO (SDI 2.4.2 DettaglioPagamento);;;;RICEZIONE;;;Forzatura immissione - Consente di specificare l'azione da eseguire nei casi di segnalazione di sospetto duplicato.  AG: Aggiungi la fattura come nuova /  SO: Sovrascivi la fattura gi‡ presente;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-                        ";;;;;;;Tipo Documento* - Specificare TD01: fattura /  TD02: acconto/anticipo su fattura /  TD03: acconto/anticipo su parcella /  TD04: nota di credito /  TD05: nota di debito /  TD06: parcella (SDI 2.1.1.1 TipoDocumento);Numero fattura* (SDI 2.1.1.4 Numero);Data emissione* (SDI 2.1.1.3 Data);Importo totale documento* (SDI 2.1.1.9 ImportoTotaleDocumento);Descrizione / Causale* (SDI 2.1.1.11 Causale);Art. 73 - Specificare SI  - Documento emesso secondo le modalit‡ stabilite con DM ai sensi dell'art. 73 DPR 633/72 (SDI  2.1.1.12 Art73);Totale imponibile della fattura* (SDI  somma di 2.2.2.5 ImponibileImporto);Totale imposta della fattura* (SDI  somma di 2.2.2.6 Imposta);Aliquota IVA (SDI 2.2.2.1 AliquotaIVA);Codice Esenzione IVA (SDI 2.2.2.2 Natura);Totale Imponibile per aliquota (SDI 2.2.2.5 Imposta);Totale Imposta per aliquota (SDI 2.2.2.6 Imposta);Importo per CIG/CUP (SDI Somma di 2.2.1.11 PrezzoTotale + applicazione 2.2.1.12 AliquotaIVA);Codice CIG - Codice Identificativo della gara (SDI  2.1.2.7 CIG);Codice CUP - Codice Unitario Progetto (SDI 2.1.2.6 CUP);Data riferimento termini di pagamento - Specificare la data dalla quale decorrono i termini di pagamento (SDI 2.4.2.3 DataRiferimentoTerminiPagamento);Giorni termini pagamento - Specificare il numero di giorni entro i quali sar‡ effettuato il pagamento  (SDI 2.4.2.4 GiorniTerminiPagamento);Data scadenza pagamento (SDI 2.4.2.5 DataScadenzaPagamento);Importo Pagamento (SDI 2.4.2.6 ImportoPagamento);Numero Protocollo in Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n";
+                        "Codice Fiscale* - Specificare il Codice Fiscale della Amministrazione destinataria del documento (SDI 1.4.1.2 CodiceFiscale);Codice Ufficio* - Specificare il Codice Univoco Ufficio di IPA oppure il Codice Ufficio PCC (SDI   1.1.4 CodiceDestinatario);Denominazione Amministrazione* - Specificare la denominazione dell'Amministrazione destinataria del documento (SDI 1.4.1.3 Anagrafica); Codice Fiscale* - Specificare il Codice Fiscale del Fornitore che ha emesso il documento (SDI  1.2.1.2 CodiceFiscale);Id Fiscale IVA* - Specificare il numero di identificazione fiscale ai fini IVA nel formato IT12345678901  (SDI  1.2.1.1 IdFiscaleIVA);Denominazione Fornitore* - Specificare la denominazione del Fornitore che ha emesso il documento (SDI 1.2.1.3 Anagrafica);Descrizione distinta o lotto* - Specificare una descrizione o numero relativo all'invio  (SDI 1.1.2 ProgressivoInvio);DATI GENERALI (SDI 2.1 DatiGenerali);;;;;;;;RIEPILOGO ALIQUOTE (SDI 2.2.2 DatiRiepilogo);;;;DISTRIBUZIONE PER CIG/CUP (SDI 2.2.1 DettaglioLinee);;;DETTAGLIO PAGAMENTO (SDI 2.4.2 DettaglioPagamento);;;;RICEZIONE;;;Forzatura immissione - Consente di specificare l'azione da eseguire nei casi di segnalazione di sospetto duplicato.  AG: Aggiungi la fattura come nuova /  SO: Sovrascivi la fattura gi√† presente;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
+                        ";;;;;;;Tipo Documento* - Specificare TD01: fattura /  TD02: acconto/anticipo su fattura /  TD03: acconto/anticipo su parcella /  TD04: nota di credito /  TD05: nota di debito /  TD06: parcella (SDI 2.1.1.1 TipoDocumento);Numero fattura* (SDI 2.1.1.4 Numero);Data emissione* (SDI 2.1.1.3 Data);Importo totale documento* (SDI 2.1.1.9 ImportoTotaleDocumento);Descrizione / Causale* (SDI 2.1.1.11 Causale);Art. 73 - Specificare SI  - Documento emesso secondo le modalit√† stabilite con DM ai sensi dell'art. 73 DPR 633/72 (SDI  2.1.1.12 Art73);Totale imponibile della fattura* (SDI  somma di 2.2.2.5 ImponibileImporto);Totale imposta della fattura* (SDI  somma di 2.2.2.6 Imposta);Aliquota IVA (SDI 2.2.2.1 AliquotaIVA);Codice Esenzione IVA (SDI 2.2.2.2 Natura);Totale Imponibile per aliquota (SDI 2.2.2.5 Imposta);Totale Imposta per aliquota (SDI 2.2.2.6 Imposta);Importo per CIG/CUP (SDI Somma di 2.2.1.11 PrezzoTotale + applicazione 2.2.1.12 AliquotaIVA);Codice CIG - Codice Identificativo della gara (SDI  2.1.2.7 CIG);Codice CUP - Codice Unitario Progetto (SDI 2.1.2.6 CUP);Data riferimento termini di pagamento - Specificare la data dalla quale decorrono i termini di pagamento (SDI 2.4.2.3 DataRiferimentoTerminiPagamento);Giorni termini pagamento - Specificare il numero di giorni entro i quali sar√† effettuato il pagamento  (SDI 2.4.2.4 GiorniTerminiPagamento);Data scadenza pagamento (SDI 2.4.2.5 DataScadenzaPagamento);Importo Pagamento (SDI 2.4.2.6 ImportoPagamento);Numero Protocollo in Entrata;Data ricezione - Specificare la data di ricezione da parte della PA. Se omessa, viene assunta come data di ricezione quella in cui viene caricato il file;Note;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n";
             }
             if (kind == "O") {
                 valore = 
@@ -418,7 +416,7 @@ namespace pcc_default {
                     "Utente che trasmette il file (Codice Fiscale);" + CFTrasmittente + ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                     "DATI IDENTIFICATIVI FATTURA*;;;;;;TIPO OPERAZIONE*;VARIAZIONE IMPORTI DOCUMENTI Tutti i campi sono obbligatori Sezione da compilare solo per le righe del modello per le quali Azione = 'SID';;;;;;;;;;REGIME IVA Sezione da compilare solo per le righe del modello per le quali Azione = 'MI';RICEZIONE / RIFIUTO / COMUNICAZIONE SCADENZA Sezione da compilare solo per le righe del modello per le quali Azione = 'RC' Azione = 'RF' Azione = 'CS';;ESITO ELABORAZIONE;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                     "IDENTIFICATIVO 1;;IDENTIFICATIVO 3 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
-                    "Numero progressivo di registrazione;IDENTIFICATIVO 2 ;;Data documento (SDI 2.1.1.3 Data);Codice fiscale fornitore;Codice ufficio;Azione ;Imponibile;Imposta;Importo non commerciale*;Importo sospeso in Contenzioso*;Data inizio sospesione in Contenzioso*;Importo sospeso in contestazione/adempimenti normativi*;Data inizio sospesione in contestazione /adempimenti normativi*;Importo sospeso per data esito regolare verifica di conformit‡*;Data inizio sospensione per data esito regolare verifica di conformit‡*;Importo non liquidabile*;Flag split (S/N);Data;Numero protocollo di entrata;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
+                    "Numero progressivo di registrazione;IDENTIFICATIVO 2 ;;Data documento (SDI 2.1.1.3 Data);Codice fiscale fornitore;Codice ufficio;Azione ;Imponibile;Imposta;Importo non commerciale*;Importo sospeso in Contenzioso*;Data inizio sospesione in Contenzioso*;Importo sospeso in contestazione/adempimenti normativi*;Data inizio sospesione in contestazione /adempimenti normativi*;Importo sospeso per data esito regolare verifica di conformit√†*;Data inizio sospensione per data esito regolare verifica di conformit√†*;Importo non liquidabile*;Flag split (S/N);Data;Numero protocollo di entrata;Codice segnalazione;Descrizione segnalazione;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" +
                     ";Lotto SDI;Numero fattura(SDI 2.1.1.4 Numero);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + "\r\n" ;
             }
             if (kind == "P") {
@@ -462,7 +460,7 @@ namespace pcc_default {
             //txtPercorso.Text = NomeCompletoFileCSV;
             
             try {
-                string S = MyDataTableToCSV(suffisso, DT, false);// il secondo parametro Ë l'header, ma impostato a false
+                string S = MyDataTableToCSV(suffisso, DT, false);// il secondo parametro √® l'header, ma impostato a false
                 StreamWriter SWR = new StreamWriter(completename, false, Encoding.Default);
                 SWR.Write(S);
                 SWR.Close();
@@ -515,7 +513,7 @@ namespace pcc_default {
             }
         }
         private string TipoOperazione(DataTable T) {
-            //return "O";//Per il momento sar‡ solo O
+            //return "O";//Per il momento sar√† solo O
             //Prendiamo la prima riga con i dati
             if (T == null) return "";
             DataRow R = T.Rows[0];
@@ -525,7 +523,7 @@ namespace pcc_default {
                 return "P";
             }
             if (colonnaC=="SID" || colonnaC == "MI"|| colonnaC == "CS") {
-                //Ë una operazione sul documento
+                //√® una operazione sul documento
                 return "O";
             }
 
@@ -579,7 +577,7 @@ namespace pcc_default {
             public Dictionary<string, object> campi = new Dictionary<string, object>();
             public campiSkeleton(DataRow r) {
                 //Riempie il dictionary a partire da r eventualmente facendo i round, trim, e lower del caso per rendere omogenea la struttura risultante
-                //Per esempio (due campi a caso, non Ë importante il nome che si da al campo basta che sono tra loro diversi)
+                //Per esempio (due campi a caso, non √® importante il nome che si da al campo basta che sono tra loro diversi)
                 campi["IDENTIFICATIVO_1"] = standardize(r[0].ToString());
                 campi["IDENTIFICATIVO_2_a"] = standardize(r[1].ToString());
                 campi["IDENTIFICATIVO_2_b"] = standardize(r[2].ToString());
@@ -783,7 +781,7 @@ namespace pcc_default {
 				//if ((colonnaG == "CO") || (colonnaG == "COF")) {
 				//	// Deve cancellare da pccexpense
 				//	if (!CancellazioneRigaPccexpenseEseguita(R)) {
-				//		return;//C'Ë stato un errore e interrompe l'operazione
+				//		return;//C'√® stato un errore e interrompe l'operazione
 				//	}
 				//}
 				if (colonnaG == "CS") {
@@ -914,13 +912,13 @@ namespace pcc_default {
             DataRow[] Rows = DS.pccdocamountvarview.Select(filterAll, null);
             // AGGIUNGERE GLI IMPORTI AL MESSAGGIO
             if (Rows.Length == 0) {
-                show(this, "Non Ë stato trovata la riga di operazione SID avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di operazione SID avente:\r\n" +
                         "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] +
                          ", \nData scadenza " + R["c18"]);
                 return false;
             }
             if (Rows.Length > 1) {
-                show(this, "Non Ë stato trovata la riga di operazione SID avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di operazione SID avente:\r\n" +
                             "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] );
                 return false;
             }
@@ -945,13 +943,13 @@ namespace pcc_default {
 
             DataRow[] Rows = DS.pccsplitpaymentview.Select(filterAll, null);
             if (Rows.Length == 0) {
-                show(this, "Non Ë stato trovata la riga di Split Payment avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di Split Payment avente:\r\n" +
                         "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] +
                           ", \nFlag split (S/N) " + R["c17"]);
                 return false;
             }
             if (Rows.Length > 1) {
-                show(this, "Non Ë stato trovata la riga di Scadenza avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di Scadenza avente:\r\n" +
                             "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] +
                              ", \nFlag split (S/N) " + R["c17"]);
                 return false;
@@ -976,13 +974,13 @@ namespace pcc_default {
 
             DataRow[] Rows = DS.pccexpiringview.Select(filterAll, null);
             if (Rows.Length == 0) {
-                show(this, "Non Ë stato trovata la riga di Scadenza avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di Scadenza avente:\r\n" +
                         "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] +" "+ R["c4"] + " " + R["c5"] + 
                          ", \nData scadenza " + R["c18"]);
                 return false;
             }
             if (Rows.Length > 1) {
-                show(this, "Non Ë stato trovata la riga di Scadenza avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di Scadenza avente:\r\n" +
                             "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] +
                              ", \nData scadenza " + R["c18"]);
                 return false;
@@ -1004,12 +1002,12 @@ namespace pcc_default {
 
             DataRow[] Rows = DS.pccpaymentview.Select(filtro, null);
             if (Rows.Length == 0) {
-                show(this, "Non Ë stato trovata la riga di Pagamento avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di Pagamento avente:\r\n" +
                         "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] );
                 return false;
             }
             if (Rows.Length > 1) {
-                show(this, "Non Ë stato trovata la riga di Pagamento avente:\r\n" +
+                show(this, "Non √® stato trovata la riga di Pagamento avente:\r\n" +
                             "Identificativo 2 :" + R["c1"] + " " + R["c2"] + ", \n Identificativo 3:" + R["c3"] + " " + R["c4"] + " " + R["c5"] );
                 return false;
             }
@@ -1038,8 +1036,8 @@ namespace pcc_default {
                 //      6-num.fattura, 7-data emissione, 8-Importo tot.doc.,   >>>>>     Sono indentificativi della fattura 
                 QHC.CmpEq("numerodocumento", R["c6"]), QHC.CmpEq("dataemissione", (DateTime)R["c7"]), QHC.CmpEq("ImportoTotaleDocumento", CfgFn.GetNoNullDecimal(R["c8"])),
                 //     14-Importo del mov., 15-natura, 17-stato del debito, 19-descrizione, 30-num.impegno, 21-cig, 22-cup, >>>>> Sezione CONTABILIZZAZIONE
-                //QHC.CmpEq("amount", CfgFn.GetNoNullDecimal(R["c14"])),  Togliamo il confronto con l'importo perchË in fase di trasmissione i dettagli sono stati ragguppati, 
-                //per cui puÚ capitare di avere un dettaglio nel file di esito e due o tre dettagli nel DB/pccexpense.
+                //QHC.CmpEq("amount", CfgFn.GetNoNullDecimal(R["c14"])),  Togliamo il confronto con l'importo perch√® in fase di trasmissione i dettagli sono stati ragguppati, 
+                //per cui pu√≤ capitare di avere un dettaglio nel file di esito e due o tre dettagli nel DB/pccexpense.
                 filterNA,
                 //QHC.CmpEq("expensetaxkind", R["c17"]),
                 // 18 - Causale
@@ -1048,7 +1046,7 @@ namespace pcc_default {
 
             DataRow[] Rows = DS.pccexpenseview.Select(filtro, null);
             if (Rows.Length == 0) {
-                show(this, "Non Ë stata trovata la riga di Contabilizzazione avente:\r\n" +
+                show(this, "Non √® stata trovata la riga di Contabilizzazione avente:\r\n" +
                         "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"] +
                         "\nData emissione:" + R["c7"] +
                         //"\nnatura:"+R["c15"]+"\nstato debito:"+R["c17"]+
@@ -1058,7 +1056,7 @@ namespace pcc_default {
                 return false;
             }
             if (Rows.Length > 1) {
-                // Controlla che la somma dell'importo delle righe che sto cancellando sia uguale all'importo della riga del file di esito. Se Ë uguale, cancella le righe, altrimenti comunica l'errore.
+                // Controlla che la somma dell'importo delle righe che sto cancellando sia uguale all'importo della riga del file di esito. Se √® uguale, cancella le righe, altrimenti comunica l'errore.
                 decimal amountEsito = CfgFn.GetNoNullDecimal(R["c14"]);
                 decimal amountPccexpense = 0;
                 foreach (DataRow r in Rows) {
@@ -1070,7 +1068,7 @@ namespace pcc_default {
                     }
                 }
                 else {
-                    show(this, "Sono state trovare pi˘ righe di Contabilizzazione aventi:\r\n" +
+                    show(this, "Sono state trovare pi√π righe di Contabilizzazione aventi:\r\n" +
                             "P.iva: " + p_iva + ",\nCF:" + R["c2"] + ",\nNum.Documento " + R["c6"] +
                         "\nData emissione:" + R["c7"] +
                         //"\nnatura:" + R["c15"] + "\nstato debito:" + R["c17"] +
@@ -1263,7 +1261,7 @@ namespace pcc_default {
 			//               "CurrencyThousandSymbol=\r\n" +
 			//               "CurrencyDecimalSymbol=.\r\n" +
 			//               "CurrencyDigits=2\r\n" +
-			//               "CurrencySymbol= Ä\r\n" +
+			//               "CurrencySymbol= ‚Ç¨\r\n" +
 			//                        "ColNameHeader = False";
 			//    dtEsito = model.Clone();
 			//    if (dtEsito.Columns.Contains("codicesegnalazione")) {
@@ -1414,19 +1412,19 @@ namespace pcc_default {
 
         decimal getImportoFromStringa(string importo) {
             if (importo.EndsWith(".") || importo.EndsWith(",")) importo = importo.Substring(0, importo.Length - 1);
-            importo = importo.Replace("Ä", "");
+            importo = importo.Replace("‚Ç¨", "");
             importo = importo.Trim();
             int dotPos = importo.IndexOf('.');
             int lastDotPos = importo.LastIndexOf('.');
             if (lastDotPos != dotPos) {
-                //rimuove la prima occorrenza del punto  se ce ne sono due o pi˘
+                //rimuove la prima occorrenza del punto  se ce ne sono due o pi√π
                 return getImportoFromStringa(importo.Remove(dotPos, 1));
             }
 
             int commaPos = importo.IndexOf(',');
             int lastCommaPos = importo.LastIndexOf(',');
             if (lastCommaPos != commaPos) {
-                //rimuove la prima occorrenza della virgola  se ce ne sono due o pi˘
+                //rimuove la prima occorrenza della virgola  se ce ne sono due o pi√π
                 return getImportoFromStringa(importo.Remove(commaPos, 1));
             }
 
@@ -1440,13 +1438,13 @@ namespace pcc_default {
                 return getImportoFromStringa(importo.Replace(",", ""));
             }
 
-            //c'Ë uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
+            //c'√® uno solo dei due, normalizza la stringa con solo il punto decimale (che  potrebbe essere anche un punto di separazione delle migliaia)
             if (commaPos >= 0) return getImportoFromStringa(importo.Replace(',', '.'));
 
-            //A questo punto c'Ë solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
+            //A questo punto c'√® solo un punto, e dobbiamo decidere se cancellarlo o considerarlo un punto decimale o delle migliaia
             //Lo consideriamo un punto decimale se seguito da 1 o due cifre numeriche
             if (dotPos < importo.Length - 3) {
-                //Altrimenti Ë un punto/virgola delle migliaia e lo togliamo
+                //Altrimenti √® un punto/virgola delle migliaia e lo togliamo
                 importo = importo.Replace(".", "");
             }
 
@@ -1458,12 +1456,30 @@ namespace pcc_default {
         private void btnSalvaFile_Click(object sender, EventArgs e) {
             if (Meta.IsEmpty) return;
             DataRow Curr = DS.pcc.Rows[0];
-            if (Curr["attachment"] == DBNull.Value) return;
+            if (Curr["attachment"] == DBNull.Value && Curr["idfilestorage"] == DBNull.Value) return;
             if (saveFileDialog1.ShowDialog(this) != DialogResult.OK) return;
 
-            byte[] ByteArray = (byte[])Curr["attachment"];
+            // File preso dall'attachment o dal MongoDb
+            byte[] ByteArray = { };
 
-            try {
+            if (Curr["attachment"] != DBNull.Value)
+            {
+                // Attachment
+                ByteArray = (byte[])Curr["attachment"];
+            }
+            else
+            {
+                // MongoDb
+                ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                if (ByteArray == null)
+                {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return;
+                }
+            }
+
+            try
+            {
                 FileStream FS = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write);
                 FS.Write(ByteArray, 0, ByteArray.Length);
                 FS.Flush();
@@ -1480,7 +1496,7 @@ namespace pcc_default {
         private void btnRigenera_Click(object sender, EventArgs e) {
             if (Meta.IsEmpty) return;
             DataRow Curr = DS.pcc.Rows[0];
-            if (Curr["attachment"] == DBNull.Value) return;
+            if (Curr["attachment"] == DBNull.Value && Curr["idfilestorage"] == DBNull.Value) return;
             if (saveFileDialog1.ShowDialog(this) != DialogResult.OK) return;
 
             RigeneraFile(true);

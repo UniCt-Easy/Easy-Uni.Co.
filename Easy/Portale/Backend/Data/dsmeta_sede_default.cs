@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,7 +25,7 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_sede_default"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_sede_default: DataSet {
+public partial class dsmeta_sede_default: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -43,13 +41,13 @@ public class dsmeta_sede_default: DataSet {
 	public MetaTable edificio 		=> (MetaTable)Tables["edificio"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_nation 		=> (MetaTable)Tables["geo_nation"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable geo_city 		=> (MetaTable)Tables["geo_city"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registry 		=> (MetaTable)Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable sede 		=> (MetaTable)Tables["sede"];
@@ -85,16 +83,17 @@ private void initClass() {
 	tsospensione.defineColumn("cu", typeof(string),false);
 	tsospensione.defineColumn("idaula", typeof(int));
 	tsospensione.defineColumn("idedificio", typeof(int));
-	tsospensione.defineColumn("idreg", typeof(int));
-	tsospensione.defineColumn("idsede", typeof(int));
+	tsospensione.defineColumn("idreg", typeof(int),false);
+	tsospensione.defineColumn("idsede", typeof(int),false);
 	tsospensione.defineColumn("idsospensione", typeof(int),false);
+	tsospensione.defineColumn("idsospensionekind", typeof(int));
 	tsospensione.defineColumn("lt", typeof(DateTime),false);
 	tsospensione.defineColumn("lu", typeof(string),false);
 	tsospensione.defineColumn("motivo", typeof(string));
 	tsospensione.defineColumn("start", typeof(DateTime),false);
 	tsospensione.defineColumn("stop", typeof(DateTime));
 	Tables.Add(tsospensione);
-	tsospensione.defineKey("idsospensione");
+	tsospensione.defineKey("idreg", "idsede", "idsospensione");
 
 	//////////////////// GEO_NATION_ALIAS1 /////////////////////////////////
 	var tgeo_nation_alias1= new MetaTable("geo_nation_alias1");
@@ -131,15 +130,9 @@ private void initClass() {
 	tedificio.defineColumn("title", typeof(string));
 	tedificio.defineColumn("!idcity_geo_city_title", typeof(string));
 	tedificio.defineColumn("!idnation_geo_nation_title", typeof(string));
+	tedificio.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tedificio);
 	tedificio.defineKey("idedificio", "idsede");
-
-	//////////////////// REGISTRY /////////////////////////////////
-	var tregistry= new MetaTable("registry");
-	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("title", typeof(string),false);
-	Tables.Add(tregistry);
-	tregistry.defineKey("idreg");
 
 	//////////////////// GEO_NATION /////////////////////////////////
 	var tgeo_nation= new MetaTable("geo_nation");
@@ -155,6 +148,14 @@ private void initClass() {
 	Tables.Add(tgeo_city);
 	tgeo_city.defineKey("idcity");
 
+	//////////////////// REGISTRY /////////////////////////////////
+	var tregistry= new MetaTable("registry");
+	tregistry.defineColumn("active", typeof(string),false);
+	tregistry.defineColumn("idreg", typeof(int),false);
+	tregistry.defineColumn("title", typeof(string),false);
+	Tables.Add(tregistry);
+	tregistry.defineKey("idreg");
+
 	//////////////////// SEDE /////////////////////////////////
 	var tsede= new MetaTable("sede");
 	tsede.defineColumn("address", typeof(string));
@@ -164,7 +165,7 @@ private void initClass() {
 	tsede.defineColumn("cu", typeof(string),false);
 	tsede.defineColumn("idcity", typeof(int));
 	tsede.defineColumn("idnation", typeof(int));
-	tsede.defineColumn("idreg", typeof(int));
+	tsede.defineColumn("idreg", typeof(int),false);
 	tsede.defineColumn("idsede", typeof(int),false);
 	tsede.defineColumn("idsedemiur", typeof(int));
 	tsede.defineColumn("latitude", typeof(decimal));
@@ -173,19 +174,19 @@ private void initClass() {
 	tsede.defineColumn("lu", typeof(string),false);
 	tsede.defineColumn("title", typeof(string));
 	Tables.Add(tsede);
-	tsede.defineKey("idsede");
+	tsede.defineKey("idreg", "idsede");
 
 	#endregion
 
 
 	#region DataRelation creation
-	var cPar = new []{sede.Columns["idsede"]};
-	var cChild = new []{sospensione.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_sospensione_sede_idsede",cPar,cChild,false));
+	var cPar = new []{sede.Columns["idreg"], sede.Columns["idsede"]};
+	var cChild = new []{sospensione.Columns["idreg"], sospensione.Columns["idsede"]};
+	Relations.Add(new DataRelation("FK_sospensione_sede_idreg-idsede",cPar,cChild,false));
 
-	cPar = new []{sede.Columns["idsede"]};
-	cChild = new []{edificio.Columns["idsede"]};
-	Relations.Add(new DataRelation("FK_edificio_sede_idsede",cPar,cChild,false));
+	cPar = new []{sede.Columns["idsede"], sede.Columns["idcity"], sede.Columns["idnation"]};
+	cChild = new []{edificio.Columns["idsede"], edificio.Columns["idcity"], edificio.Columns["idnation"]};
+	Relations.Add(new DataRelation("FK_edificio_sede_idsede-idcity-idnation",cPar,cChild,false));
 
 	cPar = new []{geo_nation_alias1.Columns["idnation"]};
 	cChild = new []{edificio.Columns["idnation"]};
@@ -195,10 +196,6 @@ private void initClass() {
 	cChild = new []{edificio.Columns["idcity"]};
 	Relations.Add(new DataRelation("FK_edificio_geo_city_alias1_idcity",cPar,cChild,false));
 
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{sede.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_sede_registry_idreg",cPar,cChild,false));
-
 	cPar = new []{geo_nation.Columns["idnation"]};
 	cChild = new []{sede.Columns["idnation"]};
 	Relations.Add(new DataRelation("FK_sede_geo_nation_idnation",cPar,cChild,false));
@@ -206,6 +203,10 @@ private void initClass() {
 	cPar = new []{geo_city.Columns["idcity"]};
 	cChild = new []{sede.Columns["idcity"]};
 	Relations.Add(new DataRelation("FK_sede_geo_city_idcity",cPar,cChild,false));
+
+	cPar = new []{registry.Columns["idreg"]};
+	cChild = new []{sede.Columns["idreg"]};
+	Relations.Add(new DataRelation("FK_sede_registry_idreg",cPar,cChild,false));
 
 	#endregion
 

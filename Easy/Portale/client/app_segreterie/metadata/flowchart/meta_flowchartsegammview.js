@@ -23,12 +23,12 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segamm':
-						this.describeAColumn(table, 'idflowchart', 'Identificativo', null, 10, 34);
-						this.describeAColumn(table, 'flowchart_ayear', 'Anno esercizio', null, 20, null);
-						this.describeAColumn(table, 'title', 'Titolo', null, 30, 150);
-						this.describeAColumn(table, 'flowchart_codeflowchart', 'Codice', null, 40, 50);
-						this.describeAColumn(table, 'flowchartparent_codeflowchart', 'Codice Nodo padre', null, 50, 50);
-						this.describeAColumn(table, 'flowchartparent_title', 'Denominazione Nodo padre', null, 50, 150);
+						this.describeAColumn(table, 'idflowchart', 'Identificativo', null, 1000, 34);
+						this.describeAColumn(table, 'flowchart_ayear', 'Anno esercizio', null, 2000, null);
+						this.describeAColumn(table, 'title', 'Titolo', null, 3000, 150);
+						this.describeAColumn(table, 'flowchart_codeflowchart', 'Codice', null, 4000, 50);
+						this.describeAColumn(table, 'flowchartparent_codeflowchart', 'Codice Nodo padre', null, 5100, 50);
+						this.describeAColumn(table, 'flowchartparent_title', 'Denominazione Nodo padre', null, 5200, 150);
 //$objCalcFieldConfig_segamm$
 						break;
 //$objCalcFieldConfig$

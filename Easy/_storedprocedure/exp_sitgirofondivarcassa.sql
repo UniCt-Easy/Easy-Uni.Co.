@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_sitgirofondivarcassa]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_sitgirofondivarcassa]
@@ -124,7 +122,7 @@ if (@showdetail = 'S')
 Begin
 	SELECT 
 		@ayear as 'Esercizio',
-		isnull(T1.header, T1.description) as 'Cassiere Principale',
+		isnull(T1.header, T1.description) as 'Conto Corrente Principale',
 		D.finvardate as 'Data Storno',
 		D.nvar as 'Num.Variazione',
 		D.finvaramount as 'Importo Stornato',
@@ -132,7 +130,7 @@ Begin
 		D.ntransfer as 'Num.Girofondo',
 		D.amount_out as 'Girofondi effettuati',
 		- D.amount_in as 'Girofondi ricevuti', -- > Va cambiato di segno quando viene visualizzato
-		isnull(T2.header, T2.description) as 'Cassiere di Riferimento'
+		isnull(T2.header, T2.description) as 'Conto Corrente di Riferimento'
 	FROM  @dettagli D
 	JOIN treasurer T1
 		on D.idtreasurersource = T1.idtreasurer 
@@ -144,7 +142,7 @@ Else
 Begin
 	SELECT 
 			@ayear as 'Esercizio',
-			isnull(T1.header, T1.description) as 'Cassiere Principale',
+			isnull(T1.header, T1.description) as 'Conto Corrente Principale',
 			sum(D.finvaramount) as 'Importo Stornato',
 			sum(D.amount_out) as 'Girofondi effettuati',
 			- sum(D.amount_in) as 'Girofondi ricevuti',	-- > Va cambiato di segno quando viene visualizzato
@@ -154,7 +152,7 @@ Begin
 			case when (sum(isnull(D.finvaramount,0) -  (  isnull(D.amount_out,0) + isnull(D.amount_in,0) )	)) < 0 then
 					-(sum(isnull(D.finvaramount,0) -  (  isnull(D.amount_out,0) + isnull(D.amount_in,0) )	)) else 0 end
 					as 'Girofondi da ricevere',
-			isnull(T2.header, T2.description) as 'Cassiere di Riferimento'
+			isnull(T2.header, T2.description) as 'Conto Corrente di Riferimento'
 		FROM  @dettagli D
 		JOIN treasurer T1
 			on D.idtreasurersource = T1.idtreasurer 

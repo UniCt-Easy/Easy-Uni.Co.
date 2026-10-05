@@ -6,13 +6,8 @@
 	<form>
 			<div class="row">
 				<div class="col-md-6">
-<script>
-  $( function () {
-    $("#nullaosta_segistsosp_data").datetimepicker({ dateFormat: 'dd/mm/yy' });
-  } );
-  </script>
 					<label class="col-form-label col-md-12" for="nullaosta_segistsosp_data">Data</label>
-					<input id="nullaosta_segistsosp_data" type="text" class="form-control" data-tag="nullaosta.data.g"  data-mandatory />
+					<input id="nullaosta_segistsosp_data" type="text" class="form-control" data-tag="nullaosta.data.g"  data-mandatory  data-dateTimePickerFormat="dd/mm/yy"/>
 				</div>
 				<div class="col-md-6">
 					<label class="col-form-label col-md-12" for="nullaosta_segistsosp_protnumero">Numero di protocollo</label>
@@ -25,9 +20,9 @@
 					<input id="nullaosta_segistsosp_protanno" type="text" class="form-control" data-tag="nullaosta.protanno"  />
 				</div>
 			</div>
- <button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
-        <i class="fa fa-stamp mr-1" ></i>Protocolla
-    </button>
+		<button id="btnProtocol" type="button" class="btn btn-primary p-2 mt-2" >
+			<i class="fa fa-stamp mr-1" ></i>Protocolla
+		</button>
 </form>
 
 </div>

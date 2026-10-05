@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -152,7 +150,7 @@ namespace no_table_imp_prontoperloscarico {
         private DataTable leggiFile() {
             var dr = openFileDialog1.ShowDialog();
             if (dr != DialogResult.OK) {
-                show("Non � stato scelto alcun file");
+                show("Non è stato scelto alcun file");
                 txtFile.Text = "";
                 return null;
             }
@@ -196,16 +194,31 @@ namespace no_table_imp_prontoperloscarico {
 
         public void AggiungiInfo(DataTable tAsset) {
             string filter = "";
+            var nodes = new List<string>();
+            const int TRANCHE_SIZE = 100; // considero blocchi di 100 asset in lettura
+            int count = 0;
             foreach (DataRow R in tAsset.Rows) {
                 int idasset = CfgFn.GetNoNullInt32(R["idasset"]);
                 int idpiece = CfgFn.GetNoNullInt32(R["idpiece"]);
+                count += 1;
 
-                filter = qhs.AppOr(filter,
-                    qhs.DoPar(
-                        qhs.AppAnd(qhs.CmpEq("idasset",idasset),qhs.CmpEq("idpiece",idpiece))));
+                if (count<= TRANCHE_SIZE) {
+                    filter = qhs.AppOr(filter,
+						qhs.DoPar(
+							qhs.AppAnd(qhs.CmpEq("idasset", idasset), qhs.CmpEq("idpiece", idpiece))));
+                }
+                if (count == TRANCHE_SIZE) {
+                    Conn.RUN_SELECT_INTO_TABLE(DS.asset, "idasset, idpiece", filter, null, false);
+                    Conn.RUN_SELECT_INTO_TABLE(DS.assetview, "idasset, idpiece", filter, null, false);
+                    filter = "";
+                    count = 0;
+                }
             }
+            //parte residuale
             Conn.RUN_SELECT_INTO_TABLE(DS.asset, "idasset, idpiece", filter, null, false);
             Conn.RUN_SELECT_INTO_TABLE(DS.assetview, "idasset, idpiece", filter, null, false);
+            count = 0;
+            filter = "";
 
             foreach (DataRow Rimp in tAsset.Select()) {
                 string filterkey = qhc.AppAnd(qhc.CmpEq("idasset", Rimp["idasset"]), qhc.CmpEq("idpiece", Rimp["idpiece"]));
@@ -233,7 +246,14 @@ namespace no_table_imp_prontoperloscarico {
         }
 
         private void BtnImpostaScarico_Click(object sender, EventArgs e) {
-                foreach (DataRow R in DS.asset.Select()) {
+            DataRow[] prontiPerScarico = DS.asset.Select(qhc.BitClear("flag", 1));
+            if (prontiPerScarico.Length == 0) {
+                show("Nessun Cespite/Accessorio in elenco è da impostare come 'pronto per lo scarico'.", "Avviso");
+                btnApriFile.Enabled = false;
+                BtnImpostaScarico.Enabled = false;
+                return;
+            }
+            foreach (DataRow R in DS.asset.Select(qhc.BitClear("flag",1))) {
                 R["flag"] = (byte)(CfgFn.GetNoNullByte(R["flag"]) | 2);// imposta il bit 1
                 }
 

@@ -6,7 +6,7 @@
 <HelpWeb:hwLabel runat="server" ID="exporttitle" Font-Size="Large"></HelpWeb:hwLabel>
 <br />
 <br />
-<fieldset style="text-align: left; width: 90%; background-color: #eaeaea;">
+<fieldset style="text-align: left; width: 90%; background-color: #f6f7f9;">
 <legend>Parametri Esportazione</legend>
     <br />
 <center>

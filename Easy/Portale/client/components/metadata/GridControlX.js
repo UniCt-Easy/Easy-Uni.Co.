@@ -2912,6 +2912,12 @@
          return html;
       },
 
+       convertDecimalSeparator: function (htmlString) {
+           return htmlString.replace(/>(\d+\.\d+)</g, (match, number) => {
+               return `>${number.replace('.', ',')}<`;
+           });
+       },
+
       /**
        * @method gridHtmlToExcel
        * @private
@@ -2969,7 +2975,11 @@
             $btn.remove(); //Rimuovo il bottone dalla lista da stampare
          });
 
+          //converto i caratteri accentati e speciali con la codifica html
          let gridhtml = that.replaceSpecialCharacters($(gridcloned).html());
+          //converto i decimali con la , anzichè il .
+          gridhtml = that.convertDecimalSeparator(gridhtml);
+          gridhtml = gridhtml.replace(/>'(.*?)'<\/td>/g, ">$1</td>");
 
          // creo excel direttamente dal table
          let tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';

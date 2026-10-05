@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Drawing;
@@ -68,6 +66,8 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 		private TextBox txtDescrConcorsuale;
 		private Label label8;
 		private ComboBox cmbTipologiaRuolo;
+		private Label label10;
+		private TextBox txtExtMatricula;
 		MetaData Meta;
 
 		public Frm_registrylegalstatus_anagraficadetail() {
@@ -129,6 +129,8 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.txtDescrConcorsuale = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.cmbTipologiaRuolo = new System.Windows.Forms.ComboBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtExtMatricula = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.groupBox6.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -137,7 +139,7 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			// 
 			// checkBox1
 			// 
-			this.checkBox1.Location = new System.Drawing.Point(288, 14);
+			this.checkBox1.Location = new System.Drawing.Point(542, 80);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(112, 24);
 			this.checkBox1.TabIndex = 2;
@@ -491,12 +493,31 @@ namespace registrylegalstatus_anagraficadetail {//posgiuridicadetailanagrafica//
 			this.cmbTipologiaRuolo.Tag = "registrylegalstatus.idtipologiaruolo";
 			this.cmbTipologiaRuolo.ValueMember = "idtipologiaruolo";
 			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(490, 15);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(50, 13);
+			this.label10.TabIndex = 127;
+			this.label10.Text = "Matricola";
+			// 
+			// txtExtMatricula
+			// 
+			this.txtExtMatricula.Location = new System.Drawing.Point(549, 12);
+			this.txtExtMatricula.Name = "txtExtMatricula";
+			this.txtExtMatricula.Size = new System.Drawing.Size(103, 20);
+			this.txtExtMatricula.TabIndex = 126;
+			this.txtExtMatricula.Tag = "registry.extmatricula";
+			// 
 			// Frm_registrylegalstatus_anagraficadetail
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnAnnulla;
 			this.ClientSize = new System.Drawing.Size(667, 440);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.txtExtMatricula);
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.cmbTipologiaRuolo);
 			this.Controls.Add(this.gboxConcorsuale);

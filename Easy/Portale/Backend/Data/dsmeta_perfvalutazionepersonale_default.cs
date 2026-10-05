@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -162,7 +160,7 @@ private void initClass() {
 	tattach.defineColumn("idattach", typeof(int),false);
 	tattach.defineColumn("lt", typeof(DateTime),false);
 	tattach.defineColumn("lu", typeof(string),false);
-	tattach.defineColumn("size", typeof(int),false);
+	tattach.defineColumn("size", typeof(long),false);
 	Tables.Add(tattach);
 	tattach.defineKey("idattach");
 
@@ -351,7 +349,13 @@ private void initClass() {
 
 	//////////////////// PERFCOMPORTAMENTO /////////////////////////////////
 	var tperfcomportamento= new MetaTable("perfcomportamento");
+	tperfcomportamento.defineColumn("ct", typeof(DateTime),false);
+	tperfcomportamento.defineColumn("cu", typeof(string),false);
+	tperfcomportamento.defineColumn("description", typeof(string));
 	tperfcomportamento.defineColumn("idperfcomportamento", typeof(int),false);
+	tperfcomportamento.defineColumn("lt", typeof(DateTime),false);
+	tperfcomportamento.defineColumn("lu", typeof(string),false);
+	tperfcomportamento.defineColumn("peso", typeof(decimal));
 	tperfcomportamento.defineColumn("title", typeof(string));
 	Tables.Add(tperfcomportamento);
 	tperfcomportamento.defineKey("idperfcomportamento");
@@ -446,6 +450,7 @@ private void initClass() {
 	tperfvalutazionepersonalestatuschanges.defineColumn("lt", typeof(DateTime));
 	tperfvalutazionepersonalestatuschanges.defineColumn("lu", typeof(string));
 	tperfvalutazionepersonalestatuschanges.defineColumn("!idperfschedastatus_perfschedastatus_title", typeof(string));
+	tperfvalutazionepersonalestatuschanges.ExtendedProperties["NotEntityChild"]="true";
 	Tables.Add(tperfvalutazionepersonalestatuschanges);
 	tperfvalutazionepersonalestatuschanges.defineKey("idperfvalutazionepersonale", "idperfvalutazionepersonalestatuschanges");
 
@@ -472,11 +477,15 @@ private void initClass() {
 	//////////////////// GETREGISTRYDOCENTIAMMINISTRATIVINOMCOGNVIEW /////////////////////////////////
 	var tgetregistrydocentiamministrativinomcognview= new MetaTable("getregistrydocentiamministrativinomcognview");
 	tgetregistrydocentiamministrativinomcognview.defineColumn("dropdown_title", typeof(string),false);
+	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_active", typeof(string));
+	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_areadidattica", typeof(string));
+	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_categoria", typeof(string),false);
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_cf", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_contratto", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_extmatricula", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_forename", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_istituto", typeof(string));
+	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_macroareadidattica", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_ssd", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("getregistrydocentiamministrativi_struttura", typeof(string));
 	tgetregistrydocentiamministrativinomcognview.defineColumn("idreg", typeof(int),false);

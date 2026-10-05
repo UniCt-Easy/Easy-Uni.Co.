@@ -24,15 +24,15 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			beforeFill: function () {
 				//parte sincrona
 				var self = this;
 				var parentRow = self.state.currentRow;
 				
-				if (self.isNullOrMinDate(parentRow.data))
-					parentRow.data = new Date();
-				if (!parentRow.votolode)
+			if (self.isNullOrMinDate(parentRow.data))
+				parentRow.data = new Date();
+				if (this.isNull(parentRow.votolode) || parentRow.votolode == '')
 					parentRow.votolode = "N";
 				//beforeFillFilter
 				
@@ -52,7 +52,14 @@
 				return def.promise();
 			},
 
-			//afterClear
+			afterClear: function () {
+				//parte sincrona
+				this.enableControl($('#sostenimento_seganagstusing_protnumero'), true);
+				this.enableControl($('#sostenimento_seganagstusing_protanno'), true);
+				//afterClearin
+				
+				//afterClearInAsyncBase
+			},
 
 			afterFill: function () {
 				this.enableControl($('#sostenimento_seganagstusing_protnumero'), false);
@@ -65,9 +72,13 @@
 				var self = this;
 				$("#btnProtocol").on("click", _.partial(this.firebtnProtocol, this));
 				$("#btnProtocol").prop("disabled", true);
+				this.setDenyNull("sostenimento","idattivform");
+				this.setDenyNull("sostenimento","idprova");
+				appMeta.metaModel.insertFilter(this.getDataTable("sostenimentoesitodefaultview"), this.q.eq('sostenimentoesito_active', 'Si'));
 				//fireAfterLink
 				return this.superClass.afterLink.call(this).then(function () {
 					var arraydef = [];
+					arraydef.push(self.setAttivForm());
 					//fireAfterLinkAsinc
 					return $.when.apply($, arraydef);
 				});
@@ -96,6 +107,21 @@
 
 			//insertClick
 
+			//beforePost
+
+			//afterPost
+
+			setAttivForm: function() {
+				var page = appMeta.currApp.currentMetaPage;
+				var def = appMeta.Deferred("setAttivForm-sostenimento_seganagstusing");
+				let filter = page.q.isIn("idattivform", _.map(page.state.callerState.DS.tables.pianostudioattivform_alias1.rows,  function (row) { return row.idattivform;}));
+				appMeta.getData.runSelectIntoTable(page.getDataTable("attivformdefaultview") , filter , null)
+				.then(function () {
+					return def.resolve();
+				});
+				return def.promise();
+			},
+
 			firebtnProtocol: function (that) {
 				var idreg_origine = that.idreg_istituto;
 				var idreg_destinazione = that.idreg_istituto;
@@ -103,6 +129,7 @@
 				var idprotocollodockind = 5;
 				var arrayTablesToProtocol = ['sostenimento'];
 				var codiceregistro = that.state.currentRow.getRow().table.name + that.state.currentRow.idsostenimento;
+
 				return that.assegnaProtocollo(idreg_origine, idreg_destinazione, idprotocollodockind, oggetto, codiceregistro, arrayTablesToProtocol);
 			},
 

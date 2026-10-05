@@ -26,6 +26,7 @@
 					case 'seg':
 						this.describeAColumn(table, 'abbreviazione', 'Iscritto con una abbreviazione di corso', null, 20, null);
 						this.describeAColumn(table, 'annoiscr', 'Anno di iscrizione', null, 30, null);
+						this.describeAColumn(table, 'idcorsostudiokind', 'Tipologia del corso a cui è iscritto', null, 60, null);
 						this.describeAColumn(table, 'immatricolato', 'Immatricolato', null, 70, null);
 						this.describeAColumn(table, 'iscrittobmi', 'Iscritto ad un bando di mobilità internazionale', null, 80, null);
 						this.describeAColumn(table, 'passaggio', 'Iscritto con un passaggio di corso', null, 90, null);

@@ -24,89 +24,48 @@
 					default:
 						return this.superClass.describeColumns(table, listType);
 					case 'segmitr':
-						this.describeAColumn(table, '!idattivform_attivform_title', 'Attività formativa', null, 31, null);
-						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup: 'attivform', columnNameLookup: 'title', columnNamekey: 'idattivform' };
-						this.describeAColumn(table, '!iddidprog_didprog_title', 'Denominazione Didattica programmata', null, 81, null);
-						this.describeAColumn(table, '!iddidprog_didprog_aa', 'Anno accademico Didattica programmata', null, 82, null);
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Denominazione Didattica programmata', null, 81, null);
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup: 'didprog', columnNameLookup: 'title', columnNamekey: 'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup: 'didprog', columnNameLookup: 'aa', columnNamekey: 'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup: 'sede', columnNameLookup: 'title', columnNamekey: 'iddidprog' };
-						this.describeAColumn(table, '!idiscrizione_iscrizione_anno', 'Anno di corso Iscrizione della convalida', null, 91, null);
-						this.describeAColumn(table, '!idiscrizione_iscrizione_aa', 'Anno accademico Iscrizione della convalida', null, 93, null);
-						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_title', 'Denominazione Iscrizione della convalida', null, 91, null);
-						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_aa', 'Anno accademico Iscrizione della convalida', null, 92, null);
-						this.describeAColumn(table, '!idiscrizione_iscrizione_iddidprog_idsede', 'Sede Iscrizione della convalida', null, 93, null);
-						objCalcFieldConfig['!idiscrizione_iscrizione_anno'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'anno', columnNamekey: 'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_aa'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'aa', columnNamekey: 'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_title'] = { tableNameLookup: 'didprog', columnNameLookup: 'title', columnNamekey: 'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup: 'didprog', columnNameLookup: 'aa', columnNamekey: 'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup: 'didprog', columnNameLookup: 'idsede', columnNamekey: 'idiscrizione' };
-						this.describeAColumn(table, '!idlearningagrtrainer_learningagrtrainer_title', 'Learning agreements for traineersheep', null, 141, null);
-						this.describeAColumn(table, '!idpratica_pratica_idreg_title', 'Denominazione Pratica', null, 151, null);
-						this.describeAColumn(table, '!idpratica_pratica_iddidprog_title', 'Denominazione Pratica', null, 151, null);
-						this.describeAColumn(table, '!idpratica_pratica_iddidprog_aa', 'Anno accademico Pratica', null, 152, null);
-						this.describeAColumn(table, '!idpratica_pratica_iddidprog_idsede', 'Sede Pratica', null, 153, null);
-						objCalcFieldConfig['!idpratica_pratica_idreg_title'] = { tableNameLookup: 'registry', columnNameLookup: 'title', columnNamekey: 'idpratica' };
-						objCalcFieldConfig['!idpratica_pratica_iddidprog_title'] = { tableNameLookup: 'didprog', columnNameLookup: 'title', columnNamekey: 'idpratica' };
-						objCalcFieldConfig['!idpratica_pratica_iddidprog_aa'] = { tableNameLookup: 'didprog', columnNameLookup: 'aa', columnNamekey: 'idpratica' };
-						objCalcFieldConfig['!idpratica_pratica_iddidprog_idsede'] = { tableNameLookup: 'didprog', columnNameLookup: 'idsede', columnNamekey: 'idpratica' };
-						objCalcFieldConfig['!idlearningagrtrainer_learningagrtrainer_title'] = { tableNameLookup: 'learningagrtrainer_alias1', columnNameLookup: 'title', columnNamekey: 'idlearningagrtrainer' };
-						this.describeAColumn(table, '!idistanza_istanza_imm_idistanza_data', 'Data Istanza', 'g', 122, null);
-						this.describeAColumn(table, '!idistanza_istanza_imm_idistanza_aa', 'Anno accademico Istanza', null, 122, null);
-						this.describeAColumn(table, '!idistanza_istanza_imm_idistanza_idsede', 'Sede Istanza', null, 123, null);
-						this.describeAColumn(table, '!idistanza_istanza_imm_idistanzakind_title', 'Stato Istanza', null, 121, null);
-						this.describeAColumn(table, '!idistanza_istanza_imm_idreg_studenti_anno', 'Anno di corso Istanza', null, 121, null);
-						this.describeAColumn(table, '!idistanza_istanza_imm_iddidprog_iddidprog', 'Didattica programmata Istanza', null, 122, null);
-						this.describeAColumn(table, '!idistanza_istanza_imm_iddidprog_aa', 'Anno accademico Istanza', null, 123, null);
-						objCalcFieldConfig['!idistanza_istanza_imm_idistanza_data'] = { tableNameLookup: 'istanza', columnNameLookup: 'data', columnNamekey: 'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_imm_idistanza_aa'] = { tableNameLookup: 'didprog', columnNameLookup: 'aa', columnNamekey: 'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_imm_idistanza_idsede'] = { tableNameLookup: 'didprog', columnNameLookup: 'idsede', columnNamekey: 'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_imm_idistanzakind_title'] = { tableNameLookup: 'statuskind', columnNameLookup: 'title', columnNamekey: 'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_imm_idreg_studenti_anno'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'anno', columnNamekey: 'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_imm_iddidprog_iddidprog'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'iddidprog', columnNamekey: 'idistanza' };
-						objCalcFieldConfig['!idistanza_istanza_imm_iddidprog_aa'] = { tableNameLookup: 'iscrizione', columnNameLookup: 'aa', columnNamekey: 'idistanza' };
 						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 31, null);
-												objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform', columnNameLookup:'title', columnNamekey:'idattivform' };
-						this.describeAColumn(table, '!iddidprog_didprog_idsede_title', 'Sede Didattica programmata', null, 80, null);
-						objCalcFieldConfig['!iddidprog_didprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!iddidprog_didprog_idsede_title'] = { tableNameLookup:'sede', columnNameLookup:'title', columnNamekey:'iddidprog' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_anno'] = { tableNameLookup:'iscrizione', columnNameLookup:'anno', columnNamekey:'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_aa'] = { tableNameLookup:'iscrizione', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idiscrizione' };
-						objCalcFieldConfig['!idiscrizione_iscrizione_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idiscrizione' };
-						this.describeAColumn(table, '!idpratica_pratica_idreg_title', 'Studente Pratica', null, 150, null);
-						objCalcFieldConfig['!idpratica_pratica_idreg_title'] = { tableNameLookup:'registry', columnNameLookup:'title', columnNamekey:'idpratica' };
-						objCalcFieldConfig['!idpratica_pratica_iddidprog_title'] = { tableNameLookup:'didprog', columnNameLookup:'title', columnNamekey:'idpratica' };
-						objCalcFieldConfig['!idpratica_pratica_iddidprog_aa'] = { tableNameLookup:'didprog', columnNameLookup:'aa', columnNamekey:'idpratica' };
-						objCalcFieldConfig['!idpratica_pratica_iddidprog_idsede'] = { tableNameLookup:'didprog', columnNameLookup:'idsede', columnNamekey:'idpratica' };
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform', columnNameLookup:'title', columnNamekey:'idattivform' };
 //$objCalcFieldConfig_segmitr$
 						break;
 					case 'segistrein':
-						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
 						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 41, null);
-						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup: 'attivform', columnNameLookup: 'title', columnNamekey: 'idattivform' };
-						this.describeAColumn(table, '!idchanges_changes_title', 'Changes', null, 21, null);
-						objCalcFieldConfig['!idchanges_changes_title'] = { tableNameLookup: 'changes', columnNameLookup: 'title', columnNamekey: 'idchanges' };
-						this.describeAColumn(table, '!idchangeskind_changeskind_title', 'Changes kind', null, 51, null);
-						objCalcFieldConfig['!idchangeskind_changeskind_title'] = { tableNameLookup: 'changeskind', columnNameLookup: 'title', columnNamekey: 'idchangeskind' };
-						//$objCalcFieldConfig_segistrein$
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias1', columnNameLookup:'title', columnNamekey:'idattivform' };
+//$objCalcFieldConfig_segistrein$
 						break;
 					case 'segistpass':
-						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
 						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 41, null);
-						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup: 'attivform', columnNameLookup: 'title', columnNamekey: 'idattivform' };
-						this.describeAColumn(table, '!idchanges_changes_title', 'Changes', null, 21, null);
-						objCalcFieldConfig['!idchanges_changes_title'] = { tableNameLookup: 'changes', columnNameLookup: 'title', columnNamekey: 'idchanges' };
-						this.describeAColumn(table, '!idchangeskind_changeskind_title', 'Changes kind', null, 51, null);
-						objCalcFieldConfig['!idchangeskind_changeskind_title'] = { tableNameLookup: 'changeskind', columnNameLookup: 'title', columnNamekey: 'idchangeskind' };
-						//$objCalcFieldConfig_segistpass$
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias1', columnNameLookup:'title', columnNamekey:'idattivform' };
+//$objCalcFieldConfig_segistpass$
 						break;
-										case 'segmi':
-						this.describeAColumn(table, 'changesother', 'Changes other', null, 20, -1);
+					case 'segmi':
+						this.describeAColumn(table, 'changesother', 'Changes other', null, 30, -1);
 //$objCalcFieldConfig_segmi$
+						break;
+					case 'segstudprat':
+						this.describeAColumn(table, 'changesother', 'Changes other', null, 40, -1);
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 11, null);
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias1', columnNameLookup:'title', columnNamekey:'idattivform' };
+						this.describeAColumn(table, '!idchanges_changes_title', 'Changes', null, 21, null);
+						objCalcFieldConfig['!idchanges_changes_title'] = { tableNameLookup:'changes', columnNameLookup:'title', columnNamekey:'idchanges' };
+						this.describeAColumn(table, '!idchangeskind_changeskind_title', 'Changes kind', null, 31, null);
+						objCalcFieldConfig['!idchangeskind_changeskind_title'] = { tableNameLookup:'changeskind_alias1', columnNameLookup:'title', columnNamekey:'idchangeskind' };
+//$objCalcFieldConfig_segstudprat$
+						break;
+					case 'segistabbr':
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 41, null);
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias1', columnNameLookup:'title', columnNamekey:'idattivform' };
+//$objCalcFieldConfig_segistabbr$
+						break;
+					case 'segisttri':
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 41, null);
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias1', columnNameLookup:'title', columnNamekey:'idattivform' };
+//$objCalcFieldConfig_segisttri$
+						break;
+					case 'stutri':
+						this.describeAColumn(table, '!idattivform_attivform_title', 'attività formativa', null, 41, null);
+						objCalcFieldConfig['!idattivform_attivform_title'] = { tableNameLookup:'attivform_alias1', columnNameLookup:'title', columnNamekey:'idattivform' };
+//$objCalcFieldConfig_stutri$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -138,6 +97,15 @@
 //$innerSetCaptionConfig_segmitr$
 						break;
 					case 'segmi':
+//$innerSetCaptionConfig_segmi$
+						break;
+					case 'segstudprat':
+//$innerSetCaptionConfig_segstudprat$
+						break;
+					case 'segistpass':
+//$innerSetCaptionConfig_segistpass$
+						break;
+					case 'segistabbr':
 						table.columns["changesother"].caption = "Changes other";
 						table.columns["idattivform"].caption = "attività formativa";
 						table.columns["idchanges"].caption = "Changes";
@@ -154,7 +122,49 @@
 						table.columns["idlearningagrtrainer"].caption = "Learning agreements for traineersheep";
 						table.columns["idpratica"].caption = "Pratica";
 						table.columns["idreg"].caption = "Studente";
-//$innerSetCaptionConfig_segmi$
+//$innerSetCaptionConfig_segistabbr$
+						break;
+					case 'segisttri':
+						table.columns["changesother"].caption = "Changes other";
+						table.columns["idattivform"].caption = "attività formativa";
+						table.columns["idchanges"].caption = "Changes";
+						table.columns["idchangeskind"].caption = "Changes kind";
+						table.columns["idconvalida"].caption = "Convalida";
+						table.columns["idconvalidato"].caption = "Convalidato";
+						table.columns["iddichiar"].caption = "Dichiarazione convalidata";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione della convalida";
+						table.columns["idiscrizione_from"].caption = "Iscrizione del sostenimento";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idlearningagrstud"].caption = "Learning agreements for studies";
+						table.columns["idlearningagrtrainer"].caption = "Learning agreements for traineersheep";
+						table.columns["idpratica"].caption = "Pratica";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_segisttri$
+						break;
+					case 'segistrein':
+						table.columns["changesother"].caption = "Changes other";
+//$innerSetCaptionConfig_segistrein$
+						break;
+					case 'stutri':
+						table.columns["changesother"].caption = "Changes other";
+						table.columns["idattivform"].caption = "attività formativa";
+						table.columns["idchanges"].caption = "Changes";
+						table.columns["idchangeskind"].caption = "Changes kind";
+						table.columns["idconvalida"].caption = "Convalida";
+						table.columns["idconvalidato"].caption = "Convalidato";
+						table.columns["iddichiar"].caption = "Dichiarazione convalidata";
+						table.columns["iddidprog"].caption = "Didattica programmata";
+						table.columns["idiscrizione"].caption = "Iscrizione della convalida";
+						table.columns["idiscrizione_from"].caption = "Iscrizione del sostenimento";
+						table.columns["idiscrizionebmi"].caption = "Iscrizione al bando di mobilità internazionale";
+						table.columns["idistanza"].caption = "Istanza";
+						table.columns["idlearningagrstud"].caption = "Learning agreements for studies";
+						table.columns["idlearningagrtrainer"].caption = "Learning agreements for traineersheep";
+						table.columns["idpratica"].caption = "Pratica";
+						table.columns["idreg"].caption = "Studente";
+//$innerSetCaptionConfig_stutri$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -164,31 +174,20 @@
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_convalidato");
 
-				var realParentObjectRow = parentRow;
-				if (editType === "segmitr") {
-					var realParentTableName = "convalida";
-					var realParentTable = dt.dataset.tables["convalida"];
-					if (!realParentTable) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non esiste nel dataset");
-						return def.resolve(null);
-					}
-					if (!realParentTable.rows.length) {
-						console.log("ERROR: la tabella " + realParentTableName + "  non ha righe");
-						return def.resolve(null);
-					}
-					realParentObjectRow = realParentTable.rows[0].getRow();
-				}
 				//$getNewRowInside$
 
 				dt.autoIncrement('idconvalidato', { minimum: 99990001 });
 
 				// metto i default
-				return this.superClass.getNewRow(realParentObjectRow, dt, editType)
+				return this.superClass.getNewRow(parentRow, dt, editType)
 					.then(function (dtRow) {
 						//$getNewRowDefault$
 						return def.resolve(dtRow);
 					});
 			},
+
+
+
 
 
 
@@ -210,6 +209,18 @@
 						return "idattivform desc";
 					}
 					case "segmi": {
+						return "idattivform desc";
+					}
+					case "segstudprat": {
+						return "idattivform desc";
+					}
+					case "segistabbr": {
+						return "idattivform desc";
+					}
+					case "segisttri": {
+						return "idattivform desc";
+					}
+					case "stutri": {
 						return "idattivform desc";
 					}
 					//$getSortingin$

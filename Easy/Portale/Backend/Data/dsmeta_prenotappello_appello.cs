@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,11 +25,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_prenotappello_appello"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_prenotappello_appello: DataSet {
+public partial class dsmeta_prenotappello_appello: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registrystudentiview 		=> (MetaTable)Tables["registrystudentiview"];
+	public MetaTable pianostudioattivformprenotview 		=> (MetaTable)Tables["pianostudioattivformprenotview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable prenotappello 		=> (MetaTable)Tables["prenotappello"];
@@ -61,17 +59,39 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_prenotappello_appello.xsd";
 
 	#region create DataTables
-	//////////////////// REGISTRYSTUDENTIVIEW /////////////////////////////////
-	var tregistrystudentiview= new MetaTable("registrystudentiview");
-	tregistrystudentiview.defineColumn("dropdown_title", typeof(string),false);
-	tregistrystudentiview.defineColumn("idcity", typeof(int));
-	tregistrystudentiview.defineColumn("idnation", typeof(int));
-	tregistrystudentiview.defineColumn("idreg", typeof(int),false);
-	tregistrystudentiview.defineColumn("idregistryclass", typeof(string));
-	tregistrystudentiview.defineColumn("idtitle", typeof(string));
-	tregistrystudentiview.defineColumn("residence", typeof(int),false);
-	Tables.Add(tregistrystudentiview);
-	tregistrystudentiview.defineKey("idreg");
+	//////////////////// PIANOSTUDIOATTIVFORMPRENOTVIEW /////////////////////////////////
+	var tpianostudioattivformprenotview= new MetaTable("pianostudioattivformprenotview");
+	tpianostudioattivformprenotview.defineColumn("attivformscelta_idinsegn", typeof(int));
+	tpianostudioattivformprenotview.defineColumn("attivformscelta_idinsegninteg", typeof(int));
+	tpianostudioattivformprenotview.defineColumn("attivformscelta_tipovalutaz", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("attivformscelta_title", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("dropdown_title", typeof(string),false);
+	tpianostudioattivformprenotview.defineColumn("idattivform_scelta", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("idcorsostudio", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("iddidprog", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("idiscrizione", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("idpianostudio", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("idpianostudioattivform", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("idreg", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("idsostenimento", typeof(int));
+	tpianostudioattivformprenotview.defineColumn("insegn_codice", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("insegn_denominazione", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("insegninteg_codice", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("insegninteg_denominazione", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_anno", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_ct", typeof(DateTime),false);
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_cu", typeof(string),false);
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_idattivform", typeof(int),false);
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_idiscrizionebmi", typeof(int));
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_lt", typeof(DateTime),false);
+	tpianostudioattivformprenotview.defineColumn("pianostudioattivform_lu", typeof(string),false);
+	tpianostudioattivformprenotview.defineColumn("registry_title", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("sostenimento_idreg", typeof(int));
+	tpianostudioattivformprenotview.defineColumn("sostenimento_voto", typeof(decimal));
+	tpianostudioattivformprenotview.defineColumn("sostenimento_votolode", typeof(string));
+	tpianostudioattivformprenotview.defineColumn("sostenimento_votosu", typeof(int));
+	Tables.Add(tpianostudioattivformprenotview);
+	tpianostudioattivformprenotview.defineKey("idcorsostudio", "iddidprog", "idiscrizione", "idpianostudio", "idpianostudioattivform", "idreg");
 
 	//////////////////// PRENOTAPPELLO /////////////////////////////////
 	var tprenotappello= new MetaTable("prenotappello");
@@ -95,9 +115,9 @@ private void initClass() {
 
 
 	#region DataRelation creation
-	var cPar = new []{registrystudentiview.Columns["idreg"]};
-	var cChild = new []{prenotappello.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_prenotappello_registrystudentiview_idreg",cPar,cChild,false));
+	var cPar = new []{pianostudioattivformprenotview.Columns["idpianostudioattivform"]};
+	var cChild = new []{prenotappello.Columns["idpianostudioattivform"]};
+	Relations.Add(new DataRelation("FK_prenotappello_pianostudioattivformprenotview_idpianostudioattivform",cPar,cChild,false));
 
 	#endregion
 

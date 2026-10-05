@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -27,11 +25,11 @@ using metadatalibrary;
 namespace Backend.Data {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta_delibera_seg"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta_delibera_seg: DataSet {
+public partial class dsmeta_delibera_seg: DataSet {
 
 	#region Table members declaration
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable statuskind_alias2 		=> (MetaTable)Tables["statuskind_alias2"];
+	public MetaTable statuskind_alias1 		=> (MetaTable)Tables["statuskind_alias1"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry_alias1 		=> (MetaTable)Tables["registry_alias1"];
@@ -55,13 +53,10 @@ public class dsmeta_delibera_seg: DataSet {
 	public MetaTable deliberapratica 		=> (MetaTable)Tables["deliberapratica"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable statuskind_alias1 		=> (MetaTable)Tables["statuskind_alias1"];
+	public MetaTable statuskind 		=> (MetaTable)Tables["statuskind"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable registry 		=> (MetaTable)Tables["registry"];
-
-	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable registry_studenti 		=> (MetaTable)Tables["registry_studenti"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable istanzakind 		=> (MetaTable)Tables["istanzakind"];
@@ -79,7 +74,7 @@ public class dsmeta_delibera_seg: DataSet {
 	public MetaTable strutturadefaultview 		=> (MetaTable)Tables["strutturadefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public MetaTable statuskind 		=> (MetaTable)Tables["statuskind"];
+	public MetaTable statuskinddefaultview 		=> (MetaTable)Tables["statuskinddefaultview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable delibera 		=> (MetaTable)Tables["delibera"];
@@ -109,13 +104,13 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta_delibera_seg.xsd";
 
 	#region create DataTables
-	//////////////////// STATUSKIND_ALIAS2 /////////////////////////////////
-	var tstatuskind_alias2= new MetaTable("statuskind_alias2");
-	tstatuskind_alias2.defineColumn("idstatuskind", typeof(int),false);
-	tstatuskind_alias2.defineColumn("title", typeof(string),false);
-	tstatuskind_alias2.ExtendedProperties["TableForReading"]="statuskind";
-	Tables.Add(tstatuskind_alias2);
-	tstatuskind_alias2.defineKey("idstatuskind");
+	//////////////////// STATUSKIND_ALIAS1 /////////////////////////////////
+	var tstatuskind_alias1= new MetaTable("statuskind_alias1");
+	tstatuskind_alias1.defineColumn("idstatuskind", typeof(int),false);
+	tstatuskind_alias1.defineColumn("title", typeof(string),false);
+	tstatuskind_alias1.ExtendedProperties["TableForReading"]="statuskind";
+	Tables.Add(tstatuskind_alias1);
+	tstatuskind_alias1.defineKey("idstatuskind");
 
 	//////////////////// REGISTRY_ALIAS1 /////////////////////////////////
 	var tregistry_alias1= new MetaTable("registry_alias1");
@@ -206,89 +201,40 @@ private void initClass() {
 	tdeliberapratica.defineColumn("lt", typeof(DateTime),false);
 	tdeliberapratica.defineColumn("lu", typeof(string),false);
 	tdeliberapratica.defineColumn("!idpratica_registry_alias1_title", typeof(string));
-	tdeliberapratica.defineColumn("!idpratica_iscrizione_anno", typeof(int));
 	tdeliberapratica.defineColumn("!idpratica_iscrizione_didprog_title", typeof(string));
 	tdeliberapratica.defineColumn("!idpratica_iscrizione_didprog_aa", typeof(string));
 	tdeliberapratica.defineColumn("!idpratica_iscrizione_didprog_idsede", typeof(int));
 	tdeliberapratica.defineColumn("!idpratica_iscrizione_annoaccademico_alias1_aa", typeof(string));
 	tdeliberapratica.defineColumn("!idpratica_istanzakind_alias1_title", typeof(string));
-	tdeliberapratica.defineColumn("!idpratica_statuskind_alias2_title", typeof(string));
+	tdeliberapratica.defineColumn("!idpratica_statuskind_alias1_title", typeof(string));
 	tdeliberapratica.defineColumn("!idpratica_pratica_protnumero", typeof(int));
 	tdeliberapratica.defineColumn("!idpratica_pratica_protanno", typeof(int));
 	Tables.Add(tdeliberapratica);
 	tdeliberapratica.defineKey("idcorsostudio", "iddelibera", "iddidprog", "idiscrizione", "idistanza", "idistanzakind", "idpratica", "idreg");
 
-	//////////////////// STATUSKIND_ALIAS1 /////////////////////////////////
-	var tstatuskind_alias1= new MetaTable("statuskind_alias1");
-	tstatuskind_alias1.defineColumn("idstatuskind", typeof(int),false);
-	tstatuskind_alias1.defineColumn("title", typeof(string),false);
-	tstatuskind_alias1.ExtendedProperties["TableForReading"]="statuskind";
-	Tables.Add(tstatuskind_alias1);
-	tstatuskind_alias1.defineKey("idstatuskind");
+	//////////////////// STATUSKIND /////////////////////////////////
+	var tstatuskind= new MetaTable("statuskind");
+	tstatuskind.defineColumn("ct", typeof(DateTime),false);
+	tstatuskind.defineColumn("cu", typeof(string),false);
+	tstatuskind.defineColumn("delibera", typeof(string),false);
+	tstatuskind.defineColumn("idstatuskind", typeof(int),false);
+	tstatuskind.defineColumn("istanze", typeof(string),false);
+	tstatuskind.defineColumn("istanzedelibera", typeof(string),false);
+	tstatuskind.defineColumn("lt", typeof(DateTime),false);
+	tstatuskind.defineColumn("lu", typeof(string),false);
+	tstatuskind.defineColumn("pratica", typeof(string),false);
+	tstatuskind.defineColumn("sortcode", typeof(int),false);
+	tstatuskind.defineColumn("title", typeof(string),false);
+	Tables.Add(tstatuskind);
+	tstatuskind.defineKey("idstatuskind");
 
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new MetaTable("registry");
 	tregistry.defineColumn("active", typeof(string),false);
-	tregistry.defineColumn("annotation", typeof(string));
-	tregistry.defineColumn("authorization_free", typeof(string));
-	tregistry.defineColumn("badgecode", typeof(string));
-	tregistry.defineColumn("birthdate", typeof(DateTime));
-	tregistry.defineColumn("ccp", typeof(string));
-	tregistry.defineColumn("cf", typeof(string));
-	tregistry.defineColumn("ct", typeof(DateTime),false);
-	tregistry.defineColumn("cu", typeof(string),false);
-	tregistry.defineColumn("email_fe", typeof(string));
-	tregistry.defineColumn("extension", typeof(string));
-	tregistry.defineColumn("extmatricula", typeof(string));
-	tregistry.defineColumn("flag_pa", typeof(string));
-	tregistry.defineColumn("flagbankitaliaproceeds", typeof(string));
-	tregistry.defineColumn("foreigncf", typeof(string));
-	tregistry.defineColumn("forename", typeof(string));
-	tregistry.defineColumn("gender", typeof(string));
-	tregistry.defineColumn("idaccmotivecredit", typeof(string));
-	tregistry.defineColumn("idaccmotivedebit", typeof(string));
-	tregistry.defineColumn("idcategory", typeof(string));
-	tregistry.defineColumn("idcentralizedcategory", typeof(string));
-	tregistry.defineColumn("idcity", typeof(int));
-	tregistry.defineColumn("idexternal", typeof(int));
-	tregistry.defineColumn("idmaritalstatus", typeof(string));
-	tregistry.defineColumn("idnation", typeof(int));
 	tregistry.defineColumn("idreg", typeof(int),false);
-	tregistry.defineColumn("idregistryclass", typeof(string));
-	tregistry.defineColumn("idregistrykind", typeof(int));
-	tregistry.defineColumn("idtitle", typeof(string));
-	tregistry.defineColumn("ipa_fe", typeof(string));
-	tregistry.defineColumn("ipa_perlapa", typeof(string));
-	tregistry.defineColumn("location", typeof(string));
-	tregistry.defineColumn("lt", typeof(DateTime),false);
-	tregistry.defineColumn("lu", typeof(string),false);
-	tregistry.defineColumn("maritalsurname", typeof(string));
-	tregistry.defineColumn("multi_cf", typeof(string));
-	tregistry.defineColumn("p_iva", typeof(string));
-	tregistry.defineColumn("pec_fe", typeof(string));
-	tregistry.defineColumn("residence", typeof(int),false);
-	tregistry.defineColumn("rtf", typeof(Byte[]));
-	tregistry.defineColumn("sdi_defrifamm", typeof(string));
-	tregistry.defineColumn("sdi_norifamm", typeof(string));
-	tregistry.defineColumn("surname", typeof(string));
 	tregistry.defineColumn("title", typeof(string),false);
-	tregistry.defineColumn("toredirect", typeof(int));
-	tregistry.defineColumn("txt", typeof(string));
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
-
-	//////////////////// REGISTRY_STUDENTI /////////////////////////////////
-	var tregistry_studenti= new MetaTable("registry_studenti");
-	tregistry_studenti.defineColumn("authinps", typeof(string),false);
-	tregistry_studenti.defineColumn("ct", typeof(DateTime),false);
-	tregistry_studenti.defineColumn("cu", typeof(string),false);
-	tregistry_studenti.defineColumn("idreg", typeof(int),false);
-	tregistry_studenti.defineColumn("idstuddirittokind", typeof(int));
-	tregistry_studenti.defineColumn("idstudprenotkind", typeof(int),false);
-	tregistry_studenti.defineColumn("lt", typeof(DateTime),false);
-	tregistry_studenti.defineColumn("lu", typeof(string),false);
-	Tables.Add(tregistry_studenti);
-	tregistry_studenti.defineKey("idreg");
 
 	//////////////////// ISTANZAKIND /////////////////////////////////
 	var tistanzakind= new MetaTable("istanzakind");
@@ -320,12 +266,12 @@ private void initClass() {
 	tistanza_alias14.defineColumn("idstatuskind", typeof(int));
 	tistanza_alias14.defineColumn("lt", typeof(DateTime),false);
 	tistanza_alias14.defineColumn("lu", typeof(string),false);
-	tistanza_alias14.defineColumn("paridistanza", typeof(int),false);
+	tistanza_alias14.defineColumn("paridistanza", typeof(int));
 	tistanza_alias14.defineColumn("protanno", typeof(int),false);
 	tistanza_alias14.defineColumn("protnumero", typeof(int),false);
 	tistanza_alias14.ExtendedProperties["TableForReading"]="istanza";
 	Tables.Add(tistanza_alias14);
-	tistanza_alias14.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti", "paridistanza");
+	tistanza_alias14.defineKey("idcorsostudio", "iddidprog", "idistanza", "idistanzakind", "idreg_studenti");
 
 	//////////////////// DELIBERAISTANZA /////////////////////////////////
 	var tdeliberaistanza= new MetaTable("deliberaistanza");
@@ -341,7 +287,7 @@ private void initClass() {
 	tdeliberaistanza.defineColumn("!idistanza_annoaccademico_aa", typeof(string));
 	tdeliberaistanza.defineColumn("!idistanza_istanza_alias14_data", typeof(DateTime));
 	tdeliberaistanza.defineColumn("!idistanza_istanzakind_title", typeof(string));
-	tdeliberaistanza.defineColumn("!idistanza_statuskind_alias1_title", typeof(string));
+	tdeliberaistanza.defineColumn("!idistanza_statuskind_title", typeof(string));
 	tdeliberaistanza.defineColumn("!idistanza_istanza_alias14_protanno", typeof(int));
 	tdeliberaistanza.defineColumn("!idistanza_istanza_alias14_protnumero", typeof(int));
 	Tables.Add(tdeliberaistanza);
@@ -351,26 +297,26 @@ private void initClass() {
 	var tstrutturadefaultview= new MetaTable("strutturadefaultview");
 	tstrutturadefaultview.defineColumn("dropdown_title", typeof(string),false);
 	tstrutturadefaultview.defineColumn("idstruttura", typeof(int),false);
-	tstrutturadefaultview.defineColumn("idupb", typeof(string));
-	tstrutturadefaultview.defineColumn("paridstruttura", typeof(int));
+	tstrutturadefaultview.defineColumn("struttura_active", typeof(string));
 	Tables.Add(tstrutturadefaultview);
 	tstrutturadefaultview.defineKey("idstruttura");
 
-	//////////////////// STATUSKIND /////////////////////////////////
-	var tstatuskind= new MetaTable("statuskind");
-	tstatuskind.defineColumn("ct", typeof(DateTime),false);
-	tstatuskind.defineColumn("cu", typeof(string),false);
-	tstatuskind.defineColumn("delibera", typeof(string),false);
-	tstatuskind.defineColumn("idstatuskind", typeof(int),false);
-	tstatuskind.defineColumn("istanze", typeof(string),false);
-	tstatuskind.defineColumn("istanzedelibera", typeof(string),false);
-	tstatuskind.defineColumn("lt", typeof(DateTime),false);
-	tstatuskind.defineColumn("lu", typeof(string),false);
-	tstatuskind.defineColumn("pratica", typeof(string),false);
-	tstatuskind.defineColumn("sortcode", typeof(int),false);
-	tstatuskind.defineColumn("title", typeof(string),false);
-	Tables.Add(tstatuskind);
-	tstatuskind.defineKey("idstatuskind");
+	//////////////////// STATUSKINDDEFAULTVIEW /////////////////////////////////
+	var tstatuskinddefaultview= new MetaTable("statuskinddefaultview");
+	tstatuskinddefaultview.defineColumn("dropdown_title", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("idstatuskind", typeof(int),false);
+	tstatuskinddefaultview.defineColumn("statuskind_ct", typeof(DateTime),false);
+	tstatuskinddefaultview.defineColumn("statuskind_cu", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("statuskind_delibera", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_istanze", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_istanzedelibera", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_lt", typeof(DateTime),false);
+	tstatuskinddefaultview.defineColumn("statuskind_lu", typeof(string),false);
+	tstatuskinddefaultview.defineColumn("statuskind_pratica", typeof(string));
+	tstatuskinddefaultview.defineColumn("statuskind_sortcode", typeof(int),false);
+	tstatuskinddefaultview.defineColumn("title", typeof(string),false);
+	Tables.Add(tstatuskinddefaultview);
+	tstatuskinddefaultview.defineKey("idstatuskind");
 
 	//////////////////// DELIBERA /////////////////////////////////
 	var tdelibera= new MetaTable("delibera");
@@ -401,9 +347,9 @@ private void initClass() {
 	cChild = new []{deliberapratica.Columns["idpratica"]};
 	Relations.Add(new DataRelation("FK_deliberapratica_pratica_idpratica",cPar,cChild,false));
 
-	cPar = new []{statuskind_alias2.Columns["idstatuskind"]};
+	cPar = new []{statuskind_alias1.Columns["idstatuskind"]};
 	cChild = new []{pratica.Columns["idstatuskind"]};
-	Relations.Add(new DataRelation("FK_pratica_statuskind_alias2_idstatuskind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_pratica_statuskind_alias1_idstatuskind",cPar,cChild,false));
 
 	cPar = new []{registry_alias1.Columns["idreg"]};
 	cChild = new []{pratica.Columns["idreg"]};
@@ -433,17 +379,13 @@ private void initClass() {
 	cChild = new []{deliberaistanza.Columns["idistanza"]};
 	Relations.Add(new DataRelation("FK_deliberaistanza_istanza_alias14_idistanza",cPar,cChild,false));
 
-	cPar = new []{statuskind_alias1.Columns["idstatuskind"]};
+	cPar = new []{statuskind.Columns["idstatuskind"]};
 	cChild = new []{istanza_alias14.Columns["idstatuskind"]};
-	Relations.Add(new DataRelation("FK_istanza_alias14_statuskind_alias1_idstatuskind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_istanza_alias14_statuskind_idstatuskind",cPar,cChild,false));
 
 	cPar = new []{registry.Columns["idreg"]};
 	cChild = new []{istanza_alias14.Columns["idreg_studenti"]};
 	Relations.Add(new DataRelation("FK_istanza_alias14_registry_idreg_studenti",cPar,cChild,false));
-
-	cPar = new []{registry.Columns["idreg"]};
-	cChild = new []{registry_studenti.Columns["idreg"]};
-	Relations.Add(new DataRelation("FK_registry_studenti_registry_idreg",cPar,cChild,false));
 
 	cPar = new []{istanzakind.Columns["idistanzakind"]};
 	cChild = new []{istanza_alias14.Columns["idistanzakind"]};
@@ -457,9 +399,9 @@ private void initClass() {
 	cChild = new []{delibera.Columns["idstruttura"]};
 	Relations.Add(new DataRelation("FK_delibera_strutturadefaultview_idstruttura",cPar,cChild,false));
 
-	cPar = new []{statuskind.Columns["idstatuskind"]};
+	cPar = new []{statuskinddefaultview.Columns["idstatuskind"]};
 	cChild = new []{delibera.Columns["idstatuskind"]};
-	Relations.Add(new DataRelation("FK_delibera_statuskind_idstatuskind",cPar,cChild,false));
+	Relations.Add(new DataRelation("FK_delibera_statuskinddefaultview_idstatuskind",cPar,cChild,false));
 
 	#endregion
 

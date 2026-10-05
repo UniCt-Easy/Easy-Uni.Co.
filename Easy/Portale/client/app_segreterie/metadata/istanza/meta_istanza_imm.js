@@ -72,6 +72,14 @@
 						objCalcFieldConfig['!iddidprogori_didprogori_title'] = { tableNameLookup:'didprogori_alias2', columnNameLookup:'title', columnNamekey:'iddidprogori' };
 //$objCalcFieldConfig_seganagsturin$
 						break;
+					case 'imm_stu':
+						this.describeAColumn(table, 'parttime', 'Iscrizione Part-Time', null, 60, null);
+//$objCalcFieldConfig_imm_stu$
+						break;
+					case 'imm_sturin':
+						this.describeAColumn(table, 'parttime', 'Iscrizione Part-Time', null, 60, null);
+//$objCalcFieldConfig_imm_sturin$
+						break;
 //$objCalcFieldConfig$
 				}
 				table['customObjCalculateFields'] = objCalcFieldConfig;
@@ -80,7 +88,44 @@
 			},
 
 
-			//$setCaptions$
+			setCaption: function (table, edittype) {
+				switch (edittype) {
+					case 'imm_seganagsturin':
+						table.columns["iddidprogcurr"].caption = "Curriculum";
+						table.columns["iddidprogori"].caption = "Corso e orientamento";
+						table.columns["idreg_studenti"].caption = "Studenti";
+						table.columns["motivrit"].caption = "Motivazioni del ritardo nel richiedere l'istanza";
+						table.columns["parttime"].caption = "Iscrizione Part-Time";
+						table.columns["pre"].caption = "Preimmatricolazione";
+//$innerSetCaptionConfig_imm_seganagsturin$
+						break;
+					case 'imm_seganagstu':
+						table.columns["iddidprogcurr"].caption = "Curriculum";
+//$innerSetCaptionConfig_imm_seganagstu$
+						break;
+					case 'imm_seganagstupre':
+//$innerSetCaptionConfig_imm_seganagstupre$
+						break;
+					case 'imm_segrin':
+//$innerSetCaptionConfig_imm_segrin$
+						break;
+					case 'imm_seg':
+						table.columns["iddidprogcurr"].caption = "Curriculum";
+//$innerSetCaptionConfig_imm_seg$
+						break;
+					case 'imm_segpre':
+//$innerSetCaptionConfig_imm_segpre$
+						break;
+					case 'imm_stu':
+//$innerSetCaptionConfig_imm_stu$
+						break;
+					case 'imm_sturin':
+//$innerSetCaptionConfig_imm_sturin$
+						break;
+//$innerSetCaptionConfig$
+				}
+			},
+
 
 			getNewRow: function (parentRow, dt, editType){
                var def = appMeta.Deferred("getNewRow-meta_istanza_imm");

@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -300,7 +298,7 @@ namespace funzioni_configurazione {
         private string FilterPrevInizialeCassa(string vistascelta,string finpart) {
             string secprev = "";
             if (CfgFn.GetNoNullInt32(Meta.GetSys("fin_kind")) == 2) {
-                //Se Ë un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
+                //Se √® un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
                 secprev = (vistascelta == "finyearview") ? "prevision" : "initialprevision";
             }
             else {
@@ -346,7 +344,7 @@ namespace funzioni_configurazione {
             string VistaScelta = (idunderwriting == DBNull.Value) ? "finyearview" : "upbunderwritingyearview";
             string secprev = "";
             if (CfgFn.GetNoNullInt32(Meta.GetSys("fin_kind")) == 2) {
-                //Se Ë un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
+                //Se √® un bilancio di sola cassa, la prev. di cassa viene scritta in previsione.
                 secprev = (VistaScelta == "finyearview") ? "prevision" : "initialprevision";
             }
             else {
@@ -737,7 +735,7 @@ namespace funzioni_configurazione {
         }
         /// <summary>
         /// Considera tutti gli impegni presenti a prescindere dall'esercizio di creazione. 
-        /// Sono gli impegni di cassa. L'importo verr‡ visualizzato per il bilancio di sola Cassa
+        /// Sono gli impegni di cassa. L'importo verr√† visualizzato per il bilancio di sola Cassa
         /// </summary>
         /// <returns></returns>
         public decimal TotImpegniAll() {
@@ -1107,7 +1105,7 @@ namespace funzioni_configurazione {
 
         /// <summary>
         /// Considera tutti gli accertamenti presenti a prescindere dall'esercizio di creazione. Sono gli accertamenti di cassa.
-        /// L'importo verr‡ visualizzato per il bilancio di sola Cassa
+        /// L'importo verr√† visualizzato per il bilancio di sola Cassa
         /// </summary>
         /// <returns></returns>
         public decimal TotAccertamentiAll() {

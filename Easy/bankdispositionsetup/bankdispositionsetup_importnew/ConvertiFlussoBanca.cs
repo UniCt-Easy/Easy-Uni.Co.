@@ -1,7 +1,6 @@
-
-/*
+Ôªø/*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -44,7 +42,7 @@ namespace bankdispositionsetup_importnew {
                 string indreg = r["INDREG"].ToString().ToUpper();
 
                 string segno = r["SEGNO"].ToString(); //+ o -
-                decimal amount = CfgFn.GetNoNullDecimal(r["IMPDOC"]); //l'importo ha gi‡ il segno presente in "SEGNO"
+                decimal amount = CfgFn.GetNoNullDecimal(r["IMPDOC"]); //l'importo ha gi√† il segno presente in "SEGNO"
                 //if (segno == "-") amount = -amount;
                 int nprog = CfgFn.GetNoNullInt32(r["PRODOC"]);
                 object datavaluta = r["DVAL"];
@@ -59,9 +57,9 @@ namespace bankdispositionsetup_importnew {
                     I.Mandati.Add(new RigaMandato(ydoc, ndoc, amount, datatrans, datavaluta,
                         beneficiario, causale, nbolletta, nprog));
 
-                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'Ë una bolletta
+                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'√® una bolletta
                     if (SimulaEsitiBollette && nbolletta > 0 && indreg == "R") {
-                        //anche qui importo con segno perchÈ devono andare di pari passo
+                        //anche qui importo con segno perch√© devono andare di pari passo
                         I.EsitiBolletteSpesa.Add(new EsitoProvvisorio(ydoc, nbolletta, amount, datatrans));
                     }
                 }
@@ -70,9 +68,9 @@ namespace bankdispositionsetup_importnew {
                     I.Reversali.Add(new RigaReversale(ydoc, ndoc, amount, datatrans, datavaluta,
                         beneficiario, causale, nbolletta, nprog));
 
-                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'Ë una bolletta
+                    //Se deve simulare l'esito delle bollette aggiunge l'esito della bolletta ove il movimento sia a copertura e c'√® una bolletta
                     if (SimulaEsitiBollette && nbolletta > 0 && indreg == "R") {
-                        //anche qui importo con segno perchÈ devono andare di pari passo
+                        //anche qui importo con segno perch√© devono andare di pari passo
                         I.EsitiBolletteEntrata.Add(new EsitoProvvisorio(ydoc, nbolletta, amount, datatrans));
                     }
                 }

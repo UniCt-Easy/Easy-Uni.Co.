@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 if exists (select * from dbo.sysobjects where id = object_id(N'[rpt_sit_residui_per_anno_dett]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [rpt_sit_residui_per_anno_dett]
 GO
@@ -24,7 +22,7 @@ GO
 SET ANSI_NULLS ON 
 GO
 
-
+--setuser 'amministrazione'
 CREATE  PROCEDURE [rpt_sit_residui_per_anno_dett]
 	@ayear 		int,
 	@date		datetime,
@@ -97,6 +95,10 @@ IF @finpart = 'E'
 		SELECT @cash_phase = MAX(nphase)
 		FROM incomephase
 		SELECT @regphase = incomeregphase FROM uniconfig
+		IF ( @regphase > @finphase   )
+		BEGIN
+			SET @finphase = @regphase
+		END
 		SELECT @namephase = description FROM incomephase where nphase = @finphase
 	END
 ELSE
@@ -112,8 +114,15 @@ ELSE
 		SELECT @cash_phase = MAX(nphase)
 		FROM expensephase
 		SELECT @regphase = expenseregphase FROM uniconfig
+
+		
+		IF ( @regphase > @finphase   )
+		BEGIN
+			SET @finphase = @regphase
+		END
 		SELECT @namephase = description FROM expensephase where nphase = @finphase
 	END
+
 IF @finpart = 'E'
 BEGIN
 	INSERT INTO #initial_residual																		
@@ -146,16 +155,8 @@ BEGIN
 	JOIN incometotal
 		ON  incomeyear.idinc = incometotal.idinc
 		AND incomeyear.ayear = incometotal.ayear 
-	JOIN incomelink IL1
-		ON income.idinc = IL1.idchild
-		AND income.nphase = @finphase
-	LEFT OUTER JOIN  incomelink IL2
-		ON IL1.idchild = IL2.idchild
-		AND IL2.nlevel = @regphase
-	LEFT OUTER JOIN   income I2
-		ON I2.idinc = IL2.idchild
 	LEFT OUTER JOIN   registry R
-		ON I2.idreg = R.idreg							
+		ON income.idreg = R.idreg							
 	WHERE incomeyear.ayear = @ayear
 		AND (incomeyear.idupb like @idupb )
 		AND income.adate <= @date
@@ -166,7 +167,6 @@ BEGIN
 		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
 		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-
 	INSERT INTO #var_residual
 		(
 		ayear,
@@ -200,16 +200,8 @@ BEGIN
 	JOIN incometotal
 		ON  incomeyear.idinc = incometotal.idinc
 		AND incomeyear.ayear = incometotal.ayear	
-	JOIN incomelink IL1
-		ON income.idinc = IL1.idchild
-		AND income.nphase = @finphase
-	LEFT OUTER JOIN  incomelink IL2
-		ON IL1.idchild = IL2.idchild
-		AND IL2.nlevel = @regphase
-	LEFT OUTER JOIN  income I2
-		ON I2.idinc = IL2.idchild
 	LEFT OUTER JOIN  registry R
-		ON I2.idreg = R.idreg			
+		ON income.idreg = R.idreg			
 	WHERE incomevar.yvar = @ayear
 		AND incomevar.adate <= @date 
 		and (incomeyear.idupb like @idupb )
@@ -239,7 +231,7 @@ BEGIN
 		HPV.amount,
 		I.ymov,
 		I.nmov,
-		I.description,
+		I1.description,
 		R.title
 	FROM historyproceedsview HPV
 	JOIN incomeyear IY
@@ -249,20 +241,18 @@ BEGIN
 		ON IL.idchild = IY.idinc AND IL.nlevel = @finphase
 	JOIN income I
 		ON IL.idparent = I.idinc 
+	JOIN income I1
+			ON IY.idinc = I1.idinc 
 	JOIN upb U
 		ON IY.idupb = U.idupb
 	LEFT OUTER JOIN finlink  FL1
 		ON FL1.idchild = IY.idfin AND FL1.nlevel = @levelusable
-	LEFT OUTER JOIN  incomelink IL2
-		ON IL.idchild = IL2.idchild
-		AND IL2.nlevel = @regphase
-	LEFT OUTER JOIN  income I2
-		ON I2.idinc = IL2.idchild
 	LEFT OUTER JOIN  registry R
-		ON I2.idreg = R.idreg	
+		ON I.idreg = R.idreg	
 	WHERE HPV.competencydate <= @date
 		AND IY.idupb LIKE @idupb 
 		AND IY.ayear = @ayear
+		AND I1.nphase = @cash_phase
 		AND HPV.flagarrear = 'R'
 		AND (@idsor01 IS NULL OR U.idsor01 = @idsor01)
 		AND (@idsor02 IS NULL OR U.idsor02 = @idsor02)
@@ -305,19 +295,15 @@ BEGIN
 		JOIN income I
 			ON I.idinc = IL.idparent
 		JOIN income I1
-			ON I1.idinc = IY.idinc 
+			ON IY.idinc = I1.idinc
 		JOIN historyproceedsview HPV
 			ON HPV.idinc = IV.idinc
 			AND HPV.ymov = @ayear
-		LEFT OUTER JOIN  incomelink IL2
-			ON IL.idchild = IL2.idchild
-			AND IL2.nlevel = @regphase
-		LEFT OUTER JOIN  income I2
-			ON I2.idinc = IL2.idchild
-		LEFT OUTER JOIN  registry R
-			ON I2.idreg = R.idreg	
+	 	LEFT OUTER JOIN  registry R
+			ON I.idreg = R.idreg	
 		WHERE IV.yvar = @ayear
 			AND IV.adate <= @date
+			AND I1.nphase = @cash_phase
 			AND IY.idupb like @idupb
 			AND HPV.flagarrear = 'R'
 			AND HPV.competencydate <= @date
@@ -360,16 +346,8 @@ BEGIN
 	JOIN expensetotal
 		ON  expenseyear.idexp = expensetotal.idexp
 		AND expenseyear.ayear = expensetotal.ayear	
-	JOIN expenselink EL1
-		ON expense.idexp = EL1.idchild
-		AND expense.nphase = @finphase
-	LEFT OUTER JOIN  expenselink EL2
-		ON EL1.idchild = EL2.idchild
-		AND EL2.nlevel = @regphase
-	LEFT OUTER JOIN  expense E2
-		ON E2.idexp = EL2.idchild
 	LEFT OUTER JOIN  registry R
-		ON E2.idreg = R.idreg				
+			ON expense.idreg = R.idreg	
 	WHERE expenseyear.ayear = @ayear
 		AND (expenseyear.idupb like @idupb )
 		AND ((expensetotal.flag&1) = 1) -- Residuo
@@ -380,7 +358,8 @@ BEGIN
 		AND (@idsor03 IS NULL OR U.idsor03 = @idsor03)
 		AND (@idsor04 IS NULL OR U.idsor04 = @idsor04)
 		AND (@idsor05 IS NULL OR U.idsor05 = @idsor05)
-
+	
+	--SELECT * FROM #initial_residual  --- valori esatti
 	INSERT INTO #var_residual
 		(
 		ayear,
@@ -413,16 +392,8 @@ BEGIN
 	JOIN expensetotal
 		ON  expenseyear.idexp = expensetotal.idexp
 		AND expenseyear.ayear = expensetotal.ayear	
-	JOIN expenselink EL1
-		ON expense.idexp = EL1.idchild
-		AND expense.nphase = @finphase
-	LEFT OUTER JOIN  expenselink EL2
-		ON EL1.idchild = EL2.idchild
-		AND EL2.nlevel = @regphase
-	LEFT OUTER JOIN  expense E2
-		ON E2.idexp = EL2.idchild
 	LEFT OUTER JOIN  registry R
-		ON E2.idreg = R.idreg				
+			ON expense.idreg = R.idreg				
 	WHERE expensevar.yvar = @ayear
 		AND (expenseyear.idupb like @idupb )
 		AND expensevar.adate <= @date 
@@ -452,7 +423,7 @@ BEGIN
 		HPV.amount,
 		E.ymov,
 		E.nmov,
-		E2.description,
+		E1.description, --- cash fase
 		R.title
 	FROM historypaymentview HPV
 	JOIN expenseyear EY
@@ -468,13 +439,8 @@ BEGIN
 		ON EL.idparent = E.idexp
 	JOIN expense E1
 		ON EY.idexp = E1.idexp 
-	LEFT OUTER JOIN  expenselink EL2
-		ON EL.idchild = EL2.idchild
-		AND EL2.nlevel = @regphase
-	LEFT OUTER JOIN  expense E2
-		ON E2.idexp = EL2.idchild
 	LEFT OUTER JOIN  registry R
-		ON E2.idreg = R.idreg		
+		ON E.idreg = R.idreg		
 	WHERE 	HPV.competencydate <= @date
 		AND EY.idupb like @idupb
 		AND EY.ayear = @ayear
@@ -506,7 +472,7 @@ BEGIN
 			ISNULL(EV.amount, 0.0),
 			E.ymov,
 			E.nmov,
-			E2.description,
+			E1.description,  ---cash_fhase
 			R.title
 		FROM expensevar EV
 		JOIN expenseyear EY 
@@ -525,13 +491,8 @@ BEGIN
 		JOIN historypaymentview HPV
 			ON HPV.idexp = EV.idexp
 			AND HPV.ymov = @ayear
-		LEFT OUTER JOIN  expenselink EL2
-			ON EL.idchild = EL2.idchild
-			AND EL2.nlevel = @regphase
-		LEFT OUTER JOIN  expense E2
-			ON E2.idexp = EL2.idchild
 		LEFT OUTER JOIN  registry R
-			ON E2.idreg = R.idreg		
+			ON E.idreg = R.idreg		
 		WHERE EV.yvar = @ayear
 			AND EV.adate <= @date
 			AND (HPV.flagarrear = 'R')

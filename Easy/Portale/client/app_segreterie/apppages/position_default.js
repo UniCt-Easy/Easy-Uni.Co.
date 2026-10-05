@@ -22,7 +22,7 @@
 			//isValidFunction
 
 			//afterGetFormData
-			
+
 			//beforeFill
 
 			//afterClear
@@ -52,6 +52,8 @@
 			//insertClick
 
 			//beforePost
+
+			//afterPost
 
 			//buttons
         });

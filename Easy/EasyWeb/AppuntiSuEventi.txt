@@ -1,0 +1,74 @@
+﻿Agli hwRadioButton
+sono aggiunti gli eventi:
+
+ string Prev = hwRad.InputAttributes["onfocus"];
+ hwRad.InputAttributes["onfocus"] = "if(CKen(this)==true) {" + Prev + "};";
+ Prev = hwRad.InputAttributes["onblur"];
+ hwRad.InputAttributes["onblur"] = "if(CKlv(this)==true) {" + Prev + "};ckblur(this);";
+
+ Ossia è forzato il Cklv del controllo precedente prima di fare scattare gli eventi onfocus di questo.
+ E prima di fare scattare gli eventi sul blur di questo controllo, sono effettuati i controlli Cklv di questo
+
+ per tutti gli altri controlli: come per i radiobutton, ma il controllo chiamato al momento del blur non è ckblur ma ckleave, che è identico.
+ A questo punto li unifico
+
+
+ OriginControl  = controllo da cui proviene il focus
+ TargetControl  = controllo verso cui va il focus
+
+bool CKen(ControlToEnter) : serve ad assicurare che prima di entrare nel nuovo controllo sia scattato l'onblur del controllo precedente
+pone TargetControl= ControlToEnter.id, e poi:
+se OriginControl non è vuota : imposta ForcedOnBlur e chiama l'onblur di OriginControl, quindi restituisce false
+se OriginControl è vuota: restituisce true 
+
+
+ bool CKlv(ControlToLeave) 
+ se ForcedOnBlur resituisce false (è un blur pilotato da cken)
+ serve a porre la variabile OriginControl = ControlToLeave.id ma solo se è uguale a TargetControl e ritornare false
+ oppure ritornare true
+
+	
+function ckblur(txt){
+  //se ForcedObBlur non fa nulla
+  if(ForcedOnBlur){
+    OriginControl='';
+    ForcedOnBlur=false;
+    if(txt.id==TargetControl){
+        ForcedBlur=true;
+        document.getElementById(TargetControl).focus();
+        ForcedBlur=false;
+    } 
+    else { 
+      document.getElementById(TargetControl).onfocus(); 
+    };
+ }
+};
+>>ammazziamo tutta questa gestione dell'enter e blur e la gestiamo con l'onchange, a sua volta da gestire con una classe css apposita chgpback
+>> chgpback deve generare sul controllo a cui è attaccata un evento di postback con eventsource= il controllo da cui proviene            }
+>> l'attributo cascadeid deve aggiungere sul controllo ctrl a cui è agganciata una chiamata allo script di nome pari cascade_+ il valore dell'attributo
+
+
+Tent,Tlv gestiscono l'aggiunta della classe focused ai textbox selezionati, si possono rimuovere
+
+ ltbtag = tipo;tag se impostato deve far si da collegare all'evento onchange del controllo l'azione GenLeaveTB(tipo,this,tag) dove this è il controllo
+ se c'è enterdec = tag deve essere collegato l'OnFocus al metodo ExtEnterDecTextBox(this,tag) oltre a GenLeaveTB('Decimal',this,tag)
+ se c'è enternum = tag deve essere collegato l'OnFocus al metodo ExtEnterNumTextBox(this,tag) oltre a GenLeaveTB('Double',this,tag)
+ 
+ change_customfun = fun : collega la funzione fun all'evento change
+ data-maincmd= command : esegue il main command al click di quel bottone o link o controllo in generale (__EVENTTARGET=do_maincommand, __EVENTARGUMENT= comando
+ data-cmd= command : esegue il main command al click di quel bottone o link o controllo in generale (__EVENTTARGET=do_command, __EVENTARGUMENT= comando)
+
+ cssclass rowselpback sulle table: richiede che sia generato un evento di postback sul nome-server(*) come eventtarget e data-idx della riga cliccata come eventargument
+ data attribute chgpback sui bottoni: genera un evento click lato server (con source= il valore)
+ tag do_command. comando sui bottoni genera un evento doCommand(comando) sulla pagina
+
+
+ Sequenza di eventi:
+ Preinit di metapage   >>qui imposto il DS così che sia a disposizione di tutti, dovrei poterlo fare perché non è nel vstate
+OnInit del controllo
+OnInit di metapage
+>>LoadPageStateFromPersistenceMedium
+OnLoad di metapage
+OnInit del controllo???? si perché ne è creato uno a runtime in questo caso, e allora l'init avviene solo ora
+OnLoad dei controlli
+>>RaisePostBackEvent dei controlli

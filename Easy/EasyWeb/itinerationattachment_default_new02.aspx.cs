@@ -1,7 +1,6 @@
-
-/*
+﻿/*
 Easy
-Copyright (C) 2025 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -63,25 +61,35 @@ public override void AfterLink(bool firsttime, bool formToLink) {
         }
     }
     public override void AfterFill() {
-        if (PState.EditMode){
+        if (PState.EditMode) {
             btnFileUpload.Visible = false;
+            DataRow Curr = DS.itinerationattachment.Rows[0];
+            btnVisualizza.Visible = Curr["attachment"] != DBNull.Value || Curr["idfilestorage"] != DBNull.Value;
         }
 
-        if (PState.InsertMode){
+        if (PState.InsertMode) {
             btnFileUpload.Visible = true;
-        }
-        DataRow Curr = DS.itinerationattachment.Rows[0];
-        if (Curr["attachment"] == DBNull.Value) {
             btnVisualizza.Visible = false;
-        }
-        else {
-            btnVisualizza.Visible = true;
         }
     }
     protected void btnVisualizza_Click(object sender, EventArgs e) {
         string fkey = QHS.CmpKey(DS.itinerationattachment.Rows[0]);
         Session["AttachmentCommand"] = null;
-        Session["AttachmentFile"]= DS.itinerationattachment.Rows[0]["attachment"];
+
+		byte[] ByteArray = { };
+
+		if (DS.itinerationattachment.Rows[0]["attachment"] != DBNull.Value)
+		{
+			// Attachment
+			ByteArray = (byte[])DS.itinerationattachment.Rows[0]["attachment"];
+		}
+		else
+		{
+			// MongoDb
+			ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(Conn, DS.itinerationattachment.TableName, DS.itinerationattachment.Rows[0]["idfilestorage"].ToString()).GetAwaiter().GetResult();
+		}
+
+		Session["AttachmentFile"]= ByteArray;
         Session["AttachmentFileName"] = DS.itinerationattachment.Rows[0]["filename"].ToString();
 
         string F = "window.open('AttachmentView.aspx');";

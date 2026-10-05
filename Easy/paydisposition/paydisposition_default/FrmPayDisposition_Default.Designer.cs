@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 namespace paydisposition_default {
     partial class FrmPayDisposition_Default {
@@ -70,7 +68,7 @@ namespace paydisposition_default {
 			this.txtInputFile = new System.Windows.Forms.TextBox();
 			this.btnInputFile = new System.Windows.Forms.Button();
 			this._MyOpenFile = new System.Windows.Forms.OpenFileDialog();
-			this.progressBarImport = new System.Windows.Forms.ProgressBar();
+			//this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this.btnRimborsoSpeseUniversitarie = new System.Windows.Forms.Button();
 			this.CMenu = new System.Windows.Forms.ContextMenu();
 			this.MenuVisualizza = new System.Windows.Forms.MenuItem();
@@ -378,13 +376,13 @@ namespace paydisposition_default {
 			// 
 			// progressBarImport
 			// 
-			this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBarImport.Location = new System.Drawing.Point(6, 83);
-			this.progressBarImport.Name = "progressBarImport";
-			this.progressBarImport.Size = new System.Drawing.Size(677, 19);
-			this.progressBarImport.TabIndex = 15;
-			this.progressBarImport.Visible = false;
+			//this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+   //         | System.Windows.Forms.AnchorStyles.Right)));
+			//this.progressBarImport.Location = new System.Drawing.Point(6, 83);
+			//this.progressBarImport.Name = "progressBarImport";
+			//this.progressBarImport.Size = new System.Drawing.Size(677, 19);
+			//this.progressBarImport.TabIndex = 15;
+			//this.progressBarImport.Visible = false;
 			// 
 			// btnRimborsoSpeseUniversitarie
 			// 
@@ -418,7 +416,7 @@ namespace paydisposition_default {
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(695, 582);
 			this.Controls.Add(this.btnRimborsoSpeseUniversitarie);
-			this.Controls.Add(this.progressBarImport);
+			//this.Controls.Add(this.progressBarImport);
 			this.Controls.Add(this.txtInputFile);
 			this.Controls.Add(this.btnInputFile);
 			this.Controls.Add(this.groupBox3);
@@ -481,8 +479,9 @@ namespace paydisposition_default {
         private System.Windows.Forms.Button btnInputFile;
       
         private System.Windows.Forms.OpenFileDialog _MyOpenFile;
-        private System.Windows.Forms.ProgressBar progressBarImport;
-        private System.Windows.Forms.Button btnRimborsoSpeseUniversitarie;
+		// Rimuovo la progress bar, se dovesse servire bisogna farla async
+		//private System.Windows.Forms.ProgressBar progressBarImport;
+		private System.Windows.Forms.Button btnRimborsoSpeseUniversitarie;
         private System.Windows.Forms.ContextMenu CMenu;
         private System.Windows.Forms.MenuItem MenuVisualizza;
         private System.Windows.Forms.MenuItem menuItem1;

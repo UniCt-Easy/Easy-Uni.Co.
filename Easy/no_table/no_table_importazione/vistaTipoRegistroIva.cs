@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,183 +13,173 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-namespace notable_importazione {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaTipoRegistroIva: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable treasurer{get { return Tables["treasurer"];}}
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable ivaregisterkind{get { return Tables["ivaregisterkind"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace notable_importazione {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaTipoRegistroIva"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaTipoRegistroIva: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable treasurer 		=> Tables["treasurer"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataRelationCollection Relations {get {return base.Relations; } } 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable ivaregisterkind 		=> Tables["ivaregisterkind"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaTipoRegistroIva(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaTipoRegistroIva";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaTipoRegistroIva.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaTipoRegistroIva (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaTipoRegistroIva";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaTipoRegistroIva.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("treasurer");
-	T.Columns.Add(new DataColumn("address", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("agencycodefortransmission", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cabcodefortransmission", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cap", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cin", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("city", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("country", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// TREASURER /////////////////////////////////
+	var ttreasurer= new DataTable("treasurer");
+	ttreasurer.Columns.Add( new DataColumn("address", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("agencycodefortransmission", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("cabcodefortransmission", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("cap", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("cc", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("cin", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("city", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("country", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	ttreasurer.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("depcodefortransmission", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("description", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("faxnumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("faxprefix", typeof(System.String), ""));
-	C= new DataColumn("flagdefault", typeof(System.String), "");
+	ttreasurer.Columns.Add(C);
+	ttreasurer.Columns.Add( new DataColumn("depcodefortransmission", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("description", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("faxnumber", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("faxprefix", typeof(string)));
+	C= new DataColumn("flagdefault", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idaccmotive_payment", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idaccmotive_proceeds", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idbank", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcab", typeof(System.String), ""));
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	ttreasurer.Columns.Add(C);
+	ttreasurer.Columns.Add( new DataColumn("idaccmotive_payment", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("idaccmotive_proceeds", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("idbank", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("idcab", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	ttreasurer.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("phonenumber", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("phoneprefix", typeof(System.String), ""));
-	C= new DataColumn("codetreasurer", typeof(System.String), "");
+	ttreasurer.Columns.Add(C);
+	ttreasurer.Columns.Add( new DataColumn("phonenumber", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("phoneprefix", typeof(string)));
+	C= new DataColumn("codetreasurer", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idtreasurer", typeof(System.Int32), "");
+	ttreasurer.Columns.Add(C);
+	C= new DataColumn("idtreasurer", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	ttreasurer.Columns.Add(C);
+	ttreasurer.Columns.Add( new DataColumn("spexportexp", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("flagmultiexp", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("fileextension", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("spexportinc", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("iban", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("bic", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("flagfruitful", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("cccbi", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("cincbi", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("idbankcbi", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("idcabcbi", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("ibancbi", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("siacodecbi", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("reccbikind", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("trasmcode", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("flagbank_grouping", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("motivelen", typeof(short)));
+	ttreasurer.Columns.Add( new DataColumn("motiveprefix", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("motiveseparator", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("annotations", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("flagedisp", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("idsor01", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("idsor02", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("idsor03", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("idsor04", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("idsor05", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("billcode", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("active", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("flag", typeof(int)));
+	ttreasurer.Columns.Add( new DataColumn("header", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("savepath", typeof(string)));
+	ttreasurer.Columns.Add( new DataColumn("departmentname_fe", typeof(string)));
+	Tables.Add(ttreasurer);
+	ttreasurer.PrimaryKey =  new DataColumn[]{ttreasurer.Columns["idtreasurer"]};
 
-	T.Columns.Add(new DataColumn("spexportexp", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagmultiexp", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("fileextension", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("spexportinc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("iban", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("bic", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagfruitful", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cccbi", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("cincbi", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idbankcbi", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idcabcbi", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("ibancbi", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("siacodecbi", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("reccbikind", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("trasmcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagbank_grouping", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("motivelen", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("motiveprefix", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("motiveseparator", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("annotations", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagedisp", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idsor01", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor02", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor03", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor04", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("idsor05", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("billcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flag", typeof(System.Int32), ""));
-	T.Columns.Add(new DataColumn("header", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("savepath", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("departmentname_fe", typeof(System.String), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idtreasurer"]};
-	T.PrimaryKey = key;
 
-	T= new DataTable("ivaregisterkind");
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	//////////////////// IVAREGISTERKIND /////////////////////////////////
+	var tivaregisterkind= new DataTable("ivaregisterkind");
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("description", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("description", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("registerclass", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("registerclass", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("idivaregisterkindunified", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("flagactivity", typeof(System.Int16), ""));
-	C= new DataColumn("codeivaregisterkind", typeof(System.String), "");
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("idivaregisterkindunified", typeof(string)));
+	tivaregisterkind.Columns.Add( new DataColumn("flagactivity", typeof(short)));
+	C= new DataColumn("codeivaregisterkind", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idivaregisterkind", typeof(System.Int32), "");
+	tivaregisterkind.Columns.Add(C);
+	C= new DataColumn("idivaregisterkind", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("compensation", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("idtreasurer", typeof(System.Int32), ""));
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[1]{
-	T.Columns["idivaregisterkind"]};
-	T.PrimaryKey = key;
+	tivaregisterkind.Columns.Add(C);
+	tivaregisterkind.Columns.Add( new DataColumn("compensation", typeof(string)));
+	tivaregisterkind.Columns.Add( new DataColumn("idtreasurer", typeof(int)));
+	tivaregisterkind.Columns.Add( new DataColumn("emails", typeof(string)));
+	Tables.Add(tivaregisterkind);
+	tivaregisterkind.PrimaryKey =  new DataColumn[]{tivaregisterkind.Columns["idivaregisterkind"]};
 
 
-//Relations
-DataTable TPar;
-DataTable TChild;
-DataColumn []CPar;
-DataColumn []CChild;
-TPar= Tables["treasurer"];
-TChild= Tables["ivaregisterkind"];
-CPar = new DataColumn[1]{TPar.Columns["idtreasurer"]};
-CChild = new DataColumn[1]{TChild.Columns["idtreasurer"]};
-Relations.Add(new DataRelation("treasurer_ivaregisterkind",CPar,CChild));
+	#endregion
+
+
+	#region DataRelation creation
+	var cPar = new []{treasurer.Columns["idtreasurer"]};
+	var cChild = new []{ivaregisterkind.Columns["idtreasurer"]};
+	Relations.Add(new DataRelation("treasurer_ivaregisterkind",cPar,cChild,false));
+
+	#endregion
 
 }
 }

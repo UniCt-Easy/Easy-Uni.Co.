@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -14,11 +13,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
- if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_deferred_fin_upb_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_expense_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-
-drop procedure [exp_csa_deferred_fin_upb_available]
-
+if exists (select * from dbo.sysobjects where id = object_id(N'[exp_csa_deferred_fin_upb_available]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure [exp_csa_deferred_fin_upb_available]
 GO
  
 SET QUOTED_IDENTIFIER ON
@@ -30,13 +26,14 @@ SET ANSI_NULLS ON
 GO
  
 
- --setuser 'amm'
- --setuser 'amministrazione'
+-- setuser 'amm'
+-- setuser 'amministrazione'
 -- exec [exp_csa_deferred_fin_upb_available] 2020
 
 CREATE PROCEDURE  [exp_csa_deferred_fin_upb_available]
 	(
-		@ayear int 
+		@ayear int,
+		@kind  char(1) -- L -> Lordi || V -> Versamenti
 	)
 
 AS BEGIN
@@ -66,7 +63,7 @@ SELECT @maxphaseincome = MAX(nphase) FROM incomephase
 DECLARE @fin_kind tinyint
 SELECT @fin_kind = fin_kind FROM config WHERE ayear = @ayear
  
-create table #output_versamenti
+create table #output_posticipati
 (
 		kind varchar(20), movkind int , parentidinc int , parentidexp int ,idfin int, idupb varchar(36),	
 			totcompetenza decimal(19,2), totcassa decimal(19,2)
@@ -74,20 +71,31 @@ create table #output_versamenti
 ) 
 
 --- riempimento dati pagamenti posticipati
- 
-insert into #output_versamenti (kind,idfin,idupb,totcompetenza,totcassa)		
-select VERSAMENTI.kind,FINNEW.newidfin /*riattualizzo la voce di bilancio*/,VERSAMENTI.idupb, 0 /*vengono rigenerate in c/competenza solo le ultime fasi, ecco perchè 0*/, -sum(amount)
-from [csa_importver_varresidualview] VERSAMENTI 
-JOIN finlookup FINNEW ON FINNEW.oldidfin = VERSAMENTI.idfin
-WHERE ayear = @ayear
-group by VERSAMENTI.kind,FINNEW.newidfin,VERSAMENTI.idupb
- 
+
+if (@kind = 'V') -- Versamenti posticipati
+BEGIN
+	insert into #output_posticipati (kind,idfin,idupb,totcompetenza,totcassa)		
+	select VERSAMENTI.kind,FINNEW.newidfin /*riattualizzo la voce di bilancio*/,VERSAMENTI.idupb, 0 /*vengono rigenerate in c/competenza solo le ultime fasi, ecco perchè 0*/, -sum(amount)
+	from [csa_importver_varresidualview] VERSAMENTI 
+	JOIN finlookup FINNEW ON FINNEW.oldidfin = VERSAMENTI.idfin
+	WHERE ayear = @ayear
+	group by VERSAMENTI.kind,FINNEW.newidfin,VERSAMENTI.idupb
+END
+ELSE -- (@kind = 'L')  -- Lordi posticipati
+BEGIN
+	insert into #output_posticipati (kind,idfin,idupb,totcompetenza,totcassa)		
+	select LORDI.kind,FINNEW.newidfin /*riattualizzo la voce di bilancio*/,LORDI.idupb, 0 /*vengono rigenerate in c/competenza solo le ultime fasi, ecco perchè 0*/, -sum(amount)
+	from [csa_importriep_varresidualview] LORDI 
+	JOIN finlookup FINNEW ON FINNEW.oldidfin = LORDI.idfin
+	WHERE ayear = @ayear
+	group by LORDI.kind,FINNEW.newidfin,LORDI.idupb
+END
  
 CREATE TABLE  #FIN_UPB 
 (idfin int, idupb varchar(36), kind varchar(20))
 
 INSERT INTO #FIN_UPB  (idfin,idupb,kind)    
-select distinct idfin,idupb,kind  from #output_versamenti  
+select distinct idfin,idupb,kind  from #output_posticipati  
 
 --> COMPETENZA E CASSA   
 IF (@fin_kind = 3) 
@@ -101,29 +109,29 @@ fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)											as 'Previsione Disponibile di competenza attuale' ,
-isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)- isnull(VERSAMENTI.totcompetenza,0)		as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti',
-isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)    as   'Previsione Disponibile di cassa attuale' ,
-isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(VERSAMENTI.totcassa,0)	 as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti'
+isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)- isnull(VERSAMENTI.totcompetenza,0)		as 'Previsione Disponibile di competenza dopo la creazione dei posticipati ',
+isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)    as 'Previsione Disponibile di cassa attuale' ,
+isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(MOVPOSTICIPATI.totcassa,0)	 as 'Previsione Disponibile di cassa dopo la creazione dei posticipati '
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbincometotal UITC on UITC.idfin=UWT.idfin and UITC.idupb=UWT.idupb  and uitc.nphase = 1
 	left outer join upbincometotal UITS on UITS.idfin=UWT.idfin and UITS.idupb=UWT.idupb and uits.nphase = @maxphaseincome
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_posticipati MOVPOSTICIPATI on MOVPOSTICIPATI.idfin=UWT.idfin and MOVPOSTICIPATI.idupb=UWT.idupb
 WHERE UWT.kind = 'Entrata' 
 AND
 (
 	(
 	--- PREVISIONE DISPONIBILE DI COMPETENZA NEGATIVA
 		isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
-				- isnull(VERSAMENTI.totcompetenza,0)
+				- isnull(MOVPOSTICIPATI.totcompetenza,0)
 	)	 < 0
 OR
 	--- PREVISIONE DISPONIBILE DI CASSA NEGATIVA
 	(
 		isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
-				- isnull(VERSAMENTI.totcassa,0)  
+				- isnull(MOVPOSTICIPATI.totcassa,0)  
 	)	 <0
 
 ) 
@@ -136,28 +144,28 @@ fin.codefin as 'Cod. Bilancio',
 fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
-isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)											as 'Previsione Disponibile di competenza attuale' ,
-isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0) - isnull(VERSAMENTI.totcompetenza,0)	as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti', 
-isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)	as 'Previsione Disponibile di cassa attuale' ,
-isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(VERSAMENTI.totcassa,0)	 as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti'
+isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)											 as 'Previsione Disponibile di competenza attuale' ,
+isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0) - isnull(MOVPOSTICIPATI.totcompetenza,0) as 'Previsione Disponibile di competenza dopo la creazione dei posticipati', 
+isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)	 as 'Previsione Disponibile di cassa attuale' ,
+isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(MOVPOSTICIPATI.totcassa,0)	 as 'Previsione Disponibile di cassa dopo la creazione dei posticipati'
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbexpensetotal UITc on UITc.idfin=UWT.idfin and UITc.idupb=UWT.idupb and UITC.nphase=1
 	left outer join upbexpensetotal UITS on UITs.idfin=UWT.idfin and UITs.idupb=UWT.idupb and UITS.nphase = @maxphaseexpense
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_posticipati MOVPOSTICIPATI on MOVPOSTICIPATI.idfin=UWT.idfin and MOVPOSTICIPATI.idupb=UWT.idupb
 WHERE UWT.kind = 'Spesa'
 AND
 (
 	(	isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITc.totalcompetency,0)
-				- isnull(VERSAMENTI.totcompetenza,0) 
-				)<0
+				- isnull(MOVPOSTICIPATI.totcompetenza,0) 
+	)<0
 	 
 OR
 	(	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
-				- isnull(VERSAMENTI.totcassa,0)  
-	 )<0
+				- isnull(MOVPOSTICIPATI.totcassa,0)  
+	)<0
 )
 order by fin.codefin, upb.codeupb
 END
@@ -174,20 +182,20 @@ fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) as 'Previsione Disponibile di competenza attuale' ,
-isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) - isnull(VERSAMENTI.totcompetenza,0) as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti'
+isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) - isnull(VERSAMENTI.totcompetenza,0) as 'Previsione Disponibile di competenza dopo la creazione dei posticipati'
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbincometotal UITC on UITC.idfin=UWT.idfin and UITC.idupb=UWT.idupb  and uitc.nphase = 1	
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_posticipati MOVPOSTICIPATI on MOVPOSTICIPATI.idfin=UWT.idfin and MOVPOSTICIPATI.idupb=UWT.idupb
 WHERE UWT.kind = 'Entrata' 
 AND
 (
 	(
 	--- PREVISIONE DISPONIBILE DI COMPETENZA NEGATIVA
 		isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
-				- isnull(VERSAMENTI.totcompetenza,0)	 
+				- isnull(MOVPOSTICIPATI.totcompetenza,0)	 
 	)	 < 0
 ) 
 UNION ALL -- Spese
@@ -200,21 +208,21 @@ fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
 isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) as 'Previsione Disponibile di competenza attuale' ,
-isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) - isnull(VERSAMENTI.totcompetenza,0)as 'Previsione Disponibile di competenza dopo elaborazione  Versamenti'
+isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0) - isnull(MOVPOSTICIPATI.totcompetenza,0)as 'Previsione Disponibile di competenza dopo la creazione dei posticipati'
 	 
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbexpensetotal UITc on UITc.idfin=UWT.idfin and UITc.idupb=UWT.idupb and UITC.nphase=1
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_posticipati MOVPOSTICIPATI on MOVPOSTICIPATI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
 	
 
 WHERE UWT.kind = 'Spesa'
 AND
 (
 	(	isnull(UT.currentprev,0) + isnull(UT.previsionvariation,0) - isnull(UITC.totalcompetency,0)
-				- isnull(VERSAMENTI.totcompetenza,0)	 
+				- isnull(MOVPOSTICIPATI.totcompetenza,0)	 
 	)<0	 
 )
 order by fin.codefin, upb.codeupb
@@ -232,20 +240,20 @@ fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
  isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)  as   'Previsione Disponibile di cassa attuale' ,
- isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)  - isnull(VERSAMENTI.totcassa,0)	 as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti' 
+ isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)  - isnull(MOVPOSTICIPATI.totcassa,0)	 as 'Previsione Disponibile di cassa dopo la creazione dei posticipati' 
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb	
 	left outer join upbincometotal UITS on UITS.idfin=UWT.idfin and UITS.idupb=UWT.idupb and uits.nphase = @maxphaseincome
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_posticipati MOVPOSTICIPATI on MOVPOSTICIPATI.idfin=UWT.idfin and MOVPOSTICIPATI.idupb=UWT.idupb
 	WHERE UWT.kind = 'Entrata' 
 AND
 (
 	--- PREVISIONE DISPONIBILE DI CASSA NEGATIVA
 	(
 		isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) 
-				- isnull(VERSAMENTI.totcassa,0)  
+				- isnull(MOVPOSTICIPATI.totcassa,0)  
 	)	 <0
 
 ) 
@@ -260,20 +268,20 @@ fin.title as 'Bilancio',
 upb.codeupb as 'Cod. UPB',
 upb.title as 'UPB',
 isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0)   as 'Previsione Disponibile di cassa attuale' ,
-isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(VERSAMENTI.totcassa,0)as 'Previsione Disponibile di cassa dopo elaborazione  Versamenti'
+isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(MOVPOSTICIPATI.totcassa,0)as 'Previsione Disponibile di cassa dopo la creazione dei posticipati'
 from #FIN_UPB   UWT
 	join fin on UWT.idfin = fin.idfin 
 	join upb on UWT.idupb = upb.idupb
 	left outer join upbtotal UT on UT.idfin=UWT.idfin and UT.idupb=UWT.idupb
 	left outer join upbexpensetotal UITS on UITs.idfin=UWT.idfin and UITs.idupb=UWT.idupb and UITS.nphase = @maxphaseexpense
-	left outer join #output_versamenti VERSAMENTI on VERSAMENTI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
+	left outer join #output_posticipati MOVPOSTICIPATI on MOVPOSTICIPATI.idfin=UWT.idfin and VERSAMENTI.idupb=UWT.idupb
 	
 
 WHERE UWT.kind = 'Spesa'
 AND
 (
-	(	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(VERSAMENTI.totcassa,0) 
-	 )<0
+	(	isnull(UT.currentsecondaryprev,0) + isnull(UT.secondaryvariation,0) - isnull(UITS.totalcompetency,0)-isnull(UITS.totalarrears,0) - isnull(MOVPOSTICIPATI.totcassa,0) 
+	)<0
 )
 order by fin.codefin, upb.codeupb
 END

@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2024 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[exp_invdetail_expensewithvar]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [exp_invdetail_expensewithvar]
@@ -77,9 +75,10 @@ AS BEGIN
 	AND		EV.movkind is null -- I pagamento che contabilizzano fatture non devono avere variazioni semplici
 	AND I.flagdeferred = 'S'
 	AND PC1.competencydate BETWEEN @datebegin AND @dateend
-	AND isnull(EV.autokind,0)<>22 --non considera le autokind "Modifica Dati di Pagamenti Trasmessi", task 12275 
-	AND isnull(EV.autokind,0)<>10 --non considera le autokind "Annullo totale", task 12359
-	AND isnull(EV.autokind,0)<>11 --non considera le autokind "Annullp parziale", task 12359							
+	AND isnull(EV.autokind,0)<>22 --non considera autokind "Modifica Dati di Pagamenti Trasmessi", task 12275 
+	AND isnull(EV.autokind,0)<>10 --non considera autokind "Annullo totale", task 12359
+	AND isnull(EV.autokind,0)<>11 --non considera autokind "Annullo parziale", task 12359	
+	AND isnull(EV.autokind,0)<> 4 --non considera autokind "Variazioni per ritenute conto dipendente" per chi usa quella configurazione
 END
 GO
 SET QUOTED_IDENTIFIER OFF 

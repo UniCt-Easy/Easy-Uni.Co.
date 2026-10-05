@@ -1,0 +1,5 @@
+BAD TYPE(System.String) of locationlevel.nlevel in : D:\easy\locationlevel\locationlevel_default\vistaForm.xsd
+Unknown column locationlevel.codekind in : D:\easy\locationlevel\locationlevel_default\vistaForm.xsd
+BAD TYPE(System.Int16) of locationlevel.codelen in : D:\easy\locationlevel\locationlevel_default\vistaForm.xsd
+Unknown column locationlevel.flagrestart in : D:\easy\locationlevel\locationlevel_default\vistaForm.xsd
+Unknown column locationlevel.flagusable in : D:\easy\locationlevel\locationlevel_default\vistaForm.xsd

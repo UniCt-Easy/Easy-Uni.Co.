@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 UPDATE registry SET idregistryclass =  CASE  WHEN idregistryclass IN ('01','02','08','09') THEN '21'  WHEN idregistryclass IN ('05','06','07') THEN '22'  WHEN idregistryclass IN ('03','04') THEN '23'  WHEN idregistryclass IN ('10','00') THEN '24'  ELSE '24' END
 GO

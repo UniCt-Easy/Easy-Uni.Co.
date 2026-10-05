@@ -32,9 +32,27 @@
 						this.describeAColumn(table, 'votolode', 'Lode', null, 90, null);
 						this.describeAColumn(table, '!idistattitolistudio_istattitolistudio_titolo', 'Titolo ISTAT', null, 11, null);
 						objCalcFieldConfig['!idistattitolistudio_istattitolistudio_titolo'] = { tableNameLookup:'istattitolistudio', columnNameLookup:'titolo', columnNamekey:'idistattitolistudio' };
-						this.describeAColumn(table, '!idreg_istituti_registry_istituti_title', 'Istituto', null, 21, null);
-						objCalcFieldConfig['!idreg_istituti_registry_istituti_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_istituti' };
+						this.describeAColumn(table, '!idreg_istituti_registry_title', 'Istituto', null, 21, null);
+						objCalcFieldConfig['!idreg_istituti_registry_title'] = { tableNameLookup:'registry_alias1', columnNameLookup:'title', columnNamekey:'idreg_istituti' };
 //$objCalcFieldConfig_docenti$
+						break;
+					case 'stu':
+						this.describeAColumn(table, 'aa', 'Anno accademico', null, 30, 9);
+						this.describeAColumn(table, 'data', 'Data del conseguimento', null, 50, null);
+						this.describeAColumn(table, 'giudizio', 'Giudizio', null, 60, 50);
+						this.describeAColumn(table, 'voto', 'Voto', null, 70, null);
+						this.describeAColumn(table, 'votosu', 'Su', null, 80, null);
+						this.describeAColumn(table, 'votolode', 'Lode', null, 90, null);
+//$objCalcFieldConfig_stu$
+						break;
+					case 'studichiar':
+						this.describeAColumn(table, 'aa', 'Anno accademico del conseguimento', null, 50, 9);
+						this.describeAColumn(table, 'data', 'Data del conseguimento', null, 60, null);
+						this.describeAColumn(table, 'voto', 'Voto', null, 70, null);
+						this.describeAColumn(table, 'votosu', 'Su', null, 80, null);
+						this.describeAColumn(table, 'votolode', 'Lode', null, 90, null);
+						this.describeAColumn(table, 'giudizio', 'Giudizio', null, 100, 50);
+//$objCalcFieldConfig_studichiar$
 						break;
 //$objCalcFieldConfig$
 				}
@@ -56,6 +74,13 @@
 						table.columns["votolode"].caption = "Lode";
 						table.columns["votosu"].caption = "Su";
 //$innerSetCaptionConfig_docenti$
+						break;
+					case 'stu':
+//$innerSetCaptionConfig_stu$
+						break;
+					case 'studichiar':
+						table.columns["aa"].caption = "Anno accademico del conseguimento";
+//$innerSetCaptionConfig_studichiar$
 						break;
 //$innerSetCaptionConfig$
 				}
@@ -83,7 +108,21 @@
 
 			//$getStaticFilter$
 
-			//$getSorting$
+			getSorting: function (listType) {
+				switch (listType) {
+					case "studichiar": {
+						return "aa desc, data desc";
+					}
+					case "docenti": {
+						return "aa asc , data asc ";
+					}
+					case "stu": {
+						return "aa desc, data desc";
+					}
+					//$getSortingin$
+				}
+				return this.superClass.getSorting(listType);
+			}
 
         });
 

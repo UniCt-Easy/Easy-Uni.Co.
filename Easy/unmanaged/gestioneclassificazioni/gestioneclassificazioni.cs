@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using metadatalibrary;
@@ -1249,7 +1247,7 @@ namespace gestioneclassificazioni
         /// <param name="DSsource">E' il DS in cui sono presenti i documenti contabilizzati, che nei wizard è diverso da DS_toclassify. </param>
 
         public void ClassificaTramiteClassDocumento(DataSet DS_toclassify, DataSet DSsource) {
-            if (Meta.PrimaryDataTable.TableName == "expense"){
+            if (Meta.PrimaryDataTable.TableName == "expense"|| Meta.PrimaryDataTable.TableName == "paydisposition") {
                 Movimento = DS_toclassify.Tables["expense"];
                 ImputazioneMovimento = DS_toclassify.Tables["expenseyear"];
                 VarMovimento = DS_toclassify.Tables["expensevar"];
@@ -1375,7 +1373,7 @@ namespace gestioneclassificazioni
                 return;
             }
             //Questo metodo viene chiamato da Spesa SOLO in ultima fase, o se l'ultima fase è compresa
-            if (Meta.PrimaryDataTable.TableName == "expense") {
+            if (Meta.PrimaryDataTable.TableName == "expense" || Meta.PrimaryDataTable.TableName == "paydisposition") {
                 // int fasespesamax = GetNoNullInt32(Meta.GetSys("maxexpensephase"));
                 //foreach (DataRow CurrMov in Movimento.Select(QHC.CmpEq("nphase", fasespesamax))) {
                 foreach (DataRow CurrMov in Movimento.Select()) {

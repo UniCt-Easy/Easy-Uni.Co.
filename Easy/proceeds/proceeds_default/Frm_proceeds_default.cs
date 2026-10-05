@@ -1,7 +1,6 @@
-
 /*
 Easy
-Copyright (C) 2025 Universit‡ degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Data;
@@ -174,12 +172,12 @@ namespace proceeds_default{//documentoincasso//
 			this.btnBollo = new System.Windows.Forms.Button();
 			this.cmbBollo = new System.Windows.Forms.ComboBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabAllegati = new System.Windows.Forms.TabPage();
 			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
 			this.btnDelAtt = new System.Windows.Forms.Button();
 			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
-			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.gboxRigaMandato.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -187,9 +185,9 @@ namespace proceeds_default{//documentoincasso//
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.tabControl1.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPage1.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label9
@@ -311,7 +309,7 @@ namespace proceeds_default{//documentoincasso//
 			this.cmbCodiceIstituto.DataSource = this.DS.treasurer;
 			this.cmbCodiceIstituto.DisplayMember = "description";
 			this.cmbCodiceIstituto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbCodiceIstituto.Location = new System.Drawing.Point(96, 16);
+			this.cmbCodiceIstituto.Location = new System.Drawing.Point(98, 16);
 			this.cmbCodiceIstituto.Name = "cmbCodiceIstituto";
 			this.cmbCodiceIstituto.Size = new System.Drawing.Size(232, 21);
 			this.cmbCodiceIstituto.TabIndex = 1;
@@ -326,13 +324,13 @@ namespace proceeds_default{//documentoincasso//
 			// 
 			// btnIstitutoCassiere
 			// 
-			this.btnIstitutoCassiere.Location = new System.Drawing.Point(8, 16);
+			this.btnIstitutoCassiere.Location = new System.Drawing.Point(6, 16);
 			this.btnIstitutoCassiere.Name = "btnIstitutoCassiere";
-			this.btnIstitutoCassiere.Size = new System.Drawing.Size(80, 24);
+			this.btnIstitutoCassiere.Size = new System.Drawing.Size(86, 24);
 			this.btnIstitutoCassiere.TabIndex = 29;
 			this.btnIstitutoCassiere.TabStop = false;
 			this.btnIstitutoCassiere.Tag = "choose.treasurer.lista.(active=\'S\')";
-			this.btnIstitutoCassiere.Text = "Cassiere:";
+			this.btnIstitutoCassiere.Text = "Conto Corrente";
 			this.btnIstitutoCassiere.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// gboxRigaMandato
@@ -605,11 +603,11 @@ namespace proceeds_default{//documentoincasso//
 			// 
 			// label10
 			// 
-			this.label10.Location = new System.Drawing.Point(140, 79);
+			this.label10.Location = new System.Drawing.Point(149, 79);
 			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(108, 32);
+			this.label10.Size = new System.Drawing.Size(99, 32);
 			this.label10.TabIndex = 51;
-			this.label10.Text = "Numero Progr. Cassiere:";
+			this.label10.Text = "Numero Progr. Conto Corrente:";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox1
@@ -624,9 +622,9 @@ namespace proceeds_default{//documentoincasso//
 			// 
 			// btnBollo
 			// 
-			this.btnBollo.Location = new System.Drawing.Point(8, 46);
+			this.btnBollo.Location = new System.Drawing.Point(6, 46);
 			this.btnBollo.Name = "btnBollo";
-			this.btnBollo.Size = new System.Drawing.Size(80, 24);
+			this.btnBollo.Size = new System.Drawing.Size(86, 24);
 			this.btnBollo.TabIndex = 46;
 			this.btnBollo.TabStop = false;
 			this.btnBollo.Tag = "manage.stamphandling.lista";
@@ -638,7 +636,7 @@ namespace proceeds_default{//documentoincasso//
 			this.cmbBollo.DataSource = this.DS.stamphandling;
 			this.cmbBollo.DisplayMember = "description";
 			this.cmbBollo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbBollo.Location = new System.Drawing.Point(96, 46);
+			this.cmbBollo.Location = new System.Drawing.Point(98, 46);
 			this.cmbBollo.Name = "cmbBollo";
 			this.cmbBollo.Size = new System.Drawing.Size(232, 21);
 			this.cmbBollo.TabIndex = 45;
@@ -655,16 +653,27 @@ namespace proceeds_default{//documentoincasso//
 			this.tabControl1.Size = new System.Drawing.Size(362, 358);
 			this.tabControl1.TabIndex = 52;
 			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.groupBox3);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(354, 332);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "Reversale";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
 			// tabAllegati
 			// 
 			this.tabAllegati.Controls.Add(this.dataGridAllegati);
 			this.tabAllegati.Controls.Add(this.btnDelAtt);
 			this.tabAllegati.Controls.Add(this.btnEditAtt);
 			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
 			this.tabAllegati.Name = "tabAllegati";
 			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
+			this.tabAllegati.Size = new System.Drawing.Size(354, 332);
 			this.tabAllegati.TabIndex = 15;
 			this.tabAllegati.Text = "Allegati";
 			this.tabAllegati.UseVisualStyleBackColor = true;
@@ -679,7 +688,7 @@ namespace proceeds_default{//documentoincasso//
 			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
 			this.dataGridAllegati.Name = "dataGridAllegati";
 			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
+			this.dataGridAllegati.Size = new System.Drawing.Size(339, 284);
 			this.dataGridAllegati.TabIndex = 23;
 			this.dataGridAllegati.Tag = "proceedsattachment.lista.detail";
 			// 
@@ -709,17 +718,6 @@ namespace proceeds_default{//documentoincasso//
 			this.btnInsAtt.TabIndex = 20;
 			this.btnInsAtt.Tag = "insert.detail";
 			this.btnInsAtt.Text = "Inserisci...";
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.groupBox3);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(354, 332);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Reversale";
-			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// Frm_proceeds_default
 			// 
@@ -894,6 +892,11 @@ namespace proceeds_default{//documentoincasso//
 			Meta = MetaData.GetMetaData(this);
 			AfterLinkBody();
             GetData.SetStaticFilter(DS.proceeds, QHS.CmpEq("ypro", Meta.GetSys("esercizio")));
+
+            // ===============================================================================
+            // La InsertCopy non deve copiare le tabelle degli allegati
+            // ===============================================================================
+            QueryCreator.setSkipInsertCopy(DS.proceedsattachment, true);
         }
 
 		void FillTxtTipoIncasso(){

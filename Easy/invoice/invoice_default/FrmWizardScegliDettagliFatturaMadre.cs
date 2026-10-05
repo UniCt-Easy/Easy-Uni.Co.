@@ -1,7 +1,6 @@
-
-/*
+ï»¿/*
 Easy
-Copyright (C) 2025 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -152,16 +150,16 @@ namespace invoice_default {
 															  invDetailMain.Columns["yinv"],
 															  invDetailMain.Columns["ninv"],
 															  invDetailMain.Columns["rownum"]};
-				//Ora ha messo in invDetail tutto ciò che da DB è idoneo 'da associare'.
+				//Ora ha messo in invDetail tutto ciÃ² che da DB Ã¨ idoneo 'da associare'.
 
-				//Effettua ora una serie di allineamenti sul DataTable per renderlo più coerente con quello
-				// che c'è nel DataSet del form padre.
+				//Effettua ora una serie di allineamenti sul DataTable per renderlo piÃ¹ coerente con quello
+				// che c'Ã¨ nel DataSet del form padre.
 
 				//Per ogni riga del DataSet in stato di INSERT/UPDATE effettua una sottrazione ed eventualmente
 				// un delete su invDetail se la riga corrispondente risulta essere esaurita.
 				foreach (DataRow R in InvoiceDetail.Select()) {
 					if (R.RowState != DataRowState.Added) continue;
-					if (R["idinvkind_main"] == DBNull.Value) continue; //Non è una riga collegata a dettagli fatt
+					if (R["idinvkind_main"] == DBNull.Value) continue; //Non Ã¨ una riga collegata a dettagli fatt
 					string filterMain = QHC.AppAnd(	QHC.CmpEq("idinvkind", R["idinvkind_main"]),
 							QHC.CmpEq("yinv", R["yinv_main"]),
 							QHC.CmpEq("ninv", R["ninv_main"]),
@@ -314,7 +312,7 @@ namespace invoice_default {
 		bool ScegliDocs() {
 			SelectedRows = GetGridSelectedRows(gridDettagliFatturaMadre);
 			if ((SelectedRows == null) || (SelectedRows.Length == 0)) {
-				show("Non è stato selezionato alcun dettaglio.");
+				show("Non Ã¨ stato selezionato alcun dettaglio.");
 				return false;
 			}
 
@@ -364,13 +362,14 @@ namespace invoice_default {
 				if (!(gridDettagliFatturaMadre.IsSelected(i))) {
 					gridrow = GetGridRow(gridDettagliFatturaMadre, i);
 					if (!(alreadyselected(gridrow, SelectedRowsbk))) continue;
-					//deve de-selezionare ciò che era selezionato
+					//deve de-selezionare ciÃ² che era selezionato
 					//SelectGridRowsIdemGroup(gridrow, gridDettagli, false);
 				}
 			}
 
 			SelectedRowsbk = GetGridSelectedRows(gridDettagliFatturaMadre);
 			InsidePaint = false;
+			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
 		}
 	}
 }
