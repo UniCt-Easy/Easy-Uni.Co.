@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C20B055-6C73-4361-B5F4-C47A4E3A29B2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>preserve</RootNamespace>
+    <AssemblyName>preserve</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AegisImplicitMail">
+      <HintPath>..\dll\AegisImplicitMail.dll</HintPath>
+    </Reference>
+    <Reference Include="metadatalibrary, Version=2.2.107.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\metadatalibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\dll\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Xceed.Compression.Formats.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Xceed.Compression.Formats.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Compression.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Xceed.Compression.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.FileSystem.v5.6, Version=5.6.14475.14160, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\Xceed.FileSystem.v5.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Zip.v5.6">
+      <HintPath>..\dll\Xceed.Zip.v5.6.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PreserveProtocol.cs" />
+    <Compile Include="IPreserveData.cs" />
+    <Compile Include="Storage\IFileReference.cs" />
+    <Compile Include="Storage\IFileReferenceContainer.cs" />
+    <Compile Include="Storage\Adapters\FileInfoAdapter.cs" />
+    <Compile Include="Storage\Exceptions.cs" />
+    <Compile Include="UniStorage\Config.cs" />
+    <Compile Include="UniStorage\Logic\Functions.cs" />
+    <Compile Include="Metadata\AGID\Interfaces.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoAmministrativoInformatico\DocumentoAmministrativoInformaticoType.ctor.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoAmministrativoInformatico\PType.ctor.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoAmministrativoInformatico\RuoloType.ctor.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoAmministrativoInformatico\TipoSoggetto.ctor.cs" />
+    <Compile Include="UniStorage\Storage\UnimaticaArchiveInfo.cs" />
+    <Compile Include="Storage\Adapters\DirectoryInfoAdapter.cs" />
+    <Compile Include="Tenancy\ITenantIndex.cs" />
+    <Compile Include="Tenancy\Office.cs" />
+    <Compile Include="Tenancy\Tenant.cs" />
+    <Compile Include="UniStorage\Options.cs" />
+    <Compile Include="Storage\FileSystem.cs" />
+    <Compile Include="UniStorage\Manager.cs" />
+    <Compile Include="UniStorage\Logic\Mappings.cs" />
+    <Compile Include="UniStorage\Logic\Types.cs" />
+    <Compile Include="Storage\IO.cs" />
+    <Compile Include="Storage\IStorage.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoInformatico\PType.ctor.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoInformatico\TipoSoggetto.ctor.cs" />
+    <Compile Include="UniStorage\Serialization\Metadata\Unimatica\Documento.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoInformatico\DocumentoInformaticoType.ctor.cs" />
+    <Compile Include="Metadata\AGID\Methods\DocumentoInformatico\RuoloType.ctor.cs" />
+    <Compile Include="Metadata\AGID\DocumentoInformatico.cs" />
+    <Compile Include="Metadata\AGID\DocumentoAmministrativoInformatico.cs" />
+    <Compile Include="Preserve.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="PreserveParer.cs" />
+    <Compile Include="UniStorage\Serialization\Metadata\Unimatica\Methods\Profilo.ctor.cs" />
+    <Compile Include="UniStorage\Serialization\NamingStrategy.cs" />
+    <Compile Include="UniStorage\Serialization\Index.cs" />
+    <Compile Include="UniStorage\Serialization\Response.cs" />
+    <Compile Include="Storage\IArchiveInfo.cs" />
+    <Compile Include="XmlExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Document\Document\Document.csproj">
+      <Project>{B24FB08B-81BB-4B44-B77F-56BA30966040}</Project>
+      <Name>Document</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApiClient\ApiClient.csproj">
+      <Project>{993808dd-1baa-465d-930b-b35ba3a3e3e9}</Project>
+      <Name>ApiClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eventLog\eventLog.csproj">
+      <Project>{2690929b-f6b5-452b-8102-84f4c94d4ff3}</Project>
+      <Name>eventLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ftpfun\ftpfun.csproj">
+      <Project>{e4a7eed1-893c-48b3-8b9c-260f2b89ec6e}</Project>
+      <Name>ftpfun</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sdiConfig\sdiConfig.csproj">
+      <Project>{6c3e0118-5df0-41eb-8eb6-014eaec5a50f}</Project>
+      <Name>sdiConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sdiDbConnection\sdiDbConnection.csproj">
+      <Project>{e4c011d5-37f2-4f27-b6b1-cecd3ed5a2bd}</Project>
+      <Name>sdiDbConnection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sdiLog\sdiLog.csproj">
+      <Project>{d89f5511-5c8e-4edf-91d1-22f26b404865}</Project>
+      <Name>sdiLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sdipassword\sdipassword.csproj">
+      <Project>{b9f9a49a-150d-48c8-be7c-fe5892463e88}</Project>
+      <Name>sdipassword</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FatturaAttiva.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FatturaPassiva.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FoglioTrasformazione.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LottoFatture.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metadata\AGID\Schema\DocumentoAmministrativoInformatico.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metadata\AGID\Schema\DocumentoInformatico.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metadata\AGID\Schema\RegistroGiornalieroProtocollo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metadata\AGID\Specs\all.5_metadati.pdf" />
+    <None Include="Metadata\AGID\Specs\DocumentoAmministrativoInformatico.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metadata\AGID\Specs\DocumentoInformatico.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metadata\AGID\Specs\linee_guida_sul_documento_informatico.pdf" />
+    <None Include="Metadata\AGID\Specs\RegistroGiornalieroProtocollo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UniStorage\Specs\Servizio_Consegna_GWConservazione_v2.0.pdf" />
+    <None Include="UnitaDocumentaria.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
