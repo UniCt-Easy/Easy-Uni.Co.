@@ -1,0 +1,199 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="UnitaDocumentaria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Intestazione">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:float" name="Versione"/>
+              <xs:element name="Versatore">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Ambiente"/>
+                    <xs:element type="xs:string" name="Ente"/>
+                    <xs:element type="xs:string" name="Struttura"/>
+                    <xs:element type="xs:string" name="UserID"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Chiave">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="TipoRegistro"/>
+                    <xs:element type="xs:short" name="Anno"/>
+                    <xs:element type="xs:string" name="Numero"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="TipologiaUnitaDocumentaria"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Configurazione">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="TipoConservazione"/>
+              <xs:element type="xs:string" name="ForzaAccettazione"/>
+              <xs:element type="xs:string" name="ForzaConservazione"/>
+              <xs:element type="xs:string" name="ForzaCollegamento"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ProfiloUnitaDocumentaria">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Oggetto"/>
+              <xs:element type="xs:date" name="Data"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DatiSpecifici">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:float" name="VersioneDatiSpecifici"/>
+              <xs:element type="xs:string" name="DenominazioneDestinatario"/>
+              <xs:element type="xs:string" name="TipoDenominazioneDestinatario"/>
+              <xs:element type="xs:string" name="IdentificativoDestinatario"/>
+              <xs:element type="xs:string" name="TipoIdentificativoDestinatario"/>
+              <xs:element type="xs:string" name="ImportoTotale"/>
+              <xs:element type="xs:date" name="ScadenzaFattura"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DocumentiCollegati">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DocumentoCollegato">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ChiaveCollegamento">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:short" name="Numero"/>
+                          <xs:element type="xs:short" name="Anno"/>
+                          <xs:element type="xs:string" name="TipoRegistro"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="DescrizioneCollegamento"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:byte" name="NumeroAllegati"/>
+        <xs:element type="xs:byte" name="NumeroAnnessi"/>
+        <xs:element type="xs:byte" name="NumeroAnnotazioni"/>
+        <xs:element name="DocumentoPrincipale">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="IDDocumento"/>
+              <xs:element type="xs:string" name="TipoDocumento"/>
+              <xs:element name="StrutturaOriginale">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Componenti">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Componente">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="ID"/>
+                                <xs:element type="xs:byte" name="OrdinePresentazione"/>
+                                <xs:element type="xs:string" name="TipoComponente"/>
+                                <xs:element type="xs:string" name="TipoSupportoComponente"/>
+                                <xs:element type="xs:string" name="NomeComponente"/>
+                                <xs:element type="xs:string" name="FormatoFileVersato"/>
+                                <xs:element type="xs:string" name="UtilizzoDataFirmaPerRifTemp"/>
+                                <xs:element name="SottoComponenti">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="SottoComponente">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="ID"/>
+                                            <xs:element type="xs:byte" name="OrdinePresentazione"/>
+                                            <xs:element type="xs:string" name="TipoComponente"/>
+                                            <xs:element type="xs:string" name="TipoSupportoComponente"/>
+                                            <xs:element type="xs:string" name="NomeComponente"/>
+                                            <xs:element type="xs:string" name="FormatoFileVersato"/>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Annessi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Annesso" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="IDDocumento"/>
+                    <xs:element type="xs:string" name="TipoDocumento"/>
+                    <xs:element name="StrutturaOriginale">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Componenti">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Componente">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="ID"/>
+                                      <xs:element type="xs:byte" name="OrdinePresentazione"/>
+                                      <xs:element type="xs:string" name="TipoComponente"/>
+                                      <xs:element type="xs:string" name="TipoSupportoComponente"/>
+                                      <xs:element type="xs:string" name="NomeComponente"/>
+                                      <xs:element type="xs:string" name="FormatoFileVersato"/>
+                                      <xs:element type="xs:string" name="UtilizzoDataFirmaPerRifTemp"/>
+                                      <xs:element name="SottoComponenti">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="SottoComponente">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element type="xs:string" name="ID"/>
+                                                  <xs:element type="xs:byte" name="OrdinePresentazione"/>
+                                                  <xs:element type="xs:string" name="TipoComponente"/>
+                                                  <xs:element type="xs:string" name="TipoSupportoComponente"/>
+                                                  <xs:element type="xs:string" name="NomeComponente"/>
+                                                  <xs:element type="xs:string" name="FormatoFileVersato"/>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
