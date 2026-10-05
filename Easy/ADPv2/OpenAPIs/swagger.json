@@ -1,0 +1,4155 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Anagrafe delle Prestazioni 2.0 - API Public",
+    "contact": {
+      "name": "Dipartimento della funzione pubblica",
+      "email": "assistenza.pua@dfp.gov.it"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/ws/Incarico/Consulente2017/ConfigurazioneWs2017": {
+      "get": {
+        "tags": [
+          "IncaricoConsulente2017Ws"
+        ],
+        "summary": "Permette di recuperare la Configurazione per l'Incarico di tipo Consulente relativo all'ambiente 2017",
+        "responses": {
+          "200": {
+            "description": "Configurazione Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configurazione2017WsDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configurazione2017WsDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configurazione2017WsDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Incarico non trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente/Configurazione": {
+      "get": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di recuperare la Configurazione per l'Incarico di tipo Consulente",
+        "responses": {
+          "200": {
+            "description": "Configurazione Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Incarico non trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente/{idOldIncarico}": {
+      "get": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di ottenere, se esiste, l'Id dell'incarico a partire da quello vecchio",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "idOldIncarico",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int64"
+                },
+                "MinValue": {
+                  "type": "Int64"
+                }
+              },
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Id Incarico Trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "Empty": {
+                      "type": "Guid"
+                    }
+                  },
+                  "format": "uuid"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "Empty": {
+                      "type": "Guid"
+                    }
+                  },
+                  "format": "uuid"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "Empty": {
+                      "type": "Guid"
+                    }
+                  },
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente/details/{idOldIncarico}": {
+      "get": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di recuperare un incarico consulente a partire dal vecchio Id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "idOldIncarico",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int64"
+                },
+                "MinValue": {
+                  "type": "Int64"
+                }
+              },
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dettaglio Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncaricoConsulenteWsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncaricoConsulenteWsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncaricoConsulenteWsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente/details/{incaricoId}": {
+      "get": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di recuperare un incarico consulente dato il suo Id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dettaglio Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncaricoConsulenteWsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncaricoConsulenteWsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncaricoConsulenteWsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente2017/Configurazione2017": {
+      "get": {
+        "tags": [
+          "IncaricoDipendente2017Ws"
+        ],
+        "summary": "Permette di recuperare la Configurazione per l'Incarico di tipo Dipendente relativo all'ambiente 2017",
+        "responses": {
+          "200": {
+            "description": "Configurazione Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Incarico non trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente/Configurazione": {
+      "get": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di recuperare la Configurazione per l'Incarico di tipo Dipendente",
+        "responses": {
+          "200": {
+            "description": "Configurazione Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurazioneDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Incarico non trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente/{idOldIncarico}": {
+      "get": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di ottenere, se esiste, l'Id dell'incarico a partire da quello vecchio",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "idOldIncarico",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int64"
+                },
+                "MinValue": {
+                  "type": "Int64"
+                }
+              },
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Id Incarico Trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "Empty": {
+                      "type": "Guid"
+                    }
+                  },
+                  "format": "uuid"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "Empty": {
+                      "type": "Guid"
+                    }
+                  },
+                  "format": "uuid"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "Empty": {
+                      "type": "Guid"
+                    }
+                  },
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente/details/{idOldIncarico}": {
+      "get": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di recuperare un incarico dipendente a partire dal vecchio Id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "idOldIncarico",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int64"
+                },
+                "MinValue": {
+                  "type": "Int64"
+                }
+              },
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dettaglio Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente/details/{incaricoId}": {
+      "get": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di recuperare un incarico dipendente dato il suo Id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dettaglio Incarico",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Soggetti/AutoComplete": {
+      "get": {
+        "tags": [
+          "Soggetti"
+        ],
+        "summary": "Auto complete per la ricerca di soggetti percettori o conferenti",
+        "parameters": [
+          {
+            "name": "CampoTestualeLibero",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int32"
+                },
+                "MinValue": {
+                  "type": "Int32"
+                }
+              },
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int32"
+                },
+                "MinValue": {
+                  "type": "Int32"
+                }
+              },
+              "format": "int32"
+            }
+          },
+          {
+            "name": "OrderBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "Ascending",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "properties": {
+                "TrueString": {
+                  "type": "String"
+                },
+                "FalseString": {
+                  "type": "String"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista Guid dei Soggetti corrispondenti",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoggettoDtoBaseSearchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoggettoDtoBaseSearchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoggettoDtoBaseSearchResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/auth/login": {
+      "post": {
+        "tags": [
+          "AuthWebservices"
+        ],
+        "summary": "Permette di effettuare la login sul ws",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredentialWs"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredentialWs"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredentialWs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configurazione2017WsDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configurazione2017WsDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configurazione2017WsDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Utente non trovato",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente": {
+      "post": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di Inserire per un utente Autenticato un Incarico di tipo Consulente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIncaricoConsulenteWsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIncaricoConsulenteWsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIncaricoConsulenteWsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Incarico Inserito"
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente": {
+      "post": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di Inserire per un utente Autenticato un Incarico di tipo Dipendente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIncaricoDipendenteWsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Incarico Inserito"
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente2017/{incaricoId}": {
+      "put": {
+        "tags": [
+          "IncaricoConsulente2017Ws"
+        ],
+        "summary": "Permette di Modificare per un utente Autenticato un Incarico di tipo Consulente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int32"
+                },
+                "MinValue": {
+                  "type": "Int32"
+                }
+              },
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncarico2017Dto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncarico2017Dto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncarico2017Dto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incarico Modificato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "IncaricoConsulente2017Ws"
+        ],
+        "summary": "Permette di Cancellare per un utente Autenticato un Incarico di tipo Consulente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int32"
+                },
+                "MinValue": {
+                  "type": "Int32"
+                }
+              },
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Incarico Eliminato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente/{incaricoId}": {
+      "put": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di Modificare per un utente Autenticato un Incarico di tipo Consulente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncaricoConsulenteWsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncaricoConsulenteWsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncaricoConsulenteWsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incarico Modificato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di Cancellare per un utente Autenticato un Incarico di tipo Consulente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Incarico Eliminato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Consulente/Revoca/{incaricoId}": {
+      "put": {
+        "tags": [
+          "IncaricoConsulenteWs"
+        ],
+        "summary": "Permette di Revocare per un utente Autenticato un Incarico di tipo Consulente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocaIncaricoDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocaIncaricoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocaIncaricoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incarico Revocato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente2017/{incaricoId}": {
+      "put": {
+        "tags": [
+          "IncaricoDipendente2017Ws"
+        ],
+        "summary": "Permette di Modificare per un utente Autenticato un Incarico di tipo Dipendente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int32"
+                },
+                "MinValue": {
+                  "type": "Int32"
+                }
+              },
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncarico2017Dto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncarico2017Dto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncarico2017Dto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incarico Modificato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "IncaricoDipendente2017Ws"
+        ],
+        "summary": "Permette di Cancellare per un utente Autenticato un Incarico di tipo Dipendente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "MaxValue": {
+                  "type": "Int32"
+                },
+                "MinValue": {
+                  "type": "Int32"
+                }
+              },
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Incarico Eliminato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente/{incaricoId}": {
+      "put": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di Modificare per un utente Autenticato un Incarico di tipo Dipendente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncaricoDipendenteWsDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncaricoDipendenteWsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncaricoDipendenteWsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incarico Modificato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di Cancellare per un utente Autenticato un Incarico di tipo Dipendente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Incarico Eliminato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ws/Incarico/Dipendente/Revoca/{incaricoId}": {
+      "put": {
+        "tags": [
+          "IncaricoDipendenteWs"
+        ],
+        "summary": "Permette di Revocare per un utente Autenticato un Incarico di tipo Dipendente",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "String"
+                }
+              }
+            }
+          },
+          {
+            "name": "incaricoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "properties": {
+                "Empty": {
+                  "type": "Guid"
+                }
+              },
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocaIncaricoDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocaIncaricoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocaIncaricoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incarico Revocato"
+          },
+          "400": {
+            "description": "Richiesta Non valida",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Configurazione2017WsDto": {
+        "type": "object",
+        "properties": {
+          "descrizione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "elementi": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementoConfigurazione2017WsDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConfigurazioneDto": {
+        "type": "object",
+        "properties": {
+          "descrizione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "elementi": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementoConfigurazioneDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CredentialWs": {
+        "type": "object",
+        "properties": {
+          "appId": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "secret": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementoConfigurazione2017WsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "nullable": true
+          },
+          "descrizione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "order": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementoConfigurazioneDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementoConfigurazioneDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "nullable": true
+          },
+          "descrizione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "order": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "codice": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementoConfigurazioneDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EnumQualificaPercettore": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "properties": {
+          "Dirigente": {
+            "type": "EnumQualificaPercettore"
+          },
+          "NonDirigente": {
+            "type": "EnumQualificaPercettore"
+          },
+          "value__": {
+            "type": "Int32"
+          }
+        },
+        "format": "int32"
+      },
+      "EnumTipoCompenso": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "properties": {
+          "Previsto": {
+            "type": "EnumTipoCompenso"
+          },
+          "Presunto": {
+            "type": "EnumTipoCompenso"
+          },
+          "value__": {
+            "type": "Int32"
+          }
+        },
+        "format": "int32"
+      },
+      "EnumTipoNaturaConferimento": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "properties": {
+          "Vincolata": {
+            "type": "EnumTipoNaturaConferimento"
+          },
+          "Discrezionale": {
+            "type": "EnumTipoNaturaConferimento"
+          },
+          "value__": {
+            "type": "Int32"
+          }
+        },
+        "format": "int32"
+      },
+      "EnumTipoRapporto": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "properties": {
+          "PrestazioneOccasionale": {
+            "type": "EnumTipoRapporto"
+          },
+          "Collaborazione": {
+            "type": "EnumTipoRapporto"
+          },
+          "value__": {
+            "type": "Int32"
+          }
+        },
+        "format": "int32"
+      },
+      "EnumTipoSaldo": {
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "properties": {
+          "NonSaldato": {
+            "type": "EnumTipoSaldo"
+          },
+          "Saldato": {
+            "type": "EnumTipoSaldo"
+          },
+          "Gratuito": {
+            "type": "EnumTipoSaldo"
+          },
+          "value__": {
+            "type": "Int32"
+          }
+        },
+        "format": "int32"
+      },
+      "EnumTipoSoggettoConferente": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "properties": {
+          "Pubblico": {
+            "type": "EnumTipoSoggettoConferente"
+          },
+          "Privato": {
+            "type": "EnumTipoSoggettoConferente"
+          },
+          "value__": {
+            "type": "Int32"
+          }
+        },
+        "format": "int32"
+      },
+      "IncaricoConsulenteWsDto": {
+        "type": "object",
+        "properties": {
+          "verificaInsussistenza": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "usoRiferimentoRegolamento": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "componenteVariabileCompenso": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "consulenteInformato": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "estremiIncarico": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "riferimentoRegolamento": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "servizioIstituzionePubblicaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "tipoRapportoId": {
+            "$ref": "#/components/schemas/EnumTipoRapporto"
+          },
+          "naturaConferimentoId": {
+            "$ref": "#/components/schemas/EnumTipoNaturaConferimento"
+          },
+          "percettorePersonaGiuridica": {
+            "$ref": "#/components/schemas/PersonaGiuridicaWsDto"
+          },
+          "percettorePersonaFisica": {
+            "$ref": "#/components/schemas/PersonaFisicaWsDto"
+          },
+          "oggettoIncaricoConsulenteId": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "Guid"
+              }
+            },
+            "format": "uuid"
+          },
+          "ambitoTematicoConsulenteId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "curriculumVitaeBase64": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dichiarazioneSvolgimentoAltriIncarichiBase64": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dataInizio": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "dataFine": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dataConferimento": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "tipoCompensoId": {
+            "$ref": "#/components/schemas/EnumTipoCompenso"
+          },
+          "tipoSaldoId": {
+            "$ref": "#/components/schemas/EnumTipoSaldo"
+          },
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "pagamenti": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncaricoPagamentoWsDto"
+            },
+            "nullable": true
+          },
+          "dataRiferimentoNorma": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "numeroRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "articoloRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "commaRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "sitoTrasparenza": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "campoTestualeOggetto": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaUo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaAoo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipologiaNormaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "concludiIncarico": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "idOldIncarico": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "anonimizzato": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncaricoPagamentoDto": {
+        "type": "object",
+        "properties": {
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncaricoPagamentoWsDto": {
+        "type": "object",
+        "properties": {
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewIncaricoConsulenteWsDto": {
+        "type": "object",
+        "properties": {
+          "verificaInsussistenza": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "usoRiferimentoRegolamento": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "componenteVariabileCompenso": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "consulenteInformato": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "estremiIncarico": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "riferimentoRegolamento": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "servizioIstituzionePubblicaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "tipoRapportoId": {
+            "$ref": "#/components/schemas/EnumTipoRapporto"
+          },
+          "naturaConferimentoId": {
+            "$ref": "#/components/schemas/EnumTipoNaturaConferimento"
+          },
+          "percettorePersonaGiuridica": {
+            "$ref": "#/components/schemas/NewPersonaGiuridicaDto"
+          },
+          "percettorePersonaFisica": {
+            "$ref": "#/components/schemas/NewPersonaFisicaDto"
+          },
+          "oggettoIncaricoConsulenteId": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "Guid"
+              }
+            },
+            "format": "uuid"
+          },
+          "ambitoTematicoConsulenteId": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "Guid"
+              }
+            },
+            "format": "uuid"
+          },
+          "curriculumVitaeBase64": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dichiarazioneSvolgimentoAltriIncarichiBase64": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dataInizio": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "dataFine": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dataConferimento": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "tipoCompensoId": {
+            "$ref": "#/components/schemas/EnumTipoCompenso"
+          },
+          "tipoSaldoId": {
+            "$ref": "#/components/schemas/EnumTipoSaldo"
+          },
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "pagamenti": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncaricoPagamentoDto"
+            },
+            "nullable": true
+          },
+          "dataRiferimentoNorma": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "numeroRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "articoloRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "commaRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "sitoTrasparenza": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "campoTestualeOggetto": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaUo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaAoo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipologiaNormaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "concludiIncarico": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewIncaricoDipendenteWsDto": {
+        "type": "object",
+        "properties": {
+          "percettorePersonaFisicaCf": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipoSoggettoConferenteId": {
+            "$ref": "#/components/schemas/EnumTipoSoggettoConferente"
+          },
+          "conferentePersonaFisica": {
+            "$ref": "#/components/schemas/NewPersonaFisicaDto"
+          },
+          "conferentePersonaGiuridica": {
+            "$ref": "#/components/schemas/NewPersonaGiuridicaDto"
+          },
+          "codiceFiscaleConferentePa": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "qualificaPercettoreId": {
+            "$ref": "#/components/schemas/EnumQualificaPercettore"
+          },
+          "oggettoIncaricoDipendenteId": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "Guid"
+              }
+            },
+            "format": "uuid"
+          },
+          "ambitoTematicoDipendenteId": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "Guid"
+              }
+            },
+            "format": "uuid"
+          },
+          "dataInizio": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "dataFine": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dataConferimento": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "tipoCompensoId": {
+            "$ref": "#/components/schemas/EnumTipoCompenso"
+          },
+          "tipoSaldoId": {
+            "$ref": "#/components/schemas/EnumTipoSaldo"
+          },
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "pagamenti": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncaricoPagamentoDto"
+            },
+            "nullable": true
+          },
+          "dataRiferimentoNorma": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "numeroRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "articoloRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "commaRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "sitoTrasparenza": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "campoTestualeOggetto": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaUo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaAoo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipologiaNormaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "concludiIncarico": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewPersonaFisicaDto": {
+        "type": "object",
+        "properties": {
+          "codiceFiscale": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "nome": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "cognome": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dataNascita": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "genere": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "luogoNascita": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "estero": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewPersonaGiuridicaDto": {
+        "type": "object",
+        "properties": {
+          "codiceFiscale": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "denominazione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "estero": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonaFisicaWsDto": {
+        "type": "object",
+        "properties": {
+          "codiceFiscale": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "nome": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "cognome": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dataNascita": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "genere": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "luogoNascita": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "estero": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonaGiuridicaWsDto": {
+        "type": "object",
+        "properties": {
+          "codiceFiscale": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "denominazione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "estero": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "RevocaIncaricoDto": {
+        "required": [
+          "noteRevoca"
+        ],
+        "type": "object",
+        "properties": {
+          "noteRevoca": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            }
+          },
+          "dataRevoca": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SoggettoDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "Guid"
+              }
+            },
+            "format": "uuid"
+          },
+          "tipoSoggetto": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "denominazione": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SoggettoDtoBaseSearchResult": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "resultCount": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "totalItems": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "orderBy": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "ascending": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SoggettoDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateIncarico2017Dto": {
+        "type": "object",
+        "properties": {
+          "tipoCompenso": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "saldato": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "ammontareErogato": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoPagamento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "dataFine": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateIncaricoConsulenteWsDto": {
+        "type": "object",
+        "properties": {
+          "verificaInsussistenza": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "usoRiferimentoRegolamento": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "componenteVariabileCompenso": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "consulenteInformato": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "estremiIncarico": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "riferimentoRegolamento": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "servizioIstituzionePubblicaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "tipoRapportoId": {
+            "$ref": "#/components/schemas/EnumTipoRapporto"
+          },
+          "naturaConferimentoId": {
+            "$ref": "#/components/schemas/EnumTipoNaturaConferimento"
+          },
+          "percettorePersonaGiuridica": {
+            "$ref": "#/components/schemas/NewPersonaGiuridicaDto"
+          },
+          "percettorePersonaFisica": {
+            "$ref": "#/components/schemas/NewPersonaFisicaDto"
+          },
+          "oggettoIncaricoConsulenteId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ambitoTematicoConsulenteId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "curriculumVitaeBase64": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dichiarazioneSvolgimentoAltriIncarichiBase64": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "dataInizio": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "dataFine": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dataConferimento": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "tipoCompensoId": {
+            "$ref": "#/components/schemas/EnumTipoCompenso"
+          },
+          "tipoSaldoId": {
+            "$ref": "#/components/schemas/EnumTipoSaldo"
+          },
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "pagamenti": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncaricoPagamentoDto"
+            },
+            "nullable": true
+          },
+          "dataRiferimentoNorma": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "numeroRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "articoloRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "commaRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "sitoTrasparenza": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "campoTestualeOggetto": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaUo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaAoo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipologiaNormaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "concludiIncarico": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateIncaricoDipendenteWsDto": {
+        "type": "object",
+        "properties": {
+          "percettorePersonaFisicaCf": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipoSoggettoConferenteId": {
+            "$ref": "#/components/schemas/EnumTipoSoggettoConferente"
+          },
+          "conferentePersonaFisica": {
+            "$ref": "#/components/schemas/NewPersonaFisicaDto"
+          },
+          "conferentePersonaGiuridica": {
+            "$ref": "#/components/schemas/NewPersonaGiuridicaDto"
+          },
+          "conferenteCodiceUnivocoPa": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "qualificaPercettoreId": {
+            "$ref": "#/components/schemas/EnumQualificaPercettore"
+          },
+          "oggettoIncaricoDipendenteId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ambitoTematicoDipendenteId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "dataInizio": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "dataFine": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dataConferimento": {
+            "type": "string",
+            "properties": {
+              "MinValue": {
+                "type": "DateTimeOffset"
+              },
+              "MaxValue": {
+                "type": "DateTimeOffset"
+              },
+              "UnixEpoch": {
+                "type": "DateTimeOffset"
+              }
+            },
+            "format": "date-time"
+          },
+          "tipoCompensoId": {
+            "$ref": "#/components/schemas/EnumTipoCompenso"
+          },
+          "tipoSaldoId": {
+            "$ref": "#/components/schemas/EnumTipoSaldo"
+          },
+          "compenso": {
+            "type": "number",
+            "properties": {
+              "Zero": {
+                "type": "Decimal"
+              },
+              "One": {
+                "type": "Decimal"
+              },
+              "MinusOne": {
+                "type": "Decimal"
+              },
+              "MaxValue": {
+                "type": "Decimal"
+              },
+              "MinValue": {
+                "type": "Decimal"
+              }
+            },
+            "format": "double"
+          },
+          "annoRiferimento": {
+            "type": "integer",
+            "properties": {
+              "MaxValue": {
+                "type": "Int32"
+              },
+              "MinValue": {
+                "type": "Int32"
+              }
+            },
+            "format": "int32"
+          },
+          "pagamenti": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncaricoPagamentoDto"
+            },
+            "nullable": true
+          },
+          "dataRiferimentoNorma": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "numeroRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "articoloRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "commaRiferimentoNorma": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "sitoTrasparenza": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "campoTestualeOggetto": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaUo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "codiceUnivocoPaAoo": {
+            "type": "string",
+            "properties": {
+              "Empty": {
+                "type": "String"
+              }
+            },
+            "nullable": true
+          },
+          "tipologiaNormaId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "concludiIncarico": {
+            "type": "boolean",
+            "properties": {
+              "TrueString": {
+                "type": "String"
+              },
+              "FalseString": {
+                "type": "String"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://sso-coll.dfp.gov.it/connect/authorize",
+            "tokenUrl": "https://sso-coll.dfp.gov.it/connect/token",
+            "scopes": {
+              "api_adp.read": "api_identity_server_adp",
+              "api_adp.write": "api_identity_server_adp",
+              "api_adp.administration": "api_identity_server_adp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "AuthWebservices",
+      "description": "Gestione dell'Incarico per di tipo consulente per utente Responsabile o Inseritore"
+    },
+    {
+      "name": "IncaricoConsulente2017Ws",
+      "description": "Gestione dell'Incarico per di tipo consulente per utente Responsabile o Inseritore"
+    },
+    {
+      "name": "IncaricoConsulenteWs",
+      "description": "Gestione dell'Incarico per di tipo consulente per utente Responsabile o Inseritore"
+    },
+    {
+      "name": "IncaricoDipendente2017Ws",
+      "description": "Gestione dell'Incarico per di tipo dipendente per utente Responsabile o Inseritore"
+    },
+    {
+      "name": "IncaricoDipendenteWs",
+      "description": "Gestione dell'Incarico per di tipo dipendente per utente Responsabile o Inseritore"
+    },
+    {
+      "name": "Soggetti",
+      "description": "Ricerca tramite l'auto complete di soggetti percettori o conferenti da utilizzare poi nella ricerca degli incarichi"
+    }
+  ]
+}
