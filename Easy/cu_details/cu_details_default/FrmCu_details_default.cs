@@ -25,15 +25,15 @@ using funzioni_configurazione;
 using System.Xml;
 using System.Collections;
 using System.Globalization;
-using iText.Kernel.Pdf;
-using iText.Forms;
+using Spire.Pdf;
+using Spire.Pdf.License;
+using Spire.Pdf.Widget;
 using System.Linq;
 using SituazioneViewer;
 using System.Runtime.Serialization.Formatters.Binary;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using LM=metadatalibrary.LanguageManager;
-using iText.Forms.Fields;
 
 namespace cu_details_default {
     /// <summary>
@@ -3123,6 +3123,7 @@ namespace cu_details_default {
             string fileDaCopiare = fnames[0];
 
             string fOrigin = fileDaCopiare;
+            if (!impostaLicenzaSpirePdf()) return false;
 
 
             List<Collaboratore> collaboratori = getListaCollaboratoriDaMod770(tMod770, recordH);
@@ -3145,31 +3146,24 @@ namespace cu_details_default {
 
                 string pathCompleto = Path.Combine(txtPercorso.Text, getNomeCompleto(co.cf, co.progr.PadLeft(3, '0'), co.modulo, denominazione));
 
-                PdfReader templateReader = new PdfReader(fOrigin);
-                PdfWriter writer = new PdfWriter(pathCompleto);
-
-                writer.SetCompressionLevel(5);
-                writer.SetSmartMode(true);
-
-                PdfDocument document = new PdfDocument(templateReader, writer);
+                PdfDocument document = new PdfDocument();
+                document.LoadFromFile(fOrigin);
+                document.CompressionLevel = PdfCompressionLevel.Normal;
 
                 if (!chkConIndirizzo.Checked) {
                     // Voglio rimuovere la prima pagina
-                    document.RemovePage(document.GetFirstPage());
+                    document.Pages.RemoveAt(0);
                 }
                 if (!chkDonazione.Checked) {
                     // Voglio rimuovere la penultima e l'ultima pagina
-                    document.RemovePage(document.GetLastPage());
-                    document.RemovePage(document.GetLastPage());
+                    document.Pages.RemoveAt(document.Pages.Count - 1);
+                    document.Pages.RemoveAt(document.Pages.Count - 1);
                 }
 
-                PdfAcroForm form = PdfAcroForm.GetAcroForm(document, false);
+                PdfFormWidget form = document.Form as PdfFormWidget;
 
                 if (form != null) {
-                    form.SetGenerateAppearance(true);
-                    form.SetNeedAppearances(true);
-
-                    var fields = form.GetFormFields();
+                    var fields = campiDelModello(form);
 
                     foreach (DictionaryEntry entry in ht) {
                         string fieldID = entry.Key.ToString();
@@ -3181,14 +3175,13 @@ namespace cu_details_default {
                         //variante nomecampo_8x1000
                         fieldIDvariants.Add(fieldID + "_8x1000");
                         //varianti nomecampo_pX dove X è il numero pagina
-                        for (int i = 0; i < document.GetNumberOfPages(); i++) {
+                        for (int i = 0; i < document.Pages.Count; i++) {
                             fieldIDvariants.Add(fieldID + "_p" + i.ToString());
                         }
 
                         var matchedFields = fields.Where(field => fieldIDvariants.Contains(field.Key));
                         matchedFields._forEach(matchedField => { 
-                            matchedField.Value.SetValue(fieldValue);
-                            matchedField.Value.SetReadOnly(true);
+                            scriviCampo(matchedField.Value, fieldValue);
                         });
                     }
 
@@ -3208,17 +3201,16 @@ namespace cu_details_default {
                                 string fieldID = entry.Key.ToString() + suffisso;
 
                                 if (fields.ContainsKey(fieldID)) {
-                                    fields[fieldID].SetValue(entry.Value.ToString());
-                                    fields[fieldID].SetReadOnly(true);
+                                    scriviCampo(fields[fieldID], entry.Value.ToString());
                                 }
                             }
                         }
                     }
 
-                    foreach (KeyValuePair<string, PdfFormField> entry in fields) {
-                        entry.Value.SetReadOnly(true);
+                    foreach (KeyValuePair<string, PdfTextBoxFieldWidget> entry in fields) {
+                        entry.Value.ReadOnly = true;
 					}
-                    form.FlattenFields();
+                    form.IsFlatten = true;
                     //indici delle pagine del template
                     int indexFromRemove = (recordH) ? 3 : 7;
                     int indexToRemove = (recordH) ? 10 : 10;
@@ -3232,13 +3224,12 @@ namespace cu_details_default {
                     //pagine inutilizzate da cancellare 
                     int nPages = indexToRemove - indexFromRemove + 1;
                     for (int i = 0; i < nPages; i++) {
-                        document.RemovePage(indexFromRemove);
+                        document.Pages.RemoveAt(indexFromRemove - 1); // Spire conta le pagine da 0
                     }
 
                     try {
-                        writer.Flush();
+                        document.SaveToFile(pathCompleto);
                         document.Close();
-                        writer.Close();
 
                         MetaFactory.factory.getSingleton<IProcessRunner>()?.start(pathCompleto, false);
                     }
@@ -3275,6 +3266,57 @@ namespace cu_details_default {
             return nomeFile + "-" + progr + "-" + modulo + ".pdf";
         }
 
+        /// <summary>
+        /// Registra la chiave di licenza Spire.PDF letta da app_config, come fa il Portale.
+        /// Senza chiave Spire.PDF scrive una filigrana di valutazione su ogni pagina.
+        /// </summary>
+        bool impostaLicenzaSpirePdf() {
+            DataTable confPdf = Meta.Conn.RUN_SELECT("app_config", "param", null,
+                QHS.CmpEq("code", "SPIRE_PDF_LICENSE_KEY"), null, false);
+            string chiave = (confPdf != null && confPdf.Rows.Count > 0) ? confPdf.Rows[0]["param"].ToString().Trim() : "";
+            if (chiave == "") {
+                show(this, "Chiave di licenza Spire.PDF non configurata (app_config, code SPIRE_PDF_LICENSE_KEY): " +
+                    "senza di essa i modelli Certificazione Unica avrebbero la filigrana di valutazione.", "Errore");
+                return false;
+            }
+            LicenseProvider.SetLicenseKey(chiave);
+            return true;
+        }
+
+        /// <summary>
+        /// Campi del modello per nome completo; i modelli CU hanno solo campi di testo.
+        /// Il bordo dei campi è stampato nel modello e i campi non ne disegnano uno proprio: azzerarne lo spessore
+        /// non cambia l'aspetto, ma lascia a Spire tutta la larghezza del campo per il testo.
+        /// </summary>
+        static Dictionary<string, PdfTextBoxFieldWidget> campiDelModello(PdfFormWidget form) {
+            Dictionary<string, PdfTextBoxFieldWidget> campi = new Dictionary<string, PdfTextBoxFieldWidget>();
+            for (int i = 0; i < form.FieldsWidget.Count; i++) {
+                PdfTextBoxFieldWidget campo = form.FieldsWidget[i] as PdfTextBoxFieldWidget;
+                if (campo == null) continue;
+                campo.BorderWidth = 0;
+                campi[campo.FullName] = campo;
+            }
+            return campi;
+        }
+
+        /// <summary>
+        /// Scrive il valore nel campo e lo rende di sola lettura. Spire omette il testo che non entra nel campo
+        /// (1 punto di margine per lato), iText lo scriveva comunque: in quel caso il campo si allarga quanto basta,
+        /// rispettandone l'allineamento, come per le X nelle caselle dei mesi più strette.
+        /// </summary>
+        static void scriviCampo(PdfTextBoxFieldWidget campo, string valore) {
+            campo.Text = valore;
+            campo.ReadOnly = true;
+            if (campo.Font == null) return;
+            System.Drawing.RectangleF b = campo.Bounds;
+            float manca = campo.Font.MeasureString(valore).Width + 2 - b.Width;
+            if (manca <= 0) return;
+            float x = b.X;
+            if (campo.TextAlignment == Spire.Pdf.Graphics.PdfTextAlignment.Center) x -= manca / 2;
+            if (campo.TextAlignment == Spire.Pdf.Graphics.PdfTextAlignment.Right) x -= manca;
+            campo.Bounds = new System.Drawing.RectangleF(x, b.Y, b.Width + manca, b.Height);
+        }
+
 
         private bool inviaMailCollaboratori(bool recordH, DataTable tMod770) {
             QHS = Meta.Conn.GetQueryHelper(); QHS = Meta.Conn.GetQueryHelper();
@@ -3300,6 +3342,7 @@ namespace cu_details_default {
             }
             string fileDaCopiare = fnames[0];
             string fOrigin = fileDaCopiare;
+            if (!impostaLicenzaSpirePdf()) return false;
 
             List<Collaboratore> collaboratori = getListaCollaboratoriDaMod770(tMod770, recordH);
             List<Collaboratore> listaProblemi = new List<Collaboratore>();
@@ -3351,30 +3394,24 @@ namespace cu_details_default {
 
                 MemoryStream ms = new MemoryStream();
 
-                PdfReader templateReader = new PdfReader(fOrigin);
-                PdfWriter writer = new PdfWriter(ms);
-
-                writer.SetCompressionLevel(5);
-                writer.SetSmartMode(true);
-
-                PdfDocument document = new PdfDocument(templateReader, writer);
+                PdfDocument document = new PdfDocument();
+                document.LoadFromFile(fOrigin);
+                document.CompressionLevel = PdfCompressionLevel.Normal;
 
                 if (!chkConIndirizzo.Checked) {
                     // Voglio rimuovere la prima pagina
-                    document.RemovePage(document.GetFirstPage());
+                    document.Pages.RemoveAt(0);
                 }
                 if (!chkDonazione.Checked) {
                     // Voglio rimuovere la penultima e l'ultima pagina
-                    document.RemovePage(document.GetLastPage());
-                    document.RemovePage(document.GetLastPage());
+                    document.Pages.RemoveAt(document.Pages.Count - 1);
+                    document.Pages.RemoveAt(document.Pages.Count - 1);
                 }
 
-                PdfAcroForm form = PdfAcroForm.GetAcroForm(document, false);
+                PdfFormWidget form = document.Form as PdfFormWidget;
 
                 if (form != null) {
-                    form.SetGenerateAppearance(true);
-
-                    var fields = form.GetFormFields();
+                    var fields = campiDelModello(form);
 
                     foreach (DictionaryEntry entry in ht) {
                         string fieldID = entry.Key.ToString();
@@ -3386,14 +3423,13 @@ namespace cu_details_default {
                         //variante nomecampo_8x1000
                         fieldIDvariants.Add(fieldID + "_8x1000");
                         //varianti nomecampo_pX dove X è il numero pagina
-                        for (int i = 0; i < document.GetNumberOfPages(); i++) {
+                        for (int i = 0; i < document.Pages.Count; i++) {
                             fieldIDvariants.Add(fieldID + "_p" + i.ToString());
                         }
 
                         var matchedFields = fields.Where(field => fieldIDvariants.Contains(field.Key));
                         matchedFields._forEach(matchedField => {
-                            matchedField.Value.SetValue(fieldValue);
-                            matchedField.Value.SetReadOnly(true);
+                            scriviCampo(matchedField.Value, fieldValue);
                         });
                     }
                     // Suffissi per identificare i campi dei moduli aggiuntivi
@@ -3412,8 +3448,7 @@ namespace cu_details_default {
                                 string fieldID = entry.Key.ToString() + suffisso;
 
                                 if (fields.ContainsKey(fieldID)) {
-                                    fields[fieldID].SetValue(entry.Value.ToString());
-                                    fields[fieldID].SetReadOnly(true);
+                                    scriviCampo(fields[fieldID], entry.Value.ToString());
                                 }
 
                             }
@@ -3421,11 +3456,11 @@ namespace cu_details_default {
 
                     }
 
-                    foreach (KeyValuePair<string, PdfFormField> entry in fields)
+                    foreach (KeyValuePair<string, PdfTextBoxFieldWidget> entry in fields)
                     {
-                        entry.Value.SetReadOnly(true);
+                        entry.Value.ReadOnly = true;
                     }
-                    form.FlattenFields();
+                    form.IsFlatten = true;
 
                     //indici delle pagine del template
                     int indexFromRemove = (recordH) ? 3 : 7;
@@ -3440,13 +3475,12 @@ namespace cu_details_default {
                     //pagine inutilizzate da cancellare 
                     int nPages = indexToRemove - indexFromRemove + 1;
                     for (int i = 0; i < nPages; i++) {
-                        document.RemovePage(indexFromRemove);
+                        document.Pages.RemoveAt(indexFromRemove - 1); // Spire conta le pagine da 0
                     }
 
                     string nomeFile = getNomeCompleto(co.cf, co.progr.PadLeft(3, '0'), co.modulo, denominazione);
 
-                    writer.Flush();
-                    ms.Flush();
+                    document.SaveToStream(ms);
                     document.Close();
 
                     try {
