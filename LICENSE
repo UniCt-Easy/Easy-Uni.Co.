@@ -674,17 +674,19 @@ Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
 
-METADATALIBRARY, CRYSTAL REPORTS AND XCEED EXCEPTION
+METADATALIBRARY, CRYSTAL REPORTS, XCEED, COMPONENTSPACE SAML2, SPIRE.PDF AND MAGIC LIBRARY EXCEPTION
 
     In addition, as a special exception, l'Università degli Studi di Catania gives 
     permission to link the code of this program with
-    the MetaDataLibrary, Crystal Report and Xceed (or with modified 
-    versions of MetaDataLibrary, Crystal Report and Xceed that use the
-    same license as MetaDataLibrary, Crystal Report and Xceed), 
+    the MetaDataLibrary, Crystal Report, Xceed, ComponentSpace SAML2,
+    Spire.PDF and Magic Library (or with modified versions of
+    MetaDataLibrary, Crystal Report, Xceed, ComponentSpace SAML2, Spire.PDF
+    and Magic Library that use the same license as MetaDataLibrary, Crystal
+    Report, Xceed, ComponentSpace SAML2, Spire.PDF and Magic Library), 
     and distribute linked combinations including them.
     You must obey the GNU General Public License in all
     respects for all of the code used other than MetaDataLibrary, 
-    Crystal Report and Xceed.  If you modify
-    this file, you may extend this exception to your version of the
+    Crystal Report, Xceed, ComponentSpace SAML2, Spire.PDF and Magic Library.
+    If you modify this file, you may extend this exception to your version of the
     file, but you are not obligated to do so.  If you do not wish to
     do so, delete this exception statement from your version.

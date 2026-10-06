@@ -13,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Deployment.WindowsInstaller;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -225,8 +224,7 @@ namespace LiveUpgrade {
             labelUpgrade.Text = string.Format("Installazione di '{0}' in corso...", Path.GetFileName(path));
 
             try {
-                Installer.SetInternalUI(InstallUIOptions.Silent);
-                Installer.InstallProduct(path, args);
+                WindowsInstaller.InstallSilent(path, args);
             }
             catch (Exception ex) {
                 string caption = "Errore";
