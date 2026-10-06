@@ -80,44 +80,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\dll\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\..\dll\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\dll\Common.Logging.Core.dll</HintPath>
-    </Reference>
     <Reference Include="EPPlus">
       <HintPath>..\..\output\EPPlus.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.barcodes">
-      <HintPath>..\..\dll\itext.barcodes.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.forms">
-      <HintPath>..\..\dll\itext.forms.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.io">
-      <HintPath>..\..\dll\itext.io.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.kernel">
-      <HintPath>..\..\dll\itext.kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.layout">
-      <HintPath>..\..\dll\itext.layout.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.pdfa">
-      <HintPath>..\..\dll\itext.pdfa.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.sign">
-      <HintPath>..\..\dll\itext.sign.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.styledxmlparser">
-      <HintPath>..\..\dll\itext.styledxmlparser.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.svg">
-      <HintPath>..\..\dll\itext.svg.dll</HintPath>
     </Reference>
     <Reference Include="metadatalibrary">
       <Name>metadatalibrary</Name>
@@ -125,6 +89,9 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\..\dll\Spire.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
