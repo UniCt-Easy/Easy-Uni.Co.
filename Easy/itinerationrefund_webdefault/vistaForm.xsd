@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaMissioneSpesa.xsd" xmlns:mstns="http://tempuri.org/VistaMissioneSpesa.xsd" xmlns="http://tempuri.org/VistaMissioneSpesa.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="currency">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idcurrency" type="xs:int" />
+              <xs:element name="codecurrency" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefund">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nrefund" type="xs:short" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="exchangerate" type="xs:double" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="extraallowance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="advancepercentage" type="xs:decimal" minOccurs="0" />
+              <xs:element name="starttime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="stoptime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="flag_geo" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="iditinerationrefundkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idcurrency" type="xs:int" minOccurs="0" />
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="flagitalian" type="xs:string" minOccurs="0" />
+              <xs:element name="flagadvancebalance" type="xs:string" minOccurs="0" />
+              <xs:element name="doc" type="xs:string" minOccurs="0" />
+              <xs:element name="docdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="requiredamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="webwarn" type="xs:string" minOccurs="0" />
+              <xs:element name="idforeigncountry" type="xs:int" minOccurs="0" />
+              <xs:element name="noaccount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="docamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="requiredamount_c" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagtaxableexpense" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="idaccmotive" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundkindgroup" type="xs:int" minOccurs="0" />
+              <xs:element name="codeitinerationrefundkind" type="xs:string" />
+              <xs:element name="iditinerationrefundkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flagadvance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtraceability" type="xs:int" minOccurs="0" />
+              <xs:element name="flagautofill" type="xs:int" minOccurs="0" />
+		      <xs:element name="flagvisible" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="foreigncountry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="flag_ue" type="xs:string" minOccurs="0" />
+              <xs:element name="codeforeigncountry" type="xs:string" />
+              <xs:element name="idforeigncountry" type="xs:int" />
+              <xs:element name="idmacroarea" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundattachment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idattachment" type="xs:int" />
+              <xs:element name="iditineration" type="xs:int" />
+              <xs:element name="nrefund" type="xs:short" />
+              <xs:element name="attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="_x0021_refundattachmentkind" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itinerationrefundattachmentkind">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="iditinerationrefundattachmentkind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+              <xs:element name="code" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:currency" />
+      <xs:field xpath="mstns:idcurrency" />
+    </xs:unique>
+    <xs:unique name="itinerationrefund_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefund" />
+      <xs:field xpath="mstns:nrefund" />
+      <xs:field xpath="mstns:iditineration" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundkind" />
+      <xs:field xpath="mstns:iditinerationrefundkind" />
+    </xs:unique>
+    <xs:unique name="foreigncountry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:foreigncountry" />
+      <xs:field xpath="mstns:idforeigncountry" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundattachment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundattachment" />
+      <xs:field xpath="mstns:idattachment" />
+      <xs:field xpath="mstns:iditineration" />
+      <xs:field xpath="mstns:nrefund" />
+    </xs:unique>
+    <xs:unique name="itinerationrefundattachmentkind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:itinerationrefundattachmentkind" />
+      <xs:field xpath="mstns:iditinerationrefundattachmentkind" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_foreigncountry_itinerationrefund" msdata:parent="foreigncountry" msdata:child="itinerationrefund" msdata:parentkey="idforeigncountry" msdata:childkey="idforeigncountry" />
+      <msdata:Relationship name="itinerationrefundkind_itinerationrefund" msdata:parent="itinerationrefundkind" msdata:child="itinerationrefund" msdata:parentkey="iditinerationrefundkind" msdata:childkey="iditinerationrefundkind" />
+      <msdata:Relationship name="currency_itinerationrefund" msdata:parent="currency" msdata:child="itinerationrefund" msdata:parentkey="idcurrency" msdata:childkey="idcurrency" />
+      <msdata:Relationship name="itinerationrefundattachment_itinerationrefund" msdata:parent="itinerationrefund" msdata:child="itinerationrefundattachment" msdata:parentkey="iditineration nrefund" msdata:childkey="iditineration nrefund" />
+      <msdata:Relationship name="itinerationrefundattachmentkind_itinerationrefundattachment" msdata:parent="itinerationrefundattachmentkind" msdata:child="itinerationrefundattachment" msdata:parentkey="iditinerationrefundattachmentkind" msdata:childkey="iditinerationrefundattachmentkind" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>
