@@ -67,6 +67,36 @@ maintenance:
 legal:
   license: GPL-3.0-or-later
   mainCopyrightOwner: Università degli Studi di Catania
+dependsOn:
+  open:
+    - name: AegisImplicitMail
+    - name: Castle.Core
+    - name: CronEspresso
+    - name: Cronos
+    - name: CsvHelper
+    - name: edtFTPnet
+    - name: Entity Framework Core
+    - name: EPPlus
+      versionMax: '4.5.3.3'
+    - name: jose-jwt
+    - name: MailKit
+    - name: Microsoft.AspNet.SignalR.Client
+    - name: Microsoft.Extensions.Configuration
+    - name: Microsoft.IdentityModel.Tokens
+    - name: MimeKit
+    - name: Newtonsoft.Json
+    - name: PDFsharp
+    - name: Polly
+    - name: RestSharp
+    - name: System.IdentityModel.Tokens.Jwt
+    - name: ZXing.Net
+  proprietary:
+    - name: MetaDataLibrary
+    - name: Crystal Reports
+    - name: Xceed
+    - name: ComponentSpace SAML2
+    - name: Spire.PDF
+    - name: Magic Library
 intendedAudience:
   countries:
     - IT
