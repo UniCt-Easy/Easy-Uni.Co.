@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -450,6 +449,7 @@ namespace no_table_import_anagrafiche_csa {
                 DataSet DSqualifichenonmappate = new DataSet();
                 DSqualifichenonmappate.Tables.Add(Tqualifichenonmappate);
                 intestazione = "AVVISO - Le seguenti anagrafiche hanno Ruolo-Inquadramento non mappato in Easy, per cui non verranno importate.\r\n" +
+                    "Inserire la mappatura da Opzioni > Clienti/Fornitori > Qualifica CSA e successivamente ripetere l'importazione.\r\n" +
                     "Si procederà all'importazione delle altre anagrafiche.\r\n"; 
                 FrmDettaglioRisultati X = new FrmDettaglioRisultati(DSqualifichenonmappate.Tables["Tqualifichenonmappate"], intestazione);
                 X.Text = "Anagrafiche";

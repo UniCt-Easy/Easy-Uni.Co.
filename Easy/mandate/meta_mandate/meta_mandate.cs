@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -30,10 +29,12 @@ namespace meta_mandate //meta_ordinegenerico//
 		public Meta_mandate(DataAccess Conn, MetaDataDispatcher Dispatcher) :
 			base(Conn, Dispatcher, "mandate") {
 			EditTypes.Add("default");
-			EditTypes.Add("request");
+            EditTypes.Add("webdefault");
+            EditTypes.Add("request");
 			ListingTypes.Add("default");
 			ListingTypes.Add("lista");
-		}
+            ListingTypes.Add("webdefault");
+        }
 
 		public override void SetDefaults(DataTable PrimaryTable) {
 			base.SetDefaults(PrimaryTable);
@@ -66,7 +67,13 @@ namespace meta_mandate //meta_ordinegenerico//
 				return MetaData.GetFormByDllName("mandate_default");
 			}
 
-			if (FormName == "request") {
+            if (FormName == "webdefault")
+            {
+                Name = "Richiesta d'ordine";
+                return MetaData.GetFormByDllName("mandate_defaultweb");
+            }
+
+            if (FormName == "request") {
 				Name = "Richiesta d'ordine";
 				return MetaData.GetFormByDllName("mandate_default");
 			}
@@ -90,7 +97,7 @@ namespace meta_mandate //meta_ordinegenerico//
 		}
 
 		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) {
-			if ((ListingType == "lista") || (ListingType == "default"))
+			if ((ListingType == "lista") || (ListingType == "default") || (ListingType == "webdefault"))
 				return base.SelectOne(ListingType, filter, "mandateview", Exclude);
 			return base.SelectOne(ListingType, filter, "mandate", Exclude);
 		}
@@ -116,7 +123,7 @@ namespace meta_mandate //meta_ordinegenerico//
 			bool abilitaLotti = (flag & 1) == 0;
 			bool abilitaConsip = (flag & 2) == 0;
 
-			if (R.Table.Columns.Contains("flagtenderresult") && edit_type != "request" && abilitaLotti) {
+			if (R.Table.Columns.Contains("flagtenderresult") && edit_type != "request" && edit_type != "webdefault" && abilitaLotti) {
 				if (R["flagtenderresult"].ToString() == "") {
 					errmess = "E' necessario specificare l'esito della gara";
 					errfield = "flagtenderresult";
@@ -124,7 +131,7 @@ namespace meta_mandate //meta_ordinegenerico//
 				}
 			}
 
-			if (R.Table.Columns.Contains("flagtenderresult") && edit_type != "request" && abilitaLotti) {
+			if (R.Table.Columns.Contains("flagtenderresult") && edit_type != "request" && edit_type != "webdefault" && abilitaLotti) {
 				if (R["flagtenderresult"].ToString() != "A" && R["active"].ToString() == "S") {
 					errmess = "Solo una gara aggiudicata può essere resa valida per la contabilizzazione";
 					errfield = "flagtenderresult";
@@ -132,7 +139,7 @@ namespace meta_mandate //meta_ordinegenerico//
 				}
 			}
 
-			if (R.Table.Columns.Contains("flagtenderkind") && edit_type != "request" && abilitaLotti) {
+			if (R.Table.Columns.Contains("flagtenderkind") && edit_type != "request" && edit_type != "webdefault" && abilitaLotti) {
 				if (R["flagtenderkind"].ToString() == "") {
 					errmess = "E' necessario specificare il tipo di gara";
 					errfield = "flagtenderkind";
@@ -160,7 +167,7 @@ namespace meta_mandate //meta_ordinegenerico//
 			if (multireg == null) multireg = "N";
 			string smultireg = multireg.ToString().ToUpper();
 
-			if ((CfgFn.GetNoNullInt32(R["idreg"]) == 0) && (smultireg != "S") && edit_type != "request" &&
+			if ((CfgFn.GetNoNullInt32(R["idreg"]) == 0) && (smultireg != "S") && edit_type != "request" && edit_type != "webdefault" &&
 			    LinkedForm != null &&
 			    (R["flagtenderresult"].ToString() == "A")) {
 				errmess = "Il campo 'Fornitore' è obbligatorio";
@@ -168,7 +175,7 @@ namespace meta_mandate //meta_ordinegenerico//
 				return false;
 			}
 
-			if ((CfgFn.GetNoNullInt32(R["idreg"]) != 0) && edit_type != "request" && LinkedForm != null) {
+			if ((CfgFn.GetNoNullInt32(R["idreg"]) != 0) && edit_type != "request" && edit_type != "webdefault" && LinkedForm != null) {
 				DataTable reg = Conn.RUN_SELECT("registry", "*", null, QHS.CmpEq("idreg", R["idreg"]), null, false);
 				if (reg.Rows.Count == 0) {
 					errmess = $"L'anagrafica di id {R["idreg"]} non esiste sul db. Correggere il riferimento.";
@@ -232,7 +239,7 @@ namespace meta_mandate //meta_ordinegenerico//
 				}
 			}
 
-			if (CfgFn.GetNoNullInt32(R["idcurrency"]) == 0 && edit_type != "request") {
+			if (CfgFn.GetNoNullInt32(R["idcurrency"]) == 0 && edit_type != "request" && edit_type != "webdefault") {
 				errmess = "Il campo 'Valuta' è obbligatorio";
 				errfield = "idcurrency";
 				return false;

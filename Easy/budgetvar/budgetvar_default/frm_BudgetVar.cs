@@ -1,6 +1,6 @@
 /*
 Easy
-Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 UniversitÃ  degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -12,13 +12,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using System.Text.RegularExpressions;
 using metaeasylibrary;
 using metadatalibrary;
 using funzioni_configurazione;//funzioni_configurazione
@@ -103,6 +103,18 @@ namespace budgetvar_default//VariazioneBilancio//
         private Label label7;
         int CurrentStatus;
   
+        public override string Text {
+
+            // usiamo il setter per aggiungere uno stadio in coda alla pipeline di impostazione del nome
+            // che MDL assegna dinamicamente
+
+            get => base.Text;
+            // se non Ã¨ null e il titolo contiene "accrual" eliminiamo la parola "budget"
+            set => base.Text = value != null && value.IndexOf("accrual", StringComparison.OrdinalIgnoreCase) >= 0
+                ? Regex.Replace(value, @"\s*budget\s*", " ", RegexOptions.IgnoreCase).Trim()
+                : value;
+        }
+
 		public Frm_budgetvar_default()
 		{
 			InitializeComponent();  
@@ -1005,7 +1017,7 @@ namespace budgetvar_default//VariazioneBilancio//
             }
         }
 
-        //se lo stato è Edit e ci sono modifiche in budgetvardetail su idsor/idupb
+        //se lo stato ï¿½ Edit e ci sono modifiche in budgetvardetail su idsor/idupb
         //non deve essere possibile approvare la variazione
         bool DettaglioModificato(){
             if (DS.budgetvardetail.Rows.Count==0) return false;
@@ -1217,7 +1229,7 @@ namespace budgetvar_default//VariazioneBilancio//
             // I selettori del campo NOFFICIAL sono YBUDGETVAR e OFFICIAL
             int ybudgetvar = CfgFn.GetNoNullInt32(R["ybudgetvar"]);
             string official = R["official"].ToString().ToUpper();
-            // Se la variazione non è ufficiale non calcolo il campo
+            // Se la variazione non ï¿½ ufficiale non calcolo il campo
             if (official != "S") {
                 return null;
             }
@@ -1306,7 +1318,7 @@ namespace budgetvar_default//VariazioneBilancio//
             
             /*
              * Se ci sono delle modifiche ai dettagli non posso passare ad Approvata, o viceversa.
-             * Va controllato il vecchio e nuovo stato, se lo stato precedente è 'approvato' ( original value), il nuovo non può essere cambiato,
+             * Va controllato il vecchio e nuovo stato, se lo stato precedente ï¿½ 'approvato' ( original value), il nuovo non puï¿½ essere cambiato,
              * si potrebbe anche disabilitare il bottone in questo caso.
              * */
 
@@ -1316,7 +1328,7 @@ namespace budgetvar_default//VariazioneBilancio//
                 if ((Meta.EditMode) && DettaglioModificato()){
                     int CurrentStatus = CfgFn.GetNoNullInt32(R["idbudgetvarstatus"]); // 5 = Approvata
                     if (CurrentStatus == 5){
-                        show("La variazione non può essere Approvata se sono stati modificati dettagli. Salvare le modifiche e poi approvare la variazione.", "Attenzione",
+                        show("La variazione non puï¿½ essere Approvata se sono stati modificati dettagli. Salvare le modifiche e poi approvare la variazione.", "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         HelpForm.SetComboBoxValue(cmbStatus, Curr["idbudgetvarstatus", DataRowVersion.Original]);
                     }

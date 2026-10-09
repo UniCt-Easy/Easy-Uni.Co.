@@ -136,8 +136,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
+    <!-- Destinazioni post-build indipendenti da $(SolutionDir) (che vale *Undefined* fuori da una build di solution). -->
+    <!-- Easy: due livelli sopra la cartella del progetto (D:\Easy\itineration\itinerationFunctions -> D:\Easy). -->
+    <EasyOutputDir>$(MSBuildProjectDirectory)\..\..\output\</EasyOutputDir>
+  </PropertyGroup>
+  <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
+    <PostBuildEvent>if not exist "$(EasyOutputDir)" mkdir "$(EasyOutputDir)"
+xcopy "$(TargetDir)$(TargetName).*" "$(EasyOutputDir)" /Y /I /D</PostBuildEvent>
   </PropertyGroup>
 </Project>

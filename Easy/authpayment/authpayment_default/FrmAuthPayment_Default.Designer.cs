@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace authpayment_default {
     partial class FrmAuthPayment_Default {
         /// <summary>
@@ -199,7 +198,7 @@ namespace authpayment_default {
             this.txtCreditoreDebitore.Name = "txtCreditoreDebitore";
             this.txtCreditoreDebitore.Size = new System.Drawing.Size(694, 20);
             this.txtCreditoreDebitore.TabIndex = 1;
-            this.txtCreditoreDebitore.Tag = "registrymainview.title?authpaymenthview.registry";
+            this.txtCreditoreDebitore.Tag = "registrymainview.title?authpaymentview.registry";
             // 
             // label3
             // 

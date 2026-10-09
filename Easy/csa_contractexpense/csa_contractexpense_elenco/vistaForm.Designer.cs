@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -24,39 +23,24 @@ using System.Runtime.Serialization;
 namespace csa_contractexpense_elenco {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractexpense 		=> Tables["csa_contractexpense"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseview 		=> Tables["expenseview"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
 
-	///<summary>
-	///Informazioni annuali su tipo contratto csa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkindyear 		=> Tables["csa_contractkindyear"];
 
@@ -345,6 +329,7 @@ private void initClass() {
 	tcsa_contractkindyear.Columns.Add(C);
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_main", typeof(string)));
+	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idfin_main", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;

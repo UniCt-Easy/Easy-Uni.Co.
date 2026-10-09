@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace csa_importriep_partition_expense_elenco {
     partial class Frm_csa_importriep_partition_expense_elenco {
         /// <summary>
@@ -658,7 +657,7 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtCredDebRiep.Name = "txtCredDebRiep";
 			this.txtCredDebRiep.Size = new System.Drawing.Size(368, 20);
 			this.txtCredDebRiep.TabIndex = 1;
-			this.txtCredDebRiep.Tag = "registry.title?csa_importriep_partition_expenseeview.registry";
+			this.txtCredDebRiep.Tag = "registry.title?csa_importriep_partition_expenseview.registry";
 			// 
 			// Frm_csa_importriep_partition_expense_elenco
 			// 

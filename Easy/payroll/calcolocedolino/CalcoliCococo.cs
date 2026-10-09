@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using metadatalibrary;
@@ -1601,7 +1600,7 @@ namespace calcolocedolino { //calcolocedolino//
             r["stop"] = stop;
             tData.Rows.Add(r);
 
-            calcolaTabellaCud(Conn.GetSys("userdb"), idContratto, annoFiscale, tData, includiContratto, start, stop);
+            calcolaTabellaCud((Conn.GetSys("schema") ?? Conn.GetSys("userdb")), idContratto, annoFiscale, tData, includiContratto, start, stop);
 
 
 
@@ -5487,7 +5486,7 @@ namespace calcolocedolino { //calcolocedolino//
         /// <returns></returns>
         private decimal detrazione_reddito_fascia1(decimal reddito, int giorniCompetenza) {
             // 2026 (dichiarazione 2026 / anno imposta 2025): detrazione base fino a 15.000 €
-            decimal MD = 1995;
+            decimal MD = 1955;
             // La minima detrazione non è 690 ma 1380 perché sono lavoratori a tempo determinato
             decimal min_detrazione = 1380;
 
@@ -6249,7 +6248,7 @@ namespace calcolocedolino { //calcolocedolino//
             tData.Columns.Add("start", typeof(DateTime));
             tData.Columns.Add("stop", typeof(DateTime));
 
-            tData = calcolaTabellaData(Conn.GetSys("userdb"), idContratto, tData, "S");
+            tData = calcolaTabellaData((Conn.GetSys("schema") ?? Conn.GetSys("userdb")), idContratto, tData, "S");
 
             int gglavorati = contaGiorniLavorati(tData, annofiscale);
 
@@ -7479,7 +7478,8 @@ namespace calcolocedolino { //calcolocedolino//
             foreach (DataRow rScaglioneConguaglio in scaglioniConguaglio) {
                 string filtroScaglioneCedolinoRata = QHC.AppAnd(filtroCedolinoRata,
                     QHC.CmpEq("idpayrolltax", parentRata["idpayrolltax"]),
-                    QHC.CmpEq("employrate", rScaglioneConguaglio["employrate"]));
+                    QHC.CmpEq("employrate", rScaglioneConguaglio["employrate"]),
+                    QHC.CmpEq("nbracket", rScaglioneConguaglio["nbracket"]));
                 DataRow[] scaglioniCedolinoRata = DS.payrolltaxbracket.Select(filtroScaglioneCedolinoRata);
                 if (scaglioniCedolinoRata.Length > 0) {
                     foreach (string col in new string[] {"taxable", "employtax", "admintax"})

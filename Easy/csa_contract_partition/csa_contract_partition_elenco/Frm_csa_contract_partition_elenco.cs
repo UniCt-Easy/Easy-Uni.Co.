@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,11 +41,12 @@ namespace csa_contract_partition_elenco {
             GetData.CacheTable(DS.expensephase, QHS.AppAnd(QHS.CmpNe("nphase", Meta.GetSys("maxexpensephase")),
                QHS.CmpGe("nphase", Meta.GetSys("expensefinphase")), QHS.CmpLt("nphase", Meta.GetSys("expenseregphase"))), "nphase", true);
             string filter = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
+            DataAccess.SetTableForReading(DS.account_cost_reversal, "account");
             GetData.SetStaticFilter(DS.csa_contract_partition, filter);
 			GetData.SetStaticFilter(DS.csa_contract_partitionview, filter);
 			GetData.SetStaticFilter(DS.fin, QHS.AppAnd(filter, QHS.BitSet("flag", 0)));
             GetData.SetStaticFilter(DS.account, QHS.AppAnd(filter));
-
+            GetData.SetStaticFilter(DS.account_cost_reversal, QHS.AppAnd(filter));
             Meta.CanInsert = false;
             Meta.CanInsertCopy = false;
             Meta.CanSave = false;

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -624,12 +623,82 @@ namespace sdi_acquisto_default {
             return null;
         }
 
+        static string getXmlText(XmlNode x, string xpath, XmlNamespaceManager ns) {
+            if (ns == null) {
+                try {
+                    XmlNode n = x.SelectSingleNode(xpath);
+                    if (n != null) {
+                        return n.InnerText;
+                    }
+                }
+                catch {
+                }
+
+                return null;
+            }
+
+            try {
+                XmlNode n = x.SelectSingleNode(xpath, ns);
+                if (n != null) {
+                    return n.InnerText;
+                }
+            }
+            catch {
+            }
+
+            return null;
+        }
+
+        public static string getP_IVACedentePrestatore(XmlDocument x) {
+            //Gestisce sia forma normale che semplificata 
+            //<ns2:FatturaElettronicaSemplificata xmlns:ns2="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.0" versione="FSM10">
+            XmlNode IdFiscaleIVA =
+                x.SelectSingleNode("//FatturaElettronicaHeader/CedentePrestatore/DatiAnagrafici/IdFiscaleIVA")
+                ??
+                x.SelectSingleNode("//FatturaElettronicaHeader/CedentePrestatore/IdFiscaleIVA");
+
+            if (IdFiscaleIVA == null)
+                return null;
+
+            return IdFiscaleIVA["IdPaese"]?.InnerText +
+                   IdFiscaleIVA["IdCodice"]?.InnerText;
+        }
+
+        public static string getCodiceFiscaleCedentePrestatore(XmlDocument x) {
+
+            //Gestisce sia forma normale che semplificata 
+            //<ns2:FatturaElettronicaSemplificata xmlns:ns2="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.0" versione="FSM10">
+
+            string cf = getXmlText(
+                x,
+                "//FatturaElettronicaHeader/CedentePrestatore/DatiAnagrafici/CodiceFiscale" 
+            );
+
+            if (string.IsNullOrEmpty(cf)) {
+                cf = getXmlText(
+                    x,
+                    "//FatturaElettronicaHeader/CedentePrestatore/CodiceFiscale" 
+                );
+            }
+
+            if (string.IsNullOrEmpty(cf))
+                return null;
+
+            return cf;
+        }
+
         private void ElaboraFileFattura() {
             if (Meta.IsEmpty)
                 return;
-            if (!Meta.GetFormData(false)) return;
-			if (DS.sdi_acquisto.Rows.Count == 0) return;
+
+            if (!Meta.GetFormData(false))
+                return;
+
+            if (DS.sdi_acquisto.Rows.Count == 0)
+                return;
+
             DataRow Curr = DS.sdi_acquisto.Rows[0];
+
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
                 messaggio = "Non vi è alcun file da importare\nErrore";
@@ -637,45 +706,104 @@ namespace sdi_acquisto_default {
                 return;
             }
 
+
             XmlDocument document = new XmlDocument();
             document.LoadXml(Curr["xml"].ToString());
+
+
+            // FSM10 - Individuazione del tracciato semplificato.
+            string versioneFattura =
+                document.DocumentElement.Attributes["versione"]?.Value;
+
+            string formatoTrasmissione =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaHeader/DatiTrasmissione/FormatoTrasmissione");
+
+            bool isFsm10 =
+                string.Equals(
+                    versioneFattura,
+                    "FSM10",
+                    StringComparison.OrdinalIgnoreCase)
+                ||
+                string.Equals(
+                    formatoTrasmissione,
+                    "FSM10",
+                    StringComparison.OrdinalIgnoreCase);
+
 
             object idreg = DBNull.Value;
             object idinvkind = DBNull.Value;
 
-            string idPaese = getXmlText(document,
-                "//FatturaElettronicaHeader/CedentePrestatore/DatiAnagrafici/IdFiscaleIVA/IdPaese");
-            string idCodice = getXmlText(document,
-                "//FatturaElettronicaHeader/CedentePrestatore/DatiAnagrafici/IdFiscaleIVA/IdCodice");
-            string idFiscaleIva = "";
-            if (idPaese == "IT") {
+
+            /*
+             * Lettura P.IVA Cedente/Prestatore.
+             *
+             * L'helper è compatibile sia con il tracciato ordinario,
+             * dove IdFiscaleIVA è sotto DatiAnagrafici,
+             * sia con FSM10, dove è direttamente sotto CedentePrestatore.
+             */
+            string idFiscaleIva =
+                getP_IVACedentePrestatore(document);
+
+            if (!string.IsNullOrEmpty(idFiscaleIva) &&
+                idFiscaleIva.StartsWith("IT")) {
+
                 //La partita IVA italiana è composta da 11 caratteri numerici. In registry abbiamo solo gli 11 numeri, per cui dobbiamo confrontare la p.iva solo con i numeri
                 //Se invece fosse estera, avremmo anche la sigla della nazione.  
-                idFiscaleIva = idCodice;
+                idFiscaleIva =
+                    idFiscaleIva.Substring(2);
             }
-            else {
-                idFiscaleIva = (idPaese??"") + idCodice;
-            }
+
 
             // Individua l'ANAGRAFICA
-            string Denominazione = Curr["title"].ToString();
-            idreg = IndividuaAnagrafica(idFiscaleIva, Denominazione);
+            string Denominazione =
+                Curr["title"].ToString();
+
+            idreg =
+                IndividuaAnagrafica(
+                    idFiscaleIva,
+                    Denominazione);
+
             if (CfgFn.GetNoNullInt32(idreg) == 0) {
+
                 string messaggio;
-                messaggio = $"Non è stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
-                show(this, messaggio, "Avviso");
+
+                messaggio =
+                    $"Non è stata trovata alcuna anagrafica con Partita IVA: {idFiscaleIva} o denominazione : {Denominazione}.";
+
+                show(
+                    this,
+                    messaggio,
+                    "Avviso");
+
                 //Apre un form per consentire all'utente la scelta dell'Anagrafica
-                FrmAskAnagrafica F = new FrmAskAnagrafica(Meta, Meta.Dispatcher);
-                createForm(F, this);
+                FrmAskAnagrafica F =
+                    new FrmAskAnagrafica(
+                        Meta,
+                        Meta.Dispatcher);
+
+                createForm(
+                    F,
+                    this);
+
                 if (F.ShowDialog(this) != DialogResult.OK)
                     return;
-                idreg = F.idreg;
+
+                idreg =
+                    F.idreg;
             }
 
+
             // Tipo Documento
-            string TipoDocumentoTD = getXmlText(document,
-                "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/TipoDocumento");
+            string TipoDocumentoTD =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/TipoDocumento");
+
             bool variation = false;
+
+
             //Da richiesta di Cinzia del 19/06/2015, ore 9:32
             /*
              * la nota di debito infatti no è altro che l'integrazione di una fattura precedentemente emessa e non è una nota di credito
@@ -683,234 +811,616 @@ namespace sdi_acquisto_default {
              * la progressività delle fatture emesse, deve indicare la data di emissione, il numero di fattura a cui si riferisce e tutti i dati previsti
              * in materia di emissione delle fatture dall’art.21 DPR633/72. Tale documento deve inoltre essere rilevato nel registro delle fatture emesse.
              *          */
-            if ((TipoDocumentoTD == "TD04")) { //||(TipoDocumentoTD == "TD05")
+
+            /*
+             * TD04 = Nota di credito ordinaria
+             * TD08 = Nota di credito semplificata
+             *
+             * TD05 e TD09 sono note di debito e continuano quindi
+             * a non essere considerate variazioni.
+             */
+            if ((TipoDocumentoTD == "TD04") ||
+                (TipoDocumentoTD == "TD08")) {
+
                 variation = true;
             }
 
-            //Individua il TIPO DOCUMENTO
-            string codiceIPA = Curr["codice_ipa"].ToString();
-            string riferimentoAmministrazione = Curr["riferimento_amministrazione"].ToString();
 
-            idinvkind = IndividuaTipoDocumento(codiceIPA, riferimentoAmministrazione, variation);
+            //Individua il TIPO DOCUMENTO
+            string codiceIPA =
+                Curr["codice_ipa"].ToString();
+
+            string riferimentoAmministrazione =
+                Curr["riferimento_amministrazione"].ToString();
+
+
+            idinvkind =
+                IndividuaTipoDocumento(
+                    codiceIPA,
+                    riferimentoAmministrazione,
+                    variation);
+
+
             if (CfgFn.GetNoNullInt32(idinvkind) == 0) {
+
                 //string messaggio;
                 //messaggio = $"Non è stato individuato univocamente un Tipo documento. L'IPA della F.E. è: {codiceIPA}.";
                 //show(this, messaggio, "Avviso");
+
                 //Fa scegliere all'utente un Tipo documento tra quelli senza ipa
-                string filterIdinvkind = QHS.IsNull("ipa_fe");
-                filterIdinvkind = QHC.AppAnd(filterIdinvkind,
-                    QHC.AppAnd(QHC.CmpEq("active", "S"),
-                        QHC.BitClear("flag", 0))); //(flag & 1) == 0 : prende solo quelle di acquisto
+                string filterIdinvkind =
+                    QHS.IsNull("ipa_fe");
+
+                filterIdinvkind =
+                    QHC.AppAnd(
+                        filterIdinvkind,
+                        QHC.AppAnd(
+                            QHC.CmpEq("active", "S"),
+                            QHC.BitClear("flag", 0))); //(flag & 1) == 0 : prende solo quelle di acquisto
+
+
                 if (variation) {
+
                     filterIdinvkind =
-                        QHC.AppAnd(filterIdinvkind, QHC.BitSet("flag", 2)); //(flag & 4) <> 0: prende solo le variazioni
+                        QHC.AppAnd(
+                            filterIdinvkind,
+                            QHC.BitSet("flag", 2)); //(flag & 4) <> 0: prende solo le variazioni
                 }
                 else {
+
                     filterIdinvkind =
-                        QHC.AppAnd(filterIdinvkind,
+                        QHC.AppAnd(
+                            filterIdinvkind,
                             QHC.BitClear("flag", 2)); //(flag & 4) = 0: prende solo le fatture, no variazioni
                 }
 
-                filterIdinvkind =
-                    QHC.AppAnd(filterIdinvkind, QHC.CmpEq("enable_fe", "S")); //solo i tipi utilizzabili nella FE
 
-                DataRow rInvkind = SelezionaTipoDocumento(filterIdinvkind);
+                filterIdinvkind =
+                    QHC.AppAnd(
+                        filterIdinvkind,
+                        QHC.CmpEq(
+                            "enable_fe",
+                            "S")); //solo i tipi utilizzabili nella FE
+
+
+                DataRow rInvkind =
+                    SelezionaTipoDocumento(
+                        filterIdinvkind);
+
+
                 if (rInvkind != null) {
-                    idinvkind = rInvkind["idinvkind"];
+
+                    idinvkind =
+                        rInvkind["idinvkind"];
                 }
                 else {
-                    show("Non è stato trovato alcun Tipo Documento configurato per le FE di acquisto con IPA e Riferimento Amministrativo indicati in Fattura.\r\nScegliere quello più appropriato tra quelli disponiibli.", "Errore");
+
+                    show(
+                        "Non è stato trovato alcun Tipo Documento configurato per le FE di acquisto con IPA e Riferimento Amministrativo indicati in Fattura.\r\nScegliere quello più appropriato tra quelli disponiibli.",
+                        "Errore");
+
                     // Se non riesce a trovare un tipo documento con IPA e/o Rif.Amm. specificato in fattura FE, ne fa scegliere uno all'utente.[task 19709]
-                    filterIdinvkind = QHC.AppAnd(QHC.CmpEq("active", "S"), QHC.CmpEq("enable_fe", "S"));
-                    rInvkind = SelezionaTipoDocumento(filterIdinvkind);
+
+                    filterIdinvkind =
+                        QHC.AppAnd(
+                            QHC.CmpEq(
+                                "active",
+                                "S"),
+                            QHC.CmpEq(
+                                "enable_fe",
+                                "S"));
+
+                    rInvkind =
+                        SelezionaTipoDocumento(
+                            filterIdinvkind);
+
                     if (rInvkind != null) {
-                        idinvkind = rInvkind["idinvkind"];
+
+                        idinvkind =
+                            rInvkind["idinvkind"];
                     }
                 }
             }
 
-      
 
             bool parcella = false;
+
             if (TipoDocumentoTD == "TD06") {
                 parcella = true;
             }
 
+
             Meta.SaveFormData();
+
             if (Meta.DS.HasChanges()) {
-                show("Errore nel salvataggio", "Errore");
+
+                show(
+                    "Errore nel salvataggio",
+                    "Errore");
+
                 return;
             }
 
-            MetaData MetaInvoice = MetaData.GetMetaData(this, "invoice");
-            MetaInvoice.SetUsr("sdi_acquisto", "S");
-            MetaInvoice.SetUsr("broadcastEnabledInvoice", true);
-            MetaInvoice.Edit(Meta?.linkedForm?.ParentForm, "default", false);
-            if (MetaInvoice==null || MetaInvoice.destroyed) return;
-            MetaInvoice.closeDisabled = true;
-            D = MetaInvoice?.ds;
+
+            MetaData MetaInvoice =
+                MetaData.GetMetaData(
+                    this,
+                    "invoice");
+
+            MetaInvoice.SetUsr(
+                "sdi_acquisto",
+                "S");
+
+            MetaInvoice.SetUsr(
+                "broadcastEnabledInvoice",
+                true);
+
+            MetaInvoice.Edit(
+                Meta?.linkedForm?.ParentForm,
+                "default",
+                false);
+
+
+            if (MetaInvoice == null ||
+                MetaInvoice.destroyed)
+                return;
+
+
+            MetaInvoice.closeDisabled =
+                true;
+
+            D =
+                MetaInvoice?.ds;
+
             if (D == null) {
-                show(@"Non sono riuscito a caricare il form delle fatture", @"Errore");
+
+                show(
+                    @"Non sono riuscito a caricare il form delle fatture",
+                    @"Errore");
+
                 return;
             }
 
-            DataTable Invoice = D.Tables["invoice"];
-            DataTable InvoiceDetail = D.Tables["invoicedetail"];
 
-            MetaInvoice.SetDefaults(Invoice);
+            DataTable Invoice =
+                D.Tables["invoice"];
 
-            MetaData MetaInvoiceDetail = MetaData.GetMetaData(this, "invoicedetail");
-            MetaInvoiceDetail.SetDefaults(InvoiceDetail);
+            DataTable InvoiceDetail =
+                D.Tables["invoicedetail"];
 
-            if (MetaInvoice==null || MetaInvoice.destroyed) return;
+
+            MetaInvoice.SetDefaults(
+                Invoice);
+
+
+            MetaData MetaInvoiceDetail =
+                MetaData.GetMetaData(
+                    this,
+                    "invoicedetail");
+
+            MetaInvoiceDetail.SetDefaults(
+                InvoiceDetail);
+
+
+            if (MetaInvoice == null ||
+                MetaInvoice.destroyed)
+                return;
+
+
             //ToMeta.PrimaryDataTable. è la tabella principale del form creato
-            Hashtable saveddefaults = new Hashtable();
+            Hashtable saveddefaults =
+                new Hashtable();
+
             foreach (DataColumn C in MetaInvoice.PrimaryDataTable.Columns) {
-                saveddefaults[C.ColumnName] = C.DefaultValue;
+
+                saveddefaults[C.ColumnName] =
+                    C.DefaultValue;
             }
 
 
+            MetaData.SetDefault(
+                Invoice,
+                "idinvkind",
+                idinvkind);
 
-            MetaData.SetDefault(Invoice, "idinvkind", idinvkind);
+            MetaData.SetDefault(
+                InvoiceDetail,
+                "idinvkind",
+                idinvkind);
 
-            MetaData.SetDefault(InvoiceDetail, "idinvkind", idinvkind);
-            MetaData.SetDefault(Invoice, "idreg", idreg);
+            MetaData.SetDefault(
+                Invoice,
+                "idreg",
+                idreg);
+
 
             // Lettura della causale di debito dal fornitore
-            object idaccmotivedebit = Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", idreg), "idaccmotivedebit");
-            if(idaccmotivedebit != DBNull.Value)
-                MetaData.SetDefault(Invoice, "idaccmotivedebit", idaccmotivedebit);
+            object idaccmotivedebit =
+                Conn.DO_READ_VALUE(
+                    "registry",
+                    QHS.CmpEq(
+                        "idreg",
+                        idreg),
+                    "idaccmotivedebit");
 
-            DataRow rInvoicekind = getTipoDoc(idinvkind);
-            if (rInvoicekind == null) return;
-            int  flag = CfgFn.GetNoNullByte(rInvoicekind["flag"]); //se bit 0 =1 allora è vendita
-            bool registroUnico = ((flag & 64) != 0);
-           
+            if (idaccmotivedebit != DBNull.Value) {
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "idaccmotivedebit",
+                    idaccmotivedebit);
+            }
+
+
+            DataRow rInvoicekind =
+                getTipoDoc(
+                    idinvkind);
+
+            if (rInvoicekind == null)
+                return;
+
+
+            int flag =
+                CfgFn.GetNoNullByte(
+                    rInvoicekind["flag"]); //se bit 0 =1 allora è vendita
+
+            bool registroUnico =
+                ((flag & 64) != 0);
+
+
             if (registroUnico) {
-                MetaData.SetDefault(Invoice, "touniqueregister", "S");
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "touniqueregister",
+                    "S");
             }
             else {
-                MetaData.SetDefault(Invoice, "touniqueregister", "N");
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "touniqueregister",
+                    "N");
             }
 
-            if (codiceIPA != null) MetaData.SetDefault(Invoice, "ipa_acq", codiceIPA);
-            if (riferimentoAmministrazione != null)
-                MetaData.SetDefault(Invoice, "rifamm_acq", riferimentoAmministrazione);
 
-            string Numero = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Numero");
-            object NumeroObj = Numero;
-            if (NumeroObj != null) MetaData.SetDefault(Invoice, "doc", NumeroObj);
+            if (codiceIPA != null) {
 
-            string sData = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Data");
+                MetaData.SetDefault(
+                    Invoice,
+                    "ipa_acq",
+                    codiceIPA);
+            }
+
+
+            if (riferimentoAmministrazione != null) {
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "rifamm_acq",
+                    riferimentoAmministrazione);
+            }
+
+
+            string Numero =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Numero");
+
+            object NumeroObj =
+                Numero;
+
+            if (NumeroObj != null) {
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "doc",
+                    NumeroObj);
+            }
+
+
+            string sData =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Data");
+
             if (sData != null) {
-	            DateTime dData = XmlConvert.ToDateTime(sData, XmlDateTimeSerializationMode.Unspecified);
-	            if (dData != null) MetaData.SetDefault(Invoice, "docdate", dData);
+
+                DateTime dData =
+                    XmlConvert.ToDateTime(
+                        sData,
+                        XmlDateTimeSerializationMode.Unspecified);
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "docdate",
+                    dData);
             }
 
 
-            string Causale = getXmlText(document,
-                "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Causale");
+            string Causale =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Causale");
+
+
+            /*
+             * FSM10 - Causale può non essere valorizzata.
+             * In tal caso utilizziamo la prima Descrizione dei beni/servizi.
+             */
+            if (isFsm10 &&
+                string.IsNullOrEmpty(Causale)) {
+
+                Causale =
+                    getXmlText(
+                        document,
+                        "//FatturaElettronicaBody/DatiBeniServizi/Descrizione");
+            }
+
+
             if (Causale != null) {
+
                 if (Causale.Length > 150) {
-                    MetaData.SetDefault(Invoice, "description", Causale.Substring(0, 150));
+
+                    MetaData.SetDefault(
+                        Invoice,
+                        "description",
+                        Causale.Substring(
+                            0,
+                            150));
                 }
                 else {
-                    MetaData.SetDefault(Invoice, "description", Causale);
+
+                    MetaData.SetDefault(
+                        Invoice,
+                        "description",
+                        Causale);
                 }
             }
 
-            string CondizioniPagamento = getXmlText(document, "//FatturaElettronicaBody/DatiPagamento");
+
+            /*
+             * FSM10 può non contenere DatiPagamento.
+             * In tal caso i default del fornitore vengono utilizzati
+             * come già avveniva in assenza di questi dati.
+             */
+            string CondizioniPagamento =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiPagamento");
+
             if (CondizioniPagamento != null) {
-                MetaData.SetDefault(Invoice, "idfepaymethodcondition", CondizioniPagamento);
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "idfepaymethodcondition",
+                    CondizioniPagamento);
             }
 
-            string ModalitaPagamento = getXmlText(document,
-                "//FatturaElettronicaBody/DatiPagamento/DettaglioPagamento/ModalitaPagamento");
+
+            string ModalitaPagamento =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiPagamento/DettaglioPagamento/ModalitaPagamento");
+
             if (ModalitaPagamento != null) {
-                MetaData.SetDefault(Invoice, "idfepaymethod", ModalitaPagamento);
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "idfepaymethod",
+                    ModalitaPagamento);
             }
 
-            MetaData.SetDefault(Invoice, "idsdi_acquisto", Curr["idsdi_acquisto"]);
-            //Tipo scadenza e giorni scadenza
-            DataRow DefModPag = CfgFn.ModalitaPagamentoDefault(Meta.Conn, idreg);
-            if (DefModPag != null){
-                if (DefModPag["paymentexpiring"] != DBNull.Value){
-                    MetaData.SetDefault(Invoice, "paymentexpiring", DefModPag["paymentexpiring"]);
-                }
-                if (DefModPag["idexpirationkind"] != DBNull.Value){
-                    MetaData.SetDefault(Invoice, "idexpirationkind", DefModPag["idexpirationkind"]);
-                }
-             }
 
-            object Myprotocoldate = Curr["protocoldate"];
+            MetaData.SetDefault(
+                Invoice,
+                "idsdi_acquisto",
+                Curr["idsdi_acquisto"]);
+
+
+            //Tipo scadenza e giorni scadenza
+            DataRow DefModPag =
+                CfgFn.ModalitaPagamentoDefault(
+                    Meta.Conn,
+                    idreg);
+
+            if (DefModPag != null) {
+
+                if (DefModPag["paymentexpiring"] != DBNull.Value) {
+
+                    MetaData.SetDefault(
+                        Invoice,
+                        "paymentexpiring",
+                        DefModPag["paymentexpiring"]);
+                }
+
+                if (DefModPag["idexpirationkind"] != DBNull.Value) {
+
+                    MetaData.SetDefault(
+                        Invoice,
+                        "idexpirationkind",
+                        DefModPag["idexpirationkind"]);
+                }
+            }
+
+
+            object Myprotocoldate =
+                Curr["protocoldate"];
+
             if (Myprotocoldate == DBNull.Value) {
-                show("La fattura non ha la data di protocollo", "Avviso");
+
+                show(
+                    "La fattura non ha la data di protocollo",
+                    "Avviso");
+
                 return;
             }
 
-            DateTime DTprotocoldate = Convert.ToDateTime(Myprotocoldate).Date;
-            MetaData.SetDefault(Invoice, "protocoldate", DTprotocoldate);
-            MetaData.SetDefault(Invoice, "arrivalprotocolnum", Curr["arrivalprotocolnum"]);
 
-            string Valuta = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Divisa");
-            if (Valuta == "ITA") Valuta = "EUR";
+            DateTime DTprotocoldate =
+                Convert.ToDateTime(
+                    Myprotocoldate).Date;
+
+            MetaData.SetDefault(
+                Invoice,
+                "protocoldate",
+                DTprotocoldate);
+
+            MetaData.SetDefault(
+                Invoice,
+                "arrivalprotocolnum",
+                Curr["arrivalprotocolnum"]);
+
+
+            string Valuta =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/Divisa");
+
+            if (Valuta == "ITA")
+                Valuta = "EUR";
+
+
             decimal Cambio = 0;
             object idcurrency = null;
+
+
             if (Valuta != "EUR") {
+
                 //Se la valuta è diversa da Euro/Lira Italiana, chiede il tasso di cambio
                 while (CfgFn.GetNoNullDecimal(Cambio) == 0) {
-                    FrmAskCambio FC = new FrmAskCambio(1);
-                    createForm(FC, this);
+
+                    FrmAskCambio FC =
+                        new FrmAskCambio(1);
+
+                    createForm(
+                        FC,
+                        this);
+
                     if (FC.ShowDialog(this) != DialogResult.OK) {
+
                         Cambio = 1;
                     }
                     else {
-                        Cambio = CfgFn.GetNoNullDecimal(FC.Cambio);
-                    }
 
+                        Cambio =
+                            CfgFn.GetNoNullDecimal(
+                                FC.Cambio);
+                    }
                 }
             }
+
 
             DataTable tCurrency =
-                Conn.RUN_SELECT("currency", "*", null, QHS.CmpEq("codecurrency", Valuta), null, false);
+                Conn.RUN_SELECT(
+                    "currency",
+                    "*",
+                    null,
+                    QHS.CmpEq(
+                        "codecurrency",
+                        Valuta),
+                    null,
+                    false);
+
+
             if (tCurrency == null) {
+
                 string messaggio;
-                messaggio = $"Non è stato trovata la Valuta :{Valuta}. La valuta verrà impostata come Euro.";
-                show(this, messaggio, @"Avviso");
-                MetaData.SetDefault(Invoice, "idcurrency",
-                    Conn.DO_READ_VALUE("currency", QHS.CmpEq("codecurrency", "EUR"), "idcurrency"));
+
+                messaggio =
+                    $"Non è stato trovata la Valuta :{Valuta}. La valuta verrà impostata come Euro.";
+
+                show(
+                    this,
+                    messaggio,
+                    @"Avviso");
+
+                MetaData.SetDefault(
+                    Invoice,
+                    "idcurrency",
+                    Conn.DO_READ_VALUE(
+                        "currency",
+                        QHS.CmpEq(
+                            "codecurrency",
+                            "EUR"),
+                        "idcurrency"));
             }
             else {
+
                 if (tCurrency.Rows.Count > 0) {
-                    DataRow rCurrency = tCurrency.Rows[0];
-                    idcurrency = rCurrency["idcurrency"];
-                    MetaData.SetDefault(Invoice, "idcurrency", CfgFn.GetNoNullInt32(idcurrency));
+
+                    DataRow rCurrency =
+                        tCurrency.Rows[0];
+
+                    idcurrency =
+                        rCurrency["idcurrency"];
+
+                    MetaData.SetDefault(
+                        Invoice,
+                        "idcurrency",
+                        CfgFn.GetNoNullInt32(
+                            idcurrency));
                 }
             }
 
-            MetaData.SetDefault(Invoice, "exchangerate", Cambio);
 
-            string flag_enable_split_payment = Curr["split_payment"].ToString();
+            MetaData.SetDefault(
+                Invoice,
+                "exchangerate",
+                Cambio);
+
+
+            string flag_enable_split_payment =
+                Curr["split_payment"].ToString();
+
             if (flag_enable_split_payment != "") {
+
                 //questa condizione serve affinchè la valorizzazione del default avvenga solo se il flag è stato valorizzato. 
-                MetaData.SetDefault(Invoice, "flag_enable_split_payment", flag_enable_split_payment);
+                MetaData.SetDefault(
+                    Invoice,
+                    "flag_enable_split_payment",
+                    flag_enable_split_payment);
             }
-            MetaInvoice.DoMainCommand("maininsert");
-            MetaInvoice.SetUsr("sdi_acquisto", null);
+
+
+            /*
+             * Da questo punto viene generata la testata della fattura.
+             * La successiva importazione delle righe verrà gestita
+             * separatamente distinguendo il tracciato ordinario da FSM10.
+             */
+            MetaInvoice.DoMainCommand(
+                "maininsert");
+
+            MetaInvoice.SetUsr(
+                "sdi_acquisto",
+                null);
+
+
             if (parcella) {
-                MetaData.sendBroadcast(this, "apriFormImportaFattureElettronicheParcella");
+
+                MetaData.sendBroadcast(
+                    this,
+                    "apriFormImportaFattureElettronicheParcella");
             }
             else {
-                MetaData.sendBroadcast(this, "apriFormImportaFattureElettroniche");
+
+                MetaData.sendBroadcast(
+                    this,
+                    "apriFormImportaFattureElettroniche");
             }
+
 
             // Ripristina i vecchi defaults
             foreach (DataColumn CC in MetaInvoice.PrimaryDataTable.Columns) {
-                CC.DefaultValue = saveddefaults[CC.ColumnName];
-            }
-            if (MetaInvoice!=null)MetaInvoice.dontClose = false;
-        }
 
+                CC.DefaultValue =
+                    saveddefaults[CC.ColumnName];
+            }
+
+
+            if (MetaInvoice != null)
+                MetaInvoice.dontClose = false;
+        }
 
         private void btnImporta_ipa_rif_Click(object sender, EventArgs e) {
             string listtype = "iparifamm";
@@ -997,26 +1507,75 @@ namespace sdi_acquisto_default {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(DS.sdi_acquisto.Rows[0]["xml"].ToString());
             string versione = doc.DocumentElement.Attributes["versione"].Value;
-            string xsl;
-            DateTime dataCont = (DateTime)Meta.GetSys("datacontabile");
-            DateTime dataOttobre2020 = new DateTime(2020,10,1);
 
-            if (btnVisualizza.Name == "btnVisualizzaSempl"){
-                if (dataCont != null && dataCont > dataOttobre2020){
-                    xsl = "fatturapa_v1.2.1Semplificata.xslt";
+            // FSM10 - Individuazione del tracciato semplificato.
+            bool isFsm10 =
+                string.Equals(
+                    versione,
+                    "FSM10",
+                    StringComparison.OrdinalIgnoreCase);
+
+            string xsl;
+
+            DateTime dataCont =
+                (DateTime)Meta.GetSys("datacontabile");
+
+            DateTime dataOttobre2020 =
+                new DateTime(2020, 10, 1);
+
+
+            if (isFsm10) {
+
+                /*
+                 * FSM10 - Utilizziamo i fogli di stile specifici
+                 * per la fattura elettronica semplificata.
+                 */
+                if (btnVisualizza.Name == "btnVisualizzaSempl") {
+
+                    xsl = "fatturasemplificata_FSM10_Compatta_Tempo.xslt";
                 }
-                else{
-                    xsl = "fatturapa_v1.2Semplificata.xslt";
-                }          
+                else {
+
+                    xsl = "fatturasemplificata_FSM10_Tempo.xslt";
+                }
             }
-            else{
-                if(dataCont != null && dataCont > dataOttobre2020){
-                  xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.1.xslt";
+            else {
+
+                /*
+                 * Tracciato ordinario.
+                 * Manteniamo invariata la logica precedente.
+                 */
+                if (btnVisualizza.Name == "btnVisualizzaSempl") {
+
+                    if (dataCont != null &&
+                        dataCont > dataOttobre2020) {
+
+                        xsl =
+                            "fatturapa_v1.2.1Semplificata.xslt";
+                    }
+                    else {
+
+                        xsl =
+                            "fatturapa_v1.2Semplificata.xslt";
+                    }
                 }
-                else{
-                  xsl = versione == "1.1" ? "fatturapa_v1.1.xslt" : "fatturapa_v1.2.xslt";
+                else {
+
+                    if (dataCont != null &&
+                        dataCont > dataOttobre2020) {
+
+                        xsl = versione == "1.1"
+                            ? "fatturapa_v1.1.xslt"
+                            : "fatturapa_v1.2.1.xslt";
+                    }
+                    else {
+
+                        xsl = versione == "1.1"
+                            ? "fatturapa_v1.1.xslt"
+                            : "fatturapa_v1.2.xslt";
+                    }
                 }
-            }       
+            }
             if (DS.sdi_acquisto.Rows[0]["xml"] == DBNull.Value) return;
 
             try {

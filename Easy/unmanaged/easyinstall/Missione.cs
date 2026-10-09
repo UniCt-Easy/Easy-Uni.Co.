@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -79,9 +78,9 @@ namespace EasyInstall {
             rSortingKind["flagforced"] = "N";
             rSortingKind["flagmultiple"] = "N";
             rSortingKind["ct"] = DateTime.Now;
-            rSortingKind["cu"] = "Software And More";
+            rSortingKind["cu"] = "Tempo";
             rSortingKind["lt"] = DateTime.Now;
-            rSortingKind["lu"] = "Software And More";
+            rSortingKind["lu"] = "Tempo";
             tSortingKind.Rows.Add(rSortingKind);
 
             // Popolamento di SORTINGLEVEL
@@ -95,9 +94,9 @@ namespace EasyInstall {
             rSortingLevel["flagrestart"] = "S";
             rSortingLevel["flagusable"] = "S";
             rSortingLevel["ct"] = DateTime.Now;
-            rSortingLevel["cu"] = "Software And More";
+            rSortingLevel["cu"] = "Tempo";
             rSortingLevel["lt"] = DateTime.Now;
-            rSortingLevel["lu"] = "Software And More";
+            rSortingLevel["lu"] = "Tempo";
             tSortingLevel.Rows.Add(rSortingLevel);
 
             // Popolamento di SORTINGAPPLICABILITY
@@ -106,9 +105,9 @@ namespace EasyInstall {
             rSortingApplicability["idsorkind"] = "_CLASSMISSIONE";
             rSortingApplicability["tablename"] = "itineration";
             rSortingApplicability["ct"] = DateTime.Now;
-            rSortingApplicability["cu"] = "Software And More";
+            rSortingApplicability["cu"] = "Tempo";
             rSortingApplicability["lt"] = DateTime.Now;
-            rSortingApplicability["lu"] = "Software And More";
+            rSortingApplicability["lu"] = "Tempo";
 
             tSortingApplicability.Rows.Add(rSortingApplicability);
 
@@ -150,9 +149,9 @@ namespace EasyInstall {
                 rSorting["printingorder"] = "";
                 rSorting["sortcode"] = rClassMissione["codiceclass"];
                 rSorting["ct"] = DateTime.Now;
-                rSorting["cu"] = "Software And More";
+                rSorting["cu"] = "Tempo";
                 rSorting["lt"] = DateTime.Now;
-                rSorting["lu"] = "Software And More";
+                rSorting["lu"] = "Tempo";
                 tSorting.Rows.Add(rSorting);
                 nProg++;
                 htCodiciClass[rSorting["sortcode"]] = rSorting["idsor"];
@@ -176,9 +175,9 @@ namespace EasyInstall {
                 rItinerationSorting["yitineration"] = rMissione["nummissione"];
                 rItinerationSorting["quota"] = 1;
                 rItinerationSorting["ct"] = DateTime.Now;
-                rItinerationSorting["cu"] = "Software And More";
+                rItinerationSorting["cu"] = "Tempo";
                 rItinerationSorting["lt"] = DateTime.Now;
-                rItinerationSorting["lu"] = "Software And More";
+                rItinerationSorting["lu"] = "Tempo";
 
                 tItinerationSorting.Rows.Add(rItinerationSorting);
             }

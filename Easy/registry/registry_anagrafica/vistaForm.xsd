@@ -61,6 +61,9 @@
               <xs:element name="idateco" type="xs:int" minOccurs="0" />
               <xs:element name="extension" type="xs:string" minOccurs="0" />
               <xs:element name="idanpr" type="xs:string" minOccurs="0" />
+              <xs:element name="idexternal" type="xs:int" minOccurs="0" />
+              <xs:element name="idepaccrualdebit" type="xs:string" minOccurs="0" />
+              <xs:element name="idepaccrualcredit" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -643,6 +646,40 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="epaccrual_debit" msprop:TableForReading="epaccrual" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepaccrual" type="xs:string" />
+              <xs:element name="paridepaccrual" type="xs:string" minOccurs="0" />
+              <xs:element name="codeepaccrual" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epaccrual_credit" msprop:TableForReading="epaccrual" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepaccrual" type="xs:string" />
+              <xs:element name="paridepaccrual" type="xs:string" minOccurs="0" />
+              <xs:element name="codeepaccrual" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="accmotiveapplied_credit" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
@@ -688,6 +725,8 @@
               <xs:element name="flagirregular" type="xs:string" minOccurs="0" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
               <xs:element name="idfilestorage2" type="xs:string" minOccurs="0" />
+              <xs:element name="selfcertificationfilename" type="xs:string" minOccurs="0" />
+              <xs:element name="durccertificationfilename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -767,6 +806,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -783,6 +823,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -799,6 +840,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -815,6 +857,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -831,6 +874,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -847,6 +891,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -879,6 +924,7 @@
               <xs:element name="stop" type="xs:dateTime" minOccurs="0" />
               <xs:element name="pattointegritacertification" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -975,6 +1021,54 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="afferenzeorganizzative" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idafferenzeorganizzative" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="codice" type="xs:string" minOccurs="0" />
+              <xs:element name="idabafferenzaorganizzativa" type="xs:int" minOccurs="0" />
+              <xs:element name="datainizio" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datafine" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="csa_compartment" type="xs:string" minOccurs="0" />
+              <xs:element name="csa_role" type="xs:string" minOccurs="0" />
+              <xs:element name="codicerapporto" type="xs:string" minOccurs="0" />
+              <xs:element name="datafinerapporto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="datainiziorapporto" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrymultikindregistry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="idregistrymultikind" type="xs:int" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registrymultikind" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idregistrymultikind" type="xs:int" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="ct" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" minOccurs="0" />
+              <xs:element name="description" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="lu" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1096,6 +1190,14 @@
       <xs:selector xpath=".//mstns:accmotiveapplied_debit" />
       <xs:field xpath="mstns:idaccmotive" />
     </xs:unique>
+    <xs:unique name="epaccrual_debit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccrual_debit" />
+      <xs:field xpath="mstns:idepaccrual" />
+    </xs:unique>
+    <xs:unique name="epaccrual_credit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccrual_credit" />
+      <xs:field xpath="mstns:idepaccrual" />
+    </xs:unique>
     <xs:unique name="accmotiveapplied_credit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:accmotiveapplied_credit" />
       <xs:field xpath="mstns:idaccmotive" />
@@ -1198,6 +1300,20 @@
       <xs:selector xpath=".//mstns:attachmentkind" />
       <xs:field xpath="mstns:idattachmentkind" />
     </xs:unique>
+    <xs:unique name="afferenzeorganizzative_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:afferenzeorganizzative" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idafferenzeorganizzative" />
+    </xs:unique>
+    <xs:unique name="registrymultikindregistry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrymultikindregistry" />
+      <xs:field xpath="mstns:idreg" />
+      <xs:field xpath="mstns:idregistrymultikind" />
+    </xs:unique>
+    <xs:unique name="registrymultikind_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registrymultikind" />
+      <xs:field xpath="mstns:idregistrymultikind" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1232,6 +1348,8 @@
       <msdata:Relationship name="registrykindregistry" msdata:parent="registrykind" msdata:child="registry" msdata:parentkey="idregistrykind" msdata:childkey="idregistrykind" />
       <msdata:Relationship name="FK_accmotiveapplied_debit_registry" msdata:parent="accmotiveapplied_debit" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit" />
       <msdata:Relationship name="FK_accmotiveapplied_credit_registry" msdata:parent="accmotiveapplied_credit" msdata:child="registry" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivecredit" />
+      <msdata:Relationship name="FK_epaccrual_debit_registry" msdata:parent="epaccrual_debit" msdata:child="registry" msdata:parentkey="idepaccrual" msdata:childkey="idepaccrualdebit" />
+      <msdata:Relationship name="FK_epaccrual_credit_registry" msdata:parent="epaccrual_credit" msdata:child="registry" msdata:parentkey="idepaccrual" msdata:childkey="idepaccrualcredit" />
       <msdata:Relationship name="registry_registryvisura" msdata:parent="registry" msdata:child="registryvisura" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="FK_registry_registrycasellariogiudiziale" msdata:parent="registry" msdata:child="registrycasellariogiudiziale" msdata:parentkey="idreg" msdata:childkey="idreg" />
       <msdata:Relationship name="registry_registrycasellarioamministrativo" msdata:parent="registry" msdata:child="registrycasellarioamministrativo" msdata:parentkey="idreg" msdata:childkey="idreg" />
@@ -1246,6 +1364,9 @@
       <msdata:Relationship name="numerodip_registry" msdata:parent="numerodip" msdata:child="registry" msdata:parentkey="idnumerodip" msdata:childkey="idnumerodip" />
       <msdata:Relationship name="naturagiur_registry" msdata:parent="naturagiur" msdata:child="registry" msdata:parentkey="idnaturagiur" msdata:childkey="idnaturagiur" />
       <msdata:Relationship name="registrypaymethod_registrypaymethodattachment" msdata:parent="registrypaymethod" msdata:child="registrypaymethodattachment" msdata:parentkey="idreg idregistrypaymethod" msdata:childkey="idreg idregistrypaymethod" />
+      <msdata:Relationship name="registry_afferenzeorganizzative" msdata:parent="registry" msdata:child="afferenzeorganizzative" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_registrymultikindregistry" msdata:parent="registry" msdata:child="registrymultikindregistry" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registrymultikind_registrymultikindregistry" msdata:parent="registrymultikind" msdata:child="registrymultikindregistry" msdata:parentkey="idregistrymultikind" msdata:childkey="idregistrymultikind" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

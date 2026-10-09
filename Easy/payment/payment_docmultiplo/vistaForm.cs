@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -116,6 +115,9 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable paymentattachment 		=> (MetaTable)Tables["paymentattachment"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epaccrual 		=> (MetaTable)Tables["epaccrual"];
+
 	#endregion
 
 
@@ -143,7 +145,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// PAYMENT /////////////////////////////////
 	var tpayment= new paymentTable();
-	tpayment.addBaseColumns("kpay","ypay","npay","kpaymenttransmission","idstamphandling","idtreasurer","flag","idreg","idfin","idman","adate","printdate","txt","rtf","cu","ct","lu","lt","annulmentdate","idsor01","idsor02","idsor03","idsor04","idsor05","npay_treasurer");
+	tpayment.addBaseColumns("kpay","ypay","npay","kpaymenttransmission","idstamphandling","idtreasurer","flag","idreg","idfin","idman","adate","printdate","txt","rtf","cu","ct","lu","lt","annulmentdate","idsor01","idsor02","idsor03","idsor04","idsor05","npay_treasurer","preservelt","idepaccrual");
 	Tables.Add(tpayment);
 	tpayment.defineKey("kpay");
 
@@ -589,6 +591,18 @@ private void initClass() {
 	Tables.Add(tpaymentattachment);
 	tpaymentattachment.defineKey("kpay", "idattachment");
 
+	//////////////////// EPACCRUAL /////////////////////////////////
+	var tepaccrual= new MetaTable("epaccrual");
+	tepaccrual.defineColumn("idepaccrual", typeof(string),false);
+	tepaccrual.defineColumn("paridepaccrual", typeof(string));
+	tepaccrual.defineColumn("codeepaccrual", typeof(string),false);
+	tepaccrual.defineColumn("title", typeof(string),false);
+	tepaccrual.defineColumn("ayear", typeof(short),false);
+	tepaccrual.defineColumn("nlevel", typeof(string),false);
+	tepaccrual.defineColumn("printingorder", typeof(string),false);
+	Tables.Add(tepaccrual);
+	tepaccrual.defineKey("idepaccrual");
+
 	#endregion
 
 
@@ -628,6 +642,7 @@ private void initClass() {
 	this.defineRelation("paymenttransmissionpayment","paymenttransmission","payment","kpaymenttransmission");
 	this.defineRelation("fin_payment","fin","payment","idfin");
 	this.defineRelation("payment_paymentattachment","payment","paymentattachment","kpay");
+	this.defineRelation("epaccrual_payment","epaccrual","payment","idepaccrual");
 	#endregion
 
 }

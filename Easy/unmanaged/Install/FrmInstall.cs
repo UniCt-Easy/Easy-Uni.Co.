@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -1925,7 +1924,7 @@ namespace Install{//Install//
 			this.label63.Name = "label63";
 			this.label63.Size = new System.Drawing.Size(584, 40);
 			this.label63.TabIndex = 2;
-			this.label63.Text = "Le informazioni saranno inviate ad un server della Software && More e il settore " +
+			this.label63.Text = "Le informazioni saranno inviate ad un server della Tempo srl e il settore " +
     "AMMINISTRATIVO provvederà, secondo le procedure organizzative previste, ad abili" +
     "tare il database da remoto.";
 			// 
@@ -1979,7 +1978,7 @@ namespace Install{//Install//
 			this.label71.Name = "label71";
 			this.label71.Size = new System.Drawing.Size(584, 40);
 			this.label71.TabIndex = 6;
-			this.label71.Text = "Potete fare riferimento all\'indirizzo your-email@example.com per informazioni " +
+			this.label71.Text = "Potete fare riferimento all\'indirizzo assistenzahw@gmail.com per informazioni " +
     "tecniche sull\'installazione del prodotto.";
 			// 
 			// label70
@@ -1988,7 +1987,7 @@ namespace Install{//Install//
 			this.label70.Name = "label70";
 			this.label70.Size = new System.Drawing.Size(592, 40);
 			this.label70.TabIndex = 5;
-			this.label70.Text = "Potete scrivere all\'indirizzo your-email@example.com per segnalare eventuali imper" +
+			this.label70.Text = "Potete scrivere all\'indirizzo assistenzasoft@gmail.com per segnalare eventuali imper" +
     "fezioni del  prodotto, oppure per richiedere lo sviluppo di nuove funzionalità.";
 			// 
 			// label69
@@ -1997,7 +1996,7 @@ namespace Install{//Install//
 			this.label69.Name = "label69";
 			this.label69.Size = new System.Drawing.Size(592, 16);
 			this.label69.TabIndex = 4;
-			this.label69.Text = "La Software && More vi augura buon lavoro, e vi ricorda che:";
+			this.label69.Text = "La Tempo srl  vi augura buon lavoro, e vi ricorda che:";
 			// 
 			// label68
 			// 
@@ -4010,7 +4009,7 @@ namespace Install{//Install//
 			}
 			catch {
 
-				currserver = "http://www.swandmore.it/easy2/";
+				currserver = "http://www.temposrl.it/easy2/";
 				string currdir = AppDomain.CurrentDomain.BaseDirectory;
 				string reportdir=currdir;
 				if (reportdir.EndsWith("\\"))reportdir= reportdir.Substring(0,reportdir.Length-1);
@@ -4107,7 +4106,7 @@ namespace Install{//Install//
 			}
 			catch {
 
-				string currserver = "http://www.swandmore.it/easy2/";
+				string currserver = "http://www.temposrl.it/easy2/";
 				string currdir = AppDomain.CurrentDomain.BaseDirectory;
 				reportdir=currdir;
 				if (reportdir.EndsWith("\\"))reportdir= reportdir.Substring(0,reportdir.Length-1);
@@ -5250,7 +5249,7 @@ namespace Install{//Install//
                 user = user.Replace("\r", "");
                 user = user.Replace("\n", "");
                 if (user == "") continue;
-                if (!CreateSQLAccount(user, "YOUR_PASSWORD")) continue;
+                if (!CreateSQLAccount(user, "**********")) continue;
                 ConnectUserToDip(user);
 
                 ImpostaTabConnessioni();

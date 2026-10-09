@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace flussocreditidetail_default {
     partial class Frm_flussocreditidetail_default {
         /// <summary>
@@ -1487,7 +1486,7 @@ namespace flussocreditidetail_default {
 			this.txtDataCreazioneflusso.Name = "txtDataCreazioneflusso";
 			this.txtDataCreazioneflusso.Size = new System.Drawing.Size(80, 20);
 			this.txtDataCreazioneflusso.TabIndex = 55;
-			this.txtDataCreazioneflusso.Tag = "flussocrediti.datacreazioneflusso??flussocreditidetailviiew.datacreazioneflusso";
+			this.txtDataCreazioneflusso.Tag = "flussocrediti.datacreazioneflusso?flussocreditidetailview.datacreazioneflusso";
 			// 
 			// chkIstransmitted
 			// 
@@ -1523,7 +1522,7 @@ namespace flussocreditidetail_default {
 			this.txtnumflusso.Name = "txtnumflusso";
 			this.txtnumflusso.Size = new System.Drawing.Size(80, 20);
 			this.txtnumflusso.TabIndex = 52;
-			this.txtnumflusso.Tag = "flussocreditidetail.idflusso?flussocreditidetailviiew.idflusso";
+			this.txtnumflusso.Tag = "flussocreditidetail.idflusso?flussocreditidetailview.idflusso";
 			// 
 			// txtnumdettaglio
 			// 
@@ -1565,7 +1564,7 @@ namespace flussocreditidetail_default {
 			this.textBox13.Name = "textBox13";
 			this.textBox13.Size = new System.Drawing.Size(80, 20);
 			this.textBox13.TabIndex = 58;
-			this.textBox13.Tag = "flussocrediti.docdate??flussocreditidetailviiew.docdate";
+			this.textBox13.Tag = "flussocrediti.docdate?flussocreditidetailview.docdate";
 			// 
 			// label23
 			// 

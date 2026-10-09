@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistadocumentopagamento_gener_auto.xsd" xmlns:mstns="http://tempuri.org/Vistadocumentopagamento_gener_auto.xsd" xmlns="http://tempuri.org/Vistadocumentopagamento_gener_auto.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/Vistadocumentopagamento_gener_auto.xsd" xmlns:mstns="http://tempuri.org/Vistadocumentopagamento_gener_auto.xsd" xmlns="http://tempuri.org/Vistadocumentopagamento_gener_auto.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -30,6 +30,7 @@
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="npay_treasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="idepaccrual" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -361,6 +362,19 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="epaccrual" msprop:SkipSecurity="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:TableForPosting="" msprop:TableForReading="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepaccrual" type="xs:string" />
+              <xs:element name="paridepaccrual" type="xs:string" minOccurs="0" />
+              <xs:element name="codeepaccrual" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -402,6 +416,10 @@
     <xs:unique name="expense_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:expense" />
       <xs:field xpath="mstns:idexp" />
+    </xs:unique>
+    <xs:unique name="epaccrual_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccrual" />
+      <xs:field xpath="mstns:idepaccrual" />
     </xs:unique>
   </xs:element>
   <xs:annotation>

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System.Data;
 using metadatalibrary;
 using metaeasylibrary;
@@ -66,6 +65,7 @@ namespace meta_showcasedetailview
                 DescribeAColumn(T, "title", "Nome Vetrina", nPos++);
                 //  4 showcase.description
                 DescribeAColumn(T, "description", "Descrizione Vetrina", nPos++);
+                DescribeAColumn(T, "paymentexpiring", "N. giorni scadenza", nPos++);
                 //  5 list.description
                 DescribeAColumn(T, "list", "Nome Articolo", nPos++);
                 //  6 showcasedetail.unitprice

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Windows.Forms;
 using metadatalibrary;
@@ -240,8 +239,8 @@ namespace Install
 			rIvaKind["active"] = "S";
 			rIvaKind["ct"] = DateTime.Now;
 			rIvaKind["lt"] = DateTime.Now;
-			rIvaKind["cu"] = "Software And More";
-			rIvaKind["lu"] = "Software And More";
+			rIvaKind["cu"] = "Tempo";
+			rIvaKind["lu"] = "Tempo";
 			tIvaKind.Rows.Add(rIvaKind);
 			return rIvaKind;
 		}

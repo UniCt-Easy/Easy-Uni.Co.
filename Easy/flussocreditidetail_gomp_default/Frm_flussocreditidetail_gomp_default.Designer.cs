@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace flussocreditidetail_gomp_default {
     partial class Frm_flussocreditidetail_gomp_default {
         /// <summary>
@@ -754,7 +753,7 @@ namespace flussocreditidetail_gomp_default {
 			this.txtnumflusso.Name = "txtnumflusso";
 			this.txtnumflusso.Size = new System.Drawing.Size(80, 20);
 			this.txtnumflusso.TabIndex = 52;
-			this.txtnumflusso.Tag = "flussocreditidetail_gomp.idflusso?flussocreditidetail_gompviiew.idflusso";
+			this.txtnumflusso.Tag = "flussocreditidetail_gomp.idflusso?flussocreditidetail_gomp.idflusso";
 			// 
 			// txtnumdettaglio
 			// 

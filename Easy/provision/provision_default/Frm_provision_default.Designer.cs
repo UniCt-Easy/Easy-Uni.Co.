@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace provision_default {
     partial class Frm_provision_default {
         /// <summary>
@@ -714,7 +713,7 @@ namespace provision_default {
 			this.txtEsercizioImpegno.Size = new System.Drawing.Size(40, 20);
 			this.txtEsercizioImpegno.TabIndex = 2;
 			this.txtEsercizioImpegno.TabStop = false;
-			this.txtEsercizioImpegno.Tag = "epexp.yepexp?privisionview.yepexp";
+			this.txtEsercizioImpegno.Tag = "epexp.yepexp?provisionview.yepexp";
 			// 
 			// tabAttributi
 			// 

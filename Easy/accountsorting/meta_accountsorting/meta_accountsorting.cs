@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -63,7 +62,7 @@ namespace meta_accountsorting {
             }
 			if (ListingType == "default") {
 				int nPos = 1;
-				//DescribeAColumn(T, "idsorkind", "Tipo", nPos++);
+				DescribeAColumn(T, "idsorkind", "Tipo", nPos++);
 				DescribeAColumn(T, "!sortingkind", "Tipo", "sortingview.sortingkind", nPos++);
 				DescribeAColumn(T, "!codiceclass", "Codice", "sortingview.sortcode", nPos++);
 				DescribeAColumn(T, "!descrizione", "Descrizione", "sortingview.description", nPos++);

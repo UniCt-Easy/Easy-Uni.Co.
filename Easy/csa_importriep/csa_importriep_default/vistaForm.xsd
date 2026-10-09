@@ -78,6 +78,7 @@
               <xs:element name="ayear" type="xs:short" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="idacc_main" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
               <xs:element name="idfin_main" type="xs:int" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
@@ -645,6 +646,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
               <xs:element name="_x0021_phasemovfin" type="xs:string" minOccurs="0" />
               <xs:element name="_x0021_ymov" type="xs:string" minOccurs="0" />

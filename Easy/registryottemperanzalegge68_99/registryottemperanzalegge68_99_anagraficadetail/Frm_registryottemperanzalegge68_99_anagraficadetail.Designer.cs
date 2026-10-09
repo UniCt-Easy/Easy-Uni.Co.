@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace registryottemperanzalegge68_99_anagraficadetail {
     partial class Frm_registryottemperanzalegge68_99_anagraficadetail {
         /// <summary>
@@ -133,6 +132,7 @@ namespace registryottemperanzalegge68_99_anagraficadetail {
             this.btnRimuoviOttemperanzaLegge.TabIndex = 1;
             this.btnRimuoviOttemperanzaLegge.Text = "Rimuovi Allegato";
             this.btnRimuoviOttemperanzaLegge.UseVisualStyleBackColor = true;
+            this.btnRimuoviOttemperanzaLegge.Visible = false;
             this.btnRimuoviOttemperanzaLegge.Click += new System.EventHandler(this.btnRimuoviDurc_Click);
             // 
             // btnAllegaOttemperanzaLegge
@@ -166,7 +166,7 @@ namespace registryottemperanzalegge68_99_anagraficadetail {
             this.btnOk.Tag = "mainsave";
             this.btnOk.Text = "OK";
             // 
-            // opendlg
+            // _opendlg
             // 
             this._opendlg.Title = "Scegli il file da allegare";
             // 

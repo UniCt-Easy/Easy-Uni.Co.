@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -1171,7 +1170,7 @@ namespace csa_importver_default
 			this.txtSiopeSpesa.Name = "txtSiopeSpesa";
 			this.txtSiopeSpesa.Size = new System.Drawing.Size(366, 20);
 			this.txtSiopeSpesa.TabIndex = 4;
-			this.txtSiopeSpesa.Tag = "sorting_expense.sortcode?importverview.sortcode_expense";
+			this.txtSiopeSpesa.Tag = "sorting_expense.sortcode?csa_importverview.sortcode_expense";
 			// 
 			// grpSiopeEntrata
 			// 

@@ -1,6 +1,6 @@
 /*
 Easy
-Copyright (C) 2026 Universit√† degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Universit‡ degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -61,24 +60,45 @@ namespace ConfigLiveUpdate//ConfigLiveUpdate//
 			}
 			catch
 			{
-				DataRow R = DS.configtable.NewRow();
-				DS.configtable.Rows.Add(R);
-                string reportdir = AppDomain.CurrentDomain.BaseDirectory; 
-                if (reportdir.EndsWith("\\")) reportdir = reportdir.Substring(0, reportdir.Length - 1);
-                int lastslash = reportdir.LastIndexOf("\\");
-                if (lastslash > 0) reportdir = reportdir.Substring(0, lastslash);
+				// Il controllo successivo creer‡ la configurazione predefinita.
+				// Qui puoi eventualmente registrare ex.
 
-                reportdir = reportdir + "\\report";
-                if (!System.IO.Directory.Exists(reportdir)) {
-                    System.IO.Directory.CreateDirectory(reportdir);
-                }
-                R["localreportdir"] = reportdir;
-                R["httpupdatepath"] = "http://www.temposrl.com/easy2/";
+			}
+			if (DS.configtable.Rows.Count == 0) {
+				CreaConfigurazionePredefinita();
+
 			}
 			txtReportDir.Text=DS.configtable.Rows[0]["localreportdir"].ToString();
 			txtLiveUpdateSite.Text=DS.configtable.Rows[0]["httpupdatepath"].ToString();
 			txtLiveUpdateSite2.Text=DS.configtable.Rows[0]["httpupdatepath2"].ToString();
 			txtLiveUpdateSite3.Text=DS.configtable.Rows[0]["httpupdatepath3"].ToString();
+		}
+
+
+		private void CreaConfigurazionePredefinita() {
+			string reportdir = AppDomain.CurrentDomain.BaseDirectory;
+
+			if (reportdir.EndsWith("\\"))
+				reportdir = reportdir.Substring(0, reportdir.Length - 1);
+
+			int lastslash = reportdir.LastIndexOf("\\");
+
+			if (lastslash > 0)
+				reportdir = reportdir.Substring(0, lastslash);
+
+			reportdir = reportdir + "\\report";
+
+			if (!System.IO.Directory.Exists(reportdir))
+				System.IO.Directory.CreateDirectory(reportdir);
+
+			DataRow row = DS.configtable.NewRow();
+
+			row["localreportdir"] = reportdir;
+			row["httpupdatepath"] = "http://www.temposrl.com/easy2/";
+			row["httpupdatepath2"] = "";
+			row["httpupdatepath3"] = "";
+
+			DS.configtable.Rows.Add(row);
 		}
 
 		/// <summary>

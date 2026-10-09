@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -24,12 +23,9 @@ using System.Runtime.Serialization;
 namespace csa_importriep_partition_elenco {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
@@ -39,21 +35,12 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epexpview 		=> Tables["epexpview"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
@@ -63,41 +50,26 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fase_epexp 		=> Tables["fase_epexp"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Importazione Riepiloghi CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importriep 		=> Tables["csa_importriep"];
 
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable account_cost_reversal 		=> Tables["account_cost_reversal"];
 
 	#endregion
 
@@ -122,7 +94,6 @@ private void initClass() {
 	DataSetName = "vistaForm";
 	Prefix = "";
 	Namespace = "http://tempuri.org/vistaForm.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
 	DataColumn C;
@@ -602,6 +573,7 @@ private void initClass() {
 	tcsa_importriep_partition.Columns.Add( new DataColumn("lu", typeof(string)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_importriep_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
@@ -910,6 +882,57 @@ private void initClass() {
 	tcsa_contractkind.PrimaryKey =  new DataColumn[]{tcsa_contractkind.Columns["idcsa_contractkind"]};
 
 
+	//////////////////// ACCOUNT_COST_REVERSAL /////////////////////////////////
+	var taccount_cost_reversal= new DataTable("account_cost_reversal");
+	C= new DataColumn("idacc", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("codeacc", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagregistry", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagtransitory", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagupb", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("idaccountkind", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("paridacc", typeof(string)));
+	C= new DataColumn("printingorder", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("txt", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("idpatrimony", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("idplaccount", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagprofit", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagloss", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("placcount_sign", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("patrimony_sign", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagcompetency", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(taccount_cost_reversal);
+	taccount_cost_reversal.PrimaryKey =  new DataColumn[]{taccount_cost_reversal.Columns["idacc"]};
+
+
 	#endregion
 
 
@@ -957,6 +980,10 @@ private void initClass() {
 	cPar = new []{csa_importriep.Columns["idcsa_import"], csa_importriep.Columns["idriep"]};
 	cChild = new []{csa_importriep_partition.Columns["idcsa_import"], csa_importriep_partition.Columns["idriep"]};
 	Relations.Add(new DataRelation("csa_importriep_csa_importriep_partition",cPar,cChild,false));
+
+	cPar = new []{account_cost_reversal.Columns["idacc"]};
+	cChild = new []{csa_importriep_partition.Columns["idacc_cost_reversal"]};
+	Relations.Add(new DataRelation("account_cost_reversal_csa_importriep_partition",cPar,cChild,false));
 
 	#endregion
 

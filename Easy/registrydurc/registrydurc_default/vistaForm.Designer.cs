@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -106,6 +105,8 @@ private void initClass() {
 	C = new DataColumn("idfilestorage2", typeof(string));
 	C.AllowDBNull=true;
     tregistrydurc.Columns.Add(C);
+	tregistrydurc.Columns.Add( new DataColumn("selfcertificationfilename", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("durccertificationfilename", typeof(string)));
 	Tables.Add(tregistrydurc);
 	tregistrydurc.PrimaryKey =  new DataColumn[]{tregistrydurc.Columns["idregistrydurc"], tregistrydurc.Columns["idreg"]};
 

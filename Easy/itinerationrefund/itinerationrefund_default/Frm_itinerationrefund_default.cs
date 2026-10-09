@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -1682,7 +1681,11 @@ namespace itinerationrefund_default
 
 			if ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 5)
 				//|| spesaimponibile
-			|| ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 1) && (!(rdoItaly.Checked)))
+			|| ((CfgFn.GetNoNullInt32(rRefundKind["iditinerationrefundkindgroup"]) == 1)
+			// Spese di vitto/ pasti
+			|| (rRefundKind["description"].ToString().Contains("vitto"))
+			|| (rRefundKind["description"].ToString().Contains("past"))
+			&& (!(rdoItaly.Checked)))
 			)
 			{
 				cmbArea.Enabled = true;

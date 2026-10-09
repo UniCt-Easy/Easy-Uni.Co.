@@ -64,13 +64,9 @@
   <ItemGroup>
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="EasyGenius\Api.cs" />
+    <Compile Include="EasyGenius\Serialization\SsoTokenResult.cs" />
     <Compile Include="Rocketchat\Exceptions.cs" />
-    <Compile Include="Rocketchat\Serialization\ChannelsListResult.cs" />
-    <Compile Include="Rocketchat\Serialization\UsersCreateResult.cs" />
-    <Compile Include="Rocketchat\Serialization\UsersListResult.cs" />
-    <Compile Include="Rocketchat\Api.cs" />
-    <Compile Include="Rocketchat\PersonalAccessToken.cs" />
-    <Compile Include="Rocketchat\Serialization\UsersCreatetokenResult.cs" />
     <Compile Include="WebView2\Installer.cs" />
     <Compile Include="_SimpleChat.cs">
       <SubType>Form</SubType>

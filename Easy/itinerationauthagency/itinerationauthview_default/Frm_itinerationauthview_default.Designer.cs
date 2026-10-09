@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System.Windows.Forms;
 using metadatalibrary;
 
@@ -92,7 +91,7 @@ namespace itinerationauthview_default
             this.lblMotivazione = new System.Windows.Forms.Label();
             this.txtMotivazione = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtInfoVeicolo = new System.Windows.Forms.TextBox();
             this.lblAnnotazioniRifiutoApprovazione = new System.Windows.Forms.Label();
             this.txtAnnotazioniRifiutoApprovazione = new System.Windows.Forms.TextBox();
             this.lblmessaggioagenteprecedente = new System.Windows.Forms.Label();
@@ -534,12 +533,12 @@ namespace itinerationauthview_default
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(263, 267);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(122, 61);
-            this.textBox1.TabIndex = 9013;
-            this.textBox1.Tag = "itinerationauthview.vehicle_info";
+            this.txtInfoVeicolo.Location = new System.Drawing.Point(263, 267);
+            this.txtInfoVeicolo.Multiline = true;
+            this.txtInfoVeicolo.Name = "textBox1";
+            this.txtInfoVeicolo.Size = new System.Drawing.Size(122, 61);
+            this.txtInfoVeicolo.TabIndex = 9013;
+            this.txtInfoVeicolo.Tag = "itinerationauthview.vehicle_info";
             // 
             // lblAnnotazioniRifiutoApprovazione
             // 
@@ -649,7 +648,7 @@ namespace itinerationauthview_default
             this.Controls.Add(this.lblAnnotazioniRifiutoApprovazione);
             this.Controls.Add(this.txtAnnotazioniRifiutoApprovazione);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtInfoVeicolo);
             this.Controls.Add(this.lblMotivazione);
             this.Controls.Add(this.txtMotivazione);
             this.Controls.Add(this.lblapplierannotation);
@@ -748,7 +747,7 @@ namespace itinerationauthview_default
         private Label lblMotivazione;
         private TextBox txtMotivazione;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox txtInfoVeicolo;
         private Label lblAnnotazioniRifiutoApprovazione;
         private TextBox txtAnnotazioniRifiutoApprovazione;
         private Label lblmessaggioagenteprecedente;

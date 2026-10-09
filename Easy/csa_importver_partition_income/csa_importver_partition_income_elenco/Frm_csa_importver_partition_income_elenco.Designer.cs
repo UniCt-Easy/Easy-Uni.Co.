@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace csa_importver_partition_income_elenco {
     partial class Frm_csa_importver_partition_income_elenco {
         /// <summary>
@@ -535,7 +534,7 @@ namespace csa_importver_partition_income_elenco {
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(56, 20);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Tag = "csa_importver_partition_income.ndetail?sa_importver_partition_incomeview.ndetail";
+            this.textBox1.Tag = "csa_importver_partition_income.ndetail?csa_importver_partition_incomeview.ndetail";
             // 
             // label1
             // 

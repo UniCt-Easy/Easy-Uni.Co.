@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -86,7 +85,8 @@ namespace registryregolaritafiscale_anagraficadetail {
                     }
                 }
 
-                labDurcFileName.Text = GetFileName(ByteArray);
+                //labDurcFileName.Text = GetFileName(ByteArray);
+                labDurcFileName.Text = Curr["filename"]?.ToString();
             }
             else {
                 btnAllegaRegolaritaFiscale.Enabled = true;
@@ -94,33 +94,33 @@ namespace registryregolaritafiscale_anagraficadetail {
                 btnRimuoviRegolaritaFiscale.Enabled = false;
             }
         }
-        void SetBytesForFileName(string S, byte[] B) {
-            string fname = Path.GetFileName(S);
-            byte[] b = Encoding.Default.GetBytes(fname);
-            for (int i = 0; i < b.Length; i++) B[i] = b[i];
-            B[b.Length] = 0;
-        }
-        int LengthForFileName(string S) {
-            string fname = Path.GetFileName(S);
-            return fname.Length + 1;
-        }
-        int GetOffsetForData(Byte[] B) {
-            int i = 0;
-            while (i < B.Length && B[i] != 0) i++;
-            return i + 1;
-        }
-        string GetFileName(Byte[] B) {
-            int len = 0;
-            for (int i = 0; i < B.Length; i++) {
-                len++;
-                if (B[i] == 0) break;
-            }
-            byte[] b = new byte[len - 1];
-            for (int i = 0; i < len - 1; i++) {
-                b[i] = B[i];
-            }
-            return Encoding.Default.GetString(b);
-        }
+        //void SetBytesForFileName(string S, byte[] B) {
+        //    string fname = Path.GetFileName(S);
+        //    byte[] b = Encoding.Default.GetBytes(fname);
+        //    for (int i = 0; i < b.Length; i++) B[i] = b[i];
+        //    B[b.Length] = 0;
+        //}
+        //int LengthForFileName(string S) {
+        //    string fname = Path.GetFileName(S);
+        //    return fname.Length + 1;
+        //}
+        //int GetOffsetForData(Byte[] B) {
+        //    int i = 0;
+        //    while (i < B.Length && B[i] != 0) i++;
+        //    return i + 1;
+        //}
+        //string GetFileName(Byte[] B) {
+        //    int len = 0;
+        //    for (int i = 0; i < B.Length; i++) {
+        //        len++;
+        //        if (B[i] == 0) break;
+        //    }
+        //    byte[] b = new byte[len - 1];
+        //    for (int i = 0; i < len - 1; i++) {
+        //        b[i] = B[i];
+        //    }
+        //    return Encoding.Default.GetString(b);
+        //}
 
 
         void SalvaAllegato(string certification) {
@@ -139,21 +139,23 @@ namespace registryregolaritafiscale_anagraficadetail {
             
             DataRow Curr = HelpForm.GetLastSelected(DS.registryregolaritafiscale);
             if (Curr == null) return;
-            FileStream FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
-            if (FS == null) return;
-            int n = (int)FS.Length;
-            if (n == 0) return;
-            int namelen = LengthForFileName(opendlg.FileName);
+            //FileStream FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
+            //if (FS == null) return;
+            //int n = (int)FS.Length;
+            //if (n == 0) return;
+            //int namelen = LengthForFileName(opendlg.FileName);
 
             try {
-                byte[] ByteArray = new byte[n + namelen];
-                FS.Read(ByteArray, namelen, n);
-                if (FS.Length == 0) {
-                    Curr[certification] = DBNull.Value;
-                }
-                FS.Close();
-                SetBytesForFileName(opendlg.FileName, ByteArray);
-                Curr[certification] = ByteArray;
+                //byte[] ByteArray = new byte[n + namelen];
+                //FS.Read(ByteArray, namelen, n);
+                //if (FS.Length == 0) {
+                //    Curr[certification] = DBNull.Value;
+                //}
+                //FS.Close();
+                //SetBytesForFileName(opendlg.FileName, ByteArray);
+                //Curr[certification] = ByteArray;
+                Curr[certification] = File.ReadAllBytes(opendlg.FileName);
+                Curr["filename"] = Path.GetFileName(opendlg.FileName);
             }
             catch { }
             AbilitaDisabilitaAllegati();
@@ -199,8 +201,10 @@ namespace registryregolaritafiscale_anagraficadetail {
                 }
             }
 
-            int offset = GetOffsetForData(ByteArray);
-            string fname = GetFileName(ByteArray);
+            //int offset = GetOffsetForData(ByteArray);
+            int offset = 0;
+            //string fname = GetFileName(ByteArray);
+            string fname = Curr["filename"]?.ToString();
             string estensione = Path.GetExtension(fname).Trim(); ;
 
             bool extensionDenied = CfgFn.ExtensionDenied(estensione);

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using funzioni_configurazione;//funzioni_configurazione
@@ -61,11 +60,6 @@ namespace itinerationFunctions//FunzioniMissione//
         public const string CampoDataPerRitenute = "adate";
         public const string CampoDataPerPosGiuridica = "start";
         public const string CampoDataPerDiaria = "start";
-
-        private static bool isBlazor()
-		{
-            return Thread.CurrentThread.Name == "Main Form Blazor Thread";
-        }
 
         /// <summary>
         /// NFraz.GG = (giorni + ore/24)
@@ -1153,6 +1147,111 @@ namespace itinerationFunctions//FunzioniMissione//
         }
 
         /// <summary>
+        /// Invia le mail alla creazione (primo salvataggio, stato Bozza) di una nuova missione:
+        /// all'incaricato, se diverso da chi ha inserito la missione, e al delegato, se diverso da chi ha inserito la missione.
+        /// Se incaricato e delegato coincidono viene inviata una sola mail.
+        /// </summary>
+        /// <param name="idregInseritore">idreg dell'utente che ha inserito la missione (null se non noto)</param>
+        /// <param name="nomeInseritore">nominativo dell'utente che ha inserito la missione</param>
+        /// <returns>eventuali messaggi di errore</returns>
+        public static string WebSendMailsNuovaMissione(DataAccess Conn, DataRow Itineration, object idregInseritore, string nomeInseritore) {
+            int idregIncaricato = CfgFn.GetNoNullInt32(Itineration["idreg"]);
+            int idregDelegato = Itineration.Table.Columns.Contains("idregdelegato") ? CfgFn.GetNoNullInt32(Itineration["idregdelegato"]) : 0;
+            int idregUtente = CfgFn.GetNoNullInt32(idregInseritore);
+
+            bool avvisaIncaricato = idregIncaricato != 0 && idregIncaricato != idregUtente;
+            bool avvisaDelegato = idregDelegato != 0 && idregDelegato != idregUtente;
+
+            string errormsg = "";
+            string inseritaDa = nomeInseritore.Trim() != "" ? " da " + nomeInseritore.Trim() : "";
+
+            if (avvisaIncaricato) {
+                string msg = "La " + GetNomeMissione(Conn, Itineration) + "\r\n" +
+                             "è stata creata per suo conto" + inseritaDa + ".\r\n";
+                if (avvisaDelegato && idregDelegato == idregIncaricato) {
+                    msg += "Lei è inoltre indicato come delegato della missione.\r\n";
+                    avvisaDelegato = false;
+                }
+                errormsg = AppendError(errormsg, SendMailRegistry(Conn, Itineration, idregIncaricato,
+                    "Nuova missione creata per suo conto: " + GetNomeBreveMissionePercipiente(Conn, Itineration), msg));
+            }
+
+            if (avvisaDelegato) {
+                string msg = "La " + GetNomeMissione(Conn, Itineration) + "\r\n" +
+                             "è stata creata" + inseritaDa + " e lei è indicato come delegato della missione.\r\n";
+                errormsg = AppendError(errormsg, SendMailRegistry(Conn, Itineration, idregDelegato,
+                    "Nuova missione di cui è delegato: " + GetNomeBreveMissione(Conn, Itineration), msg));
+            }
+            return errormsg;
+        }
+
+        /// <summary>
+        /// Invia le mail per il cambio del delegato di una missione esistente:
+        /// al vecchio delegato (non è più delegato) e al nuovo delegato (è il nuovo delegato).
+        /// </summary>
+        /// <returns>eventuali messaggi di errore</returns>
+        public static string WebSendMailsCambioDelegato(DataAccess Conn, DataRow Itineration, object idregVecchioDelegato, object idregNuovoDelegato) {
+            int idregVecchio = CfgFn.GetNoNullInt32(idregVecchioDelegato);
+            int idregNuovo = CfgFn.GetNoNullInt32(idregNuovoDelegato);
+            if (idregVecchio == idregNuovo) return "";
+
+            string errormsg = "";
+            if (idregVecchio != 0) {
+                string msg = "La " + GetNomeMissione(Conn, Itineration) + "\r\n" +
+                             "ha cambiato delegato: lei non è più il delegato della missione.\r\n";
+                errormsg = AppendError(errormsg, SendMailRegistry(Conn, Itineration, idregVecchio,
+                    "Non è più delegato della " + GetNomeBreveMissione(Conn, Itineration), msg));
+            }
+            if (idregNuovo != 0) {
+                string msg = "Lei è stato indicato come delegato della " + GetNomeMissione(Conn, Itineration) + "\r\n";
+                errormsg = AppendError(errormsg, SendMailRegistry(Conn, Itineration, idregNuovo,
+                    "Delegato della " + GetNomeBreveMissione(Conn, Itineration), msg));
+            }
+            return errormsg;
+        }
+
+        static string AppendError(string errormsg, string newerror) {
+            if (newerror == null || newerror.Trim() == "") return errormsg;
+            return (errormsg + " " + newerror.Trim()).Trim();
+        }
+
+        /// <summary>
+        /// Invia una mail all'indirizzo del contatto predefinito (registryreference.flagdefault = 'S') dell'anagrafica idreg.
+        /// Se l'indirizzo manca la mail viene inviata all'indirizzo di errore configurato (config.email).
+        /// </summary>
+        static string SendMailRegistry(DataAccess Conn, DataRow Itineration, object idreg, string subject, string msg) {
+            string AVVISO_ERR = "";
+            string emailaddress = GetEmaiAddressForRegistry(Conn, idreg);
+            if (emailaddress == "") {
+                emailaddress = GetErrorMailAddress(Conn);
+                if (emailaddress == "")
+                    return "EMAIL NON INVIATA a " + GetNomeCognome(Conn, idreg) + " (indirizzo mail non presente) ";
+                AVVISO_ERR = "EMAIL NON INVIATA a " + GetNomeCognome(Conn, idreg) + ": ";
+            }
+
+            string NomeDipartimento = GetDipartimento(Conn);
+            if (NomeDipartimento != "") {
+                msg = "Da: " + NomeDipartimento + "\r\n" + msg;
+            }
+            object public_address = Conn.DO_READ_VALUE("web_config", null, "public_address");
+            if (public_address != null && public_address != DBNull.Value) {
+                msg += "\r\nPer ulteriori dettagli visitare la pagina: " + public_address.ToString() + "\r\n";
+            }
+
+            SendMail SM = new SendMail();
+            SM.UseSMTPLoginAsFromField = true;
+            SM.To = emailaddress;
+            SM.Subject = AVVISO_ERR + subject;
+            SM.MessageBody = msg;
+            SM.Conn = Conn;
+
+            if ((!SM.Send()) && (SM.ErrorMessage.Trim() != "")) {
+                return SM.ErrorMessage.Trim();
+            }
+            return "";
+        }
+
+        /// <summary>
         /// Dato il path di una directory, raccoglie file allegati e stampa missione e si carica
         /// in questa cartella, creando una sottocartella per ogni missione nominandola:
         /// missione_esercizio_numero (missione_2021_145).
@@ -1196,7 +1295,7 @@ namespace itinerationFunctions//FunzioniMissione//
                     }
 
                     int offset = 0;
-                    string fname = Curr["filename"].ToString();
+                    string fname = AttachmentsManager.SafeFileNameObj(Curr["filename"]);
                     //if (File.Exists(Path.Combine(dstPath, fname))) {
                         fname = "Spesa"+ Curr["nrefund"].ToString() + "_all"  + Curr["idattachment"].ToString() + "_" + fname;
                     //}
@@ -1237,9 +1336,9 @@ namespace itinerationFunctions//FunzioniMissione//
                     }
 
                     int offset = 0;
-                    string fname = Ratt["filename"].ToString();
+                    string fname = AttachmentsManager.SafeFileNameObj(Ratt["filename"]);
                     //if (File.Exists(Path.Combine(dstPath, fname))) {
-                        fname = "Miss_all" + idAttachment + "_" + fname;
+                    fname = "Miss_all" + idAttachment + "_" + fname;
                     //}
                     string sw = Path.Combine(dstPath, fname);
                     try {
@@ -1332,7 +1431,7 @@ namespace itinerationFunctions//FunzioniMissione//
                 tempfilename = CustomFilename;
             bool retExp = false;
 
-            if (isBlazor())
+            if (MetaDataForm.isBlazorApp())
 			{
                 bool done = false;
 

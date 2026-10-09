@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using metadatalibrary;
 using System.Windows.Forms;
@@ -858,9 +857,9 @@ namespace Install
 					rFinVar["rtf"] = DBNull.Value;
 					rFinVar["txt"] = DBNull.Value;
 					rFinVar["ct"] = DateTime.Now;
-					rFinVar["cu"] = "Software and More";
+					rFinVar["cu"] = "Tempo";
 					rFinVar["lt"] = DateTime.Now;
-					rFinVar["lu"] = "'Software and More'";
+					rFinVar["lu"] = "Tempo";
 
 					tFinVar.Rows.Add(rFinVar);
 
@@ -881,9 +880,9 @@ namespace Install
 							rFinVarUpbMain["amount"] = - CfgFn.GetNoNullDecimal(rPrevision["amount"]);
 							rFinVarUpbMain["description"] = "Storno di previsione per F.d.R.";
 							rFinVarUpbMain["ct"] = DateTime.Now;
-							rFinVarUpbMain["cu"] = "Software and More";
+							rFinVarUpbMain["cu"] = "Tempo";
 							rFinVarUpbMain["lt"] = DateTime.Now;
-							rFinVarUpbMain["lu"] = "'Software and More'";
+							rFinVarUpbMain["lu"] = "Tempo";
 
 							tFinVarDetail.Rows.Add(rFinVarUpbMain);
 						}
@@ -906,9 +905,9 @@ namespace Install
 							rFinVarFdr["amount"] = CfgFn.GetNoNullDecimal(rPrevision["amount"]);
 							rFinVarFdr["description"] = "Storno di previsione per F.d.R.";
 							rFinVarFdr["ct"] = DateTime.Now;
-							rFinVarFdr["cu"] = "Software and More";
+							rFinVarFdr["cu"] = "Tempo";
 							rFinVarFdr["lt"] = DateTime.Now;
-							rFinVarFdr["lu"] = "'Software and More'";
+							rFinVarFdr["lu"] = "Tempo";
 
 							tFinVarDetail.Rows.Add(rFinVarFdr);
 						}
@@ -1155,9 +1154,9 @@ namespace Install
                 rFinVar["rtf"] = DBNull.Value;
                 rFinVar["txt"] = DBNull.Value;
                 rFinVar["ct"] = DateTime.Now;
-                rFinVar["cu"] = "Software and More";
+                rFinVar["cu"] = "Tempo";
                 rFinVar["lt"] = DateTime.Now;
-                rFinVar["lu"] = "'Software and More'";
+                rFinVar["lu"] = "Tempo";
 
                 tFinVar.Rows.Add(rFinVar);
 
@@ -1185,9 +1184,9 @@ namespace Install
                         rFinVarUpbMain["amount"] = -CfgFn.GetNoNullDecimal(rPrevision["amount"]);
                         rFinVarUpbMain["description"] = descr_detail;
                         rFinVarUpbMain["ct"] = DateTime.Now;
-                        rFinVarUpbMain["cu"] = "Software and More";
+                        rFinVarUpbMain["cu"] = "Tempo";
                         rFinVarUpbMain["lt"] = DateTime.Now;
-                        rFinVarUpbMain["lu"] = "'Software and More'";
+                        rFinVarUpbMain["lu"] = "Tempo";
 
                         tFinVarDetail.Rows.Add(rFinVarUpbMain);
                     }
@@ -1210,9 +1209,9 @@ namespace Install
                         rFinVarFdr["amount"] = CfgFn.GetNoNullDecimal(rPrevision["amount"]);
                         rFinVarFdr["description"] = "Storno di previsione per F.d.R.";
                         rFinVarFdr["ct"] = DateTime.Now;
-                        rFinVarFdr["cu"] = "Software and More";
+                        rFinVarFdr["cu"] = "Tempo";
                         rFinVarFdr["lt"] = DateTime.Now;
-                        rFinVarFdr["lu"] = "'Software and More'";
+                        rFinVarFdr["lu"] = "Tempo";
 
                         tFinVarDetail.Rows.Add(rFinVarFdr);
                     }
@@ -1399,9 +1398,9 @@ namespace Install
 					rFinVarDetailMainUpb["idfin"] = r["idfin"];
 					rFinVarDetailMainUpb["description"] = "Storno per F.d.R.";
 					rFinVarDetailMainUpb["amount"] = - CfgFn.GetNoNullDecimal(r["amount"]);
-					rFinVarDetailMainUpb["cu"] = "Software and More";
+					rFinVarDetailMainUpb["cu"] = "Tempo";
 					rFinVarDetailMainUpb["ct"] = DateTime.Now;
-					rFinVarDetailMainUpb["lu"] = "'Software and More'";
+					rFinVarDetailMainUpb["lu"] = "Tempo";
 					rFinVarDetailMainUpb["lt"] = DateTime.Now;
 					
 					tFinVarDetail.Rows.Add(rFinVarDetailMainUpb);
@@ -1426,9 +1425,9 @@ namespace Install
 					rFinVarDetail["idfin"] = r["idfin"];
 					rFinVarDetail["description"] = "Storno per F.d.R.";
 					rFinVarDetail["amount"] = CfgFn.GetNoNullDecimal(r["amount"]);
-					rFinVarDetail["cu"] = "Software and More";
+					rFinVarDetail["cu"] = "Tempo";
 					rFinVarDetail["ct"] = DateTime.Now;
-					rFinVarDetail["lu"] = "'Software and More'";
+					rFinVarDetail["lu"] = "Tempo";
 					rFinVarDetail["lt"] = DateTime.Now;
 
 					tFinVarDetail.Rows.Add(rFinVarDetail);
@@ -1736,8 +1735,8 @@ namespace Install
 						rFinVarDetail["idupb"] = idUpb;
 						rFinVarDetail["ct"] = DateTime.Now;
 						rFinVarDetail["lt"] = DateTime.Now;
-						rFinVarDetail["cu"] = "Software and More";
-						rFinVarDetail["lu"] = "'Software and More'";
+						rFinVarDetail["cu"] = "Tempo";
+						rFinVarDetail["lu"] = "Tempo";
 						rFinVarDetail["description"] = "Cds="+r1["idcen"]
 							+"; Storno Upb da 0001 a "+idUpb + " (migrazione automatica)";
 
@@ -1765,10 +1764,10 @@ namespace Install
 									r2["lt"] = DateTime.Now;
 									break;
 								case "cu":
-									r2["cu"] = "Software and More";
+									r2["cu"] = "Tempo";
 									break;
 								case "lu":
-									r2["lu"] = "'Software and More'";
+									r2["lu"] = "Tempo";
 									break;
                                 case "description":
                                     r2["description"] = "Storno da Upb Dipartimento a upb per C.d.S.";

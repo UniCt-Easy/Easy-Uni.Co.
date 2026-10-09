@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -6526,10 +6525,11 @@ namespace itineration_default { //missione//
                 "max(idforeigngrouprule)");
             //imposta il gruppo estero
             string filterGE;
-            filterGE = QHS.AppAnd(
+			var livelloCfg = CfgFn.GetNoNullInt32(MyCfg.livello);
+			filterGE = QHS.AppAnd(
                 QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                 QHS.CmpEq("idposition", MyCfg.idposition),
-				QHS.NullOrEq("livello", MyCfg.livello),
+				QHS.NullOrEq("livello", livelloCfg),
 				//QHS.CmpEq("livello", MyCfg.livello),
 				"(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
@@ -6967,12 +6967,16 @@ namespace itineration_default { //missione//
             object idforeigngrouprule = Conn.DO_READ_VALUE("foreigngrouprule",
                 QHS.CmpLe("start", Curr[MissFun.CampoDataPerGruppoEstero]),
                 "max(idforeigngrouprule)");
-            //imposta il gruppo estero
-            string filterGE;
+			//imposta il gruppo estero  
+			var livelloCfg = CfgFn.GetNoNullInt32(MyCfg.livello);
+
+
+			string filterGE;
             filterGE = QHS.AppAnd(QHS.CmpEq("idforeigngrouprule", idforeigngrouprule),
                 QHS.CmpEq("idposition", MyCfg.idposition),
 				//QHS.CmpEq("livello", MyCfg.livello),
-				QHS.NullOrEq("livello", MyCfg.livello),
+
+				QHS.NullOrEq("livello", livelloCfg),
 				"(" + QHS.quote(MyCfg.incomeclass) + " between minincomeclass and maxincomeclass)");
 
 

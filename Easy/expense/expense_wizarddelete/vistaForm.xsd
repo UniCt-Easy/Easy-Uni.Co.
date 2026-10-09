@@ -1436,7 +1436,6 @@
       <msdata:Relationship name="expenseexpense" msdata:parent="expense" msdata:child="expense" msdata:parentkey="idexp" msdata:childkey="parentidexp" />
       <msdata:Relationship name="expenseexpense_1" msdata:parent="expense" msdata:child="expense" msdata:parentkey="idexp" msdata:childkey="idpayment" />
       <msdata:Relationship name="expense_expensebill" msdata:parent="expense" msdata:child="expensebill" msdata:parentkey="idexp" msdata:childkey="idexp" />
-      <msdata:Relationship name="expense_expenselastmandatedetail" msdata:parent="expense" msdata:child="expenselastmandatedetail" msdata:parentkey="idexp" msdata:childkey="idexp" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

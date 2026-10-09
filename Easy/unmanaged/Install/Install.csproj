@@ -212,12 +212,6 @@
       <LastGenOutput>VistaUpb.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="dblist.xsc">
-      <DependentUpon>dblist.xsd</DependentUpon>
-    </None>
-    <None Include="dblist.xss">
-      <DependentUpon>dblist.xsd</DependentUpon>
-    </None>
     <None Include="dblist.xsx">
       <DependentUpon>dblist.xsd</DependentUpon>
     </None>

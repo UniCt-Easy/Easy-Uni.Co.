@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -312,6 +311,28 @@ public class proceedsRow: MetaRow  {
 	public Int32? npro_treasurerOriginal { 
 		get {if (this["npro_treasurer",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["npro_treasurer",DataRowVersion.Original];}
 	}
+	public DateTime? preservelt{ 
+		get {if (this["preservelt"]==DBNull.Value)return null; return  (DateTime?)this["preservelt"];}
+		set {if (value==null) this["preservelt"]= DBNull.Value; else this["preservelt"]= value;}
+	}
+	public object preserveltValue { 
+		get{ return this["preservelt"];}
+		set {if (value==null|| value==DBNull.Value) this["preservelt"]= DBNull.Value; else this["preservelt"]= value;}
+	}
+	public DateTime? preserveltOriginal { 
+		get {if (this["preservelt",DataRowVersion.Original]==DBNull.Value)return null; return  (DateTime?)this["preservelt",DataRowVersion.Original];}
+	}
+	public String idepaccrual{ 
+		get {if (this["idepaccrual"]==DBNull.Value)return null; return  (String)this["idepaccrual"];}
+		set {if (value==null) this["idepaccrual"]= DBNull.Value; else this["idepaccrual"]= value;}
+	}
+	public object idepaccrualValue { 
+		get{ return this["idepaccrual"];}
+		set {if (value==null|| value==DBNull.Value) this["idepaccrual"]= DBNull.Value; else this["idepaccrual"]= value;}
+	}
+	public String idepaccrualOriginal { 
+		get {if (this["idepaccrual",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idepaccrual",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -344,6 +365,8 @@ public class proceedsTable : MetaTableBase<proceedsRow> {
 			{"idsor05",createColumn("idsor05",typeof(int),true,false)},
 			{"external_reference",createColumn("external_reference",typeof(string),true,false)},
 			{"npro_treasurer",createColumn("npro_treasurer",typeof(int),true,false)},
+			{"preservelt",createColumn("preservelt",typeof(DateTime),true,false)},
+			{"idepaccrual",createColumn("idepaccrual",typeof(string),true,false)},
 		};
 	}
 }

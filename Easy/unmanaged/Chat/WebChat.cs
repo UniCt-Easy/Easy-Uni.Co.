@@ -12,12 +12,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.Web.WebView2.Core;
@@ -25,14 +22,14 @@ using Microsoft.Web.WebView2.Core;
 using metadatalibrary;
 
 using Chat.Extensions;
-using Chat.Client.Rocketchat;
-using Chat.Rocketchat.Exceptions;
+using Chat.EasyGenius;
+using Chat.EasyGenius.Serialization;
 
 
 namespace Chat.Client {
 
     /// <summary>
-    /// Modalità di embedding.
+    /// Modalità di embedding. Mantenuta per compatibilità con la configurazione "CHAT" (non usata da EasyGenius).
     /// </summary>
     public enum TEmbeddingMode {
         /// <summary>
@@ -47,68 +44,42 @@ namespace Chat.Client {
 
     public partial class WebChat : MetaDataForm {
 
-        //https://developer.rocket.chat/chat-engine/chat-engine-in-iframe
-        //https://developer.rocket.chat/customize-and-embed/iframe-integration/configuring-iframe-auth
+        // Assistente virtuale AI (EasyGenius) con login SSO tramite token monouso.
+        // Configurazione app_config "CHAT": serverUrl|<non usato>|serviceApiKey|<embeddingMode>|<resourceName>
+        // (i campi non usati restano per compatibilità con il formato letto dal mainform)
 
         /// <summary>
-        /// Client dell'API Rest del server di chat.
+        /// Client dell'API Rest di EasyGenius.
         /// </summary>
-        private readonly Api client;  // potrebbe diventare un'interfaccia o una classe astratta
+        private readonly Api client;
 
         /// <summary>
-        /// Utenti del server di chat (cache).
-        /// </summary>
-        public List<string> Users { get; } // "cache" solo sul form
-        /// <summary>
-        /// Canali del server di chat (cache).
-        /// </summary>
-        public List<string> Channels { get; } // "cache" solo sul form
-
-        /// <summary>
-        /// Nome dell'utente della chat.
+        /// Identificativo dell'utente su EasyGenius.
         /// </summary>
         private readonly string username;
 
         /// <summary>
-        /// Token per il login dell'utente.
+        /// Token SSO monouso per il login dell'utente.
         /// </summary>
-        private PersonalAccessToken user;
+        private SsoTokenResult sso;
 
         /// <summary>
-        /// Modalità di embedding.
+        /// Indirizzo target del frame, con il token SSO per il login trasparente.
         /// </summary>
-        private TEmbeddingMode Mode = TEmbeddingMode.Channel;
-
-        /// <summary>
-        /// Nome della risorsa da mostrare sulla versione embedded.
-        /// </summary>
-        private string resource = "general";
-
-        /// <summary>
-        /// Getter del token per il login dell'utente.
-        /// </summary>
-        public PersonalAccessToken User => user;
-
-        /// <summary>
-        /// Indica se l'utente è loggato sulla chat.
-        /// </summary>
-        public bool UserIsLoggedIn => user != null;
-
-        /// <summary>
-        /// Indirizzo target del frame embedded.
-        /// </summary>
-        public Uri EmbeddedTarget => new Uri(client.Endpoint, $"/{Mode}/{resource}?layout=embedded");
+        public Uri Target => new Uri(client.Endpoint, $"/?ssoToken={Uri.EscapeDataString(sso.ssoToken)}");
 
         /// <summary>
         /// Estrae il nome dell'utente nel formato "<Nome> <Cognome>" da uno username con formato "<cfente>.<nome>.<cognome>" impostando le maiuscole per Nome e Cognome.
         /// </summary>
-        public static Func<string, string> EasyNameInferrer = username => string.Join(" ", username.Split('.').Skip(1).Select(word => word.FirstCharToUpper()));
+        public static Func<string, string> EasyNameInferrer = username => string.Join(" ", username.Split('.').Skip(1).Where(word => word.Length > 0).Select(word => word.FirstCharToUpper()));
 
         /// <summary>
-        /// Inizializza il form per la chat web. Crea l'utente sul server di chat, inizializza il frame dell'applicazione, logga l'utente sull'applicazione.
+        /// Inizializza il form dell'assistente virtuale. Richiede il token SSO per l'utente, inizializza il frame dell'applicazione e naviga sul target.
         /// </summary>
         /// <param name="usr">Username dell'utente.</param>
-        /// <param name="endpoint">Indirizzo del server di chat.</param>
+        /// <param name="endpoint">Indirizzo di EasyGenius.</param>
+        /// <param name="adminId">Non usato, mantenuto per compatibilità.</param>
+        /// <param name="adminToken">API Key di servizio di EasyGenius.</param>
         /// <param name="options">Opzioni.</param>
         public WebChat(string usr, Uri endpoint, string adminId, string adminToken, params Action<WebChat>[] options) {
 
@@ -118,29 +89,7 @@ namespace Chat.Client {
 
             username = usr.ToLowerInvariant();
 
-            client = new Api(endpoint, adminId, adminToken);
-
-            Users = client.UsersList().Select(user => user.username.ToLowerInvariant()).ToList();
-            Channels = client.ChannelsList().Select(channel => channel.name.ToLowerInvariant()).ToList();
-
-            if (!Users.Contains(username)) {
-
-                try {
-                    var userDetails = client.UserDetails(username);
-                }
-                catch (ApiException) {
-                    client.UsersCreate(username, EasyNameInferrer);
-                }
-                catch (Exception e) {
-                    throw new Exception($"Could not initialize \"{GetType().Name}\": {e.Message}", e);
-                }
-            }
-
-            FormClosing += WebChat_FormClosing;
-
-            rocketchat.Location = new Point(0, 0);
-            rocketchat.Size = ClientSize;
-            rocketchat.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            client = new Api(endpoint, adminToken);
 
             foreach (var option in options) {
 
@@ -152,6 +101,13 @@ namespace Chat.Client {
                 }
             }
 
+            // il token scade dopo 60 secondi: lo richiediamo qui per far emergere subito gli errori di comunicazione, la navigazione avviene poco dopo
+            sso = client.SsoToken(username, EasyNameInferrer(username));
+
+            easygenius.Location = new Point(0, 0);
+            easygenius.Size = ClientSize;
+            easygenius.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
             InitializeAsync();
         }
 
@@ -162,12 +118,13 @@ namespace Chat.Client {
 
             CoreWebView2Environment env = await CoreWebView2Environment.CreateAsync(null, AppDomain.CurrentDomain.BaseDirectory);
 
-            await rocketchat.EnsureCoreWebView2Async(env);
+            await easygenius.EnsureCoreWebView2Async(env);
 
-            rocketchat.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
-            rocketchat.NavigationCompleted += Rocketchat_NavigationCompleted;
+            easygenius.NavigationCompleted += Easygenius_NavigationCompleted;
 
-            rocketchat.CoreWebView2.Navigate(EmbeddedTarget.ToString());
+            easygenius.CoreWebView2.Navigate(Target.ToString());
+
+            sso = null; // il token è monouso
         }
 
         /// <summary>
@@ -175,99 +132,18 @@ namespace Chat.Client {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Rocketchat_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e) {
+        private void Easygenius_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e) {
             MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
         /// <summary>
-        /// Esegue azioni al caricamento del DOM del frame.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e) {
-            
-            if (!UserIsLoggedIn) {
-
-                if (!Users.Contains(username)) {
-                    Thread.Sleep(TimeSpan.FromSeconds(1)); // aspettiamo che il server abbia completato tutte le operazioni di creazione dell'utente, valore speculativo
-                }
-
-                try {
-                    user = client.UsersCreateToken(username);
-                    Thread.Sleep(TimeSpan.FromSeconds(1)); //aspettiamo che il server abbia completato le operazioni di creazione del token, valore speculativo
-                }
-                catch (Exception ex) {
-                    throw new ApiException($"Could not create token for \"{username}\": {ex.Message}", ex);
-                }
-
-                string loginScript =
-                    $@"window.postMessage({{
-                        externalCommand: 'login-with-token',
-                        token: '{User["X-Auth-Token"]}'
-                    }});";
-
-                rocketchat.CoreWebView2.ExecuteScriptAsync(loginScript);
-            }
-        }
-
-        /// <summary>
-        /// Azioni da eseguire alla chiusura del form.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WebChat_FormClosing(object sender, FormClosingEventArgs e) {
-
-            if (UserIsLoggedIn) {
-                string logoutScript =
-                    $@"window.postMessage({{
-                        externalCommand: 'logout'
-                    }});";
-
-                rocketchat.CoreWebView2.ExecuteScriptAsync(logoutScript);
-            }
-
-            user = null;
-        }
-
-        /// <summary>
-        /// Imposta la modalità di embedding.
+        /// Imposta la modalità di embedding. Mantenuta per compatibilità con la configurazione "CHAT": EasyGenius non la usa.
         /// </summary>
         /// <param name="m">Modalità di embedding.</param>
-        /// <param name="resourceName">Nome della risorsa da mostrare sulla versione embedded, il significato dipende dalla modalità di embedding.</param>
-        /// <returns>Action che imposta la modalità di embedding.</returns>
+        /// <param name="resourceName">Nome della risorsa (non usato).</param>
+        /// <returns>Action che non modifica il form.</returns>
         public static Action<WebChat> OptionEmbeddingMode(TEmbeddingMode m, string resourceName) {
-
-            if (string.IsNullOrWhiteSpace(resourceName)) {
-                throw new ArgumentException($"Invalid resource name for \"{m}\"");
-            }
-
-            return (WebChat c) => {
-
-                string name = resourceName.ToLowerInvariant();
-
-                switch (m) {
-                    case TEmbeddingMode.Channel:
-                        if (!c.Channels.Contains(name)) {
-                            throw new Exception($"Channel \"{name}\" does not exist on the server");
-                        }
-                        break;
-                    case TEmbeddingMode.Direct:
-                        // potremmo anche verificare che lo user sia online. In questo modo comunque permettiamo all'utente di vedere la history.
-                        //var botUserExists = c.Users.Contains(resourceName);
-                        try {
-                            var botUser = c.client.UserDetails(resourceName);
-                        }
-                        catch (Exception e) {
-                            throw new Exception($"Bot user \"{name}\" does not exist on the server: {e.Message}");
-                        }
-                        break;
-                    default:
-                        throw new ArgumentException($"Invalid mode \"{m}\"");
-                }
-
-                c.Mode = m;
-                c.resource = name;
-            };
+            return (WebChat c) => { };
         }
     }
 }

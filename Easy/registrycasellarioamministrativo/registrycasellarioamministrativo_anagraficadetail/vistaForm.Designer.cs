@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -80,6 +79,9 @@ private void initClass() {
 	C.AllowDBNull=false;
 	tregistrycasellarioamministrativo.Columns.Add(C);
 	C= new DataColumn("idfilestorage", typeof(string));
+	C.AllowDBNull=true;
+	tregistrycasellarioamministrativo.Columns.Add(C);
+	C= new DataColumn("filename", typeof(string));
 	C.AllowDBNull=true;
 	tregistrycasellarioamministrativo.Columns.Add(C);
 	Tables.Add(tregistrycasellarioamministrativo);

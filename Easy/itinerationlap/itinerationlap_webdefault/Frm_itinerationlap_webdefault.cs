@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -178,7 +177,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.txtDataOraInizio.Location = new System.Drawing.Point(113, 44);
             this.txtDataOraInizio.Name = "txtDataOraInizio";
             this.txtDataOraInizio.Size = new System.Drawing.Size(160, 20);
-            this.txtDataOraInizio.TabIndex = 1;
+            this.txtDataOraInizio.TabIndex = 2;
             this.txtDataOraInizio.Tag = "itinerationlap.starttime.g";
             this.txtDataOraInizio.TextChanged += new System.EventHandler(this.txtDataOraInizio_TextChanged);
             this.txtDataOraInizio.Leave += new System.EventHandler(this.txtDataOraInizio_Leave);
@@ -188,7 +187,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label1.Location = new System.Drawing.Point(9, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 23);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 200;
             this.label1.Text = "Data/ora inizio:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -197,7 +196,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label2.Location = new System.Drawing.Point(1, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 23);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 201;
             this.label2.Text = "Data/ora termine:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -206,7 +205,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.txtDataOraTermine.Location = new System.Drawing.Point(113, 70);
             this.txtDataOraTermine.Name = "txtDataOraTermine";
             this.txtDataOraTermine.Size = new System.Drawing.Size(160, 20);
-            this.txtDataOraTermine.TabIndex = 4;
+            this.txtDataOraTermine.TabIndex = 3;
             this.txtDataOraTermine.Tag = "itinerationlap.stoptime.g";
             this.txtDataOraTermine.TextChanged += new System.EventHandler(this.txtDataOraTermine_TextChanged);
             // 
@@ -244,7 +243,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.txtDescrizione.Multiline = true;
             this.txtDescrizione.Name = "txtDescrizione";
             this.txtDescrizione.Size = new System.Drawing.Size(432, 48);
-            this.txtDescrizione.TabIndex = 5;
+            this.txtDescrizione.TabIndex = 1;
             this.txtDescrizione.Tag = "itinerationlap.description";
             // 
             // label4
@@ -252,7 +251,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label4.Location = new System.Drawing.Point(25, 96);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 24);
-            this.label4.TabIndex = 13;
+            this.label4.TabIndex = 213;
             this.label4.Text = "Descrizione:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -261,7 +260,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label5.Location = new System.Drawing.Point(281, 44);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 23);
-            this.label5.TabIndex = 21;
+            this.label5.TabIndex = 221;
             this.label5.Text = "Giorni:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -270,7 +269,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.txtGiorni.Location = new System.Drawing.Point(337, 44);
             this.txtGiorni.Name = "txtGiorni";
             this.txtGiorni.Size = new System.Drawing.Size(88, 20);
-            this.txtGiorni.TabIndex = 2;
+            this.txtGiorni.TabIndex = 4;
             this.txtGiorni.Tag = "itinerationlap.days";
             this.txtGiorni.TextChanged += new System.EventHandler(this.txtGiorni_TextChanged);
             // 
@@ -279,7 +278,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label6.Location = new System.Drawing.Point(433, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 23);
-            this.label6.TabIndex = 23;
+            this.label6.TabIndex = 223;
             this.label6.Text = "Ore:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -288,7 +287,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.txtOre.Location = new System.Drawing.Point(489, 44);
             this.txtOre.Name = "txtOre";
             this.txtOre.Size = new System.Drawing.Size(88, 20);
-            this.txtOre.TabIndex = 3;
+            this.txtOre.TabIndex = 5;
             this.txtOre.Tag = "itinerationlap.hours";
             this.txtOre.TextChanged += new System.EventHandler(this.txtOre_TextChanged);
             // 
@@ -297,7 +296,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label10.Location = new System.Drawing.Point(52, 221);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(152, 21);
-            this.label10.TabIndex = 29;
+            this.label10.TabIndex = 229;
             this.label10.Text = "Indenn. giornaliera corrisposta Euro:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -315,7 +314,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label12.Location = new System.Drawing.Point(25, 420);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(144, 23);
-            this.label12.TabIndex = 33;
+            this.label12.TabIndex = 233;
             this.label12.Text = "Indennità totale Euro:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -378,7 +377,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label11.Location = new System.Drawing.Point(321, 70);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(104, 16);
-            this.label11.TabIndex = 48;
+            this.label11.TabIndex = 248;
             this.label11.Text = "N. giorni frazionario";
             // 
             // txtFrazioneGiorni
@@ -396,7 +395,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label17.Location = new System.Drawing.Point(33, 500);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(136, 23);
-            this.label17.TabIndex = 50;
+            this.label17.TabIndex = 250;
             this.label17.Text = "Quota esente tappa";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -416,7 +415,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label18.Location = new System.Drawing.Point(25, 538);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(144, 23);
-            this.label18.TabIndex = 52;
+            this.label18.TabIndex = 252;
             this.label18.Text = "Quota imponibile tappa";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -460,7 +459,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label8.Location = new System.Drawing.Point(12, 9);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(589, 29);
-            this.label8.TabIndex = 57;
+            this.label8.TabIndex = 257;
             this.label8.Text = "Attenzione: per assicurare un corretto calcolo dell\'indennità da corrispondere, è" +
     " importante verificare il numero dei giorni e delle ore relativi alla tappa, all" +
     "a luce del regolamento delle missioni.";
@@ -480,7 +479,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label7.Location = new System.Drawing.Point(312, 188);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(120, 28);
-            this.label7.TabIndex = 55;
+            this.label7.TabIndex = 255;
             this.label7.Text = "Percentuale anticipo Concedibile:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -489,7 +488,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label3.Location = new System.Drawing.Point(12, 185);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(192, 28);
-            this.label3.TabIndex = 54;
+            this.label3.TabIndex = 254;
             this.label3.Text = "Massima indennità giornaliera Concedibile: ";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -529,7 +528,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label16.Location = new System.Drawing.Point(48, 16);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(72, 23);
-            this.label16.TabIndex = 42;
+            this.label16.TabIndex = 242;
             this.label16.Text = "Percentuale:";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -538,7 +537,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label14.Location = new System.Drawing.Point(64, 48);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(56, 23);
-            this.label14.TabIndex = 38;
+            this.label14.TabIndex = 238;
             this.label14.Text = "Importo:";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -592,7 +591,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label13.Location = new System.Drawing.Point(330, 48);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(120, 23);
-            this.label13.TabIndex = 48;
+            this.label13.TabIndex = 248;
             this.label13.Text = "Percentuale  riduzione";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -631,7 +630,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label20.Location = new System.Drawing.Point(41, 474);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(128, 23);
-            this.label20.TabIndex = 59;
+            this.label20.TabIndex = 259;
             this.label20.Text = "Quota esente giornaliera";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -663,7 +662,7 @@ namespace itinerationlap_webdefault{//missionetappa//
             this.label19.Location = new System.Drawing.Point(73, 564);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(96, 23);
-            this.label19.TabIndex = 56;
+            this.label19.TabIndex = 256;
             this.label19.Text = "Indennità lorda";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -798,9 +797,9 @@ namespace itinerationlap_webdefault{//missionetappa//
 			RicalcolaIndennitaTotale();
 			RicalcolaAnticipo();
 			RicalcolaIndennitaLorda();
-			if (!getFaseAnticipoMissione()) {
-                txtDescrizione.Enabled = false;
-			}
+			//if (!getFaseAnticipoMissione()) {
+            //    txtDescrizione.Enabled = false;
+			//}
 		}
 
 		decimal GetQuotaEsenteTappa(){

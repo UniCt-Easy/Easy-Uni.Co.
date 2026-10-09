@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -466,7 +465,7 @@ namespace epaccvar_default {
             this.grpImporto4.Size = new System.Drawing.Size(148, 88);
             this.grpImporto4.TabIndex = 8;
             this.grpImporto4.TabStop = false;
-            this.grpImporto4.Tag = "epaccvar.amount3.valuesigned";
+            this.grpImporto4.Tag = "epaccvar.amount4.valuesigned";
             this.grpImporto4.Text = "Importo variazione anno";
             // 
             // radioButton5

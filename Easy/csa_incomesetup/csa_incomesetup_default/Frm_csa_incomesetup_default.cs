@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -898,7 +897,7 @@ namespace csa_incomesetup_default
 			this.txtCodiceContoInt.Name = "txtCodiceContoInt";
 			this.txtCodiceContoInt.Size = new System.Drawing.Size(120, 20);
 			this.txtCodiceContoInt.TabIndex = 2;
-			this.txtCodiceContoInt.Tag = "accountclawback.codeacc?csa_incomesetupvew.codeacc_internalcredit";
+			this.txtCodiceContoInt.Tag = "accountclawback.codeacc?csa_incomesetupview.codeacc_internalcredit";
 			// 
 			// button3
 			// 

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -907,6 +906,7 @@ private void initClass() {
 	tcsa_contractkindyear.Columns.Add(C);
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_main", typeof(string)));
+	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idfin_main", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -1374,6 +1374,7 @@ private void initClass() {
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_contracttax_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("!phasemovfin", typeof(string)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("!ymov", typeof(string)));

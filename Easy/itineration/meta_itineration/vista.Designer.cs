@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -983,6 +982,17 @@ public class itinerationRow: MetaRow  {
 	public String flagexcludefromcertificateOriginal { 
 		get {if (this["flagexcludefromcertificate",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["flagexcludefromcertificate",DataRowVersion.Original];}
 	}
+	public Int32? idregdelegato{ 
+		get {if (this["idregdelegato"]==DBNull.Value)return null; return  (Int32?)this["idregdelegato"];}
+		set {if (value==null) this["idregdelegato"]= DBNull.Value; else this["idregdelegato"]= value;}
+	}
+	public object idregdelegatoValue { 
+		get{ return this["idregdelegato"];}
+		set {if (value==null|| value==DBNull.Value) this["idregdelegato"]= DBNull.Value; else this["idregdelegato"]= value;}
+	}
+	public Int32? idregdelegatoOriginal { 
+		get {if (this["idregdelegato",DataRowVersion.Original]==DBNull.Value)return null; return  (Int32?)this["idregdelegato",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -1076,6 +1086,7 @@ public class itinerationTable : MetaTableBase<itinerationRow> {
 			{"supposedcourse",createColumn("supposedcourse",typeof(decimal),true,false)},
 			{"advancepercentagecourse",createColumn("advancepercentagecourse",typeof(decimal),true,false)},
 			{"flagexcludefromcertificate",createColumn("flagexcludefromcertificate",typeof(string),true,false)},
+			{"idregdelegato",createColumn("idregdelegato",typeof(int),true,false)},
 		};
 	}
 }

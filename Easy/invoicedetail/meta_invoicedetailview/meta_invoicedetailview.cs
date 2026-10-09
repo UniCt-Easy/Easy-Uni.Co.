@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using metadatalibrary;
 using metaeasylibrary;
@@ -237,6 +236,7 @@ namespace meta_invoicedetailview//meta_dettdocumentoivaview//
 				DescribeAColumn(T, "yinv_main", "Eserc. Fattura di Riferimento", nPos++);
 				DescribeAColumn(T, "ninv_main", "Num. Fattura di Riferimento", nPos++);
                 DescribeAColumn(T, "rownum_main", "Num. riga Fattura di Riferimento", nPos++);
+                DescribeAColumn(T, "codemotive", "Causale di Costo/Ricavo", nPos++);
                 DescribeAColumn(T, "intrastatoperationkind", "Beni/Servizi", nPos++);
                 DescribeAColumn(T, "servicecode", "Cod.Servizi", nPos++);
                 DescribeAColumn(T, "intrastatservice", "Servizi", nPos++);

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -24,48 +23,27 @@ using System.Runtime.Serialization;
 namespace csa_contractkind_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
 
-	///<summary>
-	///Contributi Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkinddata 		=> Tables["csa_contractkinddata"];
 
-	///<summary>
-	///Regole di individuazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkindrules 		=> Tables["csa_contractkindrules"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Informazioni annuali su tipo contratto csa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkindyear 		=> Tables["csa_contractkindyear"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
@@ -81,15 +59,9 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting_main 		=> Tables["sorting_main"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
@@ -98,6 +70,9 @@ public class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkinddataview 		=> Tables["csa_contractkinddataview"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable account_cost_reversal 		=> Tables["account_cost_reversal"];
 
 	#endregion
 
@@ -171,6 +146,7 @@ private void initClass() {
 	tcsa_contractkinddata.Columns.Add(C);
 	tcsa_contractkinddata.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_contractkinddata.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_contractkinddata.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
 	tcsa_contractkinddata.Columns.Add(C);
@@ -255,6 +231,7 @@ private void initClass() {
 	tcsa_contractkindyear.Columns.Add(C);
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_main", typeof(string)));
+	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idfin_main", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -608,8 +585,60 @@ private void initClass() {
 	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
 	tcsa_contractkinddataview.Columns.Add(C);
+	tcsa_contractkinddataview.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	Tables.Add(tcsa_contractkinddataview);
 	tcsa_contractkinddataview.PrimaryKey =  new DataColumn[]{tcsa_contractkinddataview.Columns["idcsa_contractkind"], tcsa_contractkinddataview.Columns["idcsa_contractkinddata"], tcsa_contractkinddataview.Columns["ayear"]};
+
+
+	//////////////////// ACCOUNT_COST_REVERSAL /////////////////////////////////
+	var taccount_cost_reversal= new DataTable("account_cost_reversal");
+	C= new DataColumn("idacc", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("codeacc", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("ct", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagregistry", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagtransitory", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagupb", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("idaccountkind", typeof(string)));
+	C= new DataColumn("lt", typeof(DateTime));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("paridacc", typeof(string)));
+	C= new DataColumn("printingorder", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	taccount_cost_reversal.Columns.Add(C);
+	taccount_cost_reversal.Columns.Add( new DataColumn("txt", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("idpatrimony", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("idplaccount", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagprofit", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagloss", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("placcount_sign", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("patrimony_sign", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flagcompetency", typeof(string)));
+	taccount_cost_reversal.Columns.Add( new DataColumn("flag", typeof(int)));
+	Tables.Add(taccount_cost_reversal);
+	taccount_cost_reversal.PrimaryKey =  new DataColumn[]{taccount_cost_reversal.Columns["idacc"]};
 
 
 	#endregion
@@ -663,6 +692,10 @@ private void initClass() {
 	cPar = new []{underwriting.Columns["idunderwriting"]};
 	cChild = new []{csa_contractkind.Columns["idunderwriting"]};
 	Relations.Add(new DataRelation("FK_underwriting_csa_contractkind",cPar,cChild,false));
+
+	cPar = new []{account_cost_reversal.Columns["idacc"]};
+	cChild = new []{csa_contractkindyear.Columns["idacc_cost_reversal"]};
+	Relations.Add(new DataRelation("account_cost_reversal_csa_contractkindyear",cPar,cChild,false));
 
 	#endregion
 

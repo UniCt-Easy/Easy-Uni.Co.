@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -2999,6 +2998,9 @@ namespace no_table_flussostudenti {
 
 			QueryCreator.MarkEvent("Inizio foreach (var rCreditiDetail");
 			//initPBar("Creazione contratti da flusso crediti",allRows.Length);
+
+			HashSet<string> errorMsg = new HashSet<string>();
+
 			foreach (var rCreditiDetail in allRows) {
 				//incPBar();
 				//Application.DoEvents();
@@ -3037,12 +3039,12 @@ namespace no_table_flussostudenti {
 				if (docdate.Year != esercizio) continue;
 				idcodiceTipoContratto = checkTipoContrattoAttivo(idcodiceTipoContratto, out errore);
 				if (errore != "") {
-					show("Tipo contratto assente nei crediti", "Errore");
+					errorMsg.Add($"Tipo contratto assente nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}");
 					continue;
 				}
 
 				if (idcodiceTipoContratto == null || idcodiceTipoContratto == "") {
-					show("Tipo contratto assente", "Errore");
+					errorMsg.Add($"Tipo contratto assente nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}");
 					continue;
 				}
 
@@ -3054,8 +3056,8 @@ namespace no_table_flussostudenti {
 				var idsor05 = rCrediti.idsor05;
 
 				if (idaccmotivecredit == null) {
-					show("Causale di Credito assente", "Errore");
-					return false;
+					errorMsg.Add($"Causale di Credito assente nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}");
+					continue;
 				}
 
 
@@ -3077,8 +3079,8 @@ namespace no_table_flussostudenti {
 
 					idivakindDefault = impostaDefaultIvaKind(idcodiceTipoContratto, out errore);
 					if (errore != "") {
-						show(errore, "Errore");
-						return false;
+						errorMsg.Add(errore);
+						continue;
 					}
 
 					var rNewEstimate = metaEstimate.Get_New_Row(null, DS.estimate) as estimateRow;
@@ -3137,16 +3139,16 @@ namespace no_table_flussostudenti {
 				if (idaccmotiverevenue == null) {
 					errore =
 						$"Manca la causale di ricavo nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}";
-					show(errore, "Errore");
-					return false;
+					errorMsg.Add(errore);
+					continue;
 				}
 
 				rNewDetail["idaccmotive"] = idaccmotiverevenue;
 				string erroreSiope;
 				var idSiope = getSiopeForAccMotive(idaccmotiverevenue, out erroreSiope);
 					if (erroreSiope != ""){
-						show(erroreSiope, "Errore");
-						return false;
+						errorMsg.Add(erroreSiope);
+						continue;
 					}
 				if (idSiope != null) {
 					rNewDetail.idsor_siope = idSiope;
@@ -3154,8 +3156,8 @@ namespace no_table_flussostudenti {
 
 				if (idupb == null) {
 					errore = $"Manca l'UPB nel dettaglio crediti del bollettino n.{nform}";
-					show(errore, "Errore");
-					return false;
+					errorMsg.Add(errore);
+					continue;
 				}
 
 				rNewDetail.idupb = idupb;
@@ -3163,8 +3165,8 @@ namespace no_table_flussostudenti {
 				if (idfinmotive == null) {
 					errore =
 						$"Manca la causale finanziaria nel dettaglio crediti del bollettino n.{nform ?? iduniqueformcode}";
-					show(errore, "Errore");
-					return false;
+					errorMsg.Add(errore);
+					continue;
 				}
 
 				rNewDetail.idfinmotive = idfinmotive;
@@ -3185,6 +3187,13 @@ namespace no_table_flussostudenti {
 
 			}
 			//closePBar();
+
+			if (errorMsg.Count > 0)
+			{
+				List<string> messages = errorMsg.ToList();
+				string msg = string.Join("\r\n", messages.Select(s => $"- {s}")) + "\r\n";
+				show(msg, "Errore");
+			}
 
 			return true;
 		}

@@ -31,6 +31,8 @@
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
               <xs:element name="npay_treasurer" type="xs:int" minOccurs="0" />
+              <xs:element name="preservelt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idepaccrual" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -811,7 +813,20 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
-			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epaccrual" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepaccrual" type="xs:string" />
+              <xs:element name="paridepaccrual" type="xs:string" minOccurs="0" />
+              <xs:element name="codeepaccrual" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -929,6 +944,10 @@
       <xs:field xpath="mstns:kpay" />
       <xs:field xpath="mstns:idattachment" />
     </xs:unique>
+    <xs:unique name="epaccrual_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccrual" />
+      <xs:field xpath="mstns:idepaccrual" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -952,6 +971,7 @@
       <msdata:Relationship name="paymenttransmissionpayment" msdata:parent="paymenttransmission" msdata:child="payment" msdata:parentkey="kpaymenttransmission" msdata:childkey="kpaymenttransmission" />
       <msdata:Relationship name="fin_payment" msdata:parent="fin" msdata:child="payment" msdata:parentkey="idfin" msdata:childkey="idfin" />
       <msdata:Relationship name="payment_paymentattachment" msdata:parent="payment" msdata:child="paymentattachment" msdata:parentkey="kpay" msdata:childkey="kpay" />
+      <msdata:Relationship name="epaccrual_payment" msdata:parent="epaccrual" msdata:child="payment" msdata:parentkey="idepaccrual" msdata:childkey="idepaccrual" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

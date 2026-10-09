@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -74,7 +73,13 @@ namespace meta_csa_importriep_partitionview {
                 DescribeAColumn(T, "codeacc", "Cod. Conto EP", nPos++);
                 DescribeAColumn(T, "account", "Conto EP", nPos++);
                 DescribeAColumn(T, "descflagaccountusage", "Tipo utilizzo conto", nPos++);
-   
+                DescribeAColumn(T, "codeacc_cost_reversal", "Cod. Conto EP Storno di Costo", nPos++);
+                DescribeAColumn(T, "account_cost_reversal", "Conto EP Storno di Costo", nPos++);
+                DescribeAColumn(T, "descflagaccountusage_cost_reversal", "Tipo utilizzo conto Storno di Costo", nPos++);
+                
+
+
+
             }
 
 

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -556,7 +555,7 @@ namespace ep_functions {
 
             if (mainTable == "csa_import") {
                 if (!VerificaProblemiCsa(r)) {
-                    ShowMessage("Rilevati problemi nei dati importati, effettuare le verifiche opportune", "Errore");
+                    ShowMessage("Le scritture in partita doppia non possono essere generate per errori di configurazione bloccanti. Ciccare sul pulsante Verifiche EP presente nella scheda Principale e procedere alla sanatoria", "Errore");
                     return;
                 }
             }
@@ -606,7 +605,7 @@ namespace ep_functions {
 
             if (mainTable == "csa_import") {
                 if (!VerificaProblemiCsa(r)) {
-                    ShowMessage("Rilevati problemi nei dati importati, effettuare le verifiche opportune", "Errore");
+                    ShowMessage("Le scritture in partita doppia non possono essere generate per errori di configurazione bloccanti. Ciccare sul pulsante Verifiche EP presente nella scheda Principale e procedere alla sanatoria", "Errore");
                     return;
                 }
             }
@@ -635,7 +634,7 @@ namespace ep_functions {
 
             if (mainTable == "csa_import") {
                 if (!VerificaProblemiCsa(r)) {
-                    ShowMessage("Rilevati problemi nei dati importati, effettuare le verifiche opportune", "Errore");
+                    ShowMessage("Le scritture in partita doppia non possono essere generate per errori di configurazione bloccanti. Ciccare sul pulsante Verifiche EP presente nella scheda Principale e procedere alla sanatoria", "Errore");
                     return;
                 }
             }
@@ -1694,6 +1693,11 @@ namespace ep_functions {
                                       && amount > 0)
                     return true;
 
+                //CONTRIBUTI con importo NEGATIVO E STORNO DI COSTO ABILITATO: idacc_cost_reversal
+                if (recupero == false && EP.isCosto(r["idacc_cost_reversal"])
+                                      && amount < 0)
+                    return true;
+
                 // Versamento recuperi  COSTO   A  debito vs percipiente
                 if (recupero == true && amount < 0 && EP.isCosto(r["idacc_cost"])) return true;
 
@@ -1877,6 +1881,11 @@ namespace ep_functions {
                 if (recupero == false && EP.isCosto(r["idacc_cost"])
                                       && amount > 0) return true;
 
+                //CONTRIBUTI con importo NEGATIVO E STORNO DI COSTO ABILITATO: idacc_cost_reversal credito vs erario A  STORNO DI COSTO 
+                if (recupero == false && EP.isCosto(r["idacc_cost_reversal"])
+                                      && amount < 0)
+                    return true;
+
                 // Versamento recuperi  COSTO   A  debito vs percipiente
                 if (recupero == true && amount < 0 && EP.isCosto(r["idacc_cost"])) return true;
 
@@ -1975,7 +1984,7 @@ namespace ep_functions {
 
             if (mainTable == "csa_import") {
                 if (!VerificaProblemiCsa(curr)) {
-                    ShowMessage("Rilevati problemi nei dati importati, effettuare le verifiche opportune", "Errore");
+                    ShowMessage("Le scritture in partita doppia non possono essere generate per errori di configurazione bloccanti. Ciccare sul pulsante Verifiche EP presente nella scheda Principale e procedere alla sanatoria", "Errore");
                     return;
                 }
             }
@@ -3486,6 +3495,23 @@ namespace ep_functions {
                         QHS.AppAnd(QHS.MCmp(rInvDet, "idmankind", "yman", "nman"),
                             QHS.CmpEq("rownum", rInvDet["manrownum"])), null, false);
                     if (tManDet.Rows.Count > 0) rMandateDetail = tManDet.Rows[0];
+                    // quindi leggo in memoria gli altri dettagli dello stesso contratto passivo per individuare la catena di sostituzioni
+                    Conn.RUN_SELECT_INTO_TABLE(tManDet, null, QHS.AppAnd(QHS.MCmp(rInvDet, "idmankind", "yman", "nman"),
+                                                              QHS.CmpEq("rownum_main", rInvDet["manrownum"])), null,true);
+                }
+
+                DataRow rEstimateDetail = null;
+                if (rInvDet["idestimkind"] != DBNull.Value) {
+                    DataTable tEstimDet = Conn.RUN_SELECT("estimatedetail", "*", null,
+                        QHS.AppAnd(QHS.MCmp(rInvDet, "idestimkind", "yestim", "nestim"),
+                            QHS.CmpEq("rownum", rInvDet["estimrownum"])), null, false);
+
+                    if (tEstimDet.Rows.Count > 0)
+                        rEstimateDetail = tEstimDet.Rows[0];
+ 
+                    // quindi leggo in memoria gli altri dettagli dello stesso contratto attivo per individuare la catena di sostituzioni
+                    Conn.RUN_SELECT_INTO_TABLE(tEstimDet, null, QHS.AppAnd(QHS.MCmp(rInvDet, "idestimkind", "yestim", "nestim"),
+                                                                QHS.CmpEq("rownum_main", rInvDet["estimrownum"])), null, true);
                 }
 
                 #region Calcolo flag isFattRic
@@ -3532,11 +3558,11 @@ namespace ep_functions {
                 if (rInvDet["idmankind"] != DBNull.Value) {
                     int annoOrdine = CfgFn.GetNoNullInt32(rInvDet["yman"]);
                     int yearStartDettaglio = annoOrdine;
-
+                    // Ricalcolo anno start dettaglio prendendolo dalla catena sostituzioni, il primo
                     if (rMandateDetail["start"] != DBNull.Value)  
                         {
                             DataRow firstRow = getFirstRow(rMandateDetail);
-                            DateTime originalDate = (DateTime)(firstRow["start"] == DBNull.Value ? new DateTime(annoOrdine, 12, 31): firstRow["start"]);
+                            DateTime originalDate =(firstRow == null || firstRow["start"] == DBNull.Value ? new DateTime(annoOrdine, 12, 31) : (DateTime)firstRow["start"]);
                             yearStartDettaglio = originalDate.Year;
                         }
 
@@ -3557,14 +3583,14 @@ namespace ep_functions {
                 if (rInvDet["idestimkind"] != DBNull.Value) {
                     int annoContratto = CfgFn.GetNoNullInt32(rInvDet["yestim"]);
                     int yearStartDettaglio = annoContratto;
- 
-                    if (annoContratto < annoFattura) {
-                        string filterestimate = QHS.CmpMulti(rInvDet, "idestimkind", "yestim", "nestim");
-                        filterestimate = QHS.AppAnd(filterestimate, QHS.CmpEq("rownum", rInvDet["estimrownum"]));
-                        DataRow rEstimateDetail = null;
-                        DataTable tEstimDet = Conn.RUN_SELECT("estimatedetail", "*", null,
-                        filterestimate, null, false);
-                        if (tEstimDet.Rows.Count > 0) rEstimateDetail = tEstimDet.Rows[0];
+                    // Ricalcolo anno start dettaglio prendendolo dalla catena sostituzioni, il primo
+                    if (rEstimateDetail["start"] != DBNull.Value) {
+                        DataRow firstRow = getFirstRow(rEstimateDetail);
+                        DateTime originalDate = (firstRow == null || firstRow["start"] == DBNull.Value ? new DateTime(annoContratto, 12, 31) : (DateTime)firstRow["start"]);
+                        yearStartDettaglio = originalDate.Year;
+                    }
+
+                    if ((annoContratto < annoFattura)&& (yearStartDettaglio < annoFattura)) {
                         object epkind = rEstimateDetail["epkind"];
                         if (epkind != null) {
                             if (epkind.ToString().ToUpper() == "F" || epkind.ToString().ToUpper() == "R") {
@@ -4544,7 +4570,9 @@ namespace ep_functions {
 
 
                 if (EP.saldo != 0) {
-                    ShowMessage("Si è verificata una squadratura sul dettaglio " + rInvDet["detaildescription"]);
+                    ShowMessage("Si è verificata una squadratura sul dettaglio n° "
+                                +  rInvDet["rownum"] + ": " +rInvDet["detaildescription"] +
+                                  " Verificare le causali EP selezionate");
                 }
 
             }
@@ -6965,6 +6993,7 @@ namespace ep_functions {
                     double ivaIndetraibile = iva - ivaDetraibile;
                     decimal imponibileDec = Convert.ToDecimal(imponibile);
                     decimal ivaIndetraibileDec = Convert.ToDecimal(ivaIndetraibile);
+                    decimal ivaDetraibileDec = Convert.ToDecimal(ivaDetraibile);
                     //Se 1 totale 2 tot.iva 3 imponibile  
                     //Se è split va saltata? no
                     if (movkind == 1) { //totale
@@ -6989,15 +7018,29 @@ namespace ep_functions {
                                     isVariazione, description);
                                 totaleScritto += scrittura; //+ ivaIndetraibileDec
                                 //aggiornaImporti(imponibili, CfgFn.GetNoNullInt32(rDett["idepexp"]), idaccmotive, (imponibileDec)*segno);    //+ ivaIndetraibileDec
-                                //Siamo nell'else, ramo in cui NON c'è iva split. Se ci fosse ivaIndetraibile sarebbe usata nella scrittura precedente. Questo è il caso in cui l'iva è tutta detraibile, cioè iva - ivaDetraibile = iva indetraibile = 0
-                                // Questo pezzo di codice lo scriviamo perchè in caso di Fatt. Comm. no split, la scrittura dell'iva la farebbe fuori da questo ciclo come parte residuale.
-                                if (iva > 0 && iva == ivaDetraibile) {
-                                    scrittura = singolaScritturaDebitoIdRelated(fatturaSpedizioniere ? DBNull.Value : rDett["idepexp"], rDett["idepacc"],
-                                    idaccmotive,
-                                    Convert.ToDecimal(iva) * segno, idAccDebito, idReg, idUpb,
-                                    idrelatedDett,
-                                    isVariazione, description);
-                                    totaleScritto += scrittura;
+                                if (iva > 0)
+                                {
+                                    //Siamo nell'else, ramo in cui NON c'è iva split. Se ci fosse ivaIndetraibile sarebbe usata nella scrittura precedente. Questo è il caso in cui l'iva è tutta detraibile, cioè iva - ivaDetraibile = iva indetraibile = 0
+                                    // Questo pezzo di codice lo scriviamo perchè in caso di Fatt. Comm. no split, la scrittura dell'iva la farebbe fuori da questo ciclo come parte residuale.
+                                    if (iva == ivaDetraibile)
+                                    {
+                                        scrittura = singolaScritturaDebitoIdRelated(fatturaSpedizioniere ? DBNull.Value : rDett["idepexp"], rDett["idepacc"],
+                                        idaccmotive,
+                                        Convert.ToDecimal(iva) * segno, idAccDebito, idReg, idUpb,
+                                        idrelatedDett,
+                                        isVariazione, description);
+                                        totaleScritto += scrittura;
+                                    }
+                                    // Questo è il caso in cui l'iva è in parte detraibile e in parte indetraibile. La parte indetraibile è già stata usata nella scrittura precedente,
+                                    // per la parte rimanente (iva detraibile) lo scriviamo qui, altrimenti la farebbe fuori come parte residuale, usando l'idrelated del documento e non del dettaglio
+                                    else if (ivaDetraibileDec > 0)
+                                    {
+                                        scrittura = singolaScritturaDebitoIdRelated(fatturaSpedizioniere ? DBNull.Value : rDett["idepexp"], rDett["idepacc"], 
+                                            idaccmotive,
+                                            ivaDetraibileDec * segno,
+                                            idAccDebito, idReg, idUpb, idrelatedDett, isVariazione, description);
+                                        totaleScritto += scrittura;
+                                    }
                                 }
                             }
                             else {
@@ -11187,7 +11230,7 @@ namespace ep_functions {
                 //  FASE Ib) FASE Id) FASE If)
                 sqlCmd = " SELECT 'LORDI NEGATIVI' as tiposcrittura, " +
                          " csa_importriep.idriep, capitolocsa, ruolocsa, matricola, csa_importriep_partition.amount, csa_importriep_partition.ndetail," +
-                         " csa_importriep_partition.idupb, csa_importriep.idreg, registry.idaccmotivecredit, " +
+                         " csa_importriep_partition.idupb,csa_importriep_partition.idacc_cost_reversal, csa_importriep.idreg, registry.idaccmotivecredit, " +
                          " csa_importriep.idcsa_contract,csa_importriep_partition.idepexp, csa_importriep_partition.idcsa_import,csa_importriep_partition.idriep, " +
                          //" idexp,  " +
                          " csa_importriep.idcsa_contractkind " +
@@ -11213,6 +11256,11 @@ namespace ep_functions {
                         EP.idaccmotivecreditForIdReg[idreg] = rRiep["idaccmotivecredit"];
                     }
 
+                    object idacc_cost_reversal = rRiep["idacc_cost_reversal"];
+                    //if (idacc_cost_reversal == null || idacc_cost_reversal.ToString() == "") {
+                    //    ShowMessage("Non è stato configurato idacc_cost_reversal conto storno di costo opportuno, sarà usato quello generico (Messaggio per TEST)");
+                    //}
+
                     object idaccRegistry = EP.GetCustomerAccountForRegistry(null, idreg);
                     if (idaccRegistry == null || idaccRegistry.ToString() == "") {
                         ShowMessage("Non è stato configurato il conto di debito/credito opportuno");
@@ -11220,44 +11268,84 @@ namespace ep_functions {
                     }
 
                     object idupb = rRiep["idupb"];
-                    List<InfoImpegno> impegniBudget = getAmountsForScrittureRiepRicavo(rRiep, nuovaGestione);
-                    foreach (InfoImpegno i in impegniBudget) {
-                        if (i.parIdExp == DBNull.Value && UsaAccertamentiDiBudget && esercizio > 2015 &&
-                            EP.isRicavo(idaccRicavo)) {
-                            ShowMessage(
-                                "Non è stato trovato un accertamento di budget per la riga di riepilogo n." +
-                                rRiep["idriep"],
-                                "Errore");
-                            return false;
+                    // GESTIONE SCRITTURA DI RICAVO
+                    if (idacc_cost_reversal == DBNull.Value) {
+                        List<InfoImpegno> impegniBudget = getAmountsForScrittureRiepRicavo(rRiep, nuovaGestione);
+                        foreach (InfoImpegno i in impegniBudget) {
+                            if (i.parIdExp == DBNull.Value && UsaAccertamentiDiBudget && esercizio > 2015 &&
+                                EP.isRicavo(idaccRicavo)) {
+                                ShowMessage(
+                                    "Non è stato trovato un accertamento di budget per la riga di riepilogo n." +
+                                    rRiep["idriep"],
+                                    "Errore");
+                                return false;
+                            }
+
+                            object currUPB = getUpbForEpAcc(i.parIdExp, rRiep["idupb"]);
+                            EP.EffettuaScritturaImpegnoBudget("PRESTAZ",
+                                importoScritturaInAvere(i.amount, idaccRicavo, "PRESTAZ"),
+                                idaccRicavo,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), null, i.parIdExp, i.idrelated,
+                                "Riepilogo, riga " + rRiep["idriep"] + "- Capitolo: " + rRiep["capitolocsa"] + "- Ruolo: " +
+                                rRiep["ruolocsa"] + "- Matricola: " + rRiep["matricola"]);
+
+                            EP.EffettuaScritturaImpegnoBudget("PRESTAZ",
+                                -i.amount,
+                                idaccRegistry,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), null, i.parIdExp, i.idrelated,
+                                "Riepilogo, riga " + rRiep["idriep"] + "- Capitolo: " + rRiep["capitolocsa"] + "- Ruolo: " +
+                                rRiep["ruolocsa"] + "- Matricola: " + rRiep["matricola"]);
+                            if (EP.saldo != 0) {
+                                ShowMessage("Si è verificata una squadratura sulla riga di Riepilogo " +
+                                            rRiep["idriep"] + "- Ruolo: " + rRiep["ruolocsa"] + "- Matricola: " +
+                                            rRiep["matricola"] + " (lordi negativi)");
+                                return false;
+                            }
                         }
+                    }
+                    // GESTIONE SCRITTURE STORNO DI COSTO AL POSTO DELLA SCRITTURA DI RICAVO, IN PRESENZA DI UNA SPECIFICA CONFIGURAZIONE DEI CONTI
+                    else {
+                        List<InfoImpegno> impegniBudget = getAmountsForScrittureRiepStornodiCosto(rRiep, nuovaGestione);
+                        foreach (InfoImpegno i in impegniBudget) {
+                            if (i.parIdExp == DBNull.Value && UsaImpegniDiBudget && esercizio > 2015 &&
+                                EP.isCosto(idacc_cost_reversal)) {
+                                ShowMessage(
+                                    "Non è stato trovato un impegno di budget di tipo variazione per la riga di riepilogo n." +
+                                    rRiep["idriep"],
+                                    "Errore");
+                                return false;
+                            }
 
-                        object currUPB = getUpbForEpAcc(i.parIdExp, rRiep["idupb"]);
-                        EP.EffettuaScritturaImpegnoBudget("PRESTAZ",
-                            importoScritturaInAvere(i.amount, idaccRicavo, "PRESTAZ"),
-                            idaccRicavo,
-                            idreg, currUPB, DBNull.Value, DBNull.Value,
-                            null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), null, i.parIdExp, i.idrelated,
-                            "Riepilogo, riga " + rRiep["idriep"] + "- Capitolo: " + rRiep["capitolocsa"] + "- Ruolo: " +
-                            rRiep["ruolocsa"] + "- Matricola: " + rRiep["matricola"]);
+                            object currUPB = getUpbForEpExp(i.parIdExp, rRiep["idupb"], null);
+                            EP.EffettuaScritturaImpegnoBudget("PRESTAZ",
+                                importoScritturaInAvere(i.amount, idacc_cost_reversal, "PRESTAZ"),
+                                idacc_cost_reversal,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null,null /*getAccMotiveForSiope(idsiopeincomeCsa, idacc_cost_reversal) non indispensabile  mettere la causale*/, i.parIdExp, null, i.idrelated,
+                                "Riepilogo, riga " + rRiep["idriep"] + "- Capitolo: " + rRiep["capitolocsa"] + "- Ruolo: " +
+                                rRiep["ruolocsa"] + "- Matricola: " + rRiep["matricola"]);
 
-                        EP.EffettuaScritturaImpegnoBudget("PRESTAZ",
-                            -i.amount,
-                            idaccRegistry,
-                            idreg, currUPB, DBNull.Value, DBNull.Value,
-                            null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), null, i.parIdExp, i.idrelated,
-                            "Riepilogo, riga " + rRiep["idriep"] + "- Capitolo: " + rRiep["capitolocsa"] + "- Ruolo: " +
-                            rRiep["ruolocsa"] + "- Matricola: " + rRiep["matricola"]);
-                        if (EP.saldo != 0) {
-                            ShowMessage("Si è verificata una squadratura sulla riga di Riepilogo " +
-                                        rRiep["idriep"] + "- Ruolo: " + rRiep["ruolocsa"] + "- Matricola: " +
-                                        rRiep["matricola"] + " (lordi negativi)");
-                            return false;
+                            EP.EffettuaScritturaImpegnoBudget("PRESTAZ",
+                                -i.amount,
+                                idaccRegistry,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, null/*getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo) non indispensabile mettere la causale*/, i.parIdExp, null,  i.idrelated,
+                                "Riepilogo, riga " + rRiep["idriep"] + "- Capitolo: " + rRiep["capitolocsa"] + "- Ruolo: " +
+                                rRiep["ruolocsa"] + "- Matricola: " + rRiep["matricola"]);
+                            if (EP.saldo != 0) {
+                                ShowMessage("Si è verificata una squadratura sulla riga di Riepilogo " +
+                                            rRiep["idriep"] + "- Ruolo: " + rRiep["ruolocsa"] + "- Matricola: " +
+                                            rRiep["matricola"] + " (lordi negativi)");
+                                return false;
+                            }
                         }
                     }
                 }
             }
 
-            #endregion
+            #endregion // LORDI negativi
 
 
             // Invece in fase di LORDI, per i soli CONTRIBUTI con importo POSITIVO:  autokind 20 o 31
@@ -11650,6 +11738,7 @@ namespace ep_functions {
                          " csa_importver.idcsa_contract, csa_importver.idsor_siope_income, " +
                          " csa_importver.idcsa_contracttax, " +
                          " csa_importver_partition.amount as importo, " +
+                         " csa_importver_partition.idacc_cost_reversal, " +
                          " csa_importver.idver, csa_importver.idacc_revenue, " +
                          " csa_importver_partition.idepexp, " +
                          " csa_importver.idacc_agency_credit, " +
@@ -11683,48 +11772,94 @@ namespace ep_functions {
                     }
 
                     object idaccRevenue = rVer["idacc_revenue"];
-                    object idupb = rVer["idupb"];
+                    object idacc_cost_reversal = rVer["idacc_cost_reversal"];
 
-                    string idepcontext_ricavo = "FATVEN";
+                    if (idacc_cost_reversal == DBNull.Value) {
+                        object idupb = rVer["idupb"];
 
-                    List<InfoImpegno> accertamentiBudget = getAmountsForScrittureVerRicavo(rVer);
-                    foreach (InfoImpegno i in accertamentiBudget) {
-                        if (i.parIdExp == DBNull.Value && UsaAccertamentiDiBudget && esercizio > 2015 &&
-                            EP.isRicavo(idaccRevenue)) {
-                            ShowMessage(
-                                "Non è stato trovato un accertamento di budget per la riga di versamento n." +
-                                rVer["idver"],
-                                "Errore");
-                            return false;
+                        string idepcontext_ricavo = "FATVEN";
+
+                        List<InfoImpegno> accertamentiBudget = getAmountsForScrittureVerRicavo(rVer);
+                        foreach (InfoImpegno i in accertamentiBudget) {
+                            if (i.parIdExp == DBNull.Value && UsaAccertamentiDiBudget && esercizio > 2015 &&
+                                EP.isRicavo(idaccRevenue)) {
+                                ShowMessage(
+                                    "Non è stato trovato un accertamento di budget per la riga di versamento n." +
+                                    rVer["idver"],
+                                    "Errore");
+                                return false;
+                            }
+
+                            object currUPB = getUpbForEpAcc(i.parIdExp, rVer["idupb"]);
+                            EP.EffettuaScritturaImpegnoBudget(idepcontext_ricavo,
+                                importoScritturaInAvere(i.amount, idaccRevenue, idepcontext_ricavo), idaccRevenue,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, getAccMotiveForSiope(rVer["idsor_siope_income"], idaccRevenue), null, i.parIdExp,
+                                i.idrelated,
+                                "Versamento, riga " + rVer["idver"] + "- Capitolo: " + rVer["capitolocsa"] +
+                                "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " + rVer["matricola"]);
+
+                            // il credito di solito va in DARE in questi casi (FATVEN)
+                            // essendo l'importo NEGATIVO qui andrà in AVERE
+                            EP.EffettuaScritturaImpegnoBudget(idepcontext_ricavo,
+                                i.amount, idaccCredit,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, getAccMotiveForSiope(rVer["idsor_siope_income"], idaccRevenue), null, i.parIdExp,
+                                i.idrelated,
+                                "Versamento, riga " + rVer["idver"] + "- Capitolo; " + rVer["capitolocsa"] +
+                                "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " + rVer["matricola"]);
+                            if (EP.saldo != 0) {
+                                ShowMessage("Si è verificata una squadratura sulla riga di Versamento " +
+                                            rVer["idver"] + "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " +
+                                            rVer["matricola"] + " (contributi negativi) ");
+                                return false;
+                            }
+
                         }
-
-                        object currUPB = getUpbForEpAcc(i.parIdExp, rVer["idupb"]);
-                        EP.EffettuaScritturaImpegnoBudget(idepcontext_ricavo,
-                            importoScritturaInAvere(i.amount, idaccRevenue, idepcontext_ricavo), idaccRevenue,
-                            idreg, currUPB, DBNull.Value, DBNull.Value,
-                            null, getAccMotiveForSiope(rVer["idsor_siope_income"], idaccRevenue), null, i.parIdExp,
-                            i.idrelated,
-                            "Versamento, riga " + rVer["idver"] + "- Capitolo: " + rVer["capitolocsa"] +
-                            "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " + rVer["matricola"]);
-
-                        // il credito di solito va in DARE in questi casi (FATVEN)
-                        // essendo l'importo NEGATIVO qui andrà in AVERE
-                        EP.EffettuaScritturaImpegnoBudget(idepcontext_ricavo,
-                            i.amount, idaccCredit,
-                            idreg, currUPB, DBNull.Value, DBNull.Value,
-                            null, getAccMotiveForSiope(rVer["idsor_siope_income"], idaccRevenue), null, i.parIdExp,
-                            i.idrelated,
-                            "Versamento, riga " + rVer["idver"] + "- Capitolo; " + rVer["capitolocsa"] +
-                            "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " + rVer["matricola"]);
-                        if (EP.saldo != 0) {
-                            ShowMessage("Si è verificata una squadratura sulla riga di Versamento " +
-                                        rVer["idver"] + "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " +
-                                        rVer["matricola"] + " (contributi negativi) ");
-                            return false;
-                        }
-
                     }
+                    else {
+                        object idupb = rVer["idupb"];
 
+                        string idepcontext_ricavo = "FATVEN"; // contesto ricavo (equivale a storno di costo)
+
+                        List<InfoImpegno> impegniBudget = getAmountsForScrittureVerStornodiCosto(rVer);
+                        foreach (InfoImpegno i in impegniBudget) {
+                            if (i.parIdExp == DBNull.Value && UsaImpegniDiBudget && esercizio > 2015 &&
+                                EP.isCosto(idacc_cost_reversal)) {
+                                ShowMessage(
+                                    "Non è stato trovato un impegno di Budget di tipo Variazione per la riga di versamento n." +
+                                    rVer["idver"],
+                                    "Errore");
+                                return false;
+                            }
+
+                            object currUPB = getUpbForEpExp(i.parIdExp, rVer["idupb"], null);
+                            EP.EffettuaScritturaImpegnoBudget(idepcontext_ricavo,
+                                importoScritturaInAvere(i.amount, idacc_cost_reversal, idepcontext_ricavo), idacc_cost_reversal,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, null/* getAccMotiveForSiope(rVer["idsor_siope_income"], idaccRevenue) non necessario*/, i.parIdExp, null,
+                                i.idrelated,
+                                "Versamento, riga " + rVer["idver"] + "- Capitolo: " + rVer["capitolocsa"] +
+                                "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " + rVer["matricola"]);
+
+                            // il credito di solito va in DARE in questi casi (FATVEN)
+                            // essendo l'importo NEGATIVO qui andrà in AVERE
+                            EP.EffettuaScritturaImpegnoBudget(idepcontext_ricavo,
+                                i.amount, idaccCredit,
+                                idreg, currUPB, DBNull.Value, DBNull.Value,
+                                null, null /* getAccMotiveForSiope(rVer["idsor_siope_income"], idaccRevenue) non necessario*/, i.parIdExp, null,  
+                                i.idrelated,
+                                "Versamento, riga " + rVer["idver"] + "- Capitolo; " + rVer["capitolocsa"] +
+                                "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " + rVer["matricola"]);
+                            if (EP.saldo != 0) {
+                                ShowMessage("Si è verificata una squadratura sulla riga di Versamento " +
+                                            rVer["idver"] + "- Ruolo: " + rVer["ruolocsa"] + "- Matricola: " +
+                                            rVer["matricola"] + " (contributi negativi) ");
+                                return false;
+                            }
+
+                        }
+                    }
                 }
             }
 
@@ -12238,10 +12373,17 @@ namespace ep_functions {
                     }
 
                     object idepacc = DBNull.Value;
+                    object idepexp = DBNull.Value;
                     object idrelated = null;
                     //if (idaccCost != DBNull.Value) {
                     idrelated = BudgetFunction.GetIdForDocument(rVer);
-                    idepacc = getIdEpAccByIdRelated(idrelated.ToString(), 2);
+                    // 22329 con conto di storno costo l'importazione ha generato un impegno di budget di tipo variazione
+                    if (rVer["idacc_cost_reversal"] != DBNull.Value) {
+                        idepexp = getIdEpExpByIdRelated(idrelated.ToString(), 2);
+                    }
+                    else {
+                        idepacc = getIdEpAccByIdRelated(idrelated.ToString(), 2);
+                    }
                     //}
 
                     string oggetto = idaccCost == DBNull.Value ? "Ritenuta negativa" : "Contributo negativo";
@@ -12255,7 +12397,7 @@ namespace ep_functions {
 
                     EP.EffettuaScritturaImpegnoBudget("INCAS", quota * sign, idaccCreditCsa, idregAgency, idupb,
                         DBNull.Value, DBNull.Value,
-                        null, null, null, idepacc, idrelated,
+                        null, null, idepexp, idepacc, idrelated,
                         $"{oggetto} su riga versamento {rVer["idver"]}- Capitolo: {rVer["capitolocsa"]}- Ruolo: {rVer["ruolocsa"]}- Matricola: {rVer["matricola"]}");
 
 
@@ -12370,7 +12512,7 @@ namespace ep_functions {
                         curr["matricola"]);
 
                     EP.EffettuaScritturaIdRelated("PAGAM", quota * sign, idaccPayment,
-                        idregCsa != DBNull.Value ? idregCsa : idregToUse, 
+                        idregToUse, 
                         curr["idupb"], null,
                         getAccMotiveForSiope(curr["idsor_siope"], curr["idacc"]),
                         idrelatedTransitorio,
@@ -12434,6 +12576,9 @@ namespace ep_functions {
                 object idregToUse = idregCsa;
                 decimal originalAmount = CfgFn.GetNoNullDecimal(curr["amount"]);
 
+                object idacc_cost_reversal = curr["idacc_cost_reversal"];
+            
+
                 if (curr["idreg"] != DBNull.Value) idregToUse = curr["idreg"];
                 idregToUse = idregIncasso;
 
@@ -12450,10 +12595,15 @@ namespace ep_functions {
 
                 //LORDI NEGATIVI
                 if (originalAmount < 0) {
-                    List<InfoImpegno> impegniBudget = getAmountsForScrittureRiepRicavo(curr, true);
+                    // 22329 in presenza di conto di storno costo l'importazione ha movimentato il conto di storno costo
+                    // e generato un impegno di budget di tipo variazione (non un accertamento): va associato quello
+                    bool stornoCosto = idacc_cost_reversal != DBNull.Value;
+                    List<InfoImpegno> impegniBudget = stornoCosto
+                        ? getAmountsForScrittureRiepStornodiCosto(curr, true)
+                        : getAmountsForScrittureRiepRicavo(curr, true);
                     var idupb = curr["idupb"];
                     foreach (InfoImpegno i in impegniBudget) {
-                        if (i.parIdExp == DBNull.Value && UsaAccertamentiDiBudget && esercizio > 2015 &&
+                        if (!stornoCosto && i.parIdExp == DBNull.Value && UsaAccertamentiDiBudget && esercizio > 2015 &&
                             EP.isRicavo(idaccRicavo)) {
                             ShowMessage(
                                 $"Non è stato trovato un accertamento di budget per la riga di riepilogo negativo \"{doc}\"",
@@ -12461,11 +12611,23 @@ namespace ep_functions {
                             return false;
                         }
 
-                        object currUPB = getUpbForEpAcc(i.parIdExp, idupb);
+                        if (stornoCosto && i.parIdExp == DBNull.Value && UsaImpegniDiBudget && esercizio > 2015 &&
+                            EP.isCosto(idacc_cost_reversal)) {
+                            ShowMessage(
+                                $"Non è stato trovato un impegno di budget di tipo variazione per la riga di riepilogo negativo \"{doc}\"",
+                                "Errore");
+                            return false;
+                        }
+
+                        object idepexp = stornoCosto ? i.parIdExp : null;
+                        object idepacc = stornoCosto ? null : i.parIdExp;
+                        object currUPB = stornoCosto
+                            ? getUpbForEpExp(i.parIdExp, idupb, null)
+                            : getUpbForEpAcc(i.parIdExp, idupb);
                         EP.EffettuaScritturaImpegnoBudget("PAGAM",
                             -i.amount * sign, idaccProceeds,
                             idregToUse, currUPB, DBNull.Value, DBNull.Value,
-                            null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), null, i.parIdExp,
+                            null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), idepexp, idepacc,
                             idrelatedTransitorio, //i.idrelated,
                             "Lordi negativi, Riepilogo, riga " + curr["idriep"] + "- Capitolo: " +
                             curr["capitolocsa"] + "- Ruolo: " + curr["ruolocsa"] + "- Matricola: " +
@@ -12474,7 +12636,7 @@ namespace ep_functions {
                         EP.EffettuaScritturaImpegnoBudget("PAGAM",
                             -i.amount * sign, idaccRegistry,
                             idregToUse, currUPB, DBNull.Value, DBNull.Value,
-                            null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), null, i.parIdExp,
+                            null, getAccMotiveForSiope(idsiopeincomeCsa, idaccRicavo), idepexp, idepacc,
                             i.idrelated,
                             "Lordi negativi, Riepilogo, riga " + curr["idriep"] + "- Capitolo: " +
                             curr["capitolocsa"] + "- Ruolo: " + curr["ruolocsa"] + "- Matricola: " +
@@ -13658,7 +13820,8 @@ namespace ep_functions {
                         bool res2 = generaImpegniImportazioneCsa(bf, curr, nPhase);
                         silent = res2 | silentBlocked;
                         res2 |= generaAccertamentiImportazioneCsa(bf, curr, nPhase);
-                        silent = savedSilent;
+                        res2 |= generaImpegniStorniCostoImportazioneCsa(bf, curr, nPhase); // Storno riepiloghi e versamenti negativi su configurazione Specifica
+                    silent = savedSilent;
                         return res2;
                     }
 
@@ -16161,7 +16324,7 @@ namespace ep_functions {
 
             }
 
-            if (!somethingfound) {
+            if ((!somethingfound)&&(assetacquireview.Rows.Count >0)) {
                 if (!silent) {
                     ShowMessage(
                         "Nessun carico ha la causale di reddito o sconto quindi nessun movimento è stato generato.",
@@ -16241,7 +16404,8 @@ namespace ep_functions {
                 if ((idaccmotive == null) || (idaccmotive == DBNull.Value)) {
                     string textVar = (isAmmortamento) ? "dell'ammortamento " : "della svalutazione ";
                     ShowMessage(
-                        "La causale E/P " + textVar + inventoryamortization.ToString() + " non è stata configurata!" +
+                         "Cespite n." + rAssAmm["idasset"] + " / " + rAssAmm["idpiece"] +
+                        "\nLa causale E/P " + textVar + inventoryamortization.ToString() + " non è stata configurata!" +
                         "\nInserire la configurazione sulla classificazione inventariale del cespite ammortizzato" +
                         "\n(menu: Cespiti > Classificazione inventariale).",
                         "Errore");
@@ -19682,6 +19846,7 @@ namespace ep_functions {
                 if (nphase == 2 && !impegniAbilitati(r)) continue;
                 if (vecchiaGest) res = res | generaImpegniRiepilogo(bf, r, nphase);
                 if (nuovaGestione) res = res | generaImpegniRiepilogoNuovaGestione(bf, r, nphase);
+
             }
 
             foreach (DataRow r in ver.Rows) {
@@ -19723,6 +19888,46 @@ namespace ep_functions {
                 if (nphase == 2 && !accertamentiAbilitati(r)) continue;
 
                 res = res | generaAccertamentiVersamenti(bf, r, nphase, nuovaGestione);
+            }
+
+            return res;
+        }
+
+        private bool generaImpegniStorniCostoImportazioneCsa(BudgetFunction bf, DataRow curr, int nphase) {
+            object idcsa_import = curr["idcsa_import"];
+            bool vecchiaGest = vecchiaGestione(idcsa_import);
+            bool nuovaGestione = !vecchiaGest;
+            DataTable riep = curr.Table.DataSet.Tables["csa_importriep"];
+            DataTable ver = curr.Table.DataSet.Tables["csa_importver"];
+            if (nuovaGestione) {
+                riep = Conn.readTable("csa_importriep_partitionview",
+                    q.eq("idcsa_import", idcsa_import) & q.lt("amount", 0));
+                ver = Conn.readTable("csa_importver_partitionview",
+                    q.eq("idcsa_import", idcsa_import));
+                riep.TableName = "csa_importriep_partitionview";
+                ver.TableName = "csa_importver_partitionview";
+            }
+
+            //ShowMessage(ver.Rows.Count.ToString());
+            bool res = false;
+            foreach (DataRow r in riep.Rows) {
+                if (nphase == 1 && !preAccertamentiAbilitati(r))
+                    continue;
+                if (nphase == 2 && !accertamentiAbilitati(r))
+                    continue;
+                res = res | generaImpegniVariazioneRiepilogo(bf, r, nphase, nuovaGestione);
+            }
+
+            foreach (DataRow r in ver.Rows) {
+                //if (r["idacc_cost_reversal"]==DBNull.Value)
+                //    continue;
+                    if (nphase == 1 && !preImpegniAbilitati(r))
+                    continue;
+
+                if (nphase == 2 && !impegniAbilitati(r))
+                    continue;
+
+                res = res | generaImpegniVariazioneVersamento(bf, r, nphase, nuovaGestione);
             }
 
             return res;
@@ -19876,6 +20081,22 @@ namespace ep_functions {
             return importi;
         }
 
+
+        private List<InfoImpegno> getAmountsForImpegniVarRiep(DataRow riepCsa, int nphase) {
+            List<InfoImpegno> importi = new List<InfoImpegno>();
+            string colName = "importo";
+            if (riepCsa.Table.Columns.Contains("amount"))
+                colName = "amount";
+            decimal importo = CfgFn.GetNoNullDecimal(riepCsa[colName]);
+            if (importo < 0)
+                importo = -importo;
+            string idrelatedMain = BudgetFunction.GetIdForDocument(riepCsa);
+            //ShowMessage(idrelatedMain);
+            importi.Add(new InfoImpegno(getIdEpExpByIdRelated(idrelatedMain, nphase - 1), importo, idrelatedMain));
+            return importi;
+        }
+
+
         List<InfoImpegno> getAmountsForScrittureRiepRicavo(DataRow riepCsa, bool nuovaGestione) {
             List<InfoImpegno> importi = new List<InfoImpegno>();
             string colName = "importo";
@@ -19890,6 +20111,23 @@ namespace ep_functions {
             return importi;
         }
 
+        List<InfoImpegno> getAmountsForScrittureRiepStornodiCosto(DataRow riepCsa, bool nuovaGestione) {
+            // Righe di riepilogo Negative, gli importi vengono ripartiti sulla base degli impegni di Budget di Tipo variazione
+            List<InfoImpegno> importi = new List<InfoImpegno>();
+            string colName = "importo";
+            if (riepCsa.Table.Columns.Contains("amount"))
+                colName = "amount";
+            if (riepCsa.Table.Columns.Contains("quota"))
+                colName = "quota";
+            decimal importo = CfgFn.GetNoNullDecimal(riepCsa[colName]);
+            if (importo < 0)
+                importo = -importo;
+            //Vengono rintracciati gli impegni di budget di tipo variazione
+            string idrelatedMain = BudgetFunction.GetIdForDocument(riepCsa);
+            object idepexp = getIdEpExpByIdRelated(idrelatedMain, 2);
+            importi.Add(new InfoImpegno(idepexp, importo, nuovaGestione ? idrelatedMain : null));
+            return importi;
+        }
 
         List<InfoImpegno> getAmountsForScrittureRiep(DataRow riepCsa, object idupb, bool nuovaGestione) {
             List<InfoImpegno> importi = new List<InfoImpegno>();
@@ -20199,6 +20437,21 @@ namespace ep_functions {
 
         }
 
+        List<InfoImpegno> getAmountsForImpegniVarVersamenti(DataRow verCsa, int nphase) {
+            List<InfoImpegno> importi = new List<InfoImpegno>();
+            string colName = "importo";
+            if (verCsa.Table.Columns.Contains("amount"))
+                colName = "amount";
+            decimal importo = CfgFn.GetNoNullDecimal(verCsa[colName]);
+            if (importo < 0)
+                importo = -importo;
+            string idrelatedMain = BudgetFunction.GetIdForDocument(verCsa);
+            //ShowMessage(idrelatedMain);
+            importi.Add(new InfoImpegno(getIdEpExpByIdRelated(idrelatedMain, nphase - 1), importo, idrelatedMain));
+            return importi;
+
+        }
+
 
         List<InfoImpegno> getAmountsForScrittureVer(DataRow verCsa, object idupb, bool nuovaGestione) {
             List<InfoImpegno> importi = new List<InfoImpegno>();
@@ -20373,6 +20626,22 @@ namespace ep_functions {
             return importi;
         }
 
+
+        List<InfoImpegno> getAmountsForScrittureVerStornodiCosto(DataRow verCsa) {
+            List<InfoImpegno> importi = new List<InfoImpegno>();
+            string colName = "importo";
+            if (verCsa.Table.Columns.Contains("amount"))
+                colName = "amount";
+            decimal importo = CfgFn.GetNoNullDecimal(verCsa[colName]);
+            if (importo < 0)
+                importo = -importo;
+            string idrelatedMain = BudgetFunction.GetIdForDocument(verCsa);
+            //MetaFactory.factory.getSingleton<IMessageShower>().Show(idrelatedMain);
+            object idepexp = getIdEpExpByIdRelated(idrelatedMain, 2);
+            importi.Add(new InfoImpegno(idepexp, importo, idrelatedMain));
+            return importi;
+        }
+
         Hashtable idupbForEpExp = new Hashtable();
         Hashtable idupbForEpAcc = new Hashtable();
 
@@ -20417,7 +20686,7 @@ namespace ep_functions {
         }
 
         private bool generaImpegniRiepilogoNuovaGestione(BudgetFunction bf, DataRow curr, int nphase) {
-
+ 
             //curr è riga di csa_importriep_partitionview
             // legge idupb impostato sulla riga
             object idupb = curr["idupb"];
@@ -20475,6 +20744,8 @@ namespace ep_functions {
 
         private bool generaImpegniRiepilogo(BudgetFunction bf, DataRow curr, int nphase) {
             // legge idupb impostato sulla riga
+            //if (CfgFn.GetNoNullInt32(curr["idriep"]) != 63)
+            //    return false;
             object idupb = curr["idupb"];
             // quando sulla riga  in elaborazione non esiste un preimpegno di budget singolo
             // nè una ripartizione in preimpegni di budget, ma esiste solo un impegno finanziario singolo, deve leggere l'idupb dall'impegno finanziario
@@ -20549,11 +20820,17 @@ namespace ep_functions {
         }
 
         private bool generaAccertamentiRiepilogo(BudgetFunction bf, DataRow curr, int nphase, bool nuovaGestione) {
+            // Questo metodo va richiamato solo in assenza di configurazione specifica di conti di  storno costo, 
+            // rappresenta la gestione iniziale delle righe negative che conserviamo
 
+            // LORDI NEGATIVI IN PRESENZA DI idacc_revenue_gross_csa, CONTO ANNUALE CONFIGURATO E 
+            // IN ASSENZA DI CONFIGURAZIONE SPECIFICA DEI CONTI DI STORNO DI COSTO
             object idupb = curr["idupb"];
             if (idupb == DBNull.Value) {
                 idupb = "0001";
             }
+            object idacc_cost_reversal = curr["idacc_cost_reversal"];
+            if ( idacc_cost_reversal!= DBNull.Value)  return false;
 
             object idaccRevenue = _rConfig["idacc_revenue_gross_csa"];
             if (!EP.isRicavo(idaccRevenue)) return false;
@@ -20604,6 +20881,139 @@ namespace ep_functions {
             return true;
         }
 
+
+        private bool generaImpegniVariazioneRiepilogo(BudgetFunction bf, DataRow curr, int nphase, bool nuovaGestione) {
+            // Questo metodo va richiamato solo in presenza di configurazione specifica di conti di  storno costo, 
+            // rappresenta una gestione alternativa delle righe negative  e genera impegni di budget di tipo variazione al posto degli accertamenti
+
+            // LORDI NEGATIVI IN PRESENZA DI CONFIGURAZIONE SPECIFICA DEI CONTI DI STORNO DI COSTO
+            object idupb = curr["idupb"];
+            if (idupb == DBNull.Value) {
+                idupb = "0001";
+            }
+            object idacc_cost_reversal = curr["idacc_cost_reversal"];
+            if (idacc_cost_reversal == DBNull.Value)
+                return false;
+
+            if (!EP.isCosto(idacc_cost_reversal))
+                return false;
+            string colname = "importo";
+            if (nuovaGestione)
+                colname = "amount";
+            decimal importo = CfgFn.GetNoNullDecimal(curr[colname]);
+            if (importo > 0)
+                return false;
+
+            DataTable csaImport;
+            if (DS.Tables.Contains("csa_import")) {
+                csaImport = DS.Tables["csa_import"];
+            }
+            else {
+                csaImport = Conn.RUN_SELECT("csa_import", "*", null, QHS.CmpEq("idcsa_import", curr["idcsa_import"]),
+                    null, false);
+            }
+
+            object adate = csaImport.Rows[0]["adate"];
+            object yimport = csaImport.Rows[0]["yimport"];
+            object nimport = csaImport.Rows[0]["nimport"];
+            object doc = "Riep. n." +
+                         curr["idriep"] + " Import. CSA " +
+                         yimport + "/" +
+                         nimport.ToString().PadLeft(2, '0');
+            if (nuovaGestione)
+                doc += "/" + curr["ndetail"];
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
+            List<InfoImpegno> listaInfo = getAmountsForImpegniVarRiep(curr, nphase);
+            foreach (InfoImpegno i in listaInfo) {
+                object currUPB = getUpbForEpExp(i.parIdExp, idupb, null);
+                object idreg = DBNull.Value;
+                if (nuovaGestione)
+                    idreg = curr["idreg"];
+                if (idreg == DBNull.Value)
+                    idreg = _rConfig["idreg_csa"];
+                DataRow currEpExp= bf.addEpExp(idreg, getIdMan(currUPB), i.amount,
+                    doc, adate, idacc_cost_reversal, currUPB, i.idrelated, doc, adate,
+                    DBNull.Value, DBNull.Value, nphase, i.parIdExp, null);
+                currEpExp["flagvariation"] = "S";
+                addImpegnoToDict(currEpExp, i.idrelated);
+                idupbForEpExp[(int)currEpExp["idepexp"]] = currUPB;
+            }
+
+            if (listaInfo.Count == 0 && nphase == 2) {
+                ShowMessage($"Impegno di Budget di budget non trovato per riepilogo n. {curr["idriep"]}", "Errore");
+            }
+
+            return true;
+        }
+
+        private bool generaImpegniVariazioneVersamento(BudgetFunction bf, DataRow curr, int nphase, bool nuovaGestione) {
+            // Questo metodo va richiamato solo in presenza di configurazione specifica di conti di  storno costo, 
+            // rappresenta una gestione alternativa delle righe negative  e genera impegni di budget di tipo variazione al posto degli accertamenti
+
+            // CONTRIBUTI NEGATIVI IN PRESENZA DI CONFIGURAZIONE SPECIFICA DEI CONTI DI STORNO DI COSTO
+            object idupb = curr["idupb"];
+            if (idupb == DBNull.Value) {
+                idupb = "0001";
+            }
+            object idacc_cost_reversal = curr["idacc_cost_reversal"];
+            if (idacc_cost_reversal == DBNull.Value)
+                return false;
+
+            if (!EP.isCosto(idacc_cost_reversal))
+                return false;
+            string colname = "importo";
+            if (nuovaGestione)
+                colname = "amount";
+            decimal importo = CfgFn.GetNoNullDecimal(curr[colname]);
+            if (importo > 0)
+                return false;
+
+            DataTable csaImport;
+            if (DS.Tables.Contains("csa_import")) {
+                csaImport = DS.Tables["csa_import"];
+            }
+            else {
+                csaImport = Conn.RUN_SELECT("csa_import", "*", null, QHS.CmpEq("idcsa_import", curr["idcsa_import"]),
+                    null, false);
+            }
+
+            object adate = csaImport.Rows[0]["adate"];
+            object yimport = csaImport.Rows[0]["yimport"];
+            object nimport = csaImport.Rows[0]["nimport"];
+            object doc = "Versam. " +
+                      curr["idver"] + " Import. " +
+                      yimport + "/" +
+                      nimport.ToString().PadLeft(2, '0') + "/" + curr["ndetail"];
+          
+            object description = doc + " - Voce: " + curr["vocecsa"].ToString();
+           
+            if (doc.ToString().Length > 35) {
+                doc = doc.ToString().Substring(0, 35);
+            }
+            List<InfoImpegno> listaInfo = getAmountsForImpegniVarVersamenti(curr, nphase);
+            foreach (InfoImpegno i in listaInfo) {
+                object currUPB = getUpbForEpExp(i.parIdExp, idupb, null);
+                object idreg = DBNull.Value;
+                if (nuovaGestione)
+                    idreg = curr["idreg"];
+                if (idreg == DBNull.Value)
+                    idreg = _rConfig["idreg_csa"];
+                DataRow currEpExp = bf.addEpExp(idreg, getIdMan(currUPB), i.amount,
+                    doc, adate, idacc_cost_reversal, currUPB, i.idrelated, doc, adate,
+                    DBNull.Value, DBNull.Value, nphase, i.parIdExp, null);
+                currEpExp["flagvariation"] = "S";
+                addImpegnoToDict(currEpExp, i.idrelated);
+                idupbForEpExp[(int)currEpExp["idepexp"]] = currUPB;
+            }
+
+            if (listaInfo.Count == 0 && nphase == 2) {
+                ShowMessage($"Impegno di Budget di budget non trovato per versamento n. {curr["idver"]}", "Errore");
+            }
+
+            return true;
+        }
         private bool generaImpegniVersamentiNuovaGestione(BudgetFunction bf, DataRow curr, int nphase) {
 
             bool recupero = curr["flagclawback"].ToString().ToUpper() == "S";
@@ -20798,6 +21208,9 @@ namespace ep_functions {
         }
 
         private bool generaAccertamentiVersamenti(BudgetFunction bf, DataRow curr, int nphase, bool nuovaGestione) {
+            object idacc_cost_reversal = curr["idacc_cost_reversal"];
+            if (idacc_cost_reversal != DBNull.Value)
+                return false;
             bool recupero = curr["flagclawback"].ToString().ToUpper() == "S";
             string colname = "importo";
             if (nuovaGestione) colname = "amount";
@@ -22203,9 +22616,10 @@ namespace ep_functions {
         /// <param name="bf"></param>
         /// <returns></returns>
         private bool generaScrittureContrattoPassivo(DataRow curr, BudgetFunction bf) {
+            bool scrittureNormaliAbilitate = isManKindEpEnabled(curr["idmankind"]);
+            
 
-
-            if (bf == null) {
+            if ((bf == null)||(!scrittureNormaliAbilitate)) {
                 EP.GetEntryForDocument(curr);
             }
             else {
@@ -22222,6 +22636,7 @@ namespace ep_functions {
 
             int ndetails = manDet.Rows.Count;
             bool epexists = EP.MainEntryExists();
+
             if ((epexists == false) && (ndetails == 0)) return false; //No details- no use for EP
 
             object doc;
@@ -22472,8 +22887,8 @@ namespace ep_functions {
                 }
 
                 if (EP.saldo != 0) {
-                    ShowMessage("Si è verificata una squadratura sul dettaglio " +
-                                rmandet["detaildescription"]);
+                    ShowMessage("Si è verificata una squadratura sul dettaglio n° " + rmandet["rownum"] + ": " +
+                                rmandet["detaildescription"] + ". Verificare le causali EP selezionate ");
                 }
 
 
@@ -22713,7 +23128,7 @@ namespace ep_functions {
                 if (EP.saldo != 0) {
                     ShowMessage("Si è verificata una squadratura sul dettaglio n° " +  rAnnul["rownum"]
                     + rAnnul["detaildescription"] +
-                                " (annullamento)");
+                                " (annullamento). Verificare le causali EP selezionate");
                 }
 
             }
@@ -23387,7 +23802,8 @@ namespace ep_functions {
                 if ((idaccmotive == null) || (idaccmotive == DBNull.Value)) {
                     string textVar = (isAmmortamento) ? "dell'ammortamento " : "della svalutazione ";
                     ShowMessage(
-                        "La causale E/P " + textVar + inventoryamortization.ToString() + " non è stata configurata!" +
+                        "Cespite n." + rAssAmm["idasset"] + " / " + rAssAmm["idpiece"] +
+                        "\nLa causale E/P " + textVar + inventoryamortization.ToString() + " non è stata configurata!" +
                         "\nInserire la configurazione sulla classificazione inventariale del cespite ammortizzato" +
                         "\n(menu: Cespiti > Classificazione inventariale).",
                         "Errore");
@@ -23891,7 +24307,10 @@ namespace ep_functions {
 
 
         private bool generaScrittureContrattoAttivo(DataRow curr, BudgetFunction bf) {
-            if (bf == null) {
+            
+            bool scrittureNormaliAbilitate = isEstimKindEpEnabled(curr["idestimkind"]);
+
+            if ((bf == null) || (!scrittureNormaliAbilitate)) {
                 EP.GetEntryForDocument(curr);
             }
             else {
@@ -24152,7 +24571,7 @@ namespace ep_functions {
                 }
 
                 if (EP.saldo != 0) {
-                    ShowMessage($"Si è verificata una squadratura sul dettaglio {restimdet["detaildescription"]}");
+                    ShowMessage($"Si è verificata una squadratura sul dettaglio n° {restimdet["rownum"]} {restimdet["detaildescription"]} .Verificare le causali EP selezionate");
                 }
 
 
@@ -24392,8 +24811,8 @@ namespace ep_functions {
                     descrizioneCredito + " dett. " + rAnnul["rownum"]);
 
                 if (EP.saldo != 0) {
-                    ShowMessage("Si è verificata una squadratura sul dettaglio " + rAnnul["detaildescription"] +
-                                " (annullamento)");
+                    ShowMessage("Si è verificata una squadratura sul dettaglio n° " + rAnnul["rownum"] + ": " + rAnnul["detaildescription"] +
+                                " (annullamento). Verificare le causali EP selezionate");
                 }
             }
 
@@ -26470,8 +26889,7 @@ namespace ep_functions {
             if (D.Tables["entry"].Rows.Count == 0) return false;
             return true;
         }
-
-
+ 
         public DataRow[] GetAccMotiveDetails(object idaccmotive) {
             if (idaccmotive == DBNull.Value || idaccmotive == null) return new DataRow[0];
             string filteraccmotive = QHS.AppAnd(QHS.CmpEq("idaccmotive", idaccmotive),
@@ -26956,7 +27374,7 @@ namespace ep_functions {
     public class AddAccMotiveFilter {
         public static string AddAmmDepFilter(string filter, DataAccess Conn) {
             QueryHelper QHS = Conn.GetQueryHelper();
-            string userdb = Conn.GetSys("userdb").ToString().ToLower(); //
+            string userdb = (Conn.GetSys("schema") ?? Conn.GetSys("userdb")).ToString().ToLower(); //
             if (userdb == "amministrazione")
                 return QHS.AppAnd(filter, QHS.NullOrEq("flagamm", "S"));
             else

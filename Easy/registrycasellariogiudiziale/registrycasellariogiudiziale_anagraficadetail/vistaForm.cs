@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -67,6 +66,7 @@ private void initClass() {
 	tregistrycasellariogiudiziale.defineColumn("ct", typeof(DateTime),false);
 	tregistrycasellariogiudiziale.defineColumn("lu", typeof(string),false);
 	tregistrycasellariogiudiziale.defineColumn("lt", typeof(DateTime),false);
+	tregistrycasellariogiudiziale.defineColumn("filename", typeof(string),false);
 	DataColumn C = new DataColumn("idfilestorage", typeof(string));
 	C.AllowDBNull=true;
 	tregistrycasellariogiudiziale.Columns.Add(C);

@@ -13,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 namespace Chat.Client {
     partial class WebChat {
         /// <summary>
@@ -39,38 +38,36 @@ namespace Chat.Client {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.rocketchat = new Microsoft.Web.WebView2.WinForms.WebView2();
-            ((System.ComponentModel.ISupportInitialize)(this.rocketchat)).BeginInit();
+            this.easygenius = new Microsoft.Web.WebView2.WinForms.WebView2();
+            ((System.ComponentModel.ISupportInitialize)(this.easygenius)).BeginInit();
             this.SuspendLayout();
             // 
-            // rocketchat
+            // easygenius
             // 
-            this.rocketchat.AllowExternalDrop = true;
-            this.rocketchat.CreationProperties = null;
-            this.rocketchat.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.rocketchat.Location = new System.Drawing.Point(56, 51);
-            this.rocketchat.Name = "rocketchat";
-            this.rocketchat.Size = new System.Drawing.Size(1342, 812);
-            this.rocketchat.TabIndex = 0;
-            this.rocketchat.ZoomFactor = 1D;
+            this.easygenius.AllowExternalDrop = true;
+            this.easygenius.CreationProperties = null;
+            this.easygenius.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.easygenius.Location = new System.Drawing.Point(0, 0);
+            this.easygenius.Name = "easygenius";
+            this.easygenius.Size = new System.Drawing.Size(1264, 861);
+            this.easygenius.TabIndex = 0;
+            this.easygenius.ZoomFactor = 1D;
             // 
             // WebChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1632, 925);
-            this.Controls.Add(this.rocketchat);
+            this.ClientSize = new System.Drawing.Size(1264, 861);
+            this.Controls.Add(this.easygenius);
             this.Name = "WebChat";
-            this.Text = "WebChat";
-            ((System.ComponentModel.ISupportInitialize)(this.rocketchat)).EndInit();
+            this.Text = "Assistente virtuale";
+            ((System.ComponentModel.ISupportInitialize)(this.easygenius)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Microsoft.Web.WebView2.WinForms.WebView2 rocketchat;
+        private Microsoft.Web.WebView2.WinForms.WebView2 easygenius;
     }
 }

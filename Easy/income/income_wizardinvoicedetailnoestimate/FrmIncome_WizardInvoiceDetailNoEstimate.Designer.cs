@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace income_wizardinvoicedetailnoestimate
 {
     partial class FrmIncome_WizardInvoiceDetailNoEstimate
@@ -45,6 +44,17 @@ namespace income_wizardinvoicedetailnoestimate
         {
 			this.DS = new income_wizardinvoicedetailnoestimate.vistaForm();
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
+			this.tabConfirm = new Crownwood.Magic.Controls.TabPage();
+			this.grpInfoOpzionali = new System.Windows.Forms.GroupBox();
+			this.gboxBolletta = new System.Windows.Forms.GroupBox();
+			this.txtBolletta = new System.Windows.Forms.TextBox();
+			this.btnBolletta = new System.Windows.Forms.Button();
+			this.gboxBilToCreate = new System.Windows.Forms.GroupBox();
+			this.label14 = new System.Windows.Forms.Label();
+			this.txtCodeBilSelected = new System.Windows.Forms.TextBox();
+			this.txtDenomBilSelected = new System.Windows.Forms.TextBox();
+			this.labMsgTODO2 = new System.Windows.Forms.Label();
+			this.labMsgTODO1 = new System.Windows.Forms.Label();
 			this.tabSetDetail = new Crownwood.Magic.Controls.TabPage();
 			this.cmbTipoFattura = new System.Windows.Forms.ComboBox();
 			this.txtDescrFattura = new System.Windows.Forms.TextBox();
@@ -118,23 +128,16 @@ namespace income_wizardinvoicedetailnoestimate
 			this.radioNewCont = new System.Windows.Forms.RadioButton();
 			this.radioAddCont = new System.Windows.Forms.RadioButton();
 			this.labelMessage = new System.Windows.Forms.Label();
-			this.tabConfirm = new Crownwood.Magic.Controls.TabPage();
-			this.grpInfoOpzionali = new System.Windows.Forms.GroupBox();
-			this.gboxBolletta = new System.Windows.Forms.GroupBox();
-			this.txtBolletta = new System.Windows.Forms.TextBox();
-			this.btnBolletta = new System.Windows.Forms.Button();
-			this.gboxBilToCreate = new System.Windows.Forms.GroupBox();
-			this.label14 = new System.Windows.Forms.Label();
-			this.txtCodeBilSelected = new System.Windows.Forms.TextBox();
-			this.txtDenomBilSelected = new System.Windows.Forms.TextBox();
-			this.labMsgTODO2 = new System.Windows.Forms.Label();
-			this.labMsgTODO1 = new System.Windows.Forms.Label();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnNext = new System.Windows.Forms.Button();
 			this.btnBack = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabController.SuspendLayout();
+			this.tabConfirm.SuspendLayout();
+			this.grpInfoOpzionali.SuspendLayout();
+			this.gboxBolletta.SuspendLayout();
+			this.gboxBilToCreate.SuspendLayout();
 			this.tabSetDetail.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridDetails)).BeginInit();
@@ -149,10 +152,6 @@ namespace income_wizardinvoicedetailnoestimate
 			this.groupBox20.SuspendLayout();
 			this.groupBox18.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			this.tabConfirm.SuspendLayout();
-			this.grpInfoOpzionali.SuspendLayout();
-			this.gboxBolletta.SuspendLayout();
-			this.gboxBilToCreate.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -167,8 +166,8 @@ namespace income_wizardinvoicedetailnoestimate
 			this.tabController.IDEPixelArea = true;
 			this.tabController.Location = new System.Drawing.Point(0, 0);
 			this.tabController.Name = "tabController";
-			this.tabController.SelectedIndex = 3;
-			this.tabController.SelectedTab = this.tabConfirm;
+			this.tabController.SelectedIndex = 1;
+			this.tabController.SelectedTab = this.tabSplit;
 			this.tabController.Size = new System.Drawing.Size(865, 544);
 			this.tabController.TabIndex = 24;
 			this.tabController.TabPages.AddRange(new Crownwood.Magic.Controls.TabPage[] {
@@ -177,6 +176,116 @@ namespace income_wizardinvoicedetailnoestimate
             this.tabSelMov,
             this.tabConfirm});
 			this.tabController.SelectionChanged += new System.EventHandler(this.tabController_SelectionChanged);
+			// 
+			// tabConfirm
+			// 
+			this.tabConfirm.Controls.Add(this.grpInfoOpzionali);
+			this.tabConfirm.Controls.Add(this.gboxBilToCreate);
+			this.tabConfirm.Controls.Add(this.labMsgTODO2);
+			this.tabConfirm.Controls.Add(this.labMsgTODO1);
+			this.tabConfirm.Location = new System.Drawing.Point(0, 0);
+			this.tabConfirm.Name = "tabConfirm";
+			this.tabConfirm.Selected = false;
+			this.tabConfirm.Size = new System.Drawing.Size(865, 519);
+			this.tabConfirm.TabIndex = 6;
+			this.tabConfirm.Title = "Pagina 4 di 4";
+			// 
+			// grpInfoOpzionali
+			// 
+			this.grpInfoOpzionali.Controls.Add(this.gboxBolletta);
+			this.grpInfoOpzionali.Location = new System.Drawing.Point(6, 200);
+			this.grpInfoOpzionali.Name = "grpInfoOpzionali";
+			this.grpInfoOpzionali.Size = new System.Drawing.Size(340, 59);
+			this.grpInfoOpzionali.TabIndex = 93;
+			this.grpInfoOpzionali.TabStop = false;
+			this.grpInfoOpzionali.Text = "Informazioni da associare all\'incasso (opzionali)";
+			// 
+			// gboxBolletta
+			// 
+			this.gboxBolletta.Controls.Add(this.txtBolletta);
+			this.gboxBolletta.Controls.Add(this.btnBolletta);
+			this.gboxBolletta.Location = new System.Drawing.Point(13, 13);
+			this.gboxBolletta.Name = "gboxBolletta";
+			this.gboxBolletta.Size = new System.Drawing.Size(312, 40);
+			this.gboxBolletta.TabIndex = 83;
+			this.gboxBolletta.TabStop = false;
+			this.gboxBolletta.Tag = "AutoChoose.txtBolletta.entrata.(active=\'S\')";
+			// 
+			// txtBolletta
+			// 
+			this.txtBolletta.Location = new System.Drawing.Point(104, 12);
+			this.txtBolletta.Name = "txtBolletta";
+			this.txtBolletta.Size = new System.Drawing.Size(100, 23);
+			this.txtBolletta.TabIndex = 1;
+			this.txtBolletta.Tag = "bill.nbill";
+			// 
+			// btnBolletta
+			// 
+			this.btnBolletta.Location = new System.Drawing.Point(8, 12);
+			this.btnBolletta.Name = "btnBolletta";
+			this.btnBolletta.Size = new System.Drawing.Size(88, 23);
+			this.btnBolletta.TabIndex = 0;
+			this.btnBolletta.TabStop = false;
+			this.btnBolletta.Tag = "choose.bill.entrata.((active=\'S\') AND (isnull(total,0)-isnull(reduction,0)>covere" +
+    "d) AND (ISNULL(toregularize,0)>0))";
+			this.btnBolletta.Text = "N. bolletta";
+			// 
+			// gboxBilToCreate
+			// 
+			this.gboxBilToCreate.Controls.Add(this.label14);
+			this.gboxBilToCreate.Controls.Add(this.txtCodeBilSelected);
+			this.gboxBilToCreate.Controls.Add(this.txtDenomBilSelected);
+			this.gboxBilToCreate.Location = new System.Drawing.Point(6, 48);
+			this.gboxBilToCreate.Name = "gboxBilToCreate";
+			this.gboxBilToCreate.Size = new System.Drawing.Size(558, 134);
+			this.gboxBilToCreate.TabIndex = 92;
+			this.gboxBilToCreate.TabStop = false;
+			this.gboxBilToCreate.Tag = "";
+			// 
+			// label14
+			// 
+			this.label14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.label14.Location = new System.Drawing.Point(6, 78);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(64, 13);
+			this.label14.TabIndex = 3;
+			this.label14.Text = "Bilancio";
+			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// txtCodeBilSelected
+			// 
+			this.txtCodeBilSelected.Location = new System.Drawing.Point(6, 105);
+			this.txtCodeBilSelected.Name = "txtCodeBilSelected";
+			this.txtCodeBilSelected.ReadOnly = true;
+			this.txtCodeBilSelected.Size = new System.Drawing.Size(518, 23);
+			this.txtCodeBilSelected.TabIndex = 1;
+			this.txtCodeBilSelected.Tag = "";
+			// 
+			// txtDenomBilSelected
+			// 
+			this.txtDenomBilSelected.Location = new System.Drawing.Point(138, 15);
+			this.txtDenomBilSelected.Multiline = true;
+			this.txtDenomBilSelected.Name = "txtDenomBilSelected";
+			this.txtDenomBilSelected.ReadOnly = true;
+			this.txtDenomBilSelected.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.txtDenomBilSelected.Size = new System.Drawing.Size(386, 84);
+			this.txtDenomBilSelected.TabIndex = 2;
+			this.txtDenomBilSelected.TabStop = false;
+			this.txtDenomBilSelected.Tag = "";
+			// 
+			// labMsgTODO2
+			// 
+			this.labMsgTODO2.Location = new System.Drawing.Point(3, 33);
+			this.labMsgTODO2.Name = "labMsgTODO2";
+			this.labMsgTODO2.Size = new System.Drawing.Size(680, 23);
+			this.labMsgTODO2.TabIndex = 3;
+			// 
+			// labMsgTODO1
+			// 
+			this.labMsgTODO1.Location = new System.Drawing.Point(3, 9);
+			this.labMsgTODO1.Name = "labMsgTODO1";
+			this.labMsgTODO1.Size = new System.Drawing.Size(680, 23);
+			this.labMsgTODO1.TabIndex = 2;
 			// 
 			// tabSetDetail
 			// 
@@ -435,7 +544,6 @@ namespace income_wizardinvoicedetailnoestimate
 			this.tabSplit.Controls.Add(this.txtDaPagare);
 			this.tabSplit.Location = new System.Drawing.Point(0, 0);
 			this.tabSplit.Name = "tabSplit";
-			this.tabSplit.Selected = false;
 			this.tabSplit.Size = new System.Drawing.Size(865, 519);
 			this.tabSplit.TabIndex = 7;
 			this.tabSplit.Title = "Pagina 2 di 4";
@@ -488,11 +596,11 @@ namespace income_wizardinvoicedetailnoestimate
 			this.rdbSplittaUno.Checked = true;
 			this.rdbSplittaUno.Location = new System.Drawing.Point(17, 69);
 			this.rdbSplittaUno.Name = "rdbSplittaUno";
-			this.rdbSplittaUno.Size = new System.Drawing.Size(565, 19);
+			this.rdbSplittaUno.Size = new System.Drawing.Size(577, 19);
 			this.rdbSplittaUno.TabIndex = 1;
 			this.rdbSplittaUno.TabStop = true;
-			this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da pagare. Sarà sudd" +
-    "iviso al più un dettaglio";
+			this.rdbSplittaUno.Text = "Contabilizza interamente i dettagli fino a coprire l\'importo da incassare. Sarà s" +
+    "uddiviso al più un dettaglio";
 			this.rdbSplittaUno.UseVisualStyleBackColor = true;
 			// 
 			// rdbSplittaTutti
@@ -500,10 +608,10 @@ namespace income_wizardinvoicedetailnoestimate
 			this.rdbSplittaTutti.AutoSize = true;
 			this.rdbSplittaTutti.Location = new System.Drawing.Point(18, 93);
 			this.rdbSplittaTutti.Name = "rdbSplittaTutti";
-			this.rdbSplittaTutti.Size = new System.Drawing.Size(510, 19);
+			this.rdbSplittaTutti.Size = new System.Drawing.Size(523, 19);
 			this.rdbSplittaTutti.TabIndex = 2;
-			this.rdbSplittaTutti.Text = "Distribuisci l\'importo da pagare su tutti i dettagli selezionati. Tutti i dettagl" +
-    "i saranno suddivisi";
+			this.rdbSplittaTutti.Text = "Distribuisci l\'importo da incassare su tutti i dettagli selezionati. Tutti i dett" +
+    "agli saranno suddivisi";
 			this.rdbSplittaTutti.UseVisualStyleBackColor = true;
 			// 
 			// label23
@@ -950,115 +1058,6 @@ namespace income_wizardinvoicedetailnoestimate
 			this.labelMessage.Size = new System.Drawing.Size(847, 32);
 			this.labelMessage.TabIndex = 106;
 			// 
-			// tabConfirm
-			// 
-			this.tabConfirm.Controls.Add(this.grpInfoOpzionali);
-			this.tabConfirm.Controls.Add(this.gboxBilToCreate);
-			this.tabConfirm.Controls.Add(this.labMsgTODO2);
-			this.tabConfirm.Controls.Add(this.labMsgTODO1);
-			this.tabConfirm.Location = new System.Drawing.Point(0, 0);
-			this.tabConfirm.Name = "tabConfirm";
-			this.tabConfirm.Size = new System.Drawing.Size(865, 519);
-			this.tabConfirm.TabIndex = 6;
-			this.tabConfirm.Title = "Pagina 4 di 4";
-			// 
-			// grpInfoOpzionali
-			// 
-			this.grpInfoOpzionali.Controls.Add(this.gboxBolletta);
-			this.grpInfoOpzionali.Location = new System.Drawing.Point(6, 200);
-			this.grpInfoOpzionali.Name = "grpInfoOpzionali";
-			this.grpInfoOpzionali.Size = new System.Drawing.Size(340, 59);
-			this.grpInfoOpzionali.TabIndex = 93;
-			this.grpInfoOpzionali.TabStop = false;
-			this.grpInfoOpzionali.Text = "Informazioni da associare all\'incasso (opzionali)";
-			// 
-			// gboxBolletta
-			// 
-			this.gboxBolletta.Controls.Add(this.txtBolletta);
-			this.gboxBolletta.Controls.Add(this.btnBolletta);
-			this.gboxBolletta.Location = new System.Drawing.Point(13, 13);
-			this.gboxBolletta.Name = "gboxBolletta";
-			this.gboxBolletta.Size = new System.Drawing.Size(312, 40);
-			this.gboxBolletta.TabIndex = 83;
-			this.gboxBolletta.TabStop = false;
-			this.gboxBolletta.Tag = "AutoChoose.txtBolletta.entrata.(active=\'S\')";
-			// 
-			// txtBolletta
-			// 
-			this.txtBolletta.Location = new System.Drawing.Point(104, 12);
-			this.txtBolletta.Name = "txtBolletta";
-			this.txtBolletta.Size = new System.Drawing.Size(100, 23);
-			this.txtBolletta.TabIndex = 1;
-			this.txtBolletta.Tag = "bill.nbill";
-			// 
-			// btnBolletta
-			// 
-			this.btnBolletta.Location = new System.Drawing.Point(8, 12);
-			this.btnBolletta.Name = "btnBolletta";
-			this.btnBolletta.Size = new System.Drawing.Size(88, 23);
-			this.btnBolletta.TabIndex = 0;
-			this.btnBolletta.TabStop = false;
-			this.btnBolletta.Tag = "choose.bill.entrata.((active=\'S\') AND (isnull(total,0)-isnull(reduction,0)>covere" +
-    "d) AND (ISNULL(toregularize,0)>0))";
-			this.btnBolletta.Text = "N. bolletta";
-			// 
-			// gboxBilToCreate
-			// 
-			this.gboxBilToCreate.Controls.Add(this.label14);
-			this.gboxBilToCreate.Controls.Add(this.txtCodeBilSelected);
-			this.gboxBilToCreate.Controls.Add(this.txtDenomBilSelected);
-			this.gboxBilToCreate.Location = new System.Drawing.Point(6, 48);
-			this.gboxBilToCreate.Name = "gboxBilToCreate";
-			this.gboxBilToCreate.Size = new System.Drawing.Size(558, 134);
-			this.gboxBilToCreate.TabIndex = 92;
-			this.gboxBilToCreate.TabStop = false;
-			this.gboxBilToCreate.Tag = "";
-			// 
-			// label14
-			// 
-			this.label14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label14.Location = new System.Drawing.Point(6, 78);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(64, 13);
-			this.label14.TabIndex = 3;
-			this.label14.Text = "Bilancio";
-			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtCodeBilSelected
-			// 
-			this.txtCodeBilSelected.Location = new System.Drawing.Point(6, 105);
-			this.txtCodeBilSelected.Name = "txtCodeBilSelected";
-			this.txtCodeBilSelected.ReadOnly = true;
-			this.txtCodeBilSelected.Size = new System.Drawing.Size(518, 23);
-			this.txtCodeBilSelected.TabIndex = 1;
-			this.txtCodeBilSelected.Tag = "";
-			// 
-			// txtDenomBilSelected
-			// 
-			this.txtDenomBilSelected.Location = new System.Drawing.Point(138, 15);
-			this.txtDenomBilSelected.Multiline = true;
-			this.txtDenomBilSelected.Name = "txtDenomBilSelected";
-			this.txtDenomBilSelected.ReadOnly = true;
-			this.txtDenomBilSelected.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDenomBilSelected.Size = new System.Drawing.Size(386, 84);
-			this.txtDenomBilSelected.TabIndex = 2;
-			this.txtDenomBilSelected.TabStop = false;
-			this.txtDenomBilSelected.Tag = "";
-			// 
-			// labMsgTODO2
-			// 
-			this.labMsgTODO2.Location = new System.Drawing.Point(3, 33);
-			this.labMsgTODO2.Name = "labMsgTODO2";
-			this.labMsgTODO2.Size = new System.Drawing.Size(680, 23);
-			this.labMsgTODO2.TabIndex = 3;
-			// 
-			// labMsgTODO1
-			// 
-			this.labMsgTODO1.Location = new System.Drawing.Point(3, 9);
-			this.labMsgTODO1.Name = "labMsgTODO1";
-			this.labMsgTODO1.Size = new System.Drawing.Size(680, 23);
-			this.labMsgTODO1.TabIndex = 2;
-			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1114,6 +1113,12 @@ namespace income_wizardinvoicedetailnoestimate
 			this.Text = "FrmIncome_WizardInvoiceDetailNoEstimate";
 			((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
 			this.tabController.ResumeLayout(false);
+			this.tabConfirm.ResumeLayout(false);
+			this.grpInfoOpzionali.ResumeLayout(false);
+			this.gboxBolletta.ResumeLayout(false);
+			this.gboxBolletta.PerformLayout();
+			this.gboxBilToCreate.ResumeLayout(false);
+			this.gboxBilToCreate.PerformLayout();
 			this.tabSetDetail.ResumeLayout(false);
 			this.tabSetDetail.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
@@ -1139,12 +1144,6 @@ namespace income_wizardinvoicedetailnoestimate
 			this.groupBox18.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			this.tabConfirm.ResumeLayout(false);
-			this.grpInfoOpzionali.ResumeLayout(false);
-			this.gboxBolletta.ResumeLayout(false);
-			this.gboxBolletta.PerformLayout();
-			this.gboxBilToCreate.ResumeLayout(false);
-			this.gboxBilToCreate.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 

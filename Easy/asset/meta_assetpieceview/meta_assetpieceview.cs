@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using metadatalibrary;
@@ -57,8 +56,8 @@ namespace meta_assetpieceview{
 					DescribeAColumn(T, C.ColumnName, "",-1);
 
                 int nPos = 1;
-                DescribeAColumn(T, "idasset", ".idasset", nPos++);
-                DescribeAColumn(T, "idpiece", ".idpiece", nPos++);
+                DescribeAColumn(T, "idasset", "Num. Cespite", nPos++);
+                DescribeAColumn(T, "idpiece", "Num. parte", nPos++);
                 DescribeAColumn(T, "ninventory", "Num. inventario", nPos++);
                 DescribeAColumn(T, "inventory", "Inventario", nPos++);
                 DescribeAColumn(T, "description", "Descrizione", nPos++);

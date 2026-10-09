@@ -203,7 +203,6 @@
     <Compile Include="Frm_proceeds_reversalemultipla.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="vistaForm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

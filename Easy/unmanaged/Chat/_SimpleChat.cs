@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Windows.Forms;
 
@@ -21,7 +20,7 @@ using RestSharp;
 namespace QAClient {
     public partial class SimpleChat : Form {
 
-        private readonly RestClient QA = new RestClient("http://your-db-server");
+        private readonly RestClient QA = new RestClient("http://10.10.10.183");
 
         private string lastQuestion = string.Empty;
         private string lastAnswer = string.Empty;

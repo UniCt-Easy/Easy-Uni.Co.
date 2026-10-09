@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -438,7 +437,7 @@ namespace csa_import_default {
 		private void InitializeAllListEP() {
 			//1) LORDI POSITIVI: Conto di costo (idacc_cost) non valorizzato riepiloghi positivi
 			AllListEP[0] = this.btnEP0_Click;
-			//2)  LORDI NEGATIVI: Conto di ricavo lordi (idacc_revenue_gross_csa) non valorizzato riepiloghi negativi (in config)
+			//2) LORDI NEGATIVI: Conto di storno di costo lordi (idacc_cost_reversal) non valorizzato nelle ripartizioni per riepiloghi negativi (in regole generali/specifiche )
 			AllListEP[1] = this.btnEP1_Click;
 			//3) CONTRIBUTI con importo POSITIVO: Conto di costo non configurato per contributi positivi
 			// --Costo a debito con idacc_cost ove COSTO = idacc_cost DEBITO = ISNULL(_debit, _expense)
@@ -503,6 +502,19 @@ namespace csa_import_default {
 			AllListEP[25] = this.btn85_Click;
 			//27) Riepiloghi con Anagrafica  valorizzata ma causale di debito non valorizzata nella scheda Altri Dati - Mandati nominativi
 			AllListEP[26] = this.btnEP25_Click;
+			//28) CONFIGURAZIONE CONTRIBUTI NEGATIVI a liquidazione diretta:  ELENCO Voci CSA Contributi per i quali
+			// il Conto di Storno di Costo idacc_cost_reversal non risulta configurato nella scheda del contributo della Regola Generale o Specifica di pertinenza
+			// idacc_cost_reversal(Conto EP di Storno di Costo(Solo per Contributi negativi))
+			AllListEP[27] = this.btnEP28_Click;
+			//29) CONFIGURAZIONE REGOLA GENERALE E SPECIFICA:
+			// Conto di  Costo incoerente con il conto dell'impegno di budget configurato 
+			// nelle regole specifiche collegate, controlla esercizio corrente
+			AllListEP[28] = this.btnEP29_Click;
+			AllListEP[29] = this.btnEP30_Click;
+			//31) 'Conto di "storno costi" non può essere un conto di ricavo in presenza di riepiloghi negativi. 
+			AllListEP[30] = this.btnEP31_Click;
+			//32) 'Conto di "storno costi" non può essere un conto di ricavo in presenza di contributi negativi. 
+			AllListEP[31] = this.btnEP32_Click;
 		}
 
 
@@ -539,7 +551,6 @@ namespace csa_import_default {
 			this.btnInputSospesi = new System.Windows.Forms.Button();
 			this.lblRigheVer = new System.Windows.Forms.Label();
 			this.lblRigheRiep = new System.Windows.Forms.Label();
-			//this.progressBarImport = new System.Windows.Forms.ProgressBar();
 			this._openInputFileDlg = new System.Windows.Forms.OpenFileDialog();
 			this._saveOutputFileDlg = new System.Windows.Forms.SaveFileDialog();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -884,16 +895,6 @@ namespace csa_import_default {
 			this.lblRigheRiep.TabIndex = 4;
 			this.lblRigheRiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// progressBarImport
-			// 
-			//this.progressBarImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-   //         | System.Windows.Forms.AnchorStyles.Right)));
-			//this.progressBarImport.Location = new System.Drawing.Point(10, 720);
-			//this.progressBarImport.Name = "progressBarImport";
-			//this.progressBarImport.Size = new System.Drawing.Size(993, 22);
-			//this.progressBarImport.TabIndex = 10;
-			//this.progressBarImport.Visible = false;
-			// 
 			// groupBox2
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -990,7 +991,7 @@ namespace csa_import_default {
 			this.rdbExpToListing.AutoSize = true;
 			this.rdbExpToListing.Location = new System.Drawing.Point(18, 79);
 			this.rdbExpToListing.Name = "rdbExpToListing";
-			this.rdbExpToListing.Size = new System.Drawing.Size(88, 17);
+			this.rdbExpToListing.Size = new System.Drawing.Size(102, 19);
 			this.rdbExpToListing.TabIndex = 3;
 			this.rdbExpToListing.TabStop = true;
 			this.rdbExpToListing.Text = "Come Elenco";
@@ -1001,7 +1002,7 @@ namespace csa_import_default {
 			this.rdbExpToCsv.AutoSize = true;
 			this.rdbExpToCsv.Location = new System.Drawing.Point(18, 48);
 			this.rdbExpToCsv.Name = "rdbExpToCsv";
-			this.rdbExpToCsv.Size = new System.Drawing.Size(96, 17);
+			this.rdbExpToCsv.Size = new System.Drawing.Size(109, 19);
 			this.rdbExpToCsv.TabIndex = 2;
 			this.rdbExpToCsv.TabStop = true;
 			this.rdbExpToCsv.Text = "In formato CSV";
@@ -1012,7 +1013,7 @@ namespace csa_import_default {
 			this.rdbExpToExcel.AutoSize = true;
 			this.rdbExpToExcel.Location = new System.Drawing.Point(18, 19);
 			this.rdbExpToExcel.Name = "rdbExpToExcel";
-			this.rdbExpToExcel.Size = new System.Drawing.Size(63, 17);
+			this.rdbExpToExcel.Size = new System.Drawing.Size(71, 19);
 			this.rdbExpToExcel.TabIndex = 1;
 			this.rdbExpToExcel.TabStop = true;
 			this.rdbExpToExcel.Text = "In Excel";
@@ -1520,7 +1521,7 @@ namespace csa_import_default {
 			this.label12.AutoSize = true;
 			this.label12.Location = new System.Drawing.Point(53, 23);
 			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(12, 13);
+			this.label12.Size = new System.Drawing.Size(10, 15);
 			this.label12.TabIndex = 4;
 			this.label12.Text = "/";
 			// 
@@ -1529,7 +1530,7 @@ namespace csa_import_default {
 			this.label11.AutoSize = true;
 			this.label11.Location = new System.Drawing.Point(157, 23);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(28, 13);
+			this.label11.Size = new System.Drawing.Size(31, 15);
 			this.label11.TabIndex = 3;
 			this.label11.Text = "data";
 			// 
@@ -1579,7 +1580,6 @@ namespace csa_import_default {
 			this.Controls.Add(this.lblRigheRiep);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.label1);
-			//this.Controls.Add(this.progressBarImport);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.grpImportazione);
 			this.Controls.Add(this.label2);
@@ -1723,9 +1723,6 @@ namespace csa_import_default {
 				btnInputVersamenti.Enabled = false;
 				btnImportEmisti.Enabled = false;
 			}
-
-		 
-
 			lblRigheRiep.Text = "Righe Riepiloghi Importate:" + countRiep.ToString();
 			lblRigheVer.Text = "Righe Versamenti Importate:" + countVer.ToString();
 
@@ -2005,7 +2002,7 @@ namespace csa_import_default {
 				}
 
 				case 3: {
-					Listing_Click(sender, e, dataTable, view, "default", null, filter, filterView);
+					Listing_Click(sender, e, dataTable, view, listType != null ? listType : "default", null, filter, filterView);
 					break;
 				}
 
@@ -8753,7 +8750,7 @@ namespace csa_import_default {
 			if (Meta.IsEmpty) return;
 			DataRow Curr = DS.csa_import.Rows[0];
 			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
-				QHS.CmpLt("importo", 0));
+				QHS.CmpLt("importo", 0),QHS.IsNull("idacc_cost_reversal"));
 			string sqlCmd = " SELECT ayear as 'Eserc.', " +
 			                " idriep as 'Numero Riepilogo', " +
 			                " yimport as 'Eserc. Import', " +
@@ -9556,7 +9553,209 @@ namespace csa_import_default {
 				VisualizzaDati(sender, e, T, "csa_importriep", "default", filter);
 			}
 		}
-			private void dgrVerifiche_DoubleClick(object sender, EventArgs e) {
+		//28) CONFIGURAZIONE CONTRIBUTI NEGATIVI a liquidazione diretta:  ELENCO Voci CSA Contributi per i quali
+		// il Conto di Storno di Costo idacc_cost_reversal non risulta configurato nella scheda del contributo della Regola Generale o Specifica di pertinenza
+		// idacc_cost_reversal(Conto EP di Storno di Costo(Solo per Contributi negativi))
+		private void btnEP28_Click(object sender, EventArgs e) {
+			if (Meta.IsEmpty)
+				return;
+			if (rdbExpToListing.Checked) {
+				show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter =
+			"  ( EXISTS(select * from csa_contracttax CT " +
+			"     JOIN csa_contracttax_partition  CTP " +
+			"     ON CTP.idcsa_contracttax = CT.idcsa_contracttax  AND CTP.ayear = CT.ayear " +
+			"	  WHERE CT.vocecsa = csa_incomesetupview.vocecsa and CT.ayear = csa_incomesetupview.ayear " +
+			"     and CTP.idacc_cost_reversal is null) " + 
+			"	  AND " + 
+			"   EXISTS(select * from csa_contractkinddata WHERE csa_contractkinddata.vocecsa = csa_incomesetupview.vocecsa " +
+			"		and csa_contractkinddata.ayear = csa_incomesetupview.ayear  " +
+			"		and csa_contractkinddata.idacc_cost_reversal is null) " +
+			" ) ";
+
+
+			filter = QHS.AppAnd(QHS.CmpEq("ayear", Meta.GetSys("esercizio")), filter);
+	 
+
+			string sqlCmd = " SELECT csa_incomesetupview.ayear as 'Eserc.', " +
+							" csa_incomesetupview.vocecsa as 'Voce CSA', " +
+							" csa_incomesetupview.codeupb as 'Cod. UPB', " +
+							" csa_incomesetupview.upb as 'UPB', " +
+							" csa_incomesetupview.codeacc_expense as 'Conto di Debito Verso Ente', " +
+							" csa_incomesetupview.codeacc_revenue as 'Conto di Ricavo', " +
+							" csa_incomesetupview.codeacc_agency_credit as 'Conto di Credito verso ente' " +
+							" FROM csa_incomesetupview " +
+							" WHERE  " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			if (T != null) {
+				//VisualizzaDati(sender, e, T, "csa_contracttaxepexp", "elenco", filter);
+				VisualizzaDati2(sender, e, T, "csa_incomesetup", "csa_incomesetupview", "default",
+					filter, filter);
+			}
+		}
+		//29) CONFIGURAZIONE REGOLA GENERALE E SPECIFICA:
+		// Conto di  Costo incoerente con il conto dell'impegno di budget configurato 
+		// nelle regole specifiche collegate, controlla esercizio corrente
+		private void btnEP29_Click(object sender, EventArgs e) {
+			if (Meta.IsEmpty)
+				return;
+			if (rdbExpToListing.Checked) {
+				show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+			string filter = QHS.AppAnd(QHS.CmpEq("CP.active ", "S"), QHS.CmpEq("CP.ayear ", Meta.GetSys("esercizio")));
+
+			filter += " and isnull(CK.codeacc_main,'') <> isnull(epexp.codeacc, '') ";
+			 
+			string sqlCmd =
+				" SELECT 'Costo elab. LORDO' as 'Tipo Elab.', " +
+				" CK.contractkindcode as 'Cod. Regola Generale', CK.description as 'Regola Generale', " +
+				" CK.flagcr as 'Comp/Res', " +
+				" CP.idcsa_contract as '#id Regola Specifica CSA', CP.ycontract as 'Eserc.Regola specifica CSA', CP.ncontract as Numero, " +
+				" CP.ndetail as 'Dett'," +
+				" CP.yepexp as 'Eserc. PreImp. Budget', " +
+				" CP.nepexp as 'Num. PreImp. Budget', " +
+				" CK.codeacc_main as 'Conto di costo Regola Generale', epexp.codeacc as 'Conto di costo PreImp'" +
+				" FROM csa_contract_partitionview CP " +
+				" JOIN  csa_contractkindview CK ON CP.idcsa_contractkind = CK.idcsa_contractkind  " +
+				" AND CK.ayear = CP.ayear " +
+				" JOIN epexpview epexp ON CP.idepexp = epexp.idepexp AND CP.ayear = epexp.ayear " +
+				" WHERE " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			if (T != null) {
+				VisualizzaDati2(sender, e, T, "csa_contract_partition", "csa_contract_partitionview", "default",
+					filter, filter);
+			}
+		}
+
+		// 30) CONFIGURAZIONE CONTRIBUTI REGOLA GENERALE E SPECIFICA:   Conto di  Costo del Contributo della Regola Generale 
+		// incoerente con il conto di costo  dell'impegno di budget configurato 
+		// nei contributi delle regole specifiche collegate, controlla solo la configurazione dell'esercizio corrente
+		private void btnEP30_Click(object sender, EventArgs e) {
+			if (Meta.IsEmpty)
+				return;
+			if (rdbExpToListing.Checked) {
+				show("La modalità di verifica 'elenco' non è disponibile per questo controllo.", "Avviso");
+				return;
+			}
+	 
+			string filter = QHS.AppAnd(QHS.CmpEq("CKD.active ", "S"), QHS.CmpEq("CTP.active ", "S"), 
+				            QHS.CmpEq("CTP.ayear ", Meta.GetSys("esercizio")) 
+							);
+
+			filter += " and isnull(CKD.codeacc,'') <> isnull(epexp.codeacc,'') ";
+
+			string sqlCmd =
+				" SELECT 'Costo elab. CONTRIBUTO' as 'Tipo Elab.'," +
+				" CTP.voceCSA as 'Voce CSA', " +
+				" CKD.csa_contractkindcode as 'Cod. Regola Generale', CKD.csa_contractkind as 'Regola Generale', " +
+				" CKD.flagcr as 'Comp/Res', " +
+				" CTP.idcsa_contract as '#Id Regola Spec. CSA', CTP.ycontract as 'Eserc.Regola specifica CSA', CTP.ncontract as Numero, " +
+					" CTP.ndetail as 'Dett'," +
+					" CTP.yepexp  as 'Eserc. Imp. Budget', " +
+					" CTP.nepexp as 'Num .Imp. Budget',  " +
+					" CKD.codeacc as 'Conto di Costo Contributo Regola Generale', epexp.codeacc as 'Conto di Costo Preimp'" +
+					" from csa_contracttax_partitionview CTP " +
+					" JOIN  csa_contractkinddataview CKD " +
+					" ON CTP.idcsa_contractkind = CKD.idcsa_contractkind  " +
+					" AND CKD.ayear = CTP.ayear AND CTP.vocecsa = CKD.vocecsa " + 
+					" JOIN epexpview epexp ON CTP.idepexp = epexp.idepexp AND CTP.ayear = epexp.ayear " +
+					" WHERE " + filter;
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			if (T != null) {
+				VisualizzaDati2(sender, e, T, "csa_contracttax_partition", "csa_contracttax_partitionview",
+					"default", filter, filter);
+			}
+
+		}
+
+		// 31) 'Conto di "storno costi" non può essere un conto di ricavo in presenza di riepiloghi negativi. 
+		private void btnEP31_Click(object sender, EventArgs e) {
+			 
+			if (Meta.IsEmpty)
+				return;
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]),
+				QHS.CmpLt("amount", 0), QHS.IsNotNull("idacc_cost_reversal"));
+			string filter2 = QHS.AppAnd(filter, QHS.BitSet("flagaccountusage_cost_reversal", 7));
+			string sqlCmd = "  SELECT  ayear as 'Eserc.', " +
+							"  yimport as 'Eserc. Import', " +
+							"  nimport as 'Num. Import.',  " +
+							"  idriep as 'Numero Riepilogo',  " +
+							"  ndetail as 'Numero Dettaglio',  " +
+							"  amount as 'Importo' ," +
+							"  csa_contractkind as 'Regola Generale',  " +
+							"  ycontract as 'Eserc. Regola Specifica',  " +
+							"  ncontract as 'Num. Regola Specifica', " +
+							"  codeacc_cost_reversal as 'Cod. Conto Storno Costi'," +
+							"  account_cost_reversal as 'Conto Storno Costi',  " +
+							"  flagaccountusage_cost_reversal," +
+						    "  descflagaccountusage_cost_reversal " +
+							"  FROM csa_importriep_partitionview   " +
+							"  WHERE  " + filter +
+							"  AND (( flagaccountusage_cost_reversal & 128) <> 0) " +
+							"  order by idriep";  // CONTO RICAVO
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+			
+		 
+			if ((T != null) && (T.Rows.Count > 0)) {
+				VisualizzaDati2(sender, e, T, "csa_importriep_partition", "csa_importriep_partitionview", "default",
+					filter, filter2);
+			}
+
+		}
+
+		// 32)'Conto di "storno costi" non può essere un conto di ricavo in presenza di versamenti negativi (contributi). 
+		private void btnEP32_Click(object sender, EventArgs e) {
+			if (Meta.IsEmpty)
+				return;
+
+			DataRow Curr = DS.csa_import.Rows[0];
+			string filter = QHS.AppAnd(QHS.CmpEq("idcsa_import", Curr["idcsa_import"]), QHS.CmpEq("flagclawback", "N"),
+				QHS.IsNotNull("idacc_cost_reversal"),
+				QHS.DoPar(QHS.AppOr(QHS.IsNotNull("idcsa_contracttax"), QHS.IsNotNull("idcsa_contractkinddata"))),
+				QHS.CmpLt("amount", 0));
+			string filter2 = QHS.AppAnd(filter, QHS.BitSet("flagaccountusage_cost_reversal", 7));
+			string sqlCmd = "  SELECT  kind as 'Tipo', " +
+						" ayear as 'Eserc.', " +
+						"  yimport as 'Eserc. Import', " +
+						"  nimport as 'Num. Import.',  " +
+						"  idver as 'Numero Versamento',  " +
+						"  ndetail as 'Numero Dettaglio',  " +
+						"  amount as 'Importo' ," +
+						"  csa_contractkind as 'Regola Generale',  " +
+						"  ycontract as 'Eserc. Regola Specifica',  " +
+						"  ncontract as 'Num. Regola Specifica', " +
+						"  matricola as 'Matricola', " +
+						"  ente as 'Ente', " +
+						"  vocecsa as 'Voce CSA', " +
+						"  codeacc_cost_reversal as 'Cod. Conto Storno Costi'," +
+						"  account_cost_reversal as 'Conto Storno Costi',  " +
+						"  flagaccountusage_cost_reversal," +
+						"  descflagaccountusage_cost_reversal " +
+						"  FROM csa_importver_partitionview   " +
+						"  WHERE  " + filter +
+						"  AND (( flagaccountusage_cost_reversal & 128) <> 0) " +
+						"  order by idver";  // CONTO RICAVO
+
+			DataTable T = Conn.SQLRunner(sqlCmd);
+
+			if ((T != null) && (T.Rows.Count > 0)) {
+				VisualizzaDati2(sender, e, T, "csa_importver_partition", "csa_importver_partitionview", "elenco",
+					filter, filter2);
+			}
+		}
+
+
+
+		private void dgrVerifiche_DoubleClick(object sender, EventArgs e) {
 			DataGrid dataGrid = (DataGrid) sender;
 			DataRow RigheSelezionata = GetGridSelectedRows(dataGrid);
 			string kind_of_errors = "FIN";

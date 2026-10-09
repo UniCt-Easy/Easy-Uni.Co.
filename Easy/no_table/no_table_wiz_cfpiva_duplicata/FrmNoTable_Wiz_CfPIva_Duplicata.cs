@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -290,6 +289,28 @@ namespace no_table_wiz_cfpiva_duplicata {
             pBar.Value = 0;
         }
 
+        private static object GetCoalesceValue(
+            DataRow row,
+            params string[] columnNames) {
+            foreach (string columnName in columnNames) {
+                if (!row.Table.Columns.Contains(columnName))
+                    continue;
+
+                object value = row[columnName];
+
+                if (value == null || value == DBNull.Value)
+                    continue;
+
+                // Opzionale: considera le stringhe vuote come NULL.
+                if (value is string text && string.IsNullOrWhiteSpace(text))
+                    continue;
+
+                return value;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Crea una nuova riga e legge le righe del raggruppamento corrente in spesaview
         /// </summary>
@@ -308,7 +329,17 @@ namespace no_table_wiz_cfpiva_duplicata {
 
             string[] fields = (rdoCF.Checked) ? new string[] { "cf", "foreigncf" } : new string[] { "p_iva" };
 
-            string orFilter = QHS.AppOr(fields.Select(f => QHS.CmpEq(f, CurrRow["cf"])).ToArray()); // simuliamo coalesce
+            object keyValue = rdoCF.Checked
+                ? GetCoalesceValue(CurrRow, "cf", "foreigncf")
+                : GetCoalesceValue(CurrRow, "p_iva");
+
+            string orFilter = keyValue != null
+                ? QHS.AppOr(
+                    fields
+                        .Select(f => QHS.CmpEq(f, keyValue))
+                        .ToArray()
+                )
+                : null;
 
             string filter = QHS.AppAnd(QHS.MCmp(CurrRow, new[] { "idregistryclass" }), orFilter, QHS.CmpNe("multi_cf", 'S'));
             if (!chkNonAttive.Checked) filter = QHS.AppAnd(filter, QHS.NullOrEq("active", 'S'));

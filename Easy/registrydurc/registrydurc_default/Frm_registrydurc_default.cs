@@ -1,6 +1,6 @@
 /*
 Easy
-Copyright (C) 2026 Universit� degli Studi di Catania (www.unict.it)
+Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,27 +70,9 @@ namespace registrydurc_default{
 
             if (Curr["selfcertification"] != DBNull.Value || Curr["idfilestorage2"] != DBNull.Value)
             {
-
-                // File preso dall'attachment o dal MongoDb
-                byte[] ByteArray = { };
-
-                if (Curr["selfcertification"] != DBNull.Value)
-                {
-                    // Attachment
-                    ByteArray = (byte[])Curr["selfcertification"];
-                }
-                else
-                {
-                    // MongoDb
-                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage2"].ToString()).GetAwaiter().GetResult();
-                    if (ByteArray == null)
-                    {
-                        show("Servizio Download degli Allegati non disponibile");
-                        return;
-                    }
-                }
-
-                labAutocertFileName.Text = GetFileName(ByteArray);
+                string nome = NomeDaMostrare(Curr, "selfcertification");
+                if (nome == null) return; // download non disponibile, già segnalato
+                labAutocertFileName.Text = nome;
                 btnAllegaAuto.Enabled = false;
                 btnVisualizzaAuto.Enabled = true;
                 btnRimuoviAuto.Enabled = true;
@@ -109,26 +90,9 @@ namespace registrydurc_default{
                 btnVisualizzaDurc.Enabled = true;
                 btnRimuoviDurc.Enabled = true;
 
-                // File preso dall'attachment o dal MongoDb
-                byte[] ByteArray = { };
-
-                if (Curr["durccertification"] != DBNull.Value)
-                {
-                    // Attachment
-                    ByteArray = (byte[])Curr["durccertification"];
-                }
-                else
-                {
-                    // MongoDb
-                    ByteArray = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr["idfilestorage"].ToString()).GetAwaiter().GetResult();
-                    if (ByteArray == null)
-                    {
-                        show("Servizio Download degli Allegati non disponibile");
-                        return;
-                    }
-                }
-
-                labDurcFileName.Text = GetFileName(ByteArray);
+                string nome = NomeDaMostrare(Curr, "durccertification");
+                if (nome == null) return; // download non disponibile, già segnalato
+                labDurcFileName.Text = nome;
             }
             else
             {
@@ -136,6 +100,29 @@ namespace registrydurc_default{
                 btnVisualizzaDurc.Enabled = false;
                 btnRimuoviDurc.Enabled = false;
             }
+        }
+
+        // Nome da mostrare nell'etichetta: la colonna <campo>filename, altrimenti il nome scritto in testa al
+        // contenuto (formato vecchio). Il contenuto su MongoDb si scarica solo se la colonna del nome è vuota,
+        // come prima. Restituisce null (dopo averlo segnalato) se il download non è disponibile, "" se il nome
+        // non c'è.
+        string NomeDaMostrare(DataRow Curr, string certification) {
+            object colonna = Curr[certification + "filename"];
+            if (colonna != DBNull.Value && !string.IsNullOrWhiteSpace(colonna.ToString()))
+                return colonna.ToString().Trim();
+
+            byte[] dati = Curr[certification] as byte[];
+            if (dati == null) {
+                string idfilestorage = certification == "selfcertification" ? "idfilestorage2" : "idfilestorage";
+                dati = metaeasylibrary.HttpFileStorage.DownloadFile(this.conn, this.meta.PrimaryDataTable.TableName, Curr[idfilestorage].ToString()).GetAwaiter().GetResult();
+                if (dati == null) {
+                    show("Servizio Download degli Allegati non disponibile");
+                    return null;
+                }
+            }
+            string incorporato;
+            int inizio = InizioContenuto(dati, out incorporato);
+            return NomeAllegato(Curr, certification, dati, inizio, incorporato) ?? "";
         }
         private void txtDataIniziovalidita_Leave(object sender, EventArgs e) {
             if (!Meta.DrawStateIsDone) return;
@@ -222,38 +209,85 @@ namespace registrydurc_default{
             //leggerlo in un array di bytes e metterlo nel campo.
             SalvaAllegato("durccertification");
         }
-        void SetBytesForFileName(string S, byte[] B)
-        {
-            string fname = Path.GetFileName(S);
-            byte[] b = Encoding.Default.GetBytes(fname);
-            for (int i = 0; i < b.Length; i++) B[i] = b[i];
-            B[b.Length] = 0;
+        // Gli allegati possono essere in due formati:
+        //  - nuovo:   il campo contiene solo il file, il nome sta in <campo>filename (come salva questa maschera
+        //             e registrydurc_anagraficadetail da r23483)
+        //  - vecchio: il campo contiene "nome file" + byte 0 + file e <campo>filename è vuoto (DURC salvati prima)
+        // Il formato si riconosce dai byte, non dalla colonna del nome. Stesse funzioni di
+        // registrydurc_anagraficadetail: tenerle allineate.
+
+        // Nome del file: la colonna <campo>filename se valorizzata, altrimenti il nome scritto in testa al
+        // contenuto (formato vecchio); null se non disponibile.
+        string NomeAllegato(DataRow Curr, string certification, byte[] dati, int inizio, string incorporato) {
+            object colonna = Curr[certification + "filename"];
+            if (colonna != DBNull.Value && !string.IsNullOrWhiteSpace(colonna.ToString()))
+                return colonna.ToString().Trim();
+            if (string.IsNullOrWhiteSpace(incorporato))
+                return null;
+            // Un nome vecchio senza estensione (es. "DURC E NET") prende quella del contenuto,
+            // altrimenti non si saprebbe con cosa aprire il file.
+            if (HaEstensione(incorporato))
+                return incorporato;
+            string ext = EstensioneDaContenuto(dati, inizio);
+            return ext == null ? incorporato : incorporato + ext;
         }
-        int LengthForFileName(string S)
-        {
-            string fname = Path.GetFileName(S);
-            return fname.Length + 1;
-        }
-        int GetOffsetForData(Byte[] B)
-        {
-            int i = 0;
-            while (i < B.Length && B[i] != 0) i++;
-            return i + 1;
-        }
-        string GetFileName(Byte[] B)
-        {
-            int len = 0;
-            for (int i = 0; i < B.Length; i++)
-            {
-                len++;
-                if (B[i] == 0) break;
+
+        // Offset da cui inizia il file vero: la lunghezza del prefisso "nome + byte 0" se il contenuto è nel
+        // formato vecchio, altrimenti 0 (in incorporato il nome letto, null se assente). Il prefisso vale solo se
+        // il byte 0 cade entro i primi 256 byte, prima non ci sono caratteri di controllo né / \, dopo c'è almeno
+        // un byte, e il nome ha un'estensione oppure dopo c'è un tipo di file riconoscibile: così un file già
+        // pulito con un byte 0 all'inizio (un JPEG comincia con FF D8 FF E0 00) non viene scambiato per vecchio.
+        static int InizioContenuto(byte[] dati, out string incorporato) {
+            incorporato = null;
+            if (dati == null) return 0;
+            int max = Math.Min(dati.Length, 256);
+            int zero = -1;
+            for (int i = 0; i < max; i++) {
+                if (dati[i] == 0) { zero = i; break; }
+                if (dati[i] < 0x20) return 0;
             }
-            byte[] b = new byte[len - 1];
-            for (int i = 0; i < len - 1; i++)
-            {
-                b[i] = B[i];
-            }
-            return Encoding.Default.GetString(b);
+            if (zero < 1 || zero + 1 >= dati.Length) return 0;
+            // Il vecchio codice scriveva il nome con Encoding.Default: lo si rilegge allo stesso modo.
+            string nome = Encoding.Default.GetString(dati, 0, zero);
+            if (nome.IndexOf('/') >= 0 || nome.IndexOf('\\') >= 0) return 0;
+            if (!HaEstensione(nome) && EstensioneDaContenuto(dati, zero + 1) == null) return 0;
+            incorporato = nome;
+            return zero + 1;
+        }
+
+        // Punto non in ultima posizione, seguito da 1-8 caratteri alfanumerici.
+        static bool HaEstensione(string nome) {
+            int punto = nome.LastIndexOf('.');
+            if (punto < 0 || punto >= nome.Length - 1 || nome.Length - 1 - punto > 8) return false;
+            for (int i = punto + 1; i < nome.Length; i++)
+                if (!char.IsLetterOrDigit(nome[i])) return false;
+            return true;
+        }
+
+        // Estensione del file che inizia a d[da], dai primi byte; null se il tipo non è riconosciuto.
+        static string EstensioneDaContenuto(byte[] d, int da) {
+            if (d == null || da < 0 || da >= d.Length) return null;
+            int n = d.Length - da;
+            Func<string, bool> inizia = s => {
+                if (n < s.Length) return false;
+                for (int i = 0; i < s.Length; i++)
+                    if (d[da + i] != (byte)s[i]) return false;
+                return true;
+            };
+            if (inizia("%PDF")) return ".pdf";
+            if (n >= 3 && d[da] == 0xFF && d[da + 1] == 0xD8 && d[da + 2] == 0xFF) return ".jpg";
+            if (n >= 4 && d[da] == 0x89 && d[da + 1] == 0x50 && d[da + 2] == 0x4E && d[da + 3] == 0x47) return ".png";
+            if (inizia("GIF87a") || inizia("GIF89a")) return ".gif";
+            if (n >= 4 && d[da] == 0x49 && d[da + 1] == 0x49 && d[da + 2] == 0x2A && d[da + 3] == 0x00) return ".tif";
+            if (n >= 4 && d[da] == 0x4D && d[da + 1] == 0x4D && d[da + 2] == 0x00 && d[da + 3] == 0x2A) return ".tif";
+            if (n >= 2 && d[da] == 0x42 && d[da + 1] == 0x4D) return ".bmp";
+            if (n >= 4 && d[da] == 0x50 && d[da + 1] == 0x4B && d[da + 2] == 0x03 && d[da + 3] == 0x04) return ".zip";
+            if (n >= 4 && d[da] == 0xD0 && d[da + 1] == 0xCF && d[da + 2] == 0x11 && d[da + 3] == 0xE0) return ".doc";
+            if (inizia("{\\rtf")) return ".rtf";
+            if (inizia("<?xml")) return ".xml";
+            if (inizia("<html") || inizia("<HTML") || inizia("<!DOCTYPE") || inizia("<!doctype")) return ".htm";
+            if (n >= 2 && d[da] == 0x30 && d[da + 1] >= 0x80 && d[da + 1] <= 0x84) return ".p7m";
+            return null;
         }
 
         void SalvaAllegato(string certification)
@@ -280,32 +314,19 @@ namespace registrydurc_default{
             
             DataRow Curr = HelpForm.GetLastSelected(DS.registrydurc);
             if (Curr == null) return;
-            FileStream FS;
+
+            // Formato nuovo, come registrydurc_anagraficadetail: nel campo solo il file, il nome in <campo>filename.
+            byte[] ByteArray;
             try {
-                FS = new FileStream(opendlg.FileName, FileMode.Open, FileAccess.Read);
+                ByteArray = File.ReadAllBytes(opendlg.FileName);
             }
             catch (Exception e) {
                 QueryCreator.ShowException("Errore nell'apertura del file", e);
                 return;
             }
-            if (FS == null) return;
-            int n = (int)FS.Length;
-            if (n == 0) return;
-            int namelen = LengthForFileName(opendlg.FileName);
-
-            try
-            {
-                byte[] ByteArray = new byte[n + namelen];
-                FS.Read(ByteArray, namelen, n);
-                if (FS.Length == 0)
-                {
-                    Curr[certification] = DBNull.Value;
-                }
-                FS.Close();
-                SetBytesForFileName(opendlg.FileName, ByteArray);
-                Curr[certification] = ByteArray;
-            }
-            catch { }
+            if (ByteArray.Length == 0) return;
+            Curr[certification] = ByteArray;
+            Curr[certification + "filename"] = Path.GetFileName(opendlg.FileName);
             AbilitaDisabilitaAllegati();
         }
 
@@ -333,7 +354,7 @@ namespace registrydurc_default{
                 { }
             }
 
-            //sw � il nome del file temporaneo che hai creato
+            //sw � il nome del file temporaneo che hai creato
             DateTime oggi_dt = DateTime.Now;
             string oggi = oggi_dt.Ticks.ToString();
             DataRow Curr = DS.registrydurc.Rows[0];
@@ -356,10 +377,16 @@ namespace registrydurc_default{
             }
 
             if (ByteArray != null) {
-
-                int offset = GetOffsetForData(ByteArray);
-                string fname = GetFileName(ByteArray);
-                string estensione = Path.GetExtension(fname).Trim(); ;
+                // Formato vecchio ("nome" + byte 0 + file): si salta il prefisso e, se la colonna del nome
+                // è vuota, si usa il nome incorporato. Formato nuovo: offset 0 e nome dalla colonna.
+                string incorporato;
+                int offset = InizioContenuto(ByteArray, out incorporato);
+                string fname = NomeAllegato(Curr, certification, ByteArray, offset, incorporato);
+                if (fname == null) {
+                    show("Nome del file allegato non disponibile");
+                    return;
+                }
+                string estensione = Path.GetExtension(fname).Trim();
 
                 bool extensionDenied = CfgFn.ExtensionDenied(estensione);
 
@@ -415,6 +442,9 @@ namespace registrydurc_default{
             {
                 DS.registrydurc.Rows[0]["durccertification"] = DBNull.Value;
             }
+            // Senza più allegato, il nome non deve restare.
+            if (DS.registrydurc.Rows[0]["idfilestorage"] == DBNull.Value && DS.registrydurc.Rows[0]["durccertification"] == DBNull.Value)
+                DS.registrydurc.Rows[0]["durccertificationfilename"] = DBNull.Value;
             AbilitaDisabilitaAllegati();
         }
 
@@ -427,6 +457,9 @@ namespace registrydurc_default{
             {
                 DS.registrydurc.Rows[0]["selfcertification"] = DBNull.Value;
             }
+            // Senza più allegato, il nome non deve restare.
+            if (DS.registrydurc.Rows[0]["idfilestorage2"] == DBNull.Value && DS.registrydurc.Rows[0]["selfcertification"] == DBNull.Value)
+                DS.registrydurc.Rows[0]["selfcertificationfilename"] = DBNull.Value;
             AbilitaDisabilitaAllegati();
         }
 

@@ -460,6 +460,7 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
               <xs:element name="idepexp" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
@@ -480,6 +481,7 @@
               <xs:element name="amount" type="xs:decimal" minOccurs="0" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
               <xs:element name="idepexp" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />

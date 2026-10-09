@@ -13,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -107,6 +106,9 @@ namespace meta_csa_importver_partitionview {
                 DescribeAColumn(T, "account_expense", "Conto EP debito", nPos++);
                 DescribeAColumn(T, "codeacc_agency_credit", "Codice Conto EP credito", nPos++);
                 DescribeAColumn(T, "account_agency_credit", "Conto EP credito", nPos++);
+                DescribeAColumn(T, "codeacc_cost_reversal", "Cod. Conto EP Storno di Costo", nPos++);
+                DescribeAColumn(T, "account_cost_reversal", "Conto EP Storno di Costo", nPos++);
+                DescribeAColumn(T, "descflagaccountusage_cost_reversal", "Tipo utilizzo conto Storno di Costo", nPos++);
                 DescribeAColumn(T, "registry", "Anagrafica Ente", nPos++);
                 DescribeAColumn(T, "nobill", "Non richiede sospeso in versamenti", nPos++);
                 DescribeAColumn(T, "annualpayment", "Versamenti annuali", nPos++);

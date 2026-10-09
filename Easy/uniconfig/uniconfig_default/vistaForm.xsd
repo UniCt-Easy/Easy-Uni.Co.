@@ -81,6 +81,7 @@
               </xs:element>
               <xs:element name="perla_user" type="xs:string" minOccurs="0" />
               <xs:element name="perla_pwd" type="xs:string" minOccurs="0" />
+              <xs:element name="codice_bdap" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -29,6 +29,8 @@
               <xs:element name="flagirregular" type="xs:string" minOccurs="0" />
 			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
 			  <xs:element name="idfilestorage2" type="xs:string" minOccurs="0" />
+			  <xs:element name="selfcertificationfilename" type="xs:string" minOccurs="0" />
+			  <xs:element name="durccertificationfilename" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

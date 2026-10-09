@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -262,6 +261,17 @@ namespace bankdispositionsetup_cbi {
                     return;
                 }
             }
+            // Avviso non bloccante: la distinta risulta già creata (streamdate valorizzata)
+            object streamdate = Conn.DO_READ_VALUE("paymenttransmission", filterPaymentTransmission, "streamdate");
+            if (streamdate != null && streamdate != DBNull.Value) {
+                DialogResult conferma = show(this,
+                    "Il file per la distinta n." + n + " del " + y + " risulta già generato in data " +
+                    ((DateTime)streamdate).ToString("dd/MM/yyyy") + ".\r\n" +
+                    "Si desidera generarlo nuovamente?",
+                    "Avviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (conferma != DialogResult.Yes) return;
+            }
+
             string fileName;
             var xml = generaFileXML(y, n, out fileName);
             if (xml == null || fileName == null) return;

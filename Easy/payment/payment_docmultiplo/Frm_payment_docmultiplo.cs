@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using metaeasylibrary;
@@ -147,7 +146,9 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
         private TextBox txtNDoc_payment;
         private GroupBox grpTrasmSiope;
         private Button btnControllaFileOPI;
-        private System.ComponentModel.IContainer components;
+		private Label label16;
+		private TextBox textBox5;
+		private System.ComponentModel.IContainer components;
 
 		public Frm_payment_docmultiplo() {
 			InitializeComponent();
@@ -277,6 +278,8 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 			this.txtImportoNetto = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.txtNDoc_payment = new System.Windows.Forms.TextBox();
+			this.textBox5 = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgrRigheMandato)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -1334,6 +1337,8 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 			// 
 			// tabAllegati
 			// 
+			this.tabAllegati.Controls.Add(this.label16);
+			this.tabAllegati.Controls.Add(this.textBox5);
 			this.tabAllegati.Controls.Add(this.dataGridAllegati);
 			this.tabAllegati.Controls.Add(this.btnDelAtt);
 			this.tabAllegati.Controls.Add(this.btnEditAtt);
@@ -1427,6 +1432,25 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 			this.txtNDoc_payment.TabStop = false;
 			this.txtNDoc_payment.Tag = "payment.npay_treasurer";
 			// 
+			// textBox5
+			// 
+			this.textBox5.Location = new System.Drawing.Point(753, 12);
+			this.textBox5.Name = "textBox5";
+			this.textBox5.ReadOnly = true;
+			this.textBox5.Size = new System.Drawing.Size(161, 20);
+			this.textBox5.TabIndex = 24;
+			this.textBox5.TabStop = false;
+			this.textBox5.Tag = "payment.preservelt";
+			// 
+			// label16
+			// 
+			this.label16.Location = new System.Drawing.Point(545, 13);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(202, 16);
+			this.label16.TabIndex = 87;
+			this.label16.Text = "Data/ora invio in Conservazione:";
+			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// Frm_payment_docmultiplo
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -1487,6 +1511,7 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
 			this.groupBox8.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid3)).EndInit();
 			this.tabAllegati.ResumeLayout(false);
+			this.tabAllegati.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
@@ -1508,9 +1533,27 @@ namespace payment_docmultiplo{//documentopagamentomultiplo//
             GetData.SetStaticFilter(DS.expenselastview, QHS.CmpEq("ymov", Meta.GetSys("esercizio")));
             DataAccess.SetTableForReading(DS.expense1, "expense");
             HelpForm.SetDenyNull(DS.payment.Columns["idtreasurer"], true);
+			// ===============================================================================
+			// 21773 - albero dei conti ratei/risconti, per il campo payment.idepaccrual.
+			// Filtrato sull'esercizio corrente come le altre tabelle di appoggio.
+			// ===============================================================================
+			// Verifico esistenza tabelle/campi per integrazione con Poiano dei Conti Accrual
+			object fieldidEpAccrual = Meta.Conn.DO_READ_VALUE("columntypes", "(tablename='payment') and (field='idepaccrual')", "field");
+			object tablenameEpAccrual = Meta.Conn.DO_READ_VALUE("customobject", "(objectname='epaccrual')", "objectname");
 
-        }
-        DataAccess Conn;
+			if ((fieldidEpAccrual == null) || (fieldidEpAccrual == DBNull.Value) ||
+				 (tablenameEpAccrual == null) || (tablenameEpAccrual == DBNull.Value) ) {
+				Meta.CanSave = false;
+				Meta.CanInsert = false;
+				Meta.CanInsertCopy = false;
+			}
+			else {
+				string filteresercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
+				GetData.SetStaticFilter(DS.epaccrual, filteresercizio);
+				GetData.CacheTable(DS.epaccrual, filteresercizio, "codeepaccrual", false);
+			}
+		}
+		DataAccess Conn;
         bool UsoSiope = false;
         public void MetaData_AfterLink(){
 			Meta = MetaData.GetMetaData(this);

@@ -12,15 +12,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+//HIRES RULES
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace itinerationrefund_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -61,8 +59,6 @@ public vistaForm(){
 	initClass();
 	EndInit();
 }
-[DebuggerNonUserCode]
-protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
 [DebuggerNonUserCode]
 private void initClass() {
 	DataSetName = "vistaForm";

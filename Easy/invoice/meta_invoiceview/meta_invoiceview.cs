@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using metadatalibrary;
@@ -103,7 +102,7 @@ namespace meta_invoiceview//meta_documentoivaview//
                 DescribeAColumn(T,"intrastatnation_provenance","Paese di provenienza",pos++);
                 DescribeAColumn(T,"country_destination", "Prov.destinazione",pos++);
                 DescribeAColumn(T,"intrastatnation_destination", "Paese di destinazione",pos++);
-                DescribeAColumn(T, "country_origin", "Prov.destinazione", pos++);
+                DescribeAColumn(T, "country_origin", "Prov. origine", pos++);
                 DescribeAColumn(T, "intrastatkind", "Natura della transazione", pos++);
                 DescribeAColumn(T, "intrastatnation_payment", "Paese di pagamento", pos++);
                 DescribeAColumn(T, "blnation", ".Paese Blacklist", pos++);

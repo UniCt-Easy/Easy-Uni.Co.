@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -252,6 +251,16 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 		private TextBox textBox9;
 		private TextBox textBox10;
 		private Label label26;
+		private TextBox textBox11;
+		private Label label27;
+		private TabPage tabAfferenze;
+		private GroupBox groupBox9;
+		private DataGrid dataGrid12;
+		private Button button41;
+		private Button button42;
+		private Button button43;
+		private TabPage CatPersonale;
+		private ListView listTipoPersona;
 		private object idgeo=DBNull.Value;
 
 		public Frm_registry_anagrafica() {
@@ -388,6 +397,10 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.cmdClassificazione = new System.Windows.Forms.Button();
 			this.cmbClassificazione = new System.Windows.Forms.ComboBox();
 			this.tabAltro = new System.Windows.Forms.TabPage();
+			this.textBox11 = new System.Windows.Forms.TextBox();
+			this.label27 = new System.Windows.Forms.Label();
+			this.textBox10 = new System.Windows.Forms.TextBox();
+			this.label26 = new System.Windows.Forms.Label();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.txtCCP = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
@@ -400,6 +413,14 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.txtMatricolaext = new System.Windows.Forms.TextBox();
 			this.lblBadge = new System.Windows.Forms.Label();
 			this.txtBadge = new System.Windows.Forms.TextBox();
+			this.tabAfferenze = new System.Windows.Forms.TabPage();
+			this.groupBox9 = new System.Windows.Forms.GroupBox();
+			this.dataGrid12 = new System.Windows.Forms.DataGrid();
+			this.button41 = new System.Windows.Forms.Button();
+			this.button42 = new System.Windows.Forms.Button();
+			this.button43 = new System.Windows.Forms.Button();
+			this.CatPersonale = new System.Windows.Forms.TabPage();
+			this.listTipoPersona = new System.Windows.Forms.ListView();
 			this.tabContatto = new System.Windows.Forms.TabPage();
 			this.dgrContatto = new System.Windows.Forms.DataGrid();
 			this.btnContElimina = new System.Windows.Forms.Button();
@@ -499,8 +520,6 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button14 = new System.Windows.Forms.Button();
 			this.button15 = new System.Windows.Forms.Button();
 			this.button16 = new System.Windows.Forms.Button();
-			this.textBox10 = new System.Windows.Forms.TextBox();
-			this.label26 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabGeneralita.SuspendLayout();
@@ -528,6 +547,10 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabAltro.SuspendLayout();
 			this.groupBox6.SuspendLayout();
 			this.groupBox4.SuspendLayout();
+			this.tabAfferenze.SuspendLayout();
+			this.groupBox9.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid12)).BeginInit();
+			this.CatPersonale.SuspendLayout();
 			this.tabContatto.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgrContatto)).BeginInit();
 			this.tabPosGiuridica.SuspendLayout();
@@ -1212,6 +1235,8 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabControl3.Controls.Add(this.tabFatture);
 			this.tabControl3.Controls.Add(this.tabClassificazioni);
 			this.tabControl3.Controls.Add(this.tabAltro);
+			this.tabControl3.Controls.Add(this.tabAfferenze);
+			this.tabControl3.Controls.Add(this.CatPersonale);
 			this.tabControl3.Location = new System.Drawing.Point(8, 6);
 			this.tabControl3.Name = "tabControl3";
 			this.tabControl3.SelectedIndex = 0;
@@ -1345,7 +1370,7 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// 
 			// groupBox7
 			// 
-			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox7.Controls.Add(this.textBox5);
 			this.groupBox7.Controls.Add(this.label13);
@@ -1755,6 +1780,8 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			// 
 			// tabAltro
 			// 
+			this.tabAltro.Controls.Add(this.textBox11);
+			this.tabAltro.Controls.Add(this.label27);
 			this.tabAltro.Controls.Add(this.textBox10);
 			this.tabAltro.Controls.Add(this.label26);
 			this.tabAltro.Controls.Add(this.groupBox6);
@@ -1767,6 +1794,40 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.tabAltro.TabIndex = 2;
 			this.tabAltro.Text = "Altro";
 			this.tabAltro.UseVisualStyleBackColor = true;
+			// 
+			// textBox11
+			// 
+			this.textBox11.Location = new System.Drawing.Point(269, 205);
+			this.textBox11.Name = "textBox11";
+			this.textBox11.Size = new System.Drawing.Size(208, 20);
+			this.textBox11.TabIndex = 75;
+			this.textBox11.Tag = "registry.idexternal";
+			// 
+			// label27
+			// 
+			this.label27.Location = new System.Drawing.Point(13, 205);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(240, 20);
+			this.label27.TabIndex = 76;
+			this.label27.Text = "Identificativo Applicativi Esterni (idInterno, idAb)";
+			this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox10
+			// 
+			this.textBox10.Location = new System.Drawing.Point(269, 171);
+			this.textBox10.Name = "textBox10";
+			this.textBox10.Size = new System.Drawing.Size(208, 20);
+			this.textBox10.TabIndex = 73;
+			this.textBox10.Tag = "registry.idanpr";
+			// 
+			// label26
+			// 
+			this.label26.Location = new System.Drawing.Point(13, 171);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(216, 17);
+			this.label26.TabIndex = 74;
+			this.label26.Text = "Identificativo unico nazionale (ID ANPR)";
+			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox6
 			// 
@@ -1890,6 +1951,100 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.txtBadge.Size = new System.Drawing.Size(88, 20);
 			this.txtBadge.TabIndex = 7;
 			this.txtBadge.Tag = "registry.badgecode";
+			// 
+			// tabAfferenze
+			// 
+			this.tabAfferenze.Controls.Add(this.groupBox9);
+			this.tabAfferenze.Location = new System.Drawing.Point(4, 22);
+			this.tabAfferenze.Name = "tabAfferenze";
+			this.tabAfferenze.Size = new System.Drawing.Size(877, 464);
+			this.tabAfferenze.TabIndex = 4;
+			this.tabAfferenze.Text = "Afferenze";
+			this.tabAfferenze.UseVisualStyleBackColor = true;
+			// 
+			// groupBox9
+			// 
+			this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox9.Controls.Add(this.dataGrid12);
+			this.groupBox9.Controls.Add(this.button41);
+			this.groupBox9.Controls.Add(this.button42);
+			this.groupBox9.Controls.Add(this.button43);
+			this.groupBox9.Location = new System.Drawing.Point(19, 17);
+			this.groupBox9.Name = "groupBox9";
+			this.groupBox9.Size = new System.Drawing.Size(839, 431);
+			this.groupBox9.TabIndex = 13;
+			this.groupBox9.TabStop = false;
+			this.groupBox9.Text = "Afferenze Organizzative";
+			// 
+			// dataGrid12
+			// 
+			this.dataGrid12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGrid12.CaptionVisible = false;
+			this.dataGrid12.DataMember = "";
+			this.dataGrid12.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGrid12.Location = new System.Drawing.Point(16, 41);
+			this.dataGrid12.Name = "dataGrid12";
+			this.dataGrid12.ReadOnly = true;
+			this.dataGrid12.Size = new System.Drawing.Size(815, 382);
+			this.dataGrid12.TabIndex = 11;
+			this.dataGrid12.Tag = "afferenzeorganizzative.anagraficadetail.anagraficadetail";
+			// 
+			// button41
+			// 
+			this.button41.Location = new System.Drawing.Point(195, 15);
+			this.button41.Name = "button41";
+			this.button41.Size = new System.Drawing.Size(68, 22);
+			this.button41.TabIndex = 10;
+			this.button41.Tag = "delete";
+			this.button41.Text = "Elimina";
+			// 
+			// button42
+			// 
+			this.button42.Location = new System.Drawing.Point(115, 15);
+			this.button42.Name = "button42";
+			this.button42.Size = new System.Drawing.Size(69, 22);
+			this.button42.TabIndex = 9;
+			this.button42.Tag = "edit.anagraficadetail";
+			this.button42.Text = "Modifica...";
+			// 
+			// button43
+			// 
+			this.button43.Location = new System.Drawing.Point(35, 15);
+			this.button43.Name = "button43";
+			this.button43.Size = new System.Drawing.Size(68, 22);
+			this.button43.TabIndex = 8;
+			this.button43.Tag = "insert.anagraficadetail";
+			this.button43.Text = "Inserisci...";
+			// 
+			// CatPersonale
+			// 
+			this.CatPersonale.Controls.Add(this.listTipoPersona);
+			this.CatPersonale.Location = new System.Drawing.Point(4, 22);
+			this.CatPersonale.Name = "CatPersonale";
+			this.CatPersonale.Size = new System.Drawing.Size(877, 464);
+			this.CatPersonale.TabIndex = 5;
+			this.CatPersonale.Text = "Categoria di Personale";
+			this.CatPersonale.UseVisualStyleBackColor = true;
+			// 
+			// listTipoPersona
+			// 
+			this.listTipoPersona.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.listTipoPersona.AutoArrange = false;
+			this.listTipoPersona.CheckBoxes = true;
+			this.listTipoPersona.HideSelection = false;
+			this.listTipoPersona.Location = new System.Drawing.Point(3, 17);
+			this.listTipoPersona.Name = "listTipoPersona";
+			this.listTipoPersona.Size = new System.Drawing.Size(786, 187);
+			this.listTipoPersona.TabIndex = 3;
+			this.listTipoPersona.Tag = "registrymultikind.solodescrizione";
+			this.listTipoPersona.UseCompatibleStateImageBehavior = false;
+			this.listTipoPersona.View = System.Windows.Forms.View.List;
 			// 
 			// tabContatto
 			// 
@@ -3008,23 +3163,6 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.button16.Tag = "insert.default";
 			this.button16.Text = "Inserisci...";
 			// 
-			// textBox10
-			// 
-			this.textBox10.Location = new System.Drawing.Point(269, 171);
-			this.textBox10.Name = "textBox10";
-			this.textBox10.Size = new System.Drawing.Size(208, 20);
-			this.textBox10.TabIndex = 73;
-			this.textBox10.Tag = "registry.idanpr";
-			// 
-			// label26
-			// 
-			this.label26.Location = new System.Drawing.Point(13, 171);
-			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(216, 17);
-			this.label26.TabIndex = 74;
-			this.label26.Text = "Identificativo unico nazionale (ID ANPR)";
-			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
 			// Frm_registry_anagrafica
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -3075,6 +3213,10 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
 			this.groupBox6.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
+			this.tabAfferenze.ResumeLayout(false);
+			this.groupBox9.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGrid12)).EndInit();
+			this.CatPersonale.ResumeLayout(false);
 			this.tabContatto.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgrContatto)).EndInit();
 			this.tabPosGiuridica.ResumeLayout(false);
@@ -3159,7 +3301,37 @@ namespace registry_anagrafica//CreditoreDebitoreAnagrafica//
  
 			GetData.CacheTable(DS.address);
 
-            string filterEpOperationCred = QHS.CmpEq("idepoperation", "registry_cred");
+            // ===============================================================================
+            // 21773 - conti di ratei/risconti di default dell'anagrafica
+            // I due alias leggono entrambi da [epaccrual]: servono due tabelle distinte
+            // perche' le relazioni verso registry sono due (idepaccrualdebit e
+            // idepaccrualcredit) e ogni relazione vuole un parent separato.
+            // ===============================================================================
+          
+			object fieldidEpAccrual = Meta.Conn.DO_READ_VALUE("columntypes", "(tablename='registry') and (field='idepaccrualdebit')", "field");
+			object tablenameEpAccrual = Meta.Conn.DO_READ_VALUE("customobject", "(objectname='epaccrual')", "objectname");
+
+			if ((fieldidEpAccrual == null) || (fieldidEpAccrual == DBNull.Value) ||
+				 (tablenameEpAccrual == null) || (tablenameEpAccrual == DBNull.Value)) {
+				Meta.CanSave = false;
+				Meta.CanInsert = false;
+				Meta.CanInsertCopy = false;
+			}
+			else {
+				string filterEpAccrual = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
+
+				DataAccess.SetTableForReading(DS.epaccrual_debit, "epaccrual");
+				GetData.SetStaticFilter(DS.epaccrual_debit, filterEpAccrual);
+				GetData.CacheTable(DS.epaccrual_debit, filterEpAccrual, "codeepaccrual", false);
+
+				DataAccess.SetTableForReading(DS.epaccrual_credit, "epaccrual");
+				GetData.SetStaticFilter(DS.epaccrual_credit, filterEpAccrual);
+				GetData.CacheTable(DS.epaccrual_credit, filterEpAccrual, "codeepaccrual", false);
+
+			}
+
+
+			string filterEpOperationCred = QHS.CmpEq("idepoperation", "registry_cred");
             GetData.SetStaticFilter(DS.accmotiveapplied_credit, filterEpOperationCred);
             DataAccess.SetTableForReading(DS.accmotiveapplied_credit, "accmotiveapplied");
             DS.accmotiveapplied_credit.ExtendedProperties[MetaData.ExtraParams] = filterEpOperationCred;

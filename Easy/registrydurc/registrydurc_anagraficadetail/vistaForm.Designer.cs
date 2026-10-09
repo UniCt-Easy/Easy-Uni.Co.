@@ -12,88 +12,96 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-namespace registrydurc_anagraficadetail {
 using System;
 using System.Data;
-[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.Browsable(false)]
-public DataTable registrydurc{get { return Tables["registrydurc"];}}
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+#pragma warning disable 1591
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+namespace registrydurc_anagraficadetail {
+[Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
+[System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
+public partial class vistaForm: DataSet {
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-[System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-public new System.Data.DataTableCollection Tables {get {return base.Tables;}}
+	#region Table members declaration
+	///<summary>
+	///DURC
+	///</summary>
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable registrydurc 		=> Tables["registrydurc"];
 
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	#endregion
+
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public new DataTableCollection Tables => base.Tables;
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+// ReSharper disable once MemberCanBePrivate.Global
+	public new DataRelationCollection Relations => base.Relations;
+
+[DebuggerNonUserCode]
 public vistaForm(){
-BeginInit();
-InitClass();
-EndInit();
+	BeginInit();
+	initClass();
+	EndInit();
 }
-[System.Diagnostics.DebuggerNonUserCodeAttribute()]
-private void InitClass() {
-DataSetName = "vistaForm";
-Prefix = "";
-Namespace = "http://tempuri.org/vistaForm.xsd";
-EnforceConstraints = false;
-	DataTable T;
+[DebuggerNonUserCode]
+protected vistaForm (SerializationInfo info,StreamingContext ctx):base(info,ctx) {}
+[DebuggerNonUserCode]
+private void initClass() {
+	DataSetName = "vistaForm";
+	Prefix = "";
+	Namespace = "http://tempuri.org/vistaForm.xsd";
+
+	#region create DataTables
 	DataColumn C;
-	DataColumn [] key;
-	T= new DataTable("registrydurc");
-	C= new DataColumn("idregistrydurc", typeof(System.Int32), "");
+	//////////////////// REGISTRYDURC /////////////////////////////////
+	var tregistrydurc= new DataTable("registrydurc");
+	C= new DataColumn("idregistrydurc", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("idreg", typeof(System.Int32), "");
+	tregistrydurc.Columns.Add(C);
+	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	T.Columns.Add(new DataColumn("iddurckind", typeof(System.Int16), ""));
-	T.Columns.Add(new DataColumn("start", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("stop", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("adate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("selfcertification", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("durccertification", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("doc", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("docdate", typeof(System.DateTime), ""));
-	T.Columns.Add(new DataColumn("inpscode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("inailcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("buildingcode", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("otherinsurancecode", typeof(System.String), ""));
-	C= new DataColumn("ct", typeof(System.DateTime), "");
+	tregistrydurc.Columns.Add(C);
+	tregistrydurc.Columns.Add( new DataColumn("iddurckind", typeof(short)));
+	tregistrydurc.Columns.Add( new DataColumn("start", typeof(DateTime)));
+	tregistrydurc.Columns.Add( new DataColumn("stop", typeof(DateTime)));
+	tregistrydurc.Columns.Add( new DataColumn("adate", typeof(DateTime)));
+	tregistrydurc.Columns.Add( new DataColumn("selfcertification", typeof(Byte[])));
+	tregistrydurc.Columns.Add( new DataColumn("durccertification", typeof(Byte[])));
+	tregistrydurc.Columns.Add( new DataColumn("doc", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("docdate", typeof(DateTime)));
+	tregistrydurc.Columns.Add( new DataColumn("inpscode", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("inailcode", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("buildingcode", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("otherinsurancecode", typeof(string)));
+	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("cu", typeof(System.String), "");
+	tregistrydurc.Columns.Add(C);
+	C= new DataColumn("cu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lt", typeof(System.DateTime), "");
+	tregistrydurc.Columns.Add(C);
+	C= new DataColumn("lt", typeof(DateTime));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
-
-	C= new DataColumn("lu", typeof(System.String), "");
+	tregistrydurc.Columns.Add(C);
+	C= new DataColumn("lu", typeof(string));
 	C.AllowDBNull=false;
-	T.Columns.Add(C);
+	tregistrydurc.Columns.Add(C);
+	tregistrydurc.Columns.Add( new DataColumn("txt", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
+	tregistrydurc.Columns.Add( new DataColumn("flagirregular", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("idfilestorage", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("idfilestorage2", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("selfcertificationfilename", typeof(string)));
+	tregistrydurc.Columns.Add( new DataColumn("durccertificationfilename", typeof(string)));
+	Tables.Add(tregistrydurc);
+	tregistrydurc.PrimaryKey =  new DataColumn[]{tregistrydurc.Columns["idregistrydurc"], tregistrydurc.Columns["idreg"]};
 
-	T.Columns.Add(new DataColumn("txt", typeof(System.String), ""));
-	T.Columns.Add(new DataColumn("rtf", typeof(System.Byte[]), ""));
-	T.Columns.Add(new DataColumn("flagirregular", typeof(System.String), ""));
-	C = new DataColumn("idfilestorage", typeof(string));
-	C.AllowDBNull=true;
-    T.Columns.Add(C);
-	C = new DataColumn("idfilestorage2", typeof(string));
-	C.AllowDBNull=true;
-    T.Columns.Add(C);
-	Tables.Add(T);
-//Primary Key
-	key = new DataColumn[2]{
-	T.Columns["idregistrydurc"], 	T.Columns["idreg"]};
-	T.PrimaryKey = key;
+
+	#endregion
 
 }
 }

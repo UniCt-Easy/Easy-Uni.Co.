@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace registrydurc_anagraficadetail
 {
     partial class Frm_registrydurc_anagraficadetail
@@ -338,6 +337,7 @@ namespace registrydurc_anagraficadetail
             this.btnRimuoviAuto.TabIndex = 1;
             this.btnRimuoviAuto.Text = "Rimuovi Allegato";
             this.btnRimuoviAuto.UseVisualStyleBackColor = true;
+            this.btnRimuoviAuto.Visible = false;
             this.btnRimuoviAuto.Click += new System.EventHandler(this.btnRimuoviAuto_Click);
             // 
             // btnAllegaAuto
@@ -388,6 +388,7 @@ namespace registrydurc_anagraficadetail
             this.btnRimuoviDurc.TabIndex = 1;
             this.btnRimuoviDurc.Text = "Rimuovi Allegato";
             this.btnRimuoviDurc.UseVisualStyleBackColor = true;
+            this.btnRimuoviDurc.Visible = false;
             this.btnRimuoviDurc.Click += new System.EventHandler(this.btnRimuoviDurc_Click);
             // 
             // btnAllegaDurc
@@ -400,7 +401,7 @@ namespace registrydurc_anagraficadetail
             this.btnAllegaDurc.UseVisualStyleBackColor = true;
             this.btnAllegaDurc.Click += new System.EventHandler(this.btnAllegaDurc_Click);
             // 
-            // opendlg
+            // _opendlg
             // 
             this._opendlg.Title = "Scegli il file da allegare";
             // 

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -27,9 +26,6 @@ namespace csa_importver_default {
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
 
@@ -42,30 +38,18 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin_income 		=> Tables["fin_income"];
 
-	///<summary>
-	///Informazioni annuali su tipo contratto csa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkindyear 		=> Tables["csa_contractkindyear"];
 
-	///<summary>
-	///Contributi Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttax 		=> Tables["csa_contracttax"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseview 		=> Tables["expenseview"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
@@ -75,9 +59,6 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account_expense 		=> Tables["account_expense"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
@@ -87,45 +68,24 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account_cost 		=> Tables["account_cost"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
-	///<summary>
-	///Contributi Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkinddata 		=> Tables["csa_contractkinddata"];
 
-	///<summary>
-	///Importazione Versamenti CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver 		=> Tables["csa_importver"];
 
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Configurazione Voci CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_incomesetup 		=> Tables["csa_incomesetup"];
 
-	///<summary>
-	///Ente CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_agency 		=> Tables["csa_agency"];
 
-	///<summary>
-	///Modalità pagamento Ente CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_agencypaymethod 		=> Tables["csa_agencypaymethod"];
 
@@ -156,45 +116,27 @@ public partial class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting_expense 		=> Tables["sorting_expense"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttaxepexp 		=> Tables["csa_contracttaxepexp"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epexpview2 		=> Tables["epexpview2"];
 
-	///<summary>
-	///Impegno di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epexp 		=> Tables["epexp"];
 
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttaxexpense 		=> Tables["csa_contracttaxexpense"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseview2 		=> Tables["expenseview2"];
 
-	///<summary>
-	///Impegni di budget collegati ad un versamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver_epexp 		=> Tables["csa_importver_epexp"];
 
-	///<summary>
-	///Movimenti di spesa collegati ad un versamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver_expense 		=> Tables["csa_importver_expense"];
 
@@ -407,6 +349,7 @@ private void initClass() {
 	tcsa_contractkindyear.Columns.Add(C);
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_main", typeof(string)));
+	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idfin_main", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -933,6 +876,7 @@ private void initClass() {
 	tcsa_contractkinddata.Columns.Add(C);
 	tcsa_contractkinddata.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_contractkinddata.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_contractkinddata.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
 	tcsa_contractkinddata.Columns.Add(C);
@@ -2722,6 +2666,7 @@ private void initClass() {
 	tcsa_importver_partition.Columns.Add( new DataColumn("lu", typeof(string)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_importver_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("!phasemovfin", typeof(string)));

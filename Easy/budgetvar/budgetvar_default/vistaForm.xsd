@@ -6,7 +6,7 @@
         <xs:element name="budgetvardetail">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ybudgetvar" type="xs:short" />
+              <xs:element name="ybudgetvar" type="xs:int" />
               <xs:element name="nbudgetvar" type="xs:int" />
               <xs:element name="idsor" type="xs:int" />
               <xs:element name="_x0021_sortcode" type="xs:string" minOccurs="0" />
@@ -35,7 +35,7 @@
         <xs:element name="budgetvar">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ybudgetvar" type="xs:short" />
+              <xs:element name="ybudgetvar" type="xs:int" />
               <xs:element name="nbudgetvar" type="xs:int" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="adate" type="xs:dateTime" />
@@ -187,7 +187,7 @@
         <xs:element name="budgetvarattachment">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ybudgetvar" type="xs:short" />
+              <xs:element name="ybudgetvar" type="xs:int" />
               <xs:element name="nbudgetvar" type="xs:int" />
               <xs:element name="idattachment" type="xs:int" />
               <xs:element name="filename" type="xs:string" minOccurs="0" />
@@ -196,7 +196,7 @@
               <xs:element name="lu" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
-			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -412,12 +412,12 @@
               <xs:element name="idbudgetvarstatus" type="xs:int" minOccurs="0" />
               <xs:element name="budgetvarstatus" type="xs:string" minOccurs="0" />
               <xs:element name="idsor" type="xs:int" minOccurs="0" />
-              <xs:element name="sortcode" type="xs:string" />
-              <xs:element name="sorting" type="xs:string" />
+              <xs:element name="sortcode" type="xs:string" minOccurs="0" />
+              <xs:element name="sorting" type="xs:string" minOccurs="0" />
               <xs:element name="description" type="xs:string" minOccurs="0" />
-              <xs:element name="idupb" type="xs:string" />
-              <xs:element name="codeupb" type="xs:string" />
-              <xs:element name="upb" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
+              <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
               <xs:element name="idsor01" type="xs:int" minOccurs="0" />
               <xs:element name="idsor02" type="xs:int" minOccurs="0" />
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
@@ -438,6 +438,8 @@
               <xs:element name="idsorkind" type="xs:int" minOccurs="0" />
               <xs:element name="codesorkind" type="xs:string" minOccurs="0" />
               <xs:element name="sortingkind" type="xs:string" minOccurs="0" />
+              <xs:element name="yvar" type="xs:int" minOccurs="0" />
+              <xs:element name="nvar" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

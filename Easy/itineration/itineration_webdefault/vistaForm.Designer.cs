@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -28,7 +27,6 @@ using meta_sorting;
 using meta_upb;
 using meta_accmotiveapplied;
 using meta_config;
-using meta_manager;
 using meta_dalia_funzionale;
 using meta_dalia_dipartimento;
 using metadatalibrary;
@@ -48,6 +46,9 @@ public partial class dsmeta: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public registryTable registry 		=> (registryTable)Tables["registry"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public registryTable registry_delegato 		=> (registryTable)Tables["registry_delegato"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public itinerationrefundTable itinerationrefund_advance 		=> (itinerationrefundTable)Tables["itinerationrefund_advance"];
@@ -116,7 +117,7 @@ public partial class dsmeta: DataSet {
 	public MetaTable itinerationstatus 		=> (MetaTable)Tables["itinerationstatus"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
-	public managerTable manager 		=> (managerTable)Tables["manager"];
+	public MetaTable managerwebview 		=> (MetaTable)Tables["managerwebview"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable authmodel 		=> (MetaTable)Tables["authmodel"];
@@ -223,7 +224,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// ITINERATION /////////////////////////////////
 	var titineration= new itinerationTable();
-	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","datecompleted","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref","supposedtravel","supposedliving","supposedfood","nfood","flagownfunds","idforeigncountry","advancepercentage","supposedamount","idregistrypaymethod","flagmove","flagoutside","advanceapplied","iddaliarecruitmentmotive","starttime","stoptime","iddalia_dipartimento","iddalia_funzionale","idcostpartition","advancepercentageliving","advancepercentagetravel","advancepercentagefood","supposedcourse","advancepercentagecourse","flagexcludefromcertificate");
+	titineration.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref","supposedtravel","supposedliving","supposedfood","nfood","flagownfunds","idforeigncountry","advancepercentage","supposedamount","idregistrypaymethod","flagmove","flagoutside","advanceapplied","iddaliarecruitmentmotive","starttime","stoptime","iddalia_dipartimento","iddalia_funzionale","idcostpartition","advancepercentageliving","advancepercentagetravel","advancepercentagefood","supposedcourse","advancepercentagecourse","flagexcludefromcertificate","idregdelegato");
 	Tables.Add(titineration);
 	titineration.defineKey("iditineration");
 
@@ -238,6 +239,14 @@ private void initClass() {
 	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","idaccmotivedebit");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
+
+	//////////////////// REGISTRY_DELEGATO /////////////////////////////////
+	var tregistry_delegato= new registryTable();
+	tregistry_delegato.TableName = "registry_delegato";
+	tregistry_delegato.addBaseColumns("idreg","title","cf","p_iva","residence","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","idaccmotivedebit");
+	tregistry_delegato.ExtendedProperties["TableForReading"]="registry";
+	Tables.Add(tregistry_delegato);
+	tregistry_delegato.defineKey("idreg");
 
 	//////////////////// ITINERATIONREFUND_ADVANCE /////////////////////////////////
 	var titinerationrefund_advance= new itinerationrefundTable();
@@ -499,11 +508,23 @@ private void initClass() {
 	Tables.Add(titinerationstatus);
 	titinerationstatus.defineKey("iditinerationstatus");
 
-	//////////////////// MANAGER /////////////////////////////////
-	var tmanager= new managerTable();
-	tmanager.addBaseColumns("active","ct","cu","email","lt","lu","passwordweb","phonenumber","rtf","title","txt","userweb","idman","iddivision","wantswarn","idsor01","idsor02","idsor03","idsor04","idsor05");
-	Tables.Add(tmanager);
-	tmanager.defineKey("idman");
+	//////////////////// MANAGERWEBVIEW /////////////////////////////////
+	var tmanagerwebview= new MetaTable("managerwebview");
+	tmanagerwebview.defineColumn("active", typeof(string));
+	tmanagerwebview.defineColumn("ct", typeof(DateTime),false);
+	tmanagerwebview.defineColumn("cu", typeof(string),false);
+	tmanagerwebview.defineColumn("email", typeof(string));
+	tmanagerwebview.defineColumn("lt", typeof(DateTime),false);
+	tmanagerwebview.defineColumn("lu", typeof(string),false);
+	tmanagerwebview.defineColumn("passwordweb", typeof(string));
+	tmanagerwebview.defineColumn("phonenumber", typeof(string));
+	tmanagerwebview.defineColumn("title", typeof(string),false);
+	tmanagerwebview.defineColumn("userweb", typeof(string));
+	tmanagerwebview.defineColumn("idman", typeof(int),false);
+	tmanagerwebview.defineColumn("iddivision", typeof(int),false);
+	tmanagerwebview.defineColumn("wantswarn", typeof(string));
+	Tables.Add(tmanagerwebview);
+	tmanagerwebview.defineKey("idman");
 
 	//////////////////// AUTHMODEL /////////////////////////////////
 	var tauthmodel= new MetaTable("authmodel");
@@ -688,7 +709,7 @@ private void initClass() {
 	//////////////////// ITINERATION_RIFERIMENTO /////////////////////////////////
 	var titineration_riferimento= new itinerationTable();
 	titineration_riferimento.TableName = "itineration_riferimento";
-	titineration_riferimento.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","datecompleted","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref");
+	titineration_riferimento.addBaseColumns("yitineration","nitineration","description","idreg","idser","authorizationdate","start","stop","adate","admincarkmcost","owncarkmcost","footkmcost","admincarkm","owncarkm","footkm","grossfactor","netfee","totalgross","total","totadvance","txt","rtf","cu","ct","lu","lt","active","completed","idaccmotive","idupb","idsor1","idsor2","idsor3","iditineration","idaccmotivedebit","idaccmotivedebit_crg","idaccmotivedebit_datacrg","idregistrylegalstatus","flagweb","iditinerationstatus","applierannotations","idman","idauthmodel","webwarn","authneeded","authdoc","authdocdate","noauthreason","clause_accepted","vehicle_info","vehicle_motive","location","idsor01","idsor02","idsor03","idsor04","idsor05","iddaliaposition","additionalannotations","idsor_siope","iditineration_ref");
 	titineration_riferimento.ExtendedProperties["TableForReading"]="itineration";
 	Tables.Add(titineration_riferimento);
 	titineration_riferimento.defineKey("iditineration");
@@ -933,7 +954,6 @@ private void initClass() {
 	titinerationview.defineColumn("totlinked", typeof(decimal),true,true);
 	titinerationview.defineColumn("totresidual", typeof(decimal),true,true);
 	titinerationview.defineColumn("totnoaccountsaldo", typeof(decimal),true,true);
-	titinerationview.defineColumn("datecompleted", typeof(DateTime));
 	titinerationview.defineColumn("idrelated", typeof(string),true,true);
 	titinerationview.defineColumn("additionalannotations", typeof(string));
 	titinerationview.defineColumn("idsor_siope", typeof(int));
@@ -948,6 +968,8 @@ private void initClass() {
 	titinerationview.defineColumn("advancepercentagetravel", typeof(decimal));
 	titinerationview.defineColumn("supposedcourse", typeof(decimal));
 	titinerationview.defineColumn("advancepercentagecourse", typeof(decimal));
+	titinerationview.defineColumn("idregdelegato", typeof(int));
+	titinerationview.defineColumn("delegato", typeof(string));
 	Tables.Add(titinerationview);
 
 	#endregion
@@ -983,7 +1005,7 @@ private void initClass() {
 	cChild = new []{itineration.Columns["idaccmotivedebit_crg"]};
 	Relations.Add(new DataRelation("accmotiveapplied_crg_itineration",cPar,cChild,false));
 
-	this.defineRelation("manager_itineration","manager","itineration","idman");
+	this.defineRelation("manager_itineration","managerwebview","itineration","idman");
 	cPar = new []{sorting01.Columns["idsor"]};
 	cChild = new []{itineration.Columns["idsor01"]};
 	Relations.Add(new DataRelation("sorting01_itineration",cPar,cChild,false));
@@ -1017,6 +1039,9 @@ private void initClass() {
 	this.defineRelation("authmodel_itineration","authmodel","itineration","idauthmodel");
 	this.defineRelation("itinerationrefundkinditinerationrefund","itinerationrefundkind_advance","itinerationrefund_advance","iditinerationrefundkind");
 	this.defineRelation("registryitineration","registry","itineration","idreg");
+	cPar = new []{registry_delegato.Columns["idreg"]};
+	cChild = new []{itineration.Columns["idregdelegato"]};
+	Relations.Add(new DataRelation("registry_delegato_itineration",cPar,cChild,false));
 	this.defineRelation("dalia_position_itineration","dalia_position","itineration","iddaliaposition");
 	this.defineRelation("itineration_itinerationattachment","itineration","itinerationattachment","iditineration");
 	cPar = new []{itineration_riferimento.Columns["iditineration"]};

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -170,6 +169,7 @@ private void initClass() {
 	tuniconfig.Columns.Add(C);
 	tuniconfig.Columns.Add( new DataColumn("perla_user", typeof(string)));
 	tuniconfig.Columns.Add( new DataColumn("perla_pwd", typeof(string)));
+	tuniconfig.Columns.Add( new DataColumn("codice_bdap", typeof(string)));
 	Tables.Add(tuniconfig);
 	tuniconfig.PrimaryKey =  new DataColumn[]{tuniconfig.Columns["dummykey"]};
 

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -45,7 +44,8 @@ namespace meta_itineration//meta_missione//
 			EditTypes.Add("myteamnew02");
 			ListingTypes.Add("webunict");
 			ListingTypes.Add("webdefault");
-		}
+            ListingTypes.Add("weblista");
+        }
 		protected override Form GetForm(string FormName) {
 			if (FormName == "default") {
 				DefaultListType = "lista";
@@ -53,7 +53,7 @@ namespace meta_itineration//meta_missione//
 				return MetaData.GetFormByDllName("itineration_default");
 			}
 			if ((FormName == "webdefault") || ((FormName == "myteamnew02"))) {
-				DefaultListType = "lista";
+				DefaultListType = "weblista";
 				Name = "Missione Web";
 				return MetaData.GetFormByDllName("itineration_webdefault");
 			}
@@ -335,7 +335,7 @@ namespace meta_itineration//meta_missione//
 		}
 
 		public override DataRow SelectOne(string ListingType, string filter, string searchtable, DataTable Exclude) {
-			if (ListingType == "lista")
+			if (ListingType == "lista" || ListingType == "weblista")
 				return base.SelectOne(ListingType, filter, "itinerationview", Exclude);
 			else
 				return base.SelectOne(ListingType, filter, "itineration", Exclude);

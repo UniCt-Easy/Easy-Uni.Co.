@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -1235,7 +1234,7 @@ namespace expense_wizarddelete {//spesawizardelimina//
 													  DS.expensemandate, DS.expenseitineration, DS.expensepayroll, DS.expenseinvoice,
 													  DS.expenseprofservice,DS.expensecasualcontract,DS.expensewageaddition,
 													  DS.incomeinvoice, DS.incomeestimate,
-													  DS.incomeyear, DS.expenseyear, DS.incomelast, DS.expenselast, DS.expenselastmandatedetail,
+													  DS.incomeyear, DS.expenseyear, DS.incomelast, DS.expenselast, /*DS.expenselastmandatedetail,*/
 													  DS.incomevar,DS.expensevar, DS.creditpart,DS.proceedspart,
 													  DS.income,DS.expense,DS.underwritingappropriation,DS.underwritingpayment,
                                                       DS.expensebill

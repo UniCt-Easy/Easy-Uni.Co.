@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace csa_importver_partition_elenco {
     partial class Frm_csa_importver_partition_elenco {
         /// <summary>
@@ -118,6 +117,10 @@ namespace csa_importver_partition_elenco {
 			this.gBoxEnte = new System.Windows.Forms.GroupBox();
 			this.txtCredDebEnte = new System.Windows.Forms.TextBox();
 			this.gBoxAnagraficaEnte = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.txtCodiceContoStornoCosto = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -140,6 +143,7 @@ namespace csa_importver_partition_elenco {
 			this.gBoxAnagrafica.SuspendLayout();
 			this.gBoxEnte.SuspendLayout();
 			this.gBoxAnagraficaEnte.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -407,6 +411,7 @@ namespace csa_importver_partition_elenco {
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.groupBox2);
 			this.tabPage2.Controls.Add(this.gboxImpegnoBudget);
 			this.tabPage2.Controls.Add(this.gboxConto);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -510,7 +515,7 @@ namespace csa_importver_partition_elenco {
 			this.gboxConto.Controls.Add(this.button5);
 			this.gboxConto.Location = new System.Drawing.Point(18, 6);
 			this.gboxConto.Name = "gboxConto";
-			this.gboxConto.Size = new System.Drawing.Size(427, 120);
+			this.gboxConto.Size = new System.Drawing.Size(278, 120);
 			this.gboxConto.TabIndex = 46;
 			this.gboxConto.TabStop = false;
 			this.gboxConto.Tag = "AutoManage.txtCodiceConto.tree";
@@ -521,12 +526,12 @@ namespace csa_importver_partition_elenco {
 			this.txtDenominazioneConto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(136, 16);
+			this.txtDenominazioneConto.Location = new System.Drawing.Point(117, 16);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
 			this.txtDenominazioneConto.ReadOnly = true;
 			this.txtDenominazioneConto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(280, 70);
+			this.txtDenominazioneConto.Size = new System.Drawing.Size(150, 70);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
@@ -536,7 +541,7 @@ namespace csa_importver_partition_elenco {
 			this.txtCodiceConto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.txtCodiceConto.Location = new System.Drawing.Point(8, 90);
 			this.txtCodiceConto.Name = "txtCodiceConto";
-			this.txtCodiceConto.Size = new System.Drawing.Size(408, 20);
+			this.txtCodiceConto.Size = new System.Drawing.Size(259, 20);
 			this.txtCodiceConto.TabIndex = 4;
 			this.txtCodiceConto.Tag = "account.codeacc";
 			// 
@@ -545,7 +550,7 @@ namespace csa_importver_partition_elenco {
 			this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button5.Location = new System.Drawing.Point(10, 63);
 			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(120, 23);
+			this.button5.Size = new System.Drawing.Size(101, 23);
 			this.button5.TabIndex = 1;
 			this.button5.TabStop = false;
 			this.button5.Tag = "manage.account.tree";
@@ -1012,6 +1017,55 @@ namespace csa_importver_partition_elenco {
 			this.gBoxAnagraficaEnte.Tag = "AutoChoose.txtCredDebEnte.lista.(active=\'S\')";
 			this.gBoxAnagraficaEnte.Text = "Anagrafica associata all\'Ente ";
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.textBox2);
+			this.groupBox2.Controls.Add(this.txtCodiceContoStornoCosto);
+			this.groupBox2.Controls.Add(this.button1);
+			this.groupBox2.Location = new System.Drawing.Point(302, 6);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(274, 120);
+			this.groupBox2.TabIndex = 49;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Tag = "AutoManage.txtCodiceContoStornoCosto.tree";
+			this.groupBox2.Text = "Conto Ep Storno di Costo (righe Contributo negative)";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox2.Location = new System.Drawing.Point(107, 16);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ReadOnly = true;
+			this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.textBox2.Size = new System.Drawing.Size(152, 74);
+			this.textBox2.TabIndex = 2;
+			this.textBox2.TabStop = false;
+			this.textBox2.Tag = "account_cost_reversal.title";
+			// 
+			// txtCodiceContoStornoCosto
+			// 
+			this.txtCodiceContoStornoCosto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceContoStornoCosto.Location = new System.Drawing.Point(8, 94);
+			this.txtCodiceContoStornoCosto.Name = "txtCodiceContoStornoCosto";
+			this.txtCodiceContoStornoCosto.Size = new System.Drawing.Size(251, 20);
+			this.txtCodiceContoStornoCosto.TabIndex = 4;
+			this.txtCodiceContoStornoCosto.Tag = "account_cost_reversal.codeacc";
+			// 
+			// button1
+			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button1.Location = new System.Drawing.Point(10, 67);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(91, 23);
+			this.button1.TabIndex = 1;
+			this.button1.TabStop = false;
+			this.button1.Tag = "manage.account_cost_reversal.tree";
+			this.button1.Text = "Conto";
+			// 
 			// Frm_csa_importver_partition_elenco
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1070,6 +1124,8 @@ namespace csa_importver_partition_elenco {
 			this.gBoxEnte.ResumeLayout(false);
 			this.gBoxAnagraficaEnte.ResumeLayout(false);
 			this.gBoxAnagraficaEnte.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 
             }
@@ -1155,5 +1211,9 @@ namespace csa_importver_partition_elenco {
         private System.Windows.Forms.GroupBox gBoxEnte;
         private System.Windows.Forms.TextBox txtCredDebEnte;
         private System.Windows.Forms.GroupBox gBoxAnagraficaEnte;
-    }
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox txtCodiceContoStornoCosto;
+		private System.Windows.Forms.Button button1;
+	}
     }

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -114,6 +113,12 @@ public partial class dsmeta: DataSet {
 	public MetaTable accmotiveapplied_debit 		=> (MetaTable)Tables["accmotiveapplied_debit"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epaccrual_debit 		=> (MetaTable)Tables["epaccrual_debit"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epaccrual_credit 		=> (MetaTable)Tables["epaccrual_credit"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable accmotiveapplied_credit 		=> (MetaTable)Tables["accmotiveapplied_credit"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
@@ -179,6 +184,15 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable attachmentkind 		=> (MetaTable)Tables["attachmentkind"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable afferenzeorganizzative 		=> (MetaTable)Tables["afferenzeorganizzative"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrymultikindregistry 		=> (MetaTable)Tables["registrymultikindregistry"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable registrymultikind 		=> (MetaTable)Tables["registrymultikind"];
+
 	#endregion
 
 
@@ -206,7 +220,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new registryTable();
-	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa","idnace","idnaturagiur","idnumerodip","idfonteindicebibliometrico","indicebibliometrico","ricevimento","soggiorno","idstruttura","idreg_istituti","idateco","extension","idanpr");
+	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa","idnace","idnaturagiur","idnumerodip","idfonteindicebibliometrico","indicebibliometrico","ricevimento","soggiorno","idstruttura","idreg_istituti","idateco","extension","idanpr","idexternal","idepaccrualdebit","idepaccrualcredit");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
 
@@ -673,6 +687,40 @@ private void initClass() {
 	Tables.Add(taccmotiveapplied_debit);
 	taccmotiveapplied_debit.defineKey("idaccmotive");
 
+	//////////////////// EPACCRUAL_DEBIT /////////////////////////////////
+	var tepaccrual_debit= new MetaTable("epaccrual_debit");
+	tepaccrual_debit.defineColumn("idepaccrual", typeof(string),false);
+	tepaccrual_debit.defineColumn("paridepaccrual", typeof(string));
+	tepaccrual_debit.defineColumn("codeepaccrual", typeof(string),false);
+	tepaccrual_debit.defineColumn("title", typeof(string),false);
+	tepaccrual_debit.defineColumn("ayear", typeof(short),false);
+	tepaccrual_debit.defineColumn("nlevel", typeof(string),false);
+	tepaccrual_debit.defineColumn("printingorder", typeof(string),false);
+	tepaccrual_debit.defineColumn("cu", typeof(string),false);
+	tepaccrual_debit.defineColumn("ct", typeof(DateTime),false);
+	tepaccrual_debit.defineColumn("lu", typeof(string),false);
+	tepaccrual_debit.defineColumn("lt", typeof(DateTime),false);
+	tepaccrual_debit.ExtendedProperties["TableForReading"]="epaccrual";
+	Tables.Add(tepaccrual_debit);
+	tepaccrual_debit.defineKey("idepaccrual");
+
+	//////////////////// EPACCRUAL_CREDIT /////////////////////////////////
+	var tepaccrual_credit= new MetaTable("epaccrual_credit");
+	tepaccrual_credit.defineColumn("idepaccrual", typeof(string),false);
+	tepaccrual_credit.defineColumn("paridepaccrual", typeof(string));
+	tepaccrual_credit.defineColumn("codeepaccrual", typeof(string),false);
+	tepaccrual_credit.defineColumn("title", typeof(string),false);
+	tepaccrual_credit.defineColumn("ayear", typeof(short),false);
+	tepaccrual_credit.defineColumn("nlevel", typeof(string),false);
+	tepaccrual_credit.defineColumn("printingorder", typeof(string),false);
+	tepaccrual_credit.defineColumn("cu", typeof(string),false);
+	tepaccrual_credit.defineColumn("ct", typeof(DateTime),false);
+	tepaccrual_credit.defineColumn("lu", typeof(string),false);
+	tepaccrual_credit.defineColumn("lt", typeof(DateTime),false);
+	tepaccrual_credit.ExtendedProperties["TableForReading"]="epaccrual";
+	Tables.Add(tepaccrual_credit);
+	tepaccrual_credit.defineKey("idepaccrual");
+
 	//////////////////// ACCMOTIVEAPPLIED_CREDIT /////////////////////////////////
 	var taccmotiveapplied_credit= new MetaTable("accmotiveapplied_credit");
 	taccmotiveapplied_credit.defineColumn("idaccmotive", typeof(string),false);
@@ -716,6 +764,8 @@ private void initClass() {
 	tregistrydurc.defineColumn("flagirregular", typeof(string));
 	tregistrydurc.defineColumn("idfilestorage", typeof(string));
 	tregistrydurc.defineColumn("idfilestorage2", typeof(string));
+	tregistrydurc.defineColumn("selfcertificationfilename", typeof(string));
+	tregistrydurc.defineColumn("durccertificationfilename", typeof(string));
 	Tables.Add(tregistrydurc);
 	tregistrydurc.defineKey("idregistrydurc", "idreg");
 
@@ -789,6 +839,7 @@ private void initClass() {
 	tregistryvisura.defineColumn("lu", typeof(string),false);
 	tregistryvisura.defineColumn("lt", typeof(DateTime),false);
 	tregistryvisura.defineColumn("idfilestorage", typeof(string));
+	tregistryvisura.defineColumn("filename", typeof(string));
 	Tables.Add(tregistryvisura);
 	tregistryvisura.defineKey("idregistryvisura", "idreg");
 
@@ -804,6 +855,7 @@ private void initClass() {
 	tregistrycasellariogiudiziale.defineColumn("lu", typeof(string),false);
 	tregistrycasellariogiudiziale.defineColumn("lt", typeof(DateTime),false);
 	tregistrycasellariogiudiziale.defineColumn("idfilestorage", typeof(string));
+	tregistrycasellariogiudiziale.defineColumn("filename", typeof(string));
 	Tables.Add(tregistrycasellariogiudiziale);
 	tregistrycasellariogiudiziale.defineKey("idregistrycasellariogiudiziale", "idreg");
 
@@ -819,6 +871,7 @@ private void initClass() {
 	tregistrycasellarioamministrativo.defineColumn("lu", typeof(string),false);
 	tregistrycasellarioamministrativo.defineColumn("lt", typeof(DateTime),false);
 	tregistrycasellarioamministrativo.defineColumn("idfilestorage", typeof(string));
+	tregistrycasellarioamministrativo.defineColumn("filename", typeof(string));
 	Tables.Add(tregistrycasellarioamministrativo);
 	tregistrycasellarioamministrativo.defineKey("idregistrycasellarioamministrativo", "idreg");
 
@@ -834,6 +887,7 @@ private void initClass() {
 	tregistryottemperanzalegge68_99.defineColumn("lu", typeof(string),false);
 	tregistryottemperanzalegge68_99.defineColumn("lt", typeof(DateTime),false);
 	tregistryottemperanzalegge68_99.defineColumn("idfilestorage", typeof(string));
+	tregistryottemperanzalegge68_99.defineColumn("filename", typeof(string));
 	Tables.Add(tregistryottemperanzalegge68_99);
 	tregistryottemperanzalegge68_99.defineKey("idregistryottemperanzalegge", "idreg");
 
@@ -849,6 +903,7 @@ private void initClass() {
 	tregistryregolaritafiscale.defineColumn("lu", typeof(string),false);
 	tregistryregolaritafiscale.defineColumn("lt", typeof(DateTime),false);
 	tregistryregolaritafiscale.defineColumn("idfilestorage", typeof(string));
+	tregistryregolaritafiscale.defineColumn("filename", typeof(string));
 	Tables.Add(tregistryregolaritafiscale);
 	tregistryregolaritafiscale.defineKey("idregistryregolaritafiscale", "idreg");
 
@@ -864,6 +919,7 @@ private void initClass() {
 	tregistryverificaanac.defineColumn("lu", typeof(string),false);
 	tregistryverificaanac.defineColumn("lt", typeof(DateTime),false);
 	tregistryverificaanac.defineColumn("idfilestorage", typeof(string));
+	tregistryverificaanac.defineColumn("filename", typeof(string));
 	Tables.Add(tregistryverificaanac);
 	tregistryverificaanac.defineKey("idregistryverificaanac", "idreg");
 
@@ -894,6 +950,7 @@ private void initClass() {
 	tregistrypattointegrita.defineColumn("stop", typeof(DateTime));
 	tregistrypattointegrita.defineColumn("pattointegritacertification", typeof(Byte[]));
 	tregistrypattointegrita.defineColumn("idfilestorage", typeof(string));
+	tregistrypattointegrita.defineColumn("filename", typeof(string));
 	Tables.Add(tregistrypattointegrita);
 	tregistrypattointegrita.defineKey("idregistrypattointegrita", "idreg");
 
@@ -986,6 +1043,51 @@ private void initClass() {
 	Tables.Add(tattachmentkind);
 	tattachmentkind.defineKey("idattachmentkind");
 
+	//////////////////// AFFERENZEORGANIZZATIVE /////////////////////////////////
+	var tafferenzeorganizzative= new MetaTable("afferenzeorganizzative");
+	tafferenzeorganizzative.defineColumn("idreg", typeof(int),false);
+	tafferenzeorganizzative.defineColumn("idafferenzeorganizzative", typeof(int),false);
+	tafferenzeorganizzative.defineColumn("active", typeof(string));
+	tafferenzeorganizzative.defineColumn("codice", typeof(string));
+	tafferenzeorganizzative.defineColumn("idabafferenzaorganizzativa", typeof(int));
+	tafferenzeorganizzative.defineColumn("datainizio", typeof(DateTime));
+	tafferenzeorganizzative.defineColumn("datafine", typeof(DateTime));
+	tafferenzeorganizzative.defineColumn("csa_compartment", typeof(string));
+	tafferenzeorganizzative.defineColumn("csa_role", typeof(string));
+	tafferenzeorganizzative.defineColumn("codicerapporto", typeof(string));
+	tafferenzeorganizzative.defineColumn("datafinerapporto", typeof(DateTime));
+	tafferenzeorganizzative.defineColumn("datainiziorapporto", typeof(DateTime));
+	tafferenzeorganizzative.defineColumn("ct", typeof(DateTime),false);
+	tafferenzeorganizzative.defineColumn("cu", typeof(string),false);
+	tafferenzeorganizzative.defineColumn("lt", typeof(DateTime),false);
+	tafferenzeorganizzative.defineColumn("lu", typeof(string),false);
+	Tables.Add(tafferenzeorganizzative);
+	tafferenzeorganizzative.defineKey("idreg", "idafferenzeorganizzative");
+
+	//////////////////// REGISTRYMULTIKINDREGISTRY /////////////////////////////////
+	var tregistrymultikindregistry= new MetaTable("registrymultikindregistry");
+	tregistrymultikindregistry.defineColumn("idreg", typeof(int),false);
+	tregistrymultikindregistry.defineColumn("idregistrymultikind", typeof(int),false);
+	tregistrymultikindregistry.defineColumn("ct", typeof(DateTime));
+	tregistrymultikindregistry.defineColumn("cu", typeof(string));
+	tregistrymultikindregistry.defineColumn("lt", typeof(DateTime));
+	tregistrymultikindregistry.defineColumn("lu", typeof(string));
+	Tables.Add(tregistrymultikindregistry);
+	tregistrymultikindregistry.defineKey("idreg", "idregistrymultikind");
+
+	//////////////////// REGISTRYMULTIKIND /////////////////////////////////
+	var tregistrymultikind= new MetaTable("registrymultikind");
+	tregistrymultikind.defineColumn("idregistrymultikind", typeof(int),false);
+	tregistrymultikind.defineColumn("active", typeof(string));
+	tregistrymultikind.defineColumn("ct", typeof(DateTime));
+	tregistrymultikind.defineColumn("cu", typeof(string));
+	tregistrymultikind.defineColumn("description", typeof(string));
+	tregistrymultikind.defineColumn("lt", typeof(DateTime));
+	tregistrymultikind.defineColumn("lu", typeof(string));
+	tregistrymultikind.defineColumn("title", typeof(string));
+	Tables.Add(tregistrymultikind);
+	tregistrymultikind.defineKey("idregistrymultikind");
+
 	#endregion
 
 
@@ -1033,6 +1135,14 @@ private void initClass() {
 	cChild = new []{registry.Columns["idaccmotivecredit"]};
 	Relations.Add(new DataRelation("FK_accmotiveapplied_credit_registry",cPar,cChild,false));
 
+	cPar = new []{epaccrual_debit.Columns["idepaccrual"]};
+	cChild = new []{registry.Columns["idepaccrualdebit"]};
+	Relations.Add(new DataRelation("FK_epaccrual_debit_registry",cPar,cChild,false));
+
+	cPar = new []{epaccrual_credit.Columns["idepaccrual"]};
+	cChild = new []{registry.Columns["idepaccrualcredit"]};
+	Relations.Add(new DataRelation("FK_epaccrual_credit_registry",cPar,cChild,false));
+
 	this.defineRelation("registry_registryvisura","registry","registryvisura","idreg");
 	this.defineRelation("FK_registry_registrycasellariogiudiziale","registry","registrycasellariogiudiziale","idreg");
 	this.defineRelation("registry_registrycasellarioamministrativo","registry","registrycasellarioamministrativo","idreg");
@@ -1050,6 +1160,9 @@ private void initClass() {
 	this.defineRelation("numerodip_registry","numerodip","registry","idnumerodip");
 	this.defineRelation("naturagiur_registry","naturagiur","registry","idnaturagiur");
 	this.defineRelation("registrypaymethod_registrypaymethodattachment","registrypaymethod","registrypaymethodattachment","idreg","idregistrypaymethod");
+	this.defineRelation("registry_afferenzeorganizzative","registry","afferenzeorganizzative","idreg");
+	this.defineRelation("registry_registrymultikindregistry","registry","registrymultikindregistry","idreg");
+	this.defineRelation("registrymultikind_registrymultikindregistry","registrymultikind","registrymultikindregistry","idregistrymultikind");
 	#endregion
 
 }

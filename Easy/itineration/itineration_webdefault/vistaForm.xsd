@@ -63,7 +63,6 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
-              <xs:element name="datecompleted" type="xs:dateTime" minOccurs="0" />
               <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
               <xs:element name="additionalannotations" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
@@ -92,6 +91,7 @@
               <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
               <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
               <xs:element name="flagexcludefromcertificate" type="xs:string" minOccurs="0" />
+              <xs:element name="idregdelegato" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -114,6 +114,31 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="registry" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idreg" type="xs:int" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="cf" type="xs:string" minOccurs="0" />
+              <xs:element name="p_iva" type="xs:string" minOccurs="0" />
+              <xs:element name="residence" type="xs:int" />
+              <xs:element name="annotation" type="xs:string" minOccurs="0" />
+              <xs:element name="birthdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="gender" type="xs:string" minOccurs="0" />
+              <xs:element name="surname" type="xs:string" minOccurs="0" />
+              <xs:element name="forename" type="xs:string" minOccurs="0" />
+              <xs:element name="foreigncf" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="idaccmotivedebit" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registry_delegato" msprop:TableForReading="registry" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idreg" type="xs:int" />
@@ -744,7 +769,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="manager" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+        <xs:element name="managerwebview" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="active" type="xs:string" minOccurs="0" />
@@ -762,11 +787,6 @@
               <xs:element name="idman" type="xs:int" />
               <xs:element name="iddivision" type="xs:int" />
               <xs:element name="wantswarn" type="xs:string" minOccurs="0" />
-              <xs:element name="idsor01" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor02" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor03" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor04" type="xs:int" minOccurs="0" />
-              <xs:element name="idsor05" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1228,7 +1248,6 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
-              <xs:element name="datecompleted" type="xs:dateTime" minOccurs="0" />
               <xs:element name="iddaliaposition" type="xs:int" minOccurs="0" />
               <xs:element name="additionalannotations" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
@@ -1500,7 +1519,6 @@
               <xs:element name="totlinked" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
               <xs:element name="totresidual" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
               <xs:element name="totnoaccountsaldo" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
-              <xs:element name="datecompleted" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idrelated" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
               <xs:element name="additionalannotations" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
@@ -1515,6 +1533,8 @@
               <xs:element name="advancepercentagetravel" type="xs:decimal" minOccurs="0" />
               <xs:element name="supposedcourse" type="xs:decimal" minOccurs="0" />
               <xs:element name="advancepercentagecourse" type="xs:decimal" minOccurs="0" />
+              <xs:element name="idregdelegato" type="xs:int" minOccurs="0" />
+              <xs:element name="delegato" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1530,6 +1550,10 @@
     </xs:unique>
     <xs:unique name="registry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:registry" />
+      <xs:field xpath="mstns:idreg" />
+    </xs:unique>
+    <xs:unique name="registry_delegato_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:registry_delegato" />
       <xs:field xpath="mstns:idreg" />
     </xs:unique>
     <xs:unique name="itinerationrefund_advance_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -1627,8 +1651,8 @@
       <xs:selector xpath=".//mstns:itinerationstatus" />
       <xs:field xpath="mstns:iditinerationstatus" />
     </xs:unique>
-    <xs:unique name="manager_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:manager" />
+    <xs:unique name="managerwebview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:managerwebview" />
       <xs:field xpath="mstns:idman" />
     </xs:unique>
     <xs:unique name="authmodel_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -1755,7 +1779,7 @@
       <msdata:Relationship name="sorting3itineration" msdata:parent="sorting3" msdata:child="itineration" msdata:parentkey="idsor" msdata:childkey="idsor3" />
       <msdata:Relationship name="accmotiveapplied_debit_itineration" msdata:parent="accmotiveapplied_debit" msdata:child="itineration" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit" />
       <msdata:Relationship name="accmotiveapplied_crg_itineration" msdata:parent="accmotiveapplied_crg" msdata:child="itineration" msdata:parentkey="idaccmotive" msdata:childkey="idaccmotivedebit_crg" />
-      <msdata:Relationship name="manager_itineration" msdata:parent="manager" msdata:child="itineration" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="manager_itineration" msdata:parent="managerwebview" msdata:child="itineration" msdata:parentkey="idman" msdata:childkey="idman" />
       <msdata:Relationship name="sorting01_itineration" msdata:parent="sorting01" msdata:child="itineration" msdata:parentkey="idsor" msdata:childkey="idsor01" />
       <msdata:Relationship name="sorting02_itineration" msdata:parent="sorting02" msdata:child="itineration" msdata:parentkey="idsor" msdata:childkey="idsor02" />
       <msdata:Relationship name="sorting03_itineration" msdata:parent="sorting03" msdata:child="itineration" msdata:parentkey="idsor" msdata:childkey="idsor03" />
@@ -1771,6 +1795,7 @@
       <msdata:Relationship name="authmodel_itineration" msdata:parent="authmodel" msdata:child="itineration" msdata:parentkey="idauthmodel" msdata:childkey="idauthmodel" />
       <msdata:Relationship name="itinerationrefundkinditinerationrefund" msdata:parent="itinerationrefundkind_advance" msdata:child="itinerationrefund_advance" msdata:parentkey="iditinerationrefundkind" msdata:childkey="iditinerationrefundkind" />
       <msdata:Relationship name="registryitineration" msdata:parent="registry" msdata:child="itineration" msdata:parentkey="idreg" msdata:childkey="idreg" />
+      <msdata:Relationship name="registry_delegato_itineration" msdata:parent="registry_delegato" msdata:child="itineration" msdata:parentkey="idreg" msdata:childkey="idregdelegato" />
       <msdata:Relationship name="dalia_position_itineration" msdata:parent="dalia_position" msdata:child="itineration" msdata:parentkey="iddaliaposition" msdata:childkey="iddaliaposition" />
       <msdata:Relationship name="itineration_itinerationattachment" msdata:parent="itineration" msdata:child="itinerationattachment" msdata:parentkey="iditineration" msdata:childkey="iditineration" />
       <msdata:Relationship name="itineration_riferimento_itineration" msdata:parent="itineration_riferimento" msdata:child="itineration" msdata:parentkey="iditineration" msdata:childkey="iditineration_ref" />

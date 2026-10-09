@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -340,7 +339,7 @@ namespace assetvardetail_default {//dettvarpatrimonio//
 			this.radioButtonAltraVariazione.Name = "radioButtonAltraVariazione";
 			this.radioButtonAltraVariazione.Size = new System.Drawing.Size(104, 24);
 			this.radioButtonAltraVariazione.TabIndex = 1;
-			this.radioButtonAltraVariazione.Tag = "assetvar.flag::0?dettvariazionepatrimonioview.variationkind:N";
+			this.radioButtonAltraVariazione.Tag = "assetvar.flag::0?assetvardetailview.variationkind:N";
 			this.radioButtonAltraVariazione.Text = "Altra variazione";
 			// 
 			// radioButtonSituazioneIniziale

@@ -12,14 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 using metadatalibrary;
 using metaeasylibrary;
-using funzioni_configurazione;
 using System.Data;
+using System.Windows.Forms;
 
 namespace meta_itinerationauthview
 {
@@ -28,10 +24,30 @@ namespace meta_itinerationauthview
         public Meta_itinerationauthview(DataAccess Conn, MetaDataDispatcher Dispatcher)
             :
         base(Conn, Dispatcher, "itinerationauthview") {		
-			ListingTypes.Add("default");
+			ListingTypes.Add("webdefault");
+            EditTypes.Add("webdefault");
+            ListingTypes.Add("default");
             EditTypes.Add("default");
             Name = "Autorizzazione Missione";
 		}
+
+        protected override Form GetForm(string FormName)
+        {
+            if (FormName == "default")
+            {
+                DefaultListType = "default";
+                Name = "Autorizzazione Missione";
+                return MetaData.GetFormByDllName("itinerationauthview_default");
+            }
+            if (FormName == "webdefault")
+            {
+                DefaultListType = "webdefault";
+                Name = "Autorizzazione Missione";
+                return MetaData.GetFormByDllName("itinerationauthview_webdefault");
+            }
+
+            return null;
+        }
 
         static string[] mykey = new string[] { "iditineration","idauthagency" };
         public override string[] primaryKey() {
@@ -41,7 +57,8 @@ namespace meta_itinerationauthview
         public override void DescribeColumns(DataTable T, string ListingType)
         {
             base.DescribeColumns(T, ListingType);
-            if (ListingType == "default")
+
+            if (ListingType == "default" || ListingType == "webdefault")
             {
                 foreach (DataColumn C in T.Columns)
                 {

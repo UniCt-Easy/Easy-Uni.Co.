@@ -142,7 +142,7 @@
     <value>Su questo database risultano essere già presenti le informazioni di licenza. Pertanto non dovrebbe essere necessario inserirne delle nuove. Se tuttavia si desidera aggiornarle o verificarne la correttezza, è possibile spingere il bottone Inserisci Informazioni Licenza</value>
   </data>
   <data name="label64.Text" xml:space="preserve">
-    <value>Al termine della configurazione, se appaiono degli errori del tipo 'licenza scaduta' sarà necessario chiudere il programma, attendere che la Software &amp;&amp; More abiliti il database, e poi riaprire il programma. </value>
+    <value>Al termine della configurazione, se appaiono degli errori del tipo 'licenza scaduta' sarà necessario chiudere il programma, attendere che la Tempo srl  abiliti il database, e poi riaprire il programma. </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

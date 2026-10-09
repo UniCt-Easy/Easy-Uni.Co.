@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,9 +28,6 @@ namespace csa_contractkinddata_elenco {
             InitializeComponent();
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e) {
-
-        }
         CQueryHelper QHC;
         QueryHelper QHS;
         public void MetaData_AfterLink() {
@@ -45,10 +41,12 @@ namespace csa_contractkinddata_elenco {
 
             int esercizioCurr = (int)Meta.GetSys("esercizio");
             string filter = QHS.CmpEq("ayear", esercizioCurr);
+            DataAccess.SetTableForReading(DS.account_cost_reversal, "account");
             GetData.SetStaticFilter(DS.fin, QHS.AppAnd(filter, QHS.BitSet("flag", 0)));
             GetData.SetStaticFilter(DS.account, filter);
+            GetData.SetStaticFilter(DS.account_cost_reversal, filter);
+            GetData.SetStaticFilter(DS.csa_contractkinddata, filter);
             GetData.SetStaticFilter(DS.csa_contractkinddataview, filter);
-
             string filterSiope = QHS.CmpEq("codesorkind", Meta.GetSys("codesorkind_siopespese"));
             DataTable tSortingkind = Meta.Conn.RUN_SELECT("sortingkind", "*", null, filterSiope, null, null, true);
             if ((tSortingkind != null) && (tSortingkind.Rows.Count > 0)) {

@@ -93,6 +93,9 @@
       <DependentUpon>Frm_csa_contract_partition_detail.cs</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="vistaForm.cs">
+      <DependentUpon>vistaForm.xsd</DependentUpon>
+    </Compile>
     <Compile Include="vistaForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

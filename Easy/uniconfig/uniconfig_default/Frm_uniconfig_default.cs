@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -130,6 +129,9 @@ namespace uniconfig_default
 		private Label label13;
 		private Label label14;
 		private CheckBox checkBox8;
+		private TabPage tabPageAccrual;
+		private TextBox textBox9;
+		private Label label15;
 		QueryHelper QHS;
 		public Frm_uniconfig_default()
 		{
@@ -167,6 +169,7 @@ namespace uniconfig_default
 			this.btnOK = new System.Windows.Forms.Button();
 			this.tabMain = new System.Windows.Forms.TabControl();
 			this.tabPageFasi = new System.Windows.Forms.TabPage();
+			this.checkBox8 = new System.Windows.Forms.CheckBox();
 			this.chkEnableEmisti = new System.Windows.Forms.CheckBox();
 			this.chkTableRegistryCSA = new System.Windows.Forms.CheckBox();
 			this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -256,7 +259,9 @@ namespace uniconfig_default
 			this.chkRequireNonAlphanumeric = new System.Windows.Forms.CheckBox();
 			this.txtRequiredUniqueChars = new System.Windows.Forms.TextBox();
 			this.txtRequiredLength = new System.Windows.Forms.TextBox();
-			this.checkBox8 = new System.Windows.Forms.CheckBox();
+			this.tabPageAccrual = new System.Windows.Forms.TabPage();
+			this.label15 = new System.Windows.Forms.Label();
+			this.textBox9 = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.tabMain.SuspendLayout();
 			this.tabPageFasi.SuspendLayout();
@@ -278,6 +283,7 @@ namespace uniconfig_default
 			this.tabPageWeb.SuspendLayout();
 			this.tabPageAllegati.SuspendLayout();
 			this.tabPagePassword.SuspendLayout();
+			this.tabPageAccrual.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -337,6 +343,7 @@ namespace uniconfig_default
 			this.tabMain.Controls.Add(this.tabPageWeb);
 			this.tabMain.Controls.Add(this.tabPageAllegati);
 			this.tabMain.Controls.Add(this.tabPagePassword);
+			this.tabMain.Controls.Add(this.tabPageAccrual);
 			this.tabMain.Location = new System.Drawing.Point(12, 12);
 			this.tabMain.Name = "tabMain";
 			this.tabMain.SelectedIndex = 0;
@@ -368,6 +375,17 @@ namespace uniconfig_default
 			this.tabPageFasi.TabIndex = 0;
 			this.tabPageFasi.Text = "Fasi";
 			this.tabPageFasi.UseVisualStyleBackColor = true;
+			// 
+			// checkBox8
+			// 
+			this.checkBox8.AutoSize = true;
+			this.checkBox8.Location = new System.Drawing.Point(15, 466);
+			this.checkBox8.Name = "checkBox8";
+			this.checkBox8.Size = new System.Drawing.Size(189, 17);
+			this.checkBox8.TabIndex = 18;
+			this.checkBox8.Tag = "uniconfig.flag:7";
+			this.checkBox8.Text = "Consenti Carico Cespite da Fattura";
+			this.checkBox8.UseVisualStyleBackColor = true;
 			// 
 			// chkEnableEmisti
 			// 
@@ -672,7 +690,7 @@ namespace uniconfig_default
 			this.tabPageAttributi.Location = new System.Drawing.Point(4, 22);
 			this.tabPageAttributi.Name = "tabPageAttributi";
 			this.tabPageAttributi.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageAttributi.Size = new System.Drawing.Size(657, 472);
+			this.tabPageAttributi.Size = new System.Drawing.Size(657, 494);
 			this.tabPageAttributi.TabIndex = 1;
 			this.tabPageAttributi.Text = " Attributi";
 			this.tabPageAttributi.UseVisualStyleBackColor = true;
@@ -904,7 +922,7 @@ namespace uniconfig_default
 			this.tabPageREA.Controls.Add(this.labDay);
 			this.tabPageREA.Location = new System.Drawing.Point(4, 22);
 			this.tabPageREA.Name = "tabPageREA";
-			this.tabPageREA.Size = new System.Drawing.Size(657, 472);
+			this.tabPageREA.Size = new System.Drawing.Size(657, 494);
 			this.tabPageREA.TabIndex = 2;
 			this.tabPageREA.Text = "REA";
 			this.tabPageREA.UseVisualStyleBackColor = true;
@@ -1055,7 +1073,7 @@ namespace uniconfig_default
 			this.tabPagePerla.Location = new System.Drawing.Point(4, 22);
 			this.tabPagePerla.Name = "tabPagePerla";
 			this.tabPagePerla.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPagePerla.Size = new System.Drawing.Size(657, 472);
+			this.tabPagePerla.Size = new System.Drawing.Size(657, 494);
 			this.tabPagePerla.TabIndex = 3;
 			this.tabPagePerla.Text = "Perla";
 			this.tabPagePerla.UseVisualStyleBackColor = true;
@@ -1188,7 +1206,7 @@ namespace uniconfig_default
 			this.tabPageWeb.Location = new System.Drawing.Point(4, 22);
 			this.tabPageWeb.Name = "tabPageWeb";
 			this.tabPageWeb.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageWeb.Size = new System.Drawing.Size(657, 472);
+			this.tabPageWeb.Size = new System.Drawing.Size(657, 494);
 			this.tabPageWeb.TabIndex = 4;
 			this.tabPageWeb.Text = "Web";
 			this.tabPageWeb.UseVisualStyleBackColor = true;
@@ -1217,7 +1235,7 @@ namespace uniconfig_default
 			this.tabPageAllegati.Location = new System.Drawing.Point(4, 22);
 			this.tabPageAllegati.Name = "tabPageAllegati";
 			this.tabPageAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPageAllegati.Size = new System.Drawing.Size(657, 472);
+			this.tabPageAllegati.Size = new System.Drawing.Size(657, 494);
 			this.tabPageAllegati.TabIndex = 5;
 			this.tabPageAllegati.Text = "Allegati";
 			this.tabPageAllegati.UseVisualStyleBackColor = true;
@@ -1251,7 +1269,7 @@ namespace uniconfig_default
 			this.tabPagePassword.Controls.Add(this.txtRequiredLength);
 			this.tabPagePassword.Location = new System.Drawing.Point(4, 22);
 			this.tabPagePassword.Name = "tabPagePassword";
-			this.tabPagePassword.Size = new System.Drawing.Size(657, 472);
+			this.tabPagePassword.Size = new System.Drawing.Size(657, 494);
 			this.tabPagePassword.TabIndex = 6;
 			this.tabPagePassword.Text = "Password";
 			this.tabPagePassword.UseVisualStyleBackColor = true;
@@ -1335,16 +1353,34 @@ namespace uniconfig_default
 			this.txtRequiredLength.TabIndex = 0;
 			this.txtRequiredLength.Tag = "uniconfig.pwd_requiredlength";
 			// 
-			// checkBox8
+			// tabPageAccrual
 			// 
-			this.checkBox8.AutoSize = true;
-			this.checkBox8.Location = new System.Drawing.Point(15, 466);
-			this.checkBox8.Name = "checkBox8";
-			this.checkBox8.Size = new System.Drawing.Size(189, 17);
-			this.checkBox8.TabIndex = 18;
-			this.checkBox8.Tag = "uniconfig.flag:7";
-			this.checkBox8.Text = "Consenti Carico Cespite da Fattura";
-			this.checkBox8.UseVisualStyleBackColor = true;
+			this.tabPageAccrual.Controls.Add(this.textBox9);
+			this.tabPageAccrual.Controls.Add(this.label15);
+			this.tabPageAccrual.Location = new System.Drawing.Point(4, 22);
+			this.tabPageAccrual.Name = "tabPageAccrual";
+			this.tabPageAccrual.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageAccrual.Size = new System.Drawing.Size(657, 494);
+			this.tabPageAccrual.TabIndex = 7;
+			this.tabPageAccrual.Text = "Accrual";
+			this.tabPageAccrual.UseVisualStyleBackColor = true;
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(35, 27);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(72, 13);
+			this.label15.TabIndex = 0;
+			this.label15.Text = "Codice BDAP";
+			// 
+			// textBox9
+			// 
+			this.textBox9.Location = new System.Drawing.Point(123, 24);
+			this.textBox9.Name = "textBox9";
+			this.textBox9.Size = new System.Drawing.Size(196, 20);
+			this.textBox9.TabIndex = 1;
+			this.textBox9.Tag = "uniconfig.codice_bdap";
 			// 
 			// Frm_uniconfig_default
 			// 
@@ -1397,6 +1433,8 @@ namespace uniconfig_default
 			this.tabPageAllegati.PerformLayout();
 			this.tabPagePassword.ResumeLayout(false);
 			this.tabPagePassword.PerformLayout();
+			this.tabPageAccrual.ResumeLayout(false);
+			this.tabPageAccrual.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

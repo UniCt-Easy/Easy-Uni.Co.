@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -56,6 +55,9 @@ public partial class vistaForm: DataSet {
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expense 		=> Tables["expense"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public DataTable epaccrual 		=> Tables["epaccrual"];
 
 	#endregion
 
@@ -123,6 +125,7 @@ private void initClass() {
 	tpayment.Columns.Add( new DataColumn("idsor04", typeof(int)));
 	tpayment.Columns.Add( new DataColumn("idsor05", typeof(int)));
 	tpayment.Columns.Add( new DataColumn("npay_treasurer", typeof(int)));
+	tpayment.Columns.Add( new DataColumn("idepaccrual", typeof(string)));
 	Tables.Add(tpayment);
 	tpayment.PrimaryKey =  new DataColumn[]{tpayment.Columns["kpay"]};
 
@@ -593,6 +596,31 @@ private void initClass() {
 	texpense.Columns.Add( new DataColumn("idinc_linked", typeof(int)));
 	Tables.Add(texpense);
 	texpense.PrimaryKey =  new DataColumn[]{texpense.Columns["idexp"]};
+
+
+	//////////////////// EPACCRUAL /////////////////////////////////
+	var tepaccrual= new DataTable("epaccrual");
+	C= new DataColumn("idepaccrual", typeof(string));
+	C.AllowDBNull=false;
+	tepaccrual.Columns.Add(C);
+	tepaccrual.Columns.Add( new DataColumn("paridepaccrual", typeof(string)));
+	C= new DataColumn("codeepaccrual", typeof(string));
+	C.AllowDBNull=false;
+	tepaccrual.Columns.Add(C);
+	C= new DataColumn("title", typeof(string));
+	C.AllowDBNull=false;
+	tepaccrual.Columns.Add(C);
+	C= new DataColumn("ayear", typeof(short));
+	C.AllowDBNull=false;
+	tepaccrual.Columns.Add(C);
+	C= new DataColumn("nlevel", typeof(string));
+	C.AllowDBNull=false;
+	tepaccrual.Columns.Add(C);
+	C= new DataColumn("printingorder", typeof(string));
+	C.AllowDBNull=false;
+	tepaccrual.Columns.Add(C);
+	Tables.Add(tepaccrual);
+	tepaccrual.PrimaryKey =  new DataColumn[]{tepaccrual.Columns["idepaccrual"]};
 
 
 	#endregion

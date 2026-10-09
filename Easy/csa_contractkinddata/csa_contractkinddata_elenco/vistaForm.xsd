@@ -11,6 +11,7 @@
               <xs:element name="vocecsa" type="xs:string" />
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
@@ -155,33 +156,67 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="account_cost_reversal">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtransitory" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="paridacc" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idpatrimony" type="xs:string" minOccurs="0" />
+              <xs:element name="idplaccount" type="xs:string" minOccurs="0" />
+              <xs:element name="flagprofit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagloss" type="xs:string" minOccurs="0" />
+              <xs:element name="placcount_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="patrimony_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcompetency" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="csa_contractkinddataview">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idcsa_contractkind" type="xs:int" />
-              <xs:element name="idcsa_contractkinddata" type="xs:int" />
-              <xs:element name="ayear" type="xs:short" />
               <xs:element name="csa_contractkindcode" type="xs:string" />
               <xs:element name="csa_contractkind" type="xs:string" />
+              <xs:element name="idcsa_contractkinddata" type="xs:int" />
               <xs:element name="vocecsa" type="xs:string" />
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
               <xs:element name="codefin" type="xs:string" minOccurs="0" />
+              <xs:element name="fin" type="xs:string" minOccurs="0" />
               <xs:element name="idacc" type="xs:string" minOccurs="0" />
               <xs:element name="codeacc" type="xs:string" minOccurs="0" />
+              <xs:element name="account" type="xs:string" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
+              <xs:element name="codeacc_cost_reversal" type="xs:string" minOccurs="0" />
+              <xs:element name="account_cost_reversal" type="xs:string" minOccurs="0" />
+              <xs:element name="ayear" type="xs:short" />
               <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="codeupb" type="xs:string" minOccurs="0" />
+              <xs:element name="upb" type="xs:string" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
               <xs:element name="sortcode_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="sort_siope" type="xs:string" minOccurs="0" />
+              <xs:element name="active" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcr" type="xs:string" />
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="cu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
-              <xs:element name="flagcr" type="xs:string" minOccurs="0" />
-              <xs:element name="fin" type="xs:string" minOccurs="0" />
-              <xs:element name="account" type="xs:string" minOccurs="0" />
-              <xs:element name="upb" type="xs:string" minOccurs="0" />
-              <xs:element name="sort_siope" type="xs:string" minOccurs="0" />
-              <xs:element name="active" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -213,6 +248,10 @@
       <xs:selector xpath=".//mstns:sorting" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
+    <xs:unique name="account_cost_reversal_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:account_cost_reversal" />
+      <xs:field xpath="mstns:idacc" />
+    </xs:unique>
     <xs:unique name="csa_contractkinddataview_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:csa_contractkinddataview" />
       <xs:field xpath="mstns:idcsa_contractkind" />
@@ -227,6 +266,7 @@
       <msdata:Relationship name="csa_contractkind_csa_contractkinddata" msdata:parent="csa_contractkind" msdata:child="csa_contractkinddata" msdata:parentkey="idcsa_contractkind" msdata:childkey="idcsa_contractkind" />
       <msdata:Relationship name="fin_csa_contractkinddata" msdata:parent="fin" msdata:child="csa_contractkinddata" msdata:parentkey="idfin" msdata:childkey="idfin" />
       <msdata:Relationship name="upb_csa_contractkinddata" msdata:parent="upb" msdata:child="csa_contractkinddata" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="account_cost_reversal_csa_contractkinddata" msdata:parent="account_cost_reversal" msdata:child="csa_contractkinddata" msdata:parentkey="idacc" msdata:childkey="idacc_cost_reversal" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using metaeasylibrary;
@@ -47,6 +46,8 @@ namespace meta_csa_contractkinddataview {
                 DescribeAColumn(T, "upb", "UPB", nPos++);
                 DescribeAColumn(T, "codeacc", "Cod.Conto E/P", nPos++);
                 DescribeAColumn(T, "account", "Conto E/P", nPos++);
+                DescribeAColumn(T, "codeacc_cost_reversal", "Cod. Conto EP Storno di Costo", nPos++);
+                DescribeAColumn(T, "account_cost_reversal", "Conto EP Storno di Costo", nPos++);
                 DescribeAColumn(T, "codefin", "Cod.Bilancio", nPos++);
                 DescribeAColumn(T, "fin", "Cod.Bilancio", nPos++);
                 DescribeAColumn(T, "sortcode_siope", "Cod.SIOPE", nPos++);

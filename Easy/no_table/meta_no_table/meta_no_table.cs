@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -104,6 +103,9 @@ namespace meta_no_table {
             EditTypes.Add("fin_mef_afam");
             EditTypes.Add("reportpb");
             EditTypes.Add("itinerationamountdetail");
+            EditTypes.Add("intra12");
+            EditTypes.Add("accrual");
+            EditTypes.Add("downloadregistry");
         }
         public override void DescribeColumns(System.Data.DataTable T, string ListingType) {
             base.DescribeColumns(T, ListingType);
@@ -439,8 +441,20 @@ namespace meta_no_table {
                         Name = "Inserimento riepilogo importi missione";
                         return GetFormByDllName("no_table_itinerationamountdetail");
                     }
-                    
-
+                case "intra12": {
+                    Name = "Calcolo Modello INTRA12";
+                    return GetFormByDllName("no_table_intra12");
+                }
+                case "accrual":
+				{
+                    Name = "Modello telematico accrual";
+                    return GetFormByDllName("no_table_schemibilancio_accrual");
+				}
+                case "downloadregistry":
+                {
+                    Name = "Download file anagrafica";
+                    return GetFormByDllName("no_table_dumpdocanagrafica");
+                }
             }
 			return null;
         }

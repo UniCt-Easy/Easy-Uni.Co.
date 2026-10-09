@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace csa_importriep_partition_elenco {
     partial class Frm_csa_importriep_partition_elenco {
         /// <summary>
@@ -109,6 +108,10 @@ namespace csa_importriep_partition_elenco {
 			this.label14 = new System.Windows.Forms.Label();
 			this.txtEsercContratto = new System.Windows.Forms.TextBox();
 			this.label15 = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.txtCodiceContoStornoCosto = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.gBoxImporto.SuspendLayout();
 			this.gBoxRiepilogo.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
@@ -129,6 +132,7 @@ namespace csa_importriep_partition_elenco {
 			this.grpMatricola.SuspendLayout();
 			this.groupCredDeb.SuspendLayout();
 			this.gBoxContratto.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// gBoxImporto
@@ -482,6 +486,7 @@ namespace csa_importriep_partition_elenco {
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.groupBox2);
 			this.tabPage2.Controls.Add(this.gboxImpegnoBudget);
 			this.tabPage2.Controls.Add(this.gboxConto);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -584,7 +589,7 @@ namespace csa_importriep_partition_elenco {
 			this.gboxConto.Controls.Add(this.button5);
 			this.gboxConto.Location = new System.Drawing.Point(18, 28);
 			this.gboxConto.Name = "gboxConto";
-			this.gboxConto.Size = new System.Drawing.Size(359, 98);
+			this.gboxConto.Size = new System.Drawing.Size(310, 98);
 			this.gboxConto.TabIndex = 46;
 			this.gboxConto.TabStop = false;
 			this.gboxConto.Tag = "AutoManage.txtCodiceConto.tree";
@@ -592,21 +597,25 @@ namespace csa_importriep_partition_elenco {
 			// 
 			// txtDenominazioneConto
 			// 
-			this.txtDenominazioneConto.Location = new System.Drawing.Point(136, 16);
+			this.txtDenominazioneConto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtDenominazioneConto.Location = new System.Drawing.Point(107, 16);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
 			this.txtDenominazioneConto.ReadOnly = true;
 			this.txtDenominazioneConto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDenominazioneConto.Size = new System.Drawing.Size(208, 52);
+			this.txtDenominazioneConto.Size = new System.Drawing.Size(189, 52);
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
 			// 
 			// txtCodiceConto
 			// 
+			this.txtCodiceConto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCodiceConto.Location = new System.Drawing.Point(8, 72);
 			this.txtCodiceConto.Name = "txtCodiceConto";
-			this.txtCodiceConto.Size = new System.Drawing.Size(336, 20);
+			this.txtCodiceConto.Size = new System.Drawing.Size(288, 20);
 			this.txtCodiceConto.TabIndex = 4;
 			this.txtCodiceConto.Tag = "account.codeacc?csa_importriep_partitionview.codeacc";
 			// 
@@ -614,7 +623,7 @@ namespace csa_importriep_partition_elenco {
 			// 
 			this.button5.Location = new System.Drawing.Point(10, 45);
 			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(120, 23);
+			this.button5.Size = new System.Drawing.Size(91, 23);
 			this.button5.TabIndex = 1;
 			this.button5.TabStop = false;
 			this.button5.Tag = "manage.account.tree";
@@ -895,6 +904,55 @@ namespace csa_importriep_partition_elenco {
 			this.label15.Text = "Esercizio:";
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.textBox2);
+			this.groupBox2.Controls.Add(this.txtCodiceContoStornoCosto);
+			this.groupBox2.Controls.Add(this.button1);
+			this.groupBox2.Location = new System.Drawing.Point(334, 28);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(320, 98);
+			this.groupBox2.TabIndex = 50;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Tag = "AutoManage.txtCodiceContoStornoCosto.tree";
+			this.groupBox2.Text = "Conto EP Storno di Costo (righe di Riepilogo negative)";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox2.Location = new System.Drawing.Point(105, 19);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ReadOnly = true;
+			this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.textBox2.Size = new System.Drawing.Size(198, 49);
+			this.textBox2.TabIndex = 2;
+			this.textBox2.TabStop = false;
+			this.textBox2.Tag = "account_cost_reversal.title";
+			// 
+			// txtCodiceContoStornoCosto
+			// 
+			this.txtCodiceContoStornoCosto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCodiceContoStornoCosto.Location = new System.Drawing.Point(6, 72);
+			this.txtCodiceContoStornoCosto.Name = "txtCodiceContoStornoCosto";
+			this.txtCodiceContoStornoCosto.Size = new System.Drawing.Size(297, 20);
+			this.txtCodiceContoStornoCosto.TabIndex = 4;
+			this.txtCodiceContoStornoCosto.Tag = "account_cost_reversal.codeacc";
+			// 
+			// button1
+			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button1.Location = new System.Drawing.Point(6, 45);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(91, 23);
+			this.button1.TabIndex = 1;
+			this.button1.TabStop = false;
+			this.button1.Tag = "manage.account_cost_reversal.tree";
+			this.button1.Text = "Conto";
+			// 
 			// Frm_csa_importriep_partition_elenco
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -948,6 +1006,8 @@ namespace csa_importriep_partition_elenco {
 			this.groupCredDeb.PerformLayout();
 			this.gBoxContratto.ResumeLayout(false);
 			this.gBoxContratto.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 
             }
@@ -1024,5 +1084,9 @@ namespace csa_importriep_partition_elenco {
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtEsercContratto;
         private System.Windows.Forms.Label label15;
-    }
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox txtCodiceContoStornoCosto;
+		private System.Windows.Forms.Button button1;
+	}
     }

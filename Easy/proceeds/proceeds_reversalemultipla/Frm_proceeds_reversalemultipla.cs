@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -138,7 +137,9 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
         private Button btnFlussoCrediti;
         private GroupBox grpTrasmSiope;
         private Button btnControllaFileOPI;
-        private System.ComponentModel.IContainer components;
+		private Label label16;
+		private TextBox textBox5;
+		private System.ComponentModel.IContainer components;
 
 		public Frm_proceeds_reversalemultipla() {
 			InitializeComponent();
@@ -260,6 +261,8 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.chkCompetenza = new System.Windows.Forms.CheckBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.txtNPro_Treasurer = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.textBox5 = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgrRigheReversale)).BeginInit();
 			this.gboxMovimenti.SuspendLayout();
@@ -1180,6 +1183,8 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			// 
 			// tabAllegati
 			// 
+			this.tabAllegati.Controls.Add(this.label16);
+			this.tabAllegati.Controls.Add(this.textBox5);
 			this.tabAllegati.Controls.Add(this.dataGridAllegati);
 			this.tabAllegati.Controls.Add(this.btnDelAtt);
 			this.tabAllegati.Controls.Add(this.btnEditAtt);
@@ -1308,6 +1313,25 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.txtNPro_Treasurer.TabStop = false;
 			this.txtNPro_Treasurer.Tag = "proceeds.npro_treasurer";
 			// 
+			// label16
+			// 
+			this.label16.Location = new System.Drawing.Point(549, 17);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(202, 16);
+			this.label16.TabIndex = 89;
+			this.label16.Text = "Data/ora invio in Conservazione:";
+			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox5
+			// 
+			this.textBox5.Location = new System.Drawing.Point(757, 16);
+			this.textBox5.Name = "textBox5";
+			this.textBox5.ReadOnly = true;
+			this.textBox5.Size = new System.Drawing.Size(161, 20);
+			this.textBox5.TabIndex = 88;
+			this.textBox5.TabStop = false;
+			this.textBox5.Tag = "proceeds.preservelt";
+			// 
 			// Frm_proceeds_reversalemultipla
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -1362,6 +1386,7 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
 			this.gboxclass01.ResumeLayout(false);
 			this.gboxclass01.PerformLayout();
 			this.tabAllegati.ResumeLayout(false);
+			this.tabAllegati.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
 			this.gboxtipo.ResumeLayout(false);
@@ -1384,7 +1409,23 @@ namespace proceeds_reversalemultipla{//documentoincasso_multiplo//
             DataAccess.SetTableForReading(DS.income1, "income");
             HelpForm.SetDenyNull(DS.proceeds.Columns["idtreasurer"], true);
 
-        }
+			// Verifico esistenza tabelle/campi per integrazione con Poiano dei Conti Accrual
+			object fieldidEpAccrual = Meta.Conn.DO_READ_VALUE("columntypes", "(tablename='proceeds') and (field='idepaccrual')", "field");
+			object tablenameEpAccrual = Meta.Conn.DO_READ_VALUE("customobject", "(objectname='epaccrual')", "objectname");
+
+			if ((fieldidEpAccrual == null) || (fieldidEpAccrual == DBNull.Value) ||
+				 (tablenameEpAccrual == null) || (tablenameEpAccrual == DBNull.Value)) {
+				Meta.CanSave = false;
+				Meta.CanInsert = false;
+				Meta.CanInsertCopy = false;
+			}
+			else {
+				string filteresercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
+				GetData.SetStaticFilter(DS.epaccrual, filteresercizio);
+				GetData.CacheTable(DS.epaccrual, filteresercizio, "codeepaccrual", false);
+			}
+
+		}
 
         bool UsoSiope = false;
         private IDataAccess Conn;

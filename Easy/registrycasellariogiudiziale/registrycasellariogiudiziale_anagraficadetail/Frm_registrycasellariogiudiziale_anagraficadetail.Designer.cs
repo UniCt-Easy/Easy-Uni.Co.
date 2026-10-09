@@ -13,7 +13,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 namespace registrycasellariogiudiziale_anagraficadetail {
 	partial class Frm_registrycasellariogiudiziale_anagraficadetail {
 		 /// <summary>
@@ -134,6 +133,7 @@ namespace registrycasellariogiudiziale_anagraficadetail {
             this.btnRimuoviCasellarioGiudiziale.TabIndex = 1;
             this.btnRimuoviCasellarioGiudiziale.Text = "Rimuovi Allegato";
             this.btnRimuoviCasellarioGiudiziale.UseVisualStyleBackColor = true;
+            this.btnRimuoviCasellarioGiudiziale.Visible = false;
             this.btnRimuoviCasellarioGiudiziale.Click += new System.EventHandler(this.btnRimuoviDurc_Click);
             // 
             // btnAllegaCasellarioGiudiziale
@@ -167,7 +167,7 @@ namespace registrycasellariogiudiziale_anagraficadetail {
             this.btnOk.Tag = "mainsave";
             this.btnOk.Text = "OK";
             // 
-            // opendlg
+            // _opendlg
             // 
             this._opendlg.Title = "Scegli il file da allegare";
             // 

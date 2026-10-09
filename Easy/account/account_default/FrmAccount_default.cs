@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -205,11 +204,6 @@ namespace account_default {
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.MetaDataDetail = new System.Windows.Forms.TabControl();
-			this.tabAllegati = new System.Windows.Forms.TabPage();
-			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
-			this.btnDelAtt = new System.Windows.Forms.Button();
-			this.btnEditAtt = new System.Windows.Forms.Button();
-			this.btnInsAtt = new System.Windows.Forms.Button(); 
 			this.tabPrincipale = new System.Windows.Forms.TabPage();
 			this.gboxBudgetInvestimenti = new System.Windows.Forms.GroupBox();
 			this.chkSegnoBudgetI = new System.Windows.Forms.CheckBox();
@@ -333,12 +327,15 @@ namespace account_default {
 			this.btnBudgetIniziale = new System.Windows.Forms.Button();
 			this.label11 = new System.Windows.Forms.Label();
 			this.txtBudgetIniziale = new System.Windows.Forms.TextBox();
+			this.tabAllegati = new System.Windows.Forms.TabPage();
+			this.dataGridAllegati = new System.Windows.Forms.DataGrid();
+			this.btnDelAtt = new System.Windows.Forms.Button();
+			this.btnEditAtt = new System.Windows.Forms.Button();
+			this.btnInsAtt = new System.Windows.Forms.Button();
 			this.txtCodicen = new System.Windows.Forms.TextBox();
 			this.button2 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.MetaDataDetail.SuspendLayout();
-			this.tabAllegati.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit(); 
 			this.tabPrincipale.SuspendLayout();
 			this.gboxBudgetInvestimenti.SuspendLayout();
 			this.gboxBudgetEconomico.SuspendLayout();
@@ -358,6 +355,8 @@ namespace account_default {
 			this.tabRiepilogo.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.tabAllegati.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridAllegati)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DS
@@ -409,61 +408,6 @@ namespace account_default {
 			this.MetaDataDetail.SelectedIndex = 0;
 			this.MetaDataDetail.Size = new System.Drawing.Size(790, 652);
 			this.MetaDataDetail.TabIndex = 4;
-			// 
-			// tabAllegati
-			// 
-			this.tabAllegati.Controls.Add(this.dataGridAllegati);
-			this.tabAllegati.Controls.Add(this.btnDelAtt);
-			this.tabAllegati.Controls.Add(this.btnEditAtt);
-			this.tabAllegati.Controls.Add(this.btnInsAtt);
-			this.tabAllegati.Location = new System.Drawing.Point(4, 23);
-			this.tabAllegati.Name = "tabAllegati";
-			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAllegati.Size = new System.Drawing.Size(910, 499);
-			this.tabAllegati.TabIndex = 15;
-			this.tabAllegati.Text = "Allegati";
-			this.tabAllegati.UseVisualStyleBackColor = true;
-			// 
-			// dataGridAllegati
-			// 
-			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridAllegati.DataMember = "";
-			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
-			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
-			this.dataGridAllegati.Name = "dataGridAllegati";
-			this.dataGridAllegati.ReadOnly = true;
-			this.dataGridAllegati.Size = new System.Drawing.Size(895, 451);
-			this.dataGridAllegati.TabIndex = 23;
-			this.dataGridAllegati.Tag = "accountattachment.lista.detail";
-			// 
-			// btnDelAtt
-			// 
-			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
-			this.btnDelAtt.Name = "btnDelAtt";
-			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
-			this.btnDelAtt.TabIndex = 22;
-			this.btnDelAtt.Tag = "delete";
-			this.btnDelAtt.Text = "Elimina";
-			// 
-			// btnEditAtt
-			// 
-			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
-			this.btnEditAtt.Name = "btnEditAtt";
-			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
-			this.btnEditAtt.TabIndex = 21;
-			this.btnEditAtt.Tag = "edit.detail";
-			this.btnEditAtt.Text = "Modifica...";
-			// 
-			// btnInsAtt
-			// 
-			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
-			this.btnInsAtt.Name = "btnInsAtt";
-			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
-			this.btnInsAtt.TabIndex = 20;
-			this.btnInsAtt.Tag = "insert.detail";
-			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// tabPrincipale
 			// 
@@ -1399,7 +1343,7 @@ namespace account_default {
 			this.dGridClassSup.Name = "dGridClassSup";
 			this.dGridClassSup.Size = new System.Drawing.Size(686, 607);
 			this.dGridClassSup.TabIndex = 17;
-			this.dGridClassSup.Tag = "accountsorting.default.default";
+			this.dGridClassSup.Tag = "accountsorting.default.single";
 			// 
 			// btnElimina
 			// 
@@ -1811,6 +1755,61 @@ namespace account_default {
 			this.txtBudgetIniziale.Size = new System.Drawing.Size(121, 20);
 			this.txtBudgetIniziale.TabIndex = 30;
 			this.txtBudgetIniziale.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// tabAllegati
+			// 
+			this.tabAllegati.Controls.Add(this.dataGridAllegati);
+			this.tabAllegati.Controls.Add(this.btnDelAtt);
+			this.tabAllegati.Controls.Add(this.btnEditAtt);
+			this.tabAllegati.Controls.Add(this.btnInsAtt);
+			this.tabAllegati.Location = new System.Drawing.Point(4, 22);
+			this.tabAllegati.Name = "tabAllegati";
+			this.tabAllegati.Padding = new System.Windows.Forms.Padding(3);
+			this.tabAllegati.Size = new System.Drawing.Size(782, 626);
+			this.tabAllegati.TabIndex = 15;
+			this.tabAllegati.Text = "Allegati";
+			this.tabAllegati.UseVisualStyleBackColor = true;
+			// 
+			// dataGridAllegati
+			// 
+			this.dataGridAllegati.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridAllegati.DataMember = "";
+			this.dataGridAllegati.HeaderForeColor = System.Drawing.SystemColors.ControlText;
+			this.dataGridAllegati.Location = new System.Drawing.Point(7, 42);
+			this.dataGridAllegati.Name = "dataGridAllegati";
+			this.dataGridAllegati.ReadOnly = true;
+			this.dataGridAllegati.Size = new System.Drawing.Size(767, 578);
+			this.dataGridAllegati.TabIndex = 23;
+			this.dataGridAllegati.Tag = "accountattachment.lista.detail";
+			// 
+			// btnDelAtt
+			// 
+			this.btnDelAtt.Location = new System.Drawing.Point(198, 7);
+			this.btnDelAtt.Name = "btnDelAtt";
+			this.btnDelAtt.Size = new System.Drawing.Size(82, 28);
+			this.btnDelAtt.TabIndex = 22;
+			this.btnDelAtt.Tag = "delete";
+			this.btnDelAtt.Text = "Elimina";
+			// 
+			// btnEditAtt
+			// 
+			this.btnEditAtt.Location = new System.Drawing.Point(102, 7);
+			this.btnEditAtt.Name = "btnEditAtt";
+			this.btnEditAtt.Size = new System.Drawing.Size(83, 28);
+			this.btnEditAtt.TabIndex = 21;
+			this.btnEditAtt.Tag = "edit.detail";
+			this.btnEditAtt.Text = "Modifica...";
+			// 
+			// btnInsAtt
+			// 
+			this.btnInsAtt.Location = new System.Drawing.Point(7, 7);
+			this.btnInsAtt.Name = "btnInsAtt";
+			this.btnInsAtt.Size = new System.Drawing.Size(81, 28);
+			this.btnInsAtt.TabIndex = 20;
+			this.btnInsAtt.Tag = "insert.detail";
+			this.btnInsAtt.Text = "Inserisci...";
 			// 
 			// txtCodicen
 			// 

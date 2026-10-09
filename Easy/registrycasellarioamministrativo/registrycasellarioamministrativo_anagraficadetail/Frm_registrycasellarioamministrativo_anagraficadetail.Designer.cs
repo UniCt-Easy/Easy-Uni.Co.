@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace registrycasellarioamministrativo_anagraficadetail {
     partial class Frm_registrycasellarioamministrativo_anagraficadetail {
         /// <summary>
@@ -133,6 +132,7 @@ namespace registrycasellarioamministrativo_anagraficadetail {
             this.btnRimuoviCasellarioAmministrativo.TabIndex = 1;
             this.btnRimuoviCasellarioAmministrativo.Text = "Rimuovi Allegato";
             this.btnRimuoviCasellarioAmministrativo.UseVisualStyleBackColor = true;
+            this.btnRimuoviCasellarioAmministrativo.Visible = false;
             this.btnRimuoviCasellarioAmministrativo.Click += new System.EventHandler(this.btnRimuoviCasellarioAmministrativo_Click);
             // 
             // btnAllegaCasellarioAmministrativo
@@ -166,7 +166,7 @@ namespace registrycasellarioamministrativo_anagraficadetail {
             this.btnOk.Tag = "mainsave";
             this.btnOk.Text = "OK";
             // 
-            // opendlg
+            // _opendlg
             // 
             this._opendlg.Title = "Scegli il file da allegare";
             // 

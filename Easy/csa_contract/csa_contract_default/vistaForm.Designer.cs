@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -24,63 +23,36 @@ using System.Runtime.Serialization;
 namespace csa_contract_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class vistaForm: DataSet {
+public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkind 		=> Tables["csa_contractkind"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable account 		=> Tables["account"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fin 		=> Tables["fin"];
 
-	///<summary>
-	///Informazioni annuali su tipo contratto csa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractkindyear 		=> Tables["csa_contractkindyear"];
 
-	///<summary>
-	///Contributi Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttax 		=> Tables["csa_contracttax"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
-	///<summary>
-	///Matricole CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractregistry 		=> Tables["csa_contractregistry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expenseview 		=> Tables["expenseview"];
 
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb 		=> Tables["upb"];
 
@@ -93,39 +65,24 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable upb1 		=> Tables["upb1"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractview 		=> Tables["csa_contractview"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting 		=> Tables["sorting"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable sorting1 		=> Tables["sorting1"];
 
-	///<summary>
-	///Finanziamento
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable underwriting 		=> Tables["underwriting"];
 
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractexpense 		=> Tables["csa_contractexpense"];
 
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttaxexpense 		=> Tables["csa_contracttaxexpense"];
 
@@ -144,21 +101,12 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttaxview 		=> Tables["csa_contracttaxview"];
 
-	///<summary>
-	///Impegno di Budget
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable epexp 		=> Tables["epexp"];
 
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contractepexp 		=> Tables["csa_contractepexp"];
 
-	///<summary>
-	///Dettaglio Ripartizione
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contracttaxepexp 		=> Tables["csa_contracttaxepexp"];
 
@@ -363,6 +311,7 @@ private void initClass() {
 	tcsa_contractkindyear.Columns.Add(C);
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_main", typeof(string)));
+	tcsa_contractkindyear.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contractkindyear.Columns.Add( new DataColumn("idfin_main", typeof(int)));
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -1779,6 +1728,7 @@ private void initClass() {
 	tcsa_contract_partition.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tcsa_contract_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contract_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_contract_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contract_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_contract_partition.Columns.Add( new DataColumn("idexp", typeof(int)));
 	tcsa_contract_partition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
@@ -2014,6 +1964,7 @@ private void initClass() {
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_contracttax_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idexp", typeof(int)));
 	tcsa_contracttax_partition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));

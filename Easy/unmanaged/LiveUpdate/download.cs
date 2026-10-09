@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Net;
 using System.IO;
@@ -142,7 +141,7 @@ namespace LiveUpdate{//LiveUpdate//
                 Environment.Version.Build.Equals(30319) &&
                 Environment.Version.Revision >= 34000;
 
-            return result || Thread.CurrentThread.Name == "Main Form Blazor Thread" || Thread.CurrentThread.Name == "BlazorUpdateDll" 
+            return result || MetaDataForm.isBlazorApp() || Thread.CurrentThread.Name == "BlazorUpdateDll" 
 				|| Thread.CurrentThread.Name == "LUBlazor" || Thread.CurrentThread.Name == "UpdateDBBlazor";
         }
 
@@ -788,7 +787,7 @@ namespace LiveUpdate{//LiveUpdate//
                 Environment.Version.Build.Equals(30319) &&
                 Environment.Version.Revision >= 34000;
 
-            return result || Thread.CurrentThread.Name == "Main Form Blazor Thread" || Thread.CurrentThread.Name == "BlazorUpdateDll" 
+            return result || MetaDataForm.isBlazorApp() || Thread.CurrentThread.Name == "BlazorUpdateDll" 
 				|| Thread.CurrentThread.Name == "LUBlazor" || Thread.CurrentThread.Name == "UpdateDBBlazor";
         }
 

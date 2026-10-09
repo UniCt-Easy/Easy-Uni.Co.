@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -274,196 +273,761 @@ namespace invoice_default {
 
 
         void RiempiDataGridDettagliFE(object idsdi_acquisto) {
+
             DataTable SDI_acquisto;
-            SDI_acquisto = Conn.RUN_SELECT("sdi_acquisto", "*", null, QHS.CmpEq("idsdi_acquisto", idsdi_acquisto), null, false);
+            SDI_acquisto = Conn.RUN_SELECT(
+                "sdi_acquisto",
+                "*",
+                null,
+                QHS.CmpEq("idsdi_acquisto", idsdi_acquisto),
+                null,
+                false);
+
             bool messageShown = false;
+
             DataRow Curr = SDI_acquisto.Rows[0];
+
             if (Curr["xml"] == DBNull.Value) {
                 string messaggio;
                 messaggio = "Non vi è alcun file da importare\nErrore";
                 show(this, messaggio);
                 return;
             }
+
             XmlDocument document = new XmlDocument();
             document.LoadXml(Curr["xml"].ToString());
+
             XmlElement Comunicazione = document.DocumentElement;
 
+
+            // FSM10 - Individuazione del tracciato semplificato.
+            string versioneFattura =
+                document.DocumentElement.Attributes["versione"]?.Value;
+
+            string formatoTrasmissione =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaHeader/DatiTrasmissione/FormatoTrasmissione");
+
+            bool isFsm10 =
+                string.Equals(
+                    versioneFattura,
+                    "FSM10",
+                    StringComparison.OrdinalIgnoreCase)
+                ||
+                string.Equals(
+                    formatoTrasmissione,
+                    "FSM10",
+                    StringComparison.OrdinalIgnoreCase);
+
+
             // Tipo Documento
-            string TipoDocumentoTD = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/TipoDocumento");
+            string TipoDocumentoTD =
+                getXmlText(
+                    document,
+                    "//FatturaElettronicaBody/DatiGenerali/DatiGeneraliDocumento/TipoDocumento");
+
             //bool variation = false;
             //if ((TipoDocumentoTD == "TD04")) { //|| (TipoDocumentoTD == "TD05")
             //    variation = true;
             //}
 
-            string CodiceCIG = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiOrdineAcquisto/CodiceCIG");
-            string RiferimentoNumeroLinea = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiOrdineAcquisto/RiferimentoNumeroLinea");
 
-            if (CodiceCIG == null) {
-                CodiceCIG = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiContratto/CodiceCIG");
-                RiferimentoNumeroLinea = getXmlText(document, "//FatturaElettronicaBody/DatiContratto/DatiConvenzione/RiferimentoNumeroLinea");
-            }
-            if (CodiceCIG == null) {
-                CodiceCIG = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiConvenzione/CodiceCIG");
-                RiferimentoNumeroLinea = getXmlText(document, "//FatturaElettronicaBody/DatiGenerali/DatiConvenzione/RiferimentoNumeroLinea");
-            }
-            if (CodiceCIG == null)
-                show("I dettagli fattura sono privi di Codice CIG, in quanto non presente nel tracciato compilato dal fornitore. Inserire il Codice CIG a mano sui dettagli della fattura");
+            /*
+             * ============================================================
+             * FSM10 - FATTURA SEMPLIFICATA
+             * ============================================================
+             */
+            if (isFsm10) {
 
-            Dictionary<int, string> lookupDocumento = new Dictionary<int, string>();
-            XmlNodeList DatiFattureCollegate = document.SelectNodes("//FatturaElettronicaBody/DatiGenerali/DatiFattureCollegate");
-            foreach (XmlNode Fatt in DatiFattureCollegate) {
-                string IdDocumento = Fatt["IdDocumento"].InnerText.Trim();
-                int rifLinea = CfgFn.GetNoNullInt32(Fatt["RiferimentoNumeroLinea"]);
-                lookupDocumento[rifLinea] = IdDocumento;
-            }
+                int indice = 0;
 
-            int indice = 0;
-            XmlNodeList DettaglioLinee = document.SelectNodes("//FatturaElettronicaBody/DatiBeniServizi/DettaglioLinee");
-            foreach (XmlNode Dettaglio in DettaglioLinee) {
-                indice += 1;
-                DataRow R = dettagli_fe.NewRow();
-                string NumeroLinea = Dettaglio["NumeroLinea"].InnerText;
-                R["id"] = indice;
-                int numeroLinea = CfgFn.GetNoNullInt32(NumeroLinea);
-                if (lookupDocumento.ContainsKey(numeroLinea)) {
-                    R["IdDocumento"] = lookupDocumento[numeroLinea];
-                }
-                else {
-                    if (lookupDocumento.ContainsKey(0)) {
-                        R["IdDocumento"] = lookupDocumento[0];
+                /*
+                 * Nel tracciato FSM10 non esiste DettaglioLinee.
+                 * Ogni DatiBeniServizi viene quindi trasformato
+                 * in una riga di dettagli_fe.
+                 */
+                XmlNodeList DatiBeniServizi =
+                    document.SelectNodes(
+                        "//FatturaElettronicaBody/DatiBeniServizi");
+
+                foreach (XmlNode BeneServizio in DatiBeniServizi) {
+
+                    indice += 1;
+
+                    DataRow R =
+                        dettagli_fe.NewRow();
+
+                    R["id"] =
+                        indice.ToString();
+
+
+                    /*
+                     * FSM10 non prevede NumeroLinea.
+                     * Viene ricostruito un progressivo.
+                     */
+                    string NumeroLinea =
+                        indice.ToString();
+
+                    R["NumeroLinea"] =
+                        NumeroLinea;
+
+
+                    /*
+                     * Descrizione.
+                     */
+                    string Descrizione = "";
+
+                    if (BeneServizio["Descrizione"] != null) {
+
+                        Descrizione =
+                            BeneServizio["Descrizione"].InnerText;
                     }
-                }
 
-                R["NumeroLinea"] = NumeroLinea;
-                string Descrizione = Dettaglio["Descrizione"].InnerText;
-                R["Descrizione"] = Descrizione;
-                decimal Quantita = 1;
+                    R["Descrizione"] =
+                        Descrizione;
 
-                decimal PrezzoUnitario = XmlConvert.ToDecimal(Dettaglio["PrezzoUnitario"].InnerText);
-                //PrezzoUnitario = Math.Abs(PrezzoUnitario);
-                R["PrezzoUnitario"] = PrezzoUnitario;
-                decimal PrezzoTotale = 0;
-                //if (ConsideraImportiFE(document, variation)) {
-                PrezzoTotale = XmlConvert.ToDecimal(Dettaglio["PrezzoTotale"].InnerText);
-                //PrezzoTotale = Math.Abs(PrezzoTotale);
-                //if (variation)
-                //    PrezzoTotale = -PrezzoTotale; // Nota di credito
-                R["PrezzoTotale"] = PrezzoTotale;
-                //}
-                //else {
-                //}
 
-                if ((PrezzoUnitario == 0) && (PrezzoTotale == 0))
-                    continue;//Se gli importi sono 0, il dettaglio non va ne importato in Easy, ne mostrato nel grid. Task 7113.
-                if (Dettaglio["Quantita"] != null) {
-                    Quantita = XmlConvert.ToDecimal(Dettaglio["Quantita"].InnerText);
-                    Quantita = Decimal.Round(Quantita, 2);
-                    if ((Quantita==0) && (PrezzoTotale != 0)){
-                        Quantita = 1;//se totale <> 0 e quantità = 0=>  Correggiamo la q.tà con 1 e importiamo il dettaglio. Task 7113.
+                    /*
+                     * FSM10 non prevede Quantita e PrezzoUnitario
+                     * secondo la struttura della fattura ordinaria.
+                     *
+                     * Ogni voce viene quindi importata convenzionalmente
+                     * con quantità pari a 1.
+                     */
+                    decimal Quantita = 1;
+
+                    R["Quantita"] =
+                        Quantita;
+
+
+                    /*
+                     * Importo complessivo indicato nel tracciato FSM10.
+                     */
+                    decimal Importo = 0;
+
+                    if (BeneServizio["Importo"] != null &&
+                        !string.IsNullOrWhiteSpace(
+                            BeneServizio["Importo"].InnerText)) {
+
+                        Importo =
+                            XmlConvert.ToDecimal(
+                                BeneServizio["Importo"].InnerText);
                     }
-                }
-                else {
-                    if (PrezzoUnitario != 0 && PrezzoTotale != 0) {
-                        Quantita = Decimal.Round(PrezzoTotale / PrezzoUnitario, 2);
-                        if (!messageShown) {
-                            messageShown = true;
-                            show("Per almeno un dettaglio è stato calcolata la quantità con la formula inversa PrezzoTotale/PrezzoUnitario", "Avviso");
+
+
+                    /*
+                     * Lettura dei dati IVA.
+                     */
+                    decimal AliquotaPercentuale = 0;
+                    decimal ImportoIVA = 0;
+                    bool impostaPresente = false;
+
+                    XmlNode DatiIVA =
+                        BeneServizio["DatiIVA"];
+
+                    if (DatiIVA != null) {
+
+                        if (DatiIVA["Aliquota"] != null &&
+                            !string.IsNullOrWhiteSpace(
+                                DatiIVA["Aliquota"].InnerText)) {
+
+                            AliquotaPercentuale =
+                                XmlConvert.ToDecimal(
+                                    DatiIVA["Aliquota"].InnerText);
+                        }
+
+
+                        if (DatiIVA["Imposta"] != null &&
+                            !string.IsNullOrWhiteSpace(
+                                DatiIVA["Imposta"].InnerText)) {
+
+                            ImportoIVA =
+                                XmlConvert.ToDecimal(
+                                    DatiIVA["Imposta"].InnerText);
+
+                            impostaPresente =
+                                true;
                         }
                     }
-                }
-                R["Quantita"] = Quantita;
 
 
-                double AliquotaIVA_Double = XmlConvert.ToDouble(Dettaglio["AliquotaIVA"].InnerText);
-                AliquotaIVA_Double = AliquotaIVA_Double / 100;
-                decimal AliquotaIVA = CfgFn.GetNoNullDecimal(AliquotaIVA_Double);
-                R["AliquotaIVA"] = AliquotaIVA_Double;
-                decimal IVA = Decimal.Round(PrezzoTotale * AliquotaIVA, 2);
-                R["ImportoIVA"] = IVA;
-                if (Dettaglio["Natura"] != null) {
-                    string Natura = Dettaglio["Natura"].InnerText.ToString();// Da leggere solo se esiste
-                    R["Natura"] = Natura;
-                }
-                if ((RiferimentoNumeroLinea != null) &&
-                    (CodiceCIG != null) &&
-                    (RiferimentoNumeroLinea == NumeroLinea)) {
-                    R["CodiceCIG"] = CodiceCIG;
-                }
-                else
-                    if ((RiferimentoNumeroLinea == null) && (CodiceCIG != null)) {
-                        R["CodiceCIG"] = CodiceCIG;
+                    decimal AliquotaIVA =
+                        AliquotaPercentuale / 100;
+
+
+                    /*
+                     * PrezzoTotale in dettagli_fe rappresenta
+                     * l'IMPONIBILE TOTALE:
+                     *
+                     *     PrezzoUnitario * Quantita
+                     *
+                     * Essendo Quantita = 1, PrezzoUnitario e
+                     * PrezzoTotale coincidono.
+                     */
+                    decimal PrezzoTotale;
+
+
+                    if (impostaPresente) {
+
+                        /*
+                         * Se FSM10 espone direttamente l'imposta,
+                         * ricaviamo l'imponibile sottraendola
+                         * dall'importo complessivo.
+                         */
+                        PrezzoTotale =
+                            Decimal.Round(
+                                Importo - ImportoIVA,
+                                2);
                     }
-                // Determina lo SCONTO
-                decimal totaleSconto = 0;
-                XmlNodeList ElencoSconti = Dettaglio.SelectNodes("ScontoMaggiorazione");
-                foreach (XmlElement Sconto in ElencoSconti) {
-                    string contenuto = Sconto.InnerText;
-                    string tipo = Sconto.SelectNodes("Tipo")[0].InnerText.ToUpper();
-                    decimal segno = (tipo == "SC") ? +1 : -1;
-                    XmlNodeList Imp = Sconto.SelectNodes("Importo");
-                    if ((Imp != null) && (Imp.Count > 0)) {
-                        decimal xx = XmlConvert.ToDecimal(Imp[0].InnerText);
-                        xx = Math.Abs(xx);
-                        totaleSconto += segno * xx;
+                    else if (AliquotaIVA != 0) {
+
+                        /*
+                         * In assenza dell'imposta ma con aliquota IVA,
+                         * ricaviamo l'imponibile mediante scorporo.
+                         */
+                        PrezzoTotale =
+                            Decimal.Round(
+                                Importo / (1 + AliquotaIVA),
+                                2);
+
+                        ImportoIVA =
+                            Decimal.Round(
+                                Importo - PrezzoTotale,
+                                2);
+                    }
+                    else {
+
+                        /*
+                         * Aliquota zero / operazione con Natura:
+                         * non vi è IVA da scorporare.
+                         */
+                        PrezzoTotale =
+                            Importo;
+
+                        ImportoIVA =
+                            0;
+                    }
+
+
+                    decimal PrezzoUnitario =
+                        PrezzoTotale;
+
+
+                    R["PrezzoUnitario"] =
+                        PrezzoUnitario;
+
+                    R["PrezzoTotale"] =
+                        PrezzoTotale;
+
+                    R["AliquotaIVA"] =
+                        AliquotaIVA;
+
+                    R["ImportoIVA"] =
+                        ImportoIVA;
+
+
+                    /*
+                     * Nel tracciato FSM10 Natura è direttamente
+                     * sotto DatiBeniServizi.
+                     *
+                     * Sono quindi gestiti anche i nuovi codici:
+                     * N2.1, N2.2, N3.x, N6.x, ecc.
+                     */
+                    if (BeneServizio["Natura"] != null) {
+
+                        string Natura =
+                            BeneServizio["Natura"].InnerText;
+
+                        R["Natura"] =
+                            Natura;
+                    }
+
+
+                    /*
+                     * Nel tracciato FSM10 non abbiamo la stessa
+                     * struttura degli sconti della fattura ordinaria.
+                     */
+                    R["ImportoSconto"] =
+                        0;
+
+                    R["PercentualeSconto"] =
+                        0;
+
+
+                    /*
+                     * CIG e CUP non sono ricavati dai dettagli FSM10.
+                     */
+                    R["CodiceCIG"] =
+                        DBNull.Value;
+
+                    R["cupcode"] =
+                        DBNull.Value;
+
+
+                    /*
+                     * Non esiste un riferimento ad una specifica
+                     * NumeroLinea del tracciato ordinario.
+                     */
+                    R["riferimentoNumeroLinea"] =
+                        DBNull.Value;
+
+                    R["IdDocumento"] =
+                        DBNull.Value;
+
+
+                    /*
+                     * Se gli importi sono 0, il dettaglio non va
+                     * né importato in Easy né mostrato nel grid.
+                     * Manteniamo la stessa logica dell'ordinaria.
+                     */
+                    if ((PrezzoUnitario == 0) &&
+                        (PrezzoTotale == 0))
                         continue;
-                    }
-                    XmlNodeList Perc = Sconto.SelectNodes("Percentuale");
-                    if (Perc != null && Perc.Count > 0) {
-                        decimal pp = XmlConvert.ToDecimal(Perc[0].InnerText);
-                        totaleSconto += segno * Decimal.Round(pp * PrezzoUnitario * Quantita / 100, 5);
-                        continue;
-                    }
-                }
-                //      importo sconto:prezzo totale = percentuale scont :100 => Percentuale sconto = importo sconto*100/prezzo totale
-                R["ImportoSconto"] = Decimal.Round(totaleSconto, 2);
-                decimal PercentualeSconto = 0;
-                if (totaleSconto != 0 && CfgFn.RoundValuta(PrezzoUnitario * Quantita) != 0) {
-                    PercentualeSconto = Decimal.Round(totaleSconto, 2) / CfgFn.RoundValuta((PrezzoUnitario * Quantita));// *100
-                }
-                R["PercentualeSconto"] = Decimal.Round(PercentualeSconto, 3); //Arrotondamento al terzo digit 
 
-                // Modifica introdotta ma poi annullata.
-                // // Determina l' IVA 
-                // decimal PrezzoTotale = 0;
-                // if (ConsideraImportiFE(document, variation)) {
-                //     PrezzoTotale = XmlConvert.ToDecimal(Dettaglio["PrezzoTotale"].InnerText);
-                //     if (variation)
-                //         PrezzoTotale = -PrezzoTotale; // Nota di credito
-                //}
-                // else {
-                //     PrezzoTotale = Decimal.Round(PrezzoUnitario * Quantita * (1-PercentualeSconto), 2);
-                // }
-                // R["PrezzoTotale"] = PrezzoTotale;
-                // double AliquotaIVA_Double = XmlConvert.ToDouble(Dettaglio["AliquotaIVA"].InnerText);
-                // AliquotaIVA_Double = AliquotaIVA_Double / 100;
-                // decimal AliquotaIVA = CfgFn.GetNoNullDecimal(AliquotaIVA_Double);
-                // R["AliquotaIVA"] = AliquotaIVA_Double;
-                // decimal IVA = Decimal.Round(PrezzoTotale * AliquotaIVA, 2);
-                // R["ImportoIVA"] = IVA;
 
-                dettagli_fe.Rows.Add(R);
+                    dettagli_fe.Rows.Add(R);
+                }
             }
 
+
+            /*
+             * ============================================================
+             * FATTURA ORDINARIA
+             * ============================================================
+             */
+            else {
+
+                string CodiceCIG =
+                    getXmlText(
+                        document,
+                        "//FatturaElettronicaBody/DatiGenerali/DatiOrdineAcquisto/CodiceCIG");
+
+                string RiferimentoNumeroLinea =
+                    getXmlText(
+                        document,
+                        "//FatturaElettronicaBody/DatiGenerali/DatiOrdineAcquisto/RiferimentoNumeroLinea");
+
+
+                if (CodiceCIG == null) {
+
+                    CodiceCIG =
+                        getXmlText(
+                            document,
+                            "//FatturaElettronicaBody/DatiGenerali/DatiContratto/CodiceCIG");
+
+                    RiferimentoNumeroLinea =
+                        getXmlText(
+                            document,
+                            "//FatturaElettronicaBody/DatiGenerali/DatiContratto/RiferimentoNumeroLinea");
+                }
+
+
+                if (CodiceCIG == null) {
+
+                    CodiceCIG =
+                        getXmlText(
+                            document,
+                            "//FatturaElettronicaBody/DatiGenerali/DatiConvenzione/CodiceCIG");
+
+                    RiferimentoNumeroLinea =
+                        getXmlText(
+                            document,
+                            "//FatturaElettronicaBody/DatiGenerali/DatiConvenzione/RiferimentoNumeroLinea");
+                }
+
+
+                if (CodiceCIG == null) {
+
+                    show(
+                        "I dettagli fattura sono privi di Codice CIG, in quanto non presente nel tracciato compilato dal fornitore. Inserire il Codice CIG a mano sui dettagli della fattura");
+                }
+
+
+                Dictionary<int, string> lookupDocumento =
+                    new Dictionary<int, string>();
+
+                XmlNodeList DatiFattureCollegate =
+                    document.SelectNodes(
+                        "//FatturaElettronicaBody/DatiGenerali/DatiFattureCollegate");
+
+
+                foreach (XmlNode Fatt in DatiFattureCollegate) {
+
+                    string IdDocumento =
+                        Fatt["IdDocumento"].InnerText.Trim();
+
+                    int rifLinea =
+                        CfgFn.GetNoNullInt32(
+                            Fatt["RiferimentoNumeroLinea"]);
+
+                    lookupDocumento[rifLinea] =
+                        IdDocumento;
+                }
+
+
+                int indice = 0;
+
+                XmlNodeList DettaglioLinee =
+                    document.SelectNodes(
+                        "//FatturaElettronicaBody/DatiBeniServizi/DettaglioLinee");
+
+
+                foreach (XmlNode Dettaglio in DettaglioLinee) {
+
+                    indice += 1;
+
+                    DataRow R =
+                        dettagli_fe.NewRow();
+
+                    string NumeroLinea =
+                        Dettaglio["NumeroLinea"].InnerText;
+
+                    R["id"] =
+                        indice;
+
+                    int numeroLinea =
+                        CfgFn.GetNoNullInt32(
+                            NumeroLinea);
+
+
+                    if (lookupDocumento.ContainsKey(numeroLinea)) {
+
+                        R["IdDocumento"] =
+                            lookupDocumento[numeroLinea];
+                    }
+                    else {
+
+                        if (lookupDocumento.ContainsKey(0)) {
+
+                            R["IdDocumento"] =
+                                lookupDocumento[0];
+                        }
+                    }
+
+
+                    R["NumeroLinea"] =
+                        NumeroLinea;
+
+
+                    string Descrizione =
+                        Dettaglio["Descrizione"].InnerText;
+
+                    R["Descrizione"] =
+                        Descrizione;
+
+
+                    decimal Quantita = 1;
+
+
+                    decimal PrezzoUnitario =
+                        XmlConvert.ToDecimal(
+                            Dettaglio["PrezzoUnitario"].InnerText);
+
+                    //PrezzoUnitario = Math.Abs(PrezzoUnitario);
+
+                    R["PrezzoUnitario"] =
+                        PrezzoUnitario;
+
+
+                    decimal PrezzoTotale = 0;
+
+                    //if (ConsideraImportiFE(document, variation)) {
+
+                    PrezzoTotale =
+                        XmlConvert.ToDecimal(
+                            Dettaglio["PrezzoTotale"].InnerText);
+
+                    //PrezzoTotale = Math.Abs(PrezzoTotale);
+
+                    //if (variation)
+                    //    PrezzoTotale = -PrezzoTotale; // Nota di credito
+
+                    R["PrezzoTotale"] =
+                        PrezzoTotale;
+
+                    //}
+
+                    //else {
+                    //}
+
+
+                    if ((PrezzoUnitario == 0) &&
+                        (PrezzoTotale == 0))
+                        continue;//Se gli importi sono 0, il dettaglio non va ne importato in Easy, ne mostrato nel grid. Task 7113.
+
+
+                    if (Dettaglio["Quantita"] != null) {
+
+                        Quantita =
+                            XmlConvert.ToDecimal(
+                                Dettaglio["Quantita"].InnerText);
+
+                        Quantita =
+                            Decimal.Round(
+                                Quantita,
+                                2);
+
+                        if ((Quantita == 0) &&
+                            (PrezzoTotale != 0)) {
+
+                            Quantita = 1;//se totale <> 0 e quantità = 0=>  Correggiamo la q.tà con 1 e importiamo il dettaglio. Task 7113.
+                        }
+                    }
+                    else {
+
+                        if (PrezzoUnitario != 0 &&
+                            PrezzoTotale != 0) {
+
+                            Quantita =
+                                Decimal.Round(
+                                    PrezzoTotale / PrezzoUnitario,
+                                    2);
+
+                            if (!messageShown) {
+
+                                messageShown =
+                                    true;
+
+                                show(
+                                    "Per almeno un dettaglio è stato calcolata la quantità con la formula inversa PrezzoTotale/PrezzoUnitario",
+                                    "Avviso");
+                            }
+                        }
+                    }
+
+
+                    R["Quantita"] =
+                        Quantita;
+
+
+                    double AliquotaIVA_Double =
+                        XmlConvert.ToDouble(
+                            Dettaglio["AliquotaIVA"].InnerText);
+
+                    AliquotaIVA_Double =
+                        AliquotaIVA_Double / 100;
+
+                    decimal AliquotaIVA =
+                        CfgFn.GetNoNullDecimal(
+                            AliquotaIVA_Double);
+
+                    R["AliquotaIVA"] =
+                        AliquotaIVA_Double;
+
+
+                    decimal IVA =
+                        Decimal.Round(
+                            PrezzoTotale * AliquotaIVA,
+                            2);
+
+                    R["ImportoIVA"] =
+                        IVA;
+
+
+                    if (Dettaglio["Natura"] != null) {
+
+                        string Natura =
+                            Dettaglio["Natura"].InnerText.ToString();// Da leggere solo se esiste
+
+                        R["Natura"] =
+                            Natura;
+                    }
+
+
+                    if ((RiferimentoNumeroLinea != null) &&
+                        (CodiceCIG != null) &&
+                        (RiferimentoNumeroLinea == NumeroLinea)) {
+
+                        R["CodiceCIG"] =
+                            CodiceCIG;
+                    }
+                    else if ((RiferimentoNumeroLinea == null) &&
+                             (CodiceCIG != null)) {
+
+                        R["CodiceCIG"] =
+                            CodiceCIG;
+                    }
+
+
+                    // Determina lo SCONTO
+                    decimal totaleSconto = 0;
+
+                    XmlNodeList ElencoSconti =
+                        Dettaglio.SelectNodes(
+                            "ScontoMaggiorazione");
+
+
+                    foreach (XmlElement Sconto in ElencoSconti) {
+
+                        string contenuto =
+                            Sconto.InnerText;
+
+                        string tipo =
+                            Sconto.SelectNodes("Tipo")[0]
+                                .InnerText
+                                .ToUpper();
+
+                        decimal segno =
+                            (tipo == "SC")
+                                ? +1
+                                : -1;
+
+
+                        XmlNodeList Imp =
+                            Sconto.SelectNodes(
+                                "Importo");
+
+                        if ((Imp != null) &&
+                            (Imp.Count > 0)) {
+
+                            decimal xx =
+                                XmlConvert.ToDecimal(
+                                    Imp[0].InnerText);
+
+                            xx =
+                                Math.Abs(xx);
+
+                            totaleSconto +=
+                                segno * xx;
+
+                            continue;
+                        }
+
+
+                        XmlNodeList Perc =
+                            Sconto.SelectNodes(
+                                "Percentuale");
+
+                        if (Perc != null &&
+                            Perc.Count > 0) {
+
+                            decimal pp =
+                                XmlConvert.ToDecimal(
+                                    Perc[0].InnerText);
+
+                            totaleSconto +=
+                                segno *
+                                Decimal.Round(
+                                    pp *
+                                    PrezzoUnitario *
+                                    Quantita /
+                                    100,
+                                    5);
+
+                            continue;
+                        }
+                    }
+
+
+                    // importo sconto:prezzo totale = percentuale scont :100 => Percentuale sconto = importo sconto*100/prezzo totale
+
+                    R["ImportoSconto"] =
+                        Decimal.Round(
+                            totaleSconto,
+                            2);
+
+
+                    decimal PercentualeSconto = 0;
+
+                    if (totaleSconto != 0 &&
+                        CfgFn.RoundValuta(
+                            PrezzoUnitario * Quantita) != 0) {
+
+                        PercentualeSconto =
+                            Decimal.Round(
+                                totaleSconto,
+                                2)
+                            /
+                            CfgFn.RoundValuta(
+                                PrezzoUnitario *
+                                Quantita);// *100
+                    }
+
+
+                    R["PercentualeSconto"] =
+                        Decimal.Round(
+                            PercentualeSconto,
+                            3); //Arrotondamento al terzo digit 
+
+
+                    // Modifica introdotta ma poi annullata.
+                    // // Determina l' IVA 
+                    // decimal PrezzoTotale = 0;
+                    // if (ConsideraImportiFE(document, variation)) {
+                    //     PrezzoTotale = XmlConvert.ToDecimal(Dettaglio["PrezzoTotale"].InnerText);
+                    //     if (variation)
+                    //         PrezzoTotale = -PrezzoTotale; // Nota di credito
+                    //}
+                    // else {
+                    //     PrezzoTotale = Decimal.Round(PrezzoUnitario * Quantita * (1-PercentualeSconto), 2);
+                    // }
+                    // R["PrezzoTotale"] = PrezzoTotale;
+                    // double AliquotaIVA_Double = XmlConvert.ToDouble(Dettaglio["AliquotaIVA"].InnerText);
+                    // AliquotaIVA_Double = AliquotaIVA_Double / 100;
+                    // decimal AliquotaIVA = CfgFn.GetNoNullDecimal(AliquotaIVA_Double);
+                    // R["AliquotaIVA"] = AliquotaIVA_Double;
+                    // decimal IVA = Decimal.Round(PrezzoTotale * AliquotaIVA, 2);
+                    // R["ImportoIVA"] = IVA;
+
+
+                    dettagli_fe.Rows.Add(R);
+                }
+            }
+
+
+            /*
+             * ============================================================
+             * PARTE COMUNE
+             * ============================================================
+             */
+
             dettagli_fe.AcceptChanges();
-            DataSet D = new DataSet();
-            D.Tables.Add(dettagli_fe);
-            HelpForm.SetDataGrid(dgrDettagliFE, dettagli_fe);
+
+            DataSet D =
+                new DataSet();
+
+            D.Tables.Add(
+                dettagli_fe);
+
+            HelpForm.SetDataGrid(
+                dgrDettagliFE,
+                dettagli_fe);
+
             dgrDettagliFE.TableStyles.Clear();
 
-            HelpForm.SetFormatForColumn(dettagli_fe.Columns["AliquotaIVA"], "p");
-            HelpForm.SetFormatForColumn(dettagli_fe.Columns["PercentualeSconto"], "p");
-            HelpForm.SetFormatForColumn(dettagli_fe.Columns["Quantita"], "n");
-            HelpForm.SetGridStyle(dgrDettagliFE, dettagli_fe);
 
-            formatgrids format = new formatgrids(dgrDettagliFE);
+            HelpForm.SetFormatForColumn(
+                dettagli_fe.Columns["AliquotaIVA"],
+                "p");
+
+            HelpForm.SetFormatForColumn(
+                dettagli_fe.Columns["PercentualeSconto"],
+                "p");
+
+            HelpForm.SetFormatForColumn(
+                dettagli_fe.Columns["Quantita"],
+                "n");
+
+            HelpForm.SetGridStyle(
+                dgrDettagliFE,
+                dettagli_fe);
+
+
+            formatgrids format =
+                new formatgrids(
+                    dgrDettagliFE);
+
             format.AutosizeColumnWidth();
+
 
             //Se la FE ha solo un dettaglio, lo seleziona in automatico
             if (dettagli_fe.Rows.Count == 1) {
+
                 SelezionaTuttoDgrFE();
             }
-            //SelezionaTutto();
 
+            //SelezionaTutto();
         }
 
         //private decimal decodificaImporto(string valoreletto) {// sostituisce '.' con  ','
@@ -485,10 +1049,10 @@ namespace invoice_default {
         //        return 0;
         //    }
         //}
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing ) {
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing ) {
 			if( disposing ) {
 				if(components != null) {
 					components.Dispose();

@@ -152,6 +152,7 @@
               <xs:element name="idfin" type="xs:int" minOccurs="0" />
               <xs:element name="idexp" type="xs:int" minOccurs="0" />
               <xs:element name="idsor_siope" type="xs:int" minOccurs="0" />
+              <xs:element name="idacc_cost_reversal" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -369,6 +370,37 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="account_cost_reversal" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idacc" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="codeacc" type="xs:string" />
+              <xs:element name="ct" type="xs:dateTime" />
+              <xs:element name="cu" type="xs:string" />
+              <xs:element name="flagregistry" type="xs:string" minOccurs="0" />
+              <xs:element name="flagtransitory" type="xs:string" minOccurs="0" />
+              <xs:element name="flagupb" type="xs:string" minOccurs="0" />
+              <xs:element name="idaccountkind" type="xs:string" minOccurs="0" />
+              <xs:element name="lt" type="xs:dateTime" />
+              <xs:element name="lu" type="xs:string" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="paridacc" type="xs:string" minOccurs="0" />
+              <xs:element name="printingorder" type="xs:string" />
+              <xs:element name="rtf" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="txt" type="xs:string" minOccurs="0" />
+              <xs:element name="idpatrimony" type="xs:string" minOccurs="0" />
+              <xs:element name="idplaccount" type="xs:string" minOccurs="0" />
+              <xs:element name="flagprofit" type="xs:string" minOccurs="0" />
+              <xs:element name="flagloss" type="xs:string" minOccurs="0" />
+              <xs:element name="placcount_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="patrimony_sign" type="xs:string" minOccurs="0" />
+              <xs:element name="flagcompetency" type="xs:string" minOccurs="0" />
+              <xs:element name="flag" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -410,6 +442,10 @@
       <xs:selector xpath=".//mstns:sorting" />
       <xs:field xpath="mstns:idsor" />
     </xs:unique>
+    <xs:unique name="account_cost_reversal_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:account_cost_reversal" />
+      <xs:field xpath="mstns:idacc" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -420,6 +456,7 @@
       <msdata:Relationship name="upb_csa_contract_partition" msdata:parent="upb" msdata:child="csa_contract_partition" msdata:parentkey="idupb" msdata:childkey="idupb" />
       <msdata:Relationship name="sorting_csa_contract_partition" msdata:parent="sorting" msdata:child="csa_contract_partition" msdata:parentkey="idsor" msdata:childkey="idsor_siope" />
       <msdata:Relationship name="fin_csa_contract_partition" msdata:parent="fin" msdata:child="csa_contract_partition" msdata:parentkey="idfin" msdata:childkey="idfin" />
+      <msdata:Relationship name="account_cost_reversal_csa_contract_partition" msdata:parent="account_cost_reversal" msdata:child="csa_contract_partition" msdata:parentkey="idacc" msdata:childkey="idacc_cost_reversal" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -31,6 +31,8 @@
               <xs:element name="idsor03" type="xs:int" minOccurs="0" />
               <xs:element name="idsor04" type="xs:int" minOccurs="0" />
               <xs:element name="idsor05" type="xs:int" minOccurs="0" />
+              <xs:element name="preservelt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idepaccrual" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -742,7 +744,20 @@
               <xs:element name="lu" type="xs:string" minOccurs="0" />
               <xs:element name="lt" type="xs:dateTime" minOccurs="0" />
               <xs:element name="idattachmentkind" type="xs:int" minOccurs="0" />
-			  <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+              <xs:element name="idfilestorage" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="epaccrual" msprop:TableForReading="" msprop:TableForPosting="" msprop:FilterForSearch="" msprop:FilterForInsert="" msprop:AddBlankRow="" msprop:SkipSecurity="">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idepaccrual" type="xs:string" />
+              <xs:element name="paridepaccrual" type="xs:string" minOccurs="0" />
+              <xs:element name="codeepaccrual" type="xs:string" />
+              <xs:element name="title" type="xs:string" />
+              <xs:element name="ayear" type="xs:short" />
+              <xs:element name="nlevel" type="xs:string" />
+              <xs:element name="printingorder" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -851,6 +866,10 @@
       <xs:field xpath="mstns:kpro" />
       <xs:field xpath="mstns:idattachment" />
     </xs:unique>
+    <xs:unique name="epaccrual_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:epaccrual" />
+      <xs:field xpath="mstns:idepaccrual" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -873,6 +892,7 @@
       <msdata:Relationship name="FK_stamphandling_proceeds" msdata:parent="stamphandling" msdata:child="proceeds" msdata:parentkey="idstamphandling" msdata:childkey="idstamphandling" />
       <msdata:Relationship name="incomelastview_incomelastestimatedetail" msdata:parent="incomelastview" msdata:child="incomelastestimatedetail" msdata:parentkey="idinc" msdata:childkey="idinc" />
       <msdata:Relationship name="proceeds_proceedsattachment" msdata:parent="proceeds" msdata:child="proceedsattachment" msdata:parentkey="kpro" msdata:childkey="kpro" />
+      <msdata:Relationship name="epaccrual_proceeds" msdata:parent="epaccrual" msdata:child="proceeds" msdata:parentkey="idepaccrual" msdata:childkey="idepaccrual" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

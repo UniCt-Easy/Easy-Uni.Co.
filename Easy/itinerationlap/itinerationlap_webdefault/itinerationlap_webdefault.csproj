@@ -155,7 +155,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y
-xcopy "D:\Easy\itinerationlap\itinerationlap_webdefault\bin\Debug\itinerationlap_webdefault.dll"  "C:\Program Files (x86)\Tempo Srl\Easy\bin\itinerationlap_webdefault.dll" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).*"  "$(SolutionDir)output" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

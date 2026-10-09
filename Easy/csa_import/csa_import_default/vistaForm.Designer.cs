@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -839,6 +838,7 @@ private void initClass() {
 	tcsa_importriep_partition.Columns.Add( new DataColumn("lu", typeof(string)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_importriep_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tcsa_importriep_partition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));
@@ -865,6 +865,7 @@ private void initClass() {
 	tcsa_importver_partition.Columns.Add( new DataColumn("amount", typeof(decimal)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idupb", typeof(string)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idacc", typeof(string)));
+	tcsa_importver_partition.Columns.Add( new DataColumn("idacc_cost_reversal", typeof(string)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idfin", typeof(int)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idepexp", typeof(int)));
 	tcsa_importver_partition.Columns.Add( new DataColumn("idsor_siope", typeof(int)));

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -108,6 +107,9 @@ public partial class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable proceedsattachment 		=> (MetaTable)Tables["proceedsattachment"];
 
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable epaccrual 		=> (MetaTable)Tables["epaccrual"];
+
 	#endregion
 
 
@@ -135,7 +137,7 @@ private void initClass() {
 	#region create DataTables
 	//////////////////// PROCEEDS /////////////////////////////////
 	var tproceeds= new proceedsTable();
-	tproceeds.addBaseColumns("kpro","ypro","npro","npro_treasurer","kproceedstransmission","idtreasurer","flag","idreg","idfin","idman","adate","printdate","txt","rtf","cu","ct","lu","lt","annulmentdate","idstamphandling","idsor01","idsor02","idsor03","idsor04","idsor05");
+	tproceeds.addBaseColumns("kpro","ypro","npro","npro_treasurer","kproceedstransmission","idtreasurer","flag","idreg","idfin","idman","adate","printdate","txt","rtf","cu","ct","lu","lt","annulmentdate","idstamphandling","idsor01","idsor02","idsor03","idsor04","idsor05","preservelt","idepaccrual");
 	Tables.Add(tproceeds);
 	tproceeds.defineKey("kpro");
 
@@ -541,6 +543,18 @@ private void initClass() {
 	Tables.Add(tproceedsattachment);
 	tproceedsattachment.defineKey("kpro", "idattachment");
 
+	//////////////////// EPACCRUAL /////////////////////////////////
+	var tepaccrual= new MetaTable("epaccrual");
+	tepaccrual.defineColumn("idepaccrual", typeof(string),false);
+	tepaccrual.defineColumn("paridepaccrual", typeof(string));
+	tepaccrual.defineColumn("codeepaccrual", typeof(string),false);
+	tepaccrual.defineColumn("title", typeof(string),false);
+	tepaccrual.defineColumn("ayear", typeof(short),false);
+	tepaccrual.defineColumn("nlevel", typeof(string),false);
+	tepaccrual.defineColumn("printingorder", typeof(string),false);
+	Tables.Add(tepaccrual);
+	tepaccrual.defineKey("idepaccrual");
+
 	#endregion
 
 
@@ -579,6 +593,7 @@ private void initClass() {
 	this.defineRelation("FK_stamphandling_proceeds","stamphandling","proceeds","idstamphandling");
 	this.defineRelation("incomelastview_incomelastestimatedetail","incomelastview","incomelastestimatedetail","idinc");
 	this.defineRelation("proceeds_proceedsattachment","proceeds","proceedsattachment","kpro");
+	this.defineRelation("epaccrual_proceeds","epaccrual","proceeds","idepaccrual");
 	#endregion
 
 }

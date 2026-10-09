@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace config_default
 {
     partial class Frm_config_default
@@ -2714,7 +2713,7 @@ namespace config_default
 			this.txtBoxRimborso.Name = "txtBoxRimborso";
 			this.txtBoxRimborso.Size = new System.Drawing.Size(124, 23);
 			this.txtBoxRimborso.TabIndex = 3;
-			this.txtBoxRimborso.Tag = "bilanciorimborso.codefin?configview.codefinivarefund";
+			this.txtBoxRimborso.Tag = "bilanciorimborso.codefin";
 			// 
 			// btnBilancioEntrata
 			// 
@@ -2747,7 +2746,7 @@ namespace config_default
 			this.txtEnteRimborso.Name = "txtEnteRimborso";
 			this.txtEnteRimborso.Size = new System.Drawing.Size(435, 23);
 			this.txtEnteRimborso.TabIndex = 1;
-			this.txtEnteRimborso.Tag = "creddebrimborso.title?configview.refundagencytitle";
+			this.txtEnteRimborso.Tag = "creddebrimborso.title";
 			// 
 			// groupBox40
 			// 
@@ -2854,7 +2853,7 @@ namespace config_default
 			this.txtBoxVersamento.Name = "txtBoxVersamento";
 			this.txtBoxVersamento.Size = new System.Drawing.Size(124, 23);
 			this.txtBoxVersamento.TabIndex = 3;
-			this.txtBoxVersamento.Tag = "bilancioversamento.codefin?configview.codefinivapayment";
+			this.txtBoxVersamento.Tag = "bilancioversamento.codefin";
 			// 
 			// button1
 			// 
@@ -2887,7 +2886,7 @@ namespace config_default
 			this.txtEnteVersamento.Name = "txtEnteVersamento";
 			this.txtEnteVersamento.Size = new System.Drawing.Size(435, 23);
 			this.txtEnteVersamento.TabIndex = 1;
-			this.txtEnteVersamento.Tag = "creddebversamento.title?configview.paymentagencytitle";
+			this.txtEnteVersamento.Tag = "creddebversamento.title";
 			// 
 			// tabPageIvaConsolidata
 			// 
@@ -3002,7 +3001,7 @@ namespace config_default
 			this.txtMainBoxRimborso.Name = "txtMainBoxRimborso";
 			this.txtMainBoxRimborso.Size = new System.Drawing.Size(163, 23);
 			this.txtMainBoxRimborso.TabIndex = 3;
-			this.txtMainBoxRimborso.Tag = "mainbilanciorimborso.codefin?configview.maincodefinivarefund";
+			this.txtMainBoxRimborso.Tag = "mainbilanciorimborso.codefin";
 			// 
 			// button20
 			// 
@@ -3035,7 +3034,7 @@ namespace config_default
 			this.txtEnteRimborsoMain.Name = "txtEnteRimborsoMain";
 			this.txtEnteRimborsoMain.Size = new System.Drawing.Size(473, 23);
 			this.txtEnteRimborsoMain.TabIndex = 1;
-			this.txtEnteRimborsoMain.Tag = "maincreddebrimborso.title?configview.mainrefundagencytitle";
+			this.txtEnteRimborsoMain.Tag = "maincreddebrimborso.title";
 			// 
 			// groupBox79
 			// 
@@ -3097,7 +3096,7 @@ namespace config_default
 			this.txtMainBoxVersamento.Name = "txtMainBoxVersamento";
 			this.txtMainBoxVersamento.Size = new System.Drawing.Size(163, 23);
 			this.txtMainBoxVersamento.TabIndex = 3;
-			this.txtMainBoxVersamento.Tag = "mainbilancioversamento.codefin?configview.maincodefinivapayment";
+			this.txtMainBoxVersamento.Tag = "mainbilancioversamento.codefin";
 			// 
 			// button21
 			// 
@@ -3130,7 +3129,7 @@ namespace config_default
 			this.txtEnteVersamentoMain.Name = "txtEnteVersamentoMain";
 			this.txtEnteVersamentoMain.Size = new System.Drawing.Size(473, 23);
 			this.txtEnteVersamentoMain.TabIndex = 1;
-			this.txtEnteVersamentoMain.Tag = "maincreddebversamento.title?configview.mainpaymentagencytitle";
+			this.txtEnteVersamentoMain.Tag = "maincreddebversamento.title";
 			// 
 			// tabIntraUE
 			// 
@@ -3281,7 +3280,7 @@ namespace config_default
 			this.txtBoxVersamento12.Name = "txtBoxVersamento12";
 			this.txtBoxVersamento12.Size = new System.Drawing.Size(167, 23);
 			this.txtBoxVersamento12.TabIndex = 3;
-			this.txtBoxVersamento12.Tag = "bilancioversamento12.codefin?configview.codefinivapayment12";
+			this.txtBoxVersamento12.Tag = "bilancioversamento12.codefin";
 			// 
 			// button35
 			// 
@@ -3314,7 +3313,7 @@ namespace config_default
 			this.txtEnteVersamento12.Name = "txtEnteVersamento12";
 			this.txtEnteVersamento12.Size = new System.Drawing.Size(437, 23);
 			this.txtEnteVersamento12.TabIndex = 1;
-			this.txtEnteVersamento12.Tag = "creddebversamento12.title?configview.paymentagencytitle";
+			this.txtEnteVersamento12.Tag = "creddebversamento12.title";
 			// 
 			// groupBox93
 			// 
@@ -3421,7 +3420,7 @@ namespace config_default
 			this.txtBoxRimborso12.Name = "txtBoxRimborso12";
 			this.txtBoxRimborso12.Size = new System.Drawing.Size(167, 23);
 			this.txtBoxRimborso12.TabIndex = 3;
-			this.txtBoxRimborso12.Tag = "bilanciorimborso12.codefin?configview.codefinivarefund12";
+			this.txtBoxRimborso12.Tag = "bilanciorimborso12.codefin";
 			// 
 			// button34
 			// 
@@ -3454,7 +3453,7 @@ namespace config_default
 			this.txtEnteRimborso12.Name = "txtEnteRimborso12";
 			this.txtEnteRimborso12.Size = new System.Drawing.Size(437, 23);
 			this.txtEnteRimborso12.TabIndex = 1;
-			this.txtEnteRimborso12.Tag = "creddebrimborso12.title?configview.refundagencytitle";
+			this.txtEnteRimborso12.Tag = "creddebrimborso12.title";
 			// 
 			// textBox54
 			// 
@@ -3810,7 +3809,7 @@ namespace config_default
 			this.txtMainBoxVersamentoSplit.Name = "txtMainBoxVersamentoSplit";
 			this.txtMainBoxVersamentoSplit.Size = new System.Drawing.Size(193, 23);
 			this.txtMainBoxVersamentoSplit.TabIndex = 3;
-			this.txtMainBoxVersamentoSplit.Tag = "mainbilancioversamentosplit.codefin?configview.maincodefinivapayment";
+			this.txtMainBoxVersamentoSplit.Tag = "mainbilancioversamentosplit.codefin";
 			// 
 			// button42
 			// 
@@ -3843,7 +3842,7 @@ namespace config_default
 			this.txtEnteVersamentoMainSplit.Name = "txtEnteVersamentoMainSplit";
 			this.txtEnteVersamentoMainSplit.Size = new System.Drawing.Size(488, 23);
 			this.txtEnteVersamentoMainSplit.TabIndex = 1;
-			this.txtEnteVersamentoMainSplit.Tag = "maincreddebversamentosplit.title?configview.mainpaymentagencytitle";
+			this.txtEnteVersamentoMainSplit.Tag = "maincreddebversamentosplit.title";
 			// 
 			// tabPagMagazzino
 			// 
@@ -6827,7 +6826,7 @@ namespace config_default
 			this.txtSpesa.Name = "txtSpesa";
 			this.txtSpesa.Size = new System.Drawing.Size(138, 23);
 			this.txtSpesa.TabIndex = 1;
-			this.txtSpesa.Tag = "bilanciospesa.codefin?configview.codefinexpense";
+			this.txtSpesa.Tag = "bilanciospesa.codefin";
 			// 
 			// button12
 			// 
@@ -7134,7 +7133,7 @@ namespace config_default
 			this.txtFin_Store.Name = "txtFin_Store";
 			this.txtFin_Store.Size = new System.Drawing.Size(126, 23);
 			this.txtFin_Store.TabIndex = 86;
-			this.txtFin_Store.Tag = "fin_store.codefin?configview.codefinexpensesurplus";
+			this.txtFin_Store.Tag = "fin_store.codefin";
 			// 
 			// btnFin_Store
 			// 

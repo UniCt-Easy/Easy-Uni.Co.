@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -735,6 +734,23 @@ namespace proceeds_generazioneautomatica { //documentoincasso_gener_auto//
             HelpForm.SetAllowMultiSelection(DS.incomelastview, true);
             GetData.SetStaticFilter(DS.proceeds, QHS.CmpEq("ypro", Meta.GetSys("esercizio")));
             UsoSiope = Verifica_Uso_SiopePlus();
+
+            // Verifico esistenza tabelle/campi per integrazione con Poiano dei Conti Accrual
+            object fieldidEpAccrual = Meta.Conn.DO_READ_VALUE("columntypes", "(tablename='proceeds') and (field='idepaccrual')", "field");
+            object tablenameEpAccrual = Meta.Conn.DO_READ_VALUE("customobject", "(objectname='epaccrual')", "objectname");
+
+            if ((fieldidEpAccrual == null) || (fieldidEpAccrual == DBNull.Value) ||
+                 (tablenameEpAccrual == null) || (tablenameEpAccrual == DBNull.Value)) {
+                Meta.CanSave = false;
+                Meta.CanInsert = false;
+                Meta.CanInsertCopy = false;
+                btnInizia.Enabled = false;
+            }
+            else {
+                string filteresercizio = QHS.CmpEq("ayear", Meta.GetSys("esercizio"));
+                GetData.SetStaticFilter(DS.epaccrual, filteresercizio);
+                GetData.CacheTable(DS.epaccrual, filteresercizio, "codeepaccrual", false);
+            }
         }
 
         //controlla che si debba usare la trasmissione Siope+ 

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using metaeasylibrary;
@@ -40,8 +39,36 @@ namespace meta_itinerationview//meta_missioneview//
             return mykey;
         }
 
+        public override string GetSorting(string ListingType) {
+            string sorting;
+            if (ListingType == "lista") {
+                sorting = "yitineration desc, nitineration asc";
+                return sorting;
+            }
+            if (ListingType == "weblista")
+            {
+                sorting = "yitineration desc, nitineration desc";
+                return sorting;
+            }
+            return base.GetSorting(ListingType);
+        }
+
+        bool? delegatoAbilitato = null;
+        /// <summary>
+        /// True se in app_config esiste la riga code = 'DELEGATO_MISSIONE' con param = 'S'
+        /// </summary>
+        private bool DelegatoMissioneAbilitato() {
+            if (delegatoAbilitato.HasValue) return delegatoAbilitato.Value;
+            DataTable conf = Conn.RUN_SELECT("app_config", "param", null,
+                                    QHS.CmpEq("code", "DELEGATO_MISSIONE"), null, false);
+            delegatoAbilitato = (conf != null && conf.Rows.Count > 0 &&
+                                 conf.Rows[0]["param"].ToString().Trim().ToUpper() == "S");
+            return delegatoAbilitato.Value;
+        }
+
         public override void DescribeColumns(DataTable T, string listtype) {
             base.DescribeColumns(T, listtype);
+            bool mostraDelegato = DelegatoMissioneAbilitato();
             if (listtype == "lista") {
                 foreach (DataColumn C in T.Columns) {
                     DescribeAColumn(T, C.ColumnName, "", -1);
@@ -53,6 +80,10 @@ namespace meta_itinerationview//meta_missioneview//
                 DescribeAColumn(T, "nref", "Num. miss. Riferimento", nPos++);
                 DescribeAColumn(T, "idreg", ".Cod. Percipiente", nPos++);
                 DescribeAColumn(T, "registry", "Denom. Percipiente", nPos++);
+                if (mostraDelegato) {
+                    DescribeAColumn(T, "idregdelegato", ".Cod. Delegato", nPos++);
+                    DescribeAColumn(T, "delegato", "Delegato", nPos++);
+                }
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "location", "Località", nPos++);
                 DescribeAColumn(T, "itinerationstatus", "Stato", nPos++);
@@ -106,6 +137,10 @@ namespace meta_itinerationview//meta_missioneview//
                 DescribeAColumn(T, "description", "Descrizione", nPos++);
                 DescribeAColumn(T, "idreg", ".Cod. Percipiente", nPos++);
                 DescribeAColumn(T, "registry", "Denom. Percipiente", nPos++);
+                if (mostraDelegato) {
+                    DescribeAColumn(T, "idregdelegato", ".Cod. Delegato", nPos++);
+                    DescribeAColumn(T, "delegato", "Delegato", nPos++);
+                }
                 //DescribeAColumn(T, "codeser", ".Cod. Prestazione", nPos++);
                 DescribeAColumn(T, "service", "Prestazione", nPos++);
                 //DescribeAColumn(T, "authorizationdate", "Data autorizz.", nPos++);

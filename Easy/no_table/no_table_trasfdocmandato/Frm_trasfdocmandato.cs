@@ -1,4 +1,4 @@
-﻿/*
+/*
 Easy
 Copyright (C) 2026 Università degli Studi di Catania (www.unict.it)
 This program is free software: you can redistribute it and/or modify
@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +19,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using metadatalibrary;
 using metaeasylibrary;
 using funzioni_configurazione;
 using System.IO;
+using System.IO.Compression;
 using itinerationFunctions;
 
 namespace no_table_trasfdocmandato {
@@ -35,17 +36,32 @@ namespace no_table_trasfdocmandato {
         CQueryHelper QHC;
         QueryHelper QHS;
         IFolderBrowserDialog folderDlg;
+        ISaveFileDialog saveZipDlg;
         MetaDataDispatcher Disp;
         object idupb = null;
         public DataRow SelectedUpb;
+
+        // Sorgente di cancellazione per l'operazione di download su archivio in corso. null quando inattiva.
+        CancellationTokenSource _cts;
+
+        struct ProgressInfo {
+            public string Phase;
+            public int Done;
+            public int Total;   // 0 => barra indeterminata (marquee)
+            public int Files;
+        }
+
         public Frm_trasfdocmandato() {
             InitializeComponent();
             folderDlg = createFolderBrowserDialog(_folderDlg);
+            saveZipDlg = createSaveFileDialog(_saveZipDlg);
 
             if (isBlazor())
 			{
                 txtFolder.Visible = false;
                 btnSelezionaFolder.Visible = false;
+                txtZipFile.Visible = false;
+                btnSelezionaZip.Visible = false;
 			}
         }
 
@@ -73,6 +89,22 @@ namespace no_table_trasfdocmandato {
         private void btnSelezionaFolder_Click(object sender, EventArgs e) {
             SelezionaCartella();
         }
+    
+        private string SafeFileName(object value) {
+            string fileName = null;
+
+            if (value != null && value != DBNull.Value)
+                fileName = value.ToString();
+
+            if (string.IsNullOrWhiteSpace(fileName)) {
+                fileName = "allegato_" + Guid.NewGuid().ToString("N").Substring(0, 8) + ".dat";
+            }
+            foreach (char c in Path.GetInvalidFileNameChars())
+                fileName = fileName.Replace(c, '_');
+            // i nomi file potrebbero contenere caratteri separatori di cartella
+            fileName = fileName.Replace('/', '_').Replace('\\', '_');
+            return fileName;
+        }
 
         private void btnEseguidownload_Click(object sender, EventArgs e)
         {
@@ -83,12 +115,22 @@ namespace no_table_trasfdocmandato {
             object nstart = HelpForm.GetObjectFromString(typeof(int), txtNumInizio.Text, null);
             object nstop = HelpForm.GetObjectFromString(typeof(int), txtNumFine.Text, null);
             string pathdir = txtFolder.Text;
+            if (string.IsNullOrWhiteSpace(pathdir)) {
+                show("Selezionare una directory per il salvataggio degli allegati", "Avviso");
+                return;
+            }
+
+            if (!Directory.Exists(pathdir)) {
+                show("La cartella selezionata non esiste: " + pathdir);
+                return;
+            }
+
             object esercMandato = HelpForm.GetObjectFromString(typeof(int), txtEsercizioMandato.Text.ToString(), "x.y.year");
             string errors = "";
 
 
 			if (pathdir.Equals("")) {
-				show("Selezionare una directory per il salvataggio degli allegati", "Avviso");                
+				show("Selezionare una directory per il salvataggio degli allegati", "Avviso");
 			} else {
 				QueryHelper QHS = Conn.GetQueryHelper();
                 string filtermandato = QHS.CmpEq("ypay", esercMandato);
@@ -97,7 +139,7 @@ namespace no_table_trasfdocmandato {
                     filtermandato = QHS.AppAnd(filtermandato, QHS.AppAnd(QHS.Between("npay", nstart, nstop)));
                     DataTable tPayments = Conn.RUN_SELECT("payment", "*", null, filtermandato, null, false);
                     filterKpay = QHS.FieldIn("kpay", tPayments.Select());
-                    
+
                 }
 
                 if (idupb != null) {
@@ -109,7 +151,7 @@ namespace no_table_trasfdocmandato {
 
                 int filesCount = 0;
                 AttachmentsManager attachmentsManager;
-                AttachmentsManager.DocType[] types = { AttachmentsManager.DocType.mandate, 
+                AttachmentsManager.DocType[] types = { AttachmentsManager.DocType.mandate,
                                                        AttachmentsManager.DocType.invoicebuy,
                                                        AttachmentsManager.DocType.itineration,
                                                        AttachmentsManager.DocType.itinerationrefund
@@ -175,6 +217,374 @@ namespace no_table_trasfdocmandato {
                         }
                     }
                 }
+
+                // Stampa Contratti Passivi associati al mandato
+                // Come per i contratti attivi: la join sorgente emette una riga per ogni spesa collegata
+                // all'impegno, quindi lo stesso contratto passivo (idmankind/yman/nman) si ripeterebbe e
+                // verrebbe ristampato una volta per spesa. Riduciamo a una sola riga per contratto
+                // mantenendo invariate le colonne attese a valle.
+                string queryCalcCP =
+                    " select ayear, mandatekind, descrmandatekind, startnman, stopnman, labelinenglish, " +
+                    "        idreg, ypay, npay, registry, idsor01, idsor02, idsor03, idsor04, idsor05 " +
+                    " from ( " +
+                    "   select M.yman as ayear, M.idmankind as mandatekind, M.mankind as descrmandatekind," +
+                    "    M.nman as startnman,  M.nman as stopnman, " +
+                    "    CASE WHEN M.flagintracom = 'N' THEN 'N' ELSE 'S' END AS labelinenglish, " +
+                    "    EL.idreg,   EL.ypay, " +
+                    "    EL.npay, EL.registry, " +
+                    "    null as idsor01, null as idsor02, null as idsor03,null as idsor04 ,null as idsor05, " +
+                    "    row_number() over (partition by M.idmankind, M.yman, M.nman order by EL.idreg) as rn "
+                    + " from expense E "
+                    + " join expenselastview EL on E.idexp = EL.idexp "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expensemandate EM on EM.idexp = ELK.idparent "
+                    + " join mandateview M on M.idmankind = EM.idmankind AND M.yman = EM.yman AND M.nman = EM.nman   "
+                    + " where " + filterKpay
+                    + " ) q where q.rn = 1";
+                DataTable tContrattiP = Conn.SQLRunner(queryCalcCP);
+                if ((tContrattiP != null) && (tContrattiP.Rows.Count > 0)) {
+
+                    //var errors = new List<Exception>();
+
+                    foreach (DataRow R in tContrattiP.Select()) {
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath)) {
+                            Directory.CreateDirectory(dstPath);
+                        }
+
+                        string errmess = "";
+                        bool res = attachmentsManagerS.stampaContrattoPassivo(Conn, dstPath, R, out errmess);
+                        if (!res) {
+                            show(errmess);
+                        }
+                        else {
+                            filesCount++;
+                        }
+                    }
+                }
+
+
+
+                // Stampa CEDOLINI associati al mandato
+                string queryCalcCed = "select P.idpayroll, EL.idreg, P.fiscalyear, P.idpayroll, P.idcon, P.start, P.stop, EL.ypay, EL.npay, EL.registry, EL.idsor01, (SELECT TOP 1 P.idtreasurer FROM payment P WHERE P.kpay = EL.kpay) AS idtreasurer "
+                    + " from expense E "
+                    + " join expenselastview EL on E.idexp = EL.idexp "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expensepayroll EP on EP.idexp = ELK.idparent "
+                    + " join payroll P on P.idpayroll = EP.idpayroll "
+                    //+ " join parasubcontract PS on PS.idcon = P.idcon "
+                    + " where " + filterKpay;
+                DataTable tCed = Conn.SQLRunner(queryCalcCed);
+                if ((tCed != null) && (tCed.Rows.Count > 0)) {
+
+                    //var errors = new List<Exception>();
+
+                    foreach (DataRow R in tCed.Select()) {
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath)) {
+                            Directory.CreateDirectory(dstPath);
+                        }
+
+                        string errmess = "";
+                        bool res = attachmentsManagerS.stampaCedolino(Conn, dstPath, R, out errmess);
+                        if (!res) {
+                            show(errmess);
+                        }
+                        else {
+                            filesCount++;
+                        }
+                    }
+                }
+                // Scarica i file allegati nel contratto parasubordinato
+                string queryParasubContract = "select PSA.*, PS.ycon, PS.ncon, P.idpayroll, EL.idreg, P.fiscalyear, P.idpayroll, P.idcon, P.start, P.stop, EL.ypay, EL.npay, EL.registry, EL.idsor01, (SELECT TOP 1 P.idtreasurer FROM payment P WHERE P.kpay = EL.kpay) AS idtreasurer "
+                    + " from expense E "
+                    + " join expenselastview EL on E.idexp = EL.idexp "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expensepayroll EP on EP.idexp = ELK.idparent "
+                    + " join payroll P on P.idpayroll = EP.idpayroll "
+                    + " join parasubcontract PS on PS.idcon = P.idcon "
+                    + " join parasubcontractattachment PSA on PSA.idcon = PS.idcon "
+                    + " where " + filterKpay;
+                DataTable tParasubContractAttach = Meta.Conn.SQLRunner(queryParasubContract);
+                if ((tParasubContractAttach != null) && (tParasubContractAttach.Rows.Count > 0)) {
+                    foreach (DataRow R in tParasubContractAttach.Select()) {
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath)) {
+                            Directory.CreateDirectory(dstPath);
+                        }
+
+                        byte[] ByteArray = null;
+
+                        if (R["attachment"] == DBNull.Value) {
+                            if (R["idfilestorage"] != DBNull.Value) {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "parasubcontractattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null) {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray = (byte[])R["attachment"];
+
+                        int offset = 0;
+                        string fname = SafeFileName(R["filename"]);
+                        fname = "Contratto_Parasub_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+                        try {
+                            ScriviFile(sw, ByteArray, offset);
+                            //ScriviFile(TDocumentsSource.Payment, TDocument.Contratto_Occas, tPay, R, sw, ByteArray);
+                        }
+                        catch (Exception E) {
+                            QueryCreator.ShowException(E);
+                        }
+                    }
+                }
+
+                // Scarica i file allegati in altri compensi
+                string queryWageAddition = "select WAA.*, WA.ycon, WA.ncon, EL.idreg, WA.start, WA.stop, EL.ypay, EL.npay, EL.registry, EL.idsor01, (SELECT TOP 1 P.idtreasurer FROM payment P WHERE P.kpay = EL.kpay) AS idtreasurer "
+                    + " from expense E "
+                    + " join expenselastview EL on E.idexp = EL.idexp "
+                    + " join expenselink ELK on ELK.idchild = EL.idexp "
+                    + " join expensewageaddition EW on EW.idexp = ELK.idparent"
+                    + " join wageaddition WA on WA.ycon = EW.ycon and WA.ncon = EW.ncon "
+                    + " join wageadditionattachment WAA on WAA.ycon = WA.ycon and WAA.ncon = WA.ncon "
+                    + " where " + filterKpay;
+                DataTable tWageAdditionAttach = Meta.Conn.SQLRunner(queryWageAddition);
+                if ((tWageAdditionAttach != null) && (tWageAdditionAttach.Rows.Count > 0)) {
+                    foreach (DataRow R in tWageAdditionAttach.Select()) {
+                        string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                        if (!Directory.Exists(dstPath)) {
+                            Directory.CreateDirectory(dstPath);
+                        }
+
+                        byte[] ByteArray = null;
+
+                        if (R["attachment"] == DBNull.Value) {
+                            if (R["idfilestorage"] != DBNull.Value) {
+                                // Leggo da MongoDb
+                                ByteArray = HttpFileStorage.DownloadFile(Conn, "wageadditionattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                                if (ByteArray == null) {
+                                    show("Servizio Download degli Allegati non disponibile");
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                            ByteArray = (byte[])R["attachment"];
+
+                        int offset = 0;
+                        string fname = SafeFileName(R["filename"]);
+                        fname = "Altri_compensi_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+                        try {
+                            ScriviFile(sw, ByteArray, offset);
+                            //ScriviFile(TDocumentsSource.Payment, TDocument.Contratto_Occas, tPay, R, sw, ByteArray);
+                        }
+                        catch (Exception E) {
+                            QueryCreator.ShowException(E);
+                        }
+                    }
+                }
+
+
+                //Scarica i file allegati all'anagrafica
+
+                //new("registrycasellarioamministrativo", "casellariocertification", "idregistrycasellarioamministrativo"),
+                //new("registrycasellariogiudiziale", "casellariocertification", "idregistrycasellariogiudiziale"),
+                //new("registryottemperanzalegge68_99", "ottemperanzacertification", "idregistryottemperanzalegge"),
+                //new("registrypattointegrita", "pattointegritacertification", "idregistrypattointegrita"),
+                //new("registryregolaritafiscale", "regolaritacertification", "idregistryregolaritafiscale"),
+                //new("registryverificaanac", "verificaanaccertification", "idregistryverificaanac"),
+                //new("registryvisura", "visuracertification", "idregistryvisura"),
+
+                var registryAttachmentSources = new Dictionary<string, string> {
+                    ["cvattachment"] = "attachment",
+                    ["casellarioamministrativo"] = "casellariocertification",
+                    ["casellariogiudiziale"] = "casellariocertification",
+                    ["ottemperanzalegge68_99"] = "ottemperanzacertification",
+                    ["pattointegrita"] = "pattointegritacertification",
+                    ["regolaritafiscale"] = "regolaritacertification",
+                    ["verificaanac"] = "verificaanaccertification",
+                    ["visura"] = "visuracertification",
+                };
+
+                // Tabelle con "start" e "stop", le altre usano "lt"
+                var registryAttachmentHasValidity = new HashSet<string> {
+                    //"cvattachment",   // ha solo "lt"
+                    "casellarioamministrativo",
+                    "casellariogiudiziale",
+                    "ottemperanzalegge68_99",
+                    "pattointegrita",
+                    "regolaritafiscale",
+                    "verificaanac",
+                    "visura",
+                };
+
+                // allegati figli registry per parasubcontract con valutazione periodo validità doc
+                foreach (var kv in registryAttachmentSources) {
+                    string tableName = "registry" + kv.Key;
+                    string idField = "id" + tableName;
+
+                    string rJoin;
+                    if (registryAttachmentHasValidity.Contains(kv.Key)) {
+                        rJoin =
+                            $"R.idreg = EL.idreg " +
+                            $"and (R.start is null or R.start <= PS.stop) " +
+                            $"and (R.stop is null or R.stop >= PS.start)";
+                    }
+                    else {
+                        rJoin =
+                            $"R.idreg = EL.idreg " +
+                            $"and R.lt = coalesce(" +
+                            $"(select max(R2.lt) from {tableName} R2 where R2.idreg = EL.idreg and R2.lt < PS.start), " +
+                            $"(select min(R3.lt) from {tableName} R3 where R3.idreg = EL.idreg))";
+                    }
+
+                    string query =
+                        $"select EL.idreg, R.*, PS.ycon, PS.ncon, PS.start as conStart, PS.stop as conStop, EL.ypay, EL.npay " +
+                        $"from expense E " +
+                        $"join expenselastview EL on E.idexp = EL.idexp " +
+                        $"join expenselink ELK on ELK.idchild = EL.idexp " +
+                        $"join expensepayroll EP on EP.idexp = ELK.idparent " +
+                        $"join payroll P on P.idpayroll = EP.idpayroll " +
+                        $"join parasubcontract PS on PS.idcon = P.idcon " +
+                        $"join {tableName} R on {rJoin} " +
+                        $"where {filterKpay}";
+
+                    DataTable t = Meta.Conn.SQLRunner(query);
+                    if (t == null || t.Rows.Count == 0) continue;
+
+                    foreach (DataRow row in t.Rows) {
+
+                        string dstPath = Path.Combine(pathdir, $"mandato_{row["ypay"]}_{row["npay"]}");
+                        if (!Directory.Exists(dstPath)) Directory.CreateDirectory(dstPath);
+
+                        byte[] bytes = null;
+
+                        if (row.Table.Columns.Contains("idfilestorage") && row["idfilestorage"] != DBNull.Value) {
+
+                            bytes = HttpFileStorage.DownloadFile(Conn, tableName, row["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                        }
+                        else
+                        if (row.Table.Columns.Contains(kv.Value) && row[kv.Value] != DBNull.Value) {
+
+                            bytes = (byte[])row[kv.Value];
+                        }
+
+                        if (bytes == null) continue;
+
+                        string fileNamePart;
+                        if (row.Table.Columns.Contains("filename") && row["filename"] != DBNull.Value && !string.IsNullOrEmpty(row["filename"].ToString())) {
+
+                            fileNamePart = row["filename"].ToString();
+                        }
+                        else {
+
+                            fileNamePart = $"{kv.Key}_{kv.Value}_{row[idField]}.dat";
+                        }
+
+                        string fname = $"{kv.Key}_{row["ycon"]}_{row["ncon"]}_all_{row[idField]}_{fileNamePart}";
+
+
+                        fname = SafeFileName(fname); 
+                     
+
+                        try {
+                            ScriviFile(Path.Combine(dstPath, fname), bytes, 0);
+                        }
+                        catch (Exception ex) {
+
+                            QueryCreator.ShowException(ex);
+                        }
+                    }
+                }
+
+                // allegati figli registry per wageaddition con valutazione periodo validità doc
+                foreach (var kv in registryAttachmentSources) {
+                    string tableName = "registry" + kv.Key;
+                    string idField = "id" + tableName;
+
+                    string rJoin;
+                    if (registryAttachmentHasValidity.Contains(kv.Key)) {
+                        rJoin =
+                            $"R.idreg = EL.idreg " +
+                            $"and (R.start is null or R.start <= WA.stop) " +
+                            $"and (R.stop is null or R.stop >= WA.start)";
+                    }
+                    else {
+                        rJoin =
+                            $"R.idreg = EL.idreg " +
+                            $"and R.lt = coalesce(" +
+                            $"(select max(R2.lt) from {tableName} R2 where R2.idreg = EL.idreg and R2.lt < WA.start), " +
+                            $"(select min(R3.lt) from {tableName} R3 where R3.idreg = EL.idreg))";
+                    }
+
+                    string query =
+                        $"select EL.idreg, R.*, WA.ycon, WA.ncon, WA.start as conStart, WA.stop as conStop, EL.ypay, EL.npay " +
+                        $" from expense E " +
+                        $" join expenselastview EL on E.idexp = EL.idexp " +
+                        $" join expenselink ELK on ELK.idchild = EL.idexp " +
+                        $" join expensewageaddition EW on EW.idexp = ELK.idparent" +
+                        $" join wageaddition WA on WA.ycon = EW.ycon and WA.ncon = EW.ncon " +
+                        $" join wageadditionattachment WAA on WAA.ycon = WA.ycon and WAA.ncon = WA.ncon " +
+                        $"join {tableName} R on {rJoin} " +
+                        $"where {filterKpay}";
+
+                    DataTable t = Meta.Conn.SQLRunner(query);
+                    if (t == null || t.Rows.Count == 0) continue;
+
+                    foreach (DataRow row in t.Rows) {
+
+                        string dstPath = Path.Combine(pathdir, $"mandato_{row["ypay"]}_{row["npay"]}");
+                        if (!Directory.Exists(dstPath)) Directory.CreateDirectory(dstPath);
+
+                        byte[] bytes = null;
+
+                        if (row.Table.Columns.Contains("idfilestorage") && row["idfilestorage"] != DBNull.Value) {
+
+                            bytes = HttpFileStorage.DownloadFile(Conn, tableName, row["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                        }
+                        else
+                        if (row.Table.Columns.Contains(kv.Value) && row[kv.Value] != DBNull.Value) {
+
+                            bytes = (byte[])row[kv.Value];
+                        }
+
+                        if (bytes == null) continue;
+
+                        string fileNamePart;
+                        if (row.Table.Columns.Contains("filename") && row["filename"] != DBNull.Value && !string.IsNullOrEmpty(row["filename"].ToString())) {
+
+                            fileNamePart = row["filename"].ToString();
+                        }
+                        else {
+
+                            fileNamePart = $"{kv.Key}_{kv.Value}_{row[idField]}.dat";
+                        }
+
+                        string fname = $"{kv.Key}_{row["ycon"]}_{row["ncon"]}_all_{row[idField]}_{fileNamePart}";
+
+                        // Clean filename characters
+
+                        fname = SafeFileName(fname); 
+                        
+
+                        try {
+                            ScriviFile(Path.Combine(dstPath, fname), bytes, 0);
+                        }
+                        catch (Exception ex) {
+
+                            QueryCreator.ShowException(ex);
+                        }
+                    }
+                }
+
                 // Stampa DURC validi alla data contabile del mandato
                 //Prende gli allegati delle spese, solo quelli attivi.
                 // Dobbiamo filtrare le Anagrafiche delle fatture, pagate con i mandati correnti, a cui era spuntato il check DURC
@@ -234,7 +644,7 @@ namespace no_table_trasfdocmandato {
                         if (ByteArray != null)
                         {
                             int offset = 0;
-                            string fname = GetFileName(ByteArray);
+                            string fname = SafeFileName(GetFileName(ByteArray));
                             fname = "DURC_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
                             string sw = Path.Combine(dstPath, fname);
                             try
@@ -246,11 +656,11 @@ namespace no_table_trasfdocmandato {
                                 QueryCreator.ShowException(E);
                             }
                         }
-                        
+
                         if (ByteArray2 != null)
 						{
-                            int offset = 0;
-                            string fname = GetFileName(ByteArray2);
+                            int offset = 0; 
+                            string fname = SafeFileName(GetFileName(ByteArray2));
                             fname = "DURC_Autocertificazione_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
                             string sw = Path.Combine(dstPath, fname);
 							try
@@ -301,9 +711,9 @@ namespace no_table_trasfdocmandato {
                             ByteArray2 = (byte[])R["ccdedicato_doc"];
 
                         if (ByteArray2 != null) {
-                     
+
                             int offset = 0;
-                            string fname = GetFileName(ByteArray2);
+                            string fname = SafeFileName(GetFileName(ByteArray2));
                             fname = "CCdedicato_Anagr_" + R["idreg"].ToString() + "_" + fname;
                             string sw = Path.Combine(dstPath, fname);
                             try {
@@ -330,7 +740,7 @@ namespace no_table_trasfdocmandato {
                         if (ByteArray != null) {
 
                             int offset = 0;
-                            string fname = GetFileName(ByteArray);
+                            string fname = SafeFileName(GetFileName(ByteArray));
                             fname = "CCdedicato_CF_Anagr_" + R["idreg"].ToString() + "_" + fname;
                             string sw = Path.Combine(dstPath, fname);
                             try {
@@ -357,12 +767,12 @@ namespace no_table_trasfdocmandato {
                 if ((tItineration != null) && (tItineration.Rows.Count > 0)) {
                     foreach (DataRow R in tItineration.Select()) {
                         string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
-                        
+
                         if (!Directory.Exists(dstPath))
 						{
                             Directory.CreateDirectory(dstPath);
 						}
-                        
+
                         string err = MissFun.ProduciStampaMissione(Conn, dstPath, R);
 
                         if (!string.IsNullOrEmpty(err))
@@ -411,7 +821,7 @@ namespace no_table_trasfdocmandato {
                             ByteArray = (byte[])R["attachment"];
 
                         int offset = 0;
-                        string fname = R["filename"].ToString();
+                        string fname = SafeFileName(R["filename"]);
                         fname = "Mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
                         string sw = Path.Combine(dstPath, fname);
                         try
@@ -464,7 +874,7 @@ namespace no_table_trasfdocmandato {
                             ByteArray = (byte[])R["attachment"];
 
                         int offset = 0;
-                        string fname = R["filename"].ToString();
+                        string fname = SafeFileName(R["filename"]);
                         fname = "Contratto_Occas_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
                         string sw = Path.Combine(dstPath, fname);
 						try
@@ -517,7 +927,7 @@ namespace no_table_trasfdocmandato {
                             ByteArray = (byte[])R["attachment"];
 
                         int offset = 0;
-                        string fname = R["filename"].ToString();
+                        string fname = SafeFileName(R["filename"]);
                         fname = "Contratto_Profes_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
                         string sw = Path.Combine(dstPath, fname);
 						try
@@ -535,6 +945,974 @@ namespace no_table_trasfdocmandato {
 
 			}
 		}
+
+        // =====================================================================================
+        //  COPIA DEL DOWNLOAD CON CREAZIONE DI UN UNICO ARCHIVIO ZIP + BARRA DI AVANZAMENTO
+        //  Replica btnEseguidownload_Click ma scrive i documenti in una cartella temporanea,
+        //  li comprime in un singolo archivio e ripulisce la cartella temporanea.
+        // =====================================================================================
+        private void SelezionaArchivio() {
+            if (saveZipDlg.ShowDialog(this) == DialogResult.OK) {
+                txtZipFile.Text = saveZipDlg.FileName;
+            }
+        }
+
+        private void btnSelezionaZip_Click(object sender, EventArgs e) {
+            SelezionaArchivio();
+        }
+
+        private async void btnEseguidownloadZip_Click(object sender, EventArgs e) {
+            if (isBlazor() && string.IsNullOrEmpty(txtZipFile.Text)) {
+                SelezionaArchivio();
+            }
+            object nstart = HelpForm.GetObjectFromString(typeof(int), txtNumInizio.Text, null);
+            object nstop = HelpForm.GetObjectFromString(typeof(int), txtNumFine.Text, null);
+            object esercMandato = HelpForm.GetObjectFromString(typeof(int), txtEsercizioMandato.Text.ToString(), "x.y.year");
+
+            string zipPath = txtZipFile.Text;
+            if (string.IsNullOrEmpty(zipPath)) {
+                show("Selezionare l'archivio ZIP di destinazione", "Avviso");
+                return;
+            }
+            string zipDir = Path.GetDirectoryName(zipPath);
+            if (string.IsNullOrEmpty(zipDir) || !Directory.Exists(zipDir)) {
+                show("La cartella che dovrebbe contenere l'archivio ZIP non esiste.", "Avviso");
+                return;
+            }
+
+            // Costruzione dei filtri sul thread UI (legge i controlli e mostra eventuali avvisi).
+            string filtermandato = QHS.CmpEq("ypay", esercMandato);
+            string filterKpay = "";
+            if (nstart != DBNull.Value && nstop != DBNull.Value) {
+                filtermandato = QHS.AppAnd(filtermandato, QHS.AppAnd(QHS.Between("npay", nstart, nstop)));
+                DataTable tPayments = Conn.RUN_SELECT("payment", "*", null, filtermandato, null, false);
+                filterKpay = QHS.FieldIn("kpay", tPayments.Select());
+            }
+
+            if (idupb != null) {
+                filtermandato = QHS.AppAnd(filtermandato, QHS.CmpEq("idupb", idupb));
+                DataTable tExpenselastview = Conn.RUN_SELECT("expenselastview", "*", null, filtermandato, null, false);
+                filterKpay = QHS.AppAnd(filterKpay, QHS.FieldIn("kpay", tExpenselastview.Select()));
+            }
+
+            if (filterKpay == "") {
+                show("Indicare un intervallo di mandati oppure selezionare un UPB", "Avviso");
+                return;
+            }
+
+            var errors = new StringBuilder();
+            _cts = new CancellationTokenSource();
+            CancellationToken ct = _cts.Token;
+            SetUiBusy(true);
+
+            IProgress<ProgressInfo> progress = new Progress<ProgressInfo>(UpdateProgress);
+
+            int filesCount = 0;
+            bool wasCancelled = false;
+
+            try {
+                filesCount = await Task.Run(() => GenerateZip(zipPath, filterKpay, progress, errors, ct));
+                wasCancelled = ct.IsCancellationRequested;
+            }
+            catch (OperationCanceledException) {
+                wasCancelled = true;
+            }
+            catch (Exception ex) {
+                errors.AppendLine("Errore: " + ex.Message);
+            }
+            finally {
+                SetUiBusy(false);
+                if (_cts != null) { _cts.Dispose(); _cts = null; }
+            }
+
+            string msg;
+            if (wasCancelled) {
+                msg = $"Operazione interrotta.\nFile aggiunti all'archivio: {filesCount}\nArchivio: {zipPath}";
+            }
+            else {
+                msg = $"Download completato.\nFile aggiunti all'archivio: {filesCount}\nArchivio: {zipPath}";
+            }
+            if (errors.Length > 0) msg += "\n\nAvvisi/errori:\n" + errors;
+            show(msg, wasCancelled ? "Interrotto" : "Esito");
+        }
+
+        private void btnInterrompi_Click(object sender, EventArgs e) {
+            if (_cts != null && !_cts.IsCancellationRequested) {
+                _cts.Cancel();
+                btnInterrompi.Enabled = false;
+                lblStatus.Text = "Annullamento in corso...";
+            }
+        }
+
+        // Abilita/disabilita i controlli dipendenti dallo stato di elaborazione (download su archivio)
+        // e mostra/nasconde la barra di avanzamento.
+        private void SetUiBusy(bool busy) {
+            btnSelezionaFolder.Enabled = !busy;
+            btnSelezionaZip.Enabled = !busy;
+            btnEseguidownload.Enabled = !busy;
+            btnEseguidownloadZip.Enabled = !busy;
+            btnUPB.Enabled = !busy;
+            btnOK.Enabled = !busy;
+            btnAnnulla.Enabled = !busy;
+            btnInterrompi.Visible = busy;
+            btnInterrompi.Enabled = busy;
+            progressBar1.Visible = busy;
+            lblStatus.Visible = busy;
+            if (busy) {
+                progressBar1.Style = ProgressBarStyle.Marquee;
+                progressBar1.Value = 0;
+                lblStatus.Text = "Avvio elaborazione...";
+                Cursor = Cursors.AppStarting;
+            }
+            else {
+                progressBar1.Style = ProgressBarStyle.Continuous;
+                lblStatus.Text = "";
+                Cursor = Cursors.Default;
+            }
+        }
+
+        // Aggiorna barra e label di stato sul thread UI (invocata via IProgress).
+        private void UpdateProgress(ProgressInfo info) {
+            if (info.Total > 0) {
+                if (progressBar1.Style != ProgressBarStyle.Continuous) progressBar1.Style = ProgressBarStyle.Continuous;
+                if (progressBar1.Maximum != info.Total) progressBar1.Maximum = Math.Max(1, info.Total);
+                progressBar1.Value = Math.Min(info.Done, progressBar1.Maximum);
+            }
+            else {
+                if (progressBar1.Style != ProgressBarStyle.Marquee) progressBar1.Style = ProgressBarStyle.Marquee;
+            }
+            string head = info.Phase ?? "";
+            if (info.Total > 0) head += $" {info.Done}/{info.Total}";
+            lblStatus.Text = $"{head} - file: {info.Files}";
+        }
+
+        // Genera tutti i documenti in una cartella temporanea, la comprime in un unico archivio ZIP
+        // e ripulisce la cartella temporanea. Eseguita su thread di background.
+        private int GenerateZip(string zipPath, string filterKpay, IProgress<ProgressInfo> progress, StringBuilder errors, CancellationToken ct) {
+            string tempRoot = Path.Combine(Path.GetTempPath(), "easy_mandato_" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(tempRoot);
+            int files = 0;
+            try {
+                files = GenerateInto(tempRoot, filterKpay, progress, errors, ct);
+                // Anche se l'operazione è stata interrotta, comprimiamo ciò che è stato prodotto finora.
+                CompressFolder(tempRoot, zipPath, progress, files);
+            }
+            finally {
+                try { if (Directory.Exists(tempRoot)) Directory.Delete(tempRoot, true); }
+                catch { /* best effort: eventuali file ancora aperti restano nella cartella temporanea */ }
+            }
+            return files;
+        }
+
+        // Comprime il contenuto di root in un singolo archivio ZIP, riportando l'avanzamento per file.
+        private void CompressFolder(string root, string zipPath, IProgress<ProgressInfo> progress, int filesProduced) {
+            string[] allFiles = Directory.GetFiles(root, "*", SearchOption.AllDirectories);
+            using (var fs = new FileStream(zipPath, FileMode.Create, FileAccess.Write))
+            using (var zip = new ZipArchive(fs, ZipArchiveMode.Create)) {
+                for (int i = 0; i < allFiles.Length; i++) {
+                    string rel = allFiles[i].Substring(root.Length + 1).Replace('\\', '/');
+                    var entry = zip.CreateEntry(rel, CompressionLevel.Optimal);
+                    using (var es = entry.Open())
+                    using (var ins = File.OpenRead(allFiles[i])) {
+                        ins.CopyTo(es);
+                    }
+                    progress.Report(new ProgressInfo { Phase = "Compressione archivio", Done = i + 1, Total = allFiles.Length, Files = filesProduced });
+                }
+            }
+        }
+
+        // Copia di btnEseguidownload_Click adattata: genera i documenti del mandato dentro pathdir
+        // (cartella temporanea) riusando gli stessi helper. Restituisce il numero di file prodotti.
+        // Eseguita su thread di background: gli avvisi sono accumulati in errors invece di usare show().
+        private int GenerateInto(string pathdir, string filterKpay, IProgress<ProgressInfo> progress, StringBuilder errors, CancellationToken ct) {
+            int filesCount = 0;
+            QueryHelper QHS = Conn.GetQueryHelper();
+
+            AttachmentsManager attachmentsManager;
+            AttachmentsManager.DocType[] types = { AttachmentsManager.DocType.mandate,
+                                                   AttachmentsManager.DocType.invoicebuy,
+                                                   AttachmentsManager.DocType.itineration,
+                                                   AttachmentsManager.DocType.itinerationrefund
+                                                 };
+
+            AttachmentsManager attachmentsManagerS = new AttachmentsManager(Conn, pathdir);
+            DataTable tPay = Conn.RUN_SELECT("payment", "*", null, filterKpay, null, false);
+            DataRow[] payments = tPay.Select();
+            for (int i = 0; i < payments.Length; i++) {
+                ct.ThrowIfCancellationRequested();
+                DataRow R = payments[i];
+
+                string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+                if (!Directory.Exists(dstPath)) {
+                    Directory.CreateDirectory(dstPath);
+                }
+                foreach (AttachmentsManager.DocType doctype in types) {
+                    ct.ThrowIfCancellationRequested();
+                    attachmentsManager = new AttachmentsManager(Conn, doctype, dstPath, null, QHS.CmpEq("kpay", R["kpay"]));
+                    filesCount += attachmentsManager.saveAttachments();
+                }
+
+                string errmess = "";
+                bool res = attachmentsManagerS.stampaMandato(Conn, dstPath, R, out errmess);
+                if (!res) {
+                    errors.AppendLine(errmess);
+                }
+                else {
+                    filesCount++;
+                }
+
+                progress.Report(new ProgressInfo { Phase = "Mandato " + R["ypay"] + "_" + R["npay"], Done = i + 1, Total = payments.Length, Files = filesCount });
+            }
+
+            // Stampa FE associate ai pagamenti
+            progress.Report(new ProgressInfo { Phase = "Fatture elettroniche", Total = 0, Files = filesCount });
+            string queryFE = "SELECT distinct EL.ypay, EL.npay, sdi_acquisto.* "
+                + " FROM expense E "
+                + " join expenselastview EL on E.idexp = EL.idexp "
+                + " join expenseinvoice EI on EI.idexp = EL.idexp "
+                + " join invoice I on I.idinvkind = EI.idinvkind AND I.yinv = EI.yinv AND I.ninv = EI.ninv "
+                + " join sdi_acquisto  on I.idsdi_acquisto = sdi_acquisto.idsdi_acquisto "
+                + " where sdi_acquisto.xml is not null and " + filterKpay;
+            DataTable tFattElettr = Meta.Conn.SQLRunner(queryFE);
+            if ((tFattElettr != null) && (tFattElettr.Rows.Count > 0)) {
+                foreach (DataRow R in tFattElettr.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+                    string errmess = "";
+                    bool res = attachmentsManagerS.stampaFatturaFEacquisto(Conn, dstPath, R, out errmess);
+                    if (!res) {
+                        errors.AppendLine(errmess);
+                    }
+                    else {
+                        filesCount++;
+                    }
+                    res = attachmentsManagerS.stampaXML_FEacquisto(Conn, dstPath, R, out errmess);
+                    if (!res) {
+                        errors.AppendLine(errmess);
+                    }
+                    else {
+                        filesCount++;
+                    }
+                }
+            }
+
+            // Stampa Contratti Passivi associati al mandato
+            // Come per i contratti attivi: la join sorgente emette una riga per ogni spesa collegata
+            // all'impegno, quindi lo stesso contratto passivo (idmankind/yman/nman) si ripeterebbe e
+            // verrebbe ristampato una volta per spesa. Riduciamo a una sola riga per contratto
+            // mantenendo invariate le colonne attese a valle.
+            progress.Report(new ProgressInfo { Phase = "Contratti passivi", Total = 0, Files = filesCount });
+            string queryCalcCP =
+                " select ayear, mandatekind, descrmandatekind, startnman, stopnman, labelinenglish, " +
+                "        idreg, ypay, npay, registry, idsor01, idsor02, idsor03, idsor04, idsor05 " +
+                " from ( " +
+                "   select M.yman as ayear, M.idmankind as mandatekind, M.mankind as descrmandatekind," +
+                "    M.nman as startnman,  M.nman as stopnman, " +
+                "    CASE WHEN M.flagintracom = 'N' THEN 'N' ELSE 'S' END AS labelinenglish, " +
+                "    EL.idreg,   EL.ypay, " +
+                "    EL.npay, EL.registry, " +
+                "    null as idsor01, null as idsor02, null as idsor03,null as idsor04 ,null as idsor05, " +
+                "    row_number() over (partition by M.idmankind, M.yman, M.nman order by EL.idreg) as rn "
+                + " from expense E "
+                + " join expenselastview EL on E.idexp = EL.idexp "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expensemandate EM on EM.idexp = ELK.idparent "
+                + " join mandateview M on M.idmankind = EM.idmankind AND M.yman = EM.yman AND M.nman = EM.nman   "
+                + " where " + filterKpay
+                + " ) q where q.rn = 1";
+            DataTable tContrattiP = Conn.SQLRunner(queryCalcCP);
+            if ((tContrattiP != null) && (tContrattiP.Rows.Count > 0)) {
+                foreach (DataRow R in tContrattiP.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    string errmess = "";
+                    bool res = attachmentsManagerS.stampaContrattoPassivo(Conn, dstPath, R, out errmess);
+                    if (!res) {
+                        errors.AppendLine(errmess);
+                    }
+                    else {
+                        filesCount++;
+                    }
+                }
+            }
+
+            // Stampa CEDOLINI associati al mandato
+            progress.Report(new ProgressInfo { Phase = "Cedolini", Total = 0, Files = filesCount });
+            string queryCalcCed = "select P.idpayroll, EL.idreg, P.fiscalyear, P.idpayroll, P.idcon, P.start, P.stop, EL.ypay, EL.npay, EL.registry, EL.idsor01, (SELECT TOP 1 P.idtreasurer FROM payment P WHERE P.kpay = EL.kpay) AS idtreasurer "
+                + " from expense E "
+                + " join expenselastview EL on E.idexp = EL.idexp "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expensepayroll EP on EP.idexp = ELK.idparent "
+                + " join payroll P on P.idpayroll = EP.idpayroll "
+                + " where " + filterKpay;
+            DataTable tCed = Conn.SQLRunner(queryCalcCed);
+            if ((tCed != null) && (tCed.Rows.Count > 0)) {
+                foreach (DataRow R in tCed.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    string errmess = "";
+                    bool res = attachmentsManagerS.stampaCedolino(Conn, dstPath, R, out errmess);
+                    if (!res) {
+                        errors.AppendLine(errmess);
+                    }
+                    else {
+                        filesCount++;
+                    }
+                }
+            }
+            // Scarica i file allegati nel contratto parasubordinato
+            progress.Report(new ProgressInfo { Phase = "Allegati contratti parasubordinati", Total = 0, Files = filesCount });
+            string queryParasubContract = "select PSA.*, PS.ycon, PS.ncon, P.idpayroll, EL.idreg, P.fiscalyear, P.idpayroll, P.idcon, P.start, P.stop, EL.ypay, EL.npay, EL.registry, EL.idsor01, (SELECT TOP 1 P.idtreasurer FROM payment P WHERE P.kpay = EL.kpay) AS idtreasurer "
+                + " from expense E "
+                + " join expenselastview EL on E.idexp = EL.idexp "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expensepayroll EP on EP.idexp = ELK.idparent "
+                + " join payroll P on P.idpayroll = EP.idpayroll "
+                + " join parasubcontract PS on PS.idcon = P.idcon "
+                + " join parasubcontractattachment PSA on PSA.idcon = PS.idcon "
+                + " where " + filterKpay;
+            DataTable tParasubContractAttach = Meta.Conn.SQLRunner(queryParasubContract);
+            if ((tParasubContractAttach != null) && (tParasubContractAttach.Rows.Count > 0)) {
+                foreach (DataRow R in tParasubContractAttach.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    byte[] ByteArray = null;
+
+                    if (R["attachment"] == DBNull.Value) {
+                        if (R["idfilestorage"] != DBNull.Value) {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "parasubcontractattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null) {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (parasubcontractattachment idattachment " + R["idattachment"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray = (byte[])R["attachment"];
+
+                    int offset = 0;
+                    string fname = SafeFileName(R["filename"]);
+                    fname = "Contratto_Parasub_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                    string sw = Path.Combine(dstPath, fname);
+                    try {
+                        ScriviFileArchivio(sw, ByteArray, offset);
+                    }
+                    catch (Exception E) {
+                        errors.AppendLine(E.Message);
+                    }
+                }
+            }
+
+            // Scarica i file allegati in altri compensi
+            progress.Report(new ProgressInfo { Phase = "Allegati altri compensi", Total = 0, Files = filesCount });
+            string queryWageAddition = "select WAA.*, WA.ycon, WA.ncon, EL.idreg, WA.start, WA.stop, EL.ypay, EL.npay, EL.registry, EL.idsor01, (SELECT TOP 1 P.idtreasurer FROM payment P WHERE P.kpay = EL.kpay) AS idtreasurer "
+                + " from expense E "
+                + " join expenselastview EL on E.idexp = EL.idexp "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expensewageaddition EW on EW.idexp = ELK.idparent"
+                + " join wageaddition WA on WA.ycon = EW.ycon and WA.ncon = EW.ncon "
+                + " join wageadditionattachment WAA on WAA.ycon = WA.ycon and WAA.ncon = WA.ncon "
+                + " where " + filterKpay;
+            DataTable tWageAdditionAttach = Meta.Conn.SQLRunner(queryWageAddition);
+            if ((tWageAdditionAttach != null) && (tWageAdditionAttach.Rows.Count > 0)) {
+                foreach (DataRow R in tWageAdditionAttach.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    byte[] ByteArray = null;
+
+                    if (R["attachment"] == DBNull.Value) {
+                        if (R["idfilestorage"] != DBNull.Value) {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "wageadditionattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null) {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (wageadditionattachment idattachment " + R["idattachment"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray = (byte[])R["attachment"];
+
+                    int offset = 0;
+                    string fname = SafeFileName(R["filename"]);
+                    fname = "Altri_compensi_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                    string sw = Path.Combine(dstPath, fname);
+                    try {
+                        ScriviFileArchivio(sw, ByteArray, offset);
+                    }
+                    catch (Exception E) {
+                        errors.AppendLine(E.Message);
+                    }
+                }
+            }
+
+            //Scarica i file allegati all'anagrafica
+            var registryAttachmentSources = new Dictionary<string, string> {
+                ["cvattachment"] = "attachment",
+                ["casellarioamministrativo"] = "casellariocertification",
+                ["casellariogiudiziale"] = "casellariocertification",
+                ["ottemperanzalegge68_99"] = "ottemperanzacertification",
+                ["pattointegrita"] = "pattointegritacertification",
+                ["regolaritafiscale"] = "regolaritacertification",
+                ["verificaanac"] = "verificaanaccertification",
+                ["visura"] = "visuracertification",
+            };
+
+            var registryAttachmentHasValidity = new HashSet<string> {
+                "casellarioamministrativo",
+                "casellariogiudiziale",
+                "ottemperanzalegge68_99",
+                "pattointegrita",
+                "regolaritafiscale",
+                "verificaanac",
+                "visura",
+            };
+
+            // allegati figli registry per parasubcontract con valutazione periodo validità doc
+            progress.Report(new ProgressInfo { Phase = "Allegati anagrafica (parasubordinati)", Total = 0, Files = filesCount });
+            foreach (var kv in registryAttachmentSources) {
+                ct.ThrowIfCancellationRequested();
+                string tableName = "registry" + kv.Key;
+                string idField = "id" + tableName;
+
+                string rJoin;
+                if (registryAttachmentHasValidity.Contains(kv.Key)) {
+                    rJoin =
+                        $"R.idreg = EL.idreg " +
+                        $"and (R.start is null or R.start <= PS.stop) " +
+                        $"and (R.stop is null or R.stop >= PS.start)";
+                }
+                else {
+                    rJoin =
+                        $"R.idreg = EL.idreg " +
+                        $"and R.lt = coalesce(" +
+                        $"(select max(R2.lt) from {tableName} R2 where R2.idreg = EL.idreg and R2.lt < PS.start), " +
+                        $"(select min(R3.lt) from {tableName} R3 where R3.idreg = EL.idreg))";
+                }
+
+                string query =
+                    $"select EL.idreg, R.*, PS.ycon, PS.ncon, PS.start as conStart, PS.stop as conStop, EL.ypay, EL.npay " +
+                    $"from expense E " +
+                    $"join expenselastview EL on E.idexp = EL.idexp " +
+                    $"join expenselink ELK on ELK.idchild = EL.idexp " +
+                    $"join expensepayroll EP on EP.idexp = ELK.idparent " +
+                    $"join payroll P on P.idpayroll = EP.idpayroll " +
+                    $"join parasubcontract PS on PS.idcon = P.idcon " +
+                    $"join {tableName} R on {rJoin} " +
+                    $"where {filterKpay}";
+
+                DataTable t = Meta.Conn.SQLRunner(query);
+                if (t == null || t.Rows.Count == 0) continue;
+
+                foreach (DataRow row in t.Rows) {
+                    ct.ThrowIfCancellationRequested();
+
+                    string dstPath = Path.Combine(pathdir, $"mandato_{row["ypay"]}_{row["npay"]}");
+                    if (!Directory.Exists(dstPath)) Directory.CreateDirectory(dstPath);
+
+                    byte[] bytes = null;
+
+                    if (row.Table.Columns.Contains("idfilestorage") && row["idfilestorage"] != DBNull.Value) {
+                        bytes = HttpFileStorage.DownloadFile(Conn, tableName, row["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    }
+                    else
+                    if (row.Table.Columns.Contains(kv.Value) && row[kv.Value] != DBNull.Value) {
+                        bytes = (byte[])row[kv.Value];
+                    }
+
+                    if (bytes == null) continue;
+
+                    string fileNamePart;
+                    if (row.Table.Columns.Contains("filename") && row["filename"] != DBNull.Value && !string.IsNullOrEmpty(row["filename"].ToString())) {
+                        fileNamePart = row["filename"].ToString();
+                    }
+                    else {
+                        fileNamePart = $"{kv.Key}_{kv.Value}_{row[idField]}.dat";
+                    }
+
+                    string fname = $"{kv.Key}_{row["ycon"]}_{row["ncon"]}_all_{row[idField]}_{fileNamePart}";
+
+                  
+                    fname = SafeFileName(fname);
+                    try {
+                        ScriviFileArchivio(Path.Combine(dstPath, fname), bytes, 0);
+                    }
+                    catch (Exception ex) {
+                        errors.AppendLine(ex.Message);
+                    }
+                }
+            }
+
+            // allegati figli registry per wageaddition con valutazione periodo validità doc
+            progress.Report(new ProgressInfo { Phase = "Allegati anagrafica (altri compensi)", Total = 0, Files = filesCount });
+            foreach (var kv in registryAttachmentSources) {
+                ct.ThrowIfCancellationRequested();
+                string tableName = "registry" + kv.Key;
+                string idField = "id" + tableName;
+
+                string rJoin;
+                if (registryAttachmentHasValidity.Contains(kv.Key)) {
+                    rJoin =
+                        $"R.idreg = EL.idreg " +
+                        $"and (R.start is null or R.start <= WA.stop) " +
+                        $"and (R.stop is null or R.stop >= WA.start)";
+                }
+                else {
+                    rJoin =
+                        $"R.idreg = EL.idreg " +
+                        $"and R.lt = coalesce(" +
+                        $"(select max(R2.lt) from {tableName} R2 where R2.idreg = EL.idreg and R2.lt < WA.start), " +
+                        $"(select min(R3.lt) from {tableName} R3 where R3.idreg = EL.idreg))";
+                }
+
+                string query =
+                    $"select EL.idreg, R.*, WA.ycon, WA.ncon, WA.start as conStart, WA.stop as conStop, EL.ypay, EL.npay " +
+                    $" from expense E " +
+                    $" join expenselastview EL on E.idexp = EL.idexp " +
+                    $" join expenselink ELK on ELK.idchild = EL.idexp " +
+                    $" join expensewageaddition EW on EW.idexp = ELK.idparent" +
+                    $" join wageaddition WA on WA.ycon = EW.ycon and WA.ncon = EW.ncon " +
+                    $" join wageadditionattachment WAA on WAA.ycon = WA.ycon and WAA.ncon = WA.ncon " +
+                    $"join {tableName} R on {rJoin} " +
+                    $"where {filterKpay}";
+
+                DataTable t = Meta.Conn.SQLRunner(query);
+                if (t == null || t.Rows.Count == 0) continue;
+
+                foreach (DataRow row in t.Rows) {
+                    ct.ThrowIfCancellationRequested();
+
+                    string dstPath = Path.Combine(pathdir, $"mandato_{row["ypay"]}_{row["npay"]}");
+                    if (!Directory.Exists(dstPath)) Directory.CreateDirectory(dstPath);
+
+                    byte[] bytes = null;
+
+                    if (row.Table.Columns.Contains("idfilestorage") && row["idfilestorage"] != DBNull.Value) {
+                        bytes = HttpFileStorage.DownloadFile(Conn, tableName, row["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                    }
+                    else
+                    if (row.Table.Columns.Contains(kv.Value) && row[kv.Value] != DBNull.Value) {
+                        bytes = (byte[])row[kv.Value];
+                    }
+
+                    if (bytes == null) continue;
+
+                    string fileNamePart;
+                    if (row.Table.Columns.Contains("filename") && row["filename"] != DBNull.Value && !string.IsNullOrEmpty(row["filename"].ToString())) {
+                        fileNamePart = row["filename"].ToString();
+                    }
+                    else {
+                        fileNamePart = $"{kv.Key}_{kv.Value}_{row[idField]}.dat";
+                    }
+
+                    string fname = $"{kv.Key}_{row["ycon"]}_{row["ncon"]}_all_{row[idField]}_{fileNamePart}";
+
+                  
+                    fname = SafeFileName(fname);
+                    try {
+                        ScriviFileArchivio(Path.Combine(dstPath, fname), bytes, 0);
+                    }
+                    catch (Exception ex) {
+                        errors.AppendLine(ex.Message);
+                    }
+                }
+            }
+
+            // Stampa DURC validi alla data contabile del mandato
+            progress.Report(new ProgressInfo { Phase = "DURC", Total = 0, Files = filesCount });
+            string queryReg = " SELECT  EL.ypay, EL.npay, registrydurc.*  "
+                 + "  FROM expense E "
+                 + " join expenselastview EL on E.idexp = EL.idexp "
+                 + " join expenseinvoice EI on EI.idexp = EL.idexp "
+                 + " join invoice I on I.idinvkind = EI.idinvkind AND I.yinv = EI.yinv AND I.ninv = EI.ninv "
+                 + " join registrydurc  on registrydurc.idreg = EL.idreg "
+                 + " where I.requested_doc & 4 <> 0 "
+                 + " and EL.paymentadate between registrydurc.start and registrydurc.stop "
+                + " and " + filterKpay;
+            DataTable tRegistrydurc = Meta.Conn.SQLRunner(queryReg);
+            if ((tRegistrydurc != null) && (tRegistrydurc.Rows.Count > 0)) {
+                foreach (DataRow Rdurc in tRegistrydurc.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + Rdurc["ypay"].ToString() + "_" + Rdurc["npay"].ToString());
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    byte[] ByteArray = null;
+                    byte[] ByteArray2 = null;
+
+                    if (Rdurc["durccertification"] == DBNull.Value && Rdurc["selfcertification"] == DBNull.Value)
+                    {
+                        if (Rdurc["idfilestorage"] != DBNull.Value)
+                        {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "registrydurc", Rdurc["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null)
+                            {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (registrydurc idreg " + Rdurc["idreg"] + ")");
+                                continue;
+                            }
+                        }
+
+                        if (Rdurc["idfilestorage2"] != DBNull.Value)
+                        {
+                            ByteArray2 = HttpFileStorage.DownloadFile(Conn, "registrydurc", Rdurc["idfilestorage2"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray2 == null)
+                            {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (registrydurc idreg " + Rdurc["idreg"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else if (Rdurc["durccertification"] != DBNull.Value)
+                    {
+                        ByteArray = (byte[])Rdurc["durccertification"];
+                    }
+                    else if (Rdurc["selfcertification"] != DBNull.Value)
+					{
+                        ByteArray2 = (byte[])Rdurc["selfcertification"];
+					}
+
+                    if (ByteArray != null)
+                    {
+                        int offset = 0;
+                        string fname = SafeFileName(GetFileName(ByteArray));
+                        fname = "DURC_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+                        try
+                        {
+                            ScriviFileArchivio(sw, ByteArray, offset);
+                        }
+                        catch (Exception E)
+                        {
+                            errors.AppendLine(E.Message);
+                        }
+                    }
+
+                    if (ByteArray2 != null)
+					{
+                        int offset = 0;
+                        string fname = SafeFileName(GetFileName(ByteArray2));
+                        fname = "DURC_Autocertificazione_Anagr_" + Rdurc["idreg"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+						try
+						{
+                            ScriviFileArchivio(sw, ByteArray2, offset);
+						}
+						catch (Exception E)
+						{
+                            errors.AppendLine(E.Message);
+						}
+					}
+                }
+            }
+            // Stampa CC dedicato: prendiamo l'ultimo attivo
+            progress.Report(new ProgressInfo { Phase = "Conto corrente dedicato", Total = 0, Files = filesCount });
+            string queryCC = " SELECT  EL.ypay, EL.npay, registrypaymethod.*  "
+                 + "  FROM expense E "
+                 + " join expenselastview EL on E.idexp = EL.idexp "
+                 + " join registrypaymethod  on registrypaymethod.idreg = EL.idreg  and  registrypaymethod.idregistrypaymethod = EL.idregistrypaymethod"
+                 + " where (EL.paymethod_flag  & 32768 ) <> 0 "
+                 + " and (registrypaymethod.requested_doc & 1 )<>0 "
+                + " and " + filterKpay;
+            DataTable tRegistryCC = Meta.Conn.SQLRunner(queryCC);
+            if ((tRegistryCC != null) && (tRegistryCC.Rows.Count > 0)) {
+                foreach (DataRow R in tRegistryCC.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+                    if (!Directory.Exists(dstPath)) {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    byte[] ByteArray = null;
+                    byte[] ByteArray2 = null;
+                    if (R["ccdedicato_doc"] == DBNull.Value)
+                    {
+                        if (R["idfilestorage2"] != DBNull.Value)
+                        {
+                            ByteArray2 = HttpFileStorage.DownloadFile(Conn, "registrypaymethod", R["idfilestorage2"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray2 == null)
+                            {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (registrypaymethod idreg " + R["idreg"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray2 = (byte[])R["ccdedicato_doc"];
+
+                    if (ByteArray2 != null) {
+                        int offset = 0;
+                        string fname = SafeFileName(GetFileName(ByteArray2));
+                        fname = "CCdedicato_Anagr_" + R["idreg"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+                        try {
+                            ScriviFileArchivio(sw, ByteArray2, offset);
+                        }
+                        catch (Exception E) {
+                            errors.AppendLine(E.Message);
+                        }
+                    }
+
+                    if (R["ccdedicato_cf"] == DBNull.Value) {
+                        if (R["idfilestorage"] != DBNull.Value) {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "registrypaymethod", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null) {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (registrypaymethod idreg " + R["idreg"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray = (byte[])R["ccdedicato_cf"];
+
+                    if (ByteArray != null) {
+                        int offset = 0;
+                        string fname = SafeFileName(GetFileName(ByteArray));
+                        fname = "CCdedicato_CF_Anagr_" + R["idreg"].ToString() + "_" + fname;
+                        string sw = Path.Combine(dstPath, fname);
+                        try {
+                            ScriviFileArchivio(sw, ByteArray, offset);
+                        }
+                        catch (Exception E) {
+                            errors.AppendLine(E.Message);
+                        }
+                    }
+
+                }
+            }
+
+            //Stampa il prospetto di calcolo missione
+            progress.Report(new ProgressInfo { Phase = "Prospetti missione", Total = 0, Files = filesCount });
+            string queryCalcMiss = "select EL.ypay, EL.npay, itineration.* "
+                + " from expense E "
+                + " join expenselastview EL on E.idexp = EL.idexp "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expenseitineration EI on EI.idexp = ELK.idparent "
+                + " join itineration on EI.iditineration = itineration.iditineration "
+                + " where " + filterKpay;
+
+            DataTable tItineration = Meta.Conn.SQLRunner(queryCalcMiss);
+            if ((tItineration != null) && (tItineration.Rows.Count > 0)) {
+                foreach (DataRow R in tItineration.Select()) {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath))
+					{
+                        Directory.CreateDirectory(dstPath);
+					}
+
+                    string err = MissFun.ProduciStampaMissione(Conn, dstPath, R);
+
+                    if (!string.IsNullOrEmpty(err))
+					{
+                        errors.AppendLine(err);
+					}
+                }
+            }
+
+            // Scarica i file allegati nel mandato
+            progress.Report(new ProgressInfo { Phase = "Allegati mandato", Total = 0, Files = filesCount });
+            string queryPayment = "WITH payment_file AS ( "
+                    + " select p.ypay, p.npay, pa.* "
+                    + " from paymentattachment pa "
+                    + " join payment p on pa.kpay = p.kpay) "
+                + " select * from payment_file "
+                + " where " + filterKpay;
+
+            DataTable tPaymentAttachmet = Meta.Conn.SQLRunner(queryPayment);
+            if ((tPaymentAttachmet != null) && (tPaymentAttachmet.Rows.Count > 0))
+            {
+                foreach (DataRow R in tPaymentAttachmet.Select())
+                {
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath))
+                    {
+                        Directory.CreateDirectory(dstPath);
+                    }
+
+                    byte[] ByteArray = null;
+
+                    if (R["attachment"] == DBNull.Value)
+                    {
+                        if (R["idfilestorage"] != DBNull.Value)
+                        {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "paymentattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null)
+                            {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (paymentattachment idattachment " + R["idattachment"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray = (byte[])R["attachment"];
+
+                    int offset = 0;
+                    string fname = SafeFileName(R["filename"]); 
+                    fname = "Mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                    string sw = Path.Combine(dstPath, fname);
+                    try
+                    {
+                        ScriviFileArchivio(sw, ByteArray, offset);
+                    }
+                    catch (Exception E)
+                    {
+                        errors.AppendLine(E.Message);
+                    }
+                }
+            }
+
+            // Scarica i file allegati nel contratto occasionale
+            progress.Report(new ProgressInfo { Phase = "Allegati contratti occasionali", Total = 0, Files = filesCount });
+            string queryCasualContract = " select EL.kpay, EL.ypay, EL.npay, CA.* "
+                + " from expenselastview EL "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expensecasualcontract EC on EC.idexp = ELK.idparent "
+                + " join casualcontractattachment CA on CA.ycon = EC.ycon and CA.ncon = EC.ncon "
+                + " where " + filterKpay;
+
+            DataTable tCasualContractAttach = Meta.Conn.SQLRunner(queryCasualContract);
+            if ((tCasualContractAttach != null) && (tCasualContractAttach.Rows.Count > 0))
+			{
+                foreach (DataRow R in tCasualContractAttach.Select())
+				{
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath))
+					{
+                        Directory.CreateDirectory(dstPath);
+					}
+
+                    byte[] ByteArray = null;
+
+                    if (R["attachment"] == DBNull.Value)
+                    {
+                        if (R["idfilestorage"] != DBNull.Value)
+                        {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "casualcontractattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null)
+                            {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (casualcontractattachment idattachment " + R["idattachment"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray = (byte[])R["attachment"];
+
+                    int offset = 0;
+                    string fname = SafeFileName(R["filename"]);
+                    fname = "Contratto_Occas_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                    string sw = Path.Combine(dstPath, fname);
+					try
+					{
+                        ScriviFileArchivio(sw, ByteArray, offset);
+					}
+					catch (Exception E)
+					{
+                        errors.AppendLine(E.Message);
+					}
+                }
+			}
+
+            // Scarica i file allegati nel contratto professionale
+            progress.Report(new ProgressInfo { Phase = "Allegati contratti professionali", Total = 0, Files = filesCount });
+            string queryProfService = "select EL.ypay, EL.npay, PS.* "
+                + " from expenselastview EL "
+                + " join expenselink ELK on ELK.idchild = EL.idexp "
+                + " join expenseprofservice EP on EP.idexp = ELK.idparent "
+                + " join profserviceattachment PS on PS.ycon = EP.ycon and PS.ncon = EP.ncon "
+                + " where " + filterKpay;
+
+            DataTable tProfServiceAttach = Meta.Conn.SQLRunner(queryProfService);
+            if((tProfServiceAttach != null) && (tProfServiceAttach.Rows.Count > 0))
+			{
+                foreach (DataRow R in tProfServiceAttach.Select())
+				{
+                    ct.ThrowIfCancellationRequested();
+                    string dstPath = Path.Combine(pathdir, "mandato_" + R["ypay"].ToString() + "_" + R["npay"].ToString());
+
+                    if (!Directory.Exists(dstPath))
+					{
+                        Directory.CreateDirectory(dstPath);
+					}
+
+                    byte[] ByteArray = null;
+
+                    if (R["attachment"] == DBNull.Value)
+                    {
+                        if (R["idfilestorage"] != DBNull.Value)
+                        {
+                            ByteArray = HttpFileStorage.DownloadFile(Conn, "profserviceattachment", R["idfilestorage"].ToString()).GetAwaiter().GetResult();
+                            if (ByteArray == null)
+                            {
+                                errors.AppendLine("Servizio Download degli Allegati non disponibile (profserviceattachment idattachment " + R["idattachment"] + ")");
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        ByteArray = (byte[])R["attachment"];
+
+                    int offset = 0;
+                    string fname = SafeFileName(R["filename"]);
+                    fname = "Contratto_Profes_" + R["ycon"].ToString() + "_" + R["ncon"].ToString() + "_all_" + R["idattachment"].ToString() + "_" + fname;
+                    string sw = Path.Combine(dstPath, fname);
+					try
+					{
+                        ScriviFileArchivio(sw, ByteArray, offset);
+					}
+					catch (Exception E)
+					{
+                        errors.AppendLine(E.Message);
+					}
+				}
+			}
+
+            return filesCount;
+        }
+
+        // Variante di ScriviFile per la modalità archivio: scrive il blob nella cartella temporanea
+        // senza aprire il file con il process runner.
+        private static void ScriviFileArchivio(string sw, byte[] documento, int offset) {
+            FileStream FS = new FileStream(sw, FileMode.Create, FileAccess.Write);
+
+            int n = documento.Length - offset;
+            if (n == 0) { FS.Close(); return; }
+            try {
+                FS.Write(documento, offset, n);
+                FS.Flush();
+                FS.Close();
+            }
+            catch { }
+        }
+
         string GetFileName(Byte[] B) {
             int len = 0;
             for (int i = 0; i < B.Length; i++) {
@@ -605,7 +1983,7 @@ namespace no_table_trasfdocmandato {
             string startvalue = MetaUpb.startValueWanted;
 
             if (startvalue != null) {
-                //try to load a row directly, without opening a new form		
+                //try to load a row directly, without opening a new form
                 string stripped = startvalue;
                 if (stripped.EndsWith("%")) stripped = stripped.TrimEnd(new Char[] { '%' });
                 string filter = "(" + startfield + "='" + stripped + "')";

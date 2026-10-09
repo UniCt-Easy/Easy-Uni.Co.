@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -653,6 +652,28 @@ public class registryRow: MetaRow  {
 	public String idanprOriginal { 
 		get {if (this["idanpr",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idanpr",DataRowVersion.Original];}
 	}
+	public String idepaccrualdebit{ 
+		get {if (this["idepaccrualdebit"]==DBNull.Value)return null; return  (String)this["idepaccrualdebit"];}
+		set {if (value==null) this["idepaccrualdebit"]= DBNull.Value; else this["idepaccrualdebit"]= value;}
+	}
+	public object idepaccrualdebitValue { 
+		get{ return this["idepaccrualdebit"];}
+		set {if (value==null|| value==DBNull.Value) this["idepaccrualdebit"]= DBNull.Value; else this["idepaccrualdebit"]= value;}
+	}
+	public String idepaccrualdebitOriginal { 
+		get {if (this["idepaccrualdebit",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idepaccrualdebit",DataRowVersion.Original];}
+	}
+	public String idepaccrualcredit{ 
+		get {if (this["idepaccrualcredit"]==DBNull.Value)return null; return  (String)this["idepaccrualcredit"];}
+		set {if (value==null) this["idepaccrualcredit"]= DBNull.Value; else this["idepaccrualcredit"]= value;}
+	}
+	public object idepaccrualcreditValue { 
+		get{ return this["idepaccrualcredit"];}
+		set {if (value==null|| value==DBNull.Value) this["idepaccrualcredit"]= DBNull.Value; else this["idepaccrualcredit"]= value;}
+	}
+	public String idepaccrualcreditOriginal { 
+		get {if (this["idepaccrualcredit",DataRowVersion.Original]==DBNull.Value)return null; return  (String)this["idepaccrualcredit",DataRowVersion.Original];}
+	}
 	#endregion
 
 }
@@ -716,6 +737,8 @@ public class registryTable : MetaTableBase<registryRow> {
 			{"idreg_istituti",createColumn("idreg_istituti",typeof(int),true,false)},
 			{"idateco",createColumn("idateco",typeof(int),true,false)},
 			{"idanpr",createColumn("idanpr",typeof(string),true,false)},
+			{"idepaccrualdebit",createColumn("idepaccrualdebit",typeof(string),true,false)},
+			{"idepaccrualcredit",createColumn("idepaccrualcredit",typeof(string),true,false)},
 		};
 	}
 }

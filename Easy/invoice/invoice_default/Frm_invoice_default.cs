@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -2642,7 +2641,7 @@ namespace invoice_default { //documentoiva//
 			this.textBox3.ReadOnly = true;
 			this.textBox3.Size = new System.Drawing.Size(75, 20);
 			this.textBox3.TabIndex = 11;
-			this.textBox3.Tag = "intrastatnation_destination.idintrastatnation";
+			this.textBox3.Tag = "intrastatnation_destination.idintrastatnation?invoiceview.iso_destination";
 			// 
 			// label30
 			// 
@@ -2744,7 +2743,7 @@ namespace invoice_default { //documentoiva//
 			this.textBox13.ReadOnly = true;
 			this.textBox13.Size = new System.Drawing.Size(75, 20);
 			this.textBox13.TabIndex = 11;
-			this.textBox13.Tag = "intrastatnation_payment.idintrastatnation";
+			this.textBox13.Tag = "intrastatnation_payment.idintrastatnation?invoiceview.iso_payment";
 			// 
 			// label31
 			// 
@@ -2763,7 +2762,7 @@ namespace invoice_default { //documentoiva//
 			this.cmb_isopagamento.Name = "cmb_isopagamento";
 			this.cmb_isopagamento.Size = new System.Drawing.Size(194, 21);
 			this.cmb_isopagamento.TabIndex = 5;
-			this.cmb_isopagamento.Tag = "invoice.iso_payment?invoiceview.idintrastatnation_payment";
+			this.cmb_isopagamento.Tag = "invoice.iso_payment";
 			this.cmb_isopagamento.ValueMember = "code";
 			// 
 			// label32
@@ -2812,7 +2811,7 @@ namespace invoice_default { //documentoiva//
 			this.textBox2.ReadOnly = true;
 			this.textBox2.Size = new System.Drawing.Size(75, 20);
 			this.textBox2.TabIndex = 10;
-			this.textBox2.Tag = "intrastatnation_provenance.idintrastatnation";
+			this.textBox2.Tag = "intrastatnation_provenance.idintrastatnation?invoiceview.iso_provenance";
 			// 
 			// textBox1
 			// 
@@ -2821,7 +2820,7 @@ namespace invoice_default { //documentoiva//
 			this.textBox1.ReadOnly = true;
 			this.textBox1.Size = new System.Drawing.Size(75, 20);
 			this.textBox1.TabIndex = 9;
-			this.textBox1.Tag = "intrastatnation_origin.idintrastatnation";
+			this.textBox1.Tag = "intrastatnation_origin.idintrastatnation?invoiceview.iso_origin";
 			// 
 			// label29
 			// 
@@ -2858,7 +2857,7 @@ namespace invoice_default { //documentoiva//
 			this.cmb_provdestinazione.Name = "cmb_provdestinazione";
 			this.cmb_provdestinazione.Size = new System.Drawing.Size(194, 21);
 			this.cmb_provdestinazione.TabIndex = 5;
-			this.cmb_provdestinazione.Tag = "invoice.idcountry_destination";
+			this.cmb_provdestinazione.Tag = "invoice.idcountry_destination?invoiceview.country_destination";
 			// 
 			// cmb_isoprovenienza
 			// 
@@ -5051,7 +5050,7 @@ namespace invoice_default { //documentoiva//
 			this.cmb_BlackList.Name = "cmb_BlackList";
 			this.cmb_BlackList.Size = new System.Drawing.Size(150, 21);
 			this.cmb_BlackList.TabIndex = 38;
-			this.cmb_BlackList.Tag = "invoice.idblacklist??invoiceview.idblacklist";
+			this.cmb_BlackList.Tag = "invoice.idblacklist?invoiceview.idblacklist";
 			this.cmb_BlackList.ValueMember = "idblacklist";
 			// 
 			// rdbNonEffettuare
@@ -5309,7 +5308,7 @@ namespace invoice_default { //documentoiva//
             DataAccess.SetTableForReading(DS.sdi_status_acquestere, "sdi_status");
             DataAccess.SetTableForReading(DS.profservice_1, "profservice");
             GetData.SetStaticFilter(DS.intrastatnation_provenance, QHS.CmpEq("flague", "S"));
-            GetData.SetStaticFilter(DS.intrastatnation_payment, QHS.CmpEq("flague", "S"));
+            //GetData.SetStaticFilter(DS.intrastatnation_payment, QHS.CmpEq("flague", "S"));
             GetData.SetStaticFilter(DS.intrastatnation_destination, QHS.CmpEq("flague", "S"));
             GetData.SetStaticFilter(DS.treasurer_acq_estere, QHS.IsNotNull("departmentname_fe"));
 
@@ -6075,11 +6074,12 @@ namespace invoice_default { //documentoiva//
                 //"((idepoperation='prestprof')OR(idepoperation='spesaprof'))";
                 DS.invoicedetail.ExtendedProperties["filtroepcontratto"] = filtroEP;
                 if ((Meta.EditMode) && (Meta.FirstFillForThisRow)&& (Curr["active"].ToString() == "N")) {
-                    Curr["flagdeferred"] = 'N';
+                    // task 21449 - rimuovo la modifica del flag 
+                    //Curr["flagdeferred"] = 'N';
                     chb_IVADifferita.Checked = false;
                     chb_IVADifferita.Enabled = false;
                 }
-                }
+            }
             else {
                 DS.invoicedetail.ExtendedProperties["filtroepcontratto"] = null;
                 //chb_IVADifferita.Enabled = true;

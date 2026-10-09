@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -271,9 +270,16 @@ namespace no_table_entry_rettifica {
             }
         }
 
+        // Il calcolo trimestrale e' in fase di lavorazione: finche' questo flag e' false
+        // getQuarterEnd() restituisce sempre il 31/12 e quindi si esegue sempre il calcolo annuale.
+        // Porre a true per riattivare la chiusura per trimestre.
+        private static readonly bool abilitaCalcoloTrimestrale = false;
+
         private DateTime getQuarterEnd() {
             int currAyear = (int)Meta.GetSys("esercizio");
             DateTime dec31 = new DateTime(currAyear, 12, 31); // termine anno corrente
+            if (!abilitaCalcoloTrimestrale) return dec31; // forza il calcolo annuale
+            // logica trimestrale invariata....
             DateTime mar31 = new DateTime(currAyear, 3, 31);  // termine I trimestre
             DateTime giu30 = new DateTime(currAyear, 6, 30);  // termine II trimestre
             DateTime set30 = new DateTime(currAyear, 9, 30);  // termine III trimestre

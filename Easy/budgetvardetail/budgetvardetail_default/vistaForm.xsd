@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="yes"?>
-<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaDettaglioVariazionePrevisioneAnnuale.xsd" xmlns:mstns="http://tempuri.org/VistaDettaglioVariazionePrevisioneAnnuale.xsd" xmlns="http://tempuri.org/VistaDettaglioVariazionePrevisioneAnnuale.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema id="vistaForm" targetNamespace="http://tempuri.org/VistaDettaglioVariazionePrevisioneAnnuale.xsd" xmlns:mstns="http://tempuri.org/VistaDettaglioVariazionePrevisioneAnnuale.xsd" xmlns="http://tempuri.org/VistaDettaglioVariazionePrevisioneAnnuale.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
   <xs:element name="vistaForm" msdata:IsDataSet="true" msdata:Locale="en-US" msdata:EnforceConstraints="False">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -15,7 +15,7 @@
               <xs:element name="ct" type="xs:dateTime" />
               <xs:element name="lu" type="xs:string" />
               <xs:element name="lt" type="xs:dateTime" />
-              <xs:element name="idupb" type="xs:string" />
+              <xs:element name="idupb" type="xs:string" minOccurs="0" />
               <xs:element name="annotation" type="xs:string" minOccurs="0" />
               <xs:element name="rownum" type="xs:int" />
             </xs:sequence>
@@ -341,30 +341,15 @@
       <xs:selector xpath=".//mstns:sortingkind" />
       <xs:field xpath="mstns:idsorkind" />
     </xs:unique>
-    <xs:keyref name="sortingkind_sorting" refer="sortingkind_Constraint1">
-      <xs:selector xpath=".//mstns:sorting" />
-      <xs:field xpath="mstns:idsorkind" />
-    </xs:keyref>
-    <xs:keyref name="manager_budgetvar" refer="manager_Constraint1">
-      <xs:selector xpath=".//mstns:budgetvar" />
-      <xs:field xpath="mstns:idman" />
-    </xs:keyref>
-    <xs:keyref name="budgetvarstatus_budgetvar" refer="budgetvarstatus_Constraint1">
-      <xs:selector xpath=".//mstns:budgetvar" />
-      <xs:field xpath="mstns:idbudgetvarstatus" />
-    </xs:keyref>
-    <xs:keyref name="sorting_budgetvardetail" refer="sorting_Constraint1">
-      <xs:selector xpath=".//mstns:budgetvardetail" />
-      <xs:field xpath="mstns:idsor" />
-    </xs:keyref>
-    <xs:keyref name="upbbudgetvardetail" refer="upb_Constraint1">
-      <xs:selector xpath=".//mstns:budgetvardetail" />
-      <xs:field xpath="mstns:idupb" />
-    </xs:keyref>
-    <xs:keyref name="budgetvarbudgetvardetail" refer="budgetvar_Constraint1">
-      <xs:selector xpath=".//mstns:budgetvardetail" />
-      <xs:field xpath="mstns:ybudgetvar" />
-      <xs:field xpath="mstns:nbudgetvar" />
-    </xs:keyref>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="sortingkind_sorting" msdata:parent="sortingkind" msdata:child="sorting" msdata:parentkey="idsorkind" msdata:childkey="idsorkind" />
+      <msdata:Relationship name="budgetvarstatus_budgetvar" msdata:parent="budgetvarstatus" msdata:child="budgetvar" msdata:parentkey="idbudgetvarstatus" msdata:childkey="idbudgetvarstatus" />
+      <msdata:Relationship name="manager_budgetvar" msdata:parent="manager" msdata:child="budgetvar" msdata:parentkey="idman" msdata:childkey="idman" />
+      <msdata:Relationship name="budgetvarbudgetvardetail" msdata:parent="budgetvar" msdata:child="budgetvardetail" msdata:parentkey="ybudgetvar nbudgetvar" msdata:childkey="ybudgetvar nbudgetvar" />
+      <msdata:Relationship name="upbbudgetvardetail" msdata:parent="upb" msdata:child="budgetvardetail" msdata:parentkey="idupb" msdata:childkey="idupb" />
+      <msdata:Relationship name="sorting_budgetvardetail" msdata:parent="sorting" msdata:child="budgetvardetail" msdata:parentkey="idsor" msdata:childkey="idsor" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

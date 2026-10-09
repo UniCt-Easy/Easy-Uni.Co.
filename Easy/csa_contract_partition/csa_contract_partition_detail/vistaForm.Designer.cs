@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
@@ -29,27 +28,18 @@ using metadatalibrary;
 namespace csa_contract_partition_detail {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
-public class dsmeta: DataSet {
+public partial class dsmeta: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expensephase 		=> (MetaTable)Tables["expensephase"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable expenseview 		=> (MetaTable)Tables["expenseview"];
 
-	///<summary>
-	///Tipo Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable csa_contractkind 		=> (MetaTable)Tables["csa_contractkind"];
 
-	///<summary>
-	///Informazioni annuali su tipo contratto csa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable csa_contractkindyear 		=> (MetaTable)Tables["csa_contractkindyear"];
 
@@ -59,32 +49,23 @@ public class dsmeta: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable epexpview 		=> (MetaTable)Tables["epexpview"];
 
-	///<summary>
-	///Piano dei conti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public accountTable account 		=> (accountTable)Tables["account"];
 
-	///<summary>
-	///U.P.B.
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public upbTable upb 		=> (upbTable)Tables["upb"];
 
-	///<summary>
-	///Bilancio
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public finTable fin 		=> (finTable)Tables["fin"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public MetaTable fase_epexp 		=> (MetaTable)Tables["fase_epexp"];
 
-	///<summary>
-	///Classificazione Movimenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public sortingTable sorting 		=> (sortingTable)Tables["sorting"];
+
+	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
+	public MetaTable account_cost_reversal 		=> (MetaTable)Tables["account_cost_reversal"];
 
 	#endregion
 
@@ -109,7 +90,6 @@ private void initClass() {
 	DataSetName = "dsmeta";
 	Prefix = "";
 	Namespace = "http://tempuri.org/dsmeta.xsd";
-	EnforceConstraints = false;
 
 	#region create DataTables
 	//////////////////// EXPENSEPHASE /////////////////////////////////
@@ -255,6 +235,7 @@ private void initClass() {
 	tcsa_contract_partition.defineColumn("idfin", typeof(int));
 	tcsa_contract_partition.defineColumn("idexp", typeof(int));
 	tcsa_contract_partition.defineColumn("idsor_siope", typeof(int));
+	tcsa_contract_partition.defineColumn("idacc_cost_reversal", typeof(string));
 	Tables.Add(tcsa_contract_partition);
 	tcsa_contract_partition.defineKey("idcsa_contract", "ayear", "ndetail");
 
@@ -373,6 +354,36 @@ private void initClass() {
 	Tables.Add(tsorting);
 	tsorting.defineKey("idsor");
 
+	//////////////////// ACCOUNT_COST_REVERSAL /////////////////////////////////
+	var taccount_cost_reversal= new MetaTable("account_cost_reversal");
+	taccount_cost_reversal.defineColumn("idacc", typeof(string),false);
+	taccount_cost_reversal.defineColumn("ayear", typeof(short),false);
+	taccount_cost_reversal.defineColumn("codeacc", typeof(string),false);
+	taccount_cost_reversal.defineColumn("ct", typeof(DateTime),false);
+	taccount_cost_reversal.defineColumn("cu", typeof(string),false);
+	taccount_cost_reversal.defineColumn("flagregistry", typeof(string));
+	taccount_cost_reversal.defineColumn("flagtransitory", typeof(string));
+	taccount_cost_reversal.defineColumn("flagupb", typeof(string));
+	taccount_cost_reversal.defineColumn("idaccountkind", typeof(string));
+	taccount_cost_reversal.defineColumn("lt", typeof(DateTime),false);
+	taccount_cost_reversal.defineColumn("lu", typeof(string),false);
+	taccount_cost_reversal.defineColumn("nlevel", typeof(string),false);
+	taccount_cost_reversal.defineColumn("paridacc", typeof(string));
+	taccount_cost_reversal.defineColumn("printingorder", typeof(string),false);
+	taccount_cost_reversal.defineColumn("rtf", typeof(Byte[]));
+	taccount_cost_reversal.defineColumn("title", typeof(string),false);
+	taccount_cost_reversal.defineColumn("txt", typeof(string));
+	taccount_cost_reversal.defineColumn("idpatrimony", typeof(string));
+	taccount_cost_reversal.defineColumn("idplaccount", typeof(string));
+	taccount_cost_reversal.defineColumn("flagprofit", typeof(string));
+	taccount_cost_reversal.defineColumn("flagloss", typeof(string));
+	taccount_cost_reversal.defineColumn("placcount_sign", typeof(string));
+	taccount_cost_reversal.defineColumn("patrimony_sign", typeof(string));
+	taccount_cost_reversal.defineColumn("flagcompetency", typeof(string));
+	taccount_cost_reversal.defineColumn("flag", typeof(int));
+	Tables.Add(taccount_cost_reversal);
+	taccount_cost_reversal.defineKey("idacc");
+
 	#endregion
 
 
@@ -387,6 +398,10 @@ private void initClass() {
 	Relations.Add(new DataRelation("sorting_csa_contract_partition",cPar,cChild,false));
 
 	this.defineRelation("fin_csa_contract_partition","fin","csa_contract_partition","idfin");
+	cPar = new []{account_cost_reversal.Columns["idacc"]};
+	cChild = new []{csa_contract_partition.Columns["idacc_cost_reversal"]};
+	Relations.Add(new DataRelation("account_cost_reversal_csa_contract_partition",cPar,cChild,false));
+
 	#endregion
 
 }
