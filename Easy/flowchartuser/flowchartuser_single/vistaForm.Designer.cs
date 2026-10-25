@@ -12,14 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace flowchartuser_single {
 using System;
 using System.Data;
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable flowchartuser{get { return Tables["flowchartuser"];}}
@@ -123,7 +121,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("sorkind04_withchilds", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("sorkind05_withchilds", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[3]{
 	T.Columns["idflowchart"], 	T.Columns["ndetail"], 	T.Columns["idcustomuser"]};
 	T.PrimaryKey = key;
@@ -144,7 +141,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
 	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idcustomuser"]};
 	T.PrimaryKey = key;
@@ -210,7 +206,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
 	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
@@ -276,7 +271,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
 	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
@@ -342,7 +336,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
 	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
@@ -408,7 +401,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
 	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
@@ -474,7 +466,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("start", typeof(System.Int16), ""));
 	T.Columns.Add(new DataColumn("stop", typeof(System.Int16), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
@@ -517,7 +508,6 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("!codiceclass", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("!descrizione", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[4]{
 	T.Columns["idflowchart"], 	T.Columns["ndetail"], 	T.Columns["idcustomuser"], 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
@@ -593,13 +583,11 @@ EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("flagnodate", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("movkind", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsor"]};
 	T.PrimaryKey = key;
 
 
-//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;

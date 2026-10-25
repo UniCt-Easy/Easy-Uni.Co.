@@ -18,8 +18,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace payroll_trasf_cedolino {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsCedolino"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -81,7 +79,6 @@ public partial class dsCedolino: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -100,7 +97,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// PAYROLL /////////////////////////////////
 	var tpayroll= new DataTable("payroll");
 	tpayroll.Columns.Add( new DataColumn("!eserccontratto", typeof(int)));
 	tpayroll.Columns.Add( new DataColumn("!numcontratto", typeof(int)));
@@ -158,7 +154,6 @@ private void initClass() {
 	tpayroll.PrimaryKey =  new DataColumn[]{tpayroll.Columns["idpayroll"]};
 
 
-	//////////////////// PAYROLLTAX /////////////////////////////////
 	var tpayrolltax= new DataTable("payrolltax");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -195,7 +190,6 @@ private void initClass() {
 	tpayrolltax.PrimaryKey =  new DataColumn[]{tpayrolltax.Columns["idpayroll"], tpayrolltax.Columns["idpayrolltax"]};
 
 
-	//////////////////// PAYROLLTAXBRACKET /////////////////////////////////
 	var tpayrolltaxbracket= new DataTable("payrolltaxbracket");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -219,7 +213,6 @@ private void initClass() {
 	tpayrolltaxbracket.PrimaryKey =  new DataColumn[]{tpayrolltaxbracket.Columns["idpayroll"], tpayrolltaxbracket.Columns["idpayrolltax"], tpayrolltaxbracket.Columns["nbracket"]};
 
 
-	//////////////////// PAYROLLDEDUCTION /////////////////////////////////
 	var tpayrolldeduction= new DataTable("payrolldeduction");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -234,7 +227,6 @@ private void initClass() {
 	tpayrolldeduction.PrimaryKey =  new DataColumn[]{tpayrolldeduction.Columns["idpayroll"], tpayrolldeduction.Columns["iddeduction"]};
 
 
-	//////////////////// PAYROLLABATEMENT /////////////////////////////////
 	var tpayrollabatement= new DataTable("payrollabatement");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -249,7 +241,6 @@ private void initClass() {
 	tpayrollabatement.PrimaryKey =  new DataColumn[]{tpayrollabatement.Columns["idpayroll"], tpayrollabatement.Columns["idabatement"]};
 
 
-	//////////////////// CEDOLINONONTRASFERIBILE /////////////////////////////////
 	var tcedolinonontrasferibile= new DataTable("cedolinonontrasferibile");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -303,7 +294,6 @@ private void initClass() {
 	tcedolinonontrasferibile.PrimaryKey =  new DataColumn[]{tcedolinonontrasferibile.Columns["idpayroll"]};
 
 
-	//////////////////// CEDOLINOANNOSUCCESSIVO /////////////////////////////////
 	var tcedolinoannosuccessivo= new DataTable("cedolinoannosuccessivo");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -353,7 +343,6 @@ private void initClass() {
 	tcedolinoannosuccessivo.PrimaryKey =  new DataColumn[]{tcedolinoannosuccessivo.Columns["idpayroll"]};
 
 
-	//////////////////// CEDOLINOEROGATO /////////////////////////////////
 	var tcedolinoerogato= new DataTable("cedolinoerogato");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -407,7 +396,6 @@ private void initClass() {
 	tcedolinoerogato.PrimaryKey =  new DataColumn[]{tcedolinoerogato.Columns["idpayroll"]};
 
 
-	//////////////////// PARASUBCONTRACT /////////////////////////////////
 	var tparasubcontract= new DataTable("parasubcontract");
 	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
@@ -463,7 +451,6 @@ private void initClass() {
 	tparasubcontract.PrimaryKey =  new DataColumn[]{tparasubcontract.Columns["idcon"]};
 
 
-	//////////////////// PARASUBCONTRACTYEAR /////////////////////////////////
 	var tparasubcontractyear= new DataTable("parasubcontractyear");
 	C= new DataColumn("ayear", typeof(int));
 	C.AllowDBNull=false;
@@ -510,7 +497,6 @@ private void initClass() {
 	tparasubcontractyear.PrimaryKey =  new DataColumn[]{tparasubcontractyear.Columns["ayear"], tparasubcontractyear.Columns["idcon"]};
 
 
-	//////////////////// SERVICE /////////////////////////////////
 	var tservice= new DataTable("service");
 	tservice.Columns.Add( new DataColumn("active", typeof(string)));
 	tservice.Columns.Add( new DataColumn("allowedit", typeof(string)));
@@ -551,7 +537,6 @@ private void initClass() {
 	tservice.PrimaryKey =  new DataColumn[]{tservice.Columns["idser"]};
 
 
-	//////////////////// PAYROLLTAXCORRIGE /////////////////////////////////
 	var tpayrolltaxcorrige= new DataTable("payrolltaxcorrige");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;
@@ -586,7 +571,6 @@ private void initClass() {
 	tpayrolltaxcorrige.PrimaryKey =  new DataColumn[]{tpayrolltaxcorrige.Columns["idpayroll"], tpayrolltaxcorrige.Columns["idpayrolltaxcorrige"]};
 
 
-	//////////////////// UPB_CEDOLINOEROGATO /////////////////////////////////
 	var tupb_cedolinoerogato= new DataTable("upb_cedolinoerogato");
 	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;
@@ -633,7 +617,6 @@ private void initClass() {
 	tupb_cedolinoerogato.PrimaryKey =  new DataColumn[]{tupb_cedolinoerogato.Columns["idupb"]};
 
 
-	//////////////////// UPB_PAYROLL /////////////////////////////////
 	var tupb_payroll= new DataTable("upb_payroll");
 	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;
@@ -680,7 +663,6 @@ private void initClass() {
 	tupb_payroll.PrimaryKey =  new DataColumn[]{tupb_payroll.Columns["idupb"]};
 
 
-	//////////////////// UPB_CEDOLINONONTRASFERIBILE /////////////////////////////////
 	var tupb_cedolinonontrasferibile= new DataTable("upb_cedolinonontrasferibile");
 	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;
@@ -727,7 +709,6 @@ private void initClass() {
 	tupb_cedolinonontrasferibile.PrimaryKey =  new DataColumn[]{tupb_cedolinonontrasferibile.Columns["idupb"]};
 
 
-	//////////////////// UPB_CEDOLINOANNOSUCCESSIVO /////////////////////////////////
 	var tupb_cedolinoannosuccessivo= new DataTable("upb_cedolinoannosuccessivo");
 	C= new DataColumn("idupb", typeof(string));
 	C.AllowDBNull=false;

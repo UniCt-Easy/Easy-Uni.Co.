@@ -45,7 +45,6 @@ namespace LiveUpdate {
             #region create DataTables
             DataTable T;
             DataColumn C;
-            //////////////////// DLL /////////////////////////////////
             T = new DataTable("DLL");
             C = new DataColumn("dllname", typeof(System.String));
             C.AllowDBNull = false;

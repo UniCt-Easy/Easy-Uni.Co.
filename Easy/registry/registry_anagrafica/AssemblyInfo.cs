@@ -13,4 +13,4 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System.Reflection;
-[assembly: AssemblyVersion("1.1.178")]
+[assembly: AssemblyVersion("1.1.183")]

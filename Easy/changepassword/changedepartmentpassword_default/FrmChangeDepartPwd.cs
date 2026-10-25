@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -24,9 +23,6 @@ using System.Data;
 
 namespace changedepartmentpassword_default
 {
-	/// <summary>
-	/// Summary description for FrmChangeDepartPwd.
-	/// </summary>
 	public class FrmChangeDepartPwd : MetaDataForm
 	{
 		public DataSet DS;
@@ -38,36 +34,18 @@ namespace changedepartmentpassword_default
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnOk;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 
 		public FrmChangeDepartPwd()
 		{
-			//
-			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
 
 			DS = new DataSet();
 		
 			DataTable T = new DataTable("changepassword");
 			DS.Tables.Add(T);
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 		}
 
-		public void MetaData_AfterFill() {
-			Meta = MetaData.GetMetaData(this);
-			bool isAdmin = (bool) Meta.GetSys("isAdmin");
-			groupBox1.Enabled = isAdmin;
-		}
-
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -81,10 +59,6 @@ namespace changedepartmentpassword_default
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent()
 		{
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -96,9 +70,6 @@ namespace changedepartmentpassword_default
             this.btnOk = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.txtNew1);
@@ -112,9 +83,6 @@ namespace changedepartmentpassword_default
             this.groupBox1.Size = new System.Drawing.Size(408, 152);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            // 
-            // txtNew1
-            // 
             this.txtNew1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNew1.Location = new System.Drawing.Point(16, 80);
@@ -123,17 +91,11 @@ namespace changedepartmentpassword_default
             this.txtNew1.PasswordChar = '*';
             this.txtNew1.Size = new System.Drawing.Size(376, 20);
             this.txtNew1.TabIndex = 2;
-            // 
-            // label2
-            // 
             this.label2.Location = new System.Drawing.Point(12, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(172, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "Nuova password del dipartimento";
-            // 
-            // txtOld
-            // 
             this.txtOld.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOld.Location = new System.Drawing.Point(16, 32);
@@ -141,17 +103,11 @@ namespace changedepartmentpassword_default
             this.txtOld.PasswordChar = '*';
             this.txtOld.Size = new System.Drawing.Size(376, 20);
             this.txtOld.TabIndex = 1;
-            // 
-            // label1
-            // 
             this.label1.Location = new System.Drawing.Point(12, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(196, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "Vecchia password del dipartimento";
-            // 
-            // btnCancel
-            // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(216, 112);
@@ -159,9 +115,6 @@ namespace changedepartmentpassword_default
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Annulla";
-            // 
-            // btnOk
-            // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Location = new System.Drawing.Point(112, 112);
@@ -170,9 +123,6 @@ namespace changedepartmentpassword_default
             this.btnOk.TabIndex = 3;
             this.btnOk.Text = "Ok";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // FrmChangeDepartPwd
-            // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(424, 174);
             this.Controls.Add(this.groupBox1);
@@ -191,6 +141,22 @@ namespace changedepartmentpassword_default
 
 		private void btnOk_Click(object sender, System.EventArgs e) {
 			Easy_DataAccess DepConn =  (Easy_DataAccess) MetaData.GetConnection(this);
+			string dipartimento = (string)(DepConn.GetSys("schema") ?? DepConn.GetSys("userdb"));
+			string erroreHash;
+			if (Alpha1.DipartimentoConRigheHash(DepConn, dipartimento, out erroreHash)) {
+				if (erroreHash != null)
+					show(this, "Non e' possibile verificare se il dipartimento e' gestito dal server, quindi la password non viene cambiata.\r\n\r\n" + erroreHash, "Errore");
+				else
+					show(this, "Questo dipartimento e' gia' usato dai programmi lato server (EasyWeb, servizi), che possono conservarne la password in un segreto: cambiandola da qui smetterebbero di collegarsi.\r\n\r\nLa password del dipartimento va cambiata dal server, aggiornando anche i segreti: rivolgersi al tecnico.", "Cambio password non consentito");
+				DialogResult = DialogResult.None;
+				return;
+			}
+			if (!DepConn.PasswordDipartimentoInSessione) {
+				show(this, "Si e' collegati con una login personale (modalita' sviluppatore), non con quella del dipartimento " +
+					dipartimento + ": la sua password si cambia collegandosi come dipartimento.", "Cambio password non consentito");
+				DialogResult = DialogResult.None;
+				return;
+			}
 			string old = txtOld.Text;
 			string dbuser = DepConn.GetSys("userdb").ToString();
 
@@ -236,7 +202,7 @@ namespace changedepartmentpassword_default
 				Try.Destroy();
 				if (err!=null){
 					QueryCreator.ShowError(this,"Errore nell'impostazione della password", err);
-					DepConn.changeDepartmentPassword(oldpwd,newpwd);//Annulla l'azione del precedente!!
+					DepConn.changeDepartmentPassword(oldpwd,newpwd);
 					DialogResult = DialogResult.None;
 					return;
 				}

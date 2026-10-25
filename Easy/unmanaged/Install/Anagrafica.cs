@@ -22,9 +22,6 @@ using funzioni_configurazione;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for Anagrafica.
-	/// </summary>
 	public class Anagrafica
 	{
         static string CAMBIA_CODICETIPOCLASS =
@@ -35,20 +32,12 @@ namespace Install
             + "when codtipoclass in ('10','00') then '24' "
             + "else '24' end";
         
-        //static string CAMBIA_CODICETIPOCLASS = "idregistryclass=codtipoclass";
 
         static string CAMBIA_TIPORESIDENZA = "residence=case when "
             + "tiporesidenza in ('E','U','R','T', 'A') then 'I' "
             + "when tiporesidenza in ('C','F') then tiporesidenza "
             + "else 'I' end";
-        //static string CAMBIA_TIPORESIDENZA = "residence=tiporesidenza";
 
-//		public static string CAMBIA_IDSER = "idser=case when idser in ( "
-//			+ "'05_ASSRICM','05_ASSRINM','05_COORDM','05_COORDN','05_COORDP','05_TUTORM','05_TUTORNM','BORSISTI',"
-//			+ "'BORSISTIES','COMPSTCON','COMPSTRA','CTERZIRICE','MISSASS','MISSDIP','MISSLAVAUT',"
-//			+ "'MISSPROFES','OCCMUTUATI','OCCNIRAPEN','OCCNONMUT','PRESTPROF') "
-//			+ "then idser else 'GENERICA' end";
-//
 		
 		private static bool migraCreditoreDebitore(DataAccess sourceConn, DataAccess destConn, 
 			Form form, DataTable tColName) 
@@ -171,41 +160,18 @@ namespace Install
         }
 
 
-		/// <summary>
-		/// Migra le tabelle speciali dell'Anagrafica.
-		/// Questo metodo sarà chiamato da copiatutto
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tColName"></param>
-		/// <returns></returns>
 		public static bool migraSpeciali(Form form, DataAccess sourceConn, DataAccess destConn, 
 		 DataTable tColName) {
 			
-			//"creditoredebitore -> registry"
 			if (!migraCreditoreDebitore(sourceConn, destConn, form, tColName)) return false;
 
-            //"contatto -> registryreference"
             if (!migraContatto(sourceConn, destConn, form, tColName)) return false;
 
-            //"modpagamentocreddebi -> registrypaymethod"
             if (!migraModPag(sourceConn, destConn, form, tColName)) return false;
 
-			//"cdruolo -> role"
 			return true;
 		}
 
-		/// <summary>
-		/// Migra sia le tabelle speciali che normali dell'anagrafica.
-		/// Questo metodo sarà chiamato da copia "custom" dell'anagrafica.
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tTableName"></param>
-		/// <param name="tColName"></param>
-		/// <returns></returns>
         public static bool migraAnagrafica(Form form, DataAccess sourceConn, DataAccess destConn,
             DataTable tTableName, DataTable tColName) {
 

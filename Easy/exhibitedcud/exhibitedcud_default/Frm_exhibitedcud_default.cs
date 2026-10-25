@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -22,10 +21,7 @@ using System.Windows.Forms;
 using metadatalibrary;
 using calcolocedolino;
 
-namespace exhibitedcud_default {//cudpresentato//
-	/// <summary>
-	/// Summary description for frmcudpresentato.
-	/// </summary>
+namespace exhibitedcud_default {
 	public class Frm_exhibitedcud_default : MetaDataForm {
 		public vistaForm DS;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -103,18 +99,12 @@ namespace exhibitedcud_default {//cudpresentato//
 		private Label label26;
 		private TextBox textBox19;
 
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 
 		public Frm_exhibitedcud_default() {
 			InitializeComponent();
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		protected override void Dispose( bool disposing ) {
 			if( disposing ) {
 				if(components != null) {
@@ -125,10 +115,6 @@ namespace exhibitedcud_default {//cudpresentato//
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent() {
 			this.DS = new exhibitedcud_default.vistaForm();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -215,15 +201,9 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox3.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// groupBox1
-			// 
 			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.txtDurataGiorni);
@@ -242,44 +222,29 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Date CUD";
-			// 
-			// txtDurataGiorni
-			// 
 			this.txtDurataGiorni.Location = new System.Drawing.Point(536, 48);
 			this.txtDurataGiorni.Name = "txtDurataGiorni";
 			this.txtDurataGiorni.ReadOnly = true;
 			this.txtDurataGiorni.Size = new System.Drawing.Size(100, 20);
 			this.txtDurataGiorni.TabIndex = 8;
 			this.txtDurataGiorni.Tag = "exhibitedcud.ndays";
-			// 
-			// label17
-			// 
 			this.label17.Location = new System.Drawing.Point(440, 46);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(80, 23);
 			this.label17.TabIndex = 7;
 			this.label17.Text = "Durata (giorni)";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox2
-			// 
 			this.textBox2.Location = new System.Drawing.Point(224, 48);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(100, 20);
 			this.textBox2.TabIndex = 5;
 			this.textBox2.Tag = "exhibitedcud.fiscalyear.year";
-			// 
-			// label4
-			// 
 			this.label4.Location = new System.Drawing.Point(136, 46);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(80, 20);
 			this.label4.TabIndex = 6;
 			this.label4.Text = "Anno Fiscale:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDurataMesi
-			// 
 			this.txtDurataMesi.Location = new System.Drawing.Point(536, 16);
 			this.txtDurataMesi.Name = "txtDurataMesi";
 			this.txtDurataMesi.ReadOnly = true;
@@ -287,54 +252,36 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.txtDurataMesi.TabIndex = 5;
 			this.txtDurataMesi.TabStop = false;
 			this.txtDurataMesi.Tag = "exhibitedcud.nmonths";
-			// 
-			// label3
-			// 
 			this.label3.Location = new System.Drawing.Point(443, 16);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(80, 23);
 			this.label3.TabIndex = 4;
 			this.label3.Text = "Durata (Mesi):";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDataFine
-			// 
 			this.txtDataFine.Location = new System.Drawing.Point(224, 16);
 			this.txtDataFine.Name = "txtDataFine";
 			this.txtDataFine.Size = new System.Drawing.Size(100, 20);
 			this.txtDataFine.TabIndex = 3;
 			this.txtDataFine.Tag = "exhibitedcud.stop";
 			this.txtDataFine.TextChanged += new System.EventHandler(this.txtDataFine_TextChanged);
-			// 
-			// label2
-			// 
 			this.label2.Location = new System.Drawing.Point(184, 16);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(32, 23);
 			this.label2.TabIndex = 2;
 			this.label2.Text = "Fine:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// txtDataInizio
-			// 
 			this.txtDataInizio.Location = new System.Drawing.Point(64, 16);
 			this.txtDataInizio.Name = "txtDataInizio";
 			this.txtDataInizio.Size = new System.Drawing.Size(100, 20);
 			this.txtDataInizio.TabIndex = 1;
 			this.txtDataInizio.Tag = "exhibitedcud.start";
 			this.txtDataInizio.TextChanged += new System.EventHandler(this.txtDataInizio_TextChanged);
-			// 
-			// label1
-			// 
 			this.label1.Location = new System.Drawing.Point(16, 16);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(40, 23);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Inizio:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// groupBox2
-			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -356,9 +303,6 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox2.TabIndex = 7;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Previdenziale / Fiscale";
-			// 
-			// grpComunale
-			// 
 			this.grpComunale.Controls.Add(this.label11);
 			this.grpComunale.Controls.Add(this.textBox8);
 			this.grpComunale.Controls.Add(this.grpCity);
@@ -372,26 +316,17 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.grpComunale.TabIndex = 6;
 			this.grpComunale.TabStop = false;
 			this.grpComunale.Text = "Addizionale Comunale";
-			// 
-			// label11
-			// 
 			this.label11.Location = new System.Drawing.Point(449, 16);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(65, 23);
 			this.label11.TabIndex = 16;
 			this.label11.Text = "Applicata:";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox8
-			// 
 			this.textBox8.Location = new System.Drawing.Point(521, 16);
 			this.textBox8.Name = "textBox8";
 			this.textBox8.Size = new System.Drawing.Size(100, 20);
 			this.textBox8.TabIndex = 2;
 			this.textBox8.Tag = "exhibitedcud.citytaxapplied";
-			// 
-			// grpCity
-			// 
 			this.grpCity.Controls.Add(this.label20);
 			this.grpCity.Controls.Add(this.txtProvincia);
 			this.grpCity.Controls.Add(this.txtGeoComune0101);
@@ -402,18 +337,12 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.grpCity.TabStop = false;
 			this.grpCity.Tag = "AutoChoose.txtGeoComune0101.default";
 			this.grpCity.Text = "Comune all\'1/1:";
-			// 
-			// label20
-			// 
 			this.label20.Location = new System.Drawing.Point(300, 16);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(41, 18);
 			this.label20.TabIndex = 154;
 			this.label20.Text = "Prov.";
 			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtProvincia
-			// 
 			this.txtProvincia.Location = new System.Drawing.Point(344, 15);
 			this.txtProvincia.Name = "txtProvincia";
 			this.txtProvincia.ReadOnly = true;
@@ -421,51 +350,33 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.txtProvincia.TabIndex = 153;
 			this.txtProvincia.TabStop = false;
 			this.txtProvincia.Tag = "geo_cityview.provincecode";
-			// 
-			// txtGeoComune0101
-			// 
 			this.txtGeoComune0101.Location = new System.Drawing.Point(8, 16);
 			this.txtGeoComune0101.Name = "txtGeoComune0101";
 			this.txtGeoComune0101.Size = new System.Drawing.Size(286, 20);
 			this.txtGeoComune0101.TabIndex = 3;
 			this.txtGeoComune0101.Tag = "geo_cityview.title?exhibitedcudview.city0101";
-			// 
-			// label12
-			// 
 			this.label12.Location = new System.Drawing.Point(455, 40);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(61, 16);
 			this.label12.TabIndex = 18;
 			this.label12.Text = "Sospesa:";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox11
-			// 
 			this.textBox11.Location = new System.Drawing.Point(521, 62);
 			this.textBox11.Name = "textBox11";
 			this.textBox11.Size = new System.Drawing.Size(100, 20);
 			this.textBox11.TabIndex = 4;
 			this.textBox11.Tag = "exhibitedcud.citytax_account";
-			// 
-			// textBox9
-			// 
 			this.textBox9.Location = new System.Drawing.Point(521, 39);
 			this.textBox9.Name = "textBox9";
 			this.textBox9.Size = new System.Drawing.Size(100, 20);
 			this.textBox9.TabIndex = 3;
 			this.textBox9.Tag = "exhibitedcud.suspendedcitytax";
-			// 
-			// label19
-			// 
 			this.label19.Location = new System.Drawing.Point(455, 62);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(60, 16);
 			this.label19.TabIndex = 20;
 			this.label19.Text = "Acconto:";
 			this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// grpRegionale
-			// 
 			this.grpRegionale.Controls.Add(this.groupBox5);
 			this.grpRegionale.Controls.Add(this.label9);
 			this.grpRegionale.Controls.Add(this.textBox6);
@@ -477,9 +388,6 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.grpRegionale.TabIndex = 7;
 			this.grpRegionale.TabStop = false;
 			this.grpRegionale.Text = "Addizionale Regionale";
-			// 
-			// groupBox5
-			// 
 			this.groupBox5.Controls.Add(this.cmbRegioneFiscale);
 			this.groupBox5.Location = new System.Drawing.Point(6, 19);
 			this.groupBox5.Name = "groupBox5";
@@ -487,9 +395,6 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox5.TabIndex = 15;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Regione Fiscale";
-			// 
-			// cmbRegioneFiscale
-			// 
 			this.cmbRegioneFiscale.DataSource = this.DS.fiscaltaxregion;
 			this.cmbRegioneFiscale.DisplayMember = "title";
 			this.cmbRegioneFiscale.FormattingEnabled = true;
@@ -499,43 +404,28 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.cmbRegioneFiscale.TabIndex = 0;
 			this.cmbRegioneFiscale.Tag = "exhibitedcud.idfiscaltaxregion";
 			this.cmbRegioneFiscale.ValueMember = "idfiscaltaxregion";
-			// 
-			// label9
-			// 
 			this.label9.Location = new System.Drawing.Point(442, 16);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(75, 23);
 			this.label9.TabIndex = 12;
 			this.label9.Text = "Applicata:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox6
-			// 
 			this.textBox6.Location = new System.Drawing.Point(523, 16);
 			this.textBox6.Name = "textBox6";
 			this.textBox6.Size = new System.Drawing.Size(100, 20);
 			this.textBox6.TabIndex = 2;
 			this.textBox6.Tag = "exhibitedcud.regionaltaxapplied";
-			// 
-			// label10
-			// 
 			this.label10.Location = new System.Drawing.Point(442, 39);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(75, 23);
 			this.label10.TabIndex = 14;
 			this.label10.Text = "Sospesa:";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox7
-			// 
 			this.textBox7.Location = new System.Drawing.Point(523, 39);
 			this.textBox7.Name = "textBox7";
 			this.textBox7.Size = new System.Drawing.Size(100, 20);
 			this.textBox7.TabIndex = 3;
 			this.textBox7.Tag = "exhibitedcud.suspendedregionaltax";
-			// 
-			// grpIrpef
-			// 
 			this.grpIrpef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpIrpef.Controls.Add(this.label27);
@@ -557,26 +447,17 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.grpIrpef.TabIndex = 5;
 			this.grpIrpef.TabStop = false;
 			this.grpIrpef.Text = "Ritenuta IRPEF";
-			// 
-			// label27
-			// 
 			this.label27.Location = new System.Drawing.Point(204, 83);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(167, 23);
 			this.label27.TabIndex = 23;
 			this.label27.Text = "Detr. per Reddito da 1/7/2020:";
 			this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox20
-			// 
 			this.textBox20.Location = new System.Drawing.Point(388, 86);
 			this.textBox20.Name = "textBox20";
 			this.textBox20.Size = new System.Drawing.Size(100, 20);
 			this.textBox20.TabIndex = 6;
 			this.textBox20.Tag = "exhibitedcud.earnings_based_abatements2020";
-			// 
-			// groupBox6
-			// 
 			this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox6.Controls.Add(this.label26);
@@ -593,26 +474,17 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox6.TabIndex = 7;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Applicazione Bonus";
-			// 
-			// label26
-			// 
 			this.label26.Location = new System.Drawing.Point(42, 72);
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(173, 23);
 			this.label26.TabIndex = 28;
 			this.label26.Text = "Importo Erogato da 1/7/2020:";
 			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox19
-			// 
 			this.textBox19.Location = new System.Drawing.Point(221, 75);
 			this.textBox19.Name = "textBox19";
 			this.textBox19.Size = new System.Drawing.Size(100, 20);
 			this.textBox19.TabIndex = 5;
 			this.textBox19.Tag = "exhibitedcud.fiscalbonusapplied2020";
-			// 
-			// radioButton2
-			// 
 			this.radioButton2.AutoSize = true;
 			this.radioButton2.Location = new System.Drawing.Point(6, 41);
 			this.radioButton2.Name = "radioButton2";
@@ -622,9 +494,6 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.radioButton2.Tag = "exhibitedcud.flagbonusaccredited:1";
 			this.radioButton2.Text = "Riconosciuto";
 			this.radioButton2.UseVisualStyleBackColor = true;
-			// 
-			// radioButton1
-			// 
 			this.radioButton1.AutoSize = true;
 			this.radioButton1.Location = new System.Drawing.Point(6, 19);
 			this.radioButton1.Name = "radioButton1";
@@ -634,128 +503,83 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.radioButton1.Tag = "exhibitedcud.flagbonusaccredited:2";
 			this.radioButton1.Text = "Non riconosciuto";
 			this.radioButton1.UseVisualStyleBackColor = true;
-			// 
-			// label25
-			// 
 			this.label25.Location = new System.Drawing.Point(134, 40);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(84, 18);
 			this.label25.TabIndex = 24;
 			this.label25.Text = "Non  erogato";
 			this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox18
-			// 
 			this.textBox18.Location = new System.Drawing.Point(221, 41);
 			this.textBox18.Name = "textBox18";
 			this.textBox18.Size = new System.Drawing.Size(100, 20);
 			this.textBox18.TabIndex = 4;
 			this.textBox18.Tag = "exhibitedcud.fiscalbonusnotapplied";
-			// 
-			// label24
-			// 
 			this.label24.Location = new System.Drawing.Point(121, 14);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(94, 23);
 			this.label24.TabIndex = 22;
 			this.label24.Text = "Importo Erogato:";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox17
-			// 
 			this.textBox17.Location = new System.Drawing.Point(221, 17);
 			this.textBox17.Name = "textBox17";
 			this.textBox17.Size = new System.Drawing.Size(100, 20);
 			this.textBox17.TabIndex = 3;
 			this.textBox17.Tag = "exhibitedcud.fiscalbonusapplied";
-			// 
-			// label23
-			// 
 			this.label23.Location = new System.Drawing.Point(288, 50);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(94, 20);
 			this.label23.TabIndex = 16;
 			this.label23.Text = "Tot. Detrazioni:";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox16
-			// 
 			this.textBox16.Location = new System.Drawing.Point(388, 51);
 			this.textBox16.Name = "textBox16";
 			this.textBox16.Size = new System.Drawing.Size(100, 20);
 			this.textBox16.TabIndex = 5;
 			this.textBox16.Tag = "exhibitedcud.totabatements";
-			// 
-			// label22
-			// 
 			this.label22.Location = new System.Drawing.Point(7, 49);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(99, 23);
 			this.label22.TabIndex = 14;
 			this.label22.Text = "Detr. per Reddito:";
 			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox15
-			// 
 			this.textBox15.Location = new System.Drawing.Point(112, 49);
 			this.textBox15.Name = "textBox15";
 			this.textBox15.Size = new System.Drawing.Size(100, 20);
 			this.textBox15.TabIndex = 4;
 			this.textBox15.Tag = "exhibitedcud.earnings_based_abatements";
-			// 
-			// label21
-			// 
 			this.label21.Location = new System.Drawing.Point(349, 16);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(39, 22);
 			this.label21.TabIndex = 12;
 			this.label21.Text = "Lorda:";
 			this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox14
-			// 
 			this.textBox14.Location = new System.Drawing.Point(388, 18);
 			this.textBox14.Name = "textBox14";
 			this.textBox14.Size = new System.Drawing.Size(100, 20);
 			this.textBox14.TabIndex = 3;
 			this.textBox14.Tag = "exhibitedcud.irpefgross";
-			// 
-			// label7
-			// 
 			this.label7.Location = new System.Drawing.Point(1, 19);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(57, 23);
 			this.label7.TabIndex = 8;
 			this.label7.Text = "Applicata:";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox4
-			// 
 			this.textBox4.Location = new System.Drawing.Point(75, 18);
 			this.textBox4.Name = "textBox4";
 			this.textBox4.Size = new System.Drawing.Size(100, 20);
 			this.textBox4.TabIndex = 1;
 			this.textBox4.Tag = "exhibitedcud.irpefapplied";
-			// 
-			// label8
-			// 
 			this.label8.Location = new System.Drawing.Point(181, 15);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(57, 24);
 			this.label8.TabIndex = 10;
 			this.label8.Text = "Sospesa:";
 			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox5
-			// 
 			this.textBox5.Location = new System.Drawing.Point(243, 18);
 			this.textBox5.Name = "textBox5";
 			this.textBox5.Size = new System.Drawing.Size(100, 20);
 			this.textBox5.TabIndex = 2;
 			this.textBox5.Tag = "exhibitedcud.irpefsuspended";
-			// 
-			// button2
-			// 
 			this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.button2.Location = new System.Drawing.Point(395, 369);
 			this.button2.Name = "button2";
@@ -763,119 +587,77 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.button2.TabIndex = 8;
 			this.button2.Tag = "mainsave";
 			this.button2.Text = "Ok";
-			// 
-			// textBox13
-			// 
 			this.textBox13.Location = new System.Drawing.Point(532, 39);
 			this.textBox13.Name = "textBox13";
 			this.textBox13.Size = new System.Drawing.Size(100, 20);
 			this.textBox13.TabIndex = 4;
 			this.textBox13.Tag = "exhibitedcud.inpsretained";
-			// 
-			// label16
-			// 
 			this.label16.Location = new System.Drawing.Point(420, 37);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(100, 23);
 			this.label16.TabIndex = 4;
 			this.label16.Text = "Contributi trattenuti";
 			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox12
-			// 
 			this.textBox12.Location = new System.Drawing.Point(144, 39);
 			this.textBox12.Name = "textBox12";
 			this.textBox12.Size = new System.Drawing.Size(100, 20);
 			this.textBox12.TabIndex = 3;
 			this.textBox12.Tag = "exhibitedcud.inpsowed";
-			// 
-			// label15
-			// 
 			this.label15.Location = new System.Drawing.Point(32, 39);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(100, 23);
 			this.label15.TabIndex = 2;
 			this.label15.Text = "Contributi dovuti";
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox3
-			// 
 			this.textBox3.Location = new System.Drawing.Point(532, 14);
 			this.textBox3.Name = "textBox3";
 			this.textBox3.Size = new System.Drawing.Size(100, 20);
 			this.textBox3.TabIndex = 2;
 			this.textBox3.Tag = "exhibitedcud.taxablegross";
-			// 
-			// label6
-			// 
 			this.label6.Location = new System.Drawing.Point(392, 14);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(128, 23);
 			this.label6.TabIndex = 6;
 			this.label6.Text = "Imponibile Fiscale Lordo";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// textBox1
-			// 
 			this.textBox1.Location = new System.Drawing.Point(144, 16);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(100, 20);
 			this.textBox1.TabIndex = 1;
 			this.textBox1.Tag = "exhibitedcud.taxablepension";
-			// 
-			// label5
-			// 
 			this.label5.Location = new System.Drawing.Point(8, 16);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(128, 23);
 			this.label5.TabIndex = 0;
 			this.label5.Text = "Imponibile Previdenziale";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// button1
-			// 
 			this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.button1.Location = new System.Drawing.Point(529, 566);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 9;
 			this.button1.Text = "Annulla";
-			// 
-			// label13
-			// 
 			this.label13.Location = new System.Drawing.Point(16, 16);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(100, 23);
 			this.label13.TabIndex = 2;
 			this.label13.Text = "Causa Passaggio";
-			// 
-			// textBox10
-			// 
 			this.textBox10.Location = new System.Drawing.Point(15, 29);
 			this.textBox10.Name = "textBox10";
 			this.textBox10.Size = new System.Drawing.Size(156, 20);
 			this.textBox10.TabIndex = 3;
 			this.textBox10.Tag = "exhibitedcud.transfermotive";
-			// 
-			// txtCF
-			// 
 			this.txtCF.Location = new System.Drawing.Point(8, 16);
 			this.txtCF.Name = "txtCF";
 			this.txtCF.Size = new System.Drawing.Size(142, 20);
 			this.txtCF.TabIndex = 5;
 			this.txtCF.Tag = "exhibitedcud.cfotherdeputy";
-			// 
-			// checkBox1
-			// 
 			this.checkBox1.Location = new System.Drawing.Point(16, 78);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(144, 18);
 			this.checkBox1.TabIndex = 6;
 			this.checkBox1.Tag = "exhibitedcud.flagignoreprevcud:S:N";
 			this.checkBox1.Text = "Ignora CUD Precedenti";
-			// 
-			// groupBox3
-			// 
 			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox3.Controls.Add(this.groupBox4);
@@ -888,9 +670,6 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox3.TabIndex = 6;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Altre Informazioni";
-			// 
-			// groupBox4
-			// 
 			this.groupBox4.Controls.Add(this.btnCF);
 			this.groupBox4.Controls.Add(this.label18);
 			this.groupBox4.Controls.Add(this.txtCF);
@@ -900,9 +679,6 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.groupBox4.TabIndex = 10;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Codice Fiscale Sostituto";
-			// 
-			// btnCF
-			// 
 			this.btnCF.Location = new System.Drawing.Point(8, 48);
 			this.btnCF.Name = "btnCF";
 			this.btnCF.Size = new System.Drawing.Size(142, 23);
@@ -910,36 +686,24 @@ namespace exhibitedcud_default {//cudpresentato//
 			this.btnCF.TabStop = false;
 			this.btnCF.Text = "C.F. Amministrazione";
 			this.btnCF.Click += new System.EventHandler(this.btnCF_Click);
-			// 
-			// label18
-			// 
 			this.label18.Location = new System.Drawing.Point(164, 16);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(272, 56);
 			this.label18.TabIndex = 8;
 			this.label18.Text = "Se il CUD è riferito ad un contratto svolto con la stessa amministrazione inserir" +
     "e il C.F. dell\'ateneo cliccando sul bottone \"C.F. Amministrazione\"";
-			// 
-			// label14
-			// 
 			this.label14.Location = new System.Drawing.Point(8, 8);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(224, 21);
 			this.label14.TabIndex = 10;
 			this.label14.Text = "Contratto precedente a cui si riferisce il CUD:";
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// cmbContrattoPrecedente
-			// 
 			this.cmbContrattoPrecedente.Location = new System.Drawing.Point(238, 8);
 			this.cmbContrattoPrecedente.Name = "cmbContrattoPrecedente";
 			this.cmbContrattoPrecedente.Size = new System.Drawing.Size(229, 21);
 			this.cmbContrattoPrecedente.TabIndex = 11;
 			this.cmbContrattoPrecedente.Tag = "";
 			this.cmbContrattoPrecedente.SelectedIndexChanged += new System.EventHandler(this.cmbContrattoPrecedente_SelectedIndexChanged);
-			// 
-			// Frm_exhibitedcud_default
-			// 
 			this.AcceptButton = this.button2;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.button1;
@@ -988,8 +752,6 @@ namespace exhibitedcud_default {//cudpresentato//
 
             contrattoGiaConguagliato = false;
             if (Meta.SourceRow.RowState == DataRowState.Added) return;
-            // Verifico che il cedolino di conguaglio sia stato pagato solo se non sono in InsertMode del contratto
-            // altrimenti non ha senso
 			string fCedCong = QHS.AppAnd(QHS.CmpEq("fiscalyear", Meta.GetSys("esercizio")),
                 QHS.CmpEq("flagbalance", 'S'), QHS.CmpEq("idcon", Meta.SourceRow["idcon"]));
 			DataTable tCedolinoConguaglio = DataAccess.RUN_SELECT(Meta.Conn, "payroll", null, null,
@@ -1072,7 +834,7 @@ namespace exhibitedcud_default {//cudpresentato//
             QHS.CmpEq("idreg", rContratto["idreg"]), 
             QHS.DoPar(QHS.AppOr(
             QHS.CmpNe("idcon", Meta.SourceRow["idcon"]),
-            QHS.CmpNe("iddbdepartment", Meta.GetSys("userdb"))
+            QHS.CmpNe("iddbdepartment", (Meta.GetSys("schema") ?? Meta.GetSys("userdb")))
             )));
 
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tParasList, null, filter, null, true);

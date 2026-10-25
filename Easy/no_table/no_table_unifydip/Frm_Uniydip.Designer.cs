@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace no_table_unifydip {
     partial class Frm_Uniydip {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace no_table_unifydip {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
             this.tabController = new Crownwood.Magic.Controls.TabControl();
             this.tabPage1 = new Crownwood.Magic.Controls.TabPage();
@@ -89,9 +77,6 @@ namespace no_table_unifydip {
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tabController
-            // 
             this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -106,9 +91,6 @@ namespace no_table_unifydip {
             this.tabIntro,
             this.tabPage1,
             this.tabPage2});
-            // 
-            // tabPage1
-            // 
             this.tabPage1.Controls.Add(this.chkSuffix);
             this.tabPage1.Controls.Add(this.btnFaiTutto);
             this.tabPage1.Controls.Add(this.label8);
@@ -125,9 +107,6 @@ namespace no_table_unifydip {
             this.tabPage1.Size = new System.Drawing.Size(984, 527);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Title = "Selezione dipartimento";
-            // 
-            // chkSuffix
-            // 
             this.chkSuffix.AutoSize = true;
             this.chkSuffix.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkSuffix.Checked = true;
@@ -138,9 +117,6 @@ namespace no_table_unifydip {
             this.chkSuffix.TabIndex = 32;
             this.chkSuffix.Text = "Appendi suffissi su alcune tabelle";
             this.chkSuffix.UseVisualStyleBackColor = true;
-            // 
-            // btnFaiTutto
-            // 
             this.btnFaiTutto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFaiTutto.Location = new System.Drawing.Point(770, 95);
             this.btnFaiTutto.Name = "btnFaiTutto";
@@ -148,44 +124,29 @@ namespace no_table_unifydip {
             this.btnFaiTutto.TabIndex = 27;
             this.btnFaiTutto.Text = "Fai tutto";
             this.btnFaiTutto.Click += new System.EventHandler(this.btnFaiTutto_Click);
-            // 
-            // label8
-            // 
             this.label8.Location = new System.Drawing.Point(495, 44);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(176, 23);
             this.label8.TabIndex = 28;
             this.label8.Text = "Superuser";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label9
-            // 
             this.label9.Location = new System.Drawing.Point(565, 68);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(100, 23);
             this.label9.TabIndex = 29;
             this.label9.Text = "Password";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtSuperUser
-            // 
             this.txtSuperUser.Location = new System.Drawing.Point(671, 44);
             this.txtSuperUser.Name = "txtSuperUser";
             this.txtSuperUser.Size = new System.Drawing.Size(200, 21);
             this.txtSuperUser.TabIndex = 30;
             this.txtSuperUser.Text = "mluisas";
-            // 
-            // txtSuperPwd
-            // 
             this.txtSuperPwd.Location = new System.Drawing.Point(671, 68);
             this.txtSuperPwd.Name = "txtSuperPwd";
             this.txtSuperPwd.PasswordChar = '*';
             this.txtSuperPwd.Size = new System.Drawing.Size(200, 21);
             this.txtSuperPwd.TabIndex = 31;
             this.txtSuperPwd.Text = "mluisas";
-            // 
-            // label7
-            // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
             this.label7.Location = new System.Drawing.Point(289, 404);
@@ -194,9 +155,6 @@ namespace no_table_unifydip {
             this.label7.TabIndex = 27;
             this.label7.Text = "Es. se si mette 1 i mandati saranno renumerati di 10000, se si mette 2 20000 etc." +
                 "";
-            // 
-            // label6
-            // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(23, 404);
             this.label6.Name = "label6";
@@ -204,17 +162,11 @@ namespace no_table_unifydip {
             this.label6.TabIndex = 26;
             this.label6.Text = "Fattore da usare per l\'offset";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtFattore
-            // 
             this.txtFattore.Location = new System.Drawing.Point(172, 401);
             this.txtFattore.Name = "txtFattore";
             this.txtFattore.Size = new System.Drawing.Size(100, 21);
             this.txtFattore.TabIndex = 25;
             this.txtFattore.Text = "2";
-            // 
-            // groupBox2
-            // 
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.txtDestUser);
@@ -227,61 +179,40 @@ namespace no_table_unifydip {
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dipartimento destinazione  IN CUI importare i dati";
-            // 
-            // label17
-            // 
             this.label17.Location = new System.Drawing.Point(6, 27);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(176, 23);
             this.label17.TabIndex = 24;
             this.label17.Text = "Nome utente per connettersi";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label18
-            // 
             this.label18.Location = new System.Drawing.Point(76, 51);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(100, 23);
             this.label18.TabIndex = 25;
             this.label18.Text = "Password";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDestUser
-            // 
             this.txtDestUser.Location = new System.Drawing.Point(182, 27);
             this.txtDestUser.Name = "txtDestUser";
             this.txtDestUser.Size = new System.Drawing.Size(200, 21);
             this.txtDestUser.TabIndex = 1;
             this.txtDestUser.Text = "mluisas";
-            // 
-            // txtDestPwd
-            // 
             this.txtDestPwd.Location = new System.Drawing.Point(182, 51);
             this.txtDestPwd.Name = "txtDestPwd";
             this.txtDestPwd.PasswordChar = '*';
             this.txtDestPwd.Size = new System.Drawing.Size(200, 21);
             this.txtDestPwd.TabIndex = 2;
             this.txtDestPwd.Text = "mluisas";
-            // 
-            // label16
-            // 
             this.label16.Location = new System.Drawing.Point(12, 79);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(168, 23);
             this.label16.TabIndex = 22;
             this.label16.Text = " Dipartimento";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtDipDestinazione
-            // 
             this.txtDipDestinazione.Location = new System.Drawing.Point(184, 81);
             this.txtDipDestinazione.Name = "txtDipDestinazione";
             this.txtDipDestinazione.Size = new System.Drawing.Size(200, 21);
             this.txtDipDestinazione.TabIndex = 3;
             this.txtDipDestinazione.Text = "amministrazione";
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Controls.Add(this.txtSourceServer);
             this.groupBox1.Controls.Add(this.txtSourceDataBase);
             this.groupBox1.Controls.Add(this.label10);
@@ -298,95 +229,62 @@ namespace no_table_unifydip {
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dipartimento origine  da cui ESPORTARE i dati";
-            // 
-            // txtSourceServer
-            // 
             this.txtSourceServer.Location = new System.Drawing.Point(188, 20);
             this.txtSourceServer.Name = "txtSourceServer";
             this.txtSourceServer.Size = new System.Drawing.Size(200, 21);
             this.txtSourceServer.TabIndex = 24;
-            this.txtSourceServer.Text = "your-server\\sql2008,1435";
-            // 
-            // txtSourceDataBase
-            // 
+            this.txtSourceServer.Text = "SERVER\\sql2008,1435";
             this.txtSourceDataBase.Location = new System.Drawing.Point(188, 44);
             this.txtSourceDataBase.Name = "txtSourceDataBase";
             this.txtSourceDataBase.Size = new System.Drawing.Size(200, 21);
             this.txtSourceDataBase.TabIndex = 25;
             this.txtSourceDataBase.Text = "easypo";
-            // 
-            // label10
-            // 
             this.label10.Location = new System.Drawing.Point(6, 17);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(176, 23);
             this.label10.TabIndex = 22;
             this.label10.Text = "Server";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label11
-            // 
             this.label11.Location = new System.Drawing.Point(76, 41);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(106, 23);
             this.label11.TabIndex = 23;
             this.label11.Text = "Database";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
             this.label1.Location = new System.Drawing.Point(10, 182);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(168, 23);
             this.label1.TabIndex = 20;
             this.label1.Text = "Dipartimento";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtSourceDip
-            // 
             this.txtSourceDip.Location = new System.Drawing.Point(182, 184);
             this.txtSourceDip.Name = "txtSourceDip";
             this.txtSourceDip.Size = new System.Drawing.Size(200, 21);
             this.txtSourceDip.TabIndex = 21;
             this.txtSourceDip.Text = "dimet";
-            // 
-            // label30
-            // 
             this.label30.Location = new System.Drawing.Point(6, 137);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(176, 23);
             this.label30.TabIndex = 13;
             this.label30.Text = "Nome utente per connettersi";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label29
-            // 
             this.label29.Location = new System.Drawing.Point(76, 161);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(100, 23);
             this.label29.TabIndex = 14;
             this.label29.Text = "Password";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtSourceUser
-            // 
             this.txtSourceUser.Location = new System.Drawing.Point(182, 137);
             this.txtSourceUser.Name = "txtSourceUser";
             this.txtSourceUser.Size = new System.Drawing.Size(200, 21);
             this.txtSourceUser.TabIndex = 18;
             this.txtSourceUser.Text = "mluisas";
-            // 
-            // txtSourcePwd
-            // 
             this.txtSourcePwd.Location = new System.Drawing.Point(182, 161);
             this.txtSourcePwd.Name = "txtSourcePwd";
             this.txtSourcePwd.PasswordChar = '*';
             this.txtSourcePwd.Size = new System.Drawing.Size(200, 21);
             this.txtSourcePwd.TabIndex = 19;
             this.txtSourcePwd.Text = "mluisas";
-            // 
-            // tabIntro
-            // 
             this.tabIntro.Controls.Add(this.label4);
             this.tabIntro.Controls.Add(this.label3);
             this.tabIntro.Controls.Add(this.label2);
@@ -396,9 +294,6 @@ namespace no_table_unifydip {
             this.tabIntro.Size = new System.Drawing.Size(984, 527);
             this.tabIntro.TabIndex = 3;
             this.tabIntro.Title = "Introduzione";
-            // 
-            // label4
-            // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(24, 113);
             this.label4.Name = "label4";
@@ -406,9 +301,6 @@ namespace no_table_unifydip {
             this.label4.TabIndex = 2;
             this.label4.Text = "Non eseguire la procedura prima di aver opportunamente configurato il dipartiment" +
                 "o di origine. ";
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(24, 87);
             this.label3.Name = "label3";
@@ -416,9 +308,6 @@ namespace no_table_unifydip {
             this.label3.TabIndex = 1;
             this.label3.Text = "Questa procedura importerà la maggior parte dei dati presenti in un altro diparti" +
                 "mento dello stesso database.";
-            // 
-            // label2
-            // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.World);
             this.label2.Location = new System.Drawing.Point(21, 41);
@@ -426,9 +315,6 @@ namespace no_table_unifydip {
             this.label2.Size = new System.Drawing.Size(233, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Importazione dati da altro dipartimento";
-            // 
-            // tabPage2
-            // 
             this.tabPage2.Controls.Add(this.labCurrTable);
             this.tabPage2.Controls.Add(this.pBarCurrTab);
             this.tabPage2.Controls.Add(this.label5);
@@ -439,36 +325,24 @@ namespace no_table_unifydip {
             this.tabPage2.Size = new System.Drawing.Size(984, 527);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Title = "Calcolo offset";
-            // 
-            // labCurrTable
-            // 
             this.labCurrTable.AutoSize = true;
             this.labCurrTable.Location = new System.Drawing.Point(17, 469);
             this.labCurrTable.Name = "labCurrTable";
             this.labCurrTable.Size = new System.Drawing.Size(216, 13);
             this.labCurrTable.TabIndex = 10;
             this.labCurrTable.Text = "Stato di avanzamento della tabella corrente";
-            // 
-            // pBarCurrTab
-            // 
             this.pBarCurrTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pBarCurrTab.Location = new System.Drawing.Point(20, 485);
             this.pBarCurrTab.Name = "pBarCurrTab";
             this.pBarCurrTab.Size = new System.Drawing.Size(943, 26);
             this.pBarCurrTab.TabIndex = 9;
-            // 
-            // label5
-            // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(17, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(101, 13);
             this.label5.TabIndex = 1;
             this.label5.Text = "Situazione generale";
-            // 
-            // txtSituazione
-            // 
             this.txtSituazione.AcceptsTab = true;
             this.txtSituazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -480,9 +354,6 @@ namespace no_table_unifydip {
             this.txtSituazione.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtSituazione.Size = new System.Drawing.Size(946, 419);
             this.txtSituazione.TabIndex = 0;
-            // 
-            // btnCancel
-            // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(921, 597);
@@ -491,9 +362,6 @@ namespace no_table_unifydip {
             this.btnCancel.TabIndex = 25;
             this.btnCancel.Tag = "maincancel";
             this.btnCancel.Text = "Cancel";
-            // 
-            // btnNext
-            // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext.Location = new System.Drawing.Point(801, 597);
             this.btnNext.Name = "btnNext";
@@ -501,9 +369,6 @@ namespace no_table_unifydip {
             this.btnNext.TabIndex = 24;
             this.btnNext.Text = "Avanti >";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnBack
-            // 
             this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.Location = new System.Drawing.Point(713, 597);
             this.btnBack.Name = "btnBack";
@@ -511,14 +376,8 @@ namespace no_table_unifydip {
             this.btnBack.TabIndex = 23;
             this.btnBack.Text = "< Indietro";
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // DS
-            // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
-            // 
-            // btnCopia
-            // 
             this.btnCopia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCopia.Location = new System.Drawing.Point(466, 597);
             this.btnCopia.Name = "btnCopia";
@@ -527,9 +386,6 @@ namespace no_table_unifydip {
             this.btnCopia.Text = "Copia";
             this.btnCopia.Visible = false;
             this.btnCopia.Click += new System.EventHandler(this.btnCopia_Click);
-            // 
-            // Frm_Uniydip
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 644);

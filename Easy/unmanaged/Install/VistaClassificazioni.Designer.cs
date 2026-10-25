@@ -19,7 +19,6 @@ using System.Data;
 [Serializable()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class VistaClassificazioni: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
@@ -91,7 +90,6 @@ this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["nlevel"], 	T.Columns["idsorkind"]};
 	T.PrimaryKey = key;
@@ -187,13 +185,11 @@ this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 	T.Columns.Add(new DataColumn("lockedv4", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("lockedv5", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idsorkind"]};
 	T.PrimaryKey = key;
 
 
-//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;

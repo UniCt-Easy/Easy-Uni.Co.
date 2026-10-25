@@ -12,15 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace manager_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -64,7 +61,6 @@ public partial class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -83,7 +79,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// MANAGER /////////////////////////////////
 	var tmanager= new DataTable("manager");
 	C= new DataColumn("idman", typeof(int));
 	C.AllowDBNull=false;
@@ -98,6 +93,8 @@ private void initClass() {
 	tmanager.Columns.Add( new DataColumn("phonenumber", typeof(string)));
 	tmanager.Columns.Add( new DataColumn("userweb", typeof(string)));
 	tmanager.Columns.Add( new DataColumn("passwordweb", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("saltweb", typeof(string)));
+	tmanager.Columns.Add( new DataColumn("iterweb", typeof(int)));
 	tmanager.Columns.Add( new DataColumn("txt", typeof(string)));
 	tmanager.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
 	C= new DataColumn("cu", typeof(string));
@@ -125,7 +122,6 @@ private void initClass() {
 	tmanager.PrimaryKey =  new DataColumn[]{tmanager.Columns["idman"]};
 
 
-	//////////////////// DIVISION /////////////////////////////////
 	var tdivision= new DataTable("division");
 	C= new DataColumn("iddivision", typeof(int));
 	C.AllowDBNull=false;
@@ -159,7 +155,6 @@ private void initClass() {
 	tdivision.PrimaryKey =  new DataColumn[]{tdivision.Columns["iddivision"]};
 
 
-	//////////////////// MANAGERSORTING /////////////////////////////////
 	var tmanagersorting= new DataTable("managersorting");
 	tmanagersorting.Columns.Add( new DataColumn("!sortingkind", typeof(string)));
 	C= new DataColumn("idsor", typeof(int));
@@ -187,7 +182,6 @@ private void initClass() {
 	tmanagersorting.PrimaryKey =  new DataColumn[]{tmanagersorting.Columns["idsor"], tmanagersorting.Columns["idman"]};
 
 
-	//////////////////// SORTINGVIEW /////////////////////////////////
 	var tsortingview= new DataTable("sortingview");
 	C= new DataColumn("codesorkind", typeof(string));
 	C.AllowDBNull=false;
@@ -249,7 +243,6 @@ private void initClass() {
 	tsortingview.PrimaryKey =  new DataColumn[]{tsortingview.Columns["idsor"]};
 
 
-	//////////////////// SORTING01 /////////////////////////////////
 	var tsorting01= new DataTable("sorting01");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -305,7 +298,6 @@ private void initClass() {
 	tsorting01.PrimaryKey =  new DataColumn[]{tsorting01.Columns["idsor"]};
 
 
-	//////////////////// SORTING02 /////////////////////////////////
 	var tsorting02= new DataTable("sorting02");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -361,7 +353,6 @@ private void initClass() {
 	tsorting02.PrimaryKey =  new DataColumn[]{tsorting02.Columns["idsor"]};
 
 
-	//////////////////// SORTING03 /////////////////////////////////
 	var tsorting03= new DataTable("sorting03");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -417,7 +408,6 @@ private void initClass() {
 	tsorting03.PrimaryKey =  new DataColumn[]{tsorting03.Columns["idsor"]};
 
 
-	//////////////////// SORTING04 /////////////////////////////////
 	var tsorting04= new DataTable("sorting04");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -473,7 +463,6 @@ private void initClass() {
 	tsorting04.PrimaryKey =  new DataColumn[]{tsorting04.Columns["idsor"]};
 
 
-	//////////////////// SORTING05 /////////////////////////////////
 	var tsorting05= new DataTable("sorting05");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -529,7 +518,6 @@ private void initClass() {
 	tsorting05.PrimaryKey =  new DataColumn[]{tsorting05.Columns["idsor"]};
 
 
-	//////////////////// MANAGERATTACHMENT /////////////////////////////////
 	var tmanagerattachment= new DataTable("managerattachment");
 	C= new DataColumn("idman", typeof(int));
 	C.AllowDBNull=false;

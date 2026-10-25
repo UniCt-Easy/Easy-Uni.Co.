@@ -12,14 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace mainivapay_wizard_calcolo_consolida {
 using System;
 using System.Data;
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable iva_mixed{get { return this.Tables["iva_mixed"];}}
@@ -129,7 +127,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("mixed", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["nmixed"]};
 	T.PrimaryKey = key;
@@ -147,7 +144,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("prorata", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["nprorata"]};
 	T.PrimaryKey = key;
@@ -306,8 +302,11 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("mainminrefund12", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("mainminpayment12", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("mainstartivabalance12", typeof(System.Decimal), ""));
+	T.Columns.Add(new DataColumn("flagpaymentsplit", typeof(System.String), ""));
+	T.Columns.Add(new DataColumn("paymentagencysplit", typeof(System.Int32), ""));
+	T.Columns.Add(new DataColumn("idfinivapaymentsplit", typeof(System.Int32), ""));
+	T.Columns.Add(new DataColumn("startivabalancesplit", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["ayear"]};
 	T.PrimaryKey = key;
@@ -371,7 +370,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("totaldebit12", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("flag", typeof(System.Byte), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["ymainivapay"], 	T.Columns["nmainivapay"]};
 	T.PrimaryKey = key;
@@ -420,7 +418,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("taxable12", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("taxabledeferred12", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[4]{
 	T.Columns["nmainivapay"], 	T.Columns["ymainivapay"], 	T.Columns["idivaregisterkind"], 	T.Columns["iddbdepartment"]};
 	T.PrimaryKey = key;
@@ -480,7 +477,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("autokind", typeof(System.Byte), ""));
 	T.Columns.Add(new DataColumn("autocode", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idexp"]};
 	T.PrimaryKey = key;
@@ -533,7 +529,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("paymethod_allowdeputy", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("extracode", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idexp"]};
 	T.PrimaryKey = key;
@@ -564,7 +559,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["nphase"]};
 	T.PrimaryKey = key;
@@ -598,7 +592,6 @@ this.EnforceConstraints = false;
 
 	T.Columns.Add(new DataColumn("idfin", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["ayear"], 	T.Columns["idexp"]};
 	T.PrimaryKey = key;
@@ -645,7 +638,6 @@ this.EnforceConstraints = false;
 
 	T.Columns.Add(new DataColumn("kpaymenttransmission", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["kpay"]};
 	T.PrimaryKey = key;
@@ -660,7 +652,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idreg"]};
 	T.PrimaryKey = key;
@@ -922,7 +913,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("autokind", typeof(System.Byte), ""));
 	T.Columns.Add(new DataColumn("autocode", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idinc"]};
 	T.PrimaryKey = key;
@@ -956,7 +946,6 @@ this.EnforceConstraints = false;
 
 	T.Columns.Add(new DataColumn("idfin", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["idinc"], 	T.Columns["ayear"]};
 	T.PrimaryKey = key;
@@ -991,7 +980,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("kpro", typeof(System.Int32), ""));
 	T.Columns.Add(new DataColumn("idacccredit", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idinc"]};
 	T.PrimaryKey = key;
@@ -1022,7 +1010,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["nphase"]};
 	T.PrimaryKey = key;
@@ -1037,7 +1024,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idfin"]};
 	T.PrimaryKey = key;
@@ -1052,7 +1038,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idupb"]};
 	T.PrimaryKey = key;
@@ -1102,7 +1087,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("kproceedstransmission", typeof(System.Int32), ""));
 	T.Columns.Add(new DataColumn("idstamphandling", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["kpro"]};
 	T.PrimaryKey = key;
@@ -1143,7 +1127,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("flag_autodocnumbering", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idinvkind"]};
 	T.PrimaryKey = key;
@@ -1181,7 +1164,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("idacc_deferred_intra", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("idacc_unabatable_intra", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["ayear"], 	T.Columns["idinvkind"]};
 	T.PrimaryKey = key;
@@ -1216,7 +1198,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[3]{
 	T.Columns["ymainivapay"], 	T.Columns["nmainivapay"], 	T.Columns["idexp"]};
 	T.PrimaryKey = key;
@@ -1251,13 +1232,11 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[3]{
 	T.Columns["ymainivapay"], 	T.Columns["nmainivapay"], 	T.Columns["idinc"]};
 	T.PrimaryKey = key;
 
 
-//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;

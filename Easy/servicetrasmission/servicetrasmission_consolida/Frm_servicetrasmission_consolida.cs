@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,13 +58,10 @@ namespace servicetrasmission_consolida{
             Meta.CanCancel = false;
             QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
-            if (Meta.GetSys("userdb") != null){
-                IsAmministrazione = (Meta.GetSys("userdb").ToString().ToLower() == "amministrazione");
+            if ((Meta.GetSys("schema") ?? Meta.GetSys("userdb")) != null){
+                IsAmministrazione = ((Meta.GetSys("schema") ?? Meta.GetSys("userdb")).ToString().ToLower() == "amministrazione");
             }
-//            txtEsercizio.Text = Meta.GetSys("esercizio").ToString();
             txtEsercizio.Enabled = false;
-            //btnConsolidaConsulenti.Enabled = IsAmministrazione;
-            //btnConsolidaDipendenti.Enabled = IsAmministrazione;
         }
 
         private void btnConsolida_Click(object sender, EventArgs e){
@@ -118,7 +114,7 @@ namespace servicetrasmission_consolida{
                     writer.WriteEndElement();
                 }
             }
-            else// se è un dipendete non deve scrivere il semestre
+            else
             {
                 foreach (DataRow Pag in tServicePayment.Select(filtropagamento, "semesterpay"))
                 {
@@ -144,7 +140,6 @@ namespace servicetrasmission_consolida{
                 {
                     if (row[source] is DateTime)
                     {
-                        //lavora i DateTime
                         DateTime d = (DateTime)row[source];
                         writer.WriteAttributeString(c.ToString(), d.ToString("yyyy-MM-dd"));
                     }
@@ -152,13 +147,11 @@ namespace servicetrasmission_consolida{
                     {
                         if (row[source] is Decimal)
                         {
-                            // Lavora i decimali
                             decimal amount = CfgFn.GetNoNullDecimal(row[source]);
                             writer.WriteAttributeString(c.ToString(), sostituiscivirgolaconpunto(amount));
                         }
                         else
                         {
-                            //Tutto il resto
                             writer.WriteAttributeString(c, row[source].ToString());
                         }
 
@@ -222,9 +215,9 @@ namespace servicetrasmission_consolida{
             writer.Formatting = Formatting.Indented;
 
             writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8' standalone='yes' ");
-            writer.WriteStartElement("comunicazione", "http://com.accenture.perla.it/anagrafeprestazioni_inserimentoincarichi");// Apre - COMUNICAZIONE
+            writer.WriteStartElement("comunicazione", "http://com.accenture.perla.it/anagrafeprestazioni_inserimentoincarichi");
 
-            writer.WriteStartElement("inserimentoIncarichi");       // Apre - INSERIMENTO INCARICHI
+            writer.WriteStartElement("inserimentoIncarichi");
             DataTable serviceagency = DataAccess.RUN_SELECT(Meta.Conn, "serviceagency", "*", null, null, false);
             DataRow rServiceagency = serviceagency.Rows[0];
             writer.WriteAttributeString("codiceEnte", rServiceagency["pa_code"].ToString());
@@ -237,9 +230,9 @@ namespace servicetrasmission_consolida{
                 InsertDipendenti();
             }
 
-            writer.WriteEndElement();//fine inserimentoIncarichi            // Chiude - INSERIMENTO INCARICHI
+            writer.WriteEndElement();
 
-            writer.WriteEndElement();// Comunicazione           // Chiude - COMUNICAZIONE
+            writer.WriteEndElement();
             writer.Close();
 
             string xmlString = sw.ToString();
@@ -259,16 +252,14 @@ namespace servicetrasmission_consolida{
 
         private void InsertConsulenti(){
             string fieldvalue = "";
-            // Genera il file xml solo per i CONSULENTI
-            writer.WriteStartElement("nuoviIncarichi");             // Apre - NUOVI INCARICHI
+            writer.WriteStartElement("nuoviIncarichi");
             foreach (DataRow rConsulente in tServiceRegistry.Select(QHC.CmpEq("employkind", 'C'))){
-                writer.WriteStartElement("consulente");                 // Apre - CONSULENTE
+                writer.WriteStartElement("consulente");
                 writer.WriteAttributeString("idMittente", rConsulente["senderreporting"].ToString());
 
-                writer.WriteStartElement("incaricato");         // Apre - INCARICATO
+                writer.WriteStartElement("incaricato");
                 if (rConsulente["idconsultingkind"].ToString() == "P1"){
-                    //	personaFisica
-                    writer.WriteStartElement("personaFisica");  // Apre - PERSONA FISICA
+                    writer.WriteStartElement("personaFisica");
                     if (rConsulente["cf"] != DBNull.Value){
                         writer.WriteAttributeString("codiceFiscale", rConsulente["cf"].ToString());
                     }
@@ -288,12 +279,11 @@ namespace servicetrasmission_consolida{
                         DateTime d = (DateTime)rConsulente["birthdate"];
                         writer.WriteAttributeString("dataNascita", d.ToString("yyyy-MM-dd"));
                     }
-                    writer.WriteEndElement();//	personaFisica       // Chiude - PERSONA FISICA
+                    writer.WriteEndElement();
                 }
 
                 if (rConsulente["idconsultingkind"].ToString() != "P1"){
-                    //	personaGiuridica			
-                    writer.WriteStartElement("personaGiuridica"); // Apre - PERSONA GIURIDICA
+                    writer.WriteStartElement("personaGiuridica");
                     if ((rConsulente["cf"] != DBNull.Value) && (rConsulente["cf"].ToString().Length == 11)){
                         writer.WriteAttributeString("codiceFiscale", rConsulente["cf"].ToString());
                     }
@@ -315,13 +305,12 @@ namespace servicetrasmission_consolida{
                         writer.WriteAttributeString("codiceComuneSede", rConsulente["codcity"].ToString());
                     }
 
-                    writer.WriteEndElement();//	personaGiuridica        // Chiude - PERSONA GIURIDICA
+                    writer.WriteEndElement();
                 }
-                writer.WriteEndElement();//	incaricato          // Chiude - INCARICATO
+                writer.WriteEndElement();
 
-                writer.WriteStartElement("incarico");   // Apre -  INCARICO
+                writer.WriteStartElement("incarico");
                 if (CfgFn.GetNoNullInt32(rConsulente["yservreg"]) < 2011){
-                    // Cambia il nome del campo attività economica: fino al 2010 è idfinancialactivity, dal 2011 diventa apfinancialactivitycode.
                     scriviXml(rConsulente,
                         new string[] {"semestreRiferimento", "modalitaAcquisizione","tipoRapporto",
                                      "attivitaEconomica","descrizioneIncarico"},
@@ -353,63 +342,61 @@ namespace servicetrasmission_consolida{
                 writer.WriteAttributeString("importo", sostituiscivirgolaconpunto(expectedamount));
 
                 if (rConsulente["idreferencerule"] != DBNull.Value){
-                    writer.WriteStartElement("riferimentoNormativo");       // Apre - RIFERIMENTO NORMATIVO
+                    writer.WriteStartElement("riferimentoNormativo");
                     scriviXml(rConsulente,
                     new string[] { "riferimento", "data", "numero", "articolo", "comma" },
                     new string[] { "idreferencerule", "referencedate", "articlenumber", "article", "paragraph" }
                     );
-                    writer.WriteEndElement();//riferimentoNormativo     // Chiude - RIFERIMENTO NORMATIVO
+                    writer.WriteEndElement();
                 }
 
-                writer.WriteEndElement();//incarico             // Chiude - INCARICO
-                //Esporto Nuovo Pagamento
+                writer.WriteEndElement();
                 string filtropagamento = QHC.MCmp(rConsulente, new string[] { "yservreg", "nservreg" });
                 string filtrodipartimento = QHC.CmpEq("iddbdepartment", rConsulente["iddbdepartment"]);
                 filtropagamento = GetData.MergeFilters(filtropagamento, filtrodipartimento);
 
                 if (tServicePayment.Select(filtropagamento, "semesterpay").Length > 0){
-                    writer.WriteStartElement("pagamenti"); // Apre PAGAMENTI
+                    writer.WriteStartElement("pagamenti");
                     esportaPagamento(rConsulente, "nuovoPagamento");
-                    writer.WriteEndElement(); // Chiude PAGAMENTI
+                    writer.WriteEndElement();
                 }
 
-                writer.WriteEndElement();//fine consulente              // Chiude - CONSULENTE
-            }// Chiude foreach
-            writer.WriteEndElement();//fine nuoviIncarichi          // Chiude - NUOVI INCARICHI
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
         }
 
         private void InsertDipendenti(){
             string fieldvalue = "";
-            // Genera il file xml solo per i DIPENDENTI
-            writer.WriteStartElement("nuoviIncarichi");             // Apre - NUOVI INCARICHI
+            writer.WriteStartElement("nuoviIncarichi");
             foreach (DataRow rDipendente in tServiceRegistry.Select(QHC.CmpEq("employkind", 'D'))){
-                writer.WriteStartElement("dipendente");                 // Apre - DIPENDENTE
+                writer.WriteStartElement("dipendente");
                 writer.WriteAttributeString("idMittente", rDipendente["senderreporting"].ToString());
 
-                writer.WriteStartElement("incaricato");         // Apre - INCARICATO
+                writer.WriteStartElement("incaricato");
                 scriviXml(rDipendente,
                     new string[] { "codiceFiscale", "cognome", "nome", "qualifica" },
                     new string[] { "cf", "surname", "forename", "idapmanager" }
                     );
-                writer.WriteEndElement();        // Chiude - INCARICATO
+                writer.WriteEndElement();
 
-                writer.WriteStartElement("conferente");         // Apre - CONFERENTE
+                writer.WriteStartElement("conferente");
                 scriviXml(rDipendente,
                         new string[] { "tipologia", "codiceFiscale", "denominazione" },
                         new string[] { "idApregistrykind", "pa_cf", "pa_title" }
                         );
                 writer.WriteStartElement("nuovaPersona");
-                writer.WriteStartElement("personaGiuridica");         // Apre - personaGiuridica
+                writer.WriteStartElement("personaGiuridica");
                 writer.WriteAttributeString("denominazione", rDipendente["pa_title"].ToString());
                 writer.WriteAttributeString("estero", "N");
                 writer.WriteAttributeString("tipologiaAzienda", rDipendente["idApregistrykind"].ToString());
 
-                writer.WriteEndElement();  // Chiude - personaGiuridica
-                writer.WriteEndElement();  // Chiude - nuovaPersona
-                writer.WriteEndElement();        // Chiude - CONFERENTE
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndElement();
 
 
-                writer.WriteStartElement("incarico");   // Apre -  INCARICO
+                writer.WriteStartElement("incarico");
                 scriviXml(rDipendente,
                         new string[] { "tipologia", "dataAutorizzazione", "dataInizio", "dataFine" },
                         new string[] { "idapactivitykind", "authorizationdate", "start", "stop" }
@@ -425,27 +412,26 @@ namespace servicetrasmission_consolida{
 
                 if (rDipendente["idreferencerule"] != DBNull.Value)
                 {
-                    writer.WriteStartElement("riferimentoNormativo");       // Apre - RIFERIMENTO NORMATIVO
+                    writer.WriteStartElement("riferimentoNormativo");
                     scriviXml(rDipendente,
                     new string[] { "riferimento", "data", "numero", "articolo", "comma" },
                     new string[] { "idreferencerule", "referencedate", "articlenumber", "article", "paragraph" }
                     );
-                    writer.WriteEndElement();//riferimentoNormativo     // Chiude - RIFERIMENTO NORMATIVO
+                    writer.WriteEndElement();
                 }
 
-                writer.WriteEndElement();//incarico             // Chiude - INCARICO
+                writer.WriteEndElement();
 
-                //Esporto Nuovo Pagamento
                 string filtropagamento = QHC.MCmp(rDipendente, new string[] { "yservreg", "nservreg" });
                 if (tServicePayment.Select(filtropagamento, "semesterpay").Length > 0)
                 {
-                    writer.WriteStartElement("pagamenti"); // Apre PAGAMENTI
+                    writer.WriteStartElement("pagamenti");
                     esportaPagamento(rDipendente, "nuovoPagamento");
-                    writer.WriteEndElement(); // Chiude PAGAMENTI
+                    writer.WriteEndElement();
                 }
 
-                writer.WriteEndElement();              // Chiude - DIPENDENTE
-                writer.WriteEndElement();             // Chiude - NUOVI INCARICHI
+                writer.WriteEndElement();
+                writer.WriteEndElement();
             }
         }
 
@@ -466,7 +452,7 @@ namespace servicetrasmission_consolida{
                     writer.WriteEndElement();
                 }
             }
-            else// se è un Dipendete non deve scrivere il semestre
+            else
             {
                 foreach (DataRow Pag in tServicePayment.Select(filtropagamento, "semesterpay")){
                     writer.WriteStartElement(tag);
@@ -507,7 +493,6 @@ namespace servicetrasmission_consolida{
         }
 
         private void ElaboraFileRitorno(XmlDocument document){
-            // definizione file da creare
             SaveFileDialog _dlg = new SaveFileDialog();
             ISaveFileDialog dlg = createSaveFileDialog(_dlg);
             string filename = "";
@@ -529,7 +514,6 @@ namespace servicetrasmission_consolida{
                 if (esito.Value.ToString().ToUpper() == "KO")
                 {
                     show(this, "Il file Trasmesso è ERRATO. Correggere i dati inseriti.");
-                    //TrasmissioneApprovata(document);// riceve il file in input estrae gli id da NuovoIncarico e li scrive nel db
                     foreach (XmlElement esitoNuoviIncarichi in esitoInserimentoIncarichi.GetElementsByTagName("esitoNuoviIncarichi")){
                         if (esitoNuoviIncarichi.FirstChild.Name == "consulente"){
                             Decodifica("c", esitoNuoviIncarichi, sw);
@@ -546,8 +530,6 @@ namespace servicetrasmission_consolida{
         }
 
         private string ScomponiIdMittende(string idMittente){
-            // idMittente = Curr["yservreg"].ToString() + Curr["nservreg"].ToString().PadLeft(5, '0') + iddb.ToString().PadLeft(5, '0');
-            // 20100107201981
             string eserc = idMittente.Substring(0,4);
             string num = idMittente.Substring(4,5);
             string iddb = idMittente.Substring(9, 5);
@@ -560,7 +542,6 @@ namespace servicetrasmission_consolida{
 
         private void Decodifica(string tipo, XmlElement esitoNuoviIncarichi, StreamWriter sw){
             string idMittente, esito;
-            // Consulente
             if (tipo == "c"){
                 foreach (XmlElement consulente in esitoNuoviIncarichi.GetElementsByTagName("consulente")){
                     esito = consulente.GetAttributeNode("esito").Value.ToString();
@@ -681,7 +662,6 @@ namespace servicetrasmission_consolida{
                 }
             }
             else{
-                // Dipendenti
                 foreach (XmlElement dipendente in esitoNuoviIncarichi.GetElementsByTagName("dipendente")){
                     esito = dipendente.GetAttributeNode("esito").Value.ToString();
                     if (esito == "OK") continue;
@@ -801,7 +781,6 @@ namespace servicetrasmission_consolida{
                             }
                         }
 
-                        //riferimentoNormativo
 
                         foreach (XmlElement riferimentoNormativo in errori.GetElementsByTagName("riferimentoNormativo")){
                             if (riferimentoNormativo.HasAttribute("comma")){
@@ -839,7 +818,6 @@ namespace servicetrasmission_consolida{
             txtNomeFile.Text = openFileDialog1.FileName;
             try
             {
-                //runProcess(txtNomeFile.Text, true);// Consente di visualizzare il File
                 document.Load(txtNomeFile.Text);
             }
             catch (Exception ex)

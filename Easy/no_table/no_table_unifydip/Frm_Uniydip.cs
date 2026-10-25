@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,13 +42,8 @@ namespace no_table_unifydip {
         int fattore;
 
         string CustomTitle="Trasferimento dati NON DBO da un dipartimento all'altro";
-        /// <summary>
-        /// Displays tab n. NewTab and updates buttons
-        /// </summary>
-        /// <param name="newTab"></param>
         void DisplayTabs(int newTab) {
             tabController.SelectedIndex = newTab;
-            //Evaluates Buttons Appearance
             btnBack.Visible = (newTab > 0);
             if (newTab == tabController.TabPages.Count - 1)
                 btnNext.Text = "Ricomincia.";
@@ -86,10 +80,10 @@ namespace no_table_unifydip {
 
         bool CustomChangeTab(int oldTab, int newTab) {
             if (oldTab == 0) {
-                return CheckStandard(); // 0->1: nothing to do
+                return CheckStandard();
             }
-            if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
-            if (oldTab == 1 && newTab == 2) {// Scelta dipartimento  -> avanti
+            if ((oldTab == 1) && (newTab == 0)) return true;
+            if (oldTab == 1 && newTab == 2) {
 
                 if (Source != null) {
                     Source.Close();
@@ -198,22 +192,6 @@ namespace no_table_unifydip {
                 }
                 return;
             }
-            //if (NPasso == 3) {
-            //    VerificaFinEffettuata = false;
-            //    ShowCheckFin();
-            //    EnableDisableButtons_CheckFin();
-            //    return;
-            //}
-            //if (NPasso == 4) {
-            //    CopyDBO_Done = false;
-            //    EnableDisableButtons_CopyDBO();
-            //    return;
-            //}
-            //if (NPasso == 5) {
-            //    CopyNonDBO_Done = false;
-            //    EnableDisableButtons_CopyNonDBO();
-            //    return;
-            //}
             btnBack.Enabled = true;
             btnNext.Enabled = true;
 
@@ -222,7 +200,6 @@ namespace no_table_unifydip {
                  
 
 
-        //Analizza la situazione dei db
         CopyManager Get_CopyManager(DataAccess Source, DataAccess Dest,int fattore, string depcode, bool append_suffix,
                         int oldfactor) {
 
@@ -248,7 +225,6 @@ namespace no_table_unifydip {
             if (depcode == "amministrazione") isAmministrazione = true;
 
 
-            //Copia tutte le tabelle DBO
             foreach (string dbotable in new string[] {
                 "address", "assetusagekind", "bank", "cab", "category",
                 "centralizedcategory", "currency", "ddt_in_motive", "ddt_out_motive",
@@ -270,14 +246,11 @@ namespace no_table_unifydip {
             
 
              foreach (string dbotable2 in new string[] {
-                 //"accmotive", "accmotivedetail", 
-                 //"accmotiveepoperation", "accountlookup", 
                  "csa_agency","csa_agencypaymethod", "csa_contractkind", "csa_contractkindrules", "csapaymethodlookup",
                  "csapositionlookup", 
                  "dbuseradvice", 
                  "inventorytreemultifieldkind", "linkedserveraccess",
                  "mainaccountingyear", "multifieldkind", "parasubcontractlist", 
-                 //"patrimonylookup", "placcountlookup", 
                  "registrycf", "registrydurc", "registrypiva", "role",
                  "roleservice", "unifiedf24ep", "unifiedf24epsanction"
              }) {
@@ -299,10 +272,7 @@ namespace no_table_unifydip {
                       );
 
              foreach (string dbotable3 in new string[] {
-                 //"account", "accountlevel", "accountkind",                  
                  "filetype", 
-                 //"patrimony","patrimonylevel", 
-                 //"placcount", "placcountlevel", 
                  "registry",  "registrypaymethod", "registryreference",
                  "unifiedivaregister", 
                  "unifiedivaregisterkind"
@@ -315,23 +285,12 @@ namespace no_table_unifydip {
 
 
 
-            //Sezione
-            //CM.Add(new Copyer("division", Conn)
-            //    .DefinesPreTranslator("iddivision", CreateConditionalOffsetApplier("division", "iddivision", cento * fattore,cento))
-            //    .AddPrivateTranslator("codedivision", new StringAppender(suffix,20))
-            //    .AddPrivateTranslator("description", new StringAppender(suffix,150))
-            //    );
             CM.Add(new Copyer("division", Conn)
                      .DontCopy()
                      .DefinesPreTranslator("iddivision",new set_to_null())
                 );
 
 
-            //Responsabile --> bisogna differenziare i title!!!
-            //CM.Add(new Copyer("manager", Conn)
-            //    .DefinesPreTranslator("idman", CreateConditionalOffsetApplier("manager", "idman", mille * fattore,mille))
-            //    .AddPrivateTranslator("title",new StringAppender(suffix,150))
-            //    );
 
             CM.Add(new Copyer("manager", Conn)
                      .DefinesPreTranslator("idman",
@@ -343,7 +302,6 @@ namespace no_table_unifydip {
 
 
 
-            //Recuperi
             CM.Add(new MergeWithIntKey("clawback", Conn, "idclawback", "clawbackref").ShouldClearDestDB(first_dip));
             CM.Add(new Copyer("clawbacksorting",Conn)
                         .SkipDuplicates()
@@ -359,12 +317,9 @@ namespace no_table_unifydip {
                         .ShouldClearDestDB(first_dip)
             );
 
-            //Tabelle speciali: Bilancio, UPB, Classificazioni
             CM.Add(new FinCopyer(Conn));
 
 
-            //siamo rimasti d'accordo che la struttura delle upb la riempiamo PRIMA di iniziare la migrazione
-            //CM.Add(new UpbCopyer(Conn, fattore,first_dip));
             CM.Add(new Copyer("upb", Conn)
                       .DefinesPreTranslator("idupb",
                                             CreateBaseLookupTraslator("upb", "newcodeupb", "codeupb",
@@ -376,15 +331,6 @@ namespace no_table_unifydip {
             
             
             CM.Add(new SortingCopyer(Conn).ShouldClearDestDB(false));
-            //CM.Add(new Copyer("finlast", Conn));
-            //CM.Add(new Copyer("finlink", Conn)
-            //                .SetExternalCode("idchild", "idfin")
-            //                .SetExternalCode("idparent", "idfin")
-            //        );
-            //CM.Add(new Copyer("finlookup", Conn)
-            //                .SetExternalCode("oldidfin", "idfin")
-            //                .SetExternalCode("newidfin", "idfin")
-            //        );
             CM.Add(new Copyer("finlast", Conn)
                         .SkipOnNull("idfin")
                         .SkipIfNotEmpty()
@@ -401,7 +347,6 @@ namespace no_table_unifydip {
             CM.Add(new Copyer("finsorting", Conn).SkipIfNotEmpty().SkipOnNull("idfin").SkipOnNull("idsor"));
             CM.Add(new Copyer("upbsorting", Conn).SkipDuplicates().SkipOnNull("idsor"));
 
-            //Variazioni di bilancio
             CM.Add(new Copyer("finvar", Conn)
                        .DefinesPreTranslator("finvar.nvar", 
                             CreateConditionalOffsetApplier("finvar", "nvar", mille * fattore,mille*oldfactor)
@@ -418,7 +363,6 @@ namespace no_table_unifydip {
             string filterexp="(idexp not in (select EL.idchild from expenselink EL join expense S "+
                                     " on EL.idparent=S.idexp WHERE S.ymov<2006 and EL.nlevel=1))";
                         
-            //Movimenti di spesa ed entrata
             CM.Add(new Copyer("expense", Conn)
                         .SetExternalCode("idformerexpense", "idexp")
                         .AllowNoTranslation("idformerexpense")
@@ -445,33 +389,18 @@ namespace no_table_unifydip {
 
             CM.Add(new Copyer("incomeyear", Conn).SetFilter(QHS.CmpGe("ayear", 2006)).SkipOnNull("idinc"));
             CM.Add(new Copyer("expenseyear", Conn).SetFilter(QHS.CmpGe("ayear", 2006)).SkipOnNull("idexp"));
-            //CM.Add(new Copyer("incometotal", Conn).SetFilter(QHS.CmpGe("ayear", 2006)).SkipOnNull("idinc"));
-            //CM.Add(new Copyer("expensetotal", Conn).SetFilter(QHS.CmpGe("ayear", 2006)).SkipOnNull("idexp"));
-            //CM.Add(new Copyer("incomelink", Conn)
-            //            .SetExternalCode("idchild", "idinc")
-            //            .SetExternalCode("idparent", "idinc")
-            //            .SkipOnNull("idchild")
-            //            );
-            //CM.Add(new Copyer("expenselink", Conn)
-            //            .SetExternalCode("idchild", "idexp")
-            //            .SetExternalCode("idparent", "idexp")
-            //            .SkipOnNull("idchild")
-            //    );
             CM.Add(new Copyer("expenselast", Conn).SkipOnNull("idexp"));
 
-            //Contabilizzazioni
             CM.Add(new Copyer("expensemandate", Conn).SkipOnNull("idexp"));
             CM.Add(new Copyer("expenseinvoice", Conn).SkipOnNull("idexp"));
 
 
 
-            //Tesoriere
             CM.Add(new Copyer("treasurer", Conn)
                 .DefinesPreTranslator("idtreasurer", CreateConditionalOffsetApplier("treasurer", "idtreasurer", cento * fattore,cento))
                 .AddPrivateTranslator("codetreasurer", new StringAppender(suffix,20))
             );
 
-            //dipende da idman e da idtreasurer
             CM.Add(new Copyer("paymenttransmission", Conn)
                             .SetFilter(QHS.CmpGe("ypaymenttransmission", 2006))
                             .DefinesPreTranslator("kpaymenttransmission", CreateOffsetApplier("paymenttransmission", "kpaymenttransmission", accoda))
@@ -497,37 +426,28 @@ namespace no_table_unifydip {
             CM.Add(new Copyer("proceeds_bank", Conn).SkipOnNull("kpro"));
 
 
-            //dipende da idman, idfin, idtreasurer,kproceedstransmission
             CM.Add(new Copyer("proceeds", Conn)
                         .SetFilter(QHS.CmpGe("ypro",2006))
                         .DefinesPreTranslator("kpro", CreateOffsetApplier("proceeds", "kpro", accoda))
                         .DefinesPreTranslator("npro", CreateConditionalOffsetApplier("proceeds", "npro", mille * fattore,mille)));
 
 
-            //Tabelle dipendenti da income , assegnazione crediti ed incassi
             CM.Add(new Copyer("incomelast", Conn).SkipOnNull("idinc"));
             CM.Add(new Copyer("proceedspart", Conn).SkipOnNull("idinc").SkipOnNull("idfin"));
             CM.Add(new Copyer("creditpart", Conn).SkipOnNull("idinc").SkipOnNull("idfin"));
 
 
-            //E' inutile perché la chiave è il codice stesso
-            //CreateLookupTraslator("mandatekind", "idmankind", "idmankind");
-            //CreateLookupTraslator("mandatekind", "idmankind", "idmankind");
             CM.Add(new Copyer("mandatekind", Conn)
-                //.ShouldClearDestDB(first_dip)
                 .DefinesPreTranslator("idmankind",  new StringAppender(forcedsuffix,20))
                 .AddPrivateTranslator("description", new StringAppender(forcedsuffix, 50))
                 );
 
             CM.Add(new Copyer("estimatekind", Conn)
-                //.ShouldClearDestDB(first_dip)
                 .DefinesPreTranslator("idestimkind", new StringAppender(forcedsuffix, 20))
                 .AddPrivateTranslator("description", new StringAppender(forcedsuffix, 50))
                 );
 
-            //Contratti passivi
             CM.Add(new Copyer("mandate", Conn)
-                        //.DefinesPreTranslator("nman", CreateConditionalOffsetApplier("mandate", "nman", diecimila * fattore,diecimila))
             );
 
             CM.Add(new Copyer("mandateattachment", Conn));
@@ -539,9 +459,7 @@ namespace no_table_unifydip {
                 );
             CM.Add(new Copyer("mandatesorting", Conn).SkipOnNull("idsor"));
 
-            //Contratti attivi
             CM.Add(new Copyer("estimate", Conn)
-                        //.DefinesPreTranslator("nestim", CreateConditionalOffsetApplier("estimate", "nestim", diecimila * fattore, diecimila))
             );
             CM.Add(new Copyer("incomeestimate", Conn));
             CM.Add(new Copyer("incomeinvoice", Conn).SkipOnNull("idinc"));
@@ -556,38 +474,28 @@ namespace no_table_unifydip {
 
 
 
-            //Tipo inventario
             CM.Add(new MergeWithIntKey("inventorykind", Conn, "idinventorykind", "codeinventorykind"));
-            //Ente inventario
             CM.Add(new MergeWithIntKey("inventoryagency", Conn, "idinventoryagency", "codeinventoryagency"));
-            //Inventario
             CM.Add(new AppendStringToCodeField("inventory", Conn, "idinventory", "codeinventory", suffix,20)
                 .AddPrivateTranslator("description", new StringAppender(suffix,50))     
                 );
 
 
-            //Tipo buon carico
             CM.Add(new AppendStringToCodeField("assetloadkind", Conn, "idassetloadkind", 
                                                     "codeassetloadkind",suffix,20)
                 .AddPrivateTranslator("description", new StringAppender(suffix,50))                    
              );
-            //Tipo buono scarico
             CM.Add(new AppendStringToCodeField("assetunloadkind", Conn, "idassetunloadkind", 
                                                     "codeassetunloadkind",suffix,20)
                 .AddPrivateTranslator("description", new StringAppender(suffix,50))                
              );
 
 
-            //Tipi Ammortamenti
             CM.Add(new MergeWithIntKey("inventoryamortization", Conn, "idinventoryamortization", "codeinventoryamortization"));
-            //Associazione tipi ammortamento classificazione inventariale
             CM.Add(new Copyer("inventorysortingamortizationyear", Conn)
                 .SkipDuplicates()
                 );
 
-            //CM.Add(new Copyer("inventorysortinglevel",Conn)
-            //        .SkipDuplicates()
-            //        );
 
             CM.Add(new Copyer("locationsorting", Conn)
                     .SkipDuplicates()
@@ -603,19 +511,16 @@ namespace no_table_unifydip {
                     .SkipOnNull("idsor")
                 );
 
-            //Causale di carico
             CM.Add(new MergeWithIntKey("assetloadmotive", Conn, "idmot", "codemot")
                     .CreateTranslatorAs("idmot_load")
                     .AddPrivateTranslator("description", new StringAppender(suffix,50)) 
                 );
 
-            //Causale di scarico
             CM.Add(new MergeWithIntKey("assetunloadmotive", Conn, "idmot", "codemot")
                     .CreateTranslatorAs("idmot_unload")
                     .AddPrivateTranslator("description", new StringAppender(suffix,50)) 
                 );
 
-            //Buoni di carico e scarico
             CM.Add(new Copyer("assetload", Conn)
                         .DefinesPreTranslator("idassetload", CreateOffsetApplier("assetload", "idassetload", accoda))
                         .SetExternalCode("idmot", "idmot_load"));
@@ -624,13 +529,11 @@ namespace no_table_unifydip {
                         .DefinesPreTranslator("idassetunload", CreateOffsetApplier("assetunload", "idassetunload", accoda))
                         .SetExternalCode("idmot", "idmot_unload"));
 
-            //Carico cespite
             CM.Add(new Copyer("assetacquire", Conn)
                     .DefinesPreTranslator("nassetacquire", CreateOffsetApplier("assetacquire", "nassetacquire", accoda))
                     .SetExternalCode("idmot","idmot_load")
             );
 
-            //Cespite
             CM.Add(new Copyer("asset", Conn)
                     .DefinesPreTranslator("idasset", CreateOffsetApplier("asset", "idasset", accoda))
                     .SetExternalCode("idasset_prev", "idasset"));
@@ -648,10 +551,6 @@ namespace no_table_unifydip {
 
 
 
-            //Ubicazioni e livelli ubicazioni
-            //CM.Add(new LocationLevelCopyer(Conn));
-            //CM.Add(new LocationCopyer(Conn));
-            //Siamo rimasti d'accordo che creiamo la struttura delle ubicazioni COMPLETA prima di fare la migrazione
             CM.Add(new Copyer("location", Conn)
                        .DefinesPreTranslator("idlocation",
                                              CreateBaseLookupTraslator("location", "newlocationcode", "locationcode",
@@ -662,7 +561,6 @@ namespace no_table_unifydip {
                 );
 
 
-            //Ammortamenti
             CM.Add(new Copyer("assetamortization", Conn)
                     .DefinesPreTranslator("namortization", CreateOffsetApplier("assetamortization", "namortization", accoda)));
             CM.Add(new Copyer("assetconsignee", Conn)
@@ -675,8 +573,6 @@ namespace no_table_unifydip {
             CM.Add(new Copyer("assetmanager", Conn).SkipOnNull("idman"));
             CM.Add(new Copyer("assettolink", Conn)
                     .SetExternalCode("idinventory_tolink", "idinventory")
-                    // ninventory non è da rimappare in quanto stiamo differenziando gli inventory
-                    //.SetExternalCode("ninventory_tolink", "ninventory") 
                 );
 
 
@@ -685,7 +581,6 @@ namespace no_table_unifydip {
                         .SetFilter(QHS.FieldIn("codesorkind",
                             new object[] { "07E_SIOPE", "WIFIN", "WIFINRR", "WIFINV", "WIREG", "WIREGV",
                                                 "WIREGR","WIUPB","07U_SIOPE","WIAM1","WIAM2"}))
-                        //.ShouldClearDestDB(first_dip)
                         );
             CM.Add(new Copyer("sortinglevel", Conn)
                         .SkipDuplicates()
@@ -708,11 +603,11 @@ namespace no_table_unifydip {
                         );
 
             CM.Add(new Copyer("pettycashoperationitineration", Conn)
-                       .SetFilter("idpettycash in (select idpettycash from pettycash)")        //salta qualche cadavere
+                       .SetFilter("idpettycash in (select idpettycash from pettycash)")
                        );
 
             CM.Add(new Copyer("pettycashoperationinvoice", Conn)
-                        .SetFilter("idpettycash in (select idpettycash from pettycash)")        //salta qualche cadavere
+                        .SetFilter("idpettycash in (select idpettycash from pettycash)")
                 );
             CM.Add(new Copyer("pettycashoperationsorted", Conn).SkipOnNull("idsor"));
             CM.Add(new Copyer("pettycashsetup", Conn)
@@ -724,15 +619,12 @@ namespace no_table_unifydip {
                     .ShouldClearDestDB(first_dip)
                 );
 
-            //Tipo fattura
             CM.Add(new AppendStringToCodeField("invoicekind", Conn, "idinvkind", "codeinvkind",forcedsuffix,20)
                         .AddPrivateTranslator("description", new StringAppender(forcedsuffix, 50))
                 .ShouldClearDestDB(first_dip)
                 );
             CM.Add(new Copyer("invoice", Conn)
-                       //.DefinesPreTranslator("ninv", CreateConditionalOffsetApplier("invoice", "ninv", diecimila * fattore,diecimila))
                        .SetExternalCode("idinvkind_real", "idinvkind")
-                       //.SetExternalCode("ninv_real", "ninv")                       
             );
             CM.Add(new Copyer("invoicedetail", Conn)
                         .SetExternalCode("idupb_iva", "idupb")
@@ -744,7 +636,6 @@ namespace no_table_unifydip {
                         .AllowNoTranslation("idinc_taxable")
                         .AllowNoTranslation("idexp_iva")
                         .AllowNoTranslation("idexp_taxable")
-                        //.SetExternalCode("ninv_main", "ninv")
                         );
 
             CM.Add(new Copyer("invoicekindyear", Conn).SkipDuplicates());
@@ -769,7 +660,6 @@ namespace no_table_unifydip {
                 );
 
             CM.Add(new Copyer("ivaregister", Conn)
-                   //.DefinesPreTranslator("nivaregister", CreateConditionalOffsetApplier("ivaregister", "nivaregister", diecimila * fattore,diecimila))
             );
 
             CM.Add(new Copyer("expensevar", Conn)
@@ -853,15 +743,9 @@ namespace no_table_unifydip {
                         .SkipOnNull("idsortingmaster")
             );
 
-            //Non importiamo le sezioni
-            //CM.Add(new Copyer("divisionsorting", Conn)
-            //                .ShouldClearDestDB(first_dip)
-            //            .SkipDuplicates()
-            //);
 
             
             CM.Add(new Copyer("managersorting", Conn)
-                            //.ShouldClearDestDB(first_dip)
                             .SkipOnNull("idsor")
                             .SkipOnNull("idman")
                         .SkipDuplicates()
@@ -902,7 +786,6 @@ namespace no_table_unifydip {
                         .SkipOnNull("idsor")
             );
 
-            //NO!!! E' DBO!! CM.Add(new Copyer("commonconfig", Conn).ShouldClearDestDB(first_dip).SetFilter(QHS.CmpGe("ayear", 2006)));
 
 
             CM.Add(new Copyer("banktransaction", Conn)
@@ -915,11 +798,9 @@ namespace no_table_unifydip {
 
             );
                     
-            //Aggiungiamo i compensi
             if (isAmministrazione) {
 
 
-                //Compensi a dipendenti
                 foreach (string t in new string[] { "wageaddition", "wageadditiontax", "wageadditionsorting",
                             "wageadditionyear"}) {
                     CM.Add(new Copyer(t, Conn).ShouldClearDestDB(true));
@@ -931,7 +812,6 @@ namespace no_table_unifydip {
                    .SkipOnNull("idexp")
                  );
 
-                //tabelle dbo
                 foreach (string t in new string[] { "workingtime", "contractlength", "positionworkcontract" }) {
                     CM.Add(new Copyer(t, Conn)
                                 .ShouldClearDestDB(true)
@@ -958,7 +838,6 @@ namespace no_table_unifydip {
                         .SetExternalCode("idacc_expense", "idacc")
                         .SetExternalCode("idfin_incomeclawback", "idfin")
                         .SetExternalCode("idacc_internalcredit", "idacc")
-                        //.SetExternalCode("idreg_agency", "idreg")
                         .SetExternalCode("idexp_cost", "idexp")
                         .SetExternalCode("idfin_cost", "idfin")
                         .SetExternalCode("idacc_cost", "idacc")
@@ -987,23 +866,11 @@ namespace no_table_unifydip {
                             );
                 }
 
-                //ho rimosso le dbo ed il resto è nell'istruz. precedente
-                //foreach (string t in new string[] { "csa_agency", "csa_agencypaymethod", 
-                //    "csa_contracttax","csa_contractkind","csa_contractkinddata","csa_contractkindrules","csa_contractregistry"    
-                //    }) {
-                //    CM.Add(new Copyer(t, Conn)
-                //                .ShouldClearDestDB(true)
-                //            );
-                //}
 
 
 
 
-                //Contratto professionale
                 CM.Add(new Copyer("profservice", Conn).ShouldClearDestDB(true)
-                       //.SetExternalCode("idaccmotivedebit", "idaccmotive")
-                       //.SetExternalCode("idaccmotivedebit_crg", "idaccmotive")
-                       //.SetExternalCode("idaccmotivedebit_datacrg", "idaccmotive")
                    );
 
                 CM.Add(new Copyer("expenseprofservice", Conn)
@@ -1021,12 +888,7 @@ namespace no_table_unifydip {
                 }
 
                
-                //Contratto Occasionale
                 CM.Add(new Copyer("casualcontract", Conn).ShouldClearDestDB(true)
-                        //.SetFilter(QHS.CmpGe("ycon", 2006))  superfluo, non ve ne sono
-                        //.SetExternalCode("idaccmotivedebit", "idaccmotive")
-                        //.SetExternalCode("idaccmotivedebit_crg", "idaccmotive")
-                        //.SetExternalCode("idaccmotivedebit_datacrg", "idaccmotive")
                     );
                 CM.Add(new Copyer("expensecasualcontract", Conn)
                   .ShouldClearDestDB(true)
@@ -1043,11 +905,9 @@ namespace no_table_unifydip {
                     }) {
                     CM.Add(new Copyer(t, Conn)
                                 .ShouldClearDestDB(true)
-                                //.SetFilter(QHS.CmpGe("ycon", 2006))
                             );
                 }
 
-                //tabelle dbo
                 foreach (string t in new string[] { "emenscontractkind","inpsactivity","otherinsurance",
                             "motive770service"}) {
                     CM.Add(new Copyer(t, Conn)
@@ -1059,12 +919,7 @@ namespace no_table_unifydip {
                
 
 
-                //Missioni
                 CM.Add(new Copyer("itineration", Conn).ShouldClearDestDB(true)
-                        //.SetFilter(QHS.CmpGe("yitineration", 2006))  superfluo, non ve ne sono
-                       //.SetExternalCode("idaccmotivedebit", "idaccmotive")
-                       //.SetExternalCode("idaccmotivedebit_crg", "idaccmotive")
-                       //.SetExternalCode("idaccmotivedebit_datacrg", "idaccmotive")
                    );
 
                 CM.Add(new Copyer("itinerationsorting", Conn)
@@ -1080,10 +935,8 @@ namespace no_table_unifydip {
                     }) {
                     CM.Add(new Copyer(t, Conn)
                                 .ShouldClearDestDB(true)
-                                //.SkipOnNull("iditineration")
                             );
                 }
-                //tabelle DBO
                 foreach (string t in new string[] { "position","foreigncountry","reduction"
                         }) {
                     CM.Add(new Copyer(t, Conn)
@@ -1093,11 +946,7 @@ namespace no_table_unifydip {
                 }
 
 
-                //Parasubordinati
                 CM.Add(new Copyer("parasubcontract", Conn).ShouldClearDestDB(true)
-                       //.SetExternalCode("idaccmotivedebit", "idaccmotive")
-                       //.SetExternalCode("idaccmotivedebit_crg", "idaccmotive")
-                       //.SetExternalCode("idaccmotivedebit_datacrg", "idaccmotive")
                    );
 
                 CM.Add(new Copyer("parasubcontractsorting", Conn)
@@ -1120,9 +969,7 @@ namespace no_table_unifydip {
                                 .ShouldClearDestDB(true)
                             );
                 }
-                //tabelle DBO
                 foreach (string t in new string[] {  "abatement","abatementcode","affinity"
-                                    //"otherinsurance","inpsactivity","emenscontractkind"   già presenti
                         }) {
                     CM.Add(new Copyer(t, Conn)
                                 .ShouldClearDestDB(true)
@@ -1131,7 +978,6 @@ namespace no_table_unifydip {
                 }
 
 
-                //Aggiungere tabelle su conti EP, causali e via dicendo
                 CM.Add(new Copyer("account", Conn)
                         .ShouldClearDestDB(true)
                         .DontCopy()
@@ -1162,14 +1008,12 @@ namespace no_table_unifydip {
                
 
 
-                //Regole e controlli 
                 CM.Add(new Copyer("audit", Conn)
                                         .ShouldClearDestDB(true));
                 CM.Add(new Copyer("auditcheck", Conn)
                                         .ShouldClearDestDB(true));
 
 
-                //Stampe ed esportazioni
                 CM.Add(new Copyer("exportfunction", Conn)
                          .ShouldClearDestDB(true));
                 CM.Add(new Copyer("exportfunctionparam", Conn)
@@ -1182,7 +1026,6 @@ namespace no_table_unifydip {
                          .ShouldClearDestDB(true));
 
 
-                //configurazioni
                 CM.Add(new Copyer("config", Conn)
                         .SetFilter(QHS.CmpGe("ayear", 2006))
                         .ShouldClearDestDB(first_dip)
@@ -1201,16 +1044,12 @@ namespace no_table_unifydip {
                         .SetExternalCode("idacc_patrimony", "idacc")
                         .SetExternalCode("idacc_pl", "idacc")
                         .SetExternalCode("idacc_supplier", "idacc")
-                        //.SetExternalCode("idaccmotive_admincar", "idaccmotive")
-                        //.SetExternalCode("idaccmotive_foot", "idaccmotive")
-                        //.SetExternalCode("idaccmotive_owncar", "idaccmotive")
 
                         .SetExternalCode("idfinexpense", "idfin")
                         .SetExternalCode("idfinexpensesurplus", "idfin")
                         .SetExternalCode("idfinincomesurplus", "idfin")
                         .SetExternalCode("idfinivapayment", "idfin")
                         .SetExternalCode("idfinivarefund", "idfin")
-                        //.SetExternalCode("idivapayperiodicity", "idfin")
 
                         .SkipIfNotEmpty());
 
@@ -1235,8 +1074,6 @@ namespace no_table_unifydip {
 
             }
 
-            //Per il primo che capita: copiamo l'anagrafica e tabelle correlate
-            //NO: le tabelle dbo le copiamo preventivamente
             
             return CM;
         }
@@ -1251,7 +1088,6 @@ namespace no_table_unifydip {
 
         bool ImportData(bool checkOnly, bool silent) {
             if (CM == null) CM = Get_CopyManager(Source, Dest, fattore,txtSourceDip.Text, chkSuffix.Checked,0);
-            //Decidere cosa fare con le disposizioni di pagamento paydisposition, paydispositiondetail
             if (!silent) show("CopyManager creato", "Informazione");
 
             CopyDisplay CD = new CopyDisplay(pBarCurrTab, txtSituazione);
@@ -1259,10 +1095,6 @@ namespace no_table_unifydip {
             if (CM.CheckAll(CD)) {
                 if (!silent) show("Verifica effettuata", "Informazione");
                 if (!checkOnly) {
-                    //if (CM.CopyAll(CD)) {
-                    //    CD = new CopyDisplay(pBarCurrTab, txtSituazione);
-                    //    ExecuteFinalScripts(Dest,CD);
-                    //}
                 }
                 return true;
             }
@@ -1273,27 +1105,14 @@ namespace no_table_unifydip {
 
         }
 
-        //void ExecuteFinalScripts(DataAccess Dest,CopyDisplay CD) {
-        //    string[] sql = new string[]{
-        //        //"rebuild_all",
 
-        //    };
-        //    CD.Start("Esecuzione script di completamento");
-        //    foreach (string S in sql) {
-        //        CD.Start(".", S, 1);
-        //        Dest.DO_SYS_CMD(S);
-        //        CD.Stop(true);
-        //    }
-        //    MetaFactory.factory.getSingleton<IMessageShower>().Show("Esecuzione script completata");
 
-        //}
         private void btnCopia_Click(object sender, EventArgs e) {
             btnCopia.Visible = false;
             if (CM == null) return;
             CopyDisplay CD = new CopyDisplay(pBarCurrTab, txtSituazione);
             CM.CopyAll(CD);
             show("Copia completata.", "Informazione");
-            //btnCopia.Visible = true;
         }
                
         translator CreateLookupTraslator(string table, string codefield, string keyfield) {
@@ -1353,32 +1172,11 @@ namespace no_table_unifydip {
             string superuser = txtSuperUser.Text;
             string superpwd = txtSuperPwd.Text;
             EasyDepManager EDM = new EasyDepManager(Conn);
-            //Crea tutti i dipartimenti che servono
             CopyDisplay CD = new CopyDisplay(pBarCurrTab, txtSituazione);
 
-            //foreach (string depname in new string[] { "amministrazione" }) {
-            //    if (Conn.RUN_SELECT_COUNT("dbaccess", QHS.CmpEq("iddbdepartment", depname), false) > 0) {
-            //        CD.Comment("Dipartimento " + depname + " presente.\r\n");
-            //        continue;
-            //    }
-            //    CD.Comment("Creo il dipartimento " + depname + "\r\n");
-            //    bool res = EDM.BatchCreateDepartment(superuser, superpwd, depname, depname.ToUpper(), depname);
-            //    if (!res) {
-            //        MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore nella creazione del dipartimento " + depname);
-            //        return;
-            //    }
-            //}
 
             List<string> DepProcessed = new List<string>();
 
-            /*
-                "lettere|disum|1", "umanistici|disum|2",
-                "medicina|dimet|6", "mediclinica|dimet|7",
-                "farmacia|disfar|9", "farmaco|disfar|10", 
-                "facecon|disei|3","impreter|disei|4","scienzeeco|disei|5",
-                "giurispru|digspes|15","giuridic|digspes|16","scienzepol|digspes|17","ricsoc|digspes|18","polpubb|digspes|19",
-                "scienzemfn|disit|11","informatica|disit|12","tecnoavan|disit|13","scienzevita|disit|14"
-            */
 
             string destserver = Conn.GetSys("server").ToString();
             string destdatabase = Conn.GetSys("database").ToString();
@@ -1521,7 +1319,7 @@ namespace no_table_unifydip {
 
 
                 Meta_EasyDispatcher ME = new Meta_EasyDispatcher(ED);
-                MetaData Meta = ME.Get("config"); //uno vale l'altro
+                MetaData Meta = ME.Get("config");
                 string filterrules = Meta.GetSys("filterrule").ToString();
                 DataTable TT = ED.SQLRunner("SELECT DISTINCT objectname  from customobject where isreal='S' order by objectname");
                 string err;

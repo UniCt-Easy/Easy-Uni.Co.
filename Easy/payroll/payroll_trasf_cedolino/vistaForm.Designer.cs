@@ -18,8 +18,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace payroll_trasf_cedolino {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -36,7 +34,6 @@ public partial class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -55,7 +52,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// PAYROLL /////////////////////////////////
 	var tpayroll= new DataTable("payroll");
 	C= new DataColumn("idpayroll", typeof(int));
 	C.AllowDBNull=false;

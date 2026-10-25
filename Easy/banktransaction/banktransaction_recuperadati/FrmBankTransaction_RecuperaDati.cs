@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -26,9 +25,6 @@ using System.Text;
 using LiveUpdate;
 
 namespace banktransaction_recuperadati {
-	/// <summary>
-	/// Summary description for FrmBankTransaction_RecuperaDati.
-	/// </summary>
 	public class FrmBankTransaction_RecuperaDati : MetaDataForm {
 		MetaData Meta;
 		public banktransaction_recuperadati.vistaForm DS;
@@ -40,22 +36,14 @@ namespace banktransaction_recuperadati {
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label lblFaseCorrente;
-		//private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.TextBox txtDipDestinazione;
 		private System.Windows.Forms.Label label4;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 
 		public FrmBankTransaction_RecuperaDati() {
 			InitializeComponent();
-			//progressBar1.Minimum = 0;
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		protected override void Dispose( bool disposing ) {
 			if( disposing ) {
 				if(components != null) {
@@ -66,10 +54,6 @@ namespace banktransaction_recuperadati {
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent() {
 			this.DS = new banktransaction_recuperadati.vistaForm();
 			this.label1 = new System.Windows.Forms.Label();
@@ -80,27 +64,17 @@ namespace banktransaction_recuperadati {
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.lblFaseCorrente = new System.Windows.Forms.Label();
-			//this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.txtDipDestinazione = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// label1
-			// 
 			this.label1.Location = new System.Drawing.Point(8, 8);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(100, 16);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Elenco DB:";
-			// 
-			// cmbDB
-			// 
 			this.cmbDB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbDB.Location = new System.Drawing.Point(8, 24);
@@ -108,18 +82,12 @@ namespace banktransaction_recuperadati {
 			this.cmbDB.Size = new System.Drawing.Size(432, 21);
 			this.cmbDB.TabIndex = 1;
 			this.cmbDB.SelectedIndexChanged += new System.EventHandler(this.cmbDB_SelectedIndexChanged);
-			// 
-			// btnEstrai
-			// 
 			this.btnEstrai.Location = new System.Drawing.Point(152, 56);
 			this.btnEstrai.Name = "btnEstrai";
 			this.btnEstrai.Size = new System.Drawing.Size(144, 23);
 			this.btnEstrai.TabIndex = 2;
 			this.btnEstrai.Text = "Estrai i dati";
 			this.btnEstrai.Click += new System.EventHandler(this.btnEstrai_Click);
-			// 
-			// txtDBOrigine
-			// 
 			this.txtDBOrigine.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.txtDBOrigine.Location = new System.Drawing.Point(8, 112);
 			this.txtDBOrigine.Name = "txtDBOrigine";
@@ -127,9 +95,6 @@ namespace banktransaction_recuperadati {
 			this.txtDBOrigine.Size = new System.Drawing.Size(184, 20);
 			this.txtDBOrigine.TabIndex = 3;
 			this.txtDBOrigine.Text = "";
-			// 
-			// txtDBDestinazione
-			// 
 			this.txtDBDestinazione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.txtDBDestinazione.Location = new System.Drawing.Point(8, 160);
 			this.txtDBDestinazione.Name = "txtDBDestinazione";
@@ -137,41 +102,20 @@ namespace banktransaction_recuperadati {
 			this.txtDBDestinazione.Size = new System.Drawing.Size(184, 20);
 			this.txtDBDestinazione.TabIndex = 4;
 			this.txtDBDestinazione.Text = "";
-			// 
-			// label2
-			// 
 			this.label2.Location = new System.Drawing.Point(8, 96);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(100, 16);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "DB Origine:";
-			// 
-			// label3
-			// 
 			this.label3.Location = new System.Drawing.Point(8, 144);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(100, 16);
 			this.label3.TabIndex = 6;
 			this.label3.Text = "DB Destinazione:";
-			// 
-			// lblFaseCorrente
-			// 
 			this.lblFaseCorrente.Location = new System.Drawing.Point(8, 192);
 			this.lblFaseCorrente.Name = "lblFaseCorrente";
 			this.lblFaseCorrente.Size = new System.Drawing.Size(432, 23);
 			this.lblFaseCorrente.TabIndex = 7;
-			// 
-			// progressBar1
-			// 
-			//this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			//	| System.Windows.Forms.AnchorStyles.Right)));
-			//this.progressBar1.Location = new System.Drawing.Point(8, 224);
-			//this.progressBar1.Name = "progressBar1";
-			//this.progressBar1.Size = new System.Drawing.Size(432, 23);
-			//this.progressBar1.TabIndex = 8;
-			// 
-			// txtDipDestinazione
-			// 
 			this.txtDipDestinazione.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.txtDipDestinazione.Location = new System.Drawing.Point(208, 160);
 			this.txtDipDestinazione.Name = "txtDipDestinazione";
@@ -179,22 +123,15 @@ namespace banktransaction_recuperadati {
 			this.txtDipDestinazione.Size = new System.Drawing.Size(184, 20);
 			this.txtDipDestinazione.TabIndex = 9;
 			this.txtDipDestinazione.Text = "";
-			// 
-			// label4
-			// 
 			this.label4.Location = new System.Drawing.Point(208, 144);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(200, 16);
 			this.label4.TabIndex = 10;
 			this.label4.Text = "Dipartimento di Destionazione:";
-			// 
-			// FrmBankTransaction_RecuperaDati
-			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(448, 254);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.txtDipDestinazione);
-			//this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.lblFaseCorrente);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
@@ -213,20 +150,14 @@ namespace banktransaction_recuperadati {
 
 		string server = "";
 		string db = "";
-		//string user = "";
-		//string pwd = "";
 		DataAccess sourceConn;
 		DataAccess destConn;
 		DataTable tSysDB;
 		public void MetaData_AfterLink() {
 			Meta = MetaData.GetMetaData(this);
 			destConn = Meta.Conn;
-//			server = "serversw\\sql2000";
 			server = "(local)";
 			db = "master";
-			//user = "mluisas";
-			//pwd = "mluisas";
-			//sourceConn = new DataAccess(db, server, db, user, pwd, (int)Meta.GetSys("esercizio"), DateTime.Now);
 			try {
 				sourceConn = new DataAccess("master", server, db, (int)Meta.GetSys("esercizio"), DateTime.Now);
 			}
@@ -238,7 +169,7 @@ namespace banktransaction_recuperadati {
 			tSysDB = sourceConn.SQLRunner("SELECT name FROM sysdatabases " + whereClause);
 			fillComboDB();
 			txtDBDestinazione.Text = destConn.GetSys("database").ToString();
-			txtDipDestinazione.Text = destConn.GetSys("userdb").ToString();
+			txtDipDestinazione.Text = (destConn.GetSys("schema") ?? destConn.GetSys("userdb")).ToString();
 		}
 
 		private void fillComboDB () {
@@ -255,7 +186,6 @@ namespace banktransaction_recuperadati {
 			txtDBOrigine.Text = db;
 
 			sourceConn.Destroy();
-			//sourceConn = new DataAccess(db, server, db, user, pwd, (int)Meta.GetSys("esercizio"), DateTime.Now);
 			try {
 				sourceConn = new DataAccess("master", server, db, (int)Meta.GetSys("esercizio"), DateTime.Now);
 			}
@@ -349,7 +279,6 @@ namespace banktransaction_recuperadati {
 
 		
 		private void aggiornaForm(string fase) {
-			//progressBar1.Value = 0;
 			lblFaseCorrente.Text = fase;
 		}
 
@@ -370,18 +299,6 @@ namespace banktransaction_recuperadati {
 
 			string listaCampiMovFin_src = idfield + ", esercmovbancario, nummovbancario";
 			string query = "";
-//			if (IoE == "I") {
-//				query = "SELECT "
-//					+ "identrata, esercmovbancario, nummovbancario "
-//					+ "FROM entrataview WHERE (codicefase = '" + maxphase
-//					+ "') AND (esercizio <= 2005) AND (esercmovbancario IS NOT NULL)";
-//			}
-//			else {
-//				query = "SELECT "
-//					+ "idspesa, esercmovbancario, nummovbancario "
-//					+ "FROM spesaview WHERE (codicefase = '" + maxphase
-//					+ "') AND (esercizio <= 2005) AND (esercmovbancario IS NOT NULL)";
-//			}
 
 			if (IoE == "I") {
 				query = "SELECT "
@@ -406,42 +323,11 @@ namespace banktransaction_recuperadati {
 			if (tMovFin_src == null) return false;
 			tMovFin_src.TableName = tName_dest;
 
-//			string q2 = "SELECT esercmovbancario, nummovbancario, numoperazione FROM movimentobancario "
-//				+ " WHERE (esercmovbancario <= 2005) AND (tipomovbancario = '" + kind + "')";
-//			DataTable tMovBan = sourceConn.SQLRunner(q2);
-//
-//			string idfieldmov_dest = (IoE == "I") ? "idinc" : "idexp";
-//			string idfield_dest = (IoE == "I") ? "idpro" : "idpay";
-//			string listaCampiMovFin_Dest = idfieldmov_dest + ", " + idfield_dest;
-//
-//			string filterMovDest = "(nphase = '" + maxphase + "') AND ((ycreation <= '2005') OR (ymov <= '2005'))";
-//			DataTable tMovFin_dest = DataAccess.RUN_SELECT(destConn, tName_dest, listaCampiMovFin_Dest, null,
-//					filterMovDest, null, null, true);
-//
-//			string idp_field = (IoE == "I") ? "idpro" : "idpay";
-//			progressBar1.Maximum = tMovFin_src.Rows.Count;
-//			foreach(DataRow rMovFin_src in tMovFin_src.Rows) {
-//				DataRow [] MovFin_dest = tMovFin_dest.Select("("+idfieldmov_dest + " = " +
-//					QueryCreator.quotedstrvalue(rMovFin_src[idfield], false) + ")");
-//				if (MovFin_dest.Length == 0) continue;
-//
-//				DataRow rMovFin_dest = MovFin_dest[0];
-//
-//				string filtroMovBan = "(esercmovbancario = '" + rMovFin_src["esercmovbancario"]
-//					+ "') AND (nummovbancario = '" + rMovFin_src["nummovbancario"] + "')";
-//				DataRow [] rMovBan = tMovBan.Select(filtroMovBan);
-//				if (rMovBan.Length == 0) continue;
-//
-//				rMovFin_dest[idp_field] = rMovBan[0]["numoperazione"];
-//				progressBar1.Value++;
-//				Application.DoEvents();
-//			}
 			string nomeCopia = tName_src + " -> " + tName_dest;
 			return creaScriptAggiornaMovFin(tMovFin_src);
 		}
 
 		public bool creaMovBancari(string IoE) {
-			// PAYMENT_BANK - PROCEEDS_BANK (Tabelle dei movimenti bancari)
 			string p_bank = (IoE == "I") ? "proceeds_bank" : "payment_bank";
 			DataTable tPXXX_Bank = DataAccess.CreateTableByName(destConn, p_bank, "*");
 			tPXXX_Bank.Clear();
@@ -463,10 +349,8 @@ namespace banktransaction_recuperadati {
 			DataTable tMovBancario_src = sourceConn.SQLRunner(q1);
 			if (tMovBancario_src == null) return false;
 
-			//progressBar1.Maximum = tMovBancario_src.Rows.Count;
 			foreach(DataRow rMovBancario in tMovBancario_src.Rows) {
 				fillPBank(rMovBancario, tPXXX_Bank, IoE);
-				//progressBar1.Value++;
 				Application.DoEvents();
 			}
 
@@ -498,11 +382,9 @@ namespace banktransaction_recuperadati {
 				+ "and flagesito = 'S' "
 				+ "AND esercmovbancario <= 2005";
 
-			// Tabelle di PARTENZA
 			DataTable tMovBancario_src = sourceConn.SQLRunner(query);
 			if (tMovBancario_src == null) return false;
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -515,18 +397,15 @@ namespace banktransaction_recuperadati {
 				, null, null, true);
 			if (tMovFin_src == null) return false;
 
-			//progressBar1.Maximum = tMovBancario_src.Rows.Count;
 			foreach(DataRow rMovBancario in tMovBancario_src.Rows) {
 				string filter = "(esercmovbancario = '" + rMovBancario["esercmovbancario"]
 					+ "') AND (nummovbancario = '" + rMovBancario["nummovbancario"] + "')";
 					
 				DataRow [] MovFin = tMovFin_src.Select(filter);
-				// Passo 2. Per ogni mov. finanziario aggiorno il campo IDPAY (IDPRO)
 				foreach(DataRow rMov in MovFin) {
 					decimal importo = CfgFn.GetNoNullDecimal(rMov["importocorrente"]); 
 					fillBankTransaction(rMovBancario, rMov[idfieldmov_src], bankTransaction, IoE, importo);
 				}
-				//progressBar1.Value++;
 				Application.DoEvents();
 			}
 			
@@ -544,7 +423,6 @@ namespace banktransaction_recuperadati {
 			object maxphase_dest = destConn.GetSys("max" + tabMovFin_dest + "phase");
 			string filterPhase = "(nphase = '" + maxphase_dest + "')";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -565,7 +443,6 @@ namespace banktransaction_recuperadati {
 			string tabMovFin_src = (IoE == "I") ? "entrataview" : "spesaview";
 			string idfieldmov_src = (IoE == "I") ? "identrata" : "idspesa";
 
-			// Tabelle di PARTENZA
 			DataTable tDettMovBanc = sourceConn.SQLRunner(q2);
 			if (tDettMovBanc == null) return false;
 
@@ -577,7 +454,6 @@ namespace banktransaction_recuperadati {
 				, null, null, true);
 			if (tMovFin_src == null) return false;
 
-			// Tabella temporanea dei movimenti finanziari
 			DataTable temp = new DataTable();
 			temp.Columns.Add("idmov");
 			temp.Columns.Add("curramount");
@@ -613,11 +489,9 @@ namespace banktransaction_recuperadati {
 			aggiornaForm("Generazione Esiti Parziali - Passo 1 ...");
 			string idfieldmov_src = (IoE == "I") ? "identrata" : "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
 					+ "') AND (nummovbancario = '" + rEsito["nummovbancario"] + "')";
@@ -625,14 +499,10 @@ namespace banktransaction_recuperadati {
 				DataRow [] MovFin = tMovFin_src.Select(filter);
 				if (MovFin.Length == 0) continue;
 
-				// Caso 1. Esiste un unico movimento associato al movimento bancario -> gli esiti sono associati tutti allo stesso movimento
 				if (MovFin.Length == 1) {
 					DataRow rMov = MovFin[0];
-					//decimal importo = CfgFn.GetNoNullDecimal(rMov["importocorrente"]);
 					decimal importo = CfgFn.GetNoNullDecimal(rEsito["importo"]);
-					// Creazione dell'esito (BANKTRANSACTION)
 					fillBankTransaction(rEsito, rMov[idfieldmov_src], bankTransaction, IoE, importo);
-					//progressBar1.Value++;
 					Application.DoEvents();
 				}
 				rEsito.Delete();
@@ -645,11 +515,9 @@ namespace banktransaction_recuperadati {
 			aggiornaForm("Generazione Esiti Parziali - Passo 2 ...");
 			string idfieldmov_src = (IoE == "I") ? "identrata" : "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
@@ -660,13 +528,11 @@ namespace banktransaction_recuperadati {
 
 				if (MovFin.Length > 1) {
 					bool found = false;
-					// Sotto Caso 2.1. Esiste un movimento finanziario il cui importo è pari a quello dell'esito
 					foreach(DataRow rMovFin in MovFin) {
 						if (found) break;
 						decimal importoCorrente = CfgFn.GetNoNullDecimal(rMovFin["importocorrente"]);
 						if (importoCorrente != importoEsito) continue;
 
-						// Se in TEMP è presente il movimento vuol dire che l'ho esitato completamente e quindi non vado avanti
 						string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
 							+ ")";
 						DataRow [] rmovtemp = temp.Select(filterTemp);
@@ -684,7 +550,6 @@ namespace banktransaction_recuperadati {
 						found = true;
 					}
 				}
-				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -696,11 +561,9 @@ namespace banktransaction_recuperadati {
 			aggiornaForm("Generazione Esiti Parziali - Passo 3 ...");
 			string idfieldmov_src = "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 			
-			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
@@ -711,14 +574,11 @@ namespace banktransaction_recuperadati {
 
 				if (MovFin.Length > 1) {
 					bool found = false;
-					// Sotto Caso 2.2. (Solo Spesa) Esiste un movimento di spesa il cui importo netto è pari a quello dell'esito
-					// Attenzione si passa al Sotto Caso 2.2. solo se il Sotto Caso 2.1. è fallito
 					foreach(DataRow rMovFin in MovFin) {
 						if (found) break;
 						decimal importoNetto = CfgFn.GetNoNullDecimal(rMovFin["importo"]) - CfgFn.GetNoNullDecimal(rMovFin["importoritenute"]);
 						if (importoNetto != importoEsito) continue;
 
-						// Se in TEMP è presente il movimento vuol dire che l'ho esitato completamente e quindi non vado avanti
 						string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
 							+ ")";
 						DataRow [] rmovtemp = temp.Select(filterTemp);
@@ -745,7 +605,6 @@ namespace banktransaction_recuperadati {
 						found = true;
 					}
 				}
-				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -759,11 +618,9 @@ namespace banktransaction_recuperadati {
 			aggiornaForm("Generazione Esiti Parziali - Passo 4 ...");
 			string idfieldmov_src = "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
@@ -773,15 +630,12 @@ namespace banktransaction_recuperadati {
 				if (MovFin.Length == 0) continue;
 
 				if (MovFin.Length > 1) {
-					// Sotto Caso 2.2. (Solo Spesa) Esiste un movimento di spesa il cui importo netto è pari a quello dell'esito
-					// Attenzione si passa al Sotto Caso 2.2. solo se il Sotto Caso 2.1. è fallito
 					bool found = false;
 					foreach(DataRow rMovFin in MovFin) {
 						if (found) break;
 						decimal importoRitenute = CfgFn.GetNoNullDecimal(rMovFin["importoritenute"]);
 						if (importoRitenute != importoEsito) continue;
 
-						// Se in TEMP è presente il movimento vuol dire che l'ho esitato completamente e quindi non vado avanti
 						string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
 							+ ")";
 						DataRow [] rmovtemp = temp.Select(filterTemp);
@@ -808,7 +662,6 @@ namespace banktransaction_recuperadati {
 						found = true;
 					}
 				}
-				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
@@ -821,11 +674,9 @@ namespace banktransaction_recuperadati {
 			aggiornaForm("Generazione Esiti Parziali - Passo 5 ...");
 			string idfieldmov_src = (IoE == "I") ? "identrata" : "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-			//progressBar1.Maximum = tDettMovBanc.Rows.Count;
 
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				decimal importoEsito = CfgFn.GetNoNullDecimal(rEsito["importo"]);
@@ -839,7 +690,6 @@ namespace banktransaction_recuperadati {
 				foreach(DataRow rMovFin in MovFin) {
 					if (residuoEsito == 0) break;
 
-					// Se in TEMP è presente il movimento vuol dire che l'ho esitato completamente e quindi non vado avanti
 					string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
 						+ ")";
 					DataRow [] rmovtemp = temp.Select(filterTemp);
@@ -867,21 +717,12 @@ namespace banktransaction_recuperadati {
 					}
 					residuoEsito -= importodaEsitare;
 				}
-				//progressBar1.Value++;
 				Application.DoEvents();
 				rEsito.Delete();
 			}
 			return lanciaScript(this, destConn, bankTransaction, "Generazione Esiti a copertura progressiva dei movimenti finanziari");
 		}
 
-		/// <summary>
-		/// Metodo contenitore che chiama i metodi per la generazione delle esitazioni
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="IoE"></param>
-		/// <returns></returns>
 		public bool creaEsiti(string IoE) {
 			if (!creaEsitiTotali(IoE)) {
 				return false;
@@ -890,11 +731,6 @@ namespace banktransaction_recuperadati {
 			return creaEsitiParziali(IoE);
 		}
 
-		/// <summary>
-		/// Metodo che aggiunge le righe nella tabelle dei movimenti bancari di EASY (PAYMENT_BANK, PROCEEDS_BANK)
-		/// </summary>
-		/// <param name="movBancarioSource"></param>
-		/// <param name="movBancarioDest"></param>
 		private void fillPBank(DataRow movBancarioSource, DataTable tMovBancarioDest, string IoE) {
 			string yfield = (IoE == "I") ? "ypro" : "ypay";
 			string nfield = (IoE == "I") ? "npro" : "npay";
@@ -954,11 +790,6 @@ namespace banktransaction_recuperadati {
 		}
 
 		#region Gestione esecuzione Script
-		/// <summary>
-		/// Metodo che aggiorna la tabella dei movimenti finanziari (EXPENSE o INCOME)
-		/// </summary>
-		/// <param name="destConn">Connessione di destinazione</param>
-		/// <param name="tMovFin">Tabella dei movimenti finanziari</param>
 		private bool creaScriptAggiornaMovFin(DataTable tMovFin) {
 			string idfield = (tMovFin.TableName == "expense") ? "idpay" : "idpro";
 			string idmov = (tMovFin.TableName == "expense") ? "idexp" : "idinc";
@@ -1010,25 +841,18 @@ namespace banktransaction_recuperadati {
 
 
 				if (TT.Rows.Count==0) return true;
-				string insert = "INSERT INTO "+TT.TableName+" VALUES(";//(
-				//				foreach (DataColumn C in TT.Columns) {
-				//					insert += C.ColumnName + ",";
-				//				}
-				//				insert = insert.Remove(insert.Length - 1, 1);
-				//				insert += ") VALUES (";
+				string insert = "INSERT INTO "+TT.TableName+" VALUES(";
 				int count=0;
 				string s = "";
 				string err;
 				FrmMeter FM= new FrmMeter(true);
 
 				FM.StartPosition= FormStartPosition.CenterScreen;
-				FM.Text=title; //"Copia della tabella "+TT.TableName;
-				//FM.pBar.Maximum= TT.Rows.Count;
+				FM.Text=title;
                 MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
                 FM.Show();
 
 				foreach (DataRow row in TT.Rows) {
-					//FM.pBar.Increment(1);
 					count++;
 
 					string values = GetSQLDataValues(row,Cols);

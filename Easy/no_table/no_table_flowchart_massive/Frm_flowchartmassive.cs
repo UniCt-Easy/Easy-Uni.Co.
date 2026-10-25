@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +35,8 @@ namespace no_table_flowchart_massive {
         public IOpenFileDialog myOpenFile;
 
         string department;
+
+        bool utentiDesktop;
         
         
 
@@ -54,17 +55,40 @@ namespace no_table_flowchart_massive {
             QHC = new CQueryHelper();
             QHS = Conn.GetQueryHelper();
 
-            department = Conn.GetSys("userdb").ToString();
+            department = (Conn.GetSys("schema") ?? Conn.GetSys("userdb")).ToString();
+
+            btnImportaUtenti.Enabled = PuoImportareUtenti();
+            aggiornaSpuntaDesktop();
+        }
+
+        void aggiornaSpuntaDesktop() {
+            string erroreSoloWeb;
+            bool soloWeb = Alpha1.DipartimentoSoloWeb(Conn, department, out erroreSoloWeb);
+            if (erroreSoloWeb != null) return;
+            chkUtenteDesktop.Checked = !soloWeb;
+            chkUtenteDesktop.Enabled = soloWeb;
+        }
+
+        bool PuoImportareUtenti() {
+            if (System.Diagnostics.Debugger.IsAttached && AppDomain.CurrentDomain.FriendlyName != "MetaDataDomain") return true;
+            return Conn != null && Conn.Is_Member("big_admin");
+        }
+
+        static string QuoteName(string name) {
+            return "[" + name.Replace("]", "]]") + "]";
         }
 
         #region AggiungiUtente
         bool AggiungiLogin(string login,string password) {
-            //DataTable T1 = Conn.SQLRunner(
-            //    "select DISTINCT loginname = (case when (o.sid = 0x00) then NULL else l.loginname end) " +
-            //    " from dbo.sysusers o " +
-            //    "left join master.dbo.syslogins l on l.sid = o.sid " +
-            //    "where ((o.issqlrole != 1 and o.isapprole != 1 ) or (o.sid = 0x00) " +
-            //    "and o.hasdbaccess = 1)and o.isaliased != 1 ");
+            string dipartimento = (Conn.GetSys("schema") ?? Conn.GetSys("userdb")).ToString();
+            string erroreSoloWeb;
+            bool soloWeb = Alpha1.DipartimentoSoloWeb(Conn, dipartimento, out erroreSoloWeb);
+            if (erroreSoloWeb != null) {
+                show("Non e' stato possibile stabilire se il dipartimento " + dipartimento + " e' solo web: login " + login + " NON creata. " + erroreSoloWeb + "\r\n");
+                return false;
+            }
+            if (soloWeb && !utentiDesktop)
+                return true;
 
             DataTable T1 = Conn.SQLRunner(
                 "select DISTINCT loginname from master.dbo.syslogins " +
@@ -73,7 +97,6 @@ namespace no_table_flowchart_massive {
 
 
 
-            //esce se la login è già presente 
             if (T1 != null) {
                 foreach (DataRow R1 in T1.Rows) {
                     if (R1["loginname"].ToString().ToUpper() == login.ToUpper()) return true;
@@ -82,9 +105,9 @@ namespace no_table_flowchart_massive {
             
             string err;
             string dbname = Conn.GetSys("database").ToString();
-            Conn.DO_SYS_CMD(//"EXEC sp_addlogin " + QHS.quote(login)+","+QHS.quote(password)
-                "CREATE LOGIN ["+login+"] WITH PASSWORD="+QHS.quote(password)+","+
-                        "DEFAULT_DATABASE = "+dbname+","+
+            Conn.DO_SYS_CMD(
+                "CREATE LOGIN "+QuoteName(login)+" WITH PASSWORD="+QHS.quote(password)+","+
+                        "DEFAULT_DATABASE = "+QuoteName(dbname)+","+
                         "CHECK_EXPIRATION = OFF,"+
                         "CHECK_POLICY = OFF"                
                 ,out err);
@@ -95,22 +118,75 @@ namespace no_table_flowchart_massive {
             return true;
         }
 
+        void collegaUtente(string login, out string errore) {
+            try {
+                collegaUtenteConRichiesta(login, out errore);
+            }
+            catch (MissingMethodException) {
+                Conn.linkUserToDepartment(login, out errore);
+            }
+            catch (TypeLoadException) {
+                Conn.linkUserToDepartment(login, out errore);
+            }
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        void collegaUtenteConRichiesta(string login, out string errore) {
+            Conn.linkUserToDepartment(login, FrmPasswordDipartimento.Richiesta(this, department), out errore);
+        }
+
+        void collegaUtenteDesktop(string login, out string errore) {
+            try {
+                collegaUtenteDesktopConRichiesta(login, out errore);
+            }
+            catch (MissingMethodException) {
+                errore = "per un utente che entra da desktop in un dipartimento solo web serve metaeasylibrary 2.1.280 o successiva";
+            }
+            catch (TypeLoadException) {
+                errore = "per un utente che entra da desktop in un dipartimento solo web serve metaeasylibrary 2.1.280 o successiva";
+            }
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        void collegaUtenteDesktopConRichiesta(string login, out string errore) {
+            Conn.linkUserToDepartment(login, FrmPasswordDipartimento.Richiesta(this, department), true, out errore);
+        }
+
         bool CollegaUtenteADipartimento(string login, string iddbdepartment) {
             DataTable Utenti = Conn.RUN_SELECT("dbaccess", "*", null, 
                             QHS.AppAnd(QHS.CmpEq("iddbdepartment",iddbdepartment),
                                         QHS.CmpEq("login",login)),null, false);
-            if (Utenti != null && Utenti.Rows.Count > 0) return true; //già presente
+            if (Utenti != null && Utenti.Rows.Count > 0) return true;
+
+            string erroreSoloWeb;
+            bool soloWeb = Alpha1.DipartimentoSoloWeb(Conn, iddbdepartment, out erroreSoloWeb);
+            if (erroreSoloWeb != null) {
+                show("Non e' stato possibile stabilire se il dipartimento " + iddbdepartment + " e' solo web: utente " + login + " NON associato. " + erroreSoloWeb + "\r\n");
+                return false;
+            }
+            if (soloWeb && !utentiDesktop) {
+                string errWeb;
+                Conn.linkUserToDepartment(login, out errWeb);
+                if (errWeb != null && errWeb != "") {
+                    show("Errore associando l'utente " + login + ":" + errWeb + "\r\n");
+                    return false;
+                }
+                return true;
+            }
 
             Conn.SQLRunner("exec sp_grantdbaccess " +
                     QueryCreator.quotedstrvalue(login, false) + ", " +
                     QueryCreator.quotedstrvalue(login, false));
             Conn.SQLRunner("exec sp_addrolemember  N'db_denydatawriter'," +QHS.quote(login));
-            Conn.SQLRunner("GRANT  SELECT  ON [dbo].[dbaccess] TO [" + login + "]");
-            Conn.SQLRunner("GRANT  SELECT  ON [" + iddbdepartment + "].[customobject] TO [" + login + "]");
-            Conn.SQLRunner("GRANT  SELECT  ON [" + iddbdepartment + "].[columntypes] TO [" + login + "]");
+            Conn.SQLRunner("GRANT  SELECT  ON [dbo].[dbaccess] TO " + QuoteName(login));
+            Conn.SQLRunner("GRANT  SELECT  ON " + QuoteName(iddbdepartment) + ".[customobject] TO " + QuoteName(login));
+            Conn.SQLRunner("GRANT  SELECT  ON " + QuoteName(iddbdepartment) + ".[columntypes] TO " + QuoteName(login));
 
             string err;
-            Conn.linkUserToDepartment(login,out err);
+            if (soloWeb)
+                collegaUtenteDesktop(login, out err);
+            else
+                collegaUtente(login, out err);
 
             if (err != null && err != "") {
                 show("Errore associando l'utente " + login + ":" + err + "\r\n");
@@ -121,14 +197,8 @@ namespace no_table_flowchart_massive {
         }
 
 
-        /// <summary>
-        /// Aggiunge un utente al db e lo collega al dipartimento selezionato, sempre che non vi faccia già parte
-        ///  idcustomuser è posta uguale alla login
-        /// </summary>
-        /// <param name="login"></param>
-        /// <returns></returns>
         bool AggiungiUtente(string login) {
-            bool res = AggiungiLogin(login, "YOUR_PASSWORD");
+            bool res = AggiungiLogin(login, "**********");
             if (res) res = CollegaUtenteADipartimento(login, department);
             return res;
         }
@@ -147,7 +217,6 @@ namespace no_table_flowchart_massive {
 
         bool AggiungiUtenteAGruppoOrganigramma(string idcustomuser,string login) {
 
-            //Aggiunge la riga in customuser ove necessario
             DataTable tCustomUser = Conn.RUN_SELECT("customuser", "*", null, QHS.CmpEq("idcustomuser", idcustomuser), null, false);
             if (tCustomUser.Rows.Count == 0) {
                 Conn.SQLRunner("insert into customuser(idcustomuser,lt,lu,ct,cu,username) values " +
@@ -170,7 +239,6 @@ namespace no_table_flowchart_massive {
                 QHS.CmpEq("idcustomgroup", "ORGANIGRAMMA"), null, true);
             fillUserInGroup(idcustomuser, tCustomGroup, tCustomUserGroup);
 
-            // Fill della tabella securityvar
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, tSecurityVar, null, null, null, true);
             fillUserEnvironment(idcustomuser, tSecurityVar, tUserEnvironment);
 
@@ -279,16 +347,11 @@ namespace no_table_flowchart_massive {
         }
 
         
-        /// <summary>
-        /// Aggiunge un utente al gruppo organigramma e poi lo collega ad uno specifico nodo dell'organigramma stesso
-        /// </summary>
-        /// <param name="FlowChartUserToAdd"></param>
-        /// <returns></returns>
         bool AggiungiUtenteAdOrganigramma(FlowChartUser FlowChartUserToAdd) {
             MetaData meta_flowchartuser = Meta.Dispatcher.Get("flowchartuser");
 
             string idcustomuser = FlowChartUserToAdd.idcustomuser;
-            string login = idcustomuser; // assunzione base
+            string login = idcustomuser;
 
             bool res = AggiungiUtenteAGruppoOrganigramma(idcustomuser, login);
             if (!res) return false;
@@ -307,7 +370,7 @@ namespace no_table_flowchart_massive {
 
             string f = QHS.AppAnd(QHS.CmpEq("idcustomuser", idcustomuser), QHS.CmpEq("idflowchart", idflowchart),
                                 QHS.CmpEq("title", FlowChartUserToAdd.title));
-            if (Conn.RUN_SELECT_COUNT("flowchartuser", f, false) > 0) return true; //già presente 
+            if (Conn.RUN_SELECT_COUNT("flowchartuser", f, false) > 0) return true;
 
             DataTable TFlowchartUser = Conn.CreateTableByName("flowchartuser", "*");
             DataSet D = new DataSet();
@@ -418,7 +481,6 @@ namespace no_table_flowchart_massive {
                 return false;
             }
             string sql = "UPDATE manager set userweb=" + QHS.quote(WU.login) +
-                                //    ", passwordweb=" + QHS.quote(WU.email)+ 
                         " WHERE " + QHS.CmpKey(Man.Rows[0]);
             Conn.SQLRunner(sql,false,100);
 
@@ -430,20 +492,17 @@ namespace no_table_flowchart_massive {
                 show(this, "Impossibile aggiungere un utente senza login", "Errore");
                 return false;
             }
-            //Aggiunge l'utente al dipartimento e 
-            if (!AggiungiUtente(WU.login.ToString())) return false; //per gli utenti normali login= idcustomuser 
+            if (!AggiungiUtente(WU.login.ToString())) return false;
 
             if (FCU.flowchartcode != DBNull.Value) {
                 if (!AggiungiUtenteAdOrganigramma(FCU)) return false;
                 return AddVirtualUser(WebConn, WU);
             }
-            return true; //se non c'è una voce di organigramma lo aggiunge come utente normale punto e basta                      
+            return true;
         }
 
         public bool CollegaUtenteLDAP(DataAccess WebConn, WebUser WU, FlowChartUser FCU) {
 
-            //if (!CollegaUtenteNormale(WebConn, WU, FCU)) return false;
-            //se è ANCHE un responsabile lo segna comunque tra i responsabili impostando la userweb di quel resp.
 
             DataTable Man = Conn.RUN_SELECT("manager", "*", null, QHS.CmpEq("email", WU.email), null, false);
             
@@ -453,7 +512,6 @@ namespace no_table_flowchart_massive {
             }
             if (Man.Rows.Count == 1) {
                 string sql = "UPDATE manager set userweb=" + QHS.quote(WU.login) +
-                    //    ", passwordweb=" + QHS.quote(WU.email)+ 
                             " WHERE " + QHS.CmpKey(Man.Rows[0]);
                 Conn.SQLRunner(sql, false, 100);
             }
@@ -465,14 +523,13 @@ namespace no_table_flowchart_massive {
 
 
         public class WebUser {
-            public object tipoutente; //1 resp. 2 fornitore 3utenteapp 4 utenteldap >>userkind
-            public object nome; //   >>forename
-            public object cognome;  //>> surname
+            public object tipoutente;
+            public object nome;
+            public object cognome;
             public object cf;
-            public object email; //se da collegare ad un responsabile, dovrebbe essere la stessa del responsabile nel db e la sua
-                                 // userweb e posta uguale a "login"
-            public object login; //ha un significato che dipende da tipoutente >>username
-            public object idcustomuser; // va in sys_user , rappresenta l'utente impersonato
+            public object email;
+            public object login;
+            public object idcustomuser;
         }
 
         bool CollegaUtenteWeb(DataAccess WebConn, WebUser WU, FlowChartUser FCU) {
@@ -516,7 +573,6 @@ namespace no_table_flowchart_massive {
             return res;
         }
         string[] tracciato_importautenti = new string[]{
-            //campi per WebUser
             "tipoutente;Tipo utente (1 resp. 3 utente normale 4 utente ldap 5 utente SSO);Codificato;1;1|3|4|5",
             "nome;Nome;Stringa;50",
             "cognome;Cognome;Stringa;50",
@@ -525,7 +581,6 @@ namespace no_table_flowchart_massive {
             "login;Login (significato varia in base a tipoutente);Stringa;40",
             "idcustomuser;IDCustomuser, login dell'utente impersonato ove diverso da login;Stringa;30",
 
-            //Campi per FlowChartUser
             "flowchartcode;Codice oganigramma;Stringa;50",
             "codiceattr01;Codice attributo 1;Stringa;50",
             "codiceattr02;Codice attributo 2;Stringa;50",
@@ -558,12 +613,17 @@ namespace no_table_flowchart_massive {
         }
 
         private void btnImportaUtenti_Click(object sender, EventArgs e) {
+            if (!PuoImportareUtenti()) {
+                show(this, "L'importazione degli utenti è riservata al ruolo di database big_admin.", "Attenzione");
+                return;
+            }
             DataAccess WebConn = GetWebConnection();
             if (WebConn == null) {
                 show(this, "Errore nella connessione al db di sistema web.", "Errore");
                 return ;
             }
             if (!CheckConnection(WebConn, true)) return;
+            utentiDesktop = chkUtenteDesktop.Checked;
 
             myOpenFile.RestoreDirectory = true;
             DialogResult DR = myOpenFile.ShowDialog(this);
@@ -597,7 +657,6 @@ namespace no_table_flowchart_massive {
                 }
 
                 if (CollegaUtenteWeb(WebConn, WU, FCU)) {
-                    //txtResult.Text += utente + " creato con successo \r\n";
                 }
                 else {
                     txtResult.Text += utente + " non creato o creato con problemi.\r\n";

@@ -72,23 +72,15 @@ namespace csa_importver_partition_income_elenco {
             gboxtipo.Enabled = abilita;
 
             gBoxCompetenza.Enabled = abilita;
-            //gBoxDettaglio.Enabled = abilita;
-            //gBoxImportazione.Enabled = abilita;
             gBoxImporto.Enabled = abilita;
             gBoxEnte.Enabled = abilita;
             gBoxAnagraficaEnte.Enabled = abilita;
             gBoxAnagraficaVer.Enabled = abilita;
-            //gBoxVersamento.Enabled = abilita;
-            //Enabled = abilita;
-            //txtQuota.ReadOnly = readOnly;
-            //txtEsercizio.ReadOnly = readOnly;
-            //txtVoceCsa.ReadOnly = readOnly;
         }
 
 
         private void VisualizzaMovimentoEntrata() {
             if (MetaData.Empty(this)) return;
-            //Calcola e riempie i campi relativi alla fase precedente:
             object idinc = DS.Tables["csa_importver_partition_income"].Rows[0]["idinc"];
             string filter = QHS.CmpEq("idinc", idinc);
             DataTable DT = Conn.RUN_SELECT("income", "idinc,ymov,nmov,nphase", null, filter, null, true);

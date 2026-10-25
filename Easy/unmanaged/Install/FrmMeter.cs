@@ -19,38 +19,21 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
 
-namespace Install//Install//
+namespace Install
 {
-	/// <summary>
-	/// Summary description for FrmMeter.
-	/// </summary>
 	public class FrmMeter : MetaDataForm
 	{
-		// Rimuovo la progress bar, se dovesse servire bisogna farla async
-		//public System.Windows.Forms.ProgressBar pBar;
 		private System.Windows.Forms.Label label1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 
 		public FrmMeter(bool X)
 		{
-			//
-			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
 
-			bool Y=X; //X è usato solo per dare un parametro al costruttore!!
+			bool Y=X;
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -64,41 +47,18 @@ namespace Install//Install//
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent()
 		{
-			//this.pBar = new System.Windows.Forms.ProgressBar();
 			this.label1 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
-			// 
-			// pBar
-			// 
-			//this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-			//	| System.Windows.Forms.AnchorStyles.Left) 
-			//	| System.Windows.Forms.AnchorStyles.Right)));
-			//this.pBar.Location = new System.Drawing.Point(0, 8);
-			//this.pBar.Name = "pBar";
-			//this.pBar.Size = new System.Drawing.Size(528, 23);
-			//this.pBar.Step = 1;
-			//this.pBar.TabIndex = 1;
-			// 
-			// label1
-			// 
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label1.Location = new System.Drawing.Point(0, 40);
 			this.label1.Name = "label1";
 			this.label1.TabIndex = 2;
 			this.label1.Text = "Attendere prego...";
-			// 
-			// FrmMeter
-			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(536, 61);
 			this.Controls.Add(this.label1);
-			//this.Controls.Add(this.pBar);
 			this.Name = "FrmMeter";
 			this.Text = "Copia del database in corso";
 			this.TopMost = true;

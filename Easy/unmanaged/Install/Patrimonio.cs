@@ -24,17 +24,8 @@ using funzioni_configurazione;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for Patrimonio.
-	/// </summary>
 	public class Patrimonio
 	{
-		/// <summary>
-		/// Copia la tabella beneinventariabile in asset ponendo idpiece sempre uguale ad uno.
-		/// </summary>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
-		/// <returns>true se Ok</returns>
 		public static bool esportaBeneinventariabile(Form form, DataAccess SourceConn, DataAccess Conn) {
 			string query = "select ct=bene.createtimestamp, cu=bene.createuser, "
 				+ "idasset=idbene, idlocation=idubicazione, idman=codiceresponsabile, idpiece=1, "
@@ -51,7 +42,6 @@ namespace Install
 				return false;
 			}
 			tAsset.TableName = "asset";
-			//int lastNAssetAcquire = CfgFn.GetNoNullInt32( tAsset.Compute("max(nassetacquire)", null));
 
 			DataSet ds = new DataSet();
 			ds.Tables.Add(tAsset);
@@ -77,25 +67,13 @@ namespace Install
 
 			return Migrazione.lanciaScript(form, Conn, ds, "Bene inventariabile -> asset");
 
-			//return lastNAssetAcquire;
 		}
 		
 
 
-		/// <summary>
-		/// Copia la tabella partenoninventariabile in asset ponendo idasset come selettore ed idpiece 
-		/// come campo ad autoincremento.
-		/// Inoltre, per ogni bene con parti scaricate ma non caricate, vengono copiate le righe di scaricoparteinventario
-		/// in assetacquire con nassetacquire che parte da lastNassetAcquire e ponendo idinv=idclass del carico bene,
-		/// ispieceacquire='S' e loadkind='R';
-		/// </summary>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
-		/// <returns>max(nassetacquire) scritto in assetacquire</returns>
 		public static bool esportaPartenoninventariabile(Form form,
 			DataAccess SourceConn, DataAccess Conn, int lastNAssetAcquire) 
 		{
-			//newlastNAssetAcquire=lastNAssetAcquire;
 			string query = "select ct=parte.createtimestamp, cu=parte.createuser,"
 				+ "idasset=parte.idbene, idpiece=parte.idparte, "
 				+ "lt=parte.lastmodtimestamp, lu=parte.lastmoduser, nassetacquire=parte.numcaricoparte+"
@@ -151,7 +129,6 @@ namespace Install
 				r["idpiece"] = idPiece;
 			}
 
-			//newlastNAssetAcquire = CfgFn.GetNoNullInt32(tAsset.Compute("max(nassetacquire)", null)) ;
 
 			bool res= Migrazione.lanciaScript(form, Conn, ds, "(partenoninventariabile -> asset) e (scaricoparteinventario -> asset)");
 			return res;
@@ -159,15 +136,6 @@ namespace Install
 
 
 
-		/// <summary>
-		/// Copia la tabella aumentovalorebene in assetacquire ponendo idinv=caricobeneinventario.idclass,
-		/// idinventory=caricobeneinventario.inventory, ispieceacquire='N', loadkind='R'
-		/// e nassetacquire a partire da lastNAssetAcquire+1
-		/// </summary>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
-		/// <param name="lastNAssetAcquire"></param>
-		/// <returns></returns>
 		public static bool esportaAumentoValoreBene(Form form,
 			DataAccess SourceConn, DataAccess Conn, int lastNAssetAcquire, out int newlastNAssetAcquire ) 
 		{
@@ -181,7 +149,6 @@ namespace Install
 				+ "idmot=aumento.codicecausale, "
 				+ "ispieceacquire='S', loadkind='N', "
 				+ "lt=aumento.lastmodtimestamp, lu=aumento.lastmoduser, "
-				//+ "idpiece=null, nassetacquire=null, "
 				+ "nassetload=aumento.numbuonoinventario, number=1, rtf=aumento.olenotes, taxable=aumento.imponibile, "
 				+ "taxrate=aumento.imposta, txt=aumento.notes, "
 				+ "tax=CONVERT(decimal(19,2),ROUND((CONVERT(decimal(19,2),"
@@ -241,14 +208,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Copia la tabella diminuzionevalorebene in assetacquire ponendo idinv=caricobeneinventario.idclass,
-		/// idinventory=caricobeneinventario.inventory, ispieceacquire='N', loadkind='R'
-		/// e nassetacquire a partire da lastNAssetAcquire+1
-		/// </summary>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
-		/// <param name="lastNassetAcquire"></param>
 		public static bool esportaDiminuzioneValoreBene(Form form,
 			DataAccess SourceConn, DataAccess Conn, int lastNassetAcquire,out int newlastNAssetAcquire)
 		{
@@ -260,8 +219,6 @@ namespace Install
 				+ "idinv=idclass, idinventory=codiceinventario, idmot='SCARICO', "
 				+ "ispieceacquire='S', loadkind='R', "
 				+ "lt=diminuzione.lastmodtimestamp, lu=diminuzione.lastmoduser, "
-				//+ "nassetacquire=null"
-				//+ lastNassetAcquire
 				+ " nassetunload=diminuzione.numbuonoinventario, rtf=diminuzione.olenotes "
 				+ ", number= 1 "
 				+ ", taxable=diminuzione.imponibile, taxrate=diminuzione.imposta, txt=diminuzione.notes, "
@@ -315,8 +272,6 @@ namespace Install
 				tAsset.Rows.Add(d);
 			}
 
-//			tAssetAcquire.Columns.Remove("idasset");
-//			tAssetAcquire.Columns.Remove("idpiece");
 			tAssetAcquire.Columns.Remove("idasset");
 			tAssetAcquire.Columns.Remove("idassetunloadkind");
 			tAssetAcquire.Columns.Remove("yassetunload");
@@ -347,12 +302,6 @@ namespace Install
 			return Migrazione.lanciaScript(form, destConn, tAssetLoadMotive, "causalecaricoinventario -> assetloadmotive");
 		}
 
-		/// <summary>
-		/// Copia la tabella caricobeneinventario in assetacquire ponendo ispieceacquire='N'
-		/// e nassetacquire=numcaricobene
-		/// </summary>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
 		
 		public static bool esportaCaricoBeneInventario(Form form, DataAccess SourceConn, DataAccess Conn, out int lastNAssetAcquire ) {
 			lastNAssetAcquire = 0;
@@ -384,17 +333,8 @@ namespace Install
 			return  Migrazione.lanciaScript(form, Conn, ds, "Carico bene inventario -> Asset acquire");
 		}
 
-		//public static int calcolaMaxNumCaricoBene (Form form, DataAccess SourceConn, DataAccess Conn, DataTable tAssetAcquire){
 			
-		//}
 
-		/// <summary>
-		/// Copia la tabella caricoparteinventario in assetacquire ponendo ispieceacquire='S',
-		/// loadkind='R' e nassetacquire a partire da lastNAssetAcquire
-		/// </summary>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
-		/// <param name="lastNAssetAcquire"></param>
 		public static bool esportaCaricoParteInventario(Form form, DataAccess SourceConn, DataAccess Conn, 
 			int lastNAssetAcquire, out int newlastNAssetAcquire) {
 			newlastNAssetAcquire = lastNAssetAcquire;
@@ -477,32 +417,8 @@ namespace Install
 			}
 			return true;
 		
-		}//		public static void controllaScaricoBeneEBene(Form form, DataAccess SourceConn) 
+		}
 
-//		{
-//			string query = "select * from scaricobeneinventario where numscaricobene not in "
-//				+ "(select numscaricobene from beneinventariabile where numscaricobene is not null) "
-//				+ " order by numscaricobene";
-//			string messaggio;
-//			DataTable t = SourceConn.SQLRunner(query, -1, out messaggio);
-//			if (messaggio != null) 
-//			{
-//				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, messaggio);
-//				return;
-//			}
-//			if (t.Rows.Count > 0) 
-//			{
-//				messaggio = "Esistono i seguenti scarichi che non hanno corrispondenti beni:";
-//				string[,] colonne = new string[,] { 
-//					{"numscaricobene", "Num. scarico bene"},
-//					{"descrizione", "Descrizione"},
-//					{"codiceinventario", "Codice inventario"},
-//					{"codicetipobuono", "Codice tipo buono"},
-//					{"esercbuonoinventario", "Eserc. buono inventario"},
-//					{"numbuonoinventario", "Num. buono inventario"}};
-//				new FrmErrore(messaggio, t.Select(), colonne).ShowDialog(form);
-//			}
-//		}
 
 		public static bool controllaScaricoBeneEBuono(Form form, DataAccess SourceConn) {
 			string query = "select scarico.numscaricobene, scarico.descrizione, scarico.codiceinventario, scarico.codicetipobuono, scarico.esercbuonoinventario, scarico.numbuonoinventario "
@@ -660,14 +576,6 @@ namespace Install
 					return false;
 				}
 			}
-//			int beni = CfgFn.GetNoNullInt32( SourceConn.DO_READ_VALUE("beneinventariabile", null, "count(*)"));
-//			int quantita = CfgFn.GetNoNullInt32( SourceConn.DO_READ_VALUE("caricobeneinventario", null, "sum(quantita)"));
-//			if (beni!=quantita) {
-//				string confronto = (quantita < beni) ? "minore" : "maggiore";
-//				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "La somma delle quantità dei carichi dei beni ("+quantita
-//					+ ") è "+confronto+" del numero dei beni ("+beni+")", "ERRORE!");
-//				return false;
-//			}
 			return true;
 		}
 
@@ -794,12 +702,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Copia la tabella eventotecnico in maintenance ponendo idpiece=1
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool esportaEventoTecnico(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string q = "select adate=datacontabile, amount=importo, ct=createtimestamp, cu=createuser, "
 				+ "description=descrizione, idasset=idbene, idpiece=1, idmaintenancekind=codicetipoevento, "
@@ -813,12 +715,6 @@ namespace Install
 			return Migrazione.lanciaScript(form, destConn, ds, "eventotecnico -> maintenance");
 		}
 
-		/// <summary>
-		/// Copia la tabella rivalutazionebene in assetamortization ponendo idpiece=1
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool esportaRivalutazioneBene(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string q = "select adate=datacontabile, amortizationquota=quotarivalutazione, "
 				+ "assetvalue=valorebene, ct=createtimestamp, cu=createuser, "
@@ -850,77 +746,41 @@ namespace Install
 			if (!controllaScaricoParteEBuono(form, SourceConn)) return false;
 			return true;
 		}
-		/// <summary>
-		/// Metodo da chiamare da CopiaTutto
-		/// Migra le tabelle di Patrimonio che non sono di configurazione e che non possono essere migrate
-		/// con una semplice copia
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="SourceConn"></param>
-		/// <param name="Conn"></param>
 		public static bool migraSpeciali(Form form, DataAccess SourceConn, DataAccess Conn, DataTable tColName) {
-			//			Migrazione.eseguiQuery(Conn, "truncate table assetacquire", form);
-			//			Migrazione.eseguiQuery(Conn, "truncate table asset", form);
 
 
-			//CaricoBeneInventario -> AssetAcquire
 			int lastNAssetAcquire;
 			if (!esportaCaricoBeneInventario(form, SourceConn, Conn, out lastNAssetAcquire)) return false;
 
-			//BeneInventariabile -> asset
 			if (!esportaBeneinventariabile(form, SourceConn, Conn)) return false;
 
-			//CaricoParteInventario -> AssetAcquire
 			int newlastNAssetAcquire;
 			if (!esportaCaricoParteInventario(form, SourceConn, Conn, lastNAssetAcquire, out newlastNAssetAcquire)) return false;
 
-			//(partenoninventariabile -> asset) e (scaricoparteinventario -> assetacquire)
-			//int newlastNAssetAcquire;
 			if (!esportaPartenoninventariabile(form, SourceConn, Conn, lastNAssetAcquire))return false;
 			lastNAssetAcquire=newlastNAssetAcquire;
 			
-			//AumentoValoreBene -> AssetAcquire
 			if (!esportaAumentoValoreBene(form, SourceConn, Conn, lastNAssetAcquire,out newlastNAssetAcquire))return false;
 			lastNAssetAcquire=newlastNAssetAcquire;
 
-			//DiminuzioneValoreBene -> AssetAcquire
 			if (!esportaDiminuzioneValoreBene(form, SourceConn, Conn, lastNAssetAcquire,out newlastNAssetAcquire))return false;
 			lastNAssetAcquire=newlastNAssetAcquire;
 
-			//eventotecnico -> maintenance
 			if (!esportaEventoTecnico(form, SourceConn, Conn)) return false;
 
-			//rivalutazionebene -> assetamortization
 			if (!(esportaRivalutazioneBene(form, SourceConn, Conn))) return false;
 
-			//causalecaricoinventario -> assetloadmotive
 			return esportaCausaleCaricoInventario(form, SourceConn, Conn, tColName);
 		}
 
-        //static string tabelleSpeciali = "'caricobeneinventario', 'beneinventariabile', 'caricoparteinventario', "
-        //    + "'partenoninventariabile', 'scaricoparteinventario', 'aumentovalorebene', 'diminuzionevalorebene', "
-        //    + "'eventotecnico', 'rivalutazionebene', 'causalecaricoinventario'";
 
 
 
-		/// <summary>
-		/// Metodo da chiamare se il checkBox del patrimonio è checked.
-		/// Migra tutte le tabelle del Patrimonio, di configurazione e non.
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tTableName"></param>
-		/// <param name="tColName"></param>
 		public static bool migraPatrimonio(Form form, DataAccess sourceConn, DataAccess destConn, 
 			DataTable tTableName, DataTable tColName) 
 		{
 			if (!migraSpeciali(form, sourceConn, destConn, tColName)) return false;
 
-            //DataRow[] rSpeciali = tTableName.Select("oldtable in ("+tabelleSpeciali+")");
-            //foreach (DataRow r in rSpeciali) {
-            //    r["copiato"] = "S";
-            //}
 			string filtro = "tipocopia='copia' and copiato='N' and chk like '%Patrimonio%'";
 
 			DataRow[] rTableName = tTableName.Select(filtro);

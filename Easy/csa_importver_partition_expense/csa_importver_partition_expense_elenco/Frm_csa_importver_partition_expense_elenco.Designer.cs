@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace csa_importver_partition_expense_elenco {
     partial class Frm_csa_importver_partition_expense_elenco {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace csa_importver_partition_expense_elenco {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
 			this.DS = new csa_importver_partition_expense_elenco.vistaForm();
 			this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
@@ -106,14 +94,8 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxAnagraficaVer.SuspendLayout();
 			this.gBoxAnagrafica.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
-			// 
-			// txtDenominazioneConto
-			// 
 			this.txtDenominazioneConto.Location = new System.Drawing.Point(136, 16);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
@@ -123,17 +105,11 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
-			// 
-			// txtCodiceConto
-			// 
 			this.txtCodiceConto.Location = new System.Drawing.Point(8, 72);
 			this.txtCodiceConto.Name = "txtCodiceConto";
 			this.txtCodiceConto.Size = new System.Drawing.Size(336, 20);
 			this.txtCodiceConto.TabIndex = 4;
 			this.txtCodiceConto.Tag = "account.codeacc";
-			// 
-			// button5
-			// 
 			this.button5.Location = new System.Drawing.Point(10, 45);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(120, 23);
@@ -141,9 +117,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.button5.TabStop = false;
 			this.button5.Tag = "manage.account.tree";
 			this.button5.Text = "Conto";
-			// 
-			// gboxSpesa
-			// 
 			this.gboxSpesa.Controls.Add(this.label15);
 			this.gboxSpesa.Controls.Add(this.cmbTipoMov);
 			this.gboxSpesa.Controls.Add(this.txtDescription);
@@ -159,18 +132,12 @@ namespace csa_importver_partition_expense_elenco {
 			this.gboxSpesa.TabIndex = 22;
 			this.gboxSpesa.TabStop = false;
 			this.gboxSpesa.Text = "Movimento di Spesa";
-			// 
-			// label15
-			// 
 			this.label15.Location = new System.Drawing.Point(38, 65);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(40, 16);
 			this.label15.TabIndex = 10;
 			this.label15.Text = "Tipo";
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cmbTipoMov
-			// 
 			this.cmbTipoMov.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbTipoMov.DataSource = this.DS.csa_movkind;
@@ -181,9 +148,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.cmbTipoMov.TabIndex = 9;
 			this.cmbTipoMov.Tag = "csa_movkind.movkind?csa_importver_partition_expenseview.movkind";
 			this.cmbTipoMov.ValueMember = "movkind";
-			// 
-			// txtDescription
-			// 
 			this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescription.Location = new System.Drawing.Point(6, 14);
@@ -193,18 +157,12 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtDescription.Size = new System.Drawing.Size(600, 44);
 			this.txtDescription.TabIndex = 6;
 			this.txtDescription.Tag = "expenseview.description";
-			// 
-			// label7
-			// 
 			this.label7.Location = new System.Drawing.Point(39, 92);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(40, 16);
 			this.label7.TabIndex = 0;
 			this.label7.Text = "Fase";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtNum
-			// 
 			this.txtNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtNum.Location = new System.Drawing.Point(217, 117);
@@ -212,35 +170,23 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtNum.Size = new System.Drawing.Size(194, 20);
 			this.txtNum.TabIndex = 5;
 			this.txtNum.Tag = "expenseview.nmov?csa_importver_partition_expenseview.nmov";
-			// 
-			// label13
-			// 
 			this.label13.Location = new System.Drawing.Point(158, 117);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(54, 16);
 			this.label13.TabIndex = 4;
 			this.label13.Text = "Numero:";
 			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtEserc
-			// 
 			this.txtEserc.Location = new System.Drawing.Point(86, 117);
 			this.txtEserc.Name = "txtEserc";
 			this.txtEserc.Size = new System.Drawing.Size(56, 20);
 			this.txtEserc.TabIndex = 3;
 			this.txtEserc.Tag = "expenseview.ymov.year?csa_importver_partition_expenseview.ymov.year";
-			// 
-			// label12
-			// 
 			this.label12.Location = new System.Drawing.Point(5, 118);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(75, 16);
 			this.label12.TabIndex = 0;
 			this.label12.Text = "Esercizio:";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cmbFaseSpesa
-			// 
 			this.cmbFaseSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbFaseSpesa.DataSource = this.DS.expensephase;
@@ -251,9 +197,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.cmbFaseSpesa.TabIndex = 2;
 			this.cmbFaseSpesa.Tag = "expenseview.nphase?csa_importver_partition_expenseview.nphaseexpense";
 			this.cmbFaseSpesa.ValueMember = "nphase";
-			// 
-			// txtCredDeb
-			// 
 			this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDeb.Location = new System.Drawing.Point(6, 20);
@@ -262,9 +205,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtCredDeb.Size = new System.Drawing.Size(383, 22);
 			this.txtCredDeb.TabIndex = 23;
 			this.txtCredDeb.Tag = "registry_main.title?csa_importver_partition_expenseview.registry_main";
-			// 
-			// gBoxCompetenza
-			// 
 			this.gBoxCompetenza.Controls.Add(this.txtCompetenza);
 			this.gBoxCompetenza.Location = new System.Drawing.Point(10, 73);
 			this.gBoxCompetenza.Name = "gBoxCompetenza";
@@ -272,9 +212,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxCompetenza.TabIndex = 38;
 			this.gBoxCompetenza.TabStop = false;
 			this.gBoxCompetenza.Text = "Competenza";
-			// 
-			// txtCompetenza
-			// 
 			this.txtCompetenza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCompetenza.Location = new System.Drawing.Point(6, 18);
@@ -284,9 +221,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtCompetenza.TabIndex = 1;
 			this.txtCompetenza.TabStop = false;
 			this.txtCompetenza.Tag = "csa_importver.competenza?csa_importver_partition_expenseview.competenza";
-			// 
-			// gBoxDatiCSA
-			// 
 			this.gBoxDatiCSA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gBoxDatiCSA.Controls.Add(this.textBox2);
@@ -306,9 +240,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxDatiCSA.Size = new System.Drawing.Size(619, 113);
 			this.gBoxDatiCSA.TabIndex = 40;
 			this.gBoxDatiCSA.TabStop = false;
-			// 
-			// textBox2
-			// 
 			this.textBox2.Location = new System.Drawing.Point(416, 73);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -316,18 +247,12 @@ namespace csa_importver_partition_expense_elenco {
 			this.textBox2.TabIndex = 8;
 			this.textBox2.TabStop = false;
 			this.textBox2.Tag = "csa_importver.matricola?csa_importver_partition_expenseview.matricola";
-			// 
-			// label2
-			// 
 			this.label2.Location = new System.Drawing.Point(416, 56);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(103, 16);
 			this.label2.TabIndex = 7;
 			this.label2.Text = "Matricola:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// textBox4
-			// 
 			this.textBox4.Location = new System.Drawing.Point(184, 75);
 			this.textBox4.Name = "textBox4";
 			this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -335,27 +260,18 @@ namespace csa_importver_partition_expense_elenco {
 			this.textBox4.TabIndex = 6;
 			this.textBox4.TabStop = false;
 			this.textBox4.Tag = "csa_importver.vocecsaunified?csa_importver_partition_expenseview.vocecsaunified";
-			// 
-			// label4
-			// 
 			this.label4.Location = new System.Drawing.Point(182, 58);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(190, 16);
 			this.label4.TabIndex = 5;
 			this.label4.Text = "Voce CSA per Raggruppamento:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label5
-			// 
 			this.label5.Location = new System.Drawing.Point(182, 16);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(72, 16);
 			this.label5.TabIndex = 0;
 			this.label5.Text = "Ente CSA:";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtEnteCsa
-			// 
 			this.txtEnteCsa.Location = new System.Drawing.Point(185, 33);
 			this.txtEnteCsa.Name = "txtEnteCsa";
 			this.txtEnteCsa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -363,9 +279,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtEnteCsa.TabIndex = 2;
 			this.txtEnteCsa.TabStop = false;
 			this.txtEnteCsa.Tag = "csa_importver.ente?csa_importver_partition_expenseview.ente";
-			// 
-			// txtVoceCsa
-			// 
 			this.txtVoceCsa.Location = new System.Drawing.Point(11, 75);
 			this.txtVoceCsa.Name = "txtVoceCsa";
 			this.txtVoceCsa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -373,27 +286,18 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtVoceCsa.TabIndex = 4;
 			this.txtVoceCsa.TabStop = false;
 			this.txtVoceCsa.Tag = "csa_importver.vocecsa?csa_importver_partition_expenseview.vocecsa";
-			// 
-			// label3
-			// 
 			this.label3.Location = new System.Drawing.Point(8, 58);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(103, 16);
 			this.label3.TabIndex = 0;
 			this.label3.Text = "Voce CSA:";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label6
-			// 
 			this.label6.Location = new System.Drawing.Point(413, 16);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(127, 16);
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Ruolo CSA:";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// txtRuoloCsa
-			// 
 			this.txtRuoloCsa.Location = new System.Drawing.Point(417, 33);
 			this.txtRuoloCsa.Name = "txtRuoloCsa";
 			this.txtRuoloCsa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -401,9 +305,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtRuoloCsa.TabIndex = 3;
 			this.txtRuoloCsa.TabStop = false;
 			this.txtRuoloCsa.Tag = "csa_importver.ruolocsa?csa_importver_partition_expenseview.ruolocsa";
-			// 
-			// txtCapitoloCsa
-			// 
 			this.txtCapitoloCsa.Location = new System.Drawing.Point(8, 33);
 			this.txtCapitoloCsa.Name = "txtCapitoloCsa";
 			this.txtCapitoloCsa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -411,18 +312,12 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtCapitoloCsa.TabIndex = 1;
 			this.txtCapitoloCsa.TabStop = false;
 			this.txtCapitoloCsa.Tag = "csa_importver.capitolocsa?csa_importver_partition_expenseview.capitolocsa";
-			// 
-			// label8
-			// 
 			this.label8.Location = new System.Drawing.Point(6, 16);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(105, 16);
 			this.label8.TabIndex = 0;
 			this.label8.Text = "Capitolo CSA:";
 			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// gboxtipo
-			// 
 			this.gboxtipo.Controls.Add(this.rdbCompetenza);
 			this.gboxtipo.Controls.Add(this.rdbResidui);
 			this.gboxtipo.Location = new System.Drawing.Point(416, 64);
@@ -431,27 +326,18 @@ namespace csa_importver_partition_expense_elenco {
 			this.gboxtipo.TabIndex = 37;
 			this.gboxtipo.TabStop = false;
 			this.gboxtipo.Text = "Tipo";
-			// 
-			// rdbCompetenza
-			// 
 			this.rdbCompetenza.Location = new System.Drawing.Point(11, 16);
 			this.rdbCompetenza.Name = "rdbCompetenza";
 			this.rdbCompetenza.Size = new System.Drawing.Size(90, 16);
 			this.rdbCompetenza.TabIndex = 1;
 			this.rdbCompetenza.Tag = "csa_importver.flagcr:C?csa_importver_partition_expenseview.flagcr:C";
 			this.rdbCompetenza.Text = "Competenza";
-			// 
-			// rdbResidui
-			// 
 			this.rdbResidui.Location = new System.Drawing.Point(11, 36);
 			this.rdbResidui.Name = "rdbResidui";
 			this.rdbResidui.Size = new System.Drawing.Size(90, 16);
 			this.rdbResidui.TabIndex = 1;
 			this.rdbResidui.Tag = "csa_importver.flagcr:R?csa_importver_partition_expenseview.flagcr:R";
 			this.rdbResidui.Text = "Residui";
-			// 
-			// gBoxImportazione
-			// 
 			this.gBoxImportazione.Controls.Add(this.txtNumImport);
 			this.gBoxImportazione.Controls.Add(this.label9);
 			this.gBoxImportazione.Controls.Add(this.txtEsercImport);
@@ -463,44 +349,29 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxImportazione.TabStop = false;
 			this.gBoxImportazione.Tag = "AutoChoose.txtNumImport.default";
 			this.gBoxImportazione.Text = "Importazione";
-			// 
-			// txtNumImport
-			// 
 			this.txtNumImport.Location = new System.Drawing.Point(195, 15);
 			this.txtNumImport.Name = "txtNumImport";
 			this.txtNumImport.Size = new System.Drawing.Size(56, 20);
 			this.txtNumImport.TabIndex = 2;
 			this.txtNumImport.Tag = "csa_import.nimport?csa_importver_partition_expenseview.nimport";
-			// 
-			// label9
-			// 
 			this.label9.Location = new System.Drawing.Point(137, 17);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(56, 16);
 			this.label9.TabIndex = 0;
 			this.label9.Text = "Numero:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtEsercImport
-			// 
 			this.txtEsercImport.Location = new System.Drawing.Point(68, 15);
 			this.txtEsercImport.Name = "txtEsercImport";
 			this.txtEsercImport.ReadOnly = true;
 			this.txtEsercImport.Size = new System.Drawing.Size(56, 20);
 			this.txtEsercImport.TabIndex = 1;
 			this.txtEsercImport.Tag = "csa_import.yimport.year?csa_importver_partition_expenseview.yimport.year";
-			// 
-			// label10
-			// 
 			this.label10.Location = new System.Drawing.Point(6, 17);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(56, 16);
 			this.label10.TabIndex = 0;
 			this.label10.Text = "Esercizio:";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxVersamento
-			// 
 			this.gBoxVersamento.Controls.Add(this.txtNumVer);
 			this.gBoxVersamento.Controls.Add(this.label14);
 			this.gBoxVersamento.Location = new System.Drawing.Point(12, 12);
@@ -510,26 +381,17 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxVersamento.TabStop = false;
 			this.gBoxVersamento.Tag = "";
 			this.gBoxVersamento.Text = "Versamento";
-			// 
-			// txtNumVer
-			// 
 			this.txtNumVer.Location = new System.Drawing.Point(22, 35);
 			this.txtNumVer.Name = "txtNumVer";
 			this.txtNumVer.Size = new System.Drawing.Size(56, 20);
 			this.txtNumVer.TabIndex = 2;
 			this.txtNumVer.Tag = "csa_importver.idver?csa_importver_partition_expenseview.idver";
-			// 
-			// label14
-			// 
 			this.label14.Location = new System.Drawing.Point(12, 17);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(56, 16);
 			this.label14.TabIndex = 0;
 			this.label14.Text = "Numero:";
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxDettaglio
-			// 
 			this.gBoxDettaglio.Controls.Add(this.textBox1);
 			this.gBoxDettaglio.Controls.Add(this.label1);
 			this.gBoxDettaglio.Location = new System.Drawing.Point(129, 20);
@@ -539,27 +401,18 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxDettaglio.TabStop = false;
 			this.gBoxDettaglio.Tag = "";
 			this.gBoxDettaglio.Text = "Dettaglio";
-			// 
-			// textBox1
-			// 
 			this.textBox1.Location = new System.Drawing.Point(82, 18);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(56, 20);
 			this.textBox1.TabIndex = 3;
 			this.textBox1.Tag = "csa_importver_partition_expense.ndetail?csa_importver_partition_expenseview.ndeta" +
     "il";
-			// 
-			// label1
-			// 
 			this.label1.Location = new System.Drawing.Point(18, 18);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(56, 16);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Numero:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxImporto
-			// 
 			this.gBoxImporto.Controls.Add(this.label11);
 			this.gBoxImporto.Controls.Add(this.txtImporto);
 			this.gBoxImporto.Location = new System.Drawing.Point(284, 20);
@@ -567,18 +420,12 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxImporto.Size = new System.Drawing.Size(144, 46);
 			this.gBoxImporto.TabIndex = 34;
 			this.gBoxImporto.TabStop = false;
-			// 
-			// label11
-			// 
 			this.label11.Location = new System.Drawing.Point(5, 16);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(56, 16);
 			this.label11.TabIndex = 0;
 			this.label11.Text = "Importo:";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtImporto
-			// 
 			this.txtImporto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtImporto.Location = new System.Drawing.Point(67, 12);
@@ -589,9 +436,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtImporto.TabStop = false;
 			this.txtImporto.Tag = "csa_importver_partition_expense.amount?csa_importver_partition_expenseview.amount" +
     "";
-			// 
-			// gBoxAnagraficaEnte
-			// 
 			this.gBoxAnagraficaEnte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gBoxAnagraficaEnte.Controls.Add(this.txtCredDebEnte);
@@ -602,9 +446,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxAnagraficaEnte.TabStop = false;
 			this.gBoxAnagraficaEnte.Tag = "AutoChoose.txtCredDebEnte.lista.(active=\'S\')";
 			this.gBoxAnagraficaEnte.Text = "Anagrafica associata all\'Ente ";
-			// 
-			// txtCredDebEnte
-			// 
 			this.txtCredDebEnte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDebEnte.Location = new System.Drawing.Point(8, 17);
@@ -612,9 +453,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtCredDebEnte.Size = new System.Drawing.Size(311, 20);
 			this.txtCredDebEnte.TabIndex = 1;
 			this.txtCredDebEnte.Tag = "registry_agency.title?csa_importver_partition_expenseview.registry_agency";
-			// 
-			// gBoxEnte
-			// 
 			this.gBoxEnte.Controls.Add(this.cmbEnte);
 			this.gBoxEnte.Location = new System.Drawing.Point(7, 299);
 			this.gBoxEnte.Name = "gBoxEnte";
@@ -622,9 +460,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxEnte.TabIndex = 52;
 			this.gBoxEnte.TabStop = false;
 			this.gBoxEnte.Text = "Ente";
-			// 
-			// cmbEnte
-			// 
 			this.cmbEnte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbEnte.DataSource = this.DS.csa_agency;
@@ -635,9 +470,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.cmbEnte.TabIndex = 1;
 			this.cmbEnte.Tag = "csa_agency.idcsa_agency?csa_importver_partitionview.idcsa_agency";
 			this.cmbEnte.ValueMember = "idcsa_agency";
-			// 
-			// gBoxAnagraficaVer
-			// 
 			this.gBoxAnagraficaVer.Controls.Add(this.txtCredDebVer);
 			this.gBoxAnagraficaVer.Location = new System.Drawing.Point(9, 246);
 			this.gBoxAnagraficaVer.Name = "gBoxAnagraficaVer";
@@ -646,9 +478,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxAnagraficaVer.TabStop = false;
 			this.gBoxAnagraficaVer.Tag = "AutoChoose.txtCredDebVer.lista.(active=\'S\')";
 			this.gBoxAnagraficaVer.Text = "Anagrafica Regola specifica CSA";
-			// 
-			// txtCredDebVer
-			// 
 			this.txtCredDebVer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDebVer.Location = new System.Drawing.Point(8, 17);
@@ -656,9 +485,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.txtCredDebVer.Size = new System.Drawing.Size(401, 20);
 			this.txtCredDebVer.TabIndex = 1;
 			this.txtCredDebVer.Tag = "registry.title?csa_importver_partition_expenseview.registry";
-			// 
-			// gBoxAnagrafica
-			// 
 			this.gBoxAnagrafica.Controls.Add(this.txtCredDeb);
 			this.gBoxAnagrafica.Location = new System.Drawing.Point(11, 353);
 			this.gBoxAnagrafica.Name = "gBoxAnagrafica";
@@ -667,9 +493,6 @@ namespace csa_importver_partition_expense_elenco {
 			this.gBoxAnagrafica.TabStop = false;
 			this.gBoxAnagrafica.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
 			this.gBoxAnagrafica.Text = "Anagrafica Movimento";
-			// 
-			// Frm_csa_importver_partition_expense_elenco
-			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(642, 571);

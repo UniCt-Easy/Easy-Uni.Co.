@@ -19,16 +19,14 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using metadatalibrary;
 using System.Data;
-using funzioni_configurazione;//funzioni_configurazione
+using funzioni_configurazione;
 using ep_functions;
 
-namespace payroll_trasf_cedolino {//cedolino_trasferimento//
-    /// <summary>
-    /// Summary description for payroll_trasf_cedolino.
-    /// </summary>
+namespace payroll_trasf_cedolino {
     public class frmcedolino_trasferimento : MetaDataForm {
         MetaData Meta;
         int esercizio;
+        int statoCheckboxRiepilogo = int.MinValue;
         string CustomTitle;
         private ArrayList pagine;
         private int selectedIndex;
@@ -58,9 +56,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         private System.Windows.Forms.Label label20;
         public vistaForm DS;
         public dsCedolino dsCedolino;
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.Container components = null;
         QueryHelper QHS;
         private CheckBox chkConguaglioRiepilogativo;
@@ -72,7 +67,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             InitializeComponent();
             CustomTitle = "Wizard Trasferimento dei Cedolini";
             pagine = new ArrayList();
-            // Inserisco manualmente i TAB in quanto nonostante la corretta numerazione vengono visti in ordine differente
             pagine.Add(tabIntro);
             pagine.Add(tabCedNonTrasferibili);
             pagine.Add(tabCedTrasferibili);
@@ -108,9 +102,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             if (T == null) return;
             exportclass.DataTableToExcel(T, true);
         }
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
         protected override void Dispose(bool disposing) {
             if (disposing) {
                 if (components != null) {
@@ -164,10 +155,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         }
 
         #region Windows Form Designer generated code
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
 			this.DS = new payroll_trasf_cedolino.vistaForm();
 			this.tabController = new System.Windows.Forms.TabControl();
@@ -206,15 +193,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			((System.ComponentModel.ISupportInitialize)(this.dgCedoliniTrasferibili)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsCedolino)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
 			this.DS.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// tabController
-			// 
 			this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -226,9 +207,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.tabController.SelectedIndex = 0;
 			this.tabController.Size = new System.Drawing.Size(766, 477);
 			this.tabController.TabIndex = 0;
-			// 
-			// tabIntro
-			// 
 			this.tabIntro.Controls.Add(this.lblErrore);
 			this.tabIntro.Controls.Add(this.label16);
 			this.tabIntro.Controls.Add(this.label6);
@@ -240,18 +218,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.tabIntro.Size = new System.Drawing.Size(758, 451);
 			this.tabIntro.TabIndex = 0;
 			this.tabIntro.Text = "Pagina 1 di 3";
-			// 
-			// lblErrore
-			// 
 			this.lblErrore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblErrore.Location = new System.Drawing.Point(16, 245);
 			this.lblErrore.Name = "lblErrore";
 			this.lblErrore.Size = new System.Drawing.Size(712, 88);
 			this.lblErrore.TabIndex = 20;
 			this.lblErrore.Text = "Visualizza Errore";
-			// 
-			// label16
-			// 
 			this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label16.Location = new System.Drawing.Point(24, 80);
@@ -260,9 +232,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label16.TabIndex = 19;
 			this.label16.Text = "Vengono mostrati tutti i cedolini non trasferibili con la causa della loro non tr" +
     "asferibilità";
-			// 
-			// label6
-			// 
 			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label6.Location = new System.Drawing.Point(24, 144);
@@ -271,27 +240,18 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label6.TabIndex = 17;
 			this.label6.Text = "Vengono mostrati tutti i cedolini trasferibili. L\'utente sceglierà quali trasferi" +
     "re nell\'esercizio successivo";
-			// 
-			// label5
-			// 
 			this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.Location = new System.Drawing.Point(8, 56);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(264, 16);
 			this.label5.TabIndex = 16;
 			this.label5.Text = "FASE 1: Griglia dei Cedolini Non Trasferibili";
-			// 
-			// label4
-			// 
 			this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.Location = new System.Drawing.Point(8, 112);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(264, 16);
 			this.label4.TabIndex = 15;
 			this.label4.Text = "FASE 2: Griglia dei cedolini trasferibili";
-			// 
-			// label1
-			// 
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Location = new System.Drawing.Point(8, 8);
@@ -300,9 +260,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label1.TabIndex = 14;
 			this.label1.Text = "La procedura di trasferimento dei cedolini consente di trasferire i cedolini dall" +
     "\'anno fiscale corrente all\'anno fiscale successivo.";
-			// 
-			// tabCedNonTrasferibili
-			// 
 			this.tabCedNonTrasferibili.Controls.Add(this.label17);
 			this.tabCedNonTrasferibili.Controls.Add(this.label24);
 			this.tabCedNonTrasferibili.Controls.Add(this.dgCedoliniNonTrasferibili);
@@ -311,9 +268,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.tabCedNonTrasferibili.Size = new System.Drawing.Size(758, 451);
 			this.tabCedNonTrasferibili.TabIndex = 1;
 			this.tabCedNonTrasferibili.Text = "Pagina 2 di 3";
-			// 
-			// label17
-			// 
 			this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label17.Location = new System.Drawing.Point(8, 32);
@@ -322,9 +276,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label17.TabIndex = 18;
 			this.label17.Text = "TUTTI I CEDOLINI ELENCATI DEVONO ESSERE EROGATI IN QUESTO ANNO";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
-			// label24
-			// 
 			this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label24.Location = new System.Drawing.Point(8, 8);
@@ -333,9 +284,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label24.TabIndex = 19;
 			this.label24.Text = "FASE 1: viene mostrato l\'elenco dei cedolini non trasferibili";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
-			// dgCedoliniNonTrasferibili
-			// 
 			this.dgCedoliniNonTrasferibili.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -345,9 +293,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.dgCedoliniNonTrasferibili.Name = "dgCedoliniNonTrasferibili";
 			this.dgCedoliniNonTrasferibili.Size = new System.Drawing.Size(742, 389);
 			this.dgCedoliniNonTrasferibili.TabIndex = 0;
-			// 
-			// tabCedTrasferibili
-			// 
 			this.tabCedTrasferibili.Controls.Add(this.label2);
 			this.tabCedTrasferibili.Controls.Add(this.chkConguaglioRiepilogativo);
 			this.tabCedTrasferibili.Controls.Add(this.txtCedoliniSelezionati);
@@ -363,9 +308,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.tabCedTrasferibili.Size = new System.Drawing.Size(758, 451);
 			this.tabCedTrasferibili.TabIndex = 2;
 			this.tabCedTrasferibili.Text = "Pagina 3 di 3";
-			// 
-			// label2
-			// 
 			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -375,9 +317,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label2.TabIndex = 18;
 			this.label2.Text = "N.B.:Si sconsiglia di effettuare tale operazione in quanto il conguaglio fiscale " +
     "è un obbligo del sostituto d\'imposta.";
-			// 
-			// chkConguaglioRiepilogativo
-			// 
 			this.chkConguaglioRiepilogativo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.chkConguaglioRiepilogativo.AutoSize = true;
 			this.chkConguaglioRiepilogativo.Location = new System.Drawing.Point(11, 406);
@@ -387,9 +326,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.chkConguaglioRiepilogativo.Text = "Per i cedolini selezionati, NON calcolare un CONGUAGLIO  FISCALE ma solo un Cedol" +
     "ino di Riepilogo di quanto già erogato nell\'esercizio.";
 			this.chkConguaglioRiepilogativo.UseVisualStyleBackColor = true;
-			// 
-			// txtCedoliniSelezionati
-			// 
 			this.txtCedoliniSelezionati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCedoliniSelezionati.Location = new System.Drawing.Point(112, 372);
@@ -397,18 +333,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.txtCedoliniSelezionati.ReadOnly = true;
 			this.txtCedoliniSelezionati.Size = new System.Drawing.Size(638, 20);
 			this.txtCedoliniSelezionati.TabIndex = 16;
-			// 
-			// txtSelezionaCedolini
-			// 
 			this.txtSelezionaCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtSelezionaCedolini.Location = new System.Drawing.Point(88, 340);
 			this.txtSelezionaCedolini.Name = "txtSelezionaCedolini";
 			this.txtSelezionaCedolini.Size = new System.Drawing.Size(662, 20);
 			this.txtSelezionaCedolini.TabIndex = 15;
-			// 
-			// btnSelezionaCedolini
-			// 
 			this.btnSelezionaCedolini.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnSelezionaCedolini.Location = new System.Drawing.Point(8, 340);
 			this.btnSelezionaCedolini.Name = "btnSelezionaCedolini";
@@ -416,9 +346,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.btnSelezionaCedolini.TabIndex = 13;
 			this.btnSelezionaCedolini.Text = "Seleziona";
 			this.btnSelezionaCedolini.Click += new System.EventHandler(this.btnSelezionaCedolini_Click);
-			// 
-			// label19
-			// 
 			this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label19.Location = new System.Drawing.Point(8, 316);
 			this.label19.Name = "label19";
@@ -426,18 +353,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label19.TabIndex = 12;
 			this.label19.Text = "Immettere i numeri e/o gli intervalli di cedolini separati da virgole. Es.: per s" +
     "elezionare i cedolini 1,4,6,7,8 scrivere 1,4,6-8 e premi Seleziona.";
-			// 
-			// label20
-			// 
 			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label20.Location = new System.Drawing.Point(8, 372);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(104, 24);
 			this.label20.TabIndex = 14;
 			this.label20.Text = "Cedolini Selezionati";
-			// 
-			// label23
-			// 
 			this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label23.Location = new System.Drawing.Point(8, 8);
@@ -446,18 +367,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.label23.TabIndex = 10;
 			this.label23.Text = "FASE 2: Scelta dei cedolini da trasferire nell\'esercizio successivo";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-			// 
-			// label18
-			// 
 			this.label18.Location = new System.Drawing.Point(8, 32);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(744, 16);
 			this.label18.TabIndex = 9;
 			this.label18.Text = "Tenere premuto il tasto CTRL o MAIUSC e contemporaneamente cliccare con il mouse " +
     "per selezionare più cedolini";
-			// 
-			// dgCedoliniTrasferibili
-			// 
 			this.dgCedoliniTrasferibili.AllowNavigation = false;
 			this.dgCedoliniTrasferibili.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -470,9 +385,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.dgCedoliniTrasferibili.TabIndex = 2;
 			this.dgCedoliniTrasferibili.CurrentCellChanged += new System.EventHandler(this.dgCedoliniTrasferibili_CurrentCellChanged);
 			this.dgCedoliniTrasferibili.Paint += new System.Windows.Forms.PaintEventHandler(this.dgCedoliniTrasferibili_Paint);
-			// 
-			// btnAnnulla
-			// 
 			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnAnnulla.Location = new System.Drawing.Point(694, 493);
@@ -480,9 +392,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
 			this.btnAnnulla.TabIndex = 7;
 			this.btnAnnulla.Text = "Annulla";
-			// 
-			// btnIndietro
-			// 
 			this.btnIndietro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnIndietro.Location = new System.Drawing.Point(496, 493);
 			this.btnIndietro.Name = "btnIndietro";
@@ -490,9 +399,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.btnIndietro.TabIndex = 5;
 			this.btnIndietro.Text = "< Indietro";
 			this.btnIndietro.Click += new System.EventHandler(this.btnIndietro_Click);
-			// 
-			// btnAvanti
-			// 
 			this.btnAvanti.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.btnAvanti.Cursor = System.Windows.Forms.Cursors.Default;
 			this.btnAvanti.Location = new System.Drawing.Point(587, 493);
@@ -501,15 +407,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			this.btnAvanti.TabIndex = 6;
 			this.btnAvanti.Text = "Avanti >";
 			this.btnAvanti.Click += new System.EventHandler(this.btnAvanti_Click);
-			// 
-			// dsCedolino
-			// 
 			this.dsCedolino.DataSetName = "dsCedolino";
 			this.dsCedolino.EnforceConstraints = false;
 			this.dsCedolino.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// frmcedolino_trasferimento
-			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(782, 523);
 			this.Controls.Add(this.btnAnnulla);
@@ -533,12 +433,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         #endregion
 
         #region Riempimento e Gestione delle tabelle payroll del DataSet dsCedolino
-        /// <summary>
-        /// Legge tutti i cedolini dell'anno fiscale corrente non di conguaglio e non erogati, fatti salvi quelli nella tabella cedolinonontrasferibile
-        /// Le righe sono lette in dsCedolino.payroll
-        /// </summary>
         private void riempiCedolino() {
-            // Selezione dei cedolini Trasferibili
             string fCedoliniTrasferibili = QHS.AppAnd(QHS.CmpEq("fiscalyear", esercizio),
                 QHS.CmpEq("flagbalance", "N"), QHS.IsNull("disbursementdate"));
             if (dsCedolino.cedolinonontrasferibile.Rows.Count > 0) {
@@ -547,30 +442,22 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.payroll, "idcon", fCedoliniTrasferibili, null, true);
 
-            //Di ogni cedolino legge il contratto e l'imputazione del contratto nell'anno corrente
             if (dsCedolino.payroll.Rows.Count > 0) {
                 string filtroSuContratti = QHS.FieldIn("idcon", dsCedolino.payroll.Select());
                 DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.parasubcontract, null, filtroSuContratti, null, true);
                 string filtroSuImputazioneContratto = QHS.AppAnd(filtroSuContratti, QHS.CmpEq("ayear", esercizio));
                 DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.parasubcontractyear, null, filtroSuImputazioneContratto, null, true);
-                riempiCedolinoAnnoSuccessivo(filtroSuContratti);   //legge i cedolini nell'anno successivo dei contratti implicati
+                riempiCedolinoAnnoSuccessivo(filtroSuContratti);
             }
         }
 
 
-        /// <summary>
-        /// Riempie la tabella CEDOLINONONTRASFERIBILE  che contiene i cedolini non trasferibili per varie specificate cause
-        /// I cedolini sono quelli dell'anno fiscale corrente
-        /// </summary>
         private void riempiCedolinoNonTrasferibile() {
             string filtroCedolini = "";
-            // Selezione dei cedolini Non Trasferibili
 
-            // 1. Cedolini dell'anno in corso di cui il contratto non ha un cedolino di conguaglio
             string queryContrattiSenzaConguaglio = "SELECT DISTINCT payroll.idcon"
                 + " FROM payroll "
                 + " WHERE (payroll.fiscalyear = " + QHS.quote(esercizio) + ") "
-                //+ " AND payroll.disbursementdate is null AND payroll.flagbalance='N' "
                 + " AND NOT EXISTS "
                 + " (SELECT * FROM payroll c "
                 + " WHERE (c.fiscalyear = " + QHS.quote(esercizio) + ") "
@@ -593,7 +480,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 if (r["!causa"] == DBNull.Value) r["!causa"] = "Contratto senza cedolino di conguaglio";
             }
 
-            //2.Cedolini Non Erogati di Conguaglio, andranno rimossi
             string filtraCedoliniConguaglio = QHS.AppAnd(QHS.CmpEq("fiscalyear", esercizio),
                     QHS.IsNull("disbursementdate"), QHS.CmpEq("flagbalance", "S"));
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.cedolinonontrasferibile,
@@ -603,7 +489,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
 
 
-            // 3.  Cedolini dell'anno in corso di cui il contratto non esiste   nell'esercizio corrente
             string queryContrattiSenzaImputazione = "SELECT DISTINCT payroll.idcon"
               + " FROM payroll "
               + " WHERE (payroll.fiscalyear = " + QHS.quote(esercizio) + ") "
@@ -625,7 +510,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 if (r["!causa"] == DBNull.Value) r["!causa"] = "Cedolini con contratto senza imputazione nell'esercizio " + esercizio.ToString();
             }
 
-            // 4.  Cedolini dell'anno in corso di cui il contratto non esiste  a livello di parasubcontract
             string queryCedoliniSenzaContratto = "SELECT DISTINCT payroll.idcon"
               + " FROM payroll "
               + " WHERE (payroll.fiscalyear = " + QHS.quote(esercizio) + ") "
@@ -647,30 +531,10 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
 
 
-            // 4.  Cedolini dell'anno in corso di cui il contratto non esiste   nell'esercizio SUCCESSIVO
-            //string queryContrattiSenzaImputazioneAnnoSuccessivo = "SELECT DISTINCT payroll.idcon"
-            //  + " FROM payroll "
-            //  + " WHERE (payroll.fiscalyear = " + QHS.quote(esercizio) + ") "
-            //  + " AND payroll.disbursementdate is null AND payroll.flagbalance='N' "
-            //  + " AND NOT EXISTS "
-            //  + " (SELECT * FROM parasubcontractyear "
-            //  + " WHERE (parasubcontractyear.idcon = payroll.idcon) "
-            //  + " AND (parasubcontractyear.ayear = " + QHS.quote(esercizio+1) + ")) ";
 
 
-            //DataTable tContrattiSenzaSenzaImputazioneSucc = Meta.Conn.SQLRunner(queryContrattiSenzaImputazioneAnnoSuccessivo);
-            //if (tContrattiSenzaSenzaImputazioneSucc != null && tContrattiSenzaSenzaImputazioneSucc.Rows.Count > 0) {
-            //    string filtraCedoliniSenzaImputazioneContrattoSucc = QHS.AppAnd(QHC.FieldIn("idcon", tContrattiSenzaSenzaImputazioneSucc.Select()),
-            //        QHS.CmpEq("fiscalyear", esercizio), QHS.IsNull("disbursementdate"), QHS.CmpEq("flagbalance", "N"));
 
-            //    DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.cedolinonontrasferibile,
-            //    null, filtraCedoliniSenzaImputazioneContrattoSucc, null, true);
-            //}
-            //foreach (DataRow r in dsCedolino.cedolinonontrasferibile.Rows) {
-            //    if (r["!causa"] == DBNull.Value) r["!causa"] = "Cedolini con contratto senza imputazione nell'esercizio " + (esercizio+1);
-            //}
 
-            // 5. Cedolini il cui contratto abbia un CUD collegato e non vi sia alcun cedolino erogato nell'anno in corso.
 
             string queryCedoliniNonErogaticonCUDcollegato = "SELECT DISTINCT payroll.idcon"
               + " FROM payroll "
@@ -696,31 +560,18 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
         }
 
-        /// <summary>
-        /// Riempie la tabella CEDOLINOANNOSUCCESSIVO di dsCedolino, ossia i cedolini dell'anno fiscale successivo + il filtro dato
-        /// </summary>
-        /// <param name="filtro">filtro sui cedolini da leggere</param>
         private void riempiCedolinoAnnoSuccessivo(string filtro) {
-            // Riempimento Cedolini degli anni successivi
             string filtroSuCedolino = QHS.AppAnd(filtro, QHS.CmpEq("fiscalyear", esercizio + 1));
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.cedolinoannosuccessivo, null, filtroSuCedolino, null, true);
         }
 
-        /// <summary>
-        /// Riempie la tabella CEDOLINOEROGATO, ossia tutti i cedolini erogati dell'anno fiscale corrente
-        /// </summary>
         private void riempiCedolinoErogato() {
-            // Selezione dei cedolini dell'anno fiscale già erogati
             string fCedoliniErogati = QHS.AppAnd(QHS.CmpEq("fiscalyear", esercizio), QHS.IsNotNull("disbursementdate"));
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.cedolinoerogato, null, fCedoliniErogati, null, true);
             dsCedolino.cedolinoerogato.AcceptChanges();
         }
 
-        /// <summary>
-        /// Riempie le tabelle figlie di payroll sia per le righe di payroll che per le righe di  cedolinonontrasferibile
-        /// </summary>
         private void riempiFigliCedolino() {
-            // Selezione dei dati dipendenti dai cedolini non erogati e calcolati
             string fChildCedolino = "";
             if (dsCedolino.payroll.Rows.Count > 0) {
                 fChildCedolino = QHS.FieldIn("idpayroll", dsCedolino.payroll.Select());
@@ -739,9 +590,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, dsCedolino.payrolltaxcorrige, null, fChildCedolino, null, true);
         }
 
-        /// <summary>
-        /// Metodo che riempie le tabelle cedoliniNonTrasferibili e cedoliniTrasferibili
-        /// </summary>
         void riempiTabCedolini() {
 
             riempiCedolinoNonTrasferibile();
@@ -757,10 +605,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             riempiCedolinoErogato();
         }
 
-        /// <summary>
-        /// Metodo che assegna le caption ai campi di cedolino
-        /// </summary>
-        /// <param name="dt">Tabella da processare</param>
         void assegnaCaptionTabCedolino(DataTable dt) {
             foreach (DataColumn C in dt.Columns) {
                C.Caption = "";
@@ -794,9 +638,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			}
 		}
 
-        /// <summary>
-        /// Metodo che imposta i campi calcolati della tabella CEDOLINONONTRASFERIBILE
-        /// </summary>
         void impostaCampiCalcolatiCedolinoNonTrasferibile() {
             foreach (DataRow cedolinoRow in dsCedolino.cedolinonontrasferibile.Rows) {
                 DataRow rContratto = selezionaInfoContratto(cedolinoRow["idcon"].ToString());
@@ -813,9 +654,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			}
         }
 
-        /// <summary>
-        /// Metodo che imposta i campi calcolati della tabella CEDOLINO
-        /// </summary>
         void impostaCampiCalcolatiCedolino() {
             foreach (DataRow r in dsCedolino.payroll.Rows) {
                 DataRow rContratto = r.GetParentRow("parasubcontractpayroll");
@@ -885,11 +723,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        /// Metodo che restituisce un DataTable con le informazioni sul contratto
-        /// </summary>
-        /// <param name="idContratto">ID del contratto di cui avere le informazioni</param>
-        /// <returns>Tabella </returns>
         private DataRow selezionaInfoContratto(object idContratto) {
             string filtroContratto = QHS.AppAnd(QHS.CmpEq("idcon", idContratto),
                     QHS.CmpEq("ayear", esercizio));
@@ -898,11 +731,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             return ((temp != null) && (temp.Rows.Count > 0)) ? temp.Rows[0] : null;
         }
 
-        /// <summary>
-        /// Metodo che restituisce la denominazione del percipiente
-        /// </summary>
-        /// <param name="codicecreddeb">Codice del percipiente</param>
-        /// <returns></returns>
         string selezionaCollaboratore(object codicecreddeb) {
             string filtroCreditore = QHS.CmpEq("idreg", codicecreddeb);
             object creditore = Meta.Conn.DO_READ_VALUE("registry", filtroCreditore, "title");
@@ -911,8 +739,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         #endregion
 
         #region Riempimento dei grid presenti nel WIZARD
-        // Passo 1 del WIZARD - Elenco dei cedolini che non possono essere trasferiti in quanto esistono nello stesso
-        // contratto cedolini di altri anni ancora non erogati o esiste un cedolino dello stesso contratto calcolato ma non erogato
         void riempidgCedoliniNonTrasferibili() {
             if (dgCedoliniNonTrasferibili.DataSource == null) {
                 HelpForm.SetDataGrid(dgCedoliniNonTrasferibili, dsCedolino.cedolinonontrasferibile);
@@ -920,7 +746,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        // Passo 2 del WIZARD - Elenco dei cedolini che possono essere trasferiti
         void riempidgCedoliniTrasferibili() {
             if (dgCedoliniTrasferibili.DataSource == null) {
                 HelpForm.SetDataGrid(dgCedoliniTrasferibili, dsCedolino.payroll);
@@ -930,10 +755,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         #endregion
 
         #region Gestione Bottoni del Wizard (ad esempio Avanti - Indietro etc.)
-        /// <summary>
-        /// Metodo che visualizza il Tab corrente
-        /// </summary>
-        /// <param name="newTab">Indice del Tab da visualizzare</param>
         void DisplayTabs(int newTab) {
             if (newTab < pagine.Count) {
                 tabController.TabPages.Clear();
@@ -953,10 +774,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        /// Metodo che imposta i controlli presenti nel tab che sta per essere visualizzato
-        /// </summary>
-        /// <param name="step">Numero di Tab da saltare</param>
         void StandardChangeTab(int step) {
             int oldTab = selectedIndex;
             int newTab = oldTab + step;
@@ -970,7 +787,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 case 2: {
                         riempidgCedoliniTrasferibili();
 
-                        // Quando si arriva alla pagina 3, gestisci il checkbox in base ai cedolini selezionati
                         GestisciCheckboxRiepilogo();
                         break;
                     }
@@ -1004,21 +820,17 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
             btnAvanti.Enabled = disponibile;
             btnIndietro.Enabled = disponibile && (selectedIndex > 0);
-            btnAnnulla.Enabled = disponibile;// && (selectedIndex < pagine.Count - 1);
+            btnAnnulla.Enabled = disponibile;
         }
         #endregion
 
         #region Gestione selezione CEDOLINI DA TRASFERIRE
 
-        /// <summary>
-        /// Metodo che aggiona il dataGrid dei cedolini trasferibili
-        /// </summary>
         private void aggiornaDataGrid() {
             riempidgCedoliniTrasferibili();
         }
 
         private void btnTrasferisciCedolini() {
-            // Validazione per contratti non conguagliati senza flag di riepilogo
             if (VerificaContrattiNonConguagliati() && !chkConguaglioRiepilogativo.Checked)
             {
                 string messaggio = "Operazione non consentita!\n\n" +
@@ -1032,7 +844,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 return;
             }
 
-            // Controllo che sia presente almeno un cedolino nel grid
             string dataMember = dgCedoliniTrasferibili.DataMember;
             CurrencyManager cm = dgCedoliniTrasferibili.BindingContext[dsCedolino, dataMember] as CurrencyManager;
             if (cm == null) return;
@@ -1047,7 +858,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             string filtroContratti = "";
             string filtroContrattiSQL = "";
 
-            // Per ogni cedolino selezionato, si tiene traccia dell'idcontratto e dell'idcedolino
             for (int i = 0; i < view.Count; i++) {
                 if (dgCedoliniTrasferibili.IsSelected(i)) {
                     object idContratto = view[i]["idcon"];
@@ -1077,7 +887,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
 
             if (primiCedoliniNonErogati.Length > 0) {
-                //int esercizio = (int)Meta.GetSys("esercizio");
                 string messaggio = "Attenzione! si stanno trasferendo alcuni cedolini che sono i primi non erogati in contratti non ancora conguagliati!";
                 if(!chkConguaglioRiepilogativo.Checked){
                     messaggio = messaggio + "\nPer i contratti coinvolti verrà generato un cedolino di importo pari a 0  "
@@ -1106,7 +915,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 "\ninseriti in un mandato insieme al pagamento del primo cedolino effettuato nel nuovo anno.";
 
                 if (chkConguaglioRiepilogativo.Checked) {
-                //In presenza di cedolini a importo zero, è prevista una interruzione della procedura. Tuttavia se è spuntato il check Riepilogo, la procedura continua.8199
                     avviso = avviso + "\nAvendo scelto di calcolare un Cedolino di Riepilogo, il tarsferimento sarà comunque eseguito.";
                    show(this, avviso, "Cedolini a importo lordo pari a 0");
                 }
@@ -1116,14 +924,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
             
-            // Caso in cui non sia stato selezionato alcun cedolino
             if (cedolini.Count == 0) {
                show(this, "Nessun cedolino selezionato!");
                 return;
             }
 
             
-            //filtroContratti = filtroContratti.Substring(1);
             filtroContrattiSQL = filtroContrattiSQL.Substring(1);
             string orderby = "fiscalyear, npayroll DESC";
 
@@ -1133,7 +939,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
             DataTable tempCed = Meta.Conn.RUN_SELECT("payroll", "idcon, idpayroll, fiscalyear, npayroll", orderby, filtroCedolini, null, true);
             tempCed.Columns.Add("flagselezionato");
-            // Viene impostato il campo flagselezionato ad S per tutti i cedolini selezionati
             foreach (object idCedolino in cedolini) {
                 DataRow[] rCedSel = tempCed.Select(QHC.CmpEq("idpayroll", idCedolino));
                 rCedSel[0]["flagselezionato"] = "S";
@@ -1145,8 +950,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             bool selezionaContratto = false;
             ArrayList elencoContratti = new ArrayList();
 
-            // Controllo che i cedolini selezionati non ledano l'ordine cronologico creando dei buchi.
-            // Posso essere trasferiti i cedolini dall'ultimo al primo trasferibile
             foreach (object idContratto in contratti) {
                 int count = 0;
                 string precedenti = null;
@@ -1201,12 +1004,10 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         }
                         int eserciziosucc = esercizio + 1;
                         if ((int)rCedolino["fiscalyear"] != eserciziosucc) {
-                            // Inizio Gestione dell'ID related per le scritture in PD
                             string related = ottieniIdRelatedCedolino(rCedolino);
                             if (related != null) elencoRelatedCedolini.Add(related);
                             string relatedBudget = ottieniIdRelatedBudgetCedolino(rCedolino);
                             if (relatedBudget != null) elencoRelatedBudgetCedolini.Add(relatedBudget);
-                            // Fine Gestione dell'ID related per le scritture in PD
                             rCedolino["fiscalyear"] = eserciziosucc;
                         }
                         rCedolino["npayroll"] = meseRif++;
@@ -1240,123 +1041,139 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        /// Verifica se tra i cedolini selezionati ci sono contratti non conguagliati
-        /// </summary>
-        /// <returns>True se ci sono contratti non conguagliati, False altrimenti</returns>
         private bool VerificaContrattiNonConguagliati()
         {
+            bool riepilogoObbligatorio, riepilogoNonAmmesso;
+            ValutaContrattiNonConguagliati(out riepilogoObbligatorio, out riepilogoNonAmmesso);
+            return riepilogoObbligatorio;
+        }
+
+        private void ValutaContrattiNonConguagliati(out bool riepilogoObbligatorio, out bool riepilogoNonAmmesso)
+        {
+            riepilogoObbligatorio = false;
+            riepilogoNonAmmesso = false;
+
             if (dgCedoliniTrasferibili == null || dgCedoliniTrasferibili.DataSource == null)
-                return false;
+                return;
 
             string dataMember = dgCedoliniTrasferibili.DataMember;
             if (string.IsNullOrEmpty(dataMember))
-                return false;
+                return;
 
             CurrencyManager cm = null;
             try
             {
-                if (this.BindingContext != null && dsCedolino != null)
+                if (dgCedoliniTrasferibili.BindingContext != null && dsCedolino != null)
                 {
-                    cm = this.BindingContext[dsCedolino, dataMember] as CurrencyManager;
+                    cm = dgCedoliniTrasferibili.BindingContext[dsCedolino, dataMember] as CurrencyManager;
                 }
             }
             catch
             {
-                return false;
+                return;
             }
 
             if (cm == null)
-                return false;
+                return;
 
             DataView view = cm.List as DataView;
             if (view == null || view.Count == 0)
-                return false;
+                return;
 
-            ArrayList contrattiVerificati = new ArrayList();
-
+            Hashtable selezionatiPerContratto = new Hashtable();
             for (int i = 0; i < view.Count; i++)
             {
-                try
-                {
-                    if (dgCedoliniTrasferibili.IsSelected(i))
-                    {
-                        object idContratto = view[i]["idcon"];
-
-                        if (idContratto == null || idContratto == DBNull.Value)
-                            continue;
-
-                        if (contrattiVerificati.Contains(idContratto))
-                            continue;
-
-                        contrattiVerificati.Add(idContratto);
-
-                        if (ContrattoNonConguagliato(idContratto))
-                            return true;
-                    }
-                }
-                catch
-                {
+                if (!dgCedoliniTrasferibili.IsSelected(i))
                     continue;
-                }
+                object idContratto = view[i]["idcon"];
+                if (idContratto == null || idContratto == DBNull.Value)
+                    continue;
+                string chiave = idContratto.ToString();
+                selezionatiPerContratto[chiave] = Conteggio(selezionatiPerContratto, chiave) + 1;
             }
+            if (selezionatiPerContratto.Count == 0)
+                return;
 
-            return false;
+            Hashtable contrattiConErogati = new Hashtable();
+            foreach (DataRow r in dsCedolino.cedolinoerogato.Rows)
+            {
+                if (!CedolinoRataDellAnno(r))
+                    continue;
+                string chiave = r["idcon"].ToString();
+                if (selezionatiPerContratto.ContainsKey(chiave))
+                    contrattiConErogati[chiave] = true;
+            }
+            if (contrattiConErogati.Count == 0)
+                return;
+
+            Hashtable nonErogatiPerContratto = new Hashtable();
+            ContaCedoliniNonErogati(dsCedolino.payroll, contrattiConErogati, nonErogatiPerContratto);
+            ContaCedoliniNonErogati(dsCedolino.cedolinonontrasferibile, contrattiConErogati, nonErogatiPerContratto);
+
+            foreach (string chiave in contrattiConErogati.Keys)
+            {
+                if (Conteggio(selezionatiPerContratto, chiave) >= Conteggio(nonErogatiPerContratto, chiave))
+                    riepilogoObbligatorio = true;
+                else
+                    riepilogoNonAmmesso = true;
+            }
         }
 
-        /// <summary>
-        /// Verifica se un contratto è non conguagliato
-        /// </summary>
-        private bool ContrattoNonConguagliato(object idContratto)
+        private bool CedolinoRataDellAnno(DataRow r)
         {
-            string filtroCedolino = QHS.AppAnd(
-                QHS.CmpEq("idcon", idContratto),
-                QHS.CmpEq("fiscalyear", esercizio),
-                QHS.CmpEq("flagbalance", "N"));
-
-            string filtroCedoliniNonErogati = QHS.AppAnd(
-                filtroCedolino,
-                QHS.IsNull("disbursementdate"));
-
-            string filtroCedoliniErogati = QHS.AppAnd(
-                filtroCedolino, 
-                QHS.IsNotNull("disbursementdate"));
-
-            int countCedolinoErogato = Meta.Conn.RUN_SELECT_COUNT("payroll", filtroCedoliniErogati, true);
-
-            int countCedolinoNonErogato = Meta.Conn.RUN_SELECT_COUNT("payroll", filtroCedoliniNonErogati, true);
-
-            return (countCedolinoErogato > 0 && countCedolinoNonErogato > 0);
+            if (r.RowState == DataRowState.Deleted || r.RowState == DataRowState.Detached)
+                return false;
+            return r["flagbalance"].ToString().ToUpper() == "N"
+                && CfgFn.GetNoNullInt32(r["fiscalyear"]) == esercizio;
         }
 
-        /// <summary>
-        /// Gestisce lo stato del checkbox di riepilogo in base ai cedolini selezionati
-        /// </summary>
+        private void ContaCedoliniNonErogati(DataTable t, Hashtable contratti, Hashtable conteggi)
+        {
+            foreach (DataRow r in t.Rows)
+            {
+                if (!CedolinoRataDellAnno(r))
+                    continue;
+                if (r["disbursementdate"] != DBNull.Value)
+                    continue;
+                string chiave = r["idcon"].ToString();
+                if (contratti.ContainsKey(chiave))
+                    conteggi[chiave] = Conteggio(conteggi, chiave) + 1;
+            }
+        }
+
+        private static int Conteggio(Hashtable conteggi, string chiave)
+        {
+            object n = conteggi[chiave];
+            return (n == null) ? 0 : (int)n;
+        }
+
         private void GestisciCheckboxRiepilogo()
         {
-            // Verifica se ci sono contratti non conguagliati tra i selezionati
-            bool hasContrattiNonConguagliati = VerificaContrattiNonConguagliati();
+            bool riepilogoObbligatorio, riepilogoNonAmmesso;
+            ValutaContrattiNonConguagliati(out riepilogoObbligatorio, out riepilogoNonAmmesso);
 
-            if (hasContrattiNonConguagliati)
+            int stato = riepilogoObbligatorio ? 1 : (riepilogoNonAmmesso ? -1 : 0);
+            if (stato == statoCheckboxRiepilogo)
+                return;
+            statoCheckboxRiepilogo = stato;
+
+            if (riepilogoObbligatorio)
             {
-                // Se ci sono contratti non conguagliati, forza il checkbox a true e grigialo
                 chkConguaglioRiepilogativo.Checked = true;
                 chkConguaglioRiepilogativo.Enabled = false;
-
+            }
+            else if (riepilogoNonAmmesso)
+            {
+                chkConguaglioRiepilogativo.Checked = false;
+                chkConguaglioRiepilogativo.Enabled = false;
             }
             else
             {
-                // Se non ci sono contratti non conguagliati, riabilita il checkbox (mantieni lo stato precedente)
                 chkConguaglioRiepilogativo.Enabled = true;
                 chkConguaglioRiepilogativo.Checked = false;
             }
         }
 
-        /// <summary>
-        /// Per i contratti indicati, rende i cedolini non calcolati, cancella l'eventuale conguaglio se non ci sono cedolini rata,
-        ///  altrimenti lo ricalcola, inoltre ricalcola la data fine del contratto
-        /// </summary>
-        /// <returns></returns>
         private void eseguiOperazioniPostTrasferimento(ArrayList elencoContratti) {
             foreach (string idContratto in elencoContratti) {
                 rendiCedolinoNonCalcolato(idContratto);
@@ -1372,34 +1189,18 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         }
 
         private void eseguiOperazioniPostSalvataggio() {
-            // Rimozione dei cedolini trasferiti dalla tabella dei cedolini trasferibili
             rimuoviCedoliniTrasferiti();
-            // Cancella scritture in PD dei cedolini trasferiti
             AzzeraCancellaScritture();
             AzzeraCancellaImpegni();
         }
 
-        /// <summary>
-        /// Metodo che azzera o cancella le scritture in PD riferite ai cedolini.
-        /// Se il cedolino è stato trasferito la scrittura viene cancellata
-        /// Se il cedolino è stato solamente decalcolato la scrittura viene azzerata
-        /// </summary>
         private void AzzeraCancellaScritture() {
             EP_functions EP = new EP_functions(Meta.Dispatcher);
             if (!EP.attivo) return;
 
-            // Dei cedolini presenti in memoria azzero i dettagli delle scritture in PD, in modo da avere
-            // scritture vuote che possono essere riutilizzate al prossimo ricalcolo del cedolino
             string filtroCedolini = QHC.AppAnd(QHC.CmpEq("flagcomputed", "N"),
                         QHC.CmpEq("flagbalance", "N"), QHC.CmpEq("fiscalyear", esercizio));
-            // Ciclo sui cedolini trasferibili
             foreach (DataRow rCedolino in dsCedolino.payroll.Select(filtroCedolini)) {
-                //if (rCedolino["stop"] != DBNull.Value) {
-                //    DateTime stop = (DateTime)rCedolino["stop"];
-                //    if (stop.Year == esercizio) {
-                //        continue; //non cancella scritture di cedolini aventi competenza tutta nell'anno corrente
-                //    }
-                //}
 
                 string idrelated = EP_functions.GetIdForDocument(rCedolino);
                 if (idrelated == "") continue;
@@ -1407,7 +1208,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 if (EP.D.Tables["entry"].Rows.Count == 0) continue;
 
                 if (elencoRelatedCedolini.Contains(idrelated)) {
-                    //EP.GetEntryForDocument(idrelated);
                     EP.ClearDetails();
                     EP.RemoveEmptyDetails();
                     MetaData MetaEntry = MetaData.GetMetaData(this, "entry");
@@ -1422,14 +1222,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
 
-            // Ciclo sui cedolini non trasferibili
             foreach (DataRow rCedolino in dsCedolino.cedolinonontrasferibile.Select(filtroCedolini)) {
-                //if (rCedolino["stop"] != DBNull.Value) {
-                //    DateTime stop = (DateTime)rCedolino["stop"];
-                //    if (stop.Year == esercizio) {
-                //        continue; //non cancella scritture di cedolini aventi competenza tutta nell'anno corrente
-                //    }
-                //}
 
                 string idrelated = EP_functions.GetIdForDocument(rCedolino);
                 if (idrelated == "") continue;
@@ -1450,8 +1243,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
 
-            // Delle scritture rimanenti (quelle per cui il cedolino è stato trasferito), cancello sia i dettagli che
-            // la scrittura
             if (elencoRelatedCedolini.Count == 0) return;
             string filtroRelated = "";
             foreach (string idRelated in elencoRelatedCedolini) {
@@ -1499,20 +1290,12 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
         }
 
 
-        /// <summary>
-        /// Metodo che azzera o cancella gli impegni di budget riferiti ai cedolini.
-        /// Se il cedolino è stato trasferito la scrittura viene cancellata
-        /// Se il cedolino è stato solamente decalcolato la scrittura viene azzerata
-        /// </summary>
         private void AzzeraCancellaImpegni() {
           
             
 
-            // Dei cedolini presenti in memoria azzero le classificazioni degli impegni di budget, in modo da avere
-            // impegni vuoti che possono essere riutilizzati al prossimo ricalcolo del cedolino
             string filtroCedolini = QHC.AppAnd(QHC.CmpEq("flagcomputed", "N"), QHC.CmpEq("flagbalance", "N"),
                     QHC.CmpEq("fiscalyear", esercizio));
-            // Ciclo sui cedolini trasferibili
             foreach (DataRow rCedolino in dsCedolino.payroll.Select(filtroCedolini)) {
 	            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
 	            if (!BF.attivo) continue;
@@ -1525,9 +1308,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         elencoRelatedBudgetCedolini.Remove(idrelated);
                         continue;
                     }
-                    BF.ClearDetails();              //non fa nulla
-                    BF.RemoveEmptyDetails();        //Cancella le righe di epexpvar e epexpsorting a importo 0
-                    BF.ClearEpExp();                //azzera epexpyear
+                    BF.ClearDetails();
+                    BF.RemoveEmptyDetails();
+                    BF.ClearEpExp();
                     MetaData MetaEpExp = MetaData.GetMetaData(this, "epexp");
                     PostData Post = MetaEpExp.Get_PostData();
 
@@ -1540,7 +1323,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
 
-            // Ciclo sui cedolini non trasferibili
             foreach (DataRow rCedolino in dsCedolino.cedolinonontrasferibile.Select(filtroCedolini)) {
 	            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
 	            if (!BF.attivo) continue;
@@ -1555,9 +1337,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         continue;
                     }
 
-                    BF.ClearDetails();          //non fa nulla
-                    BF.RemoveEmptyDetails();    //Cancella le righe di epexpvar e epexpsorting a importo 0
-                    BF.ClearEpExp();            //azzera epexpyear
+                    BF.ClearDetails();
+                    BF.RemoveEmptyDetails();
+                    BF.ClearEpExp();
                     MetaData MetaEpExp = MetaData.GetMetaData(this, "epexp");
                     PostData Post = MetaEpExp.Get_PostData();
 
@@ -1570,20 +1352,17 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
 
-            // Delle scritture rimanenti (quelle per cui il cedolino è stato trasferito), cancello sia i dettagli che
-            // la scrittura
             if (elencoRelatedBudgetCedolini.Count == 0) return;
-            //string filtroRelated = "";
             foreach (string idRelated in elencoRelatedBudgetCedolini) {
 	            BudgetFunction BF = new BudgetFunction(Meta.Dispatcher);
 	            if (!BF.attivo) continue;
 
 
                 BF.GetEpExpForDocument(idRelated);
-                BF.ClearDetails();              //non fa nulla
-                BF.RemoveEmptyDetails();        //Cancella le righe di epexpvar e epexpsorting a importo 0
-                BF.ClearEpExp();                //azzera epexpyear
-                BF.RemoveEmptyEpexp();          //Cancella le righe che hanno importo zero
+                BF.ClearDetails();
+                BF.RemoveEmptyDetails();
+                BF.ClearEpExp();
+                BF.RemoveEmptyEpexp();
 
                 MetaData MetaEpExp2 = MetaData.GetMetaData(this, "epexp");
                 PostData Post2 = MetaEpExp2.Get_PostData();
@@ -1596,11 +1375,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             elencoRelatedBudgetCedolini.Clear();
         }
 
-        /// <summary>
-        /// Metodo che controlla che nell'anno in corso ci siano dei cedolini
-        /// </summary>
-        /// <param name="idContratto">ID del contratto su cui verificare l'esistenza dei cedolini</param>
-        /// <returns></returns>
         private bool controllaEsistenzaAltriCedoliniRataNellAnno(object idContratto) {
             string filtro = QHC.AppAnd(QHC.CmpEq("idcon", idContratto), QHC.CmpEq("fiscalyear", esercizio),
                         QHC.CmpEq("flagbalance", "N"));
@@ -1611,10 +1385,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             return (numeroCedolini > 0) ? true : false;
         }
 
-        /// <summary>
-        /// Metodo che cancella il cedolino di conguaglio di un contratto nell'anno corrente
-        /// </summary>
-        /// <param name="idContratto">ID del contratto del quale cancellare il cedolino di conguaglio</param>
         private void cancellaConguaglio(object idContratto) {
             string filtro = QHC.AppAnd(QHC.CmpEq("idcon", idContratto), QHC.CmpEq("fiscalyear", esercizio),
                         QHC.CmpEq("flagbalance", "S"));
@@ -1626,13 +1396,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             return;
         }
 
-        /// <summary>
-        /// Metodo che cambia la data di fine competenza di una imputazione contratto in base alla data competenza dell'ultimo dei suoi cedolini
-        ///   nell'anno
-        /// </summary>
-        /// <param name="idContratto">ID del contratto su cui cambiare la data di fine competenza</param>
         private void cambiaFineCompetenzaDelContratto(object idContratto) {
-            // Controllo che esista una imputazione del contratto
             string filtroContratto = QHC.CmpEq("idcon", idContratto);
             DataRow[] imputazioneRow = dsCedolino.parasubcontractyear.Select(filtroContratto);
             if (imputazioneRow.Length == 0) return;
@@ -1640,15 +1404,11 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             string filtroCedoliniRata = QHC.AppAnd(filtroContratto, QHC.CmpEq("flagbalance", "N"),
                     QHC.CmpEq("fiscalyear", esercizio));
             string orderby = "fiscalyear desc, npayroll desc";
-            // Seleziono l'ultimo cedolino tra i trasferibili ed imposto
-            // la fine competenza pari alla data di quest'ultimo
             DataRow[] cedTrasf = dsCedolino.payroll.Select(filtroCedoliniRata, orderby);
             if (cedTrasf.Length != 0) {
                 imputazioneRow[0]["stopcompetency"] = cedTrasf[0]["stop"];
                 return;
             }
-            // Seleziono l'ultimo cedolino tra i non trasferibili ed imposto
-            // la fine competenza pari alla data di fine di quest'ultimo
             DataRow[] cedNoTrasf = dsCedolino.cedolinonontrasferibile.Select(filtroCedoliniRata, orderby);
             if (cedNoTrasf.Length != 0) {
                 imputazioneRow[0]["stopcompetency"] = cedNoTrasf[0]["stop"];
@@ -1659,15 +1419,10 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                     QHS.CmpEq("fiscalyear", esercizio))
                 , false);
             if (nCedoliniAnnoRimasti > 0) return;
-            // Se non esistono cedolini nell'anno in corso la data di inizio e fine competenza viene impostata a NULL
             imputazioneRow[0]["startcompetency"] = DBNull.Value;
             imputazioneRow[0]["stopcompetency"] = DBNull.Value;
         }
 
-        /// <summary>
-        /// Metodo che ricalcola i campi del cedolino di conguaglio
-        /// </summary>
-        /// <param name="idContratto">ID del contratto a cui il cedolino di conguaglio è legato</param>
         void ricalcolaCampiConguaglio(object idContratto) {
             string filtraCedoliniRata = QHC.AppAnd(QHC.CmpEq("idcon", idContratto), QHC.CmpEq("flagbalance", "N"),
                     QHC.CmpEq("fiscalyear", esercizio));
@@ -1677,7 +1432,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             DateTime dataFine = new DateTime();
             string orderby = "fiscalyear ASC,npayroll ASC";
 
-            // Sommatoria dei compensi lordi dei cedolini già erogati dell'anno fiscale in corso
             DataRow[] cedErogatoRow = dsCedolino.cedolinoerogato.Select(filtraCedoliniRata,orderby);
             for (int i = 0; i < cedErogatoRow.Length; i++) {
                 compensoLordo += CfgFn.GetNoNullDecimal(cedErogatoRow[i]["feegross"]);
@@ -1688,7 +1442,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
             
             bool datiperConguaglioRicavati = false;
-            // Sommatoria dei compensi lordi dei cedolini trasferibili dell'anno fiscale in corso
             DataRow[] cedTrasferibileRow = dsCedolino.payroll.Select(filtraCedoliniRata, orderby);
             for (int i = 0; i < cedTrasferibileRow.Length; i++) {
                 compensoLordo += CfgFn.GetNoNullDecimal(cedTrasferibileRow[i]["feegross"]);
@@ -1700,13 +1453,10 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
 
-            // Sommatoria dei compensi lordi dei cedolini non trasferibili dell'anno fiscale in corso
             DataRow[] cedNonTrasferibileRow = dsCedolino.cedolinonontrasferibile.Select(filtraCedoliniRata, orderby);
             for (int i = 0; i < cedNonTrasferibileRow.Length; i++) {
                 compensoLordo += CfgFn.GetNoNullDecimal(cedNonTrasferibileRow[i]["feegross"]);
                 giorniLavorati += CfgFn.GetNoNullInt32(cedNonTrasferibileRow[i]["workingdays"]);
-                // Entrando nell'IF sono posizionato sull'ultimo cedolino non di conguaglio (vedi orderby)
-                // da cui prendo i dati da assegnare al cedolino di conguaglio
                 if ((!datiperConguaglioRicavati) && (i == cedNonTrasferibileRow.Length - 1)) {
                     dataFine = (DateTime)cedNonTrasferibileRow[i]["stop"];
                     meseRiferimento = (int)cedNonTrasferibileRow[i]["npayroll"];
@@ -1732,12 +1482,8 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 DataRow rService = rContratto.GetParentRow("service_parasubcontract");
                 object flagNeedBalance = rService["flagneedbalance"];
                 if (chkConguaglioRiepilogativo.Checked) {
-                    //Si vuole calcolare un conguaglio Riepilogativo e non un conguaglio Fiscale
                     flagNeedBalance = "N";
                 }
-                // J.T.R. 01.02.2008 - Se la prestazione ha bisogno di conguaglio (Caso CoCoCo) verrà creato un cedolino rata
-                // a importo zero di un solo giorno mentre, se la prestazione non ha bisogno di conguaglio (Assegnisti di Ricerca)
-                // verrà creato un conguaglio fittizio pari alla somma di tutti i cedolini rata ed eventuali cud presenti nel contratto.
                 string filtraUltimoCedolinoRata = QHC.AppAnd(QHC.CmpEq("idcon", idContratto),
                     QHC.CmpEq("flagbalance", "N"), QHC.CmpEq("fiscalyear", esercizio),
                     QHC.CmpEq("npayroll", rowConguaglio["npayroll"]));
@@ -1745,9 +1491,7 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 DataRow[] rUltimoCedolinoRata = dsCedolino.cedolinoerogato.Select(filtraUltimoCedolinoRata);
                 if (rUltimoCedolinoRata.Length > 0) {
                     if (flagNeedBalance.ToString().ToUpper() == "S") {
-                        // Creazione del cedolino a importo zero
                         DateTime dataNuovoCedolino = ((DateTime)rUltimoCedolinoRata[0]["stop"]).AddDays(1);
-                        // nella tabella cedoliniannosuccessivo, bisogna cambiare quel cedolino
                         string fNext = QHC.AppAnd(QHC.CmpEq("idcon", idContratto),
                             QHC.CmpEq("flagbalance", "N"), QHC.CmpEq("fiscalyear", esercizio + 1),
                             QHC.CmpEq("npayroll", rowConguaglio["npayroll"]));
@@ -1759,15 +1503,11 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                             rCedolinoNext["workingdays"] = CfgFn.GetNoNullInt32(rCedolinoNext["workingdays"]) > 0
                                 ? CfgFn.GetNoNullInt32(rCedolinoNext["workingdays"]) - 1 : 0;
                         }
-                        // nella tabella payroll bisogna aggiungere il cedolino a zero e allineare l'npayroll del conguaglio
-                        // con quello del nuovo cedolino
                         object idResidence = rowConguaglio["idresidence"];
                         DataRow nuovoCedolinoRata = creaUnCedolino(idContratto, meseRiferimento, dataNuovoCedolino, idResidence);
                         nuovoCedolinoRata["idupb"] = rowConguaglio["idupb"];
                         rowConguaglio["npayroll"] = meseRiferimento + 1;
 
-                        //IL nuovo cedolino deve essere ricalcolato perchè i dati di conguaglio sono cambiati
-                        //In seguito basterà impostare la data di conguaglio per chiudere la situazione
                     }
                     else {
                         rowConguaglio["disbursementdate"] = rUltimoCedolinoRata[0]["disbursementdate"];
@@ -1785,20 +1525,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                         rowConguaglio["netfee"] = dsCedolino.cedolinoerogato.Compute("sum(netfee)", filtraCedoliniRata);
                     }
                 }
-                //else {
-                //    //Se non ci sono cedolini erogati cancella il cedolino di conguaglio
-                //    rowConguaglio.Delete(); 
-                //}
             }
         }
 
-        /// <summary>
-        /// Crea un cedolino avente npayroll= meseRiferimentoPrec+1
-        /// </summary>
-        /// <param name="idContratto"></param>
-        /// <param name="meseRiferimentoPrec"></param>
-        /// <param name="data"></param>
-        /// <param name="idResidence"></param>
         private DataRow creaUnCedolino(object idContratto, int meseRiferimentoPrec, DateTime data,
             object idResidence) {
             MetaData MetaCedolino = MetaData.GetMetaData(this, "payroll");
@@ -1867,15 +1596,8 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 aggiungiStorniAlCedolinoDiConguaglio(cedConguaglioRow, fCedolinoRata);
             }
 
-            //calcolaCompensoNetto(rCedolinoConguaglio);
         }
 
-        /// <summary>
-        /// Aggiunge le righe di payrolltaxbracket dei cedolini rata al cedolino di conguaglio, sommando taxable employtax  admintax
-        /// </summary>
-        /// <param name="tPayrollTaxBracket">Tabella ove aggiungere le righe di payrolltaxbracket del cedolino rata</param>
-        /// <param name="cedolinoRitenutaRata">Riga di payrolltax del cedolino rata</param>
-        /// <param name="parentConguaglio">Riga di payrolltax del conguaglio</param>
         private void aggiungiScaglioniCedolinoConguaglio(DataTable tPayrollTaxBracket, DataRow cedolinoRitenutaRata,
             DataRow parentConguaglio) {
             MetaData metaPayrollTaxBracket = MetaData.GetMetaData(this, "payrolltaxbracket");
@@ -1903,11 +1625,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        ///  Aggiunge le righe di payrolldeduction dei cedolini rata sommando annualamount e curramount per tipo deduzione (iddeduction)
-        /// </summary>
-        /// <param name="cedConguaglioRow">Riga di payroll del conguaglio</param>
-        /// <param name="filtroCedoliniRata">filtro per ottenere i cedolini rata</param>
         void aggiungiDeduzioniAlCedolinoDiConguaglio(DataRow cedConguaglioRow, string filtroCedoliniRata) {
             DataTable tPayrollDeduction = Meta.Conn.RUN_SELECT("payrolldeduction", null, null, 
                 filtroCedoliniRata, null, true);
@@ -1934,11 +1651,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        ///  Aggiunge le righe di payrollabatement dei cedolini rata sommando annualamount e curramount per tipo detrazione (idabatement)
-        /// </summary>
-        /// <param name="cedConguaglioRow">Riga di payroll del conguaglio</param>
-        /// <param name="filtroCedoliniRata"></param>
         void aggiungiDetrazioniAlCedolinoDiConguaglio(DataRow cedConguaglioRow, string filtroCedoliniRata) {
             DataTable tPayrollAbatement = Meta.Conn.RUN_SELECT("payrollabatement", null, null, 
                 filtroCedoliniRata, null, true);
@@ -1965,11 +1677,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        /// Aggiunge le righe di payrolltaxcorrige dei cedolini rata al cedolino di conguaglio  (sommando employamount e adminamount)
-        /// </summary>
-        /// <param name="cedConguaglioRow">Riga di payroll del conguaglio</param>
-        /// <param name="filtroCedoliniRata"></param>
         void aggiungiStorniAlCedolinoDiConguaglio(DataRow cedConguaglioRow, string filtroCedoliniRata) {
             DataTable tPayrollTaxCorrige = Meta.Conn.RUN_SELECT("payrolltaxcorrige", null, null, filtroCedoliniRata, null, true);
 
@@ -1998,9 +1705,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        /// Rimuove dal DataSet i cedolini trasferiti ossia quelli aventi anno fiscale superiore all'esercizio
-        /// </summary>
         void rimuoviCedoliniTrasferiti() {
             string filtraCedoliniTrasferiti = QHC.CmpGt("fiscalyear", esercizio);
             DataRow[] cedTrasferitiRow = dsCedolino.payroll.Select(filtraCedoliniTrasferiti);
@@ -2017,10 +1721,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             dsCedolino.payroll.AcceptChanges();
         }
 
-        /// <summary>
-        /// Aggiunge il cedolino nella tabella dei cedolini degli anni successivi
-        /// </summary>
-        /// <param name="rCedolino">DataRow del cedolino da inserire nella tabella</param>
         private void aggiungiCedolinoInTabellaCedolinoAnniSuccessivi(DataRow rCedolino) {
             DataRow rCedolinoAnnoSucc = dsCedolino.cedolinoannosuccessivo.NewRow();
             foreach (DataColumn C in rCedolino.Table.Columns) {
@@ -2034,27 +1734,18 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 
         ArrayList elencoRelatedCedolini = new ArrayList();
         ArrayList elencoRelatedBudgetCedolini = new ArrayList();
-        /// <summary>
-        /// Rende un cedolino non calcolato, cancellando i figli del cedolino generati in fase di calcolo del cedolino
-        /// Oppure se è un cedolino di data competenza tutta di quest'anno lo calcola ma con aliquote dell'anno successivo
-        /// </summary>
-        /// <param name="idContratto">ID del contratto al quale il cedolino è collegato</param>
         void rendiCedolinoNonCalcolato(string idContratto) {
             string filtroContratto = QHC.AppAnd(QHC.CmpEq("idcon", idContratto), QHC.CmpEq("flagbalance", "N"),
                         QHC.CmpEq("fiscalyear", esercizio));
             string orderby = "fiscalyear DESC,npayroll DESC";
-            // Caso 1: Non ci sono più cedolini nell'anno fiscale in corso - OK
             DataRow[] cedTrasf = dsCedolino.payroll.Select(filtroContratto, orderby);
             DataRow[] cedNoTrasf = dsCedolino.cedolinonontrasferibile.Select(filtroContratto, orderby);
             if ((cedTrasf.Length == 0) && (cedNoTrasf.Length == 0)) return;
-            // Caso 2: Ci sono cedolini da trasferire
             string related = null;
             string relatedBudget = null;
             if (cedTrasf.Length != 0) {
-                // Caso 2.1: Ci sono cedolini non calcolati - OK
                 string cedNonCalc = QHC.AppAnd(filtroContratto, QHC.CmpEq("flagcomputed", "N"));
                 if (dsCedolino.payroll.Select(cedNonCalc).Length != 0) return;
-                // Caso 2.2: Ci sono cedolini calcolati - CORREGGI
                 cancellaFigli(cedTrasf[0]["idpayroll"]);
                 cedTrasf[0]["flagcomputed"] = "N";
                 cedTrasf[0]["netfee"] = DBNull.Value;
@@ -2065,7 +1756,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
             else {
                 if (cedNoTrasf.Length != 0) {
-                    // Caso 2.3: L'unico cedolino calcolato si trova tra quelli non trasferibili - CORREGGI
                     cancellaFigli(cedNoTrasf[0]["idpayroll"]);
                     cedNoTrasf[0]["flagcomputed"] = "N";
                     cedNoTrasf[0]["netfee"] = DBNull.Value;
@@ -2077,10 +1767,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
             }
         }
 
-        /// <summary>
-        /// Cancella i dati presenti nelle tabelle figlie di payroll del cedolino di chiave data
-        /// </summary>
-        /// <param name="idpayroll">ID del cedolino di cui cancellare i figli</param>
         void cancellaFigli(object idpayroll) {
             string filter = QHC.CmpEq("idpayroll", idpayroll);
 
@@ -2192,9 +1878,6 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
 			MetaFactory.factory.getSingleton<IFormCreationListener>().refresh();
         }
 
-        /// <summary>
-        /// Metodo che aggiorna il text box dei cedolini selezionati in base alla selezione dei cedolini
-        /// </summary>
         private void selezioneRigheCambiata() {
             string dataMember = dgCedoliniTrasferibili.DataMember;
             CurrencyManager cm = dgCedoliniTrasferibili.BindingContext[dsCedolino, dataMember] as CurrencyManager;
@@ -2216,15 +1899,9 @@ namespace payroll_trasf_cedolino {//cedolino_trasferimento//
                 }
             }
 
-            // Ogni volta che cambia la selezione, rivaluta lo stato del checkbox
             GestisciCheckboxRiepilogo();
         }
 
-        /// <summary>
-        /// Metodo che ottiene la prima riga selezionata tra i cedolini
-        /// </summary>
-        /// <param name="view">DataVIew legato al DataGrid da interrogare</param>
-        /// <returns>ID della riga selezionata</returns>
         private int getPrimaRigaSelezionataCedolini(DataView view) {
             for (int i = 0; i < view.Count; i++) {
                 if (dgCedoliniTrasferibili.IsSelected(i)) {

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Drawing;
 using System.Collections;
@@ -44,7 +43,7 @@ namespace mainivapay_wizard_calcolo_consolida {
         private DateTime m_ToDate;
         private int m_PeriodicitaGiorno = 1;
         private int m_PeriodicitaMese = 1;
-        private int periodo = 1;// <-- Assegniamo un default mensile
+        private int periodo = 1;
         bool ModoCalcolo_RigaPerRiga = true;
         bool GeneraTuttelafasi = true;
 
@@ -53,7 +52,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             InitializeComponent();
             tabController.HideTabsMode =
             Crownwood.Magic.Controls.TabControl.HideTabsModes.HideAlways;
-            //GetData.CacheTable(DS.ivapayperiodicity);
             GetData.CacheTable(DS.config);
             GetData.CacheTable(DS.incomephase);
             GetData.CacheTable(DS.expensephase);
@@ -66,11 +64,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             errmsg = new Hashtable();
             errmsg.Add("err_persiva", "Impossibile proseguire. Non è stata definita la configurazione " +
                 "del modulo IVA relativa all'esercizio corrente");
-            // La periodicità nella liquidazione consolidata è mensile. Il periodo è stato valorizzato a 1 per defualt.
-            //errmsg.Add("err_codicetipoper", "Impossibile proseguire. Non è stato associato nessun tipo di " +
-            //    "liquidazione periodica nella configurazione IVA relativo all'esercizio corrente");
-            //errmsg.Add("err_periodo", "Impossibile proseguire. Non è stato configurato correttamente il tipo di periodicità " +
-            //    "della liquidazione IVA");
             errmsg.Add("err_mainpaymentagency", "Impossibile proseguire. Non è stata configurata l'anagrafica per i movimenti finanziari di spesa " +
                 "della liquidazione IVA");
             errmsg.Add("err_mainrefundagency", "Impossibile proseguire. Non è stata configurata l'anagrafica per i movimenti finanziari di entrata " +
@@ -113,8 +106,8 @@ namespace mainivapay_wizard_calcolo_consolida {
             GetData.CacheTable(DS.invoicekindyear, filterEsercizio, null, false);
 
             bool IsAmministrazione = false;
-            if (Meta.GetSys("userdb") != null){
-                IsAmministrazione = (Meta.GetSys("userdb").ToString().ToLower() == "amministrazione");
+            if ((Meta.GetSys("schema") ?? Meta.GetSys("userdb")) != null){
+                IsAmministrazione = ((Meta.GetSys("schema") ?? Meta.GetSys("userdb")).ToString().ToLower() == "amministrazione");
             }
             btnNext.Visible = IsAmministrazione;
             if (!IsAmministrazione){
@@ -140,7 +133,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 GeneraTuttelafasi = true;
             startivabalance = CfgFn.GetNoNullDecimal(CfgRow["mainstartivabalance"]);
             startivabalance12 = CfgFn.GetNoNullDecimal(CfgRow["mainstartivabalance12"]);
-            startivabalancesplit = CfgFn.GetNoNullDecimal(CfgRow["mainstartivabalancesplit"]);
+            startivabalancesplit = CfgFn.GetNoNullDecimal(CfgRow["startivabalancesplit"]);
         }
 
         private void FormInit()
@@ -151,14 +144,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             txtPromiscuo.Enter += new EventHandler(txtPromiscuo_Enter);
             txtPromiscuo.Leave += new EventHandler(txtPromiscuo_Leave);
             CheckInit();
-            //Selects first tab
             DisplayTabs(0);
-            // Se il mese della data corrente è dicembre,
-            // visualizza il checkbox che consente di
-            // cambiare il periodo di riferimento
-            // forzando la liquidazione relativa a tale mese 
-            // invece del periodo precedente come avviene di norma
-            //calcolo periodo
             DateTime data = ((DateTime)Meta.GetSys("datacontabile"));
             int month = data.Month;
             if (month == 12) chkEndOfYear.Visible = true;
@@ -166,9 +152,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             chkEndOfYear.Text = chkEndOfYear.Text + "" + HelpForm.StringValue(data.Year, null);
         }
 
-        /// <summary>
-        /// Controlla la presenza di righe di configurazione, persiva e tipoliquidperiodiva
-        /// </summary>
         private void CheckInit(){
             if (DS.config.Rows.Count == 0) {
                 ShowMsg(errmsg["err_persiva"].ToString());
@@ -176,12 +159,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 AllDisabled = true;
                 return;
             }
-            // Nella liquidazione consolidata no n abbiamo la peridocità, o meglio le periodicità è mensile.
-            //if (DS.config.Rows[0]["idivapayperiodicity"].ToString() == ""){
-            //    ShowMsg(errmsg["err_codicetipoper"].ToString());
-            //    btnNext.Enabled = false;
-            //    return;
-            //}
 
             if ((DS.config.Rows[0]["mainflagpayment"].ToString().ToUpper() == "S") &&
                     (DS.config.Rows[0]["mainpaymentagency"] == DBNull.Value)) {
@@ -257,42 +234,19 @@ namespace mainivapay_wizard_calcolo_consolida {
             }
 
 
-            //DataRow Rperiodo = DS.config.Rows[0].GetParentRow("ivapayperiodicity_config");
-            //if (Rperiodo == null ||
-            //    Rperiodo["periodicity"].ToString() == "" ||
-            //    Rperiodo["periodicday"].ToString() == "" ||
-            //    Rperiodo["periodicmonth"].ToString() == "")  {
-            //    ShowMsg(errmsg["err_periodo"].ToString());
-            //    btnNext.Enabled = false;
-            //    return;
-            //}
-            //m_PeriodicitaGiorno = CfgFn.GetNoNullInt32(Rperiodo["periodicday"]);
-            //if (m_PeriodicitaGiorno < 0) m_PeriodicitaGiorno = 1;
-            //m_PeriodicitaMese = CfgFn.GetNoNullInt32(Rperiodo["periodicmonth"]);
-            //if (m_PeriodicitaMese < 0) m_PeriodicitaMese = 1;
 
-            //txtPeriodicita.Text = Rperiodo["description"].ToString();
-            //periodo = CfgFn.GetNoNullInt32(Rperiodo["periodicity"]);
-            //if (periodo <= 0)  {
-            //    ShowMsg(errmsg["err_periodo"].ToString());
-            //    btnNext.Enabled = false;
-            //    return;
-            //}
 
-            //calcolo periodo
             ComputePeriod(periodo);
 
             int anno_rif = m_ToDate.Year;
             string f_anno = QHS.CmpEq("ayear", anno_rif);
 
-            //default
             txtProrata.Text = "100,00 %";
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.iva_prorata, null, f_anno, null, true);
             if (DS.iva_prorata.Rows.Count > 0)
             {
                 txtProrata.Text = HelpForm.StringValue(DS.iva_prorata.Rows[0]["prorata"], tag_perc);
             }
-            //default
             txtPromiscuo.Text = "100,00 %";
             DataAccess.RUN_SELECT_INTO_TABLE(Meta.Conn, DS.iva_mixed, null, f_anno, null, true);
             if (DS.iva_mixed.Rows.Count > 0)
@@ -320,16 +274,10 @@ namespace mainivapay_wizard_calcolo_consolida {
             HelpForm.ExtLeaveNumTextBox(txtPromiscuo, tag_perc);
         }
 
-        /// <summary>
-        /// Messaggi di warning
-        /// </summary>
         private void ShowMsg(string msg)
         {
             ShowMsg(msg, null);
         }
-        /// <summary>
-        /// Errori
-        /// </summary>
         private void ShowMsg(string msg, string error)
         {
             if (error == null || error == "")
@@ -346,14 +294,9 @@ namespace mainivapay_wizard_calcolo_consolida {
         private void btnNext_Click(object sender, EventArgs e) {
             StandardChangeTab(+1);
         }
-        /// <summary>
-        /// Displays tab n. NewTab and updates buttons
-        /// </summary>
-        /// <param name="newTab"></param>
         private void DisplayTabs(int newTab)
         {
             tabController.SelectedIndex = newTab;
-            //Evaluates Buttons Appearance
             btnBack.Visible = (newTab > 0) && (AllDisabled == false);
             if (newTab == tabController.TabPages.Count - 1)
                 btnNext.Text = "Fine.";
@@ -363,10 +306,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             btnNext.Enabled = (AllDisabled == false);
         }
         bool AllDisabled = false;
-        /// <summary>
-        /// Changes tab backward/forward
-        /// </summary>
-        /// <param name="step"></param>
         private void StandardChangeTab(int step)  {
             int oldTab = tabController.SelectedIndex;
             int newTab = oldTab + step;
@@ -390,14 +329,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             if (obj == DBNull.Value) txtPromiscuo.Text = "100,00 %";
         }
 
-        /// <summary>
-        /// Must return true if operation is possible, and do any
-        ///  operation related to change from tab oldTab to newTab
-        /// </summary>
-        /// <param name="oldTab"></param>
-        /// <param name="newTab"></param>
-        /// <returns></returns>
-        /// 
         bool CustomChangeTab(int oldTab, int newTab) {
             if (AllDisabled) return false;
             if ((oldTab == 0) && (newTab == 1))
@@ -585,11 +516,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             T.Rows.Add(NewR);
         }
 
-        /// <summary>
-        /// Metodo che calcola i movimenti finanziari inerenti la liquidazione IVA
-        /// </summary>
-        /// <param name="dettagliLiquidazione">Tabella con tutti i documenti IVA che vengono liquidati</param>
-        /// <returns>DataTable dei movimenti finanziari</returns>
 
         private DataTable CalcolaMovFinanziari(DataTable dettagliLiquidazione){
             DataTable movimentiIVA = new DataTable();
@@ -608,49 +534,42 @@ namespace mainivapay_wizard_calcolo_consolida {
             movimentiIVA.Columns.Add("autokind", typeof(int));
 
             DataRow rConfIVA = DS.config.Rows[0];
-            // ENTE del versamento/rimborso della config. iva consolidata dell'amminisrazione.
             object mainidregpayment = rConfIVA["mainpaymentagency"];
             object mainpaymentagencytitle = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", mainidregpayment), "title");
 
             object mainidregrefund = rConfIVA["mainrefundagency"];
             object mainrefundagencytitle = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", mainidregrefund), "title");
 
-            // ENTE del versamento/rimborso della config. iva INTRA consolidata dell'amminisrazione.
             object mainidregpayment12 = rConfIVA["mainpaymentagency12"];
             object mainpaymentagencytitle12 = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", mainidregpayment12), "title");
 
             object mainidregrefund12 = rConfIVA["mainrefundagency12"];
             object mainrefundagencytitle12 = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", mainidregrefund12), "title");
 
-            // BILANCIO per il versamento/rimborso della config. iva consolidata dell'amminisrazione.
             object mainidfinpayment = rConfIVA["mainidfinivapayment"];
             object maincodefinivapayment = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", mainidfinpayment), "codefin");
 
             object mainidfinrefund = rConfIVA["mainidfinivarefund"];
             object maincodefinivarefund = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", mainidfinrefund), "codefin");
 
-            // BILANCIO per il versamento/rimborso della config. iva INTRA consolidata dell'amminisrazione.
             object mainidfinpayment12 = rConfIVA["mainidfinivapayment12"];
             object maincodefinivapayment12 = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", mainidfinpayment12), "codefin");
 
             object mainidfinrefund12 = rConfIVA["mainidfinivarefund12"];
             object maincodefinivarefund12 = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", mainidfinrefund12), "codefin");
 
-            // BILANCIO del versamento/rimborso dalla config. iva dipartimentale dell'amministrazione, non la config. consolidata.
             object idfinpayment = rConfIVA["idfinivapayment"];
             object codefinivapayment = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", idfinpayment), "codefin");
 
             object idfinrefund = rConfIVA["idfinivarefund"];
             object codefinivarefund = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", idfinrefund), "codefin");
 
-            // BILANCIO del versamento/rimborso dalla config. iva INTRA dipartimentale dell'amministrazione, non la config. consolidata.
             object idfinpayment12 = rConfIVA["idfinivapayment12"];
             object codefinivapayment12 = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", idfinpayment12), "codefin");
 
             object idfinrefund12 = rConfIVA["idfinivarefund12"];
             object codefinivarefund12 = Meta.Conn.DO_READ_VALUE("fin", QHS.CmpEq("idfin", idfinrefund12), "codefin");
 
-            // ENTE per il versamento/rimborso della config. iva INTRA dipartimentale dell'amministrazione, non la config. consolidata.
             object idregpayment12 = rConfIVA["paymentagency12"];
             object paymentagencytitle12 = Meta.Conn.DO_READ_VALUE("registry", QHS.CmpEq("idreg", idregpayment12), "title");
 
@@ -661,7 +580,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             string idUpb = "0001";
             object codeUpb = Meta.Conn.DO_READ_VALUE("upb",QHS.CmpEq("idupb", "0001"),"codeupb");
 
-            //liquidazionecorrente è l'importo da liquidare, positivo se a debito
             if (MovimentiFinanziariConfigurati()){
                 if (liquidazionecorrente > 0){
                     DataRow rMov = movimentiIVA.NewRow();
@@ -725,7 +643,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
             }
 
-            // AGGIUNGE I MOV. VERSO I DIPARTIMENTI 
 
             object ayear = HelpForm.GetObjectFromString(typeof(int), txtEsercizio.Text, null);
             object nmonth = HelpForm.GetObjectFromString(typeof(int), txtMese.Text, null);
@@ -746,9 +663,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 idregistry_dipartimenti = R["idregauto"];
                 registry_dipartimenti = R["regautotitle"];
                 if (MovimentiFinanziariConfigurati()){
-                    // dalla sp ritorna:	ISNULL(paymentamount, -refundamount) AS ivapay
                     if (CfgFn.GetNoNullDecimal(R["ivapay"]) < 0){
-                        // vuol dire che il dipartimento ha fatto un rimborso = entrata, quindi ora generiamo una spesa
                         DataRow rMov = movimentiIVA.NewRow();
                         rMov["movkind"] = "Spesa";
                         rMov["idreg"] = idregistry_dipartimenti;
@@ -764,7 +679,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                     }
 
                     if (CfgFn.GetNoNullDecimal(R["ivapay"]) > 0){
-                        // vuol dire che il dipartimento ha fatto un versamento= spesa, quindi ora generiamo una entrata
                         DataRow rMov = movimentiIVA.NewRow();
                         rMov["movkind"] = "Entrata";
                         rMov["idreg"] = idregistry_dipartimenti;
@@ -781,9 +695,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
 
                 if (MovimentiFinanziariConfigurati12()){
-                    // dalla sp ritorna:	ISNULL(paymentamount12, -refundamount12) AS ivapay12
                     if (CfgFn.GetNoNullDecimal(R["ivapay12"]) < 0){
-                        // vuol dire che il dipartimento ha fatto un rimborso = entrata, quindi ora generiamo una spesa
                         DataRow rMov = movimentiIVA.NewRow();
                         rMov["movkind"] = "Spesa";
                         rMov["idreg"] = idregistry_dipartimenti;
@@ -799,7 +711,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                     }
 
                     if (CfgFn.GetNoNullDecimal(R["ivapay12"]) > 0){
-                        // vuol dire che il dipartimento ha fatto un versamento= spesa, quindi ora generiamo una entrata
                         DataRow rMov = movimentiIVA.NewRow();
                         rMov["movkind"] = "Entrata";
                         rMov["idreg"] = idregistry_dipartimenti;
@@ -854,7 +765,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             }
             DateTime dtGiornoPeriodo = new DateTime(year, month, m_PeriodicitaGiorno);
 
-            //riga di liquidazioneivaconsolidata = mainivapay
             Meta.SetDefaults(DS.mainivapay);
             DataRow Rliquidazione = Meta.Get_New_Row(null, DS.mainivapay);
             Rliquidazione["paymentkind"] = "C";
@@ -878,7 +788,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             Rliquidazione["ivaintrastat12"] = ivaintrastat12;
             Rliquidazione["flag"] = calcolaFlag();
 
-            //crea righe di mainivapaydetail (debito) (REGISTRI DI VENDITA)
             foreach (DataRow R in TableIva.Select(QHC.CmpEq("registerclass", "V"))){
                 string filtroDett = QHC.AppAnd(QHC.CmpMulti(Rliquidazione, "ymainivapay", "nmainivapay"),
                                     QHC.CmpMulti(R, "idivaregisterkind"), QHC.CmpMulti(R, "iddbdepartment"));
@@ -887,7 +796,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 1) istituzionale = true;
 
                 DataRow[] rDett = DS.mainivapaydetail.Select(filtroDett);
-                decimal imponibile_imm = 0;// Valorizziamo il campo 'imponibile' della tabella solo se il registro è istituzionale.
+                decimal imponibile_imm = 0;
                 decimal imponibile_diff = 0;
                 if (istituzionale){
                     imponibile_imm = CfgFn.GetNoNullDecimal(R["taxable12_imm"]);
@@ -930,7 +839,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
 
             }
-            //crea righe di ivapaydetail (credito)        (REGISTRI DI ACQUISTO)
             foreach (DataRow R in TableIva.Select(QHC.CmpEq("registerclass", "A"))){
                 string filtroDett = QHC.AppAnd(QHC.CmpMulti(Rliquidazione, "ymainivapay", "nmainivapay"),
                                     QHC.CmpMulti(R, "idivaregisterkind"), QHC.CmpMulti(R, "iddbdepartment"));
@@ -939,7 +847,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 1) istituzionale = true;
 
                 DataRow[] rDett = DS.mainivapaydetail.Select(filtroDett);
-                decimal imponibile_imm = 0;// Valorizziamo il campo 'imponibile' della tabella solo se il registro è istituzionale.
+                decimal imponibile_imm = 0;
                 decimal imponibile_diff = 0;
                 if (istituzionale){
                     imponibile_imm = CfgFn.GetNoNullDecimal(R["taxable12_imm"]);
@@ -953,14 +861,14 @@ namespace mainivapay_wizard_calcolo_consolida {
                     Rdettaglio["idivaregisterkind"] = R["idivaregisterkind"];
                     Rdettaglio["iddbdepartment"] = R["iddbdepartment"];
 
-                    Rdettaglio["ivadeferred"] = CfgFn.GetNoNullDecimal(R["iva_diff"]);//ivatotal;
-                    Rdettaglio["unabatabledeferred"] = CfgFn.GetNoNullDecimal(R["unabatable_diff"]);//unabatable;
-                    Rdettaglio["ivanetdeferred"] = CfgFn.GetNoNullDecimal(R["singola_diff"]);//abatable;
+                    Rdettaglio["ivadeferred"] = CfgFn.GetNoNullDecimal(R["iva_diff"]);
+                    Rdettaglio["unabatabledeferred"] = CfgFn.GetNoNullDecimal(R["unabatable_diff"]);
+                    Rdettaglio["ivanetdeferred"] = CfgFn.GetNoNullDecimal(R["singola_diff"]);
                     Rdettaglio["taxabledeferred12"] = imponibile_diff;
 
-                    Rdettaglio["iva"] = CfgFn.GetNoNullDecimal(R["iva_imm"]);//ivatotal;
-                    Rdettaglio["unabatable"] = CfgFn.GetNoNullDecimal(R["unabatable_imm"]);//unabatable;
-                    Rdettaglio["ivanet"] = CfgFn.GetNoNullDecimal(R["singola_imm"]);//abatable;
+                    Rdettaglio["iva"] = CfgFn.GetNoNullDecimal(R["iva_imm"]);
+                    Rdettaglio["unabatable"] = CfgFn.GetNoNullDecimal(R["unabatable_imm"]);
+                    Rdettaglio["ivanet"] = CfgFn.GetNoNullDecimal(R["singola_imm"]);
                     Rdettaglio["taxable12"] = imponibile_imm;
 
                     Rdettaglio["prorata"] = Rliquidazione["prorata"];
@@ -972,16 +880,16 @@ namespace mainivapay_wizard_calcolo_consolida {
                     DS.mainivapaydetail.Rows.Add(Rdettaglio);
                 }
                 else{
-                    rDett[0]["ivadeferred"] = CfgFn.GetNoNullDecimal(rDett[0]["ivadeferred"]) + CfgFn.GetNoNullDecimal(R["iva_diff"]);// +ivatotal;
+                    rDett[0]["ivadeferred"] = CfgFn.GetNoNullDecimal(rDett[0]["ivadeferred"]) + CfgFn.GetNoNullDecimal(R["iva_diff"]);
                         rDett[0]["unabatabledeferred"] = CfgFn.GetNoNullDecimal(rDett[0]["unabatabledeferred"])
-                            + CfgFn.GetNoNullDecimal(R["unabatable_diff"]);//+ unabatable;
+                            + CfgFn.GetNoNullDecimal(R["unabatable_diff"]);
                         rDett[0]["ivanetdeferred"] = CfgFn.GetNoNullDecimal(rDett[0]["ivanetdeferred"])
-                            + CfgFn.GetNoNullDecimal(R["singola_diff"]);// + abatable;
-                        rDett[0]["iva"] = CfgFn.GetNoNullDecimal(rDett[0]["iva"]) + CfgFn.GetNoNullDecimal(R["iva_imm"]);// +ivatotal;
+                            + CfgFn.GetNoNullDecimal(R["singola_diff"]);
+                        rDett[0]["iva"] = CfgFn.GetNoNullDecimal(rDett[0]["iva"]) + CfgFn.GetNoNullDecimal(R["iva_imm"]);
                         rDett[0]["unabatable"] = CfgFn.GetNoNullDecimal(rDett[0]["unabatable"])
-                             + CfgFn.GetNoNullDecimal(R["unabatable_imm"]);//+ unabatable;
+                             + CfgFn.GetNoNullDecimal(R["unabatable_imm"]);
                         rDett[0]["ivanet"] = CfgFn.GetNoNullDecimal(rDett[0]["ivanet"])
-                             + CfgFn.GetNoNullDecimal(R["singola_imm"]);// + abatable;
+                             + CfgFn.GetNoNullDecimal(R["singola_imm"]);
                         rDett[0]["taxable12"] = CfgFn.GetNoNullDecimal(rDett[0]["taxable12"])
                             + imponibile_imm;
                         rDett[0]["taxabledeferred12"] = CfgFn.GetNoNullDecimal(rDett[0]["taxabledeferred12"])
@@ -990,9 +898,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
             }
 
-            //creaRigheInvoiceDeferred(Rliquidazione);// Per la Lx Consolidata non è stata creata questa tabella, perchè non si è reputata utile.
 
-            // Queste Clear() prima erano nel metodo insertMov().
             DS.Tables["income"].Clear();
             DS.Tables["incomeyear"].Clear();
             DS.Tables["incomelast"].Clear();
@@ -1004,7 +910,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             if ((TAutomatismi!=null) && (TAutomatismi.Rows.Count > 0)&& (liquidazionecorrente!=0) ){
                 insertMov(Rliquidazione, dtGiornoPeriodo,false, "C");
             }
-            // I campi refundamount e paymentamount vengono riempiti solo dopo aver creato i movimenti di entrata e spesa
             bool assegnaData = false;
             if (liquidazionecorrente < 0){
                 Rliquidazione["refundamount"] = -liquidazionecorrente;
@@ -1066,11 +971,9 @@ namespace mainivapay_wizard_calcolo_consolida {
         }
 
         void GeneraScritture(DataRow Curr) {
-            if (DS.mainivapay.Rows.Count == 0) return; //It was an insert-cancel
+            if (DS.mainivapay.Rows.Count == 0) return;
 
-            //			DataRow Curr=DS.ivapay.Rows[0];											
             if (Curr.RowState == DataRowState.Deleted) {
-                //Should delete the related entries 
                 return;
             }
 
@@ -1090,11 +993,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             EP_functions EP = new EP_functions(Meta.Dispatcher);
             if (!EP.attivo) return;
 
-            //Nel caso in cui i mov. NON debbano essere genearati liquidazionecorrene e  ivadelperiodo assumo lo stesso valore. 
-            //Quindi si modifica la condizione da: 
-            //if (liquidazionecorrente == 0 && ( MovimentiFinanziariConfigurati() == false )  &&  (ivadelperiodo !=  0 ) ) 
-            //in
-            //if (  MovimentiFinanziariConfigurati() == false   &&  ivadelperiodo !=  0  ) 
             if ((MovimentiFinanziariConfigurati() == false) && (MovimentiFinanziariConfigurati12() == false) && (ivadelperiodo != 0))
             {
                 show(this, "Non avendo generato alcuna movimentazione finanziaria non sarà generata alcuna scrittura E.P.", "Avviso");
@@ -1138,7 +1036,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 show(this, msg);
                 return;
             }
-            // INTRA
             if (idacc_refund12 == DBNull.Value && totale_iva_credito12 > 0) {
                 string msg = "Non è stato configurato alcun conto per il rimborso dell'IVA Intra e Extra-UE"
                     + "\nAndare dal menu CONFIGURAZIONE - ECONOMICO PATRIMONIALE - CONFIGURAZIONE ed impostare il conto Crediti v/Clienti o il conto Rimborso IVA"
@@ -1167,7 +1064,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             foreach (DataRow rFattura in TableIva_dipartimenti.Rows) {
                 decimal amount = CfgFn.GetNoNullDecimal(rFattura["ivapay"]);
                 decimal amount12 = CfgFn.GetNoNullDecimal(rFattura["ivapay12"]); 
-                if (amount == 0) continue;// DA RIVEDERE
+                if (amount == 0) continue;
 
                 string idepcontext = "";
                 string idepcontext12 = "";
@@ -1181,7 +1078,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                     ivaCredito -= amount;
                 }
 
-                // INTRA 
                 if (amount12 > 0){
                     idepcontext12 = "LIQIVADEB";
                     ivaDebito12 += amount12;
@@ -1194,18 +1090,11 @@ namespace mainivapay_wizard_calcolo_consolida {
                 object idreg = rFattura["idregauto"];
 
                 if (amount > 0) {
-                    //iva a debito, credito da dip, debito verso erario
-                    // cambio di segno per movimentare il conto di credito in DARE
                     EP.EffettuaScrittura(idepcontext, -amount, idacc_refund_internal, idreg, null,null);
-                    //EP.EffettuaScrittura(idepcontext, amount, idacc_payment, idregVersamento, null, null);
                 }
                 else {
-                    //iva a credito, debito vs dip, credito da erario
-                    //non cambio di segno perché voglio movimentare il conto di debito in AVERE
                     EP.EffettuaScrittura(idepcontext, amount, idacc_payment_internal, idreg, null, null);
-                    //EP.EffettuaScrittura(idepcontext, -amount, idacc_refund, idregRimborso, null, null);
                 }
-                // Speculare per INTRA
                 if (amount12 > 0){
                     EP.EffettuaScrittura(idepcontext12, -amount12, idacc_refund_internal12, idreg, null, null);
                 }
@@ -1221,27 +1110,20 @@ namespace mainivapay_wizard_calcolo_consolida {
             decimal totale_mio12 = totale_iva_debito12 - totale_iva_credito12;
 
             if (totale_mio > 0) {
-                //era ivaDebito
                 EP.EffettuaScrittura("LIQIVADEB", totale_mio, idacc_payment, idregVersamento, idupb, null);
             }
             else {
-                //era totale_iva_credito
                 EP.EffettuaScrittura("LIQIVACRED", -totale_mio, idacc_refund, idregRimborso, idupb, null);
             }
 
-            // INTRA 
             if (totale_mio12 > 0){
-                //era ivaDebito 
                 EP.EffettuaScrittura("LIQIVADEB", totale_mio12, idacc_payment12, idregVersamento12, idupb, null);
             }
             else{
-                //era totale_iva_credito
                 EP.EffettuaScrittura("LIQIVACRED", -totale_mio12, idacc_refund12, idregRimborso12, idupb, null);
             }
 
 
-            //ivaCredito: somma delle iva detraibili riga per riga (se modo non è "riga per riga" non applica il prorata)
-            //totale_iva_credito: importo che tiene conto del tipo calcolo (di solito è quindi minore di  ivaCredito)
             decimal costodetr = totale_da_dip - totale_mio;
 
             if (costodetr > 0 && idaccunabatable == DBNull.Value) {
@@ -1319,11 +1201,7 @@ namespace mainivapay_wizard_calcolo_consolida {
             DateTime DataCont = Convert.ToDateTime(Meta.GetSys("datacontabile"));
             E_S.BeginEdit();
             E_S["ymov"] = esercizio;
-            //E_S["ycreation"]= esercizio;
             E_S["adate"] = DataCont;
-            //E_S["fulfilled"]="N";
-            ////if (E_S.Table.Columns.Contains("autotaxflag"))E_S["autotaxflag"]="N";
-            ////if (E_S.Table.Columns.Contains("autoclawbackflag"))E_S["autoclawbackflag"]="N";
 
             string[] fields_to_copy = new string[] { 
 													  "idman","idreg","description","autokind"};
@@ -1332,7 +1210,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 if (E_S.Table.Columns[field] == null) continue;
                 E_S[field] = Auto[field];
             }
-            //E_S["amount"] = CfgFn.RoundValuta(CfgFn.GetNoNullDecimal(Auto["amount"]));
             E_S.EndEdit();
         }
 
@@ -1359,13 +1236,6 @@ namespace mainivapay_wizard_calcolo_consolida {
 
             DS.Tables["expenseview"].AcceptChanges();
             DS.Tables["incomeview"].AcceptChanges();
-            // Spostati nel metodo chiamante.
-            //DS.Tables["expense"].Clear();
-            //DS.Tables["income"].Clear();
-            //DS.Tables["expenseview"].Clear();
-            //DS.Tables["incomeview"].Clear();
-            //DS.Tables["incomelast"].Clear();
-            //DS.Tables["expenselast"].Clear();
 
             string parentIdField;
             string movIdField;
@@ -1485,7 +1355,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
             }
 
-            //Imposta il livsupid di tutte le righe per cui è necessario
             foreach (DataRow R in Auto){
                 string mov = "";
                 if (R["movkind"].ToString().ToLower() == "spesa")
@@ -1533,8 +1402,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
                 MovSel[parentIdField] = idtolink;
             }
-            //Cancella tutto ciò che non ha figli e non è di ultima fase* sino a che non trova + nulla,
-            // (*)non è necessariamente la maxphase, ma è l'ultima fase che si è generata, che può essere la maxphase o quella del creditore
             faselast = (GeneraTuttelafasi) ? getIntSys("maxexpensephase") : getIntSys("expenseregphase");
             bool keep = true;
             while (keep){
@@ -1572,10 +1439,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 }
             }
 
-            //15 - Lx IVA consolidata interna
-            //18 - Lx IVA intrastat consolidata interna
-            //16 - Lx IVA consolidata esterna
-            //19 - Lx IVA intrastat consolidata esterna
             string filter = "";
             if (sourcekind == "C"){
                 filter = "(autokind = 16 or autokind = 19) ";
@@ -1652,12 +1515,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             return false;
         }
 
-        /// <summary>
-        /// se importo negativo --> iva a credito
-        /// </summary>
-        /// <param name="importo"></param>
-        /// <param name="E_S"></param>
-        /// <returns></returns>
         private bool controllaSeCreareAutomatismi(decimal importo){
             if (importo == 0) return false;
             DataRow rConfIVA = DS.config.Rows[0];
@@ -1768,7 +1625,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             if (!MovimentiFinanziariConfigurati()){
                 liquidazionecorrente = ivadelperiodo;
                 movfinanziariConfig = false;
-                //return;
             }
             else{
                 movfinanziariConfig = true;
@@ -1778,7 +1634,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             if (!MovimentiFinanziariConfigurati12()){
                 liquidazionecorrente12 = ivadelperiodo12;
                 movfinanziariConfig12 = false;
-                //return;
             }
             else{
                 movfinanziariConfig12 = true;
@@ -1916,8 +1771,8 @@ namespace mainivapay_wizard_calcolo_consolida {
 
     
 
-        decimal saldo_precedente = 0;    //si intende come IVA A DEBITO
-        decimal saldo_precedente12 = 0;    //si intende come IVA A DEBITO
+        decimal saldo_precedente = 0;
+        decimal saldo_precedente12 = 0;
 
         decimal startivabalance;
         decimal startivabalance12;
@@ -1962,11 +1817,10 @@ namespace mainivapay_wizard_calcolo_consolida {
             decimal perc_promiscuo = getPromiscuo();
             decimal perc_prorata = getProrata();
 
-            credito_immediato = 0;//calcolati riga per riga
-            credito_differito = 0;//calcolati riga per riga
+            credito_immediato = 0;
+            credito_differito = 0;
 
-            totale_iva_credito = 0;  //somma definitiva del  prorata riga per riga oppure sul totale
-            //in base alla configuraazione
+            totale_iva_credito = 0;
 
             vendite_immediata = 0;
             vendite_deferred = 0;
@@ -2003,18 +1857,15 @@ namespace mainivapay_wizard_calcolo_consolida {
             foreach (DataRow R in TableIva.Rows){
 
                 bool acquisto = R["registerclass"].ToString().ToUpper() == "A";
-                //bool promiscuo = R["flagmixed"].ToString().ToUpper() == "S";
                 bool istituzionale = false;
                 bool commerciale = false;
                 bool promiscuo = false;
-                // Non è necessario interrogare il flgaintracom, perchè attingiamo direttamente dalla sp, quindi l'iva
-                // istituzionale è solo INTRA.
                 if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 1) istituzionale = true;
                 if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 2) commerciale = true;
                 if (CfgFn.GetNoNullInt32(R["flagactivity"]) == 3) promiscuo = true;
                 if (!istituzionale){
-                    imposta_imm = CfgFn.GetNoNullDecimal(R["iva_imm"]);// txt 'Totale' di Immediata
-                    imposta_diff = CfgFn.GetNoNullDecimal(R["iva_diff"]);// txt 'Totale' di Differita
+                    imposta_imm = CfgFn.GetNoNullDecimal(R["iva_imm"]);
+                    imposta_diff = CfgFn.GetNoNullDecimal(R["iva_diff"]);
                 }
                 else{
                     imposta_imm = CfgFn.GetNoNullDecimal(R["iva12_imm"]);
@@ -2024,14 +1875,12 @@ namespace mainivapay_wizard_calcolo_consolida {
                         decimal indetraibile_singolo_imm = 0, indetraibile_singolo_diff = 0;
                         if (!istituzionale){
                             if (ModoCalcolo_RigaPerRiga){
-                                // Sono valori al netto del promiscuo e prorata.
                                 R["singola_imm"] = CfgFn.GetNoNullDecimal(R["ivanet_imm"]);
                                 indetraibile_singolo_imm = CfgFn.GetNoNullDecimal(R["unabatablenet_imm"]);
                                 R["singola_diff"] = CfgFn.GetNoNullDecimal(R["ivanet_diff"]);
                                 indetraibile_singolo_diff = CfgFn.GetNoNullDecimal(R["unabatablenet_diff"]);
                             }
                             else{
-                                // Il promiscuo e il prorata li applicheremo dopo, sul totale complessivo.
                                 R["singola_imm"] = CfgFn.GetNoNullDecimal(R["iva_imm"]) - CfgFn.GetNoNullDecimal(R["unabatable_imm"]);
                                 indetraibile_singolo_imm = CfgFn.GetNoNullDecimal(R["unabatable_imm"]);
                                 R["singola_diff"] = CfgFn.GetNoNullDecimal(R["iva_diff"]) - CfgFn.GetNoNullDecimal(R["unabatable_diff"]);
@@ -2067,16 +1916,14 @@ namespace mainivapay_wizard_calcolo_consolida {
                             impdebito_differito12 += taxable_diff;
                         }
 
-                    // Il totale_iva_credito viene ricalcolo dopo, per chi calcola sul totale.
                         if (!istituzionale){
                             totale_iva_credito += CfgFn.GetNoNullDecimal(R["ivanet_imm"]) + CfgFn.GetNoNullDecimal(R["ivanet_diff"]);
 
-                            credito_immediato += CfgFn.GetNoNullDecimal(R["ivanet_imm"]); //E' comunque calcolato sulla base riga per riga
+                            credito_immediato += CfgFn.GetNoNullDecimal(R["ivanet_imm"]);
                             credito_differito += CfgFn.GetNoNullDecimal(R["ivanet_diff"]);
                         }
                 }
                 else{ 
-                    //vendita
                     if (istituzionale) {
                         credito_immediato12 += imposta_imm;
                         impcredito_immediato12 += taxable_imm;
@@ -2091,7 +1938,7 @@ namespace mainivapay_wizard_calcolo_consolida {
                     R["singola_diff"] = imposta_diff;
                 }
 
-            } //foreach
+            }
 
             txtIvaDebitoImmediata.Text = vendite_immediata.ToString("c");
             txtIvaDebitoDifferita.Text = vendite_deferred.ToString("c");
@@ -2161,7 +2008,6 @@ namespace mainivapay_wizard_calcolo_consolida {
 
             ivadelperiodo = totale_iva_debito - totale_iva_credito;
 
-            // Parte nuova relativa all'iva INTRA-12
             decimal netto_ivadeb_imm = debito_immediato12 - credito_immediato12;
             decimal netto_impdeb_imm = impdebito_immediato12 - impcredito_immediato12;
             txtImpIstituzImmed.Text = netto_impdeb_imm.ToString("c");
@@ -2275,7 +2121,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                 RRegistro["description"] = R["description"];
 
                 if (!istituzionale){
-                    // Continua a fare ciò che faceva prima
                     decimal ivatotale_imm = CfgFn.GetNoNullDecimal(R["iva_imm"]);
                     decimal ivatotale_diff = CfgFn.GetNoNullDecimal(R["iva_diff"]);
                     decimal ivadetraibile_imm = CfgFn.GetNoNullDecimal(R["singola_imm"]);
@@ -2295,7 +2140,6 @@ namespace mainivapay_wizard_calcolo_consolida {
                     }
                 }
                 else{
-                    // Elabora la parte istituzionale INTRA
                     decimal ivatotale_imm = CfgFn.GetNoNullDecimal(R["iva12_imm"]);
                     decimal ivatotale_diff = CfgFn.GetNoNullDecimal(R["iva12_diff"]);
                     decimal taxabletotale_imm = CfgFn.GetNoNullDecimal(R["taxable12_imm"]);
@@ -2395,14 +2239,10 @@ namespace mainivapay_wizard_calcolo_consolida {
 
 
         private void ComputePeriod(int periodo) {
-            // DA RIMUOVERE CIO' CHE RIGUARDA LA PERIODICITA' PERCHE' NON SERVE. CONTA SOLO IL MESE. 
-            // Abbiamo valorizzato periodo a 1, ossia ogni mese.
-            //calcolo periodo default (periodo precedente)
             if (periodo <= 0) return;
             DateTime data = ((DateTime)Meta.GetSys("datacontabile"));
             int year = data.Year;
             int month = (data.Month - periodo > 0 ? data.Month - periodo : 12 + data.Month - periodo);
-            //se sono a cavallo dell'anno nuovo la liquidazione cade nell'anno prima
             if ((month + periodo) > 12)   {
                 month = month - periodo + 1;
                 year--;
@@ -2410,8 +2250,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             DateTime FromDate = new DateTime(year, month, 1);
             m_ToDate = FromDate.AddMonths(periodo - 1);
             m_ToDate = m_ToDate.AddDays(DateTime.DaysInMonth(year, m_ToDate.Month) - 1);
-            //forza la liquidazione del periodo corrente per il solo mese di dicembre
-            //se è stata scelta tale opzione
             if ((chkEndOfYear.Checked) && (data.Month == 12))
             {
                 FromDate = m_ToDate.AddDays(1);
@@ -2429,9 +2267,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             ComputePeriod(periodo);
         }
         void EditEntry(DataRow Curr_ivapay) {
-            //			if (DS.ivapay.Rows.Count==0) return;
-            //			EP_functions EP= new EP_functions(Meta.Dispatcher);
-            //			EP.EditRelatedEntry(Meta,DS.ivapay.Rows[0]);	
 
             EP_functions EP = new EP_functions(Meta.Dispatcher);
             EP.EditRelatedEntry(Meta, Curr_ivapay);
@@ -2441,7 +2276,6 @@ namespace mainivapay_wizard_calcolo_consolida {
             string outstring = "";
             int diversi = 0;
             foreach (DataRow R in ROWS){
-                //if (R[column]==DBNull.Value) continue;
                 string quoted = QueryCreator.quotedstrvalue(R[column], false);
                 if (outstring.IndexOf(quoted) >= 0) continue;
                 if (outstring != "") outstring += ",";

@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,13 +43,8 @@ namespace no_table_wizardmerge {
         #region Gestione Tabs
 
         string CustomTitle;
-        /// <summary>
-        /// Displays tab n. NewTab and updates buttons
-        /// </summary>
-        /// <param name="newTab"></param>
         void DisplayTabs(int newTab) {
             tabController.SelectedIndex = newTab;
-            //Evaluates Buttons Appearance
             btnBack.Visible = (newTab > 0);
             if (newTab == tabController.TabPages.Count - 1)
                 btnNext.Text = "Ricomincia.";
@@ -87,19 +81,10 @@ namespace no_table_wizardmerge {
 
         bool CustomChangeTab(int oldTab, int newTab) {
             if (oldTab == 0) {
-                return CheckStandard(); // 0->1: nothing to do
+                return CheckStandard();
             }
-            if ((oldTab == 1) && (newTab == 0)) return true; //1->0:nothing to do!
-            if (oldTab == 1 && newTab == 2) {//Creazione nuovo database -> Scelta dipartimento
-                //				btnGrandePunto_Click(null, null);
-                //				if (Conn!=null) {
-                //					//EnableDisableButtonsTabConfigurazione();
-                //					return true;
-                //				}
-                //				if (chkSSPI.Checked){
-                //					Conn= new DataAccess("NewDB",txtServerName.Text.Trim(),txtDBName.Text.Trim(),2000,DateTime.Now);
-                //				}
-                //				else {
+            if ((oldTab == 1) && (newTab == 0)) return true;
+            if (oldTab == 1 && newTab == 2) {
                 string errore;
                 string errore2;
                 string dettaglio;
@@ -203,9 +188,6 @@ namespace no_table_wizardmerge {
             if (!typeof(DataGrid).IsAssignableFrom(sender.GetType())) return;
             DataGrid G = (DataGrid)sender;
             LastGridClick = DateTime.Now;
-            //			if (e.Clicks==1){
-            //				NavigatorDoubleClick(sender,null);	
-            //			}
 
         }
         void SimpleSelect(DataGrid G, int R) {
@@ -228,7 +210,6 @@ namespace no_table_wizardmerge {
             if (myHitTest.Type == System.Windows.Forms.DataGrid.HitTestType.Cell) {
                 int Row = myHitTest.Row;
                 if (!G.IsSelected(Row)) {
-                    //if (HelpForm.GetAllowMultiSelection(T)) 
                     SimpleSelect(G, Row);
                 }
                 else {
@@ -237,8 +218,6 @@ namespace no_table_wizardmerge {
             }
             else {
                 int Row = myHitTest.Row;
-                //HelpForm.ClearSelection(G);
-                //SimpleSelect(G, Row);
             }
 
 
@@ -252,7 +231,6 @@ namespace no_table_wizardmerge {
 
         public void MetaData_AfterActivation() {
             CustomTitle = "Wizard Consolidamento Database";
-            //Selects first tab
             DisplayTabs(0);
         }
 
@@ -263,8 +241,6 @@ namespace no_table_wizardmerge {
 
 
 
-        //Quest tabelle, tranne parasubcontractlist e dbuseradvice 
-        // devono essere presenti in un solo dipartimento 
         string []dbototranslate= 
             new string[]{"csa_agency","csa_agencypaymethod","csa_contractkind",
                         "csa_contractkindrules","csa_contractregistry","csapaymethodlookup",
@@ -275,20 +251,11 @@ namespace no_table_wizardmerge {
                         "accountlookup","patrimonylookup","placcountlookup",
                         "dbuseradvice"};
                     
-        //A;B;C;D
-        //A = nome tabella
-        //B= chiave alternativa (mkey)
-        //C= informazioni importanti che devono essere uguali, se * 
-        //      è richiesto di verificare che B sia davvero chiave alternativa   (checkfield)
-        //D= ulteriori campi con vincolo di unicità   (unique)
         DataGrid[] dgridA;
         DataGrid[] dgridB;
         DataGrid[] dgridC;
-        //Queste tabelle non devono contenere chiavi ESTERNE di altre tabelle dbo, infatti su esse non è effettuata alcuna traslazione
-        //Le righe di queste tabelle sono accodate a quelle esistenti
-        // I tree invece sono presi dal primo dip. che ce li ha e gli altri devono essere uguali o traslati tramite apposito campo di lookup
         string[] tabledata =
-            new string[]{"account;ayear,codeacc",   //idpatrimony,idplaccount,idaccountkind   (E' un tree)
+            new string[]{"account;ayear,codeacc",
                         "accountkind;description", 
                         "accountlevel;ayear,nlevel;description",
                         "accmotive;codemotive;title",
@@ -296,31 +263,30 @@ namespace no_table_wizardmerge {
                         "assetusagekind;codeassetusagekind;description;description",
                         "bank;idbank",
                         "cab;idbank,idcab",
-                        "category;description;*", //* come check vuol dire "verifica che sia chiave alternativa"
+                        "category;description;*",
                         "centralizedcategory;description;*",
                         "currency;codecurrency;description;description",
                         "ddt_in_motive;description;*",
                         "ddt_out_motive;description;*",
                         "inventorysortinglevel;nlevel;description",
-                        "inventorytree;codeinv",        //idaccmotiveload, idaccmotiveunload
+                        "inventorytree;codeinv",
                         "inventorytreemultifieldkind;codeinv;description",
                         "itinerationrefundkind;codeitinerationrefundkind;description;description",
                         "ivapayperiodicity;description;*,periodicday,periodicity,periodicmonth",
                         "listclass;codelistclass;title",  
-                        "list;description;*",                       //idlistclass,idpackage,idunit
+                        "list;description;*",
                         "maintenancekind;codemaintenancekind;description;description",
                         "maritalstatus;description;*",
                         "multifieldkind;fieldcode;fieldname",
                         "package;description;*",
-                        "patrimony;ayear,codepatrimony",  // (E' un tree)
+                        "patrimony;ayear,codepatrimony",
                         "patrimonylevel;ayear,nlevel;description",
                         "paymethod;description;methodbankcode,allowdeputy;description",
-                        "placcount;ayear,codeplaccount",  //(E' un tree)
+                        "placcount;ayear,codeplaccount",
                         "placcountlevel;ayear,nlevel;description",
                         "position;codeposition;description",
-                        //"registrykind;sortcode;description;description",
                         "service;codeser;description,certificatekind,rec770kind,allowedit;description",
-                        "stamphandling;description", //;handlingbankcode;description",
+                        "stamphandling;description",
                         "storeload_motive;description;*",
                         "storeunload_motive;description;*", 
                         "unit;description;*", 
@@ -362,20 +328,11 @@ namespace no_table_wizardmerge {
 
         DataAccess Source;
         DataAccess DestDip;
-        /// <summary>
-        /// Esamina una tabella del db da importare
-        /// </summary>
-        /// <param name="tablename"></param>
-        /// <param name="mergekey"></param>
-        /// <param name="checkfield"></param>
-        /// <param name="NStep"></param>
-        /// <returns>0 OK, 1:errore di incoerenza 2-3:errato vincolo di chiave alternativa in secondario/corrente
-        ///     4:errore di unicita indotto (accetta secondario vietato), 5: errore di unicita ineludibile</returns>
         public int CheckTable(string tablename, string[] mergekey, string[] checkfield,string []unique, int NStep) {
 
-            DataTable TS = Source.RUN_SELECT(tablename, "*", null, null, null, false);//DB da importare  -> Possibili conflitti
-            DataTable TC = Source.CreateTableByName(tablename,"*");//DB da importare  ------>righe presenti solo sul db da  importare
-            DataTable TD = Conn.RUN_SELECT(tablename, "*", null, null, null, false);//DB Corrente
+            DataTable TS = Source.RUN_SELECT(tablename, "*", null, null, null, false);
+            DataTable TC = Source.CreateTableByName(tablename,"*");
+            DataTable TD = Conn.RUN_SELECT(tablename, "*", null, null, null, false);
             TS.CaseSensitive = false;
             TD.CaseSensitive = false;
             TC.CaseSensitive = false;
@@ -402,25 +359,21 @@ namespace no_table_wizardmerge {
                     if (TD.Select(uqfilter).Length == 0) {
                         string qus = QHS.MCmp(RS, unique);
                         Source.RUN_SELECT_INTO_TABLE(TC, null, qus, null, false);
-                        RS.Delete(); //non è un possibile conflitto
-                        continue; //No problem: la chiave "unica" non è presente in db principale
+                        RS.Delete();
+                        continue;
                     }
                     DataRow RD=TD.Select(uqfilter)[0];
                     bool ok=true;
-                    //La chiave unica è presente, allora deve essere sulla stessa chiave secondaria
                     foreach (string field in mergekey) {
                         if (RS[field].ToString().ToUpper() != RD[field].ToString().ToUpper()) ok = false;
                     }
                     if (ok) {
-                        RS.Delete();//non è un possibile conflitto
+                        RS.Delete();
                         continue;
                     }
-                    //A questo punto, se la chiave alternativa è presente e diversa, non si potrà fare 'Accetta secondario',
-                    // altrimenti non si potrà proprio procedere poiché non è ammesso il redirezionamento
                     string mkfilter = QHC.MCmp(RS, mergekey);
                     if (TD.Select(mkfilter).Length == 0 || tablename == "inventorytree" || tablename == "account" || 
                                     tablename == "patrimony" || tablename == "placcount") {
-                        //non sarà possibile procedere... ma non passa di qua, perché per i tree non ho impostato alcun unique
                         grave = true;
                     }
                 }
@@ -463,10 +416,8 @@ namespace no_table_wizardmerge {
             }
 
             if ((checkfield.Length > 0) && (checkfield[0] == "*")) {
-                //Verifica che non ci siano problemi di chiave alternativa indotti dall'importazione
                
 
-                //Verifica che mergekey sia chiave alternativa in TS e in TD
                 foreach (DataRow RS in TS.Select()) {
                     string mkfilter = QHC.MCmp(RS, mergekey);
                     if (TS.Select(mkfilter).Length > 1) {
@@ -480,7 +431,6 @@ namespace no_table_wizardmerge {
                         return 2;
                     }
                 }
-                //Verifica che mergekey sia chiave alternativa in TS e in TD
                 foreach (DataRow RD in TD.Select()) {
                     string mkfilter = QHC.MCmp(RD, mergekey);
                     if (TD.Select(mkfilter).Length > 1) {
@@ -500,8 +450,7 @@ namespace no_table_wizardmerge {
             }
             if ((checkfield.Length == 1) && (checkfield[0] == "*")) return 0;
 
-            //Elimina da TS e da TD le righe che vanno bene, lasciando solo quelle di incoerenza
-            foreach (DataRow RS in TS.Select()) { //esamina le righe del db da importare
+            foreach (DataRow RS in TS.Select()) {
                 string filter = QHC.MCmp(RS, mergekey);
                 DataRow[] found = TD.Select(filter);
                 string []lookupfields=null;
@@ -520,16 +469,15 @@ namespace no_table_wizardmerge {
                 }
 
                 if (tablename == "inventorytree" || tablename == "account" || tablename == "patrimony" || tablename == "placcount") {
-                    //si tratta di un tree DBO
-                    if (found.Length == 0 && TD.Rows.Count==0) {  //non è presente nel dip consolidato
-                        RS.Delete(); //non è un possibile conflitto
+                    if (found.Length == 0 && TD.Rows.Count==0) {
+                        RS.Delete();
                         string sqlfilt = QHS.MCmp(RS, mergekey);
                         Source.RUN_SELECT_INTO_TABLE(TC, null, sqlfilt, null, false);
-                        continue; //riga non trovata nel db corrente
+                        continue;
                     }
 
-                    if (found.Length == 0 && TD.Rows.Count >0) {  //non è presente nel dip consolidato
-                        RS.Delete(); //non è un possibile conflitto
+                    if (found.Length == 0 && TD.Rows.Count >0) {
+                        RS.Delete();
                         string sqlfilt = QHS.MCmp(RS, mergekey);
                         Source.RUN_SELECT_INTO_TABLE(TC, null, sqlfilt, null, false);
                         txt2.Text = "La tabella " + tablename + " contiene righe che non hanno corrispondenza nel db principale";
@@ -539,12 +487,11 @@ namespace no_table_wizardmerge {
 
                 }
                 else {
-                    //non si tratta di un tree DBO
-                    if (found.Length == 0) { //non è presente nel dip consolidato
-                        RS.Delete(); //non è un possibile conflitto
+                    if (found.Length == 0) {
+                        RS.Delete();
                         string sqlfilt = QHS.MCmp(RS, mergekey);
                         Source.RUN_SELECT_INTO_TABLE(TC, null, sqlfilt, null, false);
-                        continue; //riga non trovata nel db corrente
+                        continue;
                     }
 
                 }
@@ -631,7 +578,7 @@ namespace no_table_wizardmerge {
 
         }
 
-        int currindice_DBO = 0; //Indice per scansione tabelle DBO
+        int currindice_DBO = 0;
         int lasterr_DBO = 0;
         void EnableDisableButtons_CheckDBO() {
             btnBack.Enabled = true;
@@ -717,8 +664,8 @@ namespace no_table_wizardmerge {
             if (checkfield.Length == 0) return;
             if ((checkfield.Length == 1) && (checkfield[0] == "*")) return ;
 
-            DataTable TS = Source.RUN_SELECT(tablename, "*", null, null, null, false);//DB da importare
-            DataTable TD = Conn.RUN_SELECT(tablename, "*", null, null, null, false);//DB Corrente
+            DataTable TS = Source.RUN_SELECT(tablename, "*", null, null, null, false);
+            DataTable TD = Conn.RUN_SELECT(tablename, "*", null, null, null, false);
 
             MetaData M = MetaData.GetMetaData(this, tablename);
             DataSet DDA = new DataSet("A");
@@ -727,12 +674,11 @@ namespace no_table_wizardmerge {
             DDB.Tables.Add(TD);
 
 
-            //Adegua le righe in TD in base a quelle in TS
-            foreach (DataRow RS in TS.Select()) { //esamina le righe del db da importare
+            foreach (DataRow RS in TS.Select()) {
                 string filter = QHC.MCmp(RS, mkey);
                 DataRow[] found = TD.Select(filter);
                 if (found.Length == 0) {
-                    continue; //riga non trovata nel db corrente
+                    continue;
                 }
                 DataRow RD = found[0];
                 foreach (string fname in checkfield) {
@@ -812,7 +758,6 @@ namespace no_table_wizardmerge {
             DB.Tables.Add(CurrFin);
             DA.Tables.Add(SourceFin);
 
-            //Per ogni riga in CurrFin vede se ce n'è una con pari codefin
             foreach (DataRow RC in CurrFin.Select()) {
                 int flag= CfgFn.GetNoNullInt32(RC["flag"]);
                 string cmpcode;
@@ -822,7 +767,6 @@ namespace no_table_wizardmerge {
                     cmpcode = QHC.AppAnd(QHC.CmpEq("codefin", RC["codefin"]), QHC.BitClear("flag", 0));
                 DataRow[] found = SourceFin.Select(cmpcode);
                 if (found.Length == 0) {
-                    //Se c'è un cap. in più nel db principale non è un problema
                     RC.Delete();
                     continue;
                 }
@@ -833,7 +777,6 @@ namespace no_table_wizardmerge {
             CurrFin.AcceptChanges();
             SourceFin.AcceptChanges();
 
-            //Per ogni riga in SourceFin vede se ce n'è una con pari codefin
             foreach (DataRow RC in SourceFin.Select()) {
                 int flag = CfgFn.GetNoNullInt32(RC["flag"]);
                 string cmpcode;
@@ -842,7 +785,7 @@ namespace no_table_wizardmerge {
                 else
                     cmpcode = QHC.AppAnd(QHC.CmpEq("codefin", RC["codefin"]), QHC.BitClear("flag", 0));
                 DataRow[] found = CurrFin.Select(cmpcode);
-                if (found.Length == 0) continue; //Cap. mancante nel dn principale
+                if (found.Length == 0) continue;
                 if (found[0]["title"].ToString().ToUpper() != RC["title"].ToString().ToUpper()) continue;
                 RC.Delete();
                 found[0].Delete();
@@ -936,20 +879,9 @@ namespace no_table_wizardmerge {
 
         }
 
-        /// <summary>
-        /// Importa la tabella tablename in base a mergekey. Sui valori copiati non è effettuata alcun lookup.
-        /// Questa funzione infatti serve a crearli, i lookup
-        /// Inoltre tutte le righe copiate sono impostate come non attive 
-        /// </summary>
-        /// <param name="tablename"></param>
-        /// <param name="mergekey"></param>
-        /// <param name="checkfield"></param>
-        /// <param name="unique"></param>
-        /// <param name="NStep"></param>
-        /// <returns>0 se tutto ok</returns>
         public int CopyDBOTable(string tablename, string[] mergekey, string[] checkfield,  int NStep) {
-             DataTable TS = Source.RUN_SELECT(tablename, "*", null, null, null, false);//DB da importare
-            DataTable TD = Conn.RUN_SELECT(tablename, "*", null, null, null, false);//DB Corrente
+             DataTable TS = Source.RUN_SELECT(tablename, "*", null, null, null, false);
+            DataTable TD = Conn.RUN_SELECT(tablename, "*", null, null, null, false);
 
             if (TD.Rows.Count> 0 && TS.Rows.Count>0) {
                 if (tablename == "account" || tablename == "placcount" || tablename == "patrimony") {
@@ -977,11 +909,9 @@ namespace no_table_wizardmerge {
                 nfield++;
             }
             if (nfield > 1) {
-                //MetaFactory.factory.getSingleton<IMessageShower>().Show("Attenzione, la tabella " + tablename + " ha chiave multipla.");
                 multikey = true;
             }
 
-            //questa cosa che fa sembra inutile...
             if (!multikey) {                
                 foreach (DataRow RD in TD.Rows) {
                     lookup[RD[kfield]] = RD[kfield];
@@ -1002,7 +932,6 @@ namespace no_table_wizardmerge {
            
 
             foreach (DataRow RS in TS.Select()) {
-                //Vede se la chiave alternativa della riga c'è in TD, in tal caso salta questa riga
                 string mkfilter = QHC.CmpMulti(RS, mergekey);
                 if (TD.Select(mkfilter).Length > 0) {
                     DataRow DestRow = TD.Select(mkfilter)[0];
@@ -1023,7 +952,6 @@ namespace no_table_wizardmerge {
             P.InitClass(DNew, Conn);
             if (!P.DO_POST()) return 1;
             if (!multikey) {
-                //Aggiorna la lookup con eventuali campi ad autoincremento oppure nuove chiavi
                 foreach (DataRow RN in TNew.Rows) {
                     string mkfilter = QHC.CmpMulti(RN, mergekey);
                     DataRow Old = TS.Select(mkfilter)[0];
@@ -1040,11 +968,6 @@ namespace no_table_wizardmerge {
         int displace_idreg = 0;
 
 
-        /// <summary>
-        /// Copia tutte le tabelle dell'array tabledata e poi le anagrafiche
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnCopyDBO_Click(object sender, EventArgs e) {
            
 
@@ -1132,16 +1055,14 @@ namespace no_table_wizardmerge {
         bool CopyRegistry(int idreg_source, DataAccess Source, DataAccess Dest) {
             string filter= QHS.CmpEq("idreg",idreg_source);
             DataSet DD = new DataSet();
-            //Trasferisce le tabelle sul cred/deb
             foreach (string tabname in new string[] {"registry","registryaddress","registrycf",
                         "registrylegalstatus","registrypaymethod","registrypiva","registryreference",
-                        "registrytaxablestatus","registrydurc" }) { //"registrysorting", NO perché non DBO
+                        "registrytaxablestatus","registrydurc" }) {
                 DataTable ToCopy = Source.RUN_SELECT(tabname, "*", null, filter, null, false);
                 if (ToCopy.Rows.Count == 0) {
                     if (tabname == "registry") return true;
                     continue;
                 }
-                //Eventuale logica di salto dell' anagrafica
 
 
                 DataTable NewTable = Dest.CreateTableByName(tabname, "*");
@@ -1150,7 +1071,6 @@ namespace no_table_wizardmerge {
                     foreach (DataColumn C in NewTable.Columns) {
                             NewRow[C.ColumnName] = CopyColumn(tabname, C.ColumnName, R[C.ColumnName]);
                     }
-                    //mediante il campo cu individuerò il dipartimento di provenienza dell'Anagrafica
                     if (tabname == "registry") {
                         NewRow["cu"] = txtDipDestinazione.Text.Trim();
                     }
@@ -1159,7 +1079,7 @@ namespace no_table_wizardmerge {
                 DD.Tables.Add(NewTable);
 
             }
-            PostData Post = new PostData(); //Per le anagrafiche salta la logica di business
+            PostData Post = new PostData();
             if (Post.InitClass(DD, Dest)!=null) return false;
             return Post.DO_POST();
 
@@ -1168,7 +1088,6 @@ namespace no_table_wizardmerge {
             if ((valore == DBNull.Value) || (valore.ToString().Trim() == "")) return valore;
             if (field == "nlevel") return valore;
             
-            //non copia idregistrykind
             if (tablename == "registry" && field == "idregistrykind") return DBNull.Value;
             
             if (field == "idreg"|| field=="iddeputy" || field=="idsorreg" ||
@@ -1180,17 +1099,11 @@ namespace no_table_wizardmerge {
                   return displace_idreg + CfgFn.GetNoNullInt32(valore);
               }
               
-            // questo idposition non si riferisce a position ma alla tabella positionworkcontract, che è di sistema
             if ((tablename == "wageadditionyear") && (field == "idposition")) return valore; 
 
             string newField = field;
             if (tablename == "registryaddress" && field == "idaddresskind") newField = "idaddress";
 
-            //if (field == "oldidacc" || field=="newidacc") newField = "idacc";
-            //if (field == "oldidpatrimony" || field == "newidpatrimony") 
-            //        newField = "idpatrimony";
-            //if (field == "oldidplaccount" || field == "newidplaccount") 
-            //        newField = "idplaccount";
             if (field == "idaccdebit" || field == "idacccredit" || field.StartsWith("idacc_")) 
                         newField = "idacc";
 
@@ -1222,7 +1135,6 @@ namespace no_table_wizardmerge {
             CopyNonDBO_Done = false;
             btnCopyNonDBO.Enabled = false;
             Cursor = Cursors.WaitCursor;
-            //DestDip.SQLRunner("exec sp_MSforeachtable 'ALTER TABLE ? DISABLE TRIGGER ALL'", false, -1);
            
             DestDip.CallSP("enable_disable_triggers",
                                        new object[2]{txtDipDestinazione.Text.Trim(),
@@ -1282,7 +1194,6 @@ namespace no_table_wizardmerge {
                 }
             }
 
-            //DestDip.SQLRunner("exec sp_MSforeachtable 'ALTER TABLE ? ENABLE TRIGGER ALL'", false, -1);
             DestDip.CallSP("enable_disable_triggers",
                                       new object[2]{txtDipDestinazione.Text.Trim(),
 			                          'E'},
@@ -1316,7 +1227,6 @@ namespace no_table_wizardmerge {
                     if (tablename == "inventorysortingamortizationyear" || tablename=="inventorytreesorting"
                                 || tablename=="inventorytreemultifieldkind"
                             ) {
-                        //violazione di chiave
                         continue;
                     }
                     throw E;
@@ -1324,7 +1234,6 @@ namespace no_table_wizardmerge {
             }
             Hashtable taxHash = (Hashtable)GetTableFromField["taxcode"];
 
-            //Corregge il valore di autocode per income,expense
             if (tablename == "expense" || tablename == "income") {
                 foreach (DataRow ToCrg in T.Rows) {
                     if (ToCrg["autocode"].ToString() == "") continue;
@@ -1350,10 +1259,9 @@ namespace no_table_wizardmerge {
                                         "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
-            bool DO_ADD = false; //se true forza la copia
+            bool DO_ADD = false;
             if (tablename == "dbuseradvice" || tablename=="parasubcontractlist") {
                 DataTable DestTable = DestDip.RUN_SELECT(tablename,"*",null,null,null,false);
-                //cancella le righe dalla memoria che andrebbero in violazione di chiave
                 foreach (DataRow ToDel in DestTable.Rows) {
                     string fk = QHC.CmpKey(ToDel);
                     if (T.Select(fk).Length > 0) {
@@ -1412,18 +1320,13 @@ namespace no_table_wizardmerge {
 
          bool CopyTable( DataTable TT, DataAccess Dest) {
             try {
-                DataTable Cols = Dest.SQLRunner("sp_columns " + TT.TableName + ",'" + Dest.GetSys("userdb").ToString() + "'");
+                DataTable Cols = Dest.SQLRunner("sp_columns " + TT.TableName + ",'" + (Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString() + "'");
                 if (Cols.Rows.Count==0)
                     Cols = Dest.SQLRunner("sp_columns " + TT.TableName + ",'dbo'");
 
 
                 if (TT.Rows.Count == 0) return true;
-                string insert = "INSERT INTO " + TT.TableName + " VALUES(";//(
-                //				foreach (DataColumn C in TT.Columns) {
-                //					insert += C.ColumnName + ",";
-                //				}
-                //				insert = insert.Remove(insert.Length - 1, 1);
-                //				insert += ") VALUES (";
+                string insert = "INSERT INTO " + TT.TableName + " VALUES(";
                 int count = 0;
                 string s = "";
                 string err;

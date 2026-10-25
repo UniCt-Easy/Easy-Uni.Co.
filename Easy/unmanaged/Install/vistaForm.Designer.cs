@@ -18,7 +18,6 @@ using System.Data;
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable syscomments{get { return this.Tables["syscomments"];}}
@@ -53,7 +52,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("text", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("encrypted", typeof(System.Int32), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["id"]};
 	T.PrimaryKey = key;
@@ -72,7 +70,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("lastmoduser", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("lastmodtimestamp", typeof(System.DateTime), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["objectname"]};
 	T.PrimaryKey = key;

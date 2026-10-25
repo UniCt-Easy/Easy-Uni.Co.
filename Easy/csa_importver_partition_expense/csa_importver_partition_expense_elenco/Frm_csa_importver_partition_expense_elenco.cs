@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,25 +72,17 @@ namespace csa_importver_partition_expense_elenco {
             gboxtipo.Enabled = abilita;
        
             gBoxCompetenza.Enabled = abilita;
-            //gBoxDettaglio.Enabled = abilita;
-            //gBoxImportazione.Enabled = abilita;
             gBoxImporto.Enabled = abilita;
             gBoxEnte.Enabled = abilita;
             gBoxAnagraficaVer.Enabled = abilita;
             gBoxAnagraficaEnte.Enabled = abilita;
             gBoxAnagrafica.Enabled = abilita;
-            //gBoxVersamento.Enabled = abilita;
-            //Enabled = abilita;
-            //txtQuota.ReadOnly = readOnly;
-            //txtEsercizio.ReadOnly = readOnly;
-            //txtVoceCsa.ReadOnly = readOnly;
         }
 
 
 
         private void VisualizzaMovimentoSpesa() {
             if (MetaData.Empty(this)) return;
-            //Calcola e riempie i campi relativi alla fase precedente:
             object idexp = DS.Tables["csa_importver_partition_expense"].Rows[0]["idexp"];
             string filter = QHS.CmpEq("idexp", idexp);
             DataTable DT = Conn.RUN_SELECT("expense", "idexp,ymov,nmov,nphase", null, filter, null, true);

@@ -69,21 +69,14 @@ namespace csa_importriep_partition_expense_elenco {
             
             gBoxCapitoloCSA.Enabled = abilita;
             gBoxCompetenza.Enabled = abilita;
-            //gBoxRegolaSpecifica.Enabled = abilita;
             gBoxDettaglio.Enabled = abilita;
-            //gBoxImportazione.Enabled = abilita;
             gBoxImporto.Enabled = abilita;
-            //gBoxRiepilogo.Enabled = abilita;
-            //txtQuota.ReadOnly = readOnly;
-            //txtEsercizio.ReadOnly = readOnly;
-            //txtVoceCsa.ReadOnly = readOnly;
         }
 
 
 
         private void VisualizzaMovimentoSpesa() {
             if (MetaData.Empty(this)) return;
-            //Calcola e riempie i campi relativi alla fase precedente:
             object idexp = DS.Tables["csa_importriep_partition_expense"].Rows[0]["idexp"];
             string filter = QHS.CmpEq("idexp", idexp);
             DataTable DT = Conn.RUN_SELECT("expense", "idexp,ymov,nmov,nphase", null, filter, null, true);

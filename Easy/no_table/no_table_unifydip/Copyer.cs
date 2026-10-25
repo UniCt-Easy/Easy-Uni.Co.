@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -80,12 +79,6 @@ namespace no_table_unifydip {
             this.ClearDestAtStart = shouldclear;
             return this;
         }
-        /// <summary>
-        /// Verifica il precheck di tutti i translator creati da questo copyer
-        /// </summary>
-        /// <param name="Source"></param>
-        /// <param name="Dest"></param>
-        /// <returns></returns>
         public virtual bool CheckPreconditions(DataAccess Source, DataAccess Dest) {
             foreach (translator T in PRETrlist.Values) {
                 if (!T.Precheck(Source, Dest, table)) return false;
@@ -93,40 +86,22 @@ namespace no_table_unifydip {
             return true;
         }
 
-        /// <summary>
-        /// Checks whether external fields have already been defined
-        /// </summary>
-        /// <param name="Ctx"></param>
-        /// <param name="L"></param>
-        /// <returns></returns>
         public bool CheckDependencies(CopyContext Ctx, List<string> L) {
             foreach (DataColumn C in T.Columns) {
                 string codetosearch = GetExternalCodeForField(C.ColumnName);
-                if (!L.Contains(codetosearch)) continue;  //non è nella mandatory list, tutto ok
-                if (PRETrlist.ContainsKey(codetosearch)) continue; //è un campo gestito da questo copyer stesso
-                //è nella mandatorylist, vede se il Contesto per quel campo è stato definito
+                if (!L.Contains(codetosearch)) continue;
+                if (PRETrlist.ContainsKey(codetosearch)) continue;
                 if (Ctx.IsDefined(codetosearch)) continue;
-                return false; //field has not yet been defined
+                return false;
             }
             return true;
         }
 
-        /// <summary>
-        /// gets external name for field
-        /// </summary>
-        /// <param name="field"></param>
-        /// <returns></returns>
         private string GetExternalCodeForField(string field) {
             if (!lookup.ContainsKey(field)) return field;
             return lookup[field];
         }
 
-        /// <summary>
-        /// Assumes source field  externally named dest
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="dest"></param>
-        /// <returns></returns>
         public Copyer SetExternalCode(string source, string dest) {
             lookup[source] = dest;
             return this;
@@ -137,10 +112,6 @@ namespace no_table_unifydip {
             T = Model.CreateTableByName(table, "*");
         }
 
-        /// <summary>
-        /// restituisce l'elenco dei codici definiti da questo copyer
-        /// </summary>
-        /// <returns></returns>
         public List<string> CodeDefined() {
             return L;
         }
@@ -157,7 +128,6 @@ namespace no_table_unifydip {
 
                 object o=null;
                 if (myContext.IsDefined(field)) {
-                    //I traduttori privati prevalgono su quelli pubblici e non risentono del codice esterno
                     o = myContext.Translate(field, R[field]);
                 }
                 else {
@@ -174,7 +144,6 @@ namespace no_table_unifydip {
                 try {
                     object O;
                     if (myContext.IsDefined(C.ColumnName)) {
-                        //I traduttori privati prevalgono su quelli pubblici e non risentono del codice esterno
                         O = myContext.Translate(C.ColumnName, R[C.ColumnName]);
                     }
                     else {
@@ -194,10 +163,6 @@ namespace no_table_unifydip {
             }
         }
 
-        /// <summary>
-        /// Merge the translators created by this Copyer to an external list
-        /// </summary>
-        /// <returns></returns>
         public virtual void MergePreTranslatorsTo(CopyContext Ctx) {
             if (PRETrlist.Count == 0) return;
             foreach (string code in PRETrlist.Keys) {
@@ -205,12 +170,6 @@ namespace no_table_unifydip {
             }
         }
 
-        /// <summary>
-        /// Chiamato in sede di costruzione della classe per stabilire quali translators siano attivati da questo oggetto
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="T"></param>
-        /// <returns></returns>
         public Copyer DefinesPreTranslator(string code, translator T) {
             if (L.Contains(code)) {
                 MetaFactory.factory.getSingleton<IMessageShower>().Show("Errore: doppia definizione del translator di codice " + code, "Errore di progettazione");
@@ -220,10 +179,6 @@ namespace no_table_unifydip {
             return this;
         }
 
-        /// <summary>
-        /// Merge the translators created by this Copyer to an external list
-        /// </summary>
-        /// <returns></returns>
         public virtual void MergePostTranslatorsTo(CopyContext Ctx) {
             if (POSTTrlist.Count == 0) return;
             foreach (string code in POSTTrlist.Keys) {
@@ -231,12 +186,6 @@ namespace no_table_unifydip {
             }
         }
 
-        /// <summary>
-        /// Chiamato in sede di costruzione della classe per stabilire quali translators siano attivati da questo oggetto
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="T"></param>
-        /// <returns></returns>
         public Copyer DefinesPostTranslator(string code, translator T) {
             L.Add(code);
             POSTTrlist[code] = T;
@@ -262,11 +211,9 @@ namespace no_table_unifydip {
         protected void Comment(DataAccess Dest, CopyContext Ctx, CopyDisplay CD) {
             DataTable T = Dest.CreateTableByName(table, "*");
 
-            //Verifica quanti codici sono definiti e crea una stringa
             string comment = "";
             foreach (DataColumn C in T.Columns) {
                 string extcode = GetExternalCodeForField(C.ColumnName);
-                //esamina i campi  a  codifica esterna
                 if (extcode != C.ColumnName) 
                     comment += "[" + C.ColumnName + " -> " + extcode + "] ";
 
@@ -300,7 +247,7 @@ namespace no_table_unifydip {
            
             QueryHelper QHS = Dest.GetQueryHelper();
             try {
-                DataTable Cols = Dest.SQLRunner("sp_columns " + table + ",'" + Dest.GetSys("userdb").ToString() + "'");
+                DataTable Cols = Dest.SQLRunner("sp_columns " + table + ",'" + (Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString() + "'");
                 if (Cols.Rows.Count == 0)
                     Cols = Dest.SQLRunner("sp_columns " + table + ",'dbo'");
 
@@ -329,7 +276,7 @@ namespace no_table_unifydip {
                 int nrows = Source.RUN_SELECT_COUNT(table, filter, false);
                 CD.Start(filter==null? table: table+ " where "+filter, "copy", nrows);
 
-                string insert = "INSERT INTO " + table + " VALUES(";//(
+                string insert = "INSERT INTO " + table + " VALUES(";
                 string s = "";
                 string err;
                 DataTable T = Dest.CreateTableByName(table, "*");
@@ -401,10 +348,6 @@ namespace no_table_unifydip {
     }
 
 
-    /// <summary>
-    /// Copyes a table appending rows setting key values = max(key)+1 foreach not existing rows
-    ///  object are merged on code field bases
-    /// </summary>
     public class MergeWithIntKey : Copyer {
         string code;
         string key;
@@ -427,8 +370,8 @@ namespace no_table_unifydip {
         protected  bool CheckPreconditions(DataAccess Source, DataAccess Dest, bool forced) {
             if (ClearDestAtStart) {
                 MyTR = new IdentityTranslator();
-                AddPrivateTranslator(key, MyTR);  //key is translated as MyTR - no matter of external requests
-                DefinesPreTranslator(traslcode, MyTR);  //defines external translator as requested
+                AddPrivateTranslator(key, MyTR);
+                DefinesPreTranslator(traslcode, MyTR);
                 return true;
 
             }
@@ -459,8 +402,8 @@ namespace no_table_unifydip {
 
             }
             MyTR = new ManualTranslator(H);
-            AddPrivateTranslator(key, MyTR);  //key is translated as MyTR - no matter of external requests
-            DefinesPreTranslator(traslcode, MyTR);  //defines external translator as requested
+            AddPrivateTranslator(key, MyTR);
+            DefinesPreTranslator(traslcode, MyTR);
             return true;
         }
 
@@ -496,9 +439,6 @@ namespace no_table_unifydip {
         }
     }
 
-    /// <summary>
-    /// Merges  tables basing on string key equality
-    /// </summary>
     public class MergeWithStringKey : Copyer {
         string key;
         string traslcode = null;
@@ -575,9 +515,6 @@ namespace no_table_unifydip {
         }
     }
 
-    /// <summary>
-    /// merges tables basing on code key, appending a suffix to it
-    /// </summary>
     public class AppendStringToCodeField : Copyer {
         string code;
         string key;

@@ -12,14 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace no_table_unifydip {
 using System;
 using System.Data;
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class vistaForm: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable no_table{get { return this.Tables["no_table"];}}
@@ -49,7 +47,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["id_no_table"]};
 	T.PrimaryKey = key;

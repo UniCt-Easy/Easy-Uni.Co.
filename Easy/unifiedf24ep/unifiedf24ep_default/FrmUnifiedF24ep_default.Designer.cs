@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace unifiedf24ep_default {
     partial class Frmunifiedf24ep_default {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace unifiedf24ep_default {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
             this.txtTotaleAddebito = new System.Windows.Forms.TextBox();
             this.txtEsercizio = new System.Windows.Forms.TextBox();
@@ -81,53 +69,35 @@ namespace unifiedf24ep_default {
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.grpTotaleAddebito.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtTotaleAddebito
-            // 
             this.txtTotaleAddebito.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotaleAddebito.Location = new System.Drawing.Point(126, 7);
             this.txtTotaleAddebito.Name = "txtTotaleAddebito";
             this.txtTotaleAddebito.Size = new System.Drawing.Size(117, 20);
             this.txtTotaleAddebito.TabIndex = 10;
             this.txtTotaleAddebito.Tag = "";
-            // 
-            // txtEsercizio
-            // 
             this.txtEsercizio.Location = new System.Drawing.Point(210, 12);
             this.txtEsercizio.Name = "txtEsercizio";
             this.txtEsercizio.ReadOnly = true;
             this.txtEsercizio.Size = new System.Drawing.Size(83, 20);
             this.txtEsercizio.TabIndex = 6;
             this.txtEsercizio.Tag = "unifiedf24ep.ayear";
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(155, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Esercizio";
-            // 
-            // label2
-            // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Data di addebito";
-            // 
-            // txtDataDiVersamento
-            // 
             this.txtDataDiVersamento.Location = new System.Drawing.Point(92, 23);
             this.txtDataDiVersamento.Name = "txtDataDiVersamento";
             this.txtDataDiVersamento.Size = new System.Drawing.Size(100, 20);
             this.txtDataDiVersamento.TabIndex = 9;
             this.txtDataDiVersamento.Tag = "unifiedf24ep.paymentdate";
-            // 
-            // groupBox2
-            // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label);
@@ -142,18 +112,12 @@ namespace unifiedf24ep_default {
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dati identificativi del fornitore del file";
-            // 
-            // label
-            // 
             this.label.AutoSize = true;
             this.label.Location = new System.Drawing.Point(350, 52);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(32, 13);
             this.label.TabIndex = 9;
             this.label.Text = "Email";
-            // 
-            // txtEmail
-            // 
             this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEmail.Location = new System.Drawing.Point(388, 49);
@@ -161,9 +125,6 @@ namespace unifiedf24ep_default {
             this.txtEmail.ReadOnly = true;
             this.txtEmail.Size = new System.Drawing.Size(246, 20);
             this.txtEmail.TabIndex = 8;
-            // 
-            // txtDenominazione
-            // 
             this.txtDenominazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDenominazione.Location = new System.Drawing.Point(288, 23);
@@ -171,35 +132,23 @@ namespace unifiedf24ep_default {
             this.txtDenominazione.ReadOnly = true;
             this.txtDenominazione.Size = new System.Drawing.Size(347, 20);
             this.txtDenominazione.TabIndex = 3;
-            // 
-            // label4
-            // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(202, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 2;
             this.label4.Text = "Denominazione";
-            // 
-            // txtCodiceFiscale
-            // 
             this.txtCodiceFiscale.Location = new System.Drawing.Point(92, 23);
             this.txtCodiceFiscale.Name = "txtCodiceFiscale";
             this.txtCodiceFiscale.ReadOnly = true;
             this.txtCodiceFiscale.Size = new System.Drawing.Size(100, 20);
             this.txtCodiceFiscale.TabIndex = 1;
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Codice fiscale";
-            // 
-            // groupBox3
-            // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.txtContoDiAddebito);
@@ -212,9 +161,6 @@ namespace unifiedf24ep_default {
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Modalità di versamento";
-            // 
-            // txtContoDiAddebito
-            // 
             this.txtContoDiAddebito.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtContoDiAddebito.Location = new System.Drawing.Point(303, 23);
@@ -222,18 +168,12 @@ namespace unifiedf24ep_default {
             this.txtContoDiAddebito.ReadOnly = true;
             this.txtContoDiAddebito.Size = new System.Drawing.Size(332, 20);
             this.txtContoDiAddebito.TabIndex = 11;
-            // 
-            // label5
-            // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(213, 26);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Conto di addebito";
-            // 
-            // btnGeneraF24
-            // 
             this.btnGeneraF24.AutoSize = true;
             this.btnGeneraF24.Location = new System.Drawing.Point(13, 238);
             this.btnGeneraF24.Name = "btnGeneraF24";
@@ -242,9 +182,6 @@ namespace unifiedf24ep_default {
             this.btnGeneraF24.Text = "Genera F24 EP Consolidato";
             this.btnGeneraF24.UseVisualStyleBackColor = true;
             this.btnGeneraF24.Click += new System.EventHandler(this.btnGeneraF24_Click);
-            // 
-            // txtPercorso
-            // 
             this.txtPercorso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPercorso.Location = new System.Drawing.Point(178, 246);
@@ -252,48 +189,29 @@ namespace unifiedf24ep_default {
             this.txtPercorso.ReadOnly = true;
             this.txtPercorso.Size = new System.Drawing.Size(474, 20);
             this.txtPercorso.TabIndex = 13;
-            // 
-            // label9
-            // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(12, 15);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
             this.label9.TabIndex = 14;
             this.label9.Text = "Numero";
-            // 
-            // textBox3
-            // 
             this.textBox3.Location = new System.Drawing.Point(61, 12);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(83, 20);
             this.textBox3.TabIndex = 15;
             this.textBox3.Tag = "unifiedf24ep.idunifiedf24ep";
-            // 
-            // label10
-            // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(265, 202);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(102, 13);
             this.label10.TabIndex = 16;
             this.label10.Text = "Data di generazione";
-            // 
-            // txtDataGenerazione
-            // 
             this.txtDataGenerazione.Location = new System.Drawing.Point(373, 199);
             this.txtDataGenerazione.Name = "txtDataGenerazione";
             this.txtDataGenerazione.ReadOnly = true;
             this.txtDataGenerazione.Size = new System.Drawing.Size(100, 20);
             this.txtDataGenerazione.TabIndex = 17;
             this.txtDataGenerazione.Tag = "unifiedf24ep.adate";
-            // 
-            // saveFileDialog1
-            // 
-            //this.saveFileDialog1.DefaultExt = "T24";
-            // 
-            // tabControl1
-            // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -303,9 +221,6 @@ namespace unifiedf24ep_default {
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(644, 278);
             this.tabControl1.TabIndex = 19;
-            // 
-            // tabPageSanzioni
-            // 
             this.tabPageSanzioni.Controls.Add(this.btnEliminaSanzione);
             this.tabPageSanzioni.Controls.Add(this.btnModificaSanzione);
             this.tabPageSanzioni.Controls.Add(this.btnInserisciSanzione);
@@ -317,9 +232,6 @@ namespace unifiedf24ep_default {
             this.tabPageSanzioni.TabIndex = 1;
             this.tabPageSanzioni.Text = "Sanzioni Ravvedimento";
             this.tabPageSanzioni.UseVisualStyleBackColor = true;
-            // 
-            // btnEliminaSanzione
-            // 
             this.btnEliminaSanzione.Location = new System.Drawing.Point(12, 84);
             this.btnEliminaSanzione.Name = "btnEliminaSanzione";
             this.btnEliminaSanzione.Size = new System.Drawing.Size(72, 23);
@@ -327,9 +239,6 @@ namespace unifiedf24ep_default {
             this.btnEliminaSanzione.TabStop = false;
             this.btnEliminaSanzione.Tag = "delete";
             this.btnEliminaSanzione.Text = "Elimina";
-            // 
-            // btnModificaSanzione
-            // 
             this.btnModificaSanzione.Location = new System.Drawing.Point(12, 52);
             this.btnModificaSanzione.Name = "btnModificaSanzione";
             this.btnModificaSanzione.Size = new System.Drawing.Size(72, 23);
@@ -337,9 +246,6 @@ namespace unifiedf24ep_default {
             this.btnModificaSanzione.TabStop = false;
             this.btnModificaSanzione.Tag = "edit.single";
             this.btnModificaSanzione.Text = "Modifica";
-            // 
-            // btnInserisciSanzione
-            // 
             this.btnInserisciSanzione.Location = new System.Drawing.Point(12, 20);
             this.btnInserisciSanzione.Name = "btnInserisciSanzione";
             this.btnInserisciSanzione.Size = new System.Drawing.Size(72, 23);
@@ -347,9 +253,6 @@ namespace unifiedf24ep_default {
             this.btnInserisciSanzione.TabStop = false;
             this.btnInserisciSanzione.Tag = "insert.single";
             this.btnInserisciSanzione.Text = "Inserisci";
-            // 
-            // gridSanzioni
-            // 
             this.gridSanzioni.AllowNavigation = false;
             this.gridSanzioni.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -362,14 +265,8 @@ namespace unifiedf24ep_default {
             this.gridSanzioni.TabIndex = 9;
             this.gridSanzioni.TabStop = false;
             this.gridSanzioni.Tag = "unifiedf24epsanction.default.single";
-            // 
-            // DS
-            // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
-            // 
-            // grpTotaleAddebito
-            // 
             this.grpTotaleAddebito.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpTotaleAddebito.Controls.Add(this.txtTotaleAddebito);
@@ -379,9 +276,6 @@ namespace unifiedf24ep_default {
             this.grpTotaleAddebito.TabIndex = 20;
             this.grpTotaleAddebito.TabStop = false;
             this.grpTotaleAddebito.Text = "Totale Addebito";
-            // 
-            // btnCollegaDettagli
-            // 
             this.btnCollegaDettagli.AutoSize = true;
             this.btnCollegaDettagli.Location = new System.Drawing.Point(13, 191);
             this.btnCollegaDettagli.Name = "btnCollegaDettagli";
@@ -390,9 +284,6 @@ namespace unifiedf24ep_default {
             this.btnCollegaDettagli.Text = "Collega Dettagli Ritenute e Recuperi";
             this.btnCollegaDettagli.UseVisualStyleBackColor = true;
             this.btnCollegaDettagli.Click += new System.EventHandler(this.btnCollegaDettagli_Click);
-            // 
-            // btnSituazione
-            // 
             this.btnSituazione.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSituazione.AutoSize = true;
             this.btnSituazione.Location = new System.Drawing.Point(491, 191);
@@ -402,18 +293,12 @@ namespace unifiedf24ep_default {
             this.btnSituazione.Text = "Situazione F24EP Consolidato";
             this.btnSituazione.UseVisualStyleBackColor = true;
             this.btnSituazione.Click += new System.EventHandler(this.btnSituazione_Click);
-            // 
-            // label6
-            // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(306, 15);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 13);
             this.label6.TabIndex = 24;
             this.label6.Text = "Mese dichiarazione";
-            // 
-            // cmbMese
-            // 
             this.cmbMese.DataSource = this.DS.monthname;
             this.cmbMese.DisplayMember = "title";
             this.cmbMese.FormattingEnabled = true;
@@ -423,9 +308,6 @@ namespace unifiedf24ep_default {
             this.cmbMese.TabIndex = 23;
             this.cmbMese.Tag = "unifiedf24ep.nmonth";
             this.cmbMese.ValueMember = "code";
-            // 
-            // button1
-            // 
             this.button1.AutoSize = true;
             this.button1.Location = new System.Drawing.Point(259, 274);
             this.button1.Name = "button1";
@@ -434,9 +316,6 @@ namespace unifiedf24ep_default {
             this.button1.Text = "Esporta Dati in Excel";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Frmunifiedf24ep_default
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 576);

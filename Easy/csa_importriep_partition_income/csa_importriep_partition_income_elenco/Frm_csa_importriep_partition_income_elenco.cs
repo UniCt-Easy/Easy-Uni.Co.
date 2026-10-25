@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,20 +70,13 @@ namespace csa_importriep_partition_income_elenco {
             gboxtipo.Enabled = abilita;
             gBoxCapitoloCSA.Enabled = abilita;
             gBoxCompetenza.Enabled = abilita;
-            //gBoxDettaglio.Enabled = abilita;
-            //gBoxImportazione.Enabled = abilita;
             gBoxImporto.Enabled = abilita;
-           // gBoxRiepilogo.Enabled = abilita;
-            //txtQuota.ReadOnly = readOnly;
-            //txtEsercizio.ReadOnly = readOnly;
-            //txtVoceCsa.ReadOnly = readOnly;
         }
 
 
 
         private void VisualizzaMovimentoEntrata() {
             if (MetaData.Empty(this)) return;
-            //Calcola e riempie i campi relativi alla fase precedente:
             object idinc = DS.Tables["csa_importriep_partition_income"].Rows[0]["idinc"];
             string filter = QHS.CmpEq("idinc", idinc);
             DataTable DT = Conn.RUN_SELECT("income", "idinc,ymov,nmov,nphase", null, filter, null, true);

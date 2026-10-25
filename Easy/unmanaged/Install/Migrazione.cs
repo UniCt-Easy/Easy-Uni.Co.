@@ -27,9 +27,6 @@ using funzioni_configurazione;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for Migrazione.
-	/// </summary>
 	public class Migrazione {
 		public static DataTable eseguiQuery(DataAccess sourceConn, string command, Form form) {
 			string errMsg;
@@ -58,30 +55,23 @@ namespace Install
 
 		static bool CopyTable(Form form, DataTable TT, DataAccess Dest, string title){
 			try {
-				DataTable Cols= Dest.SQLRunner("sp_columns "+TT.TableName+",'"+Dest.GetSys("userdb").ToString()+"'");
+				DataTable Cols= Dest.SQLRunner("sp_columns "+TT.TableName+",'"+(Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString()+"'");
                 if (Cols.Rows.Count==0)
                     Cols = Dest.SQLRunner("sp_columns " + TT.TableName + ",'dbo'");
 
 				if (TT.Rows.Count==0) return true;
-				string insert = "INSERT INTO "+TT.TableName+" VALUES(";//(
-				//				foreach (DataColumn C in TT.Columns) {
-				//					insert += C.ColumnName + ",";
-				//				}
-				//				insert = insert.Remove(insert.Length - 1, 1);
-				//				insert += ") VALUES (";
+				string insert = "INSERT INTO "+TT.TableName+" VALUES(";
 				int count=0;
 				string s = "";
 				string err;
 				FrmMeter FM= new FrmMeter(true);
 
 				FM.StartPosition= FormStartPosition.CenterScreen;
-				FM.Text=title; //"Copia della tabella "+TT.TableName;
-				//FM.pBar.Maximum= TT.Rows.Count;
+				FM.Text=title;
                 MetaFactory.factory.getSingleton<IFormCreationListener>().create(FM, null);
                 FM.Show();
 
 				foreach (DataRow row in TT.Rows) {
-					//FM.pBar.Increment(1);
 					count++;
 					string values = GetSQLDataValues(row,Cols);
 					s += 	insert		+ values;
@@ -138,7 +128,7 @@ namespace Install
 				return true;
 			}
 			StringWriter sw = new StringWriter();
-			GeneraSQL.GeneraStrutturaEDati(/*false, */destConn, ds, sw, 
+			GeneraSQL.GeneraStrutturaEDati(destConn, ds, sw,
 				UpdateType.bulkinsert, DataGenerationType.onlyData, true);
 			bool ok = Download.RUN_SCRIPT_NONSTOP(destConn, sw.GetStringBuilder(), nomeCopia);
 			if (!ok) {
@@ -157,25 +147,8 @@ namespace Install
 				return false;
 			}
 			return true;
-			/*
-			StringWriter sw = new StringWriter();
-			GeneraSQL.GetSQLData(t, UpdateType.bulkinsert, sw);
-			bool ok = Download.RUN_SCRIPT(destConn, sw.GetStringBuilder(), nomeCopia);
-			if (!ok) {
-				StreamWriter fsw = File.CreateText("temp.sql");
-				fsw.Write(sw.ToString());
-				fsw.Close();
-				MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore durante la copia: "+nomeCopia+"\r\nLo script lanciato si trova nel file 'temp.sql'");
-			}
-			*/
 		}
 
-		/// <summary>
-		/// Copia dettordinegenerico in mandatedetail ponendo idmankind='GENERALE'
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraDettOrdineGenerico(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string query = "select annotations = camponote, assetkind = tipobene, "
 				+ "ct = createtimestamp, cu = createuser, "
@@ -245,12 +218,6 @@ namespace Install
 			return rIvaKind;
 		}
 
-		/// <summary>
-		/// Copia ordinegenerico in mandate ponendo idmankind='GENERALE'
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraOrdineGenerico(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string query = "SELECT active=flagutilizzabile, "
 				+ "adate=datacontabile, "
@@ -287,12 +254,6 @@ namespace Install
 			return Migrazione.lanciaScript(form, destConn, ds, "ordinegenerico -> mandate");
 		}
 
-		/// <summary>
-		/// Copia ordinegenericomovspesa in expensemandate ponendo idmankind='GENERALE'
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraOrdineGenericoMovSpesa(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string query = "select ct=createtimestamp, "
 				+ "cu=createuser, "
@@ -363,16 +324,6 @@ namespace Install
 				return null;
 			}
 		}
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="oldTable"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="tColName"></param>
-		/// <param name="form"></param>
-		/// <param name="colonneDaNonCopiare"></param>
-		/// <param name="campiAggiuntivi"></param>
-		/// <returns></returns>
 		public static DataTable leggiTabella(string oldTable, string newTable, DataAccess sourceConn, 
 			DataTable tColName, Form form, string colonneDaNonCopiare, string campiAggiuntivi) {				
 			string q = "oldtable='"+oldTable+"' and newcol not like 'delete%'";
@@ -404,9 +355,6 @@ namespace Install
 			DataAccess conn,  Form form) {
 			StreamWriter sw = new StreamWriter(filename, false, Encoding.Default);
 
-            //DataRow[] ListaTabs = isDbo
-            //    ? tTableSetup.Select("oldtable in ('dbdepartment','dbuser','dbaccess')")
-            //    : tTableSetup.Select("oldtable in ('customobject','columntypes')");
             string[] ListaTabs;
             if (isDbo) {
                 ListaTabs = new string[] { "dbdepartment", "dbuser", "dbaccess" };
@@ -418,7 +366,6 @@ namespace Install
 			int NTAB= ListaTabs.Length;
 
 			foreach (string tabname in ListaTabs) {
-				//Crea lo script per la tabella T
 				DataTable T = conn.CreateTableByName(tabname, "*", true);
                 conn.AddExtendedProperty(T);
 				try {
@@ -452,9 +399,6 @@ namespace Install
                 }
             }
 			
-            //string dbo = isDbo ? "S" : "N";
-			//string filtro = "dbo='"+dbo+"' and xtype='U' and newtable not like 'delete%'";
-			//DataRow[] ListaTabs = tTableSetup.Select(filtro);
             string filtro;
             if (isDbo) 
                 filtro=" and (uid=user_id('dbo'))";
@@ -473,8 +417,7 @@ namespace Install
                 int NSS=CfgFn.GetNoNullInt32(SS);
                 if (NSS==0)continue;
 
-				//Crea lo script per la tabella T
-                DataTable T = Conn.CreateTableByName(TabRow["objectname"].ToString(), "*", true); //ex newtable
+                DataTable T = Conn.CreateTableByName(TabRow["objectname"].ToString(), "*", true);
 				if (T.Columns.Count==0) {
 					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Non esiste la tabella "+
 						T.TableName+"\npertanto non sarà generato lo script per tale tabella.", "ERRORE!");
@@ -484,7 +427,6 @@ namespace Install
 				T.Columns.CopyTo(colonne, 0);
 				foreach (DataColumn c in colonne) {
 					if (c.ColumnName.ToUpper().StartsWith("DELETE")) {
-						//MetaFactory.factory.getSingleton<IMessageShower>().Show("trovata colonna "+T.TableName+"."+c.ColumnName);
 						T.Columns.Remove(c);
 					}
 				}
@@ -497,7 +439,6 @@ namespace Install
 						out cols, true);
 					sw.Write(script);
 					sw.Flush();
-					//GeneraSQL.GeneraStruttura(isDbo, Conn, T, sw, true);
 					NDONE++;
 				}
 				catch (Exception e){
@@ -507,15 +448,7 @@ namespace Install
 			}
             sw.Close();
 
-			//			StringBuilder All = sw.GetStringBuilder();
-			//			All = All.Replace("\r","\n");
-			//			All = All.Replace("\n\n","\n");
-			//			All = All.Replace("\n","\r\n");
 
-			//			FileInfo ff = new FileInfo(filename);
-			//			StreamWriter write = ff.CreateText();
-			//			write.Write(All.ToString());
-			//			write.Close();
             if (NDONE == NTAB) MetaFactory.factory.getSingleton<IMessageShower>().Show("Script " + filename + " creato correttamente ("
                              + NDONE.ToString() + " tabelle)");
 
@@ -525,10 +458,8 @@ namespace Install
 		
 		public static void CreaScriptPerViste(string filenameNonDbo, string filenameDbo, DataAccess Conn,
 			Form form) {
-			//Testi delle SP (in campo text)
 			DataTable SysComments = Conn.RUN_SELECT("syscomments","id,colid,text,encrypted","id,colid",getFiltroVista("id"),
 				null,false);
-			//Nomi delle sp
 			DataTable SysObjects = Conn.RUN_SELECT("sysobjects","id,name,parent_obj,xtype,uid","id",getFiltroVista("id"),
 				null,false);
 			DataTable SysDepends = Conn.RUN_SELECT("sysdepends","id,depid","id",getFiltroVista("id")+" and "+getFiltroVista("depid"),
@@ -548,22 +479,18 @@ namespace Install
 				SomethingDone=false;
 
 				
-				//Ora per ogni sp estrae il testo
 				foreach (DataRow SPObj in SysObjects.Rows) {
 					int id= (int) SPObj["id"];
 					string viewname= SPObj["name"].ToString();
 
-					if (id<0) continue; //Già messa!
+					if (id<0) continue;
 
-					//Vede se la sp dipende da qualche altra 
 					DataRow[] rDepend = SysDepends.Select("id="+id+" and depid<>"+id);
 					if (rDepend.Length>0){
-						//PostPone!
 						continue;
 					}
 
                     bool isDbo = (SPObj["uid"].ToString() == "1");
-                            //fillDboField(SPObj, form, Conn, tTableSetup);
 
 					StringBuilder All = new StringBuilder();
 					string dbo = isDbo ? "[DBO]." : "";
@@ -574,7 +501,6 @@ namespace Install
 
 					
 
-					//SPObj è la riga in sysobject, che contiene il nome nel campo name
 					DataRow []SPBodys= SysComments.Select("id="+id.ToString(),"colid");
 					if (SPBodys[0]["encrypted"].ToString().ToUpper()=="TRUE") {
 						NSP--;
@@ -586,7 +512,6 @@ namespace Install
 					}
 					spbody = spbody.Replace("dbo.","");
 
-					//Prende il testo della vista e si accerta che sia una vista DBO
 					SPBridge SPB = new SPBridge(spbody);
 					string skipped;
 					dbbridge.SPToken Tok;
@@ -633,14 +558,10 @@ namespace Install
 					}
 					sb.Append("IF EXISTS(select * from [dbo].[sysobjects] where id = object_id(N'"+s+"') and OBJECTPROPERTY(id, N'IsView') = 1)\r\n"
 						+ "DROP VIEW "+s+"\r\nGO\r\n");
-					//					if (s != viewname) {
-					//						Console.WriteLine(newname+" "+viewname);
-					//					}
 
 					sb.Append(All);
 
 
-					//Elimina le dipendenze con altre sp esistenti
 					DataRow []Dependent= SysDepends.Select("depid="+id.ToString());
 					foreach (DataRow D in Dependent){
 						D.Delete();
@@ -659,15 +580,11 @@ namespace Install
 			nonDbo = nonDbo.Replace("\n\n","\n");
 			nonDbo = nonDbo.Replace("\n","\r\n");
 
-			//			FileInfo ff = new FileInfo(filenameNonDbo);//ff.CreateText();
 			StreamWriter write = new StreamWriter(filenameNonDbo, false, Encoding.Default);
 			write.Write(nonDbo.ToString());
-			//write.WriteLine(newversion);
 			write.Close();
-			//			ff = new FileInfo(filenameDbo);//ff.CreateText();
 			write = new StreamWriter(filenameDbo, false, Encoding.Default);
 			write.Write(sptDbo.ToString());
-			//write.WriteLine(newversion);
 			write.Close();
 
 			if (NDONE==NSP){
@@ -685,31 +602,14 @@ namespace Install
 			}
 		}
 
-		//		private static string getFiltroSP(string id) {
-		//			return "(objectproperty("+id+",'isprocedure')=1 or objectproperty("+id+",'istrigger')=1) and (OBJECTPROPERTY("+id+", 'IsMSShipped')=0) and (object_name("+id+") not like 'delete%')";
-		//		}
 
 		public static void CreaScriptPerSP(string filenamedbo, string filenamenondbo,DataAccess Conn) {
-			//			//Testi delle SP (in campo text)
-			//			DataTable SysComments = Conn.RUN_SELECT("syscomments","id,colid,text,encrypted","id,colid",
-			//				getFiltroSP("id"),
-			//				null,false);
-			//			//Nomi delle sp
-			//			DataTable SysObjects = Conn.RUN_SELECT("sysobjects","id,name,parent_obj,xtype,uid",null,
-			//				getFiltroSP("id"),
-			//				null,false);
-			//
-			//			DataTable SysDepends = Conn.RUN_SELECT("sysdepends","id,depid","id",
-			//				getFiltroSP("id")+" and "+getFiltroSP("depid"),
-			//				null,null,false);
 
-			//Testi delle SP (in campo text)
 			DataTable SysComments = Conn.SQLRunner("select syscomments.id,colid,text,encrypted from syscomments "
 				+ "join sysobjects on syscomments.id=sysobjects.id "
 				+ "where (xtype in ('P','TR','FN')) and (OBJECTPROPERTY(syscomments.id, 'IsMSShipped')=0) and (name not like 'delete%') and (uid=user_id()or uid=user_id('dbo')) "
 				+ "order by syscomments.id,colid");
 
-			//Nomi delle sp
 			DataTable SysObjects = Conn.SQLRunner("select id,name,parent_obj,xtype,uid from sysobjects "
 				+ "where (xtype in ('P','TR','FN')) and (OBJECTPROPERTY(id, 'IsMSShipped')=0) and (name not like 'delete%') and (uid=user_id()or uid=user_id('dbo'))");
 
@@ -731,14 +631,10 @@ namespace Install
 			while (SomethingDone){
 				SomethingDone=false;
 				
-				//Ora per ogni sp estrae il testo
 				foreach (DataRow SPObj in SysObjects.Rows){
 					int id= (int) SPObj["id"];
-					if (id<0) continue; //Già messa!
-					//Vede se la sp dipende da qualche altra 
-					//depid= l'oggetto che crea la dipendenza id=l'oggetto DIPENDENTE
+					if (id<0) continue;
 					if (SysDepends.Select("id="+id.ToString()+" and depid<>"+id.ToString()).Length>0){
-						//PostPone!
 						continue;
 					}
 
@@ -753,7 +649,6 @@ namespace Install
 						continue;
 					}
 
-					//SPObj è la riga in sysobject, che contiene il nome nel campo name
 					DataRow []SPBodys= SysComments.Select("id="+id.ToString(),"colid");
 					if (SPBodys[0]["encrypted"].ToString().ToUpper()=="TRUE") {
 						NSP--;
@@ -764,7 +659,6 @@ namespace Install
 						spbody+=RR["text"].ToString();
 					}
 
-					//Prende il testo della sp e si accerta che sia una SP DBO
 					SPBridge SPB = new SPBridge(spbody);
 					string skipped;
 					dbbridge.SPToken Tok;
@@ -790,7 +684,7 @@ namespace Install
 					All.Append(skipped);
 					string foundname= Tok.val;
 					string []parts = foundname.Split(new char[]{'.'});
-					string newname= /*"[DBO]."+*/parts[parts.Length-1];
+					string newname= parts[parts.Length-1];
 					if (parts[0].ToUpper().Trim()=="DBO"||
 						parts[0].ToUpper().Trim()=="[DBO]") {
 						dbo=true;
@@ -836,7 +730,6 @@ namespace Install
 					}
 
 					
-					//Elimina le dipendenze con altre sp esistenti
 					DataRow []Dependent= SysDepends.Select("depid="+id.ToString());
 					foreach (DataRow D in Dependent){
 						D.Delete();
@@ -871,17 +764,11 @@ namespace Install
 			tuttenondbo = tuttenondbo.Replace("\n","\r\n");
 
 			StreamWriter writedbo = new StreamWriter(filenamedbo, false, Encoding.Default);
-			//			FileInfo ff = new FileInfo(filename);
-			//			StreamWriter write = ff.CreateText();
 			writedbo.Write(tuttedbo);
-			//write.WriteLine(newversion);
 			writedbo.Close();
 
 			StreamWriter writenondbo = new StreamWriter(filenamenondbo, false, Encoding.Default);
-			//			FileInfo ff = new FileInfo(filename);
-			//			StreamWriter write = ff.CreateText();
 			writenondbo.Write(tuttenondbo);
-			//write.WriteLine(newversion);
 			writenondbo.Close();
 
 		}
@@ -941,13 +828,6 @@ namespace Install
 			return "(objectproperty("+id+",'isview')=1) and (OBJECTPROPERTY("+id+", 'IsMSShipped')=0) and (object_name("+id+") not like 'delete%')";
 		}
 
-		/// <summary>
-		/// Traduce dettaglioritenute e aggiunge la colonna nbracket=1
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="tColName"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraDettaglioRitenute(Form form, DataTable tColName, DataAccess sourceConn, DataAccess destConn) {
             DataSet ds = sourceConn.CallSP("calcola_dettaglioritenute", new object[] { },false,0);
             if((ds == null) || (ds.Tables.Count == 0)) return false;
@@ -1118,12 +998,6 @@ namespace Install
 			return lanciaScript(form, destConn, tMovFin_src, nomeCopia);
 		}
 
-		/// <summary>
-		/// Copia dettdocumentoiva in invoicedetail
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraDettDocumentoIva(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string query = "select annotations=DETT.camponote, ct=DETT.createtimestamp, "
 				+ "cu=DETT.createuser, detaildescription=DETT.descrdettaglio, idinvkind=DETT.codicetipodoc, "
@@ -1171,12 +1045,6 @@ namespace Install
 			return Migrazione.lanciaScript(form, destConn, ds, "dettdocumentoiva -> invoicedetail");
 		}
 
-		/// <summary>
-		/// Per ogni riga di tipodocumentoiva crea n righe di invoicekindyear dove n è il numero di esercizi
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool creaInvoicekindyear(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string q1 = "select min(esercizio), max(esercizio) from esercizio";
 			DataTable tAccountingYear = Migrazione.eseguiQuery(sourceConn, q1, form);
@@ -1207,7 +1075,6 @@ namespace Install
 		}
 
 		public static bool creaMovBancari(Form form, DataAccess sourceConn, DataAccess destConn, string IoE, Hashtable H) {
-			// PAYMENT_BANK - PROCEEDS_BANK (Tabelle dei movimenti bancari)
 			string p_bank = (IoE == "I") ? "proceeds_bank" : "payment_bank";
 			DataTable tPXXX_Bank = DataAccess.CreateTableByName(destConn, p_bank, "*");
 			tPXXX_Bank.Clear();
@@ -1274,13 +1141,7 @@ namespace Install
 
             }
 
-            //fillPBank(tMovBancario_src, tPXXX_Bank, IoE);
 
-            /*
-			foreach(DataRow rMovBancario in tMovBancario_src.Rows) {
-				fillPBank(rMovBancario, tPXXX_Bank, IoE);
-			}
-            */
 
 			string nomeCopia = "(movimentobancario -> " + p_bank;
 			return lanciaScript(form, destConn, tPXXX_Bank, nomeCopia);
@@ -1333,11 +1194,9 @@ namespace Install
 				+ "where tipomovbancario = '" + kind + "' "
 				+ "and flagesito = 'S' and esercdocumento is not null and numdocumento is not null";
 
-			// Tabelle di PARTENZA
 			DataTable tMovBancario_src = eseguiQuery(sourceConn, query, form);
 			if (tMovBancario_src == null) return false;
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -1355,7 +1214,6 @@ namespace Install
 					+ "') AND (nummovbancario = '" + rMovBancario["nummovbancario"] + "')";
  				
 				DataRow [] MovFin = tMovFin_src.Select(filter);
-				// Passo 2. Per ogni mov. finanziario aggiorno il campo IDPAY (IDPRO)
 				foreach(DataRow rMov in MovFin) {
 					decimal importo = CfgFn.GetNoNullDecimal(rMov["importocorrente"]); 
 					fillBankTransaction(destConn, rMovBancario, rMov[idfieldmov_src], bankTransaction, IoE, importo,H);
@@ -1376,7 +1234,6 @@ namespace Install
 			object maxphase_dest = destConn.GetSys("max" + tabMovFin_dest + "phase");
 			string filterPhase = "(nphase = '" + maxphase_dest + "')";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -1397,7 +1254,6 @@ namespace Install
 			string tabMovFin_src = (IoE == "I") ? "entrataview" : "spesaview";
 			string idfieldmov_src = (IoE == "I") ? "identrata" : "idspesa";
 
-			// Dettagli mov. bancari
 			DataTable tDettMovBanc = eseguiQuery(sourceConn, q2, form);
 			if (tDettMovBanc == null) return false;
 
@@ -1405,20 +1261,17 @@ namespace Install
 			if (IoE == "E") {
 				listaCampiMov_src += ", importoritenute";
 			}
-            // Movimenti finanziari in db origine 
 			DataTable tMovFin_src = DataAccess.RUN_SELECT(sourceConn, tabMovFin_src, 
                     listaCampiMov_src, null, "(esercmovbancario IS NOT NULL)"
 				, null, null, true);
 			if (tMovFin_src == null) return false;
 
-			// Tabella temporanea dei movimenti finanziari
 			DataTable temp = new DataTable();
 			temp.Columns.Add("idmov");
 			temp.Columns.Add("curramount");
 			temp.Columns.Add("performedamount");
 			temp.Columns.Add("residual");
 
-            //Man mano che le righe di dettmovbancario sono esitate sono cancellate da dettmovbancario
 			if (!creaEsitiDoveUnMovimentoBancarioUnMovimentoFinanziario(form, destConn, tDettMovBanc, tMovFin_src, IoE,H)) {
 				return false;
 			}
@@ -1450,11 +1303,9 @@ namespace Install
             string tipo = "a debito";
             if(IoE == "I") tipo = "a credito";
             
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
-            //Per ogni dettmovbancario del db di origine:
 			foreach(DataRow rEsito in tDettMovBanc.Select()) {
 				string filter = "(esercmovbancario = '" + rEsito["esercmovbancario"]
 					+ "') AND (nummovbancario = '" + rEsito["nummovbancario"] + "')";
@@ -1462,10 +1313,8 @@ namespace Install
 				DataRow [] MovFin = tMovFin_src.Select(filter);
 				if (MovFin.Length == 0) continue;
 
-				// Caso 1. Esiste un unico movimento finanziario associato al movimento bancario -> gli esiti sono associati tutti allo stesso movimento
 				if (MovFin.Length == 1) {
 					DataRow rMov = MovFin[0];
-					//decimal importo = CfgFn.GetNoNullDecimal(rMov["importocorrente"]);
 					decimal importo = CfgFn.GetNoNullDecimal(rEsito["importo"]);
                     decimal importomovfin = CfgFn.GetNoNullDecimal(rMov["importocorrente"]);
                     if(importo > importomovfin) {
@@ -1477,7 +1326,6 @@ namespace Install
                         importo = importomovfin;
 
                     }
-					// Creazione dell'esito (BANKTRANSACTION)
 					fillBankTransaction(destConn, rEsito, rMov[idfieldmov_src], bankTransaction, IoE, importo,H);
                     rEsito.Delete();
                 }
@@ -1490,7 +1338,6 @@ namespace Install
 
 			string idfieldmov_src = (IoE == "I") ? "identrata" : "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -1503,13 +1350,10 @@ namespace Install
 				if (MovFin.Length == 0) continue;
 
 				if (MovFin.Length > 0) {
-					// Sotto Caso 2.1. Esiste un movimento finanziario il cui importo è pari a quello dell'esito
                     foreach(DataRow rMovFin in MovFin) {
                         decimal importoCorrente = CfgFn.GetNoNullDecimal(rMovFin["importocorrente"]);
                         if(importoCorrente != importoEsito) continue;
 
-                        //Ha trovato un mov. finanziario con importo uguale a quello dell'esito
-                        //Verifica di non averlo già utilizzato per un altro esito
 
                         string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
                             + ")";
@@ -1546,7 +1390,6 @@ namespace Install
 
 			string idfieldmov_src = "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 			
@@ -1559,13 +1402,10 @@ namespace Install
 				if (MovFin.Length == 0) continue;
 
 				if (MovFin.Length > 0) {
-					// Sotto Caso 2.2. (Solo Spesa) Esiste un movimento di spesa il cui importo netto è pari a quello dell'esito
-					// Attenzione si passa al Sotto Caso 2.2. solo se il Sotto Caso 2.1. è fallito
 					foreach(DataRow rMovFin in MovFin) {
 						decimal importoNetto = CfgFn.GetNoNullDecimal(rMovFin["importo"]) - CfgFn.GetNoNullDecimal(rMovFin["importoritenute"]);
 						if (importoNetto != importoEsito) continue;
 
-						// Se in TEMP è presente il movimento vuol dire che l'ho esitato completamente e quindi non vado avanti
 						string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
 							+ ")";
 						DataRow [] rmovtemp = temp.Select(filterTemp);
@@ -1603,7 +1443,6 @@ namespace Install
 
 			string idfieldmov_src = "idspesa";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -1616,13 +1455,10 @@ namespace Install
 				if (MovFin.Length == 0) continue;
 
 				if (MovFin.Length > 0) {
-					// Sotto Caso 2.2. (Solo Spesa) Esiste un movimento di spesa il cui importo netto è pari a quello dell'esito
-					// Attenzione si passa al Sotto Caso 2.2. solo se il Sotto Caso 2.1. è fallito
 					foreach(DataRow rMovFin in MovFin) {
 						decimal importoRitenute = CfgFn.GetNoNullDecimal(rMovFin["importoritenute"]);
 						if (importoRitenute != importoEsito) continue;
 
-						// Se in TEMP è presente il movimento vuol dire che l'ho esitato completamente e quindi non vado avanti
 						string filterTemp = "(idmov = " + QueryCreator.quotedstrvalue(rMovFin[idfieldmov_src], false)
 							+ ")";
 						DataRow [] rmovtemp = temp.Select(filterTemp);
@@ -1660,7 +1496,6 @@ namespace Install
             string tipo = "a debito";
             if(IoE == "I") tipo = "a credito";
 
-			// BANKTRANSACTION (Tabella degli esiti)
 			DataTable bankTransaction = DataAccess.CreateTableByName(destConn, "banktransaction", "*");
 			bankTransaction.Clear();
 
@@ -1718,14 +1553,6 @@ namespace Install
 			return lanciaScript(form, destConn, bankTransaction, "Generazione Esiti a copertura progressiva dei movimenti finanziari");
 		}
 
-		/// <summary>
-		/// Metodo contenitore che chiama i metodi per la generazione delle esitazioni
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="IoE"></param>
-		/// <returns></returns>
 		public static bool creaEsiti(Form form, DataAccess sourceConn, DataAccess destConn, string IoE,Hashtable H) {
 			if (!creaEsitiTotali(form, sourceConn, destConn, IoE,H)) {
 				return false;
@@ -1734,11 +1561,6 @@ namespace Install
 			return creaEsitiParziali(form, sourceConn, destConn, IoE,H);
 		}
 
-		/// <summary>
-		/// Metodo che aggiunge le righe nella tabelle dei movimenti bancari di EASY (PAYMENT_BANK, PROCEEDS_BANK)
-		/// </summary>
-		/// <param name="movBancarioSource"></param>
-		/// <param name="movBancarioDest"></param>
 
 
 		private static void fillBankTransaction(DataAccess destConn, DataRow movBancarioSource, 
@@ -1778,11 +1600,6 @@ namespace Install
 
 		}
 
-		/// <summary>
-		/// Metodo che aggiorna la tabella dei movimenti finanziari (EXPENSE o INCOME)
-		/// </summary>
-		/// <param name="destConn">Connessione di destinazione</param>
-		/// <param name="tMovFin">Tabella dei movimenti finanziari</param>
 		private static void creaScriptAggiornaMovFin(Form form, DataAccess destConn, DataTable tMovFin) {
 			string idfield = (tMovFin.TableName == "expense") ? "idpay" : "idpro";
 			string idmov = (tMovFin.TableName == "expense") ? "idexp" : "idinc";
@@ -1817,13 +1634,6 @@ namespace Install
 			sw.Close();
 		}
 
-		/// <summary>
-		/// Traduce licenzauso ponendo a null i seguenti campi:
-		/// iddb, servername, dbname, swmorecode, swmoreflag
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraLicenzaUso(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string query = "select address1=indirizzo_1, address2=indirizzo_2, "
 				+ "agency=universita, agencycode=codiceente, agencyname=nomeuniversita, "
@@ -1847,13 +1657,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Crea la nuova tabella mandatekind riempendola con una sola riga (idmankind='GENERALE')
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <returns></returns>
 		public static bool creaMandateKind(Form form, DataAccess sourceConn, DataAccess destConn) {
 			DataTable tMandateKind = new DataTable("mandatekind");
 			tMandateKind.Columns.Add("idmankind", typeof(string));
@@ -1980,15 +1783,6 @@ namespace Install
 		}
 		
 
-		/// <summary>
-		/// Metodo che migra i dati da documentoiva a invoice (La gestione dell'idcentrospesa è demandata alla migrazione
-		/// dei dettdocumentoiva in invoicedetail)
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tColName"></param>
-		/// <returns></returns>
 		public static bool migraDocumentoIva(Form form, DataAccess sourceConn, DataAccess destConn, DataTable tColName) {
 			string query = "select distinct codicetipodoc, flag=flagimmediata+flagdifferita "
 				+ "from tipodocoperiva "
@@ -2275,57 +2069,40 @@ namespace Install
 		public static bool migraTabelleElaborate(Form form, DataTable tColName, 
             DataAccess sourceConn, DataAccess destConn, out object idpiano) {
             idpiano = DBNull.Value;
-            // variazioneentrata -> incomevar
             if (!migraVariazioni(form, sourceConn, destConn, "I")) return false;
 
-            // variazionespesa -> expensevar
             if (!migraVariazioni(form, sourceConn, destConn, "E")) return false;
 
-			//entrata -> income
 			if (!migraMovimentiFinanziari(form, sourceConn, destConn, "I")) return false;
 
-			//spesa -> expense
 			if (!migraMovimentiFinanziari(form, sourceConn, destConn, "E")) return false;
 
-            //pianoconti -> sortingkind / sortinglevel / sorting / expensesetup
 			if (!migraPianoDeiConti(form, sourceConn, destConn,out idpiano)) return false;
 
-			//documentoiva -> invoice
 			if (!migraDocumentoIva(form, sourceConn, destConn, tColName)) return false;
 
-			//persiva -> invoicesetup
 			if (!Migrazione.migraPersIva(form, sourceConn, destConn, tColName)) return false;
 
-			//dettordinegenerico -> mandatedetail
 			if (!Migrazione.migraDettOrdineGenerico(form, sourceConn, destConn))return false;
 
-			//ordinegenerico -> mandate
 			if (!Migrazione.migraOrdineGenerico(form, sourceConn, destConn)) return false;
 
-			//ordinegenericomovspesa -> expensemandate
 			if (!Migrazione.migraOrdineGenericoMovSpesa(form, sourceConn, destConn))return false;
 
-			//dettaglioritenute -> expensetax
 			if (!Migrazione.migraDettaglioRitenute(form, tColName, sourceConn, destConn))return false;
 			
-			//dettdocumentoiva -> invoicedetail
 			if (!Migrazione.migraDettDocumentoIva(form, sourceConn, destConn)) return false;
 
-			//contrattoocc -> casualcontract
 			if (!Migrazione.migraContrattoOcc(form, tColName, sourceConn, destConn)) return false;
 
-			//missione -> itineration
 			if (!Migrazione.migraTabMissione(form, tColName, sourceConn, destConn)) return false;
 
-			//contrattodip -> wageaddition
 			if (!Migrazione.migraContrattoDip(form, tColName, sourceConn, destConn)) return false;
 
 			if (!Migrazione.migraDettBilancioPrevisione(form, tColName, sourceConn, destConn)) return false;
 			
 			if (!Migrazione.migraDettBilancioAssestamento(form, tColName, sourceConn, destConn)) return false;
 
-			// Migra i dati di addizionalidacaf in cafdocument
-//			if (!Migrazione.migraAddizDaCafInCafDocument(form, tColName, sourceConn, destConn)) return false;
 
 
 			return true;
@@ -2604,20 +2381,16 @@ namespace Install
 		public static bool creaNuoveTabelle(Form form, DataAccess sourceConn, DataAccess destConn ) {
 			impostaHashTablePerNBAN(destConn);
 
-			//movimentobancario, dettmovimentobancario -> proceeds_bank, banktransaction
             Hashtable H = new Hashtable(10000);
 			if (!Migrazione.creaMovBancari(form, sourceConn, destConn, "I",H)) return false;
 			if (!Migrazione.creaEsiti(form, sourceConn, destConn, "I",H)) return false;
 
             H = new Hashtable(10000);
-			//movimentobancario, dettmovimentobancario -> payment_bank, banktransaction
 			if (!Migrazione.creaMovBancari(form, sourceConn, destConn, "E",H)) return false;
 			if (!Migrazione.creaEsiti(form, sourceConn, destConn, "E",H)) return false;
 
-			//tipodocumentoiva (duplicati)-> invoicekindyear
 			if (!Migrazione.creaInvoicekindyear(form, sourceConn, destConn))return false;
 
-			//mandatekind (nuova tabella)
 			if (!creaMandateKind(form, sourceConn, destConn)) return false;
 
             if (!creaGeneralReportParameter(form, sourceConn, destConn)) return false;

@@ -21,14 +21,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
 using metadatalibrary;
 
-namespace LiveUpdate//LiveUpdate//
+namespace LiveUpdate
 {
-	/// <summary>
-	/// Classe statica per la generazione del file xml della versione
-	/// </summary>
 	public class GenXML {
 
 		static int DateToInt(DateTime t){
@@ -40,11 +36,6 @@ namespace LiveUpdate//LiveUpdate//
 
 		
         
-        /// <summary>
-        /// Genera in DestDir un elenco (nome,vers min,vers maj, build) di tutti i file
-        ///  se filtro = *.dll genera anche per *.exe,system_*.xml e altri
-        ///  opuure	*.rpt
-        /// </summary>
         public static bool GeneraFileXML(			
 			string TargetDir, 
 			string XMLFileName, 
@@ -64,14 +55,6 @@ namespace LiveUpdate//LiveUpdate//
         }
 
 
-        /// <summary>
-        /// Genera in DestDir un elenco (nome,vers min,vers maj, build) di tutti i file
-        ///  se filtro = *.dll genera anche per *.exe,system_*.xml
-        ///  se	*.rpt per i report
-        ///  se *.sql per tutte le stored procedure utilizzate nei report
-        /// </summary>
-        /// <param name="SkipList">Lista dei file da escludere</param>
-        /// <param name="errori">[out] Lista errori</param>
         public static bool GeneraFileXML(			
 			string TargetDir, 
 			string XMLFileName,
@@ -88,9 +71,6 @@ namespace LiveUpdate//LiveUpdate//
 
             return GeneraFileXMLDLL(TargetDir, XMLFileName, SkipList, filtraOggi, out errori);
 		}
-        /// <summary>
-        /// Pone semplicemente a null il dataset, che rappresenta l'indice locale
-        /// </summary>
         public static void AzzeraIndicelocale() {
             ds = null;
         }
@@ -98,9 +78,6 @@ namespace LiveUpdate//LiveUpdate//
             return ds;
         }
 
-        /// <summary>
-        /// DS è l'indice LOCALE
-        /// </summary>
         public static DsDLLIndex ds = null;
 
 		private static bool GeneraFileXMLDLL(
@@ -109,7 +86,7 @@ namespace LiveUpdate//LiveUpdate//
 			Hashtable SkipList, bool filtraOggi,
 			out string ListaErrori) {
 
-			if (!DestDir.EndsWith("\\")) DestDir += "\\";   //D:\\easy\\output\\
+			if (!DestDir.EndsWith("\\")) DestDir += "\\";
 
 			bool errori = false;
 			ListaErrori = "";
@@ -124,7 +101,6 @@ namespace LiveUpdate//LiveUpdate//
             }
 
             if (ds != null && SkipList!=null) {
-                //Crea una copia dell'indice locale privato dei file nella skiplist
                 ds.AcceptChanges();
                 DataSet dsnew = ds.Copy();
                 foreach (DataRow dr in dsnew.Tables["DLL"].Rows) {
@@ -173,10 +149,8 @@ namespace LiveUpdate//LiveUpdate//
 		                DataRow dr = dt.NewRow();
 		                if (SkipList != null && SkipList[f5.Name] != null) {
                             string[] oldversion = SkipList[f5.Name].ToString().Split('.');
-		                    //se il file ha come oldversion l'etichetta NUOVO  vuol dire che non è presente sul sito web e che non deve essere distribuito
 		                    if (oldversion[0] == "NUOVO") continue;
 
-		                    //scrivo la vecchia versione
 		                    dr["dllname"] = f5.Name;
 		                    dr["major"] = Convert.ToInt32(oldversion[0]);
 		                    dr["minor"] = Convert.ToInt32(oldversion[1]);
@@ -185,19 +159,17 @@ namespace LiveUpdate//LiveUpdate//
 		                else {
 		                    if (thisExt == ".dll") {
                                 int h = metaprofiler.StartTimer("GetAssemblyName("+ f5.Name+")");
-                                //AssemblyName an1 = AssemblyName.GetAssemblyName(DestDir + f5.Name);
-                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(f5.Name);
+                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(f5.FullName);
                                 metaprofiler.StopTimer(h);
 		                        
                                 
 
-                                //Version ver1 = an1.Version;
 
 
                                 dr["dllname"] = f5.Name;
-                                dr["major"] = myFileVersionInfo.ProductMajorPart; //ver.Major;
-                                dr["minor"] = myFileVersionInfo.ProductMinorPart;// ver.Minor;
-                                int N = myFileVersionInfo.ProductBuildPart; //ver.Build;
+                                dr["major"] = myFileVersionInfo.ProductMajorPart;
+                                dr["minor"] = myFileVersionInfo.ProductMinorPart;
+                                int N = myFileVersionInfo.ProductBuildPart;
                                 if (N > 999) N = 0;
                                 dr["build"] = N;
                             }
@@ -206,7 +178,7 @@ namespace LiveUpdate//LiveUpdate//
 		                        dr["dllname"] = f5.Name;
 		                        dr["major"] = DateToInt(upd);
 		                        dr["minor"] = TimeToInt(upd);
-		                        dr["build"] = f5.GetSHA256();
+		                        dr["build"] = 0;
 		                    }
 		                }
 		                dt.Rows.Add(dr);
@@ -224,7 +196,7 @@ namespace LiveUpdate//LiveUpdate//
 
 		        ds.AcceptChanges();
 
-		        ds.WriteXml(DestDir + XMLFileName);         //D:\\easy\\output\\fileindex4.xml
+		        ds.WriteXml(DestDir + XMLFileName);
 		        XZip.AddFiles(DestDir + XMLFileName + ".zip", DestDir, XMLFileName, true, false);
 		        return (!errori);
 		    }
@@ -254,12 +226,8 @@ namespace LiveUpdate//LiveUpdate//
                         DataRow dr = dt.NewRow();
                         if (SkipList != null && SkipList[f4.Name] != null) {
                             string[] oldversion = SkipList[f4.Name].ToString().Split('.');
-                            //se il file ha come oldversion l'etichetta NUOVO 
-                            //vuol dire che non è presente sul sito web e che non deve
-                            //essere distribuito
                             if (oldversion[0] == "NUOVO") continue;
 
-                            //scrivo la vecchia versione
                             dr["dllname"] = f4.Name;
                             dr["major"] = oldversion[0];
                             dr["minor"] = oldversion[1];
@@ -270,7 +238,7 @@ namespace LiveUpdate//LiveUpdate//
                             dr["dllname"] = f4.Name;
                             dr["major"] = DateToInt(upd);
                             dr["minor"] = TimeToInt(upd);
-                            dr["build"] = f4.GetSHA256();
+                            dr["build"] = 0;
                         }
                         dt.Rows.Add(dr);
                     }
@@ -290,16 +258,15 @@ namespace LiveUpdate//LiveUpdate//
             }
         }
 
-	    //sets dllname major minor build
 	    public static void getVersion(DataRow r, FileInfo f,string relativeName) {
 	        string ext = f.Extension?.ToLowerInvariant();
 	        
 	        if (ext == ".dll") {
 	            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(f.FullName);
 	            r["dllname"] = relativeName;
-	            r["major"] = myFileVersionInfo.ProductMajorPart; //ver.Major;
-	            r["minor"] = myFileVersionInfo.ProductMinorPart; // ver.Minor;
-	            int N = myFileVersionInfo.ProductBuildPart; //ver.Build;
+	            r["major"] = myFileVersionInfo.ProductMajorPart;
+	            r["minor"] = myFileVersionInfo.ProductMinorPart;
+	            int N = myFileVersionInfo.ProductBuildPart;
 	            if (N > 999) N = 0;
 	            r["build"] = N;
 	            return;
@@ -309,26 +276,13 @@ namespace LiveUpdate//LiveUpdate//
 	        r["dllname"] = relativeName;
 	        r["major"] = DateToInt(upd);
 	        r["minor"] = TimeToInt(upd);
-			r["build"] = f.GetSHA256();
+	        r["build"] = 0;
 	        return;
 	    }
 
-        /// <summary>
-        /// Crea un indice dei file (XMLFileName.zip) che stanno in DirectoryToScan (cartella di produzione), non zippa e non tocca altri file
-        /// L'indice è creato nella cartella stessa.
-        /// Nell'indice i file sono presenti col percorso relativo alla cartella da esaminare  DirectoryToScan
-        /// </summary>
-        /// <param name="DirectoryToScan"></param>
-        /// <param name="xmlIndexFileName">Nome dell'indice da creare</param>
-        /// <param name="folders">nomi dei path relativi rispetto a DirectoryToScan</param>
-        /// <param name="filesToSkip">I nomi dei file sa saltare devono contenere il path relativo</param>
-        /// <param name="filters">filtri da applicare in ricerca</param>
-        /// <param name="allowedExtensions">estensioni (es. .zip .dll )</param>
-        /// <param name="ListaErrori"></param>
-        /// <returns></returns>
 	    public static bool GeneraFileIndiceGenerico(
-	        string DirectoryToScan, //D:\\Easy\\_reportingServices\\  o  D:\\progetti\\EasyWebReport_2009\\
-	        string xmlIndexFileName,    //servicefileindex.xml
+	        string DirectoryToScan,
+	        string xmlIndexFileName,
 	        IEnumerable<string> folders,
 	        Hashtable filesToSkip,
 	        IEnumerable<string> filters,
@@ -342,7 +296,6 @@ namespace LiveUpdate//LiveUpdate//
 
             List<string> elencoDir = new List<string>();
             if (folders!=null) elencoDir= (from fileName in folders select Path.Combine(DirectoryToScan, fileName)).ToList();
-            //elencoDir contiene i path completi delle cartelle di produzione da elaborare 
 	        elencoDir.Insert(0, "");
 	        try {
 	            DsDLLIndex ds = new DsDLLIndex();
@@ -354,15 +307,14 @@ namespace LiveUpdate//LiveUpdate//
 	                if (destFolder != "") combinedFolder = destFolder;
 
 	               
-	                DirectoryInfo d = new DirectoryInfo(combinedFolder); //D:\\Easy\\_reportingServices\\
+	                DirectoryInfo d = new DirectoryInfo(combinedFolder);
 	                if (!Directory.Exists(combinedFolder)) continue;
 
 	                foreach (string filter in filters) {
 	                    foreach (FileInfo f3 in d.GetFiles(filter)) {
-	                        var RelativeName = f3.Name; //es. accountenactment_default.aspx
+	                        var RelativeName = f3.Name;
 	                        if (destFolder != "") {
 	                            RelativeName=f3.FullName.Substring(DirectoryToScan.Length);
-                                // es.App_Code\\AssemblyInfo.cs
 	                        }                            
 	                        string thisExt = f3.Extension.ToLowerInvariant();
 	                        if (!allowedExtensions.Contains(thisExt)) continue;
@@ -374,18 +326,14 @@ namespace LiveUpdate//LiveUpdate//
 	                            DataRow dr = dt.NewRow();
 	                            if (filesToSkip != null && filesToSkip[RelativeName] != null) {
 	                                string[] oldversion = filesToSkip[RelativeName].ToString().Split('.');
-	                                //se il file ha come oldversion l'etichetta NUOVO 
-	                                //vuol dire che non è presente sul sito web e che non deve
-	                                //essere distribuito, inclusi i file che sono esclusi dall'inizio come configurazione
 	                                if (oldversion[0] == "NUOVO") continue;
-									//scrivo la vecchia versione
 									dr["dllname"] = destFolder==""? f3.Name:RelativeName;
 	                                dr["major"] = oldversion[0];
 	                                dr["minor"] = oldversion[1];
 	                                dr["build"] = oldversion[2];
 	                            }
 	                            else {
-	                                getVersion(dr, f3,RelativeName);//es. App_Code\\AssemblyInfo.cs
+	                                getVersion(dr, f3,RelativeName);
 	                            }
 
 	                            dt.Rows.Add(dr);
@@ -397,11 +345,8 @@ namespace LiveUpdate//LiveUpdate//
 	                    }
 	                }
 	            }
-                //  D:\\progetti\\EasyWebReport_2009\\    +  servicefileindex.xml
-                //  in D:\\progetti\\EasyWebReport_2009\\servicefileindex.xml salva l'indice relativo ai file di produzione appena calcolato
 	            string indexName = Path.Combine(DirectoryToScan, xmlIndexFileName);
 	            ds.WriteXml(indexName);
-                //in folder di produzione aggiunge l'indice.zip dei file in essa contenuti
 	            XZip.AddFiles(indexName + ".zip", DirectoryToScan, xmlIndexFileName, true, false);
 	            return (ListaErrori.Length == 0);
 	        }
@@ -430,12 +375,8 @@ namespace LiveUpdate//LiveUpdate//
                         DataRow dr = dt.NewRow();
 						if (SkipList!=null && SkipList[f3.Name]!=null) {
 							string[] oldversion = SkipList[f3.Name].ToString().Split('.');
-							//se il file ha come oldversion l'etichetta NUOVO 
-							//vuol dire che non è presente sul sito web e che non deve
-							//essere distribuito
 							if (oldversion[0]=="NUOVO") continue;
 
-							//scrivo la vecchia versione
                             dr["dllname"] = f3.Name;
 							dr["major"] = oldversion[0];
 							dr["minor"]  = oldversion[1];
@@ -446,7 +387,7 @@ namespace LiveUpdate//LiveUpdate//
 							dr["dllname"]  = f3.Name;
 							dr["major"]  = DateToInt(upd);
 							dr["minor"]  = TimeToInt(upd);
-							dr["build"]  = f3.GetSHA256();
+							dr["build"]  = 0;
 						}
 						dt.Rows.Add(dr);
 					}
@@ -466,9 +407,6 @@ namespace LiveUpdate//LiveUpdate//
 			}
 		}
          
-		/// <summary>
-		/// Generazione file stored procedure
-		/// </summary>
 		private static bool GeneraFileXMLSP(
 			string DestDir, 
 			string XMLFileName, 
@@ -488,12 +426,8 @@ namespace LiveUpdate//LiveUpdate//
                         DataRow dr = dt.NewRow();
 						if (SkipList!=null && SkipList[f2.Name]!=null) {
 							string[] oldversion = SkipList[f2.Name].ToString().Split('.');
-							//se il file ha come oldversion l'etichetta NUOVO 
-							//vuol dire che non è presente sul sito web e che non deve
-							//essere distribuito
 							if (oldversion[0]=="NUOVO") continue;
 
-							//scrivo la vecchia versione
 							dr["dllname"] = f2.Name;
 							dr["major"] = oldversion[0];
 							dr["minor"] = oldversion[1];
@@ -504,7 +438,7 @@ namespace LiveUpdate//LiveUpdate//
 							dr["dllname"]= f2.Name;
 							dr["major"] = DateToInt(upd);
 							dr["minor"] = TimeToInt(upd);
-							dr["build"] = f2.GetSHA256();
+							dr["build"] = 0;
 						}
 						dt.Rows.Add(dr);
 					}
@@ -529,9 +463,7 @@ namespace LiveUpdate//LiveUpdate//
         public static EventHandler EH = null;
         public static int GetNthread(){
             int N;
-            //lock (mm) {
                 N = NThread;
-            //}
             return N;
         }
         public static int NThread = 0;
@@ -561,7 +493,6 @@ namespace LiveUpdate//LiveUpdate//
         }
         public void Run() {
             
-            //Assembly a = Assembly.LoadFile(DestDir + f.Name);
             Assembly a = Assembly.ReflectionOnlyLoadFrom(DestDir + fName);
             AssemblyName an = a.GetName();
             Version ver = an.Version;
@@ -581,7 +512,6 @@ namespace LiveUpdate//LiveUpdate//
                     dt.Rows.Add(dr);
                 }
             
-            //Application.DoEvents();
             if (EH!=null) EH.Invoke(new NThreadsDLL(N), null);
         }
     }

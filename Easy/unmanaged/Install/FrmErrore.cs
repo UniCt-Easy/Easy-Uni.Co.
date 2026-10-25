@@ -22,9 +22,6 @@ using System.Data;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for FrmErrore.
-	/// </summary>
 	public class FrmErrore : MetaDataForm
 	{
 		private System.Windows.Forms.DataGrid dataGrid1;
@@ -35,9 +32,6 @@ namespace Install
 		private System.Windows.Forms.Button btnAnnulla;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 		DataTable T;
 
@@ -51,14 +45,8 @@ namespace Install
 		}
 
 		public FrmErrore(DataTable tDest, string messaggioIniziale, string domanda) {
-			//
-			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 			labelErrore.Text = messaggioIniziale;
 			new DataSet().Tables.Add(tDest);
 			HelpForm.SetDataGrid(dataGrid1, tDest);
@@ -89,9 +77,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -105,10 +90,6 @@ namespace Install
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent()
 		{
 			this.dataGrid1 = new System.Windows.Forms.DataGrid();
@@ -121,9 +102,6 @@ namespace Install
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// dataGrid1
-			// 
 			this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
@@ -134,9 +112,6 @@ namespace Install
 			this.dataGrid1.Name = "dataGrid1";
 			this.dataGrid1.Size = new System.Drawing.Size(720, 288);
 			this.dataGrid1.TabIndex = 0;
-			// 
-			// btnSi
-			// 
 			this.btnSi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSi.DialogResult = System.Windows.Forms.DialogResult.Yes;
 			this.btnSi.Location = new System.Drawing.Point(544, 328);
@@ -144,9 +119,6 @@ namespace Install
 			this.btnSi.Size = new System.Drawing.Size(56, 23);
 			this.btnSi.TabIndex = 1;
 			this.btnSi.Text = "Si";
-			// 
-			// btnNo
-			// 
 			this.btnNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
 			this.btnNo.Location = new System.Drawing.Point(608, 328);
@@ -154,9 +126,6 @@ namespace Install
 			this.btnNo.Size = new System.Drawing.Size(56, 23);
 			this.btnNo.TabIndex = 2;
 			this.btnNo.Text = "No";
-			// 
-			// labelErrore
-			// 
 			this.labelErrore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.labelErrore.Location = new System.Drawing.Point(8, 8);
@@ -164,9 +133,6 @@ namespace Install
 			this.labelErrore.Size = new System.Drawing.Size(720, 23);
 			this.labelErrore.TabIndex = 3;
 			this.labelErrore.Text = "label1";
-			// 
-			// lblDomanda
-			// 
 			this.lblDomanda.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.lblDomanda.Location = new System.Drawing.Point(8, 320);
@@ -174,9 +140,6 @@ namespace Install
 			this.lblDomanda.Size = new System.Drawing.Size(536, 40);
 			this.lblDomanda.TabIndex = 4;
 			this.lblDomanda.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// btnAnnulla
-			// 
 			this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnAnnulla.Location = new System.Drawing.Point(672, 328);
@@ -184,20 +147,11 @@ namespace Install
 			this.btnAnnulla.Size = new System.Drawing.Size(56, 23);
 			this.btnAnnulla.TabIndex = 5;
 			this.btnAnnulla.Text = "Annulla";
-			// 
-			// contextMenu1
-			// 
 			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																						 this.menuItem1});
-			// 
-			// menuItem1
-			// 
 			this.menuItem1.Index = 0;
 			this.menuItem1.Text = "Excel";
 			this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
-			// 
-			// FrmErrore
-			// 
 			this.AcceptButton = this.btnSi;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnAnnulla;

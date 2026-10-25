@@ -18,8 +18,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace csa_importriep_partition_expense_elenco {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -63,7 +61,6 @@ public partial class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -82,7 +79,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// EXPENSEPHASE /////////////////////////////////
 	var texpensephase= new DataTable("expensephase");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -106,7 +102,6 @@ private void initClass() {
 	texpensephase.PrimaryKey =  new DataColumn[]{texpensephase.Columns["nphase"]};
 
 
-	//////////////////// EXPENSEVIEW /////////////////////////////////
 	var texpenseview= new DataTable("expenseview");
 	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
@@ -219,7 +214,6 @@ private void initClass() {
 	texpenseview.PrimaryKey =  new DataColumn[]{texpenseview.Columns["idexp"], texpenseview.Columns["ayear"]};
 
 
-	//////////////////// CSA_IMPORTRIEP_PARTITION_EXPENSE /////////////////////////////////
 	var tcsa_importriep_partition_expense= new DataTable("csa_importriep_partition_expense");
 	C= new DataColumn("idcsa_import", typeof(int));
 	C.AllowDBNull=false;
@@ -244,7 +238,6 @@ private void initClass() {
 	tcsa_importriep_partition_expense.PrimaryKey =  new DataColumn[]{tcsa_importriep_partition_expense.Columns["idcsa_import"], tcsa_importriep_partition_expense.Columns["idriep"], tcsa_importriep_partition_expense.Columns["ndetail"], tcsa_importriep_partition_expense.Columns["idexp"]};
 
 
-	//////////////////// CSA_IMPORTRIEP /////////////////////////////////
 	var tcsa_importriep= new DataTable("csa_importriep");
 	C= new DataColumn("idcsa_import", typeof(int));
 	C.AllowDBNull=false;
@@ -290,7 +283,6 @@ private void initClass() {
 	tcsa_importriep.PrimaryKey =  new DataColumn[]{tcsa_importriep.Columns["idcsa_import"], tcsa_importriep.Columns["idriep"]};
 
 
-	//////////////////// CSA_IMPORT /////////////////////////////////
 	var tcsa_import= new DataTable("csa_import");
 	C= new DataColumn("idcsa_import", typeof(int));
 	C.AllowDBNull=false;
@@ -327,7 +319,6 @@ private void initClass() {
 	tcsa_import.PrimaryKey =  new DataColumn[]{tcsa_import.Columns["idcsa_import"]};
 
 
-	//////////////////// CSA_CONTRACT /////////////////////////////////
 	var tcsa_contract= new DataTable("csa_contract");
 	C= new DataColumn("idcsa_contract", typeof(int));
 	C.AllowDBNull=false;
@@ -376,7 +367,6 @@ private void initClass() {
 	tcsa_contract.PrimaryKey =  new DataColumn[]{tcsa_contract.Columns["idcsa_contract"], tcsa_contract.Columns["ayear"]};
 
 
-	//////////////////// CSA_CONTRACTKIND /////////////////////////////////
 	var tcsa_contractkind= new DataTable("csa_contractkind");
 	C= new DataColumn("idcsa_contractkind", typeof(int));
 	C.AllowDBNull=false;
@@ -409,7 +399,6 @@ private void initClass() {
 	tcsa_contractkind.PrimaryKey =  new DataColumn[]{tcsa_contractkind.Columns["idcsa_contractkind"]};
 
 
-	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new DataTable("registry");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
@@ -473,7 +462,6 @@ private void initClass() {
 	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 
 
-	//////////////////// CSA_MOVKIND /////////////////////////////////
 	var tcsa_movkind= new DataTable("csa_movkind");
 	C= new DataColumn("movkind", typeof(int));
 	C.AllowDBNull=false;
@@ -483,7 +471,6 @@ private void initClass() {
 	tcsa_movkind.PrimaryKey =  new DataColumn[]{tcsa_movkind.Columns["movkind"]};
 
 
-	//////////////////// REGISTRY_MAIN /////////////////////////////////
 	var tregistry_main= new DataTable("registry_main");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;

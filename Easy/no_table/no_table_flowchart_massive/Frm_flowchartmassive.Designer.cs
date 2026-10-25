@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace no_table_flowchart_massive {
     partial class Frm_flowchartmassive {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace no_table_flowchart_massive {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
             this.DS = new no_table_flowchart_massive.vistaForm();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -50,19 +38,14 @@ namespace no_table_flowchart_massive {
             this.label1 = new System.Windows.Forms.Label();
             this.btnTestServerWeb = new System.Windows.Forms.Button();
             this.btnImportaUtenti = new System.Windows.Forms.Button();
+            this.chkUtenteDesktop = new System.Windows.Forms.CheckBox();
             this.txtResult = new System.Windows.Forms.TextBox();
             this._myOpenFile = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // DS
-            // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Controls.Add(this.txtDatabaseWeb);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtServerWeb);
@@ -78,74 +61,47 @@ namespace no_table_flowchart_massive {
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connessione al db del sistema web";
-            // 
-            // txtDatabaseWeb
-            // 
             this.txtDatabaseWeb.Location = new System.Drawing.Point(289, 87);
             this.txtDatabaseWeb.Name = "txtDatabaseWeb";
             this.txtDatabaseWeb.Size = new System.Drawing.Size(225, 20);
             this.txtDatabaseWeb.TabIndex = 8;
-            // 
-            // label4
-            // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(286, 71);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Database";
-            // 
-            // txtServerWeb
-            // 
             this.txtServerWeb.Location = new System.Drawing.Point(15, 87);
             this.txtServerWeb.Name = "txtServerWeb";
             this.txtServerWeb.Size = new System.Drawing.Size(253, 20);
             this.txtServerWeb.TabIndex = 6;
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Server";
-            // 
-            // txtPasswordWeb
-            // 
             this.txtPasswordWeb.Location = new System.Drawing.Point(177, 37);
             this.txtPasswordWeb.Name = "txtPasswordWeb";
             this.txtPasswordWeb.PasswordChar = '*';
             this.txtPasswordWeb.Size = new System.Drawing.Size(147, 20);
             this.txtPasswordWeb.TabIndex = 4;
-            // 
-            // label2
-            // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(174, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
-            // 
-            // txtUserWeb
-            // 
             this.txtUserWeb.Location = new System.Drawing.Point(15, 37);
             this.txtUserWeb.Name = "txtUserWeb";
             this.txtUserWeb.Size = new System.Drawing.Size(147, 20);
             this.txtUserWeb.TabIndex = 2;
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "User";
-            // 
-            // btnTestServerWeb
-            // 
             this.btnTestServerWeb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTestServerWeb.Location = new System.Drawing.Point(574, 84);
             this.btnTestServerWeb.Name = "btnTestServerWeb";
@@ -154,9 +110,6 @@ namespace no_table_flowchart_massive {
             this.btnTestServerWeb.Text = "Verifica connessione";
             this.btnTestServerWeb.UseVisualStyleBackColor = true;
             this.btnTestServerWeb.Click += new System.EventHandler(this.btnTestServerWeb_Click);
-            // 
-            // btnImportaUtenti
-            // 
             this.btnImportaUtenti.Location = new System.Drawing.Point(318, 161);
             this.btnImportaUtenti.Name = "btnImportaUtenti";
             this.btnImportaUtenti.Size = new System.Drawing.Size(161, 23);
@@ -164,29 +117,31 @@ namespace no_table_flowchart_massive {
             this.btnImportaUtenti.Text = "Importa utenti";
             this.btnImportaUtenti.UseVisualStyleBackColor = true;
             this.btnImportaUtenti.Click += new System.EventHandler(this.btnImportaUtenti_Click);
-            // 
-            // txtResult
-            // 
+            this.chkUtenteDesktop.AutoSize = true;
+            this.chkUtenteDesktop.Checked = true;
+            this.chkUtenteDesktop.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUtenteDesktop.Enabled = false;
+            this.chkUtenteDesktop.Location = new System.Drawing.Point(495, 165);
+            this.chkUtenteDesktop.Name = "chkUtenteDesktop";
+            this.chkUtenteDesktop.Size = new System.Drawing.Size(225, 17);
+            this.chkUtenteDesktop.TabIndex = 3;
+            this.chkUtenteDesktop.Text = "Gli utenti nuovi entrano anche da desktop";
+            this.chkUtenteDesktop.UseVisualStyleBackColor = true;
             this.txtResult.Location = new System.Drawing.Point(12, 190);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
             this.txtResult.Size = new System.Drawing.Size(770, 289);
             this.txtResult.TabIndex = 2;
-            // 
-            // myOpenFile
-            // 
             this._myOpenFile.FileName = "openFileDialog1";
             this._myOpenFile.Title = "Selezionare il file da importare";
-            // 
-            // Frm_flowchartmassive
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(794, 521);
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.btnImportaUtenti);
+            this.Controls.Add(this.chkUtenteDesktop);
             this.Controls.Add(this.groupBox1);
             this.Name = "Frm_flowchartmassive";
             this.Text = "Frm_flowchartmassive";
@@ -212,6 +167,7 @@ namespace no_table_flowchart_massive {
         private System.Windows.Forms.TextBox txtUserWeb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnImportaUtenti;
+        private System.Windows.Forms.CheckBox chkUtenteDesktop;
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.OpenFileDialog _myOpenFile;
     }

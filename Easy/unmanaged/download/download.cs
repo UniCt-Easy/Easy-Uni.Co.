@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Net;
 using System.IO;
@@ -25,11 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using metadatalibrary;
 
-namespace download//download//
+namespace download
 {
-	/// <summary>
-	/// Classe (Web client) utilizzata per il download dei file via http
-	/// </summary>
 	public class Http {
 		WebClient client;
 		public string cachepath;
@@ -58,12 +54,8 @@ namespace download//download//
         }
 
 
-		/// <summary>
-		/// Classe per connettersi ad un sito web via http o a cartelle locali
-		/// </summary>
-		/// <param name="paths">Collection di siti o cartelle locali</param>
-		/// <param name="cachepath">Percorso cartella temporanea</param>
 		public Http(string[] addresses, string cachepath) {
+			ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 			string msg="";
 			if (!cachepath.EndsWith("\\")) cachepath+="\\";
 			this.cachepath = cachepath;
@@ -75,14 +67,11 @@ namespace download//download//
 				if (path.StartsWith("http")) {
 					if (!path.EndsWith("/")) path+="/";
 					client = new WebClient();
-                    //client.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                    //client.Headers.Add("Accept-Language", "it-IT,it;q=0.8,en-US;q=0.6,en;q=0.4,bg;q=0.2,es;q=0.2,vi;q=0.2");
                     client.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)");
                     client.BaseAddress = path;
 					client.Credentials = CredentialCache.DefaultCredentials;
-					//controllo accessibilità web site
+					LiveUpdate.ChiaveLiveUpdate.Prepara(client, path);
 					try {
-						//System.Diagnostics.Debug.WriteLine("Tentativo di collegamento a ["+client.BaseAddress+ getVersionFileName() + "]\r");
 						client.DownloadData(getVersionFileName());
 						WebSite = eTipoSito.WEB;
 						this.RemoteDir = path;
@@ -114,7 +103,6 @@ namespace download//download//
 					}
 				}
 				else {
-					//controllo accessibilità folder
 					try {
 						if (!path.EndsWith(@"\")) path+=@"\";
 						DirectoryInfo d = new DirectoryInfo(path);
@@ -139,10 +127,6 @@ namespace download//download//
 
 	    public FtpFileNameRewriter rewriter= new FtpFileNameRewriter();
 
-		/// <summary>
-		/// Restituisce il contenuto in formato string di un file
-		/// </summary>
-		/// <param name="filename">File remoto da leggere</param>
 		public string DownloadData(string filename) {
 			try {
 				string fullname = RemoteDir + filename;
@@ -182,12 +166,6 @@ namespace download//download//
 			}
 		}
 
-		/// <summary>
-		/// Esegue il download del file webfilename e lo memorizza in localfilename
-		/// </summary>
-		/// <param name="webfilename">Path relativo del file da scaricare</param>
-		/// <param name="localfilename">Nome del file con il quale verrà memorizzato</param>
-		/// <returns>True se va a buon fine</returns>
 		public bool DownloadFile(string webfilename, string filename) {
 			string msg="";
 			try {
@@ -197,7 +175,6 @@ namespace download//download//
 						break;
 
 					case eTipoSito.NETBIOS:
-                        //in locale nessun rewrite
 						File.Copy(RemoteDir + webfilename, cachepath + filename, true);
 						break;
 					default:
@@ -220,7 +197,6 @@ namespace download//download//
 			return false;
 		}
 
-		/// <param name="W">tipo eccezione</param>
 		private string GetExceptionMsg(WebException W) {
 			string tipo="Tentativo di download fallito (WebException)";
 			string msg=tipo+GetExceptionMsg(W,false)+
@@ -231,7 +207,6 @@ namespace download//download//
 			}
 			return msg;
 		}
-		/// <param name="S">tipo eccezione</param>
 		private string GetExceptionMsg(SecurityException S) {
 			string tipo="Tentativo di download fallito (SecurityException)";
 			return tipo+GetExceptionMsg(S,false)+
@@ -241,8 +216,6 @@ namespace download//download//
 				"\rHelpLink ["+S.HelpLink+"]";
 		}
 
-		/// <param name="E">tipo eccezione</param>
-		/// <param name="header">True se visibile "Tentativo..."</param>
 		private string GetExceptionMsg(Exception E, bool header) {
 			string tipo="Tentativo di download fallito (Exception)";
 			return (header?tipo:"")+"\rMessage ["+E.Message+"]"+
@@ -298,11 +271,6 @@ namespace download//download//
 
             }
         }
-		/// <summary>
-		/// Da normale a criptato
-		/// </summary>
-		/// <param name="fileName"></param>
-		/// <returns></returns>
         public string localToRemoteFileName(string fileName) {
             string result = fileName;
             foreach (string rule in rewriteRules) {
@@ -314,9 +282,6 @@ namespace download//download//
         }
 
     }
-	/// <summary>
-	/// Classe utilizzata per una sessione FTP
-	/// </summary>
 	public class Ftp {
 		
 	    public FtpFileNameRewriter rewriter= new FtpFileNameRewriter();
@@ -332,22 +297,10 @@ namespace download//download//
 		#endregion
 		
 		#region Costruttori
-		/// <summary>
-		/// Use default port 21, no log
-		/// </summary>
-		/// <param name="host">remote host nenza prefisso</param>
 		public Ftp(string host):this(host,21,null) {
 		}
-		/// <summary>
-		/// No log
-		/// </summary>
-		/// <param name="host">remote host nenza prefisso</param>
-		/// <param name="port">remote port</param>
 		public Ftp(string host, int port):this(host,port,null) {
 		}
-		/// <param name="host">remote host nenza prefisso</param>
-		/// <param name="port">remote port</param>
-		/// <param name="log">StreamWriter per log (default output viewer)</param>
 		public Ftp(string host, int port, StreamWriter log) {
 			string msg="Ftp("+host+", "+port+")";
 			try {
@@ -355,10 +308,8 @@ namespace download//download//
 				m_Host=host;
                 m_FtpClient = new FTPClient();
                 m_FtpClient.ControlPort = port;
-                //m_FtpClient.l
                 m_FtpClient.RemoteHost = host;
                 m_FtpClient.Timeout = 30000;
-                //host, port, log, 5000);
 				if (m_FtpClient!=null) return;
 
 				m_IsConnected=false;
@@ -373,11 +324,6 @@ namespace download//download//
 
 		#region Funzioni
 
-//		public string LastValidReplyCode {
-//			get {
-//				return m_FtpClient.LastValidReply.ReplyCode;
-//			}
-//		}
 
 		public bool IsConnected {
 			get {
@@ -385,11 +331,6 @@ namespace download//download//
 			}
 		}
 
-		/// <summary>
-		/// Login with default: traceOn=True, TransfertType=BINARY, ConnectMode=ACTIVE
-		/// </summary>
-		/// <param name="user">user</param>
-		/// <param name="pwd">password</param>
 		public bool Login(string user, string pwd) {
 			return this.Login(user,pwd,true);
 		}
@@ -402,12 +343,6 @@ namespace download//download//
                 connectMode = FTPConnectMode.PASV;
             }
         }
-		/// <summary>
-		/// Login with default: TransfertType=BINARY, ConnectMode=ACTIVE
-		/// </summary>
-		/// <param name="traceOn">Enable output trace</param>
-		/// <param name="user">user</param>
-		/// <param name="pwd">password</param>
 		public bool Login(string user, string pwd, bool traceOn) {
 			return this.Login(user,pwd,traceOn,FTPTransferType.BINARY,
                 connectMode);
@@ -416,14 +351,6 @@ namespace download//download//
       
 
 
-		/// <summary>
-		/// Login
-		/// </summary>
-		/// <param name="traceOn">Enable output trace</param>
-		/// <param name="user">user</param>
-		/// <param name="pwd">password</param>
-		/// <param name="transfertype">Binary / Ascii</param>
-		/// <param name="connectmode">ACTIVE / PASV</param>
 		public bool Login(string user, string pwd, bool traceOn, FTPTransferType transfertype, FTPConnectMode connectmode) {
 			string msg="Login("+user+", "+pwd+", "+traceOn.ToString()+", "+transfertype.ToString()+", "+connectmode.ToString()+")";
 			try {
@@ -447,24 +374,16 @@ namespace download//download//
 			}
 		}
 
-		/// <summary>
-		/// Scarica il file dopo aver eliminato proprietà di sola lettura
-		/// </summary>
-		/// <param name="localPath">Nome completo del file di destinazione</param>
-		/// <param name="remoteFile">nome del file da scaricare</param>
-		/// <returns>True se va a buon fine</returns>
 		public bool GetFile(string localPath, string remoteFile) {
 			string msg="GetFile("+localPath+", "+remoteFile+")";
             bool retry = true;
             bool autoretry = true;
             while (retry) {
                 try {
-                    //elimina eventuali diritti di sola lettura
                     if (File.Exists(localPath)) {
                         File.SetAttributes(localPath, FileAttributes.Archive);
                         File.Delete(localPath);
                     }
-                    //scarico il file
                     m_FtpClient.Get(localPath, rewriter.localToRemoteFileName(remoteFile));
                     return true;
                 }
@@ -497,15 +416,8 @@ namespace download//download//
 	        return pieces[pieces.Length - 1];
 	    }
 
-		/// <summary>
-		/// Carica un file sul server ftp
-		/// </summary>
-		/// <param name="sourceFileNameComplete">percorso relativo alla cartella corrente e nome file</param>
-		/// <param name="remoteFile">percorso e nome destinazioine del file da inviare, relativo alla cartella ftp corrente </param>
-		/// <returns>True se va a buon fine</returns>
-		public bool PutFile(string sourceFileNameComplete, // "Y:\\services\\easyweb\\servicefileindex.xml.zip
-		    string remoteFileOriginal) {    //errato: "D:\\Easy\\output\\sync/servicefileindex.xml.zip/servicefileindex.xml.zip
-            //Application.DoEvents();
+		public bool PutFile(string sourceFileNameComplete,
+		    string remoteFileOriginal) {
 			string msg="PutFile("+sourceFileNameComplete+", "+remoteFileOriginal+")";
             bool retry = true;
             bool autoretry = true;
@@ -517,23 +429,12 @@ namespace download//download//
 		    string rewrittenFileName = getFileName(rewrittenRemoteFile);		    
 
 
-		    //if (rootDirectory !=null && !checkDirectoryFtpCompleta(directory,rootDirectory)) return false;
 		    bool dirChecked = false;
 		    
-		    //if (rootDirectory == null) dirChecked = true;
             while (retry) {
                 try {
-                    //if (directoryEffetiva!=null) m_FtpClient.ChDir(directoryEffetiva);
-                    m_FtpClient.Put(sourceFileNameComplete, rewrittenRemoteFile);//funziona anche se remoteFile contiene un file annidato in una cartella 
-                    //if (true) {
-                    //    try {
-                    //        new WebClient().DownloadString(rewrittenFileName);
-                    //    }
-                    //    catch {
-                    //        MetaFactory.factory.getSingleton<IMessageShower>().Show("Invio di " + rewrittenFileName + " fallito", "Errore");
-                    //    }
+                    m_FtpClient.Put(sourceFileNameComplete, rewrittenRemoteFile);
                         
-                    //}
                     return true;
                 }
                 catch (Exception E) {
@@ -556,22 +457,14 @@ namespace download//download//
 		}
 
 	  
-		/// <summary>
-		/// A partire dalla directory di default (quella di connessione), verifica la presenza,
-		/// ed eventualmente la crea, di una directory reimpostando come cartella corrente quella di partenza
-		/// </summary>
-		/// <param name="dir">cartella da verificare</param>
-		/// <returns>True se va a buon fine il check</returns>
-		public bool CheckDir(string dir) {  //errato D:\Easy\output\sync
+		public bool CheckDir(string dir) {
 			string msg="CheckDir("+dir+")";
 			try {
-				//se esite non faccio nulla
 			    try {
 			        if (ChangeDir(dir)) return ChangeDir("..");
 			    }
 			    catch {
 			    }
-				//altrimenti la creo
 				return CreateDir(dir);
 			}
 			catch (Exception E) {
@@ -582,33 +475,21 @@ namespace download//download//
 
 
 
-	    /// <summary>
-	    /// Restituisce la dir con lo / finale
-	    /// </summary>
 	    public static string CheckReverseFinalSlash(string dir) {
 	        if (dir.EndsWith(@"/")) return dir;
 	        return dir+=@"/";
 	    }
-	    /// <summary>
-	    /// Restituisce la dir con lo / finale
-	    /// </summary>
 	    public static string CheckReverseStartSlash(string dir) {
 	        if (dir == null) return null;
 	        if (dir.StartsWith(@"/")) return dir;
 	        return @"/"+dir;
 	    }
-	    /// <summary>
-	    /// Restituisce la dir con lo / finale
-	    /// </summary>
 	    public static string removeFinalReverseSlash(string dir) {
 	        if (dir == null) return null;
 	        if (!dir.EndsWith(@"/")) return dir;
 	        return dir.Remove(dir.Length-1);
 	    }
 
-	    /// <summary>
-	    /// Restituisce la dir con lo / finale
-	    /// </summary>
 	    public static string removeStartReverseSlash(string dir) {
 	        if (dir == null) return null;
 	        if (!dir.StartsWith(@"/")) return dir;
@@ -630,35 +511,24 @@ namespace download//download//
 	    public static string CheckBothReverseSlash(string dir) {	        
 	        return CheckReverseStartSlash(CheckReverseFinalSlash(dir));
 	    }
-	    /// <summary>
-	    /// Concatena il path dir2 (relativo) a dir1 (relativo o assoluto)
-	    /// </summary>
-	    /// <param name="dir1">path relativo o assoluto</param>
-	    /// <param name="dir2">path relativo</param>
 	    public static string ConcatFtpDir(string dir1, string dir2) {
 	        if (dir1 == "" || dir1==null) return CheckReverseFinalSlash(dir2);
 	        if (dir2 == "" || dir2==null) return dir1;
 	        return CheckReverseFinalSlash(dir1)+removeStartReverseSlash(CheckReverseFinalSlash(dir2));
 	    }
 
-        /// <summary>
-        /// remotedir non deve contenere il sito radice ma solo la parte relativa dentro di esso es. se www.site.com/dir1/dir2/ deve contenere solo /dir1/dir2/  o dir1/dir2 o simili
-        /// </summary>
-        /// <param name="f"></param>
-        /// <param name="remotedir"></param>
-        /// <returns></returns>
 	    public bool checkDirectoryFtpCompleta(string remotedir) {
             if (remotedir == "" || remotedir == @"/") return true;
 	        List<string> segmenti = remotedir.Split('/').ToList();
-	        if (segmenti.Count == 0) return true; //non può creare niente
+	        if (segmenti.Count == 0) return true;
             if (segmenti[segmenti.Count-1]=="")segmenti.RemoveAt(segmenti.Count-1);
             if (segmenti.Count == 1) return CheckDir(segmenti[0]);
 
             for (int i = 0; i < segmenti.Count; i++) {
                 string currDir = segmenti[i];
-                if (!CheckDir(currDir))return false;    //Errore, bisogna fare i-1 ChangeDir("..")
+                if (!CheckDir(currDir))return false;
                 if (i < segmenti.Count - 1) {
-                    if (!ChangeDir(currDir)) return false; //Errore, bisogna fare i-1 ChangeDir("..")
+                    if (!ChangeDir(currDir)) return false;
                 }
             }
 
@@ -667,11 +537,6 @@ namespace download//download//
             }
             return true;
         }
-	    /// <summary>
-	    /// Si posiziona sotto la sotto cartella subDir rispetto alla root
-	    /// </summary>
-	    /// <param name="dir"></param>
-	    /// <returns>True se OK</returns>
 	    public bool ChangeToRelativeDir(string dir) {
 	        string msg="ChangeRelativeDir("+dir+")";
 	        string relativeDir = null;
@@ -693,11 +558,6 @@ namespace download//download//
 	    }
 
 
-		/// <summary>
-		/// Cambia directory corrente del server ftp
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <returns>True se OK</returns>
 		public bool ChangeDir(string dir) {
 			string msg="ChangeDir("+dir+")";
 			try {
@@ -711,11 +571,6 @@ namespace download//download//
 		}
 
 
-		/// <summary>
-		/// Crea directory
-		/// </summary>
-		/// <param name="dir">directory</param>
-		/// <returns>True se OK</returns>
 		public bool CreateDir(string dir) {
 			string msg="CreateDir("+dir+")";
 			try {
@@ -742,11 +597,6 @@ namespace download//download//
 			}
 		}
 
-		/// <summary>
-		/// Elimina directory
-		/// </summary>
-		/// <param name="dir">directory</param>
-		/// <returns>True se OK</returns>
 		public bool RemoveDir(string dir) {
 			string msg="RemoveDir("+dir+")";
 			try {
@@ -759,10 +609,6 @@ namespace download//download//
 			}
 		}
 
-		/// <summary>
-		/// Restituisce la lista dei file contenuti nella dir
-		/// </summary>
-		/// <param name="dir">remote dir</param>
 		public string[] DirFull(string dir) {
 			string msg="DirFull("+dir+")";
 			try {
@@ -774,10 +620,6 @@ namespace download//download//
 			}
 		}
 
-		/// <summary>
-		/// Chiuse la sessione ftp
-		/// </summary>
-		/// <returns>True se OK</returns>
 		public bool Close() {
 			string msg="Close()";
 			try {
@@ -794,27 +636,14 @@ namespace download//download//
 		#endregion
 
 		#region Gestione errore
-		/// <summary>
-		/// Imposta l'ultimo msg di errore
-		/// </summary>
-		/// <param name="error">msg</param>
 		private void SetLastError(string error) {
 			SetLastError(error,null);
 		}
 
-		/// <summary>
-		/// Imposta l'ultimo msg di errore + eccezione
-		/// </summary>
-		/// <param name="error">msg</param>
-		/// <param name="E">Exception</param>
 		private void SetLastError(string error, Exception E) {
 			m_LastError="Ftp Class: "+error;
 			if (E!=null) m_LastError+=" - Dettaglio: "+E.Message;
 		}
-		/// <summary>
-		/// Restituisce l'ultimo msg di errore
-		/// </summary>
-		/// <returns></returns>
 		public string GetLastError() {
 			string s=m_LastError;
 			m_LastError=null;

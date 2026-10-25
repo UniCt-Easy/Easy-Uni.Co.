@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,6 +64,7 @@ namespace flowchart_applicaforall{
                 if (!MyDataAccess.Open()){
                     error = "Non è stato possibile effettuare il collegamento al dipartimento" + dip["iddbdepartment"].ToString();
                     dettaglio = MyDataAccess.LastError;
+                    MyDataAccess.Destroy();
                     show(error + "\n" + dettaglio, "Attenzione",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     continue;
@@ -103,9 +103,7 @@ namespace flowchart_applicaforall{
                        " cross join customusergroup U where " + QHS.CmpEq("U.idcustomgroup", idcustomgroup);
             CurrDataAccess.SQLRunner(insertuserenvironment, false,300);
             
-            //show(this, "Sicurezza applicata con successo!");
 
-            //show(this, "Errore nel salvataggio della sicurezza!", "Errore");
 
 
             return true;

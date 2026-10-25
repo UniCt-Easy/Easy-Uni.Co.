@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,9 +23,6 @@ using System.Windows.Forms;
 
 namespace no_table_unifydip {
 
-    /// <summary>
-    /// Manages a context to decide what fields have to be translated and how
-    /// </summary>
     public class CopyContext {
         Dictionary<string, translator> H;
         public CopyContext(Dictionary<string, translator> Translators) {
@@ -47,12 +43,6 @@ namespace no_table_unifydip {
             return this;
         }
 
-        /// <summary>
-        /// Evaluates the traduction of a field value
-        /// </summary>
-        /// <param name="field"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public object Translate(string field, object value) {
             if (H.ContainsKey(field)) return H[field].translate(value);
             return value;
@@ -61,9 +51,6 @@ namespace no_table_unifydip {
 
     }
 
-    /// <summary>
-    /// Copy manager manages the copy of a set of tables
-    /// </summary>
     public class CopyManager {
         List<Copyer> AR = new List<Copyer>();
         DataAccess Source;
@@ -75,21 +62,11 @@ namespace no_table_unifydip {
             this.Dest = Dest;
         }
 
-        /// <summary>
-        /// Adds a Copyer to the Copy Manager
-        /// </summary>
-        /// <param name="C"></param>
-        /// <param name="depends"></param>
         public CopyManager Add(Copyer C) {
             AR.Add(C);
             return this;
         }
 
-        /// <summary>
-        /// Check all conditions necessary to do the copy. Does not write to db
-        /// </summary>
-        /// <param name="CD"></param>
-        /// <returns></returns>
         public virtual bool CheckAll(CopyDisplay CD) {
             CD.Start("Checking");
             bool status_ok = true;
@@ -112,11 +89,6 @@ namespace no_table_unifydip {
             return status_ok;
         }
 
-        /// <summary>
-        /// Copy all tables respecting dependencies
-        /// </summary>
-        /// <param name="CD"></param>
-        /// <returns></returns>
         public bool CopyAll(CopyDisplay CD) {
 
 
@@ -124,7 +96,7 @@ namespace no_table_unifydip {
             CD.Start("Copying");
             CD.Comment("Disable Triggers");
             Dest.CallSP("enable_disable_triggers",
-                                       new object[2]{Dest.GetSys("userdb").ToString(),
+                                       new object[2]{(Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString(),
 			                          'D'},
                                        false,
                                        500);
@@ -148,8 +120,7 @@ namespace no_table_unifydip {
                     if (C.applied) continue;
                     CopyContext Ctx = new CopyContext(Trlist);
 
-                    //verifica le dipendenze di C
-                    if (!C.CheckDependencies(Ctx, FieldToLookup)) continue;//non può copiare ancora questa tabella, mancano dipendenze
+                    if (!C.CheckDependencies(Ctx, FieldToLookup)) continue;
                     C.MergePreTranslatorsTo(Ctx);
 
                     bool res = C.CopyTable(Source, Dest, Ctx, CD);
@@ -157,7 +128,7 @@ namespace no_table_unifydip {
                     if (!res) {
                         CD.Comment("Enable Triggers");
                         Dest.CallSP("enable_disable_triggers",
-                                      new object[2]{Dest.GetSys("userdb").ToString(),
+                                      new object[2]{(Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString(),
 			                          'E'},
                                       false,
                                       500);
@@ -180,7 +151,7 @@ namespace no_table_unifydip {
             }
             CD.Comment("Enable Triggers");
             Dest.CallSP("enable_disable_triggers",
-                                      new object[2]{Dest.GetSys("userdb").ToString(),
+                                      new object[2]{(Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString(),
 			                          'E'},
                                       false,
                                       500);

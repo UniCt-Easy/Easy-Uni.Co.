@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,7 +50,7 @@ namespace no_table_unifydip {
             if (S.Length > 12) Sright = S.Substring(12);
 
             int max = CfgFn.GetNoNullInt32(H[SLeftNew]);
-            int ncurr = getnumber(S, 2) + max + 1; //è necessario sommare 1 perché gli upb hanno base zero
+            int ncurr = getnumber(S, 2) + max + 1;
 
             string Smain = ncurr.ToString().PadLeft(4, '0');
             return SLeftNew + Smain + Sright;
@@ -67,19 +66,10 @@ namespace no_table_unifydip {
         }
     }
 
-    /// <summary>
-    /// Copia il tree degli upb, non più usato perché siamo rimasti d'accordo che riempiamo PRIMA l'intera struttura delle UPB
-    /// </summary>
     public class UpbCopyer : Copyer {
-        Hashtable H1 = new Hashtable();//contiene i max per ogni voce di 2o livello. Se null allora non ci sono voci
+        Hashtable H1 = new Hashtable();
         Hashtable HIDUPB = new Hashtable();
         bool emptytable = false;
-        /// <summary>
-        /// Takes the number in ther level(th) segment of the idupb string
-        /// </summary>
-        /// <param name="idupb"></param>
-        /// <param name="level"></param>
-        /// <returns></returns>
         int getnumber(object idupb, int level) {
             if (idupb == null || idupb == DBNull.Value) return 0;
             if ((level + 1) * 4 > idupb.ToString().Length) throw new Exception("Errore nella decodifica dell'idupb: " + idupb.ToString()); ;
@@ -126,7 +116,6 @@ namespace no_table_unifydip {
             string filter = QHS.CmpEq("len(idupb)", 8);
             DataTable S = Source.RUN_SELECT("upb", "*", null, filter, null, false);
             foreach (DataRow R in S.Rows) {
-                //calcola il max child di R
                 object max = Dest.DO_READ_VALUE("upb", QHS.CmpEq("paridupb", HIDUPB[R["idupb"].ToString()].ToString()),
                                 "MAX(substring(idupb,9,4))");
                 int nmax = getnumber(max, 0);
@@ -151,22 +140,11 @@ namespace no_table_unifydip {
             this.emptytable = FirstDepartment;
         }
 
-        //protected override void Translate(CopyContext Ctx, DataRow R) {
-        //    //if (R["idupb"].ToString().Length == 12) {
-        //    //    string S = R["title"].ToString();
-        //    //    if (S.Length > 145) S = S.Substring(0,145); 
-        //    //    R["title"] = S + "-" + ordine.ToString();
-        //    //}
-        //    base.Translate(Ctx, R);
 
-        //}
         
     }
 
 
-    /// <summary>
-    /// Copia il bilancio solo se trova tabula rasa altrimenti mappa in base a E/S, codice, e anno. 
-    /// </summary>
     public class FinCopyer : Copyer {
         bool istocopy = false;
         Hashtable H = new Hashtable();
@@ -180,7 +158,6 @@ namespace no_table_unifydip {
             if (Dest.RUN_SELECT_COUNT("fin", null, false) == 0) {
                 istocopy = true;
                 DefinesPreTranslator("idfin", new IdentityTranslator());
-                //non c'è bisogno di definire un traslator per idfin
                 return true;
             }
 
@@ -236,25 +213,21 @@ namespace no_table_unifydip {
         public FinYearCopyer(DataAccess Model)
             : base("finyear", Model) {
             QueryHelper QHS = Model.GetQueryHelper();
-            //SetFilter( QHS.AppAnd(QHS.CmpGe("ayear", 2006), QHS.CmpGe("len(idupb)", 12)) );
             SetFilter(QHS.CmpGe("ayear", 2006));
         }
 
 
         protected override bool IsToCopy(DataRow R) {
             return true;
-            //if (R["idupb"].ToString().Length > 8) return true;
-            //return false;
         }
 
         public override bool CopyTable(DataAccess Source, DataAccess Dest, CopyContext Ctx, CopyDisplay CD) {
-            //if (!base.CopyTable(Source, Dest, Ctx, CD)) return false;
             applied = false;
             int count = 0;
             QueryHelper QHS = Dest.GetQueryHelper();
 
             try {
-                DataTable Cols = Dest.SQLRunner("sp_columns " + table + ",'" + Dest.GetSys("userdb").ToString() + "'");
+                DataTable Cols = Dest.SQLRunner("sp_columns " + table + ",'" + (Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString() + "'");
                 if (Cols.Rows.Count == 0)
                     Cols = Dest.SQLRunner("sp_columns " + table + ",'dbo'");
 
@@ -264,7 +237,7 @@ namespace no_table_unifydip {
 
 
 
-                string insert = "INSERT INTO FINYEAR VALUES(";//(
+                string insert = "INSERT INTO FINYEAR VALUES(";
                 string s = "";
                 string err;
                 DataTable T = Dest.CreateTableByName(table, "*");
@@ -275,7 +248,6 @@ namespace no_table_unifydip {
 
                 foreach (DataRow row in DRR) {
                     CD.Update(1);
-                    //if (IsToCopy(row)) continue;  // copia quelle che NON sono da inserire
                     Translate(Ctx, row);
 
                     string delete = "";
@@ -303,7 +275,7 @@ namespace no_table_unifydip {
                     count++;
                     string values = GetSQLDataValues(row, Cols);
                     s += delete + insert + values;
-                    if (count == 1) {  //è necessario farlo una riga alla volta
+                    if (count == 1) {
                         Dest.SQLRunner(s, 0, out err); 
 
                         if (err != null) {
@@ -362,7 +334,7 @@ namespace no_table_unifydip {
             QueryHelper QHS = Dest.GetQueryHelper();
 
             try {
-                DataTable Cols = Dest.SQLRunner("sp_columns " + table + ",'" + Dest.GetSys("userdb").ToString() + "'");
+                DataTable Cols = Dest.SQLRunner("sp_columns " + table + ",'" + (Dest.GetSys("schema") ?? Dest.GetSys("userdb")).ToString() + "'");
                 if (Cols.Rows.Count == 0)
                     Cols = Dest.SQLRunner("sp_columns " + table + ",'dbo'");
                 Comment(Dest, Ctx, CD);
@@ -373,7 +345,7 @@ namespace no_table_unifydip {
 
 
 
-                string insert = "INSERT INTO surplus VALUES(";//(
+                string insert = "INSERT INTO surplus VALUES(";
                 string s = "";
                 string err;
                 DataTable T = Dest.CreateTableByName(table, "*");
@@ -384,7 +356,7 @@ namespace no_table_unifydip {
 
                 foreach (DataRow row in DRR) {
                     CD.Update(1);
-                    if (!IsToCopy(row)) continue;  // copia quelle che NON sono da inserire
+                    if (!IsToCopy(row)) continue;
                     Translate(Ctx, row);
 
                     string delete = "";
@@ -410,7 +382,7 @@ namespace no_table_unifydip {
                     count++;
                     string values = GetSQLDataValues(row, Cols);
                     s += delete + insert + values;
-                    if (count == 1) {  //è necessario farlo una riga alla volta
+                    if (count == 1) {
                         Dest.SQLRunner(s, 0, out err);
 
                         if (err != null) {
@@ -483,23 +455,9 @@ namespace no_table_unifydip {
         }
 
         protected bool CheckPreconditions(DataAccess Source, DataAccess Dest, bool forced) {
-            //if (ClearDestAtStart) {
-            //    MyTR = new IdentityTranslator();
-            //    SetExternalCode("paridsor", "idsor");
-            //    DefinesPreTranslator("idsor", MyTR);
 
-            //    DefinesPreTranslator("idsor1", MyTR);
-            //    DefinesPreTranslator("idsor2", MyTR);
-            //    DefinesPreTranslator("idsor3", MyTR);
 
-            //    DefinesPreTranslator("idsor01", MyTR);
-            //    DefinesPreTranslator("idsor02", MyTR);
-            //    DefinesPreTranslator("idsor03", MyTR);
-            //    DefinesPreTranslator("idsor04", MyTR);
-            //    DefinesPreTranslator("idsor05", MyTR);
 
-            //    return true;
-            //}
 
 
             DataTable S = Source.RUN_SELECT("sorting", "*", null, null, null, false);
@@ -512,7 +470,6 @@ namespace no_table_unifydip {
             maxidsor = maxidsor+1;
 
             foreach (DataRow Rs in S.Rows) {
-                //proietta Rs[idsorkind] sul db di destinazione
                 object idsork = Rs["idsorkind"];
                 if (Sk.Select(QHC.CmpEq("idsorkind", idsork)).Length == 0) {
                     MetaFactory.factory.getSingleton<IMessageShower>().Show("Chiave esterna idsorkind ORFANA nella tabella sorting del dipartimento di origine", "Errore");
@@ -525,41 +482,30 @@ namespace no_table_unifydip {
             
             foreach (DataRow Rsk in Sk.Rows) {
                 
-                //il tipo class non va migrato se non rientra nell'elenco di elisabetta
                 if (!MustTranslateCodeSorKind(Rsk["codesorkind"].ToString())) continue;
 
                 string filter = QHC.CmpEq("codesorkind", Rsk["codesorkind"]);
                 if (Dk.Select(filter).Length == 0) {
-                    continue; //sarà creata da zero  ...>NO sarà saltato
-                    //MetaFactory.factory.getSingleton<IMessageShower>().Show("Non c'è coerenza per le strutture di tipo classificazione", "Errore di programmazione");
-                    //return false;
+                    continue;
                 }
                 object oldidsorkind = Rsk["idsorkind"];
                 object newidsorkind = Dk.Select(filter)[0]["idsorkind"];
 
-                DataRow[] RSS = S.Select(QHC.CmpEq("idsorkind", oldidsorkind),"nlevel");//righe di origine
-                DataRow[] RSD = D.Select(QHC.CmpEq("idsorkind", newidsorkind));//righe di destinazione
+                DataRow[] RSS = S.Select(QHC.CmpEq("idsorkind", oldidsorkind),"nlevel");
+                DataRow[] RSD = D.Select(QHC.CmpEq("idsorkind", newidsorkind));
                 if (RSD.Length == 0) {
-                    //Si predispone a creare le righe
                     foreach (DataRow Rs in RSS) {
                         IDSorToCopy[Rs["idsor"].ToString()] = 1;
                         H[Rs["idsor"]] = maxidsor++;
                     }
                 }
                 else {
-                    //Crea il lookup
                     foreach (DataRow Rs in RSS) {
                         string f = QHC.AppAnd(QHC.CmpEq("idsorkind", newidsorkind), QHC.CmpEq("sortcode", Rs["sortcode"])); 
                         DataRow[] found = D.Select(f);
                         if (found.Length == 0) {
                             H[Rs["idsor"]] = maxidsor++;
                             IDSorToCopy[Rs["idsor"].ToString()] = 1;
-                            /* Comment("Avviso: \r\n"+
-                                "La classificazione "+Rsk["codesorkind"].ToString()+ " nel dipartimento di destinazione "+
-                                " non ha la voce con codice "+Rs["sortcode"].ToString()+" quindi sarà creata.\r\n"+
-                                ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\r\n");
-                            //errors = true;
-                            */
                             continue;
                         }
                         if (found.Length == 1) {
@@ -600,7 +546,6 @@ namespace no_table_unifydip {
         }
 
         protected override bool IsToCopy(DataRow R) {
-            //if (ClearDestAtStart) return true;
             if (!IDSorToCopy.ContainsKey(R["idsor"].ToString())) return false;
             return true;
         }
@@ -610,15 +555,11 @@ namespace no_table_unifydip {
     }
 
 
-    /// <summary>
-    /// Non più usato
-    /// Se ci sono livelli, verifica che siano nella stessa quantità. Se non ci sono allora si predisponde a copiarli così come stanno
-    /// </summary>
     public class LocationLevelCopyer : Copyer {
         new bool DontCopy = false;
         public LocationLevelCopyer(DataAccess Model)
             : base("locationlevel", Model) {
-            AddPrivateTranslator("codelen", new set_to_constant(3)); //tutte le lunghezze  a 3
+            AddPrivateTranslator("codelen", new set_to_constant(3));
         }
 
         public override bool CheckPreconditions(DataAccess Source, DataAccess Dest) {
@@ -639,9 +580,6 @@ namespace no_table_unifydip {
         }     
     }
 
-    /// <summary>
-    /// Non più usato
-    /// </summary>
     public class LocationCopyer : Copyer {
         public LocationCopyer(DataAccess Model) :base("location",Model){
         }

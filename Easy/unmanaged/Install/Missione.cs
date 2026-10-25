@@ -24,15 +24,6 @@ using System.Collections;
 namespace Install {
     class Missione {
 
-        /// <summary>
-        /// Metodo da chiamare se il checkBox della missione è checked.
-        /// Migra tutte le tabelle inerenti la gestione delle Missioni, di configurazione e non.
-        /// </summary>
-        /// <param name="form"></param>
-        /// <param name="sourceConn"></param>
-        /// <param name="destConn"></param>
-        /// <param name="tTableName"></param>
-        /// <param name="tColName"></param>
         public static bool migraMissione(Form form, DataAccess sourceConn, DataAccess destConn,
             DataTable tTableName, DataTable tColName) {
 
@@ -43,23 +34,18 @@ namespace Install {
 
         public static bool migraSpeciali(Form form, DataAccess sourceConn, DataAccess destConn,
             DataTable tColName) {
-            //classmissione -> sortingkind e figlie + itinerationsorting
             if (!migraClassMissione(form, sourceConn, destConn)) return false;
 
-            // persmissione -> itinerationsetup
             if (!migraItinerationSetup(form, sourceConn, destConn, tColName)) return false;
 
-            // misionetappa -> itinerationlap
             if (!migraItinerationLap(form, sourceConn, destConn, tColName)) return false;
 
-            // missionespesa -> itinerationrefund
             if (!migraItinerationRefund(form, sourceConn, destConn)) return false;
             return true;
             
         }
 
         public static bool migraClassMissione(Form form, DataAccess sourceConn, DataAccess destConn) {
-            // Passo 1. da CLASSMISSIONE devo popolare SORTINGKIND - SORTINGLEVEL - SORTINGAPPLICABILITY - SORTING
             int nRow = sourceConn.RUN_SELECT_COUNT("classmissione", null, true);
             if (nRow == 0) return true;
 
@@ -68,7 +54,6 @@ namespace Install {
 
         private static bool popolaSortingKindEFigli(Form form, DataAccess sourceConn, DataAccess destConn) {
 
-            // Popolamento di SORTINGKIND
             DataTable tSortingKind = DataAccess.CreateTableByName(destConn, "sortingkind", "*");
             DataRow rSortingKind = tSortingKind.NewRow();
             rSortingKind["idsorkind"] = "_CLASSMISSIONE";
@@ -83,7 +68,6 @@ namespace Install {
             rSortingKind["lu"] = "Tempo";
             tSortingKind.Rows.Add(rSortingKind);
 
-            // Popolamento di SORTINGLEVEL
             DataTable tSortingLevel = DataAccess.CreateTableByName(destConn, "sortinglevel", "*");
             DataRow rSortingLevel = tSortingLevel.NewRow();
             rSortingLevel["idsorkind"] = "_CLASSMISSIONE";
@@ -99,7 +83,6 @@ namespace Install {
             rSortingLevel["lu"] = "Tempo";
             tSortingLevel.Rows.Add(rSortingLevel);
 
-            // Popolamento di SORTINGAPPLICABILITY
             DataTable tSortingApplicability = DataAccess.CreateTableByName(destConn, "sortingapplicability", "*");
             DataRow rSortingApplicability = tSortingApplicability.NewRow();
             rSortingApplicability["idsorkind"] = "_CLASSMISSIONE";
@@ -111,7 +94,6 @@ namespace Install {
 
             tSortingApplicability.Rows.Add(rSortingApplicability);
 
-            // Popolamento di SORTING
             Hashtable htCodiciClass;
             DataTable tSorting = popolaSorting(form, sourceConn, destConn, out htCodiciClass);
             if (tSorting == null) {

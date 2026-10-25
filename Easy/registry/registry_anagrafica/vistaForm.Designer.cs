@@ -26,8 +26,6 @@ using meta_geo_city;
 using meta_registryaddress;
 using meta_geo_nation;
 using metadatalibrary;
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace registry_anagrafica {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("dsmeta"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -200,7 +198,6 @@ public partial class dsmeta: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -218,13 +215,11 @@ private void initClass() {
 	Namespace = "http://tempuri.org/dsmeta.xsd";
 
 	#region create DataTables
-	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new registryTable();
 	tregistry.addBaseColumns("idreg","title","cf","p_iva","residence","idregistrykind","annotation","birthdate","gender","surname","forename","foreigncf","active","txt","rtf","cu","ct","lu","lt","extmatricula","idregistryclass","idcentralizedcategory","idtitle","idmaritalstatus","badgecode","maritalsurname","idcategory","idcity","location","idnation","authorization_free","multi_cf","idaccmotivecredit","idaccmotivedebit","ccp","flagbankitaliaproceeds","ipa_fe","flag_pa","sdi_norifamm","sdi_defrifamm","pec_fe","email_fe","ipa_perlapa","idnace","idnaturagiur","idnumerodip","idfonteindicebibliometrico","indicebibliometrico","ricevimento","soggiorno","idstruttura","idreg_istituti","idateco","extension","idanpr","idexternal","idepaccrualdebit","idepaccrualcredit");
 	Tables.Add(tregistry);
 	tregistry.defineKey("idreg");
 
-	//////////////////// MARITALSTATUS /////////////////////////////////
 	var tmaritalstatus= new MetaTable("maritalstatus");
 	tmaritalstatus.defineColumn("idmaritalstatus", typeof(string),false);
 	tmaritalstatus.defineColumn("description", typeof(string),false);
@@ -236,7 +231,6 @@ private void initClass() {
 	Tables.Add(tmaritalstatus);
 	tmaritalstatus.defineKey("idmaritalstatus");
 
-	//////////////////// CATEGORY /////////////////////////////////
 	var tcategory= new MetaTable("category");
 	tcategory.defineColumn("idcategory", typeof(string),false);
 	tcategory.defineColumn("description", typeof(string),false);
@@ -248,7 +242,6 @@ private void initClass() {
 	Tables.Add(tcategory);
 	tcategory.defineKey("idcategory");
 
-	//////////////////// CENTRALIZEDCATEGORY /////////////////////////////////
 	var tcentralizedcategory= new MetaTable("centralizedcategory");
 	tcentralizedcategory.defineColumn("idcentralizedcategory", typeof(string),false);
 	tcentralizedcategory.defineColumn("description", typeof(string),false);
@@ -260,7 +253,6 @@ private void initClass() {
 	Tables.Add(tcentralizedcategory);
 	tcentralizedcategory.defineKey("idcentralizedcategory");
 
-	//////////////////// POSITION /////////////////////////////////
 	var tposition= new MetaTable("position");
 	tposition.defineColumn("idposition", typeof(int),false);
 	tposition.defineColumn("description", typeof(string),false);
@@ -307,7 +299,6 @@ private void initClass() {
 	Tables.Add(tposition);
 	tposition.defineKey("idposition");
 
-	//////////////////// REGISTRYLEGALSTATUS /////////////////////////////////
 	var tregistrylegalstatus= new MetaTable("registrylegalstatus");
 	tregistrylegalstatus.defineColumn("start", typeof(DateTime),false);
 	tregistrylegalstatus.defineColumn("idreg", typeof(int),false);
@@ -336,13 +327,11 @@ private void initClass() {
 	Tables.Add(tregistrylegalstatus);
 	tregistrylegalstatus.defineKey("idreg", "idregistrylegalstatus");
 
-	//////////////////// REGISTRYREFERENCE /////////////////////////////////
 	var tregistryreference= new registryreferenceTable();
-	tregistryreference.addBaseColumns("referencename","idreg","registryreferencerole","phonenumber","faxnumber","mobilenumber","email","userweb","passwordweb","txt","rtf","cu","ct","lu","lt","flagdefault","idregistryreference","skypenumber","msnnumber","pec","activeweb");
+	tregistryreference.addBaseColumns("referencename","idreg","registryreferencerole","phonenumber","faxnumber","mobilenumber","email","userweb","passwordweb","txt","rtf","cu","ct","lu","lt","flagdefault","idregistryreference","skypenumber","msnnumber","pec","activeweb","saltweb","iterweb");
 	Tables.Add(tregistryreference);
 	tregistryreference.defineKey("idreg", "idregistryreference");
 
-	//////////////////// REGISTRYSORTING /////////////////////////////////
 	var tregistrysorting= new MetaTable("registrysorting");
 	tregistrysorting.defineColumn("idsor", typeof(int),false);
 	tregistrysorting.defineColumn("idreg", typeof(int),false);
@@ -357,7 +346,6 @@ private void initClass() {
 	Tables.Add(tregistrysorting);
 	tregistrysorting.defineKey("idsor", "idreg");
 
-	//////////////////// REGISTRYKIND /////////////////////////////////
 	var tregistrykind= new MetaTable("registrykind");
 	tregistrykind.defineColumn("idregistrykind", typeof(int),false);
 	tregistrykind.defineColumn("sortcode", typeof(string),false);
@@ -369,7 +357,6 @@ private void initClass() {
 	Tables.Add(tregistrykind);
 	tregistrykind.defineKey("idregistrykind");
 
-	//////////////////// TITLE /////////////////////////////////
 	var ttitle= new MetaTable("title");
 	ttitle.defineColumn("idtitle", typeof(string),false);
 	ttitle.defineColumn("description", typeof(string),false);
@@ -381,7 +368,6 @@ private void initClass() {
 	Tables.Add(ttitle);
 	ttitle.defineKey("idtitle");
 
-	//////////////////// REGISTRYPAYMETHOD /////////////////////////////////
 	var tregistrypaymethod= new MetaTable("registrypaymethod");
 	tregistrypaymethod.defineColumn("regmodcode", typeof(string),false);
 	tregistrypaymethod.defineColumn("idreg", typeof(int),false);
@@ -409,7 +395,7 @@ private void initClass() {
 	tregistrypaymethod.defineColumn("extracode", typeof(string));
 	tregistrypaymethod.defineColumn("biccode", typeof(string));
 	tregistrypaymethod.defineColumn("flag", typeof(int));
-	tregistrypaymethod.defineColumn("idchargehandling", typeof(string));
+	tregistrypaymethod.defineColumn("idchargehandling", typeof(int));
 	tregistrypaymethod.defineColumn("notes", typeof(string));
 	tregistrypaymethod.defineColumn("ccdedicato_doc", typeof(Byte[]));
 	tregistrypaymethod.defineColumn("ccdedicato_cf", typeof(Byte[]));
@@ -420,7 +406,6 @@ private void initClass() {
 	Tables.Add(tregistrypaymethod);
 	tregistrypaymethod.defineKey("idreg", "idregistrypaymethod");
 
-	//////////////////// REGISTRYTAXABLESTATUS /////////////////////////////////
 	var tregistrytaxablestatus= new MetaTable("registrytaxablestatus");
 	tregistrytaxablestatus.defineColumn("start", typeof(DateTime),false);
 	tregistrytaxablestatus.defineColumn("idreg", typeof(int),false);
@@ -435,7 +420,6 @@ private void initClass() {
 	Tables.Add(tregistrytaxablestatus);
 	tregistrytaxablestatus.defineKey("start", "idreg");
 
-	//////////////////// RESIDENCE /////////////////////////////////
 	var tresidence= new MetaTable("residence");
 	tresidence.defineColumn("idresidence", typeof(int),false);
 	tresidence.defineColumn("coderesidence", typeof(string),false);
@@ -446,25 +430,21 @@ private void initClass() {
 	Tables.Add(tresidence);
 	tresidence.defineKey("idresidence");
 
-	//////////////////// ADDRESS /////////////////////////////////
 	var taddress= new addressTable();
 	taddress.addBaseColumns("idaddress","description","lt","lu","active","codeaddress");
 	Tables.Add(taddress);
 	taddress.defineKey("idaddress");
 
-	//////////////////// REGISTRYCLASS /////////////////////////////////
 	var tregistryclass= new registryclassTable();
 	tregistryclass.addBaseColumns("idregistryclass","description","flagtitle","flagCF","flagp_iva","flagqualification","flagextmatricula","flagbadgecode","flagmaritalstatus","flagforeigncf","flagmaritalsurname","flagothers","flagtitle_forced","flagcf_forced","flagp_iva_forced","flagqualification_forced","flagextmatricula_forced","flagbadgecode_forced","flagmaritalstatus_forced","flagforeigncf_forced","flagmaritalsurname_forced","flagothers_forced","active","cu","ct","lu","lt","flagresidence","flagresidence_forced","flagfiscalresidence","flagfiscalresidence_forced","flagcfbutton","flaginfofromcfbutton","flaghuman");
 	Tables.Add(tregistryclass);
 	tregistryclass.defineKey("idregistryclass");
 
-	//////////////////// GEO_CITY /////////////////////////////////
 	var tgeo_city= new geo_cityTable();
 	tgeo_city.addBaseColumns("idcity","oldcity","newcity","title","start","stop","idcountry","lu","lt");
 	Tables.Add(tgeo_city);
 	tgeo_city.defineKey("idcity");
 
-	//////////////////// GEO_CITYVIEW /////////////////////////////////
 	var tgeo_cityview= new MetaTable("geo_cityview");
 	tgeo_cityview.defineColumn("idcity", typeof(int),false);
 	tgeo_cityview.defineColumn("title", typeof(string));
@@ -495,7 +475,6 @@ private void initClass() {
 	Tables.Add(tgeo_cityview);
 	tgeo_cityview.defineKey("idcity");
 
-	//////////////////// GEO_CITY_AGENCYVIEW /////////////////////////////////
 	var tgeo_city_agencyview= new MetaTable("geo_city_agencyview");
 	tgeo_city_agencyview.defineColumn("idcity", typeof(int),false);
 	tgeo_city_agencyview.defineColumn("title", typeof(string));
@@ -511,7 +490,6 @@ private void initClass() {
 	Tables.Add(tgeo_city_agencyview);
 	tgeo_city_agencyview.defineKey("idcity", "idagency", "idcode", "version");
 
-	//////////////////// REGISTRYADDRESS /////////////////////////////////
 	var tregistryaddress= new registryaddressTable();
 	tregistryaddress.addBaseColumns("idreg","start","idaddresskind","annotations","ct","cu","stop","active","idcity","address","lt","lu","officename","cap","flagforeign","location","idnation","recipientagency");
 	tregistryaddress.defineColumn("!descrtipoindirizzo", typeof(string));
@@ -521,7 +499,6 @@ private void initClass() {
 	Tables.Add(tregistryaddress);
 	tregistryaddress.defineKey("idreg", "start", "idaddresskind");
 
-	//////////////////// REGISTRYMAINVIEW /////////////////////////////////
 	var tregistrymainview= new MetaTable("registrymainview");
 	tregistrymainview.defineColumn("idreg", typeof(int),false);
 	tregistrymainview.defineColumn("title", typeof(string),false);
@@ -589,7 +566,6 @@ private void initClass() {
 	Tables.Add(tregistrymainview);
 	tregistrymainview.defineKey("idreg");
 
-	//////////////////// GEO_NAZIONE_ALIAS /////////////////////////////////
 	var tgeo_nazione_alias= new MetaTable("geo_nazione_alias");
 	tgeo_nazione_alias.defineColumn("idnation", typeof(int),false);
 	tgeo_nazione_alias.defineColumn("idcontinent", typeof(int));
@@ -603,13 +579,11 @@ private void initClass() {
 	Tables.Add(tgeo_nazione_alias);
 	tgeo_nazione_alias.defineKey("idnation");
 
-	//////////////////// GEO_NATION /////////////////////////////////
 	var tgeo_nation= new geo_nationTable();
 	tgeo_nation.addBaseColumns("idnation","start","stop","title","idcontinent","lt","lu","newnation","oldnation");
 	Tables.Add(tgeo_nation);
 	tgeo_nation.defineKey("idnation");
 
-	//////////////////// SORTINGVIEW /////////////////////////////////
 	var tsortingview= new MetaTable("sortingview");
 	tsortingview.defineColumn("codesorkind", typeof(string),false);
 	tsortingview.defineColumn("idsorkind", typeof(int),false);
@@ -642,7 +616,6 @@ private void initClass() {
 	Tables.Add(tsortingview);
 	tsortingview.defineKey("idsor");
 
-	//////////////////// REGISTRYCF /////////////////////////////////
 	var tregistrycf= new MetaTable("registrycf");
 	tregistrycf.defineColumn("idreg", typeof(int),false);
 	tregistrycf.defineColumn("idregistrycf", typeof(int),false);
@@ -656,7 +629,6 @@ private void initClass() {
 	Tables.Add(tregistrycf);
 	tregistrycf.defineKey("idreg", "idregistrycf");
 
-	//////////////////// REGISTRYPIVA /////////////////////////////////
 	var tregistrypiva= new MetaTable("registrypiva");
 	tregistrypiva.defineColumn("idreg", typeof(int),false);
 	tregistrypiva.defineColumn("idregistrypiva", typeof(int),false);
@@ -670,7 +642,6 @@ private void initClass() {
 	Tables.Add(tregistrypiva);
 	tregistrypiva.defineKey("idreg", "idregistrypiva");
 
-	//////////////////// ACCMOTIVEAPPLIED_DEBIT /////////////////////////////////
 	var taccmotiveapplied_debit= new MetaTable("accmotiveapplied_debit");
 	taccmotiveapplied_debit.defineColumn("idaccmotive", typeof(string),false);
 	taccmotiveapplied_debit.defineColumn("paridaccmotive", typeof(string));
@@ -687,7 +658,6 @@ private void initClass() {
 	Tables.Add(taccmotiveapplied_debit);
 	taccmotiveapplied_debit.defineKey("idaccmotive");
 
-	//////////////////// EPACCRUAL_DEBIT /////////////////////////////////
 	var tepaccrual_debit= new MetaTable("epaccrual_debit");
 	tepaccrual_debit.defineColumn("idepaccrual", typeof(string),false);
 	tepaccrual_debit.defineColumn("paridepaccrual", typeof(string));
@@ -704,7 +674,6 @@ private void initClass() {
 	Tables.Add(tepaccrual_debit);
 	tepaccrual_debit.defineKey("idepaccrual");
 
-	//////////////////// EPACCRUAL_CREDIT /////////////////////////////////
 	var tepaccrual_credit= new MetaTable("epaccrual_credit");
 	tepaccrual_credit.defineColumn("idepaccrual", typeof(string),false);
 	tepaccrual_credit.defineColumn("paridepaccrual", typeof(string));
@@ -721,7 +690,6 @@ private void initClass() {
 	Tables.Add(tepaccrual_credit);
 	tepaccrual_credit.defineKey("idepaccrual");
 
-	//////////////////// ACCMOTIVEAPPLIED_CREDIT /////////////////////////////////
 	var taccmotiveapplied_credit= new MetaTable("accmotiveapplied_credit");
 	taccmotiveapplied_credit.defineColumn("idaccmotive", typeof(string),false);
 	taccmotiveapplied_credit.defineColumn("paridaccmotive", typeof(string));
@@ -738,7 +706,6 @@ private void initClass() {
 	Tables.Add(taccmotiveapplied_credit);
 	taccmotiveapplied_credit.defineKey("idaccmotive");
 
-	//////////////////// REGISTRYDURC /////////////////////////////////
 	var tregistrydurc= new MetaTable("registrydurc");
 	tregistrydurc.defineColumn("idregistrydurc", typeof(int),false);
 	tregistrydurc.defineColumn("idreg", typeof(int),false);
@@ -769,14 +736,12 @@ private void initClass() {
 	Tables.Add(tregistrydurc);
 	tregistrydurc.defineKey("idregistrydurc", "idreg");
 
-	//////////////////// DURCKIND /////////////////////////////////
 	var tdurckind= new MetaTable("durckind");
 	tdurckind.defineColumn("iddurckind", typeof(short),false);
 	tdurckind.defineColumn("description", typeof(string),false);
 	Tables.Add(tdurckind);
 	tdurckind.defineKey("iddurckind");
 
-	//////////////////// REGISTRYCVATTACHMENT /////////////////////////////////
 	var tregistrycvattachment= new MetaTable("registrycvattachment");
 	tregistrycvattachment.defineColumn("idreg", typeof(int),false);
 	tregistrycvattachment.defineColumn("idregistrycvattachment", typeof(int),false);
@@ -791,7 +756,6 @@ private void initClass() {
 	Tables.Add(tregistrycvattachment);
 	tregistrycvattachment.defineKey("idreg", "idregistrycvattachment");
 
-	//////////////////// REGISTRYSPECIALCATEGORY770 /////////////////////////////////
 	var tregistryspecialcategory770= new MetaTable("registryspecialcategory770");
 	tregistryspecialcategory770.defineColumn("idregistryspecialcategory770", typeof(int),false);
 	tregistryspecialcategory770.defineColumn("idspecialcategory770", typeof(string),false);
@@ -806,7 +770,6 @@ private void initClass() {
 	Tables.Add(tregistryspecialcategory770);
 	tregistryspecialcategory770.defineKey("idregistryspecialcategory770", "idreg");
 
-	//////////////////// SPECIALCATEGORY770 /////////////////////////////////
 	var tspecialcategory770= new MetaTable("specialcategory770");
 	tspecialcategory770.defineColumn("idspecialcategory770", typeof(string),false);
 	tspecialcategory770.defineColumn("description", typeof(string),false);
@@ -819,7 +782,6 @@ private void initClass() {
 	Tables.Add(tspecialcategory770);
 	tspecialcategory770.defineKey("ayear", "idspecialcategory770");
 
-	//////////////////// DALIA_POSITION /////////////////////////////////
 	var tdalia_position= new MetaTable("dalia_position");
 	tdalia_position.defineColumn("iddaliaposition", typeof(int),false);
 	tdalia_position.defineColumn("codedaliaposition", typeof(string));
@@ -827,7 +789,6 @@ private void initClass() {
 	Tables.Add(tdalia_position);
 	tdalia_position.defineKey("iddaliaposition");
 
-	//////////////////// REGISTRYVISURA /////////////////////////////////
 	var tregistryvisura= new MetaTable("registryvisura");
 	tregistryvisura.defineColumn("idregistryvisura", typeof(int),false);
 	tregistryvisura.defineColumn("idreg", typeof(int),false);
@@ -843,7 +804,6 @@ private void initClass() {
 	Tables.Add(tregistryvisura);
 	tregistryvisura.defineKey("idregistryvisura", "idreg");
 
-	//////////////////// REGISTRYCASELLARIOGIUDIZIALE /////////////////////////////////
 	var tregistrycasellariogiudiziale= new MetaTable("registrycasellariogiudiziale");
 	tregistrycasellariogiudiziale.defineColumn("idregistrycasellariogiudiziale", typeof(int),false);
 	tregistrycasellariogiudiziale.defineColumn("idreg", typeof(int),false);
@@ -859,7 +819,6 @@ private void initClass() {
 	Tables.Add(tregistrycasellariogiudiziale);
 	tregistrycasellariogiudiziale.defineKey("idregistrycasellariogiudiziale", "idreg");
 
-	//////////////////// REGISTRYCASELLARIOAMMINISTRATIVO /////////////////////////////////
 	var tregistrycasellarioamministrativo= new MetaTable("registrycasellarioamministrativo");
 	tregistrycasellarioamministrativo.defineColumn("idregistrycasellarioamministrativo", typeof(int),false);
 	tregistrycasellarioamministrativo.defineColumn("idreg", typeof(int),false);
@@ -875,7 +834,6 @@ private void initClass() {
 	Tables.Add(tregistrycasellarioamministrativo);
 	tregistrycasellarioamministrativo.defineKey("idregistrycasellarioamministrativo", "idreg");
 
-	//////////////////// REGISTRYOTTEMPERANZALEGGE68_99 /////////////////////////////////
 	var tregistryottemperanzalegge68_99= new MetaTable("registryottemperanzalegge68_99");
 	tregistryottemperanzalegge68_99.defineColumn("idregistryottemperanzalegge", typeof(int),false);
 	tregistryottemperanzalegge68_99.defineColumn("idreg", typeof(int),false);
@@ -891,7 +849,6 @@ private void initClass() {
 	Tables.Add(tregistryottemperanzalegge68_99);
 	tregistryottemperanzalegge68_99.defineKey("idregistryottemperanzalegge", "idreg");
 
-	//////////////////// REGISTRYREGOLARITAFISCALE /////////////////////////////////
 	var tregistryregolaritafiscale= new MetaTable("registryregolaritafiscale");
 	tregistryregolaritafiscale.defineColumn("idregistryregolaritafiscale", typeof(int),false);
 	tregistryregolaritafiscale.defineColumn("idreg", typeof(int),false);
@@ -907,7 +864,6 @@ private void initClass() {
 	Tables.Add(tregistryregolaritafiscale);
 	tregistryregolaritafiscale.defineKey("idregistryregolaritafiscale", "idreg");
 
-	//////////////////// REGISTRYVERIFICAANAC /////////////////////////////////
 	var tregistryverificaanac= new MetaTable("registryverificaanac");
 	tregistryverificaanac.defineColumn("idregistryverificaanac", typeof(int),false);
 	tregistryverificaanac.defineColumn("idreg", typeof(int),false);
@@ -923,7 +879,6 @@ private void initClass() {
 	Tables.Add(tregistryverificaanac);
 	tregistryverificaanac.defineKey("idregistryverificaanac", "idreg");
 
-	//////////////////// REGISTRYATTACHMENT /////////////////////////////////
 	var tregistryattachment= new MetaTable("registryattachment");
 	tregistryattachment.defineColumn("idreg", typeof(int),false);
 	tregistryattachment.defineColumn("idattachment", typeof(int),false);
@@ -938,7 +893,6 @@ private void initClass() {
 	Tables.Add(tregistryattachment);
 	tregistryattachment.defineKey("idreg", "idattachment");
 
-	//////////////////// REGISTRYPATTOINTEGRITA /////////////////////////////////
 	var tregistrypattointegrita= new MetaTable("registrypattointegrita");
 	tregistrypattointegrita.defineColumn("idregistrypattointegrita", typeof(int),false);
 	tregistrypattointegrita.defineColumn("idreg", typeof(int),false);
@@ -954,7 +908,6 @@ private void initClass() {
 	Tables.Add(tregistrypattointegrita);
 	tregistrypattointegrita.defineKey("idregistrypattointegrita", "idreg");
 
-	//////////////////// NACE /////////////////////////////////
 	var tnace= new MetaTable("nace");
 	tnace.defineColumn("idnace", typeof(string),false);
 	tnace.defineColumn("activity", typeof(string),false);
@@ -963,7 +916,6 @@ private void initClass() {
 	Tables.Add(tnace);
 	tnace.defineKey("idnace");
 
-	//////////////////// NATURAGIUR /////////////////////////////////
 	var tnaturagiur= new MetaTable("naturagiur");
 	tnaturagiur.defineColumn("idnaturagiur", typeof(int),false);
 	tnaturagiur.defineColumn("title", typeof(string),false);
@@ -975,7 +927,6 @@ private void initClass() {
 	Tables.Add(tnaturagiur);
 	tnaturagiur.defineKey("idnaturagiur");
 
-	//////////////////// NUMERODIP /////////////////////////////////
 	var tnumerodip= new MetaTable("numerodip");
 	tnumerodip.defineColumn("idnumerodip", typeof(int),false);
 	tnumerodip.defineColumn("title", typeof(string),false);
@@ -986,7 +937,6 @@ private void initClass() {
 	Tables.Add(tnumerodip);
 	tnumerodip.defineKey("idnumerodip");
 
-	//////////////////// ATECO /////////////////////////////////
 	var tateco= new MetaTable("ateco");
 	tateco.defineColumn("idateco", typeof(int),false);
 	tateco.defineColumn("codice", typeof(string));
@@ -996,7 +946,6 @@ private void initClass() {
 	Tables.Add(tateco);
 	tateco.defineKey("idateco");
 
-	//////////////////// REGISTRY_ISTITUTI /////////////////////////////////
 	var tregistry_istituti= new MetaTable("registry_istituti");
 	tregistry_istituti.defineColumn("idreg", typeof(int),false);
 	tregistry_istituti.defineColumn("idistitutoustat", typeof(int));
@@ -1015,7 +964,6 @@ private void initClass() {
 	Tables.Add(tregistry_istituti);
 	tregistry_istituti.defineKey("idreg");
 
-	//////////////////// REGISTRYPAYMETHODATTACHMENT /////////////////////////////////
 	var tregistrypaymethodattachment= new MetaTable("registrypaymethodattachment");
 	tregistrypaymethodattachment.defineColumn("idreg", typeof(int),false);
 	tregistrypaymethodattachment.defineColumn("idregistrypaymethod", typeof(int),false);
@@ -1031,7 +979,6 @@ private void initClass() {
 	Tables.Add(tregistrypaymethodattachment);
 	tregistrypaymethodattachment.defineKey("idreg", "idregistrypaymethod", "idattachment");
 
-	//////////////////// ATTACHMENTKIND /////////////////////////////////
 	var tattachmentkind= new MetaTable("attachmentkind");
 	tattachmentkind.defineColumn("idattachmentkind", typeof(int),false);
 	tattachmentkind.defineColumn("title", typeof(string));
@@ -1043,7 +990,6 @@ private void initClass() {
 	Tables.Add(tattachmentkind);
 	tattachmentkind.defineKey("idattachmentkind");
 
-	//////////////////// AFFERENZEORGANIZZATIVE /////////////////////////////////
 	var tafferenzeorganizzative= new MetaTable("afferenzeorganizzative");
 	tafferenzeorganizzative.defineColumn("idreg", typeof(int),false);
 	tafferenzeorganizzative.defineColumn("idafferenzeorganizzative", typeof(int),false);
@@ -1064,7 +1010,6 @@ private void initClass() {
 	Tables.Add(tafferenzeorganizzative);
 	tafferenzeorganizzative.defineKey("idreg", "idafferenzeorganizzative");
 
-	//////////////////// REGISTRYMULTIKINDREGISTRY /////////////////////////////////
 	var tregistrymultikindregistry= new MetaTable("registrymultikindregistry");
 	tregistrymultikindregistry.defineColumn("idreg", typeof(int),false);
 	tregistrymultikindregistry.defineColumn("idregistrymultikind", typeof(int),false);
@@ -1075,7 +1020,6 @@ private void initClass() {
 	Tables.Add(tregistrymultikindregistry);
 	tregistrymultikindregistry.defineKey("idreg", "idregistrymultikind");
 
-	//////////////////// REGISTRYMULTIKIND /////////////////////////////////
 	var tregistrymultikind= new MetaTable("registrymultikind");
 	tregistrymultikind.defineColumn("idregistrymultikind", typeof(int),false);
 	tregistrymultikind.defineColumn("active", typeof(string));

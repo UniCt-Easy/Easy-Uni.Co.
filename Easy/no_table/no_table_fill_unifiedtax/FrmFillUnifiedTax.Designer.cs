@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace no_table_fill_unifiedtax {
     partial class FrmFillUnifiedTax {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose (bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace no_table_fill_unifiedtax {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent () {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnFillUnifiedClawback = new System.Windows.Forms.Button();
@@ -57,9 +45,6 @@ namespace no_table_fill_unifiedtax {
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.btnFillUnifiedClawback);
@@ -73,9 +58,6 @@ namespace no_table_fill_unifiedtax {
             this.groupBox1.Size = new System.Drawing.Size(878, 159);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            // 
-            // btnFillUnifiedClawback
-            // 
             this.btnFillUnifiedClawback.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFillUnifiedClawback.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -86,9 +68,6 @@ namespace no_table_fill_unifiedtax {
             this.btnFillUnifiedClawback.Text = "Raccogli Recuperi Interventi Sostitutivi  dai Dipartimenti";
             this.btnFillUnifiedClawback.UseVisualStyleBackColor = true;
             this.btnFillUnifiedClawback.Click += new System.EventHandler(this.btnFillUnifiedClawback_Click);
-            // 
-            // txtDataRiferimento
-            // 
             this.txtDataRiferimento.BackColor = System.Drawing.SystemColors.Window;
             this.txtDataRiferimento.Location = new System.Drawing.Point(32, 86);
             this.txtDataRiferimento.Name = "txtDataRiferimento";
@@ -96,18 +75,12 @@ namespace no_table_fill_unifiedtax {
             this.txtDataRiferimento.TabIndex = 9;
             this.txtDataRiferimento.Tag = "";
             this.txtDataRiferimento.Leave += new System.EventHandler(this.txtDataRiferimento_Leave);
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(29, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Data di riferimento";
-            // 
-            // txtEsercizio
-            // 
             this.txtEsercizio.BackColor = System.Drawing.SystemColors.Window;
             this.txtEsercizio.Location = new System.Drawing.Point(32, 42);
             this.txtEsercizio.Name = "txtEsercizio";
@@ -115,18 +88,12 @@ namespace no_table_fill_unifiedtax {
             this.txtEsercizio.TabIndex = 7;
             this.txtEsercizio.Tag = "";
             this.txtEsercizio.Leave += new System.EventHandler(this.txtEsercizio_Leave);
-            // 
-            // labelEsercizio
-            // 
             this.labelEsercizio.AutoSize = true;
             this.labelEsercizio.Location = new System.Drawing.Point(29, 26);
             this.labelEsercizio.Name = "labelEsercizio";
             this.labelEsercizio.Size = new System.Drawing.Size(49, 13);
             this.labelEsercizio.TabIndex = 6;
             this.labelEsercizio.Text = "Esercizio";
-            // 
-            // btnFillExpensetax
-            // 
             this.btnFillExpensetax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFillExpensetax.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -137,14 +104,8 @@ namespace no_table_fill_unifiedtax {
             this.btnFillExpensetax.Text = "Raccogli Dettagli Ritenute dai Dipartimenti";
             this.btnFillExpensetax.UseVisualStyleBackColor = true;
             this.btnFillExpensetax.Click += new System.EventHandler(this.btnFillExpensetax_Click);
-            // 
-            // DS
-            // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
-            // 
-            // btnOK
-            // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(719, 360);
@@ -153,9 +114,6 @@ namespace no_table_fill_unifiedtax {
             this.btnOK.TabIndex = 7;
             this.btnOK.Tag = "";
             this.btnOK.Text = "OK";
-            // 
-            // btnAnnulla
-            // 
             this.btnAnnulla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnnulla.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAnnulla.Location = new System.Drawing.Point(815, 360);
@@ -163,9 +121,6 @@ namespace no_table_fill_unifiedtax {
             this.btnAnnulla.Size = new System.Drawing.Size(75, 23);
             this.btnAnnulla.TabIndex = 8;
             this.btnAnnulla.Text = "Annulla";
-            // 
-            // groupBox2
-            // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label5);
@@ -177,9 +132,6 @@ namespace no_table_fill_unifiedtax {
             this.groupBox2.Size = new System.Drawing.Size(878, 180);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
-            // 
-            // label5
-            // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Location = new System.Drawing.Point(30, 99);
@@ -188,9 +140,6 @@ namespace no_table_fill_unifiedtax {
             this.label5.TabIndex = 7;
             this.label5.Text = "Dopo l\'inserimento nella tabella centralizzata, tali dati non saranno più modific" +
     "abili.";
-            // 
-            // label4
-            // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Location = new System.Drawing.Point(29, 67);
@@ -199,9 +148,6 @@ namespace no_table_fill_unifiedtax {
             this.label4.TabIndex = 6;
             this.label4.Text = "La procedura consente di raccogliere anche  i Recuperi per Interventi Sostitutivi" +
     " che l\'Ente deve effettuare.";
-            // 
-            // label3
-            // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -211,9 +157,6 @@ namespace no_table_fill_unifiedtax {
             this.label3.TabIndex = 5;
             this.label3.Text = "N.B. Verranno considerate quindi, tutte le ritenute e correzioni, applicate anche" +
     " se non già liquidate purché non ancora consolidate.";
-            // 
-            // label2
-            // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Location = new System.Drawing.Point(29, 25);
@@ -223,9 +166,6 @@ namespace no_table_fill_unifiedtax {
             this.label2.Text = "La procedura inserisce in tabelle centralizzate i dati delle ritenute di tutti i " +
     "dipartimenti, al fine di consentire la creazione di un F24EP  da parte dell\'Ammi" +
     "nstrazione Centrale";
-            // 
-            // FrmFillUnifiedTax
-            // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

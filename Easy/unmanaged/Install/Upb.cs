@@ -25,20 +25,8 @@ using System.Text;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for Upb.
-	/// </summary>
 	public class Upb
 	{
-		/// <summary>
-		/// Parte 1.2. Inserimento dei FdR negli UPB
-		/// Strategia: Se il fondo di ricerca ha un'unica suddivisione, verrà inserito un UPB di 2° livello
-		/// Se il fondo ha più suddivisioni, verrà inserito un UPB di 2° livello che rappresenta il fondo
-		/// e tanti UPB di 3° livello per quante sono le suddivisioni
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		private static DataTable inserisciFondiNegliUpb(Form form, DataAccess sourceConn, DataTable tUpb, out bool fondiMigrati) {
 			fondiMigrati = false;
 			DataTable tFdrUpb = new DataTable();
@@ -85,8 +73,6 @@ namespace Install
 				string idUpbRes = "";
 				DataRow rUpb1;
 				if (conta == 0) {
-					// Conto il numero di UPB presenti sullo stesso livello di quello che sto per inserire
-					// in modo da calcolare l'ID come il numero dei fratelli + 1
 					int fratelloCorrente = 1 + CfgFn.GetNoNullInt32(tUpb.Compute("count(paridupb)", "paridupb='0001'"));
 					idUpbRes = "0001" + fratelloCorrente.ToString().PadLeft(4, '0');
 					rUpb1 = tUpb.NewRow();
@@ -162,11 +148,7 @@ namespace Install
 				int contaSuddivisioni = sourceConn.RUN_SELECT_COUNT("ripfondiricerca", 
 					"codicefondo="+QueryCreator.quotedstrvalue(r["idres"], true), true);
 				if (contaSuddivisioni > 1) {
-					// Individuo il padre dell'UPB che sto per inserire e successivamente mi conto quanti figli ha il padre
-					// per assegnare l'ID al nuovo UPB
 					object padreSuddivisione = idUpbRes;
-//						tUpb.Compute("MIN(idupb)", "codeupb="+
-//						QueryCreator.quotedstrvalue(r["idres"],false)+"");
 					int figlioCorrente = 1 + CfgFn.GetNoNullInt32(tUpb.Compute("count(paridupb)", 
 						"paridupb="+QueryCreator.quotedstrvalue(padreSuddivisione,false)+""));
 					string idUpbPar = padreSuddivisione + figlioCorrente.ToString().PadLeft(4, '0');
@@ -190,8 +172,6 @@ namespace Install
 					rUpb2["active"] = r["active"];
 					tUpb.Rows.Add(rUpb2);
 
-					// Viene aggiunta una riga nella tabella temporanea con il solo codice del FdR se ci sono più
-					// suddivisioni legate ad esso
 					string filtroFondo = "(idres = " + QueryCreator.quotedstrvalue(r["idres"],false)
 						+ ") AND (idpar is null)";
 					int contaFdr = CfgFn.GetNoNullInt32(tFdrUpb.Compute("count(idres)", filtroFondo));
@@ -210,11 +190,6 @@ namespace Install
 			return tFdrUpb;
 		}
 
-		/// <summary>
-		/// Parte 1.3. Inserimento dei CdS negli UPB
-		/// Strategia: Vengono creati UPB di 2° livello e successivi in base alla struttura del CdS
-		/// </summary>
-		/// <param name="sourceConn"></param>
 		private static DataTable inserisciCdsNegliUpb(Form form, DataAccess sourceConn, DataTable tUpb, out bool centriMigrati) {
 			centriMigrati = false;
 			DataTable tCdsUpb = new DataTable();
@@ -289,21 +264,11 @@ namespace Install
 			return tCdsUpb;
 		}
 
-		/// <summary>
-		/// Sezione 1. Riempimento della tabella UPB
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tFdrUpb"></param>
-		/// <param name="tCdsUpb"></param>
-		/// <returns>TRUE: Non si sono verificati errori; FALSE: Si sono verificati errori</returns>
 		public static bool creaTabellaUpb(Form form, DataAccess sourceConn, DataAccess destConn, 
 			out DataTable tFdrUpb, out DataTable tCdsUpb) 
 		{
 			VistaUpb ds = new VistaUpb();
 
-			// Parte 1.1. Inserimento del nodo root
 			DataRow rUpb = ds.upb.NewRow();
 			rUpb["idupb"] = "0001";
 			rUpb["codeupb"] = "dipartimento";
@@ -351,10 +316,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Parte 2.3. Riempimento della Tabella UPBSORTING
-		/// Passo 2.3.1. Travaso delle classificazioni dei fondi e delle suddivisioni
-		/// </summary>
 		public static bool migraDaFdrAdUpbSorting(Form form, DataAccess sourceConn, DataAccess destConn,
 			DataTable tFdrUpb) 
 		{
@@ -370,20 +331,13 @@ namespace Install
 						+ QueryCreator.quotedstrvalue(rFdr["idupb"], true)
 						+ ", cu=createuser, ct=createtimestamp, "
 						+ "lu=lastmoduser, lt=lastmodtimestamp, quota ";
-					// Caso 1: Esiste la classificazione del fondo ma non delle suddivisioni
-					// Inserisco la classificazione del fondo per tutte le ripartizioni
 					if ((ctr == 0)&&(ctf > 0)) {
 						q += QueryCreator.quotedstrvalue(rFdr["idupb"], true) 
 							+ "FROM classtreefondo " + whereFondo;
 					}
-					// Caso 2: Esistono le classificazioni delle suddivisioni ma non del fondo
 					if ((ctr > 0) && (ctf == 0)) {
 						q += "FROM classtreeripartizioni " + whereFondo + andRipartizione;
-//						if ((contaFigli1 != 1)&&(rFdr["idpar"] is DBNull)) {
-//							q += " and 0=1";
-//						}
 					}
-					// Caso 3: Esistono entrambe le classificazioni
 					if ((ctr > 0) && (ctf > 0)) {
 						if (contaFigli1 == 1) {
 							q += "FROM classtreeripartizioni " + whereFondo + andRipartizione;
@@ -405,13 +359,6 @@ namespace Install
 			return true;
 		}
 
-		/// <summary>
-		/// Passo 2.3.2. Travaso delle classificazioni dei centri di spesa
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tCdrUpb"></param>
 		public static bool migraDaCdsAdUpbSorting(Form form, DataAccess sourceConn, DataAccess destConn, DataTable tCdrUpb) {
 			string q = 	"SELECT DISTINCT idsorkind=codicetipoclass, idsor=idclass, idcen=SUBSTRING(idcentrospesa,3,LEN(idcentrospesa)),"
 				+ " quota=AVG(quota) FROM classtreecentrospesa "
@@ -440,10 +387,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Sezione 3. Aggiornamento delle tabelle EXPENSEYEAR ed INCOMEYEAR
-		/// Parte 3.1. Aggiornamento della Tabella EXPENSEYEAR
-		/// </summary>
 		public static bool migraImputazioneEOS(string eos, Form form, DataAccess sourceConn, DataAccess destConn,
 			DataTable tFdrUpb, DataTable tCdsUpb, DataTable tUpbLookup) {
 			string maxFaseEOS = (string) sourceConn.DO_READ_VALUE("fase"+eos+"", null, "MAX(codicefase)");
@@ -470,14 +413,10 @@ namespace Install
 
 			VistaUpb ds = new VistaUpb();
 
-			// Passo 3.1.1. Associo gli UPB a tutti i movimenti di "+eos+" con un centro di "+eos+" associato
 			foreach (DataRow r in tEOSYear.Rows) {
 				r["idupb"] = getIdupbFromFinAndCen(r["idfin"], r["idcen"], tUpbLookup, tCdsUpb);
 			}
-			// Passo 3.1.2. Associo gli UPB a tutti i movimenti di "+eos+" con un fondo di ricerca associato
 			
-			// Attenzione! Se si è deciso di non migrare i fondi di ricerca
-			// non occorrerà fare gli storni di bilancio, in quanto l'UPB di partenza risulterebbe lo stesso di arrivo,
 			int totRighe = tFdrUpb.Select().Length;
 			int totRigheUpbRoot = tFdrUpb.Select("(idupb = '0001')").Length;
 			bool effettuaStorni = CfgFn.GetNoNullInt32(totRighe) != CfgFn.GetNoNullInt32(totRigheUpbRoot);
@@ -495,7 +434,6 @@ namespace Install
 					rFdrUpb["idres"].ToString(), rFdrUpb["idpar"].ToString(), idUpb, tContaFinVar,
 					maxFaseEOS,	tPersBil, tFdrUpb, effettuaStorni, ds)) return false;
 			}
-			//-- Passo 3.1.3. Associo l'UPB a tutti i movimenti di spesa rimanenti
 			foreach (DataRow r in tEOSYear.Select("idupb is null")) {
 				r["idupb"] = "0001";
 			}
@@ -510,21 +448,6 @@ namespace Install
 			return Migrazione.lanciaScript(form, destConn, ds, "imputazione"+eos+" -> "+tEOSYear.TableName+", finvar e finvardetail");
 		}
 
-		/// <summary>
-		/// Metodo che assegna alle tabelle expenseyear/incomeyear l'upb corrispondente ai FdR e contemporaneamente
-		/// storna la previsione dall'UPB libero al nuovo UPB 
-		/// </summary>
-		/// <param name="form">Form chiamante</param>
-		/// <param name="eos">entrata: Per la gestione di incomeyear; spesa: Per la gestione di expenseyear</param>
-		/// <param name="sourceConn">Connessione Sorgente</param>
-		/// <param name="tEOSYear">Tabella delle imputazioni dei movimenti di entrata o spesa</param>
-		/// <param name="codiceFondo">Codice del FdR</param>
-		/// <param name="codiceRipartizione">Codice della Ripartizione</param>
-		/// <param name="idUpb">ID dell'UPB</param>
-		/// <param name="tContaFinVar">Tabella delle variazione di bilancio</param>
-		/// <param name="maxFaseEOS">Massima fase di entrata/spesa</param>
-		/// <param name="tPersBil">Tabella di configurazione del bilancio</param>
-		/// <param name="ds">DataSet</param>
 		private static bool assegnaUpbAdImputazioneEStorna_perFdR(Form form, string eos,
 			DataAccess sourceConn, DataTable tEOSYear, string codiceFondo, string codiceRipartizione, 
 			string idUpb, DataTable tContaFinVar,
@@ -550,12 +473,10 @@ namespace Install
 					object codFaseCompetenza=
 						eos=="spesa"? rPersBil["codfaseimpegno"]:rPersBil["codfaseaccertamento"];
 					string vecchioNome = eos == "spesa" ? "exp" : "inc";
-                    // Qui ci va un if sull'esercizio!!!
                     object ultimo = sourceConn.DO_READ_VALUE("esercizio", "(flagtrasfconfigbilancio = 'S')", "max(esercizio)");
                     if ((ultimo != null) && (ultimo != DBNull.Value)) {
                         int lastYear = 1 + CfgFn.GetNoNullInt32(ultimo);
                         if (esercVariazione != lastYear) {
-                            // Parte 5.2. Aggiornamento delle previsioni legati ai movimenti associati alle voci di bilancio/U.P.B. inserite in FINYEAR
                             if (!stornaDaLiberoAdUpb(form, sourceConn, eos, true, tipoPrevPrincipale, esercVariazione, tContaFinVar,
                                 codiceFondo, codiceRipartizione,
                                 (string)r["idupb"], codFaseCompetenza, maxFaseEOS, ds)) return false;
@@ -623,7 +544,6 @@ namespace Install
 				tPhaseName = "faseentrata";
 			}
 		
-            // In base alla configurazione di bilancio devo riempirmi l'array delle fasi!!!!!
             object mainPrev = sourceConn.DO_READ_VALUE("persbilancio", "esercizio = '" + fromYear + "'", "tipoprevprincipale");
             object secPrev = sourceConn.DO_READ_VALUE("persbilancio", "esercizio = '" + fromYear + "'", "tipoprevsecondaria");
 
@@ -827,12 +747,6 @@ namespace Install
                     string flagMain = "";
                     string flagSecondary = "";
 
-                    // Se ci sono più fasi da considerare vuol dire che mi trovo in una configurazione
-                    // di COMPETENZA e CASSA => I flag verranno valorizzati alternativamente in base alla fase che
-                    // sto analizzando
-                    // Se invece esiste una sola fase vuol dire che mi trovo in una configurazione di
-                    // COMPETENZA o CASSA => Il flag della previsione principale viene sempre valorizzato a S
-                    // mentre quello della seconda sempre a N
                     if (elencoFasi.Length > 1) {
                         flagMain = (currPhase == finPhase.ToString()) ? "S" : "N";
                         flagSecondary = (currPhase == maxPhase.ToString()) ? "S" : "N";
@@ -930,16 +844,6 @@ namespace Install
 			return true;
 		}
 
-        /// <summary>
-        /// Metodo che storna i crediti e la cassa dall'UPB dipartimento all'UPB dei fondi di ricerca secondo la formula
-        /// ACCERTATO - IMPEGNATO al 31.12.2006 per i crediti
-        /// INCASSATO - PAGATO al 31.12.2006 per gli incassi
-        /// </summary>
-        /// <param name="form"></param>
-        /// <param name="sourceConn"></param>
-        /// <param name="destConn"></param>
-        /// <param name="tFdrUpb"></param>
-        /// <returns></returns>
         private static bool stornaCreditiCassaDaLiberoAFdR_MonoCapitolo(Form form, DataAccess sourceConn,
             DataAccess destConn, DataTable tFdrUpb) {
             object ayear = sourceConn.DO_READ_VALUE("esercizio", "flagtrasfconfigbilancio = 'S'", "MAX(esercizio)");
@@ -994,17 +898,6 @@ namespace Install
             return true;
         }
 
-        /// <summary>
-        /// Metodo che calcola le variazioni per la dotazione crediti/incassi
-        /// </summary>
-        /// <param name="sourceConn">Connessione Sorgente</param>
-        /// <param name="destConn">Connessione Destinazione</param>
-        /// <param name="tFdrUpb">Tabella di Lookup Fondi di Ricerca - U.P.B.</param>
-        /// <param name="currPhaseE">Fase di Spesa</param>
-        /// <param name="currPhaseI">Fase di Entrata</param>
-        /// <param name="c_p">Flag che indica se stiamo stornando i crediti o gli incassi.
-        /// Valori ammessi C: Crediti; P: Incassi</param>
-        /// <returns></returns>
         private static bool generaVariazione_CC(Form form, DataAccess sourceConn, DataAccess destConn,
             DataTable tFdrUpb, object currPhaseE, object currPhaseI, string c_p) {
 
@@ -1228,17 +1121,6 @@ namespace Install
 
             return true;
         }
-		/// <summary>
-		/// Metodo che assegna alle tabelle expenseyear/incomeyear l'upb corrispondente ai CdS e contemporaneamente
-		/// storna la previsione dall'UPB libero al nuovo UPB 
-		/// </summary>
-		/// <param name="form">Form Chiamante</param>
-		/// <param name="eos">entrata: Per la gestione di incomeyear; spesa: Per la gestione di expenseyear</param>
-		/// <param name="sourceConn">Connessione Sorgente</param>
-		/// <param name="tEOSYear">Tabella delle imputazioni dei movimenti di entrata o spesa</param>
-		/// <param name="filtroCdsUpb">Filtro sul Centro di Spesa</param>
-		/// <param name="idUpb">ID dell'UPB</param>
-		/// <param name="ds">DataSet</param>
 		private static void assegnaUpbAdImputazione_perCdS(Form form, string eos,
 			DataAccess sourceConn, DataTable tEOSYear, string filtroCdsUpb,
 			string idUpb, VistaUpb ds) 
@@ -1250,14 +1132,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Sezione 4. Aggiornamento della tabella PETTYCASHOPERATION
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tFdrUpb"></param>
-		/// <param name="tCdsUpb"></param>
 		private static bool migraOpFondoPiccoleSpese(Form form, DataAccess sourceConn, DataAccess destConn,
 			DataTable tColName, DataTable tFdrUpb, DataTable tCdsUpb, DataTable tUpblookup) {
 			DataTable tPettyCashOperation =
@@ -1269,19 +1143,16 @@ namespace Install
 			foreach (DataRow r in tPettyCashOperation.Rows) {
 				object idUpb = getIdupbFromFinAndCen(r["idfin"], r["idcen"], tUpblookup, tCdsUpb);
 				if (idUpb.ToString() != "0001") {
-					// Parte 4.1. Assegnazione dell'UPB alle operazioni associate a centri di spesa
 					r["idupb"] = idUpb;
 				} else {
 					string filtroFdrUpb = QueryCreator.WHERE_COLNAME_CLAUSE(r,
 						new string[] {"idres","idpar"}, DataRowVersion.Current, false);
 					DataRow[] rFdrUpb = tFdrUpb.Select(filtroFdrUpb);
 					if (rFdrUpb.Length > 0) {
-						// Parte 4.2. Assegnazione dell'UPB alle operazioni associate a fondi di ricerca
 						r["idupb"] = rFdrUpb[0]["idupb"];
 					}
 				}
 			}
-			// Parte 4.3. Assegnazione dell'UPB a tutte le operazioni non assegnate 
 			foreach (DataRow r in tPettyCashOperation.Select("(idfin is not null) and (idupb is null)")) {
 				r["idupb"] = "0001";
 			}
@@ -1378,7 +1249,6 @@ namespace Install
 			DataTable tFinVarDetail = ds.Tables["finvardetail"];
 			
 			foreach (DataRow r in tPrevisione.Select()) {
-				//DataRow rFinVarDetail = tFinVarDetail.NewRow();
 				DataRow rFinVarDetailMainUpb;
 				string fMain = "(yvar = '" + esercVariazione + "') AND (nvar = '" + numVariazione
 					+ "') AND (idfin = " + QueryCreator.quotedstrvalue(r["idfin"], false)
@@ -1437,13 +1307,6 @@ namespace Install
 		}
 
 
-		/// <summary>
-		/// Copia le previsioni iniziali dalla tabella "bilancio" alla tabella "finyear"
-		/// ponendo sempre idupb=0001 (upb libero)
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool migraBilancioinFinYear(Form form, DataAccess sourceConn, DataAccess destConn, DataTable tUpbLookup) {
 			string q = "select idfin=idbilancio, idupb='0001', prevision=preveserciziocorr, "
 				+ "secondaryprev=prevseceserciziocorr, previousprevision=prevesercizioprec, "
@@ -1472,19 +1335,8 @@ namespace Install
 			return Migrazione.lanciaScript(form, destConn, tFin, "bilancio -> fin");
 		}
 
-/// <summary>
-/// Copia variazionebilancio, variazionecrediti e variazionecassa in finvar
-/// e copia dettvarbilancio, dettvarcrediti e dettvarcassa in finvardetail.
-/// Elimino eventuali duplicati in finvardetail andando a settare opportunamente
-/// flagprevision, flagsecondaryprev, flagcredit e flagproceeds
-/// </summary>
-/// <param name="form"></param>
-/// <param name="sourceConn"></param>
-/// <param name="destConn"></param>
 		public static bool migraVariazioni(Form form, DataAccess sourceConn, DataAccess destConn, DataTable tUpblookup) {
 			int VARBILANCIO=0, VARBILPRIM=1, VARBILSEC=2, VARCREDITI=3, VARCASSA=4;
-			//Mi calcolo il minimo ed il massimo esercvariazione usati in 
-			//variazionebilancio, variazionecrediti e variazionecassa
 			short min = short.MaxValue;
 			short max = short.MinValue;
 			foreach (string s in new string[] {"bilancio","cassa","crediti"}) {
@@ -1504,7 +1356,6 @@ namespace Install
 					}
 				}
 			}
-			//Scorro sugli esercvariazione
 			for (short esercVariazione=min; esercVariazione<=max; esercVariazione++) {
 				string queryV = "select yvar=esercvariazione, nvar=numvariazione, "
 					+ "description=descrizione, enactment=provvedimento, "
@@ -1533,7 +1384,6 @@ namespace Install
 					+ VARCASSA
 					+ ", flagprevision='N', flagcredit='N', flagproceeds='S', flagsecondaryprev='N' "
 					+ "from variazionecassa where esercvariazione="+esercVariazione;
-				//Copio variazionebilancio, variazionecrediti e variazionecassa in tFinVar
 				DataTable tFinVar = Migrazione.eseguiQuery(sourceConn, queryVar, form);
 				if (tFinVar==null) return false;
 
@@ -1552,12 +1402,10 @@ namespace Install
 					+ queryD
 					+ VARCASSA
 					+ " from dettvarcassa where esercvariazione="+esercVariazione;
-				//Copio dettvarbilancio, dettvarcrediti, dettvarcassa in tFinVarDetail
 				DataTable tFinVarDetail = Migrazione.eseguiQuery(sourceConn, queryDett, form);
 				if (tFinVarDetail==null) return false;
 
 				tFinVar.Columns.Add("stringa", typeof(string));
-				//Aggiungo una colonna stringa che mette in fin
 				foreach (DataRow rVar in tFinVar.Rows) {
 					string filtro = "nvar=" + rVar["nvar"] + " and tipo=";
 					int tipo = CfgFn.GetNoNullInt32( rVar["tipo"]);
@@ -1627,11 +1475,6 @@ namespace Install
 				tFinVarDetail.TableName = "finvardetail";
 				ds.Tables.Add(tFinVarDetail);
 
-//				if (tUpblookup!=null) {
-//					foreach (DataRow r in tFinVarDetail.Rows) {
-//						r["idupb"] = getIdupbFromIdcen(r["idfin"], r["idcen"], tUpblookup);
-//					}
-//				}
 
 				bool res=Migrazione.lanciaScript(form, destConn, ds, "variazioni ("+esercVariazione+") -> finvar e finvardetail");
 				if (!res) return false;
@@ -1640,14 +1483,6 @@ namespace Install
 		}
 
 		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="eos"></param>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tCdsUpb"></param>
 		public static bool migraAssCentroEOS(string eos, Form form, DataAccess sourceConn, DataAccess destConn, DataTable tCdsUpb, DataTable tUpbLookup) {
 			VistaUpb ds = new VistaUpb();
 			string q1 = "select yvar, maxnvar=max(nvar) from finvar group by yvar";
@@ -1715,7 +1550,6 @@ namespace Install
 					MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Impossibile tradurre una riga di assegnazione al centro di "
 						+ eos + "; idcentrospesa="+QueryCreator.quotedstrvalue(r1["idcen"], false), "Errore nella tabella asscentro"+eos);
 					continue;
-					//r1.Delete();
 				}
 				else {
 					string filtro1 = QueryCreator.WHERE_COLNAME_CLAUSE(r1, new string[] {"idfin","nvar","yvar"}, DataRowVersion.Current, false)
@@ -1793,15 +1627,6 @@ namespace Install
 		}
 
 			
-		/// <summary>
-		/// Copia autoclassentrata in autoincomesorting o autoclassspesa in autoexpensesorting
-		/// trasforma il centro di spesa in upb 
-		/// </summary>
-		/// <param name="eos"></param>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tCdsUpb"></param>
 		public static bool migraAutoClassEOS(string eos, Form form, DataAccess sourceConn, DataAccess destConn, 
 			DataTable tCdsUpb, DataTable tUpbLookup) {
 			string query = "select ayear=esercizio, ct=createtimestamp, cu=createuser, "
@@ -1820,10 +1645,6 @@ namespace Install
 
 			foreach (DataRow r in tAutoEOSSorting.Rows) {
 				r["idupb"] = getIdupbFromFinAndCen(r["idfin"], r["idcen"], tUpbLookup, tCdsUpb);
-//				DataRow[] rCdsUpb = tCdsUpb.Select("idcen="	+ QueryCreator.quotedstrvalue(r["idcen"], false));
-//				if (rCdsUpb.Length > 0) {
-//					r["idupb"] = rCdsUpb[0]["idupb"];
-//				}
 			}
 
 			string nuovoNome = eos == "spese" ? "expense" : "income";
@@ -1887,15 +1708,6 @@ namespace Install
 			return "0001";
 		}
 
-		/// <summary>
-		/// Copia filtraclassentrata in sortingincomefilter o filtraclassspesa in sortingexpensefilter
-		/// trasformando il centro di spesa in upb
-		/// </summary>
-		/// <param name="eos"></param>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tCdsUpb"></param>
 		public static bool migraFiltraClassEOS(string eos, Form form, DataAccess sourceConn, DataAccess destConn, DataTable tCdsUpb, DataTable tUpbLookup) {
 			string query = "select ayear=esercizio, ct=createtimestamp, cu=createuser, "
 				+ "idautosort=idautoclass, idcen=idcentrospesa, idfin=idbilancio, "
@@ -1931,7 +1743,6 @@ namespace Install
 			if (tSortingApplicability==null) return false;
 			tSortingApplicability.Columns.Add("colonnatemp",typeof(int));
 
-//			DataTable tTableName = sourceConn.RUN_SELECT("tablename", null, null, null, null, true);
 
 			foreach (DataRow r in tSortingApplicability.Select()) {
 				string nomeTabella = (string) r["tablename"];
@@ -2164,7 +1975,6 @@ namespace Install
             string fromYear = ayear.ToString();
             if (fromYear != "")
             {
-                //x MARIA .... METTI QUI LA QUERY
                 query = "SELECT COUNT(*) " +
                         "FROM ripfondiricerca RIP " +
                         "JOIN fondoricerca  F " +
@@ -2286,7 +2096,6 @@ namespace Install
                     + " ,0) < 0"
                     + " GROUP BY RFR.codicefondo, RFR.codiceripartizione";
 
-                //int nFondiSforati = CfgFn.GetNoNullInt32(SourceConn.DO_SYS_CMD(query, true));
                 DataTable tFondiSforati = SourceConn.SQLRunner(query, true, TIMEOUT);
                 if (tFondiSforati.Rows.Count > 0) {
 					FrmErrore fe = new FrmErrore(tFondiSforati, "Le seguenti suddivisioni hanno una previsione negativa:", "Si vuole proseguire?");
@@ -2322,7 +2131,6 @@ namespace Install
                     else {
                         querySuVarResiduiS = " 0 ";
                     }
-                    // Fai un tipo di query
                     query = "SELECT	bilancio.codicebilancio, bilancio.esercizio, bilancio.partebilancio,"
                     + " ISNULL(AVG(TB.totpreveserciziocorr),0) + ISNULL(AVG(TB.totvarprevisione),0) -"
                     + " ISNULL(AVG(TBS.totalecompetenza),0) + "
@@ -2815,29 +2623,15 @@ namespace Install
 		public static DataTable tFdrUpb;
 		public static DataTable tCdsUpb;
 		public static bool migraUpb(Form form, DataAccess sourceConn, DataAccess destConn, DataTable tTableName, DataTable tColName) {
-			//truncate table upb
-			//truncate table sortingapplicability
-			//truncate table finyear
-			//truncate table fin
-			//truncate table finvar
-			//truncate table finvardetail
-			//truncate table incomeyear
-			//truncate table expenseyear
 
-			//fondoricerca, ripfondiricerca, centrospesa -> upb
-			if (!creaTabellaUpb(form, sourceConn, destConn, out tFdrUpb, out tCdsUpb)) return false;//1.1 e 1.2
+			if (!creaTabellaUpb(form, sourceConn, destConn, out tFdrUpb, out tCdsUpb)) return false;
 
-			//tabelleclassificabili -> sortabletable (sistema)//--------------AllSystemCfgNoGeo.sql
-//			esportaTabelleClassificabili(form, sourceConn, destConn);//1.3
 
-			//tipoclassmovimentiapplicabile -> sortingapplicability
-			if (!esportaTipoClassMovimentiApplicabile(form, sourceConn, destConn, tTableName)) return false;//1.4
+			if (!esportaTipoClassMovimentiApplicabile(form, sourceConn, destConn, tTableName)) return false;
 
-			//classtreefondo e classtreeripartizioni -> upbsorting
-			if (!migraDaFdrAdUpbSorting(form, sourceConn, destConn, tFdrUpb)) return false;//1.5
+			if (!migraDaFdrAdUpbSorting(form, sourceConn, destConn, tFdrUpb)) return false;
 
-			//classtreecentrospesa -> ubpsorting
-			if (!migraDaCdsAdUpbSorting(form, sourceConn, destConn, tCdsUpb)) return false;//1.6
+			if (!migraDaCdsAdUpbSorting(form, sourceConn, destConn, tCdsUpb)) return false;
 
 			DataTable tUpblookup = null;
 			DataTable tEsistenzaUpblookup = sourceConn.SQLRunner("select object_id('upblookup')");
@@ -2848,22 +2642,16 @@ namespace Install
 				}
 			}
 
-			//bilancio -> finyear
-			if (!migraBilancioinFinYear(form, sourceConn, destConn, tUpblookup)) return false;//1.7
+			if (!migraBilancioinFinYear(form, sourceConn, destConn, tUpblookup)) return false;
 
-			//bilancio -> fin//-------------------------------------------chkcfgbilancio
-			if (!migraBilancioInFin(form, sourceConn, destConn, tColName)) return false;//1.7
+			if (!migraBilancioInFin(form, sourceConn, destConn, tColName)) return false;
 
 
-			//variazionebilancio, variazionecrediti, variazionecassa -> finvar
-			//dettvarbilancio, dettvarcrediti, dettvarcassa -> finvardetail
-			if (!migraVariazioni(form, sourceConn, destConn, tUpblookup)) return false;//1.8
+			if (!migraVariazioni(form, sourceConn, destConn, tUpblookup)) return false;
 
-			//imputazioneentrata -> incomeyear, finvar e finvardetail
-			if (!migraImputazioneEOS("entrata", form, sourceConn, destConn, tFdrUpb, tCdsUpb, tUpblookup)) return false;//1.9
+			if (!migraImputazioneEOS("entrata", form, sourceConn, destConn, tFdrUpb, tCdsUpb, tUpblookup)) return false;
 
-			//imputazionespesa -> expenseyear, finvar e finvardetail
-			if (!migraImputazioneEOS("spesa", form, sourceConn, destConn, tFdrUpb, tCdsUpb, tUpblookup)) return false;//1.9
+			if (!migraImputazioneEOS("spesa", form, sourceConn, destConn, tFdrUpb, tCdsUpb, tUpblookup)) return false;
 
 			DialogResult dr_FdR = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Si vuole procedere a stornare le previsioni dell'ultimo anno"
 				+ " dei fondi di ricerca dall'UPB Dipartimento se esistono fondi associati ad un unica voce di bilancio"
@@ -2875,8 +2663,6 @@ namespace Install
                 if (!stornaCreditiCassaDaLiberoAFdR_MonoCapitolo(form, sourceConn, destConn, tFdrUpb)) return false;
 			}
 
-			// Attenzione! Se si è deciso di non migrare i centri di spesa
-			// non occorrerà fare gli storni di bilancio, in quanto l'UPB di partenza risulterebbe lo stesso di arrivo,
 			int totRighe = tCdsUpb.Select().Length;
 			int totRigheUpbRoot = tCdsUpb.Select("(idupb = '0001')").Length;
 			bool effettuaStorni = CfgFn.GetNoNullInt32(totRighe) != CfgFn.GetNoNullInt32(totRigheUpbRoot);
@@ -2886,28 +2672,20 @@ namespace Install
 				effettuaStorni = effettuaStorni && (dr == DialogResult.Yes);
 			}
 			if (effettuaStorni) {
-				//asscentroentrata -> finvar, finvardetail
-				if (!migraAssCentroEOS("entrata", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;//1.10
+				if (!migraAssCentroEOS("entrata", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;
 
-				//asscentrospesa -> finvar, finvardetail
-				if (!migraAssCentroEOS("spesa", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;//1.10
+				if (!migraAssCentroEOS("spesa", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;
 			}
-			//opfondopiccolespese -> pettycashoperation
-			if (!migraOpFondoPiccoleSpese(form, sourceConn, destConn, tColName, tFdrUpb, tCdsUpb, tUpblookup)) return false;//1.11
+			if (!migraOpFondoPiccoleSpese(form, sourceConn, destConn, tColName, tFdrUpb, tCdsUpb, tUpblookup)) return false;
 
-			//autoclassentrate -> autoincomesorting
-			if (!migraAutoClassEOS("entrate", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;//1.12
+			if (!migraAutoClassEOS("entrate", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;
 
-			//autoclassspese -> autoexpensesorting
-			if (!migraAutoClassEOS("spese", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;//1.12
+			if (!migraAutoClassEOS("spese", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;
 
-			//filtraclassentrate -> sortingincomefilter
-			if (!migraFiltraClassEOS("entrate", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;//1.13
+			if (!migraFiltraClassEOS("entrate", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;
 
-			//filtraclassspese -> sortingexpensefilter
-			if (!migraFiltraClassEOS("spese", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;//1.13
+			if (!migraFiltraClassEOS("spese", form, sourceConn, destConn, tCdsUpb, tUpblookup)) return false;
 
-//			if ((tUpblookup != null) && !troncaNLivelliDiBilancio(destConn, 2)) return false;
 			return true;
 		}
 	}

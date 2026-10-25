@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,8 +37,8 @@ namespace no_table_fill_unifiedtax {
             Meta.CanInsert = false;
             Meta.CanInsertCopy = false;
             Meta.CanCancel = false;
-            if (Meta.GetSys("userdb") != null) {
-                IsAmministrazione = (Meta.GetSys("userdb").ToString().ToLower() == "amministrazione");
+            if ((Meta.GetSys("schema") ?? Meta.GetSys("userdb")) != null) {
+                IsAmministrazione = ((Meta.GetSys("schema") ?? Meta.GetSys("userdb")).ToString().ToLower() == "amministrazione");
             }
             txtEsercizio.Text = Meta.GetSys("esercizio").ToString();
             DateTime dtPrimoDelMese = new DateTime(
@@ -48,7 +47,6 @@ namespace no_table_fill_unifiedtax {
             1);
 
             DateTime dtUltimoDelMesePrec = dtPrimoDelMese.AddDays(-1);
-            //txtDataRiferimento.Text = ((DateTime)Meta.GetSys("datacontabile")).ToShortDateString();
 
             txtDataRiferimento.Text = dtUltimoDelMesePrec.ToShortDateString();
             HelpForm.ExtLeaveDateTimeTextBox(txtDataRiferimento, null);

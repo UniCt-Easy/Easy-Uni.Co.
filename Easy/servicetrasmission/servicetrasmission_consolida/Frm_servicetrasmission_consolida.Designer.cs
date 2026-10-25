@@ -12,20 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace servicetrasmission_consolida
 {
     partial class Frm_servicetrasmission_consolida
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -37,10 +29,6 @@ namespace servicetrasmission_consolida
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_servicetrasmission_consolida));
@@ -60,14 +48,8 @@ namespace servicetrasmission_consolida
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // DS
-            // 
             this.DS.DataSetName = "vistaForm";
             this.DS.EnforceConstraints = false;
-            // 
-            // btnConsolidaConsulenti
-            // 
             this.btnConsolidaConsulenti.Location = new System.Drawing.Point(187, 178);
             this.btnConsolidaConsulenti.Name = "btnConsolidaConsulenti";
             this.btnConsolidaConsulenti.Size = new System.Drawing.Size(104, 38);
@@ -75,26 +57,17 @@ namespace servicetrasmission_consolida
             this.btnConsolidaConsulenti.Text = "Consolida Consulenti";
             this.btnConsolidaConsulenti.UseVisualStyleBackColor = true;
             this.btnConsolidaConsulenti.Click += new System.EventHandler(this.btnConsolida_Click);
-            // 
-            // txtEsercizio
-            // 
             this.txtEsercizio.Location = new System.Drawing.Point(69, 16);
             this.txtEsercizio.Name = "txtEsercizio";
             this.txtEsercizio.Size = new System.Drawing.Size(72, 20);
             this.txtEsercizio.TabIndex = 1;
             this.txtEsercizio.Leave += new System.EventHandler(this.txtEsercizio_Leave);
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Esercizio";
-            // 
-            // btnConsolidaDipendenti
-            // 
             this.btnConsolidaDipendenti.Location = new System.Drawing.Point(327, 178);
             this.btnConsolidaDipendenti.Name = "btnConsolidaDipendenti";
             this.btnConsolidaDipendenti.Size = new System.Drawing.Size(104, 38);
@@ -102,9 +75,6 @@ namespace servicetrasmission_consolida
             this.btnConsolidaDipendenti.Text = "Consolida Dipendenti";
             this.btnConsolidaDipendenti.UseVisualStyleBackColor = true;
             this.btnConsolidaDipendenti.Click += new System.EventHandler(this.btnConsolidaDipendenti_Click);
-            // 
-            // txtNomeFile
-            // 
             this.txtNomeFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNomeFile.Location = new System.Drawing.Point(101, 65);
@@ -112,22 +82,12 @@ namespace servicetrasmission_consolida
             this.txtNomeFile.ReadOnly = true;
             this.txtNomeFile.Size = new System.Drawing.Size(443, 20);
             this.txtNomeFile.TabIndex = 25;
-            // 
-            // btnSalvaFile
-            // 
             this.btnSalvaFile.Location = new System.Drawing.Point(20, 63);
             this.btnSalvaFile.Name = "btnSalvaFile";
             this.btnSalvaFile.Size = new System.Drawing.Size(75, 23);
             this.btnSalvaFile.TabIndex = 26;
             this.btnSalvaFile.Text = "File Xml";
             this.btnSalvaFile.Click += new System.EventHandler(this.btnSalvaFile_Click);
-            // 
-            // saveFileDialog1
-            // 
-            //this.saveFileDialog1.DefaultExt = "xml";
-            // 
-            // chkyear
-            // 
             this.chkyear.AutoSize = true;
             this.chkyear.Location = new System.Drawing.Point(147, 19);
             this.chkyear.Name = "chkyear";
@@ -136,9 +96,6 @@ namespace servicetrasmission_consolida
             this.chkyear.Text = "Esporta gli incarichii dell\'esercizio indicato";
             this.chkyear.UseVisualStyleBackColor = true;
             this.chkyear.CheckedChanged += new System.EventHandler(this.chkyear_CheckedChanged);
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(12, 9);
@@ -147,9 +104,6 @@ namespace servicetrasmission_consolida
             this.label3.TabIndex = 40;
             this.label3.Text = resources.GetString("label3.Text");
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Controls.Add(this.chkyear);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtEsercizio);
@@ -158,9 +112,6 @@ namespace servicetrasmission_consolida
             this.groupBox1.Size = new System.Drawing.Size(524, 46);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
-            // 
-            // btnEsito
-            // 
             this.btnEsito.Location = new System.Drawing.Point(467, 181);
             this.btnEsito.Name = "btnEsito";
             this.btnEsito.Size = new System.Drawing.Size(104, 33);
@@ -168,9 +119,6 @@ namespace servicetrasmission_consolida
             this.btnEsito.Text = "Visualizza Esito";
             this.btnEsito.UseVisualStyleBackColor = true;
             this.btnEsito.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Frm_servicetrasmission_consolida
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 230);

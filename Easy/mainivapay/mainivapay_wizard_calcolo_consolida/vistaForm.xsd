@@ -166,6 +166,10 @@
               <xs:element name="mainminrefund12" type="xs:decimal" minOccurs="0" />
               <xs:element name="mainminpayment12" type="xs:decimal" minOccurs="0" />
               <xs:element name="mainstartivabalance12" type="xs:decimal" minOccurs="0" />
+              <xs:element name="flagpaymentsplit" type="xs:string" minOccurs="0" />
+              <xs:element name="paymentagencysplit" type="xs:int" minOccurs="0" />
+              <xs:element name="idfinivapaymentsplit" type="xs:int" minOccurs="0" />
+              <xs:element name="startivabalancesplit" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

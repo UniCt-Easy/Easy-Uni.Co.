@@ -22,19 +22,7 @@ using System.Text;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for Classificazioni.
-	/// </summary>
 	public class Classificazioni {
-		/// <summary>
-		/// Metodo che migra le classificazioni legate al bilancio nelle tabelle standard di classificazione
-		/// </summary>
-		/// <param name="classificazione">Nome della classificazione</param>
-		/// <param name="form">Nome del Form</param>
-		/// <param name="sourceConn">Connessione Sorgente</param>
-		/// <param name="destConn">Connessione di Destinazione</param>
-		/// <param name="htCodiciClass">HashTable che associa i sortcode e gli idsor</param>
-		/// <returns>TRUE: Se l'esecuzione dello scrpit è corretta; ELSE: Se si è verificato un errore</returns>
 		public static bool migraClass(string classificazione, Form form, DataAccess sourceConn, DataAccess destConn
 			,out Hashtable htCodiciClass) {	
 			string tipoCodice;
@@ -60,16 +48,6 @@ namespace Install
 				default: MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Errore interno: non esiste la tabella class"+classificazione); break;
 			}
 		}
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="classificazione">Parte variabile del nome tabella della classificazione i.e. bilancio -> classbilancio</param>
-		/// <param name="ht">HastTable con chiave il sortcode e valore l'idsor</param>
-		/// <param name="form"></param>
-		/// <param name="tSorting">Tabella della classificazione da ricopiare</param>
-		/// <param name="sourceConn">Connessione Sorgente</param>
-		/// <param name="destConn">Connessione di Destinazione</param>
-		/// <returns>TRUE: Se l'esecuzione non ha avuto problemi; FALSE: Se sono stati riscontrati degli errori</returns>
 		public static bool creaRigheInFinSorting(string classificazione, Hashtable ht, Form form, DataAccess sourceConn, DataAccess destConn) {
 			string tipoCodice = null;
 			string codiceTipoClass = null;
@@ -99,19 +77,12 @@ namespace Install
 				}
 				if (ht[rFinSorting["idsor"]]==DBNull.Value) {
 					rFinSorting.Delete();
-					continue; //scartato!
+					continue;
 				}
 				rFinSorting["idsor"] = ht[rFinSorting["idsor"]];
 			}
-			tFinSorting.AcceptChanges(); //Elimina le righe da saltare
+			tFinSorting.AcceptChanges();
 
-//			if (tFinSorting.Rows.Count > 0) {
-//				DialogResult dr = MetaFactory.factory.getSingleton<IMessageShower>().Show(form, "Procedo alla migrazione dei codici di classificazione "
-//					+ classificazione + "presenti nella tabella bilancio?", "Conferma", MessageBoxButtons.YesNoCancel);
-//				if (dr == DialogResult.No) {
-//					return;
-//				}
-//			}
 
 			DataSet ds = new DataSet();
 			tFinSorting.TableName = "finsorting";
@@ -123,10 +94,7 @@ namespace Install
 
 		public static bool migraSpeciali(Form form, DataAccess sourceConn, DataAccess destConn) 
 		{
-			//			Migrazione.copiaTabelle("Copia di tabelle 'Classificazioni'",
-			//				tTableSetup, "Classificazioni", tabelleSpeciali, tColName, sourceConn, form, destConn);
 
-			//classbilancio -> sorting, sortinglevel, sortingkind
 			Hashtable htCorrispondiCodici;
 			bool esecuzioneCorretta = true;
 
@@ -138,7 +106,6 @@ namespace Install
 				if (!esecuzioneCorretta) return false;
 				esecuzioneCorretta = migraClass("bilancio", form, sourceConn, destConn, out htCorrispondiCodici);
 				if (!esecuzioneCorretta) return false;
-				//bilancio -> finsorting
 				esecuzioneCorretta = creaRigheInFinSorting("bilancio",htCorrispondiCodici, form, sourceConn, destConn);
 				if (!esecuzioneCorretta) return false;
 			}
@@ -149,10 +116,8 @@ namespace Install
 				StringBuilder SB2 = Download.LeggiTestoScript("class_murst.sql");
 				esecuzioneCorretta=Download.RUN_SCRIPT(destConn,SB2,"Creazione classificazione _CLMURST");				
 				if (!esecuzioneCorretta) return false;
-				//classmurst -> sorting, sortinglevel, sortingkind
 				esecuzioneCorretta = migraClass("murst", form, sourceConn, destConn, out htCorrispondiCodici);
 				if (!esecuzioneCorretta) return false;
-				//bilancio -> finsorting
 				esecuzioneCorretta = creaRigheInFinSorting("murst", htCorrispondiCodici, form, sourceConn, destConn);
 				if (!esecuzioneCorretta) return false;
 			}
@@ -163,10 +128,8 @@ namespace Install
 				StringBuilder SB3 = Download.LeggiTestoScript("class_cons.sql");
 				esecuzioneCorretta=Download.RUN_SCRIPT(destConn,SB3,"Creazione classificazione _CLCONS");				
 				if (!esecuzioneCorretta) return false;
-				//classconsolidamento -> sorting, sortinglevel, sortingkind
 				esecuzioneCorretta = migraClass("consolidamento", form, sourceConn, destConn, out htCorrispondiCodici);
 				if (!esecuzioneCorretta) return false;
-				//bilancio -> finsorting
 				esecuzioneCorretta = creaRigheInFinSorting("consolidamento", htCorrispondiCodici, form, sourceConn, destConn);
 				if (!esecuzioneCorretta) return false;
 			}
@@ -188,13 +151,13 @@ namespace Install
 
 			if (copiaClassificazioniBilancio) {
 				if (!copiaClassificazioniAnagrafica) {
-					tabelleDaNonCopiare = "'registrysorting'"; //B&&!A
+					tabelleDaNonCopiare = "'registrysorting'";
 				}
 			} else {
 				if (copiaClassificazioniAnagrafica) {
-					tabelleDaNonCopiare = "'finsorting'";//!B&&A
+					tabelleDaNonCopiare = "'finsorting'";
 				} else {
-					tabelleDaNonCopiare = "'finsorting', 'registrysorting'";//!B&&!A
+					tabelleDaNonCopiare = "'finsorting', 'registrysorting'";
 				}
 			}
 

@@ -12,33 +12,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace exhibitedcud_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public partial class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///CUD Presentato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable exhibitedcud 		=> Tables["exhibitedcud"];
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable geo_cityview 		=> Tables["geo_cityview"];
 
-	///<summary>
-	///Regione per applicazione imposta regionale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable fiscaltaxregion 		=> Tables["fiscaltaxregion"];
 
@@ -49,7 +40,6 @@ public partial class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -68,7 +58,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// EXHIBITEDCUD /////////////////////////////////
 	var texhibitedcud= new DataTable("exhibitedcud");
 	C= new DataColumn("idcon", typeof(string));
 	C.AllowDBNull=false;
@@ -128,7 +117,6 @@ private void initClass() {
 	texhibitedcud.PrimaryKey =  new DataColumn[]{texhibitedcud.Columns["idcon"], texhibitedcud.Columns["idexhibitedcud"]};
 
 
-	//////////////////// GEO_CITYVIEW /////////////////////////////////
 	var tgeo_cityview= new DataTable("geo_cityview");
 	C= new DataColumn("idcity", typeof(int));
 	C.AllowDBNull=false;
@@ -164,7 +152,6 @@ private void initClass() {
 	tgeo_cityview.PrimaryKey =  new DataColumn[]{tgeo_cityview.Columns["idcity"]};
 
 
-	//////////////////// FISCALTAXREGION /////////////////////////////////
 	var tfiscaltaxregion= new DataTable("fiscaltaxregion");
 	C= new DataColumn("idfiscaltaxregion", typeof(string));
 	C.AllowDBNull=false;

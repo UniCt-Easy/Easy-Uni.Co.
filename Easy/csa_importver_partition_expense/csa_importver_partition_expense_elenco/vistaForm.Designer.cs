@@ -12,24 +12,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace csa_importver_partition_expense_elenco {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Fasi di spesa
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable expensephase 		=> Tables["expensephase"];
 
@@ -39,27 +33,15 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver_partition_expense 		=> Tables["csa_importver_partition_expense"];
 
-	///<summary>
-	///Importazione CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_import 		=> Tables["csa_import"];
 
-	///<summary>
-	///Importazione Versamenti CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_importver 		=> Tables["csa_importver"];
 
-	///<summary>
-	///Contratto CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_contract 		=> Tables["csa_contract"];
 
-	///<summary>
-	///Anagrafica
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry 		=> Tables["registry"];
 
@@ -69,9 +51,6 @@ public class vistaForm: DataSet {
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable registry_agency 		=> Tables["registry_agency"];
 
-	///<summary>
-	///Ente CSA
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable csa_agency 		=> Tables["csa_agency"];
 
@@ -85,7 +64,6 @@ public class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -105,7 +83,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// EXPENSEPHASE /////////////////////////////////
 	var texpensephase= new DataTable("expensephase");
 	C= new DataColumn("ct", typeof(DateTime));
 	C.AllowDBNull=false;
@@ -129,7 +106,6 @@ private void initClass() {
 	texpensephase.PrimaryKey =  new DataColumn[]{texpensephase.Columns["nphase"]};
 
 
-	//////////////////// EXPENSEVIEW /////////////////////////////////
 	var texpenseview= new DataTable("expenseview");
 	C= new DataColumn("idexp", typeof(int));
 	C.AllowDBNull=false;
@@ -242,7 +218,6 @@ private void initClass() {
 	texpenseview.PrimaryKey =  new DataColumn[]{texpenseview.Columns["idexp"]};
 
 
-	//////////////////// CSA_IMPORTVER_PARTITION_EXPENSE /////////////////////////////////
 	var tcsa_importver_partition_expense= new DataTable("csa_importver_partition_expense");
 	C= new DataColumn("idcsa_import", typeof(int));
 	C.AllowDBNull=false;
@@ -266,7 +241,6 @@ private void initClass() {
 	tcsa_importver_partition_expense.PrimaryKey =  new DataColumn[]{tcsa_importver_partition_expense.Columns["idcsa_import"], tcsa_importver_partition_expense.Columns["idver"], tcsa_importver_partition_expense.Columns["ndetail"], tcsa_importver_partition_expense.Columns["idexp"]};
 
 
-	//////////////////// CSA_IMPORT /////////////////////////////////
 	var tcsa_import= new DataTable("csa_import");
 	C= new DataColumn("idcsa_import", typeof(int));
 	C.AllowDBNull=false;
@@ -303,7 +277,6 @@ private void initClass() {
 	tcsa_import.PrimaryKey =  new DataColumn[]{tcsa_import.Columns["idcsa_import"]};
 
 
-	//////////////////// CSA_IMPORTVER /////////////////////////////////
 	var tcsa_importver= new DataTable("csa_importver");
 	C= new DataColumn("idcsa_import", typeof(int));
 	C.AllowDBNull=false;
@@ -375,7 +348,6 @@ private void initClass() {
 	tcsa_importver.PrimaryKey =  new DataColumn[]{tcsa_importver.Columns["idcsa_import"], tcsa_importver.Columns["idver"]};
 
 
-	//////////////////// CSA_CONTRACT /////////////////////////////////
 	var tcsa_contract= new DataTable("csa_contract");
 	C= new DataColumn("idcsa_contract", typeof(int));
 	C.AllowDBNull=false;
@@ -424,7 +396,6 @@ private void initClass() {
 	tcsa_contract.PrimaryKey =  new DataColumn[]{tcsa_contract.Columns["idcsa_contract"], tcsa_contract.Columns["ayear"]};
 
 
-	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new DataTable("registry");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
@@ -488,7 +459,6 @@ private void initClass() {
 	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 
 
-	//////////////////// CSA_MOVKIND /////////////////////////////////
 	var tcsa_movkind= new DataTable("csa_movkind");
 	C= new DataColumn("movkind", typeof(int));
 	C.AllowDBNull=false;
@@ -498,7 +468,6 @@ private void initClass() {
 	tcsa_movkind.PrimaryKey =  new DataColumn[]{tcsa_movkind.Columns["movkind"]};
 
 
-	//////////////////// REGISTRY_AGENCY /////////////////////////////////
 	var tregistry_agency= new DataTable("registry_agency");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
@@ -562,7 +531,6 @@ private void initClass() {
 	tregistry_agency.PrimaryKey =  new DataColumn[]{tregistry_agency.Columns["idreg"]};
 
 
-	//////////////////// CSA_AGENCY /////////////////////////////////
 	var tcsa_agency= new DataTable("csa_agency");
 	C= new DataColumn("idcsa_agency", typeof(int));
 	C.AllowDBNull=false;
@@ -596,7 +564,6 @@ private void initClass() {
 	tcsa_agency.PrimaryKey =  new DataColumn[]{tcsa_agency.Columns["idcsa_agency"]};
 
 
-	//////////////////// REGISTRY_MAIN /////////////////////////////////
 	var tregistry_main= new DataTable("registry_main");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;

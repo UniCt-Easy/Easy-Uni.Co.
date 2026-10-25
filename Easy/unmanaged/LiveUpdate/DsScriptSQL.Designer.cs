@@ -46,7 +46,6 @@ private void InitClass() {
 	#region create DataTables
 	DataTable T;
 	DataColumn C;
-	//////////////////// updatedbversion /////////////////////////////////
 	T= new DataTable("updatedbversion");
 	C= new DataColumn("versionname", typeof(System.String));
 	C.AllowDBNull=false;
@@ -60,7 +59,6 @@ private void InitClass() {
 	T.PrimaryKey =  new DataColumn[]{T.Columns["versionname"]};
 
 
-	//////////////////// updatedbscript /////////////////////////////////
 	T= new DataTable("updatedbscript");
 	C= new DataColumn("versionname", typeof(System.String));
 	C.AllowDBNull=false;

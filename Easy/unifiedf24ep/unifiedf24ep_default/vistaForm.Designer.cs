@@ -12,84 +12,48 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace unifiedf24ep_default {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
 public class vistaForm: DataSet {
 
 	#region Table members declaration
-	///<summary>
-	///Tipi Sanzioni F24 EP
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable f24epsanctionkind 		=> Tables["f24epsanctionkind"];
 
-	///<summary>
-	///Informazioni ente contabile
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable license 		=> Tables["license"];
 
-	///<summary>
-	///Configurazione Annuale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable config 		=> Tables["config"];
 
-	///<summary>
-	///Modello F24 EP consolidato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable unifiedf24ep 		=> Tables["unifiedf24ep"];
 
-	///<summary>
-	///Sanzione F24 EP
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable unifiedf24epsanction 		=> Tables["unifiedf24epsanction"];
 
-	///<summary>
-	///Ritenute centralizzate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable unifiedtax 		=> Tables["unifiedtax"];
 
-	///<summary>
-	///Correzioni Ritenute centralizzate
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable unifiedtaxcorrige 		=> Tables["unifiedtaxcorrige"];
 
-	///<summary>
-	///iddb dei vari dipartimenti presenti
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable dbdepartment 		=> Tables["dbdepartment"];
 
-	///<summary>
-	///Tipi di ritenuta
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable tax 		=> Tables["tax"];
 
-	///<summary>
-	///Nomi e codici dei mesi nel codice fiscale
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable monthname 		=> Tables["monthname"];
 
-	///<summary>
-	///Tipo recupero consolidato
-	///</summary>
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),Browsable(false)]
 	public DataTable unifiedclawback 		=> Tables["unifiedclawback"];
 
@@ -100,7 +64,6 @@ public class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -119,7 +82,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// F24EPSANCTIONKIND /////////////////////////////////
 	var tf24epsanctionkind= new DataTable("f24epsanctionkind");
 	C= new DataColumn("idsanction", typeof(int));
 	C.AllowDBNull=false;
@@ -140,7 +102,6 @@ private void initClass() {
 	tf24epsanctionkind.PrimaryKey =  new DataColumn[]{tf24epsanctionkind.Columns["idsanction"]};
 
 
-	//////////////////// LICENSE /////////////////////////////////
 	var tlicense= new DataTable("license");
 	C= new DataColumn("dummykey", typeof(string));
 	C.AllowDBNull=false;
@@ -191,7 +152,6 @@ private void initClass() {
 	tlicense.PrimaryKey =  new DataColumn[]{tlicense.Columns["dummykey"]};
 
 
-	//////////////////// CONFIG /////////////////////////////////
 	var tconfig= new DataTable("config");
 	C= new DataColumn("ayear", typeof(short));
 	C.AllowDBNull=false;
@@ -297,7 +257,6 @@ private void initClass() {
 	tconfig.PrimaryKey =  new DataColumn[]{tconfig.Columns["ayear"]};
 
 
-	//////////////////// UNIFIEDF24EP /////////////////////////////////
 	var tunifiedf24ep= new DataTable("unifiedf24ep");
 	C= new DataColumn("idunifiedf24ep", typeof(int));
 	C.AllowDBNull=false;
@@ -326,7 +285,6 @@ private void initClass() {
 	tunifiedf24ep.PrimaryKey =  new DataColumn[]{tunifiedf24ep.Columns["idunifiedf24ep"]};
 
 
-	//////////////////// UNIFIEDF24EPSANCTION /////////////////////////////////
 	var tunifiedf24epsanction= new DataTable("unifiedf24epsanction");
 	C= new DataColumn("idunifiedf24ep", typeof(int));
 	C.AllowDBNull=false;
@@ -346,7 +304,6 @@ private void initClass() {
 	tunifiedf24epsanction.PrimaryKey =  new DataColumn[]{tunifiedf24epsanction.Columns["idunifiedf24ep"], tunifiedf24epsanction.Columns["idsanctionf24"]};
 
 
-	//////////////////// UNIFIEDTAX /////////////////////////////////
 	var tunifiedtax= new DataTable("unifiedtax");
 	C= new DataColumn("idunifiedtax", typeof(int));
 	C.AllowDBNull=false;
@@ -397,7 +354,6 @@ private void initClass() {
 	tunifiedtax.PrimaryKey =  new DataColumn[]{tunifiedtax.Columns["idunifiedtax"]};
 
 
-	//////////////////// UNIFIEDTAXCORRIGE /////////////////////////////////
 	var tunifiedtaxcorrige= new DataTable("unifiedtaxcorrige");
 	C= new DataColumn("idunifiedtaxcorrige", typeof(int));
 	C.AllowDBNull=false;
@@ -438,7 +394,6 @@ private void initClass() {
 	tunifiedtaxcorrige.PrimaryKey =  new DataColumn[]{tunifiedtaxcorrige.Columns["idunifiedtaxcorrige"]};
 
 
-	//////////////////// DBDEPARTMENT /////////////////////////////////
 	var tdbdepartment= new DataTable("dbdepartment");
 	tdbdepartment.Columns.Add( new DataColumn("description", typeof(string)));
 	C= new DataColumn("iddbdepartment", typeof(string));
@@ -450,7 +405,6 @@ private void initClass() {
 	tdbdepartment.PrimaryKey =  new DataColumn[]{tdbdepartment.Columns["iddbdepartment"]};
 
 
-	//////////////////// TAX /////////////////////////////////
 	var ttax= new DataTable("tax");
 	ttax.Columns.Add( new DataColumn("active", typeof(string)));
 	ttax.Columns.Add( new DataColumn("appliancebasis", typeof(string)));
@@ -491,7 +445,6 @@ private void initClass() {
 	ttax.PrimaryKey =  new DataColumn[]{ttax.Columns["taxcode"]};
 
 
-	//////////////////// MONTHNAME /////////////////////////////////
 	var tmonthname= new DataTable("monthname");
 	C= new DataColumn("code", typeof(int));
 	C.AllowDBNull=false;
@@ -502,7 +455,6 @@ private void initClass() {
 	tmonthname.PrimaryKey =  new DataColumn[]{tmonthname.Columns["code"]};
 
 
-	//////////////////// UNIFIEDCLAWBACK /////////////////////////////////
 	var tunifiedclawback= new DataTable("unifiedclawback");
 	tunifiedclawback.Columns.Add( new DataColumn("idunifiedf24ep", typeof(int)));
 	tunifiedclawback.Columns.Add( new DataColumn("amount", typeof(decimal)));

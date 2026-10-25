@@ -12,15 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 #pragma warning disable 1591
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
 namespace registryreference_contatto {
 [Serializable,DesignerCategory("code"),System.Xml.Serialization.XmlSchemaProvider("GetTypedDataSetSchema")]
 [System.Xml.Serialization.XmlRoot("vistaForm"),System.ComponentModel.Design.HelpKeyword("vs.data.DataSet")]
@@ -49,7 +46,6 @@ public partial class vistaForm: DataSet {
 	public new DataTableCollection Tables => base.Tables;
 
 	[DebuggerNonUserCode,DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-// ReSharper disable once MemberCanBePrivate.Global
 	public new DataRelationCollection Relations => base.Relations;
 
 [DebuggerNonUserCode]
@@ -68,7 +64,6 @@ private void initClass() {
 
 	#region create DataTables
 	DataColumn C;
-	//////////////////// REGISTRYREFERENCE /////////////////////////////////
 	var tregistryreference= new DataTable("registryreference");
 	C= new DataColumn("referencename", typeof(string));
 	C.AllowDBNull=false;
@@ -83,6 +78,8 @@ private void initClass() {
 	tregistryreference.Columns.Add( new DataColumn("email", typeof(string)));
 	tregistryreference.Columns.Add( new DataColumn("userweb", typeof(string)));
 	tregistryreference.Columns.Add( new DataColumn("passwordweb", typeof(string)));
+	tregistryreference.Columns.Add( new DataColumn("saltweb", typeof(string)));
+	tregistryreference.Columns.Add( new DataColumn("iterweb", typeof(int)));
 	tregistryreference.Columns.Add( new DataColumn("txt", typeof(string)));
 	tregistryreference.Columns.Add( new DataColumn("rtf", typeof(Byte[])));
 	C= new DataColumn("cu", typeof(string));
@@ -108,7 +105,6 @@ private void initClass() {
 	tregistryreference.PrimaryKey =  new DataColumn[]{tregistryreference.Columns["idreg"], tregistryreference.Columns["idregistryreference"]};
 
 
-	//////////////////// REGISTRY /////////////////////////////////
 	var tregistry= new DataTable("registry");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
@@ -148,7 +144,6 @@ private void initClass() {
 	tregistry.PrimaryKey =  new DataColumn[]{tregistry.Columns["idreg"]};
 
 
-	//////////////////// REGISTRYREFERENCEVIEW /////////////////////////////////
 	var tregistryreferenceview= new DataTable("registryreferenceview");
 	C= new DataColumn("referencename", typeof(string));
 	C.AllowDBNull=false;
@@ -189,7 +184,6 @@ private void initClass() {
 	tregistryreferenceview.PrimaryKey =  new DataColumn[]{tregistryreferenceview.Columns["idreg"], tregistryreferenceview.Columns["idregistryreference"]};
 
 
-	//////////////////// REGISTRYMAINVIEW /////////////////////////////////
 	var tregistrymainview= new DataTable("registrymainview");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;
@@ -249,7 +243,6 @@ private void initClass() {
 	tregistrymainview.PrimaryKey =  new DataColumn[]{tregistrymainview.Columns["idreg"]};
 
 
-	//////////////////// REGISTRYREFERENCEATTACHMENT /////////////////////////////////
 	var tregistryreferenceattachment= new DataTable("registryreferenceattachment");
 	C= new DataColumn("idreg", typeof(int));
 	C.AllowDBNull=false;

@@ -18,7 +18,6 @@ using System.Data;
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class dsCedolino: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 public DataTable payroll{get { return this.Tables["payroll"];}}
@@ -140,7 +139,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("netfee", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("!causa", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idpayroll"]};
 	T.PrimaryKey = key;
@@ -177,7 +175,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("annualtaxabletotal", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("annualpayedemploytax", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["idpayroll"], 	T.Columns["idpayrolltax"]};
 	T.PrimaryKey = key;
@@ -205,7 +202,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("lu", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("lt", typeof(System.DateTime), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[3]{
 	T.Columns["idpayroll"], 	T.Columns["idpayrolltax"], 	T.Columns["nbracket"]};
 	T.PrimaryKey = key;
@@ -223,7 +219,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("annualamount", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("curramount", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["idpayroll"], 	T.Columns["iddeduction"]};
 	T.PrimaryKey = key;
@@ -241,7 +236,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("annualamount", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("curramount", typeof(System.Decimal), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["idpayroll"], 	T.Columns["idabatement"]};
 	T.PrimaryKey = key;
@@ -307,7 +301,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("netfee", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("!denominazione", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idpayroll"]};
 	T.PrimaryKey = key;
@@ -369,7 +362,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idpayroll"]};
 	T.PrimaryKey = key;
@@ -435,7 +427,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("!denominazione", typeof(System.String), ""));
 	T.Columns.Add(new DataColumn("!causa", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idpayroll"]};
 	T.PrimaryKey = key;
@@ -502,7 +493,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("idsor3", typeof(System.Int32), ""));
 	T.Columns.Add(new DataColumn("idupb", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idcon"]};
 	T.PrimaryKey = key;
@@ -548,7 +538,6 @@ this.EnforceConstraints = false;
 	T.Columns.Add(new DataColumn("competencymonths", typeof(System.Decimal), ""));
 	T.Columns.Add(new DataColumn("idemenscontractkind", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["ayear"], 	T.Columns["idcon"]};
 	T.PrimaryKey = key;
@@ -598,13 +587,11 @@ this.EnforceConstraints = false;
 
 	T.Columns.Add(new DataColumn("flagneedbalance", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idser"]};
 	T.PrimaryKey = key;
 
 
-//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;

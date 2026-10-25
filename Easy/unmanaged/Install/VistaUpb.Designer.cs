@@ -19,7 +19,6 @@ using System.Data;
 [Serializable()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class VistaUpb: System.Data.DataSet {
-// List of DataTables
 [System.Diagnostics.DebuggerNonUserCodeAttribute()]
 [System.ComponentModel.Browsable(false)]
 [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
@@ -95,7 +94,6 @@ this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 
 	T.Columns.Add(new DataColumn("active", typeof(System.String), ""));
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[1]{
 	T.Columns["idupb"]};
 	T.PrimaryKey = key;
@@ -156,7 +154,6 @@ this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[2]{
 	T.Columns["yvar"], 	T.Columns["nvar"]};
 	T.PrimaryKey = key;
@@ -197,13 +194,11 @@ this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 	T.Columns.Add(C);
 
 	Tables.Add(T);
-//Primary Key
 	key = new DataColumn[4]{
 	T.Columns["idfin"], 	T.Columns["idupb"], 	T.Columns["nvar"], 	T.Columns["yvar"]};
 	T.PrimaryKey = key;
 
 
-//Relations
 DataTable TPar;
 DataTable TChild;
 DataColumn []CPar;

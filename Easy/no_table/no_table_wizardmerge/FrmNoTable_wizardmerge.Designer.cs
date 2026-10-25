@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace no_table_wizardmerge {
     partial class FrmNoTable_wizardmerge {
-        /// <summary>
-        /// Variabile di progettazione necessaria.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Liberare le risorse in uso.
-        /// </summary>
-        /// <param name="disposing">ha valore true se le risorse gestite devono essere eliminate, false in caso contrario.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace no_table_wizardmerge {
 
         #region Codice generato da Progettazione Windows Form
 
-        /// <summary>
-        /// Metodo necessario per il supporto della finestra di progettazione. Non modificare
-        /// il contenuto del metodo con l'editor di codice.
-        /// </summary>
         private void InitializeComponent() {
 			this.tabController = new Crownwood.Magic.Controls.TabControl();
 			this.tabIntro = new Crownwood.Magic.Controls.TabPage();
@@ -125,9 +113,6 @@ namespace no_table_wizardmerge {
 			this.tabCopyNonDBO.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// tabController
-			// 
 			this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -145,18 +130,12 @@ namespace no_table_wizardmerge {
             this.tabCheckFin,
             this.tabCopyDBO,
             this.tabCopyNonDBO});
-			// 
-			// tabIntro
-			// 
 			this.tabIntro.Controls.Add(this.txtIntro);
 			this.tabIntro.Location = new System.Drawing.Point(0, 0);
 			this.tabIntro.Name = "tabIntro";
 			this.tabIntro.Size = new System.Drawing.Size(908, 631);
 			this.tabIntro.TabIndex = 4;
 			this.tabIntro.Title = "Introduzione";
-			// 
-			// txtIntro
-			// 
 			this.txtIntro.AcceptsReturn = true;
 			this.txtIntro.AcceptsTab = true;
 			this.txtIntro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -168,9 +147,6 @@ namespace no_table_wizardmerge {
 			this.txtIntro.ReadOnly = true;
 			this.txtIntro.Size = new System.Drawing.Size(878, 602);
 			this.txtIntro.TabIndex = 3;
-			// 
-			// tabPage1
-			// 
 			this.tabPage1.Controls.Add(this.groupBox2);
 			this.tabPage1.Controls.Add(this.label2);
 			this.tabPage1.Controls.Add(this.groupBox1);
@@ -180,9 +156,6 @@ namespace no_table_wizardmerge {
 			this.tabPage1.Size = new System.Drawing.Size(908, 631);
 			this.tabPage1.TabIndex = 5;
 			this.tabPage1.Title = "Passo 1";
-			// 
-			// groupBox2
-			// 
 			this.groupBox2.Controls.Add(this.label17);
 			this.groupBox2.Controls.Add(this.label18);
 			this.groupBox2.Controls.Add(this.txtDestUser);
@@ -195,67 +168,43 @@ namespace no_table_wizardmerge {
 			this.groupBox2.TabIndex = 23;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Dipartimento sul data base principale in cui importare i dati";
-			// 
-			// label17
-			// 
 			this.label17.Location = new System.Drawing.Point(6, 27);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(176, 23);
 			this.label17.TabIndex = 24;
 			this.label17.Text = "Nome utente per connettersi";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label18
-			// 
 			this.label18.Location = new System.Drawing.Point(76, 51);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(100, 23);
 			this.label18.TabIndex = 25;
 			this.label18.Text = "Password";
 			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDestUser
-			// 
 			this.txtDestUser.Location = new System.Drawing.Point(182, 27);
 			this.txtDestUser.Name = "txtDestUser";
 			this.txtDestUser.Size = new System.Drawing.Size(200, 23);
 			this.txtDestUser.TabIndex = 1;
-			// 
-			// txtDestPwd
-			// 
 			this.txtDestPwd.Location = new System.Drawing.Point(182, 51);
 			this.txtDestPwd.Name = "txtDestPwd";
 			this.txtDestPwd.PasswordChar = '*';
 			this.txtDestPwd.Size = new System.Drawing.Size(200, 23);
 			this.txtDestPwd.TabIndex = 2;
-			// 
-			// label16
-			// 
 			this.label16.Location = new System.Drawing.Point(12, 79);
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(168, 23);
 			this.label16.TabIndex = 22;
 			this.label16.Text = " Dipartimento";
 			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtDipDestinazione
-			// 
 			this.txtDipDestinazione.Location = new System.Drawing.Point(184, 81);
 			this.txtDipDestinazione.Name = "txtDipDestinazione";
 			this.txtDipDestinazione.Size = new System.Drawing.Size(200, 23);
 			this.txtDipDestinazione.TabIndex = 3;
-			// 
-			// label2
-			// 
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(16, 11);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(188, 15);
 			this.label2.TabIndex = 22;
 			this.label2.Text = "Selezione del Database Secondario";
-			// 
-			// groupBox1
-			// 
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.txtSourceDip);
 			this.groupBox1.Controls.Add(this.label32);
@@ -272,90 +221,57 @@ namespace no_table_wizardmerge {
 			this.groupBox1.TabIndex = 21;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Database esistente da cui importare i dati";
-			// 
-			// label1
-			// 
 			this.label1.Location = new System.Drawing.Point(12, 109);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(168, 23);
 			this.label1.TabIndex = 20;
 			this.label1.Text = "Dipartimento";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtSourceDip
-			// 
 			this.txtSourceDip.Location = new System.Drawing.Point(184, 111);
 			this.txtSourceDip.Name = "txtSourceDip";
 			this.txtSourceDip.Size = new System.Drawing.Size(200, 23);
 			this.txtSourceDip.TabIndex = 21;
-			// 
-			// label32
-			// 
 			this.label32.Location = new System.Drawing.Point(80, 16);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(100, 23);
 			this.label32.TabIndex = 11;
 			this.label32.Text = "Nome server";
 			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label31
-			// 
 			this.label31.Location = new System.Drawing.Point(16, 40);
 			this.label31.Name = "label31";
 			this.label31.Size = new System.Drawing.Size(168, 23);
 			this.label31.TabIndex = 12;
 			this.label31.Text = "Nome del database";
 			this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label30
-			// 
 			this.label30.Location = new System.Drawing.Point(8, 64);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(176, 23);
 			this.label30.TabIndex = 13;
 			this.label30.Text = "Nome utente per connettersi";
 			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label29
-			// 
 			this.label29.Location = new System.Drawing.Point(78, 88);
 			this.label29.Name = "label29";
 			this.label29.Size = new System.Drawing.Size(100, 23);
 			this.label29.TabIndex = 14;
 			this.label29.Text = "Password";
 			this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtSourceServer
-			// 
 			this.txtSourceServer.Location = new System.Drawing.Point(184, 16);
 			this.txtSourceServer.Name = "txtSourceServer";
 			this.txtSourceServer.Size = new System.Drawing.Size(200, 23);
 			this.txtSourceServer.TabIndex = 16;
-			// 
-			// txtSourceDataBase
-			// 
 			this.txtSourceDataBase.Location = new System.Drawing.Point(184, 40);
 			this.txtSourceDataBase.Name = "txtSourceDataBase";
 			this.txtSourceDataBase.Size = new System.Drawing.Size(200, 23);
 			this.txtSourceDataBase.TabIndex = 17;
-			// 
-			// txtSourceUser
-			// 
 			this.txtSourceUser.Location = new System.Drawing.Point(184, 64);
 			this.txtSourceUser.Name = "txtSourceUser";
 			this.txtSourceUser.Size = new System.Drawing.Size(200, 23);
 			this.txtSourceUser.TabIndex = 18;
-			// 
-			// txtSourcePwd
-			// 
 			this.txtSourcePwd.Location = new System.Drawing.Point(184, 88);
 			this.txtSourcePwd.Name = "txtSourcePwd";
 			this.txtSourcePwd.PasswordChar = '*';
 			this.txtSourcePwd.Size = new System.Drawing.Size(200, 23);
 			this.txtSourcePwd.TabIndex = 19;
-			// 
-			// tabCheckDBO
-			// 
 			this.tabCheckDBO.Controls.Add(this.label19);
 			this.tabCheckDBO.Controls.Add(this.label20);
 			this.tabCheckDBO.Controls.Add(this.dgridC1);
@@ -375,27 +291,18 @@ namespace no_table_wizardmerge {
 			this.tabCheckDBO.Size = new System.Drawing.Size(908, 631);
 			this.tabCheckDBO.TabIndex = 6;
 			this.tabCheckDBO.Title = "Passo 2";
-			// 
-			// label19
-			// 
 			this.label19.AutoSize = true;
 			this.label19.Location = new System.Drawing.Point(468, 264);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(83, 15);
 			this.label19.TabIndex = 45;
 			this.label19.Text = "DB secondario";
-			// 
-			// label20
-			// 
 			this.label20.AutoSize = true;
 			this.label20.Location = new System.Drawing.Point(12, 264);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(315, 15);
 			this.label20.TabIndex = 44;
 			this.label20.Text = "Righe presenti solo sul database da importare (secondario)";
-			// 
-			// dgridC1
-			// 
 			this.dgridC1.AllowNavigation = false;
 			this.dgridC1.AllowSorting = false;
 			this.dgridC1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -409,9 +316,6 @@ namespace no_table_wizardmerge {
 			this.dgridC1.Size = new System.Drawing.Size(887, 147);
 			this.dgridC1.TabIndex = 43;
 			this.dgridC1.Tag = "";
-			// 
-			// labDBPrinc
-			// 
 			this.labDBPrinc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labDBPrinc.AutoSize = true;
 			this.labDBPrinc.Location = new System.Drawing.Point(468, 430);
@@ -419,18 +323,12 @@ namespace no_table_wizardmerge {
 			this.labDBPrinc.Size = new System.Drawing.Size(77, 15);
 			this.labDBPrinc.TabIndex = 42;
 			this.labDBPrinc.Text = "DB principale";
-			// 
-			// labDBSec
-			// 
 			this.labDBSec.AutoSize = true;
 			this.labDBSec.Location = new System.Drawing.Point(468, 97);
 			this.labDBSec.Name = "labDBSec";
 			this.labDBSec.Size = new System.Drawing.Size(83, 15);
 			this.labDBSec.TabIndex = 41;
 			this.labDBSec.Text = "DB secondario";
-			// 
-			// btnAssumi
-			// 
 			this.btnAssumi.Location = new System.Drawing.Point(650, 55);
 			this.btnAssumi.Name = "btnAssumi";
 			this.btnAssumi.Size = new System.Drawing.Size(163, 39);
@@ -438,9 +336,6 @@ namespace no_table_wizardmerge {
 			this.btnAssumi.Text = "Assumi come buoni quelli del db secondario";
 			this.btnAssumi.UseVisualStyleBackColor = true;
 			this.btnAssumi.Click += new System.EventHandler(this.btnAssumi_Click);
-			// 
-			// btnProcedi
-			// 
 			this.btnProcedi.Location = new System.Drawing.Point(650, 10);
 			this.btnProcedi.Name = "btnProcedi";
 			this.btnProcedi.Size = new System.Drawing.Size(163, 39);
@@ -448,9 +343,6 @@ namespace no_table_wizardmerge {
 			this.btnProcedi.Text = "Procedi (prendi per buoni quelli del db principale)";
 			this.btnProcedi.UseVisualStyleBackColor = true;
 			this.btnProcedi.Click += new System.EventHandler(this.btnProcedi_Click);
-			// 
-			// txt2
-			// 
 			this.txt2.Location = new System.Drawing.Point(10, 26);
 			this.txt2.Multiline = true;
 			this.txt2.Name = "txt2";
@@ -458,9 +350,6 @@ namespace no_table_wizardmerge {
 			this.txt2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txt2.Size = new System.Drawing.Size(632, 68);
 			this.txt2.TabIndex = 38;
-			// 
-			// labDBCorrente
-			// 
 			this.labDBCorrente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labDBCorrente.AutoSize = true;
 			this.labDBCorrente.Location = new System.Drawing.Point(12, 430);
@@ -468,18 +357,12 @@ namespace no_table_wizardmerge {
 			this.labDBCorrente.Size = new System.Drawing.Size(165, 15);
 			this.labDBCorrente.TabIndex = 37;
 			this.labDBCorrente.Text = "Database corrente (principale)";
-			// 
-			// labDBOrigine
-			// 
 			this.labDBOrigine.AutoSize = true;
 			this.labDBOrigine.Location = new System.Drawing.Point(12, 97);
 			this.labDBOrigine.Name = "labDBOrigine";
 			this.labDBOrigine.Size = new System.Drawing.Size(312, 15);
 			this.labDBOrigine.TabIndex = 36;
 			this.labDBOrigine.Text = "Possibibili conflitti sul database da importare (secondario)";
-			// 
-			// dgridB1
-			// 
 			this.dgridB1.AllowNavigation = false;
 			this.dgridB1.AllowSorting = false;
 			this.dgridB1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -493,9 +376,6 @@ namespace no_table_wizardmerge {
 			this.dgridB1.Size = new System.Drawing.Size(887, 172);
 			this.dgridB1.TabIndex = 35;
 			this.dgridB1.Tag = "";
-			// 
-			// dgridA1
-			// 
 			this.dgridA1.AllowNavigation = false;
 			this.dgridA1.AllowSorting = false;
 			this.dgridA1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -509,18 +389,12 @@ namespace no_table_wizardmerge {
 			this.dgridA1.Size = new System.Drawing.Size(887, 147);
 			this.dgridA1.TabIndex = 34;
 			this.dgridA1.Tag = "";
-			// 
-			// label3
-			// 
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(12, 10);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(239, 15);
 			this.label3.TabIndex = 0;
 			this.label3.Text = "Verifica dei dati presenti del db da importare";
-			// 
-			// tabCheckFin
-			// 
 			this.tabCheckFin.Controls.Add(this.cmbFinLevel);
 			this.tabCheckFin.Controls.Add(this.btnCheckFin);
 			this.tabCheckFin.Controls.Add(this.label5);
@@ -538,18 +412,12 @@ namespace no_table_wizardmerge {
 			this.tabCheckFin.Size = new System.Drawing.Size(908, 631);
 			this.tabCheckFin.TabIndex = 7;
 			this.tabCheckFin.Title = "Passo 3";
-			// 
-			// cmbFinLevel
-			// 
 			this.cmbFinLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbFinLevel.FormattingEnabled = true;
 			this.cmbFinLevel.Location = new System.Drawing.Point(719, 38);
 			this.cmbFinLevel.Name = "cmbFinLevel";
 			this.cmbFinLevel.Size = new System.Drawing.Size(176, 23);
 			this.cmbFinLevel.TabIndex = 51;
-			// 
-			// btnCheckFin
-			// 
 			this.btnCheckFin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCheckFin.Location = new System.Drawing.Point(719, 64);
 			this.btnCheckFin.Name = "btnCheckFin";
@@ -558,9 +426,6 @@ namespace no_table_wizardmerge {
 			this.btnCheckFin.Text = "Effettua la verifica";
 			this.btnCheckFin.UseVisualStyleBackColor = true;
 			this.btnCheckFin.Click += new System.EventHandler(this.btnCheckFin_Click);
-			// 
-			// label5
-			// 
 			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.AutoSize = true;
 			this.label5.Location = new System.Drawing.Point(716, 22);
@@ -568,9 +433,6 @@ namespace no_table_wizardmerge {
 			this.label5.Size = new System.Drawing.Size(161, 15);
 			this.label5.TabIndex = 49;
 			this.label5.Text = "Livello sino al quale verificare";
-			// 
-			// labPrinc2
-			// 
 			this.labPrinc2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labPrinc2.AutoSize = true;
 			this.labPrinc2.Location = new System.Drawing.Point(320, 431);
@@ -578,18 +440,12 @@ namespace no_table_wizardmerge {
 			this.labPrinc2.Size = new System.Drawing.Size(77, 15);
 			this.labPrinc2.TabIndex = 48;
 			this.labPrinc2.Text = "DB principale";
-			// 
-			// labSec2
-			// 
 			this.labSec2.AutoSize = true;
 			this.labSec2.Location = new System.Drawing.Point(320, 98);
 			this.labSec2.Name = "labSec2";
 			this.labSec2.Size = new System.Drawing.Size(83, 15);
 			this.labSec2.TabIndex = 47;
 			this.labSec2.Text = "DB secondario";
-			// 
-			// label7
-			// 
 			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label7.AutoSize = true;
 			this.label7.Location = new System.Drawing.Point(10, 431);
@@ -597,18 +453,12 @@ namespace no_table_wizardmerge {
 			this.label7.Size = new System.Drawing.Size(165, 15);
 			this.label7.TabIndex = 46;
 			this.label7.Text = "Database corrente (principale)";
-			// 
-			// label8
-			// 
 			this.label8.AutoSize = true;
 			this.label8.Location = new System.Drawing.Point(10, 98);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(195, 15);
 			this.label8.TabIndex = 45;
 			this.label8.Text = "Database da importare (secondario)";
-			// 
-			// dgridB2
-			// 
 			this.dgridB2.AllowNavigation = false;
 			this.dgridB2.AllowSorting = false;
 			this.dgridB2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -622,9 +472,6 @@ namespace no_table_wizardmerge {
 			this.dgridB2.Size = new System.Drawing.Size(887, 172);
 			this.dgridB2.TabIndex = 44;
 			this.dgridB2.Tag = "";
-			// 
-			// dgridA2
-			// 
 			this.dgridA2.AllowNavigation = false;
 			this.dgridA2.AllowSorting = false;
 			this.dgridA2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -638,9 +485,6 @@ namespace no_table_wizardmerge {
 			this.dgridA2.Size = new System.Drawing.Size(887, 159);
 			this.dgridA2.TabIndex = 43;
 			this.dgridA2.Tag = "";
-			// 
-			// txt3
-			// 
 			this.txt3.Location = new System.Drawing.Point(3, 19);
 			this.txt3.Multiline = true;
 			this.txt3.Name = "txt3";
@@ -648,18 +492,12 @@ namespace no_table_wizardmerge {
 			this.txt3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txt3.Size = new System.Drawing.Size(632, 68);
 			this.txt3.TabIndex = 40;
-			// 
-			// label4
-			// 
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(5, 3);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(185, 15);
 			this.label4.TabIndex = 39;
 			this.label4.Text = "Verifica della struttura del bilancio";
-			// 
-			// tabCopyDBO
-			// 
 			this.tabCopyDBO.Controls.Add(this.label13);
 			this.tabCopyDBO.Controls.Add(this.label12);
 			this.tabCopyDBO.Controls.Add(this.prgBarRegistry);
@@ -675,9 +513,6 @@ namespace no_table_wizardmerge {
 			this.tabCopyDBO.Size = new System.Drawing.Size(908, 631);
 			this.tabCopyDBO.TabIndex = 8;
 			this.tabCopyDBO.Title = "Passo 4";
-			// 
-			// label13
-			// 
 			this.label13.AutoSize = true;
 			this.label13.Location = new System.Drawing.Point(16, 340);
 			this.label13.Name = "label13";
@@ -685,27 +520,18 @@ namespace no_table_wizardmerge {
 			this.label13.TabIndex = 8;
 			this.label13.Text = "Una volta eseguita l\'importazione è importante non aggiungere più dati nel databa" +
     "se secondario";
-			// 
-			// label12
-			// 
 			this.label12.AutoSize = true;
 			this.label12.Location = new System.Drawing.Point(16, 262);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(309, 15);
 			this.label12.TabIndex = 7;
 			this.label12.Text = "Stato di avanzamento dell\'importazione delle anagrafiche";
-			// 
-			// prgBarRegistry
-			// 
 			this.prgBarRegistry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.prgBarRegistry.Location = new System.Drawing.Point(19, 278);
 			this.prgBarRegistry.Name = "prgBarRegistry";
 			this.prgBarRegistry.Size = new System.Drawing.Size(869, 26);
 			this.prgBarRegistry.TabIndex = 6;
-			// 
-			// label11
-			// 
 			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label11.Location = new System.Drawing.Point(12, 59);
@@ -715,27 +541,18 @@ namespace no_table_wizardmerge {
 			this.label11.Text = "Tutti i dati nelle tabelle comuni \"tipologiche\" presenti nel db secondario e non " +
     "in quello principale saranno aggiunti al principale come \"non attivi\" ove esiste" +
     " il concetto di attivo/non attivo.";
-			// 
-			// label10
-			// 
 			this.label10.AutoSize = true;
 			this.label10.Location = new System.Drawing.Point(16, 202);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(317, 15);
 			this.label10.TabIndex = 4;
 			this.label10.Text = "Stato di avanzamento dell\'importazione tabelle tipologiche";
-			// 
-			// prgBarDBO
-			// 
 			this.prgBarDBO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.prgBarDBO.Location = new System.Drawing.Point(19, 218);
 			this.prgBarDBO.Name = "prgBarDBO";
 			this.prgBarDBO.Size = new System.Drawing.Size(869, 26);
 			this.prgBarDBO.TabIndex = 3;
-			// 
-			// btnCopyDBO
-			// 
 			this.btnCopyDBO.Location = new System.Drawing.Point(284, 143);
 			this.btnCopyDBO.Name = "btnCopyDBO";
 			this.btnCopyDBO.Size = new System.Drawing.Size(219, 23);
@@ -743,9 +560,6 @@ namespace no_table_wizardmerge {
 			this.btnCopyDBO.Text = "Inizia l\'importazione ";
 			this.btnCopyDBO.UseVisualStyleBackColor = true;
 			this.btnCopyDBO.Click += new System.EventHandler(this.btnCopyDBO_Click);
-			// 
-			// label9
-			// 
 			this.label9.AutoSize = true;
 			this.label9.Location = new System.Drawing.Point(12, 37);
 			this.label9.Name = "label9";
@@ -753,18 +567,12 @@ namespace no_table_wizardmerge {
 			this.label9.TabIndex = 1;
 			this.label9.Text = "Le anagrafiche saranno tutte trasferite, ma sarà poi possibile, in un secondo mom" +
     "ento, raffinarle con apposite procedure.";
-			// 
-			// label6
-			// 
 			this.label6.AutoSize = true;
 			this.label6.Location = new System.Drawing.Point(12, 14);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(342, 15);
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Si può adesso procedere alla importazione delle tabelle comuni.";
-			// 
-			// tabCopyNonDBO
-			// 
 			this.tabCopyNonDBO.Controls.Add(this.labCurrTable);
 			this.tabCopyNonDBO.Controls.Add(this.pBarCurrTab);
 			this.tabCopyNonDBO.Controls.Add(this.label15);
@@ -777,45 +585,30 @@ namespace no_table_wizardmerge {
 			this.tabCopyNonDBO.Size = new System.Drawing.Size(908, 631);
 			this.tabCopyNonDBO.TabIndex = 9;
 			this.tabCopyNonDBO.Title = "Passo 5";
-			// 
-			// labCurrTable
-			// 
 			this.labCurrTable.AutoSize = true;
 			this.labCurrTable.Location = new System.Drawing.Point(15, 168);
 			this.labCurrTable.Name = "labCurrTable";
 			this.labCurrTable.Size = new System.Drawing.Size(234, 15);
 			this.labCurrTable.TabIndex = 8;
 			this.labCurrTable.Text = "Stato di avanzamento della tabella corrente";
-			// 
-			// pBarCurrTab
-			// 
 			this.pBarCurrTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.pBarCurrTab.Location = new System.Drawing.Point(18, 184);
 			this.pBarCurrTab.Name = "pBarCurrTab";
 			this.pBarCurrTab.Size = new System.Drawing.Size(869, 26);
 			this.pBarCurrTab.TabIndex = 7;
-			// 
-			// label15
-			// 
 			this.label15.AutoSize = true;
 			this.label15.Location = new System.Drawing.Point(15, 104);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(254, 15);
 			this.label15.TabIndex = 6;
 			this.label15.Text = "Stato di avanzamento dell\'importazione tabelle";
-			// 
-			// pbarAllNonDBO
-			// 
 			this.pbarAllNonDBO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.pbarAllNonDBO.Location = new System.Drawing.Point(18, 120);
 			this.pbarAllNonDBO.Name = "pbarAllNonDBO";
 			this.pbarAllNonDBO.Size = new System.Drawing.Size(869, 26);
 			this.pbarAllNonDBO.TabIndex = 5;
-			// 
-			// btnCopyNonDBO
-			// 
 			this.btnCopyNonDBO.Location = new System.Drawing.Point(295, 52);
 			this.btnCopyNonDBO.Name = "btnCopyNonDBO";
 			this.btnCopyNonDBO.Size = new System.Drawing.Size(219, 23);
@@ -823,18 +616,12 @@ namespace no_table_wizardmerge {
 			this.btnCopyNonDBO.Text = "Inizia l\'importazione ";
 			this.btnCopyNonDBO.UseVisualStyleBackColor = true;
 			this.btnCopyNonDBO.Click += new System.EventHandler(this.btnCopyNonDBO_Click);
-			// 
-			// label14
-			// 
 			this.label14.AutoSize = true;
 			this.label14.Location = new System.Drawing.Point(15, 16);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(377, 15);
 			this.label14.TabIndex = 1;
 			this.label14.Text = "Si può adesso procedere alla importazione di tutte le tabelle rimanenti.";
-			// 
-			// btnCancel
-			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Location = new System.Drawing.Point(851, 674);
@@ -844,9 +631,6 @@ namespace no_table_wizardmerge {
 			this.btnCancel.Tag = "maincancel";
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-			// 
-			// btnNext
-			// 
 			this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnNext.Location = new System.Drawing.Point(731, 674);
 			this.btnNext.Name = "btnNext";
@@ -854,9 +638,6 @@ namespace no_table_wizardmerge {
 			this.btnNext.TabIndex = 21;
 			this.btnNext.Text = "Avanti >";
 			this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-			// 
-			// btnBack
-			// 
 			this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnBack.Location = new System.Drawing.Point(643, 674);
 			this.btnBack.Name = "btnBack";
@@ -864,9 +645,6 @@ namespace no_table_wizardmerge {
 			this.btnBack.TabIndex = 20;
 			this.btnBack.Text = "< Indietro";
 			this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-			// 
-			// btnRefresh
-			// 
 			this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnRefresh.Location = new System.Drawing.Point(430, 674);
 			this.btnRefresh.Name = "btnRefresh";
@@ -876,13 +654,7 @@ namespace no_table_wizardmerge {
 			this.btnRefresh.UseVisualStyleBackColor = true;
 			this.btnRefresh.Visible = false;
 			this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-			// 
-			// DS
-			// 
 			this.DS.DataSetName = "vistaForm";
-			// 
-			// FrmNoTable_wizardmerge
-			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			this.ClientSize = new System.Drawing.Size(932, 709);
 			this.Controls.Add(this.btnRefresh);

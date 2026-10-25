@@ -12,18 +12,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 namespace unifiedf24ep_default {
     partial class SubF24 {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -33,10 +25,6 @@ namespace unifiedf24ep_default {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
             this.gridErrori = new System.Windows.Forms.DataGrid();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,9 +32,6 @@ namespace unifiedf24ep_default {
             this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridErrori)).BeginInit();
             this.SuspendLayout();
-            // 
-            // gridErrori
-            // 
             this.gridErrori.AllowNavigation = false;
             this.gridErrori.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -59,9 +44,6 @@ namespace unifiedf24ep_default {
             this.gridErrori.TabIndex = 5;
             this.gridErrori.TabStop = false;
             this.gridErrori.Tag = "taxpayview.f24ep";
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
@@ -69,9 +51,6 @@ namespace unifiedf24ep_default {
             this.label1.TabIndex = 6;
             this.label1.Text = "Non è stato possibile generare il modello F24 EP in quanto sono stati riscontrati" +
                 " i seguenti problemi:";
-            // 
-            // btnAccept
-            // 
             this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnAccept.Location = new System.Drawing.Point(326, 389);
@@ -80,9 +59,6 @@ namespace unifiedf24ep_default {
             this.btnAccept.TabIndex = 7;
             this.btnAccept.Text = "OK";
             this.btnAccept.UseVisualStyleBackColor = true;
-            // 
-            // btnCancel
-            // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(434, 389);
@@ -91,9 +67,6 @@ namespace unifiedf24ep_default {
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Annulla";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // SubF24
-            // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

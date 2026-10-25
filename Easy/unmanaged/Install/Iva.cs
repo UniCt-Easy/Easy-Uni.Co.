@@ -20,17 +20,8 @@ using funzioni_configurazione;
 
 namespace Install
 {
-	/// <summary>
-	/// Summary description for Iva.
-	/// </summary>
 	public class Iva
 	{
-		/// <summary>
-		/// Crea la tabella di mezzo tra invoicekind e ivaregisterkind
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
 		public static bool creaInvoicekindRegisterkind(Form form, DataAccess sourceConn, DataAccess destConn) {
 			string query = "select distinct idinvkind=codicetipodoc, idivaregisterkind=codicetiporeg "
 				+ "from tipodocoperiva "
@@ -105,31 +96,17 @@ namespace Install
 		public static bool migraSpeciali(Form form, DataAccess sourceConn, DataAccess destConn, 
 			DataTable tColName) 
 		{
-			//registroiva, documentoiva -> invoicekindregisterkind
 			if (!creaInvoicekindRegisterkind(form, sourceConn, destConn)) return false;
 		
-			//tipodocumentoiva -> invoicekind
 			if (!migraTipoDocumentoIva(form, sourceConn, destConn, tColName)) return false;
 
-			//iva_prorata -> iva_prorata
 			if (!migraIvaProRata(form, sourceConn, destConn, tColName)) return false;
 
-			//iva_promiscuo -> iva_mixed
 			if (!migraIvaPromiscuo(form, sourceConn, destConn, tColName)) return false;
 
-			//liquidazioneiva -> invoicedeferred
 			return migraInvoiceDeferred(form, sourceConn, destConn);
 		}
 
-		/// <summary>
-		/// Metodo da chiamare se il checkBox dell'IVA è checked.
-		/// Migra tutte le tabelle dell'IVA, di configurazione e non.
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="sourceConn"></param>
-		/// <param name="destConn"></param>
-		/// <param name="tTableName"></param>
-		/// <param name="tColName"></param>
 		public static bool migraIva(Form form, DataAccess sourceConn, DataAccess destConn, 
 			DataTable tTableName, DataTable tColName) 
 		{
@@ -156,15 +133,12 @@ namespace Install
 		}
 
 		public static void RifinisciDettagliFattura(Form form, DataAccess destConn){
-			//Se non ci sono fatture esci
 			int NFatture = destConn.RUN_SELECT_COUNT("invoice",null,false);
 			if (NFatture==0) return;
 
-			//Se non ci sono liquidazioni esci
 			int NLiquid = destConn.RUN_SELECT_COUNT("ivapay",null,false);
 			if (NLiquid==0) return;
 
-			//Chiede
 			if (MetaFactory.factory.getSingleton<IMessageShower>().Show(form,"Si desidera rifinire i dettagli fattura dell'ultimo esercizio per farli quadrare approssimativamente "+
 				"con le liquidazioni  iva precedenti?","Conferma",MessageBoxButtons.YesNo)==DialogResult.No)return;
 

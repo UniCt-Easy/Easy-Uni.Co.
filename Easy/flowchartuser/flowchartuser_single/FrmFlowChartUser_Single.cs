@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +39,7 @@ namespace flowchartuser_single {
             Conn = Meta.Conn;
             CQueryHelper QHC = new CQueryHelper();
             QHS = Meta.Conn.GetQueryHelper();
-            string filterDepartment = QHS.CmpEq("iddbdepartment", Meta.GetSys("userdb"));
+            string filterDepartment = QHS.CmpEq("iddbdepartment", (Meta.GetSys("schema") ?? Meta.GetSys("userdb")));
             DataTable tDBAccess = Meta.Conn.CreateTableByName("dbaccess", "*");
             Meta.Conn.RUN_SELECT_INTO_TABLE(tDBAccess, null, filterDepartment, null, false);
             string loginNameList = QueryCreator.ColumnValues(tDBAccess, null, "login", true);

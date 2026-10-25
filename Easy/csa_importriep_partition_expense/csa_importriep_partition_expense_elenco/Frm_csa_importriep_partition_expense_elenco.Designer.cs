@@ -14,15 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 namespace csa_importriep_partition_expense_elenco {
     partial class Frm_csa_importriep_partition_expense_elenco {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
@@ -32,10 +25,6 @@ namespace csa_importriep_partition_expense_elenco {
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent() {
 			this.DS = new csa_importriep_partition_expense_elenco.vistaForm();
 			this.txtDenominazioneConto = new System.Windows.Forms.TextBox();
@@ -104,14 +93,8 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxImporto.SuspendLayout();
 			this.gBoxAnagraficaRiep.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// DS
-			// 
 			this.DS.DataSetName = "vistaForm";
 			this.DS.EnforceConstraints = false;
-			// 
-			// txtDenominazioneConto
-			// 
 			this.txtDenominazioneConto.Location = new System.Drawing.Point(136, 16);
 			this.txtDenominazioneConto.Multiline = true;
 			this.txtDenominazioneConto.Name = "txtDenominazioneConto";
@@ -121,17 +104,11 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtDenominazioneConto.TabIndex = 2;
 			this.txtDenominazioneConto.TabStop = false;
 			this.txtDenominazioneConto.Tag = "account.title";
-			// 
-			// txtCodiceConto
-			// 
 			this.txtCodiceConto.Location = new System.Drawing.Point(8, 72);
 			this.txtCodiceConto.Name = "txtCodiceConto";
 			this.txtCodiceConto.Size = new System.Drawing.Size(336, 20);
 			this.txtCodiceConto.TabIndex = 4;
 			this.txtCodiceConto.Tag = "account.codeacc";
-			// 
-			// button5
-			// 
 			this.button5.Location = new System.Drawing.Point(10, 45);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(120, 23);
@@ -139,9 +116,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.button5.TabStop = false;
 			this.button5.Tag = "manage.account.tree";
 			this.button5.Text = "Conto";
-			// 
-			// gboxSpesa
-			// 
 			this.gboxSpesa.Controls.Add(this.label2);
 			this.gboxSpesa.Controls.Add(this.cmbTipoMov);
 			this.gboxSpesa.Controls.Add(this.txtDescription);
@@ -157,18 +131,12 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gboxSpesa.TabIndex = 22;
 			this.gboxSpesa.TabStop = false;
 			this.gboxSpesa.Text = "Movimento di Spesa";
-			// 
-			// label2
-			// 
 			this.label2.Location = new System.Drawing.Point(40, 68);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(40, 16);
 			this.label2.TabIndex = 10;
 			this.label2.Text = "Tipo";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cmbTipoMov
-			// 
 			this.cmbTipoMov.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbTipoMov.DataSource = this.DS.csa_movkind;
@@ -179,9 +147,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.cmbTipoMov.TabIndex = 9;
 			this.cmbTipoMov.Tag = "csa_movkind.movkind?csa_importriep_partition_expenseview.movkind";
 			this.cmbTipoMov.ValueMember = "movkind";
-			// 
-			// txtDescription
-			// 
 			this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescription.Location = new System.Drawing.Point(6, 14);
@@ -191,18 +156,12 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtDescription.Size = new System.Drawing.Size(572, 44);
 			this.txtDescription.TabIndex = 6;
 			this.txtDescription.Tag = "expenseview.description";
-			// 
-			// label7
-			// 
 			this.label7.Location = new System.Drawing.Point(39, 94);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(40, 16);
 			this.label7.TabIndex = 0;
 			this.label7.Text = "Fase";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtNum
-			// 
 			this.txtNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtNum.Location = new System.Drawing.Point(217, 119);
@@ -210,35 +169,23 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtNum.Size = new System.Drawing.Size(158, 20);
 			this.txtNum.TabIndex = 5;
 			this.txtNum.Tag = "expenseview.nmov?csa_importriep_partition_expenseview.nmov";
-			// 
-			// label13
-			// 
 			this.label13.Location = new System.Drawing.Point(158, 119);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(54, 16);
 			this.label13.TabIndex = 4;
 			this.label13.Text = "Numero:";
 			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtEserc
-			// 
 			this.txtEserc.Location = new System.Drawing.Point(86, 119);
 			this.txtEserc.Name = "txtEserc";
 			this.txtEserc.Size = new System.Drawing.Size(56, 20);
 			this.txtEserc.TabIndex = 3;
 			this.txtEserc.Tag = "expenseview.ymov.year?csa_importriep_partition_expenseview.ymov.year";
-			// 
-			// label12
-			// 
 			this.label12.Location = new System.Drawing.Point(5, 120);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(75, 16);
 			this.label12.TabIndex = 0;
 			this.label12.Text = "Esercizio:";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cmbFaseSpesa
-			// 
 			this.cmbFaseSpesa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbFaseSpesa.DataSource = this.DS.expensephase;
@@ -249,9 +196,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.cmbFaseSpesa.TabIndex = 2;
 			this.cmbFaseSpesa.Tag = "expenseview.nphase?csa_importriep_partition_expenseview.nphaseexpense";
 			this.cmbFaseSpesa.ValueMember = "nphase";
-			// 
-			// gBoxCapitoloCSA
-			// 
 			this.gBoxCapitoloCSA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gBoxCapitoloCSA.Controls.Add(this.textBox2);
@@ -266,9 +210,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxCapitoloCSA.TabIndex = 40;
 			this.gBoxCapitoloCSA.TabStop = false;
 			this.gBoxCapitoloCSA.UseCompatibleTextRendering = true;
-			// 
-			// textBox2
-			// 
 			this.textBox2.Location = new System.Drawing.Point(84, 74);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -276,27 +217,18 @@ namespace csa_importriep_partition_expense_elenco {
 			this.textBox2.TabIndex = 16;
 			this.textBox2.TabStop = false;
 			this.textBox2.Tag = "csa_importriep.matricola?csa_importriep_partition_expenseview.matricola";
-			// 
-			// label5
-			// 
 			this.label5.Location = new System.Drawing.Point(11, 78);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(70, 16);
 			this.label5.TabIndex = 15;
 			this.label5.Text = "Matricola:";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label3
-			// 
 			this.label3.Location = new System.Drawing.Point(9, 43);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(72, 16);
 			this.label3.TabIndex = 12;
 			this.label3.Text = "Ruolo CSA:";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtRuoloCsa
-			// 
 			this.txtRuoloCsa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtRuoloCsa.Location = new System.Drawing.Point(84, 43);
@@ -306,9 +238,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtRuoloCsa.TabIndex = 14;
 			this.txtRuoloCsa.TabStop = false;
 			this.txtRuoloCsa.Tag = "csa_importriep.ruolocsa?csa_importriep_partition_expenseview.ruolocsa";
-			// 
-			// txtCapitoloCsa
-			// 
 			this.txtCapitoloCsa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCapitoloCsa.Location = new System.Drawing.Point(84, 11);
@@ -318,18 +247,12 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtCapitoloCsa.TabIndex = 13;
 			this.txtCapitoloCsa.TabStop = false;
 			this.txtCapitoloCsa.Tag = "csa_importriep.capitolocsa?csa_importriep_partition_expenseview.capitolocsa";
-			// 
-			// label4
-			// 
 			this.label4.Location = new System.Drawing.Point(11, 16);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(74, 16);
 			this.label4.TabIndex = 11;
 			this.label4.Text = "Capitolo CSA:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxCompetenza
-			// 
 			this.gBoxCompetenza.Controls.Add(this.txtCompetenza);
 			this.gBoxCompetenza.Location = new System.Drawing.Point(18, 116);
 			this.gBoxCompetenza.Name = "gBoxCompetenza";
@@ -337,9 +260,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxCompetenza.TabIndex = 35;
 			this.gBoxCompetenza.TabStop = false;
 			this.gBoxCompetenza.Text = "Competenza";
-			// 
-			// txtCompetenza
-			// 
 			this.txtCompetenza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCompetenza.Location = new System.Drawing.Point(12, 23);
@@ -348,11 +268,7 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtCompetenza.Size = new System.Drawing.Size(92, 20);
 			this.txtCompetenza.TabIndex = 14;
 			this.txtCompetenza.TabStop = false;
-			this.txtCompetenza.Tag = "csa_importriep.competenza.year?csa_importriep_partition_expenseview.competenza.ye" +
-    "ar";
-			// 
-			// gBoxImportazione
-			// 
+			this.txtCompetenza.Tag = "csa_importriep.competenza.year?csa_importriep_partition_expenseview.competenza.year";
 			this.gBoxImportazione.Controls.Add(this.txtNumImport);
 			this.gBoxImportazione.Controls.Add(this.label8);
 			this.gBoxImportazione.Controls.Add(this.txtEsercImport);
@@ -364,26 +280,17 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxImportazione.TabStop = false;
 			this.gBoxImportazione.Tag = "AutoChoose.txtNumImport.default";
 			this.gBoxImportazione.Text = "Importazione";
-			// 
-			// txtNumImport
-			// 
 			this.txtNumImport.Location = new System.Drawing.Point(234, 15);
 			this.txtNumImport.Name = "txtNumImport";
 			this.txtNumImport.Size = new System.Drawing.Size(70, 20);
 			this.txtNumImport.TabIndex = 3;
 			this.txtNumImport.Tag = "csa_import.nimport?csa_importriep_partition_expenseview.nimport";
-			// 
-			// label8
-			// 
 			this.label8.Location = new System.Drawing.Point(167, 17);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(58, 16);
 			this.label8.TabIndex = 0;
 			this.label8.Text = "Numero:";
 			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtEsercImport
-			// 
 			this.txtEsercImport.Location = new System.Drawing.Point(76, 15);
 			this.txtEsercImport.Name = "txtEsercImport";
 			this.txtEsercImport.ReadOnly = true;
@@ -391,18 +298,12 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtEsercImport.TabIndex = 2;
 			this.txtEsercImport.Tag = "csa_import.yimport.year?csa_importriep_partition_expenseview.yimport.year";
 			this.txtEsercImport.TextChanged += new System.EventHandler(this.txtEsercImport_TextChanged);
-			// 
-			// label9
-			// 
 			this.label9.Location = new System.Drawing.Point(12, 17);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(58, 16);
 			this.label9.TabIndex = 0;
 			this.label9.Text = "Esercizio:";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gboxtipo
-			// 
 			this.gboxtipo.Controls.Add(this.rdbCompetenza);
 			this.gboxtipo.Controls.Add(this.rdbResidui);
 			this.gboxtipo.Location = new System.Drawing.Point(486, 12);
@@ -411,27 +312,18 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gboxtipo.TabIndex = 34;
 			this.gboxtipo.TabStop = false;
 			this.gboxtipo.Text = "Tipo";
-			// 
-			// rdbCompetenza
-			// 
 			this.rdbCompetenza.Location = new System.Drawing.Point(11, 18);
 			this.rdbCompetenza.Name = "rdbCompetenza";
 			this.rdbCompetenza.Size = new System.Drawing.Size(90, 24);
 			this.rdbCompetenza.TabIndex = 2;
 			this.rdbCompetenza.Tag = "csa_importriep.flagcr:C?csa_importriep_partition_expenseview.flagcr:C";
 			this.rdbCompetenza.Text = "Competenza";
-			// 
-			// rdbResidui
-			// 
 			this.rdbResidui.Location = new System.Drawing.Point(118, 22);
 			this.rdbResidui.Name = "rdbResidui";
 			this.rdbResidui.Size = new System.Drawing.Size(90, 16);
 			this.rdbResidui.TabIndex = 3;
 			this.rdbResidui.Tag = "csa_importriep.flagcr:R?csa_importriep_partition_expenseview.flagcr:R";
 			this.rdbResidui.Text = "Residui";
-			// 
-			// grpMatricola
-			// 
 			this.grpMatricola.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpMatricola.Controls.Add(this.txtMatricola);
@@ -441,9 +333,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.grpMatricola.TabIndex = 39;
 			this.grpMatricola.TabStop = false;
 			this.grpMatricola.Text = "Matricola";
-			// 
-			// txtMatricola
-			// 
 			this.txtMatricola.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtMatricola.Location = new System.Drawing.Point(10, 23);
@@ -453,9 +342,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtMatricola.TabIndex = 14;
 			this.txtMatricola.TabStop = false;
 			this.txtMatricola.Tag = "csa_importriep.matricola?csa_importriep_partition_expenseview.matricola";
-			// 
-			// groupCredDeb
-			// 
 			this.groupCredDeb.Controls.Add(this.txtCredDeb);
 			this.groupCredDeb.Location = new System.Drawing.Point(18, 256);
 			this.groupCredDeb.Name = "groupCredDeb";
@@ -464,9 +350,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.groupCredDeb.TabStop = false;
 			this.groupCredDeb.Tag = "AutoChoose.txtCredDeb.lista.(active=\'S\')";
 			this.groupCredDeb.Text = "Anagrafica Movimento";
-			// 
-			// txtCredDeb
-			// 
 			this.txtCredDeb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDeb.Location = new System.Drawing.Point(8, 13);
@@ -474,9 +357,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtCredDeb.Size = new System.Drawing.Size(350, 20);
 			this.txtCredDeb.TabIndex = 0;
 			this.txtCredDeb.Tag = "registry_main.title?csa_importriep_partition_expenseview.registry_main";
-			// 
-			// gBoxRegolaSpecifica
-			// 
 			this.gBoxRegolaSpecifica.Controls.Add(this.label10);
 			this.gBoxRegolaSpecifica.Controls.Add(this.cmbTipoContratto);
 			this.gBoxRegolaSpecifica.Controls.Add(this.txtNumContratto);
@@ -490,18 +370,12 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxRegolaSpecifica.TabStop = false;
 			this.gBoxRegolaSpecifica.Tag = "AutoChoose.txtNumContratto.default";
 			this.gBoxRegolaSpecifica.Text = "Regola specifica CSA";
-			// 
-			// label10
-			// 
 			this.label10.Location = new System.Drawing.Point(19, 17);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(55, 16);
 			this.label10.TabIndex = 0;
 			this.label10.Text = "Tipo:";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// cmbTipoContratto
-			// 
 			this.cmbTipoContratto.DataSource = this.DS.csa_contractkind;
 			this.cmbTipoContratto.DisplayMember = "description";
 			this.cmbTipoContratto.Location = new System.Drawing.Point(80, 16);
@@ -511,43 +385,28 @@ namespace csa_importriep_partition_expense_elenco {
 			this.cmbTipoContratto.Tag = "csa_importriep.idcsa_contractkind?csa_importriep_partition_expenseview.idcsa_cont" +
     "ractkind";
 			this.cmbTipoContratto.ValueMember = "idcsa_contractkind";
-			// 
-			// txtNumContratto
-			// 
 			this.txtNumContratto.Location = new System.Drawing.Point(216, 48);
 			this.txtNumContratto.Name = "txtNumContratto";
 			this.txtNumContratto.Size = new System.Drawing.Size(56, 20);
 			this.txtNumContratto.TabIndex = 3;
 			this.txtNumContratto.Tag = "csa_contract.ncontract?csa_importriep_partition_expenseview.ncontract";
-			// 
-			// label14
-			// 
 			this.label14.Location = new System.Drawing.Point(152, 48);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(56, 16);
 			this.label14.TabIndex = 0;
 			this.label14.Text = "Numero:";
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtEsercContratto
-			// 
 			this.txtEsercContratto.Location = new System.Drawing.Point(80, 48);
 			this.txtEsercContratto.Name = "txtEsercContratto";
 			this.txtEsercContratto.Size = new System.Drawing.Size(56, 20);
 			this.txtEsercContratto.TabIndex = 2;
 			this.txtEsercContratto.Tag = "csa_contract.ycontract.year?csa_importriep_partition_expenseview.ycontract.year";
-			// 
-			// label15
-			// 
 			this.label15.Location = new System.Drawing.Point(16, 48);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(56, 16);
 			this.label15.TabIndex = 0;
 			this.label15.Text = "Esercizio:";
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxDettaglio
-			// 
 			this.gBoxDettaglio.Controls.Add(this.textBox1);
 			this.gBoxDettaglio.Controls.Add(this.label1);
 			this.gBoxDettaglio.Location = new System.Drawing.Point(18, 64);
@@ -557,27 +416,18 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxDettaglio.TabStop = false;
 			this.gBoxDettaglio.Tag = "";
 			this.gBoxDettaglio.Text = "Dettaglio";
-			// 
-			// textBox1
-			// 
 			this.textBox1.Location = new System.Drawing.Point(82, 18);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(56, 20);
 			this.textBox1.TabIndex = 3;
 			this.textBox1.Tag = "csa_importriep_partition_expense.ndetail?csa_importriep_partition_expenseview.nde" +
     "tail";
-			// 
-			// label1
-			// 
 			this.label1.Location = new System.Drawing.Point(18, 18);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(56, 16);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Numero:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxRiepilogo
-			// 
 			this.gBoxRiepilogo.Controls.Add(this.txtNumRiep);
 			this.gBoxRiepilogo.Controls.Add(this.label6);
 			this.gBoxRiepilogo.Location = new System.Drawing.Point(18, 12);
@@ -587,27 +437,18 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxRiepilogo.TabStop = false;
 			this.gBoxRiepilogo.Tag = "";
 			this.gBoxRiepilogo.Text = "Riepilogo";
-			// 
-			// txtNumRiep
-			// 
 			this.txtNumRiep.Location = new System.Drawing.Point(82, 18);
 			this.txtNumRiep.Name = "txtNumRiep";
 			this.txtNumRiep.Size = new System.Drawing.Size(56, 20);
 			this.txtNumRiep.TabIndex = 3;
 			this.txtNumRiep.Tag = "csa_importriep_partition_expense.idriep?csa_importriep_partition_expenseview.idri" +
     "ep";
-			// 
-			// label6
-			// 
 			this.label6.Location = new System.Drawing.Point(18, 18);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(56, 16);
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Numero:";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// gBoxImporto
-			// 
 			this.gBoxImporto.Controls.Add(this.label11);
 			this.gBoxImporto.Controls.Add(this.txtImporto);
 			this.gBoxImporto.Location = new System.Drawing.Point(168, 64);
@@ -615,18 +456,12 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxImporto.Size = new System.Drawing.Size(162, 46);
 			this.gBoxImporto.TabIndex = 31;
 			this.gBoxImporto.TabStop = false;
-			// 
-			// label11
-			// 
 			this.label11.Location = new System.Drawing.Point(5, 16);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(56, 16);
 			this.label11.TabIndex = 0;
 			this.label11.Text = "Importo:";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// txtImporto
-			// 
 			this.txtImporto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtImporto.Location = new System.Drawing.Point(67, 12);
@@ -637,9 +472,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtImporto.TabStop = false;
 			this.txtImporto.Tag = "csa_importriep_partition_expense.amount?csa_importriep_partition_expenseview.amou" +
     "nt";
-			// 
-			// gBoxAnagraficaRiep
-			// 
 			this.gBoxAnagraficaRiep.Controls.Add(this.txtCredDebRiep);
 			this.gBoxAnagraficaRiep.Location = new System.Drawing.Point(320, 124);
 			this.gBoxAnagraficaRiep.Name = "gBoxAnagraficaRiep";
@@ -648,9 +480,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.gBoxAnagraficaRiep.TabStop = false;
 			this.gBoxAnagraficaRiep.Tag = "AutoChoose.txtCredDebRiep.lista.(active=\'S\')";
 			this.gBoxAnagraficaRiep.Text = "Anagrafica Regola specifica CSA";
-			// 
-			// txtCredDebRiep
-			// 
 			this.txtCredDebRiep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCredDebRiep.Location = new System.Drawing.Point(8, 17);
@@ -658,9 +487,6 @@ namespace csa_importriep_partition_expense_elenco {
 			this.txtCredDebRiep.Size = new System.Drawing.Size(368, 20);
 			this.txtCredDebRiep.TabIndex = 1;
 			this.txtCredDebRiep.Tag = "registry.title?csa_importriep_partition_expenseview.registry";
-			// 
-			// Frm_csa_importriep_partition_expense_elenco
-			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(710, 491);

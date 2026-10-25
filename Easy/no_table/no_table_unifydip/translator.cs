@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,36 +23,14 @@ using System.Collections;
 using funzioni_configurazione;
 
 namespace no_table_unifydip {
-    /// <summary>
-    /// Classe base che applica una trasformazione sui valori in ingresso
-    /// </summary>
     public interface translator {
-        /// <summary>
-        /// Checks correctness of class creation
-        /// </summary>
-        /// <returns></returns>
         bool status_ok();
 
-        /// <summary>
-        /// Applies the translation on an input value
-        /// </summary>
-        /// <param name="oldvalue"></param>
-        /// <returns></returns>
         object translate(object oldvalue);
 
-        /// <summary>
-        /// verifies applicability of the transformation on a table
-        /// </summary>
-        /// <param name="Source"></param>
-        /// <param name="Dest"></param>
-        /// <param name="table"></param>
-        /// <returns></returns>
         bool Precheck(DataAccess Source, DataAccess Dest, string table);
     }
 
-    /// <summary>
-    /// Applies a translation basing on a hashtable
-    /// </summary>
     public class ManualTranslator : translator {
         private Hashtable H;
 
@@ -75,9 +52,6 @@ namespace no_table_unifydip {
         }
     }
 
-    /// <summary>
-    /// Leaves a field unchanged
-    /// </summary>
     public class IdentityTranslator : translator {
         public IdentityTranslator() {}
 
@@ -119,9 +93,6 @@ namespace no_table_unifydip {
     }
 
 
-    /// <summary>
-    /// Appends a constant string to a field
-    /// </summary>
     public class StringAppender : translator {
         private int maxlen;
         private int mylen;
@@ -190,16 +161,11 @@ namespace no_table_unifydip {
 
 
         public override bool Precheck(DataAccess Source, DataAccess Dest, string table) {
-            //la base controlla che l'offset sia superiore al massimo nella destinazione
             if (!base.Precheck(Source, Dest, table)) return false;
             
             QueryHelper QHS= Source.GetQueryHelper();
 
-            //over_threeshold  = ciò che è stato inserito PRIMA della prima unificazione 
-            //  non deve essere ulteriormente traslato ma non deve neanche andare in conflitto con i dati esistenti
 
-            //under_threeshold = ciò che è stato inserito DOPO la prima unificazione
-            //  deve essere traslato oltre i dati esistenti
 
 
             if (threeshold > 0) {
@@ -312,9 +278,6 @@ namespace no_table_unifydip {
 
     }
 
-    /// <summary>
-    /// Adds an offset to a field
-    /// </summary>
     public class offset_applier : translator {
         public string tablename;
         public string field;
@@ -325,9 +288,6 @@ namespace no_table_unifydip {
       
 
 
-        /// <summary>
-        /// List of values to skip. For those value the translation will be null
-        /// </summary>
         public List<int> ToSkip = new List<int>();
 
 
@@ -368,14 +328,6 @@ namespace no_table_unifydip {
             return this;
         }
 
-        /// <summary>
-        /// Translates only a subset of value, converting the remaining to null
-        /// </summary>
-        /// <param name="Source"></param>
-        /// <param name="Dest"></param>
-        /// <param name="offset"></param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public offset_applier initialize(DataAccess Source, DataAccess Dest, int offset, string filter) {
             if (filter != null && filter != "") {
                 DataTable T = Source.RUN_SELECT(tablename, field, null, "NOT(" + filter + ")", null, false);
@@ -422,9 +374,6 @@ namespace no_table_unifydip {
 
 
 
-    /// <summary>
-    /// Classe che si occupa di tradurre campi in base ad un lookup, ossia confrontando un campo non chiave
-    /// </summary>
     public class base_lookup_translator : translator {
         private string table;
         private string source_codefield;
@@ -458,13 +407,6 @@ namespace no_table_unifydip {
         }
         private bool skipfound=false;
         
-        /// <summary>
-        /// Inizializza un lookup
-        /// </summary>
-        /// <param name="Source">Connessione da cui esportare</param>
-        /// <param name="Dest">Connessione in cui importare</param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public translator initialize(DataAccess Source, DataAccess Dest, string filter) {
             DataTable TDest = null;
             if (dest_codefield != keyfield) {
